@@ -12,7 +12,6 @@ import {
     ActionTypes,
     Delete,
     GetSchedule,
-    GetTheaters,
     SelectSchedule,
     SelectScheduleDate,
     SelectTheater,
@@ -30,6 +29,7 @@ export class PurchaseScheduleComponent implements OnInit {
     @ViewChild(SwiperComponent) public componentRef: SwiperComponent;
     @ViewChild(SwiperDirective) public directiveRef: SwiperDirective;
     public purchase: Observable<reducers.IPurchaseState>;
+    public user: Observable<reducers.IUserState>;
     public swiperConfig: SwiperConfigInterface;
     constructor(
         private store: Store<reducers.IState>,
@@ -49,7 +49,14 @@ export class PurchaseScheduleComponent implements OnInit {
         };
         this.store.dispatch(new Delete({}));
         this.purchase = this.store.pipe(select(reducers.getPurchase));
-        this.getTheaters();
+        this.user = this.store.pipe(select(reducers.getUser));
+        this.user.subscribe((user) => {
+            if (user.movieTheater === undefined) {
+                this.router.navigate(['/error']);
+                return;
+            }
+            this.selectTheater(user.movieTheater);
+        }).unsubscribe();
     }
 
     /**
@@ -57,31 +64,6 @@ export class PurchaseScheduleComponent implements OnInit {
      */
     public resize() {
         this.directiveRef.update();
-    }
-
-    /**
-     * getTheaters
-     */
-    public getTheaters() {
-        this.store.dispatch(new GetTheaters({ params: {} }));
-
-        const success = this.actions.pipe(
-            ofType(ActionTypes.GetTheatersSuccess),
-            tap(() => {
-                this.purchase.subscribe((result) => {
-                    const movieTheater = result.movieTheaters[0];
-                    this.selectTheater(movieTheater);
-                }).unsubscribe();
-            })
-        );
-
-        const fail = this.actions.pipe(
-            ofType(ActionTypes.GetTheatersFail),
-            tap(() => {
-                this.router.navigate(['/error']);
-            })
-        );
-        race(success, fail).pipe(take(1)).subscribe();
     }
 
     /**
@@ -102,7 +84,6 @@ export class PurchaseScheduleComponent implements OnInit {
         const success = this.actions.pipe(
             ofType(ActionTypes.GetScheduleSuccess),
             tap(() => {
-                console.log('GetScheduleSuccess');
                 if (this.directiveRef !== undefined) {
                     this.directiveRef.update();
                 }
@@ -138,10 +119,6 @@ export class PurchaseScheduleComponent implements OnInit {
             if (purchase.movieTheater === undefined) {
                 return;
             }
-            console.log('---------------',
-                environment,
-                environment.TRANSACTION_TIME,
-                moment().add(environment.TRANSACTION_TIME, 'minutes').toDate());
             this.store.dispatch(new StartTransaction({
                 params: {
                     expires: moment().add(environment.TRANSACTION_TIME, 'minutes').toDate(),

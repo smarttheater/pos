@@ -6,6 +6,7 @@ import * as inquiry from '../actions/inquiry.action';
 import * as purchase from '../actions/purchase.action';
 import * as user from '../actions/user.action';
 import {
+    createPaymentMethodFromType,
     createscreeningEventDates,
     createScreeningFilmEvents,
     isAvailabilityMovieTicket,
@@ -39,6 +40,8 @@ export interface IPurchaseState {
     result?: IResult;
     checkMovieTicketActions: factory.action.check.paymentMethod.movieTicket.IAction[];
     checkMovieTicketAction?: factory.action.check.paymentMethod.movieTicket.IAction;
+    authorizeAnyPayment?: IAuthorizeAction;
+    paymentMethod?: { name: string; typeOf: factory.paymentMethodType | string; };
 }
 
 export interface IHistoryState {
@@ -125,26 +128,18 @@ export function reducer(
 ): IState {
     switch (action.type) {
         case purchase.ActionTypes.Delete: {
-            return {
-                loading: state.loading,
-                purchase: {
-                    movieTheaters: [],
-                    screeningEvents: [],
-                    scheduleDates: [],
-                    screeningFilmEvents: [],
-                    screeningEventOffers: [],
-                    reservations: [],
-                    screeningEventTicketOffers: [],
-                    orderCount: 0,
-                    checkMovieTicketActions: []
-                },
-                history: {
-                    purchase: state.history.purchase
-                },
-                inquiry: {},
-                user: state.user,
-                error: state.error
+            state.purchase = {
+                movieTheaters: [],
+                screeningEvents: [],
+                scheduleDates: [],
+                screeningFilmEvents: [],
+                screeningEventOffers: [],
+                reservations: [],
+                screeningEventTicketOffers: [],
+                orderCount: 0,
+                checkMovieTicketActions: []
             };
+            return { ...state };
         }
         case purchase.ActionTypes.GetTheaters: {
             return { ...state, loading: true };
@@ -434,6 +429,35 @@ export function reducer(
         case purchase.ActionTypes.OrderAuthorizeFail: {
             const error = action.payload.error;
             return { ...state, loading: false, error: JSON.stringify(error) };
+        }
+        case purchase.ActionTypes.AuthorizeAnyPayment: {
+            return { ...state, loading: true };
+        }
+        case purchase.ActionTypes.AuthorizeAnyPaymentSuccess: {
+            const authorizeAnyPayment = action.payload.authorizeAnyPayment;
+
+            return {
+                ...state, loading: false, error: null, purchase: {
+                    ...state.purchase,
+                    authorizeAnyPayment
+                }
+            };
+        }
+        case purchase.ActionTypes.AuthorizeAnyPaymentFail: {
+            const error = action.payload.error;
+            return { ...state, loading: false, error: JSON.stringify(error) };
+        }
+        case purchase.ActionTypes.SelectPaymentMethodType: {
+            const paymentMethod = createPaymentMethodFromType({
+                paymentMethodType: action.payload.paymentMethodType
+            });
+
+            return {
+                ...state, loading: false, error: null, purchase: {
+                    ...state.purchase,
+                    paymentMethod
+                }
+            };
         }
         case inquiry.ActionTypes.Delete: {
             return {

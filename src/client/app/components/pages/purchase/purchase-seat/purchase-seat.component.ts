@@ -128,11 +128,13 @@ export class PurchaseSeatComponent implements OnInit {
     private getTickets() {
         this.purchase.subscribe((purchase) => {
             const screeningEvent = purchase.screeningEvent;
-            if (screeningEvent === undefined) {
+            const movieTheater = purchase.movieTheater;
+            if (screeningEvent === undefined
+                || movieTheater === undefined) {
                 this.router.navigate(['/error']);
                 return;
             }
-            this.store.dispatch(new GetTicketList({ screeningEvent }));
+            this.store.dispatch(new GetTicketList({ screeningEvent, movieTheater }));
         }).unsubscribe();
 
         const success = this.actions.pipe(

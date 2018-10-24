@@ -24,6 +24,7 @@ import { PurchaseCompleteComponent } from './components/pages/purchase/purchase-
 import { PurchaseConfirmComponent } from './components/pages/purchase/purchase-confirm/purchase-confirm.component';
 import { PurchaseHistoryComponent } from './components/pages/purchase/purchase-history/purchase-history.component';
 import { PurchaseInputComponent } from './components/pages/purchase/purchase-input/purchase-input.component';
+import { PurchasePaymentComponent } from './components/pages/purchase/purchase-payment/purchase-payment.component';
 import { PurchaseScheduleComponent } from './components/pages/purchase/purchase-schedule/purchase-schedule.component';
 import { PurchaseSeatComponent } from './components/pages/purchase/purchase-seat/purchase-seat.component';
 import { PurchaseTicketComponent } from './components/pages/purchase/purchase-ticket/purchase-ticket.component';
@@ -39,6 +40,7 @@ import { MvtkCheckModalComponent } from './components/parts/mvtk-check-modal/mvt
 import { PurchaseContentsComponent } from './components/parts/purchase-contents/purchase-contents.component';
 import { PurchaseDetailModalComponent } from './components/parts/purchase-detail-modal/purchase-detail-modal.component';
 import { PurchaseInfoComponent } from './components/parts/purchase-info/purchase-info.component';
+import { PurchasePaymentModalComponent } from './components/parts/purchase-payment-modal/purchase-payment-modal.component';
 import { PurchaseScheduleFilmComponent } from './components/parts/purchase-schedule-film/purchase-schedule-film.component';
 import { ScreenComponent } from './components/parts/screen/screen.component';
 import { TicketListModalComponent } from './components/parts/ticket-list-modal/ticket-list-modal.component';
@@ -79,14 +81,17 @@ import { CoreStoreModule } from './store/core/store';
         MvtkCheckModalComponent,
         SettingComponent,
         InquiryInputComponent,
-        InquiryConfirmComponent
+        InquiryConfirmComponent,
+        PurchasePaymentComponent,
+        PurchasePaymentModalComponent
     ],
     entryComponents: [
         TicketListModalComponent,
         AlertModalComponent,
         ConfirmModalComponent,
         PurchaseDetailModalComponent,
-        MvtkCheckModalComponent
+        MvtkCheckModalComponent,
+        PurchasePaymentModalComponent
     ],
     imports: [
         BrowserModule,

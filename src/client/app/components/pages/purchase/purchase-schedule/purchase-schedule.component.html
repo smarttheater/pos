@@ -1,10 +1,4 @@
 <div class="p-3">
-    <h2 class="bg-secondary text-white p-3 mb-3">劇場</h2>
-    <div class="mb-3 theaters">
-        <button *ngFor="let theater of (purchase | async).movieTheaters" type="button" class="btn btn-block py-2 m-0"
-            (click)="selectTheater(theater)" [class.btn-primary]="(purchase | async).movieTheater === theater"
-            [class.btn-outline-primary]="(purchase | async).movieTheater !== theater">{{ theater.name.ja }}</button>
-    </div>
     <h2 class="bg-secondary text-white p-3 mb-3">上映スケジュール</h2>
     <div class="swiper-container date mb-3" #swiper [swiper]="swiperConfig" (resize)="resize()">
         <div class="swiper-wrapper">

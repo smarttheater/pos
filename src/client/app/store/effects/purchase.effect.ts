@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { factory } from '@cinerino/api-javascript-client';
 import { Actions, Effect, ofType } from '@ngrx/effects';
 import { map, mergeMap } from 'rxjs/operators';
+import { environment } from '../../../environments/environment';
 import { IScreen } from '../../models';
 import { CinerinoService } from '../../services/cinerino.service';
 import * as purchase from '../actions/purchase.action';
@@ -157,8 +158,12 @@ export class PurchaseEffects {
         mergeMap(async (payload) => {
             try {
                 await this.cinerino.getServices();
+                const screeningEvent = payload.screeningEvent;
+                const movieTheater = payload.movieTheater;
                 const screeningEventTicketOffers = await this.cinerino.event.searchScreeningEventTicketOffers({
-                    eventId: payload.screeningEvent.id
+                    event: { id: screeningEvent.id },
+                    seller: { typeOf: movieTheater.typeOf, id: movieTheater.id },
+                    store: { id: environment.CLIENT_ID }
                 });
 
                 return new purchase.GetTicketListSuccess({ screeningEventTicketOffers });
@@ -379,6 +384,25 @@ export class PurchaseEffects {
                 return new purchase.OrderAuthorizeSuccess({ order });
             } catch (error) {
                 return new purchase.OrderAuthorizeFail({ error: error });
+            }
+        })
+    );
+
+    /**
+     * AuthorizeAnyPayment
+     */
+    @Effect()
+    public addAuthorizeAnyPayment = this.actions.pipe(
+        ofType<purchase.AuthorizeAnyPayment>(purchase.ActionTypes.AuthorizeAnyPayment),
+        map(action => action.payload),
+        mergeMap(async (payload) => {
+            try {
+                await this.cinerino.getServices();
+                const authorizeAnyPayment =
+                    await this.cinerino.transaction.placeOrder.authorizeAnyPayment(payload.params);
+                return new purchase.AuthorizeAnyPaymentSuccess({ authorizeAnyPayment });
+            } catch (error) {
+                return new purchase.AuthorizeAnyPaymentFail({ error: error });
             }
         })
     );

@@ -55,6 +55,10 @@ export enum ActionTypes {
     OrderAuthorize = '[Purchase] Order Authorize',
     OrderAuthorizeSuccess = '[Purchase] Order Authorize Success',
     OrderAuthorizeFail = '[Purchase] Order Authorize Fail',
+    AuthorizeAnyPayment = '[Purchase] Authorize Any Payment',
+    AuthorizeAnyPaymentSuccess = '[Purchase] Authorize Any Payment Success',
+    AuthorizeAnyPaymentFail = '[Purchase] Authorize Any Payment Fail',
+    SelectPaymentMethodType = '[Purchase] Select Payment Method Type',
 }
 
 /**
@@ -230,7 +234,10 @@ export class SelectTicket implements Action {
  */
 export class GetTicketList implements Action {
     public readonly type = ActionTypes.GetTicketList;
-    constructor(public payload: { screeningEvent: factory.chevre.event.screeningEvent.IEvent }) { }
+    constructor(public payload: {
+        screeningEvent: factory.chevre.event.screeningEvent.IEvent;
+        movieTheater: factory.organization.movieTheater.IOrganization;
+    }) { }
 }
 
 /**
@@ -488,6 +495,47 @@ export class OrderAuthorizeFail implements Action {
 }
 
 /**
+ * AuthorizeAnyPayment
+ */
+export class AuthorizeAnyPayment implements Action {
+    public readonly type = ActionTypes.AuthorizeAnyPayment;
+    constructor(public payload: {
+        params: {
+            transactionId: string;
+            typeOf: factory.paymentMethodType | string;
+            amount: number;
+            additionalProperty: { name: string; value: any; }[];
+        }
+    }) { }
+}
+
+/**
+ * AuthorizeAnyPaymentSuccess
+ */
+export class AuthorizeAnyPaymentSuccess implements Action {
+    public readonly type = ActionTypes.AuthorizeAnyPaymentSuccess;
+    constructor(public payload: { authorizeAnyPayment: IAuthorizeAction }) { }
+}
+
+/**
+ * AuthorizeAnyPaymentFail
+ */
+export class AuthorizeAnyPaymentFail implements Action {
+    public readonly type = ActionTypes.AuthorizeAnyPaymentFail;
+    constructor(public payload: { error: Error }) { }
+}
+
+/**
+ * SelectPaymentMethodType
+ */
+export class SelectPaymentMethodType implements Action {
+    public readonly type = ActionTypes.SelectPaymentMethodType;
+    constructor(public payload: {
+        paymentMethodType: factory.paymentMethodType | string;
+    }) { }
+}
+
+/**
  * Actions
  */
 export type Actions =
@@ -536,4 +584,8 @@ export type Actions =
     | GetPurchaseHistoryFail
     | OrderAuthorize
     | OrderAuthorizeSuccess
-    | OrderAuthorizeFail;
+    | OrderAuthorizeFail
+    | AuthorizeAnyPayment
+    | AuthorizeAnyPaymentSuccess
+    | AuthorizeAnyPaymentFail
+    | SelectPaymentMethodType;

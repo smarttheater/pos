@@ -63,7 +63,18 @@ export class PurchaseTicketComponent implements OnInit {
         const success = this.actions.pipe(
             ofType(ActionTypes.TemporaryReservationSuccess),
             tap(() => {
-                this.router.navigate(['/purchase/input']);
+                this.purchase.subscribe((purchase) => {
+                    if (purchase.authorizeSeatReservation === undefined
+                        || purchase.authorizeSeatReservation.result === undefined) {
+                        this.router.navigate(['/error']);
+                        return;
+                    }
+                    if (purchase.authorizeSeatReservation.result.price > 0) {
+                        this.router.navigate(['/purchase/payment']);
+                        return;
+                    }
+                    this.router.navigate(['/purchase/confirm']);
+                });
             })
         );
 

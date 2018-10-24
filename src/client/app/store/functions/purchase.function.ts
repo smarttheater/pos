@@ -203,3 +203,29 @@ export function createMovieTicketsFromAuthorizeSeatReservation(args: {
 
     return results;
 }
+
+/**
+ * 支払い方法作成
+ */
+export function createPaymentMethodFromType(args: {
+    paymentMethodType: factory.paymentMethodType | string;
+    paymentMethodName?: string;
+}) {
+    switch (args.paymentMethodType) {
+        case factory.paymentMethodType.Cash: {
+            return { typeOf: args.paymentMethodType, name: '現金' };
+        }
+        case factory.paymentMethodType.CreditCard: {
+            return { typeOf: args.paymentMethodType, name: 'クレジットカード' };
+        }
+        case factory.paymentMethodType.EMoney: {
+            return { typeOf: args.paymentMethodType, name: '電子マネー' };
+        }
+        default: {
+            return {
+                typeOf: args.paymentMethodType,
+                name: (args.paymentMethodName === undefined) ? 'その他' : args.paymentMethodName
+            };
+        }
+    }
+}
