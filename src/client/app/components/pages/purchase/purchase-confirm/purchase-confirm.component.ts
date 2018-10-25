@@ -66,45 +66,39 @@ export class PurchaseConfirmComponent implements OnInit {
 
     public authorizeAnyPayment() {
         this.purchase.subscribe((purchase) => {
-            this.user.subscribe((user) => {
-                if (purchase.transaction === undefined
-                    || purchase.paymentMethod === undefined
-                    || purchase.authorizeSeatReservation === undefined
-                    || purchase.authorizeSeatReservation.result === undefined
-                    || user.pos === undefined) {
-                    this.router.navigate(['/error']);
+            if (purchase.transaction === undefined
+                || purchase.paymentMethod === undefined
+                || purchase.authorizeSeatReservation === undefined
+                || purchase.authorizeSeatReservation.result === undefined) {
+                this.router.navigate(['/error']);
+                return;
+            }
+            const transaction = purchase.transaction;
+            const paymentMethodType = purchase.paymentMethod.typeOf;
+            const amount = purchase.authorizeSeatReservation.result.price;
+            const additionalProperty = [];
+            if (paymentMethodType === factory.paymentMethodType.Cash) {
+                if (Number(this.depositAmount) < purchase.authorizeSeatReservation.result.price) {
+                    this.openAlert({
+                        title: 'エラー',
+                        body: 'お預かり金額に誤りがあります。'
+                    });
                     return;
                 }
-                const transaction = purchase.transaction;
-                const paymentMethodType = purchase.paymentMethod.typeOf;
-                const amount = purchase.authorizeSeatReservation.result.price;
-                const additionalProperty = [];
-                const pos = user.pos;
-                additionalProperty.push({ name: 'posId', value: pos.id });
-                additionalProperty.push({ name: 'posName', value: pos.name });
-                if (paymentMethodType === factory.paymentMethodType.Cash) {
-                    if (Number(this.depositAmount) < purchase.authorizeSeatReservation.result.price) {
-                        this.openAlert({
-                            title: 'エラー',
-                            body: 'お預かり金額に誤りがあります。'
-                        });
-                        return;
-                    }
-                    additionalProperty.push({ name: 'depositAmount', value: Number(this.depositAmount) });
-                    additionalProperty.push({
-                        name: 'change',
-                        value: Number(this.depositAmount) - purchase.authorizeSeatReservation.result.price
-                    });
+                additionalProperty.push({ name: 'depositAmount', value: Number(this.depositAmount) });
+                additionalProperty.push({
+                    name: 'change',
+                    value: Number(this.depositAmount) - purchase.authorizeSeatReservation.result.price
+                });
+            }
+            this.store.dispatch(new AuthorizeAnyPayment({
+                params: {
+                    transactionId: transaction.id,
+                    typeOf: paymentMethodType,
+                    amount: amount,
+                    additionalProperty: additionalProperty
                 }
-                this.store.dispatch(new AuthorizeAnyPayment({
-                    params: {
-                        transactionId: transaction.id,
-                        typeOf: paymentMethodType,
-                        amount: amount,
-                        additionalProperty: additionalProperty
-                    }
-                }));
-            }).unsubscribe();
+            }));
         }).unsubscribe();
         const success = this.actions.pipe(
             ofType(ActionTypes.AuthorizeAnyPaymentSuccess),

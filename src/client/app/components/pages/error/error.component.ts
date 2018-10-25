@@ -17,7 +17,7 @@ export class ErrorComponent implements OnInit {
 
     public ngOnInit() {
         this.error = this.store.pipe(select(reducers.getError));
-        this.store.dispatch(new Delete({ }));
+        this.store.dispatch(new Delete());
     }
 
 }

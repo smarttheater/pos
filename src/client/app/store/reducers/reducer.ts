@@ -55,7 +55,7 @@ export interface IInquiryState {
 export interface IUserState {
     movieTheaters: factory.organization.movieTheater.IOrganization[];
     movieTheater?: factory.organization.movieTheater.IOrganization;
-    pos?: { id: string; name: string; typeOf: string; };
+    pos?: factory.organization.IPOS;
     customerContact?: factory.transaction.placeOrder.ICustomerContact;
     printer?: { ipAddress: string; };
 }
@@ -203,13 +203,11 @@ export function reducer(
             return { ...state, loading: true };
         }
         case purchase.ActionTypes.StartTransactionSuccess: {
-            const transaction = action.payload.transaction;
-            return {
-                ...state, loading: false, error: null, purchase: {
-                    ...state.purchase,
-                    transaction
-                }
-            };
+            state.purchase.transaction = action.payload.transaction;
+            state.purchase.screeningEvents = [];
+            state.purchase.movieTheaters = [];
+            state.purchase.screeningFilmEvents = [];
+            return { ...state, loading: false, error: null };
         }
         case purchase.ActionTypes.StartTransactionFail: {
             const error = action.payload.error;
@@ -451,13 +449,9 @@ export function reducer(
             const paymentMethod = createPaymentMethodFromType({
                 paymentMethodType: action.payload.paymentMethodType
             });
+            state.purchase.paymentMethod = paymentMethod;
 
-            return {
-                ...state, loading: false, error: null, purchase: {
-                    ...state.purchase,
-                    paymentMethod
-                }
-            };
+            return { ...state, loading: false, error: null };
         }
         case inquiry.ActionTypes.Delete: {
             state.inquiry = {};

@@ -116,19 +116,29 @@ export class PurchaseScheduleComponent implements OnInit {
         }
         this.store.dispatch(new SelectSchedule({ screeningEvent }));
         this.purchase.subscribe((purchase) => {
-            if (purchase.movieTheater === undefined) {
-                return;
-            }
-            this.store.dispatch(new StartTransaction({
-                params: {
-                    expires: moment().add(environment.TRANSACTION_TIME, 'minutes').toDate(),
-                    seller: {
-                        typeOf: purchase.movieTheater.typeOf,
-                        id: purchase.movieTheater.id
-                    },
-                    object: {}
+            this.user.subscribe((user) => {
+                if (purchase.movieTheater === undefined
+                    || user.pos === undefined) {
+                    this.router.navigate(['/error']);
+                    return;
                 }
-            }));
+                this.store.dispatch(new StartTransaction({
+                    params: {
+                        expires: moment().add(environment.TRANSACTION_TIME, 'minutes').toDate(),
+                        seller: {
+                            typeOf: purchase.movieTheater.typeOf,
+                            id: purchase.movieTheater.id
+                        },
+                        agent: {
+                            identifier: [
+                                { name: 'posId', value: user.pos.id },
+                                { name: 'posName', value: user.pos.name }
+                            ]
+                        },
+                        object: {}
+                    }
+                }));
+            }).unsubscribe();
         }).unsubscribe();
 
 

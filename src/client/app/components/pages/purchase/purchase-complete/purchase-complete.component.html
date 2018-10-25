@@ -72,7 +72,7 @@
                 <div class="row">
                     <p class="mb-2 mb-md-0 col-md-4">
                         <i class="far fa-credit-card mr-2"></i>決済方法</p>
-                    <p class="col-md-8">クレジットカード</p>
+                    <p class="col-md-8">{{ (purchase | async).paymentMethod.name }}</p>
                 </div>
             </div>
         </div>

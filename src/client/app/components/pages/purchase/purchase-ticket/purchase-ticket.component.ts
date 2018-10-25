@@ -74,7 +74,7 @@ export class PurchaseTicketComponent implements OnInit {
                         return;
                     }
                     this.router.navigate(['/purchase/confirm']);
-                });
+                }).unsubscribe();
             })
         );
 
