@@ -34,7 +34,6 @@ export class PurchaseSeatComponent implements OnInit {
     public async ngOnInit() {
         this.purchase = this.store.pipe(select(reducers.getPurchase));
         this.getScreen();
-        this.getTickets();
     }
 
     /**
@@ -52,7 +51,9 @@ export class PurchaseSeatComponent implements OnInit {
 
         const success = this.actions.pipe(
             ofType(ActionTypes.GetScreenSuccess),
-            tap(() => { })
+            tap(() => {
+                this.getTickets();
+            })
         );
 
         const fail = this.actions.pipe(
