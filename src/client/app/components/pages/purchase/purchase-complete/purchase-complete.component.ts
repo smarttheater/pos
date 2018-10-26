@@ -19,6 +19,7 @@ import { AlertModalComponent } from '../../../parts/alert-modal/alert-modal.comp
 export class PurchaseCompleteComponent implements OnInit {
     public purchase: Observable<reducers.IPurchaseState>;
     public user: Observable<reducers.IUserState>;
+    public isLoading: Observable<boolean>;
     public error: Observable<string | null>;
     public moment: typeof moment = moment;
 
@@ -32,7 +33,9 @@ export class PurchaseCompleteComponent implements OnInit {
     public ngOnInit() {
         this.purchase = this.store.pipe(select(reducers.getPurchase));
         this.user = this.store.pipe(select(reducers.getUser));
+        this.isLoading = this.store.pipe(select(reducers.getLoading));
         this.error = this.store.pipe(select(reducers.getError));
+        this.print();
     }
 
     public print() {
