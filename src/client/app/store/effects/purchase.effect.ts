@@ -6,6 +6,7 @@ import { map, mergeMap } from 'rxjs/operators';
 import { environment } from '../../../environments/environment';
 import { IScreen } from '../../models';
 import { CinerinoService } from '../../services/cinerino.service';
+import { StarPrintService } from '../../services/star-print.service';
 import * as purchase from '../actions/purchase.action';
 import {
     createGmoTokenObject,
@@ -22,6 +23,7 @@ export class PurchaseEffects {
     constructor(
         private actions: Actions,
         private cinerino: CinerinoService,
+        private starPrint: StarPrintService,
         private http: HttpClient
     ) { }
 
@@ -339,12 +341,39 @@ export class PurchaseEffects {
                 const result = await this.cinerino.transaction.placeOrder.confirm({
                     transactionId: payload.transaction.id
                 });
-                return new purchase.ReserveSuccess({ result });
+                return new purchase.ReserveSuccess({ order: result.order });
             } catch (error) {
                 await this.cinerino.transaction.placeOrder.cancel({
                     transactionId: payload.transaction.id
                 });
                 return new purchase.ReserveFail({ error: error });
+            }
+        })
+    );
+
+    /**
+     * print
+     */
+    @Effect()
+    public print = this.actions.pipe(
+        ofType<purchase.Print>(purchase.ActionTypes.Print),
+        map(action => action.payload),
+        mergeMap(async (payload) => {
+            try {
+                const order = payload.order;
+                const ipAddress = payload.ipAddress;
+                const pos = payload.pos;
+                this.starPrint.initialize({ ipAddress, pos });
+                let printerRequest;
+                if (order === undefined) {
+                    printerRequest = await this.starPrint.createPrinterTestRequest();
+                } else {
+                    printerRequest = await this.starPrint.createPrinterRequestList({ order });
+                }
+                await this.starPrint.print({ printerRequest });
+                return new purchase.PrintSuccess();
+            } catch (error) {
+                return new purchase.PrintFail({ error: error });
             }
         })
     );

@@ -7,7 +7,9 @@ import { select, Store } from '@ngrx/store';
 import * as libphonenumber from 'libphonenumber-js';
 import { Observable, race } from 'rxjs';
 import { take, tap } from 'rxjs/operators';
-import { ActionTypes, GetTheaters, UpdateAll } from '../../../store/actions/user.action';
+import { LibphonenumberFormatPipe } from '../../../pipes/libphonenumber-format.pipe';
+import * as purchaseAction from '../../../store/actions/purchase.action';
+import * as userAction from '../../../store/actions/user.action';
 import * as reducers from '../../../store/reducers';
 import { AlertModalComponent } from '../../parts/alert-modal/alert-modal.component';
 
@@ -19,6 +21,7 @@ import { AlertModalComponent } from '../../parts/alert-modal/alert-modal.compone
 export class SettingComponent implements OnInit {
     public settingForm: FormGroup;
     public user: Observable<reducers.IUserState>;
+    public error: Observable<string | null>;
     public posList: { id: string; name: string; typeOf: string; }[];
     constructor(
         private actions: Actions,
@@ -30,6 +33,7 @@ export class SettingComponent implements OnInit {
 
     public ngOnInit() {
         this.user = this.store.pipe(select(reducers.getUser));
+        this.error = this.store.pipe(select(reducers.getError));
         this.posList = [];
         this.getTheaters();
         this.createSettlingForm();
@@ -101,7 +105,7 @@ export class SettingComponent implements OnInit {
                 this.settingForm.controls.familyName.setValue(user.customerContact.familyName);
                 this.settingForm.controls.givenName.setValue(user.customerContact.givenName);
                 this.settingForm.controls.email.setValue(user.customerContact.email);
-                this.settingForm.controls.telephone.setValue(user.customerContact.telephone);
+                this.settingForm.controls.telephone.setValue(new LibphonenumberFormatPipe().transform(user.customerContact.telephone));
             }
             if (user.printer !== undefined) {
                 this.settingForm.controls.printerIpAddress.setValue(user.printer.ipAddress);
@@ -131,15 +135,15 @@ export class SettingComponent implements OnInit {
      * getTheaters
      */
     public getTheaters() {
-        this.store.dispatch(new GetTheaters({ params: {} }));
+        this.store.dispatch(new userAction.GetTheaters({ params: {} }));
 
         const success = this.actions.pipe(
-            ofType(ActionTypes.GetTheatersSuccess),
+            ofType(userAction.ActionTypes.GetTheatersSuccess),
             tap(() => { })
         );
 
         const fail = this.actions.pipe(
-            ofType(ActionTypes.GetTheatersFail),
+            ofType(userAction.ActionTypes.GetTheatersFail),
             tap(() => {
                 this.router.navigate(['/error']);
             })
@@ -171,7 +175,7 @@ export class SettingComponent implements OnInit {
             if (findPos === undefined) {
                 return;
             }
-            this.store.dispatch(new UpdateAll({
+            this.store.dispatch(new userAction.UpdateAll({
                 movieTheater: findMovieTheater,
                 pos: findPos,
                 customerContact: {
@@ -191,6 +195,42 @@ export class SettingComponent implements OnInit {
 
         }).unsubscribe();
 
+    }
+
+    public print() {
+        this.user.subscribe((user) => {
+            if (user.pos === undefined
+                || user.printer === undefined) {
+                this.router.navigate(['/error']);
+                return;
+            }
+            const pos = user.pos;
+            const ipAddress = user.printer.ipAddress;
+            this.store.dispatch(new purchaseAction.Print({ pos, ipAddress }));
+        }).unsubscribe();
+
+        const success = this.actions.pipe(
+            ofType(purchaseAction.ActionTypes.PrintSuccess),
+            tap(() => { })
+        );
+
+        const fail = this.actions.pipe(
+            ofType(purchaseAction.ActionTypes.PrintFail),
+            tap(() => {
+                this.error.subscribe((json) => {
+                    let message = '印刷に失敗しました';
+                    if (json !== null) {
+                        const error = JSON.parse(json);
+                        message = error.message;
+                    }
+                    this.openAlert({
+                        title: 'エラー',
+                        body: message
+                    });
+                }).unsubscribe();
+            })
+        );
+        race(success, fail).pipe(take(1)).subscribe();
     }
 
     public openAlert(args: {

@@ -81,6 +81,7 @@
                         <p *ngIf="settingForm.controls.printerIpAddress.errors.required" class="text-danger">プリンターIPアドレスが未入力です</p>
                         <p *ngIf="settingForm.controls.printerIpAddress.errors.pattern" class="text-danger">プリンターIPアドレスが正しくありません</p>
                     </div>
+                    <button type="button" class="btn btn-sm btn-primary py-2 mt-2" (click)="print()">テスト印刷</button>
                 </div>
             </form>
         </div>

@@ -1,6 +1,5 @@
 import { IAuthorizeAction } from '@cinerino/api-abstract-client/lib/service/transaction/placeOrder';
 import { factory } from '@cinerino/api-javascript-client';
-import { IResult } from '@cinerino/factory/lib/factory/transaction/placeOrder';
 import { Action } from '@ngrx/store';
 import { IReservationSeat, IScreen, Reservation } from '../../models';
 import { IScreeningEventDate } from '../functions';
@@ -49,6 +48,9 @@ export enum ActionTypes {
     Reserve = '[Purchase] Reserve',
     ReserveSuccess = '[Purchase] Reserve Success',
     ReserveFail = '[Purchase] Reserve Fail',
+    Print = '[Purchase] Print',
+    PrintSuccess = '[Purchase] Print Success',
+    PrintFail = '[Purchase] Print Fail',
     GetPurchaseHistory = '[Purchase] Get Purchase History',
     GetPurchaseHistorySuccess = '[Purchase] Get Purchase History Success',
     GetPurchaseHistoryFail = '[Purchase] Get Purchase History Fail',
@@ -427,7 +429,7 @@ export class Reserve implements Action {
  */
 export class ReserveSuccess implements Action {
     public readonly type = ActionTypes.ReserveSuccess;
-    constructor(public payload: { result: IResult }) { }
+    constructor(public payload: { order: factory.order.IOrder }) { }
 }
 
 /**
@@ -435,6 +437,35 @@ export class ReserveSuccess implements Action {
  */
 export class ReserveFail implements Action {
     public readonly type = ActionTypes.ReserveFail;
+    constructor(public payload: { error: Error }) { }
+}
+
+/**
+ * Print
+ */
+export class Print implements Action {
+    public readonly type = ActionTypes.Print;
+    constructor(public payload: {
+        order?: factory.order.IOrder;
+        ipAddress: string;
+        pos: factory.organization.IPOS;
+        timeout?: number;
+    }) { }
+}
+
+/**
+ * PrintSuccess
+ */
+export class PrintSuccess implements Action {
+    public readonly type = ActionTypes.PrintSuccess;
+    constructor(public payload?: {}) { }
+}
+
+/**
+ * PrintFail
+ */
+export class PrintFail implements Action {
+    public readonly type = ActionTypes.PrintFail;
     constructor(public payload: { error: Error }) { }
 }
 
@@ -579,6 +610,9 @@ export type Actions =
     | Reserve
     | ReserveSuccess
     | ReserveFail
+    | Print
+    | PrintSuccess
+    | PrintFail
     | GetPurchaseHistory
     | GetPurchaseHistorySuccess
     | GetPurchaseHistoryFail
