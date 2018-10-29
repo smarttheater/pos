@@ -1,4 +1,3 @@
-import { IAuthorizeAction } from '@cinerino/api-abstract-client/lib/service/transaction/placeOrder';
 import { factory } from '@cinerino/api-javascript-client';
 import { Action } from '@ngrx/store';
 import { IReservationSeat, IScreen, Reservation } from '../../models';
@@ -324,7 +323,7 @@ export class AuthorizeCreditCard implements Action {
         transaction: factory.transaction.placeOrder.ITransaction;
         movieTheater: factory.organization.movieTheater.IOrganization;
         authorizeSeatReservation: factory.action.authorize.offer.seatReservation.IAction;
-        authorizeCreditCardPayment?: IAuthorizeAction;
+        authorizeCreditCardPayment?: factory.action.authorize.paymentMethod.creditCard.IAction;
         orderCount: number;
         amount: number;
         method: string;
@@ -342,7 +341,10 @@ export class AuthorizeCreditCard implements Action {
  */
 export class AuthorizeCreditCardSuccess implements Action {
     public readonly type = ActionTypes.AuthorizeCreditCardSuccess;
-    constructor(public payload: { authorizeCreditCardPayment: IAuthorizeAction, gmoTokenObject: any }) { }
+    constructor(public payload: {
+        authorizeCreditCardPayment: factory.action.authorize.paymentMethod.creditCard.IAction,
+        gmoTokenObject: any
+    }) { }
 }
 
 /**
@@ -360,7 +362,7 @@ export class AuthorizeMovieTicket implements Action {
     public readonly type = ActionTypes.AuthorizeMovieTicket;
     constructor(public payload: {
         transaction: factory.transaction.placeOrder.ITransaction;
-        authorizeMovieTicketPayment?: IAuthorizeAction;
+        authorizeMovieTicketPayments: factory.action.authorize.paymentMethod.movieTicket.IAction[];
         authorizeSeatReservation: factory.action.authorize.offer.seatReservation.IAction;
         reservations: Reservation[];
     }) { }
@@ -371,7 +373,9 @@ export class AuthorizeMovieTicket implements Action {
  */
 export class AuthorizeMovieTicketSuccess implements Action {
     public readonly type = ActionTypes.AuthorizeMovieTicketSuccess;
-    constructor(public payload: { authorizeMovieTicketPayment: IAuthorizeAction }) { }
+    constructor(public payload: {
+        authorizeMovieTicketPayments: factory.action.authorize.paymentMethod.movieTicket.IAction[]
+    }) { }
 }
 
 /**
@@ -531,12 +535,10 @@ export class OrderAuthorizeFail implements Action {
 export class AuthorizeAnyPayment implements Action {
     public readonly type = ActionTypes.AuthorizeAnyPayment;
     constructor(public payload: {
-        params: {
-            transactionId: string;
-            typeOf: factory.paymentMethodType | string;
-            amount: number;
-            additionalProperty: { name: string; value: any; }[];
-        }
+        transaction: factory.transaction.placeOrder.ITransaction;
+        typeOf: factory.paymentMethodType | string;
+        amount: number;
+        additionalProperty: { name: string; value: any; }[];
     }) { }
 }
 
@@ -545,7 +547,9 @@ export class AuthorizeAnyPayment implements Action {
  */
 export class AuthorizeAnyPaymentSuccess implements Action {
     public readonly type = ActionTypes.AuthorizeAnyPaymentSuccess;
-    constructor(public payload: { authorizeAnyPayment: IAuthorizeAction }) { }
+    constructor(public payload: {
+        authorizeAnyPayment: factory.action.authorize.paymentMethod.any.IAction<any>
+    }) { }
 }
 
 /**

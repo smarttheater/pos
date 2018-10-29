@@ -1,4 +1,3 @@
-import { IAuthorizeAction } from '@cinerino/api-abstract-client/lib/service/transaction/placeOrder';
 import { factory } from '@cinerino/api-javascript-client';
 import { IScreen, Reservation } from '../../models';
 import * as inquiry from '../actions/inquiry.action';
@@ -32,14 +31,14 @@ export interface IPurchaseState {
     screeningEventTicketOffers: factory.chevre.event.screeningEvent.ITicketOffer[];
     authorizeSeatReservation?: factory.action.authorize.offer.seatReservation.IAction;
     customerContact?: factory.transaction.placeOrder.ICustomerContact;
-    authorizeCreditCardPayment?: IAuthorizeAction;
-    authorizeMovieTicketPayment?: IAuthorizeAction;
+    authorizeCreditCardPayment?: factory.action.authorize.paymentMethod.creditCard.IAction;
+    authorizeMovieTicketPayments: factory.action.authorize.paymentMethod.movieTicket.IAction[];
     gmoTokenObject?: any;
     orderCount: number;
     order?: factory.order.IOrder;
     checkMovieTicketActions: factory.action.check.paymentMethod.movieTicket.IAction[];
     checkMovieTicketAction?: factory.action.check.paymentMethod.movieTicket.IAction;
-    authorizeAnyPayment?: IAuthorizeAction;
+    authorizeAnyPayment?: factory.action.authorize.paymentMethod.any.IAction<any>;
     paymentMethod?: { name: string; typeOf: factory.paymentMethodType | string; };
 }
 
@@ -86,7 +85,8 @@ export const initialState: IState = {
         reservations: [],
         screeningEventTicketOffers: [],
         orderCount: 0,
-        checkMovieTicketActions: []
+        checkMovieTicketActions: [],
+        authorizeMovieTicketPayments: []
     },
     history: {
         purchase: []
@@ -136,7 +136,8 @@ export function reducer(
                 reservations: [],
                 screeningEventTicketOffers: [],
                 orderCount: 0,
-                checkMovieTicketActions: []
+                checkMovieTicketActions: [],
+                authorizeMovieTicketPayments: []
             };
             return { ...state };
         }
@@ -338,13 +339,8 @@ export function reducer(
             return { ...state, loading: true };
         }
         case purchase.ActionTypes.AuthorizeMovieTicketSuccess: {
-            const authorizeMovieTicketPayment = action.payload.authorizeMovieTicketPayment;
-            return {
-                ...state, loading: false, error: null, purchase: {
-                    ...state.purchase,
-                    authorizeMovieTicketPayment
-                }
-            };
+            state.purchase.authorizeMovieTicketPayments = action.payload.authorizeMovieTicketPayments;
+            return { ...state, loading: false, error: null };
         }
         case purchase.ActionTypes.AuthorizeMovieTicketFail: {
             const error = action.payload.error;

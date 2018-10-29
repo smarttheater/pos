@@ -252,7 +252,7 @@ export class PurchaseInputComponent implements OnInit {
             }
             this.store.dispatch(new AuthorizeMovieTicket({
                 transaction: purchase.transaction,
-                authorizeMovieTicketPayment: purchase.authorizeMovieTicketPayment,
+                authorizeMovieTicketPayments: purchase.authorizeMovieTicketPayments,
                 authorizeSeatReservation: purchase.authorizeSeatReservation,
                 reservations: purchase.reservations
             }));
