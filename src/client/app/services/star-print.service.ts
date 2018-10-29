@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { factory } from '@cinerino/api-javascript-client';
 import * as moment from 'moment';
 import * as qrcode from 'qrcode';
+import { CinerinoService } from './cinerino.service';
 
 @Injectable({
     providedIn: 'root'
@@ -10,7 +11,7 @@ export class StarPrintService {
     /**
      * 使用端末ID
      */
-    public pos: factory.organization.IPOS;
+    public pos?: factory.organization.IPOS;
     /**
      * 印刷内容生成インスタンス
      */
@@ -24,14 +25,16 @@ export class StarPrintService {
      */
     public isReady: boolean;
 
-    constructor() { }
+    constructor(
+        private cinerino: CinerinoService
+    ) { }
 
     /**
      * 初期化
      */
     public initialize(args: {
         ipAddress: string;
-        pos: factory.organization.IPOS;
+        pos?: factory.organization.IPOS;
         timeout?: number;
     }) {
         this.pos = args.pos;
@@ -138,7 +141,8 @@ export class StarPrintService {
             startDate: moment(order.acceptedOffers[0].itemOffered.reservationFor.startDate).format('YYYY/MM/DD (ddd) HH:mm'),
             seatNumber: acceptedOffer.itemOffered.reservedTicket.ticketedSeat.seatNumber,
             ticketName: acceptedOffer.itemOffered.reservedTicket.ticketType.name.ja,
-            price: acceptedOffer.itemOffered.reservedTicket.totalPrice
+            price: acceptedOffer.itemOffered.reservedTicket.totalPrice,
+            qrcode: <string>acceptedOffer.itemOffered.reservedTicket.ticketToken
         };
 
         // 劇場
@@ -187,7 +191,7 @@ export class StarPrintService {
         context.fillText('￥' + data.price + '-', right, 310);
         // QR
         const qrcodeCanvas = document.createElement('canvas');
-        await qrcode.toCanvas(qrcodeCanvas, 'QRコード文字列');
+        await qrcode.toCanvas(qrcodeCanvas, data.qrcode);
         context.drawImage(qrcodeCanvas, (canvas.width - 120), 320, 120, 120);
         // 発券時間
         context.textAlign = 'left';
@@ -196,8 +200,10 @@ export class StarPrintService {
         context.fillText(date, left, bottom);
         // 購入番号
         context.fillText(`購入番号 ${data.confirmationNumber}`, left, bottom - 60);
-        // 端末
-        context.fillText(`端末 ${this.pos.name}`, left, bottom - 30);
+        if (this.pos !== undefined) {
+            // 端末
+            context.fillText(`端末 ${this.pos.name}`, left, bottom - 30);
+        }
 
         return {
             context,
@@ -312,7 +318,7 @@ export class StarPrintService {
         // 購入番号
         context.fillText(`購入番号 ${data.confirmationNumber}`, left, bottom - 60);
         // 端末
-        context.fillText(`端末 ${this.pos.name}`, left, bottom - 30);
+        context.fillText(`端末 TEST`, left, bottom - 30);
 
         return {
             context,
@@ -345,12 +351,20 @@ export class StarPrintService {
         order: factory.order.IOrder;
     }) {
         let printerRequest = '';
-        args.order.acceptedOffers.forEach(async (_offer, index) => {
+        const orderNumber = args.order.orderNumber;
+        const customer = {
+            // email: args.order.customer.email,
+            telephone: args.order.customer.telephone
+        };
+        await this.cinerino.getServices();
+        const order = await this.cinerino.order.authorizeOwnershipInfos({ orderNumber, customer });
+        for (let i = 0; i < args.order.acceptedOffers.length; i++) {
             printerRequest += await this.createPrinterRequest({
-                order: args.order,
-                offerIndex: index
+                order,
+                offerIndex: i
             });
-        });
+        }
+
         return printerRequest;
     }
 
@@ -374,7 +388,7 @@ export class StarPrintService {
             // 印刷命令送信後処理
             this.trader.onReceive = (response: any) => {
                 const result = this.getStatusByReceivedResponse(response);
-                if (result.isSuccess) {
+                if (!result.isSuccess) {
                     reject(result);
 
                     return;

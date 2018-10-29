@@ -198,16 +198,8 @@ export class SettingComponent implements OnInit {
     }
 
     public print() {
-        this.user.subscribe((user) => {
-            if (user.pos === undefined
-                || user.printer === undefined) {
-                this.router.navigate(['/error']);
-                return;
-            }
-            const pos = user.pos;
-            const ipAddress = user.printer.ipAddress;
-            this.store.dispatch(new purchaseAction.Print({ pos, ipAddress }));
-        }).unsubscribe();
+        const ipAddress = this.settingForm.controls.printerIpAddress.value;
+        this.store.dispatch(new purchaseAction.Print({ ipAddress }));
 
         const success = this.actions.pipe(
             ofType(purchaseAction.ActionTypes.PrintSuccess),

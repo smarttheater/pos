@@ -452,7 +452,7 @@ export class Print implements Action {
     constructor(public payload: {
         order?: factory.order.IOrder;
         ipAddress: string;
-        pos: factory.organization.IPOS;
+        pos?: factory.organization.IPOS;
         timeout?: number;
     }) { }
 }
