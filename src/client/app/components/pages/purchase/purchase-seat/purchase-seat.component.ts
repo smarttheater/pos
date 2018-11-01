@@ -5,7 +5,7 @@ import { Actions, ofType } from '@ngrx/effects';
 import { select, Store } from '@ngrx/store';
 import { Observable, race } from 'rxjs';
 import { take, tap } from 'rxjs/operators';
-import { IReservationSeat, SeatStatus } from '../../../../models';
+import { IReservationSeat, Reservation, SeatStatus } from '../../../../models';
 import {
     ActionTypes,
     CancelSeat,
@@ -96,10 +96,12 @@ export class PurchaseSeatComponent implements OnInit {
                 return;
             }
             const reservations = purchase.reservations.map((reservation) => {
-                reservation.ticket = (reservation.ticket === undefined)
-                    ? { ticketOffer: purchase.screeningEventTicketOffers[0] }
-                    : reservation.ticket;
-                return reservation;
+                return new Reservation({
+                    seat: reservation.seat,
+                    ticket: (reservation.ticket === undefined)
+                        ? { ticketOffer: purchase.screeningEventTicketOffers[0] }
+                        : reservation.ticket
+                });
             });
             const authorizeSeatReservation = purchase.authorizeSeatReservation;
             if (transaction === undefined
