@@ -5,13 +5,14 @@ import { Actions, ofType } from '@ngrx/effects';
 import { select, Store } from '@ngrx/store';
 import { Observable, race } from 'rxjs';
 import { take, tap } from 'rxjs/operators';
+import { environment } from '../../../../../environments/environment';
 import { IReservationSeat, Reservation, SeatStatus } from '../../../../models';
 import {
     ActionTypes,
-    CancelSeat,
+    CancelSeats,
     GetScreen,
     GetTicketList,
-    SelectSeat,
+    SelectSeats,
     TemporaryReservation
 } from '../../../../store/actions/purchase.action';
 import * as reducers from '../../../../store/reducers';
@@ -75,9 +76,9 @@ export class PurchaseSeatComponent implements OnInit {
         status: SeatStatus
     }) {
         if (data.status === SeatStatus.Default) {
-            this.store.dispatch(new SelectSeat({ seat: data.seat }));
+            this.store.dispatch(new SelectSeats({ seats: [data.seat] }));
         } else {
-            this.store.dispatch(new CancelSeat({ seat: data.seat }));
+            this.store.dispatch(new CancelSeats({ seats: [data.seat] }));
         }
     }
 
@@ -139,12 +140,13 @@ export class PurchaseSeatComponent implements OnInit {
         this.purchase.subscribe((purchase) => {
             const screeningEvent = purchase.screeningEvent;
             const movieTheater = purchase.movieTheater;
+            const clientId = environment.CLIENT_ID_OAUTH2;
             if (screeningEvent === undefined
                 || movieTheater === undefined) {
                 this.router.navigate(['/error']);
                 return;
             }
-            this.store.dispatch(new GetTicketList({ screeningEvent, movieTheater }));
+            this.store.dispatch(new GetTicketList({ screeningEvent, movieTheater, clientId }));
         }).unsubscribe();
 
         const success = this.actions.pipe(

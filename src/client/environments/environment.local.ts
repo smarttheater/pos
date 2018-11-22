@@ -11,6 +11,7 @@ export const environment = {
 
     ENTRANCE_SERVER_URL: '',
     WAITER_SERVER_URL: '',
+    CLIENT_ID_OAUTH2: '4riv6b1ks663jpnknkeiblgrdg',
 
     ANALYTICS_ID: '',
 
