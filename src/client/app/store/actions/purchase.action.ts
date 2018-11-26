@@ -1,5 +1,6 @@
 import { factory } from '@cinerino/api-javascript-client';
 import { Action } from '@ngrx/store';
+import { IGmoTokenObject } from '../../functions';
 import { IReservationSeat, IScreen, Reservation } from '../../models';
 
 /**
@@ -54,6 +55,9 @@ export enum ActionTypes {
     OrderAuthorize = '[Purchase] Order Authorize',
     OrderAuthorizeSuccess = '[Purchase] Order Authorize Success',
     OrderAuthorizeFail = '[Purchase] Order Authorize Fail',
+    CreateGmoTokenObject = '[Purchase] Create Gmo Token Object',
+    CreateGmoTokenObjectSuccess = '[Purchase] Create Gmo Token Object Success',
+    CreateGmoTokenObjectFail = '[Purchase] Create Gmo Token Object Fail',
     AuthorizeAnyPayment = '[Purchase] Authorize Any Payment',
     AuthorizeAnyPaymentSuccess = '[Purchase] Authorize Any Payment Success',
     AuthorizeAnyPaymentFail = '[Purchase] Authorize Any Payment Fail',
@@ -318,18 +322,11 @@ export class AuthorizeCreditCard implements Action {
     public readonly type = ActionTypes.AuthorizeCreditCard;
     constructor(public payload: {
         transaction: factory.transaction.placeOrder.ITransaction;
-        movieTheater: factory.organization.movieTheater.IOrganization;
-        authorizeSeatReservation: factory.action.authorize.offer.seatReservation.IAction;
         authorizeCreditCardPayment?: factory.action.authorize.paymentMethod.creditCard.IAction;
         orderCount: number;
         amount: number;
         method: string;
-        creditCard: {
-            cardno: string;
-            expire: string;
-            holderName: string;
-            securityCode: string;
-        };
+        gmoTokenObject: IGmoTokenObject;
     }) { }
 }
 
@@ -339,8 +336,7 @@ export class AuthorizeCreditCard implements Action {
 export class AuthorizeCreditCardSuccess implements Action {
     public readonly type = ActionTypes.AuthorizeCreditCardSuccess;
     constructor(public payload: {
-        authorizeCreditCardPayment: factory.action.authorize.paymentMethod.creditCard.IAction,
-        gmoTokenObject: any
+        authorizeCreditCardPayment: factory.action.authorize.paymentMethod.creditCard.IAction
     }) { }
 }
 
@@ -526,6 +522,39 @@ export class OrderAuthorizeFail implements Action {
     constructor(public payload: { error: Error }) { }
 }
 
+
+/**
+ * CreateGmoTokenObject
+ */
+export class CreateGmoTokenObject implements Action {
+    public readonly type = ActionTypes.CreateGmoTokenObject;
+    constructor(public payload: {
+        creditCard: {
+            cardno: string;
+            expire: string;
+            holderName: string;
+            securityCode: string;
+        },
+        movieTheater: factory.organization.movieTheater.IOrganization;
+    }) { }
+}
+
+/**
+ * CreateGmoTokenObjectSuccess
+ */
+export class CreateGmoTokenObjectSuccess implements Action {
+    public readonly type = ActionTypes.CreateGmoTokenObjectSuccess;
+    constructor(public payload: { gmoTokenObject: IGmoTokenObject; }) { }
+}
+
+/**
+ * CreateGmoTokenObjectFail
+ */
+export class CreateGmoTokenObjectFail implements Action {
+    public readonly type = ActionTypes.CreateGmoTokenObjectFail;
+    constructor(public payload: { error: Error }) { }
+}
+
 /**
  * AuthorizeAnyPayment
  */
@@ -619,6 +648,9 @@ export type Actions =
     | OrderAuthorize
     | OrderAuthorizeSuccess
     | OrderAuthorizeFail
+    | CreateGmoTokenObject
+    | CreateGmoTokenObjectSuccess
+    | CreateGmoTokenObjectFail
     | AuthorizeAnyPayment
     | AuthorizeAnyPaymentSuccess
     | AuthorizeAnyPaymentFail

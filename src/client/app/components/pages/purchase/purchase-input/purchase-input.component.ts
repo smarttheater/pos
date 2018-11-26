@@ -9,7 +9,7 @@ import * as moment from 'moment';
 import { Observable, race } from 'rxjs';
 import { take, tap } from 'rxjs/operators';
 import { environment } from '../../../../../environments/environment';
-import { ActionTypes, AuthorizeCreditCard, AuthorizeMovieTicket, RegisterContact } from '../../../../store/actions/purchase.action';
+import { ActionTypes, CreateGmoTokenObject, RegisterContact } from '../../../../store/actions/purchase.action';
 import * as reducers from '../../../../store/reducers';
 import { AlertModalComponent } from '../../../parts/alert-modal/alert-modal.component';
 
@@ -134,6 +134,15 @@ export class PurchaseInputComponent implements OnInit {
         Object.keys(this.paymentForm.controls).forEach((key) => {
             this.paymentForm.controls[key].markAsTouched();
         });
+        this.customerContactForm.controls.familyName.setValue((<HTMLInputElement>document.getElementById('familyName')).value);
+        this.customerContactForm.controls.givenName.setValue((<HTMLInputElement>document.getElementById('givenName')).value);
+        this.customerContactForm.controls.email.setValue((<HTMLInputElement>document.getElementById('email')).value);
+        this.customerContactForm.controls.telephone.setValue((<HTMLInputElement>document.getElementById('telephone')).value);
+        if (this.amount > 0) {
+            this.paymentForm.controls.cardNumber.setValue((<HTMLInputElement>document.getElementById('cardNumber')).value);
+            this.paymentForm.controls.securityCode.setValue((<HTMLInputElement>document.getElementById('securityCode')).value);
+            this.paymentForm.controls.holderName.setValue((<HTMLInputElement>document.getElementById('holderName')).value);
+        }
         if (this.customerContactForm.invalid) {
             this.openAlert({
                 title: 'エラー',
@@ -175,11 +184,12 @@ export class PurchaseInputComponent implements OnInit {
             ofType(ActionTypes.RegisterContactSuccess),
             tap(() => {
                 this.purchase.subscribe((purchase) => {
-                    const movieTickets = purchase.reservations.filter(reservation => reservation.isMovieTicket());
-                    if (movieTickets.length > 0) {
-                        this.authorizeMovieTicket();
+                    if (purchase.authorizeSeatReservation !== undefined
+                        && purchase.authorizeSeatReservation.result !== undefined
+                        && purchase.authorizeSeatReservation.result.price > 0) {
+                        this.createGmoTokenObject();
                     } else {
-                        this.authorizeCreditCard();
+                        this.router.navigate(['/purchase/confirm']);
                     }
                 }).unsubscribe();
             })
@@ -195,24 +205,16 @@ export class PurchaseInputComponent implements OnInit {
     }
 
     /**
-     * authorizeCreditCard
+     * createGmoTokenObject
      */
-    private authorizeCreditCard() {
+    private createGmoTokenObject() {
         this.purchase.subscribe((purchase) => {
-            if (purchase.transaction === undefined
-                || purchase.movieTheater === undefined
-                || purchase.authorizeSeatReservation === undefined) {
+            if (purchase.movieTheater === undefined) {
                 this.router.navigate(['/error']);
                 return;
             }
-            this.store.dispatch(new AuthorizeCreditCard({
-                transaction: purchase.transaction,
+            this.store.dispatch(new CreateGmoTokenObject({
                 movieTheater: purchase.movieTheater,
-                authorizeSeatReservation: purchase.authorizeSeatReservation,
-                authorizeCreditCardPayment: purchase.authorizeCreditCardPayment,
-                orderCount: purchase.orderCount,
-                amount: this.amount,
-                method: '1',
                 creditCard: {
                     cardno: this.paymentForm.controls.cardNumber.value,
                     expire: `${this.paymentForm.controls.cardExpirationYear.value}${this.paymentForm.controls.cardExpirationMonth.value}`,
@@ -223,60 +225,18 @@ export class PurchaseInputComponent implements OnInit {
         }).unsubscribe();
 
         const success = this.actions.pipe(
-            ofType(ActionTypes.AuthorizeCreditCardSuccess),
+            ofType(ActionTypes.CreateGmoTokenObjectSuccess),
             tap(() => {
                 this.router.navigate(['/purchase/confirm']);
             })
         );
 
         const fail = this.actions.pipe(
-            ofType(ActionTypes.AuthorizeCreditCardFail),
+            ofType(ActionTypes.CreateGmoTokenObjectFail),
             tap(() => {
                 this.openAlert({
                     title: 'エラー',
                     body: 'クレジットカード情報を確認してください。'
-                });
-            })
-        );
-        race(success, fail).pipe(take(1)).subscribe();
-    }
-
-    /**
-     * authorizeMovieTicket
-     */
-    private authorizeMovieTicket() {
-        this.purchase.subscribe((purchase) => {
-            if (purchase.transaction === undefined
-                || purchase.screeningEvent === undefined
-                || purchase.authorizeSeatReservation === undefined) {
-                this.router.navigate(['/error']);
-                return;
-            }
-            this.store.dispatch(new AuthorizeMovieTicket({
-                transaction: purchase.transaction,
-                authorizeMovieTicketPayments: purchase.authorizeMovieTicketPayments,
-                authorizeSeatReservation: purchase.authorizeSeatReservation,
-                reservations: purchase.reservations
-            }));
-        }).unsubscribe();
-
-        const success = this.actions.pipe(
-            ofType(ActionTypes.AuthorizeMovieTicketSuccess),
-            tap(() => {
-                if (this.amount > 0) {
-                    this.authorizeCreditCard();
-                    return;
-                }
-                this.router.navigate(['/purchase/confirm']);
-            })
-        );
-
-        const fail = this.actions.pipe(
-            ofType(ActionTypes.AuthorizeMovieTicketFail),
-            tap(() => {
-                this.openAlert({
-                    title: 'エラー',
-                    body: 'ムビチケ情報を確認してください。'
                 });
             })
         );

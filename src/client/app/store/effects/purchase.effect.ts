@@ -6,7 +6,6 @@ import * as moment from 'moment';
 import { map, mergeMap } from 'rxjs/operators';
 import { environment } from '../../../environments/environment';
 import {
-    createGmoTokenObject,
     createMovieTicketsFromAuthorizeSeatReservation,
     createOrderId,
     formatTelephone
@@ -226,34 +225,29 @@ export class PurchaseEffects {
         map(action => action.payload),
         mergeMap(async (payload) => {
             try {
+                const orderCount = payload.orderCount;
+                const gmoTokenObject = payload.gmoTokenObject;
+                const amount = payload.amount;
                 await this.cinerino.getServices();
                 if (payload.authorizeCreditCardPayment !== undefined) {
                     await this.cinerino.transaction.placeOrder.voidPayment(payload.authorizeCreditCardPayment);
                 }
                 const transaction = payload.transaction;
-                const orderId = createOrderId({
-                    orderCount: payload.orderCount,
-                    authorizeSeatReservation: payload.authorizeSeatReservation,
-                    movieTheater: payload.movieTheater
-                });
-                const gmoTokenObject = await createGmoTokenObject({
-                    creditCard: payload.creditCard,
-                    movieTheater: payload.movieTheater
-                });
+                const orderId = createOrderId({ orderCount, transaction });
                 const creditCard = { token: gmoTokenObject.token };
-                const authorizeCreditCardPayment =
+                const authorizeCreditCardPaymentResult =
                     await this.cinerino.transaction.placeOrder.authorizeCreditCardPayment({
                         object: {
                             typeOf: factory.paymentMethodType.CreditCard,
                             orderId,
-                            amount: payload.amount,
+                            amount,
                             method: <any>'1',
                             creditCard
                         },
                         purpose: transaction
                     });
 
-                return new purchase.AuthorizeCreditCardSuccess({ authorizeCreditCardPayment, gmoTokenObject });
+                return new purchase.AuthorizeCreditCardSuccess({ authorizeCreditCardPayment: authorizeCreditCardPaymentResult });
             } catch (error) {
                 return new purchase.AuthorizeCreditCardFail({ error: error });
             }

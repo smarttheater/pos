@@ -306,13 +306,11 @@ export function reducer(
         }
         case purchase.ActionTypes.AuthorizeCreditCardSuccess: {
             const authorizeCreditCardPayment = action.payload.authorizeCreditCardPayment;
-            const gmoTokenObject = action.payload.gmoTokenObject;
             const orderCount = state.purchase.orderCount + 1;
             return {
                 ...state, loading: false, error: null, purchase: {
                     ...state.purchase,
                     authorizeCreditCardPayment,
-                    gmoTokenObject,
                     orderCount
                 }
             };
@@ -320,14 +318,8 @@ export function reducer(
         case purchase.ActionTypes.AuthorizeCreditCardFail: {
             const error = action.payload.error;
             const orderCount = state.purchase.orderCount + 1;
-            return {
-                ...state, loading: false,
-                error: JSON.stringify(error),
-                purchase: {
-                    ...state.purchase,
-                    orderCount: orderCount
-                }
-            };
+            state.purchase.orderCount = orderCount;
+            return { ...state, loading: false, error: JSON.stringify(error) };
         }
         case purchase.ActionTypes.AuthorizeMovieTicket: {
             return { ...state, loading: true };
