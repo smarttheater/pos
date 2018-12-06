@@ -152,17 +152,18 @@ export function reducer(
         }
         case purchase.ActionTypes.SelectTheater: {
             const movieTheater = action.payload.movieTheater;
-            return { ...state, loading: false, error: null, purchase: { ...state.purchase, movieTheater } };
+            state.purchase.movieTheater = movieTheater;
+            return { ...state, loading: false, error: null };
         }
         case purchase.ActionTypes.GetSchedule: {
+            const scheduleDate = action.payload.scheduleDate;
+            state.purchase.scheduleDate = scheduleDate;
             return { ...state, loading: true };
         }
         case purchase.ActionTypes.GetScheduleSuccess: {
             const screeningEvents = action.payload.screeningEvents;
-            const scheduleDate = action.payload.scheduleDate;
             const screeningFilmEvents = createScreeningFilmEvents({ screeningEvents });
             state.purchase.screeningEvents = screeningEvents;
-            state.purchase.scheduleDate = scheduleDate;
             state.purchase.screeningFilmEvents = screeningFilmEvents;
 
             return { ...state, loading: false, error: null };

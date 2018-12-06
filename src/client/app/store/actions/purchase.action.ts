@@ -122,7 +122,6 @@ export class GetScheduleSuccess implements Action {
     public readonly type = ActionTypes.GetScheduleSuccess;
     constructor(public payload: {
         screeningEvents: factory.chevre.event.screeningEvent.IEvent[];
-        scheduleDate: string;
     }) { }
 }
 

@@ -68,7 +68,7 @@ export class PurchaseEffects {
                 });
                 const screeningEvents = screeningEventsResult.data;
 
-                return new purchase.GetScheduleSuccess({ screeningEvents, scheduleDate });
+                return new purchase.GetScheduleSuccess({ screeningEvents });
             } catch (error) {
                 return new purchase.GetScheduleFail({ error: error });
             }
