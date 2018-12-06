@@ -402,7 +402,8 @@ export class PurchaseEffects {
                 const order = payload.order;
                 const ipAddress = payload.ipAddress;
                 const pos = payload.pos;
-                this.starPrint.initialize({ ipAddress, pos });
+                const timeout = 60000;
+                this.starPrint.initialize({ ipAddress, pos, timeout });
                 let printerRequests;
                 if (order === undefined) {
                     printerRequests = await this.starPrint.createPrinterTestRequest();
