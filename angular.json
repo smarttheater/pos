@@ -43,6 +43,7 @@
               "outputPath": "./dist/client",
               "optimization": true,
               "outputHashing": "all",
+              "sourceMap": false,
               "extractCss": true,
               "namedChunks": true,
               "aot": true,
