@@ -14,7 +14,8 @@ import {
     GetSchedule,
     SelectSchedule,
     SelectTheater,
-    StartTransaction
+    StartTransaction,
+    TemporaryReservationCancel
 } from '../../../../store/actions/purchase.action';
 import * as reducers from '../../../../store/reducers';
 
@@ -53,6 +54,7 @@ export class PurchaseScheduleComponent implements OnInit, OnDestroy {
         this.store.dispatch(new Delete({}));
         this.purchase = this.store.pipe(select(reducers.getPurchase));
         this.user = this.store.pipe(select(reducers.getUser));
+        this.temporaryReservationCancel();
         this.scheduleDates = [];
         for (let i = 0; i < 7; i++) {
             this.scheduleDates.push(moment().add(i, 'day').format('YYYY-MM-DD'));
@@ -69,6 +71,26 @@ export class PurchaseScheduleComponent implements OnInit, OnDestroy {
 
     public ngOnDestroy() {
         clearInterval(this.updateTimer);
+    }
+
+    private temporaryReservationCancel() {
+        this.purchase.subscribe((purchase) => {
+            if (purchase.authorizeSeatReservation !== undefined) {
+                const authorizeSeatReservation = purchase.authorizeSeatReservation;
+                this.store.dispatch(new TemporaryReservationCancel({ authorizeSeatReservation }));
+            }
+        }).unsubscribe();
+
+        const success = this.actions.pipe(
+            ofType(ActionTypes.TemporaryReservationCancelSuccess),
+            tap(() => { })
+        );
+
+        const fail = this.actions.pipe(
+            ofType(ActionTypes.TemporaryReservationCancelFail),
+            tap(() => { })
+        );
+        race(success, fail).pipe(take(1)).subscribe();
     }
 
     private update() {
