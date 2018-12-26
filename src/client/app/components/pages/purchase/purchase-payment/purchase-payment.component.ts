@@ -28,8 +28,22 @@ export class PurchasePaymentComponent implements OnInit {
     }
 
     public selectPaymentMethodType(paymentMethodType: factory.paymentMethodType | string) {
-        this.store.dispatch(new SelectPaymentMethodType({ paymentMethodType }));
-        this.router.navigate(['/purchase/confirm']);
+        this.purchase.subscribe((purchase) => {
+            if (purchase.movieTheater === undefined
+                || purchase.movieTheater.paymentAccepted === undefined) {
+                this.router.navigate(['/error']);
+                console.error('movieTheater is undefined or paymentAccepted is undefined');
+                return;
+            }
+            const findResult = purchase.movieTheater.paymentAccepted
+            .find(paymentAccepted => paymentAccepted.paymentMethodType === paymentMethodType);
+            if (findResult === undefined) {
+                this.openAlert({title: 'エラー', body: '支払い方法が未対応です。'});
+                return;
+            }
+            this.store.dispatch(new SelectPaymentMethodType({ paymentMethodType }));
+            this.router.navigate(['/purchase/confirm']);
+        }).unsubscribe();
     }
 
     public openAlert(args: {
