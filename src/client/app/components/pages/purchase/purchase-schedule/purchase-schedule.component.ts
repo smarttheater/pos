@@ -1,6 +1,7 @@
 import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { factory } from '@cinerino/api-javascript-client';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Actions, ofType } from '@ngrx/effects';
 import { select, Store } from '@ngrx/store';
 import * as moment from 'moment';
@@ -8,16 +9,18 @@ import { SwiperComponent, SwiperConfigInterface, SwiperDirective } from 'ngx-swi
 import { Observable, race } from 'rxjs';
 import { take, tap } from 'rxjs/operators';
 import { environment } from '../../../../../environments/environment';
+import { IScreeningEventFilm, screeningEventsToFilmEvents } from '../../../../functions';
 import {
     ActionTypes,
-    Delete,
+    CancelTemporaryReservation,
     GetSchedule,
     SelectSchedule,
     SelectTheater,
     StartTransaction,
-    TemporaryReservationCancel
+    UnsettledDelete
 } from '../../../../store/actions/purchase.action';
 import * as reducers from '../../../../store/reducers';
+import { PurchaseTransactionModalComponent } from '../../../parts/purchase-transaction-modal/purchase-transaction-modal.component';
 
 @Component({
     selector: 'app-purchase-schedule',
@@ -31,6 +34,7 @@ export class PurchaseScheduleComponent implements OnInit, OnDestroy {
     public user: Observable<reducers.IUserState>;
     public swiperConfig: SwiperConfigInterface;
     public scheduleDates: string[];
+    public screeningFilmEvents: IScreeningEventFilm[];
     public moment: typeof moment = moment;
     public scheduleDate: string;
     private updateTimer: any;
@@ -38,7 +42,8 @@ export class PurchaseScheduleComponent implements OnInit, OnDestroy {
     constructor(
         private store: Store<reducers.IState>,
         private actions: Actions,
-        private router: Router
+        private router: Router,
+        private modal: NgbModal
     ) { }
 
     public async ngOnInit() {
@@ -51,10 +56,10 @@ export class PurchaseScheduleComponent implements OnInit, OnDestroy {
                 1024: { slidesPerView: 5 }
             }
         };
-        this.store.dispatch(new Delete({}));
         this.purchase = this.store.pipe(select(reducers.getPurchase));
         this.user = this.store.pipe(select(reducers.getUser));
-        this.temporaryReservationCancel();
+        this.cancelTemporaryReservation();
+        this.screeningFilmEvents = [];
         this.scheduleDates = [];
         for (let i = 0; i < 7; i++) {
             this.scheduleDates.push(moment().add(i, 'day').format('YYYY-MM-DD'));
@@ -65,39 +70,44 @@ export class PurchaseScheduleComponent implements OnInit, OnDestroy {
                 return;
             }
             this.selectTheater(user.movieTheater);
-            this.update();
         }).unsubscribe();
     }
 
     public ngOnDestroy() {
-        clearInterval(this.updateTimer);
+        clearTimeout(this.updateTimer);
     }
 
-    private temporaryReservationCancel() {
+    private cancelTemporaryReservation() {
         this.purchase.subscribe((purchase) => {
             if (purchase.authorizeSeatReservation !== undefined) {
                 const authorizeSeatReservation = purchase.authorizeSeatReservation;
-                this.store.dispatch(new TemporaryReservationCancel({ authorizeSeatReservation }));
+                this.store.dispatch(new CancelTemporaryReservation({ authorizeSeatReservation }));
             }
         }).unsubscribe();
 
         const success = this.actions.pipe(
-            ofType(ActionTypes.TemporaryReservationCancelSuccess),
-            tap(() => { })
+            ofType(ActionTypes.CancelTemporaryReservationSuccess),
+            tap(() => {
+                this.store.dispatch(new UnsettledDelete());
+             })
         );
 
         const fail = this.actions.pipe(
-            ofType(ActionTypes.TemporaryReservationCancelFail),
+            ofType(ActionTypes.CancelTemporaryReservationFail),
             tap(() => { })
         );
         race(success, fail).pipe(take(1)).subscribe();
     }
 
     private update() {
+        if (this.updateTimer !== undefined) {
+            clearTimeout(this.updateTimer);
+        }
         const time = 600000; // 10 * 60 * 1000
-        this.updateTimer = setInterval(() => {
+        this.updateTimer = setTimeout(() => {
             this.purchase.subscribe((purchase) => {
                 if (purchase.movieTheater === undefined) {
+                    this.router.navigate(['/error']);
                     return;
                 }
                 this.selectTheater(purchase.movieTheater);
@@ -115,7 +125,7 @@ export class PurchaseScheduleComponent implements OnInit, OnDestroy {
     /**
      * selectTheater
      */
-    public selectTheater(movieTheater: factory.organization.movieTheater.IOrganization) {
+    public selectTheater(movieTheater: factory.organization.IOrganization<factory.organizationType.MovieTheater>) {
         this.store.dispatch(new SelectTheater({ movieTheater }));
         setTimeout(() => {
             this.selectDate();
@@ -140,7 +150,13 @@ export class PurchaseScheduleComponent implements OnInit, OnDestroy {
 
         const success = this.actions.pipe(
             ofType(ActionTypes.GetScheduleSuccess),
-            tap(() => { })
+            tap(() => {
+                this.purchase.subscribe((purchase) => {
+                    const screeningEvents = purchase.screeningEvents;
+                    this.screeningFilmEvents = screeningEventsToFilmEvents({ screeningEvents });
+                    this.update();
+                }).unsubscribe();
+             })
         );
 
         const fail = this.actions.pipe(
@@ -166,6 +182,11 @@ export class PurchaseScheduleComponent implements OnInit, OnDestroy {
                 if (purchase.movieTheater === undefined
                     || user.pos === undefined) {
                     this.router.navigate(['/error']);
+                    return;
+                }
+                if (purchase.transaction !== undefined
+                    && purchase.authorizeSeatReservations.length > 0) {
+                    this.openTransactionModal();
                     return;
                 }
                 this.store.dispatch(new StartTransaction({
@@ -202,6 +223,16 @@ export class PurchaseScheduleComponent implements OnInit, OnDestroy {
             })
         );
         race(success, fail).pipe(take(1)).subscribe();
+    }
+
+    public openTransactionModal() {
+        const modalRef = this.modal.open(PurchaseTransactionModalComponent, {
+            centered: true
+        });
+        modalRef.result.then(() => {
+            this.store.dispatch(new UnsettledDelete());
+            this.router.navigate(['/purchase/seat']);
+        }).catch(() => { });
     }
 
 }

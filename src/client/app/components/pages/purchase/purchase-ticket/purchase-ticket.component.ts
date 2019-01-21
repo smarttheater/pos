@@ -95,11 +95,7 @@ export class PurchaseTicketComponent implements OnInit {
                         this.router.navigate(['/error']);
                         return;
                     }
-                    if (purchase.authorizeSeatReservation.result.price > 0) {
-                        this.router.navigate(['/purchase/payment']);
-                        return;
-                    }
-                    this.router.navigate(['/purchase/confirm']);
+                    this.router.navigate(['/purchase/cart']);
                 }).unsubscribe();
             })
         );
@@ -121,6 +117,7 @@ export class PurchaseTicketComponent implements OnInit {
             modalRef.componentInstance.screeningEventTicketOffers = purchase.screeningEventTicketOffers;
             modalRef.componentInstance.checkMovieTicketActions = purchase.checkMovieTicketActions;
             modalRef.componentInstance.reservations = purchase.reservations;
+            modalRef.componentInstance.pendingMovieTickets = purchase.pendingMovieTickets;
 
             modalRef.result.then((ticket: IReservationTicket) => {
                 reservation.ticket = ticket;

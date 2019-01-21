@@ -15,9 +15,9 @@ export { IUserState } from './user.reducer';
  */
 export interface IState {
     loading: boolean;
+    process: string;
     error: string | null;
     purchase: purchaseReducer.IPurchaseState;
-    history: purchaseReducer.IHistoryState;
     inquiry: inquiryReducer.IInquiryState;
     user: userReducer.IUserState;
 }
@@ -27,23 +27,26 @@ export interface IState {
  */
 export const initialState: IState = {
     loading: false,
+    process: '',
     error: null,
     purchase: {
         movieTheaters: [],
         screeningEvents: [],
-        screeningFilmEvents: [],
         screeningEventOffers: [],
         reservations: [],
         screeningEventTicketOffers: [],
         orderCount: 0,
         checkMovieTicketActions: [],
+        authorizeSeatReservations: [],
         authorizeMovieTicketPayments: [],
-        isUsedMovieTicket: false
+        authorizeCreditCardPayments: [],
+        authorizeAnyPayments: [],
+        isUsedMovieTicket: false,
+        pendingMovieTickets: []
     },
-    history: {
-        purchase: []
+    inquiry: {
+        orders: []
     },
-    inquiry: {},
     user: {
         movieTheaters: []
     }
@@ -60,9 +63,9 @@ function getInitialState(): IState {
 
     return {
         loading: data.App.loading,
+        process: data.App.process,
         error: data.App.error,
         purchase: data.App.purchase,
-        history: data.App.history,
         inquiry: data.App.inquiry,
         user: data.App.user
     };
@@ -92,8 +95,8 @@ export function reducer(
  * Selectors
  */
 export const getLoading = (state: IState) => state.loading;
+export const getProcess = (state: IState) => state.process;
 export const getError = (state: IState) => state.error;
 export const getPurchase = (state: IState) => state.purchase;
-export const getHistory = (state: IState) => state.history;
 export const getInquiry = (state: IState) => state.inquiry;
 export const getUser = (state: IState) => state.user;

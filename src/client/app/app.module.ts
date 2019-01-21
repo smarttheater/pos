@@ -20,6 +20,7 @@ import { InquiryInputComponent } from './components/pages/inquiry/inquiry-input/
 import { MaintenanceComponent } from './components/pages/maintenance/maintenance.component';
 import { NotfoundComponent } from './components/pages/notfound/notfound.component';
 import { PurchaseBaseComponent } from './components/pages/purchase/purchase-base/purchase-base.component';
+import { PurchaseCartComponent } from './components/pages/purchase/purchase-cart/purchase-cart.component';
 import { PurchaseCompleteComponent } from './components/pages/purchase/purchase-complete/purchase-complete.component';
 import { PurchaseConfirmComponent } from './components/pages/purchase/purchase-confirm/purchase-confirm.component';
 import { PurchaseHistoryComponent } from './components/pages/purchase/purchase-history/purchase-history.component';
@@ -39,10 +40,11 @@ import { LoadingComponent } from './components/parts/loading/loading.component';
 import { MvtkCheckModalComponent } from './components/parts/mvtk-check-modal/mvtk-check-modal.component';
 import { NumericKeypadComponent } from './components/parts/numeric-keypad/numeric-keypad.component';
 import { PurchaseContentsComponent } from './components/parts/purchase-contents/purchase-contents.component';
-import { PurchaseDetailModalComponent } from './components/parts/purchase-detail-modal/purchase-detail-modal.component';
 import { PurchaseInfoComponent } from './components/parts/purchase-info/purchase-info.component';
 import { PurchasePaymentModalComponent } from './components/parts/purchase-payment-modal/purchase-payment-modal.component';
 import { PurchaseScheduleFilmComponent } from './components/parts/purchase-schedule-film/purchase-schedule-film.component';
+import { PurchaseTransactionModalComponent } from './components/parts/purchase-transaction-modal/purchase-transaction-modal.component';
+import { QrCodeModalComponent } from './components/parts/qrcode-modal/qrcode-modal.component';
 import { ScreenComponent } from './components/parts/screen/screen.component';
 import { TicketListModalComponent } from './components/parts/ticket-list-modal/ticket-list-modal.component';
 import { LibphonenumberFormatPipe } from './pipes/libphonenumber-format.pipe';
@@ -78,7 +80,7 @@ import { CoreStoreModule } from './store/core/store';
         HeaderMenuComponent,
         ConfirmModalComponent,
         PurchaseHistoryComponent,
-        PurchaseDetailModalComponent,
+        QrCodeModalComponent,
         MvtkCheckModalComponent,
         SettingComponent,
         InquiryInputComponent,
@@ -88,15 +90,18 @@ import { CoreStoreModule } from './store/core/store';
         LibphonenumberFormatPipe,
         NumericKeypadComponent,
         CongestionComponent,
-        MaintenanceComponent
+        MaintenanceComponent,
+        PurchaseCartComponent,
+        PurchaseTransactionModalComponent
     ],
     entryComponents: [
         TicketListModalComponent,
         AlertModalComponent,
         ConfirmModalComponent,
-        PurchaseDetailModalComponent,
+        QrCodeModalComponent,
         MvtkCheckModalComponent,
-        PurchasePaymentModalComponent
+        PurchasePaymentModalComponent,
+        PurchaseTransactionModalComponent
     ],
     imports: [
         BrowserModule,

@@ -1,9 +1,16 @@
 @import '../../../../../assets/scss/theme';
 
-.tickets {
-    grid-template-columns: 1fr 1fr;
-    grid-gap: 1rem;
+.movieticket > div,
+.movieticket > p {
+    width: 50%;
     @include media-breakpoint-down(sm) {
-        grid-template-columns: 1fr;
+        width: 100%;
+    }
+}
+
+.ticket > div {
+    width: 50%;
+    @include media-breakpoint-down(sm) {
+        width: 100%;
     }
 }

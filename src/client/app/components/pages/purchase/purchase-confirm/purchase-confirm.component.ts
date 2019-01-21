@@ -7,6 +7,7 @@ import { select, Store } from '@ngrx/store';
 import * as moment from 'moment';
 import { Observable, race } from 'rxjs';
 import { take, tap } from 'rxjs/operators';
+import { getAmount, getTicketPrice } from '../../../../functions';
 import {
     ActionTypes,
     AuthorizeAnyPayment,
@@ -29,6 +30,9 @@ export class PurchaseConfirmComponent implements OnInit {
     public moment: typeof moment = moment;
     public paymentMethodType: typeof factory.paymentMethodType = factory.paymentMethodType;
     public depositAmount: string;
+    public amount: number;
+    public getTicketPrice = getTicketPrice;
+
     constructor(
         private store: Store<reducers.IState>,
         private actions: Actions,
@@ -40,7 +44,11 @@ export class PurchaseConfirmComponent implements OnInit {
         this.purchase = this.store.pipe(select(reducers.getPurchase));
         this.isLoading = this.store.pipe(select(reducers.getLoading));
         this.user = this.store.pipe(select(reducers.getUser));
+        this.amount = 0;
         this.depositAmount = '0';
+        this.purchase.subscribe((purchase) => {
+            this.amount = getAmount(purchase.authorizeSeatReservations);
+        }).unsubscribe();
     }
 
     public registerContact() {
@@ -75,33 +83,24 @@ export class PurchaseConfirmComponent implements OnInit {
     public authorizeAnyPayment() {
         this.purchase.subscribe((purchase) => {
             if (purchase.transaction === undefined
-                || purchase.paymentMethod === undefined
-                || purchase.authorizeSeatReservation === undefined
-                || purchase.authorizeSeatReservation.result === undefined) {
+                || purchase.paymentMethod === undefined) {
                 this.router.navigate(['/error']);
                 return;
             }
             const transaction = purchase.transaction;
-            const paymentMethodType = purchase.paymentMethod.typeOf;
-            const amount = purchase.authorizeSeatReservation.result.price;
+            const amount = this.amount;
             const additionalProperty = [];
-            if (paymentMethodType === factory.paymentMethodType.Cash) {
-                if (Number(this.depositAmount) < purchase.authorizeSeatReservation.result.price) {
-                    this.openAlert({
-                        title: 'エラー',
-                        body: 'お預かり金額に誤りがあります。'
-                    });
-                    return;
-                }
+            if (purchase.paymentMethod.typeOf === factory.paymentMethodType.Cash) {
+                // 現金
                 additionalProperty.push({ name: 'depositAmount', value: Number(this.depositAmount) });
                 additionalProperty.push({
                     name: 'change',
-                    value: Number(this.depositAmount) - purchase.authorizeSeatReservation.result.price
+                    value: Number(this.depositAmount) - this.amount
                 });
             }
             this.store.dispatch(new AuthorizeAnyPayment({
                 transaction: transaction,
-                typeOf: paymentMethodType,
+                typeOf: purchase.paymentMethod.typeOf,
                 amount: amount,
                 additionalProperty: additionalProperty
             }));
@@ -153,42 +152,33 @@ export class PurchaseConfirmComponent implements OnInit {
      */
     private authorizeMovieTicket() {
         this.purchase.subscribe((purchase) => {
-            if (purchase.transaction === undefined
-                || purchase.screeningEvent === undefined
-                || purchase.authorizeSeatReservation === undefined) {
+            if (purchase.transaction === undefined) {
                 this.router.navigate(['/error']);
                 return;
             }
             this.store.dispatch(new AuthorizeMovieTicket({
                 transaction: purchase.transaction,
                 authorizeMovieTicketPayments: purchase.authorizeMovieTicketPayments,
-                authorizeSeatReservation: purchase.authorizeSeatReservation,
-                reservations: purchase.reservations
+                authorizeSeatReservations: purchase.authorizeSeatReservations,
+                pendingMovieTickets: purchase.pendingMovieTickets
             }));
         }).unsubscribe();
 
         const success = this.actions.pipe(
             ofType(ActionTypes.AuthorizeMovieTicketSuccess),
             tap(() => {
-                this.purchase.subscribe((purchase) => {
-                    if (purchase.authorizeSeatReservation !== undefined
-                        && purchase.authorizeSeatReservation.result !== undefined
-                        && purchase.authorizeSeatReservation.result.price > 0) {
-                        this.authorizeAnyPayment();
-                    } else {
-                        this.registerContact();
-                    }
-                }).unsubscribe();
+                if (this.amount > 0) {
+                    this.authorizeAnyPayment();
+                } else {
+                    this.reserve();
+                }
             })
         );
 
         const fail = this.actions.pipe(
             ofType(ActionTypes.AuthorizeMovieTicketFail),
             tap(() => {
-                this.openAlert({
-                    title: 'エラー',
-                    body: 'ムビチケ情報を確認してください。'
-                });
+                this.router.navigate(['/error']);
             })
         );
         race(success, fail).pipe(take(1)).subscribe();
@@ -196,12 +186,22 @@ export class PurchaseConfirmComponent implements OnInit {
 
     public onSubmit() {
         this.purchase.subscribe((purchase) => {
-            const movieTickets = purchase.reservations.filter(reservation => reservation.isMovieTicket());
-            if (movieTickets.length > 0) {
+            if (purchase.paymentMethod === undefined) {
+                this.router.navigate(['/error']);
+                return;
+            }
+            if (purchase.paymentMethod.typeOf === factory.paymentMethodType.Cash) {
+                if (Number(this.depositAmount) < this.amount) {
+                    this.openAlert({
+                        title: 'エラー',
+                        body: 'お預かり金額に誤りがあります。'
+                    });
+                    return;
+                }
+            }
+            if (purchase.pendingMovieTickets.length > 0) {
                 this.authorizeMovieTicket();
-            } else if (purchase.authorizeSeatReservation !== undefined
-                && purchase.authorizeSeatReservation.result !== undefined
-                && purchase.authorizeSeatReservation.result.price > 0) {
+            } else if (this.amount > 0) {
                 this.authorizeAnyPayment();
             } else {
                 this.registerContact();

@@ -6,9 +6,8 @@ import { select, Store } from '@ngrx/store';
 import * as moment from 'moment';
 import { Observable, race } from 'rxjs';
 import { take, tap } from 'rxjs/operators';
-import { getTicketPrice } from '../../../../functions';
-import { Print } from '../../../../store/actions/purchase.action';
-import { ActionTypes } from '../../../../store/actions/purchase.action';
+import { getTicketPrice, IEventOrder, orderToEventOrders } from '../../../../functions';
+import { ActionTypes, Print } from '../../../../store/actions/inquiry.action';
 import * as reducers from '../../../../store/reducers';
 import { AlertModalComponent } from '../../../parts/alert-modal/alert-modal.component';
 
@@ -24,6 +23,7 @@ export class PurchaseCompleteComponent implements OnInit {
     public error: Observable<string | null>;
     public moment: typeof moment = moment;
     public getTicketPrice = getTicketPrice;
+    public eventOrders: IEventOrder[];
 
     constructor(
         private store: Store<reducers.IState>,
@@ -33,10 +33,19 @@ export class PurchaseCompleteComponent implements OnInit {
     ) { }
 
     public ngOnInit() {
+        this.eventOrders = [];
         this.purchase = this.store.pipe(select(reducers.getPurchase));
         this.user = this.store.pipe(select(reducers.getUser));
         this.isLoading = this.store.pipe(select(reducers.getLoading));
         this.error = this.store.pipe(select(reducers.getError));
+        this.purchase.subscribe((purchase) => {
+            if (purchase.order === undefined) {
+                this.router.navigate(['/error']);
+                return;
+            }
+            const order = purchase.order;
+            this.eventOrders = orderToEventOrders({ order });
+        });
         this.print();
     }
 

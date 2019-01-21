@@ -6,9 +6,8 @@ import { select, Store } from '@ngrx/store';
 import * as moment from 'moment';
 import { Observable, race } from 'rxjs';
 import { take, tap } from 'rxjs/operators';
-import { getTicketPrice } from '../../../../functions';
-import { Print } from '../../../../store/actions/purchase.action';
-import { ActionTypes } from '../../../../store/actions/purchase.action';
+import { getTicketPrice, IEventOrder, orderToEventOrders } from '../../../../functions';
+import { ActionTypes, Print } from '../../../../store/actions/inquiry.action';
 import * as reducers from '../../../../store/reducers';
 import { AlertModalComponent } from '../../../parts/alert-modal/alert-modal.component';
 
@@ -24,6 +23,7 @@ export class InquiryConfirmComponent implements OnInit {
     public error: Observable<string | null>;
     public moment: typeof moment = moment;
     public getTicketPrice = getTicketPrice;
+    public eventOrders: IEventOrder[];
 
     constructor(
         private store: Store<reducers.IState>,
@@ -33,10 +33,19 @@ export class InquiryConfirmComponent implements OnInit {
     ) { }
 
     public ngOnInit() {
+        this.eventOrders = [];
         this.inquiry = this.store.pipe(select(reducers.getInquiry));
         this.user = this.store.pipe(select(reducers.getUser));
         this.isLoading = this.store.pipe(select(reducers.getLoading));
         this.error = this.store.pipe(select(reducers.getError));
+        this.inquiry.subscribe((inquiry) => {
+            if (inquiry.order === undefined) {
+                this.router.navigate(['/error']);
+                return;
+            }
+            const order = inquiry.order;
+            this.eventOrders = orderToEventOrders({ order });
+        });
     }
 
     public print() {

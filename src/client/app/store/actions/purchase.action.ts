@@ -1,13 +1,14 @@
 import { factory } from '@cinerino/api-javascript-client';
 import { Action } from '@ngrx/store';
 import { IGmoTokenObject } from '../../functions';
-import { IReservationSeat, IScreen, Reservation } from '../../models';
+import { IMovieTicket, IReservationSeat, IScreen, Reservation } from '../../models';
 
 /**
  * Action types
  */
 export enum ActionTypes {
     Delete = '[Purchase] Delete',
+    UnsettledDelete = '[Purchase] Unsettled Delete',
     GetTheaters = '[Purchase] Get Theaters',
     GetTheatersSuccess = '[Purchase] Get Theaters Success',
     GetTheatersFail = '[Purchase] Get Theaters Fail',
@@ -31,9 +32,9 @@ export enum ActionTypes {
     TemporaryReservation = '[Purchase] Temporary Reservation',
     TemporaryReservationSuccess = '[Purchase] Temporary Reservation Success',
     TemporaryReservationFail = '[Purchase] Temporary Reservation Fail',
-    TemporaryReservationCancel = '[Purchase] Temporary Reservation Cancel',
-    TemporaryReservationCancelSuccess = '[Purchase] Temporary Reservation Cancel Success',
-    TemporaryReservationCancelFail = '[Purchase] Temporary Reservation Cancel Fail',
+    CancelTemporaryReservation = '[Purchase] Cancel Temporary Reservation',
+    CancelTemporaryReservationSuccess = '[Purchase] Cancel Temporary Reservation Success',
+    CancelTemporaryReservationFail = '[Purchase] Cancel Temporary Reservation Fail',
     RegisterContact = '[Purchase] Register Contact',
     RegisterContactSuccess = '[Purchase] Register Contact Success',
     RegisterContactFail = '[Purchase] Register Contact Fail',
@@ -49,15 +50,6 @@ export enum ActionTypes {
     Reserve = '[Purchase] Reserve',
     ReserveSuccess = '[Purchase] Reserve Success',
     ReserveFail = '[Purchase] Reserve Fail',
-    Print = '[Purchase] Print',
-    PrintSuccess = '[Purchase] Print Success',
-    PrintFail = '[Purchase] Print Fail',
-    GetPurchaseHistory = '[Purchase] Get Purchase History',
-    GetPurchaseHistorySuccess = '[Purchase] Get Purchase History Success',
-    GetPurchaseHistoryFail = '[Purchase] Get Purchase History Fail',
-    OrderAuthorize = '[Purchase] Order Authorize',
-    OrderAuthorizeSuccess = '[Purchase] Order Authorize Success',
-    OrderAuthorizeFail = '[Purchase] Order Authorize Fail',
     CreateGmoTokenObject = '[Purchase] Create Gmo Token Object',
     CreateGmoTokenObjectSuccess = '[Purchase] Create Gmo Token Object Success',
     CreateGmoTokenObjectFail = '[Purchase] Create Gmo Token Object Fail',
@@ -76,11 +68,19 @@ export class Delete implements Action {
 }
 
 /**
+ * UnsettledDelete
+ */
+export class UnsettledDelete implements Action {
+    public readonly type = ActionTypes.UnsettledDelete;
+    constructor(public payload?: {}) { }
+}
+
+/**
  * GetTheaters
  */
 export class GetTheaters implements Action {
     public readonly type = ActionTypes.GetTheaters;
-    constructor(public payload: { params: factory.organization.movieTheater.ISearchConditions }) { }
+    constructor(public payload: { params: factory.organization.ISearchConditions<factory.organizationType.MovieTheater> }) { }
 }
 
 /**
@@ -88,7 +88,7 @@ export class GetTheaters implements Action {
  */
 export class GetTheatersSuccess implements Action {
     public readonly type = ActionTypes.GetTheatersSuccess;
-    constructor(public payload: { movieTheaters: factory.organization.movieTheater.IOrganization[] }) { }
+    constructor(public payload: { movieTheaters: factory.organization.IOrganization<factory.organizationType.MovieTheater>[] }) { }
 }
 
 /**
@@ -104,7 +104,7 @@ export class GetTheatersFail implements Action {
  */
 export class SelectTheater implements Action {
     public readonly type = ActionTypes.SelectTheater;
-    constructor(public payload: { movieTheater: factory.organization.movieTheater.IOrganization }) { }
+    constructor(public payload: { movieTheater: factory.organization.IOrganization<factory.organizationType.MovieTheater> }) { }
 }
 
 /**
@@ -113,7 +113,7 @@ export class SelectTheater implements Action {
 export class GetSchedule implements Action {
     public readonly type = ActionTypes.GetSchedule;
     constructor(public payload: {
-        movieTheater: factory.organization.movieTheater.IOrganization;
+        movieTheater: factory.organization.IOrganization<factory.organizationType.MovieTheater>;
         scheduleDate: string;
     }) { }
 }
@@ -125,6 +125,7 @@ export class GetScheduleSuccess implements Action {
     public readonly type = ActionTypes.GetScheduleSuccess;
     constructor(public payload: {
         screeningEvents: factory.chevre.event.screeningEvent.IEvent[];
+        scheduleDate: string;
     }) { }
 }
 
@@ -239,7 +240,7 @@ export class GetTicketList implements Action {
     public readonly type = ActionTypes.GetTicketList;
     constructor(public payload: {
         screeningEvent: factory.chevre.event.screeningEvent.IEvent;
-        movieTheater: factory.organization.movieTheater.IOrganization;
+        movieTheater: factory.organization.IOrganization<factory.organizationType.MovieTheater>;
     }) { }
 }
 
@@ -268,7 +269,7 @@ export class TemporaryReservation implements Action {
     constructor(public payload: {
         transaction: factory.transaction.placeOrder.ITransaction;
         screeningEvent: factory.chevre.event.screeningEvent.IEvent;
-        authorizeSeatReservation?: factory.action.authorize.offer.seatReservation.IAction;
+        authorizeSeatReservation?: factory.action.authorize.offer.seatReservation.IAction<factory.service.webAPI.Identifier>;
         reservations: Reservation[];
     }) { }
 }
@@ -278,7 +279,9 @@ export class TemporaryReservation implements Action {
  */
 export class TemporaryReservationSuccess implements Action {
     public readonly type = ActionTypes.TemporaryReservationSuccess;
-    constructor(public payload: { authorizeSeatReservation: factory.action.authorize.offer.seatReservation.IAction; }) { }
+    constructor(public payload: {
+        authorizeSeatReservation: factory.action.authorize.offer.seatReservation.IAction<factory.service.webAPI.Identifier>;
+    }) { }
 }
 
 /**
@@ -290,28 +293,30 @@ export class TemporaryReservationFail implements Action {
 }
 
 /**
- * TemporaryReservationCancel
+ * CancelTemporaryReservation
  */
-export class TemporaryReservationCancel implements Action {
-    public readonly type = ActionTypes.TemporaryReservationCancel;
+export class CancelTemporaryReservation implements Action {
+    public readonly type = ActionTypes.CancelTemporaryReservation;
     constructor(public payload: {
-        authorizeSeatReservation: factory.action.authorize.offer.seatReservation.IAction;
+        authorizeSeatReservation: factory.action.authorize.offer.seatReservation.IAction<factory.service.webAPI.Identifier>;
     }) { }
 }
 
 /**
- * TemporaryReservationCancelSuccess
+ * CancelTemporaryReservationSuccess
  */
-export class TemporaryReservationCancelSuccess implements Action {
-    public readonly type = ActionTypes.TemporaryReservationCancelSuccess;
-    constructor(public payload?: {}) { }
+export class CancelTemporaryReservationSuccess implements Action {
+    public readonly type = ActionTypes.CancelTemporaryReservationSuccess;
+    constructor(public payload: {
+        authorizeSeatReservation: factory.action.authorize.offer.seatReservation.IAction<factory.service.webAPI.Identifier>;
+    }) { }
 }
 
 /**
- * TemporaryReservationCancelFail
+ * CancelTemporaryReservationFail
  */
-export class TemporaryReservationCancelFail implements Action {
-    public readonly type = ActionTypes.TemporaryReservationCancelFail;
+export class CancelTemporaryReservationFail implements Action {
+    public readonly type = ActionTypes.CancelTemporaryReservationFail;
     constructor(public payload: { error: Error }) { }
 }
 
@@ -383,8 +388,8 @@ export class AuthorizeMovieTicket implements Action {
     constructor(public payload: {
         transaction: factory.transaction.placeOrder.ITransaction;
         authorizeMovieTicketPayments: factory.action.authorize.paymentMethod.movieTicket.IAction[];
-        authorizeSeatReservation: factory.action.authorize.offer.seatReservation.IAction;
-        reservations: Reservation[];
+        authorizeSeatReservations: factory.action.authorize.offer.seatReservation.IAction<factory.service.webAPI.Identifier>[];
+        pendingMovieTickets: IMovieTicket[];
     }) { }
 }
 
@@ -465,92 +470,6 @@ export class ReserveFail implements Action {
 }
 
 /**
- * Print
- */
-export class Print implements Action {
-    public readonly type = ActionTypes.Print;
-    constructor(public payload: {
-        order?: factory.order.IOrder;
-        ipAddress: string;
-        pos?: factory.organization.IPOS;
-        timeout?: number;
-    }) { }
-}
-
-/**
- * PrintSuccess
- */
-export class PrintSuccess implements Action {
-    public readonly type = ActionTypes.PrintSuccess;
-    constructor(public payload?: {}) { }
-}
-
-/**
- * PrintFail
- */
-export class PrintFail implements Action {
-    public readonly type = ActionTypes.PrintFail;
-    constructor(public payload: { error: Error }) { }
-}
-
-/**
- * GetPurchaseHistory
- */
-export class GetPurchaseHistory implements Action {
-    public readonly type = ActionTypes.GetPurchaseHistory;
-    constructor(public payload: { params: factory.order.ISearchConditions }) { }
-}
-
-/**
- * GetPurchaseHistorySuccess
- */
-export class GetPurchaseHistorySuccess implements Action {
-    public readonly type = ActionTypes.GetPurchaseHistorySuccess;
-    constructor(public payload: { result: factory.order.IOrder[] }) { }
-}
-
-/**
- * GetPurchaseHistoryFail
- */
-export class GetPurchaseHistoryFail implements Action {
-    public readonly type = ActionTypes.GetPurchaseHistoryFail;
-    constructor(public payload: { error: Error }) { }
-}
-
-/**
- * OrderAuthorize
- */
-export class OrderAuthorize implements Action {
-    public readonly type = ActionTypes.OrderAuthorize;
-    constructor(public payload: {
-        params: {
-            orderNumber: string;
-            customer: {
-                email?: string;
-                telephone?: string;
-            };
-        }
-    }) { }
-}
-
-/**
- * OrderAuthorizeSuccess
- */
-export class OrderAuthorizeSuccess implements Action {
-    public readonly type = ActionTypes.OrderAuthorizeSuccess;
-    constructor(public payload: { order: factory.order.IOrder }) { }
-}
-
-/**
- * OrderAuthorizeFail
- */
-export class OrderAuthorizeFail implements Action {
-    public readonly type = ActionTypes.OrderAuthorizeFail;
-    constructor(public payload: { error: Error }) { }
-}
-
-
-/**
  * CreateGmoTokenObject
  */
 export class CreateGmoTokenObject implements Action {
@@ -562,7 +481,7 @@ export class CreateGmoTokenObject implements Action {
             holderName: string;
             securityCode: string;
         },
-        movieTheater: factory.organization.movieTheater.IOrganization;
+        movieTheater: factory.organization.IOrganization<factory.organizationType.MovieTheater>;
     }) { }
 }
 
@@ -628,6 +547,7 @@ export class SelectPaymentMethodType implements Action {
  */
 export type Actions =
     | Delete
+    | UnsettledDelete
     | GetTheaters
     | GetTheatersSuccess
     | GetTheatersFail
@@ -651,9 +571,9 @@ export type Actions =
     | TemporaryReservation
     | TemporaryReservationSuccess
     | TemporaryReservationFail
-    | TemporaryReservationCancel
-    | TemporaryReservationCancelSuccess
-    | TemporaryReservationCancelFail
+    | CancelTemporaryReservation
+    | CancelTemporaryReservationSuccess
+    | CancelTemporaryReservationFail
     | RegisterContact
     | RegisterContactSuccess
     | RegisterContactFail
@@ -669,15 +589,6 @@ export type Actions =
     | Reserve
     | ReserveSuccess
     | ReserveFail
-    | Print
-    | PrintSuccess
-    | PrintFail
-    | GetPurchaseHistory
-    | GetPurchaseHistorySuccess
-    | GetPurchaseHistoryFail
-    | OrderAuthorize
-    | OrderAuthorizeSuccess
-    | OrderAuthorizeFail
     | CreateGmoTokenObject
     | CreateGmoTokenObjectSuccess
     | CreateGmoTokenObjectFail

@@ -11,8 +11,6 @@ import {
 } from '../../functions';
 import { IScreen } from '../../models';
 import { CinerinoService } from '../../services/cinerino.service';
-import { StarPrintService } from '../../services/star-print.service';
-import { UtilService } from '../../services/util.service';
 import * as purchase from '../actions/purchase.action';
 
 /**
@@ -24,8 +22,6 @@ export class PurchaseEffects {
     constructor(
         private actions: Actions,
         private cinerino: CinerinoService,
-        private starPrint: StarPrintService,
-        private util: UtilService,
         private http: HttpClient
     ) { }
 
@@ -60,15 +56,21 @@ export class PurchaseEffects {
                 await this.cinerino.getServices();
                 const branchCode = payload.movieTheater.location.branchCode;
                 const scheduleDate = payload.scheduleDate;
+                const today = moment(moment().format('YYYY-MM-DD')).toDate();
                 const screeningEventsResult = await this.cinerino.event.searchScreeningEvents({
+                    typeOf: factory.chevre.eventType.ScreeningEvent,
                     eventStatuses: [factory.chevre.eventStatusType.EventScheduled],
                     superEvent: { locationBranchCodes: [branchCode] },
                     startFrom: moment(scheduleDate).toDate(),
-                    startThrough: moment(scheduleDate).add(1, 'day').toDate()
+                    startThrough: moment(scheduleDate).add(1, 'day').toDate(),
+                    offers: {
+                        availableFrom: today,
+                        availableThrough: today
+                    }
                 });
                 const screeningEvents = screeningEventsResult.data;
 
-                return new purchase.GetScheduleSuccess({ screeningEvents });
+                return new purchase.GetScheduleSuccess({ screeningEvents, scheduleDate });
             } catch (error) {
                 return new purchase.GetScheduleFail({ error: error });
             }
@@ -130,11 +132,11 @@ export class PurchaseEffects {
         ofType<purchase.TemporaryReservation>(purchase.ActionTypes.TemporaryReservation),
         map(action => action.payload),
         mergeMap(async (payload) => {
+            const transaction = payload.transaction;
+            const screeningEvent = payload.screeningEvent;
+            const reservations = payload.reservations;
             try {
                 await this.cinerino.getServices();
-                const transaction = payload.transaction;
-                const screeningEvent = payload.screeningEvent;
-                const reservations = payload.reservations;
                 if (payload.authorizeSeatReservation !== undefined) {
                     await this.cinerino.transaction.placeOrder.voidSeatReservation(payload.authorizeSeatReservation);
                 }
@@ -149,10 +151,8 @@ export class PurchaseEffects {
                             }
                             return {
                                 id: reservation.ticket.ticketOffer.id,
-                                ticketedSeat: <any>{
-                                    seatNumber: reservation.seat.seatNumber,
-                                    seatSection: reservation.seat.seatSection
-                                }
+                                ticketedSeat: reservation.seat,
+                                additionalProperty: [] // ここにムビチケ情報を入れる
                             };
                         }),
                         notes: ''
@@ -167,23 +167,26 @@ export class PurchaseEffects {
     );
 
     /**
-     * temporaryReservationCancel
+     * cancelTemporaryReservation
      */
     @Effect()
-    public temporaryReservationCancel = this.actions.pipe(
-        ofType<purchase.TemporaryReservationCancel>(purchase.ActionTypes.TemporaryReservationCancel),
+    public cancelTemporaryReservation = this.actions.pipe(
+        ofType<purchase.CancelTemporaryReservation>(purchase.ActionTypes.CancelTemporaryReservation),
         map(action => action.payload),
         mergeMap(async (payload) => {
+            const authorizeSeatReservation = payload.authorizeSeatReservation;
             try {
                 await this.cinerino.getServices();
-                const authorizeSeatReservation = payload.authorizeSeatReservation;
                 await this.cinerino.transaction.placeOrder.voidSeatReservation(authorizeSeatReservation);
-                return new purchase.TemporaryReservationCancelSuccess();
+
+                return new purchase.CancelTemporaryReservationSuccess({ authorizeSeatReservation });
             } catch (error) {
-                return new purchase.TemporaryReservationCancelFail({ error: error });
+                return new purchase.CancelTemporaryReservationSuccess({ authorizeSeatReservation });
+                // return new purchase.CancelTemporaryReservationFail({ error: error });
             }
         })
     );
+
 
     /**
      * getTicketList
@@ -293,39 +296,41 @@ export class PurchaseEffects {
                     }
                 }
                 const transaction = payload.transaction;
-                const reservations = payload.reservations;
-                const authorizeSeatReservation = payload.authorizeSeatReservation;
+                const pendingMovieTickets = payload.pendingMovieTickets;
+                const authorizeSeatReservations = payload.authorizeSeatReservations;
                 const authorizeMovieTicketPayments: factory.action.authorize.paymentMethod.movieTicket.IAction[] = [];
-                const movieTickets = createMovieTicketsFromAuthorizeSeatReservation({
-                    authorizeSeatReservation, reservations
-                });
-                const movieTicketIdentifiers: {
-                    identifier: string;
-                    movieTickets: factory.paymentMethod.paymentCard.movieTicket.IMovieTicket[]
-                }[] = [];
-                movieTickets.forEach((movieTicket) => {
-                    const findResult = movieTicketIdentifiers.find((movieTicketIdentifier) => {
-                        return (movieTicketIdentifier.identifier === movieTicket.identifier);
+                for (const authorizeSeatReservation of authorizeSeatReservations) {
+                    const movieTickets = createMovieTicketsFromAuthorizeSeatReservation({
+                        authorizeSeatReservation, pendingMovieTickets
                     });
-                    if (findResult === undefined) {
-                        movieTicketIdentifiers.push({
-                            identifier: movieTicket.identifier, movieTickets: [movieTicket]
+                    const movieTicketIdentifiers: {
+                        identifier: string;
+                        movieTickets: factory.paymentMethod.paymentCard.movieTicket.IMovieTicket[]
+                    }[] = [];
+                    movieTickets.forEach((movieTicket) => {
+                        const findResult = movieTicketIdentifiers.find((movieTicketIdentifier) => {
+                            return (movieTicketIdentifier.identifier === movieTicket.identifier);
                         });
-                        return;
-                    }
-                    findResult.movieTickets.push(movieTicket);
-
-                });
-                for (const movieTicketIdentifier of movieTicketIdentifiers) {
-                    const authorizeMovieTicketPaymentResult = await this.cinerino.transaction.placeOrder.authorizeMovieTicketPayment({
-                        object: {
-                            typeOf: factory.paymentMethodType.MovieTicket,
-                            amount: 0,
-                            movieTickets: movieTicketIdentifier.movieTickets
-                        },
-                        purpose: transaction
+                        if (findResult === undefined) {
+                            movieTicketIdentifiers.push({
+                                identifier: movieTicket.identifier, movieTickets: [movieTicket]
+                            });
+                            return;
+                        }
+                        findResult.movieTickets.push(movieTicket);
                     });
-                    authorizeMovieTicketPayments.push(authorizeMovieTicketPaymentResult);
+                    for (const movieTicketIdentifier of movieTicketIdentifiers) {
+                        const authorizeMovieTicketPaymentResult =
+                            await this.cinerino.transaction.placeOrder.authorizeMovieTicketPayment({
+                                object: {
+                                    typeOf: factory.paymentMethodType.MovieTicket,
+                                    amount: 0,
+                                    movieTickets: movieTicketIdentifier.movieTickets
+                                },
+                                purpose: transaction
+                            });
+                        authorizeMovieTicketPayments.push(authorizeMovieTicketPaymentResult);
+                    }
                 }
 
                 return new purchase.AuthorizeMovieTicketSuccess({ authorizeMovieTicketPayments });
@@ -405,92 +410,6 @@ export class PurchaseEffects {
                     id: transaction.id
                 });
                 return new purchase.ReserveFail({ error: error });
-            }
-        })
-    );
-
-    /**
-     * print
-     */
-    @Effect()
-    public print = this.actions.pipe(
-        ofType<purchase.Print>(purchase.ActionTypes.Print),
-        map(action => action.payload),
-        mergeMap(async (payload) => {
-            try {
-                const order = payload.order;
-                const ipAddress = payload.ipAddress;
-                const pos = payload.pos;
-                const timeout = 60000;
-                this.starPrint.initialize({ ipAddress, pos, timeout });
-                let printerRequests;
-                if (order === undefined) {
-                    printerRequests = await this.starPrint.createPrinterTestRequest();
-                } else {
-                    printerRequests = await this.starPrint.createPrinterRequestList({ order });
-                }
-                // n分割配列へ変換
-                const divide = 4;
-                const divideRequests: string[] = [];
-                let divideRequest = '';
-                printerRequests.forEach((request, index) => {
-                    divideRequest += request;
-                    if ((index + 1) % divide === 0) {
-                        divideRequests.push(divideRequest);
-                        divideRequest = '';
-                    }
-                });
-                if (divideRequest !== '') {
-                    divideRequests.push(divideRequest);
-                }
-                for (const printerRequest of divideRequests) {
-                    // safari対応のため0.3秒待つ
-                    await this.util.sleep(300);
-                    await this.starPrint.print({ printerRequest });
-                }
-
-                return new purchase.PrintSuccess();
-            } catch (error) {
-                return new purchase.PrintFail({ error: error });
-            }
-        })
-    );
-
-    /**
-     * getPurchaseHistory
-     */
-    @Effect()
-    public getPurchaseHistory = this.actions.pipe(
-        ofType<purchase.GetPurchaseHistory>(purchase.ActionTypes.GetPurchaseHistory),
-        map(action => action.payload),
-        mergeMap(async (payload) => {
-            try {
-                const params = Object.assign({ personId: 'me' }, payload.params);
-                await this.cinerino.getServices();
-                const searchOrdersResult = await this.cinerino.person.searchOrders(params);
-                const orders = searchOrdersResult.data;
-                return new purchase.GetPurchaseHistorySuccess({ result: orders });
-            } catch (error) {
-                return new purchase.GetPurchaseHistoryFail({ error: error });
-            }
-        })
-    );
-
-    /**
-     * orderAuthorize
-     */
-    @Effect()
-    public orderAuthorize = this.actions.pipe(
-        ofType<purchase.OrderAuthorize>(purchase.ActionTypes.OrderAuthorize),
-        map(action => action.payload),
-        mergeMap(async (payload) => {
-            try {
-                const params = Object.assign({ personId: 'me' }, payload.params);
-                await this.cinerino.getServices();
-                const order = await this.cinerino.order.authorizeOwnershipInfos(params);
-                return new purchase.OrderAuthorizeSuccess({ order });
-            } catch (error) {
-                return new purchase.OrderAuthorizeFail({ error: error });
             }
         })
     );

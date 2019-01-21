@@ -4,6 +4,7 @@ import { Actions, ActionTypes } from '../actions/inquiry.action';
 
 export interface IInquiryState {
     order?: factory.order.IOrder;
+    orders: factory.order.IOrder[];
 }
 
 /**
@@ -14,23 +15,57 @@ export interface IInquiryState {
 export function reducer(state: IState, action: Actions): IState {
     switch (action.type) {
         case ActionTypes.Delete: {
-            state.inquiry = {};
+            state.inquiry = {
+                orders: []
+            };
             return { ...state };
         }
         case ActionTypes.Inquiry: {
-            return { ...state, loading: true };
+            return { ...state, loading: true, process: '処理しています' };
         }
         case ActionTypes.InquirySuccess: {
             const order = action.payload.order;
-            return {
-                ...state, loading: false, error: null, inquiry: {
-                    order
-                }
-            };
+            state.inquiry.order = order;
+            return { ...state, loading: false, process: '', error: null };
         }
         case ActionTypes.InquiryFail: {
             const error = action.payload.error;
-            return { ...state, loading: false, error: JSON.stringify(error) };
+            return { ...state, loading: false, process: '', error: JSON.stringify(error) };
+        }
+        case ActionTypes.GetPurchaseHistory: {
+            return { ...state, loading: true, process: '購入履歴を取得しています', };
+        }
+        case ActionTypes.GetPurchaseHistorySuccess: {
+            const orders = action.payload.result;
+            state.inquiry.orders = orders;
+            return { ...state, loading: false, process: '', error: null };
+        }
+        case ActionTypes.GetPurchaseHistoryFail: {
+            const error = action.payload.error;
+            return { ...state, loading: false, process: '', error: JSON.stringify(error) };
+        }
+        case ActionTypes.OrderAuthorize: {
+            return { ...state, loading: true, process: 'QRコードを取得しています', };
+        }
+        case ActionTypes.OrderAuthorizeSuccess: {
+            const authorizeOrder = action.payload.order;
+           state.inquiry.order = authorizeOrder;
+
+            return { ...state, loading: false, process: '', error: null };
+        }
+        case ActionTypes.OrderAuthorizeFail: {
+            const error = action.payload.error;
+            return { ...state, loading: false, process: '', error: JSON.stringify(error) };
+        }
+        case ActionTypes.Print: {
+            return { ...state, loading: true, process: '印刷しています' };
+        }
+        case ActionTypes.PrintSuccess: {
+            return { ...state, loading: false, process: '', error: null };
+        }
+        case ActionTypes.PrintFail: {
+            const error = action.payload.error;
+            return { ...state, loading: false, process: '', error: JSON.stringify(error) };
         }
         default: {
             return state;

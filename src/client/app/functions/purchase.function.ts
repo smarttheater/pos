@@ -1,7 +1,7 @@
 import { factory } from '@cinerino/api-javascript-client';
 import * as moment from 'moment';
 import { environment } from '../../environments/environment';
-import { Reservation } from '../models';
+import { IMovieTicket } from '../models';
 
 export interface IScreeningEventFilm {
     info: factory.chevre.event.screeningEvent.IEvent;
@@ -15,10 +15,15 @@ export interface IGmoTokenObject {
     isSecurityCodeSet: boolean;
 }
 
+export interface IEventOrder {
+    event: factory.chevre.event.screeningEvent.IEvent;
+    data: factory.order.IAcceptedOffer<factory.order.IItemOffered>[];
+}
+
 /**
- * 作品別イベント作成
+ * 作品別イベントへ変換
  */
-export function createScreeningFilmEvents(params: {
+export function screeningEventsToFilmEvents(params: {
     screeningEvents: factory.chevre.event.screeningEvent.IEvent[]
 }) {
     const films: IScreeningEventFilm[] = [];
@@ -65,7 +70,7 @@ export function createGmoTokenObject(params: {
         holderName: string;
         securityCode: string;
     },
-    movieTheater: factory.organization.movieTheater.IOrganization;
+    movieTheater: factory.organization.IOrganization<factory.organizationType.MovieTheater>;
 }) {
     return new Promise<IGmoTokenObject>((resolve, reject) => {
         if (params.movieTheater.paymentAccepted === undefined) {
@@ -89,7 +94,7 @@ export function createGmoTokenObject(params: {
             }
         };
         const Multipayment = (<any>window).Multipayment;
-        Multipayment.init(findPaymentAcceptedResult.gmoInfo.shopId);
+        Multipayment.init((<any>findPaymentAcceptedResult).gmoInfo.shopId);
         Multipayment.getToken(params.creditCard, (<any>window).someCallbackFunction);
     });
 }
@@ -137,39 +142,52 @@ export function isAvailabilityMovieTicket(checkMovieTicketAction: factory.action
  *  予約情報からムビチケ情報作成
  */
 export function createMovieTicketsFromAuthorizeSeatReservation(args: {
-    authorizeSeatReservation: factory.action.authorize.offer.seatReservation.IAction;
-    reservations: Reservation[];
+    authorizeSeatReservation: factory.action.authorize.offer.seatReservation.IAction<factory.service.webAPI.Identifier>;
+    pendingMovieTickets: IMovieTicket[];
 }) {
     const results: factory.paymentMethod.paymentCard.movieTicket.IMovieTicket[] = [];
     const authorizeSeatReservation = args.authorizeSeatReservation;
-    const reservations = args.reservations;
+    const pendingMovieTickets = args.pendingMovieTickets;
     if (authorizeSeatReservation.result === undefined) {
-        return results;
+        return [];
     }
-    const pendingReservations = authorizeSeatReservation.result.responseBody.object.reservations;
+    const pendingReservations =
+        (<factory.chevre.reservation.IReservation<factory.chevre.event.screeningEvent.ITicketPriceSpecification>[]>
+            (<any>authorizeSeatReservation.result.responseBody).object.reservations);
 
     pendingReservations.forEach((pendingReservation) => {
-        const findReservationResult = reservations.find((reservation) => {
-            return (reservation.seat.seatNumber === pendingReservation.reservedTicket.ticketedSeat.seatNumber);
+        if (pendingReservation.price === undefined) {
+            return;
+        }
+        const findMovieTicketTypeChargeSpecification =
+            pendingReservation.price.priceComponent.find(
+                p => p.typeOf === factory.chevre.priceSpecificationType.MovieTicketTypeChargeSpecification
+            );
+        if (findMovieTicketTypeChargeSpecification === undefined) {
+            return;
+        }
+        const findPendingMovieTicket = pendingMovieTickets.find((pendingMovieTicket) => {
+            return (pendingMovieTicket.id === authorizeSeatReservation.id);
         });
-        if (findReservationResult === undefined
-            || findReservationResult.ticket === undefined
-            || findReservationResult.ticket.movieTicket === undefined) {
+        if (findPendingMovieTicket === undefined) {
+            return;
+        }
+        const findReservation = findPendingMovieTicket.movieTickets.find((movieTicket) => {
+            const seatNumber = movieTicket.serviceOutput.reservedTicket.ticketedSeat.seatNumber;
+            const seatSection = movieTicket.serviceOutput.reservedTicket.ticketedSeat.seatSection;
+            return (seatNumber === pendingReservation.reservedTicket.ticketedSeat.seatNumber
+                && seatSection === pendingReservation.reservedTicket.ticketedSeat.seatSection);
+        });
+        if (findReservation === undefined) {
             return;
         }
 
         results.push({
             typeOf: factory.paymentMethodType.MovieTicket,
-            identifier: findReservationResult.ticket.movieTicket.identifier,
-            accessCode: findReservationResult.ticket.movieTicket.accessCode,
-            serviceType: findReservationResult.ticket.movieTicket.serviceType,
-            serviceOutput: {
-                reservationFor: {
-                    typeOf: pendingReservation.reservationFor.typeOf,
-                    id: pendingReservation.reservationFor.id
-                },
-                reservedTicket: { ticketedSeat: pendingReservation.reservedTicket.ticketedSeat }
-            }
+            identifier: findReservation.identifier,
+            accessCode: findReservation.accessCode,
+            serviceType: findReservation.serviceType,
+            serviceOutput: findReservation.serviceOutput
         });
     });
 
@@ -290,4 +308,46 @@ export function movieTicketAuthErroCodeToMessage(code?: string) {
             return 'その他';
         }
     }
+}
+
+
+/**
+ * 予約金額取得
+ */
+export function getAmount(
+    authorizeSeatReservations: factory.action.authorize.offer.seatReservation.IAction<factory.service.webAPI.Identifier>[]
+) {
+    const amounts = authorizeSeatReservations.map(
+        reservations => (reservations.result === undefined)
+            ? 0
+            : reservations.result.price
+    );
+    const amount = amounts.reduce((previousValue, currentValue) => previousValue + currentValue);
+
+    return amount;
+}
+
+/**
+ * イベント別オーダーへ変換
+ */
+export function orderToEventOrders(params: {
+    order: factory.order.IOrder
+}) {
+    const results: IEventOrder[] = [];
+    const order = params.order;
+    order.acceptedOffers.forEach((acceptedOffer) => {
+        const registered = results.find((result) => {
+            return (result.event.id === acceptedOffer.itemOffered.reservationFor.id);
+        });
+        if (registered === undefined) {
+            results.push({
+                event: acceptedOffer.itemOffered.reservationFor,
+                data: [acceptedOffer]
+            });
+        } else {
+            registered.data.push(acceptedOffer);
+        }
+    });
+
+    return results;
 }

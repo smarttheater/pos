@@ -1,6 +1,5 @@
 @import './theme';
-$font-family: -apple-system, BlinkMacSystemFont, 'Hiragino Sans', 'Hiragino Kaku Gothic ProN', '游ゴシック  Medium', meiryo, sans-serif;
-
+$font-family: -apple-system, "Lucida Grande", "ヒラギノ角ゴ ProN W3", "Hiragino Kaku Gothic ProN", "游ゴシック", "メイリオ", Meiryo, Helvetica, Arial, sans-serif;
 
 ::-webkit-scrollbar {
     width: 10px;
@@ -28,7 +27,7 @@ body {
     user-select: none;
     background-color: #FFF;
     background-attachment: fixed;
-    font-size: 14px;
+    font-size: 16px;
     color: #333;
     font-family: $font-family;
 }
@@ -63,25 +62,38 @@ div {
     line-height: 1;
 }
 
+button {
+    cursor: pointer;
+    white-space: normal !important;
+}
+
+.form-control[readonly] {
+    background-color: #FFF;
+}
+
+.contents-width {
+    max-width: 960px;
+}
+
 .select-text {
     -webkit-touch-callout: default;
     user-select: all;
 }
 
-.small-x-text {
+.text-x-small {
     font-size: 10px;
 }
-.small-text {
-    font-size: 12px;
+.text-small {
+    font-size: 0.8rem;
 }
-.large-text {
-    font-size: 18px;
+.text-large {
+    font-size: 1.4rem;
 }
-.large-x-text {
-    font-size: 24px;
+.text-x-large {
+    font-size: 2rem;
 }
-.large-xx-text {
-    font-size: 50px;
+.text-xx-large {
+    font-size: 2.5rem;
 }
 
 .d-grid {
@@ -92,17 +104,57 @@ div {
     pointer-events: none;
 }
 
-.purchase {
-    .main {
-        width: 75%;
-        @include media-breakpoint-down(sm) {
-            width: 100%;
-        }
-    }
-    .sub {
-        width: 25%;
-        @include media-breakpoint-down(sm) {
-            width: 100%;
-        }
-    }
+.pointer {
+    cursor: pointer;
+}
+
+.buttons {
+    max-width: 400px;
+}
+
+// color
+.bg-white {
+    background-color: #FFF !important;
+}
+.text-white {
+    color: #FFF !important;
+}
+.border-white {
+    border-color: #FFF !important;
+}
+.bg-black {
+    background-color: #000 !important;
+}
+.text-black {
+    color: #000 !important;
+}
+.border-black {
+    border-color: #000 !important;
+}
+.bg-dark-gray {
+    background-color: #666 !important;
+}
+.text-dark-gray {
+    color: #666 !important;
+}
+.border-dark-gray {
+    border-color: #666 !important;
+}
+.bg-gray {
+    background-color: #AAA !important;
+}
+.text-gray {
+    color: #AAA !important;
+}
+.border-gray {
+    border-color: #AAA !important;
+}
+.bg-light-gray {
+    background-color: #EEE !important;
+}
+.text-light-gray {
+    color: #EEE !important;
+}
+.border-light-gray {
+    border-color: #EEE !important;
 }

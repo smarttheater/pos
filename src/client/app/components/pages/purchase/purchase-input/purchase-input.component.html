@@ -68,7 +68,7 @@
                 <form [formGroup]="paymentForm">
                     <div class="form-group">
                         <div class="mb-2">決済金額</div>
-                        <div class="large-x-text text-success">{{ amount | currency : 'JPY'}}</div>
+                        <div class="text-x-large text-success">{{ amount | currency : 'JPY'}}</div>
                     </div>
                     <div class="form-group">
                         <label class="mb-2" for="">カード番号</label>
@@ -110,11 +110,11 @@
         </div>
 
 
-        <div class="w-75 mx-auto">
-            <button type="button" class="btn btn-primary btn-block py-2 mb-2" [disabled]="isLoading | async" (click)="onSubmit()">次へ</button>
-            <button type="button" class="btn btn-outline-primary btn-block py-2" routerLink="/purchase/ticket">券種選択へ戻る</button>
+        <div class="buttons mx-auto">
+            <button type="button" class="btn btn-primary btn-block py-3 mb-3" [disabled]="isLoading | async" (click)="onSubmit()">次へ</button>
+            <button type="button" class="btn btn-outline-primary btn-block py-3" routerLink="/purchase/ticket">券種選択へ戻る</button>
         </div>
     </div>
-    <app-purchase-info class="sub d-none d-md-block" [purchase]="purchase | async"></app-purchase-info>
+    <app-purchase-info class="mb-4" [purchase]="purchase | async"></app-purchase-info>
 
 </div>

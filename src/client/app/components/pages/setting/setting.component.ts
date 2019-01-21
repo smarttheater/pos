@@ -8,7 +8,7 @@ import * as libphonenumber from 'libphonenumber-js';
 import { Observable, race } from 'rxjs';
 import { take, tap } from 'rxjs/operators';
 import { LibphonenumberFormatPipe } from '../../../pipes/libphonenumber-format.pipe';
-import * as purchaseAction from '../../../store/actions/purchase.action';
+import * as inquiryAction from '../../../store/actions/inquiry.action';
 import * as userAction from '../../../store/actions/user.action';
 import * as reducers from '../../../store/reducers';
 import { AlertModalComponent } from '../../parts/alert-modal/alert-modal.component';
@@ -199,15 +199,15 @@ export class SettingComponent implements OnInit {
 
     public print() {
         const ipAddress = this.settingForm.controls.printerIpAddress.value;
-        this.store.dispatch(new purchaseAction.Print({ ipAddress }));
+        this.store.dispatch(new inquiryAction.Print({ ipAddress }));
 
         const success = this.actions.pipe(
-            ofType(purchaseAction.ActionTypes.PrintSuccess),
+            ofType(inquiryAction.ActionTypes.PrintSuccess),
             tap(() => { })
         );
 
         const fail = this.actions.pipe(
-            ofType(purchaseAction.ActionTypes.PrintFail),
+            ofType(inquiryAction.ActionTypes.PrintFail),
             tap(() => {
                 this.error.subscribe((json) => {
                     let message = '印刷に失敗しました';

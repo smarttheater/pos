@@ -126,10 +126,10 @@ export class StarPrintService {
         const acceptedOffer = order.acceptedOffers[args.offerIndex];
         const data = {
             confirmationNumber: args.order.confirmationNumber,
-            theaterName: order.acceptedOffers[0].itemOffered.reservationFor.superEvent.location.name.ja,
-            screenName: order.acceptedOffers[0].itemOffered.reservationFor.location.name.ja,
-            eventName: order.acceptedOffers[0].itemOffered.reservationFor.name.ja,
-            startDate: moment(order.acceptedOffers[0].itemOffered.reservationFor.startDate).format('YY/MM/DD (ddd) HH:mm'),
+            theaterName: acceptedOffer.itemOffered.reservationFor.superEvent.location.name.ja,
+            screenName: acceptedOffer.itemOffered.reservationFor.location.name.ja,
+            eventName: acceptedOffer.itemOffered.reservationFor.name.ja,
+            startDate: moment(acceptedOffer.itemOffered.reservationFor.startDate).format('YY/MM/DD (ddd) HH:mm'),
             seatNumber: acceptedOffer.itemOffered.reservedTicket.ticketedSeat.seatNumber,
             ticketName: acceptedOffer.itemOffered.reservedTicket.ticketType.name.ja,
             price: getTicketPrice(acceptedOffer).single,

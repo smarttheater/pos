@@ -1,3 +1,4 @@
+import { factory } from '@cinerino/api-javascript-client';
 
 export interface ISize {
     w: number;
@@ -35,7 +36,7 @@ export interface IScreen {
     style?: string;
     columnLabel: boolean;
     lineLabel: boolean;
-    codeType: 'default' | 'coa';
+    codeType: 'chevre' | 'coa';
 }
 
 export interface ILabel {
@@ -62,4 +63,5 @@ export interface ISeat {
     code: string;
     section: string;
     status: SeatStatus;
+    ticketedSeat?: factory.chevre.reservation.ISeat;
 }
