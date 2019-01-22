@@ -186,7 +186,7 @@ export class PurchaseScheduleComponent implements OnInit, OnDestroy {
                 }
                 if (purchase.transaction !== undefined
                     && purchase.authorizeSeatReservations.length > 0) {
-                    this.openTransactionModal();
+                    this.openTransactionModal(screeningEvent);
                     return;
                 }
                 this.store.dispatch(new StartTransaction({
@@ -225,12 +225,13 @@ export class PurchaseScheduleComponent implements OnInit, OnDestroy {
         race(success, fail).pipe(take(1)).subscribe();
     }
 
-    public openTransactionModal() {
+    public openTransactionModal(screeningEvent: factory.chevre.event.screeningEvent.IEvent) {
         const modalRef = this.modal.open(PurchaseTransactionModalComponent, {
             centered: true
         });
         modalRef.result.then(() => {
             this.store.dispatch(new UnsettledDelete());
+            this.store.dispatch(new SelectSchedule({ screeningEvent }));
             this.router.navigate(['/purchase/seat']);
         }).catch(() => { });
     }

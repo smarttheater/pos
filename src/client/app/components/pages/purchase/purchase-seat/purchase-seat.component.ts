@@ -45,6 +45,7 @@ export class PurchaseSeatComponent implements OnInit {
         this.purchase.subscribe((purchase) => {
             const screeningEvent = purchase.screeningEvent;
             if (screeningEvent === undefined) {
+                console.error('1111');
                 this.router.navigate(['/error']);
                 return;
             }
@@ -61,6 +62,7 @@ export class PurchaseSeatComponent implements OnInit {
         const fail = this.actions.pipe(
             ofType(ActionTypes.GetScreenFail),
             tap(() => {
+                console.error('2222');
                 this.router.navigate(['/error']);
             })
         );
@@ -106,6 +108,7 @@ export class PurchaseSeatComponent implements OnInit {
             const authorizeSeatReservation = purchase.authorizeSeatReservation;
             if (transaction === undefined
                 || screeningEvent === undefined) {
+                    console.error('33333');
                 this.router.navigate(['/error']);
                 return;
             }
@@ -126,6 +129,7 @@ export class PurchaseSeatComponent implements OnInit {
         const fail = this.actions.pipe(
             ofType(ActionTypes.TemporaryReservationFail),
             tap(() => {
+                console.error('444444');
                 this.router.navigate(['/error']);
             })
         );
@@ -141,6 +145,7 @@ export class PurchaseSeatComponent implements OnInit {
             const movieTheater = purchase.movieTheater;
             if (screeningEvent === undefined
                 || movieTheater === undefined) {
+                    console.error('55555');
                 this.router.navigate(['/error']);
                 return;
             }
@@ -155,6 +160,7 @@ export class PurchaseSeatComponent implements OnInit {
         const fail = this.actions.pipe(
             ofType(ActionTypes.GetTicketListFail),
             tap(() => {
+                console.error('66666');
                 this.router.navigate(['/error']);
             })
         );

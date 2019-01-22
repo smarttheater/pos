@@ -2,8 +2,8 @@
         <h2 class="text-large mb-4 text-center"><strong>座席選択</strong></h2>
         <p class="mb-4">座席を選択してください。</p>
 
-        <app-screen *ngIf="(purchase | async).screenData" class="mb-3 bg-white" [screenData]="(purchase | async).screenData"
-            (select)="selectSeat($event)">
+        <app-screen *ngIf="(purchase | async).screenData && (purchase | async).screeningEventOffers.length > 0" class="mb-4"
+            [screenData]="(purchase | async).screenData" (select)="selectSeat($event)">
         </app-screen>
 
         <app-purchase-info class="mb-4" [purchase]="purchase | async"></app-purchase-info>
