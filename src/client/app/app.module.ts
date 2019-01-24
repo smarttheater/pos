@@ -9,6 +9,8 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { SwiperModule } from 'ngx-swiper-wrapper';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './components/app/app.component';
+import { AdmissionCheckComponent } from './components/pages/admission/admission-check/admission-check.component';
+import { AdmissionScheduleComponent } from './components/pages/admission/admission-schedule/admission-schedule.component';
 import { AuthIndexComponent } from './components/pages/auth/auth-index/auth-index.component';
 import { AuthSigninComponent } from './components/pages/auth/auth-signin/auth-signin.component';
 import { AuthSignoutComponent } from './components/pages/auth/auth-signout/auth-signout.component';
@@ -16,6 +18,7 @@ import { BaseComponent } from './components/pages/base/base.component';
 import { CongestionComponent } from './components/pages/congestion/congestion.component';
 import { ErrorComponent } from './components/pages/error/error.component';
 import { InquiryConfirmComponent } from './components/pages/inquiry/inquiry-confirm/inquiry-confirm.component';
+import { InquiryHistoryComponent } from './components/pages/inquiry/inquiry-history/inquiry-history.component';
 import { InquiryInputComponent } from './components/pages/inquiry/inquiry-input/inquiry-input.component';
 import { MaintenanceComponent } from './components/pages/maintenance/maintenance.component';
 import { NotfoundComponent } from './components/pages/notfound/notfound.component';
@@ -23,13 +26,13 @@ import { PurchaseBaseComponent } from './components/pages/purchase/purchase-base
 import { PurchaseCartComponent } from './components/pages/purchase/purchase-cart/purchase-cart.component';
 import { PurchaseCompleteComponent } from './components/pages/purchase/purchase-complete/purchase-complete.component';
 import { PurchaseConfirmComponent } from './components/pages/purchase/purchase-confirm/purchase-confirm.component';
-import { PurchaseHistoryComponent } from './components/pages/purchase/purchase-history/purchase-history.component';
 import { PurchaseInputComponent } from './components/pages/purchase/purchase-input/purchase-input.component';
 import { PurchasePaymentComponent } from './components/pages/purchase/purchase-payment/purchase-payment.component';
 import { PurchaseScheduleComponent } from './components/pages/purchase/purchase-schedule/purchase-schedule.component';
 import { PurchaseSeatComponent } from './components/pages/purchase/purchase-seat/purchase-seat.component';
 import { PurchaseTicketComponent } from './components/pages/purchase/purchase-ticket/purchase-ticket.component';
 import { SettingComponent } from './components/pages/setting/setting.component';
+import { AdmissionScheduleFilmComponent } from './components/parts/admission-schedule-film/admission-schedule-film.component';
 import { AlertModalComponent } from './components/parts/alert-modal/alert-modal.component';
 import { ConfirmModalComponent } from './components/parts/confirm-modal/confirm-modal.component';
 import { ContentsComponent } from './components/parts/contents/contents.component';
@@ -50,9 +53,6 @@ import { TicketListModalComponent } from './components/parts/ticket-list-modal/t
 import { LibphonenumberFormatPipe } from './pipes/libphonenumber-format.pipe';
 import { StoreModule } from './store.module';
 import { CoreStoreModule } from './store/core/store';
-import { AdmissionScheduleComponent } from './components/pages/admission/admission-schedule/admission-schedule.component';
-import { AdmissionCheckComponent } from './components/pages/admission/admission-check/admission-check.component';
-import { AdmissionScheduleFilmComponent } from './components/parts/admission-schedule-film/admission-schedule-film.component';
 
 @NgModule({
     declarations: [
@@ -82,7 +82,7 @@ import { AdmissionScheduleFilmComponent } from './components/parts/admission-sch
         BaseComponent,
         HeaderMenuComponent,
         ConfirmModalComponent,
-        PurchaseHistoryComponent,
+        InquiryHistoryComponent,
         QrCodeModalComponent,
         MvtkCheckModalComponent,
         SettingComponent,

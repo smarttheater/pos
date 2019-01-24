@@ -9,6 +9,7 @@ import { ErrorComponent } from './components/pages/error/error.component';
 import { MaintenanceComponent } from './components/pages/maintenance/maintenance.component';
 import { NotfoundComponent } from './components/pages/notfound/notfound.component';
 import { SettingComponent } from './components/pages/setting/setting.component';
+import * as admission from './routes/admission.route';
 import * as auth from './routes/auth.route';
 import * as inquiry from './routes/inquiry.route';
 import * as purchase from './routes/purchase.route';
@@ -18,6 +19,7 @@ const appRoutes: Routes = [
     purchase.route,
     auth.route,
     inquiry.route,
+    admission.route,
     {
         path: '',
         component: BaseComponent,

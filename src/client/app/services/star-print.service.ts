@@ -124,6 +124,9 @@ export class StarPrintService {
         const canvas = document.createElement('canvas');
         const order = args.order;
         const acceptedOffer = order.acceptedOffers[args.offerIndex];
+        if (acceptedOffer.itemOffered.reservedTicket.ticketedSeat === undefined) {
+            throw new Error('ticketedSeat is undefined');
+        }
         const data = {
             confirmationNumber: args.order.confirmationNumber,
             theaterName: acceptedOffer.itemOffered.reservationFor.superEvent.location.name.ja,

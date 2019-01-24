@@ -14,7 +14,7 @@ import { AlertModalComponent } from '../../../parts/alert-modal/alert-modal.comp
     styleUrls: ['./purchase-payment.component.scss']
 })
 export class PurchasePaymentComponent implements OnInit {
-    public purchase: Observable<reducers.IPurchaseState>;
+    public user: Observable<reducers.IUserState>;
     public paymentMethodType: typeof factory.paymentMethodType = factory.paymentMethodType;
 
     constructor(
@@ -24,21 +24,21 @@ export class PurchasePaymentComponent implements OnInit {
     ) { }
 
     public ngOnInit() {
-        this.purchase = this.store.pipe(select(reducers.getPurchase));
+        this.user = this.store.pipe(select(reducers.getUser));
     }
 
     public selectPaymentMethodType(paymentMethodType: factory.paymentMethodType | string) {
-        this.purchase.subscribe((purchase) => {
-            if (purchase.movieTheater === undefined
-                || purchase.movieTheater.paymentAccepted === undefined) {
+        this.user.subscribe((user) => {
+            if (user.movieTheater === undefined
+                || user.movieTheater.paymentAccepted === undefined) {
                 this.router.navigate(['/error']);
                 console.error('movieTheater is undefined or paymentAccepted is undefined');
                 return;
             }
-            const findResult = purchase.movieTheater.paymentAccepted
-            .find(paymentAccepted => paymentAccepted.paymentMethodType === paymentMethodType);
+            const findResult = user.movieTheater.paymentAccepted
+                .find(paymentAccepted => paymentAccepted.paymentMethodType === paymentMethodType);
             if (findResult === undefined) {
-                this.openAlert({title: 'エラー', body: '支払い方法が未対応です。'});
+                this.openAlert({ title: 'エラー', body: '支払い方法が未対応です。' });
                 return;
             }
             this.store.dispatch(new SelectPaymentMethodType({ paymentMethodType }));

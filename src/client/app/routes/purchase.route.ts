@@ -4,7 +4,6 @@ import { PurchaseBaseComponent } from '../components/pages/purchase/purchase-bas
 import { PurchaseCartComponent } from '../components/pages/purchase/purchase-cart/purchase-cart.component';
 import { PurchaseCompleteComponent } from '../components/pages/purchase/purchase-complete/purchase-complete.component';
 import { PurchaseConfirmComponent } from '../components/pages/purchase/purchase-confirm/purchase-confirm.component';
-import { PurchaseHistoryComponent } from '../components/pages/purchase/purchase-history/purchase-history.component';
 import { PurchasePaymentComponent } from '../components/pages/purchase/purchase-payment/purchase-payment.component';
 import { PurchaseScheduleComponent } from '../components/pages/purchase/purchase-schedule/purchase-schedule.component';
 import { PurchaseSeatComponent } from '../components/pages/purchase/purchase-seat/purchase-seat.component';
@@ -25,7 +24,6 @@ export const route = {
         { path: 'confirm', component: PurchaseConfirmComponent },
         { path: 'complete', component: PurchaseCompleteComponent },
         { path: 'schedule', component: PurchaseScheduleComponent },
-        { path: 'history', component: PurchaseHistoryComponent },
         { path: 'cart', component: PurchaseCartComponent}
     ]
 };

@@ -24,6 +24,7 @@ import { AlertModalComponent } from '../../../parts/alert-modal/alert-modal.comp
 })
 export class PurchaseSeatComponent implements OnInit {
     public purchase: Observable<reducers.IPurchaseState>;
+    public user: Observable<reducers.IUserState>;
     public isLoading: Observable<boolean>;
     constructor(
         private store: Store<reducers.IState>,
@@ -34,6 +35,7 @@ export class PurchaseSeatComponent implements OnInit {
 
     public async ngOnInit() {
         this.purchase = this.store.pipe(select(reducers.getPurchase));
+        this.user = this.store.pipe(select(reducers.getUser));
         this.isLoading = this.store.pipe(select(reducers.getLoading));
         this.getScreen();
     }
@@ -108,7 +110,7 @@ export class PurchaseSeatComponent implements OnInit {
             const authorizeSeatReservation = purchase.authorizeSeatReservation;
             if (transaction === undefined
                 || screeningEvent === undefined) {
-                    console.error('33333');
+                console.error('33333');
                 this.router.navigate(['/error']);
                 return;
             }
@@ -140,16 +142,17 @@ export class PurchaseSeatComponent implements OnInit {
      * getTickets
      */
     private getTickets() {
-        this.purchase.subscribe((purchase) => {
-            const screeningEvent = purchase.screeningEvent;
-            const movieTheater = purchase.movieTheater;
-            if (screeningEvent === undefined
-                || movieTheater === undefined) {
-                    console.error('55555');
-                this.router.navigate(['/error']);
-                return;
-            }
-            this.store.dispatch(new GetTicketList({ screeningEvent, movieTheater }));
+        this.user.subscribe((user) => {
+            this.purchase.subscribe((purchase) => {
+                const screeningEvent = purchase.screeningEvent;
+                const movieTheater = user.movieTheater;
+                if (screeningEvent === undefined
+                    || movieTheater === undefined) {
+                    this.router.navigate(['/error']);
+                    return;
+                }
+                this.store.dispatch(new GetTicketList({ screeningEvent, movieTheater }));
+            }).unsubscribe();
         }).unsubscribe();
 
         const success = this.actions.pipe(

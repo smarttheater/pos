@@ -59,13 +59,7 @@ export class PurchaseScheduleComponent implements OnInit, OnDestroy {
         for (let i = 0; i < 7; i++) {
             this.scheduleDates.push(moment().add(i, 'day').format('YYYY-MM-DD'));
         }
-        this.user.subscribe((user) => {
-            if (user.movieTheater === undefined) {
-                this.router.navigate(['/error']);
-                return;
-            }
-            this.selectTheater(user.movieTheater);
-        }).unsubscribe();
+        this.selectDate();
     }
 
     public ngOnDestroy() {
@@ -100,13 +94,7 @@ export class PurchaseScheduleComponent implements OnInit, OnDestroy {
         }
         const time = 600000; // 10 * 60 * 1000
         this.updateTimer = setTimeout(() => {
-            this.purchase.subscribe((purchase) => {
-                if (purchase.movieTheater === undefined) {
-                    this.router.navigate(['/error']);
-                    return;
-                }
-                this.selectTheater(purchase.movieTheater);
-            }).unsubscribe();
+            this.selectDate();
         }, time);
     }
 
@@ -118,21 +106,11 @@ export class PurchaseScheduleComponent implements OnInit, OnDestroy {
     }
 
     /**
-     * selectTheater
-     */
-    public selectTheater(movieTheater: factory.organization.IOrganization<factory.organizationType.MovieTheater>) {
-        this.store.dispatch(new purchaseAction.SelectTheater({ movieTheater }));
-        setTimeout(() => {
-            this.selectDate();
-        }, 0);
-    }
-
-    /**
      * selectDate
      */
     public selectDate() {
-        this.purchase.subscribe((purchase) => {
-            const movieTheater = purchase.movieTheater;
+        this.user.subscribe((user) => {
+            const movieTheater = user.movieTheater;
             if (this.scheduleDate === undefined || this.scheduleDate === '') {
                 this.scheduleDate = moment().format('YYYY-MM-DD');
             }
@@ -175,7 +153,7 @@ export class PurchaseScheduleComponent implements OnInit, OnDestroy {
         this.store.dispatch(new purchaseAction.SelectSchedule({ screeningEvent }));
         this.purchase.subscribe((purchase) => {
             this.user.subscribe((user) => {
-                if (purchase.movieTheater === undefined
+                if (user.movieTheater === undefined
                     || user.pos === undefined) {
                     this.router.navigate(['/error']);
                     return;
@@ -189,8 +167,8 @@ export class PurchaseScheduleComponent implements OnInit, OnDestroy {
                     params: {
                         expires: moment().add(environment.TRANSACTION_TIME, 'minutes').toDate(),
                         seller: {
-                            typeOf: purchase.movieTheater.typeOf,
-                            id: purchase.movieTheater.id
+                            typeOf: user.movieTheater.typeOf,
+                            id: user.movieTheater.id
                         },
                         agent: {
                             identifier: [
