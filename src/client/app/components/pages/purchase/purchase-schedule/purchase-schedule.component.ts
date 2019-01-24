@@ -10,15 +10,8 @@ import { Observable, race } from 'rxjs';
 import { take, tap } from 'rxjs/operators';
 import { environment } from '../../../../../environments/environment';
 import { IScreeningEventFilm, screeningEventsToFilmEvents } from '../../../../functions';
-import {
-    ActionTypes,
-    CancelTemporaryReservation,
-    GetSchedule,
-    SelectSchedule,
-    SelectTheater,
-    StartTransaction,
-    UnsettledDelete
-} from '../../../../store/actions/purchase.action';
+import * as masterAction from '../../../../store/actions/master.action';
+import * as purchaseAction from '../../../../store/actions/purchase.action';
 import * as reducers from '../../../../store/reducers';
 import { PurchaseTransactionModalComponent } from '../../../parts/purchase-transaction-modal/purchase-transaction-modal.component';
 
@@ -31,6 +24,7 @@ export class PurchaseScheduleComponent implements OnInit, OnDestroy {
     @ViewChild(SwiperComponent) public componentRef: SwiperComponent;
     @ViewChild(SwiperDirective) public directiveRef: SwiperDirective;
     public purchase: Observable<reducers.IPurchaseState>;
+    public master: Observable<reducers.IMasterState>;
     public user: Observable<reducers.IUserState>;
     public swiperConfig: SwiperConfigInterface;
     public scheduleDates: string[];
@@ -57,6 +51,7 @@ export class PurchaseScheduleComponent implements OnInit, OnDestroy {
             }
         };
         this.purchase = this.store.pipe(select(reducers.getPurchase));
+        this.master = this.store.pipe(select(reducers.getMaster));
         this.user = this.store.pipe(select(reducers.getUser));
         this.cancelTemporaryReservation();
         this.screeningFilmEvents = [];
@@ -81,19 +76,19 @@ export class PurchaseScheduleComponent implements OnInit, OnDestroy {
         this.purchase.subscribe((purchase) => {
             if (purchase.authorizeSeatReservation !== undefined) {
                 const authorizeSeatReservation = purchase.authorizeSeatReservation;
-                this.store.dispatch(new CancelTemporaryReservation({ authorizeSeatReservation }));
+                this.store.dispatch(new purchaseAction.CancelTemporaryReservation({ authorizeSeatReservation }));
             }
         }).unsubscribe();
 
         const success = this.actions.pipe(
-            ofType(ActionTypes.CancelTemporaryReservationSuccess),
+            ofType(purchaseAction.ActionTypes.CancelTemporaryReservationSuccess),
             tap(() => {
-                this.store.dispatch(new UnsettledDelete());
+                this.store.dispatch(new purchaseAction.UnsettledDelete());
              })
         );
 
         const fail = this.actions.pipe(
-            ofType(ActionTypes.CancelTemporaryReservationFail),
+            ofType(purchaseAction.ActionTypes.CancelTemporaryReservationFail),
             tap(() => { })
         );
         race(success, fail).pipe(take(1)).subscribe();
@@ -126,7 +121,7 @@ export class PurchaseScheduleComponent implements OnInit, OnDestroy {
      * selectTheater
      */
     public selectTheater(movieTheater: factory.organization.IOrganization<factory.organizationType.MovieTheater>) {
-        this.store.dispatch(new SelectTheater({ movieTheater }));
+        this.store.dispatch(new purchaseAction.SelectTheater({ movieTheater }));
         setTimeout(() => {
             this.selectDate();
         }, 0);
@@ -145,14 +140,15 @@ export class PurchaseScheduleComponent implements OnInit, OnDestroy {
             if (movieTheater === undefined) {
                 return;
             }
-            this.store.dispatch(new GetSchedule({ movieTheater, scheduleDate }));
+            this.store.dispatch(new purchaseAction.SelectScheduleDate({ scheduleDate }));
+            this.store.dispatch(new masterAction.GetSchedule({ movieTheater, scheduleDate }));
         }).unsubscribe();
 
         const success = this.actions.pipe(
-            ofType(ActionTypes.GetScheduleSuccess),
+            ofType(masterAction.ActionTypes.GetScheduleSuccess),
             tap(() => {
-                this.purchase.subscribe((purchase) => {
-                    const screeningEvents = purchase.screeningEvents;
+                this.master.subscribe((master) => {
+                    const screeningEvents = master.screeningEvents;
                     this.screeningFilmEvents = screeningEventsToFilmEvents({ screeningEvents });
                     this.update();
                 }).unsubscribe();
@@ -160,7 +156,7 @@ export class PurchaseScheduleComponent implements OnInit, OnDestroy {
         );
 
         const fail = this.actions.pipe(
-            ofType(ActionTypes.GetScheduleFail),
+            ofType(masterAction.ActionTypes.GetScheduleFail),
             tap(() => {
                 this.router.navigate(['/error']);
             })
@@ -176,7 +172,7 @@ export class PurchaseScheduleComponent implements OnInit, OnDestroy {
             || screeningEvent.remainingAttendeeCapacity === 0) {
             return;
         }
-        this.store.dispatch(new SelectSchedule({ screeningEvent }));
+        this.store.dispatch(new purchaseAction.SelectSchedule({ screeningEvent }));
         this.purchase.subscribe((purchase) => {
             this.user.subscribe((user) => {
                 if (purchase.movieTheater === undefined
@@ -189,7 +185,7 @@ export class PurchaseScheduleComponent implements OnInit, OnDestroy {
                     this.openTransactionModal(screeningEvent);
                     return;
                 }
-                this.store.dispatch(new StartTransaction({
+                this.store.dispatch(new purchaseAction.StartTransaction({
                     params: {
                         expires: moment().add(environment.TRANSACTION_TIME, 'minutes').toDate(),
                         seller: {
@@ -210,14 +206,14 @@ export class PurchaseScheduleComponent implements OnInit, OnDestroy {
 
 
         const success = this.actions.pipe(
-            ofType(ActionTypes.StartTransactionSuccess),
+            ofType(purchaseAction.ActionTypes.StartTransactionSuccess),
             tap(() => {
                 this.router.navigate(['/purchase/seat']);
             })
         );
 
         const fail = this.actions.pipe(
-            ofType(ActionTypes.StartTransactionFail),
+            ofType(purchaseAction.ActionTypes.StartTransactionFail),
             tap(() => {
                 this.router.navigate(['/error']);
             })
@@ -230,8 +226,8 @@ export class PurchaseScheduleComponent implements OnInit, OnDestroy {
             centered: true
         });
         modalRef.result.then(() => {
-            this.store.dispatch(new UnsettledDelete());
-            this.store.dispatch(new SelectSchedule({ screeningEvent }));
+            this.store.dispatch(new purchaseAction.UnsettledDelete());
+            this.store.dispatch(new purchaseAction.SelectSchedule({ screeningEvent }));
             this.router.navigate(['/purchase/seat']);
         }).catch(() => { });
     }

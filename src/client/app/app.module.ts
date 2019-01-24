@@ -50,6 +50,9 @@ import { TicketListModalComponent } from './components/parts/ticket-list-modal/t
 import { LibphonenumberFormatPipe } from './pipes/libphonenumber-format.pipe';
 import { StoreModule } from './store.module';
 import { CoreStoreModule } from './store/core/store';
+import { AdmissionScheduleComponent } from './components/pages/admission/admission-schedule/admission-schedule.component';
+import { AdmissionCheckComponent } from './components/pages/admission/admission-check/admission-check.component';
+import { AdmissionScheduleFilmComponent } from './components/parts/admission-schedule-film/admission-schedule-film.component';
 
 @NgModule({
     declarations: [
@@ -92,7 +95,10 @@ import { CoreStoreModule } from './store/core/store';
         CongestionComponent,
         MaintenanceComponent,
         PurchaseCartComponent,
-        PurchaseTransactionModalComponent
+        PurchaseTransactionModalComponent,
+        AdmissionScheduleComponent,
+        AdmissionCheckComponent,
+        AdmissionScheduleFilmComponent
     ],
     entryComponents: [
         TicketListModalComponent,

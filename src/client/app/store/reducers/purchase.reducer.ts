@@ -12,9 +12,7 @@ import { Actions, ActionTypes } from '../actions/purchase.action';
  * IPurchaseState
  */
 export interface IPurchaseState {
-    movieTheaters: factory.organization.IOrganization<factory.organizationType.MovieTheater>[];
     movieTheater?: factory.organization.IOrganization<factory.organizationType.MovieTheater>;
-    screeningEvents: factory.chevre.event.screeningEvent.IEvent[];
     screeningEvent?: factory.chevre.event.screeningEvent.IEvent;
     scheduleDate?: string;
     transaction?: factory.transaction.placeOrder.ITransaction;
@@ -38,9 +36,19 @@ export interface IPurchaseState {
     pendingMovieTickets: IMovieTicket[];
 }
 
-export interface IHistoryState {
-    purchase: factory.order.IOrder[];
-}
+export const purchaseInitialState: IPurchaseState = {
+    screeningEventOffers: [],
+    reservations: [],
+    screeningEventTicketOffers: [],
+    orderCount: 0,
+    checkMovieTicketActions: [],
+    authorizeSeatReservations: [],
+    authorizeMovieTicketPayments: [],
+    authorizeCreditCardPayments: [],
+    authorizeAnyPayments: [],
+    isUsedMovieTicket: false,
+    pendingMovieTickets: []
+};
 
 /**
  * Reducer
@@ -52,8 +60,6 @@ export function reducer(state: IState, action: Actions): IState {
         case ActionTypes.Delete: {
             const authorizeSeatReservation = state.purchase.authorizeSeatReservation;
             state.purchase = {
-                movieTheaters: [],
-                screeningEvents: [],
                 screeningEventOffers: [],
                 reservations: [],
                 screeningEventTicketOffers: [],
@@ -78,36 +84,15 @@ export function reducer(state: IState, action: Actions): IState {
             state.purchase.isUsedMovieTicket = false;
             return { ...state };
         }
-        case ActionTypes.GetTheaters: {
-            return { ...state, loading: true, process: '劇場情報を取得しています' };
-        }
-        case ActionTypes.GetTheatersSuccess: {
-            const movieTheaters = action.payload.movieTheaters;
-            return { ...state, loading: false, process: '', error: null, purchase: { ...state.purchase, movieTheaters } };
-        }
-        case ActionTypes.GetTheatersFail: {
-            const error = action.payload.error;
-            return { ...state, loading: false, process: '', error: JSON.stringify(error) };
-        }
         case ActionTypes.SelectTheater: {
             const movieTheater = action.payload.movieTheater;
             state.purchase.movieTheater = movieTheater;
             return { ...state, loading: false, process: '', error: null };
         }
-        case ActionTypes.GetSchedule: {
+        case ActionTypes.SelectScheduleDate: {
             const scheduleDate = action.payload.scheduleDate;
             state.purchase.scheduleDate = scheduleDate;
-            return { ...state, loading: true, process: 'スケジュールを取得しています' };
-        }
-        case ActionTypes.GetScheduleSuccess: {
-            const screeningEvents = action.payload.screeningEvents;
-            state.purchase.screeningEvents = screeningEvents;
-
-            return { ...state, loading: false, process: '', error: null };
-        }
-        case ActionTypes.GetScheduleFail: {
-            const error = action.payload.error;
-            return { ...state, loading: false, process: '', error: JSON.stringify(error) };
+            return { ...state, loading: true, process: '', error: null };
         }
         case ActionTypes.SelectSchedule: {
             const screeningEvent = action.payload.screeningEvent;
@@ -119,8 +104,6 @@ export function reducer(state: IState, action: Actions): IState {
         }
         case ActionTypes.StartTransactionSuccess: {
             state.purchase.transaction = action.payload.transaction;
-            state.purchase.screeningEvents = [];
-            state.purchase.movieTheaters = [];
             return { ...state, loading: false, process: '', error: null };
         }
         case ActionTypes.StartTransactionFail: {
@@ -357,8 +340,6 @@ export function reducer(state: IState, action: Actions): IState {
         case ActionTypes.ReserveSuccess: {
             const order = action.payload.order;
             state.purchase = {
-                movieTheaters: [],
-                screeningEvents: [],
                 screeningEventOffers: [],
                 reservations: [],
                 screeningEventTicketOffers: [],

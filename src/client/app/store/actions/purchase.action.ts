@@ -9,13 +9,8 @@ import { IMovieTicket, IReservationSeat, IScreen, Reservation } from '../../mode
 export enum ActionTypes {
     Delete = '[Purchase] Delete',
     UnsettledDelete = '[Purchase] Unsettled Delete',
-    GetTheaters = '[Purchase] Get Theaters',
-    GetTheatersSuccess = '[Purchase] Get Theaters Success',
-    GetTheatersFail = '[Purchase] Get Theaters Fail',
     SelectTheater = '[Purchase] Select Theater',
-    GetSchedule = '[Purchase] Get Schedule',
-    GetScheduleSuccess = '[Purchase] Get Schedule Success',
-    GetScheduleFail = '[Purchase] Get Schedule Fail',
+    SelectScheduleDate = '[Purchase] Select Schedule Date',
     SelectSchedule = '[Purchase] Select Schedule',
     StartTransaction = '[Purchase] Start Transaction',
     StartTransactionSuccess = '[Purchase] Start Transaction Success',
@@ -76,30 +71,6 @@ export class UnsettledDelete implements Action {
 }
 
 /**
- * GetTheaters
- */
-export class GetTheaters implements Action {
-    public readonly type = ActionTypes.GetTheaters;
-    constructor(public payload: { params: factory.organization.ISearchConditions<factory.organizationType.MovieTheater> }) { }
-}
-
-/**
- * GetTheatersSuccess
- */
-export class GetTheatersSuccess implements Action {
-    public readonly type = ActionTypes.GetTheatersSuccess;
-    constructor(public payload: { movieTheaters: factory.organization.IOrganization<factory.organizationType.MovieTheater>[] }) { }
-}
-
-/**
- * GetTheatersFail
- */
-export class GetTheatersFail implements Action {
-    public readonly type = ActionTypes.GetTheatersFail;
-    constructor(public payload: { error: Error }) { }
-}
-
-/**
  * SelectTheater
  */
 export class SelectTheater implements Action {
@@ -108,35 +79,12 @@ export class SelectTheater implements Action {
 }
 
 /**
- * GetSchedule
+ * SelectScheduleDate
  */
-export class GetSchedule implements Action {
-    public readonly type = ActionTypes.GetSchedule;
-    constructor(public payload: {
-        movieTheater: factory.organization.IOrganization<factory.organizationType.MovieTheater>;
-        scheduleDate: string;
-    }) { }
+export class SelectScheduleDate implements Action {
+    public readonly type = ActionTypes.SelectScheduleDate;
+    constructor(public payload: { scheduleDate: string }) { }
 }
-
-/**
- * GetScheduleSuccess
- */
-export class GetScheduleSuccess implements Action {
-    public readonly type = ActionTypes.GetScheduleSuccess;
-    constructor(public payload: {
-        screeningEvents: factory.chevre.event.screeningEvent.IEvent[];
-        scheduleDate: string;
-    }) { }
-}
-
-/**
- * GetScheduleFail
- */
-export class GetScheduleFail implements Action {
-    public readonly type = ActionTypes.GetScheduleFail;
-    constructor(public payload: { error: Error }) { }
-}
-
 
 /**
  * SelectSchedule
@@ -548,13 +496,8 @@ export class SelectPaymentMethodType implements Action {
 export type Actions =
     | Delete
     | UnsettledDelete
-    | GetTheaters
-    | GetTheatersSuccess
-    | GetTheatersFail
+    | SelectScheduleDate
     | SelectTheater
-    | GetSchedule
-    | GetScheduleSuccess
-    | GetScheduleFail
     | SelectSchedule
     | StartTransaction
     | StartTransactionSuccess

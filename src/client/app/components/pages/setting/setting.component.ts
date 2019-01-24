@@ -9,6 +9,7 @@ import { Observable, race } from 'rxjs';
 import { take, tap } from 'rxjs/operators';
 import { LibphonenumberFormatPipe } from '../../../pipes/libphonenumber-format.pipe';
 import * as inquiryAction from '../../../store/actions/inquiry.action';
+import * as masterAction from '../../../store/actions/master.action';
 import * as userAction from '../../../store/actions/user.action';
 import * as reducers from '../../../store/reducers';
 import { AlertModalComponent } from '../../parts/alert-modal/alert-modal.component';
@@ -21,6 +22,7 @@ import { AlertModalComponent } from '../../parts/alert-modal/alert-modal.compone
 export class SettingComponent implements OnInit {
     public settingForm: FormGroup;
     public user: Observable<reducers.IUserState>;
+    public master: Observable<reducers.IMasterState>;
     public error: Observable<string | null>;
     public posList: { id: string; name: string; typeOf: string; }[];
     constructor(
@@ -33,6 +35,7 @@ export class SettingComponent implements OnInit {
 
     public ngOnInit() {
         this.user = this.store.pipe(select(reducers.getUser));
+        this.master = this.store.pipe(select(reducers.getMaster));
         this.error = this.store.pipe(select(reducers.getError));
         this.posList = [];
         this.getTheaters();
@@ -120,14 +123,14 @@ export class SettingComponent implements OnInit {
             this.posList = [];
             return;
         }
-        this.user.subscribe((user) => {
+        this.master.subscribe((master) => {
             const findTheater =
-                user.movieTheaters.find(theater => theater.location.branchCode === theaterCode);
+                master.movieTheaters.find(theater => theater.location.branchCode === theaterCode);
             if (findTheater === undefined) {
                 this.posList = [];
                 return;
             }
-            this.posList = (<any>findTheater).hasPOS;
+            this.posList = findTheater.hasPOS;
         }).unsubscribe();
     }
 
@@ -135,15 +138,15 @@ export class SettingComponent implements OnInit {
      * getTheaters
      */
     public getTheaters() {
-        this.store.dispatch(new userAction.GetTheaters({ params: {} }));
+        this.store.dispatch(new masterAction.GetTheaters({ params: {} }));
 
         const success = this.actions.pipe(
-            ofType(userAction.ActionTypes.GetTheatersSuccess),
+            ofType(masterAction.ActionTypes.GetTheatersSuccess),
             tap(() => { })
         );
 
         const fail = this.actions.pipe(
-            ofType(userAction.ActionTypes.GetTheatersFail),
+            ofType(masterAction.ActionTypes.GetTheatersFail),
             tap(() => {
                 this.router.navigate(['/error']);
             })
@@ -162,8 +165,8 @@ export class SettingComponent implements OnInit {
             });
             return;
         }
-        this.user.subscribe((user) => {
-            const findMovieTheater = user.movieTheaters.find((theater) => {
+        this.master.subscribe((master) => {
+            const findMovieTheater = master.movieTheaters.find((theater) => {
                 return theater.location.branchCode === this.settingForm.controls.theaterCode.value;
             });
             if (findMovieTheater === undefined) {
