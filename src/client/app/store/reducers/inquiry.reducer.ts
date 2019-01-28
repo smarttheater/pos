@@ -25,7 +25,7 @@ export function reducer(state: IState, action: Actions): IState {
             return { ...state };
         }
         case ActionTypes.Inquiry: {
-            return { ...state, loading: true, process: '処理しています' };
+            return { ...state, loading: true, process: '照会しています' };
         }
         case ActionTypes.InquirySuccess: {
             const order = action.payload.order;
