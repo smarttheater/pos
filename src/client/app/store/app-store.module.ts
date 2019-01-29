@@ -5,6 +5,7 @@ import {
     AdmissionEffects,
     InquiryEffects,
     MasterEffects,
+    OrderEffects,
     PurchaseEffects,
     UserEffects
 } from './effects';
@@ -18,7 +19,8 @@ import { reducer } from './reducers';
             InquiryEffects,
             PurchaseEffects,
             UserEffects,
-            MasterEffects
+            MasterEffects,
+            OrderEffects
         ])
     ]
 })

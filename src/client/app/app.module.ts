@@ -22,6 +22,7 @@ import { InquiryHistoryComponent } from './components/pages/inquiry/inquiry-hist
 import { InquiryInputComponent } from './components/pages/inquiry/inquiry-input/inquiry-input.component';
 import { MaintenanceComponent } from './components/pages/maintenance/maintenance.component';
 import { NotfoundComponent } from './components/pages/notfound/notfound.component';
+import { OrderListComponent } from './components/pages/order/order-list/order-list.component';
 import { PurchaseBaseComponent } from './components/pages/purchase/purchase-base/purchase-base.component';
 import { PurchaseCartComponent } from './components/pages/purchase/purchase-cart/purchase-cart.component';
 import { PurchaseCompleteComponent } from './components/pages/purchase/purchase-complete/purchase-complete.component';
@@ -42,6 +43,7 @@ import { HeaderComponent } from './components/parts/header/header.component';
 import { LoadingComponent } from './components/parts/loading/loading.component';
 import { MvtkCheckModalComponent } from './components/parts/mvtk-check-modal/mvtk-check-modal.component';
 import { NumericKeypadComponent } from './components/parts/numeric-keypad/numeric-keypad.component';
+import { OrderDetailModalComponent } from './components/parts/order-detail-modal/order-detail-modal.component';
 import { PurchaseContentsComponent } from './components/parts/purchase-contents/purchase-contents.component';
 import { PurchaseInfoComponent } from './components/parts/purchase-info/purchase-info.component';
 import { PurchasePaymentModalComponent } from './components/parts/purchase-payment-modal/purchase-payment-modal.component';
@@ -98,7 +100,9 @@ import { CoreStoreModule } from './store/core/store';
         PurchaseTransactionModalComponent,
         AdmissionScheduleComponent,
         AdmissionCheckComponent,
-        AdmissionScheduleFilmComponent
+        AdmissionScheduleFilmComponent,
+        OrderListComponent,
+        OrderDetailModalComponent
     ],
     entryComponents: [
         TicketListModalComponent,
@@ -107,7 +111,8 @@ import { CoreStoreModule } from './store/core/store';
         QrCodeModalComponent,
         MvtkCheckModalComponent,
         PurchasePaymentModalComponent,
-        PurchaseTransactionModalComponent
+        PurchaseTransactionModalComponent,
+        OrderDetailModalComponent
     ],
     imports: [
         BrowserModule,

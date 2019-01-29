@@ -12,6 +12,7 @@ import { SettingComponent } from './components/pages/setting/setting.component';
 import * as admission from './routes/admission.route';
 import * as auth from './routes/auth.route';
 import * as inquiry from './routes/inquiry.route';
+import * as order from './routes/order.route';
 import * as purchase from './routes/purchase.route';
 
 const appRoutes: Routes = [
@@ -20,6 +21,7 @@ const appRoutes: Routes = [
     auth.route,
     inquiry.route,
     admission.route,
+    order.route,
     {
         path: '',
         component: BaseComponent,

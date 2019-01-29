@@ -30,8 +30,7 @@ export class InquiryEffects {
             const confirmationNumber = payload.confirmationNumber;
             const customer = {
                 telephone: (payload.customer.telephone === undefined)
-                    ? ''
-                    : formatTelephone(payload.customer.telephone)
+                    ? '' : formatTelephone(payload.customer.telephone)
             };
             try {
                 const order = await this.cinerino.order.findByConfirmationNumber({

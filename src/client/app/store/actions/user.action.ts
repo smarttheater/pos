@@ -5,7 +5,7 @@ import { Action } from '@ngrx/store';
  * Action types
  */
 export enum ActionTypes {
-    Delete = '[User] User',
+    Delete = '[User] Delete',
     UpdateAll = '[User] Update All'
 }
 
@@ -14,7 +14,7 @@ export enum ActionTypes {
  */
 export class Delete implements Action {
     public readonly type = ActionTypes.Delete;
-    constructor(public payload: {}) { }
+    constructor(public payload?: {}) { }
 }
 
 /**

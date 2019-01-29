@@ -158,3 +158,17 @@ button {
 .border-light-gray {
     border-color: #EEE !important;
 }
+
+
+// pagination
+.page-item {
+    &.active {
+        .page-link {
+            background-color: theme-color('primary');
+            border-color: theme-color('primary');
+        }
+    }
+    .page-link {
+        color: theme-color('primary');
+    }
+}
