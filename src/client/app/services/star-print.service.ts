@@ -57,8 +57,8 @@ export class StarPrintService {
                 throw new Error('選択しているプリンターに対応していません');
             }
             const url = (findResult.connectionType === connectionType.LAN)
-                ? `//${printer.ipAddress}:${port}/StarWebPRNT/SendMessage`
-                : `//${printer.ipAddress}/StarWebPRNT/SendMessage`;
+                ? `https://${printer.ipAddress}:${port}/StarWebPRNT/SendMessage`
+                : `https://${printer.ipAddress}/StarWebPRNT/SendMessage`;
             const papertype = 'normal';
             const blackmark_sensor = 'front_side';
             // trader設定
