@@ -4,12 +4,9 @@ import { Actions, ActionTypes } from '../actions/inquiry.action';
 
 export interface IInquiryState {
     order?: factory.order.IOrder;
-    orders: factory.order.IOrder[];
 }
 
-export const inquiryInitialState: IInquiryState = {
-    orders: []
-};
+export const inquiryInitialState: IInquiryState = {};
 
 /**
  * Reducer
@@ -19,9 +16,7 @@ export const inquiryInitialState: IInquiryState = {
 export function reducer(state: IState, action: Actions): IState {
     switch (action.type) {
         case ActionTypes.Delete: {
-            state.inquiry = {
-                orders: []
-            };
+            state.inquiry = {};
             return { ...state };
         }
         case ActionTypes.Inquiry: {
@@ -41,7 +36,7 @@ export function reducer(state: IState, action: Actions): IState {
         }
         case ActionTypes.OrderAuthorizeSuccess: {
             const authorizeOrder = action.payload.order;
-           state.inquiry.order = authorizeOrder;
+            state.inquiry.order = authorizeOrder;
 
             return { ...state, loading: false, process: '', error: null };
         }
