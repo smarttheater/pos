@@ -92,26 +92,6 @@ export class InquiryEffects {
     );
 
     /**
-     * getPurchaseHistory
-     */
-    @Effect()
-    public getPurchaseHistory = this.actions.pipe(
-        ofType<inquiry.GetPurchaseHistory>(inquiry.ActionTypes.GetPurchaseHistory),
-        map(action => action.payload),
-        mergeMap(async (payload) => {
-            try {
-                const params = Object.assign({ personId: 'me' }, payload.params);
-                await this.cinerino.getServices();
-                const searchOrdersResult = await this.cinerino.person.searchOrders(params);
-                const orders = searchOrdersResult.data;
-                return new inquiry.GetPurchaseHistorySuccess({ result: orders });
-            } catch (error) {
-                return new inquiry.GetPurchaseHistoryFail({ error: error });
-            }
-        })
-    );
-
-    /**
      * orderAuthorize
      */
     @Effect()

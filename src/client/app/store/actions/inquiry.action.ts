@@ -13,9 +13,6 @@ export enum ActionTypes {
     Print = '[Inquiry] Print',
     PrintSuccess = '[Inquiry] Print Success',
     PrintFail = '[Inquiry] Print Fail',
-    GetPurchaseHistory = '[Inquiry] Get Purchase History',
-    GetPurchaseHistorySuccess = '[Inquiry] Get Purchase History Success',
-    GetPurchaseHistoryFail = '[Inquiry] Get Purchase History Fail',
     OrderAuthorize = '[Inquiry] Order Authorize',
     OrderAuthorizeSuccess = '[Inquiry] Order Authorize Success',
     OrderAuthorizeFail = '[Inquiry] Order Authorize Fail'
@@ -88,29 +85,6 @@ export class PrintFail implements Action {
     constructor(public payload: { error: Error }) { }
 }
 
-/**
- * GetPurchaseHistory
- */
-export class GetPurchaseHistory implements Action {
-    public readonly type = ActionTypes.GetPurchaseHistory;
-    constructor(public payload: { params: factory.order.ISearchConditions }) { }
-}
-
-/**
- * GetPurchaseHistorySuccess
- */
-export class GetPurchaseHistorySuccess implements Action {
-    public readonly type = ActionTypes.GetPurchaseHistorySuccess;
-    constructor(public payload: { result: factory.order.IOrder[] }) { }
-}
-
-/**
- * GetPurchaseHistoryFail
- */
-export class GetPurchaseHistoryFail implements Action {
-    public readonly type = ActionTypes.GetPurchaseHistoryFail;
-    constructor(public payload: { error: Error }) { }
-}
 
 /**
  * OrderAuthorize
@@ -155,9 +129,6 @@ export type Actions =
     | Print
     | PrintSuccess
     | PrintFail
-    | GetPurchaseHistory
-    | GetPurchaseHistorySuccess
-    | GetPurchaseHistoryFail
     | OrderAuthorize
     | OrderAuthorizeSuccess
     | OrderAuthorizeFail;

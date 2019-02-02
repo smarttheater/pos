@@ -31,8 +31,8 @@ export class OrderEffects {
                 //     params.customer.telephone = formatTelephone(params.customer.telephone)
                 // }
                 const searchResult = await this.cinerino.order.search(params);
-
-                return new orderAction.SearchSuccess({ searchResult });
+                const limit = <number>params.limit;
+                return new orderAction.SearchSuccess({ searchResult, limit });
             } catch (error) {
                 return new orderAction.SearchFail({ error: error });
             }

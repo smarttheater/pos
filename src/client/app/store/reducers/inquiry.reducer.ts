@@ -36,18 +36,6 @@ export function reducer(state: IState, action: Actions): IState {
             const error = action.payload.error;
             return { ...state, loading: false, process: '', error: JSON.stringify(error) };
         }
-        case ActionTypes.GetPurchaseHistory: {
-            return { ...state, loading: true, process: '購入履歴を取得しています', };
-        }
-        case ActionTypes.GetPurchaseHistorySuccess: {
-            const orders = action.payload.result;
-            state.inquiry.orders = orders;
-            return { ...state, loading: false, process: '', error: null };
-        }
-        case ActionTypes.GetPurchaseHistoryFail: {
-            const error = action.payload.error;
-            return { ...state, loading: false, process: '', error: JSON.stringify(error) };
-        }
         case ActionTypes.OrderAuthorize: {
             return { ...state, loading: true, process: 'QRコードを取得しています', };
         }

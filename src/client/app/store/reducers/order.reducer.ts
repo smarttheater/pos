@@ -35,9 +35,10 @@ export function reducer(state: IState, action: Actions): IState {
         }
         case ActionTypes.SearchSuccess: {
             const searchResult = action.payload.searchResult;
+            const limit = action.payload.limit;
             state.order.orders = searchResult.data;
             state.order.totalCount = searchResult.totalCount;
-            state.order.pageCount = Math.ceil(searchResult.totalCount / searchResult.data.length);
+            state.order.pageCount = Math.ceil(searchResult.totalCount / limit);
             return { ...state, loading: false, process: '', error: null };
         }
         case ActionTypes.SearchFail: {

@@ -39,7 +39,8 @@ export class Search implements Action {
 export class SearchSuccess implements Action {
     public readonly type = ActionTypes.SearchSuccess;
     constructor(public payload: {
-        searchResult: ISearchResult<factory.order.IOrder[]>
+        searchResult: ISearchResult<factory.order.IOrder[]>,
+        limit: number;
     }) { }
 }
 
