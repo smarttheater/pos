@@ -45,8 +45,11 @@ export class MasterEffects {
         map(action => action.payload),
         mergeMap(async (payload) => {
             try {
+                if (payload.movieTheater.location === undefined) {
+                    throw new Error('movieTheater.location is undefined');
+                }
                 await this.cinerino.getServices();
-                const branchCode = payload.movieTheater.location.branchCode;
+                const branchCode = <string>payload.movieTheater.location.branchCode;
                 const scheduleDate = payload.scheduleDate;
                 const today = moment(moment().format('YYYY-MM-DD')).toDate();
                 const screeningEventsResult = await this.cinerino.event.searchScreeningEvents({

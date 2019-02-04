@@ -127,7 +127,7 @@ export class Print implements Action {
     constructor(public payload: {
         order?: factory.order.IOrder;
         printer: IPrinter;
-        pos?: factory.organization.IPOS;
+        pos?: factory.seller.IPOS;
         timeout?: number;
     }) { }
 }
