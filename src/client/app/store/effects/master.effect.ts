@@ -49,13 +49,15 @@ export class MasterEffects {
                     throw new Error('movieTheater.location is undefined');
                 }
                 await this.cinerino.getServices();
-                const branchCode = <string>payload.movieTheater.location.branchCode;
+                const branchCode = payload.movieTheater.location.branchCode;
                 const scheduleDate = payload.scheduleDate;
                 const today = moment(moment().format('YYYY-MM-DD')).toDate();
                 const screeningEventsResult = await this.cinerino.event.searchScreeningEvents({
                     typeOf: factory.chevre.eventType.ScreeningEvent,
                     eventStatuses: [factory.chevre.eventStatusType.EventScheduled],
-                    superEvent: { locationBranchCodes: [branchCode] },
+                    superEvent: {
+                        locationBranchCodes: (branchCode === undefined) ? [] : [branchCode]
+                    },
                     startFrom: moment(scheduleDate).toDate(),
                     startThrough: moment(scheduleDate).add(1, 'day').toDate(),
                     offers: {
