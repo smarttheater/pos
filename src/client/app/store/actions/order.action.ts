@@ -68,7 +68,7 @@ export class SearchFail implements Action {
 export class Cancel implements Action {
     public readonly type = ActionTypes.Cancel;
     constructor(public payload: {
-        order: factory.order.IOrder
+        orders: factory.order.IOrder[]
     }) { }
 }
 
@@ -125,7 +125,7 @@ export class InquiryFail implements Action {
 export class Print implements Action {
     public readonly type = ActionTypes.Print;
     constructor(public payload: {
-        order?: factory.order.IOrder;
+        orders?: factory.order.IOrder[];
         printer: IPrinter;
         pos?: factory.seller.IPOS;
         timeout?: number;
