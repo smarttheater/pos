@@ -8,10 +8,9 @@ import * as moment from 'moment';
 import { Observable, race } from 'rxjs';
 import { take, tap } from 'rxjs/operators';
 import { OrderActions } from '../../../../models';
+import { UtilService } from '../../../../services';
 import { ActionTypes, Cancel, Delete, Print, Search } from '../../../../store/actions/order.action';
 import * as reducers from '../../../../store/reducers';
-import { AlertModalComponent } from '../../../parts/alert-modal/alert-modal.component';
-import { ConfirmModalComponent } from '../../../parts/confirm-modal/confirm-modal.component';
 import { OrderDetailModalComponent } from '../../../parts/order-detail-modal/order-detail-modal.component';
 
 @Component({
@@ -47,7 +46,8 @@ export class OrderListComponent implements OnInit {
         private store: Store<reducers.IOrderState>,
         private actions: Actions,
         private modal: NgbModal,
-        private router: Router
+        private router: Router,
+        private util: UtilService
     ) { }
 
     public ngOnInit() {
@@ -139,39 +139,11 @@ export class OrderListComponent implements OnInit {
         race(success, fail).pipe(take(1)).subscribe();
     }
 
-    public openAlert(args: {
-        title: string;
-        body: string;
-    }) {
-        const modalRef = this.modal.open(AlertModalComponent, {
-            centered: true
-        });
-        modalRef.componentInstance.title = args.title;
-        modalRef.componentInstance.body = args.body;
-    }
-
-    private openConfirm(args: {
-        title: string;
-        body: string;
-        cb: Function
-    }) {
-        const modalRef = this.modal.open(ConfirmModalComponent, {
-            centered: true
-        });
-        modalRef.result.then(async () => {
-            args.cb();
-            modalRef.dismiss();
-        }).catch(() => { });
-
-        modalRef.componentInstance.title = args.title;
-        modalRef.componentInstance.body = args.body;
-    }
-
     /**
      * 印刷確認
      */
     public printConfirm(orders: factory.order.IOrder[]) {
-        this.openConfirm({
+        this.util.openConfirm({
             title: '確認',
             body: '印刷してよろしいですか。',
             cb: () => {
@@ -184,7 +156,7 @@ export class OrderListComponent implements OnInit {
      * キャンセル確認
      */
     public cancelConfirm(orders: factory.order.IOrder[]) {
-        this.openConfirm({
+        this.util.openConfirm({
             title: '確認',
             body: 'キャンセルしてよろしいですか。',
             cb: () => {
@@ -218,7 +190,7 @@ export class OrderListComponent implements OnInit {
             ofType(ActionTypes.SearchFail),
             tap(() => {
                 this.error.subscribe((error) => {
-                    this.openAlert({
+                    this.util.openAlert({
                         title: 'エラー',
                         body: `
                         <p class="mb-4">キャンセルに失敗しました</p>
@@ -256,7 +228,7 @@ export class OrderListComponent implements OnInit {
             ofType(ActionTypes.PrintFail),
             tap(() => {
                 this.error.subscribe((error) => {
-                    this.openAlert({
+                    this.util.openAlert({
                         title: 'エラー',
                         body: `
                         <p class="mb-4">印刷に失敗しました</p>
@@ -275,13 +247,13 @@ export class OrderListComponent implements OnInit {
      */
     public selecedtAction() {
         if (this.selectedOrders.length === 0) {
-            this.openAlert({
+            this.util.openAlert({
                 title: 'エラー',
                 body: `注文が選択されていません。`
             });
         }
         if (this.actionSelect === OrderActions.Cancel) {
-            this.openConfirm({
+            this.util.openConfirm({
                 title: '確認',
                 body: 'キャンセルしてよろしいですか。',
                 cb: () => {
@@ -289,7 +261,7 @@ export class OrderListComponent implements OnInit {
                 }
             });
         } else if (this.actionSelect === OrderActions.Print) {
-            this.openConfirm({
+            this.util.openConfirm({
                 title: '確認',
                 body: '印刷してよろしいですか。',
                 cb: () => {

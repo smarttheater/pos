@@ -104,11 +104,11 @@
                     <div class="row">
                         <p class="col-md-4 py-2 text-md-right">プリンター</p>
                         <div class="col-md-8">
-                            <select class="form-control" formControlName="printerId">
+                            <select class="form-control" formControlName="printerType">
                                 <option value="">選択してください</option>
-                                <option *ngFor="let printer of printers" [value]="printer.id">{{ printer.name.ja }}</option>
+                                <option *ngFor="let printer of printers" [value]="printer.connectionType">{{ printer.name.ja }}</option>
                             </select>
-                            <button type="button" class="btn btn-sm btn-primary py-2 mt-2" (click)="print()">テスト印刷</button>
+                            <button *ngIf="this.settingForm.controls.printerType.value && this.settingForm.controls.printerType.value !== '001'" type="button" class="btn btn-sm btn-primary py-2 mt-2" (click)="print()">テスト印刷</button>
                         </div>
                     </div>
                 </div>

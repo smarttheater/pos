@@ -1,13 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { factory } from '@cinerino/api-javascript-client';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Actions, ofType } from '@ngrx/effects';
 import { select, Store } from '@ngrx/store';
 import * as moment from 'moment';
 import { Observable, race } from 'rxjs';
 import { take, tap } from 'rxjs/operators';
 import { getAmount, getTicketPrice } from '../../../../functions';
+import { UtilService } from '../../../../services';
 import {
     ActionTypes,
     AuthorizeAnyPayment,
@@ -16,7 +16,6 @@ import {
     Reserve
 } from '../../../../store/actions/purchase.action';
 import * as reducers from '../../../../store/reducers';
-import { AlertModalComponent } from '../../../parts/alert-modal/alert-modal.component';
 
 @Component({
     selector: 'app-purchase-confirm',
@@ -37,7 +36,7 @@ export class PurchaseConfirmComponent implements OnInit {
         private store: Store<reducers.IState>,
         private actions: Actions,
         private router: Router,
-        private modal: NgbModal
+        private util: UtilService
     ) { }
 
     public ngOnInit() {
@@ -192,7 +191,7 @@ export class PurchaseConfirmComponent implements OnInit {
             }
             if (purchase.paymentMethod.typeOf === factory.paymentMethodType.Cash) {
                 if (Number(this.depositAmount) < this.amount) {
-                    this.openAlert({
+                    this.util.openAlert({
                         title: 'エラー',
                         body: 'お預かり金額に誤りがあります。'
                     });
@@ -211,17 +210,6 @@ export class PurchaseConfirmComponent implements OnInit {
 
     public changeDepositAmount(value: string) {
         this.depositAmount = String(Number(value));
-    }
-
-    public openAlert(args: {
-        title: string;
-        body: string;
-    }) {
-        const modalRef = this.modal.open(AlertModalComponent, {
-            centered: true
-        });
-        modalRef.componentInstance.title = args.title;
-        modalRef.componentInstance.body = args.body;
     }
 
 }

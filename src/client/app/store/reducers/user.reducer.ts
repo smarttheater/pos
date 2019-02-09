@@ -1,15 +1,13 @@
 import { factory } from '@cinerino/api-javascript-client';
 import { IState } from '.';
+import { IPrinter } from '../../models';
 import { Actions, ActionTypes } from '../actions/user.action';
 
 export interface IUserState {
     movieTheater?: factory.seller.IOrganization<factory.seller.IAttributes<factory.organizationType>>;
     pos?: factory.seller.IPOS;
     customerContact?: factory.transaction.placeOrder.ICustomerContact;
-    printer?: {
-        ipAddress: string;
-        id: string;
-    };
+    printer?: IPrinter;
 }
 
 export const userInitialState: IUserState = {};

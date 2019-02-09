@@ -1,7 +1,9 @@
 import { Injectable } from '@angular/core';
+import { factory } from '@cinerino/api-javascript-client';
 import { Actions, Effect, ofType } from '@ngrx/effects';
 import { map, mergeMap } from 'rxjs/operators';
-import { formatTelephone } from '../../functions';
+import { createPrintImage, createTestPrintImage, formatTelephone, retry } from '../../functions';
+import { connectionType } from '../../models';
 import { CinerinoService, StarPrintService, UtilService } from '../../services';
 import * as orderAction from '../actions/order.action';
 
@@ -99,36 +101,62 @@ export class OrderEffects {
                 const orders = payload.orders;
                 const printer = payload.printer;
                 const pos = payload.pos;
-                const timeout = 60000;
-                this.starPrint.initialize({ printer, pos, timeout });
-                let printerRequests: string[] = [];
-                if (orders === undefined) {
-                    printerRequests = await this.starPrint.createPrinterTestRequest();
-                } else {
-                    for (const order of orders) {
-                        const createPrinterRequestListResult =
-                            await this.starPrint.createPrinterRequestList({ order });
-                        printerRequests = printerRequests.concat(createPrinterRequestListResult);
-                    }
+                await this.cinerino.getServices();
+                const authorizeOrders: factory.order.IOrder[] = [];
+                for (const order of orders) {
+                    const result = await retry<factory.order.IOrder>({
+                        process: (async () => {
+                            const orderNumber = order.orderNumber;
+                            const customer = {
+                                // email: args.order.customer.email,
+                                telephone: order.customer.telephone
+                            };
+                            const authorizeOrder = await this.cinerino.order.authorizeOwnershipInfos({ orderNumber, customer });
+
+                            return authorizeOrder;
+                        }),
+                        interval: 5000,
+                        limit: 5
+                    });
+
+                    authorizeOrders.push(result);
                 }
-                // n分割配列へ変換
-                const divide = 4;
-                const divideRequests: string[] = [];
-                let divideRequest = '';
-                printerRequests.forEach((request, index) => {
-                    divideRequest += request;
-                    if ((index + 1) % divide === 0) {
-                        divideRequests.push(divideRequest);
-                        divideRequest = '';
-                    }
-                });
-                if (divideRequest !== '') {
-                    divideRequests.push(divideRequest);
-                }
-                for (const printerRequest of divideRequests) {
-                    // safari対応のため0.3秒待つ
-                    await this.util.sleep(300);
-                    await this.starPrint.print({ printerRequest });
+
+                switch (printer.connectionType) {
+                    case connectionType.StarBluetooth:
+                        await this.starPrint.printProcess({ orders: authorizeOrders, printer, pos });
+                        break;
+                    case connectionType.StarLAN:
+                        await this.starPrint.printProcess({ orders: authorizeOrders, printer, pos });
+                        break;
+                    case connectionType.Image:
+                        const images: string[] = [];
+                        if (authorizeOrders.length > 0) {
+                            for (const authorizeOrder of authorizeOrders) {
+                                for (let i = 0; i < authorizeOrder.acceptedOffers.length; i++) {
+                                    const canvas = await createPrintImage({ order: authorizeOrder, offerIndex: i });
+                                    const image = canvas.toDataURL();
+                                    images.push(image);
+                                }
+                            }
+                        } else {
+                            const canvas = await createTestPrintImage();
+                            const image = canvas.toDataURL();
+                            images.push(image);
+                        }
+
+                        const domList = images.map(image => `<div class="mb-3 p-4 border border-light-gray shadow-sm">
+                        <img class="w-100" src="${image}">
+                        </div>`);
+
+                        this.util.openAlert({
+                            title: 'QRコード',
+                            body: `<div class="px-5">${domList.join('\n')}</div>`
+                        });
+
+                        break;
+                    default:
+                        break;
                 }
 
                 return new orderAction.PrintSuccess();
