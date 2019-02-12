@@ -27,7 +27,7 @@ export class MasterEffects {
         mergeMap(async (payload) => {
             try {
                 await this.cinerino.getServices();
-                const searchMovieTheatersResult = await this.cinerino.organization.searchMovieTheaters(payload.params);
+                const searchMovieTheatersResult = await this.cinerino.seller.search(payload.params);
                 const movieTheaters = searchMovieTheatersResult.data;
                 return new master.GetTheatersSuccess({ movieTheaters });
             } catch (error) {
