@@ -65,7 +65,10 @@ export class MasterEffects {
                         availableThrough: today
                     }
                 });
-                const screeningEvents = screeningEventsResult.data;
+                // TODO
+                // branchCodeが重複しているため劇場名でフィルター
+                const screeningEvents =
+                    screeningEventsResult.data.filter(data => data.superEvent.location.name.ja === payload.movieTheater.name.ja);
 
                 return new master.GetScheduleSuccess({ screeningEvents, scheduleDate });
             } catch (error) {

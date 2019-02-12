@@ -44,7 +44,6 @@ import { LoadingComponent } from './components/parts/loading/loading.component';
 import { MvtkCheckModalComponent } from './components/parts/mvtk-check-modal/mvtk-check-modal.component';
 import { NumericKeypadComponent } from './components/parts/numeric-keypad/numeric-keypad.component';
 import { OrderDetailModalComponent } from './components/parts/order-detail-modal/order-detail-modal.component';
-import { PurchaseContentsComponent } from './components/parts/purchase-contents/purchase-contents.component';
 import { PurchaseInfoComponent } from './components/parts/purchase-info/purchase-info.component';
 import { PurchasePaymentModalComponent } from './components/parts/purchase-payment-modal/purchase-payment-modal.component';
 import { PurchaseScheduleFilmComponent } from './components/parts/purchase-schedule-film/purchase-schedule-film.component';
@@ -74,7 +73,6 @@ import { CoreStoreModule } from './store/core/store';
         ContentsComponent,
         HeaderComponent,
         FooterComponent,
-        PurchaseContentsComponent,
         PurchaseScheduleFilmComponent,
         ScreenComponent,
         TicketListModalComponent,
