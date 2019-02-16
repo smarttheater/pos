@@ -3,6 +3,7 @@ import { AbstractControl, FormBuilder, FormGroup, ValidationErrors, Validators }
 import { Router } from '@angular/router';
 import { Actions, ofType } from '@ngrx/effects';
 import { select, Store } from '@ngrx/store';
+import { TranslateService } from '@ngx-translate/core';
 import * as libphonenumber from 'libphonenumber-js';
 import * as moment from 'moment';
 import { Observable, race } from 'rxjs';
@@ -33,7 +34,8 @@ export class PurchaseInputComponent implements OnInit {
         private actions: Actions,
         private router: Router,
         private util: UtilService,
-        private formBuilder: FormBuilder
+        private formBuilder: FormBuilder,
+        private translate: TranslateService
     ) { }
 
     public ngOnInit() {
@@ -144,14 +146,14 @@ export class PurchaseInputComponent implements OnInit {
         }
         if (this.customerContactForm.invalid) {
             this.util.openAlert({
-                title: 'エラー',
+                title: this.translate.instant('common.error'),
                 body: '購入者情報に誤りがあります。'
             });
             return;
         }
         if (this.amount > 0 && this.paymentForm.invalid) {
             this.util.openAlert({
-                title: 'エラー',
+                title: this.translate.instant('common.error'),
                 body: '決済情報に誤りがあります。'
             });
             return;
@@ -234,7 +236,7 @@ export class PurchaseInputComponent implements OnInit {
             ofType(ActionTypes.CreateGmoTokenObjectFail),
             tap(() => {
                 this.util.openAlert({
-                    title: 'エラー',
+                    title: this.translate.instant('common.error'),
                     body: 'クレジットカード情報を確認してください。'
                 });
             })

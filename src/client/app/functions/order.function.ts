@@ -126,6 +126,9 @@ export async function createPrintImage(args: {
 }) {
     const order = args.order;
     const acceptedOffer = order.acceptedOffers[args.offerIndex];
+    if (acceptedOffer.itemOffered.typeOf !== factory.chevre.reservationType.EventReservation) {
+        throw new Error('reservationType is not EventReservation');
+    }
     if (acceptedOffer.itemOffered.reservedTicket.ticketedSeat === undefined) {
         throw new Error('ticketedSeat is undefined');
     }

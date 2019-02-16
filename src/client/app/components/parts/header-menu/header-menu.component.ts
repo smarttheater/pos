@@ -2,6 +2,7 @@
  * HeaderMenuComponent
  */
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { TranslateService } from '@ngx-translate/core';
 import { UtilService } from '../../../services';
 import { CinerinoService } from '../../../services/cinerino.service';
 
@@ -16,7 +17,8 @@ export class HeaderMenuComponent implements OnInit {
 
     constructor(
         private cinerino: CinerinoService,
-        private util: UtilService
+        private util: UtilService,
+        private translate: TranslateService
     ) { }
 
     public ngOnInit() {
@@ -25,8 +27,8 @@ export class HeaderMenuComponent implements OnInit {
     public signOut() {
         this.close.emit();
         this.util.openConfirm({
-            title: '確認',
-            body: 'ログアウトしますか？',
+            title: this.translate.instant('common.confirm'),
+            body: this.translate.instant('menu.confirm.success.logout'),
             cb: async () => {
                 try {
                     await this.cinerino.getServices();

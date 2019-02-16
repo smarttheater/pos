@@ -2,6 +2,7 @@ import { Component, HostListener, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Actions, ofType } from '@ngrx/effects';
 import { select, Store } from '@ngrx/store';
+import { TranslateService } from '@ngx-translate/core';
 import jsqr from 'jsqr';
 import * as moment from 'moment';
 import { Observable, race } from 'rxjs';
@@ -32,6 +33,7 @@ export class AdmissionCheckComponent implements OnInit, OnDestroy {
         private actions: Actions,
         private router: Router,
         private util: UtilService,
+        private translate: TranslateService
     ) { }
 
     public ngOnInit() {
@@ -89,7 +91,7 @@ export class AdmissionCheckComponent implements OnInit, OnDestroy {
             this.isShowVideo = true;
         } catch (error) {
             console.error(error);
-            alert('カメラへのアクセスに失敗しました。');
+            alert(this.translate.instant('admission.check.alert.camera'));
         }
     }
 
@@ -155,8 +157,8 @@ export class AdmissionCheckComponent implements OnInit, OnDestroy {
             ofType(admissionAction.ActionTypes.CheckFail),
             tap(() => {
                 this.util.openAlert({
-                    title: 'エラー',
-                    body: '読み込みに失敗しました。'
+                    title: this.translate.instant('common.error'),
+                    body: this.translate.instant('admission.check.alert.check')
                 });
             })
         );

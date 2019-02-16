@@ -3,10 +3,11 @@ import { AbstractControl, FormBuilder, FormGroup, ValidationErrors, Validators }
 import { Router } from '@angular/router';
 import { Actions, ofType } from '@ngrx/effects';
 import { select, Store } from '@ngrx/store';
+import { TranslateService } from '@ngx-translate/core';
 import * as libphonenumber from 'libphonenumber-js';
 import { Observable, race } from 'rxjs';
 import { take, tap } from 'rxjs/operators';
-import { printers } from '../../../models';
+import { connectionType, printers } from '../../../models';
 import { LibphonenumberFormatPipe } from '../../../pipes/libphonenumber-format.pipe';
 import { UtilService } from '../../../services';
 import * as masterAction from '../../../store/actions/master.action';
@@ -26,12 +27,14 @@ export class SettingComponent implements OnInit {
     public error: Observable<string | null>;
     public posList: { id: string; name: string; typeOf: string; }[];
     public printers: typeof printers = printers;
+    public connectionType: typeof connectionType = connectionType;
     constructor(
         private actions: Actions,
         private formBuilder: FormBuilder,
         private store: Store<reducers.IState>,
         private util: UtilService,
-        private router: Router
+        private router: Router,
+        private translate: TranslateService
     ) { }
 
     public ngOnInit() {
@@ -163,9 +166,9 @@ export class SettingComponent implements OnInit {
         });
         if (this.settingForm.invalid) {
             this.util.openAlert({
-                title: 'エラー',
+                title: this.translate.instant('common.error'),
                 body: `
-                    <p class="mb-4">入力内容に誤りがあります。</p>
+                    <p class="mb-4">${this.translate.instant('setting.alert.validation')}</p>
                         <div class="p-3 bg-light-gray select-text">
                         <code>${JSON.stringify(this.settingForm.errors)}</code>
                     </div>`
@@ -200,8 +203,8 @@ export class SettingComponent implements OnInit {
                 }
             }));
             this.util.openAlert({
-                title: '完了',
-                body: '設定を保存しました。'
+                title: this.translate.instant('common.complete'),
+                body: this.translate.instant('setting.alert.success')
             });
 
         }).unsubscribe();
@@ -225,9 +228,9 @@ export class SettingComponent implements OnInit {
             tap(() => {
                 this.error.subscribe((error) => {
                     this.util.openAlert({
-                        title: 'エラー',
+                        title: this.translate.instant('common.error'),
                         body: `
-                        <p class="mb-4">印刷に失敗しました</p>
+                        <p class="mb-4">${this.translate.instant('setting.alert.print')}</p>
                             <div class="p-3 bg-light-gray select-text">
                             <code>${error}</code>
                         </div>`

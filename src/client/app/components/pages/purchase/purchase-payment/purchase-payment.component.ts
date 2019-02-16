@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { factory } from '@cinerino/api-javascript-client';
 import { select, Store } from '@ngrx/store';
+import { TranslateService } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 import { UtilService } from '../../../../services';
 import { SelectPaymentMethodType } from '../../../../store/actions/purchase.action';
@@ -19,7 +20,8 @@ export class PurchasePaymentComponent implements OnInit {
     constructor(
         private store: Store<reducers.IState>,
         private router: Router,
-        private util: UtilService
+        private util: UtilService,
+        private translate: TranslateService
     ) { }
 
     public ngOnInit() {
@@ -37,7 +39,10 @@ export class PurchasePaymentComponent implements OnInit {
             const findResult = user.movieTheater.paymentAccepted
                 .find(paymentAccepted => paymentAccepted.paymentMethodType === paymentMethodType);
             if (findResult === undefined) {
-                this.util.openAlert({ title: 'エラー', body: '支払い方法が未対応です。' });
+                this.util.openAlert({
+                    title: this.translate.instant('common.error'),
+                    body: this.translate.instant('purchase.payment.alert.notCompatible')
+                });
                 return;
             }
             this.store.dispatch(new SelectPaymentMethodType({ paymentMethodType }));

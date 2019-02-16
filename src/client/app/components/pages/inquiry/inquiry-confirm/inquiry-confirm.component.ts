@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { factory } from '@cinerino/api-javascript-client';
 import { Actions, ofType } from '@ngrx/effects';
 import { select, Store } from '@ngrx/store';
+import { TranslateService } from '@ngx-translate/core';
 import * as moment from 'moment';
 import { Observable, race } from 'rxjs';
 import { take, tap } from 'rxjs/operators';
@@ -23,12 +25,14 @@ export class InquiryConfirmComponent implements OnInit {
     public moment: typeof moment = moment;
     public getTicketPrice = getTicketPrice;
     public eventOrders: IEventOrder[];
+    public orderStatus: typeof factory.orderStatus = factory.orderStatus;
 
     constructor(
         private store: Store<reducers.IState>,
         private actions: Actions,
         private router: Router,
-        private util: UtilService
+        private util: UtilService,
+        private translate: TranslateService
     ) { }
 
     public ngOnInit() {
@@ -73,9 +77,9 @@ export class InquiryConfirmComponent implements OnInit {
             tap(() => {
                 this.error.subscribe((error) => {
                     this.util.openAlert({
-                        title: 'エラー',
+                        title: this.translate.instant('common.error'),
                         body: `
-                        <p class="mb-4">印刷に失敗しました</p>
+                        <p class="mb-4">${this.translate.instant('inquiry.confirm.alert.print')}</p>
                             <div class="p-3 bg-light-gray select-text">
                             <code>${error}</code>
                         </div>`

@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { factory } from '@cinerino/api-javascript-client';
 import { Actions, ofType } from '@ngrx/effects';
 import { select, Store } from '@ngrx/store';
+import { TranslateService } from '@ngx-translate/core';
 import * as moment from 'moment';
 import { Observable, race } from 'rxjs';
 import { take, tap } from 'rxjs/operators';
@@ -30,7 +31,8 @@ export class PurchaseCartComponent implements OnInit {
         private store: Store<reducers.IState>,
         private util: UtilService,
         private actions: Actions,
-        private router: Router
+        private router: Router,
+        private translate: TranslateService
     ) { }
 
     public ngOnInit() {
@@ -70,7 +72,7 @@ export class PurchaseCartComponent implements OnInit {
 
     public removeItem(authorizeSeatReservation: factory.action.authorize.offer.seatReservation.IAction<factory.service.webAPI.Identifier>) {
         this.util.openConfirm({
-            title: '確認',
+            title: this.translate.instant('common.confirm'),
             body: '削除してよろしいですか。',
             cb: () => {
                 this.removeItemProcess(authorizeSeatReservation);

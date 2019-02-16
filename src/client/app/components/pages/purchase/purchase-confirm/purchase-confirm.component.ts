@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { factory } from '@cinerino/api-javascript-client';
 import { Actions, ofType } from '@ngrx/effects';
 import { select, Store } from '@ngrx/store';
+import { TranslateService } from '@ngx-translate/core';
 import * as moment from 'moment';
 import { Observable, race } from 'rxjs';
 import { take, tap } from 'rxjs/operators';
@@ -36,7 +37,8 @@ export class PurchaseConfirmComponent implements OnInit {
         private store: Store<reducers.IState>,
         private actions: Actions,
         private router: Router,
-        private util: UtilService
+        private util: UtilService,
+        private translate: TranslateService
     ) { }
 
     public ngOnInit() {
@@ -192,8 +194,8 @@ export class PurchaseConfirmComponent implements OnInit {
             if (purchase.paymentMethod.typeOf === factory.paymentMethodType.Cash) {
                 if (Number(this.depositAmount) < this.amount) {
                     this.util.openAlert({
-                        title: 'エラー',
-                        body: 'お預かり金額に誤りがあります。'
+                        title: this.translate.instant('common.error'),
+                        body: this.translate.instant('purchase.confirm.alert.custody')
                     });
                     return;
                 }
