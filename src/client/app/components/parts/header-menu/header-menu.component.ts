@@ -28,7 +28,7 @@ export class HeaderMenuComponent implements OnInit {
         this.close.emit();
         this.util.openConfirm({
             title: this.translate.instant('common.confirm'),
-            body: this.translate.instant('menu.confirm.success.logout'),
+            body: this.translate.instant('menu.confirm.logout'),
             cb: async () => {
                 try {
                     await this.cinerino.getServices();

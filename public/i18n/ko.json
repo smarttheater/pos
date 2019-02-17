@@ -76,7 +76,7 @@
             "read": "결제 방법을 선택하십시오.",
             "notfound": "구매중인 항목이 없습니다.",
             "cash": "현금",
-            "CreditCard": "신용 카드",
+            "creditCard": "신용 카드",
             "eMoney": "전자 화폐",
             "next": "다음에",
             "prev": "뒤로",

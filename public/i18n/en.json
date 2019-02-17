@@ -76,7 +76,7 @@
             "read": "Please select a settlement method",
             "notfound": "There are no items being purchased",
             "cash": "Cash",
-            "CreditCard": "Credit card",
+            "creditCard": "Credit card",
             "eMoney": "E-money",
             "next": "Next",
             "prev": "back",

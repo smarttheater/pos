@@ -70,7 +70,7 @@
                     <p class="col-md-8">{{ (order | async).order.customer.email }}</p>
                 </div>
             </div>
-            <div class="py-3 border-bottom border-gray">
+            <div class="py-3">
                 <div class="row">
                     <p class="mb-2 mb-md-0 col-md-4">
                         <i class="fas fa-phone mr-2"></i>{{ 'common.telephone' | translate }}</p>
@@ -88,8 +88,8 @@
     </div>
 
     <div class="buttons mx-auto px-3">
-        <button [disabled]="(order | async).orderStatus !== orderStatus.OrderDelivered" type="button" class="btn btn-primary btn-block py-3 mb-3" (click)="print()" [disabled]="isLoading | async">{{ 'inquiry.confirm.next' | translate }}</button>
-        <button [disabled]="(order | async).orderStatus !== orderStatus.OrderReturned" type="button" class="btn btn-danger btn-block py-3 mb-3" (click)="cancelConfirm()">{{ 'inquiry.confirm.cancel' | translate }}</button>
+        <button [disabled]="(order | async).order.orderStatus !== orderStatus.OrderDelivered" type="button" class="btn btn-primary btn-block py-3 mb-3" (click)="print()" [disabled]="isLoading | async">{{ 'inquiry.confirm.next' | translate }}</button>
+        <button [disabled]="(order | async).order.orderStatus === orderStatus.OrderReturned" type="button" class="btn btn-danger btn-block py-3 mb-3" (click)="cancelConfirm()">{{ 'inquiry.confirm.cancel' | translate }}</button>
         <button type="button" class="btn btn-outline-primary btn-block py-3" routerLink="/inquiry/input">{{ 'inquiry.confirm.prev' | translate }}</button>
     </div>
 
