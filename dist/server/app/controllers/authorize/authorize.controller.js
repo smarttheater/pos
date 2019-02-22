@@ -32,7 +32,7 @@ function getCredentials(req, res) {
                 throw new Error('member does not macth MemberType');
             }
             const options = {
-                endpoint: process.env.SSKTS_API_ENDPOINT,
+                endpoint: process.env.API_ENDPOINT,
                 auth: authModel.create()
             };
             const accessToken = yield options.auth.getAccessToken();
@@ -42,7 +42,8 @@ function getCredentials(req, res) {
             res.json({
                 accessToken: accessToken,
                 userName: userName,
-                clientId: options.auth.options.clientId
+                clientId: options.auth.options.clientId,
+                endpoint: process.env.API_ENDPOINT
             });
         }
         catch (err) {
