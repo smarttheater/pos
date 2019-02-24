@@ -11,7 +11,7 @@ import { getAmount, getTicketPrice } from '../../../../functions';
 import { UtilService } from '../../../../services';
 import {
     ActionTypes,
-    CancelTemporaryReservation,
+    CancelTemporaryReservations,
     UnsettledDelete
 } from '../../../../store/actions/purchase.action';
 import * as reducers from '../../../../store/reducers';
@@ -23,6 +23,7 @@ import * as reducers from '../../../../store/reducers';
 })
 export class PurchaseCartComponent implements OnInit {
     public purchase: Observable<reducers.IPurchaseState>;
+    public user: Observable<reducers.IUserState>;
     public isLoading: Observable<boolean>;
     public moment: typeof moment = moment;
     public getTicketPrice = getTicketPrice;
@@ -38,6 +39,7 @@ export class PurchaseCartComponent implements OnInit {
     public ngOnInit() {
         this.amount = 0;
         this.purchase = this.store.pipe(select(reducers.getPurchase));
+        this.user = this.store.pipe(select(reducers.getUser));
         this.isLoading = this.store.pipe(select(reducers.getLoading));
         this.store.dispatch(new UnsettledDelete());
         this.purchase.subscribe((purchase) => {
@@ -53,16 +55,17 @@ export class PurchaseCartComponent implements OnInit {
                 this.router.navigate(['/error']);
                 return;
             }
-            this.store.dispatch(new CancelTemporaryReservation({ authorizeSeatReservation }));
+            const authorizeSeatReservations = [authorizeSeatReservation];
+            this.store.dispatch(new CancelTemporaryReservations({ authorizeSeatReservations }));
         }).unsubscribe();
 
         const success = this.actions.pipe(
-            ofType(ActionTypes.CancelTemporaryReservationSuccess),
+            ofType(ActionTypes.CancelTemporaryReservationsSuccess),
             tap(() => { })
         );
 
         const fail = this.actions.pipe(
-            ofType(ActionTypes.CancelTemporaryReservationFail),
+            ofType(ActionTypes.CancelTemporaryReservationsFail),
             tap(() => {
                 this.router.navigate(['/error']);
             })

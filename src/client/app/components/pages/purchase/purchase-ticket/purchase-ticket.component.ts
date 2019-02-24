@@ -7,6 +7,7 @@ import { select, Store } from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
 import { Observable, race } from 'rxjs';
 import { take, tap } from 'rxjs/operators';
+import { getAmount } from '../../../../functions';
 import { IReservationTicket, Reservation } from '../../../../models/purchase/reservation';
 import { UtilService } from '../../../../services';
 import { ActionTypes, SelectTickets, TemporaryReservation } from '../../../../store/actions/purchase.action';
@@ -21,6 +22,7 @@ import { TicketListModalComponent } from '../../../parts/ticket-list-modal/ticke
 })
 export class PurchaseTicketComponent implements OnInit {
     public purchase: Observable<reducers.IPurchaseState>;
+    public user: Observable<reducers.IUserState>;
     public isLoading: Observable<boolean>;
     constructor(
         private store: Store<reducers.IState>,
@@ -33,6 +35,7 @@ export class PurchaseTicketComponent implements OnInit {
 
     public ngOnInit() {
         this.purchase = this.store.pipe(select(reducers.getPurchase));
+        this.user = this.store.pipe(select(reducers.getUser));
         this.isLoading = this.store.pipe(select(reducers.getLoading));
     }
 
@@ -93,12 +96,23 @@ export class PurchaseTicketComponent implements OnInit {
             ofType(ActionTypes.TemporaryReservationSuccess),
             tap(() => {
                 this.purchase.subscribe((purchase) => {
-                    if (purchase.authorizeSeatReservation === undefined
-                        || purchase.authorizeSeatReservation.result === undefined) {
-                        this.router.navigate(['/error']);
-                        return;
-                    }
-                    this.router.navigate(['/purchase/cart']);
+                    this.user.subscribe((user) => {
+                        if (purchase.authorizeSeatReservation === undefined
+                            || purchase.authorizeSeatReservation.result === undefined) {
+                            this.router.navigate(['/error']);
+                            return;
+                        }
+                        if (user.limitedPurchaseCount === 1) {
+                            const amount = getAmount(purchase.authorizeSeatReservations);
+                            if (amount > 0) {
+                                this.router.navigate(['/purchase/payment']);
+                                return;
+                            }
+                            this.router.navigate(['/purchase/confirm']);
+                            return;
+                        }
+                        this.router.navigate(['/purchase/cart']);
+                    }).unsubscribe();
                 }).unsubscribe();
             })
         );

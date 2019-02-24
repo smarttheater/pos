@@ -27,9 +27,9 @@ export enum ActionTypes {
     TemporaryReservation = '[Purchase] Temporary Reservation',
     TemporaryReservationSuccess = '[Purchase] Temporary Reservation Success',
     TemporaryReservationFail = '[Purchase] Temporary Reservation Fail',
-    CancelTemporaryReservation = '[Purchase] Cancel Temporary Reservation',
-    CancelTemporaryReservationSuccess = '[Purchase] Cancel Temporary Reservation Success',
-    CancelTemporaryReservationFail = '[Purchase] Cancel Temporary Reservation Fail',
+    CancelTemporaryReservations = '[Purchase] Cancel Temporary Reservation',
+    CancelTemporaryReservationsSuccess = '[Purchase] Cancel Temporary Reservation Success',
+    CancelTemporaryReservationsFail = '[Purchase] Cancel Temporary Reservation Fail',
     RegisterContact = '[Purchase] Register Contact',
     RegisterContactSuccess = '[Purchase] Register Contact Success',
     RegisterContactFail = '[Purchase] Register Contact Fail',
@@ -241,30 +241,30 @@ export class TemporaryReservationFail implements Action {
 }
 
 /**
- * CancelTemporaryReservation
+ * CancelTemporaryReservations
  */
-export class CancelTemporaryReservation implements Action {
-    public readonly type = ActionTypes.CancelTemporaryReservation;
+export class CancelTemporaryReservations implements Action {
+    public readonly type = ActionTypes.CancelTemporaryReservations;
     constructor(public payload: {
-        authorizeSeatReservation: factory.action.authorize.offer.seatReservation.IAction<factory.service.webAPI.Identifier>;
+        authorizeSeatReservations: factory.action.authorize.offer.seatReservation.IAction<factory.service.webAPI.Identifier>[];
     }) { }
 }
 
 /**
- * CancelTemporaryReservationSuccess
+ * CancelTemporaryReservationsSuccess
  */
-export class CancelTemporaryReservationSuccess implements Action {
-    public readonly type = ActionTypes.CancelTemporaryReservationSuccess;
+export class CancelTemporaryReservationsSuccess implements Action {
+    public readonly type = ActionTypes.CancelTemporaryReservationsSuccess;
     constructor(public payload: {
-        authorizeSeatReservation: factory.action.authorize.offer.seatReservation.IAction<factory.service.webAPI.Identifier>;
+        authorizeSeatReservations: factory.action.authorize.offer.seatReservation.IAction<factory.service.webAPI.Identifier>[];
     }) { }
 }
 
 /**
- * CancelTemporaryReservationFail
+ * CancelTemporaryReservationsFail
  */
-export class CancelTemporaryReservationFail implements Action {
-    public readonly type = ActionTypes.CancelTemporaryReservationFail;
+export class CancelTemporaryReservationsFail implements Action {
+    public readonly type = ActionTypes.CancelTemporaryReservationsFail;
     constructor(public payload: { error: Error }) { }
 }
 
@@ -514,9 +514,9 @@ export type Actions =
     | TemporaryReservation
     | TemporaryReservationSuccess
     | TemporaryReservationFail
-    | CancelTemporaryReservation
-    | CancelTemporaryReservationSuccess
-    | CancelTemporaryReservationFail
+    | CancelTemporaryReservations
+    | CancelTemporaryReservationsSuccess
+    | CancelTemporaryReservationsFail
     | RegisterContact
     | RegisterContactSuccess
     | RegisterContactFail

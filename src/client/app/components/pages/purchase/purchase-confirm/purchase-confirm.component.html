@@ -78,7 +78,11 @@
         <div class="buttons mx-auto">
             <button type="button" class="btn btn-primary btn-block py-3 mb-3" [disabled]="isLoading | async"
                 (click)="onSubmit()">{{ 'purchase.confirm.next' | translate }}</button>
-            <button type="button" class="btn btn-outline-primary btn-block py-3"
+            <button *ngIf="amount > 0" type="button" class="btn btn-outline-primary btn-block py-3"
                 routerLink="/purchase/payment">{{ 'purchase.confirm.prev' | translate }}</button>
+            <button *ngIf="amount === 0 && (user | async).limitedPurchaseCount > 1" type="button" class="btn btn-outline-primary btn-block py-3"
+                routerLink="/purchase/cart">{{ 'purchase.confirm.prev' | translate }}</button>
+            <button *ngIf="amount === 0 && (user | async).limitedPurchaseCount === 1" type="button" class="btn btn-outline-primary btn-block py-3"
+                routerLink="/purchase/ticket">{{ 'purchase.confirm.prev' | translate }}</button>
         </div>
     </div>

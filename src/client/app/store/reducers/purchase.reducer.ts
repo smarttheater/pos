@@ -241,26 +241,28 @@ export function reducer(state: IState, action: Actions): IState {
             const error = action.payload.error;
             return { ...state, loading: false, process: { ja: '', en: '' }, error: JSON.stringify(error) };
         }
-        case ActionTypes.CancelTemporaryReservation: {
+        case ActionTypes.CancelTemporaryReservations: {
             return { ...state, loading: true, process: { ja: '座席の仮予約を削除しています', en: 'Deleting the tentative reservation of the seat' }, };
         }
-        case ActionTypes.CancelTemporaryReservationSuccess: {
-            const authorizeSeatReservation = action.payload.authorizeSeatReservation;
-            const findAuthorizeSeatReservation = state.purchaseData.authorizeSeatReservations.findIndex(
-                target => target.id === authorizeSeatReservation.id
-            );
-            if (findAuthorizeSeatReservation > -1) {
-                state.purchaseData.authorizeSeatReservations.splice(findAuthorizeSeatReservation, 1);
-            }
-            const findPendingMovieTicket = state.purchaseData.pendingMovieTickets.findIndex(
-                target => target.id === authorizeSeatReservation.id
-            );
-            if (findPendingMovieTicket > -1) {
-                state.purchaseData.pendingMovieTickets.splice(findPendingMovieTicket, 1);
-            }
+        case ActionTypes.CancelTemporaryReservationsSuccess: {
+            const authorizeSeatReservations = action.payload.authorizeSeatReservations;
+            authorizeSeatReservations.forEach((authorizeSeatReservation) => {
+                const findAuthorizeSeatReservation = state.purchaseData.authorizeSeatReservations.findIndex(
+                    target => target.id === authorizeSeatReservation.id
+                );
+                if (findAuthorizeSeatReservation > -1) {
+                    state.purchaseData.authorizeSeatReservations.splice(findAuthorizeSeatReservation, 1);
+                }
+                const findPendingMovieTicket = state.purchaseData.pendingMovieTickets.findIndex(
+                    target => target.id === authorizeSeatReservation.id
+                );
+                if (findPendingMovieTicket > -1) {
+                    state.purchaseData.pendingMovieTickets.splice(findPendingMovieTicket, 1);
+                }
+            });
             return { ...state, loading: false, process: { ja: '', en: '' }, error: null };
         }
-        case ActionTypes.CancelTemporaryReservationFail: {
+        case ActionTypes.CancelTemporaryReservationsFail: {
             const error = action.payload.error;
             return { ...state, loading: false, process: { ja: '', en: '' }, error: JSON.stringify(error) };
         }

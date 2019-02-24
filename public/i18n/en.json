@@ -249,6 +249,8 @@
         "printerIpAddress": "printer IP address",
         "printerIpAddressDescription": "※ star precision Bluetooth connection (Starweb PRNT dedicated browser) Please set localhost: 8001",
         "testPrinting": "Test print",
+        "limitedPurchaseCount": "Cart limit number",
+        "viewType": "display",
         "alert": {
             "customer": "There is an error in purchaser information",
             "payment": "There is an error in the settlement information.",

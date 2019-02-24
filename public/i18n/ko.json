@@ -249,6 +249,8 @@
         "printerIpAddress": "프린터 IP 주소",
         "printerIpAddressDescription": "※ 스타精密 Bluetooth 연결 (StarwebPRNT 전용 브라우저)의 경우 localhost : 8001을 설정하십시오.",
         "testPrinting": "테스트 인쇄",
+        "limitedPurchaseCount": "장바구니 제한",
+        "viewType": "표시",
         "alert": {
             "customer": "구매자 정보에 오류가 있습니다.",
             "payment": "결제 정보에 오류가 있습니다.",

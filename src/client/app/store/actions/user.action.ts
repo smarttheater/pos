@@ -1,6 +1,6 @@
 import { factory } from '@cinerino/api-javascript-client';
 import { Action } from '@ngrx/store';
-import { IPrinter } from '../../models';
+import { IPrinter, ViewType } from '../../models';
 
 /**
  * Action types
@@ -29,6 +29,8 @@ export class UpdateAll implements Action {
         pos: any;
         customerContact: factory.transaction.placeOrder.ICustomerContact;
         printer: IPrinter;
+        limitedPurchaseCount: number;
+        viewType: ViewType;
     }) { }
 }
 

@@ -7,7 +7,7 @@ import { TranslateService } from '@ngx-translate/core';
 import * as libphonenumber from 'libphonenumber-js';
 import { Observable, race } from 'rxjs';
 import { take, tap } from 'rxjs/operators';
-import { connectionType, printers } from '../../../models';
+import { connectionType, printers, ViewType } from '../../../models';
 import { LibphonenumberFormatPipe } from '../../../pipes/libphonenumber-format.pipe';
 import { UtilService } from '../../../services';
 import * as masterAction from '../../../store/actions/master.action';
@@ -28,6 +28,7 @@ export class SettingComponent implements OnInit {
     public posList: { id: string; name: string; typeOf: string; }[];
     public printers: typeof printers = printers;
     public connectionType: typeof connectionType = connectionType;
+    public ViewType: typeof ViewType = ViewType;
     constructor(
         private actions: Actions,
         private formBuilder: FormBuilder,
@@ -96,7 +97,14 @@ export class SettingComponent implements OnInit {
                 }
             ]],
             printerType: [''],
-            printerIpAddress: ['']
+            printerIpAddress: [''],
+            limitedPurchaseCount: ['', [
+                Validators.required,
+                Validators.pattern(/^[0-9]+$/)
+            ]],
+            viewType: ['', [
+                Validators.required
+            ]]
         });
         this.user.subscribe((user) => {
             if (user.movieTheater !== undefined
@@ -117,6 +125,8 @@ export class SettingComponent implements OnInit {
                 this.settingForm.controls.printerType.setValue(user.printer.connectionType);
                 this.settingForm.controls.printerIpAddress.setValue(user.printer.ipAddress);
             }
+            this.settingForm.controls.limitedPurchaseCount.setValue(user.limitedPurchaseCount);
+            this.settingForm.controls.viewType.setValue(user.viewType);
         }).unsubscribe();
     }
 
@@ -200,7 +210,9 @@ export class SettingComponent implements OnInit {
                 printer: {
                     ipAddress: this.settingForm.controls.printerIpAddress.value,
                     connectionType: this.settingForm.controls.printerType.value
-                }
+                },
+                limitedPurchaseCount: Number(this.settingForm.controls.limitedPurchaseCount.value),
+                viewType: this.settingForm.controls.viewType.value
             }));
             this.util.openAlert({
                 title: this.translate.instant('common.complete'),
