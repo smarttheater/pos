@@ -81,8 +81,8 @@
             <button *ngIf="amount > 0" type="button" class="btn btn-outline-primary btn-block py-3"
                 routerLink="/purchase/payment">{{ 'purchase.confirm.prev' | translate }}</button>
             <button *ngIf="amount === 0 && (user | async).limitedPurchaseCount > 1" type="button" class="btn btn-outline-primary btn-block py-3"
-                routerLink="/purchase/cart">{{ 'purchase.confirm.prev' | translate }}</button>
+                routerLink="/purchase/cinema/cart">{{ 'purchase.confirm.prev' | translate }}</button>
             <button *ngIf="amount === 0 && (user | async).limitedPurchaseCount === 1" type="button" class="btn btn-outline-primary btn-block py-3"
-                routerLink="/purchase/ticket">{{ 'purchase.confirm.prev' | translate }}</button>
+                routerLink="/purchase/cinema/ticket">{{ 'purchase.confirm.prev' | translate }}</button>
         </div>
     </div>

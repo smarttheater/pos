@@ -19,6 +19,8 @@ export const environment = {
 
     VIEW_TYPE: ViewType.Cinema,
 
-    TRANSACTION_TIME: '30'
+    TRANSACTION_TIME: '30',
+
+    STORAGE_NAME: 'CINERINO-POS-STATE'
 
 };

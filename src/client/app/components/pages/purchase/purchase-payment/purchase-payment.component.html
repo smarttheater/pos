@@ -30,8 +30,8 @@
 
     <div class="buttons mx-auto">
         <button *ngIf="(user | async).limitedPurchaseCount > 1" type="button" class="btn btn-outline-primary btn-block py-3"
-            routerLink="/purchase/cart">{{ 'purchase.payment.prev' | translate }}</button>
+            routerLink="/purchase/cinema/cart">{{ 'purchase.payment.prev' | translate }}</button>
         <button *ngIf="(user | async).limitedPurchaseCount === 1" type="button" class="btn btn-outline-primary btn-block py-3"
-            routerLink="/purchase/ticket">{{ 'purchase.payment.prev' | translate }}</button>
+            routerLink="/purchase/cinema/ticket">{{ 'purchase.payment.prev' | translate }}</button>
     </div>
 </div>

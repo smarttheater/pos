@@ -10,7 +10,7 @@
                         <div class="col-md-8">
                             <select class="form-control" formControlName="theaterCode" (change)="changePosList()">
                                 <option value="">{{ 'setting.unselected' | translate }}</option>
-                                <option *ngFor="let theater of (master | async).movieTheaters"
+                                <option *ngFor="let theater of (master | async).sellers"
                                     [value]="theater.location.branchCode">{{
                                     theater.name.ja }}</option>
                             </select>
@@ -187,7 +187,7 @@
         <button type="button" class="btn btn-primary btn-block py-3"
             (click)="onSubmit()">{{ 'setting.next' | translate }}</button>
         <button type="button" class="btn btn-outline-primary btn-block py-3"
-            routerLink="/purchase/schedule">{{ 'setting.prev' | translate }}</button>
+            routerLink="/purchase/root">{{ 'setting.prev' | translate }}</button>
     </div>
 
 </div>

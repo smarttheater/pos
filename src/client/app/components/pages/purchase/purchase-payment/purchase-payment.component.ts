@@ -30,13 +30,13 @@ export class PurchasePaymentComponent implements OnInit {
 
     public selectPaymentMethodType(paymentMethodType: factory.paymentMethodType | string) {
         this.user.subscribe((user) => {
-            if (user.movieTheater === undefined
-                || user.movieTheater.paymentAccepted === undefined) {
+            if (user.seller === undefined
+                || user.seller.paymentAccepted === undefined) {
                 this.router.navigate(['/error']);
-                console.error('movieTheater is undefined or paymentAccepted is undefined');
+                console.error('seller is undefined or paymentAccepted is undefined');
                 return;
             }
-            const findResult = user.movieTheater.paymentAccepted
+            const findResult = user.seller.paymentAccepted
                 .find(paymentAccepted => paymentAccepted.paymentMethodType === paymentMethodType);
             if (findResult === undefined) {
                 this.util.openAlert({

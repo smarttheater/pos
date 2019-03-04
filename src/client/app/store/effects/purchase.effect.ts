@@ -113,6 +113,62 @@ export class PurchaseEffects {
     );
 
     /**
+     * temporaryReservationFreeSeat
+     */
+    @Effect()
+    public temporaryReservationFreeSeat = this.actions.pipe(
+        ofType<purchase.TemporaryReservationFreeSeat>(purchase.ActionTypes.TemporaryReservationFreeSeat),
+        map(action => action.payload),
+        mergeMap(async (payload) => {
+            const transaction = payload.transaction;
+            const screeningEvent = payload.screeningEvent;
+            const reservationTickets = payload.reservationTickets;
+            try {
+                await this.cinerino.getServices();
+                const screeningEventOffers = await this.cinerino.event.searchScreeningEventOffers({
+                    eventId: payload.screeningEvent.id
+                });
+                const freeSeats: factory.chevre.reservation.ISeat[] = [];
+                for (const screeningEventOffer of screeningEventOffers) {
+                    const section = screeningEventOffer.branchCode;
+                    for (const containsPlace of screeningEventOffer.containsPlace) {
+                        if (containsPlace.offers !== undefined
+                            && containsPlace.offers[0].availability === factory.chevre.itemAvailability.InStock) {
+                                freeSeats.push({
+                                    typeOf: containsPlace.typeOf,
+                                    seatingType: <any>containsPlace.seatingType,
+                                    seatNumber: containsPlace.branchCode,
+                                    seatRow: '',
+                                    seatSection: section
+                                });
+                        }
+                    }
+                }
+                const authorizeSeatReservation = await this.cinerino.transaction.placeOrder.authorizeSeatReservation({
+                    object: {
+                        event: {
+                            id: screeningEvent.id
+                        },
+                        acceptedOffer: reservationTickets.map((ticket, index) => {
+                            return {
+                                id: ticket.ticketOffer.id,
+                                ticketedSeat: freeSeats[index],
+                                additionalProperty: [] // ここにムビチケ情報を入れる
+                            };
+                        })
+                    },
+                    purpose: transaction
+                });
+                return new purchase.TemporaryReservationFreeSeatSuccess({
+                    addAuthorizeSeatReservation: authorizeSeatReservation
+                });
+            } catch (error) {
+                return new purchase.TemporaryReservationFreeSeatFail({ error: error });
+            }
+        })
+    );
+
+    /**
      * cancelTemporaryReservations
      */
     @Effect()
@@ -147,10 +203,10 @@ export class PurchaseEffects {
                 await this.cinerino.getServices();
                 const clientId = this.cinerino.auth.options.clientId;
                 const screeningEvent = payload.screeningEvent;
-                const movieTheater = payload.movieTheater;
+                const seller = payload.seller;
                 const screeningEventTicketOffers = await this.cinerino.event.searchScreeningEventTicketOffers({
                     event: { id: screeningEvent.id },
-                    seller: { typeOf: movieTheater.typeOf, id: movieTheater.id },
+                    seller: { typeOf: seller.typeOf, id: seller.id },
                     store: { id: clientId }
                 });
 

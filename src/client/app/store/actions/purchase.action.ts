@@ -1,7 +1,7 @@
 import { factory } from '@cinerino/api-javascript-client';
 import { Action } from '@ngrx/store';
 import { IGmoTokenObject } from '../../functions';
-import { IMovieTicket, IReservationSeat, IScreen, Reservation } from '../../models';
+import { IMovieTicket, IReservationSeat, IReservationTicket, IScreen, Reservation } from '../../models';
 
 /**
  * Action types
@@ -9,7 +9,7 @@ import { IMovieTicket, IReservationSeat, IScreen, Reservation } from '../../mode
 export enum ActionTypes {
     Delete = '[Purchase] Delete',
     UnsettledDelete = '[Purchase] Unsettled Delete',
-    SelectTheater = '[Purchase] Select Theater',
+    SelectSeller = '[Purchase] Select Seller',
     SelectScheduleDate = '[Purchase] Select Schedule Date',
     SelectSchedule = '[Purchase] Select Schedule',
     StartTransaction = '[Purchase] Start Transaction',
@@ -27,6 +27,9 @@ export enum ActionTypes {
     TemporaryReservation = '[Purchase] Temporary Reservation',
     TemporaryReservationSuccess = '[Purchase] Temporary Reservation Success',
     TemporaryReservationFail = '[Purchase] Temporary Reservation Fail',
+    TemporaryReservationFreeSeat = '[Purchase] Temporary Reservation Free Seat',
+    TemporaryReservationFreeSeatSuccess = '[Purchase] Temporary Reservation Free Seat Success',
+    TemporaryReservationFreeSeatFail = '[Purchase] Temporary Reservation Free Seat Fail',
     CancelTemporaryReservations = '[Purchase] Cancel Temporary Reservation',
     CancelTemporaryReservationsSuccess = '[Purchase] Cancel Temporary Reservation Success',
     CancelTemporaryReservationsFail = '[Purchase] Cancel Temporary Reservation Fail',
@@ -71,11 +74,11 @@ export class UnsettledDelete implements Action {
 }
 
 /**
- * SelectTheater
+ * SelectSeller
  */
-export class SelectTheater implements Action {
-    public readonly type = ActionTypes.SelectTheater;
-    constructor(public payload: { movieTheater: factory.seller.IOrganization<factory.seller.IAttributes<factory.organizationType>> }) { }
+export class SelectSeller implements Action {
+    public readonly type = ActionTypes.SelectSeller;
+    constructor(public payload: { seller: factory.seller.IOrganization<factory.seller.IAttributes<factory.organizationType>> }) { }
 }
 
 /**
@@ -188,7 +191,7 @@ export class GetTicketList implements Action {
     public readonly type = ActionTypes.GetTicketList;
     constructor(public payload: {
         screeningEvent: factory.chevre.event.screeningEvent.IEvent;
-        movieTheater: factory.seller.IOrganization<factory.seller.IAttributes<factory.organizationType>>;
+        seller: factory.seller.IOrganization<factory.seller.IAttributes<factory.organizationType>>;
     }) { }
 }
 
@@ -230,6 +233,36 @@ export class TemporaryReservationSuccess implements Action {
     constructor(public payload: {
         authorizeSeatReservation: factory.action.authorize.offer.seatReservation.IAction<factory.service.webAPI.Identifier>;
     }) { }
+}
+
+/**
+ * TemporaryReservationFreeSeat
+ */
+export class TemporaryReservationFreeSeat implements Action {
+    public readonly type = ActionTypes.TemporaryReservationFreeSeat;
+    constructor(public payload: {
+        transaction: factory.transaction.placeOrder.ITransaction;
+        screeningEvent: factory.chevre.event.screeningEvent.IEvent;
+        reservationTickets: IReservationTicket[]
+    }) { }
+}
+
+/**
+ * TemporaryReservationFreeSeatSuccess
+ */
+export class TemporaryReservationFreeSeatSuccess implements Action {
+    public readonly type = ActionTypes.TemporaryReservationFreeSeatSuccess;
+    constructor(public payload: {
+        addAuthorizeSeatReservation: factory.action.authorize.offer.seatReservation.IAction<factory.service.webAPI.Identifier>;
+    }) { }
+}
+
+/**
+ * TemporaryReservationFreeSeatFail
+ */
+export class TemporaryReservationFreeSeatFail implements Action {
+    public readonly type = ActionTypes.TemporaryReservationFreeSeatFail;
+    constructor(public payload: { error: Error }) { }
 }
 
 /**
@@ -429,7 +462,7 @@ export class CreateGmoTokenObject implements Action {
             holderName: string;
             securityCode: string;
         },
-        movieTheater: factory.seller.IOrganization<factory.seller.IAttributes<factory.organizationType>>;
+        seller: factory.seller.IOrganization<factory.seller.IAttributes<factory.organizationType>>;
     }) { }
 }
 
@@ -497,7 +530,7 @@ export type Actions =
     | Delete
     | UnsettledDelete
     | SelectScheduleDate
-    | SelectTheater
+    | SelectSeller
     | SelectSchedule
     | StartTransaction
     | StartTransactionSuccess
@@ -514,6 +547,9 @@ export type Actions =
     | TemporaryReservation
     | TemporaryReservationSuccess
     | TemporaryReservationFail
+    | TemporaryReservationFreeSeat
+    | TemporaryReservationFreeSeatSuccess
+    | TemporaryReservationFreeSeatFail
     | CancelTemporaryReservations
     | CancelTemporaryReservationsSuccess
     | CancelTemporaryReservationsFail
