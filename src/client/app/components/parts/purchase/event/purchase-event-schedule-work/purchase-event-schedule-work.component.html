@@ -19,16 +19,16 @@
                 class="text-small bg-dark-gray text-white py-1 px-3 mr-2">{{ 'common.subtitles' | translate }}</div>
             <div *ngIf="screeningWorkEvent.info.workPerformed.duration !== null" class="text-small ml-auto">
                 {{
-                moment.duration(screeningWorkEvent.info.workPerformed.duration).asMinutes() }}{{ 'common.date.minute' | translate }}</div>
+                moment.duration(screeningWorkEvent.info.workPerformed.duration).asMinutes() }}{{ 'common.date.minute' | translate }}
+            </div>
         </div>
     </div>
-    <ul class="p-3">
+    <ul class="p-3" [class.not-event]="readonly">
         <li *ngFor="let screeningEvent of screeningWorkEvent.data"
             class="border boder-gray rounded p-2 py-md-3 text-md-center d-md-block d-flex justify-content-between align-items-center pointer"
             [ngClass]="{ 
             'bg-white': (moment(screeningEvent.offers.validFrom).unix() < moment().unix() && moment(screeningEvent.offers.validThrough).unix() > moment().unix()) && screeningEvent.remainingAttendeeCapacity > 0, 
-            'bg-gray text-light-gray not-event': !(moment(screeningEvent.offers.validFrom).unix() < moment().unix() && moment(screeningEvent.offers.validThrough).unix() > moment().unix()) || screeningEvent.remainingAttendeeCapacity === 0,
-            'not-event': readonly
+            'bg-gray text-light-gray not-event': !(moment(screeningEvent.offers.validFrom).unix() < moment().unix() && moment(screeningEvent.offers.validThrough).unix() > moment().unix()) || screeningEvent.remainingAttendeeCapacity === 0
             }" (click)="select.emit(screeningEvent)">
             <div>
                 <div class="mb-2 text-small">

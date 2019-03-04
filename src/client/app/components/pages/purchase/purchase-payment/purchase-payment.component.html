@@ -29,9 +29,18 @@
     </div>
 
     <div class="buttons mx-auto">
-        <button *ngIf="(user | async).limitedPurchaseCount > 1" type="button" class="btn btn-outline-primary btn-block py-3"
-            routerLink="/purchase/cinema/cart">{{ 'purchase.payment.prev' | translate }}</button>
-        <button *ngIf="(user | async).limitedPurchaseCount === 1" type="button" class="btn btn-outline-primary btn-block py-3"
-            routerLink="/purchase/cinema/ticket">{{ 'purchase.payment.prev' | translate }}</button>
+        <div *ngIf="(user | async).viewType === viewType.Cinema">
+            <button *ngIf="(user | async).limitedPurchaseCount > 1" type="button"
+                class="btn btn-outline-primary btn-block py-3"
+                routerLink="/purchase/cinema/cart">{{ 'purchase.payment.prev' | translate }}</button>
+            <button *ngIf="(user | async).limitedPurchaseCount === 1" type="button"
+                class="btn btn-outline-primary btn-block py-3"
+                routerLink="/purchase/cinema/ticket">{{ 'purchase.payment.prev' | translate }}</button>
+        </div>
+        <div *ngIf="(user | async).viewType === viewType.Event">
+            <button type="button" class="btn btn-outline-primary btn-block py-3"
+                routerLink="/purchase/event/ticket">{{ 'purchase.payment.prev' | translate }}</button>
+        </div>
+
     </div>
 </div>
