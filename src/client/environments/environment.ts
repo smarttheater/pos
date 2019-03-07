@@ -21,6 +21,8 @@ export const environment = {
 
     TRANSACTION_TIME: '30',
 
-    STORAGE_NAME: 'CINERINO-POS-STATE'
+    STORAGE_NAME: 'CINERINO-POS-STATE',
+
+    BASE_URL: '/purchase/root'
 
 };

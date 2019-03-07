@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
+import { environment } from '../../../../../environments/environment';
 import * as orderAction from '../../../../store/actions/order.action';
 import * as purchaseAction from '../../../../store/actions/purchase.action';
 import * as reducers from '../../../../store/reducers';
@@ -20,7 +21,7 @@ export class AuthSigninComponent implements OnInit {
     public ngOnInit() {
         this.store.dispatch(new orderAction.Delete());
         this.store.dispatch(new purchaseAction.Delete());
-        this.router.navigate(['/purchase/root']);
+        this.router.navigate([environment.BASE_URL]);
     }
 
 }
