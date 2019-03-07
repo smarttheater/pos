@@ -168,8 +168,8 @@
                         <p class="col-md-4 py-2 text-md-right">{{ 'setting.viewType' | translate }}</p>
                         <div class="col-md-8">
                             <select class="form-control" id="viewType" formControlName="viewType">
-                                <option [value]="ViewType.Cinema">{{ ViewType.Cinema }}</option>
-                                <option [value]="ViewType.Event">{{ ViewType.Event }}</option>
+                                <option [value]="viewType.Cinema">{{ viewType.Cinema }}</option>
+                                <option [value]="viewType.Event">{{ viewType.Event }}</option>
                             </select>
                             <div *ngIf="settingForm.controls.viewType.invalid && settingForm.controls.viewType.touched"
                                 class="mt-2">
@@ -187,7 +187,7 @@
         <button type="button" class="btn btn-primary btn-block py-3"
             (click)="onSubmit()">{{ 'setting.next' | translate }}</button>
         <button type="button" class="btn btn-outline-primary btn-block py-3"
-            routerLink="/purchase/root">{{ 'setting.prev' | translate }}</button>
+            [routerLink]="environment.BASE_URL">{{ 'setting.prev' | translate }}</button>
     </div>
 
 </div>

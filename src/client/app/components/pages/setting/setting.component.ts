@@ -7,6 +7,7 @@ import { TranslateService } from '@ngx-translate/core';
 import * as libphonenumber from 'libphonenumber-js';
 import { Observable, race } from 'rxjs';
 import { take, tap } from 'rxjs/operators';
+import { environment } from '../../../../environments/environment';
 import { connectionType, printers, ViewType } from '../../../models';
 import { LibphonenumberFormatPipe } from '../../../pipes/libphonenumber-format.pipe';
 import { UtilService } from '../../../services';
@@ -28,7 +29,9 @@ export class SettingComponent implements OnInit {
     public posList: { id: string; name: string; typeOf: string; }[];
     public printers: typeof printers = printers;
     public connectionType: typeof connectionType = connectionType;
-    public ViewType: typeof ViewType = ViewType;
+    public viewType: typeof ViewType = ViewType;
+    public environment = environment;
+
     constructor(
         private actions: Actions,
         private formBuilder: FormBuilder,
