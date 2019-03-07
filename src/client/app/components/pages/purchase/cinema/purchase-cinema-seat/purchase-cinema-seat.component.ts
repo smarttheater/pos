@@ -96,7 +96,7 @@ export class PurchaseCinemaSeatComponent implements OnInit {
             if (purchase.reservations.length === 0) {
                 this.util.openAlert({
                     title: this.translate.instant('common.error'),
-                    body: this.translate.instant('purchase.seat.alert.unselected')
+                    body: this.translate.instant('purchase.cinema.seat.alert.unselected')
                 });
                 return;
             }
