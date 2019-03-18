@@ -136,6 +136,11 @@ export class PurchaseCinemaTicketComponent implements OnInit {
             modalRef.componentInstance.pendingMovieTickets = purchase.pendingMovieTickets;
 
             modalRef.result.then((ticket: IReservationTicket) => {
+                if (reservation === undefined) {
+                    purchase.reservations.forEach(r => r.ticket = ticket);
+                    this.store.dispatch(new SelectTickets({ reservations: purchase.reservations }));
+                    return;
+                }
                 reservation.ticket = ticket;
                 this.store.dispatch(new SelectTickets({ reservations: [reservation] }));
             }).catch(() => { });

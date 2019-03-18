@@ -29,6 +29,8 @@
                 "next": "利用規約に同意して次へ",
                 "terms": "利用規約",
                 "prev": "戻る",
+                "allSelect": "すべて選択",
+                "reset": "リセット",
                 "alert": {
                     "unselected": "座席が未選択です。"
                 }
@@ -40,6 +42,7 @@
                 "mvtk": "ムビチケ券を利用される方",
                 "next": "次へ",
                 "prev": "戻る",
+                "allSelect": "すべて選択",
                 "alert": {
                     "unselected": "券種が未選択です。",
                     "ticketCondition": "割引券の適用条件を再度ご確認ください。"

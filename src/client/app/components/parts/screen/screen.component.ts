@@ -130,8 +130,10 @@ export class ScreenComponent implements OnInit, AfterViewInit, AfterViewChecked 
         const screen = <HTMLDivElement>element.querySelector('.screen');
         const scroll = <HTMLDivElement>element.querySelector('.screen-scroll');
         const rect = scroll.getBoundingClientRect();
-        const scrollTop = window.pageYOffset || (<HTMLElement>document.documentElement).scrollTop;
-        const scrollLeft = window.pageXOffset || (<HTMLElement>document.documentElement).scrollLeft;
+        const scrollTop = (window.pageYOffset !== undefined)
+            ? window.pageYOffset : (<HTMLElement>document.documentElement).scrollTop;
+        const scrollLeft = (window.pageXOffset !== undefined)
+            ? window.pageXOffset : (<HTMLElement>document.documentElement).scrollLeft;
         const offset = {
             top: rect.top + scrollTop,
             left: rect.left + scrollLeft
@@ -281,7 +283,7 @@ export class ScreenComponent implements OnInit, AfterViewInit, AfterViewChecked 
                         });
                         if (findContainsPlaceResult !== undefined
                             && findContainsPlaceResult.offers !== undefined) {
-                            if (findContainsPlaceResult.offers[0].availability === 'InStock') {
+                            if (findContainsPlaceResult.offers[0].availability === factory.chevre.itemAvailability.InStock) {
                                 status = SeatStatus.Default;
                             }
                             acceptedOffer = {

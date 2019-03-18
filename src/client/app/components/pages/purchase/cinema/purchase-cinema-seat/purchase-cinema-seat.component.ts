@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { factory } from '@cinerino/api-javascript-client';
 import { Actions, ofType } from '@ngrx/effects';
 import { select, Store } from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
@@ -84,6 +85,48 @@ export class PurchaseCinemaSeatComponent implements OnInit {
         } else {
             this.store.dispatch(new CancelSeats({ seats: [data.seat] }));
         }
+    }
+
+    public allSelectSeats() {
+        const seats: IReservationSeat[] = [];
+        this.purchase.subscribe((purchase) => {
+            const screeningEventOffers = purchase.screeningEventOffers;
+            screeningEventOffers.forEach((screeningEventOffer) => {
+                screeningEventOffer.containsPlace.forEach((containsPlace) => {
+                    if (containsPlace.offers === undefined
+                        || containsPlace.offers[0].availability !== factory.chevre.itemAvailability.InStock) {
+                        return;
+                    }
+                    seats.push({
+                        typeOf: containsPlace.typeOf,
+                        seatingType: (containsPlace.seatingType === undefined)
+                            ? <any>'' : containsPlace.seatingType,
+                        seatNumber: containsPlace.branchCode,
+                        seatRow: '',
+                        seatSection: screeningEventOffer.branchCode
+                    });
+                });
+            });
+            if (purchase.authorizeSeatReservation !== undefined) {
+                purchase.authorizeSeatReservation.object.acceptedOffer.forEach((acceptedOffer) => {
+                    if (acceptedOffer.ticketedSeat === undefined) {
+                        return;
+                    }
+                    seats.push(acceptedOffer.ticketedSeat);
+                });
+            }
+            this.store.dispatch(new SelectSeats({ seats }));
+        }).unsubscribe();
+    }
+
+    public resetSeats() {
+        const seats: IReservationSeat[] = [];
+        this.purchase.subscribe((purchase) => {
+            purchase.reservations.forEach((reservation) => {
+                seats.push(reservation.seat);
+            });
+            this.store.dispatch(new CancelSeats({ seats }));
+        }).unsubscribe();
     }
 
     /**
