@@ -89,7 +89,8 @@
                 "alert": {
                     "unselected": "券種が未選択です。",
                     "ticketCondition": "割引券の適用条件を再度ご確認ください。",
-                    "temporaryReservation": "仮予約に失敗しました。"
+                    "temporaryReservation": "仮予約に失敗しました。",
+                    "limit": "同時購入可能数は{{value}}件までです。"
                 }
                 
             },
