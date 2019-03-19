@@ -3,8 +3,9 @@ import { factory } from '@cinerino/api-javascript-client';
 import { Actions, Effect, ofType } from '@ngrx/effects';
 import * as moment from 'moment';
 import { map, mergeMap } from 'rxjs/operators';
-import { createPrintImage, createTestPrintImage, formatTelephone, retry } from '../../functions';
-import { connectionType } from '../../models';
+import { environment } from '../../../environments/environment';
+import { createPrintCanvas, createTestPrintCanvas, formatTelephone, retry } from '../../functions';
+import { connectionType, ITicketPrintData } from '../../models';
 import { CinerinoService, StarPrintService, UtilService } from '../../services';
 import * as orderAction from '../actions/order.action';
 
@@ -87,7 +88,7 @@ export class OrderEffects {
                             }
                             if (intervalCount > limit) {
                                 clearInterval(timer);
-                                return reject({error: 'timeout'});
+                                return reject({ error: 'timeout' });
                             }
                             intervalCount++;
                         }, interval);
@@ -160,39 +161,37 @@ export class OrderEffects {
 
                     authorizeOrders.push(result);
                 }
-
+                const printData = await this.util.getJson<ITicketPrintData>(`/json/ticket/${environment.PROJECT_ID}.json`);
+                const testFlg = authorizeOrders.length === 0;
+                const canvasList: HTMLCanvasElement[] = [];
+                if (testFlg) {
+                    const canvas = await createTestPrintCanvas({ printData });
+                    canvasList.push(canvas);
+                } else {
+                    for (const authorizeOrder of authorizeOrders) {
+                        for (let i = 0; i < authorizeOrder.acceptedOffers.length; i++) {
+                            const canvas = await createPrintCanvas({ printData, order: authorizeOrder, offerIndex: i, pos });
+                            canvasList.push(canvas);
+                        }
+                    }
+                }
                 switch (printer.connectionType) {
                     case connectionType.StarBluetooth:
-                        await this.starPrint.printProcess({ orders: authorizeOrders, printer, pos });
+                        this.starPrint.initialize({ printer, pos });
+                        await this.starPrint.printProcess({ canvasList, testFlg });
                         break;
                     case connectionType.StarLAN:
-                        await this.starPrint.printProcess({ orders: authorizeOrders, printer, pos });
+                        this.starPrint.initialize({ printer, pos });
+                        await this.starPrint.printProcess({ canvasList, testFlg });
                         break;
                     case connectionType.Image:
-                        const images: string[] = [];
-                        if (authorizeOrders.length > 0) {
-                            for (const authorizeOrder of authorizeOrders) {
-                                for (let i = 0; i < authorizeOrder.acceptedOffers.length; i++) {
-                                    const canvas = await createPrintImage({ order: authorizeOrder, offerIndex: i });
-                                    const image = canvas.toDataURL();
-                                    images.push(image);
-                                }
-                            }
-                        } else {
-                            const canvas = await createTestPrintImage();
-                            const image = canvas.toDataURL();
-                            images.push(image);
-                        }
-
-                        const domList = images.map(image => `<div class="mb-3 p-4 border border-light-gray shadow-sm">
-                        <img class="w-100" src="${image}">
+                        const domList = canvasList.map(canvas => `<div class="mb-3 p-4 border border-light-gray shadow-sm">
+                        <img class="w-100" src="${canvas.toDataURL()}">
                         </div>`);
-
                         this.util.openAlert({
                             title: '',
                             body: `<div class="px-5">${domList.join('\n')}</div>`
                         });
-
                         break;
                     default:
                         break;
