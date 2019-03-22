@@ -313,6 +313,14 @@
             "print": "印刷に失敗しました"
         }
     },
+    "development": {
+        "screen": {
+            "title": "座席表確認",
+            "read": "座席表を確認できます。",
+            "next": "",
+            "prev": "戻る"
+        }
+    },
     "form": {
         "validation": {
             "required": "未入力です",
@@ -336,7 +344,8 @@
         "confirm": {
             "login": "ログインしてよろしいですか。",
             "logout": "ログアウトしてよろしいですか。"
-        }
+        },
+        "development": "開発"
     },
     "modal": {
         "mvtkCheck": {
