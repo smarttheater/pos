@@ -49,11 +49,10 @@ export class PurchaseCinemaSeatComponent implements OnInit {
         this.purchase.subscribe((purchase) => {
             const screeningEvent = purchase.screeningEvent;
             if (screeningEvent === undefined) {
-                console.error('1111');
                 this.router.navigate(['/error']);
                 return;
             }
-            this.store.dispatch(new GetScreen({ screeningEvent }));
+            this.store.dispatch(new GetScreen({ screeningEvent, test: false }));
         }).unsubscribe();
 
         const success = this.actions.pipe(
@@ -66,7 +65,6 @@ export class PurchaseCinemaSeatComponent implements OnInit {
         const fail = this.actions.pipe(
             ofType(ActionTypes.GetScreenFail),
             tap(() => {
-                console.error('2222');
                 this.router.navigate(['/error']);
             })
         );
@@ -107,13 +105,18 @@ export class PurchaseCinemaSeatComponent implements OnInit {
                     });
                 });
             });
-            if (purchase.authorizeSeatReservation !== undefined) {
-                purchase.authorizeSeatReservation.object.acceptedOffer.forEach((acceptedOffer) => {
-                    if (acceptedOffer.ticketedSeat === undefined) {
-                        return;
-                    }
-                    seats.push(acceptedOffer.ticketedSeat);
-                });
+            if (purchase.authorizeSeatReservation !== undefined
+                && purchase.authorizeSeatReservation.instrument !== undefined) {
+                if (purchase.authorizeSeatReservation.instrument.identifier === factory.service.webAPI.Identifier.Chevre) {
+                    // chevre
+                    purchase.authorizeSeatReservation.object.acceptedOffer.forEach((offer) => {
+                        const chevreOffer = <factory.action.authorize.offer.seatReservation.IAcceptedOffer4chevre>offer;
+                        if (chevreOffer.ticketedSeat === undefined) {
+                            return;
+                        }
+                        seats.push(chevreOffer.ticketedSeat);
+                    });
+                }
             }
             this.store.dispatch(new SelectSeats({ seats }));
         }).unsubscribe();

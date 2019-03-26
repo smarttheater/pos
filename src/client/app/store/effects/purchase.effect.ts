@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { factory } from '@cinerino/api-javascript-client';
 import { Actions, Effect, ofType } from '@ngrx/effects';
+import * as moment from 'moment';
 import { map, mergeMap } from 'rxjs/operators';
 import {
     createMovieTicketsFromAuthorizeSeatReservation,
@@ -56,12 +57,23 @@ export class PurchaseEffects {
         mergeMap(async (payload) => {
             try {
                 await this.cinerino.getServices();
-                const screeningEventOffers = await this.cinerino.event.searchScreeningEventOffers({
-                    eventId: payload.screeningEvent.id
-                });
-                const theaterCode = payload.screeningEvent.superEvent.location.branchCode;
-                const screenCode = `000${payload.screeningEvent.location.branchCode}`.slice(-3);
-                const screen = await this.http.get<IScreen>(`/json/theater/${theaterCode}/${screenCode}.json`).toPromise();
+                let theaterCode;
+                let screenCode;
+                let screeningEventOffers: factory.chevre.event.screeningEvent.IScreeningRoomSectionOffer[];
+                if (payload.test) {
+                    screeningEventOffers = [];
+                    theaterCode = payload.theaterCode;
+                    screenCode = `000${payload.screenCode}`.slice(-3);
+                } else {
+                    screeningEventOffers = await this.cinerino.event.searchScreeningEventOffers({
+                        eventId: payload.screeningEvent.id
+                    });
+                    theaterCode = payload.screeningEvent.superEvent.location.branchCode;
+                    screenCode = `000${payload.screeningEvent.location.branchCode}`.slice(-3);
+                }
+                const screen = await this.http.get<IScreen>(
+                    `/json/theater/${theaterCode}/${screenCode}.json?${moment().format('YYYYMMDDHHmm')}`
+                ).toPromise();
                 const setting = await this.http.get<IScreen>('/json/theater/setting.json').toPromise();
                 const screenData = Object.assign(setting, screen);
                 return new purchase.GetScreenSuccess({ screeningEventOffers, screenData });
@@ -134,13 +146,13 @@ export class PurchaseEffects {
                     for (const containsPlace of screeningEventOffer.containsPlace) {
                         if (containsPlace.offers !== undefined
                             && containsPlace.offers[0].availability === factory.chevre.itemAvailability.InStock) {
-                                freeSeats.push({
-                                    typeOf: containsPlace.typeOf,
-                                    seatingType: <any>containsPlace.seatingType,
-                                    seatNumber: containsPlace.branchCode,
-                                    seatRow: '',
-                                    seatSection: section
-                                });
+                            freeSeats.push({
+                                typeOf: containsPlace.typeOf,
+                                seatingType: <any>containsPlace.seatingType,
+                                seatNumber: containsPlace.branchCode,
+                                seatRow: '',
+                                seatSection: section
+                            });
                         }
                     }
                 }

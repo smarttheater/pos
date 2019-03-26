@@ -6,23 +6,31 @@
             <div class="row">
                 <p class="col-md-4 py-2 text-md-right">{{ 'common.theater' | translate }}</p>
                 <div class="col-md-8">
-                    <select class="form-control" [(ngModel)]="branchCode" (change)="changeBranchCode()">
-                        <option *ngFor="let data of table" [value]="data.branchCode">{{ data.branchCode }}</option>
+                    <select class="form-control" [(ngModel)]="theaterCode" (change)="changeTheaterCode()">
+                        <option *ngFor="let data of table" [value]="data.theaterCode">{{ data.theaterCode }}</option>
                     </select>
                 </div>
             </div>
         </div>
-        <div class="form-group mb-0">
+        <div class="form-group">
             <div class="row">
                 <p class="col-md-4 py-2 text-md-right">{{ 'common.screen' | translate }}</p>
                 <div class="col-md-8">
-                    <select class="form-control" [(ngModel)]="screenCode" (change)="changeScreenCode()">
-                        <option *ngFor="let screen of getScreens(branchCode).screens" [value]="screen">{{ screen }}</option>
+                    <select class="form-control" [(ngModel)]="screenCode">
+                        <option *ngFor="let screen of getScreens(theaterCode).screens" [value]="screen">{{ screen }}</option>
                     </select>
                 </div>
             </div>
         </div>
+        <div class="buttons mx-auto">
+            <button type="button" class="btn btn-primary btn-block py-3"
+                (click)="getScreenData()">{{ 'development.screen.next' | translate }}</button>
+        </div>
     </div>
+
+    <app-screen *ngIf="(purchase | async).screenData" class="mb-4"
+        [screenData]="(purchase | async).screenData" (select)="selectSeat($event)">
+    </app-screen>
 
     <div class="buttons mx-auto">
         <button type="button" class="btn btn-outline-primary btn-block py-3"
