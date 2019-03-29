@@ -8,8 +8,7 @@ import { Observable, race } from 'rxjs';
 import { take, tap } from 'rxjs/operators';
 import { environment } from '../../../../../../environments/environment';
 import { IScreeningEventWork, screeningEventsToWorkEvents } from '../../../../../functions';
-import * as masterAction from '../../../../../store/actions/master.action';
-import * as purchaseAction from '../../../../../store/actions/purchase.action';
+import { masterAction, purchaseAction } from '../../../../../store/actions';
 import * as reducers from '../../../../../store/reducers';
 
 @Component({
@@ -41,7 +40,7 @@ export class PurchaseEventScheduleComponent implements OnInit, OnDestroy {
         if (this.scheduleDate === undefined || this.scheduleDate === '') {
             this.scheduleDate = moment().format('YYYY-MM-DD');
         }
-        this.cancelTemporaryReservations();
+        this.selectDate();
     }
 
     public ngOnDestroy() {
@@ -88,31 +87,6 @@ export class PurchaseEventScheduleComponent implements OnInit, OnDestroy {
             ofType(masterAction.ActionTypes.GetScheduleFail),
             tap(() => {
                 this.router.navigate(['/error']);
-            })
-        );
-        race(success, fail).pipe(take(1)).subscribe();
-    }
-
-    private cancelTemporaryReservations() {
-        this.purchase.subscribe((purchase) => {
-            const authorizeSeatReservations = purchase.authorizeSeatReservations;
-            this.store.dispatch(new purchaseAction.CancelTemporaryReservations({ authorizeSeatReservations }));
-        }).unsubscribe();
-
-
-        const success = this.actions.pipe(
-            ofType(purchaseAction.ActionTypes.CancelTemporaryReservationsSuccess),
-            tap(() => {
-                this.store.dispatch(new purchaseAction.Delete());
-                this.selectDate();
-            })
-        );
-
-        const fail = this.actions.pipe(
-            ofType(purchaseAction.ActionTypes.CancelTemporaryReservationsFail),
-            tap(() => {
-                this.store.dispatch(new purchaseAction.Delete());
-                this.selectDate();
             })
         );
         race(success, fail).pipe(take(1)).subscribe();

@@ -2,8 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { environment } from '../../../../../environments/environment';
-import * as orderAction from '../../../../store/actions/order.action';
-import * as purchaseAction from '../../../../store/actions/purchase.action';
+import { orderAction, purchaseAction } from '../../../../store/actions';
 import * as reducers from '../../../../store/reducers';
 
 @Component({

@@ -7,7 +7,7 @@ import { environment } from '../../../environments/environment';
 import { createPrintCanvas, createTestPrintCanvas, formatTelephone, retry } from '../../functions';
 import { connectionType, ITicketPrintData } from '../../models';
 import { CinerinoService, StarPrintService, UtilService } from '../../services';
-import * as orderAction from '../actions/order.action';
+import { orderAction } from '../actions';
 
 /**
  * Order Effects

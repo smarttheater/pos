@@ -11,9 +11,7 @@ import { environment } from '../../../../environments/environment';
 import { connectionType, printers, ViewType } from '../../../models';
 import { LibphonenumberFormatPipe } from '../../../pipes/libphonenumber-format.pipe';
 import { UtilService } from '../../../services';
-import * as masterAction from '../../../store/actions/master.action';
-import * as orderAction from '../../../store/actions/order.action';
-import * as userAction from '../../../store/actions/user.action';
+import { masterAction, orderAction, userAction } from '../../../store/actions';
 import * as reducers from '../../../store/reducers';
 
 @Component({

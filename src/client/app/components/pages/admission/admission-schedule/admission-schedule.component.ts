@@ -8,8 +8,7 @@ import { SwiperComponent, SwiperConfigInterface, SwiperDirective } from 'ngx-swi
 import { Observable, race } from 'rxjs';
 import { take, tap } from 'rxjs/operators';
 import { IScreeningEventWork, screeningEventsToWorkEvents } from '../../../../functions';
-import * as admissionAction from '../../../../store/actions/admission.action';
-import * as masterAction from '../../../../store/actions/master.action';
+import { admissionAction, masterAction } from '../../../../store/actions';
 import * as reducers from '../../../../store/reducers';
 
 

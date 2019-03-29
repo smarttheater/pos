@@ -10,7 +10,7 @@ import { take, tap } from 'rxjs/operators';
 import { getAmount } from '../../../../../functions';
 import { IReservationTicket, Reservation } from '../../../../../models/purchase/reservation';
 import { UtilService } from '../../../../../services';
-import { ActionTypes, SelectTickets, TemporaryReservation } from '../../../../../store/actions/purchase.action';
+import { purchaseAction } from '../../../../../store/actions';
 import * as reducers from '../../../../../store/reducers';
 import { MvtkCheckModalComponent, PurchaseCinemaTicketModalComponent } from '../../../../parts';
 
@@ -83,7 +83,7 @@ export class PurchaseCinemaTicketComponent implements OnInit {
                 });
                 return;
             }
-            this.store.dispatch(new TemporaryReservation({
+            this.store.dispatch(new purchaseAction.TemporaryReservation({
                 transaction,
                 screeningEvent,
                 reservations,
@@ -92,7 +92,7 @@ export class PurchaseCinemaTicketComponent implements OnInit {
         }).unsubscribe();
 
         const success = this.actions.pipe(
-            ofType(ActionTypes.TemporaryReservationSuccess),
+            ofType(purchaseAction.ActionTypes.TemporaryReservationSuccess),
             tap(() => {
                 this.purchase.subscribe((purchase) => {
                     this.user.subscribe((user) => {
@@ -117,7 +117,7 @@ export class PurchaseCinemaTicketComponent implements OnInit {
         );
 
         const fail = this.actions.pipe(
-            ofType(ActionTypes.TemporaryReservationFail),
+            ofType(purchaseAction.ActionTypes.TemporaryReservationFail),
             tap(() => {
                 this.router.navigate(['/error']);
             })
@@ -138,11 +138,11 @@ export class PurchaseCinemaTicketComponent implements OnInit {
             modalRef.result.then((ticket: IReservationTicket) => {
                 if (reservation === undefined) {
                     purchase.reservations.forEach(r => r.ticket = ticket);
-                    this.store.dispatch(new SelectTickets({ reservations: purchase.reservations }));
+                    this.store.dispatch(new purchaseAction.SelectTickets({ reservations: purchase.reservations }));
                     return;
                 }
                 reservation.ticket = ticket;
-                this.store.dispatch(new SelectTickets({ reservations: [reservation] }));
+                this.store.dispatch(new purchaseAction.SelectTickets({ reservations: [reservation] }));
             }).catch(() => { });
         }).unsubscribe();
     }

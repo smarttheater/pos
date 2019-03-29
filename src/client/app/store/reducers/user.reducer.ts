@@ -2,7 +2,7 @@ import { factory } from '@cinerino/api-javascript-client';
 import { IState } from '.';
 import { environment } from '../../../environments/environment';
 import { IPrinter, ViewType } from '../../models';
-import { Actions, ActionTypes } from '../actions/user.action';
+import { userAction } from '../actions';
 
 export interface IUserState {
     seller?: factory.seller.IOrganization<factory.seller.IAttributes<factory.organizationType>>;
@@ -25,12 +25,12 @@ export const userInitialState: IUserState = {
  * @param state
  * @param action
  */
-export function reducer(state: IState, action: Actions): IState {
+export function reducer(state: IState, action: userAction.Actions): IState {
     switch (action.type) {
-        case ActionTypes.Delete: {
+        case userAction.ActionTypes.Delete: {
             return { ...state, loading: false, process: { ja: '', en: '' } };
         }
-        case ActionTypes.UpdateAll: {
+        case userAction.ActionTypes.UpdateAll: {
             const customerContact = action.payload.customerContact;
             const seller = action.payload.seller;
             const pos = action.payload.pos;
@@ -46,7 +46,7 @@ export function reducer(state: IState, action: Actions): IState {
 
             return { ...state, loading: false, process: { ja: '', en: '' } };
         }
-        case ActionTypes.UpdateLanguage: {
+        case userAction.ActionTypes.UpdateLanguage: {
             state.userData.language = action.payload.language;
             return { ...state };
         }

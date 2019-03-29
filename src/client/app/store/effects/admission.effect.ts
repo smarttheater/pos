@@ -6,14 +6,7 @@ import * as decode from 'jwt-decode';
 import { map, mergeMap } from 'rxjs/operators';
 import { IDecodeResult } from '../../models';
 import { CinerinoService } from '../../services';
-import {
-    ActionTypes,
-    Check,
-    CheckSuccess,
-    GetScreeningEvent,
-    GetScreeningEventFail,
-    GetScreeningEventSuccess
-} from '../actions/admission.action';
+import { admissionAction } from '../actions';
 
 /**
  * AdmissionEffects
@@ -31,16 +24,16 @@ export class AdmissionEffects {
      */
     @Effect()
     public getScreeningEvent = this.actions.pipe(
-        ofType<GetScreeningEvent>(ActionTypes.GetScreeningEvent),
+        ofType<admissionAction.GetScreeningEvent>(admissionAction.ActionTypes.GetScreeningEvent),
         map(action => action.payload),
         mergeMap(async (payload) => {
             // console.log(payload);
             try {
                 await this.cinerino.getServices();
                 const screeningEvent = await this.cinerino.event.findScreeningEventById(payload.params);
-                return new GetScreeningEventSuccess({ screeningEvent });
+                return new admissionAction.GetScreeningEventSuccess({ screeningEvent });
             } catch (error) {
-                return new GetScreeningEventFail({ error: error });
+                return new admissionAction.GetScreeningEventFail({ error: error });
             }
         })
     );
@@ -50,7 +43,7 @@ export class AdmissionEffects {
      */
     @Effect()
     public check = this.actions.pipe(
-        ofType<Check>(ActionTypes.Check),
+        ofType<admissionAction.Check>(admissionAction.ActionTypes.Check),
         map(action => action.payload),
         mergeMap(async (payload) => {
             // console.log(payload);
@@ -101,7 +94,7 @@ export class AdmissionEffects {
                     await this.cinerino.reservation.findScreeningEventReservationByToken({ token });
                 }
 
-                return new CheckSuccess({
+                return new admissionAction.CheckSuccess({
                     token,
                     decodeResult,
                     availableReservation,
@@ -109,7 +102,7 @@ export class AdmissionEffects {
                     statusCode
                 });
             } catch (error) {
-                return new CheckSuccess({
+                return new admissionAction.CheckSuccess({
                     checkTokenActions: [],
                     statusCode: (error.code === undefined) ? INTERNAL_SERVER_ERROR : error.code
                 });

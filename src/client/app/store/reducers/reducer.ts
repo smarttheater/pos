@@ -1,10 +1,6 @@
 import { environment } from '../../../environments/environment';
 import { ILanguage, Reservation } from '../../models';
-import * as admissionAction from '../actions/admission.action';
-import * as masterAction from '../actions/master.action';
-import * as orderAction from '../actions/order.action';
-import * as purchaseAction from '../actions/purchase.action';
-import * as userAction from '../actions/user.action';
+import { admissionAction, masterAction, orderAction, purchaseAction, userAction } from '../actions';
 import * as admissionReducer from './admission.reducer';
 import * as masterReducer from './master.reducer';
 import * as orderReducer from './order.reducer';
