@@ -75,7 +75,14 @@ export class PurchaseEventTicketComponent implements OnInit, OnDestroy {
                     this.router.navigate(['/error']);
                     return;
                 }
-                this.store.dispatch(new masterAction.GetSchedule({ seller, scheduleDate }));
+                this.store.dispatch(new masterAction.GetSchedule({
+                    superEvent: {
+                        locationBranchCodes:
+                            (seller.location === undefined || seller.location.branchCode === undefined) ? [] : [seller.location.branchCode]
+                    },
+                    startFrom: moment(scheduleDate).toDate(),
+                    startThrough: moment(scheduleDate).add(1, 'day').toDate()
+                }));
             }).unsubscribe();
         }).unsubscribe();
 
