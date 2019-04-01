@@ -116,7 +116,11 @@ export class SettingComponent implements OnInit {
                 this.changePosList();
                 this.settingForm.controls.posId.setValue(user.pos.id);
             }
-            if (user.customerContact !== undefined) {
+            if (user.customerContact !== undefined
+                && user.customerContact.familyName !== undefined
+                && user.customerContact.givenName !== undefined
+                && user.customerContact.email !== undefined
+                && user.customerContact.telephone !== undefined) {
                 this.settingForm.controls.familyName.setValue(user.customerContact.familyName);
                 this.settingForm.controls.givenName.setValue(user.customerContact.givenName);
                 this.settingForm.controls.email.setValue(user.customerContact.email);

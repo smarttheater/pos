@@ -239,7 +239,9 @@ export class PurchaseEffects {
         mergeMap(async (payload) => {
             const transaction = payload.transaction;
             const contact = payload.contact;
-            contact.telephone = formatTelephone(contact.telephone);
+            if (contact.telephone !== undefined) {
+                contact.telephone = formatTelephone(contact.telephone);
+            }
             try {
                 await this.cinerino.getServices();
                 const customerContact =
