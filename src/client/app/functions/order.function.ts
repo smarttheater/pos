@@ -15,7 +15,7 @@ async function drawCanvas(args: {
         screenName: string;
         eventName: string;
         startDate: string;
-        seatNumber: string;
+        seatNumber?: string;
         ticketName: string;
         price: number;
         qrcode: string;
@@ -124,6 +124,9 @@ async function drawCanvas(args: {
                         );
                     }
                     continue;
+                case 'seatNumber':
+                    value = (data.seatNumber === undefined) ? 'なし' : data.seatNumber;
+                    break;
                 default:
                     value = data[text.name];
             }
@@ -164,16 +167,14 @@ export async function createPrintCanvas(args: {
     if (acceptedOffer.itemOffered.typeOf !== factory.chevre.reservationType.EventReservation) {
         throw new Error('reservationType is not EventReservation');
     }
-    if (acceptedOffer.itemOffered.reservedTicket.ticketedSeat === undefined) {
-        throw new Error('ticketedSeat is undefined');
-    }
     const data = {
         confirmationNumber: args.order.confirmationNumber,
         theaterName: acceptedOffer.itemOffered.reservationFor.superEvent.location.name.ja,
         screenName: acceptedOffer.itemOffered.reservationFor.location.name.ja,
         eventName: acceptedOffer.itemOffered.reservationFor.name.ja,
         startDate: moment(acceptedOffer.itemOffered.reservationFor.startDate).format('YY/MM/DD (ddd) HH:mm'),
-        seatNumber: acceptedOffer.itemOffered.reservedTicket.ticketedSeat.seatNumber,
+        seatNumber: (acceptedOffer.itemOffered.reservedTicket.ticketedSeat === undefined)
+            ? undefined : acceptedOffer.itemOffered.reservedTicket.ticketedSeat.seatNumber,
         ticketName: acceptedOffer.itemOffered.reservedTicket.ticketType.name.ja,
         price: getTicketPrice(acceptedOffer).single,
         qrcode: <string>acceptedOffer.itemOffered.reservedTicket.ticketToken,
