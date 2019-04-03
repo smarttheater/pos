@@ -99,7 +99,7 @@ export class SettingComponent implements OnInit {
             ]],
             printerType: [''],
             printerIpAddress: [''],
-            limitedPurchaseCount: ['', [
+            purchaseCartMaxLength: ['', [
                 Validators.required,
                 Validators.pattern(/^[0-9]+$/)
             ]],
@@ -130,7 +130,7 @@ export class SettingComponent implements OnInit {
                 this.settingForm.controls.printerType.setValue(user.printer.connectionType);
                 this.settingForm.controls.printerIpAddress.setValue(user.printer.ipAddress);
             }
-            this.settingForm.controls.limitedPurchaseCount.setValue(user.limitedPurchaseCount);
+            this.settingForm.controls.purchaseCartMaxLength.setValue(user.purchaseCartMaxLength);
             this.settingForm.controls.viewType.setValue(user.viewType);
         }).unsubscribe();
     }
@@ -216,7 +216,7 @@ export class SettingComponent implements OnInit {
                     ipAddress: this.settingForm.controls.printerIpAddress.value,
                     connectionType: this.settingForm.controls.printerType.value
                 },
-                limitedPurchaseCount: Number(this.settingForm.controls.limitedPurchaseCount.value),
+                purchaseCartMaxLength: Number(this.settingForm.controls.purchaseCartMaxLength.value),
                 viewType: this.settingForm.controls.viewType.value
             }));
             this.util.openAlert({

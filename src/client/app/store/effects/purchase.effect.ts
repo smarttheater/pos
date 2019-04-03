@@ -6,7 +6,6 @@ import * as moment from 'moment';
 import { map, mergeMap } from 'rxjs/operators';
 import {
     createMovieTicketsFromAuthorizeSeatReservation,
-    createOrderId,
     formatTelephone
 } from '../../functions';
 import { IScreen } from '../../models';
@@ -268,7 +267,6 @@ export class PurchaseEffects {
         map(action => action.payload),
         mergeMap(async (payload) => {
             try {
-                const orderCount = payload.orderCount;
                 const gmoTokenObject = payload.gmoTokenObject;
                 const amount = payload.amount;
                 await this.cinerino.getServices();
@@ -276,13 +274,11 @@ export class PurchaseEffects {
                     await this.cinerino.transaction.placeOrder.voidPayment(payload.authorizeCreditCardPayment);
                 }
                 const transaction = payload.transaction;
-                const orderId = createOrderId({ orderCount, transaction });
                 const creditCard = { token: gmoTokenObject.token };
                 const authorizeCreditCardPaymentResult =
                     await this.cinerino.transaction.placeOrder.authorizeCreditCardPayment({
                         object: {
                             typeOf: factory.paymentMethodType.CreditCard,
-                            orderId,
                             amount,
                             method: <any>'1',
                             creditCard

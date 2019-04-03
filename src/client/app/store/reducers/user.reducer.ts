@@ -10,13 +10,13 @@ export interface IUserState {
     customerContact?: factory.transaction.placeOrder.ICustomerContact;
     printer?: IPrinter;
     language: string;
-    limitedPurchaseCount: number;
+    purchaseCartMaxLength: number;
     viewType: ViewType;
 }
 
 export const userInitialState: IUserState = {
     language: 'ja',
-    limitedPurchaseCount: Number(environment.LIMITED_PURCHASE_COUNT),
+    purchaseCartMaxLength: Number(environment.PURCHASE_CART_MAX_LENGTH),
     viewType: environment.VIEW_TYPE
 };
 
@@ -35,13 +35,13 @@ export function reducer(state: IState, action: userAction.Actions): IState {
             const seller = action.payload.seller;
             const pos = action.payload.pos;
             const printer = action.payload.printer;
-            const limitedPurchaseCount = action.payload.limitedPurchaseCount;
+            const purchaseCartMaxLength = action.payload.purchaseCartMaxLength;
             const viewType = action.payload.viewType;
             state.userData.customerContact = customerContact;
             state.userData.seller = seller;
             state.userData.pos = pos;
             state.userData.printer = printer;
-            state.userData.limitedPurchaseCount = limitedPurchaseCount;
+            state.userData.purchaseCartMaxLength = purchaseCartMaxLength;
             state.userData.viewType = viewType;
 
             return { ...state, loading: false, process: { ja: '', en: '' } };
