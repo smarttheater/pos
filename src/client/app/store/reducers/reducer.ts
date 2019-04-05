@@ -1,5 +1,5 @@
 import { environment } from '../../../environments/environment';
-import { ILanguage, Reservation } from '../../models';
+import { Reservation } from '../../models';
 import { admissionAction, masterAction, orderAction, purchaseAction, userAction } from '../actions';
 import * as admissionReducer from './admission.reducer';
 import * as masterReducer from './master.reducer';
@@ -12,7 +12,7 @@ import * as userReducer from './user.reducer';
  */
 export interface IState {
     loading: boolean;
-    process: ILanguage;
+    process: string;
     error: string | null;
     purchaseData: purchaseReducer.IPurchaseState;
     userData: userReducer.IUserState;
@@ -26,7 +26,7 @@ export interface IState {
  */
 export const initialState: IState = {
     loading: false,
-    process: { ja: '', en: '' },
+    process: '',
     error: null,
     purchaseData: purchaseReducer.purchaseInitialState,
     userData: userReducer.userInitialState,
@@ -86,7 +86,7 @@ export function reducer(
  * Selectors
  */
 export const getLoading = (state: IState) => state.loading;
-export const getProcess = (state: IState) => state.process;
+export const getProcess = (state: IState) => `process.${state.process}`;
 export const getError = (state: IState) => state.error;
 export const getPurchase = (state: IState) => state.purchaseData;
 export const getUser = (state: IState) => state.userData;

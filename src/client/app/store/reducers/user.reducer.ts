@@ -28,7 +28,7 @@ export const userInitialState: IUserState = {
 export function reducer(state: IState, action: userAction.Actions): IState {
     switch (action.type) {
         case userAction.ActionTypes.Delete: {
-            return { ...state, loading: false, process: { ja: '', en: '' } };
+            return { ...state, loading: false, process: '' };
         }
         case userAction.ActionTypes.UpdateAll: {
             const customerContact = action.payload.customerContact;
@@ -44,7 +44,7 @@ export function reducer(state: IState, action: userAction.Actions): IState {
             state.userData.purchaseCartMaxLength = purchaseCartMaxLength;
             state.userData.viewType = viewType;
 
-            return { ...state, loading: false, process: { ja: '', en: '' } };
+            return { ...state, loading: false, process: '' };
         }
         case userAction.ActionTypes.UpdateLanguage: {
             state.userData.language = action.payload.language;
