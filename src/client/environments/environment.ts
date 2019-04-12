@@ -15,8 +15,12 @@ export const environment = {
     VIEW_TYPE: ViewType.Cinema,
     TRANSACTION_TIME: '30',
     STORAGE_NAME: 'CINERINO-POS-STATE',
+    STORAGE_TYPE: 'localStorage',
     BASE_URL: '/purchase/root',
     HEADER_MENU: true,
     ROUTE_SCOPE: ['purchase', 'inquiry', 'order', 'admission', 'setting', 'auth', 'development'],
-    SCHEDULE_STATUS_THRESHOLD: { value: '30', unit: '%' }
+    SCHEDULE_STATUS_THRESHOLD: { value: '30', unit: '%' },
+    INQUIRY_CANCEL: true,
+    INQUIRY_QRCODE: true,
+    INQUIRY_PRINT: true
 };

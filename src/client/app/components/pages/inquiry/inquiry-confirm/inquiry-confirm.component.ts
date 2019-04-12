@@ -7,6 +7,7 @@ import { TranslateService } from '@ngx-translate/core';
 import * as moment from 'moment';
 import { Observable, race } from 'rxjs';
 import { take, tap } from 'rxjs/operators';
+import { environment } from '../../../../../environments/environment';
 import { getTicketPrice, IEventOrder, orderToEventOrders } from '../../../../functions';
 import { UtilService } from '../../../../services';
 import { orderAction } from '../../../../store/actions';
@@ -26,6 +27,7 @@ export class InquiryConfirmComponent implements OnInit {
     public getTicketPrice = getTicketPrice;
     public eventOrders: IEventOrder[];
     public orderStatus: typeof factory.orderStatus = factory.orderStatus;
+    public environment = environment;
 
     constructor(
         private store: Store<reducers.IState>,
