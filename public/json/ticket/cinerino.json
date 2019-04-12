@@ -16,8 +16,8 @@
         { "name": "date", "fillStyle": "black", "font": { "weight": "normal", "size": "22px" }, "textAlign": "left", "fillText": { "x": "left", "y": 780 } }
     ],
     "image": [
-        { "src": "/assets/images/logo.svg", "width": 200, "height": 32, "x": 180, "y": 0 },
-        { "src": "/assets/images/print_box.svg", "width": 560, "height": 210, "x": 0, "y": 320 }
+        { "src": "/images/print/logo.svg", "width": 200, "height": 32, "x": 180, "y": 0 },
+        { "src": "/images/print/box.svg", "width": 560, "height": 210, "x": 0, "y": 320 }
     ],
     "qrCode": [
         { "width": 180, "height": 180, "x": 390, "y": 610 }

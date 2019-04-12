@@ -4,7 +4,7 @@ import { Actions, Effect, ofType } from '@ngrx/effects';
 import * as moment from 'moment';
 import { map, mergeMap } from 'rxjs/operators';
 import { environment } from '../../../environments/environment';
-import { createPrintCanvas, createTestPrintCanvas, formatTelephone, retry } from '../../functions';
+import { createPrintCanvas, createTestPrintCanvas, formatTelephone, retry, sleep } from '../../functions';
 import { connectionType, ITicketPrintData } from '../../models';
 import { CinerinoService, StarPrintService, UtilService } from '../../services';
 import { orderAction } from '../actions';
@@ -73,25 +73,25 @@ export class OrderEffects {
                     await this.cinerino.transaction.returnOrder.confirm({ id: startResult.id });
                 }
                 const orderStatusWatch = () => {
-                    return new Promise<void>((resolve, reject) => {
-                        const interval = 5000;
-                        let intervalCount = 0;
+                    return new Promise<void>(async (resolve, reject) => {
                         const limit = 10;
-                        const timer = setInterval(async () => {
-                            const searchResult = await this.cinerino.order.search({
-                                orderNumbers: orders.map(o => o.orderNumber)
-                            });
-                            const filterResult = searchResult.data.filter(o => o.orderStatus !== factory.orderStatus.OrderReturned);
-                            if (filterResult.length === 0) {
-                                clearInterval(timer);
-                                return resolve();
+                        for (let i = 0; i < limit; i++) {
+                            try {
+                                const searchResult = await this.cinerino.order.search({
+                                    orderNumbers: orders.map(o => o.orderNumber)
+                                });
+                                const filterResult = searchResult.data.filter(o => o.orderStatus !== factory.orderStatus.OrderReturned);
+                                if (filterResult.length === 0) {
+                                    return resolve();
+                                }
+                                if (i > limit) {
+                                    return reject({ error: 'timeout' });
+                                }
+                                await sleep(5000);
+                            } catch (error) {
+                                return reject(error);
                             }
-                            if (intervalCount > limit) {
-                                clearInterval(timer);
-                                return reject({ error: 'timeout' });
-                            }
-                            intervalCount++;
-                        }, interval);
+                        }
                     });
                 };
                 await orderStatusWatch();

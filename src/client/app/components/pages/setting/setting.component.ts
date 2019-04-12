@@ -55,7 +55,7 @@ export class SettingComponent implements OnInit {
         const TEL_MIN_LENGTH = 9;
 
         this.settingForm = this.formBuilder.group({
-            theaterCode: ['', [
+            sellerBranchCode: ['', [
                 Validators.required
             ]],
             posId: ['', [
@@ -110,7 +110,7 @@ export class SettingComponent implements OnInit {
         this.user.subscribe((user) => {
             if (user.seller !== undefined
                 && user.seller.location !== undefined) {
-                this.settingForm.controls.theaterCode.setValue(user.seller.location.branchCode);
+                this.settingForm.controls.sellerBranchCode.setValue(user.seller.location.branchCode);
             }
             if (user.pos !== undefined) {
                 this.changePosList();
@@ -137,15 +137,15 @@ export class SettingComponent implements OnInit {
 
     public changePosList() {
         this.settingForm.controls.posId.setValue('');
-        const theaterCode = this.settingForm.controls.theaterCode.value;
-        if (theaterCode === '') {
+        const sellerBranchCode = this.settingForm.controls.sellerBranchCode.value;
+        if (sellerBranchCode === '') {
             this.posList = [];
             return;
         }
         this.master.subscribe((master) => {
             const findTheater =
                 master.sellers.find(theater =>
-                    (theater.location !== undefined && theater.location.branchCode === theaterCode)
+                    (theater.location !== undefined && theater.location.branchCode === sellerBranchCode)
                 );
             if (findTheater === undefined) {
                 this.posList = [];
@@ -182,29 +182,24 @@ export class SettingComponent implements OnInit {
         if (this.settingForm.invalid) {
             this.util.openAlert({
                 title: this.translate.instant('common.error'),
-                body: `
-                    <p class="mb-4">${this.translate.instant('setting.alert.validation')}</p>
-                        <div class="p-3 bg-light-gray select-text">
-                        <code>${JSON.stringify(this.settingForm.errors)}</code>
-                    </div>`
+                body: this.translate.instant('setting.alert.validation')
             });
             return;
         }
         this.master.subscribe((master) => {
-            const findMovieTheater = master.sellers.find(theater =>
-                (theater.location !== undefined && theater.location.branchCode === this.settingForm.controls.theaterCode.value)
-            );
-            if (findMovieTheater === undefined) {
+            const findSeller = master.sellers.find((s) =>
+                (s.location !== undefined && s.location.branchCode === this.settingForm.controls.sellerBranchCode.value));
+            if (findSeller === undefined || findSeller.hasPOS === undefined) {
                 return;
             }
-            const findPos = (<any>findMovieTheater).hasPOS.find((pos: any) => {
+            const findPos = findSeller.hasPOS.find((pos: any) => {
                 return pos.id === this.settingForm.controls.posId.value;
             });
             if (findPos === undefined) {
                 return;
             }
             this.store.dispatch(new userAction.UpdateAll({
-                seller: findMovieTheater,
+                seller: findSeller,
                 pos: findPos,
                 customerContact: {
                     familyName: this.settingForm.controls.familyName.value,

@@ -8,15 +8,15 @@
                     <div class="row">
                         <p class="col-md-4 py-2 text-md-right">{{ 'common.theater' | translate }}</p>
                         <div class="col-md-8">
-                            <select class="form-control" formControlName="theaterCode" (change)="changePosList()">
+                            <select class="form-control" formControlName="sellerBranchCode" (change)="changePosList()">
                                 <option value="">{{ 'setting.unselected' | translate }}</option>
                                 <option *ngFor="let theater of (master | async).sellers"
                                     [value]="theater.location.branchCode">{{
                                     theater.name.ja }}</option>
                             </select>
-                            <div *ngIf="settingForm.controls.theaterCode.invalid && settingForm.controls.theaterCode.touched"
+                            <div *ngIf="settingForm.controls.sellerBranchCode.invalid && settingForm.controls.sellerBranchCode.touched"
                                 class="mt-2">
-                                <p *ngIf="settingForm.controls.theaterCode.errors.required" class="text-danger">
+                                <p *ngIf="settingForm.controls.sellerBranchCode.errors.required" class="text-danger">
                                     {{ 'form.validation.unselected' | translate }}</p>
                             </div>
                         </div>
