@@ -20,6 +20,8 @@ import {
     AuthSignoutComponent,
     BaseComponent,
     CongestionComponent,
+    DevelopmentEncryptionComponent,
+    DevelopmentIndexComponent,
     DevelopmentScreenComponent,
     ErrorComponent,
     ExpiredComponent,
@@ -127,7 +129,9 @@ export function HttpLoaderFactory(http: HttpClient) {
         PurchaseEventTicketComponent,
         PurchaseEventScheduleWorkComponent,
         PurchaseEventTicketModalComponent,
-        DevelopmentScreenComponent
+        DevelopmentScreenComponent,
+        DevelopmentIndexComponent,
+        DevelopmentEncryptionComponent
     ],
     entryComponents: [
         PurchaseCinemaTicketModalComponent,

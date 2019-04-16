@@ -1,20 +1,20 @@
 <p class="mb-3">{{ 'purchase.info.read' | translate }}</p>
 <div class="bg-dark-gray text-white px-3">
     <div class="py-3 border-bottom border-white">
-        <div class="row">
+        <div class="row align-items-center">
             <p class="mb-2 mb-md-0 col-md-4"> <i class="fas fa-map-marker-alt mr-2"></i>{{ 'common.theater' | translate }} / {{ 'common.screen' | translate }}</p>
             <p class="col-md-8">{{ purchase.screeningEvent?.superEvent.location.name | changeLanguage }} / {{
                 purchase.screeningEvent?.location.name | changeLanguage }}</p>
         </div>
     </div>
     <div class="py-3 border-bottom border-white">
-        <div class="row">
+        <div class="row align-items-center">
             <p class="mb-2 mb-md-0 col-md-4"> <i class="fas fa-film mr-2"></i>{{ 'common.event' | translate }}</p>
             <p class="col-md-8">{{ purchase.screeningEvent?.name | changeLanguage }}</p>
         </div>
     </div>
     <div class="py-3 border-bottom border-white">
-        <div class="row">
+        <div class="row align-items-center">
             <p class="mb-2 mb-md-0 col-md-4"> <i class="far fa-clock mr-2"></i>{{ 'common.startDate' | translate }}</p>
             <p class="col-md-8">
                 {{ purchase.screeningEvent?.startDate | formatDate: 'YYYY/MM/DD (ddd) HH:mm' }}
@@ -22,7 +22,7 @@
         </div>
     </div>
     <div class="py-3">
-        <div class="row">
+        <div class="row align-items-center">
             <p class="mb-2 mb-md-0 col-md-4"> <i class="fas fa-ticket-alt mr-2"></i><span *ngIf="purchase.screeningEvent.offers?.itemOffered.serviceOutput?.reservedTicket?.ticketedSeat">{{ 'common.seat' | translate }} /</span>{{ 'common.ticket' | translate }}</p>
             <div class="col-md-8">
                 <div *ngFor="let reservation of purchase.reservations">
