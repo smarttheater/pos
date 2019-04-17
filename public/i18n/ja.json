@@ -497,6 +497,8 @@
         "error": "エラー",
         "confirm": "確認",
         "complete": "完了",
-        "warning": "警告"
+        "warning": "警告",
+        "change": "変更",
+        "remove": "削除"
     }
 }

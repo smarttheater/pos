@@ -3,7 +3,7 @@
     <p class="mb-4">{{ 'development.encryption.read' | translate }}</p>
 
 
-    <div class="p-3 bg-light-gray mb-4">
+    <div class="p-3 bg-white mb-4">
         <form>
             <div class="form-group">
                 <div class="row align-items-center">
@@ -46,7 +46,7 @@
                     </div>
                 </div>
             </div>
-            <div class="buttons mx-auto">
+            <div class="buttons mx-auto text-center">
                 <button type="button" class="btn btn-primary btn-block py-3"
                     (click)="encode()">{{ 'development.encryption.encode' | translate }}</button>
             </div>
@@ -54,7 +54,7 @@
     </div>
 
 
-    <div class="p-3 bg-light-gray mb-4">
+    <div class="p-3 bg-white mb-4">
         <form>
             <div class="form-group">
                 <div class="row align-items-center">
@@ -90,7 +90,7 @@
                     </div>
                 </div>
             </div>
-            <div class="buttons mx-auto">
+            <div class="buttons mx-auto text-center">
                 <button type="button" class="btn btn-primary btn-block py-3"
                     (click)="decode()">{{ 'development.encryption.decode' | translate }}</button>
             </div>
@@ -98,8 +98,8 @@
     </div>
 
 
-    <div class="buttons mx-auto">
-        <button type="button" class="btn btn-outline-primary btn-block py-3"
+    <div class="buttons mx-auto text-center">
+        <button type="button" class="btn btn-link"
             routerLink="/development">{{ 'development.encryption.prev' | translate }}</button>
     </div>
 
