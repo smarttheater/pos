@@ -13,6 +13,7 @@ export const environment = {
     STORAGE_NAME: 'CINERINO-POS-STATE',
     STORAGE_TYPE: 'localStorage',
     BASE_URL: '/purchase/root',
+    LANGUAGE: ['ja', 'en'],
     HEADER_MENU: true,
     HEADER_MENU_SCOPE: ['purchase', 'inquiry', 'order', 'admission', 'setting', 'auth', 'development'],
     PURCHASE_CART_MAX_LENGTH: '1',
