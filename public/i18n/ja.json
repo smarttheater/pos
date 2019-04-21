@@ -449,6 +449,9 @@
         },
         "userAction": {}
     },
+    "footer": {
+        "copyright": "Copyright (c) Motionpicture co.,ltd. All rights reserved."
+    },
     "common": {
         "date": {
             "year": "年",
