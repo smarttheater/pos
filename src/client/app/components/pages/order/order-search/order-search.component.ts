@@ -8,18 +8,19 @@ import { TranslateService } from '@ngx-translate/core';
 import * as moment from 'moment';
 import { Observable, race } from 'rxjs';
 import { take, tap } from 'rxjs/operators';
-import { OrderActions } from '../../../../models';
+import { IOrderSearchConditions, OrderActions } from '../../../../models';
 import { UtilService } from '../../../../services';
 import { orderAction } from '../../../../store/actions';
 import * as reducers from '../../../../store/reducers';
+import { QrCodeModalComponent } from '../../../parts';
 import { OrderDetailModalComponent } from '../../../parts/order-detail-modal/order-detail-modal.component';
 
 @Component({
-    selector: 'app-order-list',
-    templateUrl: './order-list.component.html',
-    styleUrls: ['./order-list.component.scss']
+    selector: 'app-order-search',
+    templateUrl: './order-search.component.html',
+    styleUrls: ['./order-search.component.scss']
 })
-export class OrderListComponent implements OnInit {
+export class OrderSearchComponent implements OnInit {
     public isLoading: Observable<boolean>;
     public error: Observable<string | null>;
     public order: Observable<reducers.IOrderState>;
@@ -27,32 +28,8 @@ export class OrderListComponent implements OnInit {
     public moment: typeof moment = moment;
     public orderStatus: typeof factory.orderStatus = factory.orderStatus;
     public limit: number;
-    public conditions: {
-        orderDateFrom: string;
-        orderDateThrough: string;
-        confirmationNumber: string;
-        customer: {
-            familyName: string;
-            givenName: string;
-            email: string;
-            telephone: string;
-        },
-        orderStatuses: '' | factory.orderStatus;
-        page: number;
-    };
-    public confirmedConditions: {
-        orderDateFrom: string;
-        orderDateThrough: string;
-        confirmationNumber: string;
-        customer: {
-            familyName: string;
-            givenName: string;
-            email: string;
-            telephone: string;
-        },
-        orderStatuses: '' | factory.orderStatus;
-        page: number;
-    };
+    public conditions: IOrderSearchConditions;
+    public confirmedConditions: IOrderSearchConditions;
     public selectedOrders: factory.order.IOrder[];
     public OrderActions: typeof OrderActions = OrderActions;
     public actionSelect: OrderActions | '';
@@ -78,6 +55,7 @@ export class OrderListComponent implements OnInit {
             orderDateFrom: '',
             orderDateThrough: '',
             confirmationNumber: '',
+            orderNumber: '',
             customer: {
                 familyName: '',
                 givenName: '',
@@ -104,6 +82,9 @@ export class OrderListComponent implements OnInit {
         this.selectedOrders.splice(findIndex, 1);
     }
 
+    /**
+     * 検索
+     */
     public orderSearch(changeConditions: boolean) {
         this.selectedOrders = [];
         if (changeConditions) {
@@ -111,6 +92,7 @@ export class OrderListComponent implements OnInit {
                 orderDateFrom: this.conditions.orderDateFrom,
                 orderDateThrough: this.conditions.orderDateThrough,
                 confirmationNumber: this.conditions.confirmationNumber,
+                orderNumber: this.conditions.orderNumber,
                 customer: {
                     familyName: this.conditions.customer.familyName,
                     givenName: this.conditions.customer.givenName,
@@ -148,6 +130,8 @@ export class OrderListComponent implements OnInit {
                         ? undefined : moment(this.confirmedConditions.orderDateThrough).add(1, 'day').toDate(),
                     confirmationNumbers: (this.confirmedConditions.confirmationNumber === '')
                         ? undefined : [this.confirmedConditions.confirmationNumber],
+                    orderNumbers: (this.confirmedConditions.orderNumber === '')
+                        ? undefined : [this.confirmedConditions.orderNumber],
                     limit: this.limit,
                     page: this.confirmedConditions.page,
                     sort: {
@@ -202,7 +186,8 @@ export class OrderListComponent implements OnInit {
      */
     public openDetail(order: factory.order.IOrder) {
         const modalRef = this.modal.open(OrderDetailModalComponent, {
-            centered: true
+            centered: true,
+            size: 'lg'
         });
         modalRef.componentInstance.order = order;
     }
@@ -302,6 +287,45 @@ export class OrderListComponent implements OnInit {
                 }
             });
         }
+    }
+
+    /**
+     * QRコード表示
+     */
+    public openQrCode(order: factory.order.IOrder) {
+        this.store.dispatch(new orderAction.OrderAuthorize({
+            params: {
+                orderNumber: order.orderNumber,
+                customer: {
+                    telephone: order.customer.telephone
+                }
+            }
+        }));
+        const success = this.actions.pipe(
+            ofType(orderAction.ActionTypes.OrderAuthorizeSuccess),
+            tap(() => {
+                this.order.subscribe((orderData) => {
+                    const authorizeOrder = orderData.order;
+                    if (authorizeOrder === undefined) {
+                        return;
+                    }
+                    const modalRef = this.modal.open(QrCodeModalComponent, {
+                        centered: true
+                    });
+                    modalRef.componentInstance.order = authorizeOrder;
+                }).unsubscribe();
+            })
+        );
+        const fail = this.actions.pipe(
+            ofType(orderAction.ActionTypes.OrderAuthorizeFail),
+            tap(() => {
+                this.util.openAlert({
+                    title: this.translate.instant('common.error'),
+                    body: this.translate.instant('order.list.alert.authorize')
+                });
+            })
+        );
+        race(success, fail).pipe(take(1)).subscribe();
     }
 
 }
