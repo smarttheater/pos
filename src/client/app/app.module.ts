@@ -42,7 +42,8 @@ import {
     PurchaseInputComponent,
     PurchasePaymentComponent,
     PurchaseRootComponent,
-    SettingComponent,
+    ReservationSearchComponent,
+    SettingComponent
 } from './components/pages';
 import {
     AdmissionScheduleWorkComponent,
@@ -64,6 +65,7 @@ import {
     PurchaseInfoComponent,
     PurchaseTransactionModalComponent,
     QrCodeModalComponent,
+    ReservationDetailModalComponent,
     ScreenComponent,
     TransactionRemainingTimeComponent
 } from './components/parts';
@@ -134,6 +136,8 @@ export function HttpLoaderFactory(http: HttpClient) {
         PurchaseCinemaPerformanceComponent,
         PurchaseEventPerformanceComponent,
         PurchaseEventPerformanceConfirmComponent,
+        ReservationSearchComponent,
+        ReservationDetailModalComponent,
     ],
     entryComponents: [
         PurchaseCinemaTicketModalComponent,
@@ -143,7 +147,8 @@ export function HttpLoaderFactory(http: HttpClient) {
         MvtkCheckModalComponent,
         PurchaseTransactionModalComponent,
         OrderDetailModalComponent,
-        PurchaseEventTicketModalComponent
+        PurchaseEventTicketModalComponent,
+        ReservationDetailModalComponent
     ],
     imports: [
         BrowserModule,

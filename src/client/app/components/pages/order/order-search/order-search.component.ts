@@ -12,8 +12,7 @@ import { IOrderSearchConditions, OrderActions } from '../../../../models';
 import { UtilService } from '../../../../services';
 import { orderAction } from '../../../../store/actions';
 import * as reducers from '../../../../store/reducers';
-import { QrCodeModalComponent } from '../../../parts';
-import { OrderDetailModalComponent } from '../../../parts/order-detail-modal/order-detail-modal.component';
+import { OrderDetailModalComponent, QrCodeModalComponent } from '../../../parts';
 
 @Component({
     selector: 'app-order-search',
@@ -161,7 +160,7 @@ export class OrderSearchComponent implements OnInit {
     public printConfirm(orders: factory.order.IOrder[]) {
         this.util.openConfirm({
             title: this.translate.instant('common.confirm'),
-            body: this.translate.instant('order.list.confirm.print'),
+            body: this.translate.instant('order.search.confirm.print'),
             cb: () => {
                 this.ptint(orders);
             }
@@ -174,7 +173,7 @@ export class OrderSearchComponent implements OnInit {
     public cancelConfirm(orders: factory.order.IOrder[]) {
         this.util.openConfirm({
             title: this.translate.instant('common.confirm'),
-            body: this.translate.instant('order.list.confirm.cancel'),
+            body: this.translate.instant('order.search.confirm.cancel'),
             cb: () => {
                 this.cancel(orders);
             }
@@ -212,7 +211,7 @@ export class OrderSearchComponent implements OnInit {
                     this.util.openAlert({
                         title: this.translate.instant('common.error'),
                         body: `
-                        <p class="mb-4">${this.translate.instant('order.list.alert.cancel')}</p>
+                        <p class="mb-4">${this.translate.instant('order.search.alert.cancel')}</p>
                             <div class="p-3 bg-light-gray select-text">
                             <code>${error}</code>
                         </div>`
@@ -249,7 +248,7 @@ export class OrderSearchComponent implements OnInit {
                 this.error.subscribe((error) => {
                     this.util.openAlert({
                         title: this.translate.instant('common.error'),
-                        body: `<p class="mb-4">${this.translate.instant('order.list.alert.print')}</p>
+                        body: `<p class="mb-4">${this.translate.instant('order.search.alert.print')}</p>
                         <div class="p-3 bg-light-gray select-text">
                         <code>${error}</code>
                     </div>`
@@ -267,13 +266,13 @@ export class OrderSearchComponent implements OnInit {
         if (this.selectedOrders.length === 0) {
             this.util.openAlert({
                 title: this.translate.instant('common.error'),
-                body: this.translate.instant('order.list.alert.unselected')
+                body: this.translate.instant('order.search.alert.unselected')
             });
         }
         if (this.actionSelect === OrderActions.Cancel) {
             this.util.openConfirm({
                 title: this.translate.instant('common.confirm'),
-                body: this.translate.instant('order.list.alert.cancel'),
+                body: this.translate.instant('order.search.alert.cancel'),
                 cb: () => {
                     this.cancel(this.selectedOrders);
                 }
@@ -281,7 +280,7 @@ export class OrderSearchComponent implements OnInit {
         } else if (this.actionSelect === OrderActions.Print) {
             this.util.openConfirm({
                 title: this.translate.instant('common.confirm'),
-                body: this.translate.instant('order.list.alert.print'),
+                body: this.translate.instant('order.search.alert.print'),
                 cb: () => {
                     this.ptint(this.selectedOrders);
                 }
@@ -321,7 +320,7 @@ export class OrderSearchComponent implements OnInit {
             tap(() => {
                 this.util.openAlert({
                     title: this.translate.instant('common.error'),
-                    body: this.translate.instant('order.list.alert.authorize')
+                    body: this.translate.instant('order.search.alert.authorize')
                 });
             })
         );

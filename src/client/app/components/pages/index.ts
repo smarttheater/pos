@@ -11,3 +11,4 @@ export * from './order/order-search/order-search.component';
 export * from './purchase/index';
 export * from './setting/setting.component';
 export * from './development/index';
+export * from './reservation/reservation-search/reservation-search.component';
