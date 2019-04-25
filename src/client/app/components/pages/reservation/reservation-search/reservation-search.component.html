@@ -68,22 +68,23 @@
                         </td>
                         <td class="align-middle">{{ reservation.reservationNumber }}</td>
                         <td class="align-middle">
-                            <p *ngIf="(reservation.reservationFor.name | changeLanguage).length > 10">{{
+                            <p *ngIf="(reservation.reservationFor.name | changeLanguage).length > 0">{{
                                 reservation.reservationFor.name | changeLanguage | slice:0:10 }}</p>
-                              <p
-                                  *ngIf="!((reservation.reservationFor.name | changeLanguage).length > 10)">{{
+                            <p *ngIf="!((reservation.reservationFor.name | changeLanguage).length > 0)">{{
                                 reservation.reservationFor.name | changeLanguage }}</p>
-                              <p>{{
+                            <p>{{
                                 reservation.reservationFor.superEvent.location.name | changeLanguage }}
-                                  / {{
+                                / {{
                                 reservation.reservationFor.location.name | changeLanguage }}</p>
-                              <p>{{ reservation.reservationFor.startDate | formatDate: 'YYYY/MM/DD (ddd) HH:mm' }}
-                                  -</p>
+                            <p>{{ reservation.reservationFor.startDate | formatDate: 'YYYY/MM/DD (ddd) HH:mm' }}
+                                -</p>
                         </td>
                         <td class="align-middle">
                             <p>{{ reservation.reservedTicket.ticketType.name | changeLanguage }}</p>
-                            <p *ngIf="reservation.reservedTicket.ticketedSeat">{{ reservation.reservedTicket.ticketedSeat.seatNumber }}</p>
-                            <p>{{ getTicketPrice({ priceSpecification : { priceComponent: reservation.price.priceComponent } }).single | currency : 'JPY' }}</p>
+                            <p *ngIf="reservation.reservedTicket.ticketedSeat">
+                                {{ reservation.reservedTicket.ticketedSeat.seatNumber }}</p>
+                            <p>{{ getTicketPrice({ priceSpecification : { priceComponent: reservation.price.priceComponent } }).single | currency : 'JPY' }}
+                            </p>
                         </td>
                         <!-- <td class="align-middle">
                           <div *ngFor="let paymentMethod of reservation.paymentMethods">

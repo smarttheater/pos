@@ -127,10 +127,10 @@
                         <td class="align-middle">{{ order.confirmationNumber }}</td>
                         <td class="align-middle">
                             <div *ngFor="let acceptedOffer of order.acceptedOffers">
-                                <p *ngIf="(acceptedOffer.itemOffered.reservationFor.name | changeLanguage).length > 10">{{
+                                <p *ngIf="(acceptedOffer.itemOffered.reservationFor.name | changeLanguage).length > 0">{{
                                     acceptedOffer.itemOffered.reservationFor.name | changeLanguage | slice:0:10 }}</p>
                                 <p
-                                    *ngIf="!((acceptedOffer.itemOffered.reservationFor.name | changeLanguage).length > 10)">{{
+                                    *ngIf="!((acceptedOffer.itemOffered.reservationFor.name | changeLanguage).length > 0)">{{
                                     acceptedOffer.itemOffered.reservationFor.name | changeLanguage }}</p>
                                 <p>{{
                                     acceptedOffer.itemOffered.reservationFor.superEvent.location.name | changeLanguage }}
