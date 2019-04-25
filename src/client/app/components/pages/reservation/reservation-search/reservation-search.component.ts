@@ -47,6 +47,8 @@ export class ReservationSearchComponent implements OnInit {
         this.conditions = {
             reservationDateFrom: '',
             reservationDateThrough: '',
+            eventStartDateFrom: '',
+            eventStartDateThrough: '',
             id: '',
             reservationNumber: '',
             reservationStatus: '',
@@ -63,39 +65,49 @@ export class ReservationSearchComponent implements OnInit {
             this.confirmedConditions = {
                 reservationDateFrom: this.conditions.reservationDateFrom,
                 reservationDateThrough: this.conditions.reservationDateThrough,
+                eventStartDateFrom: this.conditions.eventStartDateFrom,
+                eventStartDateThrough: this.conditions.eventStartDateThrough,
                 id: this.conditions.id,
                 reservationNumber: this.conditions.reservationNumber,
                 reservationStatus: this.conditions.reservationStatus,
                 page: 1
             };
         }
-        this.store.dispatch(new reservationAction.Search({
-            params: {
-                typeOf: factory.chevre.reservationType.EventReservation,
-                // seller: {
-                //     typeOf: (user.seller === undefined)
-                //         ? undefined : user.seller.typeOf,
-                //     ids: (user.seller === undefined)
-                //         ? undefined : [user.seller.id]
-                // },
-                reservationFor: {},
-                ids: (this.confirmedConditions.id === '')
-                    ? undefined : [this.confirmedConditions.id],
-                reservationStatuses: (this.confirmedConditions.reservationStatus === '')
-                    ? undefined : [this.confirmedConditions.reservationStatus],
-                // reservationDateFrom: (this.confirmedConditions.reservationDateFrom === '')
-                //     ? undefined : moment(this.confirmedConditions.reservationDateFrom).toDate(),
-                // reservationDateThrough: (this.confirmedConditions.reservationDateThrough === '')
-                //     ? undefined : moment(this.confirmedConditions.reservationDateThrough).add(1, 'day').toDate(),
-                reservationNumbers: (this.confirmedConditions.reservationNumber === '')
-                    ? undefined : [this.confirmedConditions.reservationNumber],
-                limit: this.limit,
-                page: this.confirmedConditions.page,
-                sort: {
-                    // reservationDate: factory.sortType.Descending
+        this.user.subscribe((_user) => {
+            this.store.dispatch(new reservationAction.Search({
+                params: {
+                    typeOf: factory.chevre.reservationType.EventReservation,
+                    // seller: {
+                    //     typeOf: (user.seller === undefined)
+                    //         ? undefined : user.seller.typeOf,
+                    //     ids: (user.seller === undefined)
+                    //         ? undefined : [user.seller.id]
+                    // },
+                    bookingFrom: (this.confirmedConditions.reservationDateFrom === '')
+                        ? undefined : moment(this.confirmedConditions.reservationDateFrom).toDate(),
+                    bookingThrough: (this.confirmedConditions.reservationDateThrough === '')
+                        ? undefined : moment(this.confirmedConditions.reservationDateThrough).add(1, 'day').toDate(),
+                    reservationFor: {
+                        startFrom: (this.confirmedConditions.eventStartDateFrom === '')
+                            ? undefined : moment(this.confirmedConditions.eventStartDateFrom).toDate(),
+                        startThrough: (this.confirmedConditions.eventStartDateThrough === '')
+                            ? undefined : moment(this.confirmedConditions.eventStartDateThrough).add(1, 'day').toDate(),
+                    },
+                    ids: (this.confirmedConditions.id === '')
+                        ? undefined : [this.confirmedConditions.id],
+                    reservationStatuses: (this.confirmedConditions.reservationStatus === '')
+                        ? undefined : [this.confirmedConditions.reservationStatus],
+                    reservationNumbers: (this.confirmedConditions.reservationNumber === '')
+                        ? undefined : [this.confirmedConditions.reservationNumber],
+                    limit: this.limit,
+                    page: this.confirmedConditions.page,
+                    sort: {
+                        // reservationDate: factory.sortType.Descending
+                    }
                 }
-            }
-        }));
+            }));
+        }).unsubscribe();
+
 
         const success = this.actions.pipe(
             ofType(reservationAction.ActionTypes.SearchSuccess),

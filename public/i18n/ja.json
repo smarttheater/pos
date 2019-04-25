@@ -237,8 +237,10 @@
             "next": "",
             "prev": "戻る",
             "conditions": {
-                "reservationDateFrom": "購入日（From）",
-                "reservationDateThrough": "購入日（Through）",
+                "reservationDateFrom": "予約日（From）",
+                "reservationDateThrough": "予約日（Through）",
+                "eventStartDateFrom": "上映日（From）",
+                "eventStartDateThrough": "上映日（Through）",
                 "telephone": "電話番号（下4桁）"
             },
             "reservationStatus": {
