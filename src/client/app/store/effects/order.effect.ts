@@ -112,7 +112,7 @@ export class OrderEffects {
         map(action => action.payload),
         mergeMap(async (payload) => {
             await this.cinerino.getServices();
-            const confirmationNumber = payload.confirmationNumber;
+            const confirmationNumber = Number(payload.confirmationNumber);
             const customer = {
                 telephone: (payload.customer.telephone === undefined)
                     ? '' : formatTelephone(payload.customer.telephone)
