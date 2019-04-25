@@ -71,12 +71,14 @@ export class ReservationSearchComponent implements OnInit {
         }
         this.store.dispatch(new reservationAction.Search({
             params: {
+                typeOf: factory.chevre.reservationType.EventReservation,
                 // seller: {
                 //     typeOf: (user.seller === undefined)
                 //         ? undefined : user.seller.typeOf,
                 //     ids: (user.seller === undefined)
                 //         ? undefined : [user.seller.id]
                 // },
+                reservationFor: {},
                 ids: (this.confirmedConditions.id === '')
                     ? undefined : [this.confirmedConditions.id],
                 reservationStatuses: (this.confirmedConditions.reservationStatus === '')
@@ -112,7 +114,7 @@ export class ReservationSearchComponent implements OnInit {
     /**
      * 詳細を表示
      */
-    public openDetail(reservation: factory.chevre.reservation.event.IReservation<factory.chevre.event.screeningEvent.IEvent>) {
+    public openDetail(reservation: factory.chevre.reservation.IReservation<factory.chevre.reservationType.EventReservation>) {
         const modalRef = this.modal.open(ReservationDetailModalComponent, {
             centered: true,
             size: 'lg'

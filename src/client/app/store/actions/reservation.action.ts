@@ -26,7 +26,7 @@ export class Delete implements Action {
 export class Search implements Action {
     public readonly type = ActionTypes.Search;
     constructor(public payload: {
-        params: factory.chevre.reservation.event.ISearchConditions
+        params: factory.chevre.reservation.ISearchConditions<factory.chevre.reservationType.EventReservation>
     }) { }
 }
 
@@ -36,7 +36,7 @@ export class Search implements Action {
 export class SearchSuccess implements Action {
     public readonly type = ActionTypes.SearchSuccess;
     constructor(public payload: {
-        searchResult: ISearchResult<factory.chevre.reservation.event.IReservation<factory.chevre.event.screeningEvent.IEvent>[]>,
+        searchResult: ISearchResult<factory.chevre.reservation.IReservation<factory.chevre.reservationType.EventReservation>[]>,
         limit: number;
     }) { }
 }

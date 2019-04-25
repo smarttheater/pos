@@ -3,8 +3,8 @@ import { IState } from '.';
 import { reservationAction } from '../actions';
 
 export interface IReservationState {
-    reservation?: factory.chevre.reservation.event.IReservation<factory.chevre.event.screeningEvent.IEvent>;
-    reservations: factory.chevre.reservation.event.IReservation<factory.chevre.event.screeningEvent.IEvent>[];
+    reservation?: factory.chevre.reservation.IReservation<factory.chevre.reservationType.EventReservation>;
+    reservations: factory.chevre.reservation.IReservation<factory.chevre.reservationType.EventReservation>[];
     totalCount: number;
     pageCount: number;
 }
