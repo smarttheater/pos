@@ -12,7 +12,7 @@ export class ReservationEffects {
 
     constructor(
         private actions: Actions,
-        private cinerino: CinerinoService    ) { }
+        private cinerino: CinerinoService) { }
 
     /**
      * Search
@@ -22,9 +22,9 @@ export class ReservationEffects {
         ofType<reservationAction.Search>(reservationAction.ActionTypes.Search),
         map(action => action.payload),
         mergeMap(async (payload) => {
-            await this.cinerino.getServices();
-            const params = payload.params;
             try {
+                await this.cinerino.getServices();
+                const params = payload.params;
                 // if (params.customer !== undefined
                 //     && params.customer.telephone !== undefined) {
                 //     params.customer.telephone = formatTelephone(params.customer.telephone)
