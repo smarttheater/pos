@@ -251,7 +251,8 @@
             },
             "search": "検索する",
             "notfound": "予約が見つかりません",
-            "unselected": "選択してください"
+            "unselected": "選択してください",
+            "download": "CSVダウンロード"
         }
     },
     "admission": {
