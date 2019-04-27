@@ -161,7 +161,7 @@ export class OrderEffects {
 
                     authorizeOrders.push(result);
                 }
-                const printData = await this.util.getJson<ITicketPrintData>(`/json/ticket/${environment.PROJECT_ID}.json`);
+                const printData = await this.util.getJson<ITicketPrintData>(`/${environment.PROJECT_ID}/json/print/ticket.json`);
                 const testFlg = authorizeOrders.length === 0;
                 const canvasList: HTMLCanvasElement[] = [];
                 if (testFlg) {
@@ -180,7 +180,7 @@ export class OrderEffects {
                             if (additionalProperty !== undefined) {
                                 // 追加特性のqrcodeがfalseの場合QR非表示
                                 const isDisplayQrcode = additionalProperty.find(a => a.name === 'qrcode');
-                                if (isDisplayQrcode !== undefined && !isDisplayQrcode) {
+                                if (isDisplayQrcode !== undefined && isDisplayQrcode.value === 'false') {
                                     qrcode = undefined;
                                 }
                             }

@@ -4,6 +4,7 @@ import { factory } from '@cinerino/api-javascript-client';
 import { Actions, Effect, ofType } from '@ngrx/effects';
 import * as moment from 'moment';
 import { map, mergeMap } from 'rxjs/operators';
+import { environment } from '../../../environments/environment';
 import {
     createMovieTicketsFromAuthorizeSeatReservation,
     formatTelephone,
@@ -72,9 +73,9 @@ export class PurchaseEffects {
                     screenCode = `000${payload.screeningEvent.location.branchCode}`.slice(-3);
                 }
                 const screen = await this.http.get<IScreen>(
-                    `/json/theater/${theaterCode}/${screenCode}.json?${moment().format('YYYYMMDDHHmm')}`
+                    `${environment.PROJECT_ID}/json/theater/${theaterCode}/${screenCode}.json?${moment().format('YYYYMMDDHHmm')}`
                 ).toPromise();
-                const setting = await this.http.get<IScreen>('/json/theater/setting.json').toPromise();
+                const setting = await this.http.get<IScreen>(`${environment.PROJECT_ID}/json/theater/setting.json`).toPromise();
                 const screenData = Object.assign(setting, screen);
                 return new purchaseAction.GetScreenSuccess({ screeningEventOffers, screenData });
             } catch (error) {
