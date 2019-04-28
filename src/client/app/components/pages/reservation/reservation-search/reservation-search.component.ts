@@ -71,6 +71,7 @@ export class ReservationSearchComponent implements OnInit {
             this.user.subscribe(() => {
                 const params: factory.chevre.reservation.ISearchConditions<factory.chevre.reservationType.EventReservation> = {
                     typeOf: factory.chevre.reservationType.EventReservation,
+                    project: { ids: [environment.PROJECT_ID] },
                     // seller: {
                     //     typeOf: (user.seller === undefined)
                     //         ? undefined : user.seller.typeOf,

@@ -8,5 +8,7 @@
     { "label": "券種名", "value": "reservedTicket.ticketType.name.ja" },
     { "label": "イベント名", "value": "reservationFor.name.ja" },
     { "label": "スクリーン名", "value": "reservationFor.location.name.ja" },
-    { "label": "上映時間", "value": "reservationFor.startDateJST" }
+    { "label": "上映時間", "value": "reservationFor.startDateJST" },
+    { "label": "発券", "value": "checkedIn" },
+    { "label": "入場", "value": "attended" }
 ]

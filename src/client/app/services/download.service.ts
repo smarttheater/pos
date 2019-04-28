@@ -17,8 +17,12 @@ export class DownloadService {
         private util: UtilService
     ) { }
 
+    /**
+     * 注文情報CSVダウンロード
+     */
     public async order(params: factory.order.ISearchConditions) {
-        const fields = await this.util.getJson<{ label: string, value: string }[]>(`${environment.PROJECT_ID}/json/csv/order.json`);
+        const url = `${environment.PROJECT_ID}/json/csv/order.json`;
+        const fields = await this.util.getJson<{ label: string, value: string }[]>(url);
         const opts = { fields, unwind: [] };
         await this.cinerino.getServices();
         const limit = 100;
@@ -69,8 +73,12 @@ export class DownloadService {
         await this.splitDownload(data, opts, 1000);
     }
 
+    /**
+     * 予約情報CSVダウンロード
+     */
     public async reservation(params: factory.chevre.reservation.ISearchConditions<factory.chevre.reservationType.EventReservation>) {
-        const fields = await this.util.getJson<{ label: string, value: string }[]>(`${environment.PROJECT_ID}/json/csv/reservation.json`);
+        const url = `${environment.PROJECT_ID}/json/csv/reservation.json`;
+        const fields = await this.util.getJson<{ label: string, value: string }[]>(url);
         const opts = { fields, unwind: [] };
         await this.cinerino.getServices();
         const limit = 100;
@@ -80,7 +88,7 @@ export class DownloadService {
         while (roop) {
             params.limit = limit;
             params.page = page;
-            const searchResult = await this.cinerino.reservation.searchScreeningEventReservations(params);
+            const searchResult = await this.cinerino.reservation.search(params);
             reservations = reservations.concat(searchResult.data);
             const lastPage = Math.ceil(searchResult.totalCount / limit);
             page++;
@@ -102,7 +110,9 @@ export class DownloadService {
                 reservationFor: {
                     ...reservation.reservationFor,
                     startDateJST: moment(reservation.reservationFor.startDate).format('YYYY/MM/DD/HH:mm')
-                }
+                },
+                checkedIn: reservation.checkedIn,
+                attended: reservation.attended
             };
             data.push(customData);
         });

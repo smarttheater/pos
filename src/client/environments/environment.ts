@@ -26,5 +26,8 @@ export const environment = {
     INQUIRY_CANCEL: true,
     INQUIRY_QRCODE: true,
     INQUIRY_PRINT: true,
+    ORDER_CANCEL: true,
+    ORDER_QRCODE: true,
+    ORDER_PRINT: true,
     PRINT_QR_CODE_TYPE: 'token'
 };

@@ -8,6 +8,7 @@ import { TranslateService } from '@ngx-translate/core';
 import * as moment from 'moment';
 import { Observable, race } from 'rxjs';
 import { take, tap } from 'rxjs/operators';
+import { environment } from '../../../../../environments/environment';
 import { buildQueryString } from '../../../../functions';
 import { IOrderSearchConditions, OrderActions } from '../../../../models';
 import { DownloadService, UtilService } from '../../../../services';
@@ -35,6 +36,7 @@ export class OrderSearchComponent implements OnInit {
     public OrderActions: typeof OrderActions = OrderActions;
     public actionSelect: OrderActions | '';
     public buildQueryString = buildQueryString;
+    public environment = environment;
 
     constructor(
         private store: Store<reducers.IOrderState>,
