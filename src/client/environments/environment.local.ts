@@ -16,7 +16,7 @@ export const environment = {
     LANGUAGE: ['ja', 'en'],
     DISPLAY_TICKETED_SEAT: true,
     HEADER_MENU: true,
-    HEADER_MENU_SCOPE: ['purchase', 'inquiry', 'order', 'admission', 'setting', 'auth', 'development'],
+    HEADER_MENU_SCOPE: ['purchase', 'inquiry', 'order', 'reservation', 'admission', 'setting', 'auth', 'development'],
     PURCHASE_CART_MAX_LENGTH: '1',
     PURCHASE_TRANSACTION_TIME: '120',
     PURCHASE_PRE_SCHEDULE_DATE: '3',
