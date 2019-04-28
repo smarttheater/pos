@@ -487,7 +487,10 @@ export function createCompleteMail(args: {
     const seller = args.seller;
     const authorizeSeatReservations = args.authorizeSeatReservations;
     template = template.replace(/\{\{ seller.name \}\}/g, seller.name.ja);
-    template = template.replace(/\{\{ seller.telephone \}\}/g, (seller.telephone === undefined) ? '' :  formatTelephone(seller.telephone));
+    template = template.replace(
+        /\{\{ seller.telephone \}\}/g,
+        (seller.telephone === undefined) ? '' : formatTelephone(seller.telephone, 'NATIONAL')
+    );
     template = template.replace(/\{\{ orderDateJST \}\}/g, moment().format('YYYY/MM/DD (ddd) HH:mm'));
     // イベント
     const forEventMatchResult = template.match(/\{\{ forStartEvent \}\}[^>]*\{\{ forEndEvent \}\}/);

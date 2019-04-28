@@ -55,7 +55,7 @@ export class DownloadService {
                     paymentMethodsNames: order.paymentMethods.map(m => m.name).join(','),
                     customer: {
                         ...order.customer,
-                        formatTelephone: formatTelephone(order.customer.telephone)
+                        formatTelephone: formatTelephone((<string>order.customer.telephone))
                     },
                     itemOffered: {
                         id: acceptedOffer.itemOffered.id,
