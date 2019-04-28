@@ -113,7 +113,7 @@
                         </td>
                         <td class="align-middle">
                             <p>{{ reservation.reservedTicket.ticketType.name | changeLanguage }}</p>
-                            <p *ngIf="reservation.reservedTicket.ticketedSeat">
+                            <p *ngIf="reservation.reservedTicket.ticketedSeat && environment.DISPLAY_TICKETED_SEAT">
                                 {{ reservation.reservedTicket.ticketedSeat.seatNumber }}</p>
                             <p>{{ getTicketPrice({ priceSpecification : { priceComponent: reservation.price.priceComponent } }).single | currency : 'JPY' }}
                             </p>

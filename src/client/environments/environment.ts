@@ -14,6 +14,7 @@ export const environment = {
     STORAGE_TYPE: 'localStorage',
     BASE_URL: '/purchase/root',
     LANGUAGE: ['ja', 'en'],
+    DISPLAY_TICKETED_SEAT: true,
     HEADER_MENU: true,
     HEADER_MENU_SCOPE: ['purchase', 'inquiry', 'order', 'admission', 'setting', 'auth', 'development'],
     PURCHASE_CART_MAX_LENGTH: '1',

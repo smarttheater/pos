@@ -7,6 +7,7 @@ import { select, Store } from '@ngrx/store';
 import * as moment from 'moment';
 import { Observable, race } from 'rxjs';
 import { take, tap } from 'rxjs/operators';
+import { environment } from '../../../../../environments/environment';
 import { getTicketPrice } from '../../../../functions';
 import { IReservationSearchConditions } from '../../../../models';
 import { DownloadService } from '../../../../services';
@@ -32,6 +33,7 @@ export class ReservationSearchComponent implements OnInit {
     public confirmedConditions: IReservationSearchConditions;
     public reservationStatus = factory.chevre.reservationStatusType;
     public getTicketPrice = getTicketPrice;
+    public environment = environment;
 
     constructor(
         private store: Store<reducers.IReservationState>,
