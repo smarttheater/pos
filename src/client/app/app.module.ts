@@ -64,6 +64,7 @@ import {
     PurchaseEventPerformanceConfirmComponent,
     PurchaseEventTicketModalComponent,
     PurchaseInfoComponent,
+    PurchaseTermsComponent,
     PurchaseTransactionModalComponent,
     QrCodeModalComponent,
     ReservationDetailModalComponent,
@@ -139,6 +140,7 @@ export function HttpLoaderFactory(http: HttpClient) {
         PurchaseEventPerformanceConfirmComponent,
         ReservationSearchComponent,
         ReservationDetailModalComponent,
+        PurchaseTermsComponent
     ],
     entryComponents: [
         PurchaseCinemaTicketModalComponent,
