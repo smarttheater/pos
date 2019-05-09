@@ -17,9 +17,9 @@ export default (app: express.Application) => {
         const url = req.originalUrl.replace('/storage', <string>process.env.STORAGE_URL);
         res.redirect(url);
     });
-
     app.use('/api/authorize', authorizeRouter);
     app.use('/api/encryption', encryptionRouter);
+    app.get('/api/storage', (_req, res) => { res.json({ storage: process.env.STORAGE_URL }); });
 
     app.get('/signIn', authorize.signInRedirect);
     app.get('/signIn', authorize.signOutRedirect);
