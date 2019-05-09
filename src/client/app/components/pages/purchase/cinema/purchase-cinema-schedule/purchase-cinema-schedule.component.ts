@@ -6,7 +6,7 @@ import { select, Store } from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
 import { SERVICE_UNAVAILABLE, TOO_MANY_REQUESTS } from 'http-status';
 import * as moment from 'moment';
-import { BsModalService } from 'ngx-bootstrap';
+import { BsLocaleService, BsModalService } from 'ngx-bootstrap';
 import { Observable, race } from 'rxjs';
 import { take, tap } from 'rxjs/operators';
 import { environment } from '../../../../../../environments/environment';
@@ -28,7 +28,7 @@ export class PurchaseCinemaScheduleComponent implements OnInit, OnDestroy {
     public user: Observable<reducers.IUserState>;
     public screeningWorkEvents: IScreeningEventWork[];
     public moment: typeof moment = moment;
-    public scheduleDate: string;
+    public scheduleDate: Date;
     private updateTimer: any;
 
     constructor(
@@ -37,7 +37,8 @@ export class PurchaseCinemaScheduleComponent implements OnInit, OnDestroy {
         private router: Router,
         private util: UtilService,
         private modal: BsModalService,
-        private translate: TranslateService
+        private translate: TranslateService,
+        private localeService: BsLocaleService
     ) { }
 
     /**
@@ -126,15 +127,18 @@ export class PurchaseCinemaScheduleComponent implements OnInit, OnDestroy {
     /**
      * 日付選択
      */
-    public selectDate() {
+    public selectDate(date?: Date | null) {
+        if (date !== undefined && date !== null) {
+            this.scheduleDate = date;
+        }
         this.user.subscribe((user) => {
             const seller = user.seller;
-            if (this.scheduleDate === undefined || this.scheduleDate === '') {
+            if (this.scheduleDate === undefined) {
                 this.scheduleDate = moment()
                     .add(environment.PURCHASE_SCHEDULE_DEFAULT_SELECTED_DATE, 'day')
-                    .format('YYYY-MM-DD');
+                    .toDate();
             }
-            const scheduleDate = this.scheduleDate;
+            const scheduleDate =  moment(this.scheduleDate).format('YYYY-MM-DD');
             if (seller === undefined) {
                 return;
             }
@@ -240,6 +244,12 @@ export class PurchaseCinemaScheduleComponent implements OnInit, OnDestroy {
                     }
                 });
             }).unsubscribe();
+        }).unsubscribe();
+    }
+
+    public setDatePicker() {
+        this.user.subscribe((user) => {
+            this.localeService.use(user.language);
         }).unsubscribe();
     }
 

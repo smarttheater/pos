@@ -161,7 +161,7 @@ export class OrderEffects {
 
                     authorizeOrders.push(result);
                 }
-                const printData = await this.util.getJson<ITicketPrintData>(`/${environment.PROJECT_ID}/json/print/ticket.json`);
+                const printData = await this.util.getJson<ITicketPrintData>('/storage/json/print/ticket.json');
                 const testFlg = authorizeOrders.length === 0;
                 const canvasList: HTMLCanvasElement[] = [];
                 if (testFlg) {

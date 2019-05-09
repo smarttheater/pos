@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { factory } from '@cinerino/api-javascript-client';
 import * as json2csv from 'json2csv';
 import * as moment from 'moment';
-import { environment } from '../../environments/environment';
 import { formatTelephone, getTicketPrice } from '../functions';
 import { CinerinoService } from './cinerino.service';
 import { UtilService } from './util.service';
@@ -21,7 +20,7 @@ export class DownloadService {
      * 注文情報CSVダウンロード
      */
     public async order(params: factory.order.ISearchConditions) {
-        const url = `${environment.PROJECT_ID}/json/csv/order.json`;
+        const url = '/storage/json/csv/order.json';
         const fields = await this.util.getJson<{ label: string, value: string }[]>(url);
         const opts = { fields, unwind: [] };
         await this.cinerino.getServices();
@@ -77,7 +76,7 @@ export class DownloadService {
      * 予約情報CSVダウンロード
      */
     public async reservation(params: factory.chevre.reservation.ISearchConditions<factory.chevre.reservationType.EventReservation>) {
-        const url = `${environment.PROJECT_ID}/json/csv/reservation.json`;
+        const url = '/storage/json/csv/reservation.json';
         const fields = await this.util.getJson<{ label: string, value: string }[]>(url);
         const opts = { fields, unwind: [] };
         await this.cinerino.getServices();

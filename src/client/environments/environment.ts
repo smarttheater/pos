@@ -1,34 +1,36 @@
 /**
- * 環境変数dev
+ * 環境変数
  */
-export const environment = {
-    production: false,
-    APP_PREFIX: 'CI',
-    PROJECT_ID: 'cinerino',
-    ENV: 'development',
-    ENTRANCE_SERVER_URL: '',
-    WAITER_SERVER_URL: 'https://waiter-development.appspot.com',
-    ANALYTICS_ID: '',
-    VIEW_TYPE: 'cinema',
-    STORAGE_NAME: 'CINERINO-POS-STATE',
-    STORAGE_TYPE: 'localStorage',
-    BASE_URL: '/purchase/root',
-    LANGUAGE: ['ja', 'en'],
-    DISPLAY_TICKETED_SEAT: true,
-    HEADER_MENU: true,
-    HEADER_MENU_SCOPE: ['purchase', 'inquiry', 'order', 'reservation', 'admission', 'setting', 'auth', 'development'],
-    PURCHASE_CART_MAX_LENGTH: '1',
-    PURCHASE_TRANSACTION_TIME: '15',
-    PURCHASE_PRE_SCHEDULE_DATE: '3',
-    PURCHASE_SCHEDULE_DEFAULT_SELECTED_DATE: '0',
-    PURCHASE_SCHEDULE_STATUS_THRESHOLD_VALUE: '30',
-    PURCHASE_SCHEDULE_STATUS_THRESHOLD_UNIT: '%',
-    PURCHASE_COMPLETE_MAIL_CUSTOM: true,
-    INQUIRY_CANCEL: true,
-    INQUIRY_QRCODE: true,
-    INQUIRY_PRINT: true,
-    ORDER_CANCEL: true,
-    ORDER_QRCODE: true,
-    ORDER_PRINT: true,
-    PRINT_QR_CODE_TYPE: 'token'
-};
+export const environment: {
+    production: boolean;
+    APP_TITLE: string;
+    APP_PREFIX: string;
+    PROJECT_ID: string;
+    ENV: string;
+    ENTRANCE_SERVER_URL: string;
+    WAITER_SERVER_URL: string;
+    ANALYTICS_ID: string;
+    GTM_ID: string;
+    VIEW_TYPE: string;
+    STORAGE_NAME: string;
+    STORAGE_TYPE: string;
+    BASE_URL: string;
+    LANGUAGE: string[];
+    DISPLAY_TICKETED_SEAT: boolean;
+    HEADER_MENU: boolean;
+    HEADER_MENU_SCOPE: string[];
+    PURCHASE_CART_MAX_LENGTH: string;
+    PURCHASE_TRANSACTION_TIME: string;
+    PURCHASE_PRE_SCHEDULE_DATE: string;
+    PURCHASE_SCHEDULE_DEFAULT_SELECTED_DATE: string;
+    PURCHASE_SCHEDULE_STATUS_THRESHOLD_VALUE: string;
+    PURCHASE_SCHEDULE_STATUS_THRESHOLD_UNIT: string;
+    PURCHASE_COMPLETE_MAIL_CUSTOM: boolean;
+    INQUIRY_CANCEL: boolean;
+    INQUIRY_QRCODE: boolean;
+    INQUIRY_PRINT: boolean;
+    ORDER_CANCEL: boolean;
+    ORDER_QRCODE: boolean;
+    ORDER_PRINT: boolean;
+    PRINT_QR_CODE_TYPE: string;
+} = (<any>window).environment;

@@ -2,8 +2,11 @@
     <h2 class="text-large mb-4 text-center font-weight-bold">{{ 'purchase.cinema.schedule.title' | translate }}</h2>
     <p class="mb-4">{{ 'purchase.cinema.schedule.read' | translate }}</p>
     <div class="mb-3">
-        <input type="date" class="form-control rounded-0" name="date" [(ngModel)]="scheduleDate"
-            (change)="selectDate()">
+        <input type="text" placeholder="Datepicker" class="form-control" bsDatepicker [(ngModel)]="scheduleDate"
+            [bsConfig]="{ dateInputFormat: 'YYYY/MM/DD', adaptivePosition: true, showWeekNumbers: false }"
+            (bsValueChange)="selectDate($event)" readonly (click)="setDatePicker()">
+        <!-- <input type="date" class="form-control rounded-0" name="date" [(ngModel)]="scheduleDate"
+            (change)="selectDate()"> -->
     </div>
     <p *ngIf="(purchase | async).scheduleDate" class="text-primary text-large mb-3">
         {{ (purchase | async).scheduleDate | formatDate: 'YYYY/MM/DD (ddd)' }}
