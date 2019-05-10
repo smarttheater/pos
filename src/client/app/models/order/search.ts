@@ -1,8 +1,8 @@
 import { factory } from '@cinerino/api-javascript-client';
 
 export interface IOrderSearchConditions {
-    orderDateFrom: string;
-    orderDateThrough: string;
+    orderDateFrom?: Date;
+    orderDateThrough?: Date;
     confirmationNumber: string;
     orderNumber: string;
     customer: {

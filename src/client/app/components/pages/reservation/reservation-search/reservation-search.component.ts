@@ -4,7 +4,7 @@ import { factory } from '@cinerino/api-javascript-client';
 import { Actions, ofType } from '@ngrx/effects';
 import { select, Store } from '@ngrx/store';
 import * as moment from 'moment';
-import { BsModalService } from 'ngx-bootstrap';
+import { BsLocaleService, BsModalService } from 'ngx-bootstrap';
 import { Observable, race } from 'rxjs';
 import { take, tap } from 'rxjs/operators';
 import { environment } from '../../../../../environments/environment';
@@ -40,7 +40,8 @@ export class ReservationSearchComponent implements OnInit {
         private actions: Actions,
         private modal: BsModalService,
         private router: Router,
-        private download: DownloadService
+        private download: DownloadService,
+        private localeService: BsLocaleService
     ) { }
 
     public ngOnInit() {
@@ -51,10 +52,6 @@ export class ReservationSearchComponent implements OnInit {
         this.user = this.store.pipe(select(reducers.getUser));
         this.limit = 20;
         this.conditions = {
-            reservationDateFrom: '',
-            reservationDateThrough: '',
-            eventStartDateFrom: '',
-            eventStartDateThrough: '',
             id: '',
             reservationNumber: '',
             reservationStatus: '',
@@ -78,14 +75,12 @@ export class ReservationSearchComponent implements OnInit {
                     //     ids: (user.seller === undefined)
                     //         ? undefined : [user.seller.id]
                     // },
-                    bookingFrom: (this.confirmedConditions.reservationDateFrom === '')
-                        ? undefined : moment(this.confirmedConditions.reservationDateFrom).toDate(),
-                    bookingThrough: (this.confirmedConditions.reservationDateThrough === '')
+                    bookingFrom: this.confirmedConditions.reservationDateFrom,
+                    bookingThrough: (this.confirmedConditions.reservationDateThrough === undefined)
                         ? undefined : moment(this.confirmedConditions.reservationDateThrough).add(1, 'day').toDate(),
                     reservationFor: {
-                        startFrom: (this.confirmedConditions.eventStartDateFrom === '')
-                            ? undefined : moment(this.confirmedConditions.eventStartDateFrom).toDate(),
-                        startThrough: (this.confirmedConditions.eventStartDateThrough === '')
+                        startFrom: this.confirmedConditions.eventStartDateFrom,
+                        startThrough: (this.confirmedConditions.eventStartDateThrough === undefined)
                             ? undefined : moment(this.confirmedConditions.eventStartDateThrough).add(1, 'day').toDate(),
                     },
                     ids: (this.confirmedConditions.id === '')
@@ -165,6 +160,12 @@ export class ReservationSearchComponent implements OnInit {
             console.error(error);
         }
         this.isDownload = false;
+    }
+
+    public setDatePicker() {
+        this.user.subscribe((user) => {
+            this.localeService.use(user.language);
+        }).unsubscribe();
     }
 
 }

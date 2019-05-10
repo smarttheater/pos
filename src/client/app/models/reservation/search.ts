@@ -1,10 +1,10 @@
 import { factory } from '@cinerino/api-javascript-client';
 
 export interface IReservationSearchConditions {
-    reservationDateFrom: string;
-    reservationDateThrough: string;
-    eventStartDateFrom: string;
-    eventStartDateThrough: string;
+    reservationDateFrom?: Date;
+    reservationDateThrough?: Date;
+    eventStartDateFrom?: Date;
+    eventStartDateThrough?: Date;
     id: string;
     reservationNumber: string;
     reservationStatus: '' | factory.chevre.reservationStatusType;

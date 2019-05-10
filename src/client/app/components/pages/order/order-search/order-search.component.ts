@@ -5,7 +5,7 @@ import { Actions, ofType } from '@ngrx/effects';
 import { select, Store } from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
 import * as moment from 'moment';
-import { BsModalService } from 'ngx-bootstrap';
+import { BsLocaleService, BsModalService } from 'ngx-bootstrap';
 import { Observable, race } from 'rxjs';
 import { take, tap } from 'rxjs/operators';
 import { environment } from '../../../../../environments/environment';
@@ -45,7 +45,8 @@ export class OrderSearchComponent implements OnInit {
         private router: Router,
         private util: UtilService,
         private translate: TranslateService,
-        private download: DownloadService
+        private download: DownloadService,
+        private localeService: BsLocaleService
     ) { }
 
     public ngOnInit() {
@@ -58,8 +59,6 @@ export class OrderSearchComponent implements OnInit {
         this.user = this.store.pipe(select(reducers.getUser));
         this.limit = 20;
         this.conditions = {
-            orderDateFrom: '',
-            orderDateThrough: '',
             confirmationNumber: '',
             orderNumber: '',
             customer: {
@@ -113,9 +112,8 @@ export class OrderSearchComponent implements OnInit {
                     },
                     orderStatuses: (this.confirmedConditions.orderStatuses === '')
                         ? undefined : [this.confirmedConditions.orderStatuses],
-                    orderDateFrom: (this.confirmedConditions.orderDateFrom === '')
-                        ? undefined : moment(this.confirmedConditions.orderDateFrom).toDate(),
-                    orderDateThrough: (this.confirmedConditions.orderDateThrough === '')
+                    orderDateFrom: this.confirmedConditions.orderDateFrom,
+                    orderDateThrough: (this.confirmedConditions.orderDateThrough === undefined)
                         ? undefined : moment(this.confirmedConditions.orderDateThrough).add(1, 'day').toDate(),
                     confirmationNumbers: (this.confirmedConditions.confirmationNumber === '')
                         ? undefined : [this.confirmedConditions.confirmationNumber],
@@ -360,5 +358,10 @@ export class OrderSearchComponent implements OnInit {
         this.isDownload = false;
     }
 
+    public setDatePicker() {
+        this.user.subscribe((user) => {
+            this.localeService.use(user.language);
+        }).unsubscribe();
+    }
 
 }

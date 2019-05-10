@@ -4,7 +4,7 @@ set REDIS_HOST=oyatsu-redis-development.redis.cache.windows.net
 set REDIS_PORT=6380
 set REDIS_KEY=uYgtS9yYT1l1Tk4kc3WxW228mO4lKmQsnJDtnUAAm58=
 
-set API_ENDPOINT=https://oyatsu-cinerino-api-dev.appspot.com
+set API_ENDPOINT=https://cinerino-api-dot-o82-development.appspot.com
 
 set RESOURCE_SERVER_URL=
 set CLIENT_ID=
@@ -21,4 +21,4 @@ set PORT=
 set DEBUG=pos*
 set NODE_TLS_REJECT_UNAUTHORIZED=0
 
-set STORAGE_URL=https://smarttheaterstorage.blob.core.windows.net/pos
+set STORAGE_URL=https://oyatsustoragedevelopment.blob.core.windows.net/pos

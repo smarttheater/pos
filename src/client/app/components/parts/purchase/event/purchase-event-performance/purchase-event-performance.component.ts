@@ -29,7 +29,7 @@ export class PurchaseEventPerformanceComponent implements OnInit {
         this.swiperConfig = {
             spaceBetween: 0,
             slidesPerView: 7.5,
-            freeMode: true,
+            // freeMode: true,
             breakpoints: {
                 320: { slidesPerView: 2.5 },
                 767: { slidesPerView: 2.5 },
