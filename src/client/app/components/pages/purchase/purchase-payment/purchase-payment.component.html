@@ -1,7 +1,7 @@
 <div class="contents-width mx-auto px-3 py-5">
 
     <h2 class="text-large mb-4 text-center font-weight-bold">{{ 'purchase.payment.title' | translate }}</h2>
-    <p class="mb-4">{{ 'purchase.payment.read' | translate }}</p>
+    <p class="mb-4" [innerHTML]="'purchase.payment.read' | translate"></p>
 
     <div class="payment-select d-grid mb-4">
         <button type="button" class="btn btn-primary btn-block py-3 m-0"

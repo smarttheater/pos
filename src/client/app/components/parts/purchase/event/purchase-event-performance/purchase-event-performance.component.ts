@@ -3,7 +3,7 @@ import { factory } from '@cinerino/api-javascript-client';
 import * as moment from 'moment';
 import { SwiperComponent, SwiperConfigInterface, SwiperDirective } from 'ngx-swiper-wrapper';
 import { environment } from '../../../../../../environments/environment';
-import { IScreeningEventWork, isSales, isScheduleStatusThreshold } from '../../../../../functions';
+import { IScreeningEventWork, isSales, isScheduleStatusThreshold, isTicketedSeatScreeningEvent } from '../../../../../functions';
 
 @Component({
     selector: 'app-purchase-event-performance',
@@ -19,6 +19,7 @@ export class PurchaseEventPerformanceComponent implements OnInit {
     public moment: typeof moment = moment;
     public isScheduleStatusThreshold = isScheduleStatusThreshold;
     public isSales = isSales;
+    public isTicketedSeatScreeningEvent = isTicketedSeatScreeningEvent;
     public swiperConfig: SwiperConfigInterface;
     public environment = environment;
 

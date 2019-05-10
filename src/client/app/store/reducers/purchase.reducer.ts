@@ -103,6 +103,11 @@ export function reducer(state: IState, action: purchaseAction.Actions): IState {
         }
         case purchaseAction.ActionTypes.StartTransactionSuccess: {
             state.purchaseData.transaction = action.payload.transaction;
+            state.purchaseData.authorizeAnyPayments = [];
+            state.purchaseData.authorizeMovieTicketPayments = [];
+            state.purchaseData.authorizeSeatReservations = [];
+            state.purchaseData.pendingMovieTickets = [];
+            state.purchaseData.checkMovieTicketActions = [];
             return { ...state, loading: false, process: '', error: null };
         }
         case purchaseAction.ActionTypes.StartTransactionFail: {
