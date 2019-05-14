@@ -9,6 +9,7 @@ export const environment: {
     ENV: string;
     ENTRANCE_SERVER_URL: string;
     WAITER_SERVER_URL: string;
+    INSTRUCTION_URL: string;
     ANALYTICS_ID: string;
     GTM_ID: string;
     VIEW_TYPE: string;
@@ -19,6 +20,7 @@ export const environment: {
     DISPLAY_TICKETED_SEAT: boolean;
     HEADER_MENU: boolean;
     HEADER_MENU_SCOPE: string[];
+    PURCHASE_REQUIRED_ALERT: boolean;
     PURCHASE_CART_MAX_LENGTH: string;
     PURCHASE_TRANSACTION_TIME: string;
     PURCHASE_PRE_SCHEDULE_DATE: string;
@@ -33,4 +35,5 @@ export const environment: {
     ORDER_QRCODE: boolean;
     ORDER_PRINT: boolean;
     PRINT_QR_CODE_TYPE: string;
+    SETTING_DEVELOP_OPTION: boolean;
 } = (<any>window).environment;

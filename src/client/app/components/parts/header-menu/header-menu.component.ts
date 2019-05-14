@@ -15,6 +15,7 @@ import { CinerinoService } from '../../../services/cinerino.service';
 export class HeaderMenuComponent implements OnInit {
     @Input() public isOpen: boolean;
     @Output() public close: EventEmitter<{}> = new EventEmitter();
+    public environment = environment;
 
     constructor(
         private cinerino: CinerinoService,

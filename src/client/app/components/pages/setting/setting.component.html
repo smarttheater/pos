@@ -128,7 +128,8 @@
                             </select>
                             <button
                                 *ngIf="this.settingForm.controls.printerType.value && this.settingForm.controls.printerType.value !== connectionType.None"
-                                type="button" class="btn btn-sm btn-primary py-2 mt-2" (click)="print()">{{ 'setting.testPrinting' | translate }}</button>
+                                type="button" class="btn btn-sm btn-primary py-2 mt-2"
+                                (click)="print()">{{ 'setting.testPrinting' | translate }}</button>
                         </div>
                     </div>
                 </div>
@@ -149,32 +150,35 @@
                         </div>
                     </div>
                 </div>
-                <div class="form-group">
-                    <div class="row align-items-center">
-                        <p class="col-md-4 py-2 text-md-right">{{ 'setting.purchaseCartMaxLength' | translate }}</p>
-                        <div class="col-md-8">
-                            <input type="text" class="form-control" formControlName="purchaseCartMaxLength"
-                                placeholder="1">
-                            <div *ngIf="settingForm.controls.purchaseCartMaxLength.invalid && settingForm.controls.purchaseCartMaxLength.touched"
-                                class="mt-2">
-                                <p *ngIf="settingForm.controls.purchaseCartMaxLength.errors.required" class="text-danger">
-                                    {{ 'form.validation.required' | translate }}</p>
+                <div *ngIf="environment.SETTING_DEVELOP_OPTION">
+                    <div class="form-group">
+                        <div class="row align-items-center">
+                            <p class="col-md-4 py-2 text-md-right">{{ 'setting.purchaseCartMaxLength' | translate }}</p>
+                            <div class="col-md-8">
+                                <input type="text" class="form-control" formControlName="purchaseCartMaxLength"
+                                    placeholder="1">
+                                <div *ngIf="settingForm.controls.purchaseCartMaxLength.invalid && settingForm.controls.purchaseCartMaxLength.touched"
+                                    class="mt-2">
+                                    <p *ngIf="settingForm.controls.purchaseCartMaxLength.errors.required"
+                                        class="text-danger">
+                                        {{ 'form.validation.required' | translate }}</p>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="form-group">
-                    <div class="row align-items-center">
-                        <p class="col-md-4 py-2 text-md-right">{{ 'setting.viewType' | translate }}</p>
-                        <div class="col-md-8">
-                            <select class="form-control" id="viewType" formControlName="viewType">
-                                <option [value]="viewType.Cinema">{{ viewType.Cinema }}</option>
-                                <option [value]="viewType.Event">{{ viewType.Event }}</option>
-                            </select>
-                            <div *ngIf="settingForm.controls.viewType.invalid && settingForm.controls.viewType.touched"
-                                class="mt-2">
-                                <p *ngIf="settingForm.controls.viewType.errors.required" class="text-danger">
-                                    {{ 'form.validation.required' | translate }}</p>
+                    <div class="form-group">
+                        <div class="row align-items-center">
+                            <p class="col-md-4 py-2 text-md-right">{{ 'setting.viewType' | translate }}</p>
+                            <div class="col-md-8">
+                                <select class="form-control" id="viewType" formControlName="viewType">
+                                    <option [value]="viewType.Cinema">{{ viewType.Cinema }}</option>
+                                    <option [value]="viewType.Event">{{ viewType.Event }}</option>
+                                </select>
+                                <div *ngIf="settingForm.controls.viewType.invalid && settingForm.controls.viewType.touched"
+                                    class="mt-2">
+                                    <p *ngIf="settingForm.controls.viewType.errors.required" class="text-danger">
+                                        {{ 'form.validation.required' | translate }}</p>
+                                </div>
                             </div>
                         </div>
                     </div>
