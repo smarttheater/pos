@@ -1,6 +1,6 @@
 <div class="contents-width mx-auto px-3 py-5">
     <h2 class="text-large mb-4 text-center font-weight-bold">{{ 'purchase.cinema.schedule.title' | translate }}</h2>
-    <p class="mb-4" [innerHTML]="'purchase.cinema.schedule.read' | translate"></p>
+    <p class="mb-4 text-md-center" [innerHTML]="'purchase.cinema.schedule.read' | translate"></p>
     <div class="mb-3">
         <input type="text" placeholder="Datepicker" class="form-control" bsDatepicker [(ngModel)]="scheduleDate"
             [bsConfig]="{ dateInputFormat: 'YYYY/MM/DD', adaptivePosition: true, showWeekNumbers: false }"

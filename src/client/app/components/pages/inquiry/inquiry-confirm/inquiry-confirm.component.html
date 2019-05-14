@@ -14,7 +14,7 @@
         <div *ngFor="let eventOrder of eventOrders" class="mb-4 bg-white p-3">
             <div class="mb-3">
                 <div class="mb-1">
-                    <p class="font-weight-bold">{{ eventOrder.event.name | changeLanguage }}</p>
+                    <p class="font-weight-bold text-large">{{ eventOrder.event.name | changeLanguage }}</p>
                     <p class="text-small"
                         *ngIf="eventOrder.event.superEvent.headline && (eventOrder.event.superEvent.headline | changeLanguage)">
                         {{ eventOrder.event.superEvent.headline | changeLanguage }}</p>
@@ -22,7 +22,7 @@
                         *ngIf="eventOrder.event.superEvent.description && (eventOrder.event.superEvent.description | changeLanguage)">{{
                         eventOrder.event.superEvent.description | changeLanguage }}</p>
                 </div>
-                <p class="font-weight-bold mb-1">
+                <p class="mb-1">
                     {{ eventOrder.event.startDate | formatDate: 'MM/DD(ddd) HH:mm' }}-{{ eventOrder.event.endDate | formatDate: 'HH:mm' }}
                 </p>
                 <p class="text-small mb-1">
