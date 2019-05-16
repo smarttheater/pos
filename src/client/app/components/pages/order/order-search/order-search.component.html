@@ -64,8 +64,8 @@
                 <div class="form-group col-md-3">
                     <label for="orderStatus" class="mb-2">{{ 'common.orderStatus' | translate }}</label>
                     <select class="form-control" name="orderStatus" id="orderStatus"
-                        [(ngModel)]="conditions.orderStatuses">
-                        <option [value]="''">{{ 'common.all' | translate }}</option>
+                        [(ngModel)]="conditions.orderStatus">
+                        <option value="">{{ 'common.all' | translate }}</option>
                         <!-- <option [value]="orderStatus.OrderCancelled">{{ 'order.search.orderStatus.orderCancelled' | translate }}</option> -->
                         <option [value]="orderStatus.OrderDelivered">
                             {{ 'order.search.orderStatus.orderDelivered' | translate }}</option>
@@ -76,6 +76,18 @@
                             {{ 'order.search.orderStatus.orderProcessing' | translate }}</option>
                         <option [value]="orderStatus.OrderReturned">
                             {{ 'order.search.orderStatus.orderReturned' | translate }}</option>
+                    </select>
+                </div>
+                <div class="form-group col-md-3">
+                    <label for="paymentMethodType" class="mb-2">{{ 'common.paymentMethod' | translate }}</label>
+                    <select class="form-control" name="paymentMethodType" id="paymentMethodType"
+                        [(ngModel)]="conditions.paymentMethodType">
+                        <option value="">{{ 'common.all' | translate }}</option>
+                        <option [value]="paymentMethodType.Cash">{{ paymentMethodType.Cash }}</option>
+                        <option [value]="paymentMethodType.Account">{{ paymentMethodType.Account }}</option>
+                        <option [value]="paymentMethodType.EMoney">{{ paymentMethodType.EMoney }}</option>
+                        <option [value]="paymentMethodType.CreditCard">{{ paymentMethodType.CreditCard }}</option>
+                        <option [value]="paymentMethodType.MovieTicket">{{ paymentMethodType.MovieTicket }}</option>
                     </select>
                 </div>
             </div>
@@ -140,17 +152,16 @@
                         </td>
                         <td class="align-middle">{{ order.confirmationNumber }}</td>
                         <td class="align-middle">
-                            <div *ngFor="let acceptedOffer of order.acceptedOffers">
-                                <p *ngIf="(acceptedOffer.itemOffered.reservationFor.name | changeLanguage).length > 0">{{
-                                    acceptedOffer.itemOffered.reservationFor.name | changeLanguage | slice:0:10 }}</p>
-                                <p
-                                    *ngIf="!((acceptedOffer.itemOffered.reservationFor.name | changeLanguage).length > 0)">{{
-                                    acceptedOffer.itemOffered.reservationFor.name | changeLanguage }}</p>
+                            <div *ngFor="let eventOrder of orderToEventOrders({ order: order })">
+                                <p *ngIf="(eventOrder.event.name | changeLanguage).length > 0">{{
+                                    eventOrder.event.name | changeLanguage | slice:0:10 }}</p>
+                                <p *ngIf="!((eventOrder.event.name | changeLanguage).length > 0)">{{
+                                    eventOrder.event.name | changeLanguage }}</p>
                                 <p>{{
-                                    acceptedOffer.itemOffered.reservationFor.superEvent.location.name | changeLanguage }}
+                                    eventOrder.event.superEvent.location.name | changeLanguage }}
                                     / {{
-                                    acceptedOffer.itemOffered.reservationFor.location.name | changeLanguage }}</p>
-                                <p>{{ acceptedOffer.itemOffered.reservationFor.startDate | formatDate: 'YYYY/MM/DD (ddd) HH:mm' }}
+                                    eventOrder.event.location.name | changeLanguage }}</p>
+                                <p>{{ eventOrder.event.startDate | formatDate: 'YYYY/MM/DD (ddd) HH:mm' }}
                                     -</p>
                             </div>
                         </td>

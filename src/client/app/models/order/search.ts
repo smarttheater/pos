@@ -11,6 +11,7 @@ export interface IOrderSearchConditions {
         email: string;
         telephone: string;
     };
-    orderStatuses: '' | factory.orderStatus;
+    orderStatus: '' | factory.orderStatus;
+    paymentMethodType: '' | factory.paymentMethodType;
     page: number;
 }

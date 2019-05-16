@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
 import { factory } from '@cinerino/api-javascript-client';
 import { Actions, ofType } from '@ngrx/effects';
 import { select, Store } from '@ngrx/store';
+import { TranslateService } from '@ngx-translate/core';
 import * as moment from 'moment';
 import { BsLocaleService, BsModalService } from 'ngx-bootstrap';
 import { Observable, race } from 'rxjs';
@@ -10,7 +10,7 @@ import { take, tap } from 'rxjs/operators';
 import { environment } from '../../../../../environments/environment';
 import { getTicketPrice } from '../../../../functions';
 import { IReservationSearchConditions } from '../../../../models';
-import { DownloadService } from '../../../../services';
+import { DownloadService, UtilService } from '../../../../services';
 import { reservationAction } from '../../../../store/actions';
 import * as reducers from '../../../../store/reducers';
 import { ReservationDetailModalComponent } from '../../../parts';
@@ -39,9 +39,10 @@ export class ReservationSearchComponent implements OnInit {
         private store: Store<reducers.IReservationState>,
         private actions: Actions,
         private modal: BsModalService,
-        private router: Router,
         private download: DownloadService,
-        private localeService: BsLocaleService
+        private localeService: BsLocaleService,
+        private util: UtilService,
+        private translate: TranslateService
     ) { }
 
     public ngOnInit() {
@@ -132,7 +133,10 @@ export class ReservationSearchComponent implements OnInit {
         const fail = this.actions.pipe(
             ofType(reservationAction.ActionTypes.SearchFail),
             tap(() => {
-                this.router.navigate(['/error']);
+                this.util.openAlert({
+                    title: this.translate.instant('common.error'),
+                    body: this.translate.instant('reservation.search.alert.search')
+                });
             })
         );
         race(success, fail).pipe(take(1)).subscribe();

@@ -310,12 +310,12 @@ export class PurchaseEffects {
                 const amount = payload.amount;
                 await this.cinerino.getServices();
                 if (payload.authorizeCreditCardPayment !== undefined) {
-                    await this.cinerino.transaction.placeOrder.voidPayment(payload.authorizeCreditCardPayment);
+                    await this.cinerino.payment.voidTransaction(payload.authorizeCreditCardPayment);
                 }
                 const transaction = payload.transaction;
                 const creditCard = { token: gmoTokenObject.token };
                 const authorizeCreditCardPaymentResult =
-                    await this.cinerino.transaction.placeOrder.authorizeCreditCardPayment({
+                    await this.cinerino.payment.authorizeCreditCard({
                         object: {
                             typeOf: factory.paymentMethodType.CreditCard,
                             amount,
@@ -344,7 +344,7 @@ export class PurchaseEffects {
                 await this.cinerino.getServices();
                 if (payload.authorizeMovieTicketPayments.length > 0) {
                     for (const authorizeMovieTicketPayment of payload.authorizeMovieTicketPayments) {
-                        await this.cinerino.transaction.placeOrder.voidPayment(authorizeMovieTicketPayment);
+                        await this.cinerino.payment.voidTransaction(authorizeMovieTicketPayment);
                     }
                 }
                 const transaction = payload.transaction;
@@ -373,7 +373,7 @@ export class PurchaseEffects {
                     });
                     for (const movieTicketIdentifier of movieTicketIdentifiers) {
                         const authorizeMovieTicketPaymentResult =
-                            await this.cinerino.transaction.placeOrder.authorizeMovieTicketPayment({
+                            await this.cinerino.payment.authorizeMovieTicket({
                                 object: {
                                     typeOf: factory.paymentMethodType.MovieTicket,
                                     amount: 0,
@@ -496,7 +496,7 @@ export class PurchaseEffects {
             try {
                 await this.cinerino.getServices();
                 const authorizeAnyPayment =
-                    await this.cinerino.transaction.placeOrder.authorizeAnyPayment({
+                    await this.cinerino.payment.authorizeAnyPayment({
                         object: { typeOf, amount, additionalProperty },
                         purpose: transaction
                     });

@@ -9,7 +9,7 @@ import { BsLocaleService, BsModalService } from 'ngx-bootstrap';
 import { Observable, race } from 'rxjs';
 import { take, tap } from 'rxjs/operators';
 import { environment } from '../../../../../environments/environment';
-import { buildQueryString } from '../../../../functions';
+import { buildQueryString, orderToEventOrders } from '../../../../functions';
 import { IOrderSearchConditions, OrderActions } from '../../../../models';
 import { DownloadService, UtilService } from '../../../../services';
 import { orderAction } from '../../../../store/actions';
@@ -29,6 +29,7 @@ export class OrderSearchComponent implements OnInit {
     public user: Observable<reducers.IUserState>;
     public moment: typeof moment = moment;
     public orderStatus: typeof factory.orderStatus = factory.orderStatus;
+    public paymentMethodType: typeof factory.paymentMethodType = factory.paymentMethodType;
     public limit: number;
     public conditions: IOrderSearchConditions;
     public confirmedConditions: IOrderSearchConditions;
@@ -37,6 +38,7 @@ export class OrderSearchComponent implements OnInit {
     public actionSelect: OrderActions | '';
     public buildQueryString = buildQueryString;
     public environment = environment;
+    public orderToEventOrders = orderToEventOrders;
 
     constructor(
         private store: Store<reducers.IOrderState>,
@@ -46,7 +48,7 @@ export class OrderSearchComponent implements OnInit {
         private util: UtilService,
         private translate: TranslateService,
         private download: DownloadService,
-        private localeService: BsLocaleService
+        private localeService: BsLocaleService,
     ) { }
 
     public ngOnInit() {
@@ -67,7 +69,8 @@ export class OrderSearchComponent implements OnInit {
                 email: '',
                 telephone: ''
             },
-            orderStatuses: '',
+            orderStatus: '',
+            paymentMethodType: '',
             page: 1
         };
         this.store.dispatch(new orderAction.Delete());
@@ -110,8 +113,8 @@ export class OrderSearchComponent implements OnInit {
                         givenName: (this.confirmedConditions.customer.givenName === '')
                             ? undefined : this.confirmedConditions.customer.givenName,
                     },
-                    orderStatuses: (this.confirmedConditions.orderStatuses === '')
-                        ? undefined : [this.confirmedConditions.orderStatuses],
+                    orderStatuses: (this.confirmedConditions.orderStatus === '')
+                        ? undefined : [this.confirmedConditions.orderStatus],
                     orderDateFrom: this.confirmedConditions.orderDateFrom,
                     orderDateThrough: (this.confirmedConditions.orderDateThrough === undefined)
                         ? undefined : moment(this.confirmedConditions.orderDateThrough).add(1, 'day').toDate(),
@@ -119,6 +122,8 @@ export class OrderSearchComponent implements OnInit {
                         ? undefined : [this.confirmedConditions.confirmationNumber],
                     orderNumbers: (this.confirmedConditions.orderNumber === '')
                         ? undefined : [this.confirmedConditions.orderNumber],
+                    paymentMethods: (this.confirmedConditions.paymentMethodType === '')
+                        ? undefined : { typeOfs: [this.confirmedConditions.paymentMethodType] },
                     limit: this.limit,
                     page: this.confirmedConditions.page,
                     sort: {
@@ -150,7 +155,8 @@ export class OrderSearchComponent implements OnInit {
                     email: this.conditions.customer.email,
                     telephone: this.conditions.customer.telephone
                 },
-                orderStatuses: this.conditions.orderStatuses,
+                orderStatus: this.conditions.orderStatus,
+                paymentMethodType: this.conditions.paymentMethodType,
                 page: 1
             };
         }
@@ -166,7 +172,10 @@ export class OrderSearchComponent implements OnInit {
         const fail = this.actions.pipe(
             ofType(orderAction.ActionTypes.SearchFail),
             tap(() => {
-                this.router.navigate(['/error']);
+                this.util.openAlert({
+                    title: this.translate.instant('common.error'),
+                    body: this.translate.instant('order.search.alert.search')
+                });
             })
         );
         race(success, fail).pipe(take(1)).subscribe();
