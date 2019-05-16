@@ -5964,7 +5964,7 @@ var PurchaseInputComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"contents-width mx-auto px-3 py-5\">\n\n    <h2 class=\"text-large mb-4 text-center font-weight-bold\">{{ 'purchase.payment.title' | translate }}</h2>\n    <p class=\"mb-4 text-md-center\" [innerHTML]=\"'purchase.payment.read' | translate\"></p>\n\n    <div class=\"payment-select d-grid mb-4\">\n        <button type=\"button\" class=\"btn btn-primary btn-block py-3 m-0\"\n            (click)=\"selectPaymentMethodType(paymentMethodType.Cash)\">\n            <div class=\"mb-md-3\"><i class=\"fas fa-yen-sign mr-2 d-md-none\"></i>{{ 'purchase.payment.cash' | translate }}\n            </div>\n            <div class=\"image d-none d-md-block\"><i class=\"fas fa-yen-sign\"></i></div>\n        </button>\n        <button type=\"button\" class=\"btn btn-primary btn-block py-3 m-0\"\n            (click)=\"selectPaymentMethodType(paymentMethodType.CreditCard)\">\n            <div class=\"mb-md-3\"><i\n                    class=\"fas fa-credit-card mr-2 d-md-none\"></i>{{ 'purchase.payment.creditCard' | translate }}</div>\n            <div class=\"image d-none d-md-block\"><i class=\"fas fa-credit-card\"></i></div>\n        </button>\n        <button type=\"button\" class=\"btn btn-primary btn-block py-3 m-0\"\n            (click)=\"selectPaymentMethodType(paymentMethodType.EMoney)\">\n            <div class=\"mb-md-3\"><i\n                    class=\"fas fa-mobile-alt mr-2 d-md-none\"></i>{{ 'purchase.payment.eMoney' | translate }}</div>\n            <div class=\"image d-none d-md-block\"><i class=\"fas fa-mobile-alt\"></i></div>\n        </button>\n        <!-- <button type=\"button\" class=\"btn btn-primary btn-block py-3 m-0\">\n                <div class=\"mb-md-3\"><i class=\"far fa-question-circle mr-2 d-md-none\"></i>その他</div>\n                <div class=\"image d-none d-md-block\"><i class=\"far fa-question-circle\"></i></div>\n            </button> -->\n    </div>\n\n    <div class=\"buttons mx-auto text-center\">\n        <div *ngIf=\"(user | async).viewType === viewType.Cinema\">\n            <button *ngIf=\"(user | async).purchaseCartMaxLength > 1\" type=\"button\"\n                class=\"btn btn-link\"\n                routerLink=\"/purchase/cinema/cart\">{{ 'purchase.payment.prev' | translate }}</button>\n            <button *ngIf=\"(user | async).purchaseCartMaxLength === 1\" type=\"button\"\n                class=\"btn btn-link\"\n                routerLink=\"/purchase/cinema/ticket\">{{ 'purchase.payment.prev' | translate }}</button>\n        </div>\n        <div *ngIf=\"(user | async).viewType === viewType.Event\">\n            <button type=\"button\" class=\"btn btn-link\"\n                routerLink=\"/purchase/event/ticket\">{{ 'purchase.payment.prev' | translate }}</button>\n        </div>\n\n    </div>\n</div>"
+module.exports = "<div class=\"contents-width mx-auto px-3 py-5\">\n\n    <h2 class=\"text-large mb-4 text-center font-weight-bold\">{{ 'purchase.payment.title' | translate }}</h2>\n    <p class=\"mb-4 text-md-center\" [innerHTML]=\"'purchase.payment.read' | translate\"></p>\n\n    <div class=\"payment-select d-grid mb-4\">\n        <button *ngIf=\"isDisplay(paymentMethodType.Cash)\" type=\"button\" class=\"btn btn-primary btn-block py-3 m-0\"\n            (click)=\"selectPaymentMethodType(paymentMethodType.Cash)\">\n            <div class=\"mb-md-3\">\n                <i\n                    class=\"fas fa-yen-sign mr-2 d-md-none\"></i>{{ 'purchase.payment.paymentMethodType.cash' | translate }}\n            </div>\n            <div class=\"image d-none d-md-block\"><i class=\"fas fa-yen-sign\"></i></div>\n        </button>\n        <button *ngIf=\"isDisplay(paymentMethodType.CreditCard)\" type=\"button\" class=\"btn btn-primary btn-block py-3 m-0\"\n            (click)=\"selectPaymentMethodType(paymentMethodType.CreditCard)\">\n            <div class=\"mb-md-3\">\n                <i\n                    class=\"fas fa-credit-card mr-2 d-md-none\"></i>{{ 'purchase.payment.paymentMethodType.creditCard' | translate }}\n            </div>\n            <div class=\"image d-none d-md-block\"><i class=\"fas fa-credit-card\"></i></div>\n        </button>\n        <button *ngIf=\"isDisplay(paymentMethodType.EMoney)\" type=\"button\" class=\"btn btn-primary btn-block py-3 m-0\"\n            (click)=\"selectPaymentMethodType(paymentMethodType.EMoney)\">\n            <div class=\"mb-md-3\">\n                <i\n                    class=\"fas fa-mobile-alt mr-2 d-md-none\"></i>{{ 'purchase.payment.paymentMethodType.eMoney' | translate }}\n            </div>\n            <div class=\"image d-none d-md-block\"><i class=\"fas fa-mobile-alt\"></i></div>\n        </button>\n        <button *ngIf=\"isDisplay(paymentMethodType.RegiGrow)\" type=\"button\" class=\"btn btn-primary btn-block py-3 m-0\"\n            (click)=\"selectPaymentMethodType(paymentMethodType.RegiGrow)\">\n            <div class=\"mb-md-3\">\n                <i class=\"fas fa-cash-register mr-2 d-md-none\"></i>{{ 'purchase.payment.paymentMethodType.regiGrow' | translate }}\n            </div>\n            <div class=\"image d-none d-md-block\"><i class=\"fas fa-cash-register\"></i></div>\n        </button>\n        <!-- <button type=\"button\" class=\"btn btn-primary btn-block py-3 m-0\">\n                <div class=\"mb-md-3\"><i class=\"far fa-question-circle mr-2 d-md-none\"></i>その他</div>\n                <div class=\"image d-none d-md-block\"><i class=\"far fa-question-circle\"></i></div>\n            </button> -->\n    </div>\n\n    <div class=\"buttons mx-auto text-center\">\n        <div *ngIf=\"(user | async).viewType === viewType.Cinema\">\n            <button *ngIf=\"(user | async).purchaseCartMaxLength > 1\" type=\"button\" class=\"btn btn-link\"\n                routerLink=\"/purchase/cinema/cart\">{{ 'purchase.payment.prev' | translate }}</button>\n            <button *ngIf=\"(user | async).purchaseCartMaxLength === 1\" type=\"button\" class=\"btn btn-link\"\n                routerLink=\"/purchase/cinema/ticket\">{{ 'purchase.payment.prev' | translate }}</button>\n        </div>\n        <div *ngIf=\"(user | async).viewType === viewType.Event\">\n            <button type=\"button\" class=\"btn btn-link\"\n                routerLink=\"/purchase/event/ticket\">{{ 'purchase.payment.prev' | translate }}</button>\n        </div>\n\n    </div>\n</div>"
 
 /***/ }),
 
@@ -5991,10 +5991,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "PurchasePaymentComponent", function() { return PurchasePaymentComponent; });
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "../../node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/router */ "../../node_modules/@angular/router/fesm5/router.js");
-/* harmony import */ var _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @cinerino/api-javascript-client */ "../../node_modules/@cinerino/api-javascript-client/lib/index.js");
-/* harmony import */ var _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var _ngrx_store__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @ngrx/store */ "../../node_modules/@ngrx/store/fesm5/store.js");
-/* harmony import */ var _ngx_translate_core__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @ngx-translate/core */ "../../node_modules/@ngx-translate/core/fesm5/ngx-translate-core.js");
+/* harmony import */ var _ngrx_store__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @ngrx/store */ "../../node_modules/@ngrx/store/fesm5/store.js");
+/* harmony import */ var _ngx_translate_core__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @ngx-translate/core */ "../../node_modules/@ngx-translate/core/fesm5/ngx-translate-core.js");
+/* harmony import */ var _environments_environment__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../../../environments/environment */ "./environments/environment.ts");
 /* harmony import */ var _models__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../../../models */ "./app/models/index.ts");
 /* harmony import */ var _services__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../../../services */ "./app/services/index.ts");
 /* harmony import */ var _store_actions__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../../../../store/actions */ "./app/store/actions/index.ts");
@@ -6023,12 +6022,16 @@ var PurchasePaymentComponent = /** @class */ (function () {
         this.router = router;
         this.util = util;
         this.translate = translate;
-        this.paymentMethodType = _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_2__["factory"].paymentMethodType;
+        this.paymentMethodType = _models__WEBPACK_IMPORTED_MODULE_5__["PaymentMethodType"];
         this.viewType = _models__WEBPACK_IMPORTED_MODULE_5__["ViewType"];
+        this.environment = _environments_environment__WEBPACK_IMPORTED_MODULE_4__["environment"];
     }
     PurchasePaymentComponent.prototype.ngOnInit = function () {
-        this.user = this.store.pipe(Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_3__["select"])(_store_reducers__WEBPACK_IMPORTED_MODULE_8__["getUser"]));
+        this.user = this.store.pipe(Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_2__["select"])(_store_reducers__WEBPACK_IMPORTED_MODULE_8__["getUser"]));
     };
+    /**
+     * 決済方法選択
+     */
     PurchasePaymentComponent.prototype.selectPaymentMethodType = function (paymentMethodType) {
         var _this = this;
         this.user.subscribe(function (user) {
@@ -6051,16 +6054,23 @@ var PurchasePaymentComponent = /** @class */ (function () {
             _this.router.navigate(['/purchase/confirm']);
         }).unsubscribe();
     };
+    /**
+     * 表示判定
+     */
+    PurchasePaymentComponent.prototype.isDisplay = function (paymentMethodType) {
+        var findResult = _environments_environment__WEBPACK_IMPORTED_MODULE_4__["environment"].PAYMENT_METHOD_TO_USE.find(function (p) { return p === paymentMethodType; });
+        return (findResult !== undefined);
+    };
     PurchasePaymentComponent = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
             selector: 'app-purchase-payment',
             template: __webpack_require__(/*! ./purchase-payment.component.html */ "./app/components/pages/purchase/purchase-payment/purchase-payment.component.html"),
             styles: [__webpack_require__(/*! ./purchase-payment.component.scss */ "./app/components/pages/purchase/purchase-payment/purchase-payment.component.scss")]
         }),
-        __metadata("design:paramtypes", [_ngrx_store__WEBPACK_IMPORTED_MODULE_3__["Store"],
+        __metadata("design:paramtypes", [_ngrx_store__WEBPACK_IMPORTED_MODULE_2__["Store"],
             _angular_router__WEBPACK_IMPORTED_MODULE_1__["Router"],
             _services__WEBPACK_IMPORTED_MODULE_6__["UtilService"],
-            _ngx_translate_core__WEBPACK_IMPORTED_MODULE_4__["TranslateService"]])
+            _ngx_translate_core__WEBPACK_IMPORTED_MODULE_3__["TranslateService"]])
     ], PurchasePaymentComponent);
     return PurchasePaymentComponent;
 }());
@@ -7140,7 +7150,7 @@ var ContentsComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"p-3 text-x-small text-center\" [innerHTML]=\"'footer.copyright' | translate\">\n</div>"
+module.exports = "<div class=\"p-3 text-x-small text-center\">\n    <p [innerHTML]=\"'footer.copyright' | translate\"></p>\n</div>"
 
 /***/ }),
 
@@ -8394,7 +8404,7 @@ var PurchaseCinemaTicketModalComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div>\n    <div class=\"bg-gray p-3\">\n        <div class=\"mb-2\">\n            <p class=\"font-weight-bold text-large\">{{ screeningWorkEvent.info.name | changeLanguage }}</p>\n            <p class=\"text-small\"\n                *ngIf=\"screeningWorkEvent.info.superEvent.headline && (screeningWorkEvent.info.superEvent.headline | changeLanguage)\">\n                {{ screeningWorkEvent.info.superEvent.headline | changeLanguage }}</p>\n            <p class=\"text-small\"\n                *ngIf=\"screeningWorkEvent.info.superEvent.description && (screeningWorkEvent.info.superEvent.description | changeLanguage)\">{{\n                screeningWorkEvent.info.superEvent.description | changeLanguage }}</p>\n        </div>\n        <div class=\"d-flex align-items-center\">\n            <div *ngIf=\"screeningWorkEvent.info.workPerformed?.duration && moment.duration(screeningWorkEvent.info.workPerformed.duration).asMinutes() > 0\" class=\"text-small ml-auto\">\n                {{\n                moment.duration(screeningWorkEvent.info.workPerformed.duration).asMinutes() }}{{ 'common.date.minute' | translate }}</div>\n        </div>\n    </div>\n    <div class=\"p-3 bg-white d-flex flex-wrap\" [class.not-event]=\"readonly\">\n        <div *ngFor=\"let screeningEvent of screeningWorkEvent.data\"\n            class=\"performance my-2\"\n            [ngClass]=\"{ 'text-dark-gray': !isSales(screeningEvent) || screeningEvent.remainingAttendeeCapacity === 0 }\">\n            <div class=\"d-flex align-items-center\">\n                <div class=\"mr-2 font-weight-bold\">{{ moment(screeningEvent.startDate).format('HH:mm') }}-{{ moment(screeningEvent.endDate).format('HH:mm') }}</div>\n                <div class=\"status\"\n                    *ngIf=\"isSales(screeningEvent) && isTicketedSeatScreeningEvent(screeningEvent)\">\n                    <div *ngIf=\"isScheduleStatusThreshold(screeningEvent, 'success')\">\n                        <img src=\"/assets/images/icon/status_success.svg\">\n                    </div>\n                    <div *ngIf=\"isScheduleStatusThreshold(screeningEvent, 'warning')\"\n                        class=\"d-flex justify-content-around align-items-center\">\n                        <img src=\"/assets/images/icon/status_warning.svg\">\n                    </div>\n                    <div *ngIf=\"isScheduleStatusThreshold(screeningEvent, 'danger')\">\n                        <img src=\"/assets/images/icon/status_danger.svg\">\n                    </div>\n                </div>\n\n                <div class=\"status\" *ngIf=\"isSales(screeningEvent) && !isTicketedSeatScreeningEvent(screeningEvent)\">\n                    <div class=\"d-flex justify-content-around align-items-center\">\n                        <img src=\"/assets/images/icon/status_success.svg\">\n                    </div>\n                </div>\n\n                <div class=\"status text-x-small\" *ngIf=\"isSales(screeningEvent, 'end')\">\n                    {{ 'purchase.cinema.schedule.status.endSale' | translate }}</div>\n                <div class=\"status text-x-small\" *ngIf=\"isSales(screeningEvent, 'start')\">\n                    {{ 'purchase.cinema.schedule.status.outsideSalesPeriod' | translate }}</div>\n            </div>\n        </div>\n    </div>\n</div>"
+module.exports = "<div>\n    <div class=\"bg-gray p-3\">\n        <div class=\"mb-2\">\n            <p class=\"font-weight-bold text-large\">{{ screeningWorkEvent.info.name | changeLanguage }}</p>\n            <p class=\"text-small\"\n                *ngIf=\"screeningWorkEvent.info.superEvent.headline && (screeningWorkEvent.info.superEvent.headline | changeLanguage)\">\n                {{ screeningWorkEvent.info.superEvent.headline | changeLanguage }}</p>\n            <p class=\"text-small\"\n                *ngIf=\"screeningWorkEvent.info.superEvent.description && (screeningWorkEvent.info.superEvent.description | changeLanguage)\">{{\n                screeningWorkEvent.info.superEvent.description | changeLanguage }}</p>\n        </div>\n        <div class=\"d-flex align-items-center\">\n            <div *ngIf=\"screeningWorkEvent.info.workPerformed?.duration && moment.duration(screeningWorkEvent.info.workPerformed.duration).asMinutes() > 0\" class=\"text-small ml-auto\">\n                {{\n                moment.duration(screeningWorkEvent.info.workPerformed.duration).asMinutes() }}{{ 'common.date.minute' | translate }}</div>\n        </div>\n    </div>\n    <div class=\"p-3 bg-white d-flex flex-wrap\" [class.not-event]=\"readonly\">\n        <div *ngFor=\"let screeningEvent of screeningWorkEvent.data\"\n            class=\"performance my-2\"\n            [ngClass]=\"{ 'text-dark-gray': !isSales(screeningEvent) || screeningEvent.remainingAttendeeCapacity === 0 }\">\n            <div class=\"d-flex align-items-center\">\n                <div class=\"mr-2 font-weight-bold\">{{ moment(screeningEvent.startDate).format('HH:mm') }}-{{ moment(screeningEvent.endDate).format('HH:mm') }}</div>\n                <div class=\"status\"\n                    *ngIf=\"isSales(screeningEvent) && isTicketedSeatScreeningEvent(screeningEvent)\">\n                    <div *ngIf=\"isScheduleStatusThreshold(screeningEvent, 'success')\">\n                        <img src=\"/assets/images/icon/status_success.svg\">\n                    </div>\n                    <div *ngIf=\"isScheduleStatusThreshold(screeningEvent, 'warning')\"\n                        class=\"d-flex justify-content-around align-items-center\">\n                        <img src=\"/assets/images/icon/status_warning.svg\">\n                    </div>\n                    <div *ngIf=\"isScheduleStatusThreshold(screeningEvent, 'danger')\">\n                        <img src=\"/assets/images/icon/status_danger.svg\">\n                    </div>\n                </div>\n\n                <div class=\"status\" *ngIf=\"isSales(screeningEvent) && !isTicketedSeatScreeningEvent(screeningEvent)\">\n                    <div class=\"d-flex justify-content-around align-items-center\">\n                        <img src=\"/assets/images/icon/status_success.svg\">\n                    </div>\n                </div>\n\n                <div class=\"status text-x-small\" *ngIf=\"isSales(screeningEvent, 'end')\">\n                    {{ 'purchase.event.schedule.status.endSale' | translate }}</div>\n                <div class=\"status text-x-small\" *ngIf=\"isSales(screeningEvent, 'start')\">\n                    {{ 'purchase.event.schedule.status.outsideSalesPeriod' | translate }}</div>\n            </div>\n        </div>\n    </div>\n</div>"
 
 /***/ }),
 
@@ -8478,7 +8488,7 @@ var PurchaseEventPerformanceConfirmComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"\">\n    <div class=\"bg-gray p-3\">\n        <div class=\"mb-2\">\n            <p class=\"font-weight-bold text-large\">{{ screeningWorkEvent.info.name | changeLanguage }}</p>\n            <p class=\"text-small\"\n                *ngIf=\"screeningWorkEvent.info.superEvent.headline && (screeningWorkEvent.info.superEvent.headline | changeLanguage)\">\n                {{ screeningWorkEvent.info.superEvent.headline | changeLanguage }}</p>\n            <p class=\"text-small\"\n                *ngIf=\"screeningWorkEvent.info.superEvent.description && (screeningWorkEvent.info.superEvent.description | changeLanguage)\">{{\n                screeningWorkEvent.info.superEvent.description | changeLanguage }}</p>\n        </div>\n        <div class=\"d-flex align-items-center\">\n            <div *ngIf=\"screeningWorkEvent.info.workPerformed?.duration && moment.duration(screeningWorkEvent.info.workPerformed?.duration).asMinutes() > 0\" class=\"text-small ml-auto\">\n                {{\n                moment.duration(screeningWorkEvent.info.workPerformed?.duration).asMinutes() }}{{ 'common.date.minute' | translate }}\n            </div>\n        </div>\n    </div>\n    <div class=\"position-relative bg-white py-3\">\n        <div class=\"swiper-container px-1\" #swiper [swiper]=\"swiperConfig\" (resize)=\"resize()\">\n            <div class=\"swiper-wrapper\">\n                <div *ngFor=\"let screeningEvent of screeningWorkEvent.data\" class=\"px-1 swiper-slide\">\n                    <div class=\"border boder-gray rounded py-3 text-center pointer\" [ngClass]=\"{ \n                'bg-white': isSales(screeningEvent) && (screeningEvent.remainingAttendeeCapacity > 0 || !isTicketedSeatScreeningEvent(screeningEvent)), \n                'bg-dark-gray text-light-gray not-event': !isSales(screeningEvent) || screeningEvent.remainingAttendeeCapacity === 0\n                }\" (click)=\"select.emit(screeningEvent)\">\n                        <!-- <div class=\"mb-2 text-small\">\n                            {{ screeningEvent.location.name | changeLanguage }}\n                        </div> -->\n                        <div class=\"font-weight-bold mb-2\">\n                            {{ moment(screeningEvent.startDate).format('HH:mm') }}-{{ moment(screeningEvent.endDate).format('HH:mm') }}\n                        </div>\n                        <div class=\"text-center\">\n                            <div class=\"status mb-2\"\n                                *ngIf=\"isSales(screeningEvent) && isTicketedSeatScreeningEvent(screeningEvent)\">\n                                <div *ngIf=\"isScheduleStatusThreshold(screeningEvent, 'success')\"\n                                    class=\"d-flex justify-content-around align-items-center\">\n                                    <img src=\"/assets/images/icon/status_success.svg\">\n                                </div>\n                                <div *ngIf=\"isScheduleStatusThreshold(screeningEvent, 'warning')\"\n                                    class=\"d-flex justify-content-around align-items-center\">\n                                    <img src=\"/assets/images/icon/status_warning.svg\">\n                                </div>\n                                <div *ngIf=\"isScheduleStatusThreshold(screeningEvent, 'danger')\"\n                                    class=\"d-flex justify-content-around align-items-center\">\n                                    <img src=\"/assets/images/icon/status_danger.svg\">\n                                </div>\n                            </div>\n\n                            <div class=\"status mb-2\"\n                                *ngIf=\"isSales(screeningEvent) && !isTicketedSeatScreeningEvent(screeningEvent)\">\n                                <div class=\"d-flex justify-content-around align-items-center\">\n                                    <img src=\"/assets/images/icon/status_success.svg\">\n                                </div>\n                            </div>\n\n                            <div class=\"status mb-2\" *ngIf=\"isSales(screeningEvent, 'end')\">\n                                {{ 'purchase.cinema.schedule.status.endSale' | translate }}</div>\n                            <div class=\"status mb-2\" *ngIf=\"isSales(screeningEvent, 'start')\">\n                                {{ 'purchase.cinema.schedule.status.outsideSalesPeriod' | translate }}</div>\n                            <div *ngIf=\"screeningEvent.offers?.itemOffered.serviceOutput?.reservedTicket?.ticketedSeat && environment.DISPLAY_TICKETED_SEAT\"\n                                class=\"text-small\">{{ 'common.seat' | translate }}\n                                {{ screeningEvent.remainingAttendeeCapacity }} /\n                                {{ screeningEvent.maximumAttendeeCapacity }}\n                            </div>\n                            <div *ngIf=\"!(screeningEvent.offers?.itemOffered.serviceOutput?.reservedTicket?.ticketedSeat)\"\n                                class=\"text-small\">\n                                {{ 'purchase.event.schedule.infiniteStock' | translate }}</div>\n                        </div>\n                    </div>\n                </div>\n            </div>\n        </div>\n        <!-- <div class=\"swiper-button-next\"></div>\n        <div class=\"swiper-button-prev\"></div> -->\n    </div>\n</div>"
+module.exports = "<div class=\"\">\n    <div class=\"bg-gray p-3\">\n        <div class=\"mb-2\">\n            <p class=\"font-weight-bold text-large\">{{ screeningWorkEvent.info.name | changeLanguage }}</p>\n            <p class=\"text-small\"\n                *ngIf=\"screeningWorkEvent.info.superEvent.headline && (screeningWorkEvent.info.superEvent.headline | changeLanguage)\">\n                {{ screeningWorkEvent.info.superEvent.headline | changeLanguage }}</p>\n            <p class=\"text-small\"\n                *ngIf=\"screeningWorkEvent.info.superEvent.description && (screeningWorkEvent.info.superEvent.description | changeLanguage)\">{{\n                screeningWorkEvent.info.superEvent.description | changeLanguage }}</p>\n        </div>\n        <div class=\"d-flex align-items-center\">\n            <div *ngIf=\"screeningWorkEvent.info.workPerformed?.duration && moment.duration(screeningWorkEvent.info.workPerformed?.duration).asMinutes() > 0\" class=\"text-small ml-auto\">\n                {{\n                moment.duration(screeningWorkEvent.info.workPerformed?.duration).asMinutes() }}{{ 'common.date.minute' | translate }}\n            </div>\n        </div>\n    </div>\n    <div class=\"position-relative bg-white py-3\">\n        <div class=\"swiper-container px-1\" #swiper [swiper]=\"swiperConfig\" (resize)=\"resize()\">\n            <div class=\"swiper-wrapper\">\n                <div *ngFor=\"let screeningEvent of screeningWorkEvent.data\" class=\"px-1 swiper-slide\">\n                    <div class=\"border boder-gray rounded py-3 text-center pointer\" [ngClass]=\"{ \n                'bg-white': isSales(screeningEvent) && (screeningEvent.remainingAttendeeCapacity > 0 || !isTicketedSeatScreeningEvent(screeningEvent)), \n                'bg-dark-gray text-light-gray not-event': !isSales(screeningEvent) || screeningEvent.remainingAttendeeCapacity === 0\n                }\" (click)=\"select.emit(screeningEvent)\">\n                        <!-- <div class=\"mb-2 text-small\">\n                            {{ screeningEvent.location.name | changeLanguage }}\n                        </div> -->\n                        <div class=\"font-weight-bold mb-2\">\n                            {{ moment(screeningEvent.startDate).format('HH:mm') }}-{{ moment(screeningEvent.endDate).format('HH:mm') }}\n                        </div>\n                        <div class=\"text-center\">\n                            <div class=\"status mb-2\"\n                                *ngIf=\"isSales(screeningEvent) && isTicketedSeatScreeningEvent(screeningEvent)\">\n                                <div *ngIf=\"isScheduleStatusThreshold(screeningEvent, 'success')\"\n                                    class=\"d-flex justify-content-around align-items-center\">\n                                    <img src=\"/assets/images/icon/status_success.svg\">\n                                </div>\n                                <div *ngIf=\"isScheduleStatusThreshold(screeningEvent, 'warning')\"\n                                    class=\"d-flex justify-content-around align-items-center\">\n                                    <img src=\"/assets/images/icon/status_warning.svg\">\n                                </div>\n                                <div *ngIf=\"isScheduleStatusThreshold(screeningEvent, 'danger')\"\n                                    class=\"d-flex justify-content-around align-items-center\">\n                                    <img src=\"/assets/images/icon/status_danger.svg\">\n                                </div>\n                            </div>\n\n                            <div class=\"status mb-2\"\n                                *ngIf=\"isSales(screeningEvent) && !isTicketedSeatScreeningEvent(screeningEvent)\">\n                                <div class=\"d-flex justify-content-around align-items-center\">\n                                    <img src=\"/assets/images/icon/status_success.svg\">\n                                </div>\n                            </div>\n\n                            <div class=\"status mb-2\" *ngIf=\"isSales(screeningEvent, 'end')\">\n                                {{ 'purchase.event.schedule.status.endSale' | translate }}</div>\n                            <div class=\"status mb-2\" *ngIf=\"isSales(screeningEvent, 'start')\">\n                                {{ 'purchase.event.schedule.status.outsideSalesPeriod' | translate }}</div>\n                            <div *ngIf=\"screeningEvent.offers?.itemOffered.serviceOutput?.reservedTicket?.ticketedSeat && environment.DISPLAY_TICKETED_SEAT\"\n                                class=\"text-small\">{{ 'common.seat' | translate }}\n                                {{ screeningEvent.remainingAttendeeCapacity }} /\n                                {{ screeningEvent.maximumAttendeeCapacity }}\n                            </div>\n                            <div *ngIf=\"!(screeningEvent.offers?.itemOffered.serviceOutput?.reservedTicket?.ticketedSeat) && environment.DISPLAY_TICKETED_SEAT\"\n                                class=\"text-small\">\n                                {{ 'purchase.event.schedule.infiniteStock' | translate }}</div>\n                        </div>\n                    </div>\n                </div>\n            </div>\n        </div>\n        <!-- <div class=\"swiper-button-next\"></div>\n        <div class=\"swiper-button-prev\"></div> -->\n    </div>\n</div>"
 
 /***/ }),
 
@@ -10744,7 +10754,7 @@ function buildQueryString(obj) {
 /*!*****************************!*\
   !*** ./app/models/index.ts ***!
   \*****************************/
-/*! exports provided: SeatStatus, Reservation, User, connectionType, printers, OrderActions, PrintQrCodeType, Language, ViewType */
+/*! exports provided: SeatStatus, Reservation, PaymentMethodType, connectionType, printers, OrderActions, PrintQrcodeType, Language, ViewType */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -10755,8 +10765,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _purchase_reservation__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./purchase/reservation */ "./app/models/purchase/reservation.ts");
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "Reservation", function() { return _purchase_reservation__WEBPACK_IMPORTED_MODULE_1__["Reservation"]; });
 
-/* harmony import */ var _purchase_user__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./purchase/user */ "./app/models/purchase/user.ts");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "User", function() { return _purchase_user__WEBPACK_IMPORTED_MODULE_2__["User"]; });
+/* harmony import */ var _purchase_payment__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./purchase/payment */ "./app/models/purchase/payment.ts");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "PaymentMethodType", function() { return _purchase_payment__WEBPACK_IMPORTED_MODULE_2__["PaymentMethodType"]; });
 
 /* harmony import */ var _util_printer__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./util/printer */ "./app/models/util/printer.ts");
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "connectionType", function() { return _util_printer__WEBPACK_IMPORTED_MODULE_3__["connectionType"]; });
@@ -10767,7 +10777,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "OrderActions", function() { return _order_action__WEBPACK_IMPORTED_MODULE_4__["OrderActions"]; });
 
 /* harmony import */ var _order_print__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./order/print */ "./app/models/order/print.ts");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "PrintQrCodeType", function() { return _order_print__WEBPACK_IMPORTED_MODULE_5__["PrintQrCodeType"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "PrintQrcodeType", function() { return _order_print__WEBPACK_IMPORTED_MODULE_5__["PrintQrcodeType"]; });
 
 /* harmony import */ var _util_language__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./util/language */ "./app/models/util/language.ts");
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "Language", function() { return _util_language__WEBPACK_IMPORTED_MODULE_6__["Language"]; });
@@ -10816,20 +10826,57 @@ var OrderActions;
 /*!***********************************!*\
   !*** ./app/models/order/print.ts ***!
   \***********************************/
-/*! exports provided: PrintQrCodeType */
+/*! exports provided: PrintQrcodeType */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "PrintQrCodeType", function() { return PrintQrCodeType; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "PrintQrcodeType", function() { return PrintQrcodeType; });
 /**
  * QRコード文字列
  */
-var PrintQrCodeType;
-(function (PrintQrCodeType) {
-    PrintQrCodeType["token"] = "token";
-    PrintQrCodeType["encryption"] = "encryption";
-})(PrintQrCodeType || (PrintQrCodeType = {}));
+var PrintQrcodeType;
+(function (PrintQrcodeType) {
+    PrintQrcodeType["Token"] = "token";
+    PrintQrcodeType["Encryption"] = "encryption";
+    PrintQrcodeType["Custom"] = "Custom";
+})(PrintQrcodeType || (PrintQrcodeType = {}));
+
+
+/***/ }),
+
+/***/ "./app/models/purchase/payment.ts":
+/*!****************************************!*\
+  !*** ./app/models/purchase/payment.ts ***!
+  \****************************************/
+/*! exports provided: PaymentMethodType */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "PaymentMethodType", function() { return PaymentMethodType; });
+/**
+ * 決済方法タイプ
+ */
+var PaymentMethodType;
+(function (PaymentMethodType) {
+    /**
+     * 現金
+     */
+    PaymentMethodType["Cash"] = "Cash";
+    /**
+     * 電子マネー
+     */
+    PaymentMethodType["EMoney"] = "EMoney";
+    /**
+     * クレジットカード決済
+     */
+    PaymentMethodType["CreditCard"] = "CreditCard";
+    /**
+     * RegiGrow決済
+     */
+    PaymentMethodType["RegiGrow"] = "RegiGrow";
+})(PaymentMethodType || (PaymentMethodType = {}));
 
 
 /***/ }),
@@ -10939,26 +10986,6 @@ var SeatStatus;
     SeatStatus["Default"] = "default";
     SeatStatus["Active"] = "active";
 })(SeatStatus || (SeatStatus = {}));
-
-
-/***/ }),
-
-/***/ "./app/models/purchase/user.ts":
-/*!*************************************!*\
-  !*** ./app/models/purchase/user.ts ***!
-  \*************************************/
-/*! exports provided: User */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "User", function() { return User; });
-var User = /** @class */ (function () {
-    function User() {
-    }
-    return User;
-}());
-
 
 
 /***/ }),
@@ -14925,7 +14952,7 @@ var OrderEffects = /** @class */ (function () {
                             }
                         }
                         if (!(qrcode !== undefined
-                            && _environments_environment__WEBPACK_IMPORTED_MODULE_5__["environment"].PRINT_QR_CODE_TYPE === _models__WEBPACK_IMPORTED_MODULE_7__["PrintQrCodeType"].encryption)) return [3 /*break*/, 12];
+                            && _environments_environment__WEBPACK_IMPORTED_MODULE_5__["environment"].PRINT_QRCODE_TYPE === _models__WEBPACK_IMPORTED_MODULE_7__["PrintQrcodeType"].Encryption)) return [3 /*break*/, 12];
                         encyptText = itemOffered.reservationFor.id + "=" + itemOffered.reservationFor.startDate;
                         return [4 /*yield*/, this.util.encryptionEncode(encyptText)];
                     case 11:
@@ -14933,7 +14960,13 @@ var OrderEffects = /** @class */ (function () {
                         qrcode =
                             encryptionEncodeResult.salt + "," + encryptionEncodeResult.iv + "," + encryptionEncodeResult.encrypted;
                         _e.label = 12;
-                    case 12: return [4 /*yield*/, Object(_functions__WEBPACK_IMPORTED_MODULE_6__["createPrintCanvas"])({ printData: printData, order: order, acceptedOffer: acceptedOffer, pos: pos, qrcode: qrcode })];
+                    case 12:
+                        if (qrcode !== undefined
+                            && _environments_environment__WEBPACK_IMPORTED_MODULE_5__["environment"].PRINT_QRCODE_TYPE === _models__WEBPACK_IMPORTED_MODULE_7__["PrintQrcodeType"].Custom) {
+                            // QRコードカスタム文字列
+                            qrcode = _environments_environment__WEBPACK_IMPORTED_MODULE_5__["environment"].PRINT_QRCODE_CUSTOM;
+                        }
+                        return [4 /*yield*/, Object(_functions__WEBPACK_IMPORTED_MODULE_6__["createPrintCanvas"])({ printData: printData, order: order, acceptedOffer: acceptedOffer, pos: pos, qrcode: qrcode })];
                     case 13:
                         canvas = _e.sent();
                         canvasList.push(canvas);

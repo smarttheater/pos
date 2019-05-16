@@ -4,7 +4,8 @@ import { factory } from '@cinerino/api-javascript-client';
 import { select, Store } from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
-import { ViewType } from '../../../../models';
+import { environment } from '../../../../../environments/environment';
+import { PaymentMethodType, ViewType } from '../../../../models';
 import { UtilService } from '../../../../services';
 import { purchaseAction } from '../../../../store/actions';
 import * as reducers from '../../../../store/reducers';
@@ -16,8 +17,9 @@ import * as reducers from '../../../../store/reducers';
 })
 export class PurchasePaymentComponent implements OnInit {
     public user: Observable<reducers.IUserState>;
-    public paymentMethodType: typeof factory.paymentMethodType = factory.paymentMethodType;
+    public paymentMethodType = PaymentMethodType;
     public viewType: typeof ViewType = ViewType;
+    public environment = environment;
 
     constructor(
         private store: Store<reducers.IState>,
@@ -30,6 +32,9 @@ export class PurchasePaymentComponent implements OnInit {
         this.user = this.store.pipe(select(reducers.getUser));
     }
 
+    /**
+     * 決済方法選択
+     */
     public selectPaymentMethodType(paymentMethodType: factory.paymentMethodType | string) {
         this.user.subscribe((user) => {
             if (user.seller === undefined
@@ -50,6 +55,14 @@ export class PurchasePaymentComponent implements OnInit {
             this.store.dispatch(new purchaseAction.SelectPaymentMethodType({ paymentMethodType }));
             this.router.navigate(['/purchase/confirm']);
         }).unsubscribe();
+    }
+
+    /**
+     * 表示判定
+     */
+    public isDisplay(paymentMethodType: factory.paymentMethodType | string) {
+        const findResult = environment.PAYMENT_METHOD_TO_USE.find(p => p === paymentMethodType);
+        return (findResult !== undefined);
     }
 
 }

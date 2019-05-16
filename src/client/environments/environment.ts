@@ -17,6 +17,7 @@ export const environment: {
     STORAGE_TYPE: string;
     BASE_URL: string;
     LANGUAGE: string[];
+    PAYMENT_METHOD_TO_USE: string[],
     DISPLAY_TICKETED_SEAT: boolean;
     HEADER_MENU: boolean;
     HEADER_MENU_SCOPE: string[];
@@ -34,6 +35,7 @@ export const environment: {
     ORDER_CANCEL: boolean;
     ORDER_QRCODE: boolean;
     ORDER_PRINT: boolean;
-    PRINT_QR_CODE_TYPE: string;
+    PRINT_QRCODE_TYPE: string;
+    PRINT_QRCODE_CUSTOM: string;
     SETTING_DEVELOP_OPTION: boolean;
 } = (<any>window).environment;

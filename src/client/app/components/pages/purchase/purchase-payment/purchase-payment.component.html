@@ -4,23 +4,36 @@
     <p class="mb-4 text-md-center" [innerHTML]="'purchase.payment.read' | translate"></p>
 
     <div class="payment-select d-grid mb-4">
-        <button type="button" class="btn btn-primary btn-block py-3 m-0"
+        <button *ngIf="isDisplay(paymentMethodType.Cash)" type="button" class="btn btn-primary btn-block py-3 m-0"
             (click)="selectPaymentMethodType(paymentMethodType.Cash)">
-            <div class="mb-md-3"><i class="fas fa-yen-sign mr-2 d-md-none"></i>{{ 'purchase.payment.cash' | translate }}
+            <div class="mb-md-3">
+                <i
+                    class="fas fa-yen-sign mr-2 d-md-none"></i>{{ 'purchase.payment.paymentMethodType.cash' | translate }}
             </div>
             <div class="image d-none d-md-block"><i class="fas fa-yen-sign"></i></div>
         </button>
-        <button type="button" class="btn btn-primary btn-block py-3 m-0"
+        <button *ngIf="isDisplay(paymentMethodType.CreditCard)" type="button" class="btn btn-primary btn-block py-3 m-0"
             (click)="selectPaymentMethodType(paymentMethodType.CreditCard)">
-            <div class="mb-md-3"><i
-                    class="fas fa-credit-card mr-2 d-md-none"></i>{{ 'purchase.payment.creditCard' | translate }}</div>
+            <div class="mb-md-3">
+                <i
+                    class="fas fa-credit-card mr-2 d-md-none"></i>{{ 'purchase.payment.paymentMethodType.creditCard' | translate }}
+            </div>
             <div class="image d-none d-md-block"><i class="fas fa-credit-card"></i></div>
         </button>
-        <button type="button" class="btn btn-primary btn-block py-3 m-0"
+        <button *ngIf="isDisplay(paymentMethodType.EMoney)" type="button" class="btn btn-primary btn-block py-3 m-0"
             (click)="selectPaymentMethodType(paymentMethodType.EMoney)">
-            <div class="mb-md-3"><i
-                    class="fas fa-mobile-alt mr-2 d-md-none"></i>{{ 'purchase.payment.eMoney' | translate }}</div>
+            <div class="mb-md-3">
+                <i
+                    class="fas fa-mobile-alt mr-2 d-md-none"></i>{{ 'purchase.payment.paymentMethodType.eMoney' | translate }}
+            </div>
             <div class="image d-none d-md-block"><i class="fas fa-mobile-alt"></i></div>
+        </button>
+        <button *ngIf="isDisplay(paymentMethodType.RegiGrow)" type="button" class="btn btn-primary btn-block py-3 m-0"
+            (click)="selectPaymentMethodType(paymentMethodType.RegiGrow)">
+            <div class="mb-md-3">
+                <i class="fas fa-cash-register mr-2 d-md-none"></i>{{ 'purchase.payment.paymentMethodType.regiGrow' | translate }}
+            </div>
+            <div class="image d-none d-md-block"><i class="fas fa-cash-register"></i></div>
         </button>
         <!-- <button type="button" class="btn btn-primary btn-block py-3 m-0">
                 <div class="mb-md-3"><i class="far fa-question-circle mr-2 d-md-none"></i>その他</div>
@@ -30,11 +43,9 @@
 
     <div class="buttons mx-auto text-center">
         <div *ngIf="(user | async).viewType === viewType.Cinema">
-            <button *ngIf="(user | async).purchaseCartMaxLength > 1" type="button"
-                class="btn btn-link"
+            <button *ngIf="(user | async).purchaseCartMaxLength > 1" type="button" class="btn btn-link"
                 routerLink="/purchase/cinema/cart">{{ 'purchase.payment.prev' | translate }}</button>
-            <button *ngIf="(user | async).purchaseCartMaxLength === 1" type="button"
-                class="btn btn-link"
+            <button *ngIf="(user | async).purchaseCartMaxLength === 1" type="button" class="btn btn-link"
                 routerLink="/purchase/cinema/ticket">{{ 'purchase.payment.prev' | translate }}</button>
         </div>
         <div *ngIf="(user | async).viewType === viewType.Event">
