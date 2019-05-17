@@ -46,7 +46,6 @@ export class MasterEffects {
         mergeMap(async (payload) => {
             try {
                 await this.cinerino.getServices();
-                const today = moment(moment().format('YYYY-MM-DD')).toDate();
                 const limit = 100;
                 let page = 1;
                 let roop = true;
@@ -59,11 +58,7 @@ export class MasterEffects {
                         eventStatuses: [factory.chevre.eventStatusType.EventScheduled],
                         superEvent: payload.superEvent,
                         startFrom: payload.startFrom,
-                        startThrough: payload.startThrough,
-                        offers: {
-                            availableFrom: today,
-                            availableThrough: today
-                        }
+                        startThrough: payload.startThrough
                     });
                     screeningEvents = screeningEvents.concat(screeningEventsResult.data);
                     const lastPage = Math.ceil(screeningEventsResult.totalCount / limit);

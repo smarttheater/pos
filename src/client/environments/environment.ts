@@ -21,7 +21,6 @@ export const environment: {
     DISPLAY_TICKETED_SEAT: boolean;
     HEADER_MENU: boolean;
     HEADER_MENU_SCOPE: string[];
-    PURCHASE_REQUIRED_ALERT: boolean;
     PURCHASE_CART_MAX_LENGTH: string;
     PURCHASE_TRANSACTION_TIME: string;
     PURCHASE_PRE_SCHEDULE_DATE: string;

@@ -55,6 +55,9 @@ export class PurchaseEventTicketComponent implements OnInit, OnDestroy {
         clearTimeout(this.updateTimer);
     }
 
+    /**
+     * 更新
+     */
     private update() {
         if (this.updateTimer !== undefined) {
             clearTimeout(this.updateTimer);
@@ -66,7 +69,7 @@ export class PurchaseEventTicketComponent implements OnInit, OnDestroy {
     }
 
     /**
-     * getSchedule
+     * スケジュール取得
      */
     public getSchedule() {
         this.purchase.subscribe((purchase) => {
@@ -79,8 +82,8 @@ export class PurchaseEventTicketComponent implements OnInit, OnDestroy {
                 }
                 this.store.dispatch(new masterAction.GetSchedule({
                     superEvent: {
-                        locationBranchCodes:
-                            (seller.location === undefined || seller.location.branchCode === undefined) ? [] : [seller.location.branchCode]
+                        locationBranchCodes: (seller.location === undefined || seller.location.branchCode === undefined)
+                            ? [] : [seller.location.branchCode]
                     },
                     startFrom: moment(scheduleDate).toDate(),
                     startThrough: moment(scheduleDate).add(1, 'day').toDate()
@@ -108,6 +111,9 @@ export class PurchaseEventTicketComponent implements OnInit, OnDestroy {
         race(success, fail).pipe(take(1)).subscribe();
     }
 
+    /**
+     * スケジュール選択
+     */
     public selectSchedule(screeningEvent: factory.event.screeningEvent.IEvent) {
         this.user.subscribe((user) => {
             this.purchase.subscribe((purchase) => {
@@ -125,7 +131,7 @@ export class PurchaseEventTicketComponent implements OnInit, OnDestroy {
     }
 
     /**
-     * getTickets
+     * 券種取得
      */
     private getTickets() {
         this.user.subscribe((user) => {
@@ -156,6 +162,9 @@ export class PurchaseEventTicketComponent implements OnInit, OnDestroy {
         race(success, fail).pipe(take(1)).subscribe();
     }
 
+    /**
+     * 券種表示
+     */
     private openTicketList() {
         this.purchase.subscribe((purchase) => {
             this.modal.show(PurchaseEventTicketModalComponent, {
@@ -246,6 +255,9 @@ export class PurchaseEventTicketComponent implements OnInit, OnDestroy {
 
     }
 
+    /**
+     * 券種確定
+     */
     public onSubmit() {
         this.purchase.subscribe((purchase) => {
             if (purchase.authorizeSeatReservations.length === 0) {
@@ -260,29 +272,14 @@ export class PurchaseEventTicketComponent implements OnInit, OnDestroy {
                 this.router.navigate(['/purchase/payment']);
                 return;
             }
-            if (environment.PURCHASE_REQUIRED_ALERT) {
-                const findResult = purchase.authorizeSeatReservations.find((r) => {
-                    const additionalProperty = r.object.event.superEvent.additionalProperty;
-                    if (additionalProperty === undefined) {
-                        return false;
-                    }
-                    const findProperty =
-                        additionalProperty.find(a => a.name === 'required' && a.value === 'true');
-                    return (findProperty !== undefined);
-                });
-                if (findResult === undefined) {
-                    this.util.openConfirm({
-                        title: this.translate.instant('common.confirm'),
-                        body: this.translate.instant('purchase.event.ticket.confirm.required'),
-                        cb: () => { this.router.navigate(['/purchase/input']); }
-                    });
-                    return;
-                }
-            }
+
             this.router.navigate(['/purchase/confirm']);
         }).unsubscribe();
     }
 
+    /**
+     * カート削除処理
+     */
     public removeItemProcess(
         authorizeSeatReservations: factory.action.authorize.offer.seatReservation.IAction<factory.service.webAPI.Identifier>[]
     ) {
@@ -308,6 +305,9 @@ export class PurchaseEventTicketComponent implements OnInit, OnDestroy {
         race(success, fail).pipe(take(1)).subscribe();
     }
 
+    /**
+     * カート削除確認
+     */
     public removeItem(authorizeSeatReservation: factory.action.authorize.offer.seatReservation.IAction<factory.service.webAPI.Identifier>) {
         this.util.openConfirm({
             title: this.translate.instant('common.confirm'),

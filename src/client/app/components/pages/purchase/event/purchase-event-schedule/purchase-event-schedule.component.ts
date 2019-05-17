@@ -89,12 +89,12 @@ export class PurchaseEventScheduleComponent implements OnInit, OnDestroy {
                     .add(environment.PURCHASE_SCHEDULE_DEFAULT_SELECTED_DATE, 'day')
                     .toDate();
             }
-            const scheduleDate =  moment(this.scheduleDate).format('YYYY-MM-DD');
+            const scheduleDate = moment(this.scheduleDate).format('YYYY-MM-DD');
             this.store.dispatch(new purchaseAction.SelectScheduleDate({ scheduleDate }));
             this.store.dispatch(new masterAction.GetSchedule({
                 superEvent: {
-                    locationBranchCodes:
-                        (seller.location === undefined || seller.location.branchCode === undefined) ? [] : [seller.location.branchCode]
+                    locationBranchCodes: (seller.location === undefined || seller.location.branchCode === undefined)
+                        ? [] : [seller.location.branchCode]
                 },
                 startFrom: moment(scheduleDate).toDate(),
                 startThrough: moment(scheduleDate).add(1, 'day').toDate()

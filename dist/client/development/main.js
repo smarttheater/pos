@@ -4628,7 +4628,8 @@ var PurchaseEventScheduleComponent = /** @class */ (function () {
             _this.store.dispatch(new _store_actions__WEBPACK_IMPORTED_MODULE_11__["purchaseAction"].SelectScheduleDate({ scheduleDate: scheduleDate }));
             _this.store.dispatch(new _store_actions__WEBPACK_IMPORTED_MODULE_11__["masterAction"].GetSchedule({
                 superEvent: {
-                    locationBranchCodes: (seller.location === undefined || seller.location.branchCode === undefined) ? [] : [seller.location.branchCode]
+                    locationBranchCodes: (seller.location === undefined || seller.location.branchCode === undefined)
+                        ? [] : [seller.location.branchCode]
                 },
                 startFrom: moment__WEBPACK_IMPORTED_MODULE_5__(scheduleDate).toDate(),
                 startThrough: moment__WEBPACK_IMPORTED_MODULE_5__(scheduleDate).add(1, 'day').toDate()
@@ -4892,6 +4893,9 @@ var PurchaseEventTicketComponent = /** @class */ (function () {
     PurchaseEventTicketComponent.prototype.ngOnDestroy = function () {
         clearTimeout(this.updateTimer);
     };
+    /**
+     * 更新
+     */
     PurchaseEventTicketComponent.prototype.update = function () {
         var _this = this;
         if (this.updateTimer !== undefined) {
@@ -4903,7 +4907,7 @@ var PurchaseEventTicketComponent = /** @class */ (function () {
         }, time);
     };
     /**
-     * getSchedule
+     * スケジュール取得
      */
     PurchaseEventTicketComponent.prototype.getSchedule = function () {
         var _this = this;
@@ -4917,7 +4921,8 @@ var PurchaseEventTicketComponent = /** @class */ (function () {
                 }
                 _this.store.dispatch(new _store_actions__WEBPACK_IMPORTED_MODULE_12__["masterAction"].GetSchedule({
                     superEvent: {
-                        locationBranchCodes: (seller.location === undefined || seller.location.branchCode === undefined) ? [] : [seller.location.branchCode]
+                        locationBranchCodes: (seller.location === undefined || seller.location.branchCode === undefined)
+                            ? [] : [seller.location.branchCode]
                     },
                     startFrom: moment__WEBPACK_IMPORTED_MODULE_5__(scheduleDate).toDate(),
                     startThrough: moment__WEBPACK_IMPORTED_MODULE_5__(scheduleDate).add(1, 'day').toDate()
@@ -4936,6 +4941,9 @@ var PurchaseEventTicketComponent = /** @class */ (function () {
         }));
         Object(rxjs__WEBPACK_IMPORTED_MODULE_7__["race"])(success, fail).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_8__["take"])(1)).subscribe();
     };
+    /**
+     * スケジュール選択
+     */
     PurchaseEventTicketComponent.prototype.selectSchedule = function (screeningEvent) {
         var _this = this;
         this.user.subscribe(function (user) {
@@ -4953,7 +4961,7 @@ var PurchaseEventTicketComponent = /** @class */ (function () {
         }).unsubscribe();
     };
     /**
-     * getTickets
+     * 券種取得
      */
     PurchaseEventTicketComponent.prototype.getTickets = function () {
         var _this = this;
@@ -4976,6 +4984,9 @@ var PurchaseEventTicketComponent = /** @class */ (function () {
         }));
         Object(rxjs__WEBPACK_IMPORTED_MODULE_7__["race"])(success, fail).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_8__["take"])(1)).subscribe();
     };
+    /**
+     * 券種表示
+     */
     PurchaseEventTicketComponent.prototype.openTicketList = function () {
         var _this = this;
         this.purchase.subscribe(function (purchase) {
@@ -5051,6 +5062,9 @@ var PurchaseEventTicketComponent = /** @class */ (function () {
         }));
         Object(rxjs__WEBPACK_IMPORTED_MODULE_7__["race"])(success, fail).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_8__["take"])(1)).subscribe();
     };
+    /**
+     * 券種確定
+     */
     PurchaseEventTicketComponent.prototype.onSubmit = function () {
         var _this = this;
         this.purchase.subscribe(function (purchase) {
@@ -5066,27 +5080,12 @@ var PurchaseEventTicketComponent = /** @class */ (function () {
                 _this.router.navigate(['/purchase/payment']);
                 return;
             }
-            if (_environments_environment__WEBPACK_IMPORTED_MODULE_9__["environment"].PURCHASE_REQUIRED_ALERT) {
-                var findResult = purchase.authorizeSeatReservations.find(function (r) {
-                    var additionalProperty = r.object.event.superEvent.additionalProperty;
-                    if (additionalProperty === undefined) {
-                        return false;
-                    }
-                    var findProperty = additionalProperty.find(function (a) { return a.name === 'required' && a.value === 'true'; });
-                    return (findProperty !== undefined);
-                });
-                if (findResult === undefined) {
-                    _this.util.openConfirm({
-                        title: _this.translate.instant('common.confirm'),
-                        body: _this.translate.instant('purchase.event.ticket.confirm.required'),
-                        cb: function () { _this.router.navigate(['/purchase/input']); }
-                    });
-                    return;
-                }
-            }
             _this.router.navigate(['/purchase/confirm']);
         }).unsubscribe();
     };
+    /**
+     * カート削除処理
+     */
     PurchaseEventTicketComponent.prototype.removeItemProcess = function (authorizeSeatReservations) {
         var _this = this;
         this.purchase.subscribe(function (purchase) {
@@ -5102,6 +5101,9 @@ var PurchaseEventTicketComponent = /** @class */ (function () {
         }));
         Object(rxjs__WEBPACK_IMPORTED_MODULE_7__["race"])(success, fail).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_8__["take"])(1)).subscribe();
     };
+    /**
+     * カート削除確認
+     */
     PurchaseEventTicketComponent.prototype.removeItem = function (authorizeSeatReservation) {
         var _this = this;
         this.util.openConfirm({
@@ -8488,7 +8490,7 @@ var PurchaseEventPerformanceConfirmComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"\">\n    <div class=\"bg-gray p-3\">\n        <div class=\"mb-2\">\n            <p class=\"font-weight-bold text-large\">{{ screeningWorkEvent.info.name | changeLanguage }}</p>\n            <p class=\"text-small\"\n                *ngIf=\"screeningWorkEvent.info.superEvent.headline && (screeningWorkEvent.info.superEvent.headline | changeLanguage)\">\n                {{ screeningWorkEvent.info.superEvent.headline | changeLanguage }}</p>\n            <p class=\"text-small\"\n                *ngIf=\"screeningWorkEvent.info.superEvent.description && (screeningWorkEvent.info.superEvent.description | changeLanguage)\">{{\n                screeningWorkEvent.info.superEvent.description | changeLanguage }}</p>\n        </div>\n        <div class=\"d-flex align-items-center\">\n            <div *ngIf=\"screeningWorkEvent.info.workPerformed?.duration && moment.duration(screeningWorkEvent.info.workPerformed?.duration).asMinutes() > 0\" class=\"text-small ml-auto\">\n                {{\n                moment.duration(screeningWorkEvent.info.workPerformed?.duration).asMinutes() }}{{ 'common.date.minute' | translate }}\n            </div>\n        </div>\n    </div>\n    <div class=\"position-relative bg-white py-3\">\n        <div class=\"swiper-container px-1\" #swiper [swiper]=\"swiperConfig\" (resize)=\"resize()\">\n            <div class=\"swiper-wrapper\">\n                <div *ngFor=\"let screeningEvent of screeningWorkEvent.data\" class=\"px-1 swiper-slide\">\n                    <div class=\"border boder-gray rounded py-3 text-center pointer\" [ngClass]=\"{ \n                'bg-white': isSales(screeningEvent) && (screeningEvent.remainingAttendeeCapacity > 0 || !isTicketedSeatScreeningEvent(screeningEvent)), \n                'bg-dark-gray text-light-gray not-event': !isSales(screeningEvent) || screeningEvent.remainingAttendeeCapacity === 0\n                }\" (click)=\"select.emit(screeningEvent)\">\n                        <!-- <div class=\"mb-2 text-small\">\n                            {{ screeningEvent.location.name | changeLanguage }}\n                        </div> -->\n                        <div class=\"font-weight-bold mb-2\">\n                            {{ moment(screeningEvent.startDate).format('HH:mm') }}-{{ moment(screeningEvent.endDate).format('HH:mm') }}\n                        </div>\n                        <div class=\"text-center\">\n                            <div class=\"status mb-2\"\n                                *ngIf=\"isSales(screeningEvent) && isTicketedSeatScreeningEvent(screeningEvent)\">\n                                <div *ngIf=\"isScheduleStatusThreshold(screeningEvent, 'success')\"\n                                    class=\"d-flex justify-content-around align-items-center\">\n                                    <img src=\"/assets/images/icon/status_success.svg\">\n                                </div>\n                                <div *ngIf=\"isScheduleStatusThreshold(screeningEvent, 'warning')\"\n                                    class=\"d-flex justify-content-around align-items-center\">\n                                    <img src=\"/assets/images/icon/status_warning.svg\">\n                                </div>\n                                <div *ngIf=\"isScheduleStatusThreshold(screeningEvent, 'danger')\"\n                                    class=\"d-flex justify-content-around align-items-center\">\n                                    <img src=\"/assets/images/icon/status_danger.svg\">\n                                </div>\n                            </div>\n\n                            <div class=\"status mb-2\"\n                                *ngIf=\"isSales(screeningEvent) && !isTicketedSeatScreeningEvent(screeningEvent)\">\n                                <div class=\"d-flex justify-content-around align-items-center\">\n                                    <img src=\"/assets/images/icon/status_success.svg\">\n                                </div>\n                            </div>\n\n                            <div class=\"status mb-2\" *ngIf=\"isSales(screeningEvent, 'end')\">\n                                {{ 'purchase.event.schedule.status.endSale' | translate }}</div>\n                            <div class=\"status mb-2\" *ngIf=\"isSales(screeningEvent, 'start')\">\n                                {{ 'purchase.event.schedule.status.outsideSalesPeriod' | translate }}</div>\n                            <div *ngIf=\"screeningEvent.offers?.itemOffered.serviceOutput?.reservedTicket?.ticketedSeat && environment.DISPLAY_TICKETED_SEAT\"\n                                class=\"text-small\">{{ 'common.seat' | translate }}\n                                {{ screeningEvent.remainingAttendeeCapacity }} /\n                                {{ screeningEvent.maximumAttendeeCapacity }}\n                            </div>\n                            <div *ngIf=\"!(screeningEvent.offers?.itemOffered.serviceOutput?.reservedTicket?.ticketedSeat) && environment.DISPLAY_TICKETED_SEAT\"\n                                class=\"text-small\">\n                                {{ 'purchase.event.schedule.infiniteStock' | translate }}</div>\n                        </div>\n                    </div>\n                </div>\n            </div>\n        </div>\n        <!-- <div class=\"swiper-button-next\"></div>\n        <div class=\"swiper-button-prev\"></div> -->\n    </div>\n</div>"
+module.exports = "<div class=\"\">\n    <div class=\"bg-gray p-3\">\n        <div class=\"mb-2\">\n            <p class=\"font-weight-bold text-large\">{{ screeningWorkEvent.info.name | changeLanguage }}</p>\n            <p class=\"text-small\"\n                *ngIf=\"screeningWorkEvent.info.superEvent.headline && (screeningWorkEvent.info.superEvent.headline | changeLanguage)\">\n                {{ screeningWorkEvent.info.superEvent.headline | changeLanguage }}</p>\n            <p class=\"text-small\"\n                *ngIf=\"screeningWorkEvent.info.superEvent.description && (screeningWorkEvent.info.superEvent.description | changeLanguage)\">{{\n                screeningWorkEvent.info.superEvent.description | changeLanguage }}</p>\n        </div>\n        <div class=\"d-flex align-items-center\">\n            <div *ngIf=\"screeningWorkEvent.info.workPerformed?.duration && moment.duration(screeningWorkEvent.info.workPerformed?.duration).asMinutes() > 0\" class=\"text-small ml-auto\">\n                {{\n                moment.duration(screeningWorkEvent.info.workPerformed?.duration).asMinutes() }}{{ 'common.date.minute' | translate }}\n            </div>\n        </div>\n    </div>\n    <div class=\"position-relative bg-white py-3\">\n        <div class=\"swiper-container px-1\" #swiper [swiper]=\"swiperConfig\" (resize)=\"resize()\">\n            <div class=\"swiper-wrapper\">\n                <div *ngFor=\"let screeningEvent of screeningWorkEvent.data\" class=\"px-1 swiper-slide\">\n                    <div class=\"border boder-gray rounded py-3 text-center pointer\" [ngClass]=\"{ \n                'bg-white': isSales(screeningEvent) && (screeningEvent.remainingAttendeeCapacity > 0 || !isTicketedSeatScreeningEvent(screeningEvent)), \n                'bg-dark-gray text-light-gray': !isSales(screeningEvent) || screeningEvent.remainingAttendeeCapacity === 0\n                }\" (click)=\"select.emit(screeningEvent)\">\n                        <!-- <div class=\"mb-2 text-small\">\n                            {{ screeningEvent.location.name | changeLanguage }}\n                        </div> -->\n                        <div class=\"font-weight-bold mb-2\">\n                            {{ moment(screeningEvent.startDate).format('HH:mm') }}-{{ moment(screeningEvent.endDate).format('HH:mm') }}\n                        </div>\n                        <div class=\"text-center\">\n                            <div class=\"status mb-2\"\n                                *ngIf=\"isSales(screeningEvent) && isTicketedSeatScreeningEvent(screeningEvent)\">\n                                <div *ngIf=\"isScheduleStatusThreshold(screeningEvent, 'success')\"\n                                    class=\"d-flex justify-content-around align-items-center\">\n                                    <img src=\"/assets/images/icon/status_success.svg\">\n                                </div>\n                                <div *ngIf=\"isScheduleStatusThreshold(screeningEvent, 'warning')\"\n                                    class=\"d-flex justify-content-around align-items-center\">\n                                    <img src=\"/assets/images/icon/status_warning.svg\">\n                                </div>\n                                <div *ngIf=\"isScheduleStatusThreshold(screeningEvent, 'danger')\"\n                                    class=\"d-flex justify-content-around align-items-center\">\n                                    <img src=\"/assets/images/icon/status_danger.svg\">\n                                </div>\n                            </div>\n\n                            <div class=\"status mb-2\"\n                                *ngIf=\"isSales(screeningEvent) && !isTicketedSeatScreeningEvent(screeningEvent)\">\n                                <div class=\"d-flex justify-content-around align-items-center\">\n                                    <img src=\"/assets/images/icon/status_success.svg\">\n                                </div>\n                            </div>\n\n                            <div class=\"status mb-2\" *ngIf=\"isSales(screeningEvent, 'end')\">\n                                {{ 'purchase.event.schedule.status.endSale' | translate }}</div>\n                            <div class=\"status mb-2\" *ngIf=\"isSales(screeningEvent, 'start')\">\n                                {{ 'purchase.event.schedule.status.outsideSalesPeriod' | translate }}</div>\n                            <div *ngIf=\"screeningEvent.offers?.itemOffered.serviceOutput?.reservedTicket?.ticketedSeat\"\n                                class=\"text-small\">{{ 'common.seat' | translate }}\n                                {{ screeningEvent.remainingAttendeeCapacity }} /\n                                {{ screeningEvent.maximumAttendeeCapacity }}\n                            </div>\n                            <div *ngIf=\"!(screeningEvent.offers?.itemOffered.serviceOutput?.reservedTicket?.ticketedSeat)\"\n                                class=\"text-small\">\n                                {{ 'purchase.event.schedule.infiniteStock' | translate }}</div>\n                        </div>\n                    </div>\n                </div>\n            </div>\n        </div>\n        <!-- <div class=\"swiper-button-next\"></div>\n        <div class=\"swiper-button-prev\"></div> -->\n    </div>\n</div>"
 
 /***/ }),
 
@@ -14552,7 +14554,7 @@ var MasterEffects = /** @class */ (function () {
          * GetSchedule
          */
         this.getSchedule = this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_actions__WEBPACK_IMPORTED_MODULE_6__["masterAction"].ActionTypes.GetSchedule), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["map"])(function (action) { return action.payload; }), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["mergeMap"])(function (payload) { return __awaiter(_this, void 0, void 0, function () {
-            var today, limit, page, roop, screeningEvents, screeningEventsResult, lastPage, scheduleDate, error_2;
+            var limit, page, roop, screeningEvents, screeningEventsResult, lastPage, scheduleDate, error_2;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
@@ -14560,7 +14562,6 @@ var MasterEffects = /** @class */ (function () {
                         return [4 /*yield*/, this.cinerino.getServices()];
                     case 1:
                         _a.sent();
-                        today = moment__WEBPACK_IMPORTED_MODULE_3__(moment__WEBPACK_IMPORTED_MODULE_3__().format('YYYY-MM-DD')).toDate();
                         limit = 100;
                         page = 1;
                         roop = true;
@@ -14575,11 +14576,7 @@ var MasterEffects = /** @class */ (function () {
                                 eventStatuses: [_cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_1__["factory"].chevre.eventStatusType.EventScheduled],
                                 superEvent: payload.superEvent,
                                 startFrom: payload.startFrom,
-                                startThrough: payload.startThrough,
-                                offers: {
-                                    availableFrom: today,
-                                    availableThrough: today
-                                }
+                                startThrough: payload.startThrough
                             })];
                     case 3:
                         screeningEventsResult = _a.sent();
