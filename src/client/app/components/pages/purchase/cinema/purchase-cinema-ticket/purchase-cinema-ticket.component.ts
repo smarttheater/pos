@@ -101,7 +101,7 @@ export class PurchaseCinemaTicketComponent implements OnInit {
                             this.router.navigate(['/error']);
                             return;
                         }
-                        if (user.purchaseCartMaxLength === 1) {
+                        if (!user.isPurchaseCart) {
                             const amount = getAmount(purchase.authorizeSeatReservations);
                             if (amount > 0) {
                                 this.router.navigate(['/purchase/payment']);

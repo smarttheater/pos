@@ -153,16 +153,13 @@
                 <div *ngIf="environment.SETTING_DEVELOP_OPTION">
                     <div class="form-group">
                         <div class="row align-items-center">
-                            <p class="col-md-4 py-2 text-md-right">{{ 'setting.purchaseCartMaxLength' | translate }}</p>
+                            <p class="col-md-4 py-2 text-md-right">{{ 'setting.isPurchaseCart' | translate }}</p>
                             <div class="col-md-8">
-                                <input type="text" class="form-control" formControlName="purchaseCartMaxLength"
-                                    placeholder="1">
-                                <div *ngIf="settingForm.controls.purchaseCartMaxLength.invalid && settingForm.controls.purchaseCartMaxLength.touched"
-                                    class="mt-2">
-                                    <p *ngIf="settingForm.controls.purchaseCartMaxLength.errors.required"
-                                        class="text-danger">
-                                        {{ 'form.validation.required' | translate }}</p>
-                                </div>
+                                <select type="text" class="form-control" formControlName="isPurchaseCart"
+                                    id="isPurchaseCart" placeholder="">
+                                    <option value="0">{{ 'common.off' | translate }}</option>
+                                    <option value="1">{{ 'common.on' | translate }}</option>
+                                </select>
                             </div>
                         </div>
                     </div>

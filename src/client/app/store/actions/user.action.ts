@@ -29,7 +29,7 @@ export class UpdateAll implements Action {
         pos: factory.seller.IPOS;
         customerContact: factory.transaction.placeOrder.ICustomerContact;
         printer: IPrinter;
-        purchaseCartMaxLength: number;
+        isPurchaseCart: boolean;
         viewType: ViewType;
     }) { }
 }

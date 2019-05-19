@@ -1,7 +1,7 @@
 /**
  * 環境変数
  */
-export const environment: {
+interface IEnvironment {
     production: boolean;
     APP_TITLE: string;
     APP_PREFIX: string;
@@ -17,11 +17,12 @@ export const environment: {
     STORAGE_TYPE: string;
     BASE_URL: string;
     LANGUAGE: string[];
-    PAYMENT_METHOD_TO_USE: string[],
+    PAYMENT_METHOD_TO_USE: string[];
     DISPLAY_TICKETED_SEAT: boolean;
     HEADER_MENU: boolean;
     HEADER_MENU_SCOPE: string[];
-    PURCHASE_CART_MAX_LENGTH: string;
+    PURCHASE_CART: boolean;
+    PURCHASE_ITEM_MAX_LENGTH: string;
     PURCHASE_TRANSACTION_TIME: string;
     PURCHASE_PRE_SCHEDULE_DATE: string;
     PURCHASE_SCHEDULE_DEFAULT_SELECTED_DATE: string;
@@ -37,4 +38,46 @@ export const environment: {
     PRINT_QRCODE_TYPE: string;
     PRINT_QRCODE_CUSTOM: string;
     SETTING_DEVELOP_OPTION: boolean;
-} = (<any>window).environment;
+}
+
+const defaultEnvironment: IEnvironment = {
+    production: false,
+    APP_TITLE: '',
+    APP_PREFIX: '',
+    PROJECT_ID: '',
+    ENV: 'development',
+    ENTRANCE_SERVER_URL: '',
+    WAITER_SERVER_URL: '',
+    INSTRUCTION_URL: '',
+    ANALYTICS_ID: '',
+    GTM_ID: '',
+    VIEW_TYPE: 'cinema',
+    STORAGE_NAME: '',
+    STORAGE_TYPE: 'localStorage',
+    BASE_URL: '/purchase/root',
+    LANGUAGE: ['ja'],
+    PAYMENT_METHOD_TO_USE: [],
+    DISPLAY_TICKETED_SEAT: false,
+    HEADER_MENU: false,
+    HEADER_MENU_SCOPE: [],
+    PURCHASE_CART: false,
+    PURCHASE_ITEM_MAX_LENGTH: '50',
+    PURCHASE_TRANSACTION_TIME: '15',
+    PURCHASE_PRE_SCHEDULE_DATE: '3',
+    PURCHASE_SCHEDULE_DEFAULT_SELECTED_DATE: '0',
+    PURCHASE_SCHEDULE_STATUS_THRESHOLD_VALUE: '30',
+    PURCHASE_SCHEDULE_STATUS_THRESHOLD_UNIT: '%',
+    PURCHASE_COMPLETE_MAIL_CUSTOM: false,
+    INQUIRY_CANCEL: false,
+    INQUIRY_QRCODE: false,
+    INQUIRY_PRINT: false,
+    ORDER_CANCEL: false,
+    ORDER_QRCODE: false,
+    ORDER_PRINT: false,
+    PRINT_QRCODE_TYPE: 'token',
+    PRINT_QRCODE_CUSTOM: '',
+    SETTING_DEVELOP_OPTION: false
+};
+
+export const environment: IEnvironment = Object.assign(defaultEnvironment, (<any>window).environment);
+
