@@ -5066,14 +5066,26 @@ var PurchaseEventTicketComponent = /** @class */ (function () {
     PurchaseEventTicketComponent.prototype.onSubmit = function () {
         var _this = this;
         this.purchase.subscribe(function (purchase) {
-            if (purchase.authorizeSeatReservations.length === 0) {
+            var authorizeSeatReservations = purchase.authorizeSeatReservations;
+            // チケット未選択判定
+            if (authorizeSeatReservations.length === 0) {
                 _this.util.openAlert({
                     title: _this.translate.instant('common.error'),
                     body: _this.translate.instant('purchase.event.ticket.alert.unselected')
                 });
                 return;
             }
-            var amount = Object(_functions__WEBPACK_IMPORTED_MODULE_10__["getAmount"])(purchase.authorizeSeatReservations);
+            // チケット枚数上限判定
+            var itemCount = 0;
+            authorizeSeatReservations.forEach(function (a) { return itemCount += a.object.acceptedOffer.length; });
+            if (itemCount > Number(_environments_environment__WEBPACK_IMPORTED_MODULE_9__["environment"].PURCHASE_ITEM_MAX_LENGTH)) {
+                _this.util.openAlert({
+                    title: _this.translate.instant('common.error'),
+                    body: _this.translate.instant('purchase.event.ticket.alert.limit', { value: Number(_environments_environment__WEBPACK_IMPORTED_MODULE_9__["environment"].PURCHASE_ITEM_MAX_LENGTH) })
+                });
+                return;
+            }
+            var amount = Object(_functions__WEBPACK_IMPORTED_MODULE_10__["getAmount"])(authorizeSeatReservations);
             if (amount > 0) {
                 _this.router.navigate(['/purchase/payment']);
                 return;

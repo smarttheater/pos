@@ -258,14 +258,29 @@ export class PurchaseEventTicketComponent implements OnInit, OnDestroy {
      */
     public onSubmit() {
         this.purchase.subscribe((purchase) => {
-            if (purchase.authorizeSeatReservations.length === 0) {
+            const authorizeSeatReservations = purchase.authorizeSeatReservations;
+            // チケット未選択判定
+            if (authorizeSeatReservations.length === 0) {
                 this.util.openAlert({
                     title: this.translate.instant('common.error'),
                     body: this.translate.instant('purchase.event.ticket.alert.unselected')
                 });
                 return;
             }
-            const amount = getAmount(purchase.authorizeSeatReservations);
+            // チケット枚数上限判定
+            let itemCount = 0;
+            authorizeSeatReservations.forEach(a => itemCount += a.object.acceptedOffer.length);
+            if (itemCount > Number(environment.PURCHASE_ITEM_MAX_LENGTH)) {
+                this.util.openAlert({
+                    title: this.translate.instant('common.error'),
+                    body: this.translate.instant(
+                        'purchase.event.ticket.alert.limit',
+                        { value: Number(environment.PURCHASE_ITEM_MAX_LENGTH) }
+                    )
+                });
+                return;
+            }
+            const amount = getAmount(authorizeSeatReservations);
             if (amount > 0) {
                 this.router.navigate(['/purchase/payment']);
                 return;
