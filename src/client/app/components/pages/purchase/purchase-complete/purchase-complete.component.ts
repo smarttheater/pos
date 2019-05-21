@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { factory } from '@cinerino/api-javascript-client';
 import { Actions, ofType } from '@ngrx/effects';
 import { select, Store } from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
 import * as moment from 'moment';
+import * as qrcode from 'qrcode';
 import { Observable, race } from 'rxjs';
 import { take, tap } from 'rxjs/operators';
 import { environment } from '../../../../../environments/environment';
@@ -26,6 +28,7 @@ export class PurchaseCompleteComponent implements OnInit {
     public getTicketPrice = getTicketPrice;
     public eventOrders: IEventOrder[];
     public environment = environment;
+    public regiGrow: { type: string; qrcode: string; };
 
     constructor(
         private store: Store<reducers.IState>,
@@ -45,6 +48,22 @@ export class PurchaseCompleteComponent implements OnInit {
             if (purchase.order === undefined) {
                 this.router.navigate(['/error']);
                 return;
+            }
+            if (this.isRegiGrow(purchase.order)) {
+                const canvas = document.createElement('canvas');
+                const qrcodeText = `${purchase.order.orderNumber}=${purchase.order.price}`;
+                qrcode.toCanvas(canvas, qrcodeText).then(() => {
+                    this.regiGrow = {
+                        type: '001',
+                        qrcode: canvas.toDataURL()
+                    };
+                }).catch((error) => {
+                    console.error(error);
+                    this.regiGrow = {
+                        type: '001',
+                        qrcode: ''
+                    };
+                });
             }
             const order = purchase.order;
             this.eventOrders = orderToEventOrders({ order });
@@ -89,6 +108,17 @@ export class PurchaseCompleteComponent implements OnInit {
             })
         );
         race(success, fail).pipe(take(1)).subscribe();
+    }
+
+    private isRegiGrow(order: factory.order.IOrder) {
+        const findResult = order.paymentMethods.find((p) => {
+            const findPropertyResult = p.additionalProperty.find(
+                a => a.name === 'paymentMethodName' && a.value === 'RegiGrow'
+            );
+            return (findPropertyResult !== undefined);
+        });
+
+        return (findResult !== undefined);
     }
 
 }

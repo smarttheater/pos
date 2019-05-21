@@ -5,7 +5,7 @@ import { select, Store } from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 import { environment } from '../../../../../environments/environment';
-import { PaymentMethodType, ViewType } from '../../../../models';
+import { ViewType } from '../../../../models';
 import { UtilService } from '../../../../services';
 import { purchaseAction } from '../../../../store/actions';
 import * as reducers from '../../../../store/reducers';
@@ -17,7 +17,7 @@ import * as reducers from '../../../../store/reducers';
 })
 export class PurchasePaymentComponent implements OnInit {
     public user: Observable<reducers.IUserState>;
-    public paymentMethodType = PaymentMethodType;
+    public paymentMethodType = factory.paymentMethodType;
     public viewType: typeof ViewType = ViewType;
     public environment = environment;
 
@@ -35,7 +35,10 @@ export class PurchasePaymentComponent implements OnInit {
     /**
      * 決済方法選択
      */
-    public selectPaymentMethodType(paymentMethodType: factory.paymentMethodType | string) {
+    public selectPaymentMethodType(
+        paymentMethodType: factory.paymentMethodType,
+        paymentMethodName?: 'RegiGrow'
+    ) {
         this.user.subscribe((user) => {
             if (user.seller === undefined
                 || user.seller.paymentAccepted === undefined) {
@@ -52,7 +55,7 @@ export class PurchasePaymentComponent implements OnInit {
                 });
                 return;
             }
-            this.store.dispatch(new purchaseAction.SelectPaymentMethodType({ paymentMethodType }));
+            this.store.dispatch(new purchaseAction.SelectPaymentMethodType({ paymentMethodType, paymentMethodName }));
             this.router.navigate(['/purchase/confirm']);
         }).unsubscribe();
     }

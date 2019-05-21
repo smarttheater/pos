@@ -558,7 +558,8 @@ export class AuthorizeAnyPaymentFail implements Action {
 export class SelectPaymentMethodType implements Action {
     public readonly type = ActionTypes.SelectPaymentMethodType;
     constructor(public payload: {
-        paymentMethodType: factory.paymentMethodType | string;
+        paymentMethodType: factory.paymentMethodType;
+        paymentMethodName?: 'RegiGrow'
     }) { }
 }
 

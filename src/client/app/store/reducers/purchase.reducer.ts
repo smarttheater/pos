@@ -31,7 +31,11 @@ export interface IPurchaseState {
     checkMovieTicketActions: factory.action.check.paymentMethod.movieTicket.IAction[];
     checkMovieTicketAction?: factory.action.check.paymentMethod.movieTicket.IAction;
     authorizeAnyPayments: factory.action.authorize.paymentMethod.any.IAction<any>[];
-    paymentMethod?: { name: string; typeOf: factory.paymentMethodType | string; };
+    paymentMethod?: {
+        name: string;
+        paymentMethodType: factory.paymentMethodType;
+        paymentMethodName?: 'RegiGrow';
+    };
     isUsedMovieTicket: boolean;
     pendingMovieTickets: IMovieTicket[];
 }
@@ -398,7 +402,8 @@ export function reducer(state: IState, action: purchaseAction.Actions): IState {
         }
         case purchaseAction.ActionTypes.SelectPaymentMethodType: {
             const paymentMethod = createPaymentMethodFromType({
-                paymentMethodType: action.payload.paymentMethodType
+                paymentMethodType: action.payload.paymentMethodType,
+                paymentMethodName: action.payload.paymentMethodName
             });
             state.purchaseData.paymentMethod = paymentMethod;
 

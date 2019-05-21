@@ -89,7 +89,7 @@ export class PurchaseConfirmComponent implements OnInit {
             const transaction = purchase.transaction;
             const amount = this.amount;
             const additionalProperty = [];
-            if (purchase.paymentMethod.typeOf === factory.paymentMethodType.Cash) {
+            if (purchase.paymentMethod.paymentMethodType === factory.paymentMethodType.Cash) {
                 // 現金
                 additionalProperty.push({ name: 'depositAmount', value: Number(this.depositAmount) });
                 additionalProperty.push({
@@ -97,9 +97,14 @@ export class PurchaseConfirmComponent implements OnInit {
                     value: Number(this.depositAmount) - this.amount
                 });
             }
+            if (purchase.paymentMethod.paymentMethodType === factory.paymentMethodType.Others
+                && purchase.paymentMethod.paymentMethodName === 'RegiGrow') {
+                // RegiGrow
+                additionalProperty.push({ name: 'paymentMethodName', value: purchase.paymentMethod.paymentMethodName });
+            }
             this.store.dispatch(new purchaseAction.AuthorizeAnyPayment({
                 transaction: transaction,
-                typeOf: purchase.paymentMethod.typeOf,
+                typeOf: purchase.paymentMethod.paymentMethodType,
                 amount: amount,
                 additionalProperty: additionalProperty
             }));
@@ -193,7 +198,7 @@ export class PurchaseConfirmComponent implements OnInit {
                 this.router.navigate(['/error']);
                 return;
             }
-            if (purchase.paymentMethod.typeOf === factory.paymentMethodType.Cash) {
+            if (purchase.paymentMethod.paymentMethodType === factory.paymentMethodType.Cash) {
                 if (Number(this.depositAmount) < this.amount) {
                     this.util.openAlert({
                         title: this.translate.instant('common.error'),

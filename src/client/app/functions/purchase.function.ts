@@ -185,24 +185,42 @@ export function createMovieTicketsFromAuthorizeSeatReservation(args: {
 /**
  * 支払い方法作成
  */
-export function createPaymentMethodFromType(args: {
-    paymentMethodType: factory.paymentMethodType | string;
-    paymentMethodName?: string;
+export function createPaymentMethodFromType(params: {
+    paymentMethodType: factory.paymentMethodType;
+    paymentMethodName?: 'RegiGrow';
 }) {
-    switch (args.paymentMethodType) {
+    switch (params.paymentMethodType) {
         case factory.paymentMethodType.Cash: {
-            return { typeOf: args.paymentMethodType, name: '現金' };
+            return {
+                paymentMethodType: params.paymentMethodType,
+                name: 'common.paymentMethodType.cash'
+            };
         }
         case factory.paymentMethodType.CreditCard: {
-            return { typeOf: args.paymentMethodType, name: 'クレジットカード' };
+            return {
+                paymentMethodType: params.paymentMethodType,
+                name: 'common.paymentMethodType.creditCard'
+            };
         }
         case factory.paymentMethodType.EMoney: {
-            return { typeOf: args.paymentMethodType, name: '電子マネー' };
+            return {
+                paymentMethodType: params.paymentMethodType,
+                name: 'common.paymentMethodType.eMoney'
+            };
+        }
+        case factory.paymentMethodType.Others: {
+            return {
+                paymentMethodType: params.paymentMethodType,
+                paymentMethodName: params.paymentMethodName,
+                name: (params.paymentMethodName === 'RegiGrow')
+                    ? 'common.paymentMethodType.regiGrow'
+                    : 'common.paymentMethodType.others'
+            };
         }
         default: {
             return {
-                typeOf: args.paymentMethodType,
-                name: (args.paymentMethodName === undefined) ? 'その他' : args.paymentMethodName
+                paymentMethodType: params.paymentMethodType,
+                name: 'common.paymentMethodType.others'
             };
         }
     }

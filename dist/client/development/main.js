@@ -5294,7 +5294,7 @@ var PurchaseBaseComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"contents-width mx-auto px-3 py-5\">\n    <div class=\"mb-4\">\n        <h2 class=\"text-large mb-4 text-center font-weight-bold\">{{ 'purchase.complete.title' | translate }}</h2>\n        <p class=\"mb-4 text-md-center\" [innerHTML]=\"'purchase.complete.read' | translate\"></p>\n\n        <div class=\"mb-4 px-3 py-2 bg-white\">\n            <div class=\"row align-items-center\">\n                <p class=\"col-4\">\n                    {{ 'common.confirmationNumber' | translate }}</p>\n                <p class=\"col-8 text-large text-info font-weight-bold\">\n                    {{ (purchase | async).order.confirmationNumber }}\n                </p>\n            </div>\n        </div>\n        <div *ngFor=\"let eventOrder of eventOrders\"\n            class=\"mb-4 bg-white p-3\">\n            <div class=\"mb-3\">\n                <div class=\"mb-1\">\n                    <p class=\"font-weight-bold text-large\">{{ eventOrder.event.name | changeLanguage }}</p>\n                    <p class=\"text-small\"\n                        *ngIf=\"eventOrder.event.superEvent.headline && (eventOrder.event.superEvent.headline | changeLanguage)\">\n                        {{ eventOrder.event.superEvent.headline | changeLanguage }}</p>\n                    <p class=\"text-small\"\n                        *ngIf=\"eventOrder.event.superEvent.description && (eventOrder.event.superEvent.description | changeLanguage)\">{{\n                        eventOrder.event.superEvent.description | changeLanguage }}</p>\n                </div>\n                <p class=\"mb-1\">\n                    {{ eventOrder.event.startDate | formatDate: 'MM/DD(ddd) HH:mm' }}-{{ eventOrder.event.endDate | formatDate: 'HH:mm' }}\n                </p>\n                <p class=\"text-small mb-1\">\n                    <span>{{ eventOrder.event.superEvent.location.name | changeLanguage }}</span>\n                    <span>&nbsp;/&nbsp;{{ eventOrder.event.location.name | changeLanguage }}</span>\n                    <span *ngIf=\"eventOrder.event.workPerformed?.duration && moment.duration(eventOrder.event.workPerformed?.duration).asMinutes() > 0\">\n                        &nbsp;/&nbsp;{{ moment.duration(eventOrder.event.workPerformed?.duration).asMinutes() }}{{ 'common.date.minute' | translate }}\n                    </span>\n                </p>\n            </div>\n            <hr class=\"mb-3\">\n\n            <div *ngFor=\"let acceptedOffer of eventOrder.data\">\n                <p>\n                    <span *ngIf=\"acceptedOffer.itemOffered.reservedTicket.ticketedSeat && environment.DISPLAY_TICKETED_SEAT\">\n                        {{ acceptedOffer.itemOffered.reservedTicket.ticketedSeat.seatNumber }}&nbsp;/&nbsp;</span>{{ acceptedOffer.itemOffered.reservedTicket.ticketType.name | changeLanguage }}&nbsp;/&nbsp;{{\n                            getTicketPrice(acceptedOffer).single | currency : 'JPY' }}\n                </p>\n            </div>\n        </div>\n\n        <div class=\"mb-4 px-3 bg-white\">\n            <div class=\"py-3 border-bottom border-gray\">\n                <div class=\"row align-items-center\">\n                    <p class=\"mb-2 mb-md-0 col-md-4\">{{ 'common.customerName' | translate }}</p>\n                    <p class=\"col-md-8\">{{ (purchase | async).order.customer.familyName }} {{ (purchase |\n                                async).order.customer.givenName }}</p>\n                </div>\n            </div>\n            <div class=\"py-3 border-bottom border-gray\">\n                <div class=\"row align-items-center\">\n                    <p class=\"mb-2 mb-md-0 col-md-4\">{{ 'common.email' | translate }}</p>\n                    <p class=\"col-md-8\">{{ (purchase | async).order.customer.email }}</p>\n                </div>\n            </div>\n            <div class=\"py-3\">\n                <div class=\"row align-items-center\">\n                    <p class=\"mb-2 mb-md-0 col-md-4\">{{ 'common.telephone' | translate }}</p>\n                    <p class=\"col-md-8\">{{ (purchase | async).order.customer.telephone | libphonenumberFormat }}</p>\n                </div>\n            </div>\n            \n        </div>\n    </div>\n\n    <div class=\"buttons mx-auto text-center\">\n        <button type=\"button\" class=\"btn btn-primary btn-block py-3 mb-3\" [disabled]=\"isLoading | async\"\n            (click)=\"print()\">{{ 'purchase.complete.next' | translate }}</button>\n        <button type=\"button\" class=\"btn btn-link\"\n            routerLink=\"/purchase/root\">{{ 'purchase.complete.prev' | translate }}</button>\n    </div>\n\n</div>"
+module.exports = "<div class=\"contents-width mx-auto px-3 py-5\">\n    <div class=\"mb-4\">\n        <h2 class=\"text-large mb-4 text-center font-weight-bold\">{{ 'purchase.complete.title' | translate }}</h2>\n        <p class=\"mb-4 text-md-center\" [innerHTML]=\"'purchase.complete.read' | translate\"></p>\n\n        <div class=\"mb-4 px-3 py-2 bg-white\">\n            <div class=\"row align-items-center\">\n                <p class=\"col-4\">\n                    {{ 'common.confirmationNumber' | translate }}</p>\n                <p class=\"col-8 text-large text-info font-weight-bold\">\n                    {{ (purchase | async).order.confirmationNumber }}\n                </p>\n            </div>\n        </div>\n\n        <div class=\"mb-4 px-3 py-2 bg-white\">\n            <div class=\"row align-items-center\">\n                <p class=\"col-md-4 mb-2 mb-md-0\">{{ 'purchase.complete.regiGrow' | translate }}</p>\n                <p class=\"col-md-8 text-large text-center text-md-left\">\n                    <img *ngIf=\"regiGrow.qrcode !== ''\" class=\"border\" [src]=\"regiGrow.qrcode\">\n                    <span *ngIf=\"regiGrow.qrcode === ''\">{{ 'purchase.complete.alert.regiGrow' | translate }}</span>\n                </p>\n            </div>\n        </div>\n\n        <div *ngFor=\"let eventOrder of eventOrders\"\n            class=\"mb-4 bg-white p-3\">\n            <div class=\"mb-3\">\n                <div class=\"mb-1\">\n                    <p class=\"font-weight-bold text-large\">{{ eventOrder.event.name | changeLanguage }}</p>\n                    <p class=\"text-small\"\n                        *ngIf=\"eventOrder.event.superEvent.headline && (eventOrder.event.superEvent.headline | changeLanguage)\">\n                        {{ eventOrder.event.superEvent.headline | changeLanguage }}</p>\n                    <p class=\"text-small\"\n                        *ngIf=\"eventOrder.event.superEvent.description && (eventOrder.event.superEvent.description | changeLanguage)\">{{\n                        eventOrder.event.superEvent.description | changeLanguage }}</p>\n                </div>\n                <p class=\"mb-1\">\n                    {{ eventOrder.event.startDate | formatDate: 'MM/DD(ddd) HH:mm' }}-{{ eventOrder.event.endDate | formatDate: 'HH:mm' }}\n                </p>\n                <p class=\"text-small mb-1\">\n                    <span>{{ eventOrder.event.superEvent.location.name | changeLanguage }}</span>\n                    <span>&nbsp;/&nbsp;{{ eventOrder.event.location.name | changeLanguage }}</span>\n                    <span *ngIf=\"eventOrder.event.workPerformed?.duration && moment.duration(eventOrder.event.workPerformed?.duration).asMinutes() > 0\">\n                        &nbsp;/&nbsp;{{ moment.duration(eventOrder.event.workPerformed?.duration).asMinutes() }}{{ 'common.date.minute' | translate }}\n                    </span>\n                </p>\n            </div>\n            <hr class=\"mb-3\">\n\n            <div *ngFor=\"let acceptedOffer of eventOrder.data\">\n                <p>\n                    <span *ngIf=\"acceptedOffer.itemOffered.reservedTicket.ticketedSeat && environment.DISPLAY_TICKETED_SEAT\">\n                        {{ acceptedOffer.itemOffered.reservedTicket.ticketedSeat.seatNumber }}&nbsp;/&nbsp;</span>{{ acceptedOffer.itemOffered.reservedTicket.ticketType.name | changeLanguage }}&nbsp;/&nbsp;{{\n                            getTicketPrice(acceptedOffer).single | currency : 'JPY' }}\n                </p>\n            </div>\n        </div>\n\n        <div class=\"mb-4 px-3 bg-white\">\n            <div class=\"py-3 border-bottom border-gray\">\n                <div class=\"row align-items-center\">\n                    <p class=\"mb-2 mb-md-0 col-md-4\">{{ 'common.customerName' | translate }}</p>\n                    <p class=\"col-md-8\">{{ (purchase | async).order.customer.familyName }} {{ (purchase |\n                                async).order.customer.givenName }}</p>\n                </div>\n            </div>\n            <div class=\"py-3 border-bottom border-gray\">\n                <div class=\"row align-items-center\">\n                    <p class=\"mb-2 mb-md-0 col-md-4\">{{ 'common.email' | translate }}</p>\n                    <p class=\"col-md-8\">{{ (purchase | async).order.customer.email }}</p>\n                </div>\n            </div>\n            <div class=\"py-3\">\n                <div class=\"row align-items-center\">\n                    <p class=\"mb-2 mb-md-0 col-md-4\">{{ 'common.telephone' | translate }}</p>\n                    <p class=\"col-md-8\">{{ (purchase | async).order.customer.telephone | libphonenumberFormat }}</p>\n                </div>\n            </div>\n            \n        </div>\n    </div>\n\n    <div class=\"buttons mx-auto text-center\">\n        <button type=\"button\" class=\"btn btn-primary btn-block py-3 mb-3\" [disabled]=\"isLoading | async\"\n            (click)=\"print()\">{{ 'purchase.complete.next' | translate }}</button>\n        <button type=\"button\" class=\"btn btn-link\"\n            routerLink=\"/purchase/root\">{{ 'purchase.complete.prev' | translate }}</button>\n    </div>\n\n</div>"
 
 /***/ }),
 
@@ -5326,13 +5326,15 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _ngx_translate_core__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @ngx-translate/core */ "../../node_modules/@ngx-translate/core/fesm5/ngx-translate-core.js");
 /* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! moment */ "../../node_modules/moment/moment.js");
 /* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_5__);
-/* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! rxjs */ "../../node_modules/rxjs/_esm5/index.js");
-/* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! rxjs/operators */ "../../node_modules/rxjs/_esm5/operators/index.js");
-/* harmony import */ var _environments_environment__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../../../../../environments/environment */ "./environments/environment.ts");
-/* harmony import */ var _functions__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../../../../functions */ "./app/functions/index.ts");
-/* harmony import */ var _services__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../../../../services */ "./app/services/index.ts");
-/* harmony import */ var _store_actions__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ../../../../store/actions */ "./app/store/actions/index.ts");
-/* harmony import */ var _store_reducers__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ../../../../store/reducers */ "./app/store/reducers/index.ts");
+/* harmony import */ var qrcode__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! qrcode */ "../../node_modules/qrcode/lib/browser.js");
+/* harmony import */ var qrcode__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(qrcode__WEBPACK_IMPORTED_MODULE_6__);
+/* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! rxjs */ "../../node_modules/rxjs/_esm5/index.js");
+/* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! rxjs/operators */ "../../node_modules/rxjs/_esm5/operators/index.js");
+/* harmony import */ var _environments_environment__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../../../../../environments/environment */ "./environments/environment.ts");
+/* harmony import */ var _functions__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../../../../functions */ "./app/functions/index.ts");
+/* harmony import */ var _services__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ../../../../services */ "./app/services/index.ts");
+/* harmony import */ var _store_actions__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ../../../../store/actions */ "./app/store/actions/index.ts");
+/* harmony import */ var _store_reducers__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ../../../../store/reducers */ "./app/store/reducers/index.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -5355,6 +5357,7 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 
 
 
+
 var PurchaseCompleteComponent = /** @class */ (function () {
     function PurchaseCompleteComponent(store, actions, router, util, translate) {
         this.store = store;
@@ -5363,23 +5366,39 @@ var PurchaseCompleteComponent = /** @class */ (function () {
         this.util = util;
         this.translate = translate;
         this.moment = moment__WEBPACK_IMPORTED_MODULE_5__;
-        this.getTicketPrice = _functions__WEBPACK_IMPORTED_MODULE_9__["getTicketPrice"];
-        this.environment = _environments_environment__WEBPACK_IMPORTED_MODULE_8__["environment"];
+        this.getTicketPrice = _functions__WEBPACK_IMPORTED_MODULE_10__["getTicketPrice"];
+        this.environment = _environments_environment__WEBPACK_IMPORTED_MODULE_9__["environment"];
     }
     PurchaseCompleteComponent.prototype.ngOnInit = function () {
         var _this = this;
         this.eventOrders = [];
-        this.purchase = this.store.pipe(Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_3__["select"])(_store_reducers__WEBPACK_IMPORTED_MODULE_12__["getPurchase"]));
-        this.user = this.store.pipe(Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_3__["select"])(_store_reducers__WEBPACK_IMPORTED_MODULE_12__["getUser"]));
-        this.isLoading = this.store.pipe(Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_3__["select"])(_store_reducers__WEBPACK_IMPORTED_MODULE_12__["getLoading"]));
-        this.error = this.store.pipe(Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_3__["select"])(_store_reducers__WEBPACK_IMPORTED_MODULE_12__["getError"]));
+        this.purchase = this.store.pipe(Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_3__["select"])(_store_reducers__WEBPACK_IMPORTED_MODULE_13__["getPurchase"]));
+        this.user = this.store.pipe(Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_3__["select"])(_store_reducers__WEBPACK_IMPORTED_MODULE_13__["getUser"]));
+        this.isLoading = this.store.pipe(Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_3__["select"])(_store_reducers__WEBPACK_IMPORTED_MODULE_13__["getLoading"]));
+        this.error = this.store.pipe(Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_3__["select"])(_store_reducers__WEBPACK_IMPORTED_MODULE_13__["getError"]));
         this.purchase.subscribe(function (purchase) {
             if (purchase.order === undefined) {
                 _this.router.navigate(['/error']);
                 return;
             }
+            if (_this.isRegiGrow(purchase.order)) {
+                var canvas_1 = document.createElement('canvas');
+                var qrcodeText = purchase.order.orderNumber + "=" + purchase.order.price;
+                qrcode__WEBPACK_IMPORTED_MODULE_6__["toCanvas"](canvas_1, qrcodeText).then(function () {
+                    _this.regiGrow = {
+                        type: '001',
+                        qrcode: canvas_1.toDataURL()
+                    };
+                }).catch(function (error) {
+                    console.error(error);
+                    _this.regiGrow = {
+                        type: '001',
+                        qrcode: ''
+                    };
+                });
+            }
             var order = purchase.order;
-            _this.eventOrders = Object(_functions__WEBPACK_IMPORTED_MODULE_9__["orderToEventOrders"])({ order: order });
+            _this.eventOrders = Object(_functions__WEBPACK_IMPORTED_MODULE_10__["orderToEventOrders"])({ order: order });
         }).unsubscribe();
         this.print();
     };
@@ -5396,11 +5415,11 @@ var PurchaseCompleteComponent = /** @class */ (function () {
                 var orders = [purchase.order];
                 var pos = user.pos;
                 var printer = user.printer;
-                _this.store.dispatch(new _store_actions__WEBPACK_IMPORTED_MODULE_11__["orderAction"].Print({ orders: orders, pos: pos, printer: printer }));
+                _this.store.dispatch(new _store_actions__WEBPACK_IMPORTED_MODULE_12__["orderAction"].Print({ orders: orders, pos: pos, printer: printer }));
             }).unsubscribe();
         }).unsubscribe();
-        var success = this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_11__["orderAction"].ActionTypes.PrintSuccess), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_7__["tap"])(function () { }));
-        var fail = this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_11__["orderAction"].ActionTypes.PrintFail), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_7__["tap"])(function () {
+        var success = this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_12__["orderAction"].ActionTypes.PrintSuccess), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_8__["tap"])(function () { }));
+        var fail = this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_12__["orderAction"].ActionTypes.PrintFail), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_8__["tap"])(function () {
             _this.error.subscribe(function (error) {
                 _this.util.openAlert({
                     title: _this.translate.instant('common.error'),
@@ -5408,7 +5427,14 @@ var PurchaseCompleteComponent = /** @class */ (function () {
                 });
             }).unsubscribe();
         }));
-        Object(rxjs__WEBPACK_IMPORTED_MODULE_6__["race"])(success, fail).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_7__["take"])(1)).subscribe();
+        Object(rxjs__WEBPACK_IMPORTED_MODULE_7__["race"])(success, fail).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_8__["take"])(1)).subscribe();
+    };
+    PurchaseCompleteComponent.prototype.isRegiGrow = function (order) {
+        var findResult = order.paymentMethods.find(function (p) {
+            var findPropertyResult = p.additionalProperty.find(function (a) { return a.name === 'paymentMethodName' && a.value === 'RegiGrow'; });
+            return (findPropertyResult !== undefined);
+        });
+        return (findResult !== undefined);
     };
     PurchaseCompleteComponent = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
@@ -5419,7 +5445,7 @@ var PurchaseCompleteComponent = /** @class */ (function () {
         __metadata("design:paramtypes", [_ngrx_store__WEBPACK_IMPORTED_MODULE_3__["Store"],
             _ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["Actions"],
             _angular_router__WEBPACK_IMPORTED_MODULE_1__["Router"],
-            _services__WEBPACK_IMPORTED_MODULE_10__["UtilService"],
+            _services__WEBPACK_IMPORTED_MODULE_11__["UtilService"],
             _ngx_translate_core__WEBPACK_IMPORTED_MODULE_4__["TranslateService"]])
     ], PurchaseCompleteComponent);
     return PurchaseCompleteComponent;
@@ -5559,7 +5585,7 @@ var PurchaseConfirmComponent = /** @class */ (function () {
             var transaction = purchase.transaction;
             var amount = _this.amount;
             var additionalProperty = [];
-            if (purchase.paymentMethod.typeOf === _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_2__["factory"].paymentMethodType.Cash) {
+            if (purchase.paymentMethod.paymentMethodType === _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_2__["factory"].paymentMethodType.Cash) {
                 // 現金
                 additionalProperty.push({ name: 'depositAmount', value: Number(_this.depositAmount) });
                 additionalProperty.push({
@@ -5567,9 +5593,14 @@ var PurchaseConfirmComponent = /** @class */ (function () {
                     value: Number(_this.depositAmount) - _this.amount
                 });
             }
+            if (purchase.paymentMethod.paymentMethodType === _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_2__["factory"].paymentMethodType.Others
+                && purchase.paymentMethod.paymentMethodName === 'RegiGrow') {
+                // RegiGrow
+                additionalProperty.push({ name: 'paymentMethodName', value: purchase.paymentMethod.paymentMethodName });
+            }
             _this.store.dispatch(new _store_actions__WEBPACK_IMPORTED_MODULE_13__["purchaseAction"].AuthorizeAnyPayment({
                 transaction: transaction,
-                typeOf: purchase.paymentMethod.typeOf,
+                typeOf: purchase.paymentMethod.paymentMethodType,
                 amount: amount,
                 additionalProperty: additionalProperty
             }));
@@ -5641,7 +5672,7 @@ var PurchaseConfirmComponent = /** @class */ (function () {
                 _this.router.navigate(['/error']);
                 return;
             }
-            if (purchase.paymentMethod.typeOf === _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_2__["factory"].paymentMethodType.Cash) {
+            if (purchase.paymentMethod.paymentMethodType === _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_2__["factory"].paymentMethodType.Cash) {
                 if (Number(_this.depositAmount) < _this.amount) {
                     _this.util.openAlert({
                         title: _this.translate.instant('common.error'),
@@ -5976,7 +6007,7 @@ var PurchaseInputComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"contents-width mx-auto px-3 py-5\">\n\n    <h2 class=\"text-large mb-4 text-center font-weight-bold\">{{ 'purchase.payment.title' | translate }}</h2>\n    <p class=\"mb-4 text-md-center\" [innerHTML]=\"'purchase.payment.read' | translate\"></p>\n\n    <div class=\"payment-select d-grid mb-4\">\n        <button *ngIf=\"isDisplay(paymentMethodType.Cash)\" type=\"button\" class=\"btn btn-primary btn-block py-3 m-0\"\n            (click)=\"selectPaymentMethodType(paymentMethodType.Cash)\">\n            <div class=\"mb-md-3\">\n                <i\n                    class=\"fas fa-yen-sign mr-2 d-md-none\"></i>{{ 'purchase.payment.paymentMethodType.cash' | translate }}\n            </div>\n            <div class=\"image d-none d-md-block\"><i class=\"fas fa-yen-sign\"></i></div>\n        </button>\n        <button *ngIf=\"isDisplay(paymentMethodType.CreditCard)\" type=\"button\" class=\"btn btn-primary btn-block py-3 m-0\"\n            (click)=\"selectPaymentMethodType(paymentMethodType.CreditCard)\">\n            <div class=\"mb-md-3\">\n                <i\n                    class=\"fas fa-credit-card mr-2 d-md-none\"></i>{{ 'purchase.payment.paymentMethodType.creditCard' | translate }}\n            </div>\n            <div class=\"image d-none d-md-block\"><i class=\"fas fa-credit-card\"></i></div>\n        </button>\n        <button *ngIf=\"isDisplay(paymentMethodType.EMoney)\" type=\"button\" class=\"btn btn-primary btn-block py-3 m-0\"\n            (click)=\"selectPaymentMethodType(paymentMethodType.EMoney)\">\n            <div class=\"mb-md-3\">\n                <i\n                    class=\"fas fa-mobile-alt mr-2 d-md-none\"></i>{{ 'purchase.payment.paymentMethodType.eMoney' | translate }}\n            </div>\n            <div class=\"image d-none d-md-block\"><i class=\"fas fa-mobile-alt\"></i></div>\n        </button>\n        <button *ngIf=\"isDisplay(paymentMethodType.RegiGrow)\" type=\"button\" class=\"btn btn-primary btn-block py-3 m-0\"\n            (click)=\"selectPaymentMethodType(paymentMethodType.RegiGrow)\">\n            <div class=\"mb-md-3\">\n                <i class=\"fas fa-cash-register mr-2 d-md-none\"></i>{{ 'purchase.payment.paymentMethodType.regiGrow' | translate }}\n            </div>\n            <div class=\"image d-none d-md-block\"><i class=\"fas fa-cash-register\"></i></div>\n        </button>\n        <!-- <button type=\"button\" class=\"btn btn-primary btn-block py-3 m-0\">\n                <div class=\"mb-md-3\"><i class=\"far fa-question-circle mr-2 d-md-none\"></i>その他</div>\n                <div class=\"image d-none d-md-block\"><i class=\"far fa-question-circle\"></i></div>\n            </button> -->\n    </div>\n\n    <div class=\"buttons mx-auto text-center\">\n        <div *ngIf=\"(user | async).viewType === viewType.Cinema\">\n            <button *ngIf=\"(user | async).isPurchaseCart\" type=\"button\" class=\"btn btn-link\"\n                routerLink=\"/purchase/cinema/cart\">{{ 'purchase.payment.prev' | translate }}</button>\n            <button *ngIf=\"!(user | async).isPurchaseCart\" type=\"button\" class=\"btn btn-link\"\n                routerLink=\"/purchase/cinema/ticket\">{{ 'purchase.payment.prev' | translate }}</button>\n        </div>\n        <div *ngIf=\"(user | async).viewType === viewType.Event\">\n            <button type=\"button\" class=\"btn btn-link\"\n                routerLink=\"/purchase/event/ticket\">{{ 'purchase.payment.prev' | translate }}</button>\n        </div>\n\n    </div>\n</div>"
+module.exports = "<div class=\"contents-width mx-auto px-3 py-5\">\n\n    <h2 class=\"text-large mb-4 text-center font-weight-bold\">{{ 'purchase.payment.title' | translate }}</h2>\n    <p class=\"mb-4 text-md-center\" [innerHTML]=\"'purchase.payment.read' | translate\"></p>\n\n    <div class=\"payment-select d-grid mb-4\">\n        <button *ngIf=\"isDisplay(paymentMethodType.Cash)\" type=\"button\" class=\"btn btn-primary btn-block py-3 m-0\"\n            (click)=\"selectPaymentMethodType(paymentMethodType.Cash)\">\n            <div class=\"mb-md-3\">\n                <i\n                    class=\"fas fa-yen-sign mr-2 d-md-none\"></i>{{ 'common.paymentMethodType.cash' | translate }}\n            </div>\n            <div class=\"image d-none d-md-block\"><i class=\"fas fa-yen-sign\"></i></div>\n        </button>\n        <button *ngIf=\"isDisplay(paymentMethodType.CreditCard)\" type=\"button\" class=\"btn btn-primary btn-block py-3 m-0\"\n            (click)=\"selectPaymentMethodType(paymentMethodType.CreditCard)\">\n            <div class=\"mb-md-3\">\n                <i\n                    class=\"fas fa-credit-card mr-2 d-md-none\"></i>{{ 'common.paymentMethodType.creditCard' | translate }}\n            </div>\n            <div class=\"image d-none d-md-block\"><i class=\"fas fa-credit-card\"></i></div>\n        </button>\n        <button *ngIf=\"isDisplay(paymentMethodType.EMoney)\" type=\"button\" class=\"btn btn-primary btn-block py-3 m-0\"\n            (click)=\"selectPaymentMethodType(paymentMethodType.EMoney)\">\n            <div class=\"mb-md-3\">\n                <i\n                    class=\"fas fa-mobile-alt mr-2 d-md-none\"></i>{{ 'common.paymentMethodType.eMoney' | translate }}\n            </div>\n            <div class=\"image d-none d-md-block\"><i class=\"fas fa-mobile-alt\"></i></div>\n        </button>\n        <button *ngIf=\"isDisplay('RegiGrow')\" type=\"button\" class=\"btn btn-primary btn-block py-3 m-0\"\n            (click)=\"selectPaymentMethodType(paymentMethodType.Others, 'RegiGrow')\">\n            <div class=\"mb-md-3\">\n                <i class=\"fas fa-cash-register mr-2 d-md-none\"></i>{{ 'common.paymentMethodType.regiGrow' | translate }}\n            </div>\n            <div class=\"image d-none d-md-block\"><i class=\"fas fa-cash-register\"></i></div>\n        </button>\n        <!-- <button type=\"button\" class=\"btn btn-primary btn-block py-3 m-0\">\n                <div class=\"mb-md-3\"><i class=\"far fa-question-circle mr-2 d-md-none\"></i>その他</div>\n                <div class=\"image d-none d-md-block\"><i class=\"far fa-question-circle\"></i></div>\n            </button> -->\n    </div>\n\n    <div class=\"buttons mx-auto text-center\">\n        <div *ngIf=\"(user | async).viewType === viewType.Cinema\">\n            <button *ngIf=\"(user | async).isPurchaseCart\" type=\"button\" class=\"btn btn-link\"\n                routerLink=\"/purchase/cinema/cart\">{{ 'purchase.payment.prev' | translate }}</button>\n            <button *ngIf=\"!(user | async).isPurchaseCart\" type=\"button\" class=\"btn btn-link\"\n                routerLink=\"/purchase/cinema/ticket\">{{ 'purchase.payment.prev' | translate }}</button>\n        </div>\n        <div *ngIf=\"(user | async).viewType === viewType.Event\">\n            <button type=\"button\" class=\"btn btn-link\"\n                routerLink=\"/purchase/event/ticket\">{{ 'purchase.payment.prev' | translate }}</button>\n        </div>\n\n    </div>\n</div>"
 
 /***/ }),
 
@@ -6003,13 +6034,15 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "PurchasePaymentComponent", function() { return PurchasePaymentComponent; });
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "../../node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/router */ "../../node_modules/@angular/router/fesm5/router.js");
-/* harmony import */ var _ngrx_store__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @ngrx/store */ "../../node_modules/@ngrx/store/fesm5/store.js");
-/* harmony import */ var _ngx_translate_core__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @ngx-translate/core */ "../../node_modules/@ngx-translate/core/fesm5/ngx-translate-core.js");
-/* harmony import */ var _environments_environment__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../../../environments/environment */ "./environments/environment.ts");
-/* harmony import */ var _models__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../../../models */ "./app/models/index.ts");
-/* harmony import */ var _services__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../../../services */ "./app/services/index.ts");
-/* harmony import */ var _store_actions__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../../../../store/actions */ "./app/store/actions/index.ts");
-/* harmony import */ var _store_reducers__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../../../../store/reducers */ "./app/store/reducers/index.ts");
+/* harmony import */ var _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @cinerino/api-javascript-client */ "../../node_modules/@cinerino/api-javascript-client/lib/index.js");
+/* harmony import */ var _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _ngrx_store__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @ngrx/store */ "../../node_modules/@ngrx/store/fesm5/store.js");
+/* harmony import */ var _ngx_translate_core__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @ngx-translate/core */ "../../node_modules/@ngx-translate/core/fesm5/ngx-translate-core.js");
+/* harmony import */ var _environments_environment__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../../../../environments/environment */ "./environments/environment.ts");
+/* harmony import */ var _models__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../../../models */ "./app/models/index.ts");
+/* harmony import */ var _services__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../../../../services */ "./app/services/index.ts");
+/* harmony import */ var _store_actions__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../../../../store/actions */ "./app/store/actions/index.ts");
+/* harmony import */ var _store_reducers__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../../../../store/reducers */ "./app/store/reducers/index.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -6028,23 +6061,24 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 
 
 
+
 var PurchasePaymentComponent = /** @class */ (function () {
     function PurchasePaymentComponent(store, router, util, translate) {
         this.store = store;
         this.router = router;
         this.util = util;
         this.translate = translate;
-        this.paymentMethodType = _models__WEBPACK_IMPORTED_MODULE_5__["PaymentMethodType"];
-        this.viewType = _models__WEBPACK_IMPORTED_MODULE_5__["ViewType"];
-        this.environment = _environments_environment__WEBPACK_IMPORTED_MODULE_4__["environment"];
+        this.paymentMethodType = _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_2__["factory"].paymentMethodType;
+        this.viewType = _models__WEBPACK_IMPORTED_MODULE_6__["ViewType"];
+        this.environment = _environments_environment__WEBPACK_IMPORTED_MODULE_5__["environment"];
     }
     PurchasePaymentComponent.prototype.ngOnInit = function () {
-        this.user = this.store.pipe(Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_2__["select"])(_store_reducers__WEBPACK_IMPORTED_MODULE_8__["getUser"]));
+        this.user = this.store.pipe(Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_3__["select"])(_store_reducers__WEBPACK_IMPORTED_MODULE_9__["getUser"]));
     };
     /**
      * 決済方法選択
      */
-    PurchasePaymentComponent.prototype.selectPaymentMethodType = function (paymentMethodType) {
+    PurchasePaymentComponent.prototype.selectPaymentMethodType = function (paymentMethodType, paymentMethodName) {
         var _this = this;
         this.user.subscribe(function (user) {
             if (user.seller === undefined
@@ -6062,7 +6096,7 @@ var PurchasePaymentComponent = /** @class */ (function () {
                 });
                 return;
             }
-            _this.store.dispatch(new _store_actions__WEBPACK_IMPORTED_MODULE_7__["purchaseAction"].SelectPaymentMethodType({ paymentMethodType: paymentMethodType }));
+            _this.store.dispatch(new _store_actions__WEBPACK_IMPORTED_MODULE_8__["purchaseAction"].SelectPaymentMethodType({ paymentMethodType: paymentMethodType, paymentMethodName: paymentMethodName }));
             _this.router.navigate(['/purchase/confirm']);
         }).unsubscribe();
     };
@@ -6070,7 +6104,7 @@ var PurchasePaymentComponent = /** @class */ (function () {
      * 表示判定
      */
     PurchasePaymentComponent.prototype.isDisplay = function (paymentMethodType) {
-        var findResult = _environments_environment__WEBPACK_IMPORTED_MODULE_4__["environment"].PAYMENT_METHOD_TO_USE.find(function (p) { return p === paymentMethodType; });
+        var findResult = _environments_environment__WEBPACK_IMPORTED_MODULE_5__["environment"].PAYMENT_METHOD_TO_USE.find(function (p) { return p === paymentMethodType; });
         return (findResult !== undefined);
     };
     PurchasePaymentComponent = __decorate([
@@ -6079,10 +6113,10 @@ var PurchasePaymentComponent = /** @class */ (function () {
             template: __webpack_require__(/*! ./purchase-payment.component.html */ "./app/components/pages/purchase/purchase-payment/purchase-payment.component.html"),
             styles: [__webpack_require__(/*! ./purchase-payment.component.scss */ "./app/components/pages/purchase/purchase-payment/purchase-payment.component.scss")]
         }),
-        __metadata("design:paramtypes", [_ngrx_store__WEBPACK_IMPORTED_MODULE_2__["Store"],
+        __metadata("design:paramtypes", [_ngrx_store__WEBPACK_IMPORTED_MODULE_3__["Store"],
             _angular_router__WEBPACK_IMPORTED_MODULE_1__["Router"],
-            _services__WEBPACK_IMPORTED_MODULE_6__["UtilService"],
-            _ngx_translate_core__WEBPACK_IMPORTED_MODULE_3__["TranslateService"]])
+            _services__WEBPACK_IMPORTED_MODULE_7__["UtilService"],
+            _ngx_translate_core__WEBPACK_IMPORTED_MODULE_4__["TranslateService"]])
     ], PurchasePaymentComponent);
     return PurchasePaymentComponent;
 }());
@@ -10272,21 +10306,39 @@ function createMovieTicketsFromAuthorizeSeatReservation(args) {
 /**
  * 支払い方法作成
  */
-function createPaymentMethodFromType(args) {
-    switch (args.paymentMethodType) {
+function createPaymentMethodFromType(params) {
+    switch (params.paymentMethodType) {
         case _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_0__["factory"].paymentMethodType.Cash: {
-            return { typeOf: args.paymentMethodType, name: '現金' };
+            return {
+                paymentMethodType: params.paymentMethodType,
+                name: 'common.paymentMethodType.cash'
+            };
         }
         case _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_0__["factory"].paymentMethodType.CreditCard: {
-            return { typeOf: args.paymentMethodType, name: 'クレジットカード' };
+            return {
+                paymentMethodType: params.paymentMethodType,
+                name: 'common.paymentMethodType.creditCard'
+            };
         }
         case _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_0__["factory"].paymentMethodType.EMoney: {
-            return { typeOf: args.paymentMethodType, name: '電子マネー' };
+            return {
+                paymentMethodType: params.paymentMethodType,
+                name: 'common.paymentMethodType.eMoney'
+            };
+        }
+        case _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_0__["factory"].paymentMethodType.Others: {
+            return {
+                paymentMethodType: params.paymentMethodType,
+                paymentMethodName: params.paymentMethodName,
+                name: (params.paymentMethodName === 'RegiGrow')
+                    ? 'common.paymentMethodType.regiGrow'
+                    : 'common.paymentMethodType.others'
+            };
         }
         default: {
             return {
-                typeOf: args.paymentMethodType,
-                name: (args.paymentMethodName === undefined) ? 'その他' : args.paymentMethodName
+                paymentMethodType: params.paymentMethodType,
+                name: 'common.paymentMethodType.others'
             };
         }
     }
@@ -16735,7 +16787,8 @@ function reducer(state, action) {
         }
         case _actions__WEBPACK_IMPORTED_MODULE_3__["purchaseAction"].ActionTypes.SelectPaymentMethodType: {
             var paymentMethod = Object(_functions__WEBPACK_IMPORTED_MODULE_1__["createPaymentMethodFromType"])({
-                paymentMethodType: action.payload.paymentMethodType
+                paymentMethodType: action.payload.paymentMethodType,
+                paymentMethodName: action.payload.paymentMethodName
             });
             state.purchaseData.paymentMethod = paymentMethod;
             return __assign({}, state, { loading: false, process: '', error: null });
