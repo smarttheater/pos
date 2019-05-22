@@ -9,7 +9,7 @@ import { BsModalService } from 'ngx-bootstrap';
 import { Observable, race } from 'rxjs';
 import { take, tap } from 'rxjs/operators';
 import { environment } from '../../../../../../environments/environment';
-import { getAmount, getTicketPrice, IScreeningEventWork, screeningEventsToWorkEvents } from '../../../../../functions';
+import { getTicketPrice, IScreeningEventWork, screeningEventsToWorkEvents } from '../../../../../functions';
 import { IReservationTicket } from '../../../../../models';
 import { UtilService } from '../../../../../services';
 import { masterAction, purchaseAction } from '../../../../../store/actions';
@@ -280,13 +280,7 @@ export class PurchaseEventTicketComponent implements OnInit, OnDestroy {
                 });
                 return;
             }
-            const amount = getAmount(authorizeSeatReservations);
-            if (amount > 0) {
-                this.router.navigate(['/purchase/payment']);
-                return;
-            }
-
-            this.router.navigate(['/purchase/confirm']);
+            this.router.navigate(['/purchase/payment']);
         }).unsubscribe();
     }
 

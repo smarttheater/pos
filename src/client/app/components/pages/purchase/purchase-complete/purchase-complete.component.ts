@@ -28,7 +28,7 @@ export class PurchaseCompleteComponent implements OnInit {
     public getTicketPrice = getTicketPrice;
     public eventOrders: IEventOrder[];
     public environment = environment;
-    public regiGrow: { type: string; qrcode: string; };
+    public regiGrow?: { type: string; qrcode: string; };
 
     constructor(
         private store: Store<reducers.IState>,

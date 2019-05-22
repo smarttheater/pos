@@ -7,7 +7,6 @@ import { TranslateService } from '@ngx-translate/core';
 import { BsModalService } from 'ngx-bootstrap';
 import { Observable, race } from 'rxjs';
 import { take, tap } from 'rxjs/operators';
-import { getAmount } from '../../../../../functions';
 import { IReservationTicket, Reservation } from '../../../../../models/purchase/reservation';
 import { UtilService } from '../../../../../services';
 import { purchaseAction } from '../../../../../store/actions';
@@ -102,12 +101,7 @@ export class PurchaseCinemaTicketComponent implements OnInit {
                             return;
                         }
                         if (!user.isPurchaseCart) {
-                            const amount = getAmount(purchase.authorizeSeatReservations);
-                            if (amount > 0) {
-                                this.router.navigate(['/purchase/payment']);
-                                return;
-                            }
-                            this.router.navigate(['/purchase/confirm']);
+                            this.router.navigate(['/purchase/payment']);
                             return;
                         }
                         this.router.navigate(['/purchase/cinema/cart']);

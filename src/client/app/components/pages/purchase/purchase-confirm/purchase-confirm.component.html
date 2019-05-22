@@ -43,7 +43,7 @@
         </div>
 
         <div class="mb-4 px-3 bg-white"
-            *ngIf="(purchase | async).paymentMethod && (purchase | async).paymentMethod.typeOf === paymentMethodType.Cash">
+            *ngIf="(purchase | async).paymentMethod && (purchase | async).paymentMethod.paymentMethodType === paymentMethodType.Cash">
             <div class="py-3 border-bottom border-gray">
                 <div class="row align-items-center">
                     <p class="mb-2 mb-md-0 col-md-4">
@@ -65,6 +65,13 @@
                         <i class="fas fa-arrow-left mr-2"></i>{{ 'purchase.confirm.change' | translate }}</p>
                     <p class="col-md-8">{{ (depositAmount - amount) | currency : 'JPY' }}</p>
                 </div>
+            </div>
+        </div>
+
+        <div class="bg-white p-3 mb-4">
+            <div class="row align-items-center">
+                <p class="mb-2 mb-md-0 col-md-4">{{ 'common.amount' | translate }}</p>
+                <p class="col-md-8 font-weight-bold text-large text-info">{{ amount | currency : 'JPY' }}</p>
             </div>
         </div>
 
