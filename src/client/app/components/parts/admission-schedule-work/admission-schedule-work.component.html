@@ -60,8 +60,7 @@
                 </div>
                 <div *ngIf="!(screeningEvent.offers?.itemOffered.serviceOutput?.reservedTicket?.ticketedSeat)" class="mb-2 text-small">
                     {{ 'admission.schedule.infiniteStock' | translate }}</div>
-                <div class="text-small mb-1">{{ 'common.ticketing' | translate }} {{ screeningEvent.checkInCount }}
-                </div>
+                <div class="text-small mb-1">{{ 'common.ticketing' | translate }} {{ screeningEvent.checkInCount }}</div>
                 <div class="text-small">{{ 'common.admission' | translate }} {{ screeningEvent.attendeeCount }}</div>
             </div>
         </li>

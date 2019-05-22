@@ -171,6 +171,16 @@ export class PurchaseEventTicketComponent implements OnInit, OnDestroy {
                     screeningEventTicketOffers: purchase.screeningEventTicketOffers,
                     screeningEvent: purchase.screeningEvent,
                     cb: (reservationTickets: IReservationTicket[]) => {
+                        if (reservationTickets.length > Number(environment.PURCHASE_ITEM_MAX_LENGTH)) {
+                            this.util.openAlert({
+                                title: this.translate.instant('common.error'),
+                                body: this.translate.instant(
+                                    'purchase.event.ticket.alert.limit',
+                                    { value: environment.PURCHASE_ITEM_MAX_LENGTH }
+                                )
+                            });
+                            return;
+                        }
                         this.getScreeningEventOffers(reservationTickets);
                     }
                 }

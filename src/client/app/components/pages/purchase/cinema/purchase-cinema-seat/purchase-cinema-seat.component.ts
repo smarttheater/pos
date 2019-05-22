@@ -6,6 +6,7 @@ import { select, Store } from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
 import { Observable, race } from 'rxjs';
 import { take, tap } from 'rxjs/operators';
+import { environment } from '../../../../../../environments/environment';
 import { IReservationSeat, Reservation, SeatStatus } from '../../../../../models';
 import { UtilService } from '../../../../../services';
 import { purchaseAction } from '../../../../../store/actions';
@@ -136,6 +137,16 @@ export class PurchaseCinemaSeatComponent implements OnInit {
                 this.util.openAlert({
                     title: this.translate.instant('common.error'),
                     body: this.translate.instant('purchase.cinema.seat.alert.unselected')
+                });
+                return;
+            }
+            if (purchase.reservations.length === 0) {
+                this.util.openAlert({
+                    title: this.translate.instant('common.error'),
+                    body: this.translate.instant(
+                        'purchase.cinema.seat.alert.limit',
+                        { value: environment.PURCHASE_ITEM_MAX_LENGTH }
+                    )
                 });
                 return;
             }

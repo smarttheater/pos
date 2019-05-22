@@ -4,6 +4,7 @@ import * as moment from 'moment';
 import { BsModalRef } from 'ngx-bootstrap';
 import { getTicketPrice } from '../../../../../functions';
 import { IReservationTicket } from '../../../../../models';
+import { environment } from '../../../../../../environments/environment';
 
 @Component({
     selector: 'app-purchase-event-ticket-modal',
@@ -34,7 +35,7 @@ export class PurchaseEventTicketModalComponent implements OnInit {
             return movieTicketTypeChargeSpecification === undefined;
         });
         this.values = [];
-        const limit = 10;
+        const limit = Number(environment.PURCHASE_ITEM_MAX_LENGTH);
         for (let i = 0; i < limit; i++) {
             this.values.push(i + 1);
         }
