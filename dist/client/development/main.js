@@ -10003,7 +10003,8 @@ function drawCanvas(args) {
                                 case 'date':
                                     value = "(" + moment__WEBPACK_IMPORTED_MODULE_1__().format('YYYY/MM/DD HH:mm') + " \u767A\u5238)";
                                     break;
-                                case 'startDate' || false:
+                                case 'startDate':
+                                case 'endDate':
                                     value = "" + moment__WEBPACK_IMPORTED_MODULE_1__(data[text.name]).format(text.value);
                                     break;
                                 case 'eventNameJa':
@@ -10090,7 +10091,8 @@ function createPrintCanvas(args) {
                         confirmationNumber: String(args.order.confirmationNumber),
                         orderNumber: args.order.orderNumber,
                         ticketNumber: acceptedOffer.itemOffered.id,
-                        qrcode: args.qrcode
+                        qrcode: args.qrcode,
+                        index: args.index
                     };
                     printData = args.printData;
                     return [4 /*yield*/, drawCanvas({ data: data, printData: printData })];
@@ -10132,7 +10134,8 @@ function createTestPrintCanvas(args) {
                         confirmationNumber: '12345678',
                         orderNumber: 'TEST-123456-123456',
                         ticketNumber: 'TEST-123456-123456-00',
-                        qrcode: 'TEST-123456-123456'
+                        qrcode: 'TEST-123456-123456',
+                        index: 0
                     };
                     return [4 /*yield*/, drawCanvas({ printData: printData, data: data })];
                 case 1:
@@ -14924,7 +14927,7 @@ var OrderEffects = /** @class */ (function () {
          * print
          */
         this.print = this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_actions__WEBPACK_IMPORTED_MODULE_9__["orderAction"].ActionTypes.Print), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["map"])(function (action) { return action.payload; }), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["mergeMap"])(function (payload) { return __awaiter(_this, void 0, void 0, function () {
-            var orders, printer, pos, authorizeOrders, _loop_1, _i, orders_2, order, printData, testFlg, canvasList, canvas, _a, authorizeOrders_1, authorizeOrder, _b, _c, acceptedOffer, itemOffered, order, qrcode, additionalProperty, isDisplayQrcode, encyptText, encryptionEncodeResult, canvas, _d, domList, error_5;
+            var orders, printer, pos, authorizeOrders, _loop_1, _i, orders_2, order, printData, testFlg, canvasList, canvas, _a, authorizeOrders_1, authorizeOrder, index, _b, _c, acceptedOffer, itemOffered, order, qrcode, additionalProperty, isDisplayQrcode, encyptText, encryptionEncodeResult, canvas, _d, domList, error_5;
             var _this = this;
             return __generator(this, function (_e) {
                 switch (_e.label) {
@@ -14998,6 +15001,7 @@ var OrderEffects = /** @class */ (function () {
                     case 9:
                         if (!(_a < authorizeOrders_1.length)) return [3 /*break*/, 16];
                         authorizeOrder = authorizeOrders_1[_a];
+                        index = 0;
                         _b = 0, _c = authorizeOrder.acceptedOffers;
                         _e.label = 10;
                     case 10:
@@ -15032,10 +15036,11 @@ var OrderEffects = /** @class */ (function () {
                             // QRコードカスタム文字列
                             qrcode = _environments_environment__WEBPACK_IMPORTED_MODULE_5__["environment"].PRINT_QRCODE_CUSTOM;
                         }
-                        return [4 /*yield*/, Object(_functions__WEBPACK_IMPORTED_MODULE_6__["createPrintCanvas"])({ printData: printData, order: order, acceptedOffer: acceptedOffer, pos: pos, qrcode: qrcode })];
+                        return [4 /*yield*/, Object(_functions__WEBPACK_IMPORTED_MODULE_6__["createPrintCanvas"])({ printData: printData, order: order, acceptedOffer: acceptedOffer, pos: pos, qrcode: qrcode, index: index })];
                     case 13:
                         canvas = _e.sent();
                         canvasList.push(canvas);
+                        index++;
                         _e.label = 14;
                     case 14:
                         _b++;
