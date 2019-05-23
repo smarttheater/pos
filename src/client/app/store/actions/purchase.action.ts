@@ -529,6 +529,7 @@ export class AuthorizeAnyPayment implements Action {
     constructor(public payload: {
         transaction: factory.transaction.placeOrder.ITransaction;
         typeOf: factory.paymentMethodType | string;
+        name?: string;
         amount: number;
         additionalProperty: { name: string; value: any; }[];
     }) { }

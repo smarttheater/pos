@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { factory } from '@cinerino/api-javascript-client';
 import { Actions, ofType } from '@ngrx/effects';
 import { select, Store } from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
@@ -49,7 +48,7 @@ export class PurchaseCompleteComponent implements OnInit {
                 this.router.navigate(['/error']);
                 return;
             }
-            if (this.isRegiGrow(purchase.order)) {
+            if (purchase.order.paymentMethods.find(p => p.name === 'RegiGrow') !== undefined) {
                 const canvas = document.createElement('canvas');
                 const qrcodeText = `${purchase.order.orderNumber}=${purchase.order.price}`;
                 qrcode.toCanvas(canvas, qrcodeText).then(() => {
@@ -108,17 +107,6 @@ export class PurchaseCompleteComponent implements OnInit {
             })
         );
         race(success, fail).pipe(take(1)).subscribe();
-    }
-
-    private isRegiGrow(order: factory.order.IOrder) {
-        const findResult = order.paymentMethods.find((p) => {
-            const findPropertyResult = p.additionalProperty.find(
-                a => a.name === 'paymentMethodName' && a.value === 'RegiGrow'
-            );
-            return (findPropertyResult !== undefined);
-        });
-
-        return (findResult !== undefined);
     }
 
 }

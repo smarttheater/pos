@@ -97,14 +97,10 @@ export class PurchaseConfirmComponent implements OnInit {
                     value: Number(this.depositAmount) - this.amount
                 });
             }
-            if (purchase.paymentMethod.paymentMethodType === factory.paymentMethodType.Others
-                && purchase.paymentMethod.paymentMethodName === 'RegiGrow') {
-                // RegiGrow
-                additionalProperty.push({ name: 'paymentMethodName', value: purchase.paymentMethod.paymentMethodName });
-            }
             this.store.dispatch(new purchaseAction.AuthorizeAnyPayment({
                 transaction: transaction,
                 typeOf: purchase.paymentMethod.paymentMethodType,
+                name: purchase.paymentMethod.paymentMethodName,
                 amount: amount,
                 additionalProperty: additionalProperty
             }));

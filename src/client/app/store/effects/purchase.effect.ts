@@ -492,12 +492,13 @@ export class PurchaseEffects {
             const transaction = payload.transaction;
             const typeOf = payload.typeOf;
             const amount = payload.amount;
+            const name = payload.name;
             const additionalProperty = payload.additionalProperty;
             try {
                 await this.cinerino.getServices();
                 const authorizeAnyPayment =
                     await this.cinerino.payment.authorizeAnyPayment({
-                        object: { typeOf, amount, additionalProperty },
+                        object: { typeOf, name, amount, additionalProperty },
                         purpose: transaction
                     });
                 return new purchaseAction.AuthorizeAnyPaymentSuccess({ authorizeAnyPayment });

@@ -5385,7 +5385,7 @@ var PurchaseCompleteComponent = /** @class */ (function () {
                 _this.router.navigate(['/error']);
                 return;
             }
-            if (_this.isRegiGrow(purchase.order)) {
+            if (purchase.order.paymentMethods.find(function (p) { return p.name === 'RegiGrow'; }) !== undefined) {
                 var canvas_1 = document.createElement('canvas');
                 var qrcodeText = purchase.order.orderNumber + "=" + purchase.order.price;
                 qrcode__WEBPACK_IMPORTED_MODULE_6__["toCanvas"](canvas_1, qrcodeText).then(function () {
@@ -5432,13 +5432,6 @@ var PurchaseCompleteComponent = /** @class */ (function () {
             }).unsubscribe();
         }));
         Object(rxjs__WEBPACK_IMPORTED_MODULE_7__["race"])(success, fail).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_8__["take"])(1)).subscribe();
-    };
-    PurchaseCompleteComponent.prototype.isRegiGrow = function (order) {
-        var findResult = order.paymentMethods.find(function (p) {
-            var findPropertyResult = p.additionalProperty.find(function (a) { return a.name === 'paymentMethodName' && a.value === 'RegiGrow'; });
-            return (findPropertyResult !== undefined);
-        });
-        return (findResult !== undefined);
     };
     PurchaseCompleteComponent = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
@@ -5597,14 +5590,10 @@ var PurchaseConfirmComponent = /** @class */ (function () {
                     value: Number(_this.depositAmount) - _this.amount
                 });
             }
-            if (purchase.paymentMethod.paymentMethodType === _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_2__["factory"].paymentMethodType.Others
-                && purchase.paymentMethod.paymentMethodName === 'RegiGrow') {
-                // RegiGrow
-                additionalProperty.push({ name: 'paymentMethodName', value: purchase.paymentMethod.paymentMethodName });
-            }
             _this.store.dispatch(new _store_actions__WEBPACK_IMPORTED_MODULE_13__["purchaseAction"].AuthorizeAnyPayment({
                 transaction: transaction,
                 typeOf: purchase.paymentMethod.paymentMethodType,
+                name: purchase.paymentMethod.paymentMethodName,
                 amount: amount,
                 additionalProperty: additionalProperty
             }));
@@ -15804,13 +15793,14 @@ var PurchaseEffects = /** @class */ (function () {
          * AuthorizeAnyPayment
          */
         this.addAuthorizeAnyPayment = this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_3__["ofType"])(_actions__WEBPACK_IMPORTED_MODULE_9__["purchaseAction"].ActionTypes.AuthorizeAnyPayment), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["map"])(function (action) { return action.payload; }), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["mergeMap"])(function (payload) { return __awaiter(_this, void 0, void 0, function () {
-            var transaction, typeOf, amount, additionalProperty, authorizeAnyPayment, error_13;
+            var transaction, typeOf, amount, name, additionalProperty, authorizeAnyPayment, error_13;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
                         transaction = payload.transaction;
                         typeOf = payload.typeOf;
                         amount = payload.amount;
+                        name = payload.name;
                         additionalProperty = payload.additionalProperty;
                         _a.label = 1;
                     case 1:
@@ -15819,7 +15809,7 @@ var PurchaseEffects = /** @class */ (function () {
                     case 2:
                         _a.sent();
                         return [4 /*yield*/, this.cinerino.payment.authorizeAnyPayment({
-                                object: { typeOf: typeOf, amount: amount, additionalProperty: additionalProperty },
+                                object: { typeOf: typeOf, name: name, amount: amount, additionalProperty: additionalProperty },
                                 purpose: transaction
                             })];
                     case 3:
