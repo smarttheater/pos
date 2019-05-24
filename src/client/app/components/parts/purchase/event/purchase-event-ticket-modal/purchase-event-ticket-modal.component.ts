@@ -2,9 +2,9 @@ import { Component, Input, OnInit } from '@angular/core';
 import { factory } from '@cinerino/api-javascript-client';
 import * as moment from 'moment';
 import { BsModalRef } from 'ngx-bootstrap';
+import { environment } from '../../../../../../environments/environment';
 import { getTicketPrice } from '../../../../../functions';
 import { IReservationTicket } from '../../../../../models';
-import { environment } from '../../../../../../environments/environment';
 
 @Component({
     selector: 'app-purchase-event-ticket-modal',

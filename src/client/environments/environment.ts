@@ -29,6 +29,8 @@ interface IEnvironment {
     PURCHASE_SCHEDULE_STATUS_THRESHOLD_VALUE: string;
     PURCHASE_SCHEDULE_STATUS_THRESHOLD_UNIT: string;
     PURCHASE_COMPLETE_MAIL_CUSTOM: boolean;
+    PURCHASE_TERMS: boolean;
+    PURCHASE_WARNING: boolean;
     INQUIRY_CANCEL: boolean;
     INQUIRY_QRCODE: boolean;
     INQUIRY_PRINT: boolean;
@@ -68,6 +70,8 @@ const defaultEnvironment: IEnvironment = {
     PURCHASE_SCHEDULE_STATUS_THRESHOLD_VALUE: '30',
     PURCHASE_SCHEDULE_STATUS_THRESHOLD_UNIT: '%',
     PURCHASE_COMPLETE_MAIL_CUSTOM: false,
+    PURCHASE_TERMS: false,
+    PURCHASE_WARNING: false,
     INQUIRY_CANCEL: false,
     INQUIRY_QRCODE: false,
     INQUIRY_PRINT: false,

@@ -28,6 +28,7 @@ export class PurchaseEventScheduleComponent implements OnInit, OnDestroy {
     public moment: typeof moment = moment;
     private updateTimer: any;
     public scheduleDate: Date;
+    public environment = environment;
     @ViewChild('datepicker')
     private datepicker: BsDatepickerDirective;
 

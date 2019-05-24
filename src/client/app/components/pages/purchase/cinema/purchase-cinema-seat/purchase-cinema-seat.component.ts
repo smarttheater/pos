@@ -21,6 +21,8 @@ export class PurchaseCinemaSeatComponent implements OnInit {
     public purchase: Observable<reducers.IPurchaseState>;
     public user: Observable<reducers.IUserState>;
     public isLoading: Observable<boolean>;
+    public environment = environment;
+
     constructor(
         private store: Store<reducers.IState>,
         private actions: Actions,

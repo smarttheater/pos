@@ -86,6 +86,14 @@
             </div>
         </div>
 
+        <div *ngIf="environment.PURCHASE_WARNING">
+            <h2 class="text-large mb-4 text-center font-weight-bold">{{ 'purchase.confirm.warning' | translate }}</h2>
+            <div class="mb-4">
+                <app-purchase-warning [language]="(user | async).language"
+                    [screeningEvent]="(purchase | async).screeningEvent"></app-purchase-warning>
+            </div>
+        </div>
+
         <div class="buttons mx-auto text-center">
             <button type="button" class="btn btn-primary btn-block py-3 mb-3" [disabled]="isLoading | async"
                 (click)="onSubmit()">{{ 'purchase.confirm.next' | translate }}</button>
