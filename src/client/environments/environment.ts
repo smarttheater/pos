@@ -39,6 +39,7 @@ interface IEnvironment {
     ORDER_PRINT: boolean;
     PRINT_QRCODE_TYPE: string;
     PRINT_QRCODE_CUSTOM: string;
+    PRINT_LOADING: boolean;
     SETTING_DEVELOP_OPTION: boolean;
 }
 
@@ -80,6 +81,7 @@ const defaultEnvironment: IEnvironment = {
     ORDER_PRINT: false,
     PRINT_QRCODE_TYPE: 'token',
     PRINT_QRCODE_CUSTOM: '',
+    PRINT_LOADING: true,
     SETTING_DEVELOP_OPTION: false
 };
 

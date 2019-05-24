@@ -5001,16 +5001,19 @@ var PurchaseEventTicketComponent = /** @class */ (function () {
      */
     PurchaseEventTicketComponent.prototype.selectSchedule = function (screeningEvent) {
         var _this = this;
-        this.user.subscribe(function (user) {
-            if (!user.isPurchaseCart) {
-                _this.util.openAlert({
-                    title: _this.translate.instant('common.error'),
-                    body: _this.translate.instant('purchase.event.ticket.alert.cart')
-                });
-                return;
-            }
-            _this.store.dispatch(new _store_actions__WEBPACK_IMPORTED_MODULE_12__["purchaseAction"].SelectSchedule({ screeningEvent: screeningEvent }));
-            _this.getTickets();
+        this.purchase.subscribe(function (purchase) {
+            _this.user.subscribe(function (user) {
+                if (purchase.authorizeSeatReservations.length > 0
+                    && !user.isPurchaseCart) {
+                    _this.util.openAlert({
+                        title: _this.translate.instant('common.error'),
+                        body: _this.translate.instant('purchase.event.ticket.alert.cart')
+                    });
+                    return;
+                }
+                _this.store.dispatch(new _store_actions__WEBPACK_IMPORTED_MODULE_12__["purchaseAction"].SelectSchedule({ screeningEvent: screeningEvent }));
+                _this.getTickets();
+            }).unsubscribe();
         }).unsubscribe();
     };
     /**
@@ -15236,6 +15239,14 @@ var OrderEffects = /** @class */ (function () {
                             && _environments_environment__WEBPACK_IMPORTED_MODULE_5__["environment"].PRINT_QRCODE_TYPE === _models__WEBPACK_IMPORTED_MODULE_7__["PrintQrcodeType"].Custom) {
                             // QRコードカスタム文字列
                             qrcode = _environments_environment__WEBPACK_IMPORTED_MODULE_5__["environment"].PRINT_QRCODE_CUSTOM;
+                            qrcode = qrcode
+                                .replace(/\{\{ orderDate \}\}/g, moment__WEBPACK_IMPORTED_MODULE_3__(order.orderDate).format('YYMMDD'));
+                            qrcode = qrcode
+                                .replace(/\{\{ confirmationNumber \}\}/g, order.confirmationNumber);
+                            qrcode = qrcode
+                                .replace(/\{\{ index \}\}/g, String(index));
+                            qrcode = qrcode
+                                .replace(/\{\{ orderNumber \}\}/g, order.orderNumber);
                         }
                         return [4 /*yield*/, Object(_functions__WEBPACK_IMPORTED_MODULE_6__["createPrintCanvas"])({ printData: printData, order: order, acceptedOffer: acceptedOffer, pos: pos, qrcode: qrcode, index: index })];
                     case 13:
@@ -15722,6 +15733,16 @@ var PurchaseEffects = /** @class */ (function () {
                             })];
                     case 2:
                         screeningEventTicketOffers = _a.sent();
+                        // 券種コード順（昇順）へソート
+                        screeningEventTicketOffers = screeningEventTicketOffers.sort(function (a, b) {
+                            if (a.identifier > b.identifier) {
+                                return 1;
+                            }
+                            if (a.identifier < b.identifier) {
+                                return -1;
+                            }
+                            return 0;
+                        });
                         return [2 /*return*/, new _actions__WEBPACK_IMPORTED_MODULE_9__["purchaseAction"].GetTicketListSuccess({ screeningEventTicketOffers: screeningEventTicketOffers })];
                     case 3:
                         error_7 = _a.sent();
@@ -16519,7 +16540,8 @@ function reducer(state, action) {
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "orderInitialState", function() { return orderInitialState; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "reducer", function() { return reducer; });
-/* harmony import */ var _actions__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../actions */ "./app/store/actions/index.ts");
+/* harmony import */ var _environments_environment__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../environments/environment */ "./environments/environment.ts");
+/* harmony import */ var _actions__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../actions */ "./app/store/actions/index.ts");
 var __assign = (undefined && undefined.__assign) || function () {
     __assign = Object.assign || function(t) {
         for (var s, i = 1, n = arguments.length; i < n; i++) {
@@ -16531,6 +16553,7 @@ var __assign = (undefined && undefined.__assign) || function () {
     };
     return __assign.apply(this, arguments);
 };
+
 
 var orderInitialState = {
     orders: [],
@@ -16544,7 +16567,7 @@ var orderInitialState = {
  */
 function reducer(state, action) {
     switch (action.type) {
-        case _actions__WEBPACK_IMPORTED_MODULE_0__["orderAction"].ActionTypes.Delete: {
+        case _actions__WEBPACK_IMPORTED_MODULE_1__["orderAction"].ActionTypes.Delete: {
             state.orderData = {
                 orders: [],
                 totalCount: 0,
@@ -16552,10 +16575,10 @@ function reducer(state, action) {
             };
             return __assign({}, state);
         }
-        case _actions__WEBPACK_IMPORTED_MODULE_0__["orderAction"].ActionTypes.Search: {
+        case _actions__WEBPACK_IMPORTED_MODULE_1__["orderAction"].ActionTypes.Search: {
             return __assign({}, state, { loading: true, process: 'orderAction.Search' });
         }
-        case _actions__WEBPACK_IMPORTED_MODULE_0__["orderAction"].ActionTypes.SearchSuccess: {
+        case _actions__WEBPACK_IMPORTED_MODULE_1__["orderAction"].ActionTypes.SearchSuccess: {
             var searchResult = action.payload.searchResult;
             var limit = action.payload.limit;
             state.orderData.orders = searchResult.data;
@@ -16563,51 +16586,51 @@ function reducer(state, action) {
             state.orderData.pageCount = Math.ceil(searchResult.totalCount / limit);
             return __assign({}, state, { loading: false, process: '', error: null });
         }
-        case _actions__WEBPACK_IMPORTED_MODULE_0__["orderAction"].ActionTypes.SearchFail: {
+        case _actions__WEBPACK_IMPORTED_MODULE_1__["orderAction"].ActionTypes.SearchFail: {
             var error = action.payload.error;
             return __assign({}, state, { loading: false, process: '', error: JSON.stringify(error) });
         }
-        case _actions__WEBPACK_IMPORTED_MODULE_0__["orderAction"].ActionTypes.Cancel: {
+        case _actions__WEBPACK_IMPORTED_MODULE_1__["orderAction"].ActionTypes.Cancel: {
             return __assign({}, state, { loading: true, process: 'orderAction.Cancel' });
         }
-        case _actions__WEBPACK_IMPORTED_MODULE_0__["orderAction"].ActionTypes.CancelSuccess: {
+        case _actions__WEBPACK_IMPORTED_MODULE_1__["orderAction"].ActionTypes.CancelSuccess: {
             return __assign({}, state, { loading: false, process: '', error: null });
         }
-        case _actions__WEBPACK_IMPORTED_MODULE_0__["orderAction"].ActionTypes.CancelFail: {
+        case _actions__WEBPACK_IMPORTED_MODULE_1__["orderAction"].ActionTypes.CancelFail: {
             var error = action.payload.error;
             return __assign({}, state, { loading: false, process: '', error: JSON.stringify(error) });
         }
-        case _actions__WEBPACK_IMPORTED_MODULE_0__["orderAction"].ActionTypes.Inquiry: {
+        case _actions__WEBPACK_IMPORTED_MODULE_1__["orderAction"].ActionTypes.Inquiry: {
             return __assign({}, state, { loading: true, process: 'orderAction.Inquiry' });
         }
-        case _actions__WEBPACK_IMPORTED_MODULE_0__["orderAction"].ActionTypes.InquirySuccess: {
+        case _actions__WEBPACK_IMPORTED_MODULE_1__["orderAction"].ActionTypes.InquirySuccess: {
             var order = action.payload.order;
             state.orderData.order = order;
             return __assign({}, state, { loading: false, process: '', error: null });
         }
-        case _actions__WEBPACK_IMPORTED_MODULE_0__["orderAction"].ActionTypes.InquiryFail: {
+        case _actions__WEBPACK_IMPORTED_MODULE_1__["orderAction"].ActionTypes.InquiryFail: {
             var error = action.payload.error;
             return __assign({}, state, { loading: false, process: '', error: JSON.stringify(error) });
         }
-        case _actions__WEBPACK_IMPORTED_MODULE_0__["orderAction"].ActionTypes.OrderAuthorize: {
+        case _actions__WEBPACK_IMPORTED_MODULE_1__["orderAction"].ActionTypes.OrderAuthorize: {
             return __assign({}, state, { loading: true, process: 'orderAction.OrderAuthorize' });
         }
-        case _actions__WEBPACK_IMPORTED_MODULE_0__["orderAction"].ActionTypes.OrderAuthorizeSuccess: {
+        case _actions__WEBPACK_IMPORTED_MODULE_1__["orderAction"].ActionTypes.OrderAuthorizeSuccess: {
             var authorizeOrder = action.payload.order;
             state.orderData.order = authorizeOrder;
             return __assign({}, state, { loading: false, process: '', error: null });
         }
-        case _actions__WEBPACK_IMPORTED_MODULE_0__["orderAction"].ActionTypes.OrderAuthorizeFail: {
+        case _actions__WEBPACK_IMPORTED_MODULE_1__["orderAction"].ActionTypes.OrderAuthorizeFail: {
             var error = action.payload.error;
             return __assign({}, state, { loading: false, process: '', error: JSON.stringify(error) });
         }
-        case _actions__WEBPACK_IMPORTED_MODULE_0__["orderAction"].ActionTypes.Print: {
-            return __assign({}, state, { loading: true, process: 'orderAction.Print' });
+        case _actions__WEBPACK_IMPORTED_MODULE_1__["orderAction"].ActionTypes.Print: {
+            return __assign({}, state, { loading: _environments_environment__WEBPACK_IMPORTED_MODULE_0__["environment"].PRINT_LOADING, process: 'orderAction.Print' });
         }
-        case _actions__WEBPACK_IMPORTED_MODULE_0__["orderAction"].ActionTypes.PrintSuccess: {
+        case _actions__WEBPACK_IMPORTED_MODULE_1__["orderAction"].ActionTypes.PrintSuccess: {
             return __assign({}, state, { loading: false, process: '', error: null });
         }
-        case _actions__WEBPACK_IMPORTED_MODULE_0__["orderAction"].ActionTypes.PrintFail: {
+        case _actions__WEBPACK_IMPORTED_MODULE_1__["orderAction"].ActionTypes.PrintFail: {
             var error = action.payload.error;
             return __assign({}, state, { loading: false, process: '', error: JSON.stringify(error) });
         }
@@ -17089,6 +17112,7 @@ function getInitialState() {
         : data.userData.language;
     var reservations = data.purchaseData.reservations.map(function (reservation) { return new _models__WEBPACK_IMPORTED_MODULE_1__["Reservation"](reservation); });
     data.purchaseData.reservations = reservations;
+    data.loading = false;
     return data;
 }
 /**
@@ -17321,6 +17345,7 @@ var defaultEnvironment = {
     ORDER_PRINT: false,
     PRINT_QRCODE_TYPE: 'token',
     PRINT_QRCODE_CUSTOM: '',
+    PRINT_LOADING: true,
     SETTING_DEVELOP_OPTION: false
 };
 var environment = Object.assign(defaultEnvironment, window.environment);

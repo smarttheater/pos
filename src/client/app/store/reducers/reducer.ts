@@ -57,6 +57,7 @@ function getInitialState(): IState {
         : data.userData.language;
     const reservations = data.purchaseData.reservations.map((reservation: Reservation) => new Reservation(reservation));
     data.purchaseData.reservations = reservations;
+    data.loading = false;
 
     return data;
 }
