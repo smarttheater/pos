@@ -3603,7 +3603,7 @@ var PurchaseCinemaCartComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"contents-width mx-auto px-3 py-5\">\n    <h2 class=\"text-large mb-4 text-center font-weight-bold\">{{ 'purchase.cinema.schedule.title' | translate }}</h2>\n    <p class=\"mb-4 text-md-center\" [innerHTML]=\"'purchase.cinema.schedule.read' | translate\"></p>\n    <div class=\"mb-3\">\n        <input type=\"text\" placeholder=\"Datepicker\" class=\"form-control\" bsDatepicker [(ngModel)]=\"scheduleDate\"\n            [bsConfig]=\"{ dateInputFormat: 'YYYY/MM/DD', adaptivePosition: true, showWeekNumbers: false }\"\n            (bsValueChange)=\"selectDate($event)\" readonly (click)=\"setDatePicker()\">\n        <!-- <input type=\"date\" class=\"form-control rounded-0\" name=\"date\" [(ngModel)]=\"scheduleDate\"\n            (change)=\"selectDate()\"> -->\n    </div>\n    <p *ngIf=\"(purchase | async).scheduleDate\" class=\"text-primary text-large mb-3\">\n        {{ (purchase | async).scheduleDate | formatDate: 'YYYY/MM/DD (ddd)' }}\n    </p>\n    <p *ngIf=\"screeningWorkEvents.length === 0\" class=\"mb-3\" [innerHTML]=\"'purchase.cinema.schedule.notfound' | translate\"></p>\n    <app-purchase-cinema-performance *ngFor=\"let screeningWorkEvent of screeningWorkEvents\"\n        [screeningWorkEvent]=\"screeningWorkEvent\" (select)=\"selectSchedule($event)\" class=\"mb-3\">\n    </app-purchase-cinema-performance>\n</div>"
+module.exports = "<div class=\"contents-width mx-auto px-3 py-5\">\n    <h2 class=\"text-large mb-4 text-center font-weight-bold\">{{ 'purchase.cinema.schedule.title' | translate }}</h2>\n    <p class=\"mb-4 text-md-center\" [innerHTML]=\"'purchase.cinema.schedule.read' | translate\"></p>\n    <div class=\"mb-3\">\n        <input type=\"text\" placeholder=\"Datepicker\" class=\"form-control\" #datepicker=\"bsDatepicker\" bsDatepicker [(ngModel)]=\"scheduleDate\"\n            [bsConfig]=\"{ dateInputFormat: 'YYYY/MM/DD', adaptivePosition: true, showWeekNumbers: false }\"\n            (bsValueChange)=\"selectDate($event)\" readonly (click)=\"setDatePicker()\" (onShown)=\"onShowPicker($event)\">\n        <!-- <input type=\"date\" class=\"form-control rounded-0\" name=\"date\" [(ngModel)]=\"scheduleDate\"\n            (change)=\"selectDate()\"> -->\n    </div>\n    <p *ngIf=\"(purchase | async).scheduleDate\" class=\"text-primary text-large mb-3\">\n        {{ (purchase | async).scheduleDate | formatDate: 'YYYY/MM/DD (ddd)' }}\n    </p>\n    <p *ngIf=\"screeningWorkEvents.length === 0\" class=\"mb-3\" [innerHTML]=\"'purchase.cinema.schedule.notfound' | translate\"></p>\n    <app-purchase-cinema-performance *ngFor=\"let screeningWorkEvent of screeningWorkEvents\"\n        [screeningWorkEvent]=\"screeningWorkEvent\" (select)=\"selectSchedule($event)\" class=\"mb-3\">\n    </app-purchase-cinema-performance>\n</div>"
 
 /***/ }),
 
@@ -3928,12 +3928,37 @@ var PurchaseCinemaScheduleComponent = /** @class */ (function () {
             }).unsubscribe();
         }).unsubscribe();
     };
+    /**
+     * Datepicker言語設定
+     */
     PurchaseCinemaScheduleComponent.prototype.setDatePicker = function () {
         var _this = this;
         this.user.subscribe(function (user) {
             _this.localeService.use(user.language);
         }).unsubscribe();
     };
+    /**
+     * iOS bugfix（2回タップしないと選択できない）
+     */
+    PurchaseCinemaScheduleComponent.prototype.onShowPicker = function (container) {
+        var _this = this;
+        var dayHoverHandler = container.dayHoverHandler;
+        var hoverWrapper = function (event) {
+            var cell = event.cell, isHovered = event.isHovered;
+            if ((isHovered &&
+                !!navigator.platform &&
+                /iPad|iPhone|iPod/.test(navigator.platform)) &&
+                'ontouchstart' in window) {
+                _this.datepicker._datepickerRef.instance.daySelectHandler(cell);
+            }
+            return dayHoverHandler(event);
+        };
+        container.dayHoverHandler = hoverWrapper;
+    };
+    __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ViewChild"])('datepicker'),
+        __metadata("design:type", ngx_bootstrap__WEBPACK_IMPORTED_MODULE_7__["BsDatepickerDirective"])
+    ], PurchaseCinemaScheduleComponent.prototype, "datepicker", void 0);
     PurchaseCinemaScheduleComponent = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
             selector: 'app-purchase-cinema-schedule',
@@ -4462,7 +4487,7 @@ var PurchaseCinemaTicketComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"contents-width mx-auto px-3 pt-5\">\n    <h2 class=\"text-large mb-4 text-center font-weight-bold\">{{ 'purchase.event.schedule.title' | translate }}</h2>\n    <p class=\"mb-4 text-md-center\" [innerHTML]=\"'purchase.event.schedule.read' | translate\"></p>\n</div>\n<div class=\"contents-width mx-auto p-3\">\n    <div class=\"mb-3\">\n        <input type=\"text\" placeholder=\"Datepicker\" class=\"form-control\" bsDatepicker [(ngModel)]=\"scheduleDate\"\n            [bsConfig]=\"{ dateInputFormat: 'YYYY/MM/DD', adaptivePosition: true, showWeekNumbers: false }\"\n            (bsValueChange)=\"selectDate($event)\" readonly (click)=\"setDatePicker()\">\n        <!-- <input type=\"date\" class=\"form-control rounded-0\" name=\"date\" [(ngModel)]=\"scheduleDate\"\n            (change)=\"selectDate()\"> -->\n    </div>\n    <div class=\"mb-4\">\n        <p *ngIf=\"(purchase | async)?.scheduleDate\" class=\"text-primary text-large mb-3\">\n            {{ 'purchase.event.schedule.selectedDate' | translate: {value: (purchase | async).scheduleDate | formatDate: 'YYYY/MM/DD (ddd)'} }}\n        </p>\n        <p *ngIf=\"screeningWorkEvents.length === 0\" class=\"mb-3\" [innerHTML]=\"'purchase.event.schedule.notfound' | translate\"></p>\n        <app-purchase-event-performance-confirm *ngFor=\"let screeningWorkEvent of screeningWorkEvents\"\n            [screeningWorkEvent]=\"screeningWorkEvent\" [readonly]=\"true\" (select)=\"selectSchedule($event)\" class=\"mb-3\">\n        </app-purchase-event-performance-confirm>\n    </div>\n\n    <h2 class=\"text-large mb-4 text-center font-weight-bold\">{{ 'purchase.event.schedule.terms' | translate }}</h2>\n    <div class=\"mb-4\">\n        <app-purchase-terms [language]=\"(user | async).language\"></app-purchase-terms>\n    </div>\n\n    <div class=\"buttons mx-auto text-center\">\n        <button type=\"button\" class=\"btn btn-primary btn-block py-3 mb-3\" [disabled]=\"screeningWorkEvents.length === 0\"\n            (click)=\"onSubmit()\">{{ 'purchase.event.schedule.next' | translate }}</button>\n        <!-- <button type=\"button\" class=\"btn btn-link\"\n            routerLink=\"/purchase/event/schedule\">{{ 'purchase.event.schedule.prev' | translate }}</button> -->\n    </div>\n</div>"
+module.exports = "<div class=\"contents-width mx-auto px-3 pt-5\">\n    <h2 class=\"text-large mb-4 text-center font-weight-bold\">{{ 'purchase.event.schedule.title' | translate }}</h2>\n    <p class=\"mb-4 text-md-center\" [innerHTML]=\"'purchase.event.schedule.read' | translate\"></p>\n</div>\n<div class=\"contents-width mx-auto p-3\">\n    <div class=\"mb-3\">\n        <input type=\"text\" placeholder=\"Datepicker\" class=\"form-control\" #datepicker=\"bsDatepicker\" bsDatepicker [(ngModel)]=\"scheduleDate\"\n            [bsConfig]=\"{ dateInputFormat: 'YYYY/MM/DD', adaptivePosition: true, showWeekNumbers: false }\"\n            (bsValueChange)=\"selectDate($event)\" readonly (click)=\"setDatePicker()\" (onShown)=\"onShowPicker($event)\">\n        <!-- <input type=\"date\" class=\"form-control rounded-0\" name=\"date\" [(ngModel)]=\"scheduleDate\"\n            (change)=\"selectDate()\"> -->\n    </div>\n    <div class=\"mb-4\">\n        <p *ngIf=\"(purchase | async)?.scheduleDate\" class=\"text-primary text-large mb-3\">\n            {{ 'purchase.event.schedule.selectedDate' | translate: {value: (purchase | async).scheduleDate | formatDate: 'YYYY/MM/DD (ddd)'} }}\n        </p>\n        <p *ngIf=\"screeningWorkEvents.length === 0\" class=\"mb-3\" [innerHTML]=\"'purchase.event.schedule.notfound' | translate\"></p>\n        <app-purchase-event-performance-confirm *ngFor=\"let screeningWorkEvent of screeningWorkEvents\"\n            [screeningWorkEvent]=\"screeningWorkEvent\" [readonly]=\"true\" (select)=\"selectSchedule($event)\" class=\"mb-3\">\n        </app-purchase-event-performance-confirm>\n    </div>\n\n    <h2 class=\"text-large mb-4 text-center font-weight-bold\">{{ 'purchase.event.schedule.terms' | translate }}</h2>\n    <div class=\"mb-4\">\n        <app-purchase-terms [language]=\"(user | async).language\"></app-purchase-terms>\n    </div>\n\n    <div class=\"buttons mx-auto text-center\">\n        <button type=\"button\" class=\"btn btn-primary btn-block py-3 mb-3\" [disabled]=\"screeningWorkEvents.length === 0\"\n            (click)=\"onSubmit()\">{{ 'purchase.event.schedule.next' | translate }}</button>\n        <!-- <button type=\"button\" class=\"btn btn-link\"\n            routerLink=\"/purchase/event/schedule\">{{ 'purchase.event.schedule.prev' | translate }}</button> -->\n    </div>\n</div>"
 
 /***/ }),
 
@@ -4736,12 +4761,37 @@ var PurchaseEventScheduleComponent = /** @class */ (function () {
             });
         });
     };
+    /**
+     * Datepicker言語設定
+     */
     PurchaseEventScheduleComponent.prototype.setDatePicker = function () {
         var _this = this;
         this.user.subscribe(function (user) {
             _this.localeService.use(user.language);
         }).unsubscribe();
     };
+    /**
+     * iOS bugfix（2回タップしないと選択できない）
+     */
+    PurchaseEventScheduleComponent.prototype.onShowPicker = function (container) {
+        var _this = this;
+        var dayHoverHandler = container.dayHoverHandler;
+        var hoverWrapper = function (event) {
+            var cell = event.cell, isHovered = event.isHovered;
+            if ((isHovered &&
+                !!navigator.platform &&
+                /iPad|iPhone|iPod/.test(navigator.platform)) &&
+                'ontouchstart' in window) {
+                _this.datepicker._datepickerRef.instance.daySelectHandler(cell);
+            }
+            return dayHoverHandler(event);
+        };
+        container.dayHoverHandler = hoverWrapper;
+    };
+    __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ViewChild"])('datepicker'),
+        __metadata("design:type", ngx_bootstrap__WEBPACK_IMPORTED_MODULE_6__["BsDatepickerDirective"])
+    ], PurchaseEventScheduleComponent.prototype, "datepicker", void 0);
     PurchaseEventScheduleComponent = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
             selector: 'app-purchase-event-schedule',

@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { factory } from '@cinerino/api-javascript-client';
 import { Actions, ofType } from '@ngrx/effects';
@@ -6,7 +6,9 @@ import { select, Store } from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
 import { SERVICE_UNAVAILABLE, TOO_MANY_REQUESTS } from 'http-status';
 import * as moment from 'moment';
-import { BsLocaleService, BsModalService } from 'ngx-bootstrap';
+import { BsDatepickerDirective, BsLocaleService, BsModalService } from 'ngx-bootstrap';
+import { CellHoverEvent } from 'ngx-bootstrap/datepicker/models';
+import { BsDatepickerContainerComponent } from 'ngx-bootstrap/datepicker/themes/bs/bs-datepicker-container.component';
 import { Observable, race } from 'rxjs';
 import { take, tap } from 'rxjs/operators';
 import { environment } from '../../../../../../environments/environment';
@@ -30,6 +32,8 @@ export class PurchaseCinemaScheduleComponent implements OnInit, OnDestroy {
     public moment: typeof moment = moment;
     public scheduleDate: Date;
     private updateTimer: any;
+    @ViewChild('datepicker')
+    private datepicker: BsDatepickerDirective;
 
     constructor(
         private store: Store<reducers.IState>,
@@ -247,10 +251,33 @@ export class PurchaseCinemaScheduleComponent implements OnInit, OnDestroy {
         }).unsubscribe();
     }
 
+    /**
+     * Datepicker言語設定
+     */
     public setDatePicker() {
         this.user.subscribe((user) => {
             this.localeService.use(user.language);
         }).unsubscribe();
+    }
+
+    /**
+     * iOS bugfix（2回タップしないと選択できない）
+     */
+    public onShowPicker(container: BsDatepickerContainerComponent) {
+        const dayHoverHandler = container.dayHoverHandler;
+        const hoverWrapper = (event: CellHoverEvent) => {
+            const { cell, isHovered } = event;
+            if ((isHovered &&
+                !!navigator.platform &&
+                /iPad|iPhone|iPod/.test(navigator.platform)) &&
+                'ontouchstart' in window
+            ) {
+                (<any>this.datepicker)._datepickerRef.instance.daySelectHandler(cell);
+            }
+
+            return dayHoverHandler(event);
+        };
+        container.dayHoverHandler = hoverWrapper;
     }
 
 }

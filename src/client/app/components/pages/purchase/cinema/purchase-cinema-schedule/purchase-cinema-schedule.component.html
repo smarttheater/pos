@@ -2,9 +2,9 @@
     <h2 class="text-large mb-4 text-center font-weight-bold">{{ 'purchase.cinema.schedule.title' | translate }}</h2>
     <p class="mb-4 text-md-center" [innerHTML]="'purchase.cinema.schedule.read' | translate"></p>
     <div class="mb-3">
-        <input type="text" placeholder="Datepicker" class="form-control" bsDatepicker [(ngModel)]="scheduleDate"
+        <input type="text" placeholder="Datepicker" class="form-control" #datepicker="bsDatepicker" bsDatepicker [(ngModel)]="scheduleDate"
             [bsConfig]="{ dateInputFormat: 'YYYY/MM/DD', adaptivePosition: true, showWeekNumbers: false }"
-            (bsValueChange)="selectDate($event)" readonly (click)="setDatePicker()">
+            (bsValueChange)="selectDate($event)" readonly (click)="setDatePicker()" (onShown)="onShowPicker($event)">
         <!-- <input type="date" class="form-control rounded-0" name="date" [(ngModel)]="scheduleDate"
             (change)="selectDate()"> -->
     </div>
