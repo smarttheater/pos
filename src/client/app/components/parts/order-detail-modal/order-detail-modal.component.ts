@@ -3,7 +3,7 @@ import { factory } from '@cinerino/api-javascript-client';
 import * as moment from 'moment';
 import { BsModalRef } from 'ngx-bootstrap';
 import { environment } from '../../../../environments/environment';
-import { getTicketPrice, IEventOrder, orderToEventOrders } from '../../../functions';
+import { createRegiGrowQrcode, getTicketPrice, IEventOrder, orderToEventOrders } from '../../../functions';
 
 @Component({
     selector: 'app-order-detail-modal',
@@ -16,6 +16,7 @@ export class OrderDetailModalComponent implements OnInit {
     public getTicketPrice = getTicketPrice;
     public eventOrders: IEventOrder[];
     public environment = environment;
+    public regiGrow?: string;
 
     constructor(
         public modal: BsModalRef,
@@ -23,11 +24,17 @@ export class OrderDetailModalComponent implements OnInit {
     ) { }
 
     public ngOnInit() {
+        const order = this.order;
         this.eventOrders = orderToEventOrders({ order: this.order });
         const element: HTMLElement = this.elementRef.nativeElement.querySelector('.scroll-vertical');
         setTimeout(() => {
             element.scrollTop = 0;
         }, 0);
+        if (order.paymentMethods.find(p => p.name === 'RegiGrow') !== undefined) {
+            createRegiGrowQrcode(order).then((code) => {
+                this.regiGrow = code;
+            }).catch(() => { });
+        }
     }
 
 }

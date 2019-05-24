@@ -17,8 +17,7 @@
             <div class="row align-items-center">
                 <p class="col-md-4 mb-2 mb-md-0">{{ 'purchase.complete.regiGrow' | translate }}</p>
                 <p class="col-md-8 text-large text-center text-md-left">
-                    <img *ngIf="regiGrow.qrcode !== ''" class="border" [src]="regiGrow.qrcode">
-                    <span *ngIf="regiGrow.qrcode === ''">{{ 'purchase.complete.alert.regiGrow' | translate }}</span>
+                    <img class="border" [src]="regiGrow">
                 </p>
             </div>
         </div>

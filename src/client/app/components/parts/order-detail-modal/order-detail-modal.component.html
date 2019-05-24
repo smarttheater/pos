@@ -70,6 +70,14 @@
         </div>
         <div class="py-3 border-bottom border-gray">
             <div class="row align-items-center">
+                <p class="mb-2 mb-md-0 col-md-4">[{{ 'common.price' | translate }}]</p>
+                <p class="col-md-8">
+                    {{ order.price | currency : 'JPY' }}
+                </p>
+            </div>
+        </div>
+        <div class="py-3 border-bottom border-gray">
+            <div class="row align-items-center">
                 <p class="mb-2 mb-md-0 col-md-4">[{{ 'common.orderStatus' | translate }}]</p>
                 <p class="col-md-8">{{ order.orderStatus }}</p>
             </div>
@@ -81,17 +89,11 @@
                     <p *ngFor="let paymentMethod of order.paymentMethods">
                         {{ paymentMethod.name }}&nbsp;/&nbsp;{{ paymentMethod.totalPaymentDue.value | currency : 'JPY' }}
                     </p>
+                    <div *ngIf="regiGrow" class="mt-2"><img class="border" [src]="regiGrow"></div>
                 </div>
             </div>
         </div>
-        <div class="py-3 border-bottom border-gray">
-            <div class="row align-items-center">
-                <p class="mb-2 mb-md-0 col-md-4">[{{ 'common.price' | translate }}]</p>
-                <p class="col-md-8">
-                    {{ order.price | currency : 'JPY' }}
-                </p>
-            </div>
-        </div>
+
     </div>
 
     <div class="buttons mx-auto text-center">

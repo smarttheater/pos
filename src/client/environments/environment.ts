@@ -18,6 +18,7 @@ interface IEnvironment {
     BASE_URL: string;
     LANGUAGE: string[];
     PAYMENT_METHOD_TO_USE: string[];
+    REGIGROW_QRCODE: string;
     DISPLAY_TICKETED_SEAT: boolean;
     HEADER_MENU: boolean;
     HEADER_MENU_SCOPE: string[];
@@ -60,6 +61,7 @@ const defaultEnvironment: IEnvironment = {
     BASE_URL: '/purchase/root',
     LANGUAGE: ['ja'],
     PAYMENT_METHOD_TO_USE: [],
+    REGIGROW_QRCODE: '',
     DISPLAY_TICKETED_SEAT: false,
     HEADER_MENU: false,
     HEADER_MENU_SCOPE: [],

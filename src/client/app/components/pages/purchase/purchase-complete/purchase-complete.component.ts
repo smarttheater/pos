@@ -4,11 +4,10 @@ import { Actions, ofType } from '@ngrx/effects';
 import { select, Store } from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
 import * as moment from 'moment';
-import * as qrcode from 'qrcode';
 import { Observable, race } from 'rxjs';
 import { take, tap } from 'rxjs/operators';
 import { environment } from '../../../../../environments/environment';
-import { getTicketPrice, IEventOrder, orderToEventOrders } from '../../../../functions';
+import { createRegiGrowQrcode, getTicketPrice, IEventOrder, orderToEventOrders } from '../../../../functions';
 import { UtilService } from '../../../../services';
 import { orderAction } from '../../../../store/actions';
 import * as reducers from '../../../../store/reducers';
@@ -27,7 +26,7 @@ export class PurchaseCompleteComponent implements OnInit {
     public getTicketPrice = getTicketPrice;
     public eventOrders: IEventOrder[];
     public environment = environment;
-    public regiGrow?: { type: string; qrcode: string; };
+    public regiGrow?: string;
 
     constructor(
         private store: Store<reducers.IState>,
@@ -49,19 +48,17 @@ export class PurchaseCompleteComponent implements OnInit {
                 return;
             }
             if (purchase.order.paymentMethods.find(p => p.name === 'RegiGrow') !== undefined) {
-                const canvas = document.createElement('canvas');
-                const qrcodeText = `${purchase.order.orderNumber}=${purchase.order.price}`;
-                qrcode.toCanvas(canvas, qrcodeText).then(() => {
-                    this.regiGrow = {
-                        type: '001',
-                        qrcode: canvas.toDataURL()
-                    };
+                createRegiGrowQrcode(purchase.order).then((code) => {
+                    this.regiGrow = code;
                 }).catch((error) => {
-                    console.error(error);
-                    this.regiGrow = {
-                        type: '001',
-                        qrcode: ''
-                    };
+                    this.util.openAlert({
+                        title: this.translate.instant('common.error'),
+                        body: `
+                        <p class="mb-4">${this.translate.instant('purchase.complete.alert.regiGrow')}</p>
+                            <div class="p-3 bg-light-gray select-text">
+                            <code>${error}</code>
+                        </div>`
+                    });
                 });
             }
             const order = purchase.order;

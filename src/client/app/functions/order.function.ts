@@ -1,6 +1,7 @@
 import { factory } from '@cinerino/api-javascript-client';
 import * as moment from 'moment';
 import * as qrcode from 'qrcode';
+import { environment } from '../../environments/environment';
 import { ITicketPrintData } from '../models';
 import { getTicketPrice } from './purchase.function';
 
@@ -247,4 +248,25 @@ export async function createTestPrintCanvas(args: { printData: ITicketPrintData 
     const canvas = await drawCanvas({ printData, data });
 
     return canvas;
+}
+
+/**
+ * RegiGrow連携用QRコード作成
+ */
+export async function createRegiGrowQrcode(order: factory.order.IOrder) {
+    const canvas = document.createElement('canvas');
+    let qrcodeText = environment.REGIGROW_QRCODE;
+    qrcodeText = qrcodeText
+        .replace(/\{\{ orderNumber \}\}/g, order.orderNumber);
+    qrcodeText = qrcodeText
+        .replace(/\{\{ price \}\}/g, String(order.price));
+
+    return new Promise<string>((resolve, reject) => {
+        qrcode.toCanvas(canvas, qrcodeText).then(() => {
+            resolve(canvas.toDataURL());
+        }).catch((error) => {
+            console.error(error);
+            reject(error);
+        });
+    });
 }
