@@ -124,7 +124,7 @@
                             <select class="form-control" formControlName="printerType">
                                 <option value="">{{ 'setting.unselected' | translate }}</option>
                                 <option *ngFor="let printer of printers" [value]="printer.connectionType">
-                                    {{ printer.name.ja }}</option>
+                                    {{ printer.name | translate }}</option>
                             </select>
                             <button
                                 *ngIf="this.settingForm.controls.printerType.value && this.settingForm.controls.printerType.value !== connectionType.None"

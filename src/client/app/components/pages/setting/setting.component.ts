@@ -46,6 +46,7 @@ export class SettingComponent implements OnInit {
         this.posList = [];
         this.getTheaters();
         this.createSettlingForm();
+        console.log(this.printers);
     }
 
     private createSettlingForm() {
