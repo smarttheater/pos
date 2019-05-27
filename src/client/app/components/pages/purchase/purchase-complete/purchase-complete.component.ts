@@ -7,7 +7,7 @@ import * as moment from 'moment';
 import { Observable, race } from 'rxjs';
 import { take, tap } from 'rxjs/operators';
 import { environment } from '../../../../../environments/environment';
-import { createRegiGrowQrcode, getTicketPrice, IEventOrder, orderToEventOrders } from '../../../../functions';
+import { changeTicketCount, createRegiGrowQrcode, getTicketPrice, IEventOrder, orderToEventOrders } from '../../../../functions';
 import { UtilService } from '../../../../services';
 import { orderAction } from '../../../../store/actions';
 import * as reducers from '../../../../store/reducers';
@@ -24,6 +24,7 @@ export class PurchaseCompleteComponent implements OnInit {
     public error: Observable<string | null>;
     public moment: typeof moment = moment;
     public getTicketPrice = getTicketPrice;
+    public changeTicketCount = changeTicketCount;
     public eventOrders: IEventOrder[];
     public environment = environment;
     public regiGrow?: string;

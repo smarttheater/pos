@@ -28,19 +28,29 @@
                 <p class="text-small mb-1">
                     <span>{{ eventOrder.event.superEvent.location.name | changeLanguage }}</span>
                     <span>&nbsp;/&nbsp;{{ eventOrder.event.location.name | changeLanguage }}</span>
-                    <span *ngIf="eventOrder.event.workPerformed?.duration && moment.duration(eventOrder.event.workPerformed?.duration).asMinutes() > 0">
+                    <span
+                        *ngIf="eventOrder.event.workPerformed?.duration && moment.duration(eventOrder.event.workPerformed?.duration).asMinutes() > 0">
                         &nbsp;/&nbsp;{{ moment.duration(eventOrder.event.workPerformed?.duration).asMinutes() }}{{ 'common.date.minute' | translate }}
                     </span>
                 </p>
             </div>
             <hr class="mb-3">
-
-            <div *ngFor="let acceptedOffer of eventOrder.data">
-                <p>
-                    <span *ngIf="acceptedOffer.itemOffered.reservedTicket.ticketedSeat && environment.DISPLAY_TICKETED_SEAT">
-                        {{ acceptedOffer.itemOffered.reservedTicket.ticketedSeat.seatNumber }}&nbsp;/&nbsp;</span>{{ acceptedOffer.itemOffered.reservedTicket.ticketType.name | changeLanguage }}&nbsp;/&nbsp;{{
+            <div *ngIf="environment.DISPLAY_TICKETED_SEAT">
+                <div *ngFor="let acceptedOffer of eventOrder.data">
+                    <p>
+                        <span *ngIf="acceptedOffer.itemOffered.reservedTicket.ticketedSeat">
+                            {{ acceptedOffer.itemOffered.reservedTicket.ticketedSeat.seatNumber }}&nbsp;/&nbsp;</span>{{ acceptedOffer.itemOffered.reservedTicket.ticketType.name | changeLanguage }}&nbsp;/&nbsp;{{
                             getTicketPrice(acceptedOffer).single | currency : 'JPY' }}
-                </p>
+                    </p>
+                </div>
+            </div>
+            <div *ngIf="!environment.DISPLAY_TICKETED_SEAT">
+                <div *ngFor="let ticket of changeTicketCount(eventOrder.data)">
+                    <p>
+                        {{ ticket.acceptedOffer.itemOffered.reservedTicket.ticketType.name | changeLanguage }}&nbsp;/&nbsp;{{
+                            getTicketPrice(ticket.acceptedOffer).single | currency : 'JPY' }}&nbsp;×&nbsp;{{ ticket.count }}
+                    </p>
+                </div>
             </div>
         </div>
 
@@ -75,9 +85,16 @@
     </div>
 
     <div class="buttons mx-auto text-center">
-        <button *ngIf="environment.INQUIRY_PRINT" [disabled]="(order | async).order.orderStatus !== orderStatus.OrderDelivered" type="button" class="btn btn-primary btn-block py-3 mb-3" (click)="print()" [disabled]="isLoading | async">{{ 'inquiry.confirm.next' | translate }}</button>
-        <button *ngIf="environment.INQUIRY_CANCEL" [disabled]="(order | async).order.orderStatus === orderStatus.OrderReturned" type="button" class="btn btn-danger btn-block py-3 mb-3" (click)="cancelConfirm()">{{ 'inquiry.confirm.cancel' | translate }}</button>
-        <button type="button" class="btn btn-link" routerLink="/inquiry/input">{{ 'inquiry.confirm.prev' | translate }}</button>
+        <button *ngIf="environment.INQUIRY_PRINT"
+            [disabled]="(order | async).order.orderStatus !== orderStatus.OrderDelivered" type="button"
+            class="btn btn-primary btn-block py-3 mb-3" (click)="print()"
+            [disabled]="isLoading | async">{{ 'inquiry.confirm.next' | translate }}</button>
+        <button *ngIf="environment.INQUIRY_CANCEL"
+            [disabled]="(order | async).order.orderStatus === orderStatus.OrderReturned" type="button"
+            class="btn btn-danger btn-block py-3 mb-3"
+            (click)="cancelConfirm()">{{ 'inquiry.confirm.cancel' | translate }}</button>
+        <button type="button" class="btn btn-link"
+            routerLink="/inquiry/input">{{ 'inquiry.confirm.prev' | translate }}</button>
     </div>
 
 </div>

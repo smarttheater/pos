@@ -22,8 +22,7 @@
             </div>
         </div>
 
-        <div *ngFor="let eventOrder of eventOrders"
-            class="mb-4 bg-white p-3">
+        <div *ngFor="let eventOrder of eventOrders" class="mb-4 bg-white p-3">
             <div class="mb-3">
                 <div class="mb-1">
                     <p class="font-weight-bold text-large">{{ eventOrder.event.name | changeLanguage }}</p>
@@ -40,19 +39,29 @@
                 <p class="text-small mb-1">
                     <span>{{ eventOrder.event.superEvent.location.name | changeLanguage }}</span>
                     <span>&nbsp;/&nbsp;{{ eventOrder.event.location.name | changeLanguage }}</span>
-                    <span *ngIf="eventOrder.event.workPerformed?.duration && moment.duration(eventOrder.event.workPerformed?.duration).asMinutes() > 0">
+                    <span
+                        *ngIf="eventOrder.event.workPerformed?.duration && moment.duration(eventOrder.event.workPerformed?.duration).asMinutes() > 0">
                         &nbsp;/&nbsp;{{ moment.duration(eventOrder.event.workPerformed?.duration).asMinutes() }}{{ 'common.date.minute' | translate }}
                     </span>
                 </p>
             </div>
             <hr class="mb-3">
-
-            <div *ngFor="let acceptedOffer of eventOrder.data">
-                <p>
-                    <span *ngIf="acceptedOffer.itemOffered.reservedTicket.ticketedSeat && environment.DISPLAY_TICKETED_SEAT">
-                        {{ acceptedOffer.itemOffered.reservedTicket.ticketedSeat.seatNumber }}&nbsp;/&nbsp;</span>{{ acceptedOffer.itemOffered.reservedTicket.ticketType.name | changeLanguage }}&nbsp;/&nbsp;{{
+            <div *ngIf="environment.DISPLAY_TICKETED_SEAT">
+                <div *ngFor="let acceptedOffer of eventOrder.data">
+                    <p>
+                        <span *ngIf="acceptedOffer.itemOffered.reservedTicket.ticketedSeat">
+                            {{ acceptedOffer.itemOffered.reservedTicket.ticketedSeat.seatNumber }}&nbsp;/&nbsp;</span>{{ acceptedOffer.itemOffered.reservedTicket.ticketType.name | changeLanguage }}&nbsp;/&nbsp;{{
                             getTicketPrice(acceptedOffer).single | currency : 'JPY' }}
-                </p>
+                    </p>
+                </div>
+            </div>
+            <div *ngIf="!environment.DISPLAY_TICKETED_SEAT">
+                <div *ngFor="let ticket of changeTicketCount(eventOrder.data)">
+                    <p>
+                        {{ ticket.acceptedOffer.itemOffered.reservedTicket.ticketType.name | changeLanguage }}&nbsp;/&nbsp;{{
+                            getTicketPrice(ticket.acceptedOffer).single | currency : 'JPY' }}&nbsp;×&nbsp;{{ ticket.count }}
+                    </p>
+                </div>
             </div>
         </div>
 
@@ -76,7 +85,7 @@
                     <p class="col-md-8">{{ (purchase | async).order.customer.telephone | libphonenumberFormat }}</p>
                 </div>
             </div>
-            
+
         </div>
     </div>
 

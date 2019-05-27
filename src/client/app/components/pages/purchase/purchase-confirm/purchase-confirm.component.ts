@@ -8,7 +8,7 @@ import * as moment from 'moment';
 import { Observable, race } from 'rxjs';
 import { take, tap } from 'rxjs/operators';
 import { environment } from '../../../../../environments/environment';
-import { getAmount, getTicketPrice } from '../../../../functions';
+import { changeTicketCount, getAmount, getTicketPrice } from '../../../../functions';
 import { ViewType } from '../../../../models';
 import { UtilService } from '../../../../services';
 import { purchaseAction } from '../../../../store/actions';
@@ -29,6 +29,7 @@ export class PurchaseConfirmComponent implements OnInit {
     public depositAmount: string;
     public amount: number;
     public getTicketPrice = getTicketPrice;
+    public changeTicketCount = changeTicketCount;
     public environment = environment;
 
     constructor(
