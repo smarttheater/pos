@@ -71,6 +71,7 @@ export class OrderSearchComponent implements OnInit {
             },
             orderStatus: '',
             paymentMethodType: '',
+            posId: '',
             page: 1
         };
         this.store.dispatch(new orderAction.Delete());
@@ -96,6 +97,10 @@ export class OrderSearchComponent implements OnInit {
     public async convertToSearchParams() {
         return new Promise<factory.order.ISearchConditions>((resolve) => {
             this.user.subscribe((user) => {
+                const identifiers: factory.propertyValue.IPropertyValue<string>[] = [];
+                if (this.confirmedConditions.posId !== '') {
+                    identifiers.push({ name: 'posId', value: this.confirmedConditions.posId });
+                }
                 const params: factory.order.ISearchConditions = {
                     seller: {
                         typeOf: (user.seller === undefined)
@@ -112,6 +117,7 @@ export class OrderSearchComponent implements OnInit {
                             ? undefined : this.confirmedConditions.customer.familyName,
                         givenName: (this.confirmedConditions.customer.givenName === '')
                             ? undefined : this.confirmedConditions.customer.givenName,
+                        identifiers
                     },
                     orderStatuses: (this.confirmedConditions.orderStatus === '')
                         ? undefined : [this.confirmedConditions.orderStatus],
@@ -124,6 +130,15 @@ export class OrderSearchComponent implements OnInit {
                         ? undefined : [this.confirmedConditions.orderNumber],
                     paymentMethods: (this.confirmedConditions.paymentMethodType === '')
                         ? undefined : { typeOfs: [this.confirmedConditions.paymentMethodType] },
+                    acceptedOffers: {
+                        itemOffered: {
+                            reservationFor: {
+                                startFrom: this.confirmedConditions.eventStartDateFrom,
+                                startThrough: (this.confirmedConditions.eventStartDateThrough === undefined)
+                                    ? undefined : moment(this.confirmedConditions.eventStartDateThrough).add(1, 'day').toDate(),
+                            }
+                        }
+                    },
                     limit: this.limit,
                     page: this.confirmedConditions.page,
                     sort: {
@@ -157,6 +172,9 @@ export class OrderSearchComponent implements OnInit {
                 },
                 orderStatus: this.conditions.orderStatus,
                 paymentMethodType: this.conditions.paymentMethodType,
+                eventStartDateFrom: this.conditions.eventStartDateFrom,
+                eventStartDateThrough: this.conditions.eventStartDateThrough,
+                posId: this.conditions.posId,
                 page: 1
             };
         }

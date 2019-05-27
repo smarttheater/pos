@@ -99,7 +99,15 @@ export class PurchaseCinemaScheduleComponent implements OnInit, OnDestroy {
                     params: {
                         expires: moment().add(environment.PURCHASE_TRANSACTION_TIME, 'minutes').toDate(),
                         seller: { typeOf: user.seller.typeOf, id: user.seller.id },
-                        object: {}
+                        object: {},
+                        agent: (user.pos === undefined)
+                            ? undefined
+                            : {
+                                identifier: [
+                                    { name: 'posId', value: user.pos.id },
+                                    { name: 'posName', value: user.pos.name }
+                                ]
+                            }
                     }
                 }));
             }).unsubscribe();
@@ -142,7 +150,7 @@ export class PurchaseCinemaScheduleComponent implements OnInit, OnDestroy {
                     .add(environment.PURCHASE_SCHEDULE_DEFAULT_SELECTED_DATE, 'day')
                     .toDate();
             }
-            const scheduleDate =  moment(this.scheduleDate).format('YYYY-MM-DD');
+            const scheduleDate = moment(this.scheduleDate).format('YYYY-MM-DD');
             if (seller === undefined) {
                 return;
             }

@@ -13,5 +13,8 @@ export interface IOrderSearchConditions {
     };
     orderStatus: '' | factory.orderStatus;
     paymentMethodType: '' | factory.paymentMethodType;
+    eventStartDateFrom?: Date;
+    eventStartDateThrough?: Date;
+    posId: string;
     page: number;
 }
