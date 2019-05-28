@@ -2738,7 +2738,7 @@ var InquiryConfirmComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"contents-width mx-auto px-3 py-5\">\n    <div class=\"mb-4\">\n        <h2 class=\"text-large mb-4 text-center font-weight-bold\">{{ 'inquiry.input.title' | translate }}</h2>\n        <p class=\"mb-4 text-md-center\" [innerHTML]=\"'inquiry.input.read' | translate\"></p>\n\n        <div class=\"inquiry-form mx-auto p-3 bg-white\">\n            <form [formGroup]=\"inquiryForm\">\n                <div class=\"form-group\">\n                    <label class=\"mb-2\" for=\"\">{{ 'common.confirmationNumber' | translate }}</label>\n                    <input type=\"text\" class=\"form-control\" formControlName=\"confirmationNumber\" id=\"confirmationNumber\"\n                        placeholder=\"12345678\">\n                    <div *ngIf=\"inquiryForm.controls.confirmationNumber.invalid && inquiryForm.controls.confirmationNumber.touched\"\n                        class=\"mt-2\">\n                        <p *ngIf=\"inquiryForm.controls.confirmationNumber.errors.required\" class=\"text-danger\">{{ 'form.validation.required' | translate }}</p>\n                        <p *ngIf=\"inquiryForm.controls.confirmationNumber.errors.pattern\" class=\"text-danger\">{{ 'form.validation.number' | translate }}</p>\n                    </div>\n                </div>\n                <div class=\"form-group mb-0\">\n                    <label class=\"mb-2\" for=\"\">{{ 'common.telephone' | translate }}</label>\n                    <input type=\"tel\" class=\"form-control\" formControlName=\"telephone\" id=\"telephone\" placeholder=\"0362778824\">\n                    <div *ngIf=\"inquiryForm.controls.telephone.invalid && inquiryForm.controls.telephone.touched\" class=\"mt-2\">\n                        <p *ngIf=\"inquiryForm.controls.telephone.errors.required\" class=\"text-danger\">{{ 'form.validation.required' | translate }}</p>\n                        <p *ngIf=\"inquiryForm.controls.telephone.errors.minlength\" class=\"text-danger\">\n                                {{ 'form.validation.minlength' | translate: { value: inquiryForm.controls.telephone.errors.minlength.requiredLength } }}\n                        </p>\n                        <p *ngIf=\"inquiryForm.controls.telephone.errors.maxlength\" class=\"text-danger\">\n                                {{ 'form.validation.maxlength' | translate: { value: inquiryForm.controls.telephone.errors.maxlength.requiredLength }\n                        </p>\n                        <p *ngIf=\"inquiryForm.controls.telephone.errors.pattern\" class=\"text-danger\">{{ 'form.validation.number' | translate }}</p>\n                        <p *ngIf=\"inquiryForm.controls.telephone.errors.telephone\" class=\"text-danger\">{{ 'form.validation.telephone' | translate }}</p>\n                    </div>\n                </div>\n            </form>\n        </div>\n    </div>\n\n    <div class=\"buttons mx-auto text-center\">\n        <button type=\"button\" class=\"btn btn-primary btn-block py-3 mb-3\" (click)=\"onSubmit()\">{{ 'inquiry.input.next' | translate }}</button>\n        <button type=\"button\" class=\"btn btn-link\" routerLink=\"/purchase/root\">{{ 'inquiry.input.prev' | translate }}</button>\n    </div>\n\n</div>"
+module.exports = "<div class=\"contents-width mx-auto px-3 py-5\">\n    <div class=\"mb-4\">\n        <h2 class=\"text-large mb-4 text-center font-weight-bold\">{{ 'inquiry.input.title' | translate }}</h2>\n        <p class=\"mb-4 text-md-center\" [innerHTML]=\"'inquiry.input.read' | translate\"></p>\n\n        <div class=\"inquiry-form mx-auto p-3 bg-white\">\n            <form [formGroup]=\"inquiryForm\">\n                <div class=\"form-group\">\n                    <label class=\"mb-2\" for=\"\">{{ 'common.confirmationNumber' | translate }}</label>\n                    <input type=\"text\" class=\"form-control\" formControlName=\"confirmationNumber\" id=\"confirmationNumber\"\n                        placeholder=\"12345678\">\n                    <div *ngIf=\"inquiryForm.controls.confirmationNumber.invalid && inquiryForm.controls.confirmationNumber.touched\"\n                        class=\"mt-2\">\n                        <p *ngIf=\"inquiryForm.controls.confirmationNumber.errors.required\" class=\"text-danger\">{{ 'form.validation.required' | translate }}</p>\n                        <p *ngIf=\"inquiryForm.controls.confirmationNumber.errors.pattern\" class=\"text-danger\">{{ 'form.validation.number' | translate }}</p>\n                    </div>\n                </div>\n                <div class=\"form-group mb-0\">\n                    <label class=\"mb-2\" for=\"\">{{ 'common.telephone' | translate }}</label>\n                    <input type=\"password\" class=\"form-control\" formControlName=\"telephone\" id=\"telephone\" placeholder=\"0362778824\">\n                    <div *ngIf=\"inquiryForm.controls.telephone.invalid && inquiryForm.controls.telephone.touched\" class=\"mt-2\">\n                        <p *ngIf=\"inquiryForm.controls.telephone.errors.required\" class=\"text-danger\">{{ 'form.validation.required' | translate }}</p>\n                        <p *ngIf=\"inquiryForm.controls.telephone.errors.minlength\" class=\"text-danger\">\n                                {{ 'form.validation.minlength' | translate: { value: inquiryForm.controls.telephone.errors.minlength.requiredLength } }}\n                        </p>\n                        <p *ngIf=\"inquiryForm.controls.telephone.errors.maxlength\" class=\"text-danger\">\n                                {{ 'form.validation.maxlength' | translate: { value: inquiryForm.controls.telephone.errors.maxlength.requiredLength }\n                        </p>\n                        <p *ngIf=\"inquiryForm.controls.telephone.errors.pattern\" class=\"text-danger\">{{ 'form.validation.number' | translate }}</p>\n                        <p *ngIf=\"inquiryForm.controls.telephone.errors.telephone\" class=\"text-danger\">{{ 'form.validation.telephone' | translate }}</p>\n                    </div>\n                </div>\n            </form>\n        </div>\n    </div>\n\n    <div class=\"buttons mx-auto text-center\">\n        <button type=\"button\" class=\"btn btn-primary btn-block py-3 mb-3\" (click)=\"onSubmit()\">{{ 'inquiry.input.next' | translate }}</button>\n        <button type=\"button\" class=\"btn btn-link\" routerLink=\"/purchase/root\">{{ 'inquiry.input.prev' | translate }}</button>\n    </div>\n\n</div>"
 
 /***/ }),
 
@@ -9916,7 +9916,7 @@ var ScreenComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"contents-width mx-auto px-3 py-2 position-relative bg-white\" *ngIf=\"!isExpired\">\n    <div class=\"cover w-100 h-100 bg-primary\"></div>\n    <div class=\"expired bg-primary\" [style.width.%]=\"width\"></div>\n    <p class=\"text-white position-relative\">{{ 'common.timeLimit' | translate }} {{ this.diff.hours }}:{{ this.diff.minutes }}:{{ this.diff.seconds }}</p>\n</div>"
+module.exports = "<div class=\"contents-width mx-auto px-3 py-2 position-relative bg-white\" *ngIf=\"!isExpired && environment.PURCHASE_TRANSACTION_TIME_DISPLAY\">\n    <div class=\"cover w-100 h-100 bg-primary\"></div>\n    <div class=\"expired bg-primary\" [style.width.%]=\"width\"></div>\n    <p class=\"text-small text-white position-relative\">{{ 'common.timeLimit' | translate }} {{ this.diff.hours }}:{{ this.diff.minutes }}:{{ this.diff.seconds }}</p>\n</div>"
 
 /***/ }),
 
@@ -9965,6 +9965,7 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 var TransactionRemainingTimeComponent = /** @class */ (function () {
     function TransactionRemainingTimeComponent(router) {
         this.router = router;
+        this.environment = _environments_environment__WEBPACK_IMPORTED_MODULE_4__["environment"];
     }
     TransactionRemainingTimeComponent.prototype.ngOnInit = function () {
         this.update();
@@ -10725,7 +10726,25 @@ function orderToEventOrders(params) {
             registered.data.push(acceptedOffer);
         }
     });
-    return results;
+    // 公開日順（降順）へソート
+    var sortResult = results.sort(function (a, b) {
+        if (a.event.workPerformed === undefined
+            || b.event.workPerformed === undefined
+            || a.event.workPerformed.datePublished === undefined
+            || b.event.workPerformed.datePublished === undefined) {
+            return 0;
+        }
+        var unixA = moment__WEBPACK_IMPORTED_MODULE_1__(a.event.workPerformed.datePublished).unix();
+        var unixB = moment__WEBPACK_IMPORTED_MODULE_1__(b.event.workPerformed.datePublished).unix();
+        if (unixA > unixB) {
+            return -1;
+        }
+        if (unixA < unixB) {
+            return 1;
+        }
+        return 0;
+    });
+    return sortResult;
 }
 /**
  * 座席予約をイベントごとに変換
@@ -17414,6 +17433,7 @@ var defaultEnvironment = {
     PURCHASE_CART: false,
     PURCHASE_ITEM_MAX_LENGTH: '50',
     PURCHASE_TRANSACTION_TIME: '15',
+    PURCHASE_TRANSACTION_TIME_DISPLAY: false,
     PURCHASE_PRE_SCHEDULE_DATE: '3',
     PURCHASE_SCHEDULE_DEFAULT_SELECTED_DATE: '0',
     PURCHASE_SCHEDULE_STATUS_THRESHOLD_VALUE: '30',
