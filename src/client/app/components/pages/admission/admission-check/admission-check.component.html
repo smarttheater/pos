@@ -82,8 +82,7 @@
                     class="text-small text-white bg-dark py-1 px-3 mr-2">{{ 'common.subtitles' | translate }}</div>
                 <div *ngIf="(admission | async).screeningEvent.workPerformed?.duration && moment.duration((admission | async).screeningEvent.workPerformed?.duration).asMinutes() > 0"
                     class="text-small ml-auto">
-                    {{
-                moment.duration((admission | async).screeningEvent.workPerformed?.duration).asMinutes() }}{{ 'common.date.minute' | translate }}
+                    <span class="mr-1">{{ 'common.duration' | translate }}</span>{{ moment.duration((admission | async).screeningEvent.workPerformed?.duration).asMinutes() }}{{ 'common.date.minute' | translate }}
                 </div>
             </div>
         </div>

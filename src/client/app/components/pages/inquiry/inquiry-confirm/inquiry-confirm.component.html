@@ -30,7 +30,7 @@
                     <span>&nbsp;/&nbsp;{{ eventOrder.event.location.name | changeLanguage }}</span>
                     <span
                         *ngIf="eventOrder.event.workPerformed?.duration && moment.duration(eventOrder.event.workPerformed?.duration).asMinutes() > 0">
-                        &nbsp;/&nbsp;{{ moment.duration(eventOrder.event.workPerformed?.duration).asMinutes() }}{{ 'common.date.minute' | translate }}
+                        &nbsp;/&nbsp;<span class="mr-1">{{ 'common.duration' | translate }}</span>{{ moment.duration(eventOrder.event.workPerformed?.duration).asMinutes() }}{{ 'common.date.minute' | translate }}
                     </span>
                 </p>
             </div>
@@ -69,7 +69,7 @@
                     <p class="col-md-8">{{ (order | async).order.customer.email }}</p>
                 </div>
             </div>
-            <div class="py-3 border-bottom border-gray">
+            <div class="py-3">
                 <div class="row align-items-center">
                     <p class="mb-2 mb-md-0 col-md-4">{{ 'common.telephone' | translate }}</p>
                     <p class="col-md-8">{{ (order | async).order.customer.telephone | libphonenumberFormat }}</p>
