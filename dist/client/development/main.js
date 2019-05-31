@@ -342,7 +342,7 @@ var __decorate = (undefined && undefined.__decorate) || function (decorators, ta
 
 
 var appRoutes = [
-    { path: '', redirectTo: '/auth', pathMatch: 'full' },
+    { path: '', redirectTo: 'auth', pathMatch: 'full' },
     _routes_purchase_route__WEBPACK_IMPORTED_MODULE_8__["route"],
     _routes_purchase_route__WEBPACK_IMPORTED_MODULE_8__["schedule"],
     _routes_auth_route__WEBPACK_IMPORTED_MODULE_4__["route"],
@@ -3623,7 +3623,7 @@ var PurchaseCinemaCartComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"contents-width mx-auto px-3 py-5\">\n    <h2 class=\"text-large mb-4 text-center font-weight-bold\">{{ 'purchase.cinema.schedule.title' | translate }}</h2>\n    <p class=\"mb-4 text-md-center\" [innerHTML]=\"'purchase.cinema.schedule.read' | translate\"></p>\n    <div class=\"mb-3\">\n        <input type=\"text\" placeholder=\"Datepicker\" class=\"form-control\" #datepicker=\"bsDatepicker\" bsDatepicker [(ngModel)]=\"scheduleDate\"\n            [bsConfig]=\"{ dateInputFormat: 'YYYY/MM/DD', adaptivePosition: true, showWeekNumbers: false }\"\n            (bsValueChange)=\"selectDate($event)\" readonly (click)=\"setDatePicker()\" (onShown)=\"onShowPicker($event)\">\n        <!-- <input type=\"date\" class=\"form-control rounded-0\" name=\"date\" [(ngModel)]=\"scheduleDate\"\n            (change)=\"selectDate()\"> -->\n    </div>\n    <p *ngIf=\"(purchase | async).scheduleDate\" class=\"text-primary text-large mb-3\">\n        {{ (purchase | async).scheduleDate | formatDate: 'YYYY/MM/DD (ddd)' }}\n    </p>\n    <p *ngIf=\"screeningWorkEvents.length === 0\" class=\"mb-3\" [innerHTML]=\"'purchase.cinema.schedule.notfound' | translate\"></p>\n    <app-purchase-cinema-performance *ngFor=\"let screeningWorkEvent of screeningWorkEvents\"\n        [screeningWorkEvent]=\"screeningWorkEvent\" (select)=\"selectSchedule($event)\" class=\"mb-3\">\n    </app-purchase-cinema-performance>\n</div>"
+module.exports = "<div class=\"contents-width mx-auto px-3 py-5\">\n    <h2 class=\"text-large mb-4 text-center font-weight-bold\">{{ 'purchase.cinema.schedule.title' | translate }}</h2>\n    <p class=\"mb-4 text-md-center\" [innerHTML]=\"'purchase.cinema.schedule.read' | translate\"></p>\n    <div class=\"mb-3\">\n        <div class=\"input-group\">\n            <input type=\"text\" placeholder=\"Datepicker\" class=\"form-control\" #datepicker=\"bsDatepicker\" bsDatepicker\n                [(ngModel)]=\"scheduleDate\"\n                [bsConfig]=\"{ dateInputFormat: 'YYYY/MM/DD', adaptivePosition: true, showWeekNumbers: false }\"\n                (bsValueChange)=\"selectDate($event)\" readonly (click)=\"setDatePicker()\"\n                (onShown)=\"onShowPicker($event)\">\n            <div class=\"input-group-append pointer\" (click)=\"toggleDatepicker()\">\n                <span class=\"input-group-text\"><i class=\"fas fa-caret-down\"></i></span>\n            </div>\n        </div>\n    </div>\n    <p *ngIf=\"(purchase | async).scheduleDate\" class=\"text-primary text-large mb-3\">\n        {{ (purchase | async).scheduleDate | formatDate: 'YYYY/MM/DD (ddd)' }}\n    </p>\n    <p *ngIf=\"screeningWorkEvents.length === 0\" class=\"mb-3\"\n        [innerHTML]=\"'purchase.cinema.schedule.notfound' | translate\"></p>\n    <app-purchase-cinema-performance *ngFor=\"let screeningWorkEvent of screeningWorkEvents\"\n        [screeningWorkEvent]=\"screeningWorkEvent\" (select)=\"selectSchedule($event)\" class=\"mb-3\">\n    </app-purchase-cinema-performance>\n</div>"
 
 /***/ }),
 
@@ -3964,6 +3964,13 @@ var PurchaseCinemaScheduleComponent = /** @class */ (function () {
         this.user.subscribe(function (user) {
             _this.localeService.use(user.language);
         }).unsubscribe();
+    };
+    /**
+     * Datepicker開閉
+     */
+    PurchaseCinemaScheduleComponent.prototype.toggleDatepicker = function () {
+        this.setDatePicker();
+        this.datepicker.toggle();
     };
     /**
      * iOS bugfix（2回タップしないと選択できない）
@@ -4516,7 +4523,7 @@ var PurchaseCinemaTicketComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"contents-width mx-auto px-3 pt-5\">\n    <h2 class=\"text-large mb-4 text-center font-weight-bold\">{{ 'purchase.event.schedule.title' | translate }}</h2>\n    <p class=\"mb-4 text-md-center\" [innerHTML]=\"'purchase.event.schedule.read' | translate\"></p>\n</div>\n<div class=\"contents-width mx-auto p-3\">\n    <div class=\"mb-3\">\n        <input type=\"text\" placeholder=\"Datepicker\" class=\"form-control\" #datepicker=\"bsDatepicker\" bsDatepicker\n            [(ngModel)]=\"scheduleDate\"\n            [bsConfig]=\"{ dateInputFormat: 'YYYY/MM/DD', adaptivePosition: true, showWeekNumbers: false }\"\n            (bsValueChange)=\"selectDate($event)\" readonly (click)=\"setDatePicker()\" (onShown)=\"onShowPicker($event)\">\n        <!-- <input type=\"date\" class=\"form-control rounded-0\" name=\"date\" [(ngModel)]=\"scheduleDate\"\n            (change)=\"selectDate()\"> -->\n    </div>\n    <div class=\"mb-4\">\n        <p *ngIf=\"(purchase | async)?.scheduleDate\" class=\"text-primary text-large mb-3\">\n            {{ 'purchase.event.schedule.selectedDate' | translate: {value: (purchase | async).scheduleDate | formatDate: 'YYYY/MM/DD (ddd)'} }}\n        </p>\n        <p *ngIf=\"screeningWorkEvents.length === 0\" class=\"mb-3\"\n            [innerHTML]=\"'purchase.event.schedule.notfound' | translate\"></p>\n        <app-purchase-event-performance-confirm *ngFor=\"let screeningWorkEvent of screeningWorkEvents\"\n            [screeningWorkEvent]=\"screeningWorkEvent\" [readonly]=\"true\" (select)=\"selectSchedule($event)\" class=\"mb-3\">\n        </app-purchase-event-performance-confirm>\n    </div>\n\n    <div *ngIf=\"environment.PURCHASE_TERMS\">\n        <h2 class=\"text-large mb-4 text-center font-weight-bold\">{{ 'purchase.event.schedule.terms' | translate }}</h2>\n        <div class=\"mb-4\">\n            <app-purchase-terms [language]=\"(user | async).language\"></app-purchase-terms>\n        </div>\n    </div>\n\n    <div class=\"buttons mx-auto text-center\">\n        <button type=\"button\" class=\"btn btn-primary btn-block py-3 mb-3\" [disabled]=\"screeningWorkEvents.length === 0\"\n            (click)=\"onSubmit()\">{{ 'purchase.event.schedule.next' | translate }}</button>\n        <!-- <button type=\"button\" class=\"btn btn-link\"\n            routerLink=\"/purchase/event/schedule\">{{ 'purchase.event.schedule.prev' | translate }}</button> -->\n    </div>\n</div>"
+module.exports = "<div class=\"contents-width mx-auto px-3 pt-5\">\n    <h2 class=\"text-large mb-4 text-center font-weight-bold\">{{ 'purchase.event.schedule.title' | translate }}</h2>\n    <p class=\"mb-4 text-md-center\" [innerHTML]=\"'purchase.event.schedule.read' | translate\"></p>\n</div>\n<div class=\"contents-width mx-auto p-3\">\n    <div class=\"mb-3\">\n        <div class=\"input-group\">\n            <input type=\"text\" placeholder=\"Datepicker\" class=\"form-control\" #datepicker=\"bsDatepicker\" bsDatepicker\n                [(ngModel)]=\"scheduleDate\"\n                [bsConfig]=\"{ dateInputFormat: 'YYYY/MM/DD', adaptivePosition: true, showWeekNumbers: false }\"\n                (bsValueChange)=\"selectDate($event)\" readonly (click)=\"setDatePicker()\"\n                (onShown)=\"onShowPicker($event)\">\n            <div class=\"input-group-append pointer\" (click)=\"toggleDatepicker()\">\n                <span class=\"input-group-text\"><i class=\"fas fa-caret-down\"></i></span>\n            </div>\n        </div>\n    </div>\n    <div class=\"mb-4\">\n        <p *ngIf=\"(purchase | async)?.scheduleDate\" class=\"text-primary text-large mb-3\">\n            {{ 'purchase.event.schedule.selectedDate' | translate: {value: (purchase | async).scheduleDate | formatDate: 'YYYY/MM/DD (ddd)'} }}\n        </p>\n        <p *ngIf=\"screeningWorkEvents.length === 0\" class=\"mb-3\"\n            [innerHTML]=\"'purchase.event.schedule.notfound' | translate\"></p>\n        <app-purchase-event-performance-confirm *ngFor=\"let screeningWorkEvent of screeningWorkEvents\"\n            [screeningWorkEvent]=\"screeningWorkEvent\" [readonly]=\"true\" (select)=\"selectSchedule($event)\" class=\"mb-3\">\n        </app-purchase-event-performance-confirm>\n    </div>\n\n    <div *ngIf=\"environment.PURCHASE_TERMS\">\n        <h2 class=\"text-large mb-4 text-center font-weight-bold\">{{ 'purchase.event.schedule.terms' | translate }}</h2>\n        <div class=\"mb-4\">\n            <app-purchase-terms [language]=\"(user | async).language\"></app-purchase-terms>\n        </div>\n    </div>\n\n    <div class=\"buttons mx-auto text-center\">\n        <button type=\"button\" class=\"btn btn-primary btn-block py-3 mb-3\" [disabled]=\"screeningWorkEvents.length === 0\"\n            (click)=\"onSubmit()\">{{ 'purchase.event.schedule.next' | translate }}</button>\n        <!-- <button type=\"button\" class=\"btn btn-link\"\n            routerLink=\"/purchase/event/schedule\">{{ 'purchase.event.schedule.prev' | translate }}</button> -->\n    </div>\n</div>"
 
 /***/ }),
 
@@ -4807,6 +4814,13 @@ var PurchaseEventScheduleComponent = /** @class */ (function () {
         this.user.subscribe(function (user) {
             _this.localeService.use(user.language);
         }).unsubscribe();
+    };
+    /**
+     * Datepicker開閉
+     */
+    PurchaseEventScheduleComponent.prototype.toggleDatepicker = function () {
+        this.setDatePicker();
+        this.datepicker.toggle();
     };
     /**
      * iOS bugfix（2回タップしないと選択できない）
@@ -10243,13 +10257,13 @@ function drawCanvas(args) {
                                     eventName = data[text.name];
                                     limit = Math.floor(size.width / parseInt(text.font.size, 10));
                                     if (eventName.length > limit) {
-                                        context.fillText(eventName.slice(0, limit), changePosition(text.fillText.x), changePosition(text.fillText.y), text.fillText.maxWidth);
+                                        context.fillText(eventName.slice(0, limit), changePosition(text.fillText.x), changePosition(text.fillText.y));
                                         context.fillText((eventName.length - limit < limit)
                                             ? eventName.slice(limit, eventName.length)
-                                            : eventName.slice(limit, limit * 2), changePosition(text.fillText.x), changePosition(text.fillText.y) + parseInt(text.font.size, 10) * 1.5, text.fillText.maxWidth);
+                                            : eventName.slice(limit, limit * 2), changePosition(text.fillText.x), changePosition(text.fillText.y) + parseInt(text.font.size, 10) * 1.5);
                                     }
                                     else {
-                                        context.fillText(eventName, changePosition(text.fillText.x), changePosition(text.fillText.y) + parseInt(text.font.size, 10) * 0.75, text.fillText.maxWidth);
+                                        context.fillText(eventName, changePosition(text.fillText.x), changePosition(text.fillText.y) + parseInt(text.font.size, 10) * 0.75);
                                     }
                                     continue;
                                 case 'seatNumber':
@@ -10269,7 +10283,7 @@ function drawCanvas(args) {
                             // 文字制限
                             value = value.slice(text.slice[0], text.slice[1]);
                         }
-                        context.fillText(value, changePosition(text.fillText.x), changePosition(text.fillText.y), text.fillText.maxWidth);
+                        context.fillText(value, changePosition(text.fillText.x), changePosition(text.fillText.y));
                     }
                     if (!(data.qrcode !== undefined)) return [3 /*break*/, 10];
                     _d = 0, _e = printData.qrCode;
@@ -11424,6 +11438,10 @@ var connectionType;
  * プリンター一覧
  */
 var printers = [
+    {
+        connectionType: connectionType.None,
+        name: 'setting.printType.none'
+    },
     {
         connectionType: connectionType.Image,
         name: 'setting.printType.image'
@@ -15242,6 +15260,9 @@ var OrderEffects = /** @class */ (function () {
                         orders = payload.orders;
                         printer = payload.printer;
                         pos = payload.pos;
+                        if (printer.connectionType === _models__WEBPACK_IMPORTED_MODULE_7__["connectionType"].None) {
+                            return [2 /*return*/, new _actions__WEBPACK_IMPORTED_MODULE_9__["orderAction"].PrintSuccess()];
+                        }
                         return [4 /*yield*/, this.cinerino.getServices()];
                     case 1:
                         _e.sent();

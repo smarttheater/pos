@@ -25,6 +25,10 @@ export enum connectionType {
  */
 export const printers = [
     {
+        connectionType: connectionType.None,
+        name: 'setting.printType.none'
+    },
+    {
         connectionType: connectionType.Image,
         name: 'setting.printType.image'
     },

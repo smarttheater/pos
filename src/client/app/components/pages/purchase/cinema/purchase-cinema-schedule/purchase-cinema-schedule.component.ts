@@ -269,6 +269,14 @@ export class PurchaseCinemaScheduleComponent implements OnInit, OnDestroy {
     }
 
     /**
+     * Datepicker開閉
+     */
+    public toggleDatepicker() {
+        this.setDatePicker();
+        this.datepicker.toggle();
+    }
+
+    /**
      * iOS bugfix（2回タップしないと選択できない）
      */
     public onShowPicker(container: BsDatepickerContainerComponent) {

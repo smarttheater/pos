@@ -141,6 +141,9 @@ export class OrderEffects {
                 const orders = payload.orders;
                 const printer = payload.printer;
                 const pos = payload.pos;
+                if (printer.connectionType === connectionType.None) {
+                    return new orderAction.PrintSuccess();
+                }
                 await this.cinerino.getServices();
                 const authorizeOrders: factory.order.IOrder[] = [];
                 for (const order of orders) {
