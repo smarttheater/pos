@@ -4,7 +4,7 @@ import { factory } from '@cinerino/api-javascript-client';
 import { Actions, ofType } from '@ngrx/effects';
 import { select, Store } from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
-import { SERVICE_UNAVAILABLE, TOO_MANY_REQUESTS } from 'http-status';
+import { BAD_REQUEST, TOO_MANY_REQUESTS } from 'http-status';
 import * as moment from 'moment';
 import { BsDatepickerDirective, BsLocaleService, BsModalService } from 'ngx-bootstrap';
 import { CellHoverEvent } from 'ngx-bootstrap/datepicker/models';
@@ -230,7 +230,7 @@ export class PurchaseCinemaScheduleComponent implements OnInit, OnDestroy {
                         this.router.navigate(['/congestion']);
                         return;
                     }
-                    if (errorObject.status === SERVICE_UNAVAILABLE) {
+                    if (errorObject.status === BAD_REQUEST) {
                         this.router.navigate(['/maintenance']);
                         return;
                     }

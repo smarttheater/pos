@@ -3925,7 +3925,7 @@ var PurchaseCinemaScheduleComponent = /** @class */ (function () {
                                 this.router.navigate(['/congestion']);
                                 return [2 /*return*/];
                             }
-                            if (errorObject.status === http_status__WEBPACK_IMPORTED_MODULE_5__["SERVICE_UNAVAILABLE"]) {
+                            if (errorObject.status === http_status__WEBPACK_IMPORTED_MODULE_5__["BAD_REQUEST"]) {
                                 this.router.navigate(['/maintenance']);
                                 return [2 /*return*/];
                             }
@@ -4795,7 +4795,7 @@ var PurchaseEventScheduleComponent = /** @class */ (function () {
                             this.router.navigate(['/congestion']);
                             return [2 /*return*/];
                         }
-                        if (errorObject.status === http_status__WEBPACK_IMPORTED_MODULE_4__["SERVICE_UNAVAILABLE"]) {
+                        if (errorObject.status === http_status__WEBPACK_IMPORTED_MODULE_4__["BAD_REQUEST"]) {
                             this.router.navigate(['/maintenance']);
                             return [2 /*return*/];
                         }
