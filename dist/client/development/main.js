@@ -5849,10 +5849,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_7__);
 /* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! rxjs */ "../../node_modules/rxjs/_esm5/index.js");
 /* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! rxjs/operators */ "../../node_modules/rxjs/_esm5/operators/index.js");
-/* harmony import */ var _environments_environment__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../../../../../environments/environment */ "./environments/environment.ts");
-/* harmony import */ var _services__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ../../../../services */ "./app/services/index.ts");
-/* harmony import */ var _store_actions__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ../../../../store/actions */ "./app/store/actions/index.ts");
-/* harmony import */ var _store_reducers__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ../../../../store/reducers */ "./app/store/reducers/index.ts");
+/* harmony import */ var _services__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../../../../services */ "./app/services/index.ts");
+/* harmony import */ var _store_actions__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ../../../../store/actions */ "./app/store/actions/index.ts");
+/* harmony import */ var _store_reducers__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ../../../../store/reducers */ "./app/store/reducers/index.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -5862,7 +5861,6 @@ var __decorate = (undefined && undefined.__decorate) || function (decorators, ta
 var __metadata = (undefined && undefined.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-
 
 
 
@@ -5888,8 +5886,8 @@ var PurchaseInputComponent = /** @class */ (function () {
     PurchaseInputComponent.prototype.ngOnInit = function () {
         var _this = this;
         this.amount = 0;
-        this.purchase = this.store.pipe(Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_4__["select"])(_store_reducers__WEBPACK_IMPORTED_MODULE_13__["getPurchase"]));
-        this.isLoading = this.store.pipe(Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_4__["select"])(_store_reducers__WEBPACK_IMPORTED_MODULE_13__["getLoading"]));
+        this.purchase = this.store.pipe(Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_4__["select"])(_store_reducers__WEBPACK_IMPORTED_MODULE_12__["getPurchase"]));
+        this.isLoading = this.store.pipe(Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_4__["select"])(_store_reducers__WEBPACK_IMPORTED_MODULE_12__["getLoading"]));
         this.purchase.subscribe(function (purchase) {
             if (purchase.authorizeSeatReservation === undefined
                 || purchase.authorizeSeatReservation.result === undefined) {
@@ -5900,15 +5898,6 @@ var PurchaseInputComponent = /** @class */ (function () {
         }).unsubscribe();
         this.createCustomerContactForm();
         this.createPaymentForm();
-        if (_environments_environment__WEBPACK_IMPORTED_MODULE_10__["environment"].ENV === 'local') {
-            this.customerContactForm.controls.familyName.setValue('ハタグチ');
-            this.customerContactForm.controls.givenName.setValue('アキト');
-            this.customerContactForm.controls.email.setValue('hataguchi@motionpicture.jp');
-            this.customerContactForm.controls.telephone.setValue('0362778824');
-            this.paymentForm.controls.cardNumber.setValue('4111111111111111');
-            this.paymentForm.controls.securityCode.setValue('123');
-            this.paymentForm.controls.holderName.setValue('HATAGUCHI');
-        }
     };
     PurchaseInputComponent.prototype.createCustomerContactForm = function () {
         var NAME_MAX_LENGTH = 12;
@@ -6022,9 +6011,9 @@ var PurchaseInputComponent = /** @class */ (function () {
                 telephone: _this.customerContactForm.controls.telephone.value,
                 email: _this.customerContactForm.controls.email.value,
             };
-            _this.store.dispatch(new _store_actions__WEBPACK_IMPORTED_MODULE_12__["purchaseAction"].RegisterContact({ transaction: transaction, contact: contact }));
+            _this.store.dispatch(new _store_actions__WEBPACK_IMPORTED_MODULE_11__["purchaseAction"].RegisterContact({ transaction: transaction, contact: contact }));
         }).unsubscribe();
-        var success = this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_3__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_12__["purchaseAction"].ActionTypes.RegisterContactSuccess), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_9__["tap"])(function () {
+        var success = this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_3__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_11__["purchaseAction"].ActionTypes.RegisterContactSuccess), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_9__["tap"])(function () {
             _this.purchase.subscribe(function (purchase) {
                 if (purchase.authorizeSeatReservation !== undefined
                     && purchase.authorizeSeatReservation.result !== undefined
@@ -6036,7 +6025,7 @@ var PurchaseInputComponent = /** @class */ (function () {
                 }
             }).unsubscribe();
         }));
-        var fail = this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_3__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_12__["purchaseAction"].ActionTypes.RegisterContactFail), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_9__["tap"])(function () {
+        var fail = this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_3__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_11__["purchaseAction"].ActionTypes.RegisterContactFail), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_9__["tap"])(function () {
             _this.router.navigate(['/error']);
         }));
         Object(rxjs__WEBPACK_IMPORTED_MODULE_8__["race"])(success, fail).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_9__["take"])(1)).subscribe();
@@ -6051,7 +6040,7 @@ var PurchaseInputComponent = /** @class */ (function () {
                 _this.router.navigate(['/error']);
                 return;
             }
-            _this.store.dispatch(new _store_actions__WEBPACK_IMPORTED_MODULE_12__["purchaseAction"].CreateGmoTokenObject({
+            _this.store.dispatch(new _store_actions__WEBPACK_IMPORTED_MODULE_11__["purchaseAction"].CreateGmoTokenObject({
                 seller: purchase.seller,
                 creditCard: {
                     cardno: _this.paymentForm.controls.cardNumber.value,
@@ -6061,10 +6050,10 @@ var PurchaseInputComponent = /** @class */ (function () {
                 }
             }));
         }).unsubscribe();
-        var success = this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_3__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_12__["purchaseAction"].ActionTypes.CreateGmoTokenObjectSuccess), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_9__["tap"])(function () {
+        var success = this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_3__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_11__["purchaseAction"].ActionTypes.CreateGmoTokenObjectSuccess), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_9__["tap"])(function () {
             _this.router.navigate(['/purchase/confirm']);
         }));
-        var fail = this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_3__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_12__["purchaseAction"].ActionTypes.CreateGmoTokenObjectFail), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_9__["tap"])(function () {
+        var fail = this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_3__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_11__["purchaseAction"].ActionTypes.CreateGmoTokenObjectFail), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_9__["tap"])(function () {
             _this.util.openAlert({
                 title: _this.translate.instant('common.error'),
                 body: 'クレジットカード情報を確認してください。'
@@ -6081,7 +6070,7 @@ var PurchaseInputComponent = /** @class */ (function () {
         __metadata("design:paramtypes", [_ngrx_store__WEBPACK_IMPORTED_MODULE_4__["Store"],
             _ngrx_effects__WEBPACK_IMPORTED_MODULE_3__["Actions"],
             _angular_router__WEBPACK_IMPORTED_MODULE_2__["Router"],
-            _services__WEBPACK_IMPORTED_MODULE_11__["UtilService"],
+            _services__WEBPACK_IMPORTED_MODULE_10__["UtilService"],
             _angular_forms__WEBPACK_IMPORTED_MODULE_1__["FormBuilder"],
             _ngx_translate_core__WEBPACK_IMPORTED_MODULE_5__["TranslateService"]])
     ], PurchaseInputComponent);
@@ -12053,6 +12042,7 @@ var CinerinoService = /** @class */ (function () {
                         this.auth = _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_2__["createAuthInstance"](option);
                         this.auth.setCredentials({ accessToken: result.accessToken });
                         this.endpoint = result.endpoint;
+                        this.waiterServerUrl = result.waiterServerUrl;
                         return [2 /*return*/];
                 }
             });
@@ -12107,11 +12097,11 @@ var CinerinoService = /** @class */ (function () {
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
-                        if (_environments_environment__WEBPACK_IMPORTED_MODULE_3__["environment"].WAITER_SERVER_URL === undefined
-                            || _environments_environment__WEBPACK_IMPORTED_MODULE_3__["environment"].WAITER_SERVER_URL === '') {
+                        if (this.waiterServerUrl === undefined
+                            || this.waiterServerUrl === '') {
                             return [2 /*return*/, { token: '' }];
                         }
-                        url = _environments_environment__WEBPACK_IMPORTED_MODULE_3__["environment"].WAITER_SERVER_URL + "/projects/" + _environments_environment__WEBPACK_IMPORTED_MODULE_3__["environment"].PROJECT_ID + "/passports";
+                        url = this.waiterServerUrl + "/projects/" + _environments_environment__WEBPACK_IMPORTED_MODULE_3__["environment"].PROJECT_ID + "/passports";
                         body = { scope: "Transaction:PlaceOrder:" + selleId };
                         return [4 /*yield*/, this.http.post(url, body).toPromise()];
                     case 1:
@@ -17456,9 +17446,7 @@ var defaultEnvironment = {
     APP_TITLE: '',
     APP_PREFIX: '',
     PROJECT_ID: '',
-    ENV: 'development',
     ENTRANCE_SERVER_URL: '',
-    WAITER_SERVER_URL: '',
     INSTRUCTION_URL: '',
     ANALYTICS_ID: '',
     GTM_ID: '',

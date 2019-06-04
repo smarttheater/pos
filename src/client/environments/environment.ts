@@ -19,17 +19,9 @@ interface IEnvironment {
      */
     PROJECT_ID: string;
     /**
-     * 環境
-     */
-    ENV: string;
-    /**
      * 入り口URL（非推奨）
      */
     ENTRANCE_SERVER_URL: string;
-    /**
-     * ウェイターURL
-     */
-    WAITER_SERVER_URL: string;
     /**
      * 説明書URL
      */
@@ -173,9 +165,7 @@ const defaultEnvironment: IEnvironment = {
     APP_TITLE: '',
     APP_PREFIX: '',
     PROJECT_ID: '',
-    ENV: 'development',
     ENTRANCE_SERVER_URL: '',
-    WAITER_SERVER_URL: '',
     INSTRUCTION_URL: '',
     ANALYTICS_ID: '',
     GTM_ID: '',

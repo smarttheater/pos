@@ -8,7 +8,6 @@ import * as libphonenumber from 'libphonenumber-js';
 import * as moment from 'moment';
 import { Observable, race } from 'rxjs';
 import { take, tap } from 'rxjs/operators';
-import { environment } from '../../../../../environments/environment';
 import { UtilService } from '../../../../services';
 import { purchaseAction } from '../../../../store/actions';
 import * as reducers from '../../../../store/reducers';
@@ -52,15 +51,6 @@ export class PurchaseInputComponent implements OnInit {
         }).unsubscribe();
         this.createCustomerContactForm();
         this.createPaymentForm();
-        if (environment.ENV === 'local') {
-            this.customerContactForm.controls.familyName.setValue('ハタグチ');
-            this.customerContactForm.controls.givenName.setValue('アキト');
-            this.customerContactForm.controls.email.setValue('hataguchi@motionpicture.jp');
-            this.customerContactForm.controls.telephone.setValue('0362778824');
-            this.paymentForm.controls.cardNumber.setValue('4111111111111111');
-            this.paymentForm.controls.securityCode.setValue('123');
-            this.paymentForm.controls.holderName.setValue('HATAGUCHI');
-        }
     }
 
     private createCustomerContactForm() {
