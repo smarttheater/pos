@@ -8,9 +8,9 @@
             <input type="text" placeholder="Datepicker" class="form-control" #datepicker="bsDatepicker" bsDatepicker
                 [(ngModel)]="scheduleDate"
                 [bsConfig]="{ dateInputFormat: 'YYYY/MM/DD', adaptivePosition: true, showWeekNumbers: false }"
-                (bsValueChange)="selectDate($event)" readonly (click)="setDatePicker()"
+                (bsValueChange)="selectDate($event)" readonly (tap)="setDatePicker()"
                 (onShown)="onShowPicker($event)">
-            <div class="input-group-append pointer" (click)="toggleDatepicker()">
+            <div class="input-group-append pointer" (tap)="toggleDatepicker()">
                 <span class="input-group-text"><i class="fas fa-caret-down"></i></span>
             </div>
         </div>
@@ -35,7 +35,7 @@
 
     <div class="buttons mx-auto text-center">
         <button type="button" class="btn btn-primary btn-block py-3 mb-3" [disabled]="screeningWorkEvents.length === 0"
-            (click)="onSubmit()">{{ 'purchase.event.schedule.next' | translate }}</button>
+            (tap)="onSubmit()">{{ 'purchase.event.schedule.next' | translate }}</button>
         <!-- <button type="button" class="btn btn-link"
             routerLink="/purchase/event/schedule">{{ 'purchase.event.schedule.prev' | translate }}</button> -->
     </div>

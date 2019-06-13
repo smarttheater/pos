@@ -12,9 +12,9 @@
 <div class="contents-width mx-auto px-3">
     <div class="buttons mx-auto text-center mb-4">
         <button *ngIf="stream === null" type="button" class="btn btn-success btn-block py-3"
-            (click)="start()">{{ 'admission.check.camera.start' | translate }}</button>
+            (tap)="start()">{{ 'admission.check.camera.start' | translate }}</button>
         <button *ngIf="stream !== null" type="button" class="btn btn-danger btn-block py-3"
-            (click)="stop()">{{ 'admission.check.camera.stop' | translate }}</button>
+            (tap)="stop()">{{ 'admission.check.camera.stop' | translate }}</button>
     </div>
 </div>
 

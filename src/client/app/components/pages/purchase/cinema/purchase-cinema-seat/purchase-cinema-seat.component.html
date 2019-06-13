@@ -3,9 +3,9 @@
     <p class="mb-4 text-md-center" [innerHTML]="'purchase.cinema.seat.read' | translate"></p>
     <div class="d-flex mb-3">
         <button type="button" class="btn btn-primary mr-2" [disabled]="isLoading | async"
-            (click)="allSelectSeats()">{{ 'purchase.cinema.seat.allSelect' | translate }}</button>
+            (tap)="allSelectSeats()">{{ 'purchase.cinema.seat.allSelect' | translate }}</button>
         <button type="button" class="btn btn-outline-primary m-0"
-            (click)="resetSeats()">{{ 'purchase.cinema.seat.reset' | translate }}</button>
+            (tap)="resetSeats()">{{ 'purchase.cinema.seat.reset' | translate }}</button>
     </div>
     <app-screen *ngIf="(purchase | async).screenData && (purchase | async).screeningEventOffers.length > 0" class="mb-4"
         [screenData]="(purchase | async).screenData" (select)="selectSeat($event)">
@@ -23,7 +23,7 @@
 
     <div class="buttons mx-auto text-center">
         <button type="button" class="btn btn-primary btn-block py-3 mb-3" [disabled]="isLoading | async"
-            (click)="onSubmit()">{{ 'purchase.cinema.seat.next' | translate }}</button>
+            (tap)="onSubmit()">{{ 'purchase.cinema.seat.next' | translate }}</button>
         <button type="button" class="btn btn-link"
             routerLink="/purchase/cinema/schedule">{{ 'purchase.cinema.seat.prev' | translate }}</button>
     </div>

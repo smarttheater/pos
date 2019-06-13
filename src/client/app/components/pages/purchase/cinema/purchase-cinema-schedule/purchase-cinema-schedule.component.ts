@@ -32,7 +32,7 @@ export class PurchaseCinemaScheduleComponent implements OnInit, OnDestroy {
     public moment: typeof moment = moment;
     public scheduleDate: Date;
     private updateTimer: any;
-    @ViewChild('datepicker')
+    @ViewChild('datepicker', { static: true })
     private datepicker: BsDatepickerDirective;
 
     constructor(

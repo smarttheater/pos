@@ -18,8 +18,8 @@ import * as reducers from '../../../../store/reducers';
     styleUrls: ['./admission-schedule.component.scss']
   })
   export class AdmissionScheduleComponent implements OnInit, OnDestroy {
-    @ViewChild(SwiperComponent) public componentRef: SwiperComponent;
-    @ViewChild(SwiperDirective) public directiveRef: SwiperDirective;
+    @ViewChild(SwiperComponent, { static: false }) public componentRef: SwiperComponent;
+    @ViewChild(SwiperDirective, { static: false }) public directiveRef: SwiperDirective;
     public admission: Observable<reducers.IAdmissionState>;
     public master: Observable<reducers.IMasterState>;
     public user: Observable<reducers.IUserState>;

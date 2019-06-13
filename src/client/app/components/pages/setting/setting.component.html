@@ -129,7 +129,7 @@
                             <button
                                 *ngIf="this.settingForm.controls.printerType.value && this.settingForm.controls.printerType.value !== connectionType.None"
                                 type="button" class="btn btn-sm btn-primary py-2 mt-2"
-                                (click)="print()">{{ 'setting.testPrinting' | translate }}</button>
+                                (tap)="print()">{{ 'setting.testPrinting' | translate }}</button>
                         </div>
                     </div>
                 </div>
@@ -186,7 +186,7 @@
 
     <div class="buttons mx-auto text-center">
         <button type="button" class="btn btn-primary btn-block py-3 mb-3"
-            (click)="onSubmit()">{{ 'setting.next' | translate }}</button>
+            (tap)="onSubmit()">{{ 'setting.next' | translate }}</button>
         <button type="button" class="btn btn-link"
             [routerLink]="environment.BASE_URL">{{ 'setting.prev' | translate }}</button>
     </div>

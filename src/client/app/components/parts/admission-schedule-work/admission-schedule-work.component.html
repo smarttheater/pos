@@ -28,7 +28,7 @@
             [ngClass]="{ 
           'bg-white': (moment(screeningEvent.doorTime).unix() < moment().unix() && moment(screeningEvent.endDate).unix() > moment().unix()), 
           'bg-dark-gray text-light-gray': !(moment(screeningEvent.doorTime).unix() < moment().unix() && moment(screeningEvent.endDate).unix() > moment().unix())
-          }" (click)="select.emit(screeningEvent)">
+          }" (tap)="select.emit(screeningEvent)">
             <div>
                 <div class="mb-2 text-small">
                     {{ screeningEvent.location.name | changeLanguage }}
