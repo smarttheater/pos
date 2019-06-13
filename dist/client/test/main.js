@@ -15252,8 +15252,8 @@ var PurchaseEffects = /** @class */ (function () {
                                 email: (this.translate.instant('email.purchase.complete.toRecipient.email') === '')
                                     ? undefined : this.translate.instant('email.purchase.complete.toRecipient.email')
                             },
-                            about: (this.translate.instant('email.about') === '')
-                                ? undefined : this.translate.instant('email.about'),
+                            about: (this.translate.instant('email.purchase.complete.about') === '')
+                                ? undefined : this.translate.instant('email.purchase.complete.about'),
                             template: undefined
                         };
                         params = {
