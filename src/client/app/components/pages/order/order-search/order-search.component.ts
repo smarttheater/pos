@@ -1,11 +1,13 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { factory } from '@cinerino/api-javascript-client';
 import { Actions, ofType } from '@ngrx/effects';
 import { select, Store } from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
 import * as moment from 'moment';
-import { BsLocaleService, BsModalService } from 'ngx-bootstrap';
+import { BsDatepickerDirective, BsLocaleService, BsModalService } from 'ngx-bootstrap';
+import { CellHoverEvent } from 'ngx-bootstrap/datepicker/models';
+import { BsDatepickerContainerComponent } from 'ngx-bootstrap/datepicker/themes/bs/bs-datepicker-container.component';
 import { Observable, race } from 'rxjs';
 import { take, tap } from 'rxjs/operators';
 import { environment } from '../../../../../environments/environment';
@@ -39,6 +41,8 @@ export class OrderSearchComponent implements OnInit {
     public buildQueryString = buildQueryString;
     public environment = environment;
     public orderToEventOrders = orderToEventOrders;
+    @ViewChild('datepicker', { static: true })
+    private datepicker: BsDatepickerDirective;
 
     constructor(
         private store: Store<reducers.IOrderState>,
@@ -197,6 +201,26 @@ export class OrderSearchComponent implements OnInit {
             })
         );
         race(success, fail).pipe(take(1)).subscribe();
+    }
+
+    /**
+     * 検索条件クリア
+     */
+    public searchConditionClear() {
+        this.conditions = {
+            confirmationNumber: '',
+            orderNumber: '',
+            customer: {
+                familyName: '',
+                givenName: '',
+                email: '',
+                telephone: ''
+            },
+            orderStatus: '',
+            paymentMethodType: '',
+            posId: '',
+            page: 1
+        };
     }
 
     /**
@@ -385,10 +409,33 @@ export class OrderSearchComponent implements OnInit {
         this.isDownload = false;
     }
 
+    /**
+     * DatePicker設定
+     */
     public setDatePicker() {
         this.user.subscribe((user) => {
             this.localeService.use(user.language);
         }).unsubscribe();
+    }
+
+    /**
+     * iOS bugfix（2回タップしないと選択できない）
+     */
+    public onShowPicker(container: BsDatepickerContainerComponent) {
+        const dayHoverHandler = container.dayHoverHandler;
+        const hoverWrapper = (event: CellHoverEvent) => {
+            const { cell, isHovered } = event;
+            if ((isHovered &&
+                !!navigator.platform &&
+                /iPad|iPhone|iPod/.test(navigator.platform)) &&
+                'ontouchstart' in window
+            ) {
+                (<any>this.datepicker)._datepickerRef.instance.daySelectHandler(cell);
+            }
+
+            return dayHoverHandler(event);
+        };
+        container.dayHoverHandler = hoverWrapper;
     }
 
 }
