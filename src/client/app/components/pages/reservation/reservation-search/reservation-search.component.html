@@ -8,7 +8,7 @@
                     <label for="reservationDateFrom"
                         class="mb-2">{{ 'reservation.search.conditions.reservationDateFrom' | translate }}</label>
                     <input type="text" name="reservationDateFrom" id="reservationDateFrom" placeholder="YYYY/MM/DD"
-                        class="form-control" #datepicker="bsDatepicker" bsDatepicker
+                        class="form-control" #reservationDateFrom="bsDatepicker" bsDatepicker
                         [(ngModel)]="conditions.reservationDateFrom"
                         [bsConfig]="{ dateInputFormat: 'YYYY/MM/DD', adaptivePosition: true, showWeekNumbers: false }"
                         readonly (onShown)="onShowPicker($event)" (tap)="setDatePicker()">
@@ -19,7 +19,7 @@
                     <label for="reservationDateThrough"
                         class="mb-2">{{ 'reservation.search.conditions.reservationDateThrough' | translate }}</label>
                     <input type="text" name="reservationDateThrough" id="reservationDateThrough"
-                        placeholder="YYYY/MM/DD" class="form-control" #datepicker="bsDatepicker" bsDatepicker
+                        placeholder="YYYY/MM/DD" class="form-control" #reservationDateThrough="bsDatepicker" bsDatepicker
                         [(ngModel)]="conditions.reservationDateThrough"
                         [bsConfig]="{ dateInputFormat: 'YYYY/MM/DD', adaptivePosition: true, showWeekNumbers: false }"
                         readonly (onShown)="onShowPicker($event)" (tap)="setDatePicker()">
@@ -57,7 +57,7 @@
                     <label for="eventStartDateFrom"
                         class="mb-2">{{ 'reservation.search.conditions.eventStartDateFrom' | translate }}</label>
                     <input type="text" name="eventStartDateFrom" id="eventStartDateFrom" placeholder="YYYY/MM/DD"
-                        class="form-control" #datepicker="bsDatepicker" bsDatepicker
+                        class="form-control" #eventStartDateFrom="bsDatepicker" bsDatepicker
                         [(ngModel)]="conditions.eventStartDateFrom"
                         [bsConfig]="{ dateInputFormat: 'YYYY/MM/DD', adaptivePosition: true, showWeekNumbers: false }"
                         readonly (onShown)="onShowPicker($event)" (tap)="setDatePicker()">
@@ -66,7 +66,7 @@
                     <label for="eventStartDateThrough"
                         class="mb-2">{{ 'reservation.search.conditions.eventStartDateThrough' | translate }}</label>
                     <input type="text" name="eventStartDateThrough" id="eventStartDateThrough" placeholder="YYYY/MM/DD"
-                        class="form-control" #datepicker="bsDatepicker" bsDatepicker
+                        class="form-control" #eventStartDateThrough="bsDatepicker" bsDatepicker
                         [(ngModel)]="conditions.eventStartDateThrough"
                         [bsConfig]="{ dateInputFormat: 'YYYY/MM/DD', adaptivePosition: true, showWeekNumbers: false }"
                         readonly (onShown)="onShowPicker($event)" (tap)="setDatePicker()">

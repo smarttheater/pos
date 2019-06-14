@@ -41,8 +41,14 @@ export class OrderSearchComponent implements OnInit {
     public buildQueryString = buildQueryString;
     public environment = environment;
     public orderToEventOrders = orderToEventOrders;
-    @ViewChild('datepicker', { static: true })
-    private datepicker: BsDatepickerDirective;
+    @ViewChild('orderDateFrom', { static: true })
+    private orderDateFrom: BsDatepickerDirective;
+    @ViewChild('orderDateThrough', { static: true })
+    private orderDateThrough: BsDatepickerDirective;
+    @ViewChild('eventStartDateFrom', { static: true })
+    private eventStartDateFrom: BsDatepickerDirective;
+    @ViewChild('eventStartDateThrough', { static: true })
+    private eventStartDateThrough: BsDatepickerDirective;
 
     constructor(
         private store: Store<reducers.IOrderState>,
@@ -430,7 +436,10 @@ export class OrderSearchComponent implements OnInit {
                 /iPad|iPhone|iPod/.test(navigator.platform)) &&
                 'ontouchstart' in window
             ) {
-                (<any>this.datepicker)._datepickerRef.instance.daySelectHandler(cell);
+                (<any>this.orderDateFrom)._datepickerRef.instance.daySelectHandler(cell);
+                (<any>this.orderDateThrough)._datepickerRef.instance.daySelectHandler(cell);
+                (<any>this.eventStartDateFrom)._datepickerRef.instance.daySelectHandler(cell);
+                (<any>this.eventStartDateThrough)._datepickerRef.instance.daySelectHandler(cell);
             }
 
             return dayHoverHandler(event);

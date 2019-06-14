@@ -8,7 +8,7 @@
                     <label for="orderDateFrom"
                         class="mb-2">{{ 'order.search.conditions.orderDateFrom' | translate }}</label>
                     <input type="text" name="orderDateFrom" id="orderDateFrom" placeholder="YYYY/MM/DD"
-                        class="form-control" #datepicker="bsDatepicker" bsDatepicker
+                        class="form-control" #orderDateFrom="bsDatepicker" bsDatepicker
                         [(ngModel)]="conditions.orderDateFrom"
                         [bsConfig]="{ dateInputFormat: 'YYYY/MM/DD', adaptivePosition: true, showWeekNumbers: false }"
                         readonly (onShown)="onShowPicker($event)" (tap)="setDatePicker()">
@@ -19,7 +19,7 @@
                     <label for="orderDateThrough"
                         class="mb-2">{{ 'order.search.conditions.orderDateThrough' | translate }}</label>
                     <input type="text" name="orderDateThrough" id="orderDateThrough" placeholder="YYYY/MM/DD"
-                        class="form-control" #datepicker="bsDatepicker" bsDatepicker
+                        class="form-control" #orderDateThrough="bsDatepicker" bsDatepicker
                         [(ngModel)]="conditions.orderDateThrough"
                         [bsConfig]="{ dateInputFormat: 'YYYY/MM/DD', adaptivePosition: true, showWeekNumbers: false }"
                         readonly (onShown)="onShowPicker($event)" (tap)="setDatePicker()">
@@ -103,7 +103,7 @@
                     <label for="eventStartDateFrom"
                         class="mb-2">{{ 'order.search.conditions.eventStartDateFrom' | translate }}</label>
                     <input type="text" name="eventStartDateFrom" id="eventStartDateFrom" placeholder="YYYY/MM/DD"
-                        class="form-control" #datepicker="bsDatepicker" bsDatepicker
+                        class="form-control" #eventStartDateFrom="bsDatepicker" bsDatepicker
                         [(ngModel)]="conditions.eventStartDateFrom"
                         [bsConfig]="{ dateInputFormat: 'YYYY/MM/DD', adaptivePosition: true, showWeekNumbers: false }"
                         readonly (onShown)="onShowPicker($event)" (tap)="setDatePicker()">
@@ -112,7 +112,7 @@
                     <label for="eventStartDateThrough"
                         class="mb-2">{{ 'order.search.conditions.eventStartDateThrough' | translate }}</label>
                     <input type="text" name="eventStartDateThrough" id="eventStartDateThrough" placeholder="YYYY/MM/DD"
-                        class="form-control" #datepicker="bsDatepicker" bsDatepicker
+                        class="form-control" #eventStartDateThrough="bsDatepicker" bsDatepicker
                         [(ngModel)]="conditions.eventStartDateThrough"
                         [bsConfig]="{ dateInputFormat: 'YYYY/MM/DD', adaptivePosition: true, showWeekNumbers: false }"
                         readonly (onShown)="onShowPicker($event)" (tap)="setDatePicker()">

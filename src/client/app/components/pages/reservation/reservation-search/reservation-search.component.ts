@@ -36,8 +36,14 @@ export class ReservationSearchComponent implements OnInit {
     public reservationStatus = factory.chevre.reservationStatusType;
     public getTicketPrice = getTicketPrice;
     public environment = environment;
-    @ViewChild('datepicker', { static: true })
-    private datepicker: BsDatepickerDirective;
+    @ViewChild('reservationDateFrom', { static: true })
+    private reservationDateFrom: BsDatepickerDirective;
+    @ViewChild('reservationDateThrough', { static: true })
+    private reservationDateThrough: BsDatepickerDirective;
+    @ViewChild('eventStartDateFrom', { static: true })
+    private eventStartDateFrom: BsDatepickerDirective;
+    @ViewChild('eventStartDateThrough', { static: true })
+    private eventStartDateThrough: BsDatepickerDirective;
 
     constructor(
         private store: Store<reducers.IReservationState>,
@@ -203,7 +209,10 @@ export class ReservationSearchComponent implements OnInit {
                 /iPad|iPhone|iPod/.test(navigator.platform)) &&
                 'ontouchstart' in window
             ) {
-                (<any>this.datepicker)._datepickerRef.instance.daySelectHandler(cell);
+                (<any>this.reservationDateFrom)._datepickerRef.instance.daySelectHandler(cell);
+                (<any>this.reservationDateThrough)._datepickerRef.instance.daySelectHandler(cell);
+                (<any>this.eventStartDateFrom)._datepickerRef.instance.daySelectHandler(cell);
+                (<any>this.eventStartDateThrough)._datepickerRef.instance.daySelectHandler(cell);
             }
 
             return dayHoverHandler(event);
