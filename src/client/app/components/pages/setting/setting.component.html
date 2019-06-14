@@ -121,7 +121,7 @@
                     <div class="row align-items-center">
                         <p class="col-md-4 py-2 text-md-right">{{ 'setting.printer' | translate }}</p>
                         <div class="col-md-8">
-                            <select class="form-control" formControlName="printerType">
+                            <select class="form-control" formControlName="printerType" (change)="changePrinterType()">
                                 <option value="">{{ 'setting.unselected' | translate }}</option>
                                 <option *ngFor="let printer of printers" [value]="printer.connectionType">
                                     {{ printer.name | translate }}</option>
@@ -129,7 +129,7 @@
                             <button
                                 *ngIf="this.settingForm.controls.printerType.value && this.settingForm.controls.printerType.value !== connectionType.None"
                                 type="button" class="btn btn-sm btn-primary py-2 mt-2"
-                                (tap)="print()">{{ 'setting.testPrinting' | translate }}</button>
+                                (click)="print()">{{ 'setting.testPrinting' | translate }}</button>
                         </div>
                     </div>
                 </div>
@@ -186,7 +186,7 @@
 
     <div class="buttons mx-auto text-center">
         <button type="button" class="btn btn-primary btn-block py-3 mb-3"
-            (tap)="onSubmit()">{{ 'setting.next' | translate }}</button>
+            (click)="onSubmit()">{{ 'setting.next' | translate }}</button>
         <button type="button" class="btn btn-link"
             [routerLink]="environment.BASE_URL">{{ 'setting.prev' | translate }}</button>
     </div>

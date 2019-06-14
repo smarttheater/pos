@@ -39,16 +39,21 @@ export class SettingComponent implements OnInit {
         private translate: TranslateService
     ) { }
 
+    /**
+     * 初期化
+     */
     public ngOnInit() {
         this.user = this.store.pipe(select(reducers.getUser));
         this.master = this.store.pipe(select(reducers.getMaster));
         this.error = this.store.pipe(select(reducers.getError));
         this.posList = [];
-        this.getTheaters();
+        this.getSellers();
         this.createSettlingForm();
-        console.log(this.printers);
     }
 
+    /**
+     * フォーム作成
+     */
     private createSettlingForm() {
         const NAME_MAX_LENGTH = 12;
         const MAIL_MAX_LENGTH = 50;
@@ -136,6 +141,9 @@ export class SettingComponent implements OnInit {
         }).unsubscribe();
     }
 
+    /**
+     * POS変更
+     */
     public changePosList() {
         this.settingForm.controls.posId.setValue('');
         const sellerBranchCode = this.settingForm.controls.sellerBranchCode.value;
@@ -157,9 +165,9 @@ export class SettingComponent implements OnInit {
     }
 
     /**
-     * getTheaters
+     * 販売者一覧取得
      */
-    public getTheaters() {
+    public getSellers() {
         this.store.dispatch(new masterAction.GetSellers({ params: {} }));
 
         const success = this.actions.pipe(
@@ -176,6 +184,9 @@ export class SettingComponent implements OnInit {
         race(success, fail).pipe(take(1)).subscribe();
     }
 
+    /**
+     * 設定変更
+     */
     public onSubmit() {
         Object.keys(this.settingForm.controls).forEach((key) => {
             this.settingForm.controls[key].markAsTouched();
@@ -224,6 +235,9 @@ export class SettingComponent implements OnInit {
 
     }
 
+    /**
+     * 印刷
+     */
     public print() {
         const printer = {
             connectionType: this.settingForm.controls.printerType.value,
@@ -252,6 +266,15 @@ export class SettingComponent implements OnInit {
             })
         );
         race(success, fail).pipe(take(1)).subscribe();
+    }
+
+    /**
+     * プリンター変更
+     */
+    public changePrinterType() {
+        if (this.settingForm.controls.printerType.value === connectionType.StarBluetooth) {
+            this.settingForm.controls.printerIpAddress.setValue(this.translate.instant('setting.starBluetoothAddress'));
+        }
     }
 
 }

@@ -86,13 +86,19 @@ export class ReservationSearchComponent implements OnInit {
                     //     ids: (user.seller === undefined)
                     //         ? undefined : [user.seller.id]
                     // },
-                    bookingFrom: this.confirmedConditions.reservationDateFrom,
+                    bookingFrom: (this.confirmedConditions.reservationDateFrom === undefined)
+                        ? undefined
+                        : moment(moment(this.confirmedConditions.reservationDateFrom).format('YYYYMMDD')).toDate(),
                     bookingThrough: (this.confirmedConditions.reservationDateThrough === undefined)
-                        ? undefined : moment(this.confirmedConditions.reservationDateThrough).add(1, 'day').toDate(),
+                        ? undefined
+                        : moment(moment(this.confirmedConditions.reservationDateThrough).format('YYYYMMDD')).add(1, 'day').toDate(),
                     reservationFor: {
-                        startFrom: this.confirmedConditions.eventStartDateFrom,
+                        startFrom: (this.confirmedConditions.eventStartDateFrom === undefined)
+                        ? undefined
+                        : moment(moment(this.confirmedConditions.eventStartDateFrom).format('YYYYMMDD')).toDate(),
                         startThrough: (this.confirmedConditions.eventStartDateThrough === undefined)
-                            ? undefined : moment(this.confirmedConditions.eventStartDateThrough).add(1, 'day').toDate(),
+                            ? undefined
+                            : moment(moment(this.confirmedConditions.eventStartDateThrough).format('YYYYMMDD')).add(1, 'day').toDate(),
                     },
                     ids: (this.confirmedConditions.id === '')
                         ? undefined : [this.confirmedConditions.id],

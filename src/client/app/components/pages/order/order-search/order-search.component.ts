@@ -131,9 +131,12 @@ export class OrderSearchComponent implements OnInit {
                     },
                     orderStatuses: (this.confirmedConditions.orderStatus === '')
                         ? undefined : [this.confirmedConditions.orderStatus],
-                    orderDateFrom: this.confirmedConditions.orderDateFrom,
+                    orderDateFrom: (this.confirmedConditions.orderDateFrom === undefined)
+                        ? undefined
+                        : moment(moment(this.confirmedConditions.orderDateFrom).format('YYYYMMDD')).toDate(),
                     orderDateThrough: (this.confirmedConditions.orderDateThrough === undefined)
-                        ? undefined : moment(this.confirmedConditions.orderDateThrough).add(1, 'day').toDate(),
+                        ? undefined
+                        : moment(moment(this.confirmedConditions.orderDateThrough).format('YYYYMMDD')).add(1, 'day').toDate(),
                     confirmationNumbers: (this.confirmedConditions.confirmationNumber === '')
                         ? undefined : [this.confirmedConditions.confirmationNumber],
                     orderNumbers: (this.confirmedConditions.orderNumber === '')
@@ -143,9 +146,13 @@ export class OrderSearchComponent implements OnInit {
                     acceptedOffers: {
                         itemOffered: {
                             reservationFor: {
-                                startFrom: this.confirmedConditions.eventStartDateFrom,
+                                startFrom: (this.confirmedConditions.eventStartDateFrom === undefined)
+                                    ? undefined
+                                    : moment(moment(this.confirmedConditions.eventStartDateFrom).format('YYYYMMDD')).toDate(),
                                 startThrough: (this.confirmedConditions.eventStartDateThrough === undefined)
-                                    ? undefined : moment(this.confirmedConditions.eventStartDateThrough).add(1, 'day').toDate(),
+                                    ? undefined
+                                    : moment(moment(this.confirmedConditions.eventStartDateThrough)
+                                        .format('YYYYMMDD')).add(1, 'day').toDate(),
                             }
                         }
                     },

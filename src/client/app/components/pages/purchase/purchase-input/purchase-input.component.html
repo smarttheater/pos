@@ -127,7 +127,7 @@
                         <p *ngIf="paymentForm.controls.securityCode.errors.required" class="text-danger">
                             {{ 'form.validation.required' | translate }}</p>
                     </div>
-                    <p class="mt-2 text-small"><span class="pointer" (tap)="openSecurityCode()"><i
+                    <p class="mt-2 text-small"><span class="pointer" (click)="openSecurityCode()"><i
                                 class="far fa-question-circle mr-1"></i>{{ 'purchase.input.securityCode' | translate }}</span>
                     </p>
                 </div>
@@ -147,7 +147,7 @@
 
     <div class="buttons mx-auto text-center">
         <button type="button" class="btn btn-primary btn-block py-3 mb-3" [disabled]="isLoading | async"
-            (tap)="onSubmit()">{{ 'purchase.input.next' | translate }}</button>
+            (click)="onSubmit()">{{ 'purchase.input.next' | translate }}</button>
         <button type="button" class="btn btn-link"
             routerLink="/purchase/cinema/cart">{{ 'purchase.input.prev' | translate }}</button>
         <!-- <button type="button" class="btn btn-link" routerLink="/purchase/cinema/ticket">券種選択へ戻る</button> -->
