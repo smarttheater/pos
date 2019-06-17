@@ -353,7 +353,7 @@ export class OrderSearchComponent implements OnInit {
         if (this.actionSelect === OrderActions.Cancel) {
             this.util.openConfirm({
                 title: this.translate.instant('common.confirm'),
-                body: this.translate.instant('order.search.alert.cancel'),
+                body: this.translate.instant('order.search.confirm.cancel'),
                 cb: () => {
                     this.cancel(this.selectedOrders);
                 }
@@ -361,7 +361,7 @@ export class OrderSearchComponent implements OnInit {
         } else if (this.actionSelect === OrderActions.Print) {
             this.util.openConfirm({
                 title: this.translate.instant('common.confirm'),
-                body: this.translate.instant('order.search.alert.print'),
+                body: this.translate.instant('order.search.confirm.print'),
                 cb: () => {
                     this.ptint(this.selectedOrders);
                 }

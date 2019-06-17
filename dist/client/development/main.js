@@ -3584,7 +3584,7 @@ var OrderSearchComponent = /** @class */ (function () {
         if (this.actionSelect === models_1.OrderActions.Cancel) {
             this.util.openConfirm({
                 title: this.translate.instant('common.confirm'),
-                body: this.translate.instant('order.search.alert.cancel'),
+                body: this.translate.instant('order.search.confirm.cancel'),
                 cb: function () {
                     _this.cancel(_this.selectedOrders);
                 }
@@ -3593,7 +3593,7 @@ var OrderSearchComponent = /** @class */ (function () {
         else if (this.actionSelect === models_1.OrderActions.Print) {
             this.util.openConfirm({
                 title: this.translate.instant('common.confirm'),
-                body: this.translate.instant('order.search.alert.print'),
+                body: this.translate.instant('order.search.confirm.print'),
                 cb: function () {
                     _this.ptint(_this.selectedOrders);
                 }
