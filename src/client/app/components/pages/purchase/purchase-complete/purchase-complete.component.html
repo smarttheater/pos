@@ -66,7 +66,7 @@
         </div>
 
         <div class="mb-4 px-3 bg-white">
-            <div class="py-3 border-bottom border-gray">
+            <!-- <div class="py-3 border-bottom border-gray">
                 <div class="row align-items-center">
                     <p class="mb-2 mb-md-0 col-md-4">{{ 'common.customerName' | translate }}</p>
                     <p class="col-md-8">{{ (purchase | async).order.customer.familyName }} {{ (purchase |
@@ -84,14 +84,9 @@
                     <p class="mb-2 mb-md-0 col-md-4">{{ 'common.telephone' | translate }}</p>
                     <p class="col-md-8">{{ (purchase | async).order.customer.telephone | libphonenumberFormat }}</p>
                 </div>
-            </div>
-            <div class="py-3 border-bottom border-gray" *ngIf="(purchase | async).order.price > 0">
-                <div class="row align-items-center">
-                    <p class="mb-2 mb-md-0 col-md-4">{{ 'common.amount' | translate }}</p>
-                    <p class="col-md-8 font-weight-bold text-large text-info">{{ (purchase | async).order.price | currency : 'JPY' }}</p>
-                </div>
-            </div>
-            <div class="py-3" *ngIf="(purchase | async).order.price > 0">
+            </div> -->
+            
+            <div class="py-3 border-bottom border-gray">
                 <div class="row align-items-center">
                     <p class="mb-2 mb-md-0 col-md-4">{{ 'common.paymentMethod' | translate }}</p>
                     <div class="col-md-8">
@@ -105,6 +100,12 @@
                             <span *ngIf="paymentMethod.typeOf === paymentMethodType.Others && paymentMethod.name === 'RegiGrow'">{{ 'common.paymentMethodType.regiGrow' | translate }}</span>
                         </p>
                     </div>
+                </div>
+            </div>
+            <div class="py-3">
+                <div class="row align-items-center">
+                    <p class="mb-2 mb-md-0 col-md-4">{{ 'common.amount' | translate }}</p>
+                    <p class="col-md-8 font-weight-bold text-large text-info">{{ (purchase | async).order.price | currency : 'JPY' }}</p>
                 </div>
             </div>
         </div>
