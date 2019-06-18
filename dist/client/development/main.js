@@ -11702,7 +11702,12 @@ var DownloadService = /** @class */ (function () {
                                     price: order.price,
                                     seller: order.seller,
                                     paymentMethodsNames: order.paymentMethods.map(function (m) { return m.name; }).join(','),
-                                    customer: __assign({}, order.customer, { formatTelephone: functions_1.formatTelephone(order.customer.telephone) }),
+                                    customer: __assign({}, order.customer, { formatTelephone: functions_1.formatTelephone(order.customer.telephone), pos: {
+                                            name: (order.customer.identifier === undefined
+                                                || order.customer.identifier.find(function (i) { return (i.name === 'posName'); }) === undefined)
+                                                ? { name: '', value: '' }
+                                                : order.customer.identifier.find(function (i) { return (i.name === 'posName'); })
+                                        } }),
                                     itemOffered: {
                                         id: acceptedOffer.itemOffered.id,
                                         price: functions_1.getTicketPrice(acceptedOffer).total,
@@ -11713,7 +11718,7 @@ var DownloadService = /** @class */ (function () {
                                 data.push(customData);
                             });
                         });
-                        return [4 /*yield*/, this.splitDownload(data, opts, 1000)];
+                        return [4 /*yield*/, this.splitDownload('order', data, opts, 1000)];
                     case 6:
                         _a.sent();
                         return [2 /*return*/];
@@ -11774,7 +11779,7 @@ var DownloadService = /** @class */ (function () {
                             };
                             data.push(customData);
                         });
-                        return [4 /*yield*/, this.splitDownload(data, opts, 1000)];
+                        return [4 /*yield*/, this.splitDownload('reservation', data, opts, 1000)];
                     case 6:
                         _a.sent();
                         return [2 /*return*/];
@@ -11782,7 +11787,7 @@ var DownloadService = /** @class */ (function () {
             });
         });
     };
-    DownloadService.prototype.splitDownload = function (data, opts, split) {
+    DownloadService.prototype.splitDownload = function (filename, data, opts, split) {
         return __awaiter(this, void 0, void 0, function () {
             var limit, i, splitData, bom, csv, blob;
             return __generator(this, function (_a) {
@@ -11799,7 +11804,7 @@ var DownloadService = /** @class */ (function () {
                     case 2:
                         csv = _a.sent();
                         blob = new Blob([bom, csv], { 'type': 'text/csv' });
-                        this.download(blob, "reservation" + ((limit > 1) ? "_" + (i + 1) : '') + ".csv");
+                        this.download(blob, "" + filename + ((limit > 1) ? "_" + (i + 1) : '') + ".csv");
                         _a.label = 3;
                     case 3:
                         i++;
