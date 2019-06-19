@@ -51,6 +51,9 @@ export class PurchaseConfirmComponent implements OnInit {
         }).unsubscribe();
     }
 
+    /**
+     * 購入情報登録
+     */
     public registerContact() {
         this.purchase.subscribe((purchase) => {
             this.user.subscribe((user) => {
@@ -80,6 +83,9 @@ export class PurchaseConfirmComponent implements OnInit {
         race(success, fail).pipe(take(1)).subscribe();
     }
 
+    /**
+     * 決済承認処理
+     */
     public authorizeAnyPayment() {
         this.purchase.subscribe((purchase) => {
             if (purchase.transaction === undefined
@@ -122,6 +128,9 @@ export class PurchaseConfirmComponent implements OnInit {
         race(success, fail).pipe(take(1)).subscribe();
     }
 
+    /**
+     * 予約
+     */
     public reserve() {
         this.user.subscribe((user) => {
             this.purchase.subscribe((purchase) => {
@@ -153,7 +162,7 @@ export class PurchaseConfirmComponent implements OnInit {
     }
 
     /**
-     * authorizeMovieTicket
+     * ムビチケ承認処理
      */
     private authorizeMovieTicket() {
         this.purchase.subscribe((purchase) => {
@@ -175,7 +184,7 @@ export class PurchaseConfirmComponent implements OnInit {
                 if (this.amount > 0) {
                     this.authorizeAnyPayment();
                 } else {
-                    this.reserve();
+                    this.registerContact();
                 }
             })
         );
@@ -189,6 +198,9 @@ export class PurchaseConfirmComponent implements OnInit {
         race(success, fail).pipe(take(1)).subscribe();
     }
 
+    /**
+     * 確定
+     */
     public onSubmit() {
         this.purchase.subscribe((purchase) => {
             if (purchase.paymentMethod === undefined) {
@@ -206,10 +218,8 @@ export class PurchaseConfirmComponent implements OnInit {
             }
             if (purchase.pendingMovieTickets.length > 0) {
                 this.authorizeMovieTicket();
-            } else if (this.amount > 0) {
-                this.authorizeAnyPayment();
             } else {
-                this.registerContact();
+                this.authorizeAnyPayment();
             }
         }).unsubscribe();
     }

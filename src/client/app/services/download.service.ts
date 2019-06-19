@@ -54,7 +54,13 @@ export class DownloadService {
                     paymentMethodsNames: order.paymentMethods.map(m => m.name).join(','),
                     customer: {
                         ...order.customer,
-                        formatTelephone: formatTelephone((<string>order.customer.telephone))
+                        formatTelephone: formatTelephone((<string>order.customer.telephone)),
+                        pos: {
+                            name: (order.customer.identifier === undefined
+                                || order.customer.identifier.find(i => (i.name === 'posName')) === undefined)
+                                ? { name: '', value: ''}
+                                : order.customer.identifier.find(i => (i.name === 'posName'))
+                        }
                     },
                     itemOffered: {
                         id: acceptedOffer.itemOffered.id,
@@ -69,7 +75,7 @@ export class DownloadService {
                 data.push(customData);
             });
         });
-        await this.splitDownload(data, opts, 1000);
+        await this.splitDownload('order', data, opts, 1000);
     }
 
     /**
@@ -115,17 +121,17 @@ export class DownloadService {
             };
             data.push(customData);
         });
-        await this.splitDownload(data, opts, 1000);
+        await this.splitDownload('reservation', data, opts, 1000);
     }
 
-    private async splitDownload(data: any, opts: any, split: number) {
+    private async splitDownload(filename: string, data: any, opts: any, split: number) {
         const limit = Math.ceil(data.length / split);
         for (let i = 0; i < limit; i++) {
             const splitData = data.slice(i * split, ((i + 1) * split > data.length) ? data.length : (i + 1) * split);
             const bom = new Uint8Array([0xEF, 0xBB, 0xBF]);
             const csv = await json2csv.parseAsync(splitData, opts);
             const blob = new Blob([bom, csv], { 'type': 'text/csv' });
-            this.download(blob, `reservation${(limit > 1) ? `_${(i + 1)}` : ''}.csv`);
+            this.download(blob, `${filename}${(limit > 1) ? `_${(i + 1)}` : ''}.csv`);
         }
     }
 

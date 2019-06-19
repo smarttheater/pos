@@ -560,7 +560,7 @@ module.exports = "<app-header></app-header>\n<app-contents class=\"purchase\">\n
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"contents-width mx-auto px-3 py-5\">\n    <div class=\"mb-4\">\n        <h2 class=\"text-large mb-4 text-center font-weight-bold\">{{ 'purchase.complete.title' | translate }}</h2>\n        <p class=\"mb-4 text-md-center\" [innerHTML]=\"'purchase.complete.read' | translate\"></p>\n\n        <div class=\"mb-4 px-3 py-2 bg-white\">\n            <div class=\"row align-items-center\">\n                <p class=\"col-4\">\n                    {{ 'common.confirmationNumber' | translate }}</p>\n                <p class=\"col-8 text-large text-info font-weight-bold\">\n                    {{ (purchase | async).order.confirmationNumber }}\n                </p>\n            </div>\n        </div>\n\n        <div *ngIf=\"regiGrow\" class=\"mb-4 px-3 py-2 bg-white\">\n            <div class=\"row align-items-center\">\n                <p class=\"col-md-4 mb-2 mb-md-0\">{{ 'purchase.complete.regiGrow' | translate }}</p>\n                <p class=\"col-md-8 text-large text-center text-md-left\">\n                    <img class=\"border\" [src]=\"regiGrow\">\n                </p>\n            </div>\n        </div>\n\n        <div *ngFor=\"let eventOrder of eventOrders\" class=\"mb-4 bg-white p-3\">\n            <div class=\"mb-3\">\n                <div class=\"mb-1\">\n                    <p class=\"font-weight-bold text-large\">{{ eventOrder.event.name | changeLanguage }}</p>\n                    <p class=\"text-small\"\n                        *ngIf=\"eventOrder.event.superEvent.headline && (eventOrder.event.superEvent.headline | changeLanguage)\">\n                        {{ eventOrder.event.superEvent.headline | changeLanguage }}</p>\n                    <p class=\"text-small\"\n                        *ngIf=\"eventOrder.event.superEvent.description && (eventOrder.event.superEvent.description | changeLanguage)\">{{\n                        eventOrder.event.superEvent.description | changeLanguage }}</p>\n                </div>\n                <p class=\"mb-1\">\n                    {{ eventOrder.event.startDate | formatDate: 'MM/DD(ddd) HH:mm' }}-{{ eventOrder.event.endDate | formatDate: 'HH:mm' }}\n                </p>\n                <p class=\"text-small mb-1\">\n                    <span>{{ eventOrder.event.superEvent.location.name | changeLanguage }}</span>\n                    <span>&nbsp;/&nbsp;{{ eventOrder.event.location.name | changeLanguage }}</span>\n                    <span\n                        *ngIf=\"eventOrder.event.workPerformed?.duration && moment.duration(eventOrder.event.workPerformed?.duration).asMinutes() > 0\">\n                        &nbsp;/&nbsp;<span class=\"mr-1\">{{ 'common.duration' | translate }}</span>{{ moment.duration(eventOrder.event.workPerformed?.duration).asMinutes() }}{{ 'common.date.minute' | translate }}\n                    </span>\n                </p>\n            </div>\n            <hr class=\"mb-3\">\n            <div *ngIf=\"environment.DISPLAY_TICKETED_SEAT\">\n                <div *ngFor=\"let acceptedOffer of eventOrder.data\">\n                    <p>\n                        <span *ngIf=\"acceptedOffer.itemOffered.reservedTicket.ticketedSeat\">\n                            {{ acceptedOffer.itemOffered.reservedTicket.ticketedSeat.seatNumber }}&nbsp;/&nbsp;</span>{{ acceptedOffer.itemOffered.reservedTicket.ticketType.name | changeLanguage }}&nbsp;/&nbsp;{{\n                            getTicketPrice(acceptedOffer).single | currency : 'JPY' }}\n                    </p>\n                </div>\n            </div>\n            <div *ngIf=\"!environment.DISPLAY_TICKETED_SEAT\">\n                <div *ngFor=\"let ticket of changeTicketCountByOrder(eventOrder.data)\">\n                    <p>\n                        {{ ticket.acceptedOffer.itemOffered.reservedTicket.ticketType.name | changeLanguage }}&nbsp;/&nbsp;{{\n                            getTicketPrice(ticket.acceptedOffer).single | currency : 'JPY' }}&nbsp;×&nbsp;{{ ticket.count }}\n                    </p>\n                </div>\n            </div>\n        </div>\n\n        <div class=\"mb-4 px-3 bg-white\">\n            <div class=\"py-3 border-bottom border-gray\">\n                <div class=\"row align-items-center\">\n                    <p class=\"mb-2 mb-md-0 col-md-4\">{{ 'common.customerName' | translate }}</p>\n                    <p class=\"col-md-8\">{{ (purchase | async).order.customer.familyName }} {{ (purchase |\n                                async).order.customer.givenName }}</p>\n                </div>\n            </div>\n            <div class=\"py-3 border-bottom border-gray\">\n                <div class=\"row align-items-center\">\n                    <p class=\"mb-2 mb-md-0 col-md-4\">{{ 'common.email' | translate }}</p>\n                    <p class=\"col-md-8\">{{ (purchase | async).order.customer.email }}</p>\n                </div>\n            </div>\n            <div class=\"py-3 border-bottom border-gray\">\n                <div class=\"row align-items-center\">\n                    <p class=\"mb-2 mb-md-0 col-md-4\">{{ 'common.telephone' | translate }}</p>\n                    <p class=\"col-md-8\">{{ (purchase | async).order.customer.telephone | libphonenumberFormat }}</p>\n                </div>\n            </div>\n            <div class=\"py-3 border-bottom border-gray\" *ngIf=\"(purchase | async).order.price > 0\">\n                <div class=\"row align-items-center\">\n                    <p class=\"mb-2 mb-md-0 col-md-4\">{{ 'common.amount' | translate }}</p>\n                    <p class=\"col-md-8 font-weight-bold text-large text-info\">{{ (purchase | async).order.price | currency : 'JPY' }}</p>\n                </div>\n            </div>\n            <div class=\"py-3\" *ngIf=\"(purchase | async).order.price > 0\">\n                <div class=\"row align-items-center\">\n                    <p class=\"mb-2 mb-md-0 col-md-4\">{{ 'common.paymentMethod' | translate }}</p>\n                    <div class=\"col-md-8\">\n                        <p *ngFor=\"let paymentMethod of (purchase | async).order.paymentMethods\">\n                            <span *ngIf=\"paymentMethod.typeOf === paymentMethodType.Cash\">{{ 'common.paymentMethodType.cash' | translate }}</span>\n                            <span *ngIf=\"paymentMethod.typeOf === paymentMethodType.Account\">{{ 'common.paymentMethodType.account' | translate }}</span>\n                            <span *ngIf=\"paymentMethod.typeOf === paymentMethodType.CreditCard\">{{ 'common.paymentMethodType.creditCard' | translate }}</span>\n                            <span *ngIf=\"paymentMethod.typeOf === paymentMethodType.EMoney\">{{ 'common.paymentMethodType.eMoney' | translate }}</span>\n                            <span *ngIf=\"paymentMethod.typeOf === paymentMethodType.MovieTicket\">{{ 'common.paymentMethodType.movieTicket' | translate }}</span>\n                            <span *ngIf=\"paymentMethod.typeOf === paymentMethodType.Others && paymentMethod.name === 'Others'\">{{ 'common.paymentMethodType.others' | translate }}</span>\n                            <span *ngIf=\"paymentMethod.typeOf === paymentMethodType.Others && paymentMethod.name === 'RegiGrow'\">{{ 'common.paymentMethodType.regiGrow' | translate }}</span>\n                        </p>\n                    </div>\n                </div>\n            </div>\n        </div>\n    </div>\n\n    <div class=\"buttons mx-auto text-center\">\n        <button type=\"button\" class=\"btn btn-primary btn-block py-3 mb-3\" [disabled]=\"isLoading | async\"\n            (click)=\"print()\">{{ 'purchase.complete.next' | translate }}</button>\n        <button type=\"button\" class=\"btn btn-link\"\n            routerLink=\"/purchase/root\">{{ 'purchase.complete.prev' | translate }}</button>\n    </div>\n\n</div>"
+module.exports = "<div class=\"contents-width mx-auto px-3 py-5\">\n    <div class=\"mb-4\">\n        <h2 class=\"text-large mb-4 text-center font-weight-bold\">{{ 'purchase.complete.title' | translate }}</h2>\n        <p class=\"mb-4 text-md-center\" [innerHTML]=\"'purchase.complete.read' | translate\"></p>\n\n        <div class=\"mb-4 px-3 py-2 bg-white\">\n            <div class=\"row align-items-center\">\n                <p class=\"col-4\">\n                    {{ 'common.confirmationNumber' | translate }}</p>\n                <p class=\"col-8 text-large text-info font-weight-bold\">\n                    {{ (purchase | async).order.confirmationNumber }}\n                </p>\n            </div>\n        </div>\n\n        <div *ngIf=\"regiGrow\" class=\"mb-4 px-3 py-2 bg-white\">\n            <div class=\"row align-items-center\">\n                <p class=\"col-md-4 mb-2 mb-md-0\">{{ 'purchase.complete.regiGrow' | translate }}</p>\n                <p class=\"col-md-8 text-large text-center text-md-left\">\n                    <img class=\"border\" [src]=\"regiGrow\">\n                </p>\n            </div>\n        </div>\n\n        <div *ngFor=\"let eventOrder of eventOrders\" class=\"mb-4 bg-white p-3\">\n            <div class=\"mb-3\">\n                <div class=\"mb-1\">\n                    <p class=\"font-weight-bold text-large\">{{ eventOrder.event.name | changeLanguage }}</p>\n                    <p class=\"text-small\"\n                        *ngIf=\"eventOrder.event.superEvent.headline && (eventOrder.event.superEvent.headline | changeLanguage)\">\n                        {{ eventOrder.event.superEvent.headline | changeLanguage }}</p>\n                    <p class=\"text-small\"\n                        *ngIf=\"eventOrder.event.superEvent.description && (eventOrder.event.superEvent.description | changeLanguage)\">{{\n                        eventOrder.event.superEvent.description | changeLanguage }}</p>\n                </div>\n                <p class=\"mb-1\">\n                    {{ eventOrder.event.startDate | formatDate: 'MM/DD(ddd) HH:mm' }}-{{ eventOrder.event.endDate | formatDate: 'HH:mm' }}\n                </p>\n                <p class=\"text-small mb-1\">\n                    <span>{{ eventOrder.event.superEvent.location.name | changeLanguage }}</span>\n                    <span>&nbsp;/&nbsp;{{ eventOrder.event.location.name | changeLanguage }}</span>\n                    <span\n                        *ngIf=\"eventOrder.event.workPerformed?.duration && moment.duration(eventOrder.event.workPerformed?.duration).asMinutes() > 0\">\n                        &nbsp;/&nbsp;<span class=\"mr-1\">{{ 'common.duration' | translate }}</span>{{ moment.duration(eventOrder.event.workPerformed?.duration).asMinutes() }}{{ 'common.date.minute' | translate }}\n                    </span>\n                </p>\n            </div>\n            <hr class=\"mb-3\">\n            <div *ngIf=\"environment.DISPLAY_TICKETED_SEAT\">\n                <div *ngFor=\"let acceptedOffer of eventOrder.data\">\n                    <p>\n                        <span *ngIf=\"acceptedOffer.itemOffered.reservedTicket.ticketedSeat\">\n                            {{ acceptedOffer.itemOffered.reservedTicket.ticketedSeat.seatNumber }}&nbsp;/&nbsp;</span>{{ acceptedOffer.itemOffered.reservedTicket.ticketType.name | changeLanguage }}&nbsp;/&nbsp;{{\n                            getTicketPrice(acceptedOffer).single | currency : 'JPY' }}\n                    </p>\n                </div>\n            </div>\n            <div *ngIf=\"!environment.DISPLAY_TICKETED_SEAT\">\n                <div *ngFor=\"let ticket of changeTicketCountByOrder(eventOrder.data)\">\n                    <p>\n                        {{ ticket.acceptedOffer.itemOffered.reservedTicket.ticketType.name | changeLanguage }}&nbsp;/&nbsp;{{\n                            getTicketPrice(ticket.acceptedOffer).single | currency : 'JPY' }}&nbsp;×&nbsp;{{ ticket.count }}\n                    </p>\n                </div>\n            </div>\n        </div>\n\n        <div class=\"mb-4 px-3 bg-white\">\n            <!-- <div class=\"py-3 border-bottom border-gray\">\n                <div class=\"row align-items-center\">\n                    <p class=\"mb-2 mb-md-0 col-md-4\">{{ 'common.customerName' | translate }}</p>\n                    <p class=\"col-md-8\">{{ (purchase | async).order.customer.familyName }} {{ (purchase |\n                                async).order.customer.givenName }}</p>\n                </div>\n            </div>\n            <div class=\"py-3 border-bottom border-gray\">\n                <div class=\"row align-items-center\">\n                    <p class=\"mb-2 mb-md-0 col-md-4\">{{ 'common.email' | translate }}</p>\n                    <p class=\"col-md-8\">{{ (purchase | async).order.customer.email }}</p>\n                </div>\n            </div>\n            <div class=\"py-3 border-bottom border-gray\">\n                <div class=\"row align-items-center\">\n                    <p class=\"mb-2 mb-md-0 col-md-4\">{{ 'common.telephone' | translate }}</p>\n                    <p class=\"col-md-8\">{{ (purchase | async).order.customer.telephone | libphonenumberFormat }}</p>\n                </div>\n            </div> -->\n            \n            <div class=\"py-3 border-bottom border-gray\">\n                <div class=\"row align-items-center\">\n                    <p class=\"mb-2 mb-md-0 col-md-4\">{{ 'common.paymentMethod' | translate }}</p>\n                    <div class=\"col-md-8\">\n                        <p *ngFor=\"let paymentMethod of (purchase | async).order.paymentMethods\">\n                            <span *ngIf=\"paymentMethod.typeOf === paymentMethodType.Cash\">{{ 'common.paymentMethodType.cash' | translate }}</span>\n                            <span *ngIf=\"paymentMethod.typeOf === paymentMethodType.Account\">{{ 'common.paymentMethodType.account' | translate }}</span>\n                            <span *ngIf=\"paymentMethod.typeOf === paymentMethodType.CreditCard\">{{ 'common.paymentMethodType.creditCard' | translate }}</span>\n                            <span *ngIf=\"paymentMethod.typeOf === paymentMethodType.EMoney\">{{ 'common.paymentMethodType.eMoney' | translate }}</span>\n                            <span *ngIf=\"paymentMethod.typeOf === paymentMethodType.MovieTicket\">{{ 'common.paymentMethodType.movieTicket' | translate }}</span>\n                            <span *ngIf=\"paymentMethod.typeOf === paymentMethodType.Others && paymentMethod.name === 'Others'\">{{ 'common.paymentMethodType.others' | translate }}</span>\n                            <span *ngIf=\"paymentMethod.typeOf === paymentMethodType.Others && paymentMethod.name === 'RegiGrow'\">{{ 'common.paymentMethodType.regiGrow' | translate }}</span>\n                        </p>\n                    </div>\n                </div>\n            </div>\n            <div class=\"py-3\">\n                <div class=\"row align-items-center\">\n                    <p class=\"mb-2 mb-md-0 col-md-4\">{{ 'common.amount' | translate }}</p>\n                    <p class=\"col-md-8 font-weight-bold text-large text-info\">{{ (purchase | async).order.price | currency : 'JPY' }}</p>\n                </div>\n            </div>\n        </div>\n    </div>\n\n    <div class=\"buttons mx-auto text-center\">\n        <button type=\"button\" class=\"btn btn-primary btn-block py-3 mb-3\" [disabled]=\"isLoading | async\"\n            (click)=\"print()\">{{ 'purchase.complete.next' | translate }}</button>\n        <button type=\"button\" class=\"btn btn-link\"\n            routerLink=\"/purchase/root\">{{ 'purchase.complete.prev' | translate }}</button>\n    </div>\n\n</div>"
 
 /***/ }),
 
@@ -5645,6 +5645,9 @@ var PurchaseConfirmComponent = /** @class */ (function () {
             _this.amount = functions_1.getAmount(purchase.authorizeSeatReservations);
         }).unsubscribe();
     };
+    /**
+     * 購入情報登録
+     */
     PurchaseConfirmComponent.prototype.registerContact = function () {
         var _this = this;
         this.purchase.subscribe(function (purchase) {
@@ -5667,6 +5670,9 @@ var PurchaseConfirmComponent = /** @class */ (function () {
         }));
         rxjs_1.race(success, fail).pipe(operators_1.take(1)).subscribe();
     };
+    /**
+     * 決済承認処理
+     */
     PurchaseConfirmComponent.prototype.authorizeAnyPayment = function () {
         var _this = this;
         this.purchase.subscribe(function (purchase) {
@@ -5702,6 +5708,9 @@ var PurchaseConfirmComponent = /** @class */ (function () {
         }));
         rxjs_1.race(success, fail).pipe(operators_1.take(1)).subscribe();
     };
+    /**
+     * 予約
+     */
     PurchaseConfirmComponent.prototype.reserve = function () {
         var _this = this;
         this.user.subscribe(function (user) {
@@ -5725,7 +5734,7 @@ var PurchaseConfirmComponent = /** @class */ (function () {
         rxjs_1.race(success, fail).pipe(operators_1.take(1)).subscribe();
     };
     /**
-     * authorizeMovieTicket
+     * ムビチケ承認処理
      */
     PurchaseConfirmComponent.prototype.authorizeMovieTicket = function () {
         var _this = this;
@@ -5746,7 +5755,7 @@ var PurchaseConfirmComponent = /** @class */ (function () {
                 _this.authorizeAnyPayment();
             }
             else {
-                _this.reserve();
+                _this.registerContact();
             }
         }));
         var fail = this.actions.pipe(effects_1.ofType(actions_1.purchaseAction.ActionTypes.AuthorizeMovieTicketFail), operators_1.tap(function () {
@@ -5754,6 +5763,9 @@ var PurchaseConfirmComponent = /** @class */ (function () {
         }));
         rxjs_1.race(success, fail).pipe(operators_1.take(1)).subscribe();
     };
+    /**
+     * 確定
+     */
     PurchaseConfirmComponent.prototype.onSubmit = function () {
         var _this = this;
         this.purchase.subscribe(function (purchase) {
@@ -5773,11 +5785,8 @@ var PurchaseConfirmComponent = /** @class */ (function () {
             if (purchase.pendingMovieTickets.length > 0) {
                 _this.authorizeMovieTicket();
             }
-            else if (_this.amount > 0) {
-                _this.authorizeAnyPayment();
-            }
             else {
-                _this.registerContact();
+                _this.authorizeAnyPayment();
             }
         }).unsubscribe();
     };
@@ -11693,7 +11702,12 @@ var DownloadService = /** @class */ (function () {
                                     price: order.price,
                                     seller: order.seller,
                                     paymentMethodsNames: order.paymentMethods.map(function (m) { return m.name; }).join(','),
-                                    customer: __assign({}, order.customer, { formatTelephone: functions_1.formatTelephone(order.customer.telephone) }),
+                                    customer: __assign({}, order.customer, { formatTelephone: functions_1.formatTelephone(order.customer.telephone), pos: {
+                                            name: (order.customer.identifier === undefined
+                                                || order.customer.identifier.find(function (i) { return (i.name === 'posName'); }) === undefined)
+                                                ? { name: '', value: '' }
+                                                : order.customer.identifier.find(function (i) { return (i.name === 'posName'); })
+                                        } }),
                                     itemOffered: {
                                         id: acceptedOffer.itemOffered.id,
                                         price: functions_1.getTicketPrice(acceptedOffer).total,
@@ -11704,7 +11718,7 @@ var DownloadService = /** @class */ (function () {
                                 data.push(customData);
                             });
                         });
-                        return [4 /*yield*/, this.splitDownload(data, opts, 1000)];
+                        return [4 /*yield*/, this.splitDownload('order', data, opts, 1000)];
                     case 6:
                         _a.sent();
                         return [2 /*return*/];
@@ -11765,7 +11779,7 @@ var DownloadService = /** @class */ (function () {
                             };
                             data.push(customData);
                         });
-                        return [4 /*yield*/, this.splitDownload(data, opts, 1000)];
+                        return [4 /*yield*/, this.splitDownload('reservation', data, opts, 1000)];
                     case 6:
                         _a.sent();
                         return [2 /*return*/];
@@ -11773,7 +11787,7 @@ var DownloadService = /** @class */ (function () {
             });
         });
     };
-    DownloadService.prototype.splitDownload = function (data, opts, split) {
+    DownloadService.prototype.splitDownload = function (filename, data, opts, split) {
         return __awaiter(this, void 0, void 0, function () {
             var limit, i, splitData, bom, csv, blob;
             return __generator(this, function (_a) {
@@ -11790,7 +11804,7 @@ var DownloadService = /** @class */ (function () {
                     case 2:
                         csv = _a.sent();
                         blob = new Blob([bom, csv], { 'type': 'text/csv' });
-                        this.download(blob, "reservation" + ((limit > 1) ? "_" + (i + 1) : '') + ".csv");
+                        this.download(blob, "" + filename + ((limit > 1) ? "_" + (i + 1) : '') + ".csv");
                         _a.label = 3;
                     case 3:
                         i++;
