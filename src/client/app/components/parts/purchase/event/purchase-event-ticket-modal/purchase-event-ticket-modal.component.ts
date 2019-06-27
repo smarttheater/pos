@@ -3,7 +3,7 @@ import { factory } from '@cinerino/api-javascript-client';
 import * as moment from 'moment';
 import { BsModalRef } from 'ngx-bootstrap';
 import { environment } from '../../../../../../environments/environment';
-import { getTicketPrice } from '../../../../../functions';
+import { getRemainingSeatLength, getTicketPrice, isTicketedSeatScreeningEvent } from '../../../../../functions';
 import { IReservationTicket } from '../../../../../models';
 
 @Component({
@@ -14,6 +14,7 @@ import { IReservationTicket } from '../../../../../models';
 export class PurchaseEventTicketModalComponent implements OnInit {
 
     @Input() public screeningEventTicketOffers: factory.chevre.event.screeningEvent.ITicketOffer[];
+    @Input() public screeningEventOffers: factory.chevre.event.screeningEvent.IScreeningRoomSectionOffer[];
     @Input() public screeningEvent: factory.event.screeningEvent.IEvent;
     @Input() public cb: (reservationTickets: IReservationTicket[]) => void;
     public tickets: factory.chevre.event.screeningEvent.ITicketOffer[];
@@ -21,11 +22,16 @@ export class PurchaseEventTicketModalComponent implements OnInit {
     public values: Number[];
     public selectedTickets: { [key: string]: string; };
     public moment: typeof moment = moment;
+    public getRemainingSeatLength = getRemainingSeatLength;
+    public isTicketedSeatScreeningEvent = isTicketedSeatScreeningEvent;
 
     constructor(
         public modal: BsModalRef
     ) { }
 
+    /**
+     * 初期化
+     */
     public ngOnInit() {
         this.tickets = [];
         this.tickets = this.screeningEventTicketOffers.filter((offer) => {
@@ -35,7 +41,11 @@ export class PurchaseEventTicketModalComponent implements OnInit {
             return movieTicketTypeChargeSpecification === undefined;
         });
         this.values = [];
-        const limit = Number(environment.PURCHASE_ITEM_MAX_LENGTH);
+        let limit = Number(environment.PURCHASE_ITEM_MAX_LENGTH);
+        if (isTicketedSeatScreeningEvent(this.screeningEvent)) {
+            const remainingSeatLength = this.getRemainingSeatLength(this.screeningEventOffers);
+            limit = (limit > remainingSeatLength) ? remainingSeatLength : limit;
+        }
         for (let i = 0; i < limit; i++) {
             this.values.push(i + 1);
         }
@@ -46,12 +56,18 @@ export class PurchaseEventTicketModalComponent implements OnInit {
         this.selectedTickets = selectedTickets;
     }
 
+    /**
+     * 閉じる
+     */
     public close() {
         this.modal.hide();
         const reservationTickets = this.createReservationTickets();
         this.cb(reservationTickets);
     }
 
+    /**
+     * 予約チケット作成
+     */
     public createReservationTickets() {
         const reservationTickets: IReservationTicket[] = [];
         Object.keys(this.selectedTickets).forEach((key) => {

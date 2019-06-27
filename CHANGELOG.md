@@ -12,6 +12,11 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/).
 
 ### Security
 
+## 1.1.0 - 2019-06-27
+### Changed
+- 仮予約残数表示へ変更
+- 注文検索一括処理変更
+
 ## 1.0.4 - 2019-06-22
 ### Fixed
 - 印刷処理修正
