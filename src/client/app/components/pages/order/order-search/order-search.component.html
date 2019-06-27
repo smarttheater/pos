@@ -182,9 +182,15 @@
                     <tr *ngFor="let order of (order | async).orders let index = index"
                         [class.bg-light-gray]="index % 2 === 0">
                         <td class="align-middle text-large text-center">
-                            <i *ngIf="!isSelected(order)" class="far fa-square pointer" (click)="addOrder(order)"></i>
-                            <i *ngIf="isSelected(order)" class="far fa-check-square pointer"
-                                (click)="removeOrder(order)"></i>
+                            <div *ngIf="order.orderStatus === orderStatus.OrderDelivered">
+                                <i *ngIf="!isSelected(order)" class="far fa-square pointer"
+                                    (click)="addOrder(order)"></i>
+                                <i *ngIf="isSelected(order)" class="far fa-check-square pointer"
+                                    (click)="removeOrder(order)"></i>
+                            </div>
+                            <div *ngIf="order.orderStatus !== orderStatus.OrderDelivered">
+                                <i class="far fa-square opacity-0"></i>
+                            </div>
                         </td>
                         <td class="align-middle">
                             <p>{{ order.orderDate | formatDate: 'YYYY/MM/DD (ddd) HH:mm' }}</p>
@@ -225,9 +231,8 @@
                                 class="btn btn-primary mr-2" (click)="printConfirm([order])"><i
                                     class="fas fa-print"></i></button>
                             <button *ngIf="environment.ORDER_CANCEL"
-                                [disabled]="order.orderStatus !== orderStatus.OrderDelivered && order.orderStatus === orderStatus.OrderReturned"
-                                class="btn btn-primary" (click)="cancelConfirm([order])"><i
-                                    class="fas fa-trash-alt"></i></button>
+                                [disabled]="order.orderStatus !== orderStatus.OrderDelivered" class="btn btn-primary"
+                                (click)="cancelConfirm([order])"><i class="fas fa-trash-alt"></i></button>
                         </td>
                     </tr>
                 </tbody>
