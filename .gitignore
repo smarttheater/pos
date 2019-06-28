@@ -48,3 +48,4 @@ Thumbs.db
 .prod.bat
 dist/server/public/entrance/
 public/
+dist/client/production/stats.json
