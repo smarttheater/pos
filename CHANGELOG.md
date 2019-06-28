@@ -12,6 +12,15 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/).
 
 ### Security
 
+## 1.1.1 - 2019-06-28
+### Added
+- webpack-bundle-analyzer追加
+### Changed
+- gzip対応
+- カスタムQR文字列拡張
+### Fixed
+- 印刷処理修正
+
 ## 1.1.0 - 2019-06-27
 ### Changed
 - 仮予約残数表示へ変更
