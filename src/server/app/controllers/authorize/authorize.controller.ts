@@ -26,7 +26,6 @@ export async function getCredentials(req: Request, res: Response) {
             endpoint,
             auth: authModel.create()
         };
-        await options.auth.refreshAccessToken();
         const accessToken = await options.auth.getAccessToken();
         const expiryDate = options.auth.credentials.expiry_date;
         if (req.body.member === '1') {

@@ -2013,19 +2013,33 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = __webpack_require__(/*! @angular/core */ "../../node_modules/@angular/core/fesm5/core.js");
+var router_1 = __webpack_require__(/*! @angular/router */ "../../node_modules/@angular/router/fesm5/router.js");
+var environment_1 = __webpack_require__(/*! ../../../../../environments/environment */ "./environments/environment.ts");
 var cinerino_service_1 = __webpack_require__(/*! ../../../../services/cinerino.service */ "./app/services/cinerino.service.ts");
 var AuthIndexComponent = /** @class */ (function () {
-    function AuthIndexComponent(cinerino) {
+    function AuthIndexComponent(cinerino, router) {
         this.cinerino = cinerino;
+        this.router = router;
     }
     AuthIndexComponent.prototype.ngOnInit = function () {
         return __awaiter(this, void 0, void 0, function () {
+            var error_1;
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, this.cinerino.signIn()];
+                    case 0:
+                        _a.trys.push([0, 2, , 4]);
+                        return [4 /*yield*/, this.cinerino.getServices()];
                     case 1:
                         _a.sent();
-                        return [2 /*return*/];
+                        this.router.navigate([environment_1.environment.BASE_URL]);
+                        return [3 /*break*/, 4];
+                    case 2:
+                        error_1 = _a.sent();
+                        return [4 /*yield*/, this.cinerino.signIn()];
+                    case 3:
+                        _a.sent();
+                        return [3 /*break*/, 4];
+                    case 4: return [2 /*return*/];
                 }
             });
         });
@@ -2036,7 +2050,8 @@ var AuthIndexComponent = /** @class */ (function () {
             template: __webpack_require__(/*! raw-loader!./auth-index.component.html */ "../../node_modules/raw-loader/index.js!./app/components/pages/auth/auth-index/auth-index.component.html"),
             styles: [__webpack_require__(/*! ./auth-index.component.scss */ "./app/components/pages/auth/auth-index/auth-index.component.scss")]
         }),
-        __metadata("design:paramtypes", [cinerino_service_1.CinerinoService])
+        __metadata("design:paramtypes", [cinerino_service_1.CinerinoService,
+            router_1.Router])
     ], AuthIndexComponent);
     return AuthIndexComponent;
 }());
