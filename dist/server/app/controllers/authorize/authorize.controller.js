@@ -37,7 +37,6 @@ function getCredentials(req, res) {
                 endpoint,
                 auth: authModel.create()
             };
-            yield options.auth.refreshAccessToken();
             const accessToken = yield options.auth.getAccessToken();
             const expiryDate = options.auth.credentials.expiry_date;
             if (req.body.member === '1') {
