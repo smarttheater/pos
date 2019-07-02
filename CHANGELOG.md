@@ -12,6 +12,10 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/).
 
 ### Security
 
+## 1.1.3 - 2019-07-02
+### Fixed
+- ログアウト不具合修正
+
 ## 1.1.2 - 2019-07-01
 ### Fixed
 - ログイン期間不具合修正

@@ -17,7 +17,7 @@ exports.default = (app) => {
     app.use('/api/encryption', encryption_1.default);
     app.get('/api/storage', (_req, res) => { res.json({ storage: process.env.STORAGE_URL }); });
     app.get('/signIn', authorize.signInRedirect);
-    app.get('/signIn', authorize.signOutRedirect);
+    app.get('/signOut', authorize.signOutRedirect);
     app.get('*', (_req, res, _next) => {
         res.sendFile(path.resolve(`${__dirname}/../../../client/${process.env.NODE_ENV}/index.html`));
     });
