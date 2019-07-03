@@ -53,6 +53,25 @@ export class PurchaseEffects {
     );
 
     /**
+     * CancelTransaction
+     */
+    @Effect()
+    public cancelTransaction = this.actions.pipe(
+        ofType<purchaseAction.CancelTransaction>(purchaseAction.ActionTypes.CancelTransaction),
+        map(action => action.payload),
+        mergeMap(async (payload) => {
+            try {
+                const transaction = payload.transaction;
+                await this.cinerino.getServices();
+                await this.cinerino.transaction.placeOrder.cancel({ id: transaction.id });
+                return new purchaseAction.CancelTransactionSuccess();
+            } catch (error) {
+                return new purchaseAction.CancelTransactionFail({ error: error });
+            }
+        })
+    );
+
+    /**
      * getScreen
      */
     @Effect()
@@ -438,11 +457,11 @@ export class PurchaseEffects {
     );
 
     /**
-     * reserve
+     * EndTransaction
      */
     @Effect()
-    public reserve = this.actions.pipe(
-        ofType<purchaseAction.Reserve>(purchaseAction.ActionTypes.Reserve),
+    public endTransaction = this.actions.pipe(
+        ofType<purchaseAction.EndTransaction>(purchaseAction.ActionTypes.EndTransaction),
         map(action => action.payload),
         mergeMap(async (payload) => {
             const transaction = payload.transaction;
@@ -486,12 +505,12 @@ export class PurchaseEffects {
                 }
 
                 const result = await this.cinerino.transaction.placeOrder.confirm(params);
-                return new purchaseAction.ReserveSuccess({ order: result.order });
+                return new purchaseAction.EndTransactionSuccess({ order: result.order });
             } catch (error) {
                 await this.cinerino.transaction.placeOrder.cancel({
                     id: transaction.id
                 });
-                return new purchaseAction.ReserveFail({ error: error });
+                return new purchaseAction.EndTransactionFail({ error: error });
             }
         })
     );
