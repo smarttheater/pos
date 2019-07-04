@@ -141,19 +141,19 @@ export class PurchaseConfirmComponent implements OnInit {
                 const transaction = purchase.transaction;
                 const authorizeSeatReservations = purchase.authorizeSeatReservations;
                 const seller = user.seller;
-                this.store.dispatch(new purchaseAction.Reserve({ transaction, authorizeSeatReservations, seller }));
+                this.store.dispatch(new purchaseAction.EndTransaction({ transaction, authorizeSeatReservations, seller }));
             }).unsubscribe();
         }).unsubscribe();
 
         const success = this.actions.pipe(
-            ofType(purchaseAction.ActionTypes.ReserveSuccess),
+            ofType(purchaseAction.ActionTypes.EndTransactionSuccess),
             tap(() => {
                 this.router.navigate(['/purchase/complete']);
             })
         );
 
         const fail = this.actions.pipe(
-            ofType(purchaseAction.ActionTypes.ReserveFail),
+            ofType(purchaseAction.ActionTypes.EndTransactionFail),
             tap(() => {
                 this.router.navigate(['/error']);
             })

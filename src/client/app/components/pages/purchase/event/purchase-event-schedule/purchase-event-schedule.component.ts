@@ -53,7 +53,12 @@ export class PurchaseEventScheduleComponent implements OnInit, OnDestroy {
                 .add(environment.PURCHASE_SCHEDULE_DEFAULT_SELECTED_DATE, 'day')
                 .toDate();
         }
-        this.selectDate();
+        try {
+            await this.cancelTransaction();
+            this.selectDate();
+        } catch (error) {
+            this.router.navigate(['/error']);
+        }
     }
 
     /**
@@ -61,6 +66,31 @@ export class PurchaseEventScheduleComponent implements OnInit, OnDestroy {
      */
     public ngOnDestroy() {
         clearTimeout(this.updateTimer);
+    }
+
+    /**
+     * 取引中止
+     */
+    private async cancelTransaction() {
+        return new Promise<void>((resolve) => {
+            this.purchase.subscribe((purchase) => {
+                const transaction = purchase.transaction;
+                if (transaction === undefined) {
+                    resolve();
+                    return;
+                }
+                this.store.dispatch(new purchaseAction.CancelTransaction({ transaction }));
+                const success = this.actions.pipe(
+                    ofType(purchaseAction.ActionTypes.CancelTransactionSuccess),
+                    tap(() => { resolve(); })
+                );
+                const fail = this.actions.pipe(
+                    ofType(purchaseAction.ActionTypes.CancelTransactionFail),
+                    tap(() => { resolve(); })
+                );
+                race(success, fail).pipe(take(1)).subscribe();
+            }).unsubscribe();
+        });
     }
 
     /**
