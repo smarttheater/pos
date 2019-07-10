@@ -1,17 +1,15 @@
 import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
-import { Actions, ofType } from '@ngrx/effects';
 import { select, Store } from '@ngrx/store';
 import { BAD_REQUEST, TOO_MANY_REQUESTS } from 'http-status';
 import * as moment from 'moment';
 import { BsDatepickerDirective, BsLocaleService } from 'ngx-bootstrap';
 import { CellHoverEvent } from 'ngx-bootstrap/datepicker/models';
 import { BsDatepickerContainerComponent } from 'ngx-bootstrap/datepicker/themes/bs/bs-datepicker-container.component';
-import { Observable, race } from 'rxjs';
-import { take, tap } from 'rxjs/operators';
+import { Observable } from 'rxjs';
 import { environment } from '../../../../../../environments/environment';
 import { IScreeningEventWork, screeningEventsToWorkEvents } from '../../../../../functions';
-import { masterAction, purchaseAction } from '../../../../../store/actions';
+import { MasterService, PurchaseService, UserService } from '../../../../../services';
 import * as reducers from '../../../../../store/reducers';
 
 @Component({
@@ -34,8 +32,10 @@ export class PurchaseEventScheduleComponent implements OnInit, OnDestroy {
 
     constructor(
         private store: Store<reducers.IState>,
-        private actions: Actions,
         private router: Router,
+        private purchaseService: PurchaseService,
+        private masterService: MasterService,
+        private userService: UserService,
         private localeService: BsLocaleService
     ) { }
 
@@ -54,7 +54,7 @@ export class PurchaseEventScheduleComponent implements OnInit, OnDestroy {
                 .toDate();
         }
         try {
-            await this.cancelTransaction();
+            await this.purchaseService.cancelTransaction();
             this.selectDate();
         } catch (error) {
             this.router.navigate(['/error']);
@@ -66,31 +66,6 @@ export class PurchaseEventScheduleComponent implements OnInit, OnDestroy {
      */
     public ngOnDestroy() {
         clearTimeout(this.updateTimer);
-    }
-
-    /**
-     * 取引中止
-     */
-    private async cancelTransaction() {
-        return new Promise<void>((resolve) => {
-            this.purchase.subscribe((purchase) => {
-                const transaction = purchase.transaction;
-                if (transaction === undefined) {
-                    resolve();
-                    return;
-                }
-                this.store.dispatch(new purchaseAction.CancelTransaction({ transaction }));
-                const success = this.actions.pipe(
-                    ofType(purchaseAction.ActionTypes.CancelTransactionSuccess),
-                    tap(() => { resolve(); })
-                );
-                const fail = this.actions.pipe(
-                    ofType(purchaseAction.ActionTypes.CancelTransactionFail),
-                    tap(() => { resolve(); })
-                );
-                race(success, fail).pipe(take(1)).subscribe();
-            }).unsubscribe();
-        });
     }
 
     /**
@@ -109,11 +84,12 @@ export class PurchaseEventScheduleComponent implements OnInit, OnDestroy {
     /**
      * 日付選択
      */
-    public selectDate(date?: Date | null) {
+    public async selectDate(date?: Date | null) {
         if (date !== undefined && date !== null) {
             this.scheduleDate = date;
         }
-        this.user.subscribe((user) => {
+        try {
+            const user = await this.userService.getData();
             const seller = user.seller;
             if (seller === undefined) {
                 this.router.navigate(['/error']);
@@ -125,94 +101,24 @@ export class PurchaseEventScheduleComponent implements OnInit, OnDestroy {
                     .toDate();
             }
             const scheduleDate = moment(this.scheduleDate).format('YYYY-MM-DD');
-            this.store.dispatch(new purchaseAction.SelectScheduleDate({ scheduleDate }));
-            this.store.dispatch(new masterAction.GetSchedule({
+            this.purchaseService.selectScheduleDate(scheduleDate);
+            await this.masterService.getSchedule({
                 superEvent: {
-                    locationBranchCodes: (seller.location === undefined || seller.location.branchCode === undefined)
-                        ? [] : [seller.location.branchCode]
+                    locationBranchCodes:
+                        (seller.location === undefined || seller.location.branchCode === undefined)
+                            ? [] : [seller.location.branchCode]
                 },
                 startFrom: moment(scheduleDate).toDate(),
                 startThrough: moment(scheduleDate).add(1, 'day').toDate()
-            }));
-        }).unsubscribe();
-
-        const success = this.actions.pipe(
-            ofType(masterAction.ActionTypes.GetScheduleSuccess),
-            tap(() => {
-                this.master.subscribe((master) => {
-                    const screeningEvents = master.screeningEvents;
-                    this.screeningWorkEvents = screeningEventsToWorkEvents({ screeningEvents });
-                    this.update();
-                }).unsubscribe();
-            })
-        );
-
-        const fail = this.actions.pipe(
-            ofType(masterAction.ActionTypes.GetScheduleFail),
-            tap(() => {
-                this.router.navigate(['/error']);
-            })
-        );
-        race(success, fail).pipe(take(1)).subscribe();
-    }
-
-    /**
-     * 仮予約削除
-     */
-    private async cancelTemporaryReservations() {
-        return new Promise((resolve, reject) => {
-            this.purchase.subscribe((purchase) => {
-                const authorizeSeatReservations = purchase.authorizeSeatReservations;
-                this.store.dispatch(new purchaseAction.CancelTemporaryReservations({ authorizeSeatReservations }));
-            }).unsubscribe();
-            const success = this.actions.pipe(
-                ofType(purchaseAction.ActionTypes.CancelTemporaryReservationsSuccess),
-                tap(() => { resolve(); })
-            );
-            const fail = this.actions.pipe(
-                ofType(purchaseAction.ActionTypes.CancelTemporaryReservationsFail),
-                tap(() => { this.error.subscribe((error) => reject(error)).unsubscribe(); })
-            );
-            race(success, fail).pipe(take(1)).subscribe();
-        });
-    }
-
-    /**
-     * 取引開始
-     */
-    private async startTransaction() {
-        return new Promise((resolve, reject) => {
-            this.user.subscribe((user) => {
-                if (user.seller === undefined) {
-                    reject(null);
-                    return;
-                }
-                this.store.dispatch(new purchaseAction.StartTransaction({
-                    params: {
-                        expires: moment().add(environment.PURCHASE_TRANSACTION_TIME, 'minutes').toDate(),
-                        seller: { typeOf: user.seller.typeOf, id: user.seller.id },
-                        object: {},
-                        agent: (user.pos === undefined)
-                            ? undefined
-                            : {
-                                identifier: [
-                                    { name: 'posId', value: user.pos.id },
-                                    { name: 'posName', value: user.pos.name }
-                                ]
-                            }
-                    }
-                }));
-            }).unsubscribe();
-            const success = this.actions.pipe(
-                ofType(purchaseAction.ActionTypes.StartTransactionSuccess),
-                tap(() => { resolve(); })
-            );
-            const fail = this.actions.pipe(
-                ofType(purchaseAction.ActionTypes.StartTransactionFail),
-                tap(() => { this.error.subscribe((error) => reject(error)).unsubscribe(); })
-            );
-            race(success, fail).pipe(take(1)).subscribe();
-        });
+            });
+            const master = await this.masterService.getData();
+            const screeningEvents = master.screeningEvents;
+            this.screeningWorkEvents = screeningEventsToWorkEvents({ screeningEvents });
+            this.update();
+        } catch (error) {
+            console.error(error);
+            this.router.navigate(['/error']);
+        }
     }
 
     /**
@@ -220,14 +126,20 @@ export class PurchaseEventScheduleComponent implements OnInit, OnDestroy {
      */
     public async onSubmit() {
         try {
-            await this.cancelTemporaryReservations();
-            await this.startTransaction();
-            this.router.navigate(['/purchase/event/ticket']);
-        } catch (error) {
-            if (error === null) {
+            const purchase = await this.purchaseService.getData();
+            const user = await this.userService.getData();
+            const authorizeSeatReservations = purchase.authorizeSeatReservations;
+            await this.purchaseService.cancelTemporaryReservations(authorizeSeatReservations);
+            if (user.seller === undefined) {
                 this.router.navigate(['/error']);
                 return;
             }
+            await this.purchaseService.startTransaction({
+                seller: user.seller,
+                pos: user.pos
+            });
+            this.router.navigate(['/purchase/event/ticket']);
+        } catch (error) {
             const errorObject = JSON.parse(error);
             if (errorObject.status === TOO_MANY_REQUESTS) {
                 this.router.navigate(['/congestion']);

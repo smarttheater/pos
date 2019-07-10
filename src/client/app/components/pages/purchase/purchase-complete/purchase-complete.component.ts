@@ -1,16 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { factory } from '@cinerino/api-javascript-client';
-import { Actions, ofType } from '@ngrx/effects';
 import { select, Store } from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
 import * as moment from 'moment';
-import { Observable, race } from 'rxjs';
-import { take, tap } from 'rxjs/operators';
+import { Observable } from 'rxjs';
 import { environment } from '../../../../../environments/environment';
 import { changeTicketCountByOrder, createRegiGrowQrcode, getTicketPrice, IEventOrder, orderToEventOrders } from '../../../../functions';
-import { UtilService } from '../../../../services';
-import { orderAction } from '../../../../store/actions';
+import { OrderService, PurchaseService, UserService, UtilService } from '../../../../services';
 import * as reducers from '../../../../store/reducers';
 
 @Component({
@@ -33,9 +30,11 @@ export class PurchaseCompleteComponent implements OnInit {
 
     constructor(
         private store: Store<reducers.IState>,
-        private actions: Actions,
         private router: Router,
-        private util: UtilService,
+        private purchaseService: PurchaseService,
+        private orderService: OrderService,
+        private userService: UserService,
+        private utilService: UtilService,
         private translate: TranslateService
     ) { }
 
@@ -54,7 +53,7 @@ export class PurchaseCompleteComponent implements OnInit {
                 createRegiGrowQrcode(purchase.order).then((code) => {
                     this.regiGrow = code;
                 }).catch((error) => {
-                    this.util.openAlert({
+                    this.utilService.openAlert({
                         title: this.translate.instant('common.error'),
                         body: `
                         <p class="mb-4">${this.translate.instant('purchase.complete.alert.regiGrow')}</p>
@@ -70,43 +69,33 @@ export class PurchaseCompleteComponent implements OnInit {
         this.print();
     }
 
-    public print() {
-        this.purchase.subscribe((purchase) => {
-            this.user.subscribe((user) => {
-                if (purchase.order === undefined
-                    || user.pos === undefined
-                    || user.printer === undefined) {
-                    this.router.navigate(['/error']);
-                    return;
-                }
-                const orders = [purchase.order];
-                const pos = user.pos;
-                const printer = user.printer;
-                this.store.dispatch(new orderAction.Print({ orders, pos, printer }));
-            }).unsubscribe();
-        }).unsubscribe();
-
-        const success = this.actions.pipe(
-            ofType(orderAction.ActionTypes.PrintSuccess),
-            tap(() => { })
-        );
-
-        const fail = this.actions.pipe(
-            ofType(orderAction.ActionTypes.PrintFail),
-            tap(() => {
-                this.error.subscribe((error) => {
-                    this.util.openAlert({
-                        title: this.translate.instant('common.error'),
-                        body: `
-                        <p class="mb-4">${this.translate.instant('purchase.complete.alert.print')}</p>
-                            <div class="p-3 bg-light-gray select-text">
-                            <code>${error}</code>
-                        </div>`
-                    });
-                }).unsubscribe();
-            })
-        );
-        race(success, fail).pipe(take(1)).subscribe();
+    /**
+     * 印刷
+     */
+    public async print() {
+        try {
+            const purchase = await this.purchaseService.getData();
+            const user = await this.userService.getData();
+            if (purchase.order === undefined
+                || user.pos === undefined
+                || user.printer === undefined) {
+                this.router.navigate(['/error']);
+                return;
+            }
+            const orders = [purchase.order];
+            const pos = user.pos;
+            const printer = user.printer;
+            await this.orderService.print({ orders, pos, printer });
+        } catch (error) {
+            this.utilService.openAlert({
+                title: this.translate.instant('common.error'),
+                body: `
+                <p class="mb-4">${this.translate.instant('purchase.complete.alert.print')}</p>
+                    <div class="p-3 bg-light-gray select-text">
+                    <code>${error}</code>
+                </div>`
+            });
+        }
     }
 
 }

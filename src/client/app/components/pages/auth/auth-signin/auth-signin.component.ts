@@ -1,9 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { Store } from '@ngrx/store';
 import { environment } from '../../../../../environments/environment';
-import { orderAction, purchaseAction } from '../../../../store/actions';
-import * as reducers from '../../../../store/reducers';
+import { OrderService, PurchaseService } from '../../../../services';
 
 @Component({
     selector: 'app-auth-signin',
@@ -14,12 +12,13 @@ export class AuthSigninComponent implements OnInit {
 
     constructor(
         private router: Router,
-        private store: Store<reducers.IState>
+        private purchaseService: PurchaseService,
+        private orderService: OrderService
     ) { }
 
     public ngOnInit() {
-        this.store.dispatch(new orderAction.Delete());
-        this.store.dispatch(new purchaseAction.Delete());
+        this.orderService.delete();
+        this.purchaseService.delete();
         this.router.navigate([environment.BASE_URL]);
     }
 
