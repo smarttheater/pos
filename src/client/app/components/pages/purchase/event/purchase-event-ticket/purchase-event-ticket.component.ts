@@ -158,7 +158,9 @@ export class PurchaseEventTicketComponent implements OnInit, OnDestroy {
                     screeningEventTicketOffers,
                     screeningEventOffers,
                     screeningEvent,
-                    cb: this.selectTicket
+                    cb: (reservationTickets: IReservationTicket[]) => {
+                        this.selectTicket(reservationTickets);
+                    }
                 }
             });
         }).unsubscribe();

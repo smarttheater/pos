@@ -5434,7 +5434,9 @@ var PurchaseEventTicketComponent = /** @class */ (function () {
                             screeningEventTicketOffers: screeningEventTicketOffers,
                             screeningEventOffers: screeningEventOffers,
                             screeningEvent: screeningEvent,
-                            cb: _this.selectTicket
+                            cb: function (reservationTickets) {
+                                _this.selectTicket(reservationTickets);
+                            }
                         }
                     });
                 }).unsubscribe();
