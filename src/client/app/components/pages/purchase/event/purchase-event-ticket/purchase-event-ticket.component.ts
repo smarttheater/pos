@@ -195,6 +195,7 @@ export class PurchaseEventTicketComponent implements OnInit, OnDestroy {
                 }
             }
         } catch (error) {
+            console.error(error);
             this.utilService.openAlert({
                 title: this.translate.instant('common.error'),
                 body: ''
@@ -202,7 +203,7 @@ export class PurchaseEventTicketComponent implements OnInit, OnDestroy {
         }
 
         try {
-            this.purchaseService.temporaryReservationFreeSeat(reservationTickets);
+            await this.purchaseService.temporaryReservationFreeSeat(reservationTickets);
             this.utilService.openAlert({
                 title: this.translate.instant('common.complete'),
                 body: this.translate.instant('purchase.event.ticket.success.temporaryReservation')
