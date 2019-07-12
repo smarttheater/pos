@@ -5447,7 +5447,7 @@ var PurchaseEventTicketComponent = /** @class */ (function () {
      */
     PurchaseEventTicketComponent.prototype.selectTicket = function (reservationTickets) {
         return __awaiter(this, void 0, void 0, function () {
-            var purchase, remainingSeatLength, error_3;
+            var purchase, remainingSeatLength, error_3, error_4;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
@@ -5481,27 +5481,31 @@ var PurchaseEventTicketComponent = /** @class */ (function () {
                         return [3 /*break*/, 5];
                     case 4:
                         error_3 = _a.sent();
+                        console.error(error_3);
                         this.utilService.openAlert({
                             title: this.translate.instant('common.error'),
                             body: ''
                         });
                         return [3 /*break*/, 5];
                     case 5:
-                        try {
-                            this.purchaseService.temporaryReservationFreeSeat(reservationTickets);
-                            this.utilService.openAlert({
-                                title: this.translate.instant('common.complete'),
-                                body: this.translate.instant('purchase.event.ticket.success.temporaryReservation')
-                            });
-                        }
-                        catch (error) {
-                            console.error(error);
-                            this.utilService.openAlert({
-                                title: this.translate.instant('common.error'),
-                                body: this.translate.instant('purchase.event.ticket.alert.temporaryReservation')
-                            });
-                        }
-                        return [2 /*return*/];
+                        _a.trys.push([5, 7, , 8]);
+                        return [4 /*yield*/, this.purchaseService.temporaryReservationFreeSeat(reservationTickets)];
+                    case 6:
+                        _a.sent();
+                        this.utilService.openAlert({
+                            title: this.translate.instant('common.complete'),
+                            body: this.translate.instant('purchase.event.ticket.success.temporaryReservation')
+                        });
+                        return [3 /*break*/, 8];
+                    case 7:
+                        error_4 = _a.sent();
+                        console.error(error_4);
+                        this.utilService.openAlert({
+                            title: this.translate.instant('common.error'),
+                            body: this.translate.instant('purchase.event.ticket.alert.temporaryReservation')
+                        });
+                        return [3 /*break*/, 8];
+                    case 8: return [2 /*return*/];
                 }
             });
         });
@@ -5550,7 +5554,7 @@ var PurchaseEventTicketComponent = /** @class */ (function () {
             title: this.translate.instant('common.confirm'),
             body: this.translate.instant('purchase.event.cart.confirm.cancel'),
             cb: function () { return __awaiter(_this, void 0, void 0, function () {
-                var authorizeSeatReservations, error_4;
+                var authorizeSeatReservations, error_5;
                 return __generator(this, function (_a) {
                     switch (_a.label) {
                         case 0:
@@ -5561,8 +5565,8 @@ var PurchaseEventTicketComponent = /** @class */ (function () {
                             _a.sent();
                             return [3 /*break*/, 3];
                         case 2:
-                            error_4 = _a.sent();
-                            console.error(error_4);
+                            error_5 = _a.sent();
+                            console.error(error_5);
                             this.router.navigate(['/error']);
                             return [3 /*break*/, 3];
                         case 3: return [2 /*return*/];
