@@ -48,7 +48,7 @@ export class SettingComponent implements OnInit {
         this.posList = [];
         try {
             await this.masterService.getSellers();
-            this.createSettlingForm();
+            await this.createSettlingForm();
         } catch (error) {
             console.error(error);
             this.router.navigate(['/error']);
@@ -58,7 +58,7 @@ export class SettingComponent implements OnInit {
     /**
      * フォーム作成
      */
-    private createSettlingForm() {
+    private async createSettlingForm() {
         const NAME_MAX_LENGTH = 12;
         const MAIL_MAX_LENGTH = 50;
         const TEL_MAX_LENGTH = 11;
@@ -117,32 +117,31 @@ export class SettingComponent implements OnInit {
                 Validators.required
             ]]
         });
-        this.user.subscribe((user) => {
-            if (user.seller !== undefined
-                && user.seller.location !== undefined) {
-                this.settingForm.controls.sellerBranchCode.setValue(user.seller.location.branchCode);
-            }
-            if (user.pos !== undefined) {
-                this.changePosList();
-                this.settingForm.controls.posId.setValue(user.pos.id);
-            }
-            if (user.customerContact !== undefined
-                && user.customerContact.familyName !== undefined
-                && user.customerContact.givenName !== undefined
-                && user.customerContact.email !== undefined
-                && user.customerContact.telephone !== undefined) {
-                this.settingForm.controls.familyName.setValue(user.customerContact.familyName);
-                this.settingForm.controls.givenName.setValue(user.customerContact.givenName);
-                this.settingForm.controls.email.setValue(user.customerContact.email);
-                this.settingForm.controls.telephone.setValue(new LibphonenumberFormatPipe().transform(user.customerContact.telephone));
-            }
-            if (user.printer !== undefined) {
-                this.settingForm.controls.printerType.setValue(user.printer.connectionType);
-                this.settingForm.controls.printerIpAddress.setValue(user.printer.ipAddress);
-            }
-            this.settingForm.controls.isPurchaseCart.setValue((user.isPurchaseCart) ? '1' : '0');
-            this.settingForm.controls.viewType.setValue(user.viewType);
-        }).unsubscribe();
+        const user = await this.userService.getData();
+        if (user.seller !== undefined
+            && user.seller.location !== undefined) {
+            this.settingForm.controls.sellerBranchCode.setValue(user.seller.location.branchCode);
+        }
+        if (user.pos !== undefined) {
+            this.changePosList();
+            this.settingForm.controls.posId.setValue(user.pos.id);
+        }
+        if (user.customerContact !== undefined
+            && user.customerContact.familyName !== undefined
+            && user.customerContact.givenName !== undefined
+            && user.customerContact.email !== undefined
+            && user.customerContact.telephone !== undefined) {
+            this.settingForm.controls.familyName.setValue(user.customerContact.familyName);
+            this.settingForm.controls.givenName.setValue(user.customerContact.givenName);
+            this.settingForm.controls.email.setValue(user.customerContact.email);
+            this.settingForm.controls.telephone.setValue(new LibphonenumberFormatPipe().transform(user.customerContact.telephone));
+        }
+        if (user.printer !== undefined) {
+            this.settingForm.controls.printerType.setValue(user.printer.connectionType);
+            this.settingForm.controls.printerIpAddress.setValue(user.printer.ipAddress);
+        }
+        this.settingForm.controls.isPurchaseCart.setValue((user.isPurchaseCart) ? '1' : '0');
+        this.settingForm.controls.viewType.setValue(user.viewType);
     }
 
     /**

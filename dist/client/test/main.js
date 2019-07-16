@@ -615,7 +615,7 @@ module.exports = "<div class=\"contents-width mx-auto px-3 py-5\">\n    <h2 clas
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"contents-width mx-auto px-3 py-5\">\n    <div class=\"mb-4\">\n        <h2 class=\"text-large mb-4 text-center font-weight-bold\">{{ 'setting.title' | translate }}</h2>\n        <p class=\"mb-4 text-md-center\" [innerHTML]=\"'setting.read' | translate\"></p>\n        <div class=\"p-3 bg-white\">\n            <form [formGroup]=\"settingForm\">\n                <div class=\"form-group\">\n                    <div class=\"row align-items-center\">\n                        <p class=\"col-md-4 py-2 text-md-right\">{{ 'common.theater' | translate }}</p>\n                        <div class=\"col-md-8\">\n                            <select class=\"form-control\" formControlName=\"sellerBranchCode\" (change)=\"changePosList()\">\n                                <option value=\"\">{{ 'setting.unselected' | translate }}</option>\n                                <option *ngFor=\"let theater of (master | async).sellers\"\n                                    [value]=\"theater.location.branchCode\">{{\n                                    theater.name.ja }}</option>\n                            </select>\n                            <div *ngIf=\"settingForm.controls.sellerBranchCode.invalid && settingForm.controls.sellerBranchCode.touched\"\n                                class=\"mt-2\">\n                                <p *ngIf=\"settingForm.controls.sellerBranchCode.errors.required\" class=\"text-danger\">\n                                    {{ 'form.validation.unselected' | translate }}</p>\n                            </div>\n                        </div>\n                    </div>\n                </div>\n                <div class=\"form-group\">\n                    <div class=\"row align-items-center\">\n                        <p class=\"col-md-4 py-2 text-md-right\">{{ 'setting.pos' | translate }}</p>\n                        <div class=\"col-md-8\">\n                            <select class=\"form-control\" formControlName=\"posId\">\n                                <option value=\"\">{{ 'setting.unselected' | translate }}</option>\n                                <option *ngFor=\"let pos of posList\" [value]=\"pos.id\">{{ pos.name }}</option>\n                            </select>\n                            <div *ngIf=\"settingForm.controls.posId.invalid && settingForm.controls.posId.touched\"\n                                class=\"mt-2\">\n                                <p *ngIf=\"settingForm.controls.posId.errors.required\" class=\"text-danger\">\n                                    {{ 'form.validation.unselected' | translate }}</p>\n                            </div>\n                        </div>\n                    </div>\n                </div>\n                <div class=\"form-group\">\n                    <div class=\"row align-items-center\">\n                        <p class=\"col-md-4 py-2 text-md-right\">{{ 'common.familyName' | translate }}</p>\n                        <div class=\"col-md-8\">\n                            <input type=\"text\" class=\"form-control\" formControlName=\"familyName\" placeholder=\"モーション\">\n                            <div *ngIf=\"settingForm.controls.familyName.invalid && settingForm.controls.familyName.touched\"\n                                class=\"mt-2\">\n                                <p *ngIf=\"settingForm.controls.familyName.errors.required\" class=\"text-danger\">\n                                    {{ 'form.validation.required' | translate }}</p>\n                                <p *ngIf=\"settingForm.controls.familyName.errors.maxlength\" class=\"text-danger\">\n                                    {{ 'form.validation.maxlength' | translate: { value: settingForm.controls.familyName.errors.maxlength.requiredLength } }}\n                                </p>\n                                <p *ngIf=\"settingForm.controls.familyName.errors.pattern\" class=\"text-danger\">\n                                    {{ 'form.validation.fullKana' | translate }}</p>\n                            </div>\n                        </div>\n                    </div>\n                </div>\n                <div class=\"form-group\">\n                    <div class=\"row align-items-center\">\n                        <p class=\"col-md-4 py-2 text-md-right\">{{ 'common.givenName' | translate }}</p>\n                        <div class=\"col-md-8\">\n                            <input type=\"text\" class=\"form-control\" formControlName=\"givenName\" placeholder=\"ピクチャー\">\n                            <div *ngIf=\"settingForm.controls.givenName.invalid && settingForm.controls.givenName.touched\"\n                                class=\"mt-2\">\n                                <p *ngIf=\"settingForm.controls.givenName.errors.required\" class=\"text-danger\">\n                                    {{ 'form.validation.required' | translate }}</p>\n                                <p *ngIf=\"settingForm.controls.givenName.errors.maxlength\" class=\"text-danger\">\n                                    {{ 'form.validation.maxlength' | translate: { value: settingForm.controls.givenName.errors.maxlength.requiredLength } }}\n                                </p>\n                                <p *ngIf=\"settingForm.controls.givenName.errors.pattern\" class=\"text-danger\">\n                                    {{ 'form.validation.fullKana' | translate }}\n                                </p>\n                            </div>\n                        </div>\n                    </div>\n                </div>\n                <div class=\"form-group\">\n                    <div class=\"row align-items-center\">\n                        <p class=\"col-md-4 py-2 text-md-right\">{{ 'common.email' | translate }}</p>\n                        <div class=\"col-md-8\">\n                            <input type=\"email\" class=\"form-control\" formControlName=\"email\"\n                                placeholder=\"motionpicture@example.jp\">\n                            <div *ngIf=\"settingForm.controls.email.invalid && settingForm.controls.email.touched\"\n                                class=\"mt-2\">\n                                <p *ngIf=\"settingForm.controls.email.errors.required\" class=\"text-danger\">\n                                    {{ 'form.validation.required' | translate }}</p>\n                                <p *ngIf=\"settingForm.controls.email.errors.maxlength\" class=\"text-danger\">\n                                    {{ 'form.validation.maxlength' | translate: { value: settingForm.controls.email.errors.maxlength.requiredLength } }}\n                                </p>\n                                <p *ngIf=\"settingForm.controls.email.errors.email\" class=\"text-danger\">\n                                    {{ 'form.validation.email' | translate }}</p>\n                            </div>\n                        </div>\n                    </div>\n                </div>\n                <div class=\"form-group\">\n                    <div class=\"row align-items-center\">\n                        <p class=\"col-md-4 py-2 text-md-right\">{{ 'common.telephone' | translate }}</p>\n                        <div class=\"col-md-8\">\n                            <input type=\"tel\" class=\"form-control\" formControlName=\"telephone\" placeholder=\"0362778824\">\n                            <div *ngIf=\"settingForm.controls.telephone.invalid && settingForm.controls.telephone.touched\"\n                                class=\"mt-2\">\n                                <p *ngIf=\"settingForm.controls.telephone.errors.required\" class=\"text-danger\">\n                                    {{ 'form.validation.required' | translate }}</p>\n                                <p *ngIf=\"settingForm.controls.telephone.errors.minlength\" class=\"text-danger\">\n                                    {{ 'form.validation.minlength' | translate: { value: settingForm.controls.telephone.errors.minlength.requiredLength } }}\n                                </p>\n                                <p *ngIf=\"settingForm.controls.telephone.errors.maxlength\" class=\"text-danger\">\n                                    {{ 'form.validation.minlength' | translate: { value: settingForm.controls.telephone.errors.maxlength.requiredLength } }}\n                                </p>\n                                <p *ngIf=\"settingForm.controls.telephone.errors.pattern\" class=\"text-danger\">\n                                    {{ 'form.validation.number' | translate }}</p>\n                                <p *ngIf=\"settingForm.controls.telephone.errors.telephone\" class=\"text-danger\">\n                                    {{ 'form.validation.telephone' | translate }}</p>\n                            </div>\n                        </div>\n                    </div>\n                </div>\n                <div class=\"form-group\">\n                    <div class=\"row align-items-center\">\n                        <p class=\"col-md-4 py-2 text-md-right\">{{ 'setting.printer' | translate }}</p>\n                        <div class=\"col-md-8\">\n                            <select class=\"form-control\" formControlName=\"printerType\" (change)=\"changePrinterType()\">\n                                <option value=\"\">{{ 'setting.unselected' | translate }}</option>\n                                <option *ngFor=\"let printer of printers\" [value]=\"printer.connectionType\">\n                                    {{ printer.name | translate }}</option>\n                            </select>\n                            <button\n                                *ngIf=\"this.settingForm.controls.printerType.value && this.settingForm.controls.printerType.value !== connectionType.None\"\n                                type=\"button\" class=\"btn btn-sm btn-primary py-2 mt-2\"\n                                (click)=\"print()\">{{ 'setting.testPrinting' | translate }}</button>\n                        </div>\n                    </div>\n                </div>\n                <div class=\"form-group\">\n                    <div class=\"row align-items-center\">\n                        <p class=\"col-md-4 py-2 text-md-right\">{{ 'setting.printerIpAddress' | translate }}</p>\n                        <div class=\"col-md-8\">\n                            <input type=\"text\" class=\"form-control\" formControlName=\"printerIpAddress\"\n                                placeholder=\"0.0.0.0\">\n                            <div *ngIf=\"settingForm.controls.printerIpAddress.invalid && settingForm.controls.printerIpAddress.touched\"\n                                class=\"mt-2\">\n                                <p *ngIf=\"settingForm.controls.printerIpAddress.errors.required\" class=\"text-danger\">\n                                    {{ 'form.validation.required' | translate }}</p>\n                            </div>\n                            <p class=\"text-small mt-2\">\n                                {{ 'setting.printerIpAddressDescription' | translate }}\n                            </p>\n                        </div>\n                    </div>\n                </div>\n                <div *ngIf=\"environment.SETTING_DEVELOP_OPTION\">\n                    <div class=\"form-group\">\n                        <div class=\"row align-items-center\">\n                            <p class=\"col-md-4 py-2 text-md-right\">{{ 'setting.isPurchaseCart' | translate }}</p>\n                            <div class=\"col-md-8\">\n                                <select type=\"text\" class=\"form-control\" formControlName=\"isPurchaseCart\"\n                                    id=\"isPurchaseCart\" placeholder=\"\">\n                                    <option value=\"0\">{{ 'common.off' | translate }}</option>\n                                    <option value=\"1\">{{ 'common.on' | translate }}</option>\n                                </select>\n                            </div>\n                        </div>\n                    </div>\n                    <div class=\"form-group\">\n                        <div class=\"row align-items-center\">\n                            <p class=\"col-md-4 py-2 text-md-right\">{{ 'setting.viewType' | translate }}</p>\n                            <div class=\"col-md-8\">\n                                <select class=\"form-control\" id=\"viewType\" formControlName=\"viewType\">\n                                    <option [value]=\"viewType.Cinema\">{{ viewType.Cinema }}</option>\n                                    <option [value]=\"viewType.Event\">{{ viewType.Event }}</option>\n                                </select>\n                                <div *ngIf=\"settingForm.controls.viewType.invalid && settingForm.controls.viewType.touched\"\n                                    class=\"mt-2\">\n                                    <p *ngIf=\"settingForm.controls.viewType.errors.required\" class=\"text-danger\">\n                                        {{ 'form.validation.required' | translate }}</p>\n                                </div>\n                            </div>\n                        </div>\n                    </div>\n                </div>\n            </form>\n        </div>\n    </div>\n\n    <div class=\"buttons mx-auto text-center\">\n        <button type=\"button\" class=\"btn btn-primary btn-block py-3 mb-3\"\n            (click)=\"onSubmit()\">{{ 'setting.next' | translate }}</button>\n        <button type=\"button\" class=\"btn btn-link\"\n            [routerLink]=\"environment.BASE_URL\">{{ 'setting.prev' | translate }}</button>\n    </div>\n\n</div>"
+module.exports = "<div class=\"contents-width mx-auto px-3 py-5\">\n    <div class=\"mb-4\">\n        <h2 class=\"text-large mb-4 text-center font-weight-bold\">{{ 'setting.title' | translate }}</h2>\n        <p class=\"mb-4 text-md-center\" [innerHTML]=\"'setting.read' | translate\"></p>\n        <div class=\"p-3 bg-white\">\n            <form *ngIf=\"settingForm\" [formGroup]=\"settingForm\">\n                <div class=\"form-group\">\n                    <div class=\"row align-items-center\">\n                        <p class=\"col-md-4 py-2 text-md-right\">{{ 'common.theater' | translate }}</p>\n                        <div class=\"col-md-8\">\n                            <select class=\"form-control\" formControlName=\"sellerBranchCode\" (change)=\"changePosList()\">\n                                <option value=\"\">{{ 'setting.unselected' | translate }}</option>\n                                <option *ngFor=\"let theater of (master | async).sellers\"\n                                    [value]=\"theater.location.branchCode\">{{\n                                    theater.name.ja }}</option>\n                            </select>\n                            <div *ngIf=\"settingForm.controls.sellerBranchCode.invalid && settingForm.controls.sellerBranchCode.touched\"\n                                class=\"mt-2\">\n                                <p *ngIf=\"settingForm.controls.sellerBranchCode.errors.required\" class=\"text-danger\">\n                                    {{ 'form.validation.unselected' | translate }}</p>\n                            </div>\n                        </div>\n                    </div>\n                </div>\n                <div class=\"form-group\">\n                    <div class=\"row align-items-center\">\n                        <p class=\"col-md-4 py-2 text-md-right\">{{ 'setting.pos' | translate }}</p>\n                        <div class=\"col-md-8\">\n                            <select class=\"form-control\" formControlName=\"posId\">\n                                <option value=\"\">{{ 'setting.unselected' | translate }}</option>\n                                <option *ngFor=\"let pos of posList\" [value]=\"pos.id\">{{ pos.name }}</option>\n                            </select>\n                            <div *ngIf=\"settingForm.controls.posId.invalid && settingForm.controls.posId.touched\"\n                                class=\"mt-2\">\n                                <p *ngIf=\"settingForm.controls.posId.errors.required\" class=\"text-danger\">\n                                    {{ 'form.validation.unselected' | translate }}</p>\n                            </div>\n                        </div>\n                    </div>\n                </div>\n                <div class=\"form-group\">\n                    <div class=\"row align-items-center\">\n                        <p class=\"col-md-4 py-2 text-md-right\">{{ 'common.familyName' | translate }}</p>\n                        <div class=\"col-md-8\">\n                            <input type=\"text\" class=\"form-control\" formControlName=\"familyName\" placeholder=\"モーション\">\n                            <div *ngIf=\"settingForm.controls.familyName.invalid && settingForm.controls.familyName.touched\"\n                                class=\"mt-2\">\n                                <p *ngIf=\"settingForm.controls.familyName.errors.required\" class=\"text-danger\">\n                                    {{ 'form.validation.required' | translate }}</p>\n                                <p *ngIf=\"settingForm.controls.familyName.errors.maxlength\" class=\"text-danger\">\n                                    {{ 'form.validation.maxlength' | translate: { value: settingForm.controls.familyName.errors.maxlength.requiredLength } }}\n                                </p>\n                                <p *ngIf=\"settingForm.controls.familyName.errors.pattern\" class=\"text-danger\">\n                                    {{ 'form.validation.fullKana' | translate }}</p>\n                            </div>\n                        </div>\n                    </div>\n                </div>\n                <div class=\"form-group\">\n                    <div class=\"row align-items-center\">\n                        <p class=\"col-md-4 py-2 text-md-right\">{{ 'common.givenName' | translate }}</p>\n                        <div class=\"col-md-8\">\n                            <input type=\"text\" class=\"form-control\" formControlName=\"givenName\" placeholder=\"ピクチャー\">\n                            <div *ngIf=\"settingForm.controls.givenName.invalid && settingForm.controls.givenName.touched\"\n                                class=\"mt-2\">\n                                <p *ngIf=\"settingForm.controls.givenName.errors.required\" class=\"text-danger\">\n                                    {{ 'form.validation.required' | translate }}</p>\n                                <p *ngIf=\"settingForm.controls.givenName.errors.maxlength\" class=\"text-danger\">\n                                    {{ 'form.validation.maxlength' | translate: { value: settingForm.controls.givenName.errors.maxlength.requiredLength } }}\n                                </p>\n                                <p *ngIf=\"settingForm.controls.givenName.errors.pattern\" class=\"text-danger\">\n                                    {{ 'form.validation.fullKana' | translate }}\n                                </p>\n                            </div>\n                        </div>\n                    </div>\n                </div>\n                <div class=\"form-group\">\n                    <div class=\"row align-items-center\">\n                        <p class=\"col-md-4 py-2 text-md-right\">{{ 'common.email' | translate }}</p>\n                        <div class=\"col-md-8\">\n                            <input type=\"email\" class=\"form-control\" formControlName=\"email\"\n                                placeholder=\"motionpicture@example.jp\">\n                            <div *ngIf=\"settingForm.controls.email.invalid && settingForm.controls.email.touched\"\n                                class=\"mt-2\">\n                                <p *ngIf=\"settingForm.controls.email.errors.required\" class=\"text-danger\">\n                                    {{ 'form.validation.required' | translate }}</p>\n                                <p *ngIf=\"settingForm.controls.email.errors.maxlength\" class=\"text-danger\">\n                                    {{ 'form.validation.maxlength' | translate: { value: settingForm.controls.email.errors.maxlength.requiredLength } }}\n                                </p>\n                                <p *ngIf=\"settingForm.controls.email.errors.email\" class=\"text-danger\">\n                                    {{ 'form.validation.email' | translate }}</p>\n                            </div>\n                        </div>\n                    </div>\n                </div>\n                <div class=\"form-group\">\n                    <div class=\"row align-items-center\">\n                        <p class=\"col-md-4 py-2 text-md-right\">{{ 'common.telephone' | translate }}</p>\n                        <div class=\"col-md-8\">\n                            <input type=\"tel\" class=\"form-control\" formControlName=\"telephone\" placeholder=\"0362778824\">\n                            <div *ngIf=\"settingForm.controls.telephone.invalid && settingForm.controls.telephone.touched\"\n                                class=\"mt-2\">\n                                <p *ngIf=\"settingForm.controls.telephone.errors.required\" class=\"text-danger\">\n                                    {{ 'form.validation.required' | translate }}</p>\n                                <p *ngIf=\"settingForm.controls.telephone.errors.minlength\" class=\"text-danger\">\n                                    {{ 'form.validation.minlength' | translate: { value: settingForm.controls.telephone.errors.minlength.requiredLength } }}\n                                </p>\n                                <p *ngIf=\"settingForm.controls.telephone.errors.maxlength\" class=\"text-danger\">\n                                    {{ 'form.validation.minlength' | translate: { value: settingForm.controls.telephone.errors.maxlength.requiredLength } }}\n                                </p>\n                                <p *ngIf=\"settingForm.controls.telephone.errors.pattern\" class=\"text-danger\">\n                                    {{ 'form.validation.number' | translate }}</p>\n                                <p *ngIf=\"settingForm.controls.telephone.errors.telephone\" class=\"text-danger\">\n                                    {{ 'form.validation.telephone' | translate }}</p>\n                            </div>\n                        </div>\n                    </div>\n                </div>\n                <div class=\"form-group\">\n                    <div class=\"row align-items-center\">\n                        <p class=\"col-md-4 py-2 text-md-right\">{{ 'setting.printer' | translate }}</p>\n                        <div class=\"col-md-8\">\n                            <select class=\"form-control\" formControlName=\"printerType\" (change)=\"changePrinterType()\">\n                                <option value=\"\">{{ 'setting.unselected' | translate }}</option>\n                                <option *ngFor=\"let printer of printers\" [value]=\"printer.connectionType\">\n                                    {{ printer.name | translate }}</option>\n                            </select>\n                            <button\n                                *ngIf=\"this.settingForm.controls.printerType.value && this.settingForm.controls.printerType.value !== connectionType.None\"\n                                type=\"button\" class=\"btn btn-sm btn-primary py-2 mt-2\"\n                                (click)=\"print()\">{{ 'setting.testPrinting' | translate }}</button>\n                        </div>\n                    </div>\n                </div>\n                <div class=\"form-group\">\n                    <div class=\"row align-items-center\">\n                        <p class=\"col-md-4 py-2 text-md-right\">{{ 'setting.printerIpAddress' | translate }}</p>\n                        <div class=\"col-md-8\">\n                            <input type=\"text\" class=\"form-control\" formControlName=\"printerIpAddress\"\n                                placeholder=\"0.0.0.0\">\n                            <div *ngIf=\"settingForm.controls.printerIpAddress.invalid && settingForm.controls.printerIpAddress.touched\"\n                                class=\"mt-2\">\n                                <p *ngIf=\"settingForm.controls.printerIpAddress.errors.required\" class=\"text-danger\">\n                                    {{ 'form.validation.required' | translate }}</p>\n                            </div>\n                            <p class=\"text-small mt-2\">\n                                {{ 'setting.printerIpAddressDescription' | translate }}\n                            </p>\n                        </div>\n                    </div>\n                </div>\n                <div *ngIf=\"environment.SETTING_DEVELOP_OPTION\">\n                    <div class=\"form-group\">\n                        <div class=\"row align-items-center\">\n                            <p class=\"col-md-4 py-2 text-md-right\">{{ 'setting.isPurchaseCart' | translate }}</p>\n                            <div class=\"col-md-8\">\n                                <select type=\"text\" class=\"form-control\" formControlName=\"isPurchaseCart\"\n                                    id=\"isPurchaseCart\" placeholder=\"\">\n                                    <option value=\"0\">{{ 'common.off' | translate }}</option>\n                                    <option value=\"1\">{{ 'common.on' | translate }}</option>\n                                </select>\n                            </div>\n                        </div>\n                    </div>\n                    <div class=\"form-group\">\n                        <div class=\"row align-items-center\">\n                            <p class=\"col-md-4 py-2 text-md-right\">{{ 'setting.viewType' | translate }}</p>\n                            <div class=\"col-md-8\">\n                                <select class=\"form-control\" id=\"viewType\" formControlName=\"viewType\">\n                                    <option [value]=\"viewType.Cinema\">{{ viewType.Cinema }}</option>\n                                    <option [value]=\"viewType.Event\">{{ viewType.Event }}</option>\n                                </select>\n                                <div *ngIf=\"settingForm.controls.viewType.invalid && settingForm.controls.viewType.touched\"\n                                    class=\"mt-2\">\n                                    <p *ngIf=\"settingForm.controls.viewType.errors.required\" class=\"text-danger\">\n                                        {{ 'form.validation.required' | translate }}</p>\n                                </div>\n                            </div>\n                        </div>\n                    </div>\n                </div>\n            </form>\n        </div>\n    </div>\n\n    <div class=\"buttons mx-auto text-center\">\n        <button type=\"button\" class=\"btn btn-primary btn-block py-3 mb-3\"\n            (click)=\"onSubmit()\">{{ 'setting.next' | translate }}</button>\n        <button type=\"button\" class=\"btn btn-link\"\n            [routerLink]=\"environment.BASE_URL\">{{ 'setting.prev' | translate }}</button>\n    </div>\n\n</div>"
 
 /***/ }),
 
@@ -6723,18 +6723,20 @@ var SettingComponent = /** @class */ (function () {
                         this.posList = [];
                         _a.label = 1;
                     case 1:
-                        _a.trys.push([1, 3, , 4]);
+                        _a.trys.push([1, 4, , 5]);
                         return [4 /*yield*/, this.masterService.getSellers()];
                     case 2:
                         _a.sent();
-                        this.createSettlingForm();
-                        return [3 /*break*/, 4];
+                        return [4 /*yield*/, this.createSettlingForm()];
                     case 3:
+                        _a.sent();
+                        return [3 /*break*/, 5];
+                    case 4:
                         error_1 = _a.sent();
                         console.error(error_1);
                         this.router.navigate(['/error']);
-                        return [3 /*break*/, 4];
-                    case 4: return [2 /*return*/];
+                        return [3 /*break*/, 5];
+                    case 5: return [2 /*return*/];
                 }
             });
         });
@@ -6743,89 +6745,98 @@ var SettingComponent = /** @class */ (function () {
      * フォーム作成
      */
     SettingComponent.prototype.createSettlingForm = function () {
-        var _this = this;
-        var NAME_MAX_LENGTH = 12;
-        var MAIL_MAX_LENGTH = 50;
-        var TEL_MAX_LENGTH = 11;
-        var TEL_MIN_LENGTH = 9;
-        this.settingForm = this.formBuilder.group({
-            sellerBranchCode: ['', [
-                    forms_1.Validators.required
-                ]],
-            posId: ['', [
-                    forms_1.Validators.required
-                ]],
-            familyName: ['', [
-                    forms_1.Validators.required,
-                    forms_1.Validators.maxLength(NAME_MAX_LENGTH),
-                    forms_1.Validators.pattern(/^[ァ-ヶー]+$/)
-                ]],
-            givenName: ['', [
-                    forms_1.Validators.required,
-                    forms_1.Validators.maxLength(NAME_MAX_LENGTH),
-                    forms_1.Validators.pattern(/^[ァ-ヶー]+$/)
-                ]],
-            email: ['', [
-                    forms_1.Validators.required,
-                    forms_1.Validators.maxLength(MAIL_MAX_LENGTH),
-                    forms_1.Validators.email
-                ]],
-            telephone: ['', [
-                    forms_1.Validators.required,
-                    forms_1.Validators.maxLength(TEL_MAX_LENGTH),
-                    forms_1.Validators.minLength(TEL_MIN_LENGTH),
-                    forms_1.Validators.pattern(/^[0-9]+$/),
-                    function (control) {
-                        var field = control.root.get('telephone');
-                        if (field !== null) {
-                            var parsedNumber = libphonenumber.parse(field.value, 'JP');
-                            if (parsedNumber.phone === undefined) {
-                                return { telephone: true };
-                            }
-                            var isValid = libphonenumber.isValidNumber(parsedNumber);
-                            if (!isValid) {
-                                return { telephone: true };
-                            }
+        return __awaiter(this, void 0, void 0, function () {
+            var NAME_MAX_LENGTH, MAIL_MAX_LENGTH, TEL_MAX_LENGTH, TEL_MIN_LENGTH, user;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        NAME_MAX_LENGTH = 12;
+                        MAIL_MAX_LENGTH = 50;
+                        TEL_MAX_LENGTH = 11;
+                        TEL_MIN_LENGTH = 9;
+                        this.settingForm = this.formBuilder.group({
+                            sellerBranchCode: ['', [
+                                    forms_1.Validators.required
+                                ]],
+                            posId: ['', [
+                                    forms_1.Validators.required
+                                ]],
+                            familyName: ['', [
+                                    forms_1.Validators.required,
+                                    forms_1.Validators.maxLength(NAME_MAX_LENGTH),
+                                    forms_1.Validators.pattern(/^[ァ-ヶー]+$/)
+                                ]],
+                            givenName: ['', [
+                                    forms_1.Validators.required,
+                                    forms_1.Validators.maxLength(NAME_MAX_LENGTH),
+                                    forms_1.Validators.pattern(/^[ァ-ヶー]+$/)
+                                ]],
+                            email: ['', [
+                                    forms_1.Validators.required,
+                                    forms_1.Validators.maxLength(MAIL_MAX_LENGTH),
+                                    forms_1.Validators.email
+                                ]],
+                            telephone: ['', [
+                                    forms_1.Validators.required,
+                                    forms_1.Validators.maxLength(TEL_MAX_LENGTH),
+                                    forms_1.Validators.minLength(TEL_MIN_LENGTH),
+                                    forms_1.Validators.pattern(/^[0-9]+$/),
+                                    function (control) {
+                                        var field = control.root.get('telephone');
+                                        if (field !== null) {
+                                            var parsedNumber = libphonenumber.parse(field.value, 'JP');
+                                            if (parsedNumber.phone === undefined) {
+                                                return { telephone: true };
+                                            }
+                                            var isValid = libphonenumber.isValidNumber(parsedNumber);
+                                            if (!isValid) {
+                                                return { telephone: true };
+                                            }
+                                        }
+                                        return null;
+                                    }
+                                ]],
+                            printerType: [''],
+                            printerIpAddress: [''],
+                            isPurchaseCart: ['0', [
+                                    forms_1.Validators.required,
+                                    forms_1.Validators.pattern(/^[0-9]+$/)
+                                ]],
+                            viewType: ['', [
+                                    forms_1.Validators.required
+                                ]]
+                        });
+                        return [4 /*yield*/, this.userService.getData()];
+                    case 1:
+                        user = _a.sent();
+                        if (user.seller !== undefined
+                            && user.seller.location !== undefined) {
+                            this.settingForm.controls.sellerBranchCode.setValue(user.seller.location.branchCode);
                         }
-                        return null;
-                    }
-                ]],
-            printerType: [''],
-            printerIpAddress: [''],
-            isPurchaseCart: ['0', [
-                    forms_1.Validators.required,
-                    forms_1.Validators.pattern(/^[0-9]+$/)
-                ]],
-            viewType: ['', [
-                    forms_1.Validators.required
-                ]]
+                        if (user.pos !== undefined) {
+                            this.changePosList();
+                            this.settingForm.controls.posId.setValue(user.pos.id);
+                        }
+                        if (user.customerContact !== undefined
+                            && user.customerContact.familyName !== undefined
+                            && user.customerContact.givenName !== undefined
+                            && user.customerContact.email !== undefined
+                            && user.customerContact.telephone !== undefined) {
+                            this.settingForm.controls.familyName.setValue(user.customerContact.familyName);
+                            this.settingForm.controls.givenName.setValue(user.customerContact.givenName);
+                            this.settingForm.controls.email.setValue(user.customerContact.email);
+                            this.settingForm.controls.telephone.setValue(new libphonenumber_format_pipe_1.LibphonenumberFormatPipe().transform(user.customerContact.telephone));
+                        }
+                        if (user.printer !== undefined) {
+                            this.settingForm.controls.printerType.setValue(user.printer.connectionType);
+                            this.settingForm.controls.printerIpAddress.setValue(user.printer.ipAddress);
+                        }
+                        this.settingForm.controls.isPurchaseCart.setValue((user.isPurchaseCart) ? '1' : '0');
+                        this.settingForm.controls.viewType.setValue(user.viewType);
+                        return [2 /*return*/];
+                }
+            });
         });
-        this.user.subscribe(function (user) {
-            if (user.seller !== undefined
-                && user.seller.location !== undefined) {
-                _this.settingForm.controls.sellerBranchCode.setValue(user.seller.location.branchCode);
-            }
-            if (user.pos !== undefined) {
-                _this.changePosList();
-                _this.settingForm.controls.posId.setValue(user.pos.id);
-            }
-            if (user.customerContact !== undefined
-                && user.customerContact.familyName !== undefined
-                && user.customerContact.givenName !== undefined
-                && user.customerContact.email !== undefined
-                && user.customerContact.telephone !== undefined) {
-                _this.settingForm.controls.familyName.setValue(user.customerContact.familyName);
-                _this.settingForm.controls.givenName.setValue(user.customerContact.givenName);
-                _this.settingForm.controls.email.setValue(user.customerContact.email);
-                _this.settingForm.controls.telephone.setValue(new libphonenumber_format_pipe_1.LibphonenumberFormatPipe().transform(user.customerContact.telephone));
-            }
-            if (user.printer !== undefined) {
-                _this.settingForm.controls.printerType.setValue(user.printer.connectionType);
-                _this.settingForm.controls.printerIpAddress.setValue(user.printer.ipAddress);
-            }
-            _this.settingForm.controls.isPurchaseCart.setValue((user.isPurchaseCart) ? '1' : '0');
-            _this.settingForm.controls.viewType.setValue(user.viewType);
-        }).unsubscribe();
     };
     /**
      * POS変更

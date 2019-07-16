@@ -3,7 +3,7 @@
         <h2 class="text-large mb-4 text-center font-weight-bold">{{ 'setting.title' | translate }}</h2>
         <p class="mb-4 text-md-center" [innerHTML]="'setting.read' | translate"></p>
         <div class="p-3 bg-white">
-            <form [formGroup]="settingForm">
+            <form *ngIf="settingForm" [formGroup]="settingForm">
                 <div class="form-group">
                     <div class="row align-items-center">
                         <p class="col-md-4 py-2 text-md-right">{{ 'common.theater' | translate }}</p>
