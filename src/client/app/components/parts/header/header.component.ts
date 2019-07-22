@@ -4,7 +4,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 import { environment } from '../../../../environments/environment';
 import { Language } from '../../../models';
-import { userAction } from '../../../store/actions';
+import { UserService } from '../../../services';
 import * as reducers from '../../../store/reducers';
 
 @Component({
@@ -20,7 +20,8 @@ export class HeaderComponent implements OnInit {
 
     constructor(
         private store: Store<reducers.IState>,
-        private translate: TranslateService
+        private translate: TranslateService,
+        private userService: UserService
     ) { }
 
     public ngOnInit() {
@@ -37,10 +38,7 @@ export class HeaderComponent implements OnInit {
     public changeLanguage() {
         this.translate.use(this.language);
         const language = this.language;
-        this.store.dispatch(new userAction.UpdateLanguage({ language }));
-        const html = <HTMLElement>document.querySelector('html');
-        html.setAttribute('lang', this.language);
-        // console.log('translate', this.translate);
+        this.userService.updateLanguage(language);
     }
 
     public getLanguageName(key: string) {

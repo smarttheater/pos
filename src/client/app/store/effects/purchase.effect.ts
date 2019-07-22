@@ -26,7 +26,7 @@ export class PurchaseEffects {
         private actions: Actions,
         private cinerino: CinerinoService,
         private http: HttpClient,
-        private util: UtilService,
+        private utilService: UtilService,
         private translate: TranslateService
     ) { }
 
@@ -39,7 +39,7 @@ export class PurchaseEffects {
         map(action => action.payload),
         mergeMap(async (payload) => {
             try {
-                const params = payload.params;
+                const params = payload;
                 const selleId = params.seller.id;
                 await this.cinerino.getServices();
                 const passport = await this.cinerino.getPassport(selleId);
@@ -496,7 +496,7 @@ export class PurchaseEffects {
                 if (environment.PURCHASE_COMPLETE_MAIL_CUSTOM) {
                     // 完了メールをカスタマイズ
                     const url = '/storage/text/purchase/mail/complete.txt';
-                    const template = await this.util.getText<string>(url);
+                    const template = await this.utilService.getText<string>(url);
                     params.options.email.template = createCompleteMail({
                         template,
                         authorizeSeatReservations,

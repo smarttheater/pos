@@ -34,7 +34,7 @@ export class AdmissionCheckComponent implements OnInit, OnDestroy {
         private store: Store<reducers.IState>,
         private actions: Actions,
         private router: Router,
-        private util: UtilService,
+        private utilService: UtilService,
         private translate: TranslateService
     ) { }
 
@@ -157,7 +157,7 @@ export class AdmissionCheckComponent implements OnInit, OnDestroy {
         const fail = this.actions.pipe(
             ofType(admissionAction.ActionTypes.CheckFail),
             tap(() => {
-                this.util.openAlert({
+                this.utilService.openAlert({
                     title: this.translate.instant('common.error'),
                     body: this.translate.instant('admission.check.alert.check')
                 });

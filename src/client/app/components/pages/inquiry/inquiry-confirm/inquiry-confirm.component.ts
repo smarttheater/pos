@@ -1,16 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { factory } from '@cinerino/api-javascript-client';
-import { Actions, ofType } from '@ngrx/effects';
 import { select, Store } from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
 import * as moment from 'moment';
-import { Observable, race } from 'rxjs';
-import { take, tap } from 'rxjs/operators';
+import { Observable } from 'rxjs';
 import { environment } from '../../../../../environments/environment';
 import { changeTicketCountByOrder, getTicketPrice, IEventOrder, orderToEventOrders } from '../../../../functions';
-import { UtilService } from '../../../../services';
-import { orderAction } from '../../../../store/actions';
+import { OrderService, UserService, UtilService } from '../../../../services';
 import * as reducers from '../../../../store/reducers';
 
 @Component({
@@ -32,9 +29,10 @@ export class InquiryConfirmComponent implements OnInit {
 
     constructor(
         private store: Store<reducers.IState>,
-        private actions: Actions,
         private router: Router,
-        private util: UtilService,
+        private userService: UserService,
+        private utilService: UtilService,
+        private orderService: OrderService,
         private translate: TranslateService
     ) { }
 
@@ -58,119 +56,72 @@ export class InquiryConfirmComponent implements OnInit {
      * キャンセル確認
      */
     public cancelConfirm() {
-        this.util.openConfirm({
+        this.utilService.openConfirm({
             title: this.translate.instant('common.confirm'),
             body: this.translate.instant('inquiry.confirm.confirm.cancel'),
             cb: async () => {
                 try {
-                    await this.cancel();
-                    await this.inquiry();
-                } catch (error) {
-                    this.error.subscribe((error) => {
-                        this.util.openAlert({
+                    const orderData = await this.orderService.getData();
+                    const order = orderData.order;
+                    if (order === undefined) {
+                        this.utilService.openAlert({
                             title: this.translate.instant('common.error'),
                             body: `
                             <p class="mb-4">${this.translate.instant('inquiry.confirm.alert.cancel')}</p>
                                 <div class="p-3 bg-light-gray select-text">
-                                <code>${JSON.stringify(error)}</code>
+                                <code>order undefined</code>
                             </div>`
                         });
-                    }).unsubscribe();
+                        return;
+                    }
+                    await this.orderService.cancel([order]);
+                    await this.orderService.inquiry({
+                        confirmationNumber: order.confirmationNumber,
+                        customer: { telephone: order.customer.telephone }
+                    });
+                } catch (error) {
+                    console.error(error);
+                    this.utilService.openAlert({
+                        title: this.translate.instant('common.error'),
+                        body: `
+                        <p class="mb-4">${this.translate.instant('inquiry.confirm.alert.cancel')}</p>
+                            <div class="p-3 bg-light-gray select-text">
+                            <code>${JSON.stringify(error)}</code>
+                        </div>`
+                    });
                 }
             }
         });
     }
 
     /**
-     * キャンセル処理
+     * 印刷
      */
-    public cancel() {
-        return new Promise((resolve, reject) => {
-            this.order.subscribe((orderData) => {
-                const order = orderData.order;
-                if (order === undefined) {
-                    reject({error: 'order undefined'});
-                    return;
-                }
-                this.store.dispatch(new orderAction.Cancel({ orders: [order] }));
-            }).unsubscribe();
-            const success = this.actions.pipe(
-                ofType(orderAction.ActionTypes.CancelSuccess),
-                tap(() => { resolve(); })
-            );
-            const fail = this.actions.pipe(
-                ofType(orderAction.ActionTypes.CancelFail),
-                tap(() => { this.error.subscribe((error) => { reject(error); }).unsubscribe(); })
-            );
-            race(success, fail).pipe(take(1)).subscribe();
-        });
-    }
-
-    /**
-     * 照会
-     */
-    private inquiry() {
-        return new Promise((resolve, reject) => {
-            this.order.subscribe((orderData) => {
-                const order = orderData.order;
-                if (order === undefined) {
-                    reject({error: 'order undefined'});
-                    return;
-                }
-                this.store.dispatch(new orderAction.Inquiry({
-                    confirmationNumber: order.confirmationNumber,
-                    customer: { telephone: order.customer.telephone }
-                }));
-            }).unsubscribe();
-            const success = this.actions.pipe(
-                ofType(orderAction.ActionTypes.InquirySuccess),
-                tap(() => { resolve(); })
-            );
-            const fail = this.actions.pipe(
-                ofType(orderAction.ActionTypes.InquiryFail),
-                tap(() => { this.error.subscribe((error) => { reject(error); }).unsubscribe(); })
-            );
-            race(success, fail).pipe(take(1)).subscribe();
-        });
-    }
-
-    public print() {
-        this.order.subscribe((inquiry) => {
-            this.user.subscribe((user) => {
-                if (inquiry.order === undefined
-                    || user.pos === undefined
-                    || user.printer === undefined) {
-                    this.router.navigate(['/error']);
-                    return;
-                }
-                const orders = [inquiry.order];
-                const pos = user.pos;
-                const printer = user.printer;
-                this.store.dispatch(new orderAction.Print({ orders, pos, printer }));
-            }).unsubscribe();
-        }).unsubscribe();
-
-        const success = this.actions.pipe(
-            ofType(orderAction.ActionTypes.PrintSuccess),
-            tap(() => { })
-        );
-
-        const fail = this.actions.pipe(
-            ofType(orderAction.ActionTypes.PrintFail),
-            tap(() => {
-                this.error.subscribe((error) => {
-                    this.util.openAlert({
-                        title: this.translate.instant('common.error'),
-                        body: `
-                        <p class="mb-4">${this.translate.instant('inquiry.confirm.alert.print')}</p>
-                            <div class="p-3 bg-light-gray select-text">
-                            <code>${error}</code>
-                        </div>`
-                    });
-                }).unsubscribe();
-            })
-        );
-        race(success, fail).pipe(take(1)).subscribe();
+    public async print() {
+        try {
+            const orderData = await this.orderService.getData();
+            const user = await this.userService.getData();
+            if (orderData.order === undefined
+                || user.pos === undefined
+                || user.printer === undefined) {
+                this.router.navigate(['/error']);
+                return;
+            }
+            const orders = [orderData.order];
+            const pos = user.pos;
+            const printer = user.printer;
+            await this.orderService.print({ orders, pos, printer });
+        } catch (error) {
+            console.error(error);
+            this.utilService.openAlert({
+                title: this.translate.instant('common.error'),
+                body: `
+                <p class="mb-4">${this.translate.instant('inquiry.confirm.alert.print')}</p>
+                    <div class="p-3 bg-light-gray select-text">
+                    <code>${error}</code>
+                </div>`
+            });
+        }
     }
 
 }

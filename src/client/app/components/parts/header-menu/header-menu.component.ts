@@ -19,7 +19,7 @@ export class HeaderMenuComponent implements OnInit {
 
     constructor(
         private cinerino: CinerinoService,
-        private util: UtilService,
+        private utilService: UtilService,
         private translate: TranslateService
     ) { }
 
@@ -28,7 +28,7 @@ export class HeaderMenuComponent implements OnInit {
 
     public signOut() {
         this.close.emit();
-        this.util.openConfirm({
+        this.utilService.openConfirm({
             title: this.translate.instant('common.confirm'),
             body: this.translate.instant('menu.confirm.logout'),
             cb: async () => {

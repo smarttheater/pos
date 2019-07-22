@@ -575,17 +575,6 @@ module.exports = "<div class=\"contents-width mx-auto px-3 py-5\">\n\n    <div c
 
 /***/ }),
 
-/***/ "../../node_modules/raw-loader/index.js!./app/components/pages/purchase/purchase-input/purchase-input.component.html":
-/*!**************************************************************************************************************************************************************!*\
-  !*** C:/Users/hataguchi/Desktop/workspace/Cinerino/pos/node_modules/raw-loader!./app/components/pages/purchase/purchase-input/purchase-input.component.html ***!
-  \**************************************************************************************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-module.exports = "<div class=\"contents-width mx-auto px-3 py-5\">\n    <div class=\"mb-4\">\n        <h2 class=\"text-large mb-4 text-center font-weight-bold\">{{ 'purchase.input.title' | translate }}</h2>\n        <p class=\"mb-4 text-md-center\" [innerHTML]=\"'purchase.input.read' | translate\"></p>\n\n        <div class=\"p-3 bg-light-gray\">\n            <form [formGroup]=\"customerContactForm\">\n                <div class=\"form-group\">\n                    <label class=\"mb-2\" for=\"\">{{ 'common.familyName' | translate }}</label>\n                    <input type=\"text\" class=\"form-control\" formControlName=\"familyName\" id=\"familyName\"\n                        placeholder=\"モーション\">\n                    <div *ngIf=\"customerContactForm.controls.familyName.invalid && customerContactForm.controls.familyName.touched\"\n                        class=\"mt-2\">\n                        <p *ngIf=\"customerContactForm.controls.familyName.errors.required\" class=\"text-danger\">\n                            {{ 'form.validation.required' | translate }}\n                        </p>\n                        <p *ngIf=\"customerContactForm.controls.familyName.errors.maxlength\" class=\"text-danger\">\n                            {{ 'form.validation.maxlength' | translate:{ value: customerContactForm.controls.familyName.errors.maxlength.requiredLength } }}\n                        </p>\n                        <p *ngIf=\"customerContactForm.controls.familyName.errors.pattern\" class=\"text-danger\">\n                            {{ 'form.validation.fullKana' | translate }}</p>\n                    </div>\n                </div>\n                <div class=\"form-group\">\n                    <label class=\"mb-2\" for=\"\">{{ 'common.givenName' | translate }}</label>\n                    <input type=\"text\" class=\"form-control\" formControlName=\"givenName\" id=\"givenName\"\n                        placeholder=\"ピクチャー\">\n                    <div *ngIf=\"customerContactForm.controls.givenName.invalid && customerContactForm.controls.givenName.touched\"\n                        class=\"mt-2\">\n                        <p *ngIf=\"customerContactForm.controls.givenName.errors.required\" class=\"text-danger\">\n                            {{ 'form.validation.required' | translate }}\n                        </p>\n                        <p *ngIf=\"customerContactForm.controls.givenName.errors.maxlength\" class=\"text-danger\">\n                            {{ 'form.validation.maxlength' | translate:{ value: customerContactForm.controls.givenName.errors.maxlength.requiredLength } }}\n                        </p>\n                        <p *ngIf=\"customerContactForm.controls.givenName.errors.pattern\" class=\"text-danger\">\n                            {{ 'form.validation.fullKana' | translate }}\n                        </p>\n                    </div>\n                </div>\n                <div class=\"form-group\">\n                    <label class=\"mb-2\" for=\"\">{{ 'common.email' | translate }}</label>\n                    <input type=\"email\" class=\"form-control\" formControlName=\"email\" id=\"email\"\n                        placeholder=\"motionpicture@example.jp\">\n                    <div *ngIf=\"customerContactForm.controls.email.invalid && customerContactForm.controls.email.touched\"\n                        class=\"mt-2\">\n                        <p *ngIf=\"customerContactForm.controls.email.errors.required\" class=\"text-danger\">\n                            {{ 'form.validation.required' | translate }}\n                        </p>\n                        <p *ngIf=\"customerContactForm.controls.email.errors.maxlength\" class=\"text-danger\">\n                            {{ 'form.validation.maxlength' | translate:{ value: customerContactForm.controls.email.errors.maxlength.requiredLength } }}\n                        </p>\n                        <p *ngIf=\"customerContactForm.controls.email.errors.email\" class=\"text-danger\">\n                            {{ 'form.validation.email' | translate }}\n                        </p>\n                    </div>\n                    <p class=\"mt-2 text-small\" [innerHTML]=\"'common.emailDescription' | translate\"></p>\n                </div>\n                <div class=\"form-group mb-0\">\n                    <label class=\"mb-2\" for=\"\">{{ 'common.telephone' | translate }}</label>\n                    <input type=\"tel\" class=\"form-control\" formControlName=\"telephone\" id=\"telephone\"\n                        placeholder=\"0362778824\">\n                    <div *ngIf=\"customerContactForm.controls.telephone.invalid && customerContactForm.controls.telephone.touched\"\n                        class=\"mt-2\">\n                        <p *ngIf=\"customerContactForm.controls.telephone.errors.required\" class=\"text-danger\">\n                            {{ 'form.validation.required' | translate }}\n                        </p>\n                        <p *ngIf=\"customerContactForm.controls.telephone.errors.minlength\" class=\"text-danger\">\n                            {{ 'form.validation.minlength' | translate:{ value: customerContactForm.controls.telephone.errors.minlength.requiredLength } }}\n                        </p>\n                        <p *ngIf=\"customerContactForm.controls.telephone.errors.maxlength\" class=\"text-danger\">\n                            {{ 'form.validation.maxlength' | translate:{ value: customerContactForm.controls.telephone.errors.maxlength.requiredLength } }}\n                        </p>\n                        <p *ngIf=\"customerContactForm.controls.telephone.errors.pattern\" class=\"text-danger\">\n                            {{ 'form.validation.number' | translate }}</p>\n                        <p *ngIf=\"customerContactForm.controls.telephone.errors.telephone\" class=\"text-danger\">\n                            {{ 'form.validation.telephone' | translate }}</p>\n                    </div>\n                </div>\n            </form>\n        </div>\n    </div>\n\n    <div class=\"mb-4\" *ngIf=\"amount > 0\">\n        <h2 class=\"text-large mb-4 text-center font-weight-bold\">{{ 'purchase.input.payment.title' | translate }}</h2>\n        <p class=\"mb-4 text-md-center\" [innerHTML]=\"'purchase.input.payment.read' | translate\"></p>\n\n        <div class=\"p-3 bg-light-gray\">\n            <form [formGroup]=\"paymentForm\">\n                <div class=\"form-group\">\n                    <div class=\"mb-2\">{{ 'common.amount' | translate }}</div>\n                    <div class=\"text-x-large text-info\">{{ amount | currency : 'JPY'}}</div>\n                </div>\n                <div class=\"form-group\">\n                    <label class=\"mb-2\" for=\"\">{{ 'common.credit.cardNumber' | translate }}</label>\n                    <input type=\"text\" class=\"form-control\" id=\"cardNumber\" formControlName=\"cardNumber\" placeholder=\"\"\n                        maxlength=\"16\">\n                    <div *ngIf=\"paymentForm.controls.cardNumber.invalid && paymentForm.controls.cardNumber.touched\"\n                        class=\"mt-2\">\n                        <p *ngIf=\"paymentForm.controls.cardNumber.errors.required\" class=\"text-danger\">\n                            {{ 'form.validation.required' | translate }}</p>\n                        <p *ngIf=\"paymentForm.controls.cardNumber.errors.pattern\" class=\"text-danger\">カード番号は数字で入力してください\n                        </p>\n                    </div>\n                </div>\n                <div class=\"form-group\">\n                    <label class=\"mb-2\" for=\"\">{{ 'common.credit.cardExpiration' | translate }}</label>\n                    <div class=\"form-inline\">\n                        <select class=\"form-control d-inline-block w-auto\" id=\"cardExpirationMonth\"\n                            formControlName=\"cardExpirationMonth\">\n                            <option *ngFor=\"let month of cardExpiration.month\" [value]=\"month\">{{ month }}</option>\n                        </select>\n                        <span class=\"mx-2\">{{ 'common.date.month' | translate }}</span>\n                        <select class=\"form-control d-inline-block w-auto\" id=\"cardExpirationYear\"\n                            formControlName=\"cardExpirationYear\">\n                            <option *ngFor=\"let year of cardExpiration.year\" [value]=\"year\">{{ year }}</option>\n                        </select>\n                        <span class=\"mx-2\">{{ 'common.date.year' | translate }}</span>\n                    </div>\n                </div>\n                <div class=\"form-group\">\n                    <label class=\"mb-2\" for=\"\">{{ 'common.credit.securityCode' | translate }}</label>\n                    <input type=\"text\" class=\"form-control\" id=\"securityCode\" placeholder=\"\"\n                        formControlName=\"securityCode\">\n                    <div *ngIf=\"paymentForm.controls.securityCode.invalid && paymentForm.controls.securityCode.touched\"\n                        class=\"mt-2\">\n                        <p *ngIf=\"paymentForm.controls.securityCode.errors.required\" class=\"text-danger\">\n                            {{ 'form.validation.required' | translate }}</p>\n                    </div>\n                    <p class=\"mt-2 text-small\"><span class=\"pointer\" (click)=\"openSecurityCode()\"><i\n                                class=\"far fa-question-circle mr-1\"></i>{{ 'purchase.input.securityCode' | translate }}</span>\n                    </p>\n                </div>\n                <div class=\"form-group mb-0\">\n                    <label class=\"mb-2\" for=\"\">{{ 'common.credit.holderName' | translate }}</label>\n                    <input type=\"text\" class=\"form-control\" id=\"holderName\" placeholder=\"\" formControlName=\"holderName\">\n                    <div *ngIf=\"paymentForm.controls.holderName.invalid && paymentForm.controls.holderName.touched\"\n                        class=\"mt-2\">\n                        <p *ngIf=\"paymentForm.controls.holderName.errors.required\" class=\"text-danger\">\n                            {{ 'form.validation.required' | translate }}</p>\n                    </div>\n                </div>\n            </form>\n        </div>\n    </div>\n\n\n    <div class=\"buttons mx-auto text-center\">\n        <button type=\"button\" class=\"btn btn-primary btn-block py-3 mb-3\" [disabled]=\"isLoading | async\"\n            (click)=\"onSubmit()\">{{ 'purchase.input.next' | translate }}</button>\n        <button type=\"button\" class=\"btn btn-link\"\n            routerLink=\"/purchase/cinema/cart\">{{ 'purchase.input.prev' | translate }}</button>\n        <!-- <button type=\"button\" class=\"btn btn-link\" routerLink=\"/purchase/cinema/ticket\">券種選択へ戻る</button> -->\n    </div>\n\n</div>"
-
-/***/ }),
-
 /***/ "../../node_modules/raw-loader/index.js!./app/components/pages/purchase/purchase-payment/purchase-payment.component.html":
 /*!******************************************************************************************************************************************************************!*\
   !*** C:/Users/hataguchi/Desktop/workspace/Cinerino/pos/node_modules/raw-loader!./app/components/pages/purchase/purchase-payment/purchase-payment.component.html ***!
@@ -626,7 +615,7 @@ module.exports = "<div class=\"contents-width mx-auto px-3 py-5\">\n    <h2 clas
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"contents-width mx-auto px-3 py-5\">\n    <div class=\"mb-4\">\n        <h2 class=\"text-large mb-4 text-center font-weight-bold\">{{ 'setting.title' | translate }}</h2>\n        <p class=\"mb-4 text-md-center\" [innerHTML]=\"'setting.read' | translate\"></p>\n        <div class=\"p-3 bg-white\">\n            <form [formGroup]=\"settingForm\">\n                <div class=\"form-group\">\n                    <div class=\"row align-items-center\">\n                        <p class=\"col-md-4 py-2 text-md-right\">{{ 'common.theater' | translate }}</p>\n                        <div class=\"col-md-8\">\n                            <select class=\"form-control\" formControlName=\"sellerBranchCode\" (change)=\"changePosList()\">\n                                <option value=\"\">{{ 'setting.unselected' | translate }}</option>\n                                <option *ngFor=\"let theater of (master | async).sellers\"\n                                    [value]=\"theater.location.branchCode\">{{\n                                    theater.name.ja }}</option>\n                            </select>\n                            <div *ngIf=\"settingForm.controls.sellerBranchCode.invalid && settingForm.controls.sellerBranchCode.touched\"\n                                class=\"mt-2\">\n                                <p *ngIf=\"settingForm.controls.sellerBranchCode.errors.required\" class=\"text-danger\">\n                                    {{ 'form.validation.unselected' | translate }}</p>\n                            </div>\n                        </div>\n                    </div>\n                </div>\n                <div class=\"form-group\">\n                    <div class=\"row align-items-center\">\n                        <p class=\"col-md-4 py-2 text-md-right\">{{ 'setting.pos' | translate }}</p>\n                        <div class=\"col-md-8\">\n                            <select class=\"form-control\" formControlName=\"posId\">\n                                <option value=\"\">{{ 'setting.unselected' | translate }}</option>\n                                <option *ngFor=\"let pos of posList\" [value]=\"pos.id\">{{ pos.name }}</option>\n                            </select>\n                            <div *ngIf=\"settingForm.controls.posId.invalid && settingForm.controls.posId.touched\"\n                                class=\"mt-2\">\n                                <p *ngIf=\"settingForm.controls.posId.errors.required\" class=\"text-danger\">\n                                    {{ 'form.validation.unselected' | translate }}</p>\n                            </div>\n                        </div>\n                    </div>\n                </div>\n                <div class=\"form-group\">\n                    <div class=\"row align-items-center\">\n                        <p class=\"col-md-4 py-2 text-md-right\">{{ 'common.familyName' | translate }}</p>\n                        <div class=\"col-md-8\">\n                            <input type=\"text\" class=\"form-control\" formControlName=\"familyName\" placeholder=\"モーション\">\n                            <div *ngIf=\"settingForm.controls.familyName.invalid && settingForm.controls.familyName.touched\"\n                                class=\"mt-2\">\n                                <p *ngIf=\"settingForm.controls.familyName.errors.required\" class=\"text-danger\">\n                                    {{ 'form.validation.required' | translate }}</p>\n                                <p *ngIf=\"settingForm.controls.familyName.errors.maxlength\" class=\"text-danger\">\n                                    {{ 'form.validation.maxlength' | translate: { value: settingForm.controls.familyName.errors.maxlength.requiredLength } }}\n                                </p>\n                                <p *ngIf=\"settingForm.controls.familyName.errors.pattern\" class=\"text-danger\">\n                                    {{ 'form.validation.fullKana' | translate }}</p>\n                            </div>\n                        </div>\n                    </div>\n                </div>\n                <div class=\"form-group\">\n                    <div class=\"row align-items-center\">\n                        <p class=\"col-md-4 py-2 text-md-right\">{{ 'common.givenName' | translate }}</p>\n                        <div class=\"col-md-8\">\n                            <input type=\"text\" class=\"form-control\" formControlName=\"givenName\" placeholder=\"ピクチャー\">\n                            <div *ngIf=\"settingForm.controls.givenName.invalid && settingForm.controls.givenName.touched\"\n                                class=\"mt-2\">\n                                <p *ngIf=\"settingForm.controls.givenName.errors.required\" class=\"text-danger\">\n                                    {{ 'form.validation.required' | translate }}</p>\n                                <p *ngIf=\"settingForm.controls.givenName.errors.maxlength\" class=\"text-danger\">\n                                    {{ 'form.validation.maxlength' | translate: { value: settingForm.controls.givenName.errors.maxlength.requiredLength } }}\n                                </p>\n                                <p *ngIf=\"settingForm.controls.givenName.errors.pattern\" class=\"text-danger\">\n                                    {{ 'form.validation.fullKana' | translate }}\n                                </p>\n                            </div>\n                        </div>\n                    </div>\n                </div>\n                <div class=\"form-group\">\n                    <div class=\"row align-items-center\">\n                        <p class=\"col-md-4 py-2 text-md-right\">{{ 'common.email' | translate }}</p>\n                        <div class=\"col-md-8\">\n                            <input type=\"email\" class=\"form-control\" formControlName=\"email\"\n                                placeholder=\"motionpicture@example.jp\">\n                            <div *ngIf=\"settingForm.controls.email.invalid && settingForm.controls.email.touched\"\n                                class=\"mt-2\">\n                                <p *ngIf=\"settingForm.controls.email.errors.required\" class=\"text-danger\">\n                                    {{ 'form.validation.required' | translate }}</p>\n                                <p *ngIf=\"settingForm.controls.email.errors.maxlength\" class=\"text-danger\">\n                                    {{ 'form.validation.maxlength' | translate: { value: settingForm.controls.email.errors.maxlength.requiredLength } }}\n                                </p>\n                                <p *ngIf=\"settingForm.controls.email.errors.email\" class=\"text-danger\">\n                                    {{ 'form.validation.email' | translate }}</p>\n                            </div>\n                        </div>\n                    </div>\n                </div>\n                <div class=\"form-group\">\n                    <div class=\"row align-items-center\">\n                        <p class=\"col-md-4 py-2 text-md-right\">{{ 'common.telephone' | translate }}</p>\n                        <div class=\"col-md-8\">\n                            <input type=\"tel\" class=\"form-control\" formControlName=\"telephone\" placeholder=\"0362778824\">\n                            <div *ngIf=\"settingForm.controls.telephone.invalid && settingForm.controls.telephone.touched\"\n                                class=\"mt-2\">\n                                <p *ngIf=\"settingForm.controls.telephone.errors.required\" class=\"text-danger\">\n                                    {{ 'form.validation.required' | translate }}</p>\n                                <p *ngIf=\"settingForm.controls.telephone.errors.minlength\" class=\"text-danger\">\n                                    {{ 'form.validation.minlength' | translate: { value: settingForm.controls.telephone.errors.minlength.requiredLength } }}\n                                </p>\n                                <p *ngIf=\"settingForm.controls.telephone.errors.maxlength\" class=\"text-danger\">\n                                    {{ 'form.validation.minlength' | translate: { value: settingForm.controls.telephone.errors.maxlength.requiredLength } }}\n                                </p>\n                                <p *ngIf=\"settingForm.controls.telephone.errors.pattern\" class=\"text-danger\">\n                                    {{ 'form.validation.number' | translate }}</p>\n                                <p *ngIf=\"settingForm.controls.telephone.errors.telephone\" class=\"text-danger\">\n                                    {{ 'form.validation.telephone' | translate }}</p>\n                            </div>\n                        </div>\n                    </div>\n                </div>\n                <div class=\"form-group\">\n                    <div class=\"row align-items-center\">\n                        <p class=\"col-md-4 py-2 text-md-right\">{{ 'setting.printer' | translate }}</p>\n                        <div class=\"col-md-8\">\n                            <select class=\"form-control\" formControlName=\"printerType\" (change)=\"changePrinterType()\">\n                                <option value=\"\">{{ 'setting.unselected' | translate }}</option>\n                                <option *ngFor=\"let printer of printers\" [value]=\"printer.connectionType\">\n                                    {{ printer.name | translate }}</option>\n                            </select>\n                            <button\n                                *ngIf=\"this.settingForm.controls.printerType.value && this.settingForm.controls.printerType.value !== connectionType.None\"\n                                type=\"button\" class=\"btn btn-sm btn-primary py-2 mt-2\"\n                                (click)=\"print()\">{{ 'setting.testPrinting' | translate }}</button>\n                        </div>\n                    </div>\n                </div>\n                <div class=\"form-group\">\n                    <div class=\"row align-items-center\">\n                        <p class=\"col-md-4 py-2 text-md-right\">{{ 'setting.printerIpAddress' | translate }}</p>\n                        <div class=\"col-md-8\">\n                            <input type=\"text\" class=\"form-control\" formControlName=\"printerIpAddress\"\n                                placeholder=\"0.0.0.0\">\n                            <div *ngIf=\"settingForm.controls.printerIpAddress.invalid && settingForm.controls.printerIpAddress.touched\"\n                                class=\"mt-2\">\n                                <p *ngIf=\"settingForm.controls.printerIpAddress.errors.required\" class=\"text-danger\">\n                                    {{ 'form.validation.required' | translate }}</p>\n                            </div>\n                            <p class=\"text-small mt-2\">\n                                {{ 'setting.printerIpAddressDescription' | translate }}\n                            </p>\n                        </div>\n                    </div>\n                </div>\n                <div *ngIf=\"environment.SETTING_DEVELOP_OPTION\">\n                    <div class=\"form-group\">\n                        <div class=\"row align-items-center\">\n                            <p class=\"col-md-4 py-2 text-md-right\">{{ 'setting.isPurchaseCart' | translate }}</p>\n                            <div class=\"col-md-8\">\n                                <select type=\"text\" class=\"form-control\" formControlName=\"isPurchaseCart\"\n                                    id=\"isPurchaseCart\" placeholder=\"\">\n                                    <option value=\"0\">{{ 'common.off' | translate }}</option>\n                                    <option value=\"1\">{{ 'common.on' | translate }}</option>\n                                </select>\n                            </div>\n                        </div>\n                    </div>\n                    <div class=\"form-group\">\n                        <div class=\"row align-items-center\">\n                            <p class=\"col-md-4 py-2 text-md-right\">{{ 'setting.viewType' | translate }}</p>\n                            <div class=\"col-md-8\">\n                                <select class=\"form-control\" id=\"viewType\" formControlName=\"viewType\">\n                                    <option [value]=\"viewType.Cinema\">{{ viewType.Cinema }}</option>\n                                    <option [value]=\"viewType.Event\">{{ viewType.Event }}</option>\n                                </select>\n                                <div *ngIf=\"settingForm.controls.viewType.invalid && settingForm.controls.viewType.touched\"\n                                    class=\"mt-2\">\n                                    <p *ngIf=\"settingForm.controls.viewType.errors.required\" class=\"text-danger\">\n                                        {{ 'form.validation.required' | translate }}</p>\n                                </div>\n                            </div>\n                        </div>\n                    </div>\n                </div>\n            </form>\n        </div>\n    </div>\n\n    <div class=\"buttons mx-auto text-center\">\n        <button type=\"button\" class=\"btn btn-primary btn-block py-3 mb-3\"\n            (click)=\"onSubmit()\">{{ 'setting.next' | translate }}</button>\n        <button type=\"button\" class=\"btn btn-link\"\n            [routerLink]=\"environment.BASE_URL\">{{ 'setting.prev' | translate }}</button>\n    </div>\n\n</div>"
+module.exports = "<div class=\"contents-width mx-auto px-3 py-5\">\n    <div class=\"mb-4\">\n        <h2 class=\"text-large mb-4 text-center font-weight-bold\">{{ 'setting.title' | translate }}</h2>\n        <p class=\"mb-4 text-md-center\" [innerHTML]=\"'setting.read' | translate\"></p>\n        <div class=\"p-3 bg-white\">\n            <form *ngIf=\"settingForm\" [formGroup]=\"settingForm\">\n                <div class=\"form-group\">\n                    <div class=\"row align-items-center\">\n                        <p class=\"col-md-4 py-2 text-md-right\">{{ 'common.theater' | translate }}</p>\n                        <div class=\"col-md-8\">\n                            <select class=\"form-control\" formControlName=\"sellerBranchCode\" (change)=\"changePosList()\">\n                                <option value=\"\">{{ 'setting.unselected' | translate }}</option>\n                                <option *ngFor=\"let theater of (master | async).sellers\"\n                                    [value]=\"theater.location.branchCode\">{{\n                                    theater.name.ja }}</option>\n                            </select>\n                            <div *ngIf=\"settingForm.controls.sellerBranchCode.invalid && settingForm.controls.sellerBranchCode.touched\"\n                                class=\"mt-2\">\n                                <p *ngIf=\"settingForm.controls.sellerBranchCode.errors.required\" class=\"text-danger\">\n                                    {{ 'form.validation.unselected' | translate }}</p>\n                            </div>\n                        </div>\n                    </div>\n                </div>\n                <div class=\"form-group\">\n                    <div class=\"row align-items-center\">\n                        <p class=\"col-md-4 py-2 text-md-right\">{{ 'setting.pos' | translate }}</p>\n                        <div class=\"col-md-8\">\n                            <select class=\"form-control\" formControlName=\"posId\">\n                                <option value=\"\">{{ 'setting.unselected' | translate }}</option>\n                                <option *ngFor=\"let pos of posList\" [value]=\"pos.id\">{{ pos.name }}</option>\n                            </select>\n                            <div *ngIf=\"settingForm.controls.posId.invalid && settingForm.controls.posId.touched\"\n                                class=\"mt-2\">\n                                <p *ngIf=\"settingForm.controls.posId.errors.required\" class=\"text-danger\">\n                                    {{ 'form.validation.unselected' | translate }}</p>\n                            </div>\n                        </div>\n                    </div>\n                </div>\n                <div class=\"form-group\">\n                    <div class=\"row align-items-center\">\n                        <p class=\"col-md-4 py-2 text-md-right\">{{ 'common.familyName' | translate }}</p>\n                        <div class=\"col-md-8\">\n                            <input type=\"text\" class=\"form-control\" formControlName=\"familyName\" placeholder=\"モーション\">\n                            <div *ngIf=\"settingForm.controls.familyName.invalid && settingForm.controls.familyName.touched\"\n                                class=\"mt-2\">\n                                <p *ngIf=\"settingForm.controls.familyName.errors.required\" class=\"text-danger\">\n                                    {{ 'form.validation.required' | translate }}</p>\n                                <p *ngIf=\"settingForm.controls.familyName.errors.maxlength\" class=\"text-danger\">\n                                    {{ 'form.validation.maxlength' | translate: { value: settingForm.controls.familyName.errors.maxlength.requiredLength } }}\n                                </p>\n                                <p *ngIf=\"settingForm.controls.familyName.errors.pattern\" class=\"text-danger\">\n                                    {{ 'form.validation.fullKana' | translate }}</p>\n                            </div>\n                        </div>\n                    </div>\n                </div>\n                <div class=\"form-group\">\n                    <div class=\"row align-items-center\">\n                        <p class=\"col-md-4 py-2 text-md-right\">{{ 'common.givenName' | translate }}</p>\n                        <div class=\"col-md-8\">\n                            <input type=\"text\" class=\"form-control\" formControlName=\"givenName\" placeholder=\"ピクチャー\">\n                            <div *ngIf=\"settingForm.controls.givenName.invalid && settingForm.controls.givenName.touched\"\n                                class=\"mt-2\">\n                                <p *ngIf=\"settingForm.controls.givenName.errors.required\" class=\"text-danger\">\n                                    {{ 'form.validation.required' | translate }}</p>\n                                <p *ngIf=\"settingForm.controls.givenName.errors.maxlength\" class=\"text-danger\">\n                                    {{ 'form.validation.maxlength' | translate: { value: settingForm.controls.givenName.errors.maxlength.requiredLength } }}\n                                </p>\n                                <p *ngIf=\"settingForm.controls.givenName.errors.pattern\" class=\"text-danger\">\n                                    {{ 'form.validation.fullKana' | translate }}\n                                </p>\n                            </div>\n                        </div>\n                    </div>\n                </div>\n                <div class=\"form-group\">\n                    <div class=\"row align-items-center\">\n                        <p class=\"col-md-4 py-2 text-md-right\">{{ 'common.email' | translate }}</p>\n                        <div class=\"col-md-8\">\n                            <input type=\"email\" class=\"form-control\" formControlName=\"email\"\n                                placeholder=\"motionpicture@example.jp\">\n                            <div *ngIf=\"settingForm.controls.email.invalid && settingForm.controls.email.touched\"\n                                class=\"mt-2\">\n                                <p *ngIf=\"settingForm.controls.email.errors.required\" class=\"text-danger\">\n                                    {{ 'form.validation.required' | translate }}</p>\n                                <p *ngIf=\"settingForm.controls.email.errors.maxlength\" class=\"text-danger\">\n                                    {{ 'form.validation.maxlength' | translate: { value: settingForm.controls.email.errors.maxlength.requiredLength } }}\n                                </p>\n                                <p *ngIf=\"settingForm.controls.email.errors.email\" class=\"text-danger\">\n                                    {{ 'form.validation.email' | translate }}</p>\n                            </div>\n                        </div>\n                    </div>\n                </div>\n                <div class=\"form-group\">\n                    <div class=\"row align-items-center\">\n                        <p class=\"col-md-4 py-2 text-md-right\">{{ 'common.telephone' | translate }}</p>\n                        <div class=\"col-md-8\">\n                            <input type=\"tel\" class=\"form-control\" formControlName=\"telephone\" placeholder=\"0362778824\">\n                            <div *ngIf=\"settingForm.controls.telephone.invalid && settingForm.controls.telephone.touched\"\n                                class=\"mt-2\">\n                                <p *ngIf=\"settingForm.controls.telephone.errors.required\" class=\"text-danger\">\n                                    {{ 'form.validation.required' | translate }}</p>\n                                <p *ngIf=\"settingForm.controls.telephone.errors.minlength\" class=\"text-danger\">\n                                    {{ 'form.validation.minlength' | translate: { value: settingForm.controls.telephone.errors.minlength.requiredLength } }}\n                                </p>\n                                <p *ngIf=\"settingForm.controls.telephone.errors.maxlength\" class=\"text-danger\">\n                                    {{ 'form.validation.minlength' | translate: { value: settingForm.controls.telephone.errors.maxlength.requiredLength } }}\n                                </p>\n                                <p *ngIf=\"settingForm.controls.telephone.errors.pattern\" class=\"text-danger\">\n                                    {{ 'form.validation.number' | translate }}</p>\n                                <p *ngIf=\"settingForm.controls.telephone.errors.telephone\" class=\"text-danger\">\n                                    {{ 'form.validation.telephone' | translate }}</p>\n                            </div>\n                        </div>\n                    </div>\n                </div>\n                <div class=\"form-group\">\n                    <div class=\"row align-items-center\">\n                        <p class=\"col-md-4 py-2 text-md-right\">{{ 'setting.printer' | translate }}</p>\n                        <div class=\"col-md-8\">\n                            <select class=\"form-control\" formControlName=\"printerType\" (change)=\"changePrinterType()\">\n                                <option value=\"\">{{ 'setting.unselected' | translate }}</option>\n                                <option *ngFor=\"let printer of printers\" [value]=\"printer.connectionType\">\n                                    {{ printer.name | translate }}</option>\n                            </select>\n                            <button\n                                *ngIf=\"this.settingForm.controls.printerType.value && this.settingForm.controls.printerType.value !== connectionType.None\"\n                                type=\"button\" class=\"btn btn-sm btn-primary py-2 mt-2\"\n                                (click)=\"print()\">{{ 'setting.testPrinting' | translate }}</button>\n                        </div>\n                    </div>\n                </div>\n                <div class=\"form-group\">\n                    <div class=\"row align-items-center\">\n                        <p class=\"col-md-4 py-2 text-md-right\">{{ 'setting.printerIpAddress' | translate }}</p>\n                        <div class=\"col-md-8\">\n                            <input type=\"text\" class=\"form-control\" formControlName=\"printerIpAddress\"\n                                placeholder=\"0.0.0.0\">\n                            <div *ngIf=\"settingForm.controls.printerIpAddress.invalid && settingForm.controls.printerIpAddress.touched\"\n                                class=\"mt-2\">\n                                <p *ngIf=\"settingForm.controls.printerIpAddress.errors.required\" class=\"text-danger\">\n                                    {{ 'form.validation.required' | translate }}</p>\n                            </div>\n                            <p class=\"text-small mt-2\">\n                                {{ 'setting.printerIpAddressDescription' | translate }}\n                            </p>\n                        </div>\n                    </div>\n                </div>\n                <div *ngIf=\"environment.SETTING_DEVELOP_OPTION\">\n                    <div class=\"form-group\">\n                        <div class=\"row align-items-center\">\n                            <p class=\"col-md-4 py-2 text-md-right\">{{ 'setting.isPurchaseCart' | translate }}</p>\n                            <div class=\"col-md-8\">\n                                <select type=\"text\" class=\"form-control\" formControlName=\"isPurchaseCart\"\n                                    id=\"isPurchaseCart\" placeholder=\"\">\n                                    <option value=\"0\">{{ 'common.off' | translate }}</option>\n                                    <option value=\"1\">{{ 'common.on' | translate }}</option>\n                                </select>\n                            </div>\n                        </div>\n                    </div>\n                    <div class=\"form-group\">\n                        <div class=\"row align-items-center\">\n                            <p class=\"col-md-4 py-2 text-md-right\">{{ 'setting.viewType' | translate }}</p>\n                            <div class=\"col-md-8\">\n                                <select class=\"form-control\" id=\"viewType\" formControlName=\"viewType\">\n                                    <option [value]=\"viewType.Cinema\">{{ viewType.Cinema }}</option>\n                                    <option [value]=\"viewType.Event\">{{ viewType.Event }}</option>\n                                </select>\n                                <div *ngIf=\"settingForm.controls.viewType.invalid && settingForm.controls.viewType.touched\"\n                                    class=\"mt-2\">\n                                    <p *ngIf=\"settingForm.controls.viewType.errors.required\" class=\"text-danger\">\n                                        {{ 'form.validation.required' | translate }}</p>\n                                </div>\n                            </div>\n                        </div>\n                    </div>\n                </div>\n            </form>\n        </div>\n    </div>\n\n    <div class=\"buttons mx-auto text-center\">\n        <button type=\"button\" class=\"btn btn-primary btn-block py-3 mb-3\"\n            (click)=\"onSubmit()\">{{ 'setting.next' | translate }}</button>\n        <button type=\"button\" class=\"btn btn-link\"\n            [routerLink]=\"environment.BASE_URL\">{{ 'setting.prev' | translate }}</button>\n    </div>\n\n</div>"
 
 /***/ }),
 
@@ -1043,7 +1032,6 @@ var AppModule = /** @class */ (function () {
                 pages_1.PurchaseBaseComponent,
                 pages_1.PurchaseCinemaSeatComponent,
                 pages_1.PurchaseCinemaTicketComponent,
-                pages_1.PurchaseInputComponent,
                 pages_1.PurchaseConfirmComponent,
                 pages_1.PurchaseCompleteComponent,
                 pages_1.NotfoundComponent,
@@ -1545,11 +1533,11 @@ var services_1 = __webpack_require__(/*! ../../../../services */ "./app/services
 var actions_1 = __webpack_require__(/*! ../../../../store/actions */ "./app/store/actions/index.ts");
 var reducers = __webpack_require__(/*! ../../../../store/reducers */ "./app/store/reducers/index.ts");
 var AdmissionCheckComponent = /** @class */ (function () {
-    function AdmissionCheckComponent(store, actions, router, util, translate) {
+    function AdmissionCheckComponent(store, actions, router, utilService, translate) {
         this.store = store;
         this.actions = actions;
         this.router = router;
-        this.util = util;
+        this.utilService = utilService;
         this.translate = translate;
         this.moment = moment;
         this.environment = environment_1.environment;
@@ -1675,7 +1663,7 @@ var AdmissionCheckComponent = /** @class */ (function () {
             }, time);
         }));
         var fail = this.actions.pipe(effects_1.ofType(actions_1.admissionAction.ActionTypes.CheckFail), operators_1.tap(function () {
-            _this.util.openAlert({
+            _this.utilService.openAlert({
                 title: _this.translate.instant('common.error'),
                 body: _this.translate.instant('admission.check.alert.check')
             });
@@ -2092,17 +2080,17 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = __webpack_require__(/*! @angular/core */ "../../node_modules/@angular/core/fesm5/core.js");
 var router_1 = __webpack_require__(/*! @angular/router */ "../../node_modules/@angular/router/fesm5/router.js");
-var store_1 = __webpack_require__(/*! @ngrx/store */ "../../node_modules/@ngrx/store/fesm5/store.js");
 var environment_1 = __webpack_require__(/*! ../../../../../environments/environment */ "./environments/environment.ts");
-var actions_1 = __webpack_require__(/*! ../../../../store/actions */ "./app/store/actions/index.ts");
+var services_1 = __webpack_require__(/*! ../../../../services */ "./app/services/index.ts");
 var AuthSigninComponent = /** @class */ (function () {
-    function AuthSigninComponent(router, store) {
+    function AuthSigninComponent(router, purchaseService, orderService) {
         this.router = router;
-        this.store = store;
+        this.purchaseService = purchaseService;
+        this.orderService = orderService;
     }
     AuthSigninComponent.prototype.ngOnInit = function () {
-        this.store.dispatch(new actions_1.orderAction.Delete());
-        this.store.dispatch(new actions_1.purchaseAction.Delete());
+        this.orderService.delete();
+        this.purchaseService.delete();
         this.router.navigate([environment_1.environment.BASE_URL]);
     };
     AuthSigninComponent = __decorate([
@@ -2112,7 +2100,8 @@ var AuthSigninComponent = /** @class */ (function () {
             styles: [__webpack_require__(/*! ./auth-signin.component.scss */ "./app/components/pages/auth/auth-signin/auth-signin.component.scss")]
         }),
         __metadata("design:paramtypes", [router_1.Router,
-            store_1.Store])
+            services_1.PurchaseService,
+            services_1.OrderService])
     ], AuthSigninComponent);
     return AuthSigninComponent;
 }());
@@ -2380,8 +2369,8 @@ var core_1 = __webpack_require__(/*! @angular/core */ "../../node_modules/@angul
 var qrcode = __webpack_require__(/*! qrcode */ "../../node_modules/qrcode/lib/browser.js");
 var services_1 = __webpack_require__(/*! ../../../../services */ "./app/services/index.ts");
 var DevelopmentEncryptionComponent = /** @class */ (function () {
-    function DevelopmentEncryptionComponent(util) {
-        this.util = util;
+    function DevelopmentEncryptionComponent(utilService) {
+        this.utilService = utilService;
     }
     DevelopmentEncryptionComponent.prototype.ngOnInit = function () {
         this.encodeText = '';
@@ -2400,7 +2389,7 @@ var DevelopmentEncryptionComponent = /** @class */ (function () {
                         }
                         this.encodeResult = undefined;
                         _a = this;
-                        return [4 /*yield*/, this.util.encryptionEncode(this.encodeText)];
+                        return [4 /*yield*/, this.utilService.encryptionEncode(this.encodeText)];
                     case 1:
                         _a.encodeResult = _b.sent();
                         canvas = document.createElement('canvas');
@@ -2425,7 +2414,7 @@ var DevelopmentEncryptionComponent = /** @class */ (function () {
                         }
                         this.decodeResult = undefined;
                         _a = this;
-                        return [4 /*yield*/, this.util.encryptionDecode({
+                        return [4 /*yield*/, this.utilService.encryptionDecode({
                                 salt: this.salt,
                                 iv: this.iv,
                                 encrypted: this.encrypted
@@ -2534,19 +2523,51 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : new P(function (resolve) { resolve(result.value); }).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+var __generator = (this && this.__generator) || function (thisArg, body) {
+    var _ = { label: 0, sent: function() { if (t[0] & 1) throw t[1]; return t[1]; }, trys: [], ops: [] }, f, y, t, g;
+    return g = { next: verb(0), "throw": verb(1), "return": verb(2) }, typeof Symbol === "function" && (g[Symbol.iterator] = function() { return this; }), g;
+    function verb(n) { return function (v) { return step([n, v]); }; }
+    function step(op) {
+        if (f) throw new TypeError("Generator is already executing.");
+        while (_) try {
+            if (f = 1, y && (t = op[0] & 2 ? y["return"] : op[0] ? y["throw"] || ((t = y["return"]) && t.call(y), 0) : y.next) && !(t = t.call(y, op[1])).done) return t;
+            if (y = 0, t) op = [op[0] & 2, t.value];
+            switch (op[0]) {
+                case 0: case 1: t = op; break;
+                case 4: _.label++; return { value: op[1], done: false };
+                case 5: _.label++; y = op[1]; op = [0]; continue;
+                case 7: op = _.ops.pop(); _.trys.pop(); continue;
+                default:
+                    if (!(t = _.trys, t = t.length > 0 && t[t.length - 1]) && (op[0] === 6 || op[0] === 2)) { _ = 0; continue; }
+                    if (op[0] === 3 && (!t || (op[1] > t[0] && op[1] < t[3]))) { _.label = op[1]; break; }
+                    if (op[0] === 6 && _.label < t[1]) { _.label = t[1]; t = op; break; }
+                    if (t && _.label < t[2]) { _.label = t[2]; _.ops.push(op); break; }
+                    if (t[2]) _.ops.pop();
+                    _.trys.pop(); continue;
+            }
+            op = body.call(thisArg, _);
+        } catch (e) { op = [6, e]; y = 0; } finally { f = t = 0; }
+        if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
+    }
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = __webpack_require__(/*! @angular/core */ "../../node_modules/@angular/core/fesm5/core.js");
-var effects_1 = __webpack_require__(/*! @ngrx/effects */ "../../node_modules/@ngrx/effects/fesm5/effects.js");
 var store_1 = __webpack_require__(/*! @ngrx/store */ "../../node_modules/@ngrx/store/fesm5/store.js");
-var rxjs_1 = __webpack_require__(/*! rxjs */ "../../node_modules/rxjs/_esm5/index.js");
-var operators_1 = __webpack_require__(/*! rxjs/operators */ "../../node_modules/rxjs/_esm5/operators/index.js");
 var environment_1 = __webpack_require__(/*! ../../../../../environments/environment */ "./environments/environment.ts");
-var actions_1 = __webpack_require__(/*! ../../../../store/actions */ "./app/store/actions/index.ts");
+var services_1 = __webpack_require__(/*! ../../../../services */ "./app/services/index.ts");
 var reducers = __webpack_require__(/*! ../../../../store/reducers */ "./app/store/reducers/index.ts");
 var DevelopmentScreenComponent = /** @class */ (function () {
-    function DevelopmentScreenComponent(store, actions) {
+    function DevelopmentScreenComponent(store, purchaseService) {
         this.store = store;
-        this.actions = actions;
+        this.purchaseService = purchaseService;
         this.environment = environment_1.environment;
     }
     DevelopmentScreenComponent.prototype.ngOnInit = function () {
@@ -2557,12 +2578,32 @@ var DevelopmentScreenComponent = /** @class */ (function () {
         this.getScreenData();
     };
     DevelopmentScreenComponent.prototype.getScreenData = function () {
-        var theaterCode = this.theaterCode;
-        var screenCode = this.screenCode;
-        this.store.dispatch(new actions_1.purchaseAction.GetScreen({ test: true, theaterCode: theaterCode, screenCode: screenCode }));
-        var success = this.actions.pipe(effects_1.ofType(actions_1.purchaseAction.ActionTypes.GetScreenSuccess), operators_1.tap(function () { }));
-        var fail = this.actions.pipe(effects_1.ofType(actions_1.purchaseAction.ActionTypes.GetScreenFail), operators_1.tap(function () { }));
-        rxjs_1.race(success, fail).pipe(operators_1.take(1)).subscribe();
+        return __awaiter(this, void 0, void 0, function () {
+            var theaterCode, screenCode, error_1;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        theaterCode = this.theaterCode;
+                        screenCode = this.screenCode;
+                        _a.label = 1;
+                    case 1:
+                        _a.trys.push([1, 3, , 4]);
+                        return [4 /*yield*/, this.purchaseService.getScreen({
+                                test: true,
+                                theaterCode: theaterCode,
+                                screenCode: screenCode
+                            })];
+                    case 2:
+                        _a.sent();
+                        return [3 /*break*/, 4];
+                    case 3:
+                        error_1 = _a.sent();
+                        console.error(error_1);
+                        return [3 /*break*/, 4];
+                    case 4: return [2 /*return*/];
+                }
+            });
+        });
     };
     DevelopmentScreenComponent.prototype.createTable = function () {
         return [
@@ -2584,7 +2625,7 @@ var DevelopmentScreenComponent = /** @class */ (function () {
             styles: [__webpack_require__(/*! ./development-screen.component.scss */ "./app/components/pages/development/development-screen/development-screen.component.scss")]
         }),
         __metadata("design:paramtypes", [store_1.Store,
-            effects_1.Actions])
+            services_1.PurchaseService])
     ], DevelopmentScreenComponent);
     return DevelopmentScreenComponent;
 }());
@@ -2645,15 +2686,16 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = __webpack_require__(/*! @angular/core */ "../../node_modules/@angular/core/fesm5/core.js");
 var store_1 = __webpack_require__(/*! @ngrx/store */ "../../node_modules/@ngrx/store/fesm5/store.js");
-var actions_1 = __webpack_require__(/*! ../../../store/actions */ "./app/store/actions/index.ts");
+var services_1 = __webpack_require__(/*! ../../../services */ "./app/services/index.ts");
 var reducers = __webpack_require__(/*! ../../../store/reducers */ "./app/store/reducers/index.ts");
 var ErrorComponent = /** @class */ (function () {
-    function ErrorComponent(store) {
+    function ErrorComponent(store, purchaseService) {
         this.store = store;
+        this.purchaseService = purchaseService;
     }
     ErrorComponent.prototype.ngOnInit = function () {
         this.error = this.store.pipe(store_1.select(reducers.getError));
-        this.store.dispatch(new actions_1.purchaseAction.Delete());
+        this.purchaseService.delete();
     };
     ErrorComponent = __decorate([
         core_1.Component({
@@ -2661,7 +2703,8 @@ var ErrorComponent = /** @class */ (function () {
             template: __webpack_require__(/*! raw-loader!./error.component.html */ "../../node_modules/raw-loader/index.js!./app/components/pages/error/error.component.html"),
             styles: [__webpack_require__(/*! ./error.component.scss */ "./app/components/pages/error/error.component.scss")]
         }),
-        __metadata("design:paramtypes", [store_1.Store])
+        __metadata("design:paramtypes", [store_1.Store,
+            services_1.PurchaseService])
     ], ErrorComponent);
     return ErrorComponent;
 }());
@@ -2701,14 +2744,13 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = __webpack_require__(/*! @angular/core */ "../../node_modules/@angular/core/fesm5/core.js");
-var store_1 = __webpack_require__(/*! @ngrx/store */ "../../node_modules/@ngrx/store/fesm5/store.js");
-var actions_1 = __webpack_require__(/*! ../../../store/actions */ "./app/store/actions/index.ts");
+var services_1 = __webpack_require__(/*! ../../../services */ "./app/services/index.ts");
 var ExpiredComponent = /** @class */ (function () {
-    function ExpiredComponent(store) {
-        this.store = store;
+    function ExpiredComponent(purchaseService) {
+        this.purchaseService = purchaseService;
     }
     ExpiredComponent.prototype.ngOnInit = function () {
-        this.store.dispatch(new actions_1.purchaseAction.Delete());
+        this.purchaseService.delete();
     };
     ExpiredComponent = __decorate([
         core_1.Component({
@@ -2716,7 +2758,7 @@ var ExpiredComponent = /** @class */ (function () {
             template: __webpack_require__(/*! raw-loader!./expired.component.html */ "../../node_modules/raw-loader/index.js!./app/components/pages/expired/expired.component.html"),
             styles: [__webpack_require__(/*! ./expired.component.scss */ "./app/components/pages/expired/expired.component.scss")]
         }),
-        __metadata("design:paramtypes", [store_1.Store])
+        __metadata("design:paramtypes", [services_1.PurchaseService])
     ], ExpiredComponent);
     return ExpiredComponent;
 }());
@@ -2843,23 +2885,20 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = __webpack_require__(/*! @angular/core */ "../../node_modules/@angular/core/fesm5/core.js");
 var router_1 = __webpack_require__(/*! @angular/router */ "../../node_modules/@angular/router/fesm5/router.js");
 var api_javascript_client_1 = __webpack_require__(/*! @cinerino/api-javascript-client */ "../../node_modules/@cinerino/api-javascript-client/lib/index.js");
-var effects_1 = __webpack_require__(/*! @ngrx/effects */ "../../node_modules/@ngrx/effects/fesm5/effects.js");
 var store_1 = __webpack_require__(/*! @ngrx/store */ "../../node_modules/@ngrx/store/fesm5/store.js");
 var core_2 = __webpack_require__(/*! @ngx-translate/core */ "../../node_modules/@ngx-translate/core/fesm5/ngx-translate-core.js");
 var moment = __webpack_require__(/*! moment */ "../../node_modules/moment/moment.js");
-var rxjs_1 = __webpack_require__(/*! rxjs */ "../../node_modules/rxjs/_esm5/index.js");
-var operators_1 = __webpack_require__(/*! rxjs/operators */ "../../node_modules/rxjs/_esm5/operators/index.js");
 var environment_1 = __webpack_require__(/*! ../../../../../environments/environment */ "./environments/environment.ts");
 var functions_1 = __webpack_require__(/*! ../../../../functions */ "./app/functions/index.ts");
 var services_1 = __webpack_require__(/*! ../../../../services */ "./app/services/index.ts");
-var actions_1 = __webpack_require__(/*! ../../../../store/actions */ "./app/store/actions/index.ts");
 var reducers = __webpack_require__(/*! ../../../../store/reducers */ "./app/store/reducers/index.ts");
 var InquiryConfirmComponent = /** @class */ (function () {
-    function InquiryConfirmComponent(store, actions, router, util, translate) {
+    function InquiryConfirmComponent(store, router, userService, utilService, orderService, translate) {
         this.store = store;
-        this.actions = actions;
         this.router = router;
-        this.util = util;
+        this.userService = userService;
+        this.utilService = utilService;
+        this.orderService = orderService;
         this.translate = translate;
         this.moment = moment;
         this.getTicketPrice = functions_1.getTicketPrice;
@@ -2888,105 +2927,91 @@ var InquiryConfirmComponent = /** @class */ (function () {
      */
     InquiryConfirmComponent.prototype.cancelConfirm = function () {
         var _this = this;
-        this.util.openConfirm({
+        this.utilService.openConfirm({
             title: this.translate.instant('common.confirm'),
             body: this.translate.instant('inquiry.confirm.confirm.cancel'),
             cb: function () { return __awaiter(_this, void 0, void 0, function () {
-                var error_1;
-                var _this = this;
+                var orderData, order, error_1;
                 return __generator(this, function (_a) {
                     switch (_a.label) {
                         case 0:
-                            _a.trys.push([0, 3, , 4]);
-                            return [4 /*yield*/, this.cancel()];
+                            _a.trys.push([0, 4, , 5]);
+                            return [4 /*yield*/, this.orderService.getData()];
                         case 1:
-                            _a.sent();
-                            return [4 /*yield*/, this.inquiry()];
+                            orderData = _a.sent();
+                            order = orderData.order;
+                            if (order === undefined) {
+                                this.utilService.openAlert({
+                                    title: this.translate.instant('common.error'),
+                                    body: "\n                            <p class=\"mb-4\">" + this.translate.instant('inquiry.confirm.alert.cancel') + "</p>\n                                <div class=\"p-3 bg-light-gray select-text\">\n                                <code>order undefined</code>\n                            </div>"
+                                });
+                                return [2 /*return*/];
+                            }
+                            return [4 /*yield*/, this.orderService.cancel([order])];
                         case 2:
                             _a.sent();
-                            return [3 /*break*/, 4];
+                            return [4 /*yield*/, this.orderService.inquiry({
+                                    confirmationNumber: order.confirmationNumber,
+                                    customer: { telephone: order.customer.telephone }
+                                })];
                         case 3:
+                            _a.sent();
+                            return [3 /*break*/, 5];
+                        case 4:
                             error_1 = _a.sent();
-                            this.error.subscribe(function (error) {
-                                _this.util.openAlert({
-                                    title: _this.translate.instant('common.error'),
-                                    body: "\n                            <p class=\"mb-4\">" + _this.translate.instant('inquiry.confirm.alert.cancel') + "</p>\n                                <div class=\"p-3 bg-light-gray select-text\">\n                                <code>" + JSON.stringify(error) + "</code>\n                            </div>"
-                                });
-                            }).unsubscribe();
-                            return [3 /*break*/, 4];
-                        case 4: return [2 /*return*/];
+                            console.error(error_1);
+                            this.utilService.openAlert({
+                                title: this.translate.instant('common.error'),
+                                body: "\n                        <p class=\"mb-4\">" + this.translate.instant('inquiry.confirm.alert.cancel') + "</p>\n                            <div class=\"p-3 bg-light-gray select-text\">\n                            <code>" + JSON.stringify(error_1) + "</code>\n                        </div>"
+                            });
+                            return [3 /*break*/, 5];
+                        case 5: return [2 /*return*/];
                     }
                 });
             }); }
         });
     };
     /**
-     * キャンセル処理
+     * 印刷
      */
-    InquiryConfirmComponent.prototype.cancel = function () {
-        var _this = this;
-        return new Promise(function (resolve, reject) {
-            _this.order.subscribe(function (orderData) {
-                var order = orderData.order;
-                if (order === undefined) {
-                    reject({ error: 'order undefined' });
-                    return;
-                }
-                _this.store.dispatch(new actions_1.orderAction.Cancel({ orders: [order] }));
-            }).unsubscribe();
-            var success = _this.actions.pipe(effects_1.ofType(actions_1.orderAction.ActionTypes.CancelSuccess), operators_1.tap(function () { resolve(); }));
-            var fail = _this.actions.pipe(effects_1.ofType(actions_1.orderAction.ActionTypes.CancelFail), operators_1.tap(function () { _this.error.subscribe(function (error) { reject(error); }).unsubscribe(); }));
-            rxjs_1.race(success, fail).pipe(operators_1.take(1)).subscribe();
-        });
-    };
-    /**
-     * 照会
-     */
-    InquiryConfirmComponent.prototype.inquiry = function () {
-        var _this = this;
-        return new Promise(function (resolve, reject) {
-            _this.order.subscribe(function (orderData) {
-                var order = orderData.order;
-                if (order === undefined) {
-                    reject({ error: 'order undefined' });
-                    return;
-                }
-                _this.store.dispatch(new actions_1.orderAction.Inquiry({
-                    confirmationNumber: order.confirmationNumber,
-                    customer: { telephone: order.customer.telephone }
-                }));
-            }).unsubscribe();
-            var success = _this.actions.pipe(effects_1.ofType(actions_1.orderAction.ActionTypes.InquirySuccess), operators_1.tap(function () { resolve(); }));
-            var fail = _this.actions.pipe(effects_1.ofType(actions_1.orderAction.ActionTypes.InquiryFail), operators_1.tap(function () { _this.error.subscribe(function (error) { reject(error); }).unsubscribe(); }));
-            rxjs_1.race(success, fail).pipe(operators_1.take(1)).subscribe();
-        });
-    };
     InquiryConfirmComponent.prototype.print = function () {
-        var _this = this;
-        this.order.subscribe(function (inquiry) {
-            _this.user.subscribe(function (user) {
-                if (inquiry.order === undefined
-                    || user.pos === undefined
-                    || user.printer === undefined) {
-                    _this.router.navigate(['/error']);
-                    return;
+        return __awaiter(this, void 0, void 0, function () {
+            var orderData, user, orders, pos, printer, error_2;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        _a.trys.push([0, 4, , 5]);
+                        return [4 /*yield*/, this.orderService.getData()];
+                    case 1:
+                        orderData = _a.sent();
+                        return [4 /*yield*/, this.userService.getData()];
+                    case 2:
+                        user = _a.sent();
+                        if (orderData.order === undefined
+                            || user.pos === undefined
+                            || user.printer === undefined) {
+                            this.router.navigate(['/error']);
+                            return [2 /*return*/];
+                        }
+                        orders = [orderData.order];
+                        pos = user.pos;
+                        printer = user.printer;
+                        return [4 /*yield*/, this.orderService.print({ orders: orders, pos: pos, printer: printer })];
+                    case 3:
+                        _a.sent();
+                        return [3 /*break*/, 5];
+                    case 4:
+                        error_2 = _a.sent();
+                        console.error(error_2);
+                        this.utilService.openAlert({
+                            title: this.translate.instant('common.error'),
+                            body: "\n                <p class=\"mb-4\">" + this.translate.instant('inquiry.confirm.alert.print') + "</p>\n                    <div class=\"p-3 bg-light-gray select-text\">\n                    <code>" + error_2 + "</code>\n                </div>"
+                        });
+                        return [3 /*break*/, 5];
+                    case 5: return [2 /*return*/];
                 }
-                var orders = [inquiry.order];
-                var pos = user.pos;
-                var printer = user.printer;
-                _this.store.dispatch(new actions_1.orderAction.Print({ orders: orders, pos: pos, printer: printer }));
-            }).unsubscribe();
-        }).unsubscribe();
-        var success = this.actions.pipe(effects_1.ofType(actions_1.orderAction.ActionTypes.PrintSuccess), operators_1.tap(function () { }));
-        var fail = this.actions.pipe(effects_1.ofType(actions_1.orderAction.ActionTypes.PrintFail), operators_1.tap(function () {
-            _this.error.subscribe(function (error) {
-                _this.util.openAlert({
-                    title: _this.translate.instant('common.error'),
-                    body: "\n                        <p class=\"mb-4\">" + _this.translate.instant('inquiry.confirm.alert.print') + "</p>\n                            <div class=\"p-3 bg-light-gray select-text\">\n                            <code>" + error + "</code>\n                        </div>"
-                });
-            }).unsubscribe();
-        }));
-        rxjs_1.race(success, fail).pipe(operators_1.take(1)).subscribe();
+            });
+        });
     };
     InquiryConfirmComponent = __decorate([
         core_1.Component({
@@ -2995,9 +3020,10 @@ var InquiryConfirmComponent = /** @class */ (function () {
             styles: [__webpack_require__(/*! ./inquiry-confirm.component.scss */ "./app/components/pages/inquiry/inquiry-confirm/inquiry-confirm.component.scss")]
         }),
         __metadata("design:paramtypes", [store_1.Store,
-            effects_1.Actions,
             router_1.Router,
+            services_1.UserService,
             services_1.UtilService,
+            services_1.OrderService,
             core_2.TranslateService])
     ], InquiryConfirmComponent);
     return InquiryConfirmComponent;
@@ -3036,24 +3062,53 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : new P(function (resolve) { resolve(result.value); }).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+var __generator = (this && this.__generator) || function (thisArg, body) {
+    var _ = { label: 0, sent: function() { if (t[0] & 1) throw t[1]; return t[1]; }, trys: [], ops: [] }, f, y, t, g;
+    return g = { next: verb(0), "throw": verb(1), "return": verb(2) }, typeof Symbol === "function" && (g[Symbol.iterator] = function() { return this; }), g;
+    function verb(n) { return function (v) { return step([n, v]); }; }
+    function step(op) {
+        if (f) throw new TypeError("Generator is already executing.");
+        while (_) try {
+            if (f = 1, y && (t = op[0] & 2 ? y["return"] : op[0] ? y["throw"] || ((t = y["return"]) && t.call(y), 0) : y.next) && !(t = t.call(y, op[1])).done) return t;
+            if (y = 0, t) op = [op[0] & 2, t.value];
+            switch (op[0]) {
+                case 0: case 1: t = op; break;
+                case 4: _.label++; return { value: op[1], done: false };
+                case 5: _.label++; y = op[1]; op = [0]; continue;
+                case 7: op = _.ops.pop(); _.trys.pop(); continue;
+                default:
+                    if (!(t = _.trys, t = t.length > 0 && t[t.length - 1]) && (op[0] === 6 || op[0] === 2)) { _ = 0; continue; }
+                    if (op[0] === 3 && (!t || (op[1] > t[0] && op[1] < t[3]))) { _.label = op[1]; break; }
+                    if (op[0] === 6 && _.label < t[1]) { _.label = t[1]; t = op; break; }
+                    if (t && _.label < t[2]) { _.label = t[2]; _.ops.push(op); break; }
+                    if (t[2]) _.ops.pop();
+                    _.trys.pop(); continue;
+            }
+            op = body.call(thisArg, _);
+        } catch (e) { op = [6, e]; y = 0; } finally { f = t = 0; }
+        if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
+    }
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = __webpack_require__(/*! @angular/core */ "../../node_modules/@angular/core/fesm5/core.js");
 var forms_1 = __webpack_require__(/*! @angular/forms */ "../../node_modules/@angular/forms/fesm5/forms.js");
 var router_1 = __webpack_require__(/*! @angular/router */ "../../node_modules/@angular/router/fesm5/router.js");
-var effects_1 = __webpack_require__(/*! @ngrx/effects */ "../../node_modules/@ngrx/effects/fesm5/effects.js");
-var store_1 = __webpack_require__(/*! @ngrx/store */ "../../node_modules/@ngrx/store/fesm5/store.js");
 var core_2 = __webpack_require__(/*! @ngx-translate/core */ "../../node_modules/@ngx-translate/core/fesm5/ngx-translate-core.js");
 var libphonenumber = __webpack_require__(/*! libphonenumber-js */ "../../node_modules/libphonenumber-js/index.es6.js");
-var rxjs_1 = __webpack_require__(/*! rxjs */ "../../node_modules/rxjs/_esm5/index.js");
-var operators_1 = __webpack_require__(/*! rxjs/operators */ "../../node_modules/rxjs/_esm5/operators/index.js");
 var services_1 = __webpack_require__(/*! ../../../../services */ "./app/services/index.ts");
-var actions_1 = __webpack_require__(/*! ../../../../store/actions */ "./app/store/actions/index.ts");
 var InquiryInputComponent = /** @class */ (function () {
-    function InquiryInputComponent(actions, formBuilder, store, util, router, translate) {
-        this.actions = actions;
+    function InquiryInputComponent(formBuilder, utilService, orderService, router, translate) {
         this.formBuilder = formBuilder;
-        this.store = store;
-        this.util = util;
+        this.utilService = utilService;
+        this.orderService = orderService;
         this.router = router;
         this.translate = translate;
     }
@@ -3091,31 +3146,44 @@ var InquiryInputComponent = /** @class */ (function () {
         });
     };
     InquiryInputComponent.prototype.onSubmit = function () {
-        var _this = this;
-        Object.keys(this.inquiryForm.controls).forEach(function (key) {
-            _this.inquiryForm.controls[key].markAsTouched();
-        });
-        this.inquiryForm.controls.confirmationNumber.setValue(document.getElementById('confirmationNumber').value);
-        this.inquiryForm.controls.telephone.setValue(document.getElementById('telephone').value);
-        if (this.inquiryForm.invalid) {
-            return;
-        }
-        var confirmationNumber = this.inquiryForm.controls.confirmationNumber.value;
-        var telephone = this.inquiryForm.controls.telephone.value;
-        this.store.dispatch(new actions_1.orderAction.Inquiry({
-            confirmationNumber: confirmationNumber,
-            customer: { telephone: telephone }
-        }));
-        var success = this.actions.pipe(effects_1.ofType(actions_1.orderAction.ActionTypes.InquirySuccess), operators_1.tap(function () {
-            _this.router.navigate(['/inquiry/confirm']);
-        }));
-        var fail = this.actions.pipe(effects_1.ofType(actions_1.orderAction.ActionTypes.InquiryFail), operators_1.tap(function () {
-            _this.util.openAlert({
-                title: _this.translate.instant('common.error'),
-                body: _this.translate.instant('inquiry.input.validation')
+        return __awaiter(this, void 0, void 0, function () {
+            var confirmationNumber, telephone, error_1;
+            var _this = this;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        Object.keys(this.inquiryForm.controls).forEach(function (key) {
+                            _this.inquiryForm.controls[key].markAsTouched();
+                        });
+                        this.inquiryForm.controls.confirmationNumber.setValue(document.getElementById('confirmationNumber').value);
+                        this.inquiryForm.controls.telephone.setValue(document.getElementById('telephone').value);
+                        if (this.inquiryForm.invalid) {
+                            return [2 /*return*/];
+                        }
+                        _a.label = 1;
+                    case 1:
+                        _a.trys.push([1, 3, , 4]);
+                        confirmationNumber = this.inquiryForm.controls.confirmationNumber.value;
+                        telephone = this.inquiryForm.controls.telephone.value;
+                        return [4 /*yield*/, this.orderService.inquiry({
+                                confirmationNumber: confirmationNumber,
+                                customer: { telephone: telephone }
+                            })];
+                    case 2:
+                        _a.sent();
+                        this.router.navigate(['/inquiry/confirm']);
+                        return [3 /*break*/, 4];
+                    case 3:
+                        error_1 = _a.sent();
+                        this.utilService.openAlert({
+                            title: this.translate.instant('common.error'),
+                            body: this.translate.instant('inquiry.input.validation')
+                        });
+                        return [3 /*break*/, 4];
+                    case 4: return [2 /*return*/];
+                }
             });
-        }));
-        rxjs_1.race(success, fail).pipe(operators_1.take(1)).subscribe();
+        });
     };
     InquiryInputComponent = __decorate([
         core_1.Component({
@@ -3123,10 +3191,9 @@ var InquiryInputComponent = /** @class */ (function () {
             template: __webpack_require__(/*! raw-loader!./inquiry-input.component.html */ "../../node_modules/raw-loader/index.js!./app/components/pages/inquiry/inquiry-input/inquiry-input.component.html"),
             styles: [__webpack_require__(/*! ./inquiry-input.component.scss */ "./app/components/pages/inquiry/inquiry-input/inquiry-input.component.scss")]
         }),
-        __metadata("design:paramtypes", [effects_1.Actions,
-            forms_1.FormBuilder,
-            store_1.Store,
+        __metadata("design:paramtypes", [forms_1.FormBuilder,
             services_1.UtilService,
+            services_1.OrderService,
             router_1.Router,
             core_2.TranslateService])
     ], InquiryInputComponent);
@@ -3307,27 +3374,24 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = __webpack_require__(/*! @angular/core */ "../../node_modules/@angular/core/fesm5/core.js");
 var router_1 = __webpack_require__(/*! @angular/router */ "../../node_modules/@angular/router/fesm5/router.js");
 var api_javascript_client_1 = __webpack_require__(/*! @cinerino/api-javascript-client */ "../../node_modules/@cinerino/api-javascript-client/lib/index.js");
-var effects_1 = __webpack_require__(/*! @ngrx/effects */ "../../node_modules/@ngrx/effects/fesm5/effects.js");
 var store_1 = __webpack_require__(/*! @ngrx/store */ "../../node_modules/@ngrx/store/fesm5/store.js");
 var core_2 = __webpack_require__(/*! @ngx-translate/core */ "../../node_modules/@ngx-translate/core/fesm5/ngx-translate-core.js");
 var moment = __webpack_require__(/*! moment */ "../../node_modules/moment/moment.js");
 var ngx_bootstrap_1 = __webpack_require__(/*! ngx-bootstrap */ "../../node_modules/ngx-bootstrap/esm5/ngx-bootstrap.js");
-var rxjs_1 = __webpack_require__(/*! rxjs */ "../../node_modules/rxjs/_esm5/index.js");
-var operators_1 = __webpack_require__(/*! rxjs/operators */ "../../node_modules/rxjs/_esm5/operators/index.js");
 var environment_1 = __webpack_require__(/*! ../../../../../environments/environment */ "./environments/environment.ts");
 var functions_1 = __webpack_require__(/*! ../../../../functions */ "./app/functions/index.ts");
 var models_1 = __webpack_require__(/*! ../../../../models */ "./app/models/index.ts");
 var services_1 = __webpack_require__(/*! ../../../../services */ "./app/services/index.ts");
-var actions_1 = __webpack_require__(/*! ../../../../store/actions */ "./app/store/actions/index.ts");
 var reducers = __webpack_require__(/*! ../../../../store/reducers */ "./app/store/reducers/index.ts");
 var parts_1 = __webpack_require__(/*! ../../../parts */ "./app/components/parts/index.ts");
 var OrderSearchComponent = /** @class */ (function () {
-    function OrderSearchComponent(store, actions, modal, router, util, translate, download, localeService) {
+    function OrderSearchComponent(store, modal, router, utilService, userService, orderService, translate, download, localeService) {
         this.store = store;
-        this.actions = actions;
         this.modal = modal;
         this.router = router;
-        this.util = util;
+        this.utilService = utilService;
+        this.userService = userService;
+        this.orderService = orderService;
         this.translate = translate;
         this.download = download;
         this.localeService = localeService;
@@ -3362,15 +3426,24 @@ var OrderSearchComponent = /** @class */ (function () {
             posId: '',
             page: 1
         };
-        this.store.dispatch(new actions_1.orderAction.Delete());
+        this.orderService.delete();
     };
+    /**
+     * 選択判定
+     */
     OrderSearchComponent.prototype.isSelected = function (order) {
         var findResult = this.selectedOrders.find(function (o) { return o.orderNumber === order.orderNumber; });
         return findResult !== undefined;
     };
+    /**
+     * 選択中へ変更
+     */
     OrderSearchComponent.prototype.addOrder = function (order) {
         this.selectedOrders.push(order);
     };
+    /**
+     * 選択中解除
+     */
     OrderSearchComponent.prototype.removeOrder = function (order) {
         var findIndex = this.selectedOrders.findIndex(function (o) { return o.orderNumber === order.orderNumber; });
         this.selectedOrders.splice(findIndex, 1);
@@ -3449,42 +3522,57 @@ var OrderSearchComponent = /** @class */ (function () {
      * 検索
      */
     OrderSearchComponent.prototype.orderSearch = function (changeConditions, event) {
-        var _this = this;
-        this.selectedOrders = [];
-        if (event !== undefined) {
-            this.confirmedConditions.page = event.page;
-        }
-        if (changeConditions) {
-            this.confirmedConditions = {
-                orderDateFrom: this.conditions.orderDateFrom,
-                orderDateThrough: this.conditions.orderDateThrough,
-                confirmationNumber: this.conditions.confirmationNumber,
-                orderNumber: this.conditions.orderNumber,
-                customer: {
-                    familyName: this.conditions.customer.familyName,
-                    givenName: this.conditions.customer.givenName,
-                    email: this.conditions.customer.email,
-                    telephone: this.conditions.customer.telephone
-                },
-                orderStatus: this.conditions.orderStatus,
-                paymentMethodType: this.conditions.paymentMethodType,
-                eventStartDateFrom: this.conditions.eventStartDateFrom,
-                eventStartDateThrough: this.conditions.eventStartDateThrough,
-                posId: this.conditions.posId,
-                page: 1
-            };
-        }
-        this.convertToSearchParams().then(function (params) {
-            _this.store.dispatch(new actions_1.orderAction.Search({ params: params }));
-        });
-        var success = this.actions.pipe(effects_1.ofType(actions_1.orderAction.ActionTypes.SearchSuccess), operators_1.tap(function () { }));
-        var fail = this.actions.pipe(effects_1.ofType(actions_1.orderAction.ActionTypes.SearchFail), operators_1.tap(function () {
-            _this.util.openAlert({
-                title: _this.translate.instant('common.error'),
-                body: _this.translate.instant('order.search.alert.search')
+        return __awaiter(this, void 0, void 0, function () {
+            var params, error_1;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        this.selectedOrders = [];
+                        if (event !== undefined) {
+                            this.confirmedConditions.page = event.page;
+                        }
+                        if (changeConditions) {
+                            this.confirmedConditions = {
+                                orderDateFrom: this.conditions.orderDateFrom,
+                                orderDateThrough: this.conditions.orderDateThrough,
+                                confirmationNumber: this.conditions.confirmationNumber,
+                                orderNumber: this.conditions.orderNumber,
+                                customer: {
+                                    familyName: this.conditions.customer.familyName,
+                                    givenName: this.conditions.customer.givenName,
+                                    email: this.conditions.customer.email,
+                                    telephone: this.conditions.customer.telephone
+                                },
+                                orderStatus: this.conditions.orderStatus,
+                                paymentMethodType: this.conditions.paymentMethodType,
+                                eventStartDateFrom: this.conditions.eventStartDateFrom,
+                                eventStartDateThrough: this.conditions.eventStartDateThrough,
+                                posId: this.conditions.posId,
+                                page: 1
+                            };
+                        }
+                        _a.label = 1;
+                    case 1:
+                        _a.trys.push([1, 4, , 5]);
+                        return [4 /*yield*/, this.convertToSearchParams()];
+                    case 2:
+                        params = _a.sent();
+                        return [4 /*yield*/, this.orderService.search(params)];
+                    case 3:
+                        _a.sent();
+                        return [3 /*break*/, 5];
+                    case 4:
+                        error_1 = _a.sent();
+                        console.error(error_1);
+                        this.utilService.openAlert({
+                            title: this.translate.instant('common.error'),
+                            body: this.translate.instant('order.search.alert.search')
+                        });
+                        return [3 /*break*/, 5];
+                    case 5: return [2 /*return*/];
+                }
             });
-        }));
-        rxjs_1.race(success, fail).pipe(operators_1.take(1)).subscribe();
+        });
     };
     /**
      * 検索条件クリア
@@ -3510,12 +3598,40 @@ var OrderSearchComponent = /** @class */ (function () {
      */
     OrderSearchComponent.prototype.printConfirm = function (orders) {
         var _this = this;
-        this.util.openConfirm({
+        this.utilService.openConfirm({
             title: this.translate.instant('common.confirm'),
             body: this.translate.instant('order.search.confirm.print'),
-            cb: function () {
-                _this.ptint(orders);
-            }
+            cb: function () { return __awaiter(_this, void 0, void 0, function () {
+                var user, pos, printer, error_2;
+                return __generator(this, function (_a) {
+                    switch (_a.label) {
+                        case 0:
+                            _a.trys.push([0, 3, , 4]);
+                            return [4 /*yield*/, this.userService.getData()];
+                        case 1:
+                            user = _a.sent();
+                            if (user.pos === undefined || user.printer === undefined) {
+                                this.router.navigate(['/error']);
+                                return [2 /*return*/];
+                            }
+                            pos = user.pos;
+                            printer = user.printer;
+                            return [4 /*yield*/, this.orderService.print({ orders: orders, pos: pos, printer: printer })];
+                        case 2:
+                            _a.sent();
+                            return [3 /*break*/, 4];
+                        case 3:
+                            error_2 = _a.sent();
+                            console.error(error_2);
+                            this.utilService.openAlert({
+                                title: this.translate.instant('common.error'),
+                                body: "<p class=\"mb-4\">" + this.translate.instant('order.search.alert.print') + "</p>\n                        <div class=\"p-3 bg-light-gray select-text\">\n                        <code>" + error_2 + "</code>\n                    </div>"
+                            });
+                            return [3 /*break*/, 4];
+                        case 4: return [2 /*return*/];
+                    }
+                });
+            }); }
         });
     };
     /**
@@ -3523,12 +3639,31 @@ var OrderSearchComponent = /** @class */ (function () {
      */
     OrderSearchComponent.prototype.cancelConfirm = function (orders) {
         var _this = this;
-        this.util.openConfirm({
+        this.utilService.openConfirm({
             title: this.translate.instant('common.confirm'),
             body: this.translate.instant('order.search.confirm.cancel'),
-            cb: function () {
-                _this.cancel(orders);
-            }
+            cb: function () { return __awaiter(_this, void 0, void 0, function () {
+                var error_3;
+                return __generator(this, function (_a) {
+                    switch (_a.label) {
+                        case 0:
+                            _a.trys.push([0, 2, , 3]);
+                            return [4 /*yield*/, this.orderService.cancel(orders)];
+                        case 1:
+                            _a.sent();
+                            return [3 /*break*/, 3];
+                        case 2:
+                            error_3 = _a.sent();
+                            console.error(error_3);
+                            this.utilService.openAlert({
+                                title: this.translate.instant('common.error'),
+                                body: "\n                        <p class=\"mb-4\">" + this.translate.instant('order.search.alert.cancel') + "</p>\n                            <div class=\"p-3 bg-light-gray select-text\">\n                            <code>" + error_3 + "</code>\n                        </div>"
+                            });
+                            return [3 /*break*/, 3];
+                        case 3: return [2 /*return*/];
+                    }
+                });
+            }); }
         });
     };
     /**
@@ -3541,77 +3676,80 @@ var OrderSearchComponent = /** @class */ (function () {
         });
     };
     /**
-     * キャンセル処理
-     */
-    OrderSearchComponent.prototype.cancel = function (orders) {
-        var _this = this;
-        this.store.dispatch(new actions_1.orderAction.Cancel({ orders: orders }));
-        var success = this.actions.pipe(effects_1.ofType(actions_1.orderAction.ActionTypes.CancelSuccess), operators_1.tap(function () {
-            _this.orderSearch(false);
-        }));
-        var fail = this.actions.pipe(effects_1.ofType(actions_1.orderAction.ActionTypes.CancelFail), operators_1.tap(function () {
-            _this.error.subscribe(function (error) {
-                _this.util.openAlert({
-                    title: _this.translate.instant('common.error'),
-                    body: "\n                        <p class=\"mb-4\">" + _this.translate.instant('order.search.alert.cancel') + "</p>\n                            <div class=\"p-3 bg-light-gray select-text\">\n                            <code>" + error + "</code>\n                        </div>"
-                });
-            }).unsubscribe();
-        }));
-        rxjs_1.race(success, fail).pipe(operators_1.take(1)).subscribe();
-    };
-    /**
-     * 印刷処理
-     */
-    OrderSearchComponent.prototype.ptint = function (orders) {
-        var _this = this;
-        this.user.subscribe(function (user) {
-            if (user.pos === undefined
-                || user.printer === undefined) {
-                _this.router.navigate(['/error']);
-                return;
-            }
-            var pos = user.pos;
-            var printer = user.printer;
-            _this.store.dispatch(new actions_1.orderAction.Print({ orders: orders, pos: pos, printer: printer }));
-        }).unsubscribe();
-        var success = this.actions.pipe(effects_1.ofType(actions_1.orderAction.ActionTypes.PrintSuccess), operators_1.tap(function () { }));
-        var fail = this.actions.pipe(effects_1.ofType(actions_1.orderAction.ActionTypes.PrintFail), operators_1.tap(function () {
-            _this.error.subscribe(function (error) {
-                _this.util.openAlert({
-                    title: _this.translate.instant('common.error'),
-                    body: "<p class=\"mb-4\">" + _this.translate.instant('order.search.alert.print') + "</p>\n                        <div class=\"p-3 bg-light-gray select-text\">\n                        <code>" + error + "</code>\n                    </div>"
-                });
-            }).unsubscribe();
-        }));
-        rxjs_1.race(success, fail).pipe(operators_1.take(1)).subscribe();
-    };
-    /**
      * 選択した注文へのアクション
      */
     OrderSearchComponent.prototype.selecedtAction = function () {
         var _this = this;
         if (this.selectedOrders.length === 0) {
-            this.util.openAlert({
+            this.utilService.openAlert({
                 title: this.translate.instant('common.error'),
                 body: this.translate.instant('order.search.alert.unselected')
             });
         }
         if (this.actionSelect === models_1.OrderActions.Cancel) {
-            this.util.openConfirm({
+            this.utilService.openConfirm({
                 title: this.translate.instant('common.confirm'),
                 body: this.translate.instant('order.search.confirm.cancel'),
-                cb: function () {
-                    _this.cancel(_this.selectedOrders);
-                }
+                cb: function () { return __awaiter(_this, void 0, void 0, function () {
+                    var error_4;
+                    return __generator(this, function (_a) {
+                        switch (_a.label) {
+                            case 0:
+                                _a.trys.push([0, 2, , 3]);
+                                return [4 /*yield*/, this.orderService.cancel(this.selectedOrders)];
+                            case 1:
+                                _a.sent();
+                                return [3 /*break*/, 3];
+                            case 2:
+                                error_4 = _a.sent();
+                                console.error(error_4);
+                                this.utilService.openAlert({
+                                    title: this.translate.instant('common.error'),
+                                    body: "\n                            <p class=\"mb-4\">" + this.translate.instant('order.search.alert.cancel') + "</p>\n                                <div class=\"p-3 bg-light-gray select-text\">\n                                <code>" + error_4 + "</code>\n                            </div>"
+                                });
+                                return [3 /*break*/, 3];
+                            case 3: return [2 /*return*/];
+                        }
+                    });
+                }); }
             });
         }
         else if (this.actionSelect === models_1.OrderActions.Print) {
-            this.util.openConfirm({
+            this.utilService.openConfirm({
                 title: this.translate.instant('common.confirm'),
                 body: this.translate.instant('order.search.confirm.print'),
-                cb: function () {
-                    _this.ptint(_this.selectedOrders);
-                }
+                cb: function () { return __awaiter(_this, void 0, void 0, function () {
+                    var user, pos, printer, orders, error_5;
+                    return __generator(this, function (_a) {
+                        switch (_a.label) {
+                            case 0:
+                                _a.trys.push([0, 3, , 4]);
+                                return [4 /*yield*/, this.userService.getData()];
+                            case 1:
+                                user = _a.sent();
+                                if (user.pos === undefined || user.printer === undefined) {
+                                    this.router.navigate(['/error']);
+                                    return [2 /*return*/];
+                                }
+                                pos = user.pos;
+                                printer = user.printer;
+                                orders = this.selectedOrders;
+                                return [4 /*yield*/, this.orderService.print({ orders: orders, pos: pos, printer: printer })];
+                            case 2:
+                                _a.sent();
+                                return [3 /*break*/, 4];
+                            case 3:
+                                error_5 = _a.sent();
+                                console.error(error_5);
+                                this.utilService.openAlert({
+                                    title: this.translate.instant('common.error'),
+                                    body: "<p class=\"mb-4\">" + this.translate.instant('order.search.alert.print') + "</p>\n                            <div class=\"p-3 bg-light-gray select-text\">\n                            <code>" + error_5 + "</code>\n                        </div>"
+                                });
+                                return [3 /*break*/, 4];
+                            case 4: return [2 /*return*/];
+                        }
+                    });
+                }); }
             });
         }
     };
@@ -3619,41 +3757,46 @@ var OrderSearchComponent = /** @class */ (function () {
      * QRコード表示
      */
     OrderSearchComponent.prototype.openQrCode = function (order) {
-        var _this = this;
-        this.store.dispatch(new actions_1.orderAction.OrderAuthorize({
-            params: {
-                orderNumber: order.orderNumber,
-                customer: {
-                    telephone: order.customer.telephone
+        return __awaiter(this, void 0, void 0, function () {
+            var orderData, authorizeOrder, error_6;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        _a.trys.push([0, 3, , 4]);
+                        return [4 /*yield*/, this.orderService.authorize(order)];
+                    case 1:
+                        _a.sent();
+                        return [4 /*yield*/, this.orderService.getData()];
+                    case 2:
+                        orderData = _a.sent();
+                        authorizeOrder = orderData.order;
+                        if (authorizeOrder === undefined) {
+                            return [2 /*return*/];
+                        }
+                        this.modal.show(parts_1.QrCodeModalComponent, {
+                            class: 'modal-dialog-centered',
+                            initialState: { order: authorizeOrder },
+                        });
+                        return [3 /*break*/, 4];
+                    case 3:
+                        error_6 = _a.sent();
+                        console.error(error_6);
+                        this.utilService.openAlert({
+                            title: this.translate.instant('common.error'),
+                            body: this.translate.instant('order.search.alert.authorize')
+                        });
+                        return [3 /*break*/, 4];
+                    case 4: return [2 /*return*/];
                 }
-            }
-        }));
-        var success = this.actions.pipe(effects_1.ofType(actions_1.orderAction.ActionTypes.OrderAuthorizeSuccess), operators_1.tap(function () {
-            _this.order.subscribe(function (orderData) {
-                var authorizeOrder = orderData.order;
-                if (authorizeOrder === undefined) {
-                    return;
-                }
-                _this.modal.show(parts_1.QrCodeModalComponent, {
-                    class: 'modal-dialog-centered',
-                    initialState: { order: authorizeOrder },
-                });
-            }).unsubscribe();
-        }));
-        var fail = this.actions.pipe(effects_1.ofType(actions_1.orderAction.ActionTypes.OrderAuthorizeFail), operators_1.tap(function () {
-            _this.util.openAlert({
-                title: _this.translate.instant('common.error'),
-                body: _this.translate.instant('order.search.alert.authorize')
             });
-        }));
-        rxjs_1.race(success, fail).pipe(operators_1.take(1)).subscribe();
+        });
     };
     /**
      * CSVダウンロード
      */
     OrderSearchComponent.prototype.downloadCsv = function () {
         return __awaiter(this, void 0, void 0, function () {
-            var params, error_1;
+            var params, error_7;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
@@ -3669,8 +3812,8 @@ var OrderSearchComponent = /** @class */ (function () {
                         _a.sent();
                         return [3 /*break*/, 5];
                     case 4:
-                        error_1 = _a.sent();
-                        console.error(error_1);
+                        error_7 = _a.sent();
+                        console.error(error_7);
                         return [3 /*break*/, 5];
                     case 5:
                         this.isDownload = false;
@@ -3732,10 +3875,11 @@ var OrderSearchComponent = /** @class */ (function () {
             styles: [__webpack_require__(/*! ./order-search.component.scss */ "./app/components/pages/order/order-search/order-search.component.scss")]
         }),
         __metadata("design:paramtypes", [store_1.Store,
-            effects_1.Actions,
             ngx_bootstrap_1.BsModalService,
             router_1.Router,
             services_1.UtilService,
+            services_1.UserService,
+            services_1.OrderService,
             core_2.TranslateService,
             services_1.DownloadService,
             ngx_bootstrap_1.BsLocaleService])
@@ -3776,25 +3920,56 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : new P(function (resolve) { resolve(result.value); }).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+var __generator = (this && this.__generator) || function (thisArg, body) {
+    var _ = { label: 0, sent: function() { if (t[0] & 1) throw t[1]; return t[1]; }, trys: [], ops: [] }, f, y, t, g;
+    return g = { next: verb(0), "throw": verb(1), "return": verb(2) }, typeof Symbol === "function" && (g[Symbol.iterator] = function() { return this; }), g;
+    function verb(n) { return function (v) { return step([n, v]); }; }
+    function step(op) {
+        if (f) throw new TypeError("Generator is already executing.");
+        while (_) try {
+            if (f = 1, y && (t = op[0] & 2 ? y["return"] : op[0] ? y["throw"] || ((t = y["return"]) && t.call(y), 0) : y.next) && !(t = t.call(y, op[1])).done) return t;
+            if (y = 0, t) op = [op[0] & 2, t.value];
+            switch (op[0]) {
+                case 0: case 1: t = op; break;
+                case 4: _.label++; return { value: op[1], done: false };
+                case 5: _.label++; y = op[1]; op = [0]; continue;
+                case 7: op = _.ops.pop(); _.trys.pop(); continue;
+                default:
+                    if (!(t = _.trys, t = t.length > 0 && t[t.length - 1]) && (op[0] === 6 || op[0] === 2)) { _ = 0; continue; }
+                    if (op[0] === 3 && (!t || (op[1] > t[0] && op[1] < t[3]))) { _.label = op[1]; break; }
+                    if (op[0] === 6 && _.label < t[1]) { _.label = t[1]; t = op; break; }
+                    if (t && _.label < t[2]) { _.label = t[2]; _.ops.push(op); break; }
+                    if (t[2]) _.ops.pop();
+                    _.trys.pop(); continue;
+            }
+            op = body.call(thisArg, _);
+        } catch (e) { op = [6, e]; y = 0; } finally { f = t = 0; }
+        if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
+    }
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = __webpack_require__(/*! @angular/core */ "../../node_modules/@angular/core/fesm5/core.js");
 var router_1 = __webpack_require__(/*! @angular/router */ "../../node_modules/@angular/router/fesm5/router.js");
-var effects_1 = __webpack_require__(/*! @ngrx/effects */ "../../node_modules/@ngrx/effects/fesm5/effects.js");
 var store_1 = __webpack_require__(/*! @ngrx/store */ "../../node_modules/@ngrx/store/fesm5/store.js");
 var core_2 = __webpack_require__(/*! @ngx-translate/core */ "../../node_modules/@ngx-translate/core/fesm5/ngx-translate-core.js");
 var moment = __webpack_require__(/*! moment */ "../../node_modules/moment/moment.js");
-var rxjs_1 = __webpack_require__(/*! rxjs */ "../../node_modules/rxjs/_esm5/index.js");
-var operators_1 = __webpack_require__(/*! rxjs/operators */ "../../node_modules/rxjs/_esm5/operators/index.js");
 var environment_1 = __webpack_require__(/*! ../../../../../../environments/environment */ "./environments/environment.ts");
 var functions_1 = __webpack_require__(/*! ../../../../../functions */ "./app/functions/index.ts");
 var services_1 = __webpack_require__(/*! ../../../../../services */ "./app/services/index.ts");
-var actions_1 = __webpack_require__(/*! ../../../../../store/actions */ "./app/store/actions/index.ts");
 var reducers = __webpack_require__(/*! ../../../../../store/reducers */ "./app/store/reducers/index.ts");
 var PurchaseCinemaCartComponent = /** @class */ (function () {
-    function PurchaseCinemaCartComponent(store, util, actions, router, translate) {
+    function PurchaseCinemaCartComponent(store, utilService, purchaseService, router, translate) {
         this.store = store;
-        this.util = util;
-        this.actions = actions;
+        this.utilService = utilService;
+        this.purchaseService = purchaseService;
         this.router = router;
         this.translate = translate;
         this.moment = moment;
@@ -3802,40 +3977,57 @@ var PurchaseCinemaCartComponent = /** @class */ (function () {
         this.environment = environment_1.environment;
     }
     PurchaseCinemaCartComponent.prototype.ngOnInit = function () {
-        var _this = this;
-        this.amount = 0;
-        this.purchase = this.store.pipe(store_1.select(reducers.getPurchase));
-        this.user = this.store.pipe(store_1.select(reducers.getUser));
-        this.isLoading = this.store.pipe(store_1.select(reducers.getLoading));
-        this.store.dispatch(new actions_1.purchaseAction.UnsettledDelete());
-        this.purchase.subscribe(function (purchase) {
-            _this.amount = functions_1.getAmount(purchase.authorizeSeatReservations);
-        }).unsubscribe();
-    };
-    PurchaseCinemaCartComponent.prototype.removeItemProcess = function (authorizeSeatReservation) {
-        var _this = this;
-        this.purchase.subscribe(function (purchase) {
-            if (purchase.transaction === undefined) {
-                _this.router.navigate(['/error']);
-                return;
-            }
-            var authorizeSeatReservations = [authorizeSeatReservation];
-            _this.store.dispatch(new actions_1.purchaseAction.CancelTemporaryReservations({ authorizeSeatReservations: authorizeSeatReservations }));
-        }).unsubscribe();
-        var success = this.actions.pipe(effects_1.ofType(actions_1.purchaseAction.ActionTypes.CancelTemporaryReservationsSuccess), operators_1.tap(function () { }));
-        var fail = this.actions.pipe(effects_1.ofType(actions_1.purchaseAction.ActionTypes.CancelTemporaryReservationsFail), operators_1.tap(function () {
-            _this.router.navigate(['/error']);
-        }));
-        rxjs_1.race(success, fail).pipe(operators_1.take(1)).subscribe();
+        return __awaiter(this, void 0, void 0, function () {
+            var purchase;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        this.amount = 0;
+                        this.purchase = this.store.pipe(store_1.select(reducers.getPurchase));
+                        this.user = this.store.pipe(store_1.select(reducers.getUser));
+                        this.isLoading = this.store.pipe(store_1.select(reducers.getLoading));
+                        this.purchaseService.unsettledDelete();
+                        return [4 /*yield*/, this.purchaseService.getData()];
+                    case 1:
+                        purchase = _a.sent();
+                        this.amount = functions_1.getAmount(purchase.authorizeSeatReservations);
+                        return [2 /*return*/];
+                }
+            });
+        });
     };
     PurchaseCinemaCartComponent.prototype.removeItem = function (authorizeSeatReservation) {
         var _this = this;
-        this.util.openConfirm({
+        this.utilService.openConfirm({
             title: this.translate.instant('common.confirm'),
             body: '削除してよろしいですか。',
-            cb: function () {
-                _this.removeItemProcess(authorizeSeatReservation);
-            }
+            cb: function () { return __awaiter(_this, void 0, void 0, function () {
+                var purchase, error_1;
+                return __generator(this, function (_a) {
+                    switch (_a.label) {
+                        case 0: return [4 /*yield*/, this.purchaseService.getData()];
+                        case 1:
+                            purchase = _a.sent();
+                            if (purchase.transaction === undefined) {
+                                this.router.navigate(['/error']);
+                                return [2 /*return*/];
+                            }
+                            _a.label = 2;
+                        case 2:
+                            _a.trys.push([2, 4, , 5]);
+                            return [4 /*yield*/, this.purchaseService.cancelTemporaryReservations([authorizeSeatReservation])];
+                        case 3:
+                            _a.sent();
+                            return [3 /*break*/, 5];
+                        case 4:
+                            error_1 = _a.sent();
+                            console.error(error_1);
+                            this.router.navigate(['/error']);
+                            return [3 /*break*/, 5];
+                        case 5: return [2 /*return*/];
+                    }
+                });
+            }); }
         });
     };
     PurchaseCinemaCartComponent = __decorate([
@@ -3846,7 +4038,7 @@ var PurchaseCinemaCartComponent = /** @class */ (function () {
         }),
         __metadata("design:paramtypes", [store_1.Store,
             services_1.UtilService,
-            effects_1.Actions,
+            services_1.PurchaseService,
             router_1.Router,
             core_2.TranslateService])
     ], PurchaseCinemaCartComponent);
@@ -3924,28 +4116,26 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = __webpack_require__(/*! @angular/core */ "../../node_modules/@angular/core/fesm5/core.js");
 var router_1 = __webpack_require__(/*! @angular/router */ "../../node_modules/@angular/router/fesm5/router.js");
-var effects_1 = __webpack_require__(/*! @ngrx/effects */ "../../node_modules/@ngrx/effects/fesm5/effects.js");
 var store_1 = __webpack_require__(/*! @ngrx/store */ "../../node_modules/@ngrx/store/fesm5/store.js");
 var core_2 = __webpack_require__(/*! @ngx-translate/core */ "../../node_modules/@ngx-translate/core/fesm5/ngx-translate-core.js");
 var http_status_1 = __webpack_require__(/*! http-status */ "../../node_modules/http-status/lib/index.js");
 var moment = __webpack_require__(/*! moment */ "../../node_modules/moment/moment.js");
 var ngx_bootstrap_1 = __webpack_require__(/*! ngx-bootstrap */ "../../node_modules/ngx-bootstrap/esm5/ngx-bootstrap.js");
-var rxjs_1 = __webpack_require__(/*! rxjs */ "../../node_modules/rxjs/_esm5/index.js");
-var operators_1 = __webpack_require__(/*! rxjs/operators */ "../../node_modules/rxjs/_esm5/operators/index.js");
 var environment_1 = __webpack_require__(/*! ../../../../../../environments/environment */ "./environments/environment.ts");
 var functions_1 = __webpack_require__(/*! ../../../../../functions */ "./app/functions/index.ts");
 var services_1 = __webpack_require__(/*! ../../../../../services */ "./app/services/index.ts");
-var actions_1 = __webpack_require__(/*! ../../../../../store/actions */ "./app/store/actions/index.ts");
 var reducers = __webpack_require__(/*! ../../../../../store/reducers */ "./app/store/reducers/index.ts");
 var parts_1 = __webpack_require__(/*! ../../../../parts */ "./app/components/parts/index.ts");
 var PurchaseCinemaScheduleComponent = /** @class */ (function () {
-    function PurchaseCinemaScheduleComponent(store, actions, router, util, modal, translate, localeService) {
+    function PurchaseCinemaScheduleComponent(store, router, utilService, modal, translate, userService, masterService, purchaseService, localeService) {
         this.store = store;
-        this.actions = actions;
         this.router = router;
-        this.util = util;
+        this.utilService = utilService;
         this.modal = modal;
         this.translate = translate;
+        this.userService = userService;
+        this.masterService = masterService;
+        this.purchaseService = purchaseService;
         this.localeService = localeService;
         this.moment = moment;
     }
@@ -3972,61 +4162,6 @@ var PurchaseCinemaScheduleComponent = /** @class */ (function () {
         clearTimeout(this.updateTimer);
     };
     /**
-     * 仮予約削除
-     */
-    PurchaseCinemaScheduleComponent.prototype.cancelTemporaryReservations = function () {
-        return __awaiter(this, void 0, void 0, function () {
-            var _this = this;
-            return __generator(this, function (_a) {
-                return [2 /*return*/, new Promise(function (resolve, reject) {
-                        _this.purchase.subscribe(function (purchase) {
-                            var authorizeSeatReservations = purchase.authorizeSeatReservations;
-                            _this.store.dispatch(new actions_1.purchaseAction.CancelTemporaryReservations({ authorizeSeatReservations: authorizeSeatReservations }));
-                        }).unsubscribe();
-                        var success = _this.actions.pipe(effects_1.ofType(actions_1.purchaseAction.ActionTypes.CancelTemporaryReservationsSuccess), operators_1.tap(function () { resolve(); }));
-                        var fail = _this.actions.pipe(effects_1.ofType(actions_1.purchaseAction.ActionTypes.CancelTemporaryReservationsFail), operators_1.tap(function () { _this.error.subscribe(function (error) { return reject(error); }).unsubscribe(); }));
-                        rxjs_1.race(success, fail).pipe(operators_1.take(1)).subscribe();
-                    })];
-            });
-        });
-    };
-    /**
-     * 取引開始
-     */
-    PurchaseCinemaScheduleComponent.prototype.startTransaction = function () {
-        return __awaiter(this, void 0, void 0, function () {
-            var _this = this;
-            return __generator(this, function (_a) {
-                return [2 /*return*/, new Promise(function (resolve, reject) {
-                        _this.user.subscribe(function (user) {
-                            if (user.seller === undefined) {
-                                reject(null);
-                                return;
-                            }
-                            _this.store.dispatch(new actions_1.purchaseAction.StartTransaction({
-                                params: {
-                                    expires: moment().add(environment_1.environment.PURCHASE_TRANSACTION_TIME, 'minutes').toDate(),
-                                    seller: { typeOf: user.seller.typeOf, id: user.seller.id },
-                                    object: {},
-                                    agent: (user.pos === undefined)
-                                        ? undefined
-                                        : {
-                                            identifier: [
-                                                { name: 'posId', value: user.pos.id },
-                                                { name: 'posName', value: user.pos.name }
-                                            ]
-                                        }
-                                }
-                            }));
-                        }).unsubscribe();
-                        var success = _this.actions.pipe(effects_1.ofType(actions_1.purchaseAction.ActionTypes.StartTransactionSuccess), operators_1.tap(function () { resolve(); }));
-                        var fail = _this.actions.pipe(effects_1.ofType(actions_1.purchaseAction.ActionTypes.StartTransactionFail), operators_1.tap(function () { _this.error.subscribe(function (error) { return reject(error); }).unsubscribe(); }));
-                        rxjs_1.race(success, fail).pipe(operators_1.take(1)).subscribe();
-                    })];
-            });
-        });
-    };
-    /**
      * 更新
      */
     PurchaseCinemaScheduleComponent.prototype.update = function () {
@@ -4043,111 +4178,139 @@ var PurchaseCinemaScheduleComponent = /** @class */ (function () {
      * 日付選択
      */
     PurchaseCinemaScheduleComponent.prototype.selectDate = function (date) {
-        var _this = this;
-        if (date !== undefined && date !== null) {
-            this.scheduleDate = date;
-        }
-        this.user.subscribe(function (user) {
-            var seller = user.seller;
-            if (_this.scheduleDate === undefined) {
-                _this.scheduleDate = moment()
-                    .add(environment_1.environment.PURCHASE_SCHEDULE_DEFAULT_SELECTED_DATE, 'day')
-                    .toDate();
-            }
-            var scheduleDate = moment(_this.scheduleDate).format('YYYY-MM-DD');
-            if (seller === undefined) {
-                return;
-            }
-            _this.store.dispatch(new actions_1.purchaseAction.SelectScheduleDate({ scheduleDate: scheduleDate }));
-            _this.store.dispatch(new actions_1.masterAction.GetSchedule({
-                superEvent: {
-                    locationBranchCodes: (seller.location === undefined || seller.location.branchCode === undefined) ? [] : [seller.location.branchCode]
-                },
-                startFrom: moment(scheduleDate).toDate(),
-                startThrough: moment(scheduleDate).add(1, 'day').toDate()
-            }));
-        }).unsubscribe();
-        var success = this.actions.pipe(effects_1.ofType(actions_1.masterAction.ActionTypes.GetScheduleSuccess), operators_1.tap(function () {
-            _this.master.subscribe(function (master) {
-                var screeningEvents = master.screeningEvents;
-                _this.screeningWorkEvents = functions_1.screeningEventsToWorkEvents({ screeningEvents: screeningEvents });
-                _this.update();
-            }).unsubscribe();
-        }));
-        var fail = this.actions.pipe(effects_1.ofType(actions_1.masterAction.ActionTypes.GetScheduleFail), operators_1.tap(function () {
-            _this.router.navigate(['/error']);
-        }));
-        rxjs_1.race(success, fail).pipe(operators_1.take(1)).subscribe();
+        return __awaiter(this, void 0, void 0, function () {
+            var user, seller, scheduleDate, master, screeningEvents, error_1;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        if (date !== undefined && date !== null) {
+                            this.scheduleDate = date;
+                        }
+                        return [4 /*yield*/, this.userService.getData()];
+                    case 1:
+                        user = _a.sent();
+                        seller = user.seller;
+                        if (this.scheduleDate === undefined) {
+                            this.scheduleDate = moment()
+                                .add(environment_1.environment.PURCHASE_SCHEDULE_DEFAULT_SELECTED_DATE, 'day')
+                                .toDate();
+                        }
+                        scheduleDate = moment(this.scheduleDate).format('YYYY-MM-DD');
+                        if (seller === undefined) {
+                            return [2 /*return*/];
+                        }
+                        this.purchaseService.selectScheduleDate(scheduleDate);
+                        _a.label = 2;
+                    case 2:
+                        _a.trys.push([2, 5, , 6]);
+                        return [4 /*yield*/, this.masterService.getSchedule({
+                                superEvent: {
+                                    locationBranchCodes: (seller.location === undefined || seller.location.branchCode === undefined) ? [] : [seller.location.branchCode]
+                                },
+                                startFrom: moment(scheduleDate).toDate(),
+                                startThrough: moment(scheduleDate).add(1, 'day').toDate()
+                            })];
+                    case 3:
+                        _a.sent();
+                        return [4 /*yield*/, this.masterService.getData()];
+                    case 4:
+                        master = _a.sent();
+                        screeningEvents = master.screeningEvents;
+                        this.screeningWorkEvents = functions_1.screeningEventsToWorkEvents({ screeningEvents: screeningEvents });
+                        this.update();
+                        return [3 /*break*/, 6];
+                    case 5:
+                        error_1 = _a.sent();
+                        console.error(error_1);
+                        this.router.navigate(['/error']);
+                        return [3 /*break*/, 6];
+                    case 6: return [2 /*return*/];
+                }
+            });
+        });
     };
     /**
      * スケジュール選択
      */
     PurchaseCinemaScheduleComponent.prototype.selectSchedule = function (screeningEvent) {
-        var _this = this;
-        if (screeningEvent.remainingAttendeeCapacity === undefined
-            || screeningEvent.remainingAttendeeCapacity === 0) {
-            return;
-        }
-        if (screeningEvent.offers === undefined
-            || screeningEvent.offers.itemOffered.serviceOutput === undefined
-            || screeningEvent.offers.itemOffered.serviceOutput.reservedTicket === undefined
-            || screeningEvent.offers.itemOffered.serviceOutput.reservedTicket.ticketedSeat === undefined) {
-            this.util.openAlert({
-                title: this.translate.instant('common.error'),
-                body: this.translate.instant('purchase.cinema.schedule.alert.ticketedSeat')
-            });
-            return;
-        }
-        this.store.dispatch(new actions_1.purchaseAction.UnsettledDelete());
-        this.store.dispatch(new actions_1.purchaseAction.SelectSchedule({ screeningEvent: screeningEvent }));
-        this.purchase.subscribe(function (purchase) {
-            _this.user.subscribe(function (user) { return __awaiter(_this, void 0, void 0, function () {
-                var error_1, errorObject;
-                return __generator(this, function (_a) {
-                    switch (_a.label) {
-                        case 0:
-                            if (user.seller === undefined) {
-                                this.router.navigate(['/error']);
-                                return [2 /*return*/];
-                            }
-                            if (user.isPurchaseCart
-                                && purchase.transaction !== undefined
-                                && purchase.authorizeSeatReservations.length > 0) {
-                                this.openTransactionModal();
-                                return [2 /*return*/];
-                            }
-                            _a.label = 1;
-                        case 1:
-                            _a.trys.push([1, 4, , 5]);
-                            return [4 /*yield*/, this.cancelTemporaryReservations()];
-                        case 2:
-                            _a.sent();
-                            return [4 /*yield*/, this.startTransaction()];
-                        case 3:
-                            _a.sent();
-                            this.router.navigate(['/purchase/cinema/seat']);
-                            return [3 /*break*/, 5];
-                        case 4:
-                            error_1 = _a.sent();
-                            if (error_1 === null) {
-                                throw new Error('error is null');
-                            }
-                            errorObject = JSON.parse(error_1);
-                            if (errorObject.status === http_status_1.TOO_MANY_REQUESTS) {
-                                this.router.navigate(['/congestion']);
-                                return [2 /*return*/];
-                            }
-                            if (errorObject.status === http_status_1.BAD_REQUEST) {
-                                this.router.navigate(['/maintenance']);
-                                return [2 /*return*/];
-                            }
+        return __awaiter(this, void 0, void 0, function () {
+            var purchase, user, error_2, error_3, errorObject;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        if (screeningEvent.remainingAttendeeCapacity === undefined
+                            || screeningEvent.remainingAttendeeCapacity === 0) {
+                            return [2 /*return*/];
+                        }
+                        if (screeningEvent.offers === undefined
+                            || screeningEvent.offers.itemOffered.serviceOutput === undefined
+                            || screeningEvent.offers.itemOffered.serviceOutput.reservedTicket === undefined
+                            || screeningEvent.offers.itemOffered.serviceOutput.reservedTicket.ticketedSeat === undefined) {
+                            this.utilService.openAlert({
+                                title: this.translate.instant('common.error'),
+                                body: this.translate.instant('purchase.cinema.schedule.alert.ticketedSeat')
+                            });
+                            return [2 /*return*/];
+                        }
+                        this.purchaseService.unsettledDelete();
+                        this.purchaseService.selectSchedule(screeningEvent);
+                        return [4 /*yield*/, this.purchaseService.getData()];
+                    case 1:
+                        purchase = _a.sent();
+                        return [4 /*yield*/, this.userService.getData()];
+                    case 2:
+                        user = _a.sent();
+                        if (user.seller === undefined) {
                             this.router.navigate(['/error']);
-                            return [3 /*break*/, 5];
-                        case 5: return [2 /*return*/];
-                    }
-                });
-            }); }).unsubscribe();
-        }).unsubscribe();
+                            return [2 /*return*/];
+                        }
+                        if (user.isPurchaseCart
+                            && purchase.transaction !== undefined
+                            && purchase.authorizeSeatReservations.length > 0) {
+                            this.openTransactionModal();
+                            return [2 /*return*/];
+                        }
+                        if (!(purchase.authorizeSeatReservations.length > 0)) return [3 /*break*/, 6];
+                        _a.label = 3;
+                    case 3:
+                        _a.trys.push([3, 5, , 6]);
+                        return [4 /*yield*/, this.purchaseService.cancelTemporaryReservations(purchase.authorizeSeatReservations)];
+                    case 4:
+                        _a.sent();
+                        return [3 /*break*/, 6];
+                    case 5:
+                        error_2 = _a.sent();
+                        console.error(error_2);
+                        this.router.navigate(['/error']);
+                        return [3 /*break*/, 6];
+                    case 6:
+                        _a.trys.push([6, 8, , 9]);
+                        return [4 /*yield*/, this.purchaseService.startTransaction({
+                                seller: user.seller,
+                                pos: user.pos
+                            })];
+                    case 7:
+                        _a.sent();
+                        this.router.navigate(['/purchase/cinema/seat']);
+                        return [3 /*break*/, 9];
+                    case 8:
+                        error_3 = _a.sent();
+                        console.error(error_3);
+                        errorObject = JSON.parse(error_3);
+                        if (errorObject.status === http_status_1.TOO_MANY_REQUESTS) {
+                            this.router.navigate(['/congestion']);
+                            return [2 /*return*/];
+                        }
+                        if (errorObject.status === http_status_1.BAD_REQUEST) {
+                            this.router.navigate(['/maintenance']);
+                            return [2 /*return*/];
+                        }
+                        this.router.navigate(['/error']);
+                        return [3 /*break*/, 9];
+                    case 9: return [2 /*return*/];
+                }
+            });
+        });
     };
     /**
      * 取引重複モーダル表示
@@ -4213,11 +4376,13 @@ var PurchaseCinemaScheduleComponent = /** @class */ (function () {
             styles: [__webpack_require__(/*! ./purchase-cinema-schedule.component.scss */ "./app/components/pages/purchase/cinema/purchase-cinema-schedule/purchase-cinema-schedule.component.scss")]
         }),
         __metadata("design:paramtypes", [store_1.Store,
-            effects_1.Actions,
             router_1.Router,
             services_1.UtilService,
             ngx_bootstrap_1.BsModalService,
             core_2.TranslateService,
+            services_1.UserService,
+            services_1.MasterService,
+            services_1.PurchaseService,
             ngx_bootstrap_1.BsLocaleService])
     ], PurchaseCinemaScheduleComponent);
     return PurchaseCinemaScheduleComponent;
@@ -4295,191 +4460,187 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = __webpack_require__(/*! @angular/core */ "../../node_modules/@angular/core/fesm5/core.js");
 var router_1 = __webpack_require__(/*! @angular/router */ "../../node_modules/@angular/router/fesm5/router.js");
 var api_javascript_client_1 = __webpack_require__(/*! @cinerino/api-javascript-client */ "../../node_modules/@cinerino/api-javascript-client/lib/index.js");
-var effects_1 = __webpack_require__(/*! @ngrx/effects */ "../../node_modules/@ngrx/effects/fesm5/effects.js");
 var store_1 = __webpack_require__(/*! @ngrx/store */ "../../node_modules/@ngrx/store/fesm5/store.js");
 var core_2 = __webpack_require__(/*! @ngx-translate/core */ "../../node_modules/@ngx-translate/core/fesm5/ngx-translate-core.js");
-var rxjs_1 = __webpack_require__(/*! rxjs */ "../../node_modules/rxjs/_esm5/index.js");
-var operators_1 = __webpack_require__(/*! rxjs/operators */ "../../node_modules/rxjs/_esm5/operators/index.js");
 var environment_1 = __webpack_require__(/*! ../../../../../../environments/environment */ "./environments/environment.ts");
 var models_1 = __webpack_require__(/*! ../../../../../models */ "./app/models/index.ts");
 var services_1 = __webpack_require__(/*! ../../../../../services */ "./app/services/index.ts");
-var actions_1 = __webpack_require__(/*! ../../../../../store/actions */ "./app/store/actions/index.ts");
 var reducers = __webpack_require__(/*! ../../../../../store/reducers */ "./app/store/reducers/index.ts");
 var PurchaseCinemaSeatComponent = /** @class */ (function () {
-    function PurchaseCinemaSeatComponent(store, actions, router, util, translate) {
+    function PurchaseCinemaSeatComponent(store, router, utilService, userService, purchaseService, translate) {
         this.store = store;
-        this.actions = actions;
         this.router = router;
-        this.util = util;
+        this.utilService = utilService;
+        this.userService = userService;
+        this.purchaseService = purchaseService;
         this.translate = translate;
         this.environment = environment_1.environment;
     }
     PurchaseCinemaSeatComponent.prototype.ngOnInit = function () {
         return __awaiter(this, void 0, void 0, function () {
+            var purchase, user, screeningEvent, seller, error_1;
             return __generator(this, function (_a) {
-                this.purchase = this.store.pipe(store_1.select(reducers.getPurchase));
-                this.user = this.store.pipe(store_1.select(reducers.getUser));
-                this.isLoading = this.store.pipe(store_1.select(reducers.getLoading));
-                this.getScreen();
-                return [2 /*return*/];
+                switch (_a.label) {
+                    case 0:
+                        this.purchase = this.store.pipe(store_1.select(reducers.getPurchase));
+                        this.user = this.store.pipe(store_1.select(reducers.getUser));
+                        this.isLoading = this.store.pipe(store_1.select(reducers.getLoading));
+                        _a.label = 1;
+                    case 1:
+                        _a.trys.push([1, 6, , 7]);
+                        return [4 /*yield*/, this.purchaseService.getData()];
+                    case 2:
+                        purchase = _a.sent();
+                        return [4 /*yield*/, this.userService.getData()];
+                    case 3:
+                        user = _a.sent();
+                        screeningEvent = purchase.screeningEvent;
+                        seller = user.seller;
+                        if (screeningEvent === undefined || seller === undefined) {
+                            this.router.navigate(['/error']);
+                            return [2 /*return*/];
+                        }
+                        return [4 /*yield*/, this.purchaseService.getScreen({ screeningEvent: screeningEvent, test: false })];
+                    case 4:
+                        _a.sent();
+                        return [4 /*yield*/, this.purchaseService.getTicketList(seller)];
+                    case 5:
+                        _a.sent();
+                        return [3 /*break*/, 7];
+                    case 6:
+                        error_1 = _a.sent();
+                        console.error(error_1);
+                        this.router.navigate(['/error']);
+                        return [3 /*break*/, 7];
+                    case 7: return [2 /*return*/];
+                }
             });
         });
-    };
-    /**
-     * getScreen
-     */
-    PurchaseCinemaSeatComponent.prototype.getScreen = function () {
-        var _this = this;
-        this.purchase.subscribe(function (purchase) {
-            var screeningEvent = purchase.screeningEvent;
-            if (screeningEvent === undefined) {
-                _this.router.navigate(['/error']);
-                return;
-            }
-            _this.store.dispatch(new actions_1.purchaseAction.GetScreen({ screeningEvent: screeningEvent, test: false }));
-        }).unsubscribe();
-        var success = this.actions.pipe(effects_1.ofType(actions_1.purchaseAction.ActionTypes.GetScreenSuccess), operators_1.tap(function () {
-            _this.getTickets();
-        }));
-        var fail = this.actions.pipe(effects_1.ofType(actions_1.purchaseAction.ActionTypes.GetScreenFail), operators_1.tap(function () {
-            _this.router.navigate(['/error']);
-        }));
-        rxjs_1.race(success, fail).pipe(operators_1.take(1)).subscribe();
     };
     /**
      * selectSeat
      */
     PurchaseCinemaSeatComponent.prototype.selectSeat = function (data) {
         if (data.status === models_1.SeatStatus.Default) {
-            this.store.dispatch(new actions_1.purchaseAction.SelectSeats({ seats: [data.seat] }));
+            this.purchaseService.selectSeats([data.seat]);
         }
         else {
-            this.store.dispatch(new actions_1.purchaseAction.CancelSeats({ seats: [data.seat] }));
+            this.purchaseService.cancelSeats([data.seat]);
         }
     };
+    /**
+     * 全席選択
+     */
     PurchaseCinemaSeatComponent.prototype.allSelectSeats = function () {
-        var _this = this;
-        var seats = [];
-        this.purchase.subscribe(function (purchase) {
-            var screeningEventOffers = purchase.screeningEventOffers;
-            screeningEventOffers.forEach(function (screeningEventOffer) {
-                screeningEventOffer.containsPlace.forEach(function (containsPlace) {
-                    if (containsPlace.offers === undefined
-                        || containsPlace.offers[0].availability !== api_javascript_client_1.factory.chevre.itemAvailability.InStock) {
-                        return;
-                    }
-                    seats.push({
-                        typeOf: containsPlace.typeOf,
-                        seatingType: (containsPlace.seatingType === undefined)
-                            ? '' : containsPlace.seatingType,
-                        seatNumber: containsPlace.branchCode,
-                        seatRow: '',
-                        seatSection: screeningEventOffer.branchCode
-                    });
-                });
-            });
-            if (purchase.authorizeSeatReservation !== undefined
-                && purchase.authorizeSeatReservation.instrument !== undefined) {
-                if (purchase.authorizeSeatReservation.instrument.identifier === api_javascript_client_1.factory.service.webAPI.Identifier.Chevre) {
-                    // chevre
-                    purchase.authorizeSeatReservation.object.acceptedOffer.forEach(function (offer) {
-                        var chevreOffer = offer;
-                        if (chevreOffer.ticketedSeat === undefined) {
-                            return;
+        return __awaiter(this, void 0, void 0, function () {
+            var seats, purchase, screeningEventOffers;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        seats = [];
+                        return [4 /*yield*/, this.purchaseService.getData()];
+                    case 1:
+                        purchase = _a.sent();
+                        screeningEventOffers = purchase.screeningEventOffers;
+                        screeningEventOffers.forEach(function (screeningEventOffer) {
+                            screeningEventOffer.containsPlace.forEach(function (containsPlace) {
+                                if (containsPlace.offers === undefined
+                                    || containsPlace.offers[0].availability !== api_javascript_client_1.factory.chevre.itemAvailability.InStock) {
+                                    return;
+                                }
+                                seats.push({
+                                    typeOf: containsPlace.typeOf,
+                                    seatingType: (containsPlace.seatingType === undefined)
+                                        ? '' : containsPlace.seatingType,
+                                    seatNumber: containsPlace.branchCode,
+                                    seatRow: '',
+                                    seatSection: screeningEventOffer.branchCode
+                                });
+                            });
+                        });
+                        if (purchase.authorizeSeatReservation !== undefined
+                            && purchase.authorizeSeatReservation.instrument !== undefined) {
+                            if (purchase.authorizeSeatReservation.instrument.identifier === api_javascript_client_1.factory.service.webAPI.Identifier.Chevre) {
+                                // chevre
+                                purchase.authorizeSeatReservation.object.acceptedOffer.forEach(function (offer) {
+                                    var chevreOffer = offer;
+                                    if (chevreOffer.ticketedSeat === undefined) {
+                                        return;
+                                    }
+                                    seats.push(chevreOffer.ticketedSeat);
+                                });
+                            }
                         }
-                        seats.push(chevreOffer.ticketedSeat);
-                    });
+                        this.purchaseService.selectSeats(seats);
+                        return [2 /*return*/];
                 }
-            }
-            _this.store.dispatch(new actions_1.purchaseAction.SelectSeats({ seats: seats }));
-        }).unsubscribe();
-    };
-    PurchaseCinemaSeatComponent.prototype.resetSeats = function () {
-        var _this = this;
-        var seats = [];
-        this.purchase.subscribe(function (purchase) {
-            purchase.reservations.forEach(function (reservation) {
-                seats.push(reservation.seat);
             });
-            _this.store.dispatch(new actions_1.purchaseAction.CancelSeats({ seats: seats }));
-        }).unsubscribe();
+        });
+    };
+    /**
+     * 全席選択解除
+     */
+    PurchaseCinemaSeatComponent.prototype.resetSeats = function () {
+        return __awaiter(this, void 0, void 0, function () {
+            var seats, purchase;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        seats = [];
+                        return [4 /*yield*/, this.purchaseService.getData()];
+                    case 1:
+                        purchase = _a.sent();
+                        purchase.reservations.forEach(function (reservation) {
+                            seats.push(reservation.seat);
+                        });
+                        this.purchaseService.cancelSeats(seats);
+                        return [2 /*return*/];
+                }
+            });
+        });
     };
     /**
      * onSubmit
      */
     PurchaseCinemaSeatComponent.prototype.onSubmit = function () {
-        var _this = this;
-        this.purchase.subscribe(function (purchase) {
-            var transaction = purchase.transaction;
-            var screeningEvent = purchase.screeningEvent;
-            if (purchase.reservations.length === 0) {
-                _this.util.openAlert({
-                    title: _this.translate.instant('common.error'),
-                    body: _this.translate.instant('purchase.cinema.seat.alert.unselected')
-                });
-                return;
-            }
-            if (purchase.reservations.length === 0) {
-                _this.util.openAlert({
-                    title: _this.translate.instant('common.error'),
-                    body: _this.translate.instant('purchase.cinema.seat.alert.limit', { value: environment_1.environment.PURCHASE_ITEM_MAX_LENGTH })
-                });
-                return;
-            }
-            var reservations = purchase.reservations.map(function (reservation) {
-                return new models_1.Reservation({
-                    seat: reservation.seat,
-                    ticket: (reservation.ticket === undefined)
-                        ? { ticketOffer: purchase.screeningEventTicketOffers[0] }
-                        : reservation.ticket
-                });
-            });
-            var authorizeSeatReservation = purchase.authorizeSeatReservation;
-            if (transaction === undefined
-                || screeningEvent === undefined) {
-                console.error('33333');
-                _this.router.navigate(['/error']);
-                return;
-            }
-            _this.store.dispatch(new actions_1.purchaseAction.TemporaryReservation({
-                transaction: transaction,
-                screeningEvent: screeningEvent,
-                reservations: reservations,
-                authorizeSeatReservation: authorizeSeatReservation
-            }));
-        }).unsubscribe();
-        var success = this.actions.pipe(effects_1.ofType(actions_1.purchaseAction.ActionTypes.TemporaryReservationSuccess), operators_1.tap(function () {
-            _this.router.navigate(['/purchase/cinema/ticket']);
-        }));
-        var fail = this.actions.pipe(effects_1.ofType(actions_1.purchaseAction.ActionTypes.TemporaryReservationFail), operators_1.tap(function () {
-            console.error('444444');
-            _this.router.navigate(['/error']);
-        }));
-        rxjs_1.race(success, fail).pipe(operators_1.take(1)).subscribe();
-    };
-    /**
-     * getTickets
-     */
-    PurchaseCinemaSeatComponent.prototype.getTickets = function () {
-        var _this = this;
-        this.user.subscribe(function (user) {
-            _this.purchase.subscribe(function (purchase) {
-                var screeningEvent = purchase.screeningEvent;
-                var seller = user.seller;
-                if (screeningEvent === undefined
-                    || seller === undefined) {
-                    _this.router.navigate(['/error']);
-                    return;
+        return __awaiter(this, void 0, void 0, function () {
+            var purchase, error_2;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, this.purchaseService.getData()];
+                    case 1:
+                        purchase = _a.sent();
+                        if (purchase.reservations.length === 0) {
+                            this.utilService.openAlert({
+                                title: this.translate.instant('common.error'),
+                                body: this.translate.instant('purchase.cinema.seat.alert.unselected')
+                            });
+                            return [2 /*return*/];
+                        }
+                        if (purchase.reservations.length === 0) {
+                            this.utilService.openAlert({
+                                title: this.translate.instant('common.error'),
+                                body: this.translate.instant('purchase.cinema.seat.alert.limit', { value: environment_1.environment.PURCHASE_ITEM_MAX_LENGTH })
+                            });
+                            return [2 /*return*/];
+                        }
+                        _a.label = 2;
+                    case 2:
+                        _a.trys.push([2, 4, , 5]);
+                        return [4 /*yield*/, this.purchaseService.temporaryReservation()];
+                    case 3:
+                        _a.sent();
+                        this.router.navigate(['/purchase/cinema/ticket']);
+                        return [3 /*break*/, 5];
+                    case 4:
+                        error_2 = _a.sent();
+                        console.error(error_2);
+                        this.router.navigate(['/error']);
+                        return [3 /*break*/, 5];
+                    case 5: return [2 /*return*/];
                 }
-                _this.store.dispatch(new actions_1.purchaseAction.GetTicketList({ screeningEvent: screeningEvent, seller: seller }));
-            }).unsubscribe();
-        }).unsubscribe();
-        var success = this.actions.pipe(effects_1.ofType(actions_1.purchaseAction.ActionTypes.GetTicketListSuccess), operators_1.tap(function () { }));
-        var fail = this.actions.pipe(effects_1.ofType(actions_1.purchaseAction.ActionTypes.GetTicketListFail), operators_1.tap(function () {
-            console.error('66666');
-            _this.router.navigate(['/error']);
-        }));
-        rxjs_1.race(success, fail).pipe(operators_1.take(1)).subscribe();
+            });
+        });
     };
     PurchaseCinemaSeatComponent = __decorate([
         core_1.Component({
@@ -4488,9 +4649,10 @@ var PurchaseCinemaSeatComponent = /** @class */ (function () {
             styles: [__webpack_require__(/*! ./purchase-cinema-seat.component.scss */ "./app/components/pages/purchase/cinema/purchase-cinema-seat/purchase-cinema-seat.component.scss")]
         }),
         __metadata("design:paramtypes", [store_1.Store,
-            effects_1.Actions,
             router_1.Router,
             services_1.UtilService,
+            services_1.UserService,
+            services_1.PurchaseService,
             core_2.TranslateService])
     ], PurchaseCinemaSeatComponent);
     return PurchaseCinemaSeatComponent;
@@ -4529,27 +4691,59 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : new P(function (resolve) { resolve(result.value); }).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+var __generator = (this && this.__generator) || function (thisArg, body) {
+    var _ = { label: 0, sent: function() { if (t[0] & 1) throw t[1]; return t[1]; }, trys: [], ops: [] }, f, y, t, g;
+    return g = { next: verb(0), "throw": verb(1), "return": verb(2) }, typeof Symbol === "function" && (g[Symbol.iterator] = function() { return this; }), g;
+    function verb(n) { return function (v) { return step([n, v]); }; }
+    function step(op) {
+        if (f) throw new TypeError("Generator is already executing.");
+        while (_) try {
+            if (f = 1, y && (t = op[0] & 2 ? y["return"] : op[0] ? y["throw"] || ((t = y["return"]) && t.call(y), 0) : y.next) && !(t = t.call(y, op[1])).done) return t;
+            if (y = 0, t) op = [op[0] & 2, t.value];
+            switch (op[0]) {
+                case 0: case 1: t = op; break;
+                case 4: _.label++; return { value: op[1], done: false };
+                case 5: _.label++; y = op[1]; op = [0]; continue;
+                case 7: op = _.ops.pop(); _.trys.pop(); continue;
+                default:
+                    if (!(t = _.trys, t = t.length > 0 && t[t.length - 1]) && (op[0] === 6 || op[0] === 2)) { _ = 0; continue; }
+                    if (op[0] === 3 && (!t || (op[1] > t[0] && op[1] < t[3]))) { _.label = op[1]; break; }
+                    if (op[0] === 6 && _.label < t[1]) { _.label = t[1]; t = op; break; }
+                    if (t && _.label < t[2]) { _.label = t[2]; _.ops.push(op); break; }
+                    if (t[2]) _.ops.pop();
+                    _.trys.pop(); continue;
+            }
+            op = body.call(thisArg, _);
+        } catch (e) { op = [6, e]; y = 0; } finally { f = t = 0; }
+        if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
+    }
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = __webpack_require__(/*! @angular/core */ "../../node_modules/@angular/core/fesm5/core.js");
 var router_1 = __webpack_require__(/*! @angular/router */ "../../node_modules/@angular/router/fesm5/router.js");
 var api_javascript_client_1 = __webpack_require__(/*! @cinerino/api-javascript-client */ "../../node_modules/@cinerino/api-javascript-client/lib/index.js");
-var effects_1 = __webpack_require__(/*! @ngrx/effects */ "../../node_modules/@ngrx/effects/fesm5/effects.js");
 var store_1 = __webpack_require__(/*! @ngrx/store */ "../../node_modules/@ngrx/store/fesm5/store.js");
 var core_2 = __webpack_require__(/*! @ngx-translate/core */ "../../node_modules/@ngx-translate/core/fesm5/ngx-translate-core.js");
 var ngx_bootstrap_1 = __webpack_require__(/*! ngx-bootstrap */ "../../node_modules/ngx-bootstrap/esm5/ngx-bootstrap.js");
-var rxjs_1 = __webpack_require__(/*! rxjs */ "../../node_modules/rxjs/_esm5/index.js");
-var operators_1 = __webpack_require__(/*! rxjs/operators */ "../../node_modules/rxjs/_esm5/operators/index.js");
 var services_1 = __webpack_require__(/*! ../../../../../services */ "./app/services/index.ts");
-var actions_1 = __webpack_require__(/*! ../../../../../store/actions */ "./app/store/actions/index.ts");
 var reducers = __webpack_require__(/*! ../../../../../store/reducers */ "./app/store/reducers/index.ts");
 var parts_1 = __webpack_require__(/*! ../../../../parts */ "./app/components/parts/index.ts");
 var PurchaseCinemaTicketComponent = /** @class */ (function () {
-    function PurchaseCinemaTicketComponent(store, actions, router, modal, util, translate) {
+    function PurchaseCinemaTicketComponent(store, router, modal, purchaseService, userService, utilService, translate) {
         this.store = store;
-        this.actions = actions;
         this.router = router;
         this.modal = modal;
-        this.util = util;
+        this.purchaseService = purchaseService;
+        this.userService = userService;
+        this.utilService = utilService;
         this.translate = translate;
     }
     PurchaseCinemaTicketComponent.prototype.ngOnInit = function () {
@@ -4557,79 +4751,86 @@ var PurchaseCinemaTicketComponent = /** @class */ (function () {
         this.user = this.store.pipe(store_1.select(reducers.getUser));
         this.isLoading = this.store.pipe(store_1.select(reducers.getLoading));
     };
+    /**
+     * 確定
+     */
     PurchaseCinemaTicketComponent.prototype.onSubmit = function () {
-        var _this = this;
-        this.purchase.subscribe(function (purchase) {
-            var transaction = purchase.transaction;
-            var screeningEvent = purchase.screeningEvent;
-            var reservations = purchase.reservations;
-            var authorizeSeatReservation = purchase.authorizeSeatReservation;
-            if (transaction === undefined
-                || screeningEvent === undefined) {
-                _this.router.navigate(['/error']);
-                return;
-            }
-            var unselectedReservations = reservations.filter(function (reservation) {
-                return (reservation.ticket === undefined);
-            });
-            if (unselectedReservations.length > 0) {
-                _this.util.openAlert({
-                    title: _this.translate.instant('common.error'),
-                    body: _this.translate.instant('purchase.cinema.ticket.alert.unselected')
-                });
-                return;
-            }
-            var validResult = reservations.filter(function (reservation) {
-                var unitPriceSpecification = reservation.getUnitPriceSpecification();
-                if (unitPriceSpecification === undefined
-                    || unitPriceSpecification.typeOf !== api_javascript_client_1.factory.chevre.priceSpecificationType.UnitPriceSpecification) {
-                    return false;
+        return __awaiter(this, void 0, void 0, function () {
+            var purchase, transaction, screeningEvent, reservations, unselectedReservations, validResult, user, error_1;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, this.purchaseService.getData()];
+                    case 1:
+                        purchase = _a.sent();
+                        transaction = purchase.transaction;
+                        screeningEvent = purchase.screeningEvent;
+                        reservations = purchase.reservations;
+                        if (transaction === undefined
+                            || screeningEvent === undefined) {
+                            this.router.navigate(['/error']);
+                            return [2 /*return*/];
+                        }
+                        unselectedReservations = reservations.filter(function (reservation) {
+                            return (reservation.ticket === undefined);
+                        });
+                        if (unselectedReservations.length > 0) {
+                            this.utilService.openAlert({
+                                title: this.translate.instant('common.error'),
+                                body: this.translate.instant('purchase.cinema.ticket.alert.unselected')
+                            });
+                            return [2 /*return*/];
+                        }
+                        validResult = reservations.filter(function (reservation) {
+                            var unitPriceSpecification = reservation.getUnitPriceSpecification();
+                            if (unitPriceSpecification === undefined
+                                || unitPriceSpecification.typeOf !== api_javascript_client_1.factory.chevre.priceSpecificationType.UnitPriceSpecification) {
+                                return false;
+                            }
+                            var filterResult = reservations.filter(function (targetReservation) {
+                                return (reservation.ticket !== undefined
+                                    && targetReservation.ticket !== undefined
+                                    && reservation.ticket.ticketOffer.id === targetReservation.ticket.ticketOffer.id);
+                            });
+                            var value = (unitPriceSpecification.referenceQuantity.value === undefined)
+                                ? 1
+                                : unitPriceSpecification.referenceQuantity.value;
+                            return (filterResult.length % value !== 0);
+                        });
+                        if (validResult.length > 0) {
+                            this.utilService.openAlert({
+                                title: this.translate.instant('common.error'),
+                                body: this.translate.instant('purchase.cinema.ticket.alert.ticketCondition')
+                            });
+                            return [2 /*return*/];
+                        }
+                        _a.label = 2;
+                    case 2:
+                        _a.trys.push([2, 5, , 6]);
+                        return [4 /*yield*/, this.purchaseService.temporaryReservation()];
+                    case 3:
+                        _a.sent();
+                        return [4 /*yield*/, this.userService.getData()];
+                    case 4:
+                        user = _a.sent();
+                        if (!user.isPurchaseCart) {
+                            this.router.navigate(['/purchase/payment']);
+                            return [2 /*return*/];
+                        }
+                        this.router.navigate(['/purchase/cinema/cart']);
+                        return [3 /*break*/, 6];
+                    case 5:
+                        error_1 = _a.sent();
+                        console.error(error_1);
+                        this.router.navigate(['/error']);
+                        return [3 /*break*/, 6];
+                    case 6: return [2 /*return*/];
                 }
-                var filterResult = reservations.filter(function (targetReservation) {
-                    return (reservation.ticket !== undefined
-                        && targetReservation.ticket !== undefined
-                        && reservation.ticket.ticketOffer.id === targetReservation.ticket.ticketOffer.id);
-                });
-                var value = (unitPriceSpecification.referenceQuantity.value === undefined)
-                    ? 1
-                    : unitPriceSpecification.referenceQuantity.value;
-                return (filterResult.length % value !== 0);
             });
-            if (validResult.length > 0) {
-                _this.util.openAlert({
-                    title: _this.translate.instant('common.error'),
-                    body: _this.translate.instant('purchase.cinema.ticket.alert.ticketCondition')
-                });
-                return;
-            }
-            _this.store.dispatch(new actions_1.purchaseAction.TemporaryReservation({
-                transaction: transaction,
-                screeningEvent: screeningEvent,
-                reservations: reservations,
-                authorizeSeatReservation: authorizeSeatReservation
-            }));
-        }).unsubscribe();
-        var success = this.actions.pipe(effects_1.ofType(actions_1.purchaseAction.ActionTypes.TemporaryReservationSuccess), operators_1.tap(function () {
-            _this.purchase.subscribe(function (purchase) {
-                _this.user.subscribe(function (user) {
-                    if (purchase.authorizeSeatReservation === undefined
-                        || purchase.authorizeSeatReservation.result === undefined) {
-                        _this.router.navigate(['/error']);
-                        return;
-                    }
-                    if (!user.isPurchaseCart) {
-                        _this.router.navigate(['/purchase/payment']);
-                        return;
-                    }
-                    _this.router.navigate(['/purchase/cinema/cart']);
-                }).unsubscribe();
-            }).unsubscribe();
-        }));
-        var fail = this.actions.pipe(effects_1.ofType(actions_1.purchaseAction.ActionTypes.TemporaryReservationFail), operators_1.tap(function () {
-            _this.router.navigate(['/error']);
-        }));
-        rxjs_1.race(success, fail).pipe(operators_1.take(1)).subscribe();
+        });
     };
+    /**
+     * 券種一覧表示
+     */
     PurchaseCinemaTicketComponent.prototype.openTicketList = function (reservation) {
         var _this = this;
         this.purchase.subscribe(function (purchase) {
@@ -4643,16 +4844,19 @@ var PurchaseCinemaTicketComponent = /** @class */ (function () {
                     cb: function (ticket) {
                         if (reservation === undefined) {
                             purchase.reservations.forEach(function (r) { return r.ticket = ticket; });
-                            _this.store.dispatch(new actions_1.purchaseAction.SelectTickets({ reservations: purchase.reservations }));
+                            _this.purchaseService.selectTickets(purchase.reservations);
                             return;
                         }
                         reservation.ticket = ticket;
-                        _this.store.dispatch(new actions_1.purchaseAction.SelectTickets({ reservations: [reservation] }));
+                        _this.purchaseService.selectTickets([reservation]);
                     }
                 },
             });
         }).unsubscribe();
     };
+    /**
+     * ムビチケ認証表示
+     */
     PurchaseCinemaTicketComponent.prototype.openMovieTicket = function () {
         this.modal.show(parts_1.MvtkCheckModalComponent, {
             class: 'modal-dialog-centered'
@@ -4665,9 +4869,10 @@ var PurchaseCinemaTicketComponent = /** @class */ (function () {
             styles: [__webpack_require__(/*! ./purchase-cinema-ticket.component.scss */ "./app/components/pages/purchase/cinema/purchase-cinema-ticket/purchase-cinema-ticket.component.scss")]
         }),
         __metadata("design:paramtypes", [store_1.Store,
-            effects_1.Actions,
             router_1.Router,
             ngx_bootstrap_1.BsModalService,
+            services_1.PurchaseService,
+            services_1.UserService,
             services_1.UtilService,
             core_2.TranslateService])
     ], PurchaseCinemaTicketComponent);
@@ -4745,22 +4950,21 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = __webpack_require__(/*! @angular/core */ "../../node_modules/@angular/core/fesm5/core.js");
 var router_1 = __webpack_require__(/*! @angular/router */ "../../node_modules/@angular/router/fesm5/router.js");
-var effects_1 = __webpack_require__(/*! @ngrx/effects */ "../../node_modules/@ngrx/effects/fesm5/effects.js");
 var store_1 = __webpack_require__(/*! @ngrx/store */ "../../node_modules/@ngrx/store/fesm5/store.js");
 var http_status_1 = __webpack_require__(/*! http-status */ "../../node_modules/http-status/lib/index.js");
 var moment = __webpack_require__(/*! moment */ "../../node_modules/moment/moment.js");
 var ngx_bootstrap_1 = __webpack_require__(/*! ngx-bootstrap */ "../../node_modules/ngx-bootstrap/esm5/ngx-bootstrap.js");
-var rxjs_1 = __webpack_require__(/*! rxjs */ "../../node_modules/rxjs/_esm5/index.js");
-var operators_1 = __webpack_require__(/*! rxjs/operators */ "../../node_modules/rxjs/_esm5/operators/index.js");
 var environment_1 = __webpack_require__(/*! ../../../../../../environments/environment */ "./environments/environment.ts");
 var functions_1 = __webpack_require__(/*! ../../../../../functions */ "./app/functions/index.ts");
-var actions_1 = __webpack_require__(/*! ../../../../../store/actions */ "./app/store/actions/index.ts");
+var services_1 = __webpack_require__(/*! ../../../../../services */ "./app/services/index.ts");
 var reducers = __webpack_require__(/*! ../../../../../store/reducers */ "./app/store/reducers/index.ts");
 var PurchaseEventScheduleComponent = /** @class */ (function () {
-    function PurchaseEventScheduleComponent(store, actions, router, localeService) {
+    function PurchaseEventScheduleComponent(store, router, purchaseService, masterService, userService, localeService) {
         this.store = store;
-        this.actions = actions;
         this.router = router;
+        this.purchaseService = purchaseService;
+        this.masterService = masterService;
+        this.userService = userService;
         this.localeService = localeService;
         this.moment = moment;
         this.environment = environment_1.environment;
@@ -4787,7 +4991,7 @@ var PurchaseEventScheduleComponent = /** @class */ (function () {
                         _a.label = 1;
                     case 1:
                         _a.trys.push([1, 3, , 4]);
-                        return [4 /*yield*/, this.cancelTransaction()];
+                        return [4 /*yield*/, this.purchaseService.cancelTransaction()];
                     case 2:
                         _a.sent();
                         this.selectDate();
@@ -4808,29 +5012,6 @@ var PurchaseEventScheduleComponent = /** @class */ (function () {
         clearTimeout(this.updateTimer);
     };
     /**
-     * 取引中止
-     */
-    PurchaseEventScheduleComponent.prototype.cancelTransaction = function () {
-        return __awaiter(this, void 0, void 0, function () {
-            var _this = this;
-            return __generator(this, function (_a) {
-                return [2 /*return*/, new Promise(function (resolve) {
-                        _this.purchase.subscribe(function (purchase) {
-                            var transaction = purchase.transaction;
-                            if (transaction === undefined) {
-                                resolve();
-                                return;
-                            }
-                            _this.store.dispatch(new actions_1.purchaseAction.CancelTransaction({ transaction: transaction }));
-                            var success = _this.actions.pipe(effects_1.ofType(actions_1.purchaseAction.ActionTypes.CancelTransactionSuccess), operators_1.tap(function () { resolve(); }));
-                            var fail = _this.actions.pipe(effects_1.ofType(actions_1.purchaseAction.ActionTypes.CancelTransactionFail), operators_1.tap(function () { resolve(); }));
-                            rxjs_1.race(success, fail).pipe(operators_1.take(1)).subscribe();
-                        }).unsubscribe();
-                    })];
-            });
-        });
-    };
-    /**
      * 更新
      */
     PurchaseEventScheduleComponent.prototype.update = function () {
@@ -4847,96 +5028,56 @@ var PurchaseEventScheduleComponent = /** @class */ (function () {
      * 日付選択
      */
     PurchaseEventScheduleComponent.prototype.selectDate = function (date) {
-        var _this = this;
-        if (date !== undefined && date !== null) {
-            this.scheduleDate = date;
-        }
-        this.user.subscribe(function (user) {
-            var seller = user.seller;
-            if (seller === undefined) {
-                _this.router.navigate(['/error']);
-                return;
-            }
-            if (_this.scheduleDate === undefined || _this.scheduleDate === null) {
-                _this.scheduleDate = moment()
-                    .add(environment_1.environment.PURCHASE_SCHEDULE_DEFAULT_SELECTED_DATE, 'day')
-                    .toDate();
-            }
-            var scheduleDate = moment(_this.scheduleDate).format('YYYY-MM-DD');
-            _this.store.dispatch(new actions_1.purchaseAction.SelectScheduleDate({ scheduleDate: scheduleDate }));
-            _this.store.dispatch(new actions_1.masterAction.GetSchedule({
-                superEvent: {
-                    locationBranchCodes: (seller.location === undefined || seller.location.branchCode === undefined)
-                        ? [] : [seller.location.branchCode]
-                },
-                startFrom: moment(scheduleDate).toDate(),
-                startThrough: moment(scheduleDate).add(1, 'day').toDate()
-            }));
-        }).unsubscribe();
-        var success = this.actions.pipe(effects_1.ofType(actions_1.masterAction.ActionTypes.GetScheduleSuccess), operators_1.tap(function () {
-            _this.master.subscribe(function (master) {
-                var screeningEvents = master.screeningEvents;
-                _this.screeningWorkEvents = functions_1.screeningEventsToWorkEvents({ screeningEvents: screeningEvents });
-                _this.update();
-            }).unsubscribe();
-        }));
-        var fail = this.actions.pipe(effects_1.ofType(actions_1.masterAction.ActionTypes.GetScheduleFail), operators_1.tap(function () {
-            _this.router.navigate(['/error']);
-        }));
-        rxjs_1.race(success, fail).pipe(operators_1.take(1)).subscribe();
-    };
-    /**
-     * 仮予約削除
-     */
-    PurchaseEventScheduleComponent.prototype.cancelTemporaryReservations = function () {
         return __awaiter(this, void 0, void 0, function () {
-            var _this = this;
+            var user, seller, scheduleDate, master, screeningEvents, error_2;
             return __generator(this, function (_a) {
-                return [2 /*return*/, new Promise(function (resolve, reject) {
-                        _this.purchase.subscribe(function (purchase) {
-                            var authorizeSeatReservations = purchase.authorizeSeatReservations;
-                            _this.store.dispatch(new actions_1.purchaseAction.CancelTemporaryReservations({ authorizeSeatReservations: authorizeSeatReservations }));
-                        }).unsubscribe();
-                        var success = _this.actions.pipe(effects_1.ofType(actions_1.purchaseAction.ActionTypes.CancelTemporaryReservationsSuccess), operators_1.tap(function () { resolve(); }));
-                        var fail = _this.actions.pipe(effects_1.ofType(actions_1.purchaseAction.ActionTypes.CancelTemporaryReservationsFail), operators_1.tap(function () { _this.error.subscribe(function (error) { return reject(error); }).unsubscribe(); }));
-                        rxjs_1.race(success, fail).pipe(operators_1.take(1)).subscribe();
-                    })];
-            });
-        });
-    };
-    /**
-     * 取引開始
-     */
-    PurchaseEventScheduleComponent.prototype.startTransaction = function () {
-        return __awaiter(this, void 0, void 0, function () {
-            var _this = this;
-            return __generator(this, function (_a) {
-                return [2 /*return*/, new Promise(function (resolve, reject) {
-                        _this.user.subscribe(function (user) {
-                            if (user.seller === undefined) {
-                                reject(null);
-                                return;
-                            }
-                            _this.store.dispatch(new actions_1.purchaseAction.StartTransaction({
-                                params: {
-                                    expires: moment().add(environment_1.environment.PURCHASE_TRANSACTION_TIME, 'minutes').toDate(),
-                                    seller: { typeOf: user.seller.typeOf, id: user.seller.id },
-                                    object: {},
-                                    agent: (user.pos === undefined)
-                                        ? undefined
-                                        : {
-                                            identifier: [
-                                                { name: 'posId', value: user.pos.id },
-                                                { name: 'posName', value: user.pos.name }
-                                            ]
-                                        }
-                                }
-                            }));
-                        }).unsubscribe();
-                        var success = _this.actions.pipe(effects_1.ofType(actions_1.purchaseAction.ActionTypes.StartTransactionSuccess), operators_1.tap(function () { resolve(); }));
-                        var fail = _this.actions.pipe(effects_1.ofType(actions_1.purchaseAction.ActionTypes.StartTransactionFail), operators_1.tap(function () { _this.error.subscribe(function (error) { return reject(error); }).unsubscribe(); }));
-                        rxjs_1.race(success, fail).pipe(operators_1.take(1)).subscribe();
-                    })];
+                switch (_a.label) {
+                    case 0:
+                        if (date !== undefined && date !== null) {
+                            this.scheduleDate = date;
+                        }
+                        _a.label = 1;
+                    case 1:
+                        _a.trys.push([1, 5, , 6]);
+                        return [4 /*yield*/, this.userService.getData()];
+                    case 2:
+                        user = _a.sent();
+                        seller = user.seller;
+                        if (seller === undefined) {
+                            this.router.navigate(['/error']);
+                            return [2 /*return*/];
+                        }
+                        if (this.scheduleDate === undefined || this.scheduleDate === null) {
+                            this.scheduleDate = moment()
+                                .add(environment_1.environment.PURCHASE_SCHEDULE_DEFAULT_SELECTED_DATE, 'day')
+                                .toDate();
+                        }
+                        scheduleDate = moment(this.scheduleDate).format('YYYY-MM-DD');
+                        this.purchaseService.selectScheduleDate(scheduleDate);
+                        return [4 /*yield*/, this.masterService.getSchedule({
+                                superEvent: {
+                                    locationBranchCodes: (seller.location === undefined || seller.location.branchCode === undefined)
+                                        ? [] : [seller.location.branchCode]
+                                },
+                                startFrom: moment(scheduleDate).toDate(),
+                                startThrough: moment(scheduleDate).add(1, 'day').toDate()
+                            })];
+                    case 3:
+                        _a.sent();
+                        return [4 /*yield*/, this.masterService.getData()];
+                    case 4:
+                        master = _a.sent();
+                        screeningEvents = master.screeningEvents;
+                        this.screeningWorkEvents = functions_1.screeningEventsToWorkEvents({ screeningEvents: screeningEvents });
+                        this.update();
+                        return [3 /*break*/, 6];
+                    case 5:
+                        error_2 = _a.sent();
+                        console.error(error_2);
+                        this.router.navigate(['/error']);
+                        return [3 /*break*/, 6];
+                    case 6: return [2 /*return*/];
+                }
             });
         });
     };
@@ -4945,26 +5086,36 @@ var PurchaseEventScheduleComponent = /** @class */ (function () {
      */
     PurchaseEventScheduleComponent.prototype.onSubmit = function () {
         return __awaiter(this, void 0, void 0, function () {
-            var error_2, errorObject;
+            var purchase, user, authorizeSeatReservations, error_3, errorObject;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
-                        _a.trys.push([0, 3, , 4]);
-                        return [4 /*yield*/, this.cancelTemporaryReservations()];
+                        _a.trys.push([0, 5, , 6]);
+                        return [4 /*yield*/, this.purchaseService.getData()];
                     case 1:
-                        _a.sent();
-                        return [4 /*yield*/, this.startTransaction()];
+                        purchase = _a.sent();
+                        return [4 /*yield*/, this.userService.getData()];
                     case 2:
-                        _a.sent();
-                        this.router.navigate(['/purchase/event/ticket']);
-                        return [3 /*break*/, 4];
+                        user = _a.sent();
+                        authorizeSeatReservations = purchase.authorizeSeatReservations;
+                        return [4 /*yield*/, this.purchaseService.cancelTemporaryReservations(authorizeSeatReservations)];
                     case 3:
-                        error_2 = _a.sent();
-                        if (error_2 === null) {
+                        _a.sent();
+                        if (user.seller === undefined) {
                             this.router.navigate(['/error']);
                             return [2 /*return*/];
                         }
-                        errorObject = JSON.parse(error_2);
+                        return [4 /*yield*/, this.purchaseService.startTransaction({
+                                seller: user.seller,
+                                pos: user.pos
+                            })];
+                    case 4:
+                        _a.sent();
+                        this.router.navigate(['/purchase/event/ticket']);
+                        return [3 /*break*/, 6];
+                    case 5:
+                        error_3 = _a.sent();
+                        errorObject = JSON.parse(error_3);
                         if (errorObject.status === http_status_1.TOO_MANY_REQUESTS) {
                             this.router.navigate(['/congestion']);
                             return [2 /*return*/];
@@ -4974,8 +5125,8 @@ var PurchaseEventScheduleComponent = /** @class */ (function () {
                             return [2 /*return*/];
                         }
                         this.router.navigate(['/error']);
-                        return [3 /*break*/, 4];
-                    case 4: return [2 /*return*/];
+                        return [3 /*break*/, 6];
+                    case 6: return [2 /*return*/];
                 }
             });
         });
@@ -5025,8 +5176,10 @@ var PurchaseEventScheduleComponent = /** @class */ (function () {
             styles: [__webpack_require__(/*! ./purchase-event-schedule.component.scss */ "./app/components/pages/purchase/event/purchase-event-schedule/purchase-event-schedule.component.scss")]
         }),
         __metadata("design:paramtypes", [store_1.Store,
-            effects_1.Actions,
             router_1.Router,
+            services_1.PurchaseService,
+            services_1.MasterService,
+            services_1.UserService,
             ngx_bootstrap_1.BsLocaleService])
     ], PurchaseEventScheduleComponent);
     return PurchaseEventScheduleComponent;
@@ -5103,26 +5256,24 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = __webpack_require__(/*! @angular/core */ "../../node_modules/@angular/core/fesm5/core.js");
 var router_1 = __webpack_require__(/*! @angular/router */ "../../node_modules/@angular/router/fesm5/router.js");
-var effects_1 = __webpack_require__(/*! @ngrx/effects */ "../../node_modules/@ngrx/effects/fesm5/effects.js");
 var store_1 = __webpack_require__(/*! @ngrx/store */ "../../node_modules/@ngrx/store/fesm5/store.js");
 var core_2 = __webpack_require__(/*! @ngx-translate/core */ "../../node_modules/@ngx-translate/core/fesm5/ngx-translate-core.js");
 var moment = __webpack_require__(/*! moment */ "../../node_modules/moment/moment.js");
 var ngx_bootstrap_1 = __webpack_require__(/*! ngx-bootstrap */ "../../node_modules/ngx-bootstrap/esm5/ngx-bootstrap.js");
-var rxjs_1 = __webpack_require__(/*! rxjs */ "../../node_modules/rxjs/_esm5/index.js");
-var operators_1 = __webpack_require__(/*! rxjs/operators */ "../../node_modules/rxjs/_esm5/operators/index.js");
 var environment_1 = __webpack_require__(/*! ../../../../../../environments/environment */ "./environments/environment.ts");
 var functions_1 = __webpack_require__(/*! ../../../../../functions */ "./app/functions/index.ts");
 var services_1 = __webpack_require__(/*! ../../../../../services */ "./app/services/index.ts");
-var actions_1 = __webpack_require__(/*! ../../../../../store/actions */ "./app/store/actions/index.ts");
 var reducers = __webpack_require__(/*! ../../../../../store/reducers */ "./app/store/reducers/index.ts");
 var parts_1 = __webpack_require__(/*! ../../../../parts */ "./app/components/parts/index.ts");
 var PurchaseEventTicketComponent = /** @class */ (function () {
-    function PurchaseEventTicketComponent(store, actions, router, util, translate, modal) {
+    function PurchaseEventTicketComponent(store, router, utilService, translate, purchaseService, masterService, userService, modal) {
         this.store = store;
-        this.actions = actions;
         this.router = router;
-        this.util = util;
+        this.utilService = utilService;
         this.translate = translate;
+        this.purchaseService = purchaseService;
+        this.masterService = masterService;
+        this.userService = userService;
         this.modal = modal;
         this.moment = moment;
         this.getTicketPrice = functions_1.getTicketPrice;
@@ -5169,260 +5320,261 @@ var PurchaseEventTicketComponent = /** @class */ (function () {
      * スケジュール取得
      */
     PurchaseEventTicketComponent.prototype.getSchedule = function () {
-        var _this = this;
-        this.purchase.subscribe(function (purchase) {
-            _this.user.subscribe(function (user) {
-                var seller = user.seller;
-                var scheduleDate = purchase.scheduleDate;
-                if (seller === undefined || scheduleDate === undefined) {
-                    _this.router.navigate(['/error']);
-                    return;
+        return __awaiter(this, void 0, void 0, function () {
+            var user, purchase, seller, scheduleDate, master, screeningEvents, error_1;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, this.userService.getData()];
+                    case 1:
+                        user = _a.sent();
+                        return [4 /*yield*/, this.purchaseService.getData()];
+                    case 2:
+                        purchase = _a.sent();
+                        seller = user.seller;
+                        scheduleDate = purchase.scheduleDate;
+                        if (seller === undefined || scheduleDate === undefined) {
+                            this.router.navigate(['/error']);
+                            return [2 /*return*/];
+                        }
+                        _a.label = 3;
+                    case 3:
+                        _a.trys.push([3, 6, , 7]);
+                        return [4 /*yield*/, this.masterService.getSchedule({
+                                superEvent: {
+                                    locationBranchCodes: (seller.location === undefined || seller.location.branchCode === undefined)
+                                        ? [] : [seller.location.branchCode]
+                                },
+                                startFrom: moment(scheduleDate).toDate(),
+                                startThrough: moment(scheduleDate).add(1, 'day').toDate()
+                            })];
+                    case 4:
+                        _a.sent();
+                        return [4 /*yield*/, this.masterService.getData()];
+                    case 5:
+                        master = _a.sent();
+                        screeningEvents = master.screeningEvents;
+                        this.screeningWorkEvents = functions_1.screeningEventsToWorkEvents({ screeningEvents: screeningEvents });
+                        this.update();
+                        return [3 /*break*/, 7];
+                    case 6:
+                        error_1 = _a.sent();
+                        console.error(error_1);
+                        this.router.navigate(['/error']);
+                        return [3 /*break*/, 7];
+                    case 7: return [2 /*return*/];
                 }
-                _this.store.dispatch(new actions_1.masterAction.GetSchedule({
-                    superEvent: {
-                        locationBranchCodes: (seller.location === undefined || seller.location.branchCode === undefined)
-                            ? [] : [seller.location.branchCode]
-                    },
-                    startFrom: moment(scheduleDate).toDate(),
-                    startThrough: moment(scheduleDate).add(1, 'day').toDate()
-                }));
-            }).unsubscribe();
-        }).unsubscribe();
-        var success = this.actions.pipe(effects_1.ofType(actions_1.masterAction.ActionTypes.GetScheduleSuccess), operators_1.tap(function () {
-            _this.master.subscribe(function (master) {
-                var screeningEvents = master.screeningEvents;
-                _this.screeningWorkEvents = functions_1.screeningEventsToWorkEvents({ screeningEvents: screeningEvents });
-                _this.update();
-            }).unsubscribe();
-        }));
-        var fail = this.actions.pipe(effects_1.ofType(actions_1.masterAction.ActionTypes.GetScheduleFail), operators_1.tap(function () {
-            _this.router.navigate(['/error']);
-        }));
-        rxjs_1.race(success, fail).pipe(operators_1.take(1)).subscribe();
+            });
+        });
     };
     /**
      * スケジュール選択
      */
     PurchaseEventTicketComponent.prototype.selectSchedule = function (screeningEvent) {
-        var _this = this;
-        this.purchase.subscribe(function (purchase) {
-            _this.user.subscribe(function (user) {
-                if (purchase.authorizeSeatReservations.length > 0
-                    && !user.isPurchaseCart) {
-                    _this.util.openAlert({
-                        title: _this.translate.instant('common.error'),
-                        body: _this.translate.instant('purchase.event.ticket.alert.cart')
-                    });
-                    return;
+        return __awaiter(this, void 0, void 0, function () {
+            var user, purchase, error_2;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, this.userService.getData()];
+                    case 1:
+                        user = _a.sent();
+                        return [4 /*yield*/, this.purchaseService.getData()];
+                    case 2:
+                        purchase = _a.sent();
+                        if (user.seller === undefined) {
+                            this.router.navigate(['/error']);
+                            return [2 /*return*/];
+                        }
+                        if (purchase.authorizeSeatReservations.length > 0
+                            && !user.isPurchaseCart) {
+                            this.utilService.openAlert({
+                                title: this.translate.instant('common.error'),
+                                body: this.translate.instant('purchase.event.ticket.alert.cart')
+                            });
+                            return [2 /*return*/];
+                        }
+                        this.purchaseService.selectSchedule(screeningEvent);
+                        _a.label = 3;
+                    case 3:
+                        _a.trys.push([3, 6, , 7]);
+                        return [4 /*yield*/, this.purchaseService.getScreeningEventOffers()];
+                    case 4:
+                        _a.sent();
+                        return [4 /*yield*/, this.purchaseService.getTicketList(user.seller)];
+                    case 5:
+                        _a.sent();
+                        this.openTicketList();
+                        return [3 /*break*/, 7];
+                    case 6:
+                        error_2 = _a.sent();
+                        console.error(error_2);
+                        this.utilService.openAlert({
+                            title: this.translate.instant('common.error'),
+                            body: ''
+                        });
+                        return [3 /*break*/, 7];
+                    case 7: return [2 /*return*/];
                 }
-                _this.store.dispatch(new actions_1.purchaseAction.SelectSchedule({ screeningEvent: screeningEvent }));
-                _this.getScreeningEventOffers().then(function () {
-                    _this.getTickets();
-                }).catch(function () {
-                    _this.util.openAlert({
-                        title: _this.translate.instant('common.error'),
-                        body: ''
-                    });
-                });
-            }).unsubscribe();
-        }).unsubscribe();
-    };
-    /**
-     * 券種取得
-     */
-    PurchaseEventTicketComponent.prototype.getTickets = function () {
-        var _this = this;
-        this.user.subscribe(function (user) {
-            _this.purchase.subscribe(function (purchase) {
-                var screeningEvent = purchase.screeningEvent;
-                var seller = user.seller;
-                if (screeningEvent === undefined || seller === undefined) {
-                    _this.router.navigate(['/error']);
-                    return;
-                }
-                _this.store.dispatch(new actions_1.purchaseAction.GetTicketList({ screeningEvent: screeningEvent, seller: seller }));
-            }).unsubscribe();
-        }).unsubscribe();
-        var success = this.actions.pipe(effects_1.ofType(actions_1.purchaseAction.ActionTypes.GetTicketListSuccess), operators_1.tap(function () {
-            _this.openTicketList();
-        }));
-        var fail = this.actions.pipe(effects_1.ofType(actions_1.purchaseAction.ActionTypes.GetTicketListFail), operators_1.tap(function () {
-            _this.util.openAlert({
-                title: _this.translate.instant('common.error'),
-                body: ''
             });
-        }));
-        rxjs_1.race(success, fail).pipe(operators_1.take(1)).subscribe();
+        });
     };
     /**
      * 券種表示
      */
     PurchaseEventTicketComponent.prototype.openTicketList = function () {
-        var _this = this;
-        this.purchase.subscribe(function (purchase) {
-            var screeningEvent = purchase.screeningEvent;
-            var screeningEventTicketOffers = purchase.screeningEventTicketOffers;
-            var screeningEventOffers = purchase.screeningEventOffers;
-            _this.modal.show(parts_1.PurchaseEventTicketModalComponent, {
-                class: 'modal-dialog-centered',
-                initialState: {
-                    screeningEventTicketOffers: screeningEventTicketOffers,
-                    screeningEventOffers: screeningEventOffers,
-                    screeningEvent: screeningEvent,
-                    cb: function (reservationTickets) {
-                        _this.selectTicket(reservationTickets);
-                    }
-                }
+        return __awaiter(this, void 0, void 0, function () {
+            var _this = this;
+            return __generator(this, function (_a) {
+                this.purchase.subscribe(function (purchase) {
+                    var screeningEvent = purchase.screeningEvent;
+                    var screeningEventTicketOffers = purchase.screeningEventTicketOffers;
+                    var screeningEventOffers = purchase.screeningEventOffers;
+                    _this.modal.show(parts_1.PurchaseEventTicketModalComponent, {
+                        class: 'modal-dialog-centered',
+                        initialState: {
+                            screeningEventTicketOffers: screeningEventTicketOffers,
+                            screeningEventOffers: screeningEventOffers,
+                            screeningEvent: screeningEvent,
+                            cb: function (reservationTickets) {
+                                _this.selectTicket(reservationTickets);
+                            }
+                        }
+                    });
+                }).unsubscribe();
+                return [2 /*return*/];
             });
-        }).unsubscribe();
+        });
     };
     /**
      * 券種選択
      */
     PurchaseEventTicketComponent.prototype.selectTicket = function (reservationTickets) {
-        var _this = this;
-        if (reservationTickets.length > Number(environment_1.environment.PURCHASE_ITEM_MAX_LENGTH)) {
-            this.util.openAlert({
-                title: this.translate.instant('common.error'),
-                body: this.translate.instant('purchase.event.ticket.alert.limit', { value: environment_1.environment.PURCHASE_ITEM_MAX_LENGTH })
-            });
-            return;
-        }
-        this.getScreeningEventOffers().then(function () {
-            _this.purchase.subscribe(function (purchase) {
-                if (purchase.screeningEvent !== undefined
-                    && functions_1.isTicketedSeatScreeningEvent(purchase.screeningEvent)) {
-                    var remainingSeatLength = functions_1.getRemainingSeatLength(purchase.screeningEventOffers);
-                    if (remainingSeatLength < reservationTickets.length) {
-                        _this.util.openAlert({
-                            title: _this.translate.instant('common.error'),
-                            body: _this.translate.instant('purchase.event.ticket.alert.getScreeningEventOffers')
+        return __awaiter(this, void 0, void 0, function () {
+            var purchase, remainingSeatLength, error_3, error_4;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        if (reservationTickets.length > Number(environment_1.environment.PURCHASE_ITEM_MAX_LENGTH)) {
+                            this.utilService.openAlert({
+                                title: this.translate.instant('common.error'),
+                                body: this.translate.instant('purchase.event.ticket.alert.limit', { value: environment_1.environment.PURCHASE_ITEM_MAX_LENGTH })
+                            });
+                            return [2 /*return*/];
+                        }
+                        _a.label = 1;
+                    case 1:
+                        _a.trys.push([1, 4, , 5]);
+                        return [4 /*yield*/, this.purchaseService.getScreeningEventOffers()];
+                    case 2:
+                        _a.sent();
+                        return [4 /*yield*/, this.purchaseService.getData()];
+                    case 3:
+                        purchase = _a.sent();
+                        if (purchase.screeningEvent !== undefined
+                            && functions_1.isTicketedSeatScreeningEvent(purchase.screeningEvent)) {
+                            remainingSeatLength = functions_1.getRemainingSeatLength(purchase.screeningEventOffers);
+                            if (remainingSeatLength < reservationTickets.length) {
+                                this.utilService.openAlert({
+                                    title: this.translate.instant('common.error'),
+                                    body: this.translate.instant('purchase.event.ticket.alert.getScreeningEventOffers')
+                                });
+                                return [2 /*return*/];
+                            }
+                        }
+                        return [3 /*break*/, 5];
+                    case 4:
+                        error_3 = _a.sent();
+                        console.error(error_3);
+                        this.utilService.openAlert({
+                            title: this.translate.instant('common.error'),
+                            body: ''
                         });
-                        return;
-                    }
+                        return [3 /*break*/, 5];
+                    case 5:
+                        _a.trys.push([5, 7, , 8]);
+                        return [4 /*yield*/, this.purchaseService.temporaryReservationFreeSeat(reservationTickets)];
+                    case 6:
+                        _a.sent();
+                        this.utilService.openAlert({
+                            title: this.translate.instant('common.complete'),
+                            body: this.translate.instant('purchase.event.ticket.success.temporaryReservation')
+                        });
+                        return [3 /*break*/, 8];
+                    case 7:
+                        error_4 = _a.sent();
+                        console.error(error_4);
+                        this.utilService.openAlert({
+                            title: this.translate.instant('common.error'),
+                            body: this.translate.instant('purchase.event.ticket.alert.temporaryReservation')
+                        });
+                        return [3 /*break*/, 8];
+                    case 8: return [2 /*return*/];
                 }
-                _this.temporaryReservation(reservationTickets);
-            }).unsubscribe();
-        }).catch(function () {
-            _this.util.openAlert({
-                title: _this.translate.instant('common.error'),
-                body: ''
             });
         });
-    };
-    /**
-     * 空席情報取得
-     */
-    PurchaseEventTicketComponent.prototype.getScreeningEventOffers = function () {
-        var _this = this;
-        return new Promise(function (resolve, reject) {
-            _this.purchase.subscribe(function (purchase) {
-                if (purchase.screeningEvent === undefined) {
-                    _this.router.navigate(['/error']);
-                    return;
-                }
-                var screeningEvent = purchase.screeningEvent;
-                _this.store.dispatch(new actions_1.purchaseAction.GetScreeningEventOffers({ screeningEvent: screeningEvent }));
-            }).unsubscribe();
-            var success = _this.actions.pipe(effects_1.ofType(actions_1.purchaseAction.ActionTypes.GetScreeningEventOffersSuccess), operators_1.tap(function () { resolve(); }));
-            var fail = _this.actions.pipe(effects_1.ofType(actions_1.purchaseAction.ActionTypes.GetScreeningEventOffersFail), operators_1.tap(function () { reject(); }));
-            rxjs_1.race(success, fail).pipe(operators_1.take(1)).subscribe();
-        });
-    };
-    /**
-     * 仮予約
-     * @param reservationTickets
-     */
-    PurchaseEventTicketComponent.prototype.temporaryReservation = function (reservationTickets) {
-        var _this = this;
-        this.purchase.subscribe(function (purchase) {
-            if (purchase.transaction === undefined
-                || purchase.screeningEvent === undefined) {
-                _this.router.navigate(['/error']);
-                return;
-            }
-            var transaction = purchase.transaction;
-            var screeningEvent = purchase.screeningEvent;
-            var screeningEventOffers = purchase.screeningEventOffers;
-            _this.store.dispatch(new actions_1.purchaseAction.TemporaryReservationFreeSeat({
-                transaction: transaction,
-                screeningEvent: screeningEvent,
-                screeningEventOffers: screeningEventOffers,
-                reservationTickets: reservationTickets
-            }));
-        }).unsubscribe();
-        var success = this.actions.pipe(effects_1.ofType(actions_1.purchaseAction.ActionTypes.TemporaryReservationFreeSeatSuccess), operators_1.tap(function () {
-            _this.util.openAlert({
-                title: _this.translate.instant('common.complete'),
-                body: _this.translate.instant('purchase.event.ticket.success.temporaryReservation')
-            });
-        }));
-        var fail = this.actions.pipe(effects_1.ofType(actions_1.purchaseAction.ActionTypes.TemporaryReservationFreeSeatFail), operators_1.tap(function () {
-            _this.util.openAlert({
-                title: _this.translate.instant('common.error'),
-                body: _this.translate.instant('purchase.event.ticket.alert.temporaryReservation')
-            });
-        }));
-        rxjs_1.race(success, fail).pipe(operators_1.take(1)).subscribe();
     };
     /**
      * 券種確定
      */
     PurchaseEventTicketComponent.prototype.onSubmit = function () {
-        var _this = this;
-        this.purchase.subscribe(function (purchase) {
-            var authorizeSeatReservations = purchase.authorizeSeatReservations;
-            // チケット未選択判定
-            if (authorizeSeatReservations.length === 0) {
-                _this.util.openAlert({
-                    title: _this.translate.instant('common.error'),
-                    body: _this.translate.instant('purchase.event.ticket.alert.unselected')
-                });
-                return;
-            }
-            // チケット枚数上限判定
-            var itemCount = 0;
-            authorizeSeatReservations.forEach(function (a) { return itemCount += a.object.acceptedOffer.length; });
-            if (itemCount > Number(environment_1.environment.PURCHASE_ITEM_MAX_LENGTH)) {
-                _this.util.openAlert({
-                    title: _this.translate.instant('common.error'),
-                    body: _this.translate.instant('purchase.event.ticket.alert.limit', { value: Number(environment_1.environment.PURCHASE_ITEM_MAX_LENGTH) })
-                });
-                return;
-            }
-            _this.router.navigate(['/purchase/payment']);
-        }).unsubscribe();
-    };
-    /**
-     * カート削除処理
-     */
-    PurchaseEventTicketComponent.prototype.removeItemProcess = function (authorizeSeatReservations) {
-        var _this = this;
-        this.purchase.subscribe(function (purchase) {
-            if (purchase.transaction === undefined) {
-                _this.router.navigate(['/error']);
-                return;
-            }
-            _this.store.dispatch(new actions_1.purchaseAction.CancelTemporaryReservations({ authorizeSeatReservations: authorizeSeatReservations }));
-        }).unsubscribe();
-        var success = this.actions.pipe(effects_1.ofType(actions_1.purchaseAction.ActionTypes.CancelTemporaryReservationsSuccess), operators_1.tap(function () { }));
-        var fail = this.actions.pipe(effects_1.ofType(actions_1.purchaseAction.ActionTypes.CancelTemporaryReservationsFail), operators_1.tap(function () {
-            _this.router.navigate(['/error']);
-        }));
-        rxjs_1.race(success, fail).pipe(operators_1.take(1)).subscribe();
+        return __awaiter(this, void 0, void 0, function () {
+            var purchase, authorizeSeatReservations, itemCount;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, this.purchaseService.getData()];
+                    case 1:
+                        purchase = _a.sent();
+                        authorizeSeatReservations = purchase.authorizeSeatReservations;
+                        // チケット未選択判定
+                        if (authorizeSeatReservations.length === 0) {
+                            this.utilService.openAlert({
+                                title: this.translate.instant('common.error'),
+                                body: this.translate.instant('purchase.event.ticket.alert.unselected')
+                            });
+                            return [2 /*return*/];
+                        }
+                        itemCount = 0;
+                        authorizeSeatReservations.forEach(function (a) { return itemCount += a.object.acceptedOffer.length; });
+                        if (itemCount > Number(environment_1.environment.PURCHASE_ITEM_MAX_LENGTH)) {
+                            this.utilService.openAlert({
+                                title: this.translate.instant('common.error'),
+                                body: this.translate.instant('purchase.event.ticket.alert.limit', { value: Number(environment_1.environment.PURCHASE_ITEM_MAX_LENGTH) })
+                            });
+                            return [2 /*return*/];
+                        }
+                        this.router.navigate(['/purchase/payment']);
+                        return [2 /*return*/];
+                }
+            });
+        });
     };
     /**
      * カート削除確認
      */
     PurchaseEventTicketComponent.prototype.removeItem = function (authorizeSeatReservation) {
         var _this = this;
-        this.util.openConfirm({
+        this.utilService.openConfirm({
             title: this.translate.instant('common.confirm'),
             body: this.translate.instant('purchase.event.cart.confirm.cancel'),
-            cb: function () {
-                var authorizeSeatReservations = [authorizeSeatReservation];
-                _this.removeItemProcess(authorizeSeatReservations);
-            }
+            cb: function () { return __awaiter(_this, void 0, void 0, function () {
+                var authorizeSeatReservations, error_5;
+                return __generator(this, function (_a) {
+                    switch (_a.label) {
+                        case 0:
+                            _a.trys.push([0, 2, , 3]);
+                            authorizeSeatReservations = [authorizeSeatReservation];
+                            return [4 /*yield*/, this.purchaseService.cancelTemporaryReservations(authorizeSeatReservations)];
+                        case 1:
+                            _a.sent();
+                            return [3 /*break*/, 3];
+                        case 2:
+                            error_5 = _a.sent();
+                            console.error(error_5);
+                            this.router.navigate(['/error']);
+                            return [3 /*break*/, 3];
+                        case 3: return [2 /*return*/];
+                    }
+                });
+            }); }
         });
     };
     PurchaseEventTicketComponent = __decorate([
@@ -5432,10 +5584,12 @@ var PurchaseEventTicketComponent = /** @class */ (function () {
             styles: [__webpack_require__(/*! ./purchase-event-ticket.component.scss */ "./app/components/pages/purchase/event/purchase-event-ticket/purchase-event-ticket.component.scss")]
         }),
         __metadata("design:paramtypes", [store_1.Store,
-            effects_1.Actions,
             router_1.Router,
             services_1.UtilService,
             core_2.TranslateService,
+            services_1.PurchaseService,
+            services_1.MasterService,
+            services_1.UserService,
             ngx_bootstrap_1.BsModalService])
     ], PurchaseEventTicketComponent);
     return PurchaseEventTicketComponent;
@@ -5461,7 +5615,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
 __export(__webpack_require__(/*! ./purchase-base/purchase-base.component */ "./app/components/pages/purchase/purchase-base/purchase-base.component.ts"));
 __export(__webpack_require__(/*! ./purchase-complete/purchase-complete.component */ "./app/components/pages/purchase/purchase-complete/purchase-complete.component.ts"));
 __export(__webpack_require__(/*! ./purchase-confirm/purchase-confirm.component */ "./app/components/pages/purchase/purchase-confirm/purchase-confirm.component.ts"));
-__export(__webpack_require__(/*! ./purchase-input/purchase-input.component */ "./app/components/pages/purchase/purchase-input/purchase-input.component.ts"));
 __export(__webpack_require__(/*! ./purchase-payment/purchase-payment.component */ "./app/components/pages/purchase/purchase-payment/purchase-payment.component.ts"));
 __export(__webpack_require__(/*! ./cinema/purchase-cinema-cart/purchase-cinema-cart.component */ "./app/components/pages/purchase/cinema/purchase-cinema-cart/purchase-cinema-cart.component.ts"));
 __export(__webpack_require__(/*! ./cinema/purchase-cinema-schedule/purchase-cinema-schedule.component */ "./app/components/pages/purchase/cinema/purchase-cinema-schedule/purchase-cinema-schedule.component.ts"));
@@ -5570,27 +5723,60 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : new P(function (resolve) { resolve(result.value); }).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+var __generator = (this && this.__generator) || function (thisArg, body) {
+    var _ = { label: 0, sent: function() { if (t[0] & 1) throw t[1]; return t[1]; }, trys: [], ops: [] }, f, y, t, g;
+    return g = { next: verb(0), "throw": verb(1), "return": verb(2) }, typeof Symbol === "function" && (g[Symbol.iterator] = function() { return this; }), g;
+    function verb(n) { return function (v) { return step([n, v]); }; }
+    function step(op) {
+        if (f) throw new TypeError("Generator is already executing.");
+        while (_) try {
+            if (f = 1, y && (t = op[0] & 2 ? y["return"] : op[0] ? y["throw"] || ((t = y["return"]) && t.call(y), 0) : y.next) && !(t = t.call(y, op[1])).done) return t;
+            if (y = 0, t) op = [op[0] & 2, t.value];
+            switch (op[0]) {
+                case 0: case 1: t = op; break;
+                case 4: _.label++; return { value: op[1], done: false };
+                case 5: _.label++; y = op[1]; op = [0]; continue;
+                case 7: op = _.ops.pop(); _.trys.pop(); continue;
+                default:
+                    if (!(t = _.trys, t = t.length > 0 && t[t.length - 1]) && (op[0] === 6 || op[0] === 2)) { _ = 0; continue; }
+                    if (op[0] === 3 && (!t || (op[1] > t[0] && op[1] < t[3]))) { _.label = op[1]; break; }
+                    if (op[0] === 6 && _.label < t[1]) { _.label = t[1]; t = op; break; }
+                    if (t && _.label < t[2]) { _.label = t[2]; _.ops.push(op); break; }
+                    if (t[2]) _.ops.pop();
+                    _.trys.pop(); continue;
+            }
+            op = body.call(thisArg, _);
+        } catch (e) { op = [6, e]; y = 0; } finally { f = t = 0; }
+        if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
+    }
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = __webpack_require__(/*! @angular/core */ "../../node_modules/@angular/core/fesm5/core.js");
 var router_1 = __webpack_require__(/*! @angular/router */ "../../node_modules/@angular/router/fesm5/router.js");
 var api_javascript_client_1 = __webpack_require__(/*! @cinerino/api-javascript-client */ "../../node_modules/@cinerino/api-javascript-client/lib/index.js");
-var effects_1 = __webpack_require__(/*! @ngrx/effects */ "../../node_modules/@ngrx/effects/fesm5/effects.js");
 var store_1 = __webpack_require__(/*! @ngrx/store */ "../../node_modules/@ngrx/store/fesm5/store.js");
 var core_2 = __webpack_require__(/*! @ngx-translate/core */ "../../node_modules/@ngx-translate/core/fesm5/ngx-translate-core.js");
 var moment = __webpack_require__(/*! moment */ "../../node_modules/moment/moment.js");
-var rxjs_1 = __webpack_require__(/*! rxjs */ "../../node_modules/rxjs/_esm5/index.js");
-var operators_1 = __webpack_require__(/*! rxjs/operators */ "../../node_modules/rxjs/_esm5/operators/index.js");
 var environment_1 = __webpack_require__(/*! ../../../../../environments/environment */ "./environments/environment.ts");
 var functions_1 = __webpack_require__(/*! ../../../../functions */ "./app/functions/index.ts");
 var services_1 = __webpack_require__(/*! ../../../../services */ "./app/services/index.ts");
-var actions_1 = __webpack_require__(/*! ../../../../store/actions */ "./app/store/actions/index.ts");
 var reducers = __webpack_require__(/*! ../../../../store/reducers */ "./app/store/reducers/index.ts");
 var PurchaseCompleteComponent = /** @class */ (function () {
-    function PurchaseCompleteComponent(store, actions, router, util, translate) {
+    function PurchaseCompleteComponent(store, router, purchaseService, orderService, userService, utilService, translate) {
         this.store = store;
-        this.actions = actions;
         this.router = router;
-        this.util = util;
+        this.purchaseService = purchaseService;
+        this.orderService = orderService;
+        this.userService = userService;
+        this.utilService = utilService;
         this.translate = translate;
         this.moment = moment;
         this.getTicketPrice = functions_1.getTicketPrice;
@@ -5614,7 +5800,7 @@ var PurchaseCompleteComponent = /** @class */ (function () {
                 functions_1.createRegiGrowQrcode(purchase.order).then(function (code) {
                     _this.regiGrow = code;
                 }).catch(function (error) {
-                    _this.util.openAlert({
+                    _this.utilService.openAlert({
                         title: _this.translate.instant('common.error'),
                         body: "\n                        <p class=\"mb-4\">" + _this.translate.instant('purchase.complete.alert.regiGrow') + "</p>\n                            <div class=\"p-3 bg-light-gray select-text\">\n                            <code>" + error + "</code>\n                        </div>"
                     });
@@ -5625,32 +5811,46 @@ var PurchaseCompleteComponent = /** @class */ (function () {
         }).unsubscribe();
         this.print();
     };
+    /**
+     * 印刷
+     */
     PurchaseCompleteComponent.prototype.print = function () {
-        var _this = this;
-        this.purchase.subscribe(function (purchase) {
-            _this.user.subscribe(function (user) {
-                if (purchase.order === undefined
-                    || user.pos === undefined
-                    || user.printer === undefined) {
-                    _this.router.navigate(['/error']);
-                    return;
+        return __awaiter(this, void 0, void 0, function () {
+            var purchase, user, orders, pos, printer, error_1;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        _a.trys.push([0, 4, , 5]);
+                        return [4 /*yield*/, this.purchaseService.getData()];
+                    case 1:
+                        purchase = _a.sent();
+                        return [4 /*yield*/, this.userService.getData()];
+                    case 2:
+                        user = _a.sent();
+                        if (purchase.order === undefined
+                            || user.pos === undefined
+                            || user.printer === undefined) {
+                            this.router.navigate(['/error']);
+                            return [2 /*return*/];
+                        }
+                        orders = [purchase.order];
+                        pos = user.pos;
+                        printer = user.printer;
+                        return [4 /*yield*/, this.orderService.print({ orders: orders, pos: pos, printer: printer })];
+                    case 3:
+                        _a.sent();
+                        return [3 /*break*/, 5];
+                    case 4:
+                        error_1 = _a.sent();
+                        this.utilService.openAlert({
+                            title: this.translate.instant('common.error'),
+                            body: "\n                <p class=\"mb-4\">" + this.translate.instant('purchase.complete.alert.print') + "</p>\n                    <div class=\"p-3 bg-light-gray select-text\">\n                    <code>" + error_1 + "</code>\n                </div>"
+                        });
+                        return [3 /*break*/, 5];
+                    case 5: return [2 /*return*/];
                 }
-                var orders = [purchase.order];
-                var pos = user.pos;
-                var printer = user.printer;
-                _this.store.dispatch(new actions_1.orderAction.Print({ orders: orders, pos: pos, printer: printer }));
-            }).unsubscribe();
-        }).unsubscribe();
-        var success = this.actions.pipe(effects_1.ofType(actions_1.orderAction.ActionTypes.PrintSuccess), operators_1.tap(function () { }));
-        var fail = this.actions.pipe(effects_1.ofType(actions_1.orderAction.ActionTypes.PrintFail), operators_1.tap(function () {
-            _this.error.subscribe(function (error) {
-                _this.util.openAlert({
-                    title: _this.translate.instant('common.error'),
-                    body: "\n                        <p class=\"mb-4\">" + _this.translate.instant('purchase.complete.alert.print') + "</p>\n                            <div class=\"p-3 bg-light-gray select-text\">\n                            <code>" + error + "</code>\n                        </div>"
-                });
-            }).unsubscribe();
-        }));
-        rxjs_1.race(success, fail).pipe(operators_1.take(1)).subscribe();
+            });
+        });
     };
     PurchaseCompleteComponent = __decorate([
         core_1.Component({
@@ -5659,8 +5859,10 @@ var PurchaseCompleteComponent = /** @class */ (function () {
             styles: [__webpack_require__(/*! ./purchase-complete.component.scss */ "./app/components/pages/purchase/purchase-complete/purchase-complete.component.scss")]
         }),
         __metadata("design:paramtypes", [store_1.Store,
-            effects_1.Actions,
             router_1.Router,
+            services_1.PurchaseService,
+            services_1.OrderService,
+            services_1.UserService,
             services_1.UtilService,
             core_2.TranslateService])
     ], PurchaseCompleteComponent);
@@ -5700,28 +5902,60 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : new P(function (resolve) { resolve(result.value); }).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+var __generator = (this && this.__generator) || function (thisArg, body) {
+    var _ = { label: 0, sent: function() { if (t[0] & 1) throw t[1]; return t[1]; }, trys: [], ops: [] }, f, y, t, g;
+    return g = { next: verb(0), "throw": verb(1), "return": verb(2) }, typeof Symbol === "function" && (g[Symbol.iterator] = function() { return this; }), g;
+    function verb(n) { return function (v) { return step([n, v]); }; }
+    function step(op) {
+        if (f) throw new TypeError("Generator is already executing.");
+        while (_) try {
+            if (f = 1, y && (t = op[0] & 2 ? y["return"] : op[0] ? y["throw"] || ((t = y["return"]) && t.call(y), 0) : y.next) && !(t = t.call(y, op[1])).done) return t;
+            if (y = 0, t) op = [op[0] & 2, t.value];
+            switch (op[0]) {
+                case 0: case 1: t = op; break;
+                case 4: _.label++; return { value: op[1], done: false };
+                case 5: _.label++; y = op[1]; op = [0]; continue;
+                case 7: op = _.ops.pop(); _.trys.pop(); continue;
+                default:
+                    if (!(t = _.trys, t = t.length > 0 && t[t.length - 1]) && (op[0] === 6 || op[0] === 2)) { _ = 0; continue; }
+                    if (op[0] === 3 && (!t || (op[1] > t[0] && op[1] < t[3]))) { _.label = op[1]; break; }
+                    if (op[0] === 6 && _.label < t[1]) { _.label = t[1]; t = op; break; }
+                    if (t && _.label < t[2]) { _.label = t[2]; _.ops.push(op); break; }
+                    if (t[2]) _.ops.pop();
+                    _.trys.pop(); continue;
+            }
+            op = body.call(thisArg, _);
+        } catch (e) { op = [6, e]; y = 0; } finally { f = t = 0; }
+        if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
+    }
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = __webpack_require__(/*! @angular/core */ "../../node_modules/@angular/core/fesm5/core.js");
 var router_1 = __webpack_require__(/*! @angular/router */ "../../node_modules/@angular/router/fesm5/router.js");
 var api_javascript_client_1 = __webpack_require__(/*! @cinerino/api-javascript-client */ "../../node_modules/@cinerino/api-javascript-client/lib/index.js");
-var effects_1 = __webpack_require__(/*! @ngrx/effects */ "../../node_modules/@ngrx/effects/fesm5/effects.js");
 var store_1 = __webpack_require__(/*! @ngrx/store */ "../../node_modules/@ngrx/store/fesm5/store.js");
 var core_2 = __webpack_require__(/*! @ngx-translate/core */ "../../node_modules/@ngx-translate/core/fesm5/ngx-translate-core.js");
 var moment = __webpack_require__(/*! moment */ "../../node_modules/moment/moment.js");
-var rxjs_1 = __webpack_require__(/*! rxjs */ "../../node_modules/rxjs/_esm5/index.js");
-var operators_1 = __webpack_require__(/*! rxjs/operators */ "../../node_modules/rxjs/_esm5/operators/index.js");
 var environment_1 = __webpack_require__(/*! ../../../../../environments/environment */ "./environments/environment.ts");
 var functions_1 = __webpack_require__(/*! ../../../../functions */ "./app/functions/index.ts");
 var models_1 = __webpack_require__(/*! ../../../../models */ "./app/models/index.ts");
 var services_1 = __webpack_require__(/*! ../../../../services */ "./app/services/index.ts");
-var actions_1 = __webpack_require__(/*! ../../../../store/actions */ "./app/store/actions/index.ts");
 var reducers = __webpack_require__(/*! ../../../../store/reducers */ "./app/store/reducers/index.ts");
 var PurchaseConfirmComponent = /** @class */ (function () {
-    function PurchaseConfirmComponent(store, actions, router, util, translate) {
+    function PurchaseConfirmComponent(store, router, purchaseService, userService, utilService, translate) {
         this.store = store;
-        this.actions = actions;
         this.router = router;
-        this.util = util;
+        this.purchaseService = purchaseService;
+        this.userService = userService;
+        this.utilService = utilService;
         this.translate = translate;
         this.moment = moment;
         this.paymentMethodType = api_javascript_client_1.factory.paymentMethodType;
@@ -5742,150 +5976,73 @@ var PurchaseConfirmComponent = /** @class */ (function () {
         }).unsubscribe();
     };
     /**
-     * 購入情報登録
-     */
-    PurchaseConfirmComponent.prototype.registerContact = function () {
-        var _this = this;
-        this.purchase.subscribe(function (purchase) {
-            _this.user.subscribe(function (user) {
-                if (purchase.transaction === undefined
-                    || user.customerContact === undefined) {
-                    _this.router.navigate(['/error']);
-                    return;
-                }
-                var transaction = purchase.transaction;
-                var contact = user.customerContact;
-                _this.store.dispatch(new actions_1.purchaseAction.RegisterContact({ transaction: transaction, contact: contact }));
-            }).unsubscribe();
-        }).unsubscribe();
-        var success = this.actions.pipe(effects_1.ofType(actions_1.purchaseAction.ActionTypes.RegisterContactSuccess), operators_1.tap(function () {
-            _this.reserve();
-        }));
-        var fail = this.actions.pipe(effects_1.ofType(actions_1.purchaseAction.ActionTypes.RegisterContactFail), operators_1.tap(function () {
-            _this.router.navigate(['/error']);
-        }));
-        rxjs_1.race(success, fail).pipe(operators_1.take(1)).subscribe();
-    };
-    /**
-     * 決済承認処理
-     */
-    PurchaseConfirmComponent.prototype.authorizeAnyPayment = function () {
-        var _this = this;
-        this.purchase.subscribe(function (purchase) {
-            if (purchase.transaction === undefined
-                || purchase.paymentMethod === undefined) {
-                _this.router.navigate(['/error']);
-                return;
-            }
-            var transaction = purchase.transaction;
-            var amount = _this.amount;
-            var additionalProperty = [];
-            if (purchase.paymentMethod.paymentMethodType === api_javascript_client_1.factory.paymentMethodType.Cash) {
-                // 現金
-                additionalProperty.push({ name: 'depositAmount', value: Number(_this.depositAmount) });
-                additionalProperty.push({
-                    name: 'change',
-                    value: Number(_this.depositAmount) - _this.amount
-                });
-            }
-            _this.store.dispatch(new actions_1.purchaseAction.AuthorizeAnyPayment({
-                transaction: transaction,
-                typeOf: purchase.paymentMethod.paymentMethodType,
-                name: purchase.paymentMethod.paymentMethodName,
-                amount: amount,
-                additionalProperty: additionalProperty
-            }));
-        }).unsubscribe();
-        var success = this.actions.pipe(effects_1.ofType(actions_1.purchaseAction.ActionTypes.AuthorizeAnyPaymentSuccess), operators_1.tap(function () {
-            _this.registerContact();
-        }));
-        var fail = this.actions.pipe(effects_1.ofType(actions_1.purchaseAction.ActionTypes.AuthorizeAnyPaymentFail), operators_1.tap(function () {
-            _this.router.navigate(['/error']);
-        }));
-        rxjs_1.race(success, fail).pipe(operators_1.take(1)).subscribe();
-    };
-    /**
-     * 予約
-     */
-    PurchaseConfirmComponent.prototype.reserve = function () {
-        var _this = this;
-        this.user.subscribe(function (user) {
-            _this.purchase.subscribe(function (purchase) {
-                if (user.seller === undefined || purchase.transaction === undefined) {
-                    _this.router.navigate(['/error']);
-                    return;
-                }
-                var transaction = purchase.transaction;
-                var authorizeSeatReservations = purchase.authorizeSeatReservations;
-                var seller = user.seller;
-                _this.store.dispatch(new actions_1.purchaseAction.EndTransaction({ transaction: transaction, authorizeSeatReservations: authorizeSeatReservations, seller: seller }));
-            }).unsubscribe();
-        }).unsubscribe();
-        var success = this.actions.pipe(effects_1.ofType(actions_1.purchaseAction.ActionTypes.EndTransactionSuccess), operators_1.tap(function () {
-            _this.router.navigate(['/purchase/complete']);
-        }));
-        var fail = this.actions.pipe(effects_1.ofType(actions_1.purchaseAction.ActionTypes.EndTransactionFail), operators_1.tap(function () {
-            _this.router.navigate(['/error']);
-        }));
-        rxjs_1.race(success, fail).pipe(operators_1.take(1)).subscribe();
-    };
-    /**
-     * ムビチケ承認処理
-     */
-    PurchaseConfirmComponent.prototype.authorizeMovieTicket = function () {
-        var _this = this;
-        this.purchase.subscribe(function (purchase) {
-            if (purchase.transaction === undefined) {
-                _this.router.navigate(['/error']);
-                return;
-            }
-            _this.store.dispatch(new actions_1.purchaseAction.AuthorizeMovieTicket({
-                transaction: purchase.transaction,
-                authorizeMovieTicketPayments: purchase.authorizeMovieTicketPayments,
-                authorizeSeatReservations: purchase.authorizeSeatReservations,
-                pendingMovieTickets: purchase.pendingMovieTickets
-            }));
-        }).unsubscribe();
-        var success = this.actions.pipe(effects_1.ofType(actions_1.purchaseAction.ActionTypes.AuthorizeMovieTicketSuccess), operators_1.tap(function () {
-            if (_this.amount > 0) {
-                _this.authorizeAnyPayment();
-            }
-            else {
-                _this.registerContact();
-            }
-        }));
-        var fail = this.actions.pipe(effects_1.ofType(actions_1.purchaseAction.ActionTypes.AuthorizeMovieTicketFail), operators_1.tap(function () {
-            _this.router.navigate(['/error']);
-        }));
-        rxjs_1.race(success, fail).pipe(operators_1.take(1)).subscribe();
-    };
-    /**
      * 確定
      */
     PurchaseConfirmComponent.prototype.onSubmit = function () {
-        var _this = this;
-        this.purchase.subscribe(function (purchase) {
-            if (purchase.paymentMethod === undefined) {
-                _this.router.navigate(['/error']);
-                return;
-            }
-            if (purchase.paymentMethod.paymentMethodType === api_javascript_client_1.factory.paymentMethodType.Cash) {
-                if (Number(_this.depositAmount) < _this.amount) {
-                    _this.util.openAlert({
-                        title: _this.translate.instant('common.error'),
-                        body: _this.translate.instant('purchase.confirm.alert.custody')
-                    });
-                    return;
+        return __awaiter(this, void 0, void 0, function () {
+            var purchase, user, contact, seller, paymentMethod, error_1;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, this.purchaseService.getData()];
+                    case 1:
+                        purchase = _a.sent();
+                        return [4 /*yield*/, this.userService.getData()];
+                    case 2:
+                        user = _a.sent();
+                        contact = user.customerContact;
+                        seller = user.seller;
+                        paymentMethod = purchase.paymentMethod;
+                        if (paymentMethod === undefined
+                            || contact === undefined
+                            || seller === undefined) {
+                            this.router.navigate(['/error']);
+                            return [2 /*return*/];
+                        }
+                        if (paymentMethod.paymentMethodType === api_javascript_client_1.factory.paymentMethodType.Cash) {
+                            if (Number(this.depositAmount) < this.amount) {
+                                this.utilService.openAlert({
+                                    title: this.translate.instant('common.error'),
+                                    body: this.translate.instant('purchase.confirm.alert.custody')
+                                });
+                                return [2 /*return*/];
+                            }
+                        }
+                        _a.label = 3;
+                    case 3:
+                        _a.trys.push([3, 9, , 10]);
+                        if (!(purchase.pendingMovieTickets.length > 0)) return [3 /*break*/, 5];
+                        return [4 /*yield*/, this.purchaseService.authorizeMovieTicket()];
+                    case 4:
+                        _a.sent();
+                        _a.label = 5;
+                    case 5: return [4 /*yield*/, this.purchaseService.authorizeAnyPayment({
+                            amount: this.amount,
+                            depositAmount: (paymentMethod.paymentMethodType === api_javascript_client_1.factory.paymentMethodType.Cash)
+                                ? Number(this.depositAmount) : undefined
+                        })];
+                    case 6:
+                        _a.sent();
+                        return [4 /*yield*/, this.purchaseService.registerContact(contact)];
+                    case 7:
+                        _a.sent();
+                        return [4 /*yield*/, this.purchaseService.endTransaction(seller)];
+                    case 8:
+                        _a.sent();
+                        this.router.navigate(['/purchase/complete']);
+                        return [3 /*break*/, 10];
+                    case 9:
+                        error_1 = _a.sent();
+                        console.error(error_1);
+                        this.router.navigate(['/error']);
+                        return [3 /*break*/, 10];
+                    case 10: return [2 /*return*/];
                 }
-            }
-            if (purchase.pendingMovieTickets.length > 0) {
-                _this.authorizeMovieTicket();
-            }
-            else {
-                _this.authorizeAnyPayment();
-            }
-        }).unsubscribe();
+            });
+        });
     };
+    /**
+     * 支払い金額変換
+     */
     PurchaseConfirmComponent.prototype.changeDepositAmount = function (value) {
         this.depositAmount = String(Number(value));
     };
@@ -5896,264 +6053,15 @@ var PurchaseConfirmComponent = /** @class */ (function () {
             styles: [__webpack_require__(/*! ./purchase-confirm.component.scss */ "./app/components/pages/purchase/purchase-confirm/purchase-confirm.component.scss")]
         }),
         __metadata("design:paramtypes", [store_1.Store,
-            effects_1.Actions,
             router_1.Router,
+            services_1.PurchaseService,
+            services_1.UserService,
             services_1.UtilService,
             core_2.TranslateService])
     ], PurchaseConfirmComponent);
     return PurchaseConfirmComponent;
 }());
 exports.PurchaseConfirmComponent = PurchaseConfirmComponent;
-
-
-/***/ }),
-
-/***/ "./app/components/pages/purchase/purchase-input/purchase-input.component.scss":
-/*!************************************************************************************!*\
-  !*** ./app/components/pages/purchase/purchase-input/purchase-input.component.scss ***!
-  \************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvY2xpZW50L2FwcC9jb21wb25lbnRzL3BhZ2VzL3B1cmNoYXNlL3B1cmNoYXNlLWlucHV0L3B1cmNoYXNlLWlucHV0LmNvbXBvbmVudC5zY3NzIn0= */"
-
-/***/ }),
-
-/***/ "./app/components/pages/purchase/purchase-input/purchase-input.component.ts":
-/*!**********************************************************************************!*\
-  !*** ./app/components/pages/purchase/purchase-input/purchase-input.component.ts ***!
-  \**********************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-var core_1 = __webpack_require__(/*! @angular/core */ "../../node_modules/@angular/core/fesm5/core.js");
-var forms_1 = __webpack_require__(/*! @angular/forms */ "../../node_modules/@angular/forms/fesm5/forms.js");
-var router_1 = __webpack_require__(/*! @angular/router */ "../../node_modules/@angular/router/fesm5/router.js");
-var effects_1 = __webpack_require__(/*! @ngrx/effects */ "../../node_modules/@ngrx/effects/fesm5/effects.js");
-var store_1 = __webpack_require__(/*! @ngrx/store */ "../../node_modules/@ngrx/store/fesm5/store.js");
-var core_2 = __webpack_require__(/*! @ngx-translate/core */ "../../node_modules/@ngx-translate/core/fesm5/ngx-translate-core.js");
-var libphonenumber = __webpack_require__(/*! libphonenumber-js */ "../../node_modules/libphonenumber-js/index.es6.js");
-var moment = __webpack_require__(/*! moment */ "../../node_modules/moment/moment.js");
-var rxjs_1 = __webpack_require__(/*! rxjs */ "../../node_modules/rxjs/_esm5/index.js");
-var operators_1 = __webpack_require__(/*! rxjs/operators */ "../../node_modules/rxjs/_esm5/operators/index.js");
-var services_1 = __webpack_require__(/*! ../../../../services */ "./app/services/index.ts");
-var actions_1 = __webpack_require__(/*! ../../../../store/actions */ "./app/store/actions/index.ts");
-var reducers = __webpack_require__(/*! ../../../../store/reducers */ "./app/store/reducers/index.ts");
-var PurchaseInputComponent = /** @class */ (function () {
-    function PurchaseInputComponent(store, actions, router, util, formBuilder, translate) {
-        this.store = store;
-        this.actions = actions;
-        this.router = router;
-        this.util = util;
-        this.formBuilder = formBuilder;
-        this.translate = translate;
-    }
-    PurchaseInputComponent.prototype.ngOnInit = function () {
-        var _this = this;
-        this.amount = 0;
-        this.purchase = this.store.pipe(store_1.select(reducers.getPurchase));
-        this.isLoading = this.store.pipe(store_1.select(reducers.getLoading));
-        this.purchase.subscribe(function (purchase) {
-            if (purchase.authorizeSeatReservation === undefined
-                || purchase.authorizeSeatReservation.result === undefined) {
-                _this.router.navigate(['/error']);
-                return;
-            }
-            _this.amount = purchase.authorizeSeatReservation.result.price;
-        }).unsubscribe();
-        this.createCustomerContactForm();
-        this.createPaymentForm();
-    };
-    PurchaseInputComponent.prototype.createCustomerContactForm = function () {
-        var NAME_MAX_LENGTH = 12;
-        var MAIL_MAX_LENGTH = 50;
-        var TEL_MAX_LENGTH = 11;
-        var TEL_MIN_LENGTH = 9;
-        this.customerContactForm = this.formBuilder.group({
-            familyName: ['', [
-                    forms_1.Validators.required,
-                    forms_1.Validators.maxLength(NAME_MAX_LENGTH),
-                    forms_1.Validators.pattern(/^[ァ-ヶー]+$/)
-                ]],
-            givenName: ['', [
-                    forms_1.Validators.required,
-                    forms_1.Validators.maxLength(NAME_MAX_LENGTH),
-                    forms_1.Validators.pattern(/^[ァ-ヶー]+$/)
-                ]],
-            email: ['', [
-                    forms_1.Validators.required,
-                    forms_1.Validators.maxLength(MAIL_MAX_LENGTH),
-                    forms_1.Validators.email
-                ]],
-            telephone: ['', [
-                    forms_1.Validators.required,
-                    forms_1.Validators.maxLength(TEL_MAX_LENGTH),
-                    forms_1.Validators.minLength(TEL_MIN_LENGTH),
-                    forms_1.Validators.pattern(/^[0-9]+$/),
-                    function (control) {
-                        var field = control.root.get('telephone');
-                        if (field !== null) {
-                            var parsedNumber = libphonenumber.parse(field.value, 'JP');
-                            if (parsedNumber.phone === undefined) {
-                                return { telephone: true };
-                            }
-                            var isValid = libphonenumber.isValidNumber(parsedNumber);
-                            if (!isValid) {
-                                return { telephone: true };
-                            }
-                        }
-                        return null;
-                    }
-                ]]
-        });
-    };
-    PurchaseInputComponent.prototype.createPaymentForm = function () {
-        this.cardExpiration = {
-            year: [],
-            month: []
-        };
-        for (var i = 0; i < 12; i++) {
-            this.cardExpiration.month.push(("0" + String(i + 1)).slice(-2));
-        }
-        for (var i = 0; i < 10; i++) {
-            this.cardExpiration.year.push(moment().add(i, 'year').format('YYYY'));
-        }
-        this.paymentForm = this.formBuilder.group({
-            cardNumber: ['', [forms_1.Validators.required, forms_1.Validators.pattern(/^[0-9]+$/)]],
-            cardExpirationMonth: [this.cardExpiration.month[0], [forms_1.Validators.required]],
-            cardExpirationYear: [this.cardExpiration.year[0], [forms_1.Validators.required]],
-            securityCode: ['', [forms_1.Validators.required]],
-            holderName: ['', [forms_1.Validators.required]]
-        });
-    };
-    PurchaseInputComponent.prototype.onSubmit = function () {
-        var _this = this;
-        Object.keys(this.customerContactForm.controls).forEach(function (key) {
-            _this.customerContactForm.controls[key].markAsTouched();
-        });
-        Object.keys(this.paymentForm.controls).forEach(function (key) {
-            _this.paymentForm.controls[key].markAsTouched();
-        });
-        this.customerContactForm.controls.familyName.setValue(document.getElementById('familyName').value);
-        this.customerContactForm.controls.givenName.setValue(document.getElementById('givenName').value);
-        this.customerContactForm.controls.email.setValue(document.getElementById('email').value);
-        this.customerContactForm.controls.telephone.setValue(document.getElementById('telephone').value);
-        if (this.amount > 0) {
-            this.paymentForm.controls.cardNumber.setValue(document.getElementById('cardNumber').value);
-            this.paymentForm.controls.securityCode.setValue(document.getElementById('securityCode').value);
-            this.paymentForm.controls.holderName.setValue(document.getElementById('holderName').value);
-        }
-        if (this.customerContactForm.invalid) {
-            this.util.openAlert({
-                title: this.translate.instant('common.error'),
-                body: '購入者情報に誤りがあります。'
-            });
-            return;
-        }
-        if (this.amount > 0 && this.paymentForm.invalid) {
-            this.util.openAlert({
-                title: this.translate.instant('common.error'),
-                body: '決済情報に誤りがあります。'
-            });
-            return;
-        }
-        this.registerContact();
-    };
-    /**
-     * registerContact
-     */
-    PurchaseInputComponent.prototype.registerContact = function () {
-        var _this = this;
-        this.purchase.subscribe(function (purchase) {
-            if (purchase.transaction === undefined) {
-                _this.router.navigate(['/error']);
-                return;
-            }
-            var transaction = purchase.transaction;
-            var contact = {
-                givenName: _this.customerContactForm.controls.givenName.value,
-                familyName: _this.customerContactForm.controls.familyName.value,
-                telephone: _this.customerContactForm.controls.telephone.value,
-                email: _this.customerContactForm.controls.email.value,
-            };
-            _this.store.dispatch(new actions_1.purchaseAction.RegisterContact({ transaction: transaction, contact: contact }));
-        }).unsubscribe();
-        var success = this.actions.pipe(effects_1.ofType(actions_1.purchaseAction.ActionTypes.RegisterContactSuccess), operators_1.tap(function () {
-            _this.purchase.subscribe(function (purchase) {
-                if (purchase.authorizeSeatReservation !== undefined
-                    && purchase.authorizeSeatReservation.result !== undefined
-                    && purchase.authorizeSeatReservation.result.price > 0) {
-                    _this.createGmoTokenObject();
-                }
-                else {
-                    _this.router.navigate(['/purchase/confirm']);
-                }
-            }).unsubscribe();
-        }));
-        var fail = this.actions.pipe(effects_1.ofType(actions_1.purchaseAction.ActionTypes.RegisterContactFail), operators_1.tap(function () {
-            _this.router.navigate(['/error']);
-        }));
-        rxjs_1.race(success, fail).pipe(operators_1.take(1)).subscribe();
-    };
-    /**
-     * createGmoTokenObject
-     */
-    PurchaseInputComponent.prototype.createGmoTokenObject = function () {
-        var _this = this;
-        this.purchase.subscribe(function (purchase) {
-            if (purchase.seller === undefined) {
-                _this.router.navigate(['/error']);
-                return;
-            }
-            _this.store.dispatch(new actions_1.purchaseAction.CreateGmoTokenObject({
-                seller: purchase.seller,
-                creditCard: {
-                    cardno: _this.paymentForm.controls.cardNumber.value,
-                    expire: "" + _this.paymentForm.controls.cardExpirationYear.value + _this.paymentForm.controls.cardExpirationMonth.value,
-                    holderName: _this.paymentForm.controls.holderName.value,
-                    securityCode: _this.paymentForm.controls.securityCode.value
-                }
-            }));
-        }).unsubscribe();
-        var success = this.actions.pipe(effects_1.ofType(actions_1.purchaseAction.ActionTypes.CreateGmoTokenObjectSuccess), operators_1.tap(function () {
-            _this.router.navigate(['/purchase/confirm']);
-        }));
-        var fail = this.actions.pipe(effects_1.ofType(actions_1.purchaseAction.ActionTypes.CreateGmoTokenObjectFail), operators_1.tap(function () {
-            _this.util.openAlert({
-                title: _this.translate.instant('common.error'),
-                body: 'クレジットカード情報を確認してください。'
-            });
-        }));
-        rxjs_1.race(success, fail).pipe(operators_1.take(1)).subscribe();
-    };
-    PurchaseInputComponent = __decorate([
-        core_1.Component({
-            selector: 'app-purchase-input',
-            template: __webpack_require__(/*! raw-loader!./purchase-input.component.html */ "../../node_modules/raw-loader/index.js!./app/components/pages/purchase/purchase-input/purchase-input.component.html"),
-            styles: [__webpack_require__(/*! ./purchase-input.component.scss */ "./app/components/pages/purchase/purchase-input/purchase-input.component.scss")]
-        }),
-        __metadata("design:paramtypes", [store_1.Store,
-            effects_1.Actions,
-            router_1.Router,
-            services_1.UtilService,
-            forms_1.FormBuilder,
-            core_2.TranslateService])
-    ], PurchaseInputComponent);
-    return PurchaseInputComponent;
-}());
-exports.PurchaseInputComponent = PurchaseInputComponent;
 
 
 /***/ }),
@@ -6196,13 +6104,13 @@ var core_2 = __webpack_require__(/*! @ngx-translate/core */ "../../node_modules/
 var environment_1 = __webpack_require__(/*! ../../../../../environments/environment */ "./environments/environment.ts");
 var models_1 = __webpack_require__(/*! ../../../../models */ "./app/models/index.ts");
 var services_1 = __webpack_require__(/*! ../../../../services */ "./app/services/index.ts");
-var actions_1 = __webpack_require__(/*! ../../../../store/actions */ "./app/store/actions/index.ts");
 var reducers = __webpack_require__(/*! ../../../../store/reducers */ "./app/store/reducers/index.ts");
 var PurchasePaymentComponent = /** @class */ (function () {
-    function PurchasePaymentComponent(store, router, util, translate) {
+    function PurchasePaymentComponent(store, router, utilService, purchaseService, translate) {
         this.store = store;
         this.router = router;
-        this.util = util;
+        this.utilService = utilService;
+        this.purchaseService = purchaseService;
         this.translate = translate;
         this.paymentMethodType = api_javascript_client_1.factory.paymentMethodType;
         this.viewType = models_1.ViewType;
@@ -6226,13 +6134,13 @@ var PurchasePaymentComponent = /** @class */ (function () {
             var findResult = user.seller.paymentAccepted
                 .find(function (paymentAccepted) { return paymentAccepted.paymentMethodType === paymentMethodType; });
             if (findResult === undefined) {
-                _this.util.openAlert({
+                _this.utilService.openAlert({
                     title: _this.translate.instant('common.error'),
                     body: _this.translate.instant('purchase.payment.alert.notCompatible')
                 });
                 return;
             }
-            _this.store.dispatch(new actions_1.purchaseAction.SelectPaymentMethodType({ paymentMethodType: paymentMethodType, paymentMethodName: paymentMethodName }));
+            _this.purchaseService.selectPaymentMethodType({ paymentMethodType: paymentMethodType, paymentMethodName: paymentMethodName });
             _this.router.navigate(['/purchase/confirm']);
         }).unsubscribe();
     };
@@ -6252,6 +6160,7 @@ var PurchasePaymentComponent = /** @class */ (function () {
         __metadata("design:paramtypes", [store_1.Store,
             router_1.Router,
             services_1.UtilService,
+            services_1.PurchaseService,
             core_2.TranslateService])
     ], PurchasePaymentComponent);
     return PurchasePaymentComponent;
@@ -6328,60 +6237,54 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = __webpack_require__(/*! @angular/core */ "../../node_modules/@angular/core/fesm5/core.js");
 var router_1 = __webpack_require__(/*! @angular/router */ "../../node_modules/@angular/router/fesm5/router.js");
-var effects_1 = __webpack_require__(/*! @ngrx/effects */ "../../node_modules/@ngrx/effects/fesm5/effects.js");
 var store_1 = __webpack_require__(/*! @ngrx/store */ "../../node_modules/@ngrx/store/fesm5/store.js");
-var rxjs_1 = __webpack_require__(/*! rxjs */ "../../node_modules/rxjs/_esm5/index.js");
-var operators_1 = __webpack_require__(/*! rxjs/operators */ "../../node_modules/rxjs/_esm5/operators/index.js");
 var models_1 = __webpack_require__(/*! ../../../../models */ "./app/models/index.ts");
-var actions_1 = __webpack_require__(/*! ../../../../store/actions */ "./app/store/actions/index.ts");
+var services_1 = __webpack_require__(/*! ../../../../services */ "./app/services/index.ts");
 var reducers = __webpack_require__(/*! ../../../../store/reducers */ "./app/store/reducers/index.ts");
 var PurchaseRootComponent = /** @class */ (function () {
-    function PurchaseRootComponent(store, actions, router) {
+    function PurchaseRootComponent(store, purchaseService, userService, router) {
         this.store = store;
-        this.actions = actions;
+        this.purchaseService = purchaseService;
+        this.userService = userService;
         this.router = router;
     }
     PurchaseRootComponent.prototype.ngOnInit = function () {
-        var _this = this;
-        this.user = this.store.pipe(store_1.select(reducers.getUser));
-        this.purchase = this.store.pipe(store_1.select(reducers.getPurchase));
-        this.purchase.subscribe(function (purchase) { return __awaiter(_this, void 0, void 0, function () {
-            var _this = this;
+        return __awaiter(this, void 0, void 0, function () {
+            var purchase, user, error_1;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
-                        if (!(purchase.authorizeSeatReservations.length > 0)) return [3 /*break*/, 2];
-                        return [4 /*yield*/, this.cancelTemporaryReservations()];
+                        this.user = this.store.pipe(store_1.select(reducers.getUser));
+                        this.purchase = this.store.pipe(store_1.select(reducers.getPurchase));
+                        _a.label = 1;
                     case 1:
-                        _a.sent();
-                        _a.label = 2;
+                        _a.trys.push([1, 6, , 7]);
+                        return [4 /*yield*/, this.purchaseService.getData()];
                     case 2:
-                        this.store.dispatch(new actions_1.purchaseAction.Delete());
-                        this.user.subscribe(function (user) {
-                            if (user.viewType === models_1.ViewType.Cinema) {
-                                _this.router.navigate(['/purchase/cinema/schedule']);
-                                return;
-                            }
-                            _this.router.navigate(['/purchase/event/schedule']);
-                        }).unsubscribe();
-                        return [2 /*return*/];
+                        purchase = _a.sent();
+                        return [4 /*yield*/, this.userService.getData()];
+                    case 3:
+                        user = _a.sent();
+                        if (!(purchase.transaction !== undefined)) return [3 /*break*/, 5];
+                        return [4 /*yield*/, this.purchaseService.cancelTransaction()];
+                    case 4:
+                        _a.sent();
+                        _a.label = 5;
+                    case 5:
+                        this.purchaseService.delete();
+                        if (user.viewType === models_1.ViewType.Cinema) {
+                            this.router.navigate(['/purchase/cinema/schedule']);
+                            return [2 /*return*/];
+                        }
+                        this.router.navigate(['/purchase/event/schedule']);
+                        return [3 /*break*/, 7];
+                    case 6:
+                        error_1 = _a.sent();
+                        console.error(error_1);
+                        this.router.navigate(['/error']);
+                        return [3 /*break*/, 7];
+                    case 7: return [2 /*return*/];
                 }
-            });
-        }); }).unsubscribe();
-    };
-    PurchaseRootComponent.prototype.cancelTemporaryReservations = function () {
-        return __awaiter(this, void 0, void 0, function () {
-            var _this = this;
-            return __generator(this, function (_a) {
-                this.purchase.subscribe(function (purchase) {
-                    var authorizeSeatReservations = purchase.authorizeSeatReservations;
-                    _this.store.dispatch(new actions_1.purchaseAction.CancelTemporaryReservations({ authorizeSeatReservations: authorizeSeatReservations }));
-                }).unsubscribe();
-                return [2 /*return*/, new Promise(function (resolve, reject) {
-                        var success = _this.actions.pipe(effects_1.ofType(actions_1.purchaseAction.ActionTypes.CancelTemporaryReservationsSuccess), operators_1.tap(function () { resolve(); }));
-                        var fail = _this.actions.pipe(effects_1.ofType(actions_1.purchaseAction.ActionTypes.CancelTemporaryReservationsFail), operators_1.tap(function () { reject(); }));
-                        rxjs_1.race(success, fail).pipe(operators_1.take(1)).subscribe();
-                    })];
             });
         });
     };
@@ -6392,7 +6295,8 @@ var PurchaseRootComponent = /** @class */ (function () {
             styles: [__webpack_require__(/*! ./purchase-root.component.scss */ "./app/components/pages/purchase/purchase-root/purchase-root.component.scss")]
         }),
         __metadata("design:paramtypes", [store_1.Store,
-            effects_1.Actions,
+            services_1.PurchaseService,
+            services_1.UserService,
             router_1.Router])
     ], PurchaseRootComponent);
     return PurchaseRootComponent;
@@ -6469,27 +6373,23 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = __webpack_require__(/*! @angular/core */ "../../node_modules/@angular/core/fesm5/core.js");
 var api_javascript_client_1 = __webpack_require__(/*! @cinerino/api-javascript-client */ "../../node_modules/@cinerino/api-javascript-client/lib/index.js");
-var effects_1 = __webpack_require__(/*! @ngrx/effects */ "../../node_modules/@ngrx/effects/fesm5/effects.js");
 var store_1 = __webpack_require__(/*! @ngrx/store */ "../../node_modules/@ngrx/store/fesm5/store.js");
 var core_2 = __webpack_require__(/*! @ngx-translate/core */ "../../node_modules/@ngx-translate/core/fesm5/ngx-translate-core.js");
 var moment = __webpack_require__(/*! moment */ "../../node_modules/moment/moment.js");
 var ngx_bootstrap_1 = __webpack_require__(/*! ngx-bootstrap */ "../../node_modules/ngx-bootstrap/esm5/ngx-bootstrap.js");
-var rxjs_1 = __webpack_require__(/*! rxjs */ "../../node_modules/rxjs/_esm5/index.js");
-var operators_1 = __webpack_require__(/*! rxjs/operators */ "../../node_modules/rxjs/_esm5/operators/index.js");
 var environment_1 = __webpack_require__(/*! ../../../../../environments/environment */ "./environments/environment.ts");
 var functions_1 = __webpack_require__(/*! ../../../../functions */ "./app/functions/index.ts");
 var services_1 = __webpack_require__(/*! ../../../../services */ "./app/services/index.ts");
-var actions_1 = __webpack_require__(/*! ../../../../store/actions */ "./app/store/actions/index.ts");
 var reducers = __webpack_require__(/*! ../../../../store/reducers */ "./app/store/reducers/index.ts");
 var parts_1 = __webpack_require__(/*! ../../../parts */ "./app/components/parts/index.ts");
 var ReservationSearchComponent = /** @class */ (function () {
-    function ReservationSearchComponent(store, actions, modal, download, localeService, util, translate) {
+    function ReservationSearchComponent(store, modal, download, localeService, utilService, reservationService, translate) {
         this.store = store;
-        this.actions = actions;
         this.modal = modal;
         this.download = download;
         this.localeService = localeService;
-        this.util = util;
+        this.utilService = utilService;
+        this.reservationService = reservationService;
         this.translate = translate;
         this.moment = moment;
         this.reservationStatus = api_javascript_client_1.factory.chevre.reservationStatusType;
@@ -6509,7 +6409,7 @@ var ReservationSearchComponent = /** @class */ (function () {
             reservationStatus: '',
             page: 1
         };
-        this.store.dispatch(new actions_1.reservationAction.Delete());
+        this.reservationService.delete();
     };
     /**
      * 検索パラメータへ変換
@@ -6522,13 +6422,6 @@ var ReservationSearchComponent = /** @class */ (function () {
                         _this.user.subscribe(function () {
                             var params = {
                                 typeOf: api_javascript_client_1.factory.chevre.reservationType.EventReservation,
-                                // project: { ids: [environment.PROJECT_ID] },
-                                // seller: {
-                                //     typeOf: (user.seller === undefined)
-                                //         ? undefined : user.seller.typeOf,
-                                //     ids: (user.seller === undefined)
-                                //         ? undefined : [user.seller.id]
-                                // },
                                 bookingFrom: (_this.confirmedConditions.reservationDateFrom === undefined)
                                     ? undefined
                                     : moment(moment(_this.confirmedConditions.reservationDateFrom).format('YYYYMMDD')).toDate(),
@@ -6565,33 +6458,46 @@ var ReservationSearchComponent = /** @class */ (function () {
      * 検索
      */
     ReservationSearchComponent.prototype.reservationSearch = function (changeConditions, event) {
-        var _this = this;
-        if (event !== undefined) {
-            this.confirmedConditions.page = event.page;
-        }
-        if (changeConditions) {
-            this.confirmedConditions = {
-                reservationDateFrom: this.conditions.reservationDateFrom,
-                reservationDateThrough: this.conditions.reservationDateThrough,
-                eventStartDateFrom: this.conditions.eventStartDateFrom,
-                eventStartDateThrough: this.conditions.eventStartDateThrough,
-                id: this.conditions.id,
-                reservationNumber: this.conditions.reservationNumber,
-                reservationStatus: this.conditions.reservationStatus,
-                page: 1
-            };
-        }
-        this.convertToSearchParams().then(function (params) {
-            _this.store.dispatch(new actions_1.reservationAction.Search({ params: params }));
-        });
-        var success = this.actions.pipe(effects_1.ofType(actions_1.reservationAction.ActionTypes.SearchSuccess), operators_1.tap(function () { }));
-        var fail = this.actions.pipe(effects_1.ofType(actions_1.reservationAction.ActionTypes.SearchFail), operators_1.tap(function () {
-            _this.util.openAlert({
-                title: _this.translate.instant('common.error'),
-                body: _this.translate.instant('reservation.search.alert.search')
+        return __awaiter(this, void 0, void 0, function () {
+            var params, error_1;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        if (event !== undefined) {
+                            this.confirmedConditions.page = event.page;
+                        }
+                        if (changeConditions) {
+                            this.confirmedConditions = {
+                                reservationDateFrom: this.conditions.reservationDateFrom,
+                                reservationDateThrough: this.conditions.reservationDateThrough,
+                                eventStartDateFrom: this.conditions.eventStartDateFrom,
+                                eventStartDateThrough: this.conditions.eventStartDateThrough,
+                                id: this.conditions.id,
+                                reservationNumber: this.conditions.reservationNumber,
+                                reservationStatus: this.conditions.reservationStatus,
+                                page: 1
+                            };
+                        }
+                        _a.label = 1;
+                    case 1:
+                        _a.trys.push([1, 3, , 4]);
+                        return [4 /*yield*/, this.convertToSearchParams()];
+                    case 2:
+                        params = _a.sent();
+                        this.reservationService.search(params);
+                        return [3 /*break*/, 4];
+                    case 3:
+                        error_1 = _a.sent();
+                        console.error(error_1);
+                        this.utilService.openAlert({
+                            title: this.translate.instant('common.error'),
+                            body: this.translate.instant('reservation.search.alert.search')
+                        });
+                        return [3 /*break*/, 4];
+                    case 4: return [2 /*return*/];
+                }
             });
-        }));
-        rxjs_1.race(success, fail).pipe(operators_1.take(1)).subscribe();
+        });
     };
     /**
      * 検索条件クリア
@@ -6618,7 +6524,7 @@ var ReservationSearchComponent = /** @class */ (function () {
      */
     ReservationSearchComponent.prototype.downloadCsv = function () {
         return __awaiter(this, void 0, void 0, function () {
-            var params, error_1;
+            var params, error_2;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
@@ -6634,8 +6540,8 @@ var ReservationSearchComponent = /** @class */ (function () {
                         _a.sent();
                         return [3 /*break*/, 5];
                     case 4:
-                        error_1 = _a.sent();
-                        console.error(error_1);
+                        error_2 = _a.sent();
+                        console.error(error_2);
                         return [3 /*break*/, 5];
                     case 5:
                         this.isDownload = false;
@@ -6697,11 +6603,11 @@ var ReservationSearchComponent = /** @class */ (function () {
             styles: [__webpack_require__(/*! ./reservation-search.component.scss */ "./app/components/pages/reservation/reservation-search/reservation-search.component.scss")]
         }),
         __metadata("design:paramtypes", [store_1.Store,
-            effects_1.Actions,
             ngx_bootstrap_1.BsModalService,
             services_1.DownloadService,
             ngx_bootstrap_1.BsLocaleService,
             services_1.UtilService,
+            services_1.ReservationService,
             core_2.TranslateService])
     ], ReservationSearchComponent);
     return ReservationSearchComponent;
@@ -6740,30 +6646,63 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : new P(function (resolve) { resolve(result.value); }).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+var __generator = (this && this.__generator) || function (thisArg, body) {
+    var _ = { label: 0, sent: function() { if (t[0] & 1) throw t[1]; return t[1]; }, trys: [], ops: [] }, f, y, t, g;
+    return g = { next: verb(0), "throw": verb(1), "return": verb(2) }, typeof Symbol === "function" && (g[Symbol.iterator] = function() { return this; }), g;
+    function verb(n) { return function (v) { return step([n, v]); }; }
+    function step(op) {
+        if (f) throw new TypeError("Generator is already executing.");
+        while (_) try {
+            if (f = 1, y && (t = op[0] & 2 ? y["return"] : op[0] ? y["throw"] || ((t = y["return"]) && t.call(y), 0) : y.next) && !(t = t.call(y, op[1])).done) return t;
+            if (y = 0, t) op = [op[0] & 2, t.value];
+            switch (op[0]) {
+                case 0: case 1: t = op; break;
+                case 4: _.label++; return { value: op[1], done: false };
+                case 5: _.label++; y = op[1]; op = [0]; continue;
+                case 7: op = _.ops.pop(); _.trys.pop(); continue;
+                default:
+                    if (!(t = _.trys, t = t.length > 0 && t[t.length - 1]) && (op[0] === 6 || op[0] === 2)) { _ = 0; continue; }
+                    if (op[0] === 3 && (!t || (op[1] > t[0] && op[1] < t[3]))) { _.label = op[1]; break; }
+                    if (op[0] === 6 && _.label < t[1]) { _.label = t[1]; t = op; break; }
+                    if (t && _.label < t[2]) { _.label = t[2]; _.ops.push(op); break; }
+                    if (t[2]) _.ops.pop();
+                    _.trys.pop(); continue;
+            }
+            op = body.call(thisArg, _);
+        } catch (e) { op = [6, e]; y = 0; } finally { f = t = 0; }
+        if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
+    }
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = __webpack_require__(/*! @angular/core */ "../../node_modules/@angular/core/fesm5/core.js");
 var forms_1 = __webpack_require__(/*! @angular/forms */ "../../node_modules/@angular/forms/fesm5/forms.js");
 var router_1 = __webpack_require__(/*! @angular/router */ "../../node_modules/@angular/router/fesm5/router.js");
-var effects_1 = __webpack_require__(/*! @ngrx/effects */ "../../node_modules/@ngrx/effects/fesm5/effects.js");
 var store_1 = __webpack_require__(/*! @ngrx/store */ "../../node_modules/@ngrx/store/fesm5/store.js");
 var core_2 = __webpack_require__(/*! @ngx-translate/core */ "../../node_modules/@ngx-translate/core/fesm5/ngx-translate-core.js");
 var libphonenumber = __webpack_require__(/*! libphonenumber-js */ "../../node_modules/libphonenumber-js/index.es6.js");
-var rxjs_1 = __webpack_require__(/*! rxjs */ "../../node_modules/rxjs/_esm5/index.js");
-var operators_1 = __webpack_require__(/*! rxjs/operators */ "../../node_modules/rxjs/_esm5/operators/index.js");
 var environment_1 = __webpack_require__(/*! ../../../../environments/environment */ "./environments/environment.ts");
 var models_1 = __webpack_require__(/*! ../../../models */ "./app/models/index.ts");
 var libphonenumber_format_pipe_1 = __webpack_require__(/*! ../../../pipes/libphonenumber-format.pipe */ "./app/pipes/libphonenumber-format.pipe.ts");
 var services_1 = __webpack_require__(/*! ../../../services */ "./app/services/index.ts");
-var actions_1 = __webpack_require__(/*! ../../../store/actions */ "./app/store/actions/index.ts");
 var reducers = __webpack_require__(/*! ../../../store/reducers */ "./app/store/reducers/index.ts");
 var SettingComponent = /** @class */ (function () {
-    function SettingComponent(actions, formBuilder, store, util, router, translate) {
-        this.actions = actions;
+    function SettingComponent(formBuilder, store, utilService, userService, masterService, orderService, translate, router) {
         this.formBuilder = formBuilder;
         this.store = store;
-        this.util = util;
-        this.router = router;
+        this.utilService = utilService;
+        this.userService = userService;
+        this.masterService = masterService;
+        this.orderService = orderService;
         this.translate = translate;
+        this.router = router;
         this.printers = models_1.printers;
         this.connectionType = models_1.connectionType;
         this.viewType = models_1.ViewType;
@@ -6773,100 +6712,131 @@ var SettingComponent = /** @class */ (function () {
      * 初期化
      */
     SettingComponent.prototype.ngOnInit = function () {
-        this.user = this.store.pipe(store_1.select(reducers.getUser));
-        this.master = this.store.pipe(store_1.select(reducers.getMaster));
-        this.error = this.store.pipe(store_1.select(reducers.getError));
-        this.posList = [];
-        this.getSellers();
-        this.createSettlingForm();
+        return __awaiter(this, void 0, void 0, function () {
+            var error_1;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        this.user = this.store.pipe(store_1.select(reducers.getUser));
+                        this.master = this.store.pipe(store_1.select(reducers.getMaster));
+                        this.error = this.store.pipe(store_1.select(reducers.getError));
+                        this.posList = [];
+                        _a.label = 1;
+                    case 1:
+                        _a.trys.push([1, 4, , 5]);
+                        return [4 /*yield*/, this.masterService.getSellers()];
+                    case 2:
+                        _a.sent();
+                        return [4 /*yield*/, this.createSettlingForm()];
+                    case 3:
+                        _a.sent();
+                        return [3 /*break*/, 5];
+                    case 4:
+                        error_1 = _a.sent();
+                        console.error(error_1);
+                        this.router.navigate(['/error']);
+                        return [3 /*break*/, 5];
+                    case 5: return [2 /*return*/];
+                }
+            });
+        });
     };
     /**
      * フォーム作成
      */
     SettingComponent.prototype.createSettlingForm = function () {
-        var _this = this;
-        var NAME_MAX_LENGTH = 12;
-        var MAIL_MAX_LENGTH = 50;
-        var TEL_MAX_LENGTH = 11;
-        var TEL_MIN_LENGTH = 9;
-        this.settingForm = this.formBuilder.group({
-            sellerBranchCode: ['', [
-                    forms_1.Validators.required
-                ]],
-            posId: ['', [
-                    forms_1.Validators.required
-                ]],
-            familyName: ['', [
-                    forms_1.Validators.required,
-                    forms_1.Validators.maxLength(NAME_MAX_LENGTH),
-                    forms_1.Validators.pattern(/^[ァ-ヶー]+$/)
-                ]],
-            givenName: ['', [
-                    forms_1.Validators.required,
-                    forms_1.Validators.maxLength(NAME_MAX_LENGTH),
-                    forms_1.Validators.pattern(/^[ァ-ヶー]+$/)
-                ]],
-            email: ['', [
-                    forms_1.Validators.required,
-                    forms_1.Validators.maxLength(MAIL_MAX_LENGTH),
-                    forms_1.Validators.email
-                ]],
-            telephone: ['', [
-                    forms_1.Validators.required,
-                    forms_1.Validators.maxLength(TEL_MAX_LENGTH),
-                    forms_1.Validators.minLength(TEL_MIN_LENGTH),
-                    forms_1.Validators.pattern(/^[0-9]+$/),
-                    function (control) {
-                        var field = control.root.get('telephone');
-                        if (field !== null) {
-                            var parsedNumber = libphonenumber.parse(field.value, 'JP');
-                            if (parsedNumber.phone === undefined) {
-                                return { telephone: true };
-                            }
-                            var isValid = libphonenumber.isValidNumber(parsedNumber);
-                            if (!isValid) {
-                                return { telephone: true };
-                            }
+        return __awaiter(this, void 0, void 0, function () {
+            var NAME_MAX_LENGTH, MAIL_MAX_LENGTH, TEL_MAX_LENGTH, TEL_MIN_LENGTH, user;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        NAME_MAX_LENGTH = 12;
+                        MAIL_MAX_LENGTH = 50;
+                        TEL_MAX_LENGTH = 11;
+                        TEL_MIN_LENGTH = 9;
+                        this.settingForm = this.formBuilder.group({
+                            sellerBranchCode: ['', [
+                                    forms_1.Validators.required
+                                ]],
+                            posId: ['', [
+                                    forms_1.Validators.required
+                                ]],
+                            familyName: ['', [
+                                    forms_1.Validators.required,
+                                    forms_1.Validators.maxLength(NAME_MAX_LENGTH),
+                                    forms_1.Validators.pattern(/^[ァ-ヶー]+$/)
+                                ]],
+                            givenName: ['', [
+                                    forms_1.Validators.required,
+                                    forms_1.Validators.maxLength(NAME_MAX_LENGTH),
+                                    forms_1.Validators.pattern(/^[ァ-ヶー]+$/)
+                                ]],
+                            email: ['', [
+                                    forms_1.Validators.required,
+                                    forms_1.Validators.maxLength(MAIL_MAX_LENGTH),
+                                    forms_1.Validators.email
+                                ]],
+                            telephone: ['', [
+                                    forms_1.Validators.required,
+                                    forms_1.Validators.maxLength(TEL_MAX_LENGTH),
+                                    forms_1.Validators.minLength(TEL_MIN_LENGTH),
+                                    forms_1.Validators.pattern(/^[0-9]+$/),
+                                    function (control) {
+                                        var field = control.root.get('telephone');
+                                        if (field !== null) {
+                                            var parsedNumber = libphonenumber.parse(field.value, 'JP');
+                                            if (parsedNumber.phone === undefined) {
+                                                return { telephone: true };
+                                            }
+                                            var isValid = libphonenumber.isValidNumber(parsedNumber);
+                                            if (!isValid) {
+                                                return { telephone: true };
+                                            }
+                                        }
+                                        return null;
+                                    }
+                                ]],
+                            printerType: [''],
+                            printerIpAddress: [''],
+                            isPurchaseCart: ['0', [
+                                    forms_1.Validators.required,
+                                    forms_1.Validators.pattern(/^[0-9]+$/)
+                                ]],
+                            viewType: ['', [
+                                    forms_1.Validators.required
+                                ]]
+                        });
+                        return [4 /*yield*/, this.userService.getData()];
+                    case 1:
+                        user = _a.sent();
+                        if (user.seller !== undefined
+                            && user.seller.location !== undefined) {
+                            this.settingForm.controls.sellerBranchCode.setValue(user.seller.location.branchCode);
                         }
-                        return null;
-                    }
-                ]],
-            printerType: [''],
-            printerIpAddress: [''],
-            isPurchaseCart: ['0', [
-                    forms_1.Validators.required,
-                    forms_1.Validators.pattern(/^[0-9]+$/)
-                ]],
-            viewType: ['', [
-                    forms_1.Validators.required
-                ]]
+                        if (user.pos !== undefined) {
+                            this.changePosList();
+                            this.settingForm.controls.posId.setValue(user.pos.id);
+                        }
+                        if (user.customerContact !== undefined
+                            && user.customerContact.familyName !== undefined
+                            && user.customerContact.givenName !== undefined
+                            && user.customerContact.email !== undefined
+                            && user.customerContact.telephone !== undefined) {
+                            this.settingForm.controls.familyName.setValue(user.customerContact.familyName);
+                            this.settingForm.controls.givenName.setValue(user.customerContact.givenName);
+                            this.settingForm.controls.email.setValue(user.customerContact.email);
+                            this.settingForm.controls.telephone.setValue(new libphonenumber_format_pipe_1.LibphonenumberFormatPipe().transform(user.customerContact.telephone));
+                        }
+                        if (user.printer !== undefined) {
+                            this.settingForm.controls.printerType.setValue(user.printer.connectionType);
+                            this.settingForm.controls.printerIpAddress.setValue(user.printer.ipAddress);
+                        }
+                        this.settingForm.controls.isPurchaseCart.setValue((user.isPurchaseCart) ? '1' : '0');
+                        this.settingForm.controls.viewType.setValue(user.viewType);
+                        return [2 /*return*/];
+                }
+            });
         });
-        this.user.subscribe(function (user) {
-            if (user.seller !== undefined
-                && user.seller.location !== undefined) {
-                _this.settingForm.controls.sellerBranchCode.setValue(user.seller.location.branchCode);
-            }
-            if (user.pos !== undefined) {
-                _this.changePosList();
-                _this.settingForm.controls.posId.setValue(user.pos.id);
-            }
-            if (user.customerContact !== undefined
-                && user.customerContact.familyName !== undefined
-                && user.customerContact.givenName !== undefined
-                && user.customerContact.email !== undefined
-                && user.customerContact.telephone !== undefined) {
-                _this.settingForm.controls.familyName.setValue(user.customerContact.familyName);
-                _this.settingForm.controls.givenName.setValue(user.customerContact.givenName);
-                _this.settingForm.controls.email.setValue(user.customerContact.email);
-                _this.settingForm.controls.telephone.setValue(new libphonenumber_format_pipe_1.LibphonenumberFormatPipe().transform(user.customerContact.telephone));
-            }
-            if (user.printer !== undefined) {
-                _this.settingForm.controls.printerType.setValue(user.printer.connectionType);
-                _this.settingForm.controls.printerIpAddress.setValue(user.printer.ipAddress);
-            }
-            _this.settingForm.controls.isPurchaseCart.setValue((user.isPurchaseCart) ? '1' : '0');
-            _this.settingForm.controls.viewType.setValue(user.viewType);
-        }).unsubscribe();
     };
     /**
      * POS変更
@@ -6891,18 +6861,6 @@ var SettingComponent = /** @class */ (function () {
         }).unsubscribe();
     };
     /**
-     * 販売者一覧取得
-     */
-    SettingComponent.prototype.getSellers = function () {
-        var _this = this;
-        this.store.dispatch(new actions_1.masterAction.GetSellers({ params: {} }));
-        var success = this.actions.pipe(effects_1.ofType(actions_1.masterAction.ActionTypes.GetSellersSuccess), operators_1.tap(function () { }));
-        var fail = this.actions.pipe(effects_1.ofType(actions_1.masterAction.ActionTypes.GetSellersFail), operators_1.tap(function () {
-            _this.router.navigate(['/error']);
-        }));
-        rxjs_1.race(success, fail).pipe(operators_1.take(1)).subscribe();
-    };
-    /**
      * 設定変更
      */
     SettingComponent.prototype.onSubmit = function () {
@@ -6911,7 +6869,7 @@ var SettingComponent = /** @class */ (function () {
             _this.settingForm.controls[key].markAsTouched();
         });
         if (this.settingForm.invalid) {
-            this.util.openAlert({
+            this.utilService.openAlert({
                 title: this.translate.instant('common.error'),
                 body: this.translate.instant('setting.alert.validation')
             });
@@ -6930,7 +6888,7 @@ var SettingComponent = /** @class */ (function () {
             if (findPos === undefined) {
                 return;
             }
-            _this.store.dispatch(new actions_1.userAction.UpdateAll({
+            _this.userService.updateAll({
                 seller: findSeller,
                 pos: findPos,
                 customerContact: {
@@ -6945,8 +6903,8 @@ var SettingComponent = /** @class */ (function () {
                 },
                 isPurchaseCart: (_this.settingForm.controls.isPurchaseCart.value === '1') ? true : false,
                 viewType: _this.settingForm.controls.viewType.value
-            }));
-            _this.util.openAlert({
+            });
+            _this.utilService.openAlert({
                 title: _this.translate.instant('common.complete'),
                 body: _this.translate.instant('setting.alert.success')
             });
@@ -6956,22 +6914,34 @@ var SettingComponent = /** @class */ (function () {
      * 印刷
      */
     SettingComponent.prototype.print = function () {
-        var _this = this;
-        var printer = {
-            connectionType: this.settingForm.controls.printerType.value,
-            ipAddress: this.settingForm.controls.printerIpAddress.value
-        };
-        this.store.dispatch(new actions_1.orderAction.Print({ orders: [], printer: printer }));
-        var success = this.actions.pipe(effects_1.ofType(actions_1.orderAction.ActionTypes.PrintSuccess), operators_1.tap(function () { }));
-        var fail = this.actions.pipe(effects_1.ofType(actions_1.orderAction.ActionTypes.PrintFail), operators_1.tap(function () {
-            _this.error.subscribe(function (error) {
-                _this.util.openAlert({
-                    title: _this.translate.instant('common.error'),
-                    body: "\n                        <p class=\"mb-4\">" + _this.translate.instant('setting.alert.print') + "</p>\n                            <div class=\"p-3 bg-light-gray select-text\">\n                            <code>" + error + "</code>\n                        </div>"
-                });
-            }).unsubscribe();
-        }));
-        rxjs_1.race(success, fail).pipe(operators_1.take(1)).subscribe();
+        return __awaiter(this, void 0, void 0, function () {
+            var printer, error_2;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        printer = {
+                            connectionType: this.settingForm.controls.printerType.value,
+                            ipAddress: this.settingForm.controls.printerIpAddress.value
+                        };
+                        _a.label = 1;
+                    case 1:
+                        _a.trys.push([1, 3, , 4]);
+                        return [4 /*yield*/, this.orderService.print({ orders: [], printer: printer })];
+                    case 2:
+                        _a.sent();
+                        return [3 /*break*/, 4];
+                    case 3:
+                        error_2 = _a.sent();
+                        console.error(error_2);
+                        this.utilService.openAlert({
+                            title: this.translate.instant('common.error'),
+                            body: "\n                <p class=\"mb-4\">" + this.translate.instant('setting.alert.print') + "</p>\n                    <div class=\"p-3 bg-light-gray select-text\">\n                    <code>" + error_2 + "</code>\n                </div>"
+                        });
+                        return [3 /*break*/, 4];
+                    case 4: return [2 /*return*/];
+                }
+            });
+        });
     };
     /**
      * プリンター変更
@@ -6987,12 +6957,14 @@ var SettingComponent = /** @class */ (function () {
             template: __webpack_require__(/*! raw-loader!./setting.component.html */ "../../node_modules/raw-loader/index.js!./app/components/pages/setting/setting.component.html"),
             styles: [__webpack_require__(/*! ./setting.component.scss */ "./app/components/pages/setting/setting.component.scss")]
         }),
-        __metadata("design:paramtypes", [effects_1.Actions,
-            forms_1.FormBuilder,
+        __metadata("design:paramtypes", [forms_1.FormBuilder,
             store_1.Store,
             services_1.UtilService,
-            router_1.Router,
-            core_2.TranslateService])
+            services_1.UserService,
+            services_1.MasterService,
+            services_1.OrderService,
+            core_2.TranslateService,
+            router_1.Router])
     ], SettingComponent);
     return SettingComponent;
 }());
@@ -7402,9 +7374,9 @@ var environment_1 = __webpack_require__(/*! ../../../../environments/environment
 var services_1 = __webpack_require__(/*! ../../../services */ "./app/services/index.ts");
 var cinerino_service_1 = __webpack_require__(/*! ../../../services/cinerino.service */ "./app/services/cinerino.service.ts");
 var HeaderMenuComponent = /** @class */ (function () {
-    function HeaderMenuComponent(cinerino, util, translate) {
+    function HeaderMenuComponent(cinerino, utilService, translate) {
         this.cinerino = cinerino;
-        this.util = util;
+        this.utilService = utilService;
         this.translate = translate;
         this.close = new core_1.EventEmitter();
         this.environment = environment_1.environment;
@@ -7414,7 +7386,7 @@ var HeaderMenuComponent = /** @class */ (function () {
     HeaderMenuComponent.prototype.signOut = function () {
         var _this = this;
         this.close.emit();
-        this.util.openConfirm({
+        this.utilService.openConfirm({
             title: this.translate.instant('common.confirm'),
             body: this.translate.instant('menu.confirm.logout'),
             cb: function () { return __awaiter(_this, void 0, void 0, function () {
@@ -7503,12 +7475,13 @@ var store_1 = __webpack_require__(/*! @ngrx/store */ "../../node_modules/@ngrx/s
 var core_2 = __webpack_require__(/*! @ngx-translate/core */ "../../node_modules/@ngx-translate/core/fesm5/ngx-translate-core.js");
 var environment_1 = __webpack_require__(/*! ../../../../environments/environment */ "./environments/environment.ts");
 var models_1 = __webpack_require__(/*! ../../../models */ "./app/models/index.ts");
-var actions_1 = __webpack_require__(/*! ../../../store/actions */ "./app/store/actions/index.ts");
+var services_1 = __webpack_require__(/*! ../../../services */ "./app/services/index.ts");
 var reducers = __webpack_require__(/*! ../../../store/reducers */ "./app/store/reducers/index.ts");
 var HeaderComponent = /** @class */ (function () {
-    function HeaderComponent(store, translate) {
+    function HeaderComponent(store, translate, userService) {
         this.store = store;
         this.translate = translate;
+        this.userService = userService;
         this.environment = environment_1.environment;
     }
     HeaderComponent.prototype.ngOnInit = function () {
@@ -7525,10 +7498,7 @@ var HeaderComponent = /** @class */ (function () {
     HeaderComponent.prototype.changeLanguage = function () {
         this.translate.use(this.language);
         var language = this.language;
-        this.store.dispatch(new actions_1.userAction.UpdateLanguage({ language: language }));
-        var html = document.querySelector('html');
-        html.setAttribute('lang', this.language);
-        // console.log('translate', this.translate);
+        this.userService.updateLanguage(language);
     };
     HeaderComponent.prototype.getLanguageName = function (key) {
         return models_1.Language[key];
@@ -7546,7 +7516,8 @@ var HeaderComponent = /** @class */ (function () {
             styles: [__webpack_require__(/*! ./header.component.scss */ "./app/components/parts/header/header.component.scss")]
         }),
         __metadata("design:paramtypes", [store_1.Store,
-            core_2.TranslateService])
+            core_2.TranslateService,
+            services_1.UserService])
     ], HeaderComponent);
     return HeaderComponent;
 }());
@@ -7721,24 +7692,20 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = __webpack_require__(/*! @angular/core */ "../../node_modules/@angular/core/fesm5/core.js");
 var forms_1 = __webpack_require__(/*! @angular/forms */ "../../node_modules/@angular/forms/fesm5/forms.js");
-var api_javascript_client_1 = __webpack_require__(/*! @cinerino/api-javascript-client */ "../../node_modules/@cinerino/api-javascript-client/lib/index.js");
-var effects_1 = __webpack_require__(/*! @ngrx/effects */ "../../node_modules/@ngrx/effects/fesm5/effects.js");
 var store_1 = __webpack_require__(/*! @ngrx/store */ "../../node_modules/@ngrx/store/fesm5/store.js");
 var core_2 = __webpack_require__(/*! @ngx-translate/core */ "../../node_modules/@ngx-translate/core/fesm5/ngx-translate-core.js");
 var jsqr_1 = __webpack_require__(/*! jsqr */ "../../node_modules/jsqr/dist/jsQR.js");
 var ngx_bootstrap_1 = __webpack_require__(/*! ngx-bootstrap */ "../../node_modules/ngx-bootstrap/esm5/ngx-bootstrap.js");
-var rxjs_1 = __webpack_require__(/*! rxjs */ "../../node_modules/rxjs/_esm5/index.js");
-var operators_1 = __webpack_require__(/*! rxjs/operators */ "../../node_modules/rxjs/_esm5/operators/index.js");
 var functions_1 = __webpack_require__(/*! ../../../functions */ "./app/functions/index.ts");
 var change_language_pipe_1 = __webpack_require__(/*! ../../../pipes/change-language.pipe */ "./app/pipes/change-language.pipe.ts");
-var actions_1 = __webpack_require__(/*! ../../../store/actions */ "./app/store/actions/index.ts");
+var services_1 = __webpack_require__(/*! ../../../services */ "./app/services/index.ts");
 var reducers = __webpack_require__(/*! ../../../store/reducers */ "./app/store/reducers/index.ts");
 var MvtkCheckModalComponent = /** @class */ (function () {
-    function MvtkCheckModalComponent(store, actions, formBuilder, modal, translate) {
-        this.store = store;
-        this.actions = actions;
-        this.formBuilder = formBuilder;
+    function MvtkCheckModalComponent(modal, store, formBuilder, purchaseService, translate) {
         this.modal = modal;
+        this.store = store;
+        this.formBuilder = formBuilder;
+        this.purchaseService = purchaseService;
         this.translate = translate;
     }
     MvtkCheckModalComponent.prototype.ngOnInit = function () {
@@ -7772,67 +7739,74 @@ var MvtkCheckModalComponent = /** @class */ (function () {
      * checkMovieTicket
      */
     MvtkCheckModalComponent.prototype.checkMovieTicket = function () {
-        var _this = this;
-        Object.keys(this.mvtkForm.controls).forEach(function (key) {
-            _this.mvtkForm.controls[key].markAsTouched();
+        return __awaiter(this, void 0, void 0, function () {
+            var purchase, checkMovieTicketAction, knyknrNoMkujyuCd, message, error_1;
+            var _this = this;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        Object.keys(this.mvtkForm.controls).forEach(function (key) {
+                            _this.mvtkForm.controls[key].markAsTouched();
+                        });
+                        this.mvtkForm.controls.code.setValue(document.getElementById('code').value);
+                        this.mvtkForm.controls.password.setValue(document.getElementById('password').value);
+                        if (this.mvtkForm.invalid) {
+                            return [2 /*return*/];
+                        }
+                        this.errorMessage = '';
+                        _a.label = 1;
+                    case 1:
+                        _a.trys.push([1, 4, , 5]);
+                        return [4 /*yield*/, this.purchaseService.checkMovieTicket({
+                                code: this.mvtkForm.controls.code.value,
+                                password: this.mvtkForm.controls.password.value // PINコード
+                            })];
+                    case 2:
+                        _a.sent();
+                        return [4 /*yield*/, this.purchaseService.getData()];
+                    case 3:
+                        purchase = _a.sent();
+                        checkMovieTicketAction = purchase.checkMovieTicketAction;
+                        if (checkMovieTicketAction === undefined
+                            || checkMovieTicketAction.result === undefined
+                            || checkMovieTicketAction.result.purchaseNumberAuthResult.knyknrNoInfoOut === null) {
+                            this.isSuccess = false;
+                            this.errorMessage = this.translate.instant('modal.mvtkCheck.alert.validation');
+                            return [2 /*return*/];
+                        }
+                        if (checkMovieTicketAction.result.purchaseNumberAuthResult.knyknrNoInfoOut[0].ykknmiNum === '0') {
+                            this.isSuccess = false;
+                            this.errorMessage = this.translate.instant('modal.mvtkCheck.alert.used');
+                            return [2 /*return*/];
+                        }
+                        knyknrNoMkujyuCd = checkMovieTicketAction.result.purchaseNumberAuthResult.knyknrNoInfoOut[0].knyknrNoMkujyuCd;
+                        if (knyknrNoMkujyuCd !== undefined) {
+                            message = new change_language_pipe_1.ChangeLanguagePipe(this.translate)
+                                .transform(functions_1.movieTicketAuthErroCodeToMessage(knyknrNoMkujyuCd));
+                            this.isSuccess = false;
+                            this.errorMessage = this.translate.instant('modal.mvtkCheck.alert.validation') + "<br>\n                        [" + knyknrNoMkujyuCd + "] " + message;
+                            return [2 /*return*/];
+                        }
+                        this.createMvtkForm();
+                        this.isSuccess = true;
+                        return [3 /*break*/, 5];
+                    case 4:
+                        error_1 = _a.sent();
+                        console.error(error_1);
+                        this.isSuccess = false;
+                        this.errorMessage = this.translate.instant('modal.mvtkCheck.alert.error');
+                        return [3 /*break*/, 5];
+                    case 5: return [2 /*return*/];
+                }
+            });
         });
-        this.mvtkForm.controls.code.setValue(document.getElementById('code').value);
-        this.mvtkForm.controls.password.setValue(document.getElementById('password').value);
-        if (this.mvtkForm.invalid) {
-            return;
-        }
-        this.errorMessage = '';
-        this.purchase.subscribe(function (purchase) {
-            if (purchase.transaction === undefined
-                || purchase.screeningEvent === undefined) {
-                return;
-            }
-            _this.store.dispatch(new actions_1.purchaseAction.CheckMovieTicket({
-                transaction: purchase.transaction,
-                movieTickets: [{
-                        typeOf: api_javascript_client_1.factory.paymentMethodType.MovieTicket,
-                        identifier: _this.mvtkForm.controls.code.value,
-                        accessCode: _this.mvtkForm.controls.password.value // PINコード
-                    }],
-                screeningEvent: purchase.screeningEvent
-            }));
-        }).unsubscribe();
-        var success = this.actions.pipe(effects_1.ofType(actions_1.purchaseAction.ActionTypes.CheckMovieTicketSuccess), operators_1.tap(function () {
-            _this.purchase.subscribe(function (purchase) {
-                var checkMovieTicketAction = purchase.checkMovieTicketAction;
-                if (checkMovieTicketAction === undefined
-                    || checkMovieTicketAction.result === undefined
-                    || checkMovieTicketAction.result.purchaseNumberAuthResult.knyknrNoInfoOut === null) {
-                    _this.isSuccess = false;
-                    _this.errorMessage = _this.translate.instant('modal.mvtkCheck.alert.validation');
-                    return;
-                }
-                if (checkMovieTicketAction.result.purchaseNumberAuthResult.knyknrNoInfoOut[0].ykknmiNum === '0') {
-                    _this.isSuccess = false;
-                    _this.errorMessage = _this.translate.instant('modal.mvtkCheck.alert.used');
-                    return;
-                }
-                var knyknrNoMkujyuCd = checkMovieTicketAction.result.purchaseNumberAuthResult.knyknrNoInfoOut[0].knyknrNoMkujyuCd;
-                if (knyknrNoMkujyuCd !== undefined) {
-                    var message = new change_language_pipe_1.ChangeLanguagePipe(_this.translate)
-                        .transform(functions_1.movieTicketAuthErroCodeToMessage(knyknrNoMkujyuCd));
-                    _this.isSuccess = false;
-                    _this.errorMessage = _this.translate.instant('modal.mvtkCheck.alert.validation') + "<br>\n                        [" + knyknrNoMkujyuCd + "] " + message;
-                    return;
-                }
-                _this.createMvtkForm();
-                _this.isSuccess = true;
-            }).unsubscribe();
-        }));
-        var fail = this.actions.pipe(effects_1.ofType(actions_1.purchaseAction.ActionTypes.CheckMovieTicketFail), operators_1.tap(function () {
-            _this.isSuccess = false;
-            _this.errorMessage = _this.translate.instant('modal.mvtkCheck.alert.error');
-        }));
-        rxjs_1.race(success, fail).pipe(operators_1.take(1)).subscribe();
     };
+    /**
+     * カメラ起動
+     */
     MvtkCheckModalComponent.prototype.activationCamera = function () {
         return __awaiter(this, void 0, void 0, function () {
-            var constraints, stream, scanLoopTime, error_1;
+            var constraints, stream, scanLoopTime, error_2;
             var _this = this;
             return __generator(this, function (_a) {
                 switch (_a.label) {
@@ -7862,14 +7836,17 @@ var MvtkCheckModalComponent = /** @class */ (function () {
                         this.isShowVideo = true;
                         return [3 /*break*/, 3];
                     case 2:
-                        error_1 = _a.sent();
-                        console.error(error_1);
+                        error_2 = _a.sent();
+                        console.error(error_2);
                         return [3 /*break*/, 3];
                     case 3: return [2 /*return*/];
                 }
             });
         });
     };
+    /**
+     * カメラ停止
+     */
     MvtkCheckModalComponent.prototype.stopCamera = function () {
         if (this.stream === null) {
             return;
@@ -7880,6 +7857,9 @@ var MvtkCheckModalComponent = /** @class */ (function () {
         this.stream = null;
         this.isShowVideo = false;
     };
+    /**
+     * カメラ読み取り
+     */
     MvtkCheckModalComponent.prototype.scan = function () {
         if (this.stream === null) {
             return null;
@@ -7906,10 +7886,10 @@ var MvtkCheckModalComponent = /** @class */ (function () {
             template: __webpack_require__(/*! raw-loader!./mvtk-check-modal.component.html */ "../../node_modules/raw-loader/index.js!./app/components/parts/mvtk-check-modal/mvtk-check-modal.component.html"),
             styles: [__webpack_require__(/*! ./mvtk-check-modal.component.scss */ "./app/components/parts/mvtk-check-modal/mvtk-check-modal.component.scss")]
         }),
-        __metadata("design:paramtypes", [store_1.Store,
-            effects_1.Actions,
+        __metadata("design:paramtypes", [ngx_bootstrap_1.BsModalRef,
+            store_1.Store,
             forms_1.FormBuilder,
-            ngx_bootstrap_1.BsModalRef,
+            services_1.PurchaseService,
             core_2.TranslateService])
     ], MvtkCheckModalComponent);
     return MvtkCheckModalComponent;
@@ -8745,8 +8725,8 @@ var api_javascript_client_1 = __webpack_require__(/*! @cinerino/api-javascript-c
 var environment_1 = __webpack_require__(/*! ../../../../../environments/environment */ "./environments/environment.ts");
 var services_1 = __webpack_require__(/*! ../../../../services */ "./app/services/index.ts");
 var PurchaseTermsComponent = /** @class */ (function () {
-    function PurchaseTermsComponent(util) {
-        this.util = util;
+    function PurchaseTermsComponent(utilService) {
+        this.utilService = utilService;
         this.environment = environment_1.environment;
     }
     PurchaseTermsComponent.prototype.ngOnInit = function () {
@@ -8759,7 +8739,7 @@ var PurchaseTermsComponent = /** @class */ (function () {
                     case 0:
                         _a.trys.push([0, 2, , 3]);
                         url = "/storage/text/purchase/terms/" + this.language + ".txt";
-                        return [4 /*yield*/, this.util.getText(url)];
+                        return [4 /*yield*/, this.utilService.getText(url)];
                     case 1:
                         result = _a.sent();
                         this.terms = result.replace(/\n/g, '<br>');
@@ -8936,8 +8916,8 @@ var api_javascript_client_1 = __webpack_require__(/*! @cinerino/api-javascript-c
 var environment_1 = __webpack_require__(/*! ../../../../../environments/environment */ "./environments/environment.ts");
 var services_1 = __webpack_require__(/*! ../../../../services */ "./app/services/index.ts");
 var PurchaseWarningComponent = /** @class */ (function () {
-    function PurchaseWarningComponent(util) {
-        this.util = util;
+    function PurchaseWarningComponent(utilService) {
+        this.utilService = utilService;
         this.environment = environment_1.environment;
     }
     PurchaseWarningComponent.prototype.ngOnInit = function () {
@@ -8950,7 +8930,7 @@ var PurchaseWarningComponent = /** @class */ (function () {
                     case 0:
                         _a.trys.push([0, 2, , 3]);
                         url = "/storage/text/purchase/warning/" + this.language + ".txt";
-                        return [4 /*yield*/, this.util.getText(url)];
+                        return [4 /*yield*/, this.utilService.getText(url)];
                     case 1:
                         result = _a.sent();
                         this.warning = result.replace(/\n/g, '<br>');
@@ -11772,9 +11752,9 @@ var functions_1 = __webpack_require__(/*! ../functions */ "./app/functions/index
 var cinerino_service_1 = __webpack_require__(/*! ./cinerino.service */ "./app/services/cinerino.service.ts");
 var util_service_1 = __webpack_require__(/*! ./util.service */ "./app/services/util.service.ts");
 var DownloadService = /** @class */ (function () {
-    function DownloadService(cinerino, util) {
+    function DownloadService(cinerino, utilService) {
         this.cinerino = cinerino;
-        this.util = util;
+        this.utilService = utilService;
     }
     /**
      * 注文情報CSVダウンロード
@@ -11786,7 +11766,7 @@ var DownloadService = /** @class */ (function () {
                 switch (_a.label) {
                     case 0:
                         url = '/storage/json/csv/order.json';
-                        return [4 /*yield*/, this.util.getJson(url)];
+                        return [4 /*yield*/, this.utilService.getJson(url)];
                     case 1:
                         fields = _a.sent();
                         opts = { fields: fields, unwind: [] };
@@ -11860,7 +11840,7 @@ var DownloadService = /** @class */ (function () {
                 switch (_a.label) {
                     case 0:
                         url = '/storage/json/csv/reservation.json';
-                        return [4 /*yield*/, this.util.getJson(url)];
+                        return [4 /*yield*/, this.utilService.getJson(url)];
                     case 1:
                         fields = _a.sent();
                         opts = { fields: fields, unwind: [] };
@@ -11980,9 +11960,329 @@ Object.defineProperty(exports, "__esModule", { value: true });
 __export(__webpack_require__(/*! ./cinerino.service */ "./app/services/cinerino.service.ts"));
 __export(__webpack_require__(/*! ./purchase.service */ "./app/services/purchase.service.ts"));
 __export(__webpack_require__(/*! ./user.service */ "./app/services/user.service.ts"));
+__export(__webpack_require__(/*! ./master.service */ "./app/services/master.service.ts"));
+__export(__webpack_require__(/*! ./order.service */ "./app/services/order.service.ts"));
+__export(__webpack_require__(/*! ./reservation.service */ "./app/services/reservation.service.ts"));
 __export(__webpack_require__(/*! ./util.service */ "./app/services/util.service.ts"));
 __export(__webpack_require__(/*! ./star-print.service */ "./app/services/star-print.service.ts"));
 __export(__webpack_require__(/*! ./download.service */ "./app/services/download.service.ts"));
+
+
+/***/ }),
+
+/***/ "./app/services/master.service.ts":
+/*!****************************************!*\
+  !*** ./app/services/master.service.ts ***!
+  \****************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : new P(function (resolve) { resolve(result.value); }).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+var __generator = (this && this.__generator) || function (thisArg, body) {
+    var _ = { label: 0, sent: function() { if (t[0] & 1) throw t[1]; return t[1]; }, trys: [], ops: [] }, f, y, t, g;
+    return g = { next: verb(0), "throw": verb(1), "return": verb(2) }, typeof Symbol === "function" && (g[Symbol.iterator] = function() { return this; }), g;
+    function verb(n) { return function (v) { return step([n, v]); }; }
+    function step(op) {
+        if (f) throw new TypeError("Generator is already executing.");
+        while (_) try {
+            if (f = 1, y && (t = op[0] & 2 ? y["return"] : op[0] ? y["throw"] || ((t = y["return"]) && t.call(y), 0) : y.next) && !(t = t.call(y, op[1])).done) return t;
+            if (y = 0, t) op = [op[0] & 2, t.value];
+            switch (op[0]) {
+                case 0: case 1: t = op; break;
+                case 4: _.label++; return { value: op[1], done: false };
+                case 5: _.label++; y = op[1]; op = [0]; continue;
+                case 7: op = _.ops.pop(); _.trys.pop(); continue;
+                default:
+                    if (!(t = _.trys, t = t.length > 0 && t[t.length - 1]) && (op[0] === 6 || op[0] === 2)) { _ = 0; continue; }
+                    if (op[0] === 3 && (!t || (op[1] > t[0] && op[1] < t[3]))) { _.label = op[1]; break; }
+                    if (op[0] === 6 && _.label < t[1]) { _.label = t[1]; t = op; break; }
+                    if (t && _.label < t[2]) { _.label = t[2]; _.ops.push(op); break; }
+                    if (t[2]) _.ops.pop();
+                    _.trys.pop(); continue;
+            }
+            op = body.call(thisArg, _);
+        } catch (e) { op = [6, e]; y = 0; } finally { f = t = 0; }
+        if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
+    }
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+var core_1 = __webpack_require__(/*! @angular/core */ "../../node_modules/@angular/core/fesm5/core.js");
+var effects_1 = __webpack_require__(/*! @ngrx/effects */ "../../node_modules/@ngrx/effects/fesm5/effects.js");
+var store_1 = __webpack_require__(/*! @ngrx/store */ "../../node_modules/@ngrx/store/fesm5/store.js");
+var rxjs_1 = __webpack_require__(/*! rxjs */ "../../node_modules/rxjs/_esm5/index.js");
+var operators_1 = __webpack_require__(/*! rxjs/operators */ "../../node_modules/rxjs/_esm5/operators/index.js");
+var actions_1 = __webpack_require__(/*! ../store/actions */ "./app/store/actions/index.ts");
+var reducers = __webpack_require__(/*! ../store/reducers */ "./app/store/reducers/index.ts");
+var MasterService = /** @class */ (function () {
+    function MasterService(actions, store) {
+        this.actions = actions;
+        this.store = store;
+        this.master = this.store.pipe(store_1.select(reducers.getMaster));
+        this.error = this.store.pipe(store_1.select(reducers.getError));
+    }
+    /**
+     * マスタデータ取得
+     */
+    MasterService.prototype.getData = function () {
+        return __awaiter(this, void 0, void 0, function () {
+            var _this = this;
+            return __generator(this, function (_a) {
+                return [2 /*return*/, new Promise(function (resolve) {
+                        _this.master.subscribe(function (master) {
+                            resolve(master);
+                        }).unsubscribe();
+                    })];
+            });
+        });
+    };
+    /**
+     * マスタデータ削除
+     */
+    MasterService.prototype.delete = function () {
+    };
+    /**
+     * 販売者一覧取得
+     */
+    MasterService.prototype.getSellers = function (params) {
+        var _this = this;
+        return new Promise(function (resolve, reject) {
+            _this.store.dispatch(new actions_1.masterAction.GetSellers(params));
+            var success = _this.actions.pipe(effects_1.ofType(actions_1.masterAction.ActionTypes.GetSellersSuccess), operators_1.tap(function () { resolve(); }));
+            var fail = _this.actions.pipe(effects_1.ofType(actions_1.masterAction.ActionTypes.GetSellersFail), operators_1.tap(function () { _this.error.subscribe(function (error) { reject(error); }).unsubscribe(); }));
+            rxjs_1.race(success, fail).pipe(operators_1.take(1)).subscribe();
+        });
+    };
+    /**
+     * スケジュール一覧取得
+     */
+    MasterService.prototype.getSchedule = function (params) {
+        return __awaiter(this, void 0, void 0, function () {
+            var _this = this;
+            return __generator(this, function (_a) {
+                return [2 /*return*/, new Promise(function (resolve, reject) {
+                        _this.store.dispatch(new actions_1.masterAction.GetSchedule(params));
+                        var success = _this.actions.pipe(effects_1.ofType(actions_1.masterAction.ActionTypes.GetScheduleSuccess), operators_1.tap(function () { resolve(); }));
+                        var fail = _this.actions.pipe(effects_1.ofType(actions_1.masterAction.ActionTypes.GetScheduleFail), operators_1.tap(function () { _this.error.subscribe(function (error) { reject(error); }).unsubscribe(); }));
+                        rxjs_1.race(success, fail).pipe(operators_1.take(1)).subscribe();
+                    })];
+            });
+        });
+    };
+    MasterService = __decorate([
+        core_1.Injectable({
+            providedIn: 'root'
+        }),
+        __metadata("design:paramtypes", [effects_1.Actions,
+            store_1.Store])
+    ], MasterService);
+    return MasterService;
+}());
+exports.MasterService = MasterService;
+
+
+/***/ }),
+
+/***/ "./app/services/order.service.ts":
+/*!***************************************!*\
+  !*** ./app/services/order.service.ts ***!
+  \***************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : new P(function (resolve) { resolve(result.value); }).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+var __generator = (this && this.__generator) || function (thisArg, body) {
+    var _ = { label: 0, sent: function() { if (t[0] & 1) throw t[1]; return t[1]; }, trys: [], ops: [] }, f, y, t, g;
+    return g = { next: verb(0), "throw": verb(1), "return": verb(2) }, typeof Symbol === "function" && (g[Symbol.iterator] = function() { return this; }), g;
+    function verb(n) { return function (v) { return step([n, v]); }; }
+    function step(op) {
+        if (f) throw new TypeError("Generator is already executing.");
+        while (_) try {
+            if (f = 1, y && (t = op[0] & 2 ? y["return"] : op[0] ? y["throw"] || ((t = y["return"]) && t.call(y), 0) : y.next) && !(t = t.call(y, op[1])).done) return t;
+            if (y = 0, t) op = [op[0] & 2, t.value];
+            switch (op[0]) {
+                case 0: case 1: t = op; break;
+                case 4: _.label++; return { value: op[1], done: false };
+                case 5: _.label++; y = op[1]; op = [0]; continue;
+                case 7: op = _.ops.pop(); _.trys.pop(); continue;
+                default:
+                    if (!(t = _.trys, t = t.length > 0 && t[t.length - 1]) && (op[0] === 6 || op[0] === 2)) { _ = 0; continue; }
+                    if (op[0] === 3 && (!t || (op[1] > t[0] && op[1] < t[3]))) { _.label = op[1]; break; }
+                    if (op[0] === 6 && _.label < t[1]) { _.label = t[1]; t = op; break; }
+                    if (t && _.label < t[2]) { _.label = t[2]; _.ops.push(op); break; }
+                    if (t[2]) _.ops.pop();
+                    _.trys.pop(); continue;
+            }
+            op = body.call(thisArg, _);
+        } catch (e) { op = [6, e]; y = 0; } finally { f = t = 0; }
+        if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
+    }
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+var core_1 = __webpack_require__(/*! @angular/core */ "../../node_modules/@angular/core/fesm5/core.js");
+var effects_1 = __webpack_require__(/*! @ngrx/effects */ "../../node_modules/@ngrx/effects/fesm5/effects.js");
+var store_1 = __webpack_require__(/*! @ngrx/store */ "../../node_modules/@ngrx/store/fesm5/store.js");
+var rxjs_1 = __webpack_require__(/*! rxjs */ "../../node_modules/rxjs/_esm5/index.js");
+var operators_1 = __webpack_require__(/*! rxjs/operators */ "../../node_modules/rxjs/_esm5/operators/index.js");
+var actions_1 = __webpack_require__(/*! ../store/actions */ "./app/store/actions/index.ts");
+var reducers = __webpack_require__(/*! ../store/reducers */ "./app/store/reducers/index.ts");
+var OrderService = /** @class */ (function () {
+    function OrderService(store, actions) {
+        this.store = store;
+        this.actions = actions;
+        this.order = this.store.pipe(store_1.select(reducers.getOrder));
+        this.error = this.store.pipe(store_1.select(reducers.getError));
+    }
+    /**
+     * 注文データ取得
+     */
+    OrderService.prototype.getData = function () {
+        return __awaiter(this, void 0, void 0, function () {
+            var _this = this;
+            return __generator(this, function (_a) {
+                return [2 /*return*/, new Promise(function (resolve) {
+                        _this.order.subscribe(function (order) {
+                            resolve(order);
+                        }).unsubscribe();
+                    })];
+            });
+        });
+    };
+    /**
+     * 注文データ削除
+     */
+    OrderService.prototype.delete = function () {
+        this.store.dispatch(new actions_1.orderAction.Delete());
+    };
+    /**
+     * 注文検索
+     */
+    OrderService.prototype.search = function (params) {
+        var _this = this;
+        return new Promise(function (resolve, reject) {
+            _this.store.dispatch(new actions_1.orderAction.Search({ params: params }));
+            var success = _this.actions.pipe(effects_1.ofType(actions_1.orderAction.ActionTypes.SearchSuccess), operators_1.tap(function () { resolve(); }));
+            var fail = _this.actions.pipe(effects_1.ofType(actions_1.orderAction.ActionTypes.SearchFail), operators_1.tap(function () { _this.error.subscribe(function (error) { reject(error); }).unsubscribe(); }));
+            rxjs_1.race(success, fail).pipe(operators_1.take(1)).subscribe();
+        });
+    };
+    /**
+     * 注文キャンセル
+     */
+    OrderService.prototype.cancel = function (orders) {
+        return __awaiter(this, void 0, void 0, function () {
+            var _this = this;
+            return __generator(this, function (_a) {
+                return [2 /*return*/, new Promise(function (resolve, reject) {
+                        _this.store.dispatch(new actions_1.orderAction.Cancel({ orders: orders }));
+                        var success = _this.actions.pipe(effects_1.ofType(actions_1.orderAction.ActionTypes.CancelSuccess), operators_1.tap(function () { resolve(); }));
+                        var fail = _this.actions.pipe(effects_1.ofType(actions_1.orderAction.ActionTypes.CancelFail), operators_1.tap(function () { _this.error.subscribe(function (error) { reject(error); }).unsubscribe(); }));
+                        rxjs_1.race(success, fail).pipe(operators_1.take(1)).subscribe();
+                    })];
+            });
+        });
+    };
+    /**
+     * 注文照会
+     */
+    OrderService.prototype.inquiry = function (params) {
+        return __awaiter(this, void 0, void 0, function () {
+            var _this = this;
+            return __generator(this, function (_a) {
+                return [2 /*return*/, new Promise(function (resolve, reject) {
+                        _this.store.dispatch(new actions_1.orderAction.Inquiry(params));
+                        var success = _this.actions.pipe(effects_1.ofType(actions_1.orderAction.ActionTypes.InquirySuccess), operators_1.tap(function () { resolve(); }));
+                        var fail = _this.actions.pipe(effects_1.ofType(actions_1.orderAction.ActionTypes.InquiryFail), operators_1.tap(function () { _this.error.subscribe(function (error) { reject(error); }).unsubscribe(); }));
+                        rxjs_1.race(success, fail).pipe(operators_1.take(1)).subscribe();
+                    })];
+            });
+        });
+    };
+    /**
+     * 注文印刷
+     */
+    OrderService.prototype.print = function (prams) {
+        return __awaiter(this, void 0, void 0, function () {
+            var _this = this;
+            return __generator(this, function (_a) {
+                return [2 /*return*/, new Promise(function (resolve, reject) {
+                        var orders = prams.orders;
+                        var pos = prams.pos;
+                        var printer = prams.printer;
+                        _this.store.dispatch(new actions_1.orderAction.Print({ orders: orders, pos: pos, printer: printer }));
+                        var success = _this.actions.pipe(effects_1.ofType(actions_1.orderAction.ActionTypes.PrintSuccess), operators_1.tap(function () { resolve(); }));
+                        var fail = _this.actions.pipe(effects_1.ofType(actions_1.orderAction.ActionTypes.PrintFail), operators_1.tap(function () { _this.error.subscribe(function (error) { reject(error); }).unsubscribe(); }));
+                        rxjs_1.race(success, fail).pipe(operators_1.take(1)).subscribe();
+                    })];
+            });
+        });
+    };
+    /**
+     * 注文承認
+     */
+    OrderService.prototype.authorize = function (order) {
+        return __awaiter(this, void 0, void 0, function () {
+            var _this = this;
+            return __generator(this, function (_a) {
+                return [2 /*return*/, new Promise(function (resolve, reject) {
+                        _this.store.dispatch(new actions_1.orderAction.OrderAuthorize({
+                            orderNumber: order.orderNumber,
+                            customer: {
+                                telephone: order.customer.telephone
+                            }
+                        }));
+                        var success = _this.actions.pipe(effects_1.ofType(actions_1.orderAction.ActionTypes.OrderAuthorizeSuccess), operators_1.tap(function () { resolve(); }));
+                        var fail = _this.actions.pipe(effects_1.ofType(actions_1.orderAction.ActionTypes.OrderAuthorizeFail), operators_1.tap(function () { _this.error.subscribe(function (error) { reject(error); }).unsubscribe(); }));
+                        rxjs_1.race(success, fail).pipe(operators_1.take(1)).subscribe();
+                    })];
+            });
+        });
+    };
+    OrderService = __decorate([
+        core_1.Injectable({
+            providedIn: 'root'
+        }),
+        __metadata("design:paramtypes", [store_1.Store,
+            effects_1.Actions])
+    ], OrderService);
+    return OrderService;
+}());
+exports.OrderService = OrderService;
 
 
 /***/ }),
@@ -12005,20 +12305,641 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : new P(function (resolve) { resolve(result.value); }).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+var __generator = (this && this.__generator) || function (thisArg, body) {
+    var _ = { label: 0, sent: function() { if (t[0] & 1) throw t[1]; return t[1]; }, trys: [], ops: [] }, f, y, t, g;
+    return g = { next: verb(0), "throw": verb(1), "return": verb(2) }, typeof Symbol === "function" && (g[Symbol.iterator] = function() { return this; }), g;
+    function verb(n) { return function (v) { return step([n, v]); }; }
+    function step(op) {
+        if (f) throw new TypeError("Generator is already executing.");
+        while (_) try {
+            if (f = 1, y && (t = op[0] & 2 ? y["return"] : op[0] ? y["throw"] || ((t = y["return"]) && t.call(y), 0) : y.next) && !(t = t.call(y, op[1])).done) return t;
+            if (y = 0, t) op = [op[0] & 2, t.value];
+            switch (op[0]) {
+                case 0: case 1: t = op; break;
+                case 4: _.label++; return { value: op[1], done: false };
+                case 5: _.label++; y = op[1]; op = [0]; continue;
+                case 7: op = _.ops.pop(); _.trys.pop(); continue;
+                default:
+                    if (!(t = _.trys, t = t.length > 0 && t[t.length - 1]) && (op[0] === 6 || op[0] === 2)) { _ = 0; continue; }
+                    if (op[0] === 3 && (!t || (op[1] > t[0] && op[1] < t[3]))) { _.label = op[1]; break; }
+                    if (op[0] === 6 && _.label < t[1]) { _.label = t[1]; t = op; break; }
+                    if (t && _.label < t[2]) { _.label = t[2]; _.ops.push(op); break; }
+                    if (t[2]) _.ops.pop();
+                    _.trys.pop(); continue;
+            }
+            op = body.call(thisArg, _);
+        } catch (e) { op = [6, e]; y = 0; } finally { f = t = 0; }
+        if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
+    }
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = __webpack_require__(/*! @angular/core */ "../../node_modules/@angular/core/fesm5/core.js");
+var api_javascript_client_1 = __webpack_require__(/*! @cinerino/api-javascript-client */ "../../node_modules/@cinerino/api-javascript-client/lib/index.js");
+var effects_1 = __webpack_require__(/*! @ngrx/effects */ "../../node_modules/@ngrx/effects/fesm5/effects.js");
+var store_1 = __webpack_require__(/*! @ngrx/store */ "../../node_modules/@ngrx/store/fesm5/store.js");
+var moment = __webpack_require__(/*! moment */ "../../node_modules/moment/moment.js");
+var rxjs_1 = __webpack_require__(/*! rxjs */ "../../node_modules/rxjs/_esm5/index.js");
+var operators_1 = __webpack_require__(/*! rxjs/operators */ "../../node_modules/rxjs/_esm5/operators/index.js");
+var environment_1 = __webpack_require__(/*! ../../environments/environment */ "./environments/environment.ts");
+var models_1 = __webpack_require__(/*! ../models */ "./app/models/index.ts");
+var actions_1 = __webpack_require__(/*! ../store/actions */ "./app/store/actions/index.ts");
+var reducers = __webpack_require__(/*! ../store/reducers */ "./app/store/reducers/index.ts");
 var PurchaseService = /** @class */ (function () {
-    function PurchaseService() {
+    function PurchaseService(actions, store) {
+        this.actions = actions;
+        this.store = store;
+        this.purchase = this.store.pipe(store_1.select(reducers.getPurchase));
+        this.error = this.store.pipe(store_1.select(reducers.getError));
     }
+    /**
+     * 購入データ取得
+     */
+    PurchaseService.prototype.getData = function () {
+        return __awaiter(this, void 0, void 0, function () {
+            var _this = this;
+            return __generator(this, function (_a) {
+                return [2 /*return*/, new Promise(function (resolve) {
+                        _this.purchase.subscribe(function (purchase) {
+                            resolve(purchase);
+                        }).unsubscribe();
+                    })];
+            });
+        });
+    };
+    /**
+     * 購入データ削除
+     */
+    PurchaseService.prototype.delete = function () {
+        this.store.dispatch(new actions_1.purchaseAction.Delete());
+    };
+    /**
+     * 購入一時データ削除
+     */
+    PurchaseService.prototype.unsettledDelete = function () {
+        this.store.dispatch(new actions_1.purchaseAction.UnsettledDelete());
+    };
+    /**
+     * 販売者選択
+     */
+    PurchaseService.prototype.selectSeller = function () {
+    };
+    /**
+     * スケジュール日選択
+     */
+    PurchaseService.prototype.selectScheduleDate = function (scheduleDate) {
+        this.store.dispatch(new actions_1.purchaseAction.SelectScheduleDate({ scheduleDate: scheduleDate }));
+    };
+    /**
+     * スケジュール選択
+     */
+    PurchaseService.prototype.selectSchedule = function (screeningEvent) {
+        this.store.dispatch(new actions_1.purchaseAction.SelectSchedule({ screeningEvent: screeningEvent }));
+    };
+    /**
+     * 取引開始
+     */
+    PurchaseService.prototype.startTransaction = function (params) {
+        return __awaiter(this, void 0, void 0, function () {
+            var _this = this;
+            return __generator(this, function (_a) {
+                return [2 /*return*/, new Promise(function (resolve, reject) {
+                        _this.store.dispatch(new actions_1.purchaseAction.StartTransaction({
+                            expires: moment().add(environment_1.environment.PURCHASE_TRANSACTION_TIME, 'minutes').toDate(),
+                            seller: { typeOf: params.seller.typeOf, id: params.seller.id },
+                            object: {},
+                            agent: (params.pos === undefined)
+                                ? undefined
+                                : {
+                                    identifier: [
+                                        { name: 'posId', value: params.pos.id },
+                                        { name: 'posName', value: params.pos.name }
+                                    ]
+                                }
+                        }));
+                        var success = _this.actions.pipe(effects_1.ofType(actions_1.purchaseAction.ActionTypes.StartTransactionSuccess), operators_1.tap(function () { resolve(); }));
+                        var fail = _this.actions.pipe(effects_1.ofType(actions_1.purchaseAction.ActionTypes.StartTransactionFail), operators_1.tap(function () { _this.error.subscribe(function (error) { reject(error); }).unsubscribe(); }));
+                        rxjs_1.race(success, fail).pipe(operators_1.take(1)).subscribe();
+                    })];
+            });
+        });
+    };
+    /**
+     * 取引中止
+     */
+    PurchaseService.prototype.cancelTransaction = function () {
+        return __awaiter(this, void 0, void 0, function () {
+            var purchase;
+            var _this = this;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, this.getData()];
+                    case 1:
+                        purchase = _a.sent();
+                        return [2 /*return*/, new Promise(function (resolve) {
+                                var transaction = purchase.transaction;
+                                if (transaction === undefined) {
+                                    resolve();
+                                    return;
+                                }
+                                _this.store.dispatch(new actions_1.purchaseAction.CancelTransaction({ transaction: transaction }));
+                                var success = _this.actions.pipe(effects_1.ofType(actions_1.purchaseAction.ActionTypes.CancelTransactionSuccess), operators_1.tap(function () { resolve(); }));
+                                var fail = _this.actions.pipe(effects_1.ofType(actions_1.purchaseAction.ActionTypes.CancelTransactionFail), operators_1.tap(function () { resolve(); }));
+                                rxjs_1.race(success, fail).pipe(operators_1.take(1)).subscribe();
+                            })];
+                }
+            });
+        });
+    };
+    /**
+     * スクリーン情報取得
+     */
+    PurchaseService.prototype.getScreen = function (params) {
+        var _this = this;
+        return new Promise(function (resolve, reject) {
+            _this.store.dispatch(new actions_1.purchaseAction.GetScreen(params));
+            var success = _this.actions.pipe(effects_1.ofType(actions_1.purchaseAction.ActionTypes.GetScreenSuccess), operators_1.tap(function () { resolve(); }));
+            var fail = _this.actions.pipe(effects_1.ofType(actions_1.purchaseAction.ActionTypes.GetScreenFail), operators_1.tap(function () { _this.error.subscribe(function (error) { reject(error); }).unsubscribe(); }));
+            rxjs_1.race(success, fail).pipe(operators_1.take(1)).subscribe();
+        });
+    };
+    /**
+     * 空席情報取得
+     */
+    PurchaseService.prototype.getScreeningEventOffers = function () {
+        return __awaiter(this, void 0, void 0, function () {
+            var purchase;
+            var _this = this;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, this.getData()];
+                    case 1:
+                        purchase = _a.sent();
+                        return [2 /*return*/, new Promise(function (resolve, reject) {
+                                if (purchase.screeningEvent === undefined) {
+                                    reject();
+                                    return;
+                                }
+                                var screeningEvent = purchase.screeningEvent;
+                                _this.store.dispatch(new actions_1.purchaseAction.GetScreeningEventOffers({ screeningEvent: screeningEvent }));
+                                var success = _this.actions.pipe(effects_1.ofType(actions_1.purchaseAction.ActionTypes.GetScreeningEventOffersSuccess), operators_1.tap(function () { resolve(); }));
+                                var fail = _this.actions.pipe(effects_1.ofType(actions_1.purchaseAction.ActionTypes.GetScreeningEventOffersFail), operators_1.tap(function () { _this.error.subscribe(function (error) { reject(error); }).unsubscribe(); }));
+                                rxjs_1.race(success, fail).pipe(operators_1.take(1)).subscribe();
+                            })];
+                }
+            });
+        });
+    };
+    /**
+     * 座席選択
+     */
+    PurchaseService.prototype.selectSeats = function (seats) {
+        this.store.dispatch(new actions_1.purchaseAction.SelectSeats({ seats: seats }));
+    };
+    /**
+     * 座席選択解除
+     */
+    PurchaseService.prototype.cancelSeats = function (seats) {
+        this.store.dispatch(new actions_1.purchaseAction.CancelSeats({ seats: seats }));
+    };
+    /**
+     * 券種一覧取得
+     */
+    PurchaseService.prototype.getTicketList = function (seller) {
+        return __awaiter(this, void 0, void 0, function () {
+            var purchase;
+            var _this = this;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, this.getData()];
+                    case 1:
+                        purchase = _a.sent();
+                        return [2 /*return*/, new Promise(function (resolve, reject) {
+                                var screeningEvent = purchase.screeningEvent;
+                                if (screeningEvent === undefined) {
+                                    reject();
+                                    return;
+                                }
+                                _this.store.dispatch(new actions_1.purchaseAction.GetTicketList({ screeningEvent: screeningEvent, seller: seller }));
+                                var success = _this.actions.pipe(effects_1.ofType(actions_1.purchaseAction.ActionTypes.GetTicketListSuccess), operators_1.tap(function () { resolve(); }));
+                                var fail = _this.actions.pipe(effects_1.ofType(actions_1.purchaseAction.ActionTypes.GetTicketListFail), operators_1.tap(function () { _this.error.subscribe(function (error) { reject(error); }).unsubscribe(); }));
+                                rxjs_1.race(success, fail).pipe(operators_1.take(1)).subscribe();
+                            })];
+                }
+            });
+        });
+    };
+    /**
+     * チケット選択
+    */
+    PurchaseService.prototype.selectTickets = function (reservations) {
+        this.store.dispatch(new actions_1.purchaseAction.SelectTickets({ reservations: reservations }));
+    };
+    /**
+     * 座席仮予約
+     */
+    PurchaseService.prototype.temporaryReservation = function () {
+        return __awaiter(this, void 0, void 0, function () {
+            var purchase;
+            var _this = this;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, this.getData()];
+                    case 1:
+                        purchase = _a.sent();
+                        return [2 /*return*/, new Promise(function (resolve, reject) {
+                                var transaction = purchase.transaction;
+                                var screeningEvent = purchase.screeningEvent;
+                                if (transaction === undefined || screeningEvent === undefined) {
+                                    reject();
+                                    return;
+                                }
+                                var reservations = purchase.reservations.map(function (reservation) {
+                                    return new models_1.Reservation({
+                                        seat: reservation.seat,
+                                        ticket: (reservation.ticket === undefined)
+                                            ? { ticketOffer: purchase.screeningEventTicketOffers[0] }
+                                            : reservation.ticket
+                                    });
+                                });
+                                var authorizeSeatReservation = purchase.authorizeSeatReservation;
+                                _this.store.dispatch(new actions_1.purchaseAction.TemporaryReservation({
+                                    transaction: transaction,
+                                    screeningEvent: screeningEvent,
+                                    reservations: reservations,
+                                    authorizeSeatReservation: authorizeSeatReservation
+                                }));
+                                var success = _this.actions.pipe(effects_1.ofType(actions_1.purchaseAction.ActionTypes.TemporaryReservationSuccess), operators_1.tap(function () { resolve(); }));
+                                var fail = _this.actions.pipe(effects_1.ofType(actions_1.purchaseAction.ActionTypes.TemporaryReservationFail), operators_1.tap(function () { _this.error.subscribe(function (error) { reject(error); }).unsubscribe(); }));
+                                rxjs_1.race(success, fail).pipe(operators_1.take(1)).subscribe();
+                            })];
+                }
+            });
+        });
+    };
+    /**
+     * 座席仮予約（座席選択なし）
+     */
+    PurchaseService.prototype.temporaryReservationFreeSeat = function (reservationTickets) {
+        return __awaiter(this, void 0, void 0, function () {
+            var purchase;
+            var _this = this;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, this.getData()];
+                    case 1:
+                        purchase = _a.sent();
+                        return [2 /*return*/, new Promise(function (resolve, reject) {
+                                if (purchase.transaction === undefined || purchase.screeningEvent === undefined) {
+                                    reject();
+                                    return;
+                                }
+                                var transaction = purchase.transaction;
+                                var screeningEvent = purchase.screeningEvent;
+                                var screeningEventOffers = purchase.screeningEventOffers;
+                                _this.store.dispatch(new actions_1.purchaseAction.TemporaryReservationFreeSeat({
+                                    transaction: transaction,
+                                    screeningEvent: screeningEvent,
+                                    screeningEventOffers: screeningEventOffers,
+                                    reservationTickets: reservationTickets
+                                }));
+                                var success = _this.actions.pipe(effects_1.ofType(actions_1.purchaseAction.ActionTypes.TemporaryReservationFreeSeatSuccess), operators_1.tap(function () { resolve(); }));
+                                var fail = _this.actions.pipe(effects_1.ofType(actions_1.purchaseAction.ActionTypes.TemporaryReservationFreeSeatFail), operators_1.tap(function () { _this.error.subscribe(function (error) { reject(error); }).unsubscribe(); }));
+                                rxjs_1.race(success, fail).pipe(operators_1.take(1)).subscribe();
+                            })];
+                }
+            });
+        });
+    };
+    /**
+     * 座席仮予約取り消し
+     */
+    PurchaseService.prototype.cancelTemporaryReservations = function (authorizeSeatReservations) {
+        return __awaiter(this, void 0, void 0, function () {
+            var _this = this;
+            return __generator(this, function (_a) {
+                return [2 /*return*/, new Promise(function (resolve, reject) {
+                        _this.store.dispatch(new actions_1.purchaseAction.CancelTemporaryReservations({ authorizeSeatReservations: authorizeSeatReservations }));
+                        var success = _this.actions.pipe(effects_1.ofType(actions_1.purchaseAction.ActionTypes.CancelTemporaryReservationsSuccess), operators_1.tap(function () { resolve(); }));
+                        var fail = _this.actions.pipe(effects_1.ofType(actions_1.purchaseAction.ActionTypes.CancelTemporaryReservationsFail), operators_1.tap(function () { _this.error.subscribe(function (error) { reject(error); }).unsubscribe(); }));
+                        rxjs_1.race(success, fail).pipe(operators_1.take(1)).subscribe();
+                    })];
+            });
+        });
+    };
+    /**
+     * 購入者情報登録
+     */
+    PurchaseService.prototype.registerContact = function (contact) {
+        return __awaiter(this, void 0, void 0, function () {
+            var purchase, transaction;
+            var _this = this;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, this.getData()];
+                    case 1:
+                        purchase = _a.sent();
+                        transaction = purchase.transaction;
+                        return [2 /*return*/, new Promise(function (resolve, reject) {
+                                if (transaction === undefined) {
+                                    reject();
+                                    return;
+                                }
+                                _this.store.dispatch(new actions_1.purchaseAction.RegisterContact({ transaction: transaction, contact: contact }));
+                                var success = _this.actions.pipe(effects_1.ofType(actions_1.purchaseAction.ActionTypes.RegisterContactSuccess), operators_1.tap(function () { resolve(); }));
+                                var fail = _this.actions.pipe(effects_1.ofType(actions_1.purchaseAction.ActionTypes.RegisterContactFail), operators_1.tap(function () { _this.error.subscribe(function (error) { reject(error); }).unsubscribe(); }));
+                                rxjs_1.race(success, fail).pipe(operators_1.take(1)).subscribe();
+                            })];
+                }
+            });
+        });
+    };
+    /**
+     * クレジットカード承認
+     */
+    PurchaseService.prototype.authorizeCreditCard = function () {
+    };
+    /**
+     * ムビチケ承認
+     */
+    PurchaseService.prototype.authorizeMovieTicket = function () {
+        return __awaiter(this, void 0, void 0, function () {
+            var purchase;
+            var _this = this;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, this.getData()];
+                    case 1:
+                        purchase = _a.sent();
+                        return [2 /*return*/, new Promise(function (resolve, reject) {
+                                if (purchase.transaction === undefined) {
+                                    reject();
+                                    return;
+                                }
+                                _this.store.dispatch(new actions_1.purchaseAction.AuthorizeMovieTicket({
+                                    transaction: purchase.transaction,
+                                    authorizeMovieTicketPayments: purchase.authorizeMovieTicketPayments,
+                                    authorizeSeatReservations: purchase.authorizeSeatReservations,
+                                    pendingMovieTickets: purchase.pendingMovieTickets
+                                }));
+                                var success = _this.actions.pipe(effects_1.ofType(actions_1.purchaseAction.ActionTypes.AuthorizeMovieTicketSuccess), operators_1.tap(function () { resolve(); }));
+                                var fail = _this.actions.pipe(effects_1.ofType(actions_1.purchaseAction.ActionTypes.AuthorizeMovieTicketFail), operators_1.tap(function () { _this.error.subscribe(function (error) { reject(error); }).unsubscribe(); }));
+                                rxjs_1.race(success, fail).pipe(operators_1.take(1)).subscribe();
+                            })];
+                }
+            });
+        });
+    };
+    /**
+     * ムビチケ認証
+     */
+    PurchaseService.prototype.checkMovieTicket = function (movieTicket) {
+        return __awaiter(this, void 0, void 0, function () {
+            var purchase;
+            var _this = this;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, this.getData()];
+                    case 1:
+                        purchase = _a.sent();
+                        return [2 /*return*/, new Promise(function (resolve, reject) {
+                                if (purchase.transaction === undefined || purchase.screeningEvent === undefined) {
+                                    reject();
+                                    return;
+                                }
+                                _this.store.dispatch(new actions_1.purchaseAction.CheckMovieTicket({
+                                    transaction: purchase.transaction,
+                                    movieTickets: [{
+                                            typeOf: api_javascript_client_1.factory.paymentMethodType.MovieTicket,
+                                            identifier: movieTicket.code,
+                                            accessCode: movieTicket.password // PINコード
+                                        }],
+                                    screeningEvent: purchase.screeningEvent
+                                }));
+                                var success = _this.actions.pipe(effects_1.ofType(actions_1.purchaseAction.ActionTypes.CheckMovieTicketSuccess), operators_1.tap(function () { resolve(); }));
+                                var fail = _this.actions.pipe(effects_1.ofType(actions_1.purchaseAction.ActionTypes.CheckMovieTicketFail), operators_1.tap(function () { _this.error.subscribe(function (error) { reject(error); }).unsubscribe(); }));
+                                rxjs_1.race(success, fail).pipe(operators_1.take(1)).subscribe();
+                            })];
+                }
+            });
+        });
+    };
+    /**
+     * 取引確定
+     */
+    PurchaseService.prototype.endTransaction = function (seller) {
+        return __awaiter(this, void 0, void 0, function () {
+            var purchase;
+            var _this = this;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, this.getData()];
+                    case 1:
+                        purchase = _a.sent();
+                        return [2 /*return*/, new Promise(function (resolve, reject) {
+                                if (purchase.transaction === undefined) {
+                                    reject();
+                                    return;
+                                }
+                                var transaction = purchase.transaction;
+                                var authorizeSeatReservations = purchase.authorizeSeatReservations;
+                                _this.store.dispatch(new actions_1.purchaseAction.EndTransaction({ transaction: transaction, authorizeSeatReservations: authorizeSeatReservations, seller: seller }));
+                                var success = _this.actions.pipe(effects_1.ofType(actions_1.purchaseAction.ActionTypes.EndTransactionSuccess), operators_1.tap(function () { resolve(); }));
+                                var fail = _this.actions.pipe(effects_1.ofType(actions_1.purchaseAction.ActionTypes.EndTransactionFail), operators_1.tap(function () { _this.error.subscribe(function (error) { reject(error); }).unsubscribe(); }));
+                                rxjs_1.race(success, fail).pipe(operators_1.take(1)).subscribe();
+                            })];
+                }
+            });
+        });
+    };
+    /**
+     * GMOトークン作成
+     */
+    PurchaseService.prototype.createGmoTokenObject = function () {
+    };
+    /**
+     * 決済情報承認
+     */
+    PurchaseService.prototype.authorizeAnyPayment = function (params) {
+        return __awaiter(this, void 0, void 0, function () {
+            var purchase;
+            var _this = this;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, this.getData()];
+                    case 1:
+                        purchase = _a.sent();
+                        return [2 /*return*/, new Promise(function (resolve, reject) {
+                                if (purchase.transaction === undefined || purchase.paymentMethod === undefined) {
+                                    reject();
+                                    return;
+                                }
+                                var transaction = purchase.transaction;
+                                var amount = params.amount;
+                                var depositAmount = params.depositAmount;
+                                var additionalProperty = [];
+                                if (purchase.paymentMethod.paymentMethodType === api_javascript_client_1.factory.paymentMethodType.Cash
+                                    && depositAmount !== undefined) {
+                                    // 現金
+                                    additionalProperty.push({ name: 'depositAmount', value: depositAmount });
+                                    additionalProperty.push({
+                                        name: 'change',
+                                        value: depositAmount - amount
+                                    });
+                                }
+                                _this.store.dispatch(new actions_1.purchaseAction.AuthorizeAnyPayment({
+                                    transaction: transaction,
+                                    typeOf: purchase.paymentMethod.paymentMethodType,
+                                    name: purchase.paymentMethod.paymentMethodName,
+                                    amount: amount,
+                                    additionalProperty: additionalProperty
+                                }));
+                                var success = _this.actions.pipe(effects_1.ofType(actions_1.purchaseAction.ActionTypes.AuthorizeAnyPaymentSuccess), operators_1.tap(function () { resolve(); }));
+                                var fail = _this.actions.pipe(effects_1.ofType(actions_1.purchaseAction.ActionTypes.AuthorizeAnyPaymentFail), operators_1.tap(function () { _this.error.subscribe(function (error) { reject(error); }).unsubscribe(); }));
+                                rxjs_1.race(success, fail).pipe(operators_1.take(1)).subscribe();
+                            })];
+                }
+            });
+        });
+    };
+    /**
+     * 決済方法取得
+     */
+    PurchaseService.prototype.selectPaymentMethodType = function (params) {
+        this.store.dispatch(new actions_1.purchaseAction.SelectPaymentMethodType(params));
+    };
     PurchaseService = __decorate([
         core_1.Injectable({
             providedIn: 'root'
         }),
-        __metadata("design:paramtypes", [])
+        __metadata("design:paramtypes", [effects_1.Actions,
+            store_1.Store])
     ], PurchaseService);
     return PurchaseService;
 }());
 exports.PurchaseService = PurchaseService;
+
+
+/***/ }),
+
+/***/ "./app/services/reservation.service.ts":
+/*!*********************************************!*\
+  !*** ./app/services/reservation.service.ts ***!
+  \*********************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : new P(function (resolve) { resolve(result.value); }).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+var __generator = (this && this.__generator) || function (thisArg, body) {
+    var _ = { label: 0, sent: function() { if (t[0] & 1) throw t[1]; return t[1]; }, trys: [], ops: [] }, f, y, t, g;
+    return g = { next: verb(0), "throw": verb(1), "return": verb(2) }, typeof Symbol === "function" && (g[Symbol.iterator] = function() { return this; }), g;
+    function verb(n) { return function (v) { return step([n, v]); }; }
+    function step(op) {
+        if (f) throw new TypeError("Generator is already executing.");
+        while (_) try {
+            if (f = 1, y && (t = op[0] & 2 ? y["return"] : op[0] ? y["throw"] || ((t = y["return"]) && t.call(y), 0) : y.next) && !(t = t.call(y, op[1])).done) return t;
+            if (y = 0, t) op = [op[0] & 2, t.value];
+            switch (op[0]) {
+                case 0: case 1: t = op; break;
+                case 4: _.label++; return { value: op[1], done: false };
+                case 5: _.label++; y = op[1]; op = [0]; continue;
+                case 7: op = _.ops.pop(); _.trys.pop(); continue;
+                default:
+                    if (!(t = _.trys, t = t.length > 0 && t[t.length - 1]) && (op[0] === 6 || op[0] === 2)) { _ = 0; continue; }
+                    if (op[0] === 3 && (!t || (op[1] > t[0] && op[1] < t[3]))) { _.label = op[1]; break; }
+                    if (op[0] === 6 && _.label < t[1]) { _.label = t[1]; t = op; break; }
+                    if (t && _.label < t[2]) { _.label = t[2]; _.ops.push(op); break; }
+                    if (t[2]) _.ops.pop();
+                    _.trys.pop(); continue;
+            }
+            op = body.call(thisArg, _);
+        } catch (e) { op = [6, e]; y = 0; } finally { f = t = 0; }
+        if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
+    }
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+var core_1 = __webpack_require__(/*! @angular/core */ "../../node_modules/@angular/core/fesm5/core.js");
+var effects_1 = __webpack_require__(/*! @ngrx/effects */ "../../node_modules/@ngrx/effects/fesm5/effects.js");
+var store_1 = __webpack_require__(/*! @ngrx/store */ "../../node_modules/@ngrx/store/fesm5/store.js");
+var rxjs_1 = __webpack_require__(/*! rxjs */ "../../node_modules/rxjs/_esm5/index.js");
+var operators_1 = __webpack_require__(/*! rxjs/operators */ "../../node_modules/rxjs/_esm5/operators/index.js");
+var actions_1 = __webpack_require__(/*! ../store/actions */ "./app/store/actions/index.ts");
+var reducers = __webpack_require__(/*! ../store/reducers */ "./app/store/reducers/index.ts");
+var ReservationService = /** @class */ (function () {
+    function ReservationService(store, actions) {
+        this.store = store;
+        this.actions = actions;
+        this.reservation = this.store.pipe(store_1.select(reducers.getReservation));
+        this.error = this.store.pipe(store_1.select(reducers.getError));
+    }
+    /**
+     * 予約データ取得
+     */
+    ReservationService.prototype.getData = function () {
+        return __awaiter(this, void 0, void 0, function () {
+            var _this = this;
+            return __generator(this, function (_a) {
+                return [2 /*return*/, new Promise(function (resolve) {
+                        _this.reservation.subscribe(function (reservation) {
+                            resolve(reservation);
+                        }).unsubscribe();
+                    })];
+            });
+        });
+    };
+    /**
+     * 予約データ削除
+     */
+    ReservationService.prototype.delete = function () {
+        this.store.dispatch(new actions_1.reservationAction.Delete());
+    };
+    /**
+     * 予約検索
+     */
+    ReservationService.prototype.search = function (params) {
+        var _this = this;
+        return new Promise(function (resolve, reject) {
+            _this.store.dispatch(new actions_1.reservationAction.Search({ params: params }));
+            var success = _this.actions.pipe(effects_1.ofType(actions_1.reservationAction.ActionTypes.SearchSuccess), operators_1.tap(function () { resolve(); }));
+            var fail = _this.actions.pipe(effects_1.ofType(actions_1.reservationAction.ActionTypes.SearchFail), operators_1.tap(function () { _this.error.subscribe(function (error) { reject(error); }).unsubscribe(); }));
+            rxjs_1.race(success, fail).pipe(operators_1.take(1)).subscribe();
+        });
+    };
+    ReservationService = __decorate([
+        core_1.Injectable({
+            providedIn: 'root'
+        }),
+        __metadata("design:paramtypes", [store_1.Store,
+            effects_1.Actions])
+    ], ReservationService);
+    return ReservationService;
+}());
+exports.ReservationService = ReservationService;
 
 
 /***/ }),
@@ -12362,16 +13283,99 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : new P(function (resolve) { resolve(result.value); }).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+var __generator = (this && this.__generator) || function (thisArg, body) {
+    var _ = { label: 0, sent: function() { if (t[0] & 1) throw t[1]; return t[1]; }, trys: [], ops: [] }, f, y, t, g;
+    return g = { next: verb(0), "throw": verb(1), "return": verb(2) }, typeof Symbol === "function" && (g[Symbol.iterator] = function() { return this; }), g;
+    function verb(n) { return function (v) { return step([n, v]); }; }
+    function step(op) {
+        if (f) throw new TypeError("Generator is already executing.");
+        while (_) try {
+            if (f = 1, y && (t = op[0] & 2 ? y["return"] : op[0] ? y["throw"] || ((t = y["return"]) && t.call(y), 0) : y.next) && !(t = t.call(y, op[1])).done) return t;
+            if (y = 0, t) op = [op[0] & 2, t.value];
+            switch (op[0]) {
+                case 0: case 1: t = op; break;
+                case 4: _.label++; return { value: op[1], done: false };
+                case 5: _.label++; y = op[1]; op = [0]; continue;
+                case 7: op = _.ops.pop(); _.trys.pop(); continue;
+                default:
+                    if (!(t = _.trys, t = t.length > 0 && t[t.length - 1]) && (op[0] === 6 || op[0] === 2)) { _ = 0; continue; }
+                    if (op[0] === 3 && (!t || (op[1] > t[0] && op[1] < t[3]))) { _.label = op[1]; break; }
+                    if (op[0] === 6 && _.label < t[1]) { _.label = t[1]; t = op; break; }
+                    if (t && _.label < t[2]) { _.label = t[2]; _.ops.push(op); break; }
+                    if (t[2]) _.ops.pop();
+                    _.trys.pop(); continue;
+            }
+            op = body.call(thisArg, _);
+        } catch (e) { op = [6, e]; y = 0; } finally { f = t = 0; }
+        if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
+    }
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = __webpack_require__(/*! @angular/core */ "../../node_modules/@angular/core/fesm5/core.js");
+var store_1 = __webpack_require__(/*! @ngrx/store */ "../../node_modules/@ngrx/store/fesm5/store.js");
+var core_2 = __webpack_require__(/*! @ngx-translate/core */ "../../node_modules/@ngx-translate/core/fesm5/ngx-translate-core.js");
+var actions_1 = __webpack_require__(/*! ../store/actions */ "./app/store/actions/index.ts");
+var reducers = __webpack_require__(/*! ../store/reducers */ "./app/store/reducers/index.ts");
 var UserService = /** @class */ (function () {
-    function UserService() {
+    function UserService(store, translate) {
+        this.store = store;
+        this.translate = translate;
+        this.user = this.store.pipe(store_1.select(reducers.getUser));
     }
+    /**
+     * ユーザーデータ取得
+     */
+    UserService.prototype.getData = function () {
+        return __awaiter(this, void 0, void 0, function () {
+            var _this = this;
+            return __generator(this, function (_a) {
+                return [2 /*return*/, new Promise(function (resolve) {
+                        _this.user.subscribe(function (user) {
+                            resolve(user);
+                        }).unsubscribe();
+                    })];
+            });
+        });
+    };
+    /**
+     * ユーザーデータ削除
+     */
+    UserService.prototype.delete = function () {
+        this.store.dispatch(new actions_1.userAction.Delete());
+    };
+    /**
+     * すべて更新
+     */
+    UserService.prototype.updateAll = function (params) {
+        this.store.dispatch(new actions_1.userAction.UpdateAll(params));
+    };
+    /**
+     * 言語更新
+     */
+    UserService.prototype.updateLanguage = function (language) {
+        var element = document.querySelector('#language');
+        if (element !== null) {
+            element.value = language;
+        }
+        this.translate.use(language);
+        var html = document.querySelector('html');
+        html.setAttribute('lang', language);
+        this.store.dispatch(new actions_1.userAction.UpdateLanguage({ language: language }));
+    };
     UserService = __decorate([
         core_1.Injectable({
             providedIn: 'root'
         }),
-        __metadata("design:paramtypes", [])
+        __metadata("design:paramtypes", [store_1.Store,
+            core_2.TranslateService])
     ], UserService);
     return UserService;
 }());
@@ -14337,7 +15341,7 @@ var MasterEffects = /** @class */ (function () {
                         return [4 /*yield*/, this.cinerino.getServices()];
                     case 1:
                         _a.sent();
-                        return [4 /*yield*/, this.cinerino.seller.search(payload.params)];
+                        return [4 /*yield*/, this.cinerino.seller.search((payload === undefined) ? {} : payload)];
                     case 2:
                         searchMovieTheatersResult = _a.sent();
                         sellers = searchMovieTheatersResult.data;
@@ -14502,12 +15506,12 @@ var actions_1 = __webpack_require__(/*! ../actions */ "./app/store/actions/index
  * Order Effects
  */
 var OrderEffects = /** @class */ (function () {
-    function OrderEffects(actions, cinerino, starPrint, util, translate) {
+    function OrderEffects(actions, cinerino, starPrint, utilService, translate) {
         var _this = this;
         this.actions = actions;
         this.cinerino = cinerino;
         this.starPrint = starPrint;
-        this.util = util;
+        this.utilService = utilService;
         this.translate = translate;
         /**
          * Search
@@ -14587,7 +15591,7 @@ var OrderEffects = /** @class */ (function () {
                                         };
                                         if (!environment_1.environment.PURCHASE_COMPLETE_MAIL_CUSTOM) return [3 /*break*/, 3];
                                         url = '/storage/text/order/mail/return.txt';
-                                        return [4 /*yield*/, this_1.util.getText(url)];
+                                        return [4 /*yield*/, this_1.utilService.getText(url)];
                                     case 2:
                                         template = _a.sent();
                                         email.template = functions_1.createReturnMail({ template: template, order: order });
@@ -14784,7 +15788,7 @@ var OrderEffects = /** @class */ (function () {
                     case 4:
                         _i++;
                         return [3 /*break*/, 2];
-                    case 5: return [4 /*yield*/, this.util.getJson('/storage/json/print/ticket.json')];
+                    case 5: return [4 /*yield*/, this.utilService.getJson('/storage/json/print/ticket.json')];
                     case 6:
                         printData = _c.sent();
                         testFlg = authorizeOrders.length === 0;
@@ -14824,7 +15828,7 @@ var OrderEffects = /** @class */ (function () {
                                                         if (!(qrcode !== undefined
                                                             && environment_1.environment.PRINT_QRCODE_TYPE === models_1.PrintQrcodeType.Encryption)) return [3 /*break*/, 2];
                                                         encyptText = itemOffered.reservationFor.id + "=" + itemOffered.reservationFor.startDate;
-                                                        return [4 /*yield*/, this_2.util.encryptionEncode(encyptText)];
+                                                        return [4 /*yield*/, this_2.utilService.encryptionEncode(encyptText)];
                                                     case 1:
                                                         encryptionEncodeResult = _a.sent();
                                                         qrcode =
@@ -14916,7 +15920,7 @@ var OrderEffects = /** @class */ (function () {
                         return [3 /*break*/, 19];
                     case 17:
                         domList = canvasList.map(function (canvas) { return "<div class=\"mb-3 p-4 border border-light-gray shadow-sm\">\n                        <img class=\"w-100\" src=\"" + canvas.toDataURL() + "\">\n                        </div>"; });
-                        this.util.openAlert({
+                        this.utilService.openAlert({
                             title: '',
                             body: "<div class=\"px-5\">" + domList.join('\n') + "</div>"
                         });
@@ -14939,7 +15943,7 @@ var OrderEffects = /** @class */ (function () {
                 switch (_a.label) {
                     case 0:
                         _a.trys.push([0, 3, , 4]);
-                        params = Object.assign({ personId: 'me' }, payload.params);
+                        params = Object.assign({ personId: 'me' }, payload);
                         return [4 /*yield*/, this.cinerino.getServices()];
                     case 1:
                         _a.sent();
@@ -15070,12 +16074,12 @@ var actions_1 = __webpack_require__(/*! ../actions */ "./app/store/actions/index
  * Purchase Effects
  */
 var PurchaseEffects = /** @class */ (function () {
-    function PurchaseEffects(actions, cinerino, http, util, translate) {
+    function PurchaseEffects(actions, cinerino, http, utilService, translate) {
         var _this = this;
         this.actions = actions;
         this.cinerino = cinerino;
         this.http = http;
-        this.util = util;
+        this.utilService = utilService;
         this.translate = translate;
         /**
          * StartTransaction
@@ -15086,7 +16090,7 @@ var PurchaseEffects = /** @class */ (function () {
                 switch (_a.label) {
                     case 0:
                         _a.trys.push([0, 4, , 5]);
-                        params = payload.params;
+                        params = payload;
                         selleId = params.seller.id;
                         return [4 /*yield*/, this.cinerino.getServices()];
                     case 1:
@@ -15653,7 +16657,7 @@ var PurchaseEffects = /** @class */ (function () {
                         };
                         if (!environment_1.environment.PURCHASE_COMPLETE_MAIL_CUSTOM) return [3 /*break*/, 4];
                         url = '/storage/text/purchase/mail/complete.txt';
-                        return [4 /*yield*/, this.util.getText(url)];
+                        return [4 /*yield*/, this.utilService.getText(url)];
                     case 3:
                         template = _a.sent();
                         params.options.email.template = functions_1.createCompleteMail({

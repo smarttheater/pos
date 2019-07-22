@@ -1,17 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, ValidationErrors, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { Actions, ofType } from '@ngrx/effects';
 import { select, Store } from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
 import * as libphonenumber from 'libphonenumber-js';
-import { Observable, race } from 'rxjs';
-import { take, tap } from 'rxjs/operators';
+import { Observable } from 'rxjs';
 import { environment } from '../../../../environments/environment';
 import { connectionType, printers, ViewType } from '../../../models';
 import { LibphonenumberFormatPipe } from '../../../pipes/libphonenumber-format.pipe';
-import { UtilService } from '../../../services';
-import { masterAction, orderAction, userAction } from '../../../store/actions';
+import { MasterService, OrderService, UserService, UtilService } from '../../../services';
 import * as reducers from '../../../store/reducers';
 
 @Component({
@@ -31,30 +28,37 @@ export class SettingComponent implements OnInit {
     public environment = environment;
 
     constructor(
-        private actions: Actions,
         private formBuilder: FormBuilder,
         private store: Store<reducers.IState>,
-        private util: UtilService,
-        private router: Router,
-        private translate: TranslateService
+        private utilService: UtilService,
+        private userService: UserService,
+        private masterService: MasterService,
+        private orderService: OrderService,
+        private translate: TranslateService,
+        private router: Router
     ) { }
 
     /**
      * 初期化
      */
-    public ngOnInit() {
+    public async ngOnInit() {
         this.user = this.store.pipe(select(reducers.getUser));
         this.master = this.store.pipe(select(reducers.getMaster));
         this.error = this.store.pipe(select(reducers.getError));
         this.posList = [];
-        this.getSellers();
-        this.createSettlingForm();
+        try {
+            await this.masterService.getSellers();
+            await this.createSettlingForm();
+        } catch (error) {
+            console.error(error);
+            this.router.navigate(['/error']);
+        }
     }
 
     /**
      * フォーム作成
      */
-    private createSettlingForm() {
+    private async createSettlingForm() {
         const NAME_MAX_LENGTH = 12;
         const MAIL_MAX_LENGTH = 50;
         const TEL_MAX_LENGTH = 11;
@@ -113,32 +117,31 @@ export class SettingComponent implements OnInit {
                 Validators.required
             ]]
         });
-        this.user.subscribe((user) => {
-            if (user.seller !== undefined
-                && user.seller.location !== undefined) {
-                this.settingForm.controls.sellerBranchCode.setValue(user.seller.location.branchCode);
-            }
-            if (user.pos !== undefined) {
-                this.changePosList();
-                this.settingForm.controls.posId.setValue(user.pos.id);
-            }
-            if (user.customerContact !== undefined
-                && user.customerContact.familyName !== undefined
-                && user.customerContact.givenName !== undefined
-                && user.customerContact.email !== undefined
-                && user.customerContact.telephone !== undefined) {
-                this.settingForm.controls.familyName.setValue(user.customerContact.familyName);
-                this.settingForm.controls.givenName.setValue(user.customerContact.givenName);
-                this.settingForm.controls.email.setValue(user.customerContact.email);
-                this.settingForm.controls.telephone.setValue(new LibphonenumberFormatPipe().transform(user.customerContact.telephone));
-            }
-            if (user.printer !== undefined) {
-                this.settingForm.controls.printerType.setValue(user.printer.connectionType);
-                this.settingForm.controls.printerIpAddress.setValue(user.printer.ipAddress);
-            }
-            this.settingForm.controls.isPurchaseCart.setValue((user.isPurchaseCart) ? '1' : '0');
-            this.settingForm.controls.viewType.setValue(user.viewType);
-        }).unsubscribe();
+        const user = await this.userService.getData();
+        if (user.seller !== undefined
+            && user.seller.location !== undefined) {
+            this.settingForm.controls.sellerBranchCode.setValue(user.seller.location.branchCode);
+        }
+        if (user.pos !== undefined) {
+            this.changePosList();
+            this.settingForm.controls.posId.setValue(user.pos.id);
+        }
+        if (user.customerContact !== undefined
+            && user.customerContact.familyName !== undefined
+            && user.customerContact.givenName !== undefined
+            && user.customerContact.email !== undefined
+            && user.customerContact.telephone !== undefined) {
+            this.settingForm.controls.familyName.setValue(user.customerContact.familyName);
+            this.settingForm.controls.givenName.setValue(user.customerContact.givenName);
+            this.settingForm.controls.email.setValue(user.customerContact.email);
+            this.settingForm.controls.telephone.setValue(new LibphonenumberFormatPipe().transform(user.customerContact.telephone));
+        }
+        if (user.printer !== undefined) {
+            this.settingForm.controls.printerType.setValue(user.printer.connectionType);
+            this.settingForm.controls.printerIpAddress.setValue(user.printer.ipAddress);
+        }
+        this.settingForm.controls.isPurchaseCart.setValue((user.isPurchaseCart) ? '1' : '0');
+        this.settingForm.controls.viewType.setValue(user.viewType);
     }
 
     /**
@@ -164,25 +167,6 @@ export class SettingComponent implements OnInit {
         }).unsubscribe();
     }
 
-    /**
-     * 販売者一覧取得
-     */
-    public getSellers() {
-        this.store.dispatch(new masterAction.GetSellers({ params: {} }));
-
-        const success = this.actions.pipe(
-            ofType(masterAction.ActionTypes.GetSellersSuccess),
-            tap(() => { })
-        );
-
-        const fail = this.actions.pipe(
-            ofType(masterAction.ActionTypes.GetSellersFail),
-            tap(() => {
-                this.router.navigate(['/error']);
-            })
-        );
-        race(success, fail).pipe(take(1)).subscribe();
-    }
 
     /**
      * 設定変更
@@ -192,7 +176,7 @@ export class SettingComponent implements OnInit {
             this.settingForm.controls[key].markAsTouched();
         });
         if (this.settingForm.invalid) {
-            this.util.openAlert({
+            this.utilService.openAlert({
                 title: this.translate.instant('common.error'),
                 body: this.translate.instant('setting.alert.validation')
             });
@@ -210,7 +194,7 @@ export class SettingComponent implements OnInit {
             if (findPos === undefined) {
                 return;
             }
-            this.store.dispatch(new userAction.UpdateAll({
+            this.userService.updateAll({
                 seller: findSeller,
                 pos: findPos,
                 customerContact: {
@@ -225,8 +209,8 @@ export class SettingComponent implements OnInit {
                 },
                 isPurchaseCart: (this.settingForm.controls.isPurchaseCart.value === '1') ? true : false,
                 viewType: this.settingForm.controls.viewType.value
-            }));
-            this.util.openAlert({
+            });
+            this.utilService.openAlert({
                 title: this.translate.instant('common.complete'),
                 body: this.translate.instant('setting.alert.success')
             });
@@ -238,34 +222,24 @@ export class SettingComponent implements OnInit {
     /**
      * 印刷
      */
-    public print() {
+    public async print() {
         const printer = {
             connectionType: this.settingForm.controls.printerType.value,
             ipAddress: this.settingForm.controls.printerIpAddress.value
         };
-        this.store.dispatch(new orderAction.Print({ orders: [], printer }));
-
-        const success = this.actions.pipe(
-            ofType(orderAction.ActionTypes.PrintSuccess),
-            tap(() => { })
-        );
-
-        const fail = this.actions.pipe(
-            ofType(orderAction.ActionTypes.PrintFail),
-            tap(() => {
-                this.error.subscribe((error) => {
-                    this.util.openAlert({
-                        title: this.translate.instant('common.error'),
-                        body: `
-                        <p class="mb-4">${this.translate.instant('setting.alert.print')}</p>
-                            <div class="p-3 bg-light-gray select-text">
-                            <code>${error}</code>
-                        </div>`
-                    });
-                }).unsubscribe();
-            })
-        );
-        race(success, fail).pipe(take(1)).subscribe();
+        try {
+            await this.orderService.print({ orders: [], printer });
+        } catch (error) {
+            console.error(error);
+            this.utilService.openAlert({
+                title: this.translate.instant('common.error'),
+                body: `
+                <p class="mb-4">${this.translate.instant('setting.alert.print')}</p>
+                    <div class="p-3 bg-light-gray select-text">
+                    <code>${error}</code>
+                </div>`
+            });
+        }
     }
 
     /**

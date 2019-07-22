@@ -17,7 +17,7 @@ export class DevelopmentEncryptionComponent implements OnInit {
     public decodeResult?: { decrypted: string; };
 
     constructor(
-        private util: UtilService
+        private utilService: UtilService
     ) { }
 
     public ngOnInit() {
@@ -32,7 +32,7 @@ export class DevelopmentEncryptionComponent implements OnInit {
             return;
         }
         this.encodeResult = undefined;
-        this.encodeResult = await this.util.encryptionEncode(this.encodeText);
+        this.encodeResult = await this.utilService.encryptionEncode(this.encodeText);
         const canvas = document.createElement('canvas');
         const qrcodeText = `${this.encodeResult.salt},${this.encodeResult.iv},${this.encodeResult.encrypted}`;
         await qrcode.toCanvas(canvas, qrcodeText);
@@ -44,7 +44,7 @@ export class DevelopmentEncryptionComponent implements OnInit {
             return;
         }
         this.decodeResult = undefined;
-        this.decodeResult = await this.util.encryptionDecode({
+        this.decodeResult = await this.utilService.encryptionDecode({
             salt: this.salt,
             iv: this.iv,
             encrypted: this.encrypted

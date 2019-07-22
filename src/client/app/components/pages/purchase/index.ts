@@ -1,7 +1,6 @@
 export * from './purchase-base/purchase-base.component';
 export * from './purchase-complete/purchase-complete.component';
 export * from './purchase-confirm/purchase-confirm.component';
-export * from './purchase-input/purchase-input.component';
 export * from './purchase-payment/purchase-payment.component';
 export * from './cinema/purchase-cinema-cart/purchase-cinema-cart.component';
 export * from './cinema/purchase-cinema-schedule/purchase-cinema-schedule.component';

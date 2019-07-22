@@ -6,8 +6,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 import { environment } from '../../../../../environments/environment';
 import { ViewType } from '../../../../models';
-import { UtilService } from '../../../../services';
-import { purchaseAction } from '../../../../store/actions';
+import { PurchaseService, UtilService } from '../../../../services';
 import * as reducers from '../../../../store/reducers';
 
 @Component({
@@ -24,7 +23,8 @@ export class PurchasePaymentComponent implements OnInit {
     constructor(
         private store: Store<reducers.IState>,
         private router: Router,
-        private util: UtilService,
+        private utilService: UtilService,
+        private purchaseService: PurchaseService,
         private translate: TranslateService
     ) { }
 
@@ -49,13 +49,13 @@ export class PurchasePaymentComponent implements OnInit {
             const findResult = user.seller.paymentAccepted
                 .find(paymentAccepted => paymentAccepted.paymentMethodType === paymentMethodType);
             if (findResult === undefined) {
-                this.util.openAlert({
+                this.utilService.openAlert({
                     title: this.translate.instant('common.error'),
                     body: this.translate.instant('purchase.payment.alert.notCompatible')
                 });
                 return;
             }
-            this.store.dispatch(new purchaseAction.SelectPaymentMethodType({ paymentMethodType, paymentMethodName }));
+            this.purchaseService.selectPaymentMethodType({ paymentMethodType, paymentMethodName });
             this.router.navigate(['/purchase/confirm']);
         }).unsubscribe();
     }
