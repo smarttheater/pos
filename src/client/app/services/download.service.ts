@@ -13,7 +13,7 @@ export class DownloadService {
 
     constructor(
         private cinerino: CinerinoService,
-        private util: UtilService
+        private utilService: UtilService
     ) { }
 
     /**
@@ -21,7 +21,7 @@ export class DownloadService {
      */
     public async order(params: factory.order.ISearchConditions) {
         const url = '/storage/json/csv/order.json';
-        const fields = await this.util.getJson<{ label: string, value: string }[]>(url);
+        const fields = await this.utilService.getJson<{ label: string, value: string }[]>(url);
         const opts = { fields, unwind: [] };
         await this.cinerino.getServices();
         const limit = 100;
@@ -83,7 +83,7 @@ export class DownloadService {
      */
     public async reservation(params: factory.chevre.reservation.ISearchConditions<factory.chevre.reservationType.EventReservation>) {
         const url = '/storage/json/csv/reservation.json';
-        const fields = await this.util.getJson<{ label: string, value: string }[]>(url);
+        const fields = await this.utilService.getJson<{ label: string, value: string }[]>(url);
         const opts = { fields, unwind: [] };
         await this.cinerino.getServices();
         const limit = 100;

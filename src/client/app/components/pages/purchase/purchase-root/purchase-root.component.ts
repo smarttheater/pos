@@ -1,11 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { Actions, ofType } from '@ngrx/effects';
 import { select, Store } from '@ngrx/store';
-import { Observable, race } from 'rxjs';
-import { take, tap } from 'rxjs/operators';
+import { Observable } from 'rxjs';
 import { ViewType } from '../../../../models';
-import { purchaseAction } from '../../../../store/actions';
+import { PurchaseService, UserService } from '../../../../services';
 import * as reducers from '../../../../store/reducers';
 
 @Component({
@@ -18,45 +16,29 @@ export class PurchaseRootComponent implements OnInit {
     public user: Observable<reducers.IUserState>;
     constructor(
         private store: Store<reducers.IState>,
-        private actions: Actions,
+        private purchaseService: PurchaseService,
+        private userService: UserService,
         private router: Router
     ) { }
 
-    public ngOnInit() {
+    public async ngOnInit() {
         this.user = this.store.pipe(select(reducers.getUser));
         this.purchase = this.store.pipe(select(reducers.getPurchase));
-        this.purchase.subscribe(async (purchase) => {
-            if (purchase.authorizeSeatReservations.length > 0) {
-                await this.cancelTemporaryReservations();
+        try {
+            const purchase = await this.purchaseService.getData();
+            const user = await this.userService.getData();
+            if (purchase.transaction !== undefined) {
+                await this.purchaseService.cancelTransaction();
             }
-            this.store.dispatch(new purchaseAction.Delete());
-            this.user.subscribe((user) => {
-                if (user.viewType === ViewType.Cinema) {
-                    this.router.navigate(['/purchase/cinema/schedule']);
-                    return;
-                }
-                this.router.navigate(['/purchase/event/schedule']);
-            }).unsubscribe();
-        }).unsubscribe();
+            this.purchaseService.delete();
+            if (user.viewType === ViewType.Cinema) {
+                this.router.navigate(['/purchase/cinema/schedule']);
+                return;
+            }
+            this.router.navigate(['/purchase/event/schedule']);
+        } catch (error) {
+            console.error(error);
+            this.router.navigate(['/error']);
+        }
     }
-
-    private async cancelTemporaryReservations() {
-        this.purchase.subscribe((purchase) => {
-            const authorizeSeatReservations = purchase.authorizeSeatReservations;
-            this.store.dispatch(new purchaseAction.CancelTemporaryReservations({ authorizeSeatReservations }));
-        }).unsubscribe();
-
-        return new Promise((resolve, reject) => {
-            const success = this.actions.pipe(
-                ofType(purchaseAction.ActionTypes.CancelTemporaryReservationsSuccess),
-                tap(() => { resolve(); })
-            );
-            const fail = this.actions.pipe(
-                ofType(purchaseAction.ActionTypes.CancelTemporaryReservationsFail),
-                tap(() => { reject(); })
-            );
-            race(success, fail).pipe(take(1)).subscribe();
-        });
-    }
-
 }

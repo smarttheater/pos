@@ -1,10 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { Actions, ofType } from '@ngrx/effects';
 import { select, Store } from '@ngrx/store';
-import { Observable, race } from 'rxjs';
-import { take, tap } from 'rxjs/operators';
+import { Observable } from 'rxjs';
 import { environment } from '../../../../../environments/environment';
-import { purchaseAction } from '../../../../store/actions';
+import { PurchaseService } from '../../../../services';
 import * as reducers from '../../../../store/reducers';
 
 @Component({
@@ -21,7 +19,7 @@ export class DevelopmentScreenComponent implements OnInit {
 
     constructor(
         private store: Store<reducers.IState>,
-        private actions: Actions
+        private purchaseService: PurchaseService
     ) { }
 
     public ngOnInit() {
@@ -32,21 +30,18 @@ export class DevelopmentScreenComponent implements OnInit {
         this.getScreenData();
     }
 
-    public getScreenData() {
+    public async getScreenData() {
         const theaterCode = this.theaterCode;
         const screenCode = this.screenCode;
-        this.store.dispatch(new purchaseAction.GetScreen({ test: true, theaterCode, screenCode }));
-
-        const success = this.actions.pipe(
-            ofType(purchaseAction.ActionTypes.GetScreenSuccess),
-            tap(() => { })
-        );
-
-        const fail = this.actions.pipe(
-            ofType(purchaseAction.ActionTypes.GetScreenFail),
-            tap(() => { })
-        );
-        race(success, fail).pipe(take(1)).subscribe();
+        try {
+            await this.purchaseService.getScreen({
+                test: true,
+                theaterCode,
+                screenCode
+            });
+        } catch (error) {
+            console.error(error);
+        }
     }
 
 

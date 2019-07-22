@@ -1,15 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { factory } from '@cinerino/api-javascript-client';
-import { Actions, ofType } from '@ngrx/effects';
 import { select, Store } from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
-import { Observable, race } from 'rxjs';
-import { take, tap } from 'rxjs/operators';
+import { Observable } from 'rxjs';
 import { environment } from '../../../../../../environments/environment';
-import { IReservationSeat, Reservation, SeatStatus } from '../../../../../models';
-import { UtilService } from '../../../../../services';
-import { purchaseAction } from '../../../../../store/actions';
+import { IReservationSeat, SeatStatus } from '../../../../../models';
+import { PurchaseService, UserService, UtilService } from '../../../../../services';
 import * as reducers from '../../../../../store/reducers';
 
 @Component({
@@ -25,9 +22,10 @@ export class PurchaseCinemaSeatComponent implements OnInit {
 
     constructor(
         private store: Store<reducers.IState>,
-        private actions: Actions,
         private router: Router,
-        private util: UtilService,
+        private utilService: UtilService,
+        private userService: UserService,
+        private purchaseService: PurchaseService,
         private translate: TranslateService
     ) { }
 
@@ -35,37 +33,23 @@ export class PurchaseCinemaSeatComponent implements OnInit {
         this.purchase = this.store.pipe(select(reducers.getPurchase));
         this.user = this.store.pipe(select(reducers.getUser));
         this.isLoading = this.store.pipe(select(reducers.getLoading));
-        this.getScreen();
-    }
-
-    /**
-     * getScreen
-     */
-    private getScreen() {
-        this.purchase.subscribe((purchase) => {
+        try {
+            const purchase = await this.purchaseService.getData();
+            const user = await this.userService.getData();
             const screeningEvent = purchase.screeningEvent;
-            if (screeningEvent === undefined) {
+            const seller = user.seller;
+            if (screeningEvent === undefined || seller === undefined) {
                 this.router.navigate(['/error']);
                 return;
             }
-            this.store.dispatch(new purchaseAction.GetScreen({ screeningEvent, test: false }));
-        }).unsubscribe();
-
-        const success = this.actions.pipe(
-            ofType(purchaseAction.ActionTypes.GetScreenSuccess),
-            tap(() => {
-                this.getTickets();
-            })
-        );
-
-        const fail = this.actions.pipe(
-            ofType(purchaseAction.ActionTypes.GetScreenFail),
-            tap(() => {
-                this.router.navigate(['/error']);
-            })
-        );
-        race(success, fail).pipe(take(1)).subscribe();
+            await this.purchaseService.getScreen({ screeningEvent, test: false });
+            await this.purchaseService.getTicketList(seller);
+        } catch (error) {
+            console.error(error);
+            this.router.navigate(['/error']);
+        }
     }
+
 
     /**
      * selectSeat
@@ -75,152 +59,91 @@ export class PurchaseCinemaSeatComponent implements OnInit {
         status: SeatStatus
     }) {
         if (data.status === SeatStatus.Default) {
-            this.store.dispatch(new purchaseAction.SelectSeats({ seats: [data.seat] }));
+            this.purchaseService.selectSeats([data.seat]);
         } else {
-            this.store.dispatch(new purchaseAction.CancelSeats({ seats: [data.seat] }));
+            this.purchaseService.cancelSeats([data.seat]);
         }
     }
 
-    public allSelectSeats() {
+    /**
+     * 全席選択
+     */
+    public async allSelectSeats() {
         const seats: IReservationSeat[] = [];
-        this.purchase.subscribe((purchase) => {
-            const screeningEventOffers = purchase.screeningEventOffers;
-            screeningEventOffers.forEach((screeningEventOffer) => {
-                screeningEventOffer.containsPlace.forEach((containsPlace) => {
-                    if (containsPlace.offers === undefined
-                        || containsPlace.offers[0].availability !== factory.chevre.itemAvailability.InStock) {
-                        return;
-                    }
-                    seats.push({
-                        typeOf: containsPlace.typeOf,
-                        seatingType: (containsPlace.seatingType === undefined)
-                            ? <any>'' : containsPlace.seatingType,
-                        seatNumber: containsPlace.branchCode,
-                        seatRow: '',
-                        seatSection: screeningEventOffer.branchCode
-                    });
+        const purchase = await this.purchaseService.getData();
+        const screeningEventOffers = purchase.screeningEventOffers;
+        screeningEventOffers.forEach((screeningEventOffer) => {
+            screeningEventOffer.containsPlace.forEach((containsPlace) => {
+                if (containsPlace.offers === undefined
+                    || containsPlace.offers[0].availability !== factory.chevre.itemAvailability.InStock) {
+                    return;
+                }
+                seats.push({
+                    typeOf: containsPlace.typeOf,
+                    seatingType: (containsPlace.seatingType === undefined)
+                        ? <any>'' : containsPlace.seatingType,
+                    seatNumber: containsPlace.branchCode,
+                    seatRow: '',
+                    seatSection: screeningEventOffer.branchCode
                 });
             });
-            if (purchase.authorizeSeatReservation !== undefined
-                && purchase.authorizeSeatReservation.instrument !== undefined) {
-                if (purchase.authorizeSeatReservation.instrument.identifier === factory.service.webAPI.Identifier.Chevre) {
-                    // chevre
-                    purchase.authorizeSeatReservation.object.acceptedOffer.forEach((offer) => {
-                        const chevreOffer = <factory.action.authorize.offer.seatReservation.IAcceptedOffer4chevre>offer;
-                        if (chevreOffer.ticketedSeat === undefined) {
-                            return;
-                        }
-                        seats.push(chevreOffer.ticketedSeat);
-                    });
-                }
+        });
+        if (purchase.authorizeSeatReservation !== undefined
+            && purchase.authorizeSeatReservation.instrument !== undefined) {
+            if (purchase.authorizeSeatReservation.instrument.identifier === factory.service.webAPI.Identifier.Chevre) {
+                // chevre
+                purchase.authorizeSeatReservation.object.acceptedOffer.forEach((offer) => {
+                    const chevreOffer = <factory.action.authorize.offer.seatReservation.IAcceptedOffer4chevre>offer;
+                    if (chevreOffer.ticketedSeat === undefined) {
+                        return;
+                    }
+                    seats.push(chevreOffer.ticketedSeat);
+                });
             }
-            this.store.dispatch(new purchaseAction.SelectSeats({ seats }));
-        }).unsubscribe();
+        }
+        this.purchaseService.selectSeats(seats);
     }
 
-    public resetSeats() {
+    /**
+     * 全席選択解除
+     */
+    public async resetSeats() {
         const seats: IReservationSeat[] = [];
-        this.purchase.subscribe((purchase) => {
-            purchase.reservations.forEach((reservation) => {
-                seats.push(reservation.seat);
-            });
-            this.store.dispatch(new purchaseAction.CancelSeats({ seats }));
-        }).unsubscribe();
+        const purchase = await this.purchaseService.getData();
+        purchase.reservations.forEach((reservation) => {
+            seats.push(reservation.seat);
+        });
+        this.purchaseService.cancelSeats(seats);
     }
 
     /**
      * onSubmit
      */
-    public onSubmit() {
-        this.purchase.subscribe((purchase) => {
-            const transaction = purchase.transaction;
-            const screeningEvent = purchase.screeningEvent;
-            if (purchase.reservations.length === 0) {
-                this.util.openAlert({
-                    title: this.translate.instant('common.error'),
-                    body: this.translate.instant('purchase.cinema.seat.alert.unselected')
-                });
-                return;
-            }
-            if (purchase.reservations.length === 0) {
-                this.util.openAlert({
-                    title: this.translate.instant('common.error'),
-                    body: this.translate.instant(
-                        'purchase.cinema.seat.alert.limit',
-                        { value: environment.PURCHASE_ITEM_MAX_LENGTH }
-                    )
-                });
-                return;
-            }
-            const reservations = purchase.reservations.map((reservation) => {
-                return new Reservation({
-                    seat: reservation.seat,
-                    ticket: (reservation.ticket === undefined)
-                        ? { ticketOffer: purchase.screeningEventTicketOffers[0] }
-                        : reservation.ticket
-                });
+    public async onSubmit() {
+        const purchase = await this.purchaseService.getData();
+        if (purchase.reservations.length === 0) {
+            this.utilService.openAlert({
+                title: this.translate.instant('common.error'),
+                body: this.translate.instant('purchase.cinema.seat.alert.unselected')
             });
-            const authorizeSeatReservation = purchase.authorizeSeatReservation;
-            if (transaction === undefined
-                || screeningEvent === undefined) {
-                console.error('33333');
-                this.router.navigate(['/error']);
-                return;
-            }
-            this.store.dispatch(new purchaseAction.TemporaryReservation({
-                transaction,
-                screeningEvent,
-                reservations,
-                authorizeSeatReservation
-            }));
-        }).unsubscribe();
-        const success = this.actions.pipe(
-            ofType(purchaseAction.ActionTypes.TemporaryReservationSuccess),
-            tap(() => {
-                this.router.navigate(['/purchase/cinema/ticket']);
-            })
-        );
-
-        const fail = this.actions.pipe(
-            ofType(purchaseAction.ActionTypes.TemporaryReservationFail),
-            tap(() => {
-                console.error('444444');
-                this.router.navigate(['/error']);
-            })
-        );
-        race(success, fail).pipe(take(1)).subscribe();
+            return;
+        }
+        if (purchase.reservations.length === 0) {
+            this.utilService.openAlert({
+                title: this.translate.instant('common.error'),
+                body: this.translate.instant(
+                    'purchase.cinema.seat.alert.limit',
+                    { value: environment.PURCHASE_ITEM_MAX_LENGTH }
+                )
+            });
+            return;
+        }
+        try {
+            await this.purchaseService.temporaryReservation();
+            this.router.navigate(['/purchase/cinema/ticket']);
+        } catch (error) {
+            console.error(error);
+            this.router.navigate(['/error']);
+        }
     }
-
-    /**
-     * getTickets
-     */
-    private getTickets() {
-        this.user.subscribe((user) => {
-            this.purchase.subscribe((purchase) => {
-                const screeningEvent = purchase.screeningEvent;
-                const seller = user.seller;
-                if (screeningEvent === undefined
-                    || seller === undefined) {
-                    this.router.navigate(['/error']);
-                    return;
-                }
-                this.store.dispatch(new purchaseAction.GetTicketList({ screeningEvent, seller }));
-            }).unsubscribe();
-        }).unsubscribe();
-
-        const success = this.actions.pipe(
-            ofType(purchaseAction.ActionTypes.GetTicketListSuccess),
-            tap(() => { })
-        );
-
-        const fail = this.actions.pipe(
-            ofType(purchaseAction.ActionTypes.GetTicketListFail),
-            tap(() => {
-                console.error('66666');
-                this.router.navigate(['/error']);
-            })
-        );
-        race(success, fail).pipe(take(1)).subscribe();
-    }
-
 }

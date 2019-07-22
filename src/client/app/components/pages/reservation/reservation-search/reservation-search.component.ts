@@ -1,19 +1,16 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { factory } from '@cinerino/api-javascript-client';
-import { Actions, ofType } from '@ngrx/effects';
 import { select, Store } from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
 import * as moment from 'moment';
 import { BsDatepickerDirective, BsLocaleService, BsModalService } from 'ngx-bootstrap';
 import { CellHoverEvent } from 'ngx-bootstrap/datepicker/models';
 import { BsDatepickerContainerComponent } from 'ngx-bootstrap/datepicker/themes/bs/bs-datepicker-container.component';
-import { Observable, race } from 'rxjs';
-import { take, tap } from 'rxjs/operators';
+import { Observable } from 'rxjs';
 import { environment } from '../../../../../environments/environment';
 import { getTicketPrice } from '../../../../functions';
 import { IReservationSearchConditions } from '../../../../models';
-import { DownloadService, UtilService } from '../../../../services';
-import { reservationAction } from '../../../../store/actions';
+import { DownloadService, ReservationService, UtilService } from '../../../../services';
 import * as reducers from '../../../../store/reducers';
 import { ReservationDetailModalComponent } from '../../../parts';
 
@@ -47,11 +44,11 @@ export class ReservationSearchComponent implements OnInit {
 
     constructor(
         private store: Store<reducers.IReservationState>,
-        private actions: Actions,
         private modal: BsModalService,
         private download: DownloadService,
         private localeService: BsLocaleService,
-        private util: UtilService,
+        private utilService: UtilService,
+        private reservationService: ReservationService,
         private translate: TranslateService
     ) { }
 
@@ -68,7 +65,7 @@ export class ReservationSearchComponent implements OnInit {
             reservationStatus: '',
             page: 1
         };
-        this.store.dispatch(new reservationAction.Delete());
+        this.reservationService.delete();
     }
 
     /**
@@ -79,13 +76,6 @@ export class ReservationSearchComponent implements OnInit {
             this.user.subscribe(() => {
                 const params: factory.chevre.reservation.ISearchConditions<factory.chevre.reservationType.EventReservation> = {
                     typeOf: factory.chevre.reservationType.EventReservation,
-                    // project: { ids: [environment.PROJECT_ID] },
-                    // seller: {
-                    //     typeOf: (user.seller === undefined)
-                    //         ? undefined : user.seller.typeOf,
-                    //     ids: (user.seller === undefined)
-                    //         ? undefined : [user.seller.id]
-                    // },
                     bookingFrom: (this.confirmedConditions.reservationDateFrom === undefined)
                         ? undefined
                         : moment(moment(this.confirmedConditions.reservationDateFrom).format('YYYYMMDD')).toDate(),
@@ -120,7 +110,7 @@ export class ReservationSearchComponent implements OnInit {
     /**
      * 検索
      */
-    public reservationSearch(changeConditions: boolean, event?: { page: number }) {
+    public async reservationSearch(changeConditions: boolean, event?: { page: number }) {
         if (event !== undefined) {
             this.confirmedConditions.page = event.page;
         }
@@ -136,26 +126,16 @@ export class ReservationSearchComponent implements OnInit {
                 page: 1
             };
         }
-        this.convertToSearchParams().then((params) => {
-            this.store.dispatch(new reservationAction.Search({ params }));
-        });
-
-
-        const success = this.actions.pipe(
-            ofType(reservationAction.ActionTypes.SearchSuccess),
-            tap(() => { })
-        );
-
-        const fail = this.actions.pipe(
-            ofType(reservationAction.ActionTypes.SearchFail),
-            tap(() => {
-                this.util.openAlert({
-                    title: this.translate.instant('common.error'),
-                    body: this.translate.instant('reservation.search.alert.search')
-                });
-            })
-        );
-        race(success, fail).pipe(take(1)).subscribe();
+        try {
+            const params = await this.convertToSearchParams();
+            this.reservationService.search(params);
+        } catch (error) {
+            console.error(error);
+            this.utilService.openAlert({
+                title: this.translate.instant('common.error'),
+                body: this.translate.instant('reservation.search.alert.search')
+            });
+        }
     }
 
     /**
