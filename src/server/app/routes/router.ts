@@ -4,6 +4,7 @@
 import * as express from 'express';
 import * as path from 'path';
 import * as authorize from '../controllers/authorize/authorize.controller';
+import * as mail from '../controllers/mail/mail.controller';
 import authorizeRouter from './authorize';
 import encryptionRouter from './encryption';
 
@@ -20,6 +21,7 @@ export default (app: express.Application) => {
     app.use('/api/authorize', authorizeRouter);
     app.use('/api/encryption', encryptionRouter);
     app.get('/api/storage', (_req, res) => { res.json({ storage: process.env.STORAGE_URL }); });
+    app.post('/api/mail/template', mail.getTemplate);
 
     app.get('/signIn', authorize.signInRedirect);
     app.get('/signOut', authorize.signOutRedirect);

@@ -2,6 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const path = require("path");
 const authorize = require("../controllers/authorize/authorize.controller");
+const mail = require("../controllers/mail/mail.controller");
 const authorize_1 = require("./authorize");
 const encryption_1 = require("./encryption");
 exports.default = (app) => {
@@ -16,6 +17,7 @@ exports.default = (app) => {
     app.use('/api/authorize', authorize_1.default);
     app.use('/api/encryption', encryption_1.default);
     app.get('/api/storage', (_req, res) => { res.json({ storage: process.env.STORAGE_URL }); });
+    app.post('/api/mail/template', mail.getTemplate);
     app.get('/signIn', authorize.signInRedirect);
     app.get('/signOut', authorize.signOutRedirect);
     app.get('*', (_req, res, _next) => {
