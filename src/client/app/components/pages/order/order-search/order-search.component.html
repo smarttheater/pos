@@ -202,10 +202,10 @@
                                     eventOrder.event.name | changeLanguage | slice:0:10 }}</p>
                                 <p *ngIf="!((eventOrder.event.name | changeLanguage).length > 0)">{{
                                     eventOrder.event.name | changeLanguage }}</p>
-                                <p>{{
-                                    eventOrder.event.superEvent.location.name | changeLanguage }}
-                                    / {{
-                                    eventOrder.event.location.name | changeLanguage }}</p>
+                                <p>
+                                    <span class="theatre-name">{{ eventOrder.event.superEvent.location.name | changeLanguage }}</span>
+                                    <span class="screen-name">&nbsp;/&nbsp;{{ eventOrder.event.location.name | changeLanguage }}</span>
+                                </p>
                                 <p>{{ eventOrder.event.startDate | formatDate: 'YYYY/MM/DD (ddd) HH:mm' }}
                                     -</p>
                             </div>
