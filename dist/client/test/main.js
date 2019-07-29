@@ -12248,10 +12248,12 @@ var environment_1 = __webpack_require__(/*! ../../environments/environment */ ".
 var models_1 = __webpack_require__(/*! ../models */ "./app/models/index.ts");
 var actions_1 = __webpack_require__(/*! ../store/actions */ "./app/store/actions/index.ts");
 var reducers = __webpack_require__(/*! ../store/reducers */ "./app/store/reducers/index.ts");
+var util_service_1 = __webpack_require__(/*! ./util.service */ "./app/services/util.service.ts");
 var PurchaseService = /** @class */ (function () {
-    function PurchaseService(actions, store) {
+    function PurchaseService(actions, store, utilService) {
         this.actions = actions;
         this.store = store;
+        this.utilService = utilService;
         this.purchase = this.store.pipe(store_1.select(reducers.getPurchase));
         this.error = this.store.pipe(store_1.select(reducers.getError));
     }
@@ -12304,26 +12306,32 @@ var PurchaseService = /** @class */ (function () {
      */
     PurchaseService.prototype.startTransaction = function (params) {
         return __awaiter(this, void 0, void 0, function () {
+            var now;
             var _this = this;
             return __generator(this, function (_a) {
-                return [2 /*return*/, new Promise(function (resolve, reject) {
-                        _this.store.dispatch(new actions_1.purchaseAction.StartTransaction({
-                            expires: moment().add(environment_1.environment.PURCHASE_TRANSACTION_TIME, 'minutes').toDate(),
-                            seller: { typeOf: params.seller.typeOf, id: params.seller.id },
-                            object: {},
-                            agent: (params.pos === undefined)
-                                ? undefined
-                                : {
-                                    identifier: [
-                                        { name: 'posId', value: params.pos.id },
-                                        { name: 'posName', value: params.pos.name }
-                                    ]
-                                }
-                        }));
-                        var success = _this.actions.pipe(effects_1.ofType(actions_1.purchaseAction.ActionTypes.StartTransactionSuccess), operators_1.tap(function () { resolve(); }));
-                        var fail = _this.actions.pipe(effects_1.ofType(actions_1.purchaseAction.ActionTypes.StartTransactionFail), operators_1.tap(function () { _this.error.subscribe(function (error) { reject(error); }).unsubscribe(); }));
-                        rxjs_1.race(success, fail).pipe(operators_1.take(1)).subscribe();
-                    })];
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, this.utilService.getServerTime()];
+                    case 1:
+                        now = (_a.sent()).date;
+                        return [2 /*return*/, new Promise(function (resolve, reject) {
+                                _this.store.dispatch(new actions_1.purchaseAction.StartTransaction({
+                                    expires: moment(now).add(environment_1.environment.PURCHASE_TRANSACTION_TIME, 'minutes').toDate(),
+                                    seller: { typeOf: params.seller.typeOf, id: params.seller.id },
+                                    object: {},
+                                    agent: (params.pos === undefined)
+                                        ? undefined
+                                        : {
+                                            identifier: [
+                                                { name: 'posId', value: params.pos.id },
+                                                { name: 'posName', value: params.pos.name }
+                                            ]
+                                        }
+                                }));
+                                var success = _this.actions.pipe(effects_1.ofType(actions_1.purchaseAction.ActionTypes.StartTransactionSuccess), operators_1.tap(function () { resolve(); }));
+                                var fail = _this.actions.pipe(effects_1.ofType(actions_1.purchaseAction.ActionTypes.StartTransactionFail), operators_1.tap(function () { _this.error.subscribe(function (error) { reject(error); }).unsubscribe(); }));
+                                rxjs_1.race(success, fail).pipe(operators_1.take(1)).subscribe();
+                            })];
+                }
             });
         });
     };
@@ -12716,7 +12724,8 @@ var PurchaseService = /** @class */ (function () {
             providedIn: 'root'
         }),
         __metadata("design:paramtypes", [effects_1.Actions,
-            store_1.Store])
+            store_1.Store,
+            util_service_1.UtilService])
     ], PurchaseService);
     return PurchaseService;
 }());
@@ -13377,6 +13386,22 @@ var UtilService = /** @class */ (function () {
         this.modal.show(confirm_modal_component_1.ConfirmModalComponent, {
             initialState: { title: title, body: body, cb: cb },
             class: 'modal-dialog-centered'
+        });
+    };
+    /**
+     * サーバータイム取得
+     */
+    UtilService.prototype.getServerTime = function () {
+        return __awaiter(this, void 0, void 0, function () {
+            var result;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, this.http.get('/api/serverTime').toPromise()];
+                    case 1:
+                        result = _a.sent();
+                        return [2 /*return*/, result];
+                }
+            });
         });
     };
     /**

@@ -8,6 +8,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/).
 
 ### Changed
 - メールテンプレートをejsへ変更
+- 取引期限をサーバータイムから算出へ変更
 
 ### Fixed
 
