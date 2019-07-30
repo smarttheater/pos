@@ -230,8 +230,8 @@ export function createPaymentMethodFromType(params: {
  */
 export function getTicketPrice(
     ticket: factory.chevre.event.screeningEvent.ITicketOffer
-    | factory.order.IAcceptedOffer<factory.order.IItemOffered>
-    | factory.action.authorize.offer.seatReservation.IAcceptedOffer4chevre
+        | factory.order.IAcceptedOffer<factory.order.IItemOffered>
+        | factory.action.authorize.offer.seatReservation.IAcceptedOffer4chevre
 ) {
     const result = {
         unitPriceSpecification: 0,
@@ -420,10 +420,19 @@ export function isScheduleStatusThreshold(
     screeningEvent: factory.chevre.event.screeningEvent.IEvent,
     status: 'success' | 'warning' | 'danger'
 ) {
-    const remainingAttendeeCapacity = screeningEvent.remainingAttendeeCapacity;
-    const maximumAttendeeCapacity = screeningEvent.maximumAttendeeCapacity;
+    const limitSeatNumber = (screeningEvent.workPerformed === undefined
+        || screeningEvent.workPerformed.additionalProperty === undefined)
+        ? undefined : screeningEvent.workPerformed.additionalProperty.find(a => a.name === 'limitSeatNumber');
+    let remainingAttendeeCapacity = screeningEvent.remainingAttendeeCapacity;
+    let maximumAttendeeCapacity = screeningEvent.maximumAttendeeCapacity;
     if (remainingAttendeeCapacity === undefined || maximumAttendeeCapacity === undefined) {
         return false;
+    }
+    if (limitSeatNumber !== undefined && maximumAttendeeCapacity > Number(limitSeatNumber.value)) {
+        // 作品追加特性（limitSeatNumber）で座席数制御
+        remainingAttendeeCapacity = (remainingAttendeeCapacity < (maximumAttendeeCapacity - Number(limitSeatNumber.value)))
+            ? 0 : remainingAttendeeCapacity - (maximumAttendeeCapacity - Number(limitSeatNumber.value));
+        maximumAttendeeCapacity = Number(limitSeatNumber.value);
     }
     let result = false;
     const unit = environment.PURCHASE_SCHEDULE_STATUS_THRESHOLD_UNIT;
@@ -537,11 +546,21 @@ export function changeTicketCount(
  * 残席数取得
  */
 export function getRemainingSeatLength(
-    screeningEventOffers: factory.chevre.event.screeningEvent.IScreeningRoomSectionOffer[]
+    screeningEventOffers: factory.chevre.event.screeningEvent.IScreeningRoomSectionOffer[],
+    screeningEvent: factory.chevre.event.screeningEvent.IEvent
 ) {
     let result = 0;
+    const limitSeatNumber = (screeningEvent.workPerformed === undefined
+        || screeningEvent.workPerformed.additionalProperty === undefined)
+        ? undefined : screeningEvent.workPerformed.additionalProperty.find(a => a.name === 'limitSeatNumber');
     screeningEventOffers.forEach((s) => {
         const sectionResult = s.containsPlace.filter(c => {
+            if (limitSeatNumber !== undefined) {
+                // 作品追加特性（limitSeatNumber）で座席数制御
+                return (c.offers !== undefined
+                    && c.offers[0].availability === factory.chevre.itemAvailability.InStock
+                    && Number(c.branchCode) <= Number(limitSeatNumber.value));
+            }
             return (c.offers !== undefined
                 && c.offers[0].availability === factory.chevre.itemAvailability.InStock);
         });

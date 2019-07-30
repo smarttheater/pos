@@ -791,7 +791,7 @@ module.exports = "<div class=\"\">\n    <div class=\"bg-gray p-3\">\n        <di
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"p-3 scroll-vertical\">\n    <div class=\"mb-3\">\n        <div class=\"mb-1\">\n            <p class=\"font-weight-bold text-large\">{{ screeningEvent.name | changeLanguage }}</p>\n            <p class=\"text-small\"\n                *ngIf=\"screeningEvent.superEvent.headline && (screeningEvent.superEvent.headline | changeLanguage)\">\n                {{ screeningEvent.superEvent.headline | changeLanguage }}</p>\n            <p class=\"text-small\"\n                *ngIf=\"screeningEvent.superEvent.description && (screeningEvent.superEvent.description | changeLanguage)\">{{\n                    screeningEvent.superEvent.description | changeLanguage }}</p>\n        </div>\n        <p class=\"mb-1\">\n            {{ moment(screeningEvent.startDate).format('MM/DD(ddd) HH:mm') }}-{{ moment(screeningEvent.endDate).format('HH:mm') }}\n        </p>\n        <p class=\"text-small mb-1\">\n            <span class=\"theatre-name\">\n                {{ screeningEvent.superEvent.location.name | changeLanguage }}\n            </span>\n            <span class=\"screen-name\">\n                &nbsp;/&nbsp;{{ screeningEvent.location.name | changeLanguage }}\n            </span>\n            <span *ngIf=\"screeningEvent.workPerformed?.duration && moment.duration(screeningEvent.workPerformed?.duration).asMinutes() > 0\">\n                &nbsp;/&nbsp;<span class=\"mr-1\">{{ 'common.duration' | translate }}</span>{{ moment.duration(screeningEvent.workPerformed?.duration).asMinutes() }}{{ 'common.date.minute' | translate }}\n            </span>\n        </p>\n        <p *ngIf=\"isTicketedSeatScreeningEvent(screeningEvent)\" class=\"font-weight-bold\"><span class=\"mr-1\">{{ 'purchase.event.ticket.remainingSeat' | translate }}</span>{{ getRemainingSeatLength(screeningEventOffers) }}</p>\n    </div>\n    <hr class=\"mb-3\">\n    <ul class=\"mb-4\">\n        <li *ngFor=\"let ticket of tickets\" class=\"ticket mb-2\">\n            <div class=\"d-flex justify-content-between align-items-center\">\n                <div class=\"w-75 text-left\">\n                    <p>{{ ticket.name | changeLanguage }} / {{ getTicketPrice(ticket).single | currency : 'JPY' }}</p>\n                </div>\n                <div class=\"w-25 text-right\">\n                    <select class=\"form-control\" [(ngModel)]=\"selectedTickets[ticket.id]\">\n                        <option value=\"0\">0</option>\n                        <option *ngFor=\"let value of values\" [value]=\"value\">{{ value }}</option>\n                    </select>\n                </div>\n            </div>\n        </li>\n    </ul>\n\n    <div class=\"buttons mx-auto text-center text-center\">\n        <button [disabled]=\"selectedTickets && createReservationTickets().length === 0\" type=\"button\"\n            class=\"btn btn-primary btn-block py-3 mb-3\"\n            (click)=\"close(createReservationTickets())\">{{ 'purchase.event.ticket.next' | translate }}</button>\n        <button type=\"button\" class=\"btn btn-link btn-sm\"\n            (click)=\"modal.hide()\">{{ 'common.close' | translate }}</button>\n    </div>\n</div>"
+module.exports = "<div class=\"p-3 scroll-vertical\">\n    <div class=\"mb-3\">\n        <div class=\"mb-1\">\n            <p class=\"font-weight-bold text-large\">{{ screeningEvent.name | changeLanguage }}</p>\n            <p class=\"text-small\"\n                *ngIf=\"screeningEvent.superEvent.headline && (screeningEvent.superEvent.headline | changeLanguage)\">\n                {{ screeningEvent.superEvent.headline | changeLanguage }}</p>\n            <p class=\"text-small\"\n                *ngIf=\"screeningEvent.superEvent.description && (screeningEvent.superEvent.description | changeLanguage)\">{{\n                    screeningEvent.superEvent.description | changeLanguage }}</p>\n        </div>\n        <p class=\"mb-1\">\n            {{ moment(screeningEvent.startDate).format('MM/DD(ddd) HH:mm') }}-{{ moment(screeningEvent.endDate).format('HH:mm') }}\n        </p>\n        <p class=\"text-small mb-1\">\n            <span class=\"theatre-name\">\n                {{ screeningEvent.superEvent.location.name | changeLanguage }}\n            </span>\n            <span class=\"screen-name\">\n                &nbsp;/&nbsp;{{ screeningEvent.location.name | changeLanguage }}\n            </span>\n            <span *ngIf=\"screeningEvent.workPerformed?.duration && moment.duration(screeningEvent.workPerformed?.duration).asMinutes() > 0\">\n                &nbsp;/&nbsp;<span class=\"mr-1\">{{ 'common.duration' | translate }}</span>{{ moment.duration(screeningEvent.workPerformed?.duration).asMinutes() }}{{ 'common.date.minute' | translate }}\n            </span>\n        </p>\n        <p *ngIf=\"isTicketedSeatScreeningEvent(screeningEvent)\" class=\"font-weight-bold\"><span class=\"mr-1\">{{ 'purchase.event.ticket.remainingSeat' | translate }}</span>{{ getRemainingSeatLength(screeningEventOffers, screeningEvent) }}</p>\n    </div>\n    <hr class=\"mb-3\">\n    <ul class=\"mb-4\">\n        <li *ngFor=\"let ticket of tickets\" class=\"ticket mb-2\">\n            <div class=\"d-flex justify-content-between align-items-center\">\n                <div class=\"w-75 text-left\">\n                    <p>{{ ticket.name | changeLanguage }} / {{ getTicketPrice(ticket).single | currency : 'JPY' }}</p>\n                </div>\n                <div class=\"w-25 text-right\">\n                    <select class=\"form-control\" [(ngModel)]=\"selectedTickets[ticket.id]\">\n                        <option value=\"0\">0</option>\n                        <option *ngFor=\"let value of values\" [value]=\"value\">{{ value }}</option>\n                    </select>\n                </div>\n            </div>\n        </li>\n    </ul>\n\n    <div class=\"buttons mx-auto text-center text-center\">\n        <button [disabled]=\"selectedTickets && createReservationTickets().length === 0\" type=\"button\"\n            class=\"btn btn-primary btn-block py-3 mb-3\"\n            (click)=\"close(createReservationTickets())\">{{ 'purchase.event.ticket.next' | translate }}</button>\n        <button type=\"button\" class=\"btn btn-link btn-sm\"\n            (click)=\"modal.hide()\">{{ 'common.close' | translate }}</button>\n    </div>\n</div>"
 
 /***/ }),
 
@@ -5471,7 +5471,7 @@ var PurchaseEventTicketComponent = /** @class */ (function () {
                         purchase = _a.sent();
                         if (purchase.screeningEvent !== undefined
                             && functions_1.isTicketedSeatScreeningEvent(purchase.screeningEvent)) {
-                            remainingSeatLength = functions_1.getRemainingSeatLength(purchase.screeningEventOffers);
+                            remainingSeatLength = functions_1.getRemainingSeatLength(purchase.screeningEventOffers, purchase.screeningEvent);
                             if (remainingSeatLength < reservationTickets.length) {
                                 this.utilService.openAlert({
                                     title: this.translate.instant('common.error'),
@@ -8528,7 +8528,7 @@ var PurchaseEventTicketModalComponent = /** @class */ (function () {
         this.values = [];
         var limit = Number(environment_1.environment.PURCHASE_ITEM_MAX_LENGTH);
         if (functions_1.isTicketedSeatScreeningEvent(this.screeningEvent)) {
-            var remainingSeatLength = this.getRemainingSeatLength(this.screeningEventOffers);
+            var remainingSeatLength = this.getRemainingSeatLength(this.screeningEventOffers, this.screeningEvent);
             limit = (limit > remainingSeatLength) ? remainingSeatLength : limit;
         }
         for (var i = 0; i < limit; i++) {
@@ -10326,10 +10326,19 @@ exports.authorizeSeatReservationToEvent = authorizeSeatReservationToEvent;
  * スケジュールステータス判定
  */
 function isScheduleStatusThreshold(screeningEvent, status) {
+    var limitSeatNumber = (screeningEvent.workPerformed === undefined
+        || screeningEvent.workPerformed.additionalProperty === undefined)
+        ? undefined : screeningEvent.workPerformed.additionalProperty.find(function (a) { return a.name === 'limitSeatNumber'; });
     var remainingAttendeeCapacity = screeningEvent.remainingAttendeeCapacity;
     var maximumAttendeeCapacity = screeningEvent.maximumAttendeeCapacity;
     if (remainingAttendeeCapacity === undefined || maximumAttendeeCapacity === undefined) {
         return false;
+    }
+    if (limitSeatNumber !== undefined && maximumAttendeeCapacity > Number(limitSeatNumber.value)) {
+        // 作品追加特性（limitSeatNumber）で座席数制御
+        remainingAttendeeCapacity = (remainingAttendeeCapacity < (maximumAttendeeCapacity - Number(limitSeatNumber.value)))
+            ? 0 : remainingAttendeeCapacity - (maximumAttendeeCapacity - Number(limitSeatNumber.value));
+        maximumAttendeeCapacity = Number(limitSeatNumber.value);
     }
     var result = false;
     var unit = environment_1.environment.PURCHASE_SCHEDULE_STATUS_THRESHOLD_UNIT;
@@ -10434,10 +10443,19 @@ exports.changeTicketCount = changeTicketCount;
 /**
  * 残席数取得
  */
-function getRemainingSeatLength(screeningEventOffers) {
+function getRemainingSeatLength(screeningEventOffers, screeningEvent) {
     var result = 0;
+    var limitSeatNumber = (screeningEvent.workPerformed === undefined
+        || screeningEvent.workPerformed.additionalProperty === undefined)
+        ? undefined : screeningEvent.workPerformed.additionalProperty.find(function (a) { return a.name === 'limitSeatNumber'; });
     screeningEventOffers.forEach(function (s) {
         var sectionResult = s.containsPlace.filter(function (c) {
+            if (limitSeatNumber !== undefined) {
+                // 作品追加特性（limitSeatNumber）で座席数制御
+                return (c.offers !== undefined
+                    && c.offers[0].availability === api_javascript_client_1.factory.chevre.itemAvailability.InStock
+                    && Number(c.branchCode) <= Number(limitSeatNumber.value));
+            }
             return (c.offers !== undefined
                 && c.offers[0].availability === api_javascript_client_1.factory.chevre.itemAvailability.InStock);
         });
