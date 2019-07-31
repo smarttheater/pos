@@ -23,6 +23,7 @@ exports.default = (app) => {
     app.get('/signIn', authorize.signInRedirect);
     app.get('/signOut', authorize.signOutRedirect);
     app.get('*', (_req, res, _next) => {
-        res.sendFile(path.resolve(`${__dirname}/../../../client/${process.env.NODE_ENV}/index.html`));
+        const dir = (process.env.NODE_ENV === 'production') ? 'production' : 'development';
+        res.sendFile(path.resolve(`${__dirname}/../../../client/${dir}/index.html`));
     });
 };
