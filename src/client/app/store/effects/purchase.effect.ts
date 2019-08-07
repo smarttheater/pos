@@ -10,6 +10,7 @@ import {
     authorizeSeatReservationToEvent,
     createMovieTicketsFromAuthorizeSeatReservation,
     formatTelephone,
+    getTicketPrice,
     isTicketedSeatScreeningEvent
 } from '../../functions';
 import { IScreen } from '../../models';
@@ -495,13 +496,13 @@ export class PurchaseEffects {
                 };
                 if (environment.PURCHASE_COMPLETE_MAIL_CUSTOM) {
                     // 完了メールをカスタマイズ
-                    params.options.email.template = (await this.utilService.postJson<{ template: string }>(
-                        '/api/mail/template',
-                        {
-                            view: '/ejs/mail/complete.ejs',
-                            authorizeSeatReservations: authorizeSeatReservationToEvent({ authorizeSeatReservations }),
-                            seller
-                        })).template;
+                    const view = await this.utilService.getText('/storage/ejs/mail/complete.ejs');
+                    const template = await (<any>window).ejs.render(view, {
+                        authorizeSeatReservations: authorizeSeatReservationToEvent({ authorizeSeatReservations }),
+                        seller,
+                        moment, formatTelephone, getTicketPrice
+                    }, { async: true });
+                    email.template = template;
                 }
 
                 const result = await this.cinerino.transaction.placeOrder.confirm(params);
