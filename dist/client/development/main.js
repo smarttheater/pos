@@ -15897,7 +15897,8 @@ var MasterEffects = /** @class */ (function () {
                         return [4 /*yield*/, this.cinerino.seller.search((payload === undefined) ? {} : payload)];
                     case 2:
                         searchMovieTheatersResult = _a.sent();
-                        sellers = searchMovieTheatersResult.data;
+                        sellers = searchMovieTheatersResult.data
+                            .filter(function (s) { return (s.location !== undefined && s.location.branchCode !== undefined); });
                         return [2 /*return*/, new actions_1.masterAction.GetSellersSuccess({ sellers: sellers })];
                     case 3:
                         error_1 = _a.sent();
