@@ -30,7 +30,7 @@
           'bg-dark-gray text-light-gray': !(moment(screeningEvent.doorTime).unix() < moment().unix() && moment(screeningEvent.endDate).unix() > moment().unix())
           }" (click)="select.emit(screeningEvent)">
             <div>
-                <div class="mb-2 text-small">
+                <div class="mb-2 text-small screen-name">
                     {{ screeningEvent.location.name | changeLanguage }}
                 </div>
                 <div>

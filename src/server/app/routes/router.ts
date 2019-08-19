@@ -2,6 +2,7 @@
  * ルーティング
  */
 import * as express from 'express';
+import * as moment from 'moment';
 import * as path from 'path';
 import * as authorize from '../controllers/authorize/authorize.controller';
 import authorizeRouter from './authorize';
@@ -20,11 +21,13 @@ export default (app: express.Application) => {
     app.use('/api/authorize', authorizeRouter);
     app.use('/api/encryption', encryptionRouter);
     app.get('/api/storage', (_req, res) => { res.json({ storage: process.env.STORAGE_URL }); });
+    app.get('/api/serverTime', (_req, res) => { res.json({ date: moment().toISOString() }); });
 
     app.get('/signIn', authorize.signInRedirect);
     app.get('/signOut', authorize.signOutRedirect);
 
     app.get('*', (_req, res, _next) => {
-        res.sendFile(path.resolve(`${__dirname}/../../../client/${process.env.NODE_ENV}/index.html`));
+        const dir = (process.env.NODE_ENV === 'production') ? 'production' : 'development';
+        res.sendFile(path.resolve(`${__dirname}/../../../client/${dir}/index.html`));
     });
 };

@@ -87,8 +87,8 @@
             </div>
         </div>
         <div class="p-3">
-            <p>{{ (admission | async).screeningEvent.superEvent.location.name | changeLanguage }}</p>
-            <p>
+            <p class="theatre-name">{{ (admission | async).screeningEvent.superEvent.location.name | changeLanguage }}</p>
+            <p class="screen-name">
                 <span *ngIf="(admission | async).screeningEvent.location.address" class="mr-2">
                     {{ (admission | async).screeningEvent.location.address | changeLanguage }}
                 </span>

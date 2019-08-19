@@ -122,10 +122,10 @@
                                 reservation.reservationFor.name | changeLanguage | slice:0:10 }}</p>
                             <p *ngIf="!((reservation.reservationFor.name | changeLanguage).length > 0)">{{
                                 reservation.reservationFor.name | changeLanguage }}</p>
-                            <p>{{
-                                reservation.reservationFor.superEvent.location.name | changeLanguage }}
-                                / {{
-                                reservation.reservationFor.location.name | changeLanguage }}</p>
+                            <p>
+                                <span class="theatre-name">{{ reservation.reservationFor.superEvent.location.name | changeLanguage }}</span>
+                                <span class="screen-name">&nbsp;/&nbsp;{{ reservation.reservationFor.location.name | changeLanguage }}</span>
+                            </p>
                             <p>{{ reservation.reservationFor.startDate | formatDate: 'YYYY/MM/DD (ddd) HH:mm' }}
                                 -</p>
                         </td>

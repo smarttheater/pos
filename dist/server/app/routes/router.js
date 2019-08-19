@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+const moment = require("moment");
 const path = require("path");
 const authorize = require("../controllers/authorize/authorize.controller");
 const authorize_1 = require("./authorize");
@@ -16,9 +17,11 @@ exports.default = (app) => {
     app.use('/api/authorize', authorize_1.default);
     app.use('/api/encryption', encryption_1.default);
     app.get('/api/storage', (_req, res) => { res.json({ storage: process.env.STORAGE_URL }); });
+    app.get('/api/serverTime', (_req, res) => { res.json({ date: moment().toISOString() }); });
     app.get('/signIn', authorize.signInRedirect);
     app.get('/signOut', authorize.signOutRedirect);
     app.get('*', (_req, res, _next) => {
-        res.sendFile(path.resolve(`${__dirname}/../../../client/${process.env.NODE_ENV}/index.html`));
+        const dir = (process.env.NODE_ENV === 'production') ? 'production' : 'development';
+        res.sendFile(path.resolve(`${__dirname}/../../../client/${dir}/index.html`));
     });
 };
