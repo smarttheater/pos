@@ -61,6 +61,7 @@ export class InquiryConfirmComponent implements OnInit {
             body: this.translate.instant('inquiry.confirm.confirm.cancel'),
             cb: async () => {
                 try {
+                    const userData = await this.userService.getData();
                     const orderData = await this.orderService.getData();
                     const order = orderData.order;
                     if (order === undefined) {
@@ -74,7 +75,7 @@ export class InquiryConfirmComponent implements OnInit {
                         });
                         return;
                     }
-                    await this.orderService.cancel([order]);
+                    await this.orderService.cancel({ orders: [order], language: userData.language });
                     await this.orderService.inquiry({
                         confirmationNumber: order.confirmationNumber,
                         customer: { telephone: order.customer.telephone }

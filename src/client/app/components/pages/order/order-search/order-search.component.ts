@@ -274,7 +274,8 @@ export class OrderSearchComponent implements OnInit {
             body: this.translate.instant('order.search.confirm.cancel'),
             cb: async () => {
                 try {
-                    await this.orderService.cancel(orders);
+                    const userData = await this.userService.getData();
+                    await this.orderService.cancel({ orders, language: userData.language });
                 } catch (error) {
                     console.error(error);
                     this.utilService.openAlert({
@@ -316,7 +317,11 @@ export class OrderSearchComponent implements OnInit {
                 body: this.translate.instant('order.search.confirm.cancel'),
                 cb: async () => {
                     try {
-                        await this.orderService.cancel(this.selectedOrders);
+                        const userData = await this.userService.getData();
+                        await this.orderService.cancel({
+                            orders: this.selectedOrders,
+                            language: userData.language
+                        });
                     } catch (error) {
                         console.error(error);
                         this.utilService.openAlert({
