@@ -439,7 +439,18 @@ module.exports = "<div class=\"contents-width mx-auto px-3 py-5\">\n    <div cla
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"contents-width mx-auto px-3 py-5\">\n    <div class=\"mb-4\">\n        <h2 class=\"text-large mb-4 text-center font-weight-bold\">{{ 'inquiry.input.title' | translate }}</h2>\n        <p class=\"mb-4 text-md-center\" [innerHTML]=\"'inquiry.input.read' | translate\"></p>\n\n        <div class=\"inquiry-form mx-auto p-3 bg-white\">\n            <form [formGroup]=\"inquiryForm\">\n                <div class=\"form-group\">\n                    <label class=\"mb-2\" for=\"\">{{ 'common.confirmationNumber' | translate }}</label>\n                    <input type=\"text\" class=\"form-control\" formControlName=\"confirmationNumber\" id=\"confirmationNumber\"\n                        placeholder=\"12345678\">\n                    <div *ngIf=\"inquiryForm.controls.confirmationNumber.invalid && inquiryForm.controls.confirmationNumber.touched\"\n                        class=\"mt-2\">\n                        <p *ngIf=\"inquiryForm.controls.confirmationNumber.errors.required\" class=\"text-danger\">{{ 'form.validation.required' | translate }}</p>\n                        <p *ngIf=\"inquiryForm.controls.confirmationNumber.errors.pattern\" class=\"text-danger\">{{ 'form.validation.number' | translate }}</p>\n                    </div>\n                </div>\n                <div class=\"form-group mb-0\">\n                    <label class=\"mb-2\" for=\"\">{{ 'common.telephone' | translate }}</label>\n                    <input type=\"password\" class=\"form-control\" formControlName=\"telephone\" id=\"telephone\" placeholder=\"0362778824\">\n                    <div *ngIf=\"inquiryForm.controls.telephone.invalid && inquiryForm.controls.telephone.touched\" class=\"mt-2\">\n                        <p *ngIf=\"inquiryForm.controls.telephone.errors.required\" class=\"text-danger\">{{ 'form.validation.required' | translate }}</p>\n                        <p *ngIf=\"inquiryForm.controls.telephone.errors.minlength\" class=\"text-danger\">\n                                {{ 'form.validation.minlength' | translate: { value: inquiryForm.controls.telephone.errors.minlength.requiredLength } }}\n                        </p>\n                        <p *ngIf=\"inquiryForm.controls.telephone.errors.maxlength\" class=\"text-danger\">\n                                {{ 'form.validation.maxlength' | translate: { value: inquiryForm.controls.telephone.errors.maxlength.requiredLength } }}\n                        </p>\n                        <p *ngIf=\"inquiryForm.controls.telephone.errors.pattern\" class=\"text-danger\">{{ 'form.validation.number' | translate }}</p>\n                        <p *ngIf=\"inquiryForm.controls.telephone.errors.telephone\" class=\"text-danger\">{{ 'form.validation.telephone' | translate }}</p>\n                    </div>\n                </div>\n            </form>\n        </div>\n    </div>\n\n    <div class=\"buttons mx-auto text-center\">\n        <button type=\"button\" class=\"btn btn-primary btn-block py-3 mb-3\" (click)=\"onSubmit()\">{{ 'inquiry.input.next' | translate }}</button>\n        <button type=\"button\" class=\"btn btn-link\" routerLink=\"/purchase/root\">{{ 'inquiry.input.prev' | translate }}</button>\n    </div>\n\n</div>"
+module.exports = "<div class=\"contents-width mx-auto px-3 py-5\">\n    <div class=\"mb-4\">\n        <h2 class=\"text-large mb-4 text-center font-weight-bold\">{{ 'inquiry.input.title' | translate }}</h2>\n        <p class=\"mb-4 text-md-center\" [innerHTML]=\"'inquiry.input.read' | translate\"></p>\n\n        <div class=\"inquiry-form mx-auto p-3 bg-white\">\n            <form [formGroup]=\"inquiryForm\">\n                <div class=\"form-group\">\n                    <label class=\"mb-2\" for=\"\">{{ 'common.confirmationNumber' | translate }}</label>\n                    <app-numeric-keypad *ngIf=\"environment.INQUIRY_INPUT_KEYPAD\" [inputValue]=\"inquiryForm.controls.confirmationNumber.value\"\n                        (change)=\"changeConfirmationNumber($event)\">\n                        <input type=\"text\" class=\"form-control\" formControlName=\"confirmationNumber\"\n                            id=\"confirmationNumber\" [placeholder]=\"'form.placeholder.confirmationNumber' | translate\"\n                            readonly>\n                    </app-numeric-keypad>\n                    <input *ngIf=\"!environment.INQUIRY_INPUT_KEYPAD\" type=\"text\" class=\"form-control\" formControlName=\"confirmationNumber\" id=\"confirmationNumber\"\n                        [placeholder]=\"'form.placeholder.confirmationNumber' | translate\">\n                    <div *ngIf=\"inquiryForm.controls.confirmationNumber.invalid && inquiryForm.controls.confirmationNumber.touched\"\n                        class=\"mt-2\">\n                        <p *ngIf=\"inquiryForm.controls.confirmationNumber.errors.required\" class=\"text-danger\">\n                            {{ 'form.validation.required' | translate }}</p>\n                        <p *ngIf=\"inquiryForm.controls.confirmationNumber.errors.pattern\" class=\"text-danger\">\n                            {{ 'form.validation.number' | translate }}</p>\n                    </div>\n                </div>\n                <div class=\"form-group mb-0\">\n                    <label class=\"mb-2\" for=\"\">{{ 'common.telephone' | translate }}</label>\n                    <app-numeric-keypad *ngIf=\"environment.INQUIRY_INPUT_KEYPAD\" [inputValue]=\"inquiryForm.controls.telephone.value\"\n                        (change)=\"changeTelephone($event)\">\n                        <input type=\"password\" class=\"form-control\" formControlName=\"telephone\" id=\"telephone\"\n                            [placeholder]=\"'form.placeholder.telephone' | translate\" readonly>\n                    </app-numeric-keypad>\n                    <input *ngIf=\"!environment.INQUIRY_INPUT_KEYPAD\" type=\"password\" class=\"form-control\" formControlName=\"telephone\" id=\"telephone\"\n                        [placeholder]=\"'form.placeholder.telephone' | translate\">\n                    <div *ngIf=\"inquiryForm.controls.telephone.invalid && inquiryForm.controls.telephone.touched\"\n                        class=\"mt-2\">\n                        <p *ngIf=\"inquiryForm.controls.telephone.errors.required\" class=\"text-danger\">\n                            {{ 'form.validation.required' | translate }}</p>\n                        <p *ngIf=\"inquiryForm.controls.telephone.errors.minlength\" class=\"text-danger\">\n                            {{ 'form.validation.minlength' | translate: { value: inquiryForm.controls.telephone.errors.minlength.requiredLength } }}\n                        </p>\n                        <p *ngIf=\"inquiryForm.controls.telephone.errors.maxlength\" class=\"text-danger\">\n                            {{ 'form.validation.maxlength' | translate: { value: inquiryForm.controls.telephone.errors.maxlength.requiredLength } }}\n                        </p>\n                        <p *ngIf=\"inquiryForm.controls.telephone.errors.pattern\" class=\"text-danger\">\n                            {{ 'form.validation.number' | translate }}</p>\n                        <p *ngIf=\"inquiryForm.controls.telephone.errors.telephone\" class=\"text-danger\">\n                            {{ 'form.validation.telephone' | translate }}</p>\n                    </div>\n                </div>\n            </form>\n        </div>\n    </div>\n\n    <div class=\"buttons mx-auto text-center\">\n        <button type=\"button\" class=\"btn btn-primary btn-block py-3 mb-3\" (click)=\"onSubmit()\">{{ 'inquiry.input.next' | translate }}</button>\n        <button type=\"button\" class=\"btn btn-link\" routerLink=\"/purchase/root\">{{ 'inquiry.input.prev' | translate }}</button>\n    </div>\n\n</div>"
+
+/***/ }),
+
+/***/ "../../node_modules/raw-loader/index.js!./app/components/pages/inquiry/inquiry-print/inquiry-print.component.html":
+/*!***********************************************************************************************************************************************************!*\
+  !*** C:/Users/hataguchi/Desktop/workspace/Cinerino/pos/node_modules/raw-loader!./app/components/pages/inquiry/inquiry-print/inquiry-print.component.html ***!
+  \***********************************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<div class=\"contents-width mx-auto px-3 py-5\">\n    <div class=\"mb-4\">\n        <h2 class=\"text-large mb-4 text-center font-weight-bold\">{{ 'inquiry.print.title' | translate }}</h2>\n        <p class=\"mb-4 text-md-center\" [innerHTML]=\"'inquiry.print.read' | translate\"></p>\n    </div>\n\n    <div class=\"buttons mx-auto text-center\">\n        <button type=\"button\" class=\"btn btn-primary btn-block py-3\" routerLink=\"/inquiry/input\">\n            {{ 'inquiry.print.prev' | translate }}\n        </button>\n    </div>\n</div>"
 
 /***/ }),
 
@@ -1053,6 +1064,7 @@ var AppModule = /** @class */ (function () {
                 pages_1.SettingComponent,
                 pages_1.InquiryInputComponent,
                 pages_1.InquiryConfirmComponent,
+                pages_1.InquiryPrintComponent,
                 pages_1.PurchasePaymentComponent,
                 libphonenumber_format_pipe_1.LibphonenumberFormatPipe,
                 parts_1.NumericKeypadComponent,
@@ -2813,6 +2825,7 @@ function __export(m) {
 Object.defineProperty(exports, "__esModule", { value: true });
 __export(__webpack_require__(/*! ./inquiry-confirm/inquiry-confirm.component */ "./app/components/pages/inquiry/inquiry-confirm/inquiry-confirm.component.ts"));
 __export(__webpack_require__(/*! ./inquiry-input/inquiry-input.component */ "./app/components/pages/inquiry/inquiry-input/inquiry-input.component.ts"));
+__export(__webpack_require__(/*! ./inquiry-print/inquiry-print.component */ "./app/components/pages/inquiry/inquiry-print/inquiry-print.component.ts"));
 
 
 /***/ }),
@@ -2893,12 +2906,13 @@ var functions_1 = __webpack_require__(/*! ../../../../functions */ "./app/functi
 var services_1 = __webpack_require__(/*! ../../../../services */ "./app/services/index.ts");
 var reducers = __webpack_require__(/*! ../../../../store/reducers */ "./app/store/reducers/index.ts");
 var InquiryConfirmComponent = /** @class */ (function () {
-    function InquiryConfirmComponent(store, router, userService, utilService, orderService, translate) {
+    function InquiryConfirmComponent(store, router, userService, utilService, orderService, reservationService, translate) {
         this.store = store;
         this.router = router;
         this.userService = userService;
         this.utilService = utilService;
         this.orderService = orderService;
+        this.reservationService = reservationService;
         this.translate = translate;
         this.moment = moment;
         this.getTicketPrice = functions_1.getTicketPrice;
@@ -2911,6 +2925,7 @@ var InquiryConfirmComponent = /** @class */ (function () {
         this.eventOrders = [];
         this.order = this.store.pipe(store_1.select(reducers.getOrder));
         this.user = this.store.pipe(store_1.select(reducers.getUser));
+        this.reservation = this.store.pipe(store_1.select(reducers.getReservation));
         this.isLoading = this.store.pipe(store_1.select(reducers.getLoading));
         this.error = this.store.pipe(store_1.select(reducers.getError));
         this.order.subscribe(function (value) {
@@ -2921,6 +2936,12 @@ var InquiryConfirmComponent = /** @class */ (function () {
             var order = value.order;
             _this.eventOrders = functions_1.orderToEventOrders({ order: order });
         }).unsubscribe();
+        if (environment_1.environment.INQUIRY_PRINT_WAIT_TIME !== '') {
+            var time = Number(environment_1.environment.INQUIRY_PRINT_WAIT_TIME);
+            this.timer = setTimeout(function () {
+                _this.router.navigate(['/inquiry/input']);
+            }, time);
+        }
     };
     /**
      * キャンセル確認
@@ -2976,16 +2997,33 @@ var InquiryConfirmComponent = /** @class */ (function () {
      */
     InquiryConfirmComponent.prototype.print = function () {
         return __awaiter(this, void 0, void 0, function () {
-            var orderData, user, orders, pos, printer, error_2;
+            var today, limit, findResult, orderData, user, reservationNumbers, reservationData, checkedInResult, orders, pos, printer, error_2;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
-                        _a.trys.push([0, 4, , 5]);
-                        return [4 /*yield*/, this.orderService.getData()];
+                        today = moment().format('YYYYMMDD');
+                        limit = moment(today)
+                            .add(environment_1.environment.INQUIRY_PRINT_EXPIRED_VALUE, environment_1.environment.INQUIRY_PRINT_EXPIRED_UNIT)
+                            .format('YYYYMMDD');
+                        findResult = this.eventOrders.find(function (o) { return moment(o.event.startDate).format('YYYYMMDD') < limit; });
+                        if (findResult !== undefined) {
+                            this.utilService.openAlert({
+                                title: this.translate.instant('common.error'),
+                                body: this.translate.instant('inquiry.confirm.alert.printExpired')
+                            });
+                            return [2 /*return*/];
+                        }
+                        if (this.timer !== undefined) {
+                            clearTimeout(this.timer);
+                        }
+                        _a.label = 1;
                     case 1:
+                        _a.trys.push([1, 7, , 8]);
+                        return [4 /*yield*/, this.orderService.getData()];
+                    case 2:
                         orderData = _a.sent();
                         return [4 /*yield*/, this.userService.getData()];
-                    case 2:
+                    case 3:
                         user = _a.sent();
                         if (orderData.order === undefined
                             || user.pos === undefined
@@ -2993,22 +3031,46 @@ var InquiryConfirmComponent = /** @class */ (function () {
                             this.router.navigate(['/error']);
                             return [2 /*return*/];
                         }
+                        reservationNumbers = orderData.order.acceptedOffers.map(function (offers) {
+                            if (offers.itemOffered.typeOf !== api_javascript_client_1.factory.chevre.reservationType.EventReservation) {
+                                return '';
+                            }
+                            return offers.itemOffered.reservationNumber;
+                        });
+                        return [4 /*yield*/, this.reservationService.search({
+                                typeOf: api_javascript_client_1.factory.chevre.reservationType.EventReservation,
+                                reservationNumbers: reservationNumbers
+                            })];
+                    case 4:
+                        _a.sent();
+                        return [4 /*yield*/, this.reservationService.getData()];
+                    case 5:
+                        reservationData = _a.sent();
+                        checkedInResult = reservationData.reservations.filter(function (r) { return r.checkedIn; });
+                        if (checkedInResult.length > 0) {
+                            this.utilService.openAlert({
+                                title: this.translate.instant('common.error'),
+                                body: this.translate.instant('inquiry.confirm.alert.doubleTicketing')
+                            });
+                            return [2 /*return*/];
+                        }
                         orders = [orderData.order];
                         pos = user.pos;
                         printer = user.printer;
                         return [4 /*yield*/, this.orderService.print({ orders: orders, pos: pos, printer: printer })];
-                    case 3:
+                    case 6:
                         _a.sent();
-                        return [3 /*break*/, 5];
-                    case 4:
+                        this.router.navigate(['/inquiry/print']);
+                        return [3 /*break*/, 8];
+                    case 7:
                         error_2 = _a.sent();
                         console.error(error_2);
                         this.utilService.openAlert({
                             title: this.translate.instant('common.error'),
                             body: "\n                <p class=\"mb-4\">" + this.translate.instant('inquiry.confirm.alert.print') + "</p>\n                    <div class=\"p-3 bg-light-gray select-text\">\n                    <code>" + error_2 + "</code>\n                </div>"
                         });
-                        return [3 /*break*/, 5];
-                    case 5: return [2 /*return*/];
+                        return [3 /*break*/, 8];
+                    case 8: return [2 /*return*/];
                 }
             });
         });
@@ -3024,6 +3086,7 @@ var InquiryConfirmComponent = /** @class */ (function () {
             services_1.UserService,
             services_1.UtilService,
             services_1.OrderService,
+            services_1.ReservationService,
             core_2.TranslateService])
     ], InquiryConfirmComponent);
     return InquiryConfirmComponent;
@@ -3103,6 +3166,7 @@ var forms_1 = __webpack_require__(/*! @angular/forms */ "../../node_modules/@ang
 var router_1 = __webpack_require__(/*! @angular/router */ "../../node_modules/@angular/router/fesm5/router.js");
 var core_2 = __webpack_require__(/*! @ngx-translate/core */ "../../node_modules/@ngx-translate/core/fesm5/ngx-translate-core.js");
 var libphonenumber = __webpack_require__(/*! libphonenumber-js */ "../../node_modules/libphonenumber-js/index.es6.js");
+var environment_1 = __webpack_require__(/*! ../../../../../environments/environment */ "./environments/environment.ts");
 var services_1 = __webpack_require__(/*! ../../../../services */ "./app/services/index.ts");
 var InquiryInputComponent = /** @class */ (function () {
     function InquiryInputComponent(formBuilder, utilService, orderService, router, translate) {
@@ -3111,10 +3175,14 @@ var InquiryInputComponent = /** @class */ (function () {
         this.orderService = orderService;
         this.router = router;
         this.translate = translate;
+        this.environment = environment_1.environment;
     }
     InquiryInputComponent.prototype.ngOnInit = function () {
         this.createInquiryForm();
     };
+    /**
+     * 照会フォーム作成
+     */
     InquiryInputComponent.prototype.createInquiryForm = function () {
         var TEL_MAX_LENGTH = 11;
         var TEL_MIN_LENGTH = 9;
@@ -3145,6 +3213,9 @@ var InquiryInputComponent = /** @class */ (function () {
                 ]]
         });
     };
+    /**
+     * 照会
+     */
     InquiryInputComponent.prototype.onSubmit = function () {
         return __awaiter(this, void 0, void 0, function () {
             var confirmationNumber, telephone, error_1;
@@ -3185,6 +3256,18 @@ var InquiryInputComponent = /** @class */ (function () {
             });
         });
     };
+    /**
+     * 確認番号変更
+     */
+    InquiryInputComponent.prototype.changeConfirmationNumber = function (value) {
+        this.inquiryForm.controls.confirmationNumber.setValue(value);
+    };
+    /**
+     * 電話番号変更
+     */
+    InquiryInputComponent.prototype.changeTelephone = function (value) {
+        this.inquiryForm.controls.telephone.setValue(value);
+    };
     InquiryInputComponent = __decorate([
         core_1.Component({
             selector: 'app-inquiry-input',
@@ -3200,6 +3283,80 @@ var InquiryInputComponent = /** @class */ (function () {
     return InquiryInputComponent;
 }());
 exports.InquiryInputComponent = InquiryInputComponent;
+
+
+/***/ }),
+
+/***/ "./app/components/pages/inquiry/inquiry-print/inquiry-print.component.scss":
+/*!*********************************************************************************!*\
+  !*** ./app/components/pages/inquiry/inquiry-print/inquiry-print.component.scss ***!
+  \*********************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvY2xpZW50L2FwcC9jb21wb25lbnRzL3BhZ2VzL2lucXVpcnkvaW5xdWlyeS1wcmludC9pbnF1aXJ5LXByaW50LmNvbXBvbmVudC5zY3NzIn0= */"
+
+/***/ }),
+
+/***/ "./app/components/pages/inquiry/inquiry-print/inquiry-print.component.ts":
+/*!*******************************************************************************!*\
+  !*** ./app/components/pages/inquiry/inquiry-print/inquiry-print.component.ts ***!
+  \*******************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+var core_1 = __webpack_require__(/*! @angular/core */ "../../node_modules/@angular/core/fesm5/core.js");
+var router_1 = __webpack_require__(/*! @angular/router */ "../../node_modules/@angular/router/fesm5/router.js");
+var environment_1 = __webpack_require__(/*! ../../../../../environments/environment */ "./environments/environment.ts");
+var InquiryPrintComponent = /** @class */ (function () {
+    function InquiryPrintComponent(router) {
+        this.router = router;
+    }
+    /**
+     * 初期化
+     */
+    InquiryPrintComponent.prototype.ngOnInit = function () {
+        var _this = this;
+        if (environment_1.environment.INQUIRY_PRINT_SUCCESS_WAIT_TIME === '') {
+            return;
+        }
+        var time = Number(environment_1.environment.INQUIRY_PRINT_SUCCESS_WAIT_TIME);
+        this.timer = setTimeout(function () {
+            _this.router.navigate(['/inquiry/input']);
+        }, time);
+    };
+    /**
+     * 破棄
+     */
+    InquiryPrintComponent.prototype.ngOnDestroy = function () {
+        if (this.timer === undefined) {
+            return;
+        }
+        clearTimeout(this.timer);
+    };
+    InquiryPrintComponent = __decorate([
+        core_1.Component({
+            selector: 'app-inquiry-print',
+            template: __webpack_require__(/*! raw-loader!./inquiry-print.component.html */ "../../node_modules/raw-loader/index.js!./app/components/pages/inquiry/inquiry-print/inquiry-print.component.html"),
+            styles: [__webpack_require__(/*! ./inquiry-print.component.scss */ "./app/components/pages/inquiry/inquiry-print/inquiry-print.component.scss")]
+        }),
+        __metadata("design:paramtypes", [router_1.Router])
+    ], InquiryPrintComponent);
+    return InquiryPrintComponent;
+}());
+exports.InquiryPrintComponent = InquiryPrintComponent;
 
 
 /***/ }),
@@ -11239,19 +11396,18 @@ exports.route = {
 Object.defineProperty(exports, "__esModule", { value: true });
 var canActivates_1 = __webpack_require__(/*! ../canActivates */ "./app/canActivates/index.ts");
 var setting_guard_service_1 = __webpack_require__(/*! ../canActivates/setting-guard.service */ "./app/canActivates/setting-guard.service.ts");
-var base_component_1 = __webpack_require__(/*! ../components/pages/base/base.component */ "./app/components/pages/base/base.component.ts");
-var inquiry_confirm_component_1 = __webpack_require__(/*! ../components/pages/inquiry/inquiry-confirm/inquiry-confirm.component */ "./app/components/pages/inquiry/inquiry-confirm/inquiry-confirm.component.ts");
-var inquiry_input_component_1 = __webpack_require__(/*! ../components/pages/inquiry/inquiry-input/inquiry-input.component */ "./app/components/pages/inquiry/inquiry-input/inquiry-input.component.ts");
+var pages_1 = __webpack_require__(/*! ../components/pages */ "./app/components/pages/index.ts");
 /**
  * 照会ルーティング
  */
 exports.route = {
     path: 'inquiry',
-    component: base_component_1.BaseComponent,
+    component: pages_1.BaseComponent,
     canActivate: [canActivates_1.AuthGuardService, setting_guard_service_1.SettingGuardService],
     children: [
-        { path: 'input', component: inquiry_input_component_1.InquiryInputComponent },
-        { path: 'confirm', component: inquiry_confirm_component_1.InquiryConfirmComponent }
+        { path: 'input', component: pages_1.InquiryInputComponent },
+        { path: 'confirm', component: pages_1.InquiryConfirmComponent },
+        { path: 'print', component: pages_1.InquiryPrintComponent }
     ]
 };
 
@@ -17946,6 +18102,11 @@ var defaultEnvironment = {
     INQUIRY_CANCEL: false,
     INQUIRY_QRCODE: false,
     INQUIRY_PRINT: false,
+    INQUIRY_PRINT_EXPIRED_VALUE: '0',
+    INQUIRY_PRINT_EXPIRED_UNIT: 'hour',
+    INQUIRY_PRINT_WAIT_TIME: '',
+    INQUIRY_PRINT_SUCCESS_WAIT_TIME: '',
+    INQUIRY_INPUT_KEYPAD: false,
     ORDER_CANCEL: false,
     ORDER_QRCODE: false,
     ORDER_PRINT: false,

@@ -4,9 +4,10 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/).
 
 ## Unreleased
-### Added
-
+###  Added
+- 照会へ操作期限を追加
 ### Changed
+- 照会から発券済みのチケットを印刷不可へ変更
 
 ### Fixed
 
