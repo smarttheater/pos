@@ -3,6 +3,7 @@ import { AbstractControl, FormBuilder, FormGroup, ValidationErrors, Validators }
 import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import * as libphonenumber from 'libphonenumber-js';
+import { environment } from '../../../../../environments/environment';
 import { OrderService, UtilService } from '../../../../services';
 
 @Component({
@@ -12,6 +13,7 @@ import { OrderService, UtilService } from '../../../../services';
 })
 export class InquiryInputComponent implements OnInit {
     public inquiryForm: FormGroup;
+    public environment = environment;
     constructor(
         private formBuilder: FormBuilder,
         private utilService: UtilService,
@@ -24,6 +26,9 @@ export class InquiryInputComponent implements OnInit {
         this.createInquiryForm();
     }
 
+    /**
+     * 照会フォーム作成
+     */
     private createInquiryForm() {
         const TEL_MAX_LENGTH = 15;
         const TEL_MIN_LENGTH = 9;
@@ -60,6 +65,9 @@ export class InquiryInputComponent implements OnInit {
         });
     }
 
+    /**
+     * 照会
+     */
     public async onSubmit() {
         Object.keys(this.inquiryForm.controls).forEach((key) => {
             this.inquiryForm.controls[key].markAsTouched();
@@ -83,6 +91,20 @@ export class InquiryInputComponent implements OnInit {
                 body: this.translate.instant('inquiry.input.validation')
             });
         }
+    }
+
+    /**
+     * 確認番号変更
+     */
+    public changeConfirmationNumber(value: string) {
+        this.inquiryForm.controls.confirmationNumber.setValue(value);
+    }
+
+    /**
+     * 電話番号変更
+     */
+    public changeTelephone(value: string) {
+        this.inquiryForm.controls.telephone.setValue(value);
     }
 
 }

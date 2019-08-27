@@ -1,3 +1,5 @@
+import * as moment from 'moment';
+
 /**
  * 環境変数
  */
@@ -131,6 +133,26 @@ interface IEnvironment {
      */
     INQUIRY_PRINT: boolean;
     /**
+     * 照会印刷期限値
+     */
+    INQUIRY_PRINT_EXPIRED_VALUE: string;
+    /**
+     * 照会印刷期限単位
+     */
+    INQUIRY_PRINT_EXPIRED_UNIT: moment.DurationInputArg2;
+    /**
+     * 照会印刷待機時間
+     */
+    INQUIRY_PRINT_WAIT_TIME: string;
+    /**
+     * 照会印刷完了待機時間
+     */
+    INQUIRY_PRINT_SUCCESS_WAIT_TIME: string;
+    /**
+     * 照会入力キーパッド
+     */
+    INQUIRY_INPUT_KEYPAD: boolean;
+    /**
      * 注文キャンセル
      */
     ORDER_CANCEL: boolean;
@@ -193,6 +215,11 @@ const defaultEnvironment: IEnvironment = {
     INQUIRY_CANCEL: false,
     INQUIRY_QRCODE: false,
     INQUIRY_PRINT: false,
+    INQUIRY_PRINT_EXPIRED_VALUE: '0',
+    INQUIRY_PRINT_EXPIRED_UNIT: 'hour',
+    INQUIRY_PRINT_WAIT_TIME: '',
+    INQUIRY_PRINT_SUCCESS_WAIT_TIME: '',
+    INQUIRY_INPUT_KEYPAD: false,
     ORDER_CANCEL: false,
     ORDER_QRCODE: false,
     ORDER_PRINT: false,
