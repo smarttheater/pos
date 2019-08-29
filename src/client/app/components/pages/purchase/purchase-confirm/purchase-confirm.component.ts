@@ -53,11 +53,11 @@ export class PurchaseConfirmComponent implements OnInit {
      * 確定
      */
     public async onSubmit() {
-        const purchase = await this.purchaseService.getData();
-        const user = await this.userService.getData();
-        const contact = user.customerContact;
-        const seller = user.seller;
-        const paymentMethod = purchase.paymentMethod;
+        const purchaseData = await this.purchaseService.getData();
+        const userData = await this.userService.getData();
+        const contact = userData.customerContact;
+        const seller = userData.seller;
+        const paymentMethod = purchaseData.paymentMethod;
         if (paymentMethod === undefined
             || contact === undefined
             || seller === undefined) {
@@ -74,7 +74,7 @@ export class PurchaseConfirmComponent implements OnInit {
             }
         }
         try {
-            if (purchase.pendingMovieTickets.length > 0) {
+            if (purchaseData.pendingMovieTickets.length > 0) {
                 await this.purchaseService.authorizeMovieTicket();
             }
             await this.purchaseService.authorizeAnyPayment({
@@ -83,7 +83,7 @@ export class PurchaseConfirmComponent implements OnInit {
                     ? Number(this.depositAmount) : undefined
             });
             await this.purchaseService.registerContact(contact);
-            await this.purchaseService.endTransaction(seller);
+            await this.purchaseService.endTransaction({ seller, language: userData.language });
             this.router.navigate(['/purchase/complete']);
         } catch (error) {
             console.error(error);
