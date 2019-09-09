@@ -109,8 +109,6 @@
                                 <p *ngIf="settingForm.controls.telephone.errors.maxlength" class="text-danger">
                                     {{ 'form.validation.minlength' | translate: { value: settingForm.controls.telephone.errors.maxlength.requiredLength } }}
                                 </p>
-                                <p *ngIf="settingForm.controls.telephone.errors.pattern" class="text-danger">
-                                    {{ 'form.validation.number' | translate }}</p>
                                 <p *ngIf="settingForm.controls.telephone.errors.telephone" class="text-danger">
                                     {{ 'form.validation.telephone' | translate }}</p>
                             </div>

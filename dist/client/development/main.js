@@ -439,7 +439,18 @@ module.exports = "<div class=\"contents-width mx-auto px-3 py-5\">\n    <div cla
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"contents-width mx-auto px-3 py-5\">\n    <div class=\"mb-4\">\n        <h2 class=\"text-large mb-4 text-center font-weight-bold\">{{ 'inquiry.input.title' | translate }}</h2>\n        <p class=\"mb-4 text-md-center\" [innerHTML]=\"'inquiry.input.read' | translate\"></p>\n\n        <div class=\"inquiry-form mx-auto p-3 bg-white\">\n            <form [formGroup]=\"inquiryForm\">\n                <div class=\"form-group\">\n                    <label class=\"mb-2\" for=\"\">{{ 'common.confirmationNumber' | translate }}</label>\n                    <input type=\"text\" class=\"form-control\" formControlName=\"confirmationNumber\" id=\"confirmationNumber\"\n                        placeholder=\"12345678\">\n                    <div *ngIf=\"inquiryForm.controls.confirmationNumber.invalid && inquiryForm.controls.confirmationNumber.touched\"\n                        class=\"mt-2\">\n                        <p *ngIf=\"inquiryForm.controls.confirmationNumber.errors.required\" class=\"text-danger\">{{ 'form.validation.required' | translate }}</p>\n                        <p *ngIf=\"inquiryForm.controls.confirmationNumber.errors.pattern\" class=\"text-danger\">{{ 'form.validation.number' | translate }}</p>\n                    </div>\n                </div>\n                <div class=\"form-group mb-0\">\n                    <label class=\"mb-2\" for=\"\">{{ 'common.telephone' | translate }}</label>\n                    <input type=\"password\" class=\"form-control\" formControlName=\"telephone\" id=\"telephone\" placeholder=\"0362778824\">\n                    <div *ngIf=\"inquiryForm.controls.telephone.invalid && inquiryForm.controls.telephone.touched\" class=\"mt-2\">\n                        <p *ngIf=\"inquiryForm.controls.telephone.errors.required\" class=\"text-danger\">{{ 'form.validation.required' | translate }}</p>\n                        <p *ngIf=\"inquiryForm.controls.telephone.errors.minlength\" class=\"text-danger\">\n                                {{ 'form.validation.minlength' | translate: { value: inquiryForm.controls.telephone.errors.minlength.requiredLength } }}\n                        </p>\n                        <p *ngIf=\"inquiryForm.controls.telephone.errors.maxlength\" class=\"text-danger\">\n                                {{ 'form.validation.maxlength' | translate: { value: inquiryForm.controls.telephone.errors.maxlength.requiredLength } }}\n                        </p>\n                        <p *ngIf=\"inquiryForm.controls.telephone.errors.pattern\" class=\"text-danger\">{{ 'form.validation.number' | translate }}</p>\n                        <p *ngIf=\"inquiryForm.controls.telephone.errors.telephone\" class=\"text-danger\">{{ 'form.validation.telephone' | translate }}</p>\n                    </div>\n                </div>\n            </form>\n        </div>\n    </div>\n\n    <div class=\"buttons mx-auto text-center\">\n        <button type=\"button\" class=\"btn btn-primary btn-block py-3 mb-3\" (click)=\"onSubmit()\">{{ 'inquiry.input.next' | translate }}</button>\n        <button type=\"button\" class=\"btn btn-link\" routerLink=\"/purchase/root\">{{ 'inquiry.input.prev' | translate }}</button>\n    </div>\n\n</div>"
+module.exports = "<div class=\"contents-width mx-auto px-3 py-5\">\n    <div class=\"mb-4\">\n        <h2 class=\"text-large mb-4 text-center font-weight-bold\">{{ 'inquiry.input.title' | translate }}</h2>\n        <p class=\"mb-4 text-md-center\" [innerHTML]=\"'inquiry.input.read' | translate\"></p>\n\n        <div class=\"inquiry-form mx-auto p-3 bg-white\">\n            <form [formGroup]=\"inquiryForm\">\n                <div class=\"form-group\">\n                    <label class=\"mb-2\" for=\"\">{{ 'common.confirmationNumber' | translate }}</label>\n                    <app-numeric-keypad *ngIf=\"environment.INQUIRY_INPUT_KEYPAD\" inputType=\"number\" [inputValue]=\"inquiryForm.controls.confirmationNumber.value\"\n                        (change)=\"changeConfirmationNumber($event)\">\n                        <input type=\"text\" class=\"form-control\" formControlName=\"confirmationNumber\"\n                            id=\"confirmationNumber\" [placeholder]=\"'form.placeholder.confirmationNumber' | translate\"\n                            readonly>\n                    </app-numeric-keypad>\n                    <input *ngIf=\"!environment.INQUIRY_INPUT_KEYPAD\" type=\"text\" class=\"form-control\" formControlName=\"confirmationNumber\" id=\"confirmationNumber\"\n                        [placeholder]=\"'form.placeholder.confirmationNumber' | translate\">\n                    <div *ngIf=\"inquiryForm.controls.confirmationNumber.invalid && inquiryForm.controls.confirmationNumber.touched\"\n                        class=\"mt-2\">\n                        <p *ngIf=\"inquiryForm.controls.confirmationNumber.errors.required\" class=\"text-danger\">\n                            {{ 'form.validation.required' | translate }}</p>\n                        <p *ngIf=\"inquiryForm.controls.confirmationNumber.errors.pattern\" class=\"text-danger\">\n                            {{ 'form.validation.number' | translate }}</p>\n                    </div>\n                </div>\n                <div class=\"form-group mb-0\">\n                    <label class=\"mb-2\" for=\"\">{{ 'common.telephone' | translate }}</label>\n                    <app-numeric-keypad *ngIf=\"environment.INQUIRY_INPUT_KEYPAD\" inputType=\"telephone\" [inputValue]=\"inquiryForm.controls.telephone.value\"\n                        (change)=\"changeTelephone($event)\">\n                        <input type=\"password\" class=\"form-control\" formControlName=\"telephone\" id=\"telephone\"\n                            [placeholder]=\"'form.placeholder.telephone' | translate\" readonly>\n                    </app-numeric-keypad>\n                    <input *ngIf=\"!environment.INQUIRY_INPUT_KEYPAD\" type=\"password\" class=\"form-control\" formControlName=\"telephone\" id=\"telephone\"\n                        [placeholder]=\"'form.placeholder.telephone' | translate\">\n                    <div *ngIf=\"inquiryForm.controls.telephone.invalid && inquiryForm.controls.telephone.touched\"\n                        class=\"mt-2\">\n                        <p *ngIf=\"inquiryForm.controls.telephone.errors.required\" class=\"text-danger\">\n                            {{ 'form.validation.required' | translate }}</p>\n                        <p *ngIf=\"inquiryForm.controls.telephone.errors.minlength\" class=\"text-danger\">\n                            {{ 'form.validation.minlength' | translate: { value: inquiryForm.controls.telephone.errors.minlength.requiredLength } }}\n                        </p>\n                        <p *ngIf=\"inquiryForm.controls.telephone.errors.maxlength\" class=\"text-danger\">\n                            {{ 'form.validation.maxlength' | translate: { value: inquiryForm.controls.telephone.errors.maxlength.requiredLength } }}\n                        </p>\n                        <p *ngIf=\"inquiryForm.controls.telephone.errors.telephone\" class=\"text-danger\">{{ 'form.validation.telephone' | translate }}</p>\n                    </div>\n                </div>\n            </form>\n        </div>\n    </div>\n\n    <div class=\"buttons mx-auto text-center\">\n        <button type=\"button\" class=\"btn btn-primary btn-block py-3 mb-3\" (click)=\"onSubmit()\">{{ 'inquiry.input.next' | translate }}</button>\n        <button type=\"button\" class=\"btn btn-link\" routerLink=\"/purchase/root\">{{ 'inquiry.input.prev' | translate }}</button>\n    </div>\n\n</div>"
+
+/***/ }),
+
+/***/ "../../node_modules/raw-loader/index.js!./app/components/pages/inquiry/inquiry-print/inquiry-print.component.html":
+/*!***********************************************************************************************************************************************************!*\
+  !*** C:/Users/hataguchi/Desktop/workspace/Cinerino/pos/node_modules/raw-loader!./app/components/pages/inquiry/inquiry-print/inquiry-print.component.html ***!
+  \***********************************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<div class=\"contents-width mx-auto px-3 py-5\">\n    <div class=\"mb-4\">\n        <h2 class=\"text-large mb-4 text-center font-weight-bold\">{{ 'inquiry.print.title' | translate }}</h2>\n        <p class=\"mb-4 text-md-center\" [innerHTML]=\"'inquiry.print.read' | translate\"></p>\n    </div>\n\n    <div class=\"buttons mx-auto text-center\">\n        <button type=\"button\" class=\"btn btn-primary btn-block py-3\" routerLink=\"/inquiry/input\">\n            {{ 'inquiry.print.prev' | translate }}\n        </button>\n    </div>\n</div>"
 
 /***/ }),
 
@@ -571,7 +582,7 @@ module.exports = "<div class=\"contents-width mx-auto px-3 py-5\">\n    <div cla
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"contents-width mx-auto px-3 py-5\">\n\n    <div class=\"mb-4\">\n        <h2 class=\"text-large mb-4 text-center font-weight-bold\">{{ 'purchase.confirm.title' | translate }}</h2>\n        <p class=\"mb-4 text-md-center\" [innerHTML]=\"'purchase.confirm.read' | translate\"></p>\n\n        <div *ngFor=\"let authorizeSeatReservation of (purchase | async).authorizeSeatReservations\"\n            class=\"mb-4 bg-white p-3\">\n            <div class=\"mb-3\">\n                <div class=\"mb-1\">\n                    <p class=\"font-weight-bold text-large\">\n                        {{ authorizeSeatReservation.object.event.name | changeLanguage }}</p>\n                    <p class=\"text-small\"\n                        *ngIf=\"authorizeSeatReservation.object.event.superEvent.headline && (authorizeSeatReservation.object.event.superEvent.headline | changeLanguage)\">\n                        {{ authorizeSeatReservation.object.event.superEvent.headline | changeLanguage }}</p>\n                    <p class=\"text-small\"\n                        *ngIf=\"authorizeSeatReservation.object.event.superEvent.description && (authorizeSeatReservation.object.event.superEvent.description | changeLanguage)\">{{\n                        authorizeSeatReservation.object.event.superEvent.description | changeLanguage }}</p>\n                </div>\n                <p class=\"mb-1\">\n                    {{ authorizeSeatReservation.object.event.startDate | formatDate: 'MM/DD(ddd) HH:mm' }}-{{ authorizeSeatReservation.object.event.endDate | formatDate: 'HH:mm' }}\n                </p>\n                <p class=\"text-small mb-1\">\n                    <span class=\"theatre-name\">\n                        {{ authorizeSeatReservation.object.event.superEvent.location.name | changeLanguage }}\n                    </span>\n                    <span class=\"screen-name\">\n                        &nbsp;/&nbsp;{{ authorizeSeatReservation.object.event.location.name | changeLanguage }}\n                    </span>\n                    <span\n                        *ngIf=\"authorizeSeatReservation.object.event.workPerformed?.duration && moment.duration(authorizeSeatReservation.object.event.workPerformed?.duration).asMinutes() > 0\">\n                        &nbsp;/&nbsp;<span class=\"mr-1\">{{ 'common.duration' | translate }}</span>{{ moment.duration(authorizeSeatReservation.object.event.workPerformed?.duration).asMinutes() }}{{ 'common.date.minute' | translate }}\n                    </span>\n                </p>\n            </div>\n            <hr class=\"mb-3\">\n            <div *ngIf=\"environment.DISPLAY_TICKETED_SEAT\">\n                <div *ngFor=\"let acceptedOffer of authorizeSeatReservation.object.acceptedOffer\">\n                    <p>\n                        <span\n                            *ngIf=\"acceptedOffer.itemOffered.serviceOutput.reservedTicket.ticketedSeat\">\n                            {{ acceptedOffer.ticketedSeat.seatNumber }}&nbsp;/&nbsp;</span>{{ acceptedOffer.name | changeLanguage }}&nbsp;/&nbsp;{{\n                            getTicketPrice(acceptedOffer).single | currency : 'JPY' }}\n                    </p>\n                </div>\n            </div>\n            <div *ngIf=\"!environment.DISPLAY_TICKETED_SEAT\">\n                <div *ngFor=\"let ticket of changeTicketCount(authorizeSeatReservation.object.acceptedOffer)\">\n                    <p>\n                        {{ ticket.acceptedOffer.name | changeLanguage }}&nbsp;/&nbsp;{{\n                            getTicketPrice(ticket.acceptedOffer).single | currency : 'JPY' }}&nbsp;×&nbsp;{{ ticket.count }}\n                    </p>\n                </div>\n            </div>\n        </div>\n\n        <div class=\"mb-4 px-3 bg-white\"\n            *ngIf=\"(purchase | async).paymentMethod && (purchase | async).paymentMethod.paymentMethodType === paymentMethodType.Cash\">\n            <div class=\"py-3 border-bottom border-gray\">\n                <div class=\"row align-items-center\">\n                    <p class=\"mb-2 mb-md-0 col-md-4\">\n                        <i class=\"fas fa-arrow-right mr-2\"></i>{{ 'purchase.confirm.custody' | translate }}</p>\n                    <p class=\"col-md-8 d-flex align-items-center position-static\">\n                        <span class=\"mr-2\">￥</span>\n                        <app-numeric-keypad [inputValue]=\"depositAmount\" viewPosition=\"Top\" [maxlength]=\"10\"\n                            (change)=\"changeDepositAmount($event)\"\n                            (hidden)=\"depositAmount = ($event.length > 0) ? $event : 0\">\n                            <input type=\"text\" class=\"form-control text-large py-2 h-auto\" id=\"depositAmount\"\n                                [(ngModel)]=\"depositAmount\" readonly>\n                        </app-numeric-keypad>\n                    </p>\n                </div>\n            </div>\n            <div class=\"py-3\">\n                <div class=\"row align-items-center\">\n                    <p class=\"mb-2 mb-md-0 col-md-4\">\n                        <i class=\"fas fa-arrow-left mr-2\"></i>{{ 'purchase.confirm.change' | translate }}</p>\n                    <p class=\"col-md-8\">{{ (depositAmount - amount) | currency : 'JPY' }}</p>\n                </div>\n            </div>\n        </div>\n\n        <div class=\"bg-white px-3 mb-4\">\n            <div class=\"overflow-hidden\">\n                <div class=\"py-3 row align-items-center border-bottom border-gray\">\n                    <p class=\"mb-2 mb-md-0 col-md-4\">{{ 'common.paymentMethod' | translate }}</p>\n                    <p class=\"col-md-8\">{{ (purchase | async).paymentMethod.name | translate }}</p>\n                </div>\n            </div>\n            <div class=\"overflow-hidden\">\n                <div class=\"py-3 row align-items-center\">\n                    <p class=\"mb-2 mb-md-0 col-md-4\">{{ 'common.amount' | translate }}</p>\n                    <p class=\"col-md-8 font-weight-bold text-large text-info\">{{ amount | currency : 'JPY' }}</p>\n                </div>\n            </div>\n        </div>\n\n        <div *ngIf=\"environment.PURCHASE_WARNING\">\n            <h2 class=\"text-large mb-4 text-center font-weight-bold\">{{ 'purchase.confirm.warning' | translate }}</h2>\n            <div class=\"mb-4\">\n                <app-purchase-warning [language]=\"(user | async).language\"\n                    [screeningEvent]=\"(purchase | async).screeningEvent\"></app-purchase-warning>\n            </div>\n        </div>\n\n        <div class=\"buttons mx-auto text-center\">\n            <button type=\"button\" class=\"btn btn-primary btn-block py-3 mb-3\" [disabled]=\"isLoading | async\"\n                (click)=\"onSubmit()\">{{ 'purchase.confirm.next' | translate }}</button>\n            <button *ngIf=\"amount > 0\" type=\"button\" class=\"btn btn-link\"\n                routerLink=\"/purchase/payment\">{{ 'purchase.confirm.prev' | translate }}</button>\n            <div *ngIf=\"amount === 0 && (user | async).viewType === viewType.Cinema\">\n                <button *ngIf=\"(user | async).isPurchaseCart\" type=\"button\" class=\"btn btn-link\"\n                    routerLink=\"/purchase/cinema/cart\">{{ 'purchase.confirm.prev' | translate }}</button>\n                <button *ngIf=\"!(user | async).isPurchaseCart\" type=\"button\" class=\"btn btn-link\"\n                    routerLink=\"/purchase/cinema/ticket\">{{ 'purchase.confirm.prev' | translate }}</button>\n            </div>\n            <div *ngIf=\"amount === 0 && (user | async).viewType === viewType.Event\">\n                <button type=\"button\" class=\"btn btn-link\"\n                    routerLink=\"/purchase/event/ticket\">{{ 'purchase.confirm.prev' | translate }}</button>\n            </div>\n        </div>\n    </div>"
+module.exports = "<div class=\"contents-width mx-auto px-3 py-5\">\n\n    <div class=\"mb-4\">\n        <h2 class=\"text-large mb-4 text-center font-weight-bold\">{{ 'purchase.confirm.title' | translate }}</h2>\n        <p class=\"mb-4 text-md-center\" [innerHTML]=\"'purchase.confirm.read' | translate\"></p>\n\n        <div *ngFor=\"let authorizeSeatReservation of (purchase | async).authorizeSeatReservations\"\n            class=\"mb-4 bg-white p-3\">\n            <div class=\"mb-3\">\n                <div class=\"mb-1\">\n                    <p class=\"font-weight-bold text-large\">\n                        {{ authorizeSeatReservation.object.event.name | changeLanguage }}</p>\n                    <p class=\"text-small\"\n                        *ngIf=\"authorizeSeatReservation.object.event.superEvent.headline && (authorizeSeatReservation.object.event.superEvent.headline | changeLanguage)\">\n                        {{ authorizeSeatReservation.object.event.superEvent.headline | changeLanguage }}</p>\n                    <p class=\"text-small\"\n                        *ngIf=\"authorizeSeatReservation.object.event.superEvent.description && (authorizeSeatReservation.object.event.superEvent.description | changeLanguage)\">{{\n                        authorizeSeatReservation.object.event.superEvent.description | changeLanguage }}</p>\n                </div>\n                <p class=\"mb-1\">\n                    {{ authorizeSeatReservation.object.event.startDate | formatDate: 'MM/DD(ddd) HH:mm' }}-{{ authorizeSeatReservation.object.event.endDate | formatDate: 'HH:mm' }}\n                </p>\n                <p class=\"text-small mb-1\">\n                    <span class=\"theatre-name\">\n                        {{ authorizeSeatReservation.object.event.superEvent.location.name | changeLanguage }}\n                    </span>\n                    <span class=\"screen-name\">\n                        &nbsp;/&nbsp;{{ authorizeSeatReservation.object.event.location.name | changeLanguage }}\n                    </span>\n                    <span\n                        *ngIf=\"authorizeSeatReservation.object.event.workPerformed?.duration && moment.duration(authorizeSeatReservation.object.event.workPerformed?.duration).asMinutes() > 0\">\n                        &nbsp;/&nbsp;<span class=\"mr-1\">{{ 'common.duration' | translate }}</span>{{ moment.duration(authorizeSeatReservation.object.event.workPerformed?.duration).asMinutes() }}{{ 'common.date.minute' | translate }}\n                    </span>\n                </p>\n            </div>\n            <hr class=\"mb-3\">\n            <div *ngIf=\"environment.DISPLAY_TICKETED_SEAT\">\n                <div *ngFor=\"let acceptedOffer of authorizeSeatReservation.object.acceptedOffer\">\n                    <p>\n                        <span\n                            *ngIf=\"acceptedOffer.itemOffered.serviceOutput.reservedTicket.ticketedSeat\">\n                            {{ acceptedOffer.ticketedSeat.seatNumber }}&nbsp;/&nbsp;</span>{{ acceptedOffer.name | changeLanguage }}&nbsp;/&nbsp;{{\n                            getTicketPrice(acceptedOffer).single | currency : 'JPY' }}\n                    </p>\n                </div>\n            </div>\n            <div *ngIf=\"!environment.DISPLAY_TICKETED_SEAT\">\n                <div *ngFor=\"let ticket of changeTicketCount(authorizeSeatReservation.object.acceptedOffer)\">\n                    <p>\n                        {{ ticket.acceptedOffer.name | changeLanguage }}&nbsp;/&nbsp;{{\n                            getTicketPrice(ticket.acceptedOffer).single | currency : 'JPY' }}&nbsp;×&nbsp;{{ ticket.count }}\n                    </p>\n                </div>\n            </div>\n        </div>\n\n        <div class=\"mb-4 px-3 bg-white\"\n            *ngIf=\"(purchase | async).paymentMethod && (purchase | async).paymentMethod.paymentMethodType === paymentMethodType.Cash\">\n            <div class=\"py-3 border-bottom border-gray\">\n                <div class=\"row align-items-center\">\n                    <p class=\"mb-2 mb-md-0 col-md-4\">\n                        <i class=\"fas fa-arrow-right mr-2\"></i>{{ 'purchase.confirm.custody' | translate }}</p>\n                    <p class=\"col-md-8 d-flex align-items-center position-static\">\n                        <span class=\"mr-2\">￥</span>\n                        <app-numeric-keypad inputType=\"number\" [inputValue]=\"depositAmount\" viewPosition=\"Top\" [maxlength]=\"10\"\n                            (change)=\"changeDepositAmount($event)\"\n                            (hidden)=\"depositAmount = ($event.length > 0) ? $event : 0\">\n                            <input type=\"text\" class=\"form-control text-large py-2 h-auto\" id=\"depositAmount\"\n                                [(ngModel)]=\"depositAmount\" readonly>\n                        </app-numeric-keypad>\n                    </p>\n                </div>\n            </div>\n            <div class=\"py-3\">\n                <div class=\"row align-items-center\">\n                    <p class=\"mb-2 mb-md-0 col-md-4\">\n                        <i class=\"fas fa-arrow-left mr-2\"></i>{{ 'purchase.confirm.change' | translate }}</p>\n                    <p class=\"col-md-8\">{{ (depositAmount - amount) | currency : 'JPY' }}</p>\n                </div>\n            </div>\n        </div>\n\n        <div class=\"bg-white px-3 mb-4\">\n            <div class=\"overflow-hidden\">\n                <div class=\"py-3 row align-items-center border-bottom border-gray\">\n                    <p class=\"mb-2 mb-md-0 col-md-4\">{{ 'common.paymentMethod' | translate }}</p>\n                    <p class=\"col-md-8\">{{ (purchase | async).paymentMethod.name | translate }}</p>\n                </div>\n            </div>\n            <div class=\"overflow-hidden\">\n                <div class=\"py-3 row align-items-center\">\n                    <p class=\"mb-2 mb-md-0 col-md-4\">{{ 'common.amount' | translate }}</p>\n                    <p class=\"col-md-8 font-weight-bold text-large text-info\">{{ amount | currency : 'JPY' }}</p>\n                </div>\n            </div>\n        </div>\n\n        <div *ngIf=\"environment.PURCHASE_WARNING\">\n            <h2 class=\"text-large mb-4 text-center font-weight-bold\">{{ 'purchase.confirm.warning' | translate }}</h2>\n            <div class=\"mb-4\">\n                <app-purchase-warning [language]=\"(user | async).language\"\n                    [screeningEvent]=\"(purchase | async).screeningEvent\"></app-purchase-warning>\n            </div>\n        </div>\n\n        <div class=\"buttons mx-auto text-center\">\n            <button type=\"button\" class=\"btn btn-primary btn-block py-3 mb-3\" [disabled]=\"isLoading | async\"\n                (click)=\"onSubmit()\">{{ 'purchase.confirm.next' | translate }}</button>\n            <button *ngIf=\"amount > 0\" type=\"button\" class=\"btn btn-link\"\n                routerLink=\"/purchase/payment\">{{ 'purchase.confirm.prev' | translate }}</button>\n            <div *ngIf=\"amount === 0 && (user | async).viewType === viewType.Cinema\">\n                <button *ngIf=\"(user | async).isPurchaseCart\" type=\"button\" class=\"btn btn-link\"\n                    routerLink=\"/purchase/cinema/cart\">{{ 'purchase.confirm.prev' | translate }}</button>\n                <button *ngIf=\"!(user | async).isPurchaseCart\" type=\"button\" class=\"btn btn-link\"\n                    routerLink=\"/purchase/cinema/ticket\">{{ 'purchase.confirm.prev' | translate }}</button>\n            </div>\n            <div *ngIf=\"amount === 0 && (user | async).viewType === viewType.Event\">\n                <button type=\"button\" class=\"btn btn-link\"\n                    routerLink=\"/purchase/event/ticket\">{{ 'purchase.confirm.prev' | translate }}</button>\n            </div>\n        </div>\n    </div>"
 
 /***/ }),
 
@@ -615,7 +626,7 @@ module.exports = "<div class=\"contents-width mx-auto px-3 py-5\">\n    <h2 clas
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"contents-width mx-auto px-3 py-5\">\n    <div class=\"mb-4\">\n        <h2 class=\"text-large mb-4 text-center font-weight-bold\">{{ 'setting.title' | translate }}</h2>\n        <p class=\"mb-4 text-md-center\" [innerHTML]=\"'setting.read' | translate\"></p>\n        <div class=\"p-3 bg-white\">\n            <form *ngIf=\"settingForm\" [formGroup]=\"settingForm\">\n                <div class=\"form-group\">\n                    <div class=\"row align-items-center\">\n                        <p class=\"col-md-4 py-2 text-md-right\">{{ 'common.theater' | translate }}</p>\n                        <div class=\"col-md-8\">\n                            <select class=\"form-control\" formControlName=\"sellerBranchCode\" (change)=\"changePosList()\">\n                                <option value=\"\">{{ 'setting.unselected' | translate }}</option>\n                                <option *ngFor=\"let theater of (master | async).sellers\"\n                                    [value]=\"theater.location.branchCode\">{{\n                                    theater.name.ja }}</option>\n                            </select>\n                            <div *ngIf=\"settingForm.controls.sellerBranchCode.invalid && settingForm.controls.sellerBranchCode.touched\"\n                                class=\"mt-2\">\n                                <p *ngIf=\"settingForm.controls.sellerBranchCode.errors.required\" class=\"text-danger\">\n                                    {{ 'form.validation.unselected' | translate }}</p>\n                            </div>\n                        </div>\n                    </div>\n                </div>\n                <div class=\"form-group\">\n                    <div class=\"row align-items-center\">\n                        <p class=\"col-md-4 py-2 text-md-right\">{{ 'setting.pos' | translate }}</p>\n                        <div class=\"col-md-8\">\n                            <select class=\"form-control\" formControlName=\"posId\">\n                                <option value=\"\">{{ 'setting.unselected' | translate }}</option>\n                                <option *ngFor=\"let pos of posList\" [value]=\"pos.id\">{{ pos.name }}</option>\n                            </select>\n                            <div *ngIf=\"settingForm.controls.posId.invalid && settingForm.controls.posId.touched\"\n                                class=\"mt-2\">\n                                <p *ngIf=\"settingForm.controls.posId.errors.required\" class=\"text-danger\">\n                                    {{ 'form.validation.unselected' | translate }}</p>\n                            </div>\n                        </div>\n                    </div>\n                </div>\n                <div class=\"form-group\">\n                    <div class=\"row align-items-center\">\n                        <p class=\"col-md-4 py-2 text-md-right\">{{ 'common.familyName' | translate }}</p>\n                        <div class=\"col-md-8\">\n                            <input type=\"text\" class=\"form-control\" formControlName=\"familyName\" placeholder=\"モーション\">\n                            <div *ngIf=\"settingForm.controls.familyName.invalid && settingForm.controls.familyName.touched\"\n                                class=\"mt-2\">\n                                <p *ngIf=\"settingForm.controls.familyName.errors.required\" class=\"text-danger\">\n                                    {{ 'form.validation.required' | translate }}</p>\n                                <p *ngIf=\"settingForm.controls.familyName.errors.maxlength\" class=\"text-danger\">\n                                    {{ 'form.validation.maxlength' | translate: { value: settingForm.controls.familyName.errors.maxlength.requiredLength } }}\n                                </p>\n                                <p *ngIf=\"settingForm.controls.familyName.errors.pattern\" class=\"text-danger\">\n                                    {{ 'form.validation.fullKana' | translate }}</p>\n                            </div>\n                        </div>\n                    </div>\n                </div>\n                <div class=\"form-group\">\n                    <div class=\"row align-items-center\">\n                        <p class=\"col-md-4 py-2 text-md-right\">{{ 'common.givenName' | translate }}</p>\n                        <div class=\"col-md-8\">\n                            <input type=\"text\" class=\"form-control\" formControlName=\"givenName\" placeholder=\"ピクチャー\">\n                            <div *ngIf=\"settingForm.controls.givenName.invalid && settingForm.controls.givenName.touched\"\n                                class=\"mt-2\">\n                                <p *ngIf=\"settingForm.controls.givenName.errors.required\" class=\"text-danger\">\n                                    {{ 'form.validation.required' | translate }}</p>\n                                <p *ngIf=\"settingForm.controls.givenName.errors.maxlength\" class=\"text-danger\">\n                                    {{ 'form.validation.maxlength' | translate: { value: settingForm.controls.givenName.errors.maxlength.requiredLength } }}\n                                </p>\n                                <p *ngIf=\"settingForm.controls.givenName.errors.pattern\" class=\"text-danger\">\n                                    {{ 'form.validation.fullKana' | translate }}\n                                </p>\n                            </div>\n                        </div>\n                    </div>\n                </div>\n                <div class=\"form-group\">\n                    <div class=\"row align-items-center\">\n                        <p class=\"col-md-4 py-2 text-md-right\">{{ 'common.email' | translate }}</p>\n                        <div class=\"col-md-8\">\n                            <input type=\"email\" class=\"form-control\" formControlName=\"email\"\n                                placeholder=\"motionpicture@example.jp\">\n                            <div *ngIf=\"settingForm.controls.email.invalid && settingForm.controls.email.touched\"\n                                class=\"mt-2\">\n                                <p *ngIf=\"settingForm.controls.email.errors.required\" class=\"text-danger\">\n                                    {{ 'form.validation.required' | translate }}</p>\n                                <p *ngIf=\"settingForm.controls.email.errors.maxlength\" class=\"text-danger\">\n                                    {{ 'form.validation.maxlength' | translate: { value: settingForm.controls.email.errors.maxlength.requiredLength } }}\n                                </p>\n                                <p *ngIf=\"settingForm.controls.email.errors.email\" class=\"text-danger\">\n                                    {{ 'form.validation.email' | translate }}</p>\n                            </div>\n                        </div>\n                    </div>\n                </div>\n                <div class=\"form-group\">\n                    <div class=\"row align-items-center\">\n                        <p class=\"col-md-4 py-2 text-md-right\">{{ 'common.telephone' | translate }}</p>\n                        <div class=\"col-md-8\">\n                            <input type=\"tel\" class=\"form-control\" formControlName=\"telephone\" placeholder=\"0362778824\">\n                            <div *ngIf=\"settingForm.controls.telephone.invalid && settingForm.controls.telephone.touched\"\n                                class=\"mt-2\">\n                                <p *ngIf=\"settingForm.controls.telephone.errors.required\" class=\"text-danger\">\n                                    {{ 'form.validation.required' | translate }}</p>\n                                <p *ngIf=\"settingForm.controls.telephone.errors.minlength\" class=\"text-danger\">\n                                    {{ 'form.validation.minlength' | translate: { value: settingForm.controls.telephone.errors.minlength.requiredLength } }}\n                                </p>\n                                <p *ngIf=\"settingForm.controls.telephone.errors.maxlength\" class=\"text-danger\">\n                                    {{ 'form.validation.minlength' | translate: { value: settingForm.controls.telephone.errors.maxlength.requiredLength } }}\n                                </p>\n                                <p *ngIf=\"settingForm.controls.telephone.errors.pattern\" class=\"text-danger\">\n                                    {{ 'form.validation.number' | translate }}</p>\n                                <p *ngIf=\"settingForm.controls.telephone.errors.telephone\" class=\"text-danger\">\n                                    {{ 'form.validation.telephone' | translate }}</p>\n                            </div>\n                        </div>\n                    </div>\n                </div>\n                <div class=\"form-group\">\n                    <div class=\"row align-items-center\">\n                        <p class=\"col-md-4 py-2 text-md-right\">{{ 'setting.printer' | translate }}</p>\n                        <div class=\"col-md-8\">\n                            <select class=\"form-control\" formControlName=\"printerType\" (change)=\"changePrinterType()\">\n                                <option value=\"\">{{ 'setting.unselected' | translate }}</option>\n                                <option *ngFor=\"let printer of printers\" [value]=\"printer.connectionType\">\n                                    {{ printer.name | translate }}</option>\n                            </select>\n                            <button\n                                *ngIf=\"this.settingForm.controls.printerType.value && this.settingForm.controls.printerType.value !== connectionType.None\"\n                                type=\"button\" class=\"btn btn-sm btn-primary py-2 mt-2\"\n                                (click)=\"print()\">{{ 'setting.testPrinting' | translate }}</button>\n                        </div>\n                    </div>\n                </div>\n                <div class=\"form-group\">\n                    <div class=\"row align-items-center\">\n                        <p class=\"col-md-4 py-2 text-md-right\">{{ 'setting.printerIpAddress' | translate }}</p>\n                        <div class=\"col-md-8\">\n                            <input type=\"text\" class=\"form-control\" formControlName=\"printerIpAddress\"\n                                placeholder=\"0.0.0.0\">\n                            <div *ngIf=\"settingForm.controls.printerIpAddress.invalid && settingForm.controls.printerIpAddress.touched\"\n                                class=\"mt-2\">\n                                <p *ngIf=\"settingForm.controls.printerIpAddress.errors.required\" class=\"text-danger\">\n                                    {{ 'form.validation.required' | translate }}</p>\n                            </div>\n                            <p class=\"text-small mt-2\">\n                                {{ 'setting.printerIpAddressDescription' | translate }}\n                            </p>\n                        </div>\n                    </div>\n                </div>\n                <div *ngIf=\"environment.SETTING_DEVELOP_OPTION\">\n                    <div class=\"form-group\">\n                        <div class=\"row align-items-center\">\n                            <p class=\"col-md-4 py-2 text-md-right\">{{ 'setting.isPurchaseCart' | translate }}</p>\n                            <div class=\"col-md-8\">\n                                <select type=\"text\" class=\"form-control\" formControlName=\"isPurchaseCart\"\n                                    id=\"isPurchaseCart\" placeholder=\"\">\n                                    <option value=\"0\">{{ 'common.off' | translate }}</option>\n                                    <option value=\"1\">{{ 'common.on' | translate }}</option>\n                                </select>\n                            </div>\n                        </div>\n                    </div>\n                    <div class=\"form-group\">\n                        <div class=\"row align-items-center\">\n                            <p class=\"col-md-4 py-2 text-md-right\">{{ 'setting.viewType' | translate }}</p>\n                            <div class=\"col-md-8\">\n                                <select class=\"form-control\" id=\"viewType\" formControlName=\"viewType\">\n                                    <option [value]=\"viewType.Cinema\">{{ viewType.Cinema }}</option>\n                                    <option [value]=\"viewType.Event\">{{ viewType.Event }}</option>\n                                </select>\n                                <div *ngIf=\"settingForm.controls.viewType.invalid && settingForm.controls.viewType.touched\"\n                                    class=\"mt-2\">\n                                    <p *ngIf=\"settingForm.controls.viewType.errors.required\" class=\"text-danger\">\n                                        {{ 'form.validation.required' | translate }}</p>\n                                </div>\n                            </div>\n                        </div>\n                    </div>\n                </div>\n            </form>\n        </div>\n    </div>\n\n    <div class=\"buttons mx-auto text-center\">\n        <button type=\"button\" class=\"btn btn-primary btn-block py-3 mb-3\"\n            (click)=\"onSubmit()\">{{ 'setting.next' | translate }}</button>\n        <button type=\"button\" class=\"btn btn-link\"\n            [routerLink]=\"environment.BASE_URL\">{{ 'setting.prev' | translate }}</button>\n    </div>\n\n</div>"
+module.exports = "<div class=\"contents-width mx-auto px-3 py-5\">\n    <div class=\"mb-4\">\n        <h2 class=\"text-large mb-4 text-center font-weight-bold\">{{ 'setting.title' | translate }}</h2>\n        <p class=\"mb-4 text-md-center\" [innerHTML]=\"'setting.read' | translate\"></p>\n        <div class=\"p-3 bg-white\">\n            <form *ngIf=\"settingForm\" [formGroup]=\"settingForm\">\n                <div class=\"form-group\">\n                    <div class=\"row align-items-center\">\n                        <p class=\"col-md-4 py-2 text-md-right\">{{ 'common.theater' | translate }}</p>\n                        <div class=\"col-md-8\">\n                            <select class=\"form-control\" formControlName=\"sellerBranchCode\" (change)=\"changePosList()\">\n                                <option value=\"\">{{ 'setting.unselected' | translate }}</option>\n                                <option *ngFor=\"let theater of (master | async).sellers\"\n                                    [value]=\"theater.location.branchCode\">{{\n                                    theater.name.ja }}</option>\n                            </select>\n                            <div *ngIf=\"settingForm.controls.sellerBranchCode.invalid && settingForm.controls.sellerBranchCode.touched\"\n                                class=\"mt-2\">\n                                <p *ngIf=\"settingForm.controls.sellerBranchCode.errors.required\" class=\"text-danger\">\n                                    {{ 'form.validation.unselected' | translate }}</p>\n                            </div>\n                        </div>\n                    </div>\n                </div>\n                <div class=\"form-group\">\n                    <div class=\"row align-items-center\">\n                        <p class=\"col-md-4 py-2 text-md-right\">{{ 'setting.pos' | translate }}</p>\n                        <div class=\"col-md-8\">\n                            <select class=\"form-control\" formControlName=\"posId\">\n                                <option value=\"\">{{ 'setting.unselected' | translate }}</option>\n                                <option *ngFor=\"let pos of posList\" [value]=\"pos.id\">{{ pos.name }}</option>\n                            </select>\n                            <div *ngIf=\"settingForm.controls.posId.invalid && settingForm.controls.posId.touched\"\n                                class=\"mt-2\">\n                                <p *ngIf=\"settingForm.controls.posId.errors.required\" class=\"text-danger\">\n                                    {{ 'form.validation.unselected' | translate }}</p>\n                            </div>\n                        </div>\n                    </div>\n                </div>\n                <div class=\"form-group\">\n                    <div class=\"row align-items-center\">\n                        <p class=\"col-md-4 py-2 text-md-right\">{{ 'common.familyName' | translate }}</p>\n                        <div class=\"col-md-8\">\n                            <input type=\"text\" class=\"form-control\" formControlName=\"familyName\" placeholder=\"モーション\">\n                            <div *ngIf=\"settingForm.controls.familyName.invalid && settingForm.controls.familyName.touched\"\n                                class=\"mt-2\">\n                                <p *ngIf=\"settingForm.controls.familyName.errors.required\" class=\"text-danger\">\n                                    {{ 'form.validation.required' | translate }}</p>\n                                <p *ngIf=\"settingForm.controls.familyName.errors.maxlength\" class=\"text-danger\">\n                                    {{ 'form.validation.maxlength' | translate: { value: settingForm.controls.familyName.errors.maxlength.requiredLength } }}\n                                </p>\n                                <p *ngIf=\"settingForm.controls.familyName.errors.pattern\" class=\"text-danger\">\n                                    {{ 'form.validation.fullKana' | translate }}</p>\n                            </div>\n                        </div>\n                    </div>\n                </div>\n                <div class=\"form-group\">\n                    <div class=\"row align-items-center\">\n                        <p class=\"col-md-4 py-2 text-md-right\">{{ 'common.givenName' | translate }}</p>\n                        <div class=\"col-md-8\">\n                            <input type=\"text\" class=\"form-control\" formControlName=\"givenName\" placeholder=\"ピクチャー\">\n                            <div *ngIf=\"settingForm.controls.givenName.invalid && settingForm.controls.givenName.touched\"\n                                class=\"mt-2\">\n                                <p *ngIf=\"settingForm.controls.givenName.errors.required\" class=\"text-danger\">\n                                    {{ 'form.validation.required' | translate }}</p>\n                                <p *ngIf=\"settingForm.controls.givenName.errors.maxlength\" class=\"text-danger\">\n                                    {{ 'form.validation.maxlength' | translate: { value: settingForm.controls.givenName.errors.maxlength.requiredLength } }}\n                                </p>\n                                <p *ngIf=\"settingForm.controls.givenName.errors.pattern\" class=\"text-danger\">\n                                    {{ 'form.validation.fullKana' | translate }}\n                                </p>\n                            </div>\n                        </div>\n                    </div>\n                </div>\n                <div class=\"form-group\">\n                    <div class=\"row align-items-center\">\n                        <p class=\"col-md-4 py-2 text-md-right\">{{ 'common.email' | translate }}</p>\n                        <div class=\"col-md-8\">\n                            <input type=\"email\" class=\"form-control\" formControlName=\"email\"\n                                placeholder=\"motionpicture@example.jp\">\n                            <div *ngIf=\"settingForm.controls.email.invalid && settingForm.controls.email.touched\"\n                                class=\"mt-2\">\n                                <p *ngIf=\"settingForm.controls.email.errors.required\" class=\"text-danger\">\n                                    {{ 'form.validation.required' | translate }}</p>\n                                <p *ngIf=\"settingForm.controls.email.errors.maxlength\" class=\"text-danger\">\n                                    {{ 'form.validation.maxlength' | translate: { value: settingForm.controls.email.errors.maxlength.requiredLength } }}\n                                </p>\n                                <p *ngIf=\"settingForm.controls.email.errors.email\" class=\"text-danger\">\n                                    {{ 'form.validation.email' | translate }}</p>\n                            </div>\n                        </div>\n                    </div>\n                </div>\n                <div class=\"form-group\">\n                    <div class=\"row align-items-center\">\n                        <p class=\"col-md-4 py-2 text-md-right\">{{ 'common.telephone' | translate }}</p>\n                        <div class=\"col-md-8\">\n                            <input type=\"tel\" class=\"form-control\" formControlName=\"telephone\" placeholder=\"0362778824\">\n                            <div *ngIf=\"settingForm.controls.telephone.invalid && settingForm.controls.telephone.touched\"\n                                class=\"mt-2\">\n                                <p *ngIf=\"settingForm.controls.telephone.errors.required\" class=\"text-danger\">\n                                    {{ 'form.validation.required' | translate }}</p>\n                                <p *ngIf=\"settingForm.controls.telephone.errors.minlength\" class=\"text-danger\">\n                                    {{ 'form.validation.minlength' | translate: { value: settingForm.controls.telephone.errors.minlength.requiredLength } }}\n                                </p>\n                                <p *ngIf=\"settingForm.controls.telephone.errors.maxlength\" class=\"text-danger\">\n                                    {{ 'form.validation.minlength' | translate: { value: settingForm.controls.telephone.errors.maxlength.requiredLength } }}\n                                </p>\n                                <p *ngIf=\"settingForm.controls.telephone.errors.telephone\" class=\"text-danger\">\n                                    {{ 'form.validation.telephone' | translate }}</p>\n                            </div>\n                        </div>\n                    </div>\n                </div>\n                <div class=\"form-group\">\n                    <div class=\"row align-items-center\">\n                        <p class=\"col-md-4 py-2 text-md-right\">{{ 'setting.printer' | translate }}</p>\n                        <div class=\"col-md-8\">\n                            <select class=\"form-control\" formControlName=\"printerType\" (change)=\"changePrinterType()\">\n                                <option value=\"\">{{ 'setting.unselected' | translate }}</option>\n                                <option *ngFor=\"let printer of printers\" [value]=\"printer.connectionType\">\n                                    {{ printer.name | translate }}</option>\n                            </select>\n                            <button\n                                *ngIf=\"this.settingForm.controls.printerType.value && this.settingForm.controls.printerType.value !== connectionType.None\"\n                                type=\"button\" class=\"btn btn-sm btn-primary py-2 mt-2\"\n                                (click)=\"print()\">{{ 'setting.testPrinting' | translate }}</button>\n                        </div>\n                    </div>\n                </div>\n                <div class=\"form-group\">\n                    <div class=\"row align-items-center\">\n                        <p class=\"col-md-4 py-2 text-md-right\">{{ 'setting.printerIpAddress' | translate }}</p>\n                        <div class=\"col-md-8\">\n                            <input type=\"text\" class=\"form-control\" formControlName=\"printerIpAddress\"\n                                placeholder=\"0.0.0.0\">\n                            <div *ngIf=\"settingForm.controls.printerIpAddress.invalid && settingForm.controls.printerIpAddress.touched\"\n                                class=\"mt-2\">\n                                <p *ngIf=\"settingForm.controls.printerIpAddress.errors.required\" class=\"text-danger\">\n                                    {{ 'form.validation.required' | translate }}</p>\n                            </div>\n                            <p class=\"text-small mt-2\">\n                                {{ 'setting.printerIpAddressDescription' | translate }}\n                            </p>\n                        </div>\n                    </div>\n                </div>\n                <div *ngIf=\"environment.SETTING_DEVELOP_OPTION\">\n                    <div class=\"form-group\">\n                        <div class=\"row align-items-center\">\n                            <p class=\"col-md-4 py-2 text-md-right\">{{ 'setting.isPurchaseCart' | translate }}</p>\n                            <div class=\"col-md-8\">\n                                <select type=\"text\" class=\"form-control\" formControlName=\"isPurchaseCart\"\n                                    id=\"isPurchaseCart\" placeholder=\"\">\n                                    <option value=\"0\">{{ 'common.off' | translate }}</option>\n                                    <option value=\"1\">{{ 'common.on' | translate }}</option>\n                                </select>\n                            </div>\n                        </div>\n                    </div>\n                    <div class=\"form-group\">\n                        <div class=\"row align-items-center\">\n                            <p class=\"col-md-4 py-2 text-md-right\">{{ 'setting.viewType' | translate }}</p>\n                            <div class=\"col-md-8\">\n                                <select class=\"form-control\" id=\"viewType\" formControlName=\"viewType\">\n                                    <option [value]=\"viewType.Cinema\">{{ viewType.Cinema }}</option>\n                                    <option [value]=\"viewType.Event\">{{ viewType.Event }}</option>\n                                </select>\n                                <div *ngIf=\"settingForm.controls.viewType.invalid && settingForm.controls.viewType.touched\"\n                                    class=\"mt-2\">\n                                    <p *ngIf=\"settingForm.controls.viewType.errors.required\" class=\"text-danger\">\n                                        {{ 'form.validation.required' | translate }}</p>\n                                </div>\n                            </div>\n                        </div>\n                    </div>\n                </div>\n            </form>\n        </div>\n    </div>\n\n    <div class=\"buttons mx-auto text-center\">\n        <button type=\"button\" class=\"btn btn-primary btn-block py-3 mb-3\"\n            (click)=\"onSubmit()\">{{ 'setting.next' | translate }}</button>\n        <button type=\"button\" class=\"btn btn-link\"\n            [routerLink]=\"environment.BASE_URL\">{{ 'setting.prev' | translate }}</button>\n    </div>\n\n</div>"
 
 /***/ }),
 
@@ -725,7 +736,7 @@ module.exports = "<div class=\"p-3 scroll-vertical\">\n        <form [formGroup]
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div #trigger (tap)=\"show()\">\n    <ng-content></ng-content>\n</div>\n<div *ngIf=\"isOpen\" class=\"position-fixed\">\n    <div class=\"position-fixed\" (tap)=\"hide()\"></div>\n\n    <div #keypad class=\"numeric-keypad p-3 text-center text-large shadow bg-light-gray\" [ngStyle]=\"{\n    'top.px': position.y, \n    'left.px': position.x\n}\">\n        <div class=\"number d-grid mb-2 text-dark-gray\">\n            <div class=\"bg-white py-2 py-md-3 shadow-sm\" (tap)=\"inputNumber('7')\">7</div>\n            <div class=\"bg-white py-2 py-md-3 shadow-sm\" (tap)=\"inputNumber('8')\">8</div>\n            <div class=\"bg-white py-2 py-md-3 shadow-sm\" (tap)=\"inputNumber('9')\">9</div>\n            <div class=\"bg-white py-2 py-md-3 shadow-sm\" (tap)=\"inputNumber('4')\">4</div>\n            <div class=\"bg-white py-2 py-md-3 shadow-sm\" (tap)=\"inputNumber('5')\">5</div>\n            <div class=\"bg-white py-2 py-md-3 shadow-sm\" (tap)=\"inputNumber('6')\">6</div>\n            <div class=\"bg-white py-2 py-md-3 shadow-sm\" (tap)=\"inputNumber('1')\">1</div>\n            <div class=\"bg-white py-2 py-md-3 shadow-sm\" (tap)=\"inputNumber('2')\">2</div>\n            <div class=\"bg-white py-2 py-md-3 shadow-sm\" (tap)=\"inputNumber('3')\">3</div>\n            <div class=\"bg-white py-2 py-md-3 shadow-sm\" (tap)=\"inputNumber('0')\">0</div>\n            <div class=\"bg-white py-2 py-md-3 shadow-sm\" (tap)=\"inputNumber('00')\">00</div>\n            <div class=\"bg-dark-gray text-white py-2 py-md-3 shadow-sm\" (tap)=\"inputNumber('000')\">000</div>\n        </div>\n        <div class=\"etc d-grid\">\n            <div class=\"bg-gray text-white py-2 py-md-3 shadow-sm\" (tap)=\"clear()\">C</div>\n            <div class=\"bg-success text-white py-2 py-md-3 shadow-sm\" (tap)=\"hide()\">確定</div>\n        </div>\n    </div>\n</div>"
+module.exports = "<div #trigger (tap)=\"show()\">\n    <ng-content></ng-content>\n</div>\n<div *ngIf=\"isOpen\" class=\"position-fixed\">\n    <div class=\"position-fixed\" (tap)=\"hide()\"></div>\n\n    <div #keypad class=\"numeric-keypad p-3 text-center text-large shadow bg-light-gray\" [ngStyle]=\"{\n    'top.px': position.y, \n    'left.px': position.x\n}\">\n        <div class=\"number d-grid mb-2 text-dark-gray\">\n            <div class=\"bg-white py-2 py-md-3 shadow-sm\" (tap)=\"inputCode('7')\">7</div>\n            <div class=\"bg-white py-2 py-md-3 shadow-sm\" (tap)=\"inputCode('8')\">8</div>\n            <div class=\"bg-white py-2 py-md-3 shadow-sm\" (tap)=\"inputCode('9')\">9</div>\n            <div class=\"bg-white py-2 py-md-3 shadow-sm\" (tap)=\"inputCode('4')\">4</div>\n            <div class=\"bg-white py-2 py-md-3 shadow-sm\" (tap)=\"inputCode('5')\">5</div>\n            <div class=\"bg-white py-2 py-md-3 shadow-sm\" (tap)=\"inputCode('6')\">6</div>\n            <div class=\"bg-white py-2 py-md-3 shadow-sm\" (tap)=\"inputCode('1')\">1</div>\n            <div class=\"bg-white py-2 py-md-3 shadow-sm\" (tap)=\"inputCode('2')\">2</div>\n            <div class=\"bg-white py-2 py-md-3 shadow-sm\" (tap)=\"inputCode('3')\">3</div>\n            <div class=\"bg-white py-2 py-md-3 shadow-sm\" (tap)=\"inputCode('0')\">0</div>\n            <div class=\"bg-white py-2 py-md-3 shadow-sm\" (tap)=\"inputCode('00')\">00</div>\n            <div *ngIf=\"inputType === 'number'\" class=\"bg-dark-gray text-white py-2 py-md-3 shadow-sm\"\n                (tap)=\"inputCode('000')\">000</div>\n            <div *ngIf=\"inputType === 'telephone'\" class=\"bg-dark-gray text-white py-2 py-md-3 shadow-sm\"\n                (tap)=\"inputCode('+')\">+</div>\n        </div>\n        <div class=\"etc d-grid\">\n            <div class=\"bg-gray text-white py-2 py-md-3 shadow-sm\" (tap)=\"clear()\">C</div>\n            <div class=\"bg-success text-white py-2 py-md-3 shadow-sm\" (tap)=\"hide()\">確定</div>\n        </div>\n    </div>\n</div>"
 
 /***/ }),
 
@@ -1053,6 +1064,7 @@ var AppModule = /** @class */ (function () {
                 pages_1.SettingComponent,
                 pages_1.InquiryInputComponent,
                 pages_1.InquiryConfirmComponent,
+                pages_1.InquiryPrintComponent,
                 pages_1.PurchasePaymentComponent,
                 libphonenumber_format_pipe_1.LibphonenumberFormatPipe,
                 parts_1.NumericKeypadComponent,
@@ -1417,7 +1429,7 @@ var AppComponent = /** @class */ (function () {
      * @example {{ 'HOME.HELLO' | translate: { value: 'world'} }}
      */
     AppComponent.prototype.locales = function () {
-        this.translate.addLangs(['ja', 'en']);
+        this.translate.addLangs(environment_1.environment.LANGUAGE);
         this.translate.setDefaultLang('ja');
         console.log('translate', this.translate);
     };
@@ -2813,6 +2825,7 @@ function __export(m) {
 Object.defineProperty(exports, "__esModule", { value: true });
 __export(__webpack_require__(/*! ./inquiry-confirm/inquiry-confirm.component */ "./app/components/pages/inquiry/inquiry-confirm/inquiry-confirm.component.ts"));
 __export(__webpack_require__(/*! ./inquiry-input/inquiry-input.component */ "./app/components/pages/inquiry/inquiry-input/inquiry-input.component.ts"));
+__export(__webpack_require__(/*! ./inquiry-print/inquiry-print.component */ "./app/components/pages/inquiry/inquiry-print/inquiry-print.component.ts"));
 
 
 /***/ }),
@@ -2893,12 +2906,13 @@ var functions_1 = __webpack_require__(/*! ../../../../functions */ "./app/functi
 var services_1 = __webpack_require__(/*! ../../../../services */ "./app/services/index.ts");
 var reducers = __webpack_require__(/*! ../../../../store/reducers */ "./app/store/reducers/index.ts");
 var InquiryConfirmComponent = /** @class */ (function () {
-    function InquiryConfirmComponent(store, router, userService, utilService, orderService, translate) {
+    function InquiryConfirmComponent(store, router, userService, utilService, orderService, reservationService, translate) {
         this.store = store;
         this.router = router;
         this.userService = userService;
         this.utilService = utilService;
         this.orderService = orderService;
+        this.reservationService = reservationService;
         this.translate = translate;
         this.moment = moment;
         this.getTicketPrice = functions_1.getTicketPrice;
@@ -2911,6 +2925,7 @@ var InquiryConfirmComponent = /** @class */ (function () {
         this.eventOrders = [];
         this.order = this.store.pipe(store_1.select(reducers.getOrder));
         this.user = this.store.pipe(store_1.select(reducers.getUser));
+        this.reservation = this.store.pipe(store_1.select(reducers.getReservation));
         this.isLoading = this.store.pipe(store_1.select(reducers.getLoading));
         this.error = this.store.pipe(store_1.select(reducers.getError));
         this.order.subscribe(function (value) {
@@ -2921,6 +2936,12 @@ var InquiryConfirmComponent = /** @class */ (function () {
             var order = value.order;
             _this.eventOrders = functions_1.orderToEventOrders({ order: order });
         }).unsubscribe();
+        if (environment_1.environment.INQUIRY_PRINT_WAIT_TIME !== '') {
+            var time = Number(environment_1.environment.INQUIRY_PRINT_WAIT_TIME);
+            this.timer = setTimeout(function () {
+                _this.router.navigate(['/inquiry/input']);
+            }, time);
+        }
     };
     /**
      * キャンセル確認
@@ -2931,13 +2952,16 @@ var InquiryConfirmComponent = /** @class */ (function () {
             title: this.translate.instant('common.confirm'),
             body: this.translate.instant('inquiry.confirm.confirm.cancel'),
             cb: function () { return __awaiter(_this, void 0, void 0, function () {
-                var orderData, order, error_1;
+                var userData, orderData, order, error_1;
                 return __generator(this, function (_a) {
                     switch (_a.label) {
                         case 0:
-                            _a.trys.push([0, 4, , 5]);
-                            return [4 /*yield*/, this.orderService.getData()];
+                            _a.trys.push([0, 5, , 6]);
+                            return [4 /*yield*/, this.userService.getData()];
                         case 1:
+                            userData = _a.sent();
+                            return [4 /*yield*/, this.orderService.getData()];
+                        case 2:
                             orderData = _a.sent();
                             order = orderData.order;
                             if (order === undefined) {
@@ -2947,25 +2971,25 @@ var InquiryConfirmComponent = /** @class */ (function () {
                                 });
                                 return [2 /*return*/];
                             }
-                            return [4 /*yield*/, this.orderService.cancel([order])];
-                        case 2:
+                            return [4 /*yield*/, this.orderService.cancel({ orders: [order], language: userData.language })];
+                        case 3:
                             _a.sent();
                             return [4 /*yield*/, this.orderService.inquiry({
                                     confirmationNumber: order.confirmationNumber,
                                     customer: { telephone: order.customer.telephone }
                                 })];
-                        case 3:
-                            _a.sent();
-                            return [3 /*break*/, 5];
                         case 4:
+                            _a.sent();
+                            return [3 /*break*/, 6];
+                        case 5:
                             error_1 = _a.sent();
                             console.error(error_1);
                             this.utilService.openAlert({
                                 title: this.translate.instant('common.error'),
                                 body: "\n                        <p class=\"mb-4\">" + this.translate.instant('inquiry.confirm.alert.cancel') + "</p>\n                            <div class=\"p-3 bg-light-gray select-text\">\n                            <code>" + JSON.stringify(error_1) + "</code>\n                        </div>"
                             });
-                            return [3 /*break*/, 5];
-                        case 5: return [2 /*return*/];
+                            return [3 /*break*/, 6];
+                        case 6: return [2 /*return*/];
                     }
                 });
             }); }
@@ -2976,16 +3000,33 @@ var InquiryConfirmComponent = /** @class */ (function () {
      */
     InquiryConfirmComponent.prototype.print = function () {
         return __awaiter(this, void 0, void 0, function () {
-            var orderData, user, orders, pos, printer, error_2;
+            var today, limit, findResult, orderData, user, reservationNumbers, reservationData, checkedInResult, orders, pos, printer, error_2;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
-                        _a.trys.push([0, 4, , 5]);
-                        return [4 /*yield*/, this.orderService.getData()];
+                        today = moment().format('YYYYMMDD');
+                        limit = moment(today)
+                            .add(environment_1.environment.INQUIRY_PRINT_EXPIRED_VALUE, environment_1.environment.INQUIRY_PRINT_EXPIRED_UNIT)
+                            .format('YYYYMMDD');
+                        findResult = this.eventOrders.find(function (o) { return moment(o.event.startDate).format('YYYYMMDD') < limit; });
+                        if (findResult !== undefined) {
+                            this.utilService.openAlert({
+                                title: this.translate.instant('common.error'),
+                                body: this.translate.instant('inquiry.confirm.alert.printExpired')
+                            });
+                            return [2 /*return*/];
+                        }
+                        if (this.timer !== undefined) {
+                            clearTimeout(this.timer);
+                        }
+                        _a.label = 1;
                     case 1:
+                        _a.trys.push([1, 7, , 8]);
+                        return [4 /*yield*/, this.orderService.getData()];
+                    case 2:
                         orderData = _a.sent();
                         return [4 /*yield*/, this.userService.getData()];
-                    case 2:
+                    case 3:
                         user = _a.sent();
                         if (orderData.order === undefined
                             || user.pos === undefined
@@ -2993,22 +3034,46 @@ var InquiryConfirmComponent = /** @class */ (function () {
                             this.router.navigate(['/error']);
                             return [2 /*return*/];
                         }
+                        reservationNumbers = orderData.order.acceptedOffers.map(function (offers) {
+                            if (offers.itemOffered.typeOf !== api_javascript_client_1.factory.chevre.reservationType.EventReservation) {
+                                return '';
+                            }
+                            return offers.itemOffered.reservationNumber;
+                        });
+                        return [4 /*yield*/, this.reservationService.search({
+                                typeOf: api_javascript_client_1.factory.chevre.reservationType.EventReservation,
+                                reservationNumbers: reservationNumbers
+                            })];
+                    case 4:
+                        _a.sent();
+                        return [4 /*yield*/, this.reservationService.getData()];
+                    case 5:
+                        reservationData = _a.sent();
+                        checkedInResult = reservationData.reservations.filter(function (r) { return r.checkedIn; });
+                        if (checkedInResult.length > 0) {
+                            this.utilService.openAlert({
+                                title: this.translate.instant('common.error'),
+                                body: this.translate.instant('inquiry.confirm.alert.doubleTicketing')
+                            });
+                            return [2 /*return*/];
+                        }
                         orders = [orderData.order];
                         pos = user.pos;
                         printer = user.printer;
                         return [4 /*yield*/, this.orderService.print({ orders: orders, pos: pos, printer: printer })];
-                    case 3:
+                    case 6:
                         _a.sent();
-                        return [3 /*break*/, 5];
-                    case 4:
+                        this.router.navigate(['/inquiry/print']);
+                        return [3 /*break*/, 8];
+                    case 7:
                         error_2 = _a.sent();
                         console.error(error_2);
                         this.utilService.openAlert({
                             title: this.translate.instant('common.error'),
                             body: "\n                <p class=\"mb-4\">" + this.translate.instant('inquiry.confirm.alert.print') + "</p>\n                    <div class=\"p-3 bg-light-gray select-text\">\n                    <code>" + error_2 + "</code>\n                </div>"
                         });
-                        return [3 /*break*/, 5];
-                    case 5: return [2 /*return*/];
+                        return [3 /*break*/, 8];
+                    case 8: return [2 /*return*/];
                 }
             });
         });
@@ -3024,6 +3089,7 @@ var InquiryConfirmComponent = /** @class */ (function () {
             services_1.UserService,
             services_1.UtilService,
             services_1.OrderService,
+            services_1.ReservationService,
             core_2.TranslateService])
     ], InquiryConfirmComponent);
     return InquiryConfirmComponent;
@@ -3103,6 +3169,7 @@ var forms_1 = __webpack_require__(/*! @angular/forms */ "../../node_modules/@ang
 var router_1 = __webpack_require__(/*! @angular/router */ "../../node_modules/@angular/router/fesm5/router.js");
 var core_2 = __webpack_require__(/*! @ngx-translate/core */ "../../node_modules/@ngx-translate/core/fesm5/ngx-translate-core.js");
 var libphonenumber = __webpack_require__(/*! libphonenumber-js */ "../../node_modules/libphonenumber-js/index.es6.js");
+var environment_1 = __webpack_require__(/*! ../../../../../environments/environment */ "./environments/environment.ts");
 var services_1 = __webpack_require__(/*! ../../../../services */ "./app/services/index.ts");
 var InquiryInputComponent = /** @class */ (function () {
     function InquiryInputComponent(formBuilder, utilService, orderService, router, translate) {
@@ -3111,12 +3178,16 @@ var InquiryInputComponent = /** @class */ (function () {
         this.orderService = orderService;
         this.router = router;
         this.translate = translate;
+        this.environment = environment_1.environment;
     }
     InquiryInputComponent.prototype.ngOnInit = function () {
         this.createInquiryForm();
     };
+    /**
+     * 照会フォーム作成
+     */
     InquiryInputComponent.prototype.createInquiryForm = function () {
-        var TEL_MAX_LENGTH = 11;
+        var TEL_MAX_LENGTH = 15;
         var TEL_MIN_LENGTH = 9;
         this.inquiryForm = this.formBuilder.group({
             confirmationNumber: ['', [
@@ -3127,11 +3198,15 @@ var InquiryInputComponent = /** @class */ (function () {
                     forms_1.Validators.required,
                     forms_1.Validators.maxLength(TEL_MAX_LENGTH),
                     forms_1.Validators.minLength(TEL_MIN_LENGTH),
-                    forms_1.Validators.pattern(/^[0-9]+$/),
                     function (control) {
                         var field = control.root.get('telephone');
                         if (field !== null) {
-                            var parsedNumber = libphonenumber.parse(field.value, 'JP');
+                            if (field.value === '') {
+                                return null;
+                            }
+                            var parsedNumber = (new RegExp(/^\+/).test(field.value))
+                                ? libphonenumber.parse(field.value)
+                                : libphonenumber.parse(field.value, 'JP');
                             if (parsedNumber.phone === undefined) {
                                 return { telephone: true };
                             }
@@ -3145,6 +3220,9 @@ var InquiryInputComponent = /** @class */ (function () {
                 ]]
         });
     };
+    /**
+     * 照会
+     */
     InquiryInputComponent.prototype.onSubmit = function () {
         return __awaiter(this, void 0, void 0, function () {
             var confirmationNumber, telephone, error_1;
@@ -3185,6 +3263,18 @@ var InquiryInputComponent = /** @class */ (function () {
             });
         });
     };
+    /**
+     * 確認番号変更
+     */
+    InquiryInputComponent.prototype.changeConfirmationNumber = function (value) {
+        this.inquiryForm.controls.confirmationNumber.setValue(value);
+    };
+    /**
+     * 電話番号変更
+     */
+    InquiryInputComponent.prototype.changeTelephone = function (value) {
+        this.inquiryForm.controls.telephone.setValue(value);
+    };
     InquiryInputComponent = __decorate([
         core_1.Component({
             selector: 'app-inquiry-input',
@@ -3200,6 +3290,80 @@ var InquiryInputComponent = /** @class */ (function () {
     return InquiryInputComponent;
 }());
 exports.InquiryInputComponent = InquiryInputComponent;
+
+
+/***/ }),
+
+/***/ "./app/components/pages/inquiry/inquiry-print/inquiry-print.component.scss":
+/*!*********************************************************************************!*\
+  !*** ./app/components/pages/inquiry/inquiry-print/inquiry-print.component.scss ***!
+  \*********************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvY2xpZW50L2FwcC9jb21wb25lbnRzL3BhZ2VzL2lucXVpcnkvaW5xdWlyeS1wcmludC9pbnF1aXJ5LXByaW50LmNvbXBvbmVudC5zY3NzIn0= */"
+
+/***/ }),
+
+/***/ "./app/components/pages/inquiry/inquiry-print/inquiry-print.component.ts":
+/*!*******************************************************************************!*\
+  !*** ./app/components/pages/inquiry/inquiry-print/inquiry-print.component.ts ***!
+  \*******************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+var core_1 = __webpack_require__(/*! @angular/core */ "../../node_modules/@angular/core/fesm5/core.js");
+var router_1 = __webpack_require__(/*! @angular/router */ "../../node_modules/@angular/router/fesm5/router.js");
+var environment_1 = __webpack_require__(/*! ../../../../../environments/environment */ "./environments/environment.ts");
+var InquiryPrintComponent = /** @class */ (function () {
+    function InquiryPrintComponent(router) {
+        this.router = router;
+    }
+    /**
+     * 初期化
+     */
+    InquiryPrintComponent.prototype.ngOnInit = function () {
+        var _this = this;
+        if (environment_1.environment.INQUIRY_PRINT_SUCCESS_WAIT_TIME === '') {
+            return;
+        }
+        var time = Number(environment_1.environment.INQUIRY_PRINT_SUCCESS_WAIT_TIME);
+        this.timer = setTimeout(function () {
+            _this.router.navigate(['/inquiry/input']);
+        }, time);
+    };
+    /**
+     * 破棄
+     */
+    InquiryPrintComponent.prototype.ngOnDestroy = function () {
+        if (this.timer === undefined) {
+            return;
+        }
+        clearTimeout(this.timer);
+    };
+    InquiryPrintComponent = __decorate([
+        core_1.Component({
+            selector: 'app-inquiry-print',
+            template: __webpack_require__(/*! raw-loader!./inquiry-print.component.html */ "../../node_modules/raw-loader/index.js!./app/components/pages/inquiry/inquiry-print/inquiry-print.component.html"),
+            styles: [__webpack_require__(/*! ./inquiry-print.component.scss */ "./app/components/pages/inquiry/inquiry-print/inquiry-print.component.scss")]
+        }),
+        __metadata("design:paramtypes", [router_1.Router])
+    ], InquiryPrintComponent);
+    return InquiryPrintComponent;
+}());
+exports.InquiryPrintComponent = InquiryPrintComponent;
 
 
 /***/ }),
@@ -3643,24 +3807,27 @@ var OrderSearchComponent = /** @class */ (function () {
             title: this.translate.instant('common.confirm'),
             body: this.translate.instant('order.search.confirm.cancel'),
             cb: function () { return __awaiter(_this, void 0, void 0, function () {
-                var error_3;
+                var userData, error_3;
                 return __generator(this, function (_a) {
                     switch (_a.label) {
                         case 0:
-                            _a.trys.push([0, 2, , 3]);
-                            return [4 /*yield*/, this.orderService.cancel(orders)];
+                            _a.trys.push([0, 3, , 4]);
+                            return [4 /*yield*/, this.userService.getData()];
                         case 1:
-                            _a.sent();
-                            return [3 /*break*/, 3];
+                            userData = _a.sent();
+                            return [4 /*yield*/, this.orderService.cancel({ orders: orders, language: userData.language })];
                         case 2:
+                            _a.sent();
+                            return [3 /*break*/, 4];
+                        case 3:
                             error_3 = _a.sent();
                             console.error(error_3);
                             this.utilService.openAlert({
                                 title: this.translate.instant('common.error'),
                                 body: "\n                        <p class=\"mb-4\">" + this.translate.instant('order.search.alert.cancel') + "</p>\n                            <div class=\"p-3 bg-light-gray select-text\">\n                            <code>" + error_3 + "</code>\n                        </div>"
                             });
-                            return [3 /*break*/, 3];
-                        case 3: return [2 /*return*/];
+                            return [3 /*break*/, 4];
+                        case 4: return [2 /*return*/];
                     }
                 });
             }); }
@@ -3691,24 +3858,30 @@ var OrderSearchComponent = /** @class */ (function () {
                 title: this.translate.instant('common.confirm'),
                 body: this.translate.instant('order.search.confirm.cancel'),
                 cb: function () { return __awaiter(_this, void 0, void 0, function () {
-                    var error_4;
+                    var userData, error_4;
                     return __generator(this, function (_a) {
                         switch (_a.label) {
                             case 0:
-                                _a.trys.push([0, 2, , 3]);
-                                return [4 /*yield*/, this.orderService.cancel(this.selectedOrders)];
+                                _a.trys.push([0, 3, , 4]);
+                                return [4 /*yield*/, this.userService.getData()];
                             case 1:
-                                _a.sent();
-                                return [3 /*break*/, 3];
+                                userData = _a.sent();
+                                return [4 /*yield*/, this.orderService.cancel({
+                                        orders: this.selectedOrders,
+                                        language: userData.language
+                                    })];
                             case 2:
+                                _a.sent();
+                                return [3 /*break*/, 4];
+                            case 3:
                                 error_4 = _a.sent();
                                 console.error(error_4);
                                 this.utilService.openAlert({
                                     title: this.translate.instant('common.error'),
                                     body: "\n                            <p class=\"mb-4\">" + this.translate.instant('order.search.alert.cancel') + "</p>\n                                <div class=\"p-3 bg-light-gray select-text\">\n                                <code>" + error_4 + "</code>\n                            </div>"
                                 });
-                                return [3 /*break*/, 3];
-                            case 3: return [2 /*return*/];
+                                return [3 /*break*/, 4];
+                            case 4: return [2 /*return*/];
                         }
                     });
                 }); }
@@ -5980,18 +6153,18 @@ var PurchaseConfirmComponent = /** @class */ (function () {
      */
     PurchaseConfirmComponent.prototype.onSubmit = function () {
         return __awaiter(this, void 0, void 0, function () {
-            var purchase, user, contact, seller, paymentMethod, error_1;
+            var purchaseData, userData, contact, seller, paymentMethod, error_1;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0: return [4 /*yield*/, this.purchaseService.getData()];
                     case 1:
-                        purchase = _a.sent();
+                        purchaseData = _a.sent();
                         return [4 /*yield*/, this.userService.getData()];
                     case 2:
-                        user = _a.sent();
-                        contact = user.customerContact;
-                        seller = user.seller;
-                        paymentMethod = purchase.paymentMethod;
+                        userData = _a.sent();
+                        contact = userData.customerContact;
+                        seller = userData.seller;
+                        paymentMethod = purchaseData.paymentMethod;
                         if (paymentMethod === undefined
                             || contact === undefined
                             || seller === undefined) {
@@ -6010,7 +6183,7 @@ var PurchaseConfirmComponent = /** @class */ (function () {
                         _a.label = 3;
                     case 3:
                         _a.trys.push([3, 9, , 10]);
-                        if (!(purchase.pendingMovieTickets.length > 0)) return [3 /*break*/, 5];
+                        if (!(purchaseData.pendingMovieTickets.length > 0)) return [3 /*break*/, 5];
                         return [4 /*yield*/, this.purchaseService.authorizeMovieTicket()];
                     case 4:
                         _a.sent();
@@ -6025,7 +6198,7 @@ var PurchaseConfirmComponent = /** @class */ (function () {
                         return [4 /*yield*/, this.purchaseService.registerContact(contact)];
                     case 7:
                         _a.sent();
-                        return [4 /*yield*/, this.purchaseService.endTransaction(seller)];
+                        return [4 /*yield*/, this.purchaseService.endTransaction({ seller: seller, language: userData.language })];
                     case 8:
                         _a.sent();
                         this.router.navigate(['/purchase/complete']);
@@ -6752,7 +6925,7 @@ var SettingComponent = /** @class */ (function () {
                     case 0:
                         NAME_MAX_LENGTH = 12;
                         MAIL_MAX_LENGTH = 50;
-                        TEL_MAX_LENGTH = 11;
+                        TEL_MAX_LENGTH = 15;
                         TEL_MIN_LENGTH = 9;
                         this.settingForm = this.formBuilder.group({
                             sellerBranchCode: ['', [
@@ -6780,11 +6953,15 @@ var SettingComponent = /** @class */ (function () {
                                     forms_1.Validators.required,
                                     forms_1.Validators.maxLength(TEL_MAX_LENGTH),
                                     forms_1.Validators.minLength(TEL_MIN_LENGTH),
-                                    forms_1.Validators.pattern(/^[0-9]+$/),
                                     function (control) {
                                         var field = control.root.get('telephone');
                                         if (field !== null) {
-                                            var parsedNumber = libphonenumber.parse(field.value, 'JP');
+                                            if (field.value === '') {
+                                                return null;
+                                            }
+                                            var parsedNumber = (new RegExp(/^\+/).test(field.value))
+                                                ? libphonenumber.parse(field.value)
+                                                : libphonenumber.parse(field.value, 'JP');
                                             if (parsedNumber.phone === undefined) {
                                                 return { telephone: true };
                                             }
@@ -7964,8 +8141,8 @@ var NumericKeypadComponent = /** @class */ (function () {
         this.isOpen = false;
         this.hidden.emit(this.inputValue);
     };
-    NumericKeypadComponent.prototype.inputNumber = function (number) {
-        this.inputValue = (this.inputValue + number).slice(0, this.maxlength);
+    NumericKeypadComponent.prototype.inputCode = function (code) {
+        this.inputValue = (this.inputValue + code).slice(0, this.maxlength);
         this.change.emit(this.inputValue);
     };
     NumericKeypadComponent.prototype.clear = function () {
@@ -7986,6 +8163,10 @@ var NumericKeypadComponent = /** @class */ (function () {
         core_1.Input(),
         __metadata("design:type", Number)
     ], NumericKeypadComponent.prototype, "maxlength", void 0);
+    __decorate([
+        core_1.Input(),
+        __metadata("design:type", String)
+    ], NumericKeypadComponent.prototype, "inputType", void 0);
     __decorate([
         core_1.Output(),
         __metadata("design:type", Object)
@@ -10541,9 +10722,11 @@ function formatTelephone(telephone, format) {
     if (telephone === undefined) {
         return '';
     }
-    var parseNumber = libphonenumber.parse(telephone, 'JP');
+    var parsedNumber = (new RegExp(/^\+/).test(telephone))
+        ? libphonenumber.parse(telephone)
+        : libphonenumber.parse(telephone, 'JP');
     format = (format === undefined) ? 'International' : format;
-    return libphonenumber.format(parseNumber, format).replace(/\s/g, '');
+    return libphonenumber.format(parsedNumber, format).replace(/\s/g, '');
 }
 exports.formatTelephone = formatTelephone;
 /**
@@ -11126,8 +11309,9 @@ var LibphonenumberFormatPipe = /** @class */ (function () {
     LibphonenumberFormatPipe.prototype.transform = function (phoneNumber, countryCode, format) {
         countryCode = (countryCode === undefined) ? 'JP' : countryCode;
         format = (format === undefined) ? 'National' : format;
-        var parsedNumber = libphonenumber.parse(phoneNumber, countryCode);
-        return libphonenumber.format(parsedNumber, format).replace(/\-/g, '');
+        var parsedNumber = libphonenumber.parse(phoneNumber);
+        return (parsedNumber.country !== 'JP')
+            ? phoneNumber : libphonenumber.format(parsedNumber, format).replace(/\-/g, '');
     };
     LibphonenumberFormatPipe = __decorate([
         core_1.Pipe({
@@ -11239,19 +11423,18 @@ exports.route = {
 Object.defineProperty(exports, "__esModule", { value: true });
 var canActivates_1 = __webpack_require__(/*! ../canActivates */ "./app/canActivates/index.ts");
 var setting_guard_service_1 = __webpack_require__(/*! ../canActivates/setting-guard.service */ "./app/canActivates/setting-guard.service.ts");
-var base_component_1 = __webpack_require__(/*! ../components/pages/base/base.component */ "./app/components/pages/base/base.component.ts");
-var inquiry_confirm_component_1 = __webpack_require__(/*! ../components/pages/inquiry/inquiry-confirm/inquiry-confirm.component */ "./app/components/pages/inquiry/inquiry-confirm/inquiry-confirm.component.ts");
-var inquiry_input_component_1 = __webpack_require__(/*! ../components/pages/inquiry/inquiry-input/inquiry-input.component */ "./app/components/pages/inquiry/inquiry-input/inquiry-input.component.ts");
+var pages_1 = __webpack_require__(/*! ../components/pages */ "./app/components/pages/index.ts");
 /**
  * 照会ルーティング
  */
 exports.route = {
     path: 'inquiry',
-    component: base_component_1.BaseComponent,
+    component: pages_1.BaseComponent,
     canActivate: [canActivates_1.AuthGuardService, setting_guard_service_1.SettingGuardService],
     children: [
-        { path: 'input', component: inquiry_input_component_1.InquiryInputComponent },
-        { path: 'confirm', component: inquiry_confirm_component_1.InquiryConfirmComponent }
+        { path: 'input', component: pages_1.InquiryInputComponent },
+        { path: 'confirm', component: pages_1.InquiryConfirmComponent },
+        { path: 'print', component: pages_1.InquiryPrintComponent }
     ]
 };
 
@@ -12138,12 +12321,12 @@ var OrderService = /** @class */ (function () {
     /**
      * 注文キャンセル
      */
-    OrderService.prototype.cancel = function (orders) {
+    OrderService.prototype.cancel = function (params) {
         return __awaiter(this, void 0, void 0, function () {
             var _this = this;
             return __generator(this, function (_a) {
                 return [2 /*return*/, new Promise(function (resolve, reject) {
-                        _this.store.dispatch(new actions_1.orderAction.Cancel({ orders: orders }));
+                        _this.store.dispatch(new actions_1.orderAction.Cancel(params));
                         var success = _this.actions.pipe(effects_1.ofType(actions_1.orderAction.ActionTypes.CancelSuccess), operators_1.tap(function () { resolve(); }));
                         var fail = _this.actions.pipe(effects_1.ofType(actions_1.orderAction.ActionTypes.CancelFail), operators_1.tap(function () { _this.error.subscribe(function (error) { reject(error); }).unsubscribe(); }));
                         rxjs_1.race(success, fail).pipe(operators_1.take(1)).subscribe();
@@ -12676,15 +12859,17 @@ var PurchaseService = /** @class */ (function () {
     /**
      * 取引確定
      */
-    PurchaseService.prototype.endTransaction = function (seller) {
+    PurchaseService.prototype.endTransaction = function (params) {
         return __awaiter(this, void 0, void 0, function () {
-            var purchase;
+            var purchase, seller, language;
             var _this = this;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0: return [4 /*yield*/, this.getData()];
                     case 1:
                         purchase = _a.sent();
+                        seller = params.seller;
+                        language = params.language;
                         return [2 /*return*/, new Promise(function (resolve, reject) {
                                 if (purchase.transaction === undefined) {
                                     reject();
@@ -12692,7 +12877,9 @@ var PurchaseService = /** @class */ (function () {
                                 }
                                 var transaction = purchase.transaction;
                                 var authorizeSeatReservations = purchase.authorizeSeatReservations;
-                                _this.store.dispatch(new actions_1.purchaseAction.EndTransaction({ transaction: transaction, authorizeSeatReservations: authorizeSeatReservations, seller: seller }));
+                                _this.store.dispatch(new actions_1.purchaseAction.EndTransaction({
+                                    transaction: transaction, authorizeSeatReservations: authorizeSeatReservations, seller: seller, language: language
+                                }));
                                 var success = _this.actions.pipe(effects_1.ofType(actions_1.purchaseAction.ActionTypes.EndTransactionSuccess), operators_1.tap(function () { resolve(); }));
                                 var fail = _this.actions.pipe(effects_1.ofType(actions_1.purchaseAction.ActionTypes.EndTransactionFail), operators_1.tap(function () { _this.error.subscribe(function (error) { reject(error); }).unsubscribe(); }));
                                 rxjs_1.race(success, fail).pipe(operators_1.take(1)).subscribe();
@@ -15566,7 +15753,7 @@ var OrderEffects = /** @class */ (function () {
                                             template: undefined
                                         };
                                         if (!environment_1.environment.PURCHASE_COMPLETE_MAIL_CUSTOM) return [3 /*break*/, 4];
-                                        return [4 /*yield*/, this_1.utilService.getText('/storage/ejs/mail/return.ejs')];
+                                        return [4 /*yield*/, this_1.utilService.getText("/storage/ejs/mail/return/" + payload.language + ".ejs")];
                                     case 2:
                                         view = _a.sent();
                                         return [4 /*yield*/, window.ejs.render(view, { moment: moment, formatTelephone: functions_1.formatTelephone, getTicketPrice: functions_1.getTicketPrice }, { async: true })];
@@ -16634,7 +16821,7 @@ var PurchaseEffects = /** @class */ (function () {
                             }
                         };
                         if (!environment_1.environment.PURCHASE_COMPLETE_MAIL_CUSTOM) return [3 /*break*/, 5];
-                        return [4 /*yield*/, this.utilService.getText('/storage/ejs/mail/complete.ejs')];
+                        return [4 /*yield*/, this.utilService.getText("/storage/ejs/mail/complete/" + payload.language + ".ejs")];
                     case 3:
                         view = _a.sent();
                         return [4 /*yield*/, window.ejs.render(view, {
@@ -17946,6 +18133,11 @@ var defaultEnvironment = {
     INQUIRY_CANCEL: false,
     INQUIRY_QRCODE: false,
     INQUIRY_PRINT: false,
+    INQUIRY_PRINT_EXPIRED_VALUE: '0',
+    INQUIRY_PRINT_EXPIRED_UNIT: 'hour',
+    INQUIRY_PRINT_WAIT_TIME: '',
+    INQUIRY_PRINT_SUCCESS_WAIT_TIME: '',
+    INQUIRY_INPUT_KEYPAD: false,
     ORDER_CANCEL: false,
     ORDER_QRCODE: false,
     ORDER_PRINT: false,

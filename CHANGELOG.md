@@ -4,13 +4,21 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/).
 
 ## Unreleased
-### Added
-
+###  Added
+- 照会へ操作期限を追加
 ### Changed
+- 照会から発券済みのチケットを印刷不可へ変更
 
 ### Fixed
 
 ### Security
+
+## 2.2.0 - 2019-08-29
+###  Added
+- テンキーに電話番号入力追加
+###  Changed
+- メールテンプレートを言語別に変更
+- 電話番号をE.164形式へ対応
 
 ## 2.1.1 - 2019-08-20
 ### Changed

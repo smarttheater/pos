@@ -1,8 +1,11 @@
 import { AuthGuardService } from '../canActivates';
 import { SettingGuardService } from '../canActivates/setting-guard.service';
-import { BaseComponent } from '../components/pages/base/base.component';
-import { InquiryConfirmComponent } from '../components/pages/inquiry/inquiry-confirm/inquiry-confirm.component';
-import { InquiryInputComponent } from '../components/pages/inquiry/inquiry-input/inquiry-input.component';
+import {
+    BaseComponent,
+    InquiryConfirmComponent,
+    InquiryInputComponent,
+    InquiryPrintComponent
+} from '../components/pages';
 
 /**
  * 照会ルーティング
@@ -13,6 +16,7 @@ export const route = {
     canActivate: [AuthGuardService, SettingGuardService],
     children: [
         { path: 'input', component: InquiryInputComponent },
-        { path: 'confirm', component: InquiryConfirmComponent }
+        { path: 'confirm', component: InquiryConfirmComponent },
+        { path: 'print', component: InquiryPrintComponent }
     ]
 };
