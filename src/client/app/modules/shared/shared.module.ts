@@ -22,6 +22,7 @@ import { PurchaseEventTicketModalComponent } from './components/parts/purchase-e
 import { PurchaseTransactionModalComponent } from './components/parts/purchase-transaction-modal/purchase-transaction-modal.component';
 import { QrCodeModalComponent } from './components/parts/qrcode-modal/qrcode-modal.component';
 import { ReservationDetailModalComponent } from './components/parts/reservation-detail-modal/reservation-detail-modal.component';
+import { ScreenComponent } from './components/parts/screen/screen.component';
 import { ChangeLanguagePipe } from './pipes/change-language.pipe';
 import { FormatDatePipe } from './pipes/format-date.pipe';
 import { LibphonenumberFormatPipe } from './pipes/libphonenumber-format.pipe';
@@ -35,6 +36,7 @@ import { LibphonenumberFormatPipe } from './pipes/libphonenumber-format.pipe';
     HeaderComponent,
     HeaderMenuComponent,
     LoadingComponent,
+    ScreenComponent,
     AlertModalComponent,
     ConfirmModalComponent,
     MvtkCheckModalComponent,
@@ -80,6 +82,7 @@ import { LibphonenumberFormatPipe } from './pipes/libphonenumber-format.pipe';
     HeaderComponent,
     HeaderMenuComponent,
     LoadingComponent,
+    ScreenComponent,
     AlertModalComponent,
     ConfirmModalComponent,
     MvtkCheckModalComponent,

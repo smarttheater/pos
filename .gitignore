@@ -49,3 +49,4 @@ Thumbs.db
 dist/server/public/entrance/
 public/
 dist/client/production/stats.json
+dist/client/production/stats-es2015.json

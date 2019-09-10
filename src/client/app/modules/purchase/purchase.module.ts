@@ -24,7 +24,6 @@ import {
 import { PurchaseInfoComponent } from './components/parts/purchase-info/purchase-info.component';
 import { PurchaseTermsComponent } from './components/parts/purchase-terms/purchase-terms.component';
 import { PurchaseWarningComponent } from './components/parts/purchase-warning/purchase-warning.component';
-import { ScreenComponent } from './components/parts/screen/screen.component';
 import { TransactionRemainingTimeComponent } from './components/parts/transaction-remaining-time/transaction-remaining-time.component';
 import { PurchaseRoutingModule } from './purchase-routing.module';
 
@@ -48,7 +47,6 @@ import { PurchaseRoutingModule } from './purchase-routing.module';
     PurchaseInfoComponent,
     PurchaseTermsComponent,
     PurchaseWarningComponent,
-    ScreenComponent,
     TransactionRemainingTimeComponent,
   ],
   imports: [
