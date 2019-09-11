@@ -10,6 +10,7 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { BsDatepickerModule, ModalModule, PaginationModule } from 'ngx-bootstrap';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app/app.component';
+import { CoreModule } from './modules/core/core.module';
 import { SharedModule } from './modules/shared/shared.module';
 import { StoreModule } from './store.module';
 import { CoreStoreModule } from './store/core/store';
@@ -28,6 +29,7 @@ export function HttpLoaderFactory(http: HttpClient) {
         AppRoutingModule,
         StoreModule,
         CoreStoreModule,
+        CoreModule,
         SharedModule,
         ModalModule.forRoot(),
         BsDatepickerModule.forRoot(),

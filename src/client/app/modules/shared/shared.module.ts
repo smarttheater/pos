@@ -1,5 +1,4 @@
 import { CommonModule } from '@angular/common';
-import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
@@ -27,49 +26,44 @@ import { ChangeLanguagePipe } from './pipes/change-language.pipe';
 import { FormatDatePipe } from './pipes/format-date.pipe';
 import { LibphonenumberFormatPipe } from './pipes/libphonenumber-format.pipe';
 
+const components = [
+  BaseComponent,
+  ContentsComponent,
+  FooterComponent,
+  HeaderComponent,
+  HeaderMenuComponent,
+  LoadingComponent,
+  ScreenComponent,
+];
+
+const entryComponents = [
+  AlertModalComponent,
+  ConfirmModalComponent,
+  MvtkCheckModalComponent,
+  NumericKeypadComponent,
+  OrderDetailModalComponent,
+  PurchaseCinemaTicketModalComponent,
+  PurchaseEventTicketModalComponent,
+  PurchaseTransactionModalComponent,
+  QrCodeModalComponent,
+  ReservationDetailModalComponent,
+];
 
 
 @NgModule({
   declarations: [
-    ContentsComponent,
-    FooterComponent,
-    HeaderComponent,
-    HeaderMenuComponent,
-    LoadingComponent,
-    ScreenComponent,
-    AlertModalComponent,
-    ConfirmModalComponent,
-    MvtkCheckModalComponent,
-    NumericKeypadComponent,
-    OrderDetailModalComponent,
-    PurchaseCinemaTicketModalComponent,
-    PurchaseEventTicketModalComponent,
-    PurchaseTransactionModalComponent,
-    QrCodeModalComponent,
-    ReservationDetailModalComponent,
-    BaseComponent,
+    ...components,
+    ...entryComponents,
     LibphonenumberFormatPipe,
     ChangeLanguagePipe,
     FormatDatePipe,
   ],
-  entryComponents: [
-    AlertModalComponent,
-    ConfirmModalComponent,
-    MvtkCheckModalComponent,
-    NumericKeypadComponent,
-    OrderDetailModalComponent,
-    PurchaseCinemaTicketModalComponent,
-    PurchaseEventTicketModalComponent,
-    PurchaseTransactionModalComponent,
-    QrCodeModalComponent,
-    ReservationDetailModalComponent,
-  ],
+  entryComponents,
   imports: [
     CommonModule,
     RouterModule,
     ReactiveFormsModule,
     FormsModule,
-    HttpClientModule,
     TranslateModule,
     SwiperModule,
     ModalModule,
@@ -77,29 +71,13 @@ import { LibphonenumberFormatPipe } from './pipes/libphonenumber-format.pipe';
     PaginationModule,
   ],
   exports: [
-    ContentsComponent,
-    FooterComponent,
-    HeaderComponent,
-    HeaderMenuComponent,
-    LoadingComponent,
-    ScreenComponent,
-    AlertModalComponent,
-    ConfirmModalComponent,
-    MvtkCheckModalComponent,
-    NumericKeypadComponent,
-    OrderDetailModalComponent,
-    PurchaseCinemaTicketModalComponent,
-    PurchaseEventTicketModalComponent,
-    PurchaseTransactionModalComponent,
-    QrCodeModalComponent,
-    ReservationDetailModalComponent,
-    BaseComponent,
+    ...components,
+    ...entryComponents,
     LibphonenumberFormatPipe,
     ChangeLanguagePipe,
     FormatDatePipe,
     ReactiveFormsModule,
     FormsModule,
-    HttpClientModule,
     TranslateModule,
     SwiperModule,
     ModalModule,
