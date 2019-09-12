@@ -277,6 +277,7 @@ export class OrderSearchComponent implements OnInit {
                 try {
                     const userData = await this.userService.getData();
                     await this.orderService.cancel({ orders, language: userData.language });
+                    this.orderSearch(false, { page: this.confirmedConditions.page });
                 } catch (error) {
                     console.error(error);
                     this.utilService.openAlert({
@@ -323,6 +324,7 @@ export class OrderSearchComponent implements OnInit {
                             orders: this.selectedOrders,
                             language: userData.language
                         });
+                        this.orderSearch(false, { page: this.confirmedConditions.page });
                     } catch (error) {
                         console.error(error);
                         this.utilService.openAlert({

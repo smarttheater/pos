@@ -320,6 +320,7 @@ let OrderSearchComponent = class OrderSearchComponent {
                 try {
                     const userData = yield this.userService.getData();
                     yield this.orderService.cancel({ orders, language: userData.language });
+                    this.orderSearch(false, { page: this.confirmedConditions.page });
                 }
                 catch (error) {
                     console.error(error);
@@ -365,6 +366,7 @@ let OrderSearchComponent = class OrderSearchComponent {
                             orders: this.selectedOrders,
                             language: userData.language
                         });
+                        this.orderSearch(false, { page: this.confirmedConditions.page });
                     }
                     catch (error) {
                         console.error(error);
