@@ -4,6 +4,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { environment } from '../environments/environment';
+import { ErrorModule } from './modules/error/error.module';
 
 const appRoutes: Routes = [
     { path: '', redirectTo: 'auth', pathMatch: 'full' },
@@ -41,7 +42,7 @@ const appRoutes: Routes = [
     },
     {
         path: '',
-        loadChildren: () => import('./modules/error/error.module').then(m => m.ErrorModule)
+        loadChildren: () => ErrorModule
     },
 ];
 
