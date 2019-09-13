@@ -230,21 +230,12 @@ let ReservationSearchComponent = class ReservationSearchComponent {
      * iOS bugfix（2回タップしないと選択できない）
      */
     onShowPicker(container) {
-        const dayHoverHandler = container.dayHoverHandler;
-        const hoverWrapper = (event) => {
-            const { cell, isHovered } = event;
-            if ((isHovered &&
-                !!navigator.platform &&
-                /iPad|iPhone|iPod/.test(navigator.platform)) &&
-                'ontouchstart' in window) {
-                this.reservationDateFrom._datepickerRef.instance.daySelectHandler(cell);
-                this.reservationDateThrough._datepickerRef.instance.daySelectHandler(cell);
-                this.eventStartDateFrom._datepickerRef.instance.daySelectHandler(cell);
-                this.eventStartDateThrough._datepickerRef.instance.daySelectHandler(cell);
-            }
-            return dayHoverHandler(event);
-        };
-        container.dayHoverHandler = hoverWrapper;
+        Object(_functions__WEBPACK_IMPORTED_MODULE_7__["iOSDatepickerTapBugFix"])(container, [
+            this.reservationDateFrom,
+            this.reservationDateThrough,
+            this.eventStartDateFrom,
+            this.eventStartDateThrough
+        ]);
     }
 };
 ReservationSearchComponent.ctorParameters = () => [

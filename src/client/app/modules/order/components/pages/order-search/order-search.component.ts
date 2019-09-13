@@ -5,11 +5,10 @@ import { select, Store } from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
 import * as moment from 'moment';
 import { BsDatepickerDirective, BsLocaleService, BsModalService } from 'ngx-bootstrap';
-import { CellHoverEvent } from 'ngx-bootstrap/datepicker/models';
 import { BsDatepickerContainerComponent } from 'ngx-bootstrap/datepicker/themes/bs/bs-datepicker-container.component';
 import { Observable } from 'rxjs';
 import { environment } from '../../../../../../environments/environment';
-import { buildQueryString, orderToEventOrders } from '../../../../../functions';
+import { buildQueryString, iOSDatepickerTapBugFix, orderToEventOrders } from '../../../../../functions';
 import { IOrderSearchConditions, OrderActions } from '../../../../../models';
 import { DownloadService, OrderService, UserService, UtilService } from '../../../../../services';
 import * as reducers from '../../../../../store/reducers';
@@ -419,23 +418,12 @@ export class OrderSearchComponent implements OnInit {
      * iOS bugfix（2回タップしないと選択できない）
      */
     public onShowPicker(container: BsDatepickerContainerComponent) {
-        const dayHoverHandler = container.dayHoverHandler;
-        const hoverWrapper = (event: CellHoverEvent) => {
-            const { cell, isHovered } = event;
-            if ((isHovered &&
-                !!navigator.platform &&
-                /iPad|iPhone|iPod/.test(navigator.platform)) &&
-                'ontouchstart' in window
-            ) {
-                (<any>this.orderDateFrom)._datepickerRef.instance.daySelectHandler(cell);
-                (<any>this.orderDateThrough)._datepickerRef.instance.daySelectHandler(cell);
-                (<any>this.eventStartDateFrom)._datepickerRef.instance.daySelectHandler(cell);
-                (<any>this.eventStartDateThrough)._datepickerRef.instance.daySelectHandler(cell);
-            }
-
-            return dayHoverHandler(event);
-        };
-        container.dayHoverHandler = hoverWrapper;
+        iOSDatepickerTapBugFix(container, [
+            this.orderDateFrom,
+            this.orderDateThrough,
+            this.eventStartDateFrom,
+            this.eventStartDateThrough
+        ]);
     }
 
 }

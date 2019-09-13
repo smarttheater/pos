@@ -4,11 +4,10 @@ import { select, Store } from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
 import * as moment from 'moment';
 import { BsDatepickerDirective, BsLocaleService, BsModalService } from 'ngx-bootstrap';
-import { CellHoverEvent } from 'ngx-bootstrap/datepicker/models';
 import { BsDatepickerContainerComponent } from 'ngx-bootstrap/datepicker/themes/bs/bs-datepicker-container.component';
 import { Observable } from 'rxjs';
 import { environment } from '../../../../../../environments/environment';
-import { getTicketPrice } from '../../../../../functions';
+import { getTicketPrice, iOSDatepickerTapBugFix } from '../../../../../functions';
 import { IReservationSearchConditions } from '../../../../../models';
 import { DownloadService, ReservationService, UtilService } from '../../../../../services';
 import * as reducers from '../../../../../store/reducers';
@@ -189,23 +188,12 @@ export class ReservationSearchComponent implements OnInit {
      * iOS bugfix（2回タップしないと選択できない）
      */
     public onShowPicker(container: BsDatepickerContainerComponent) {
-        const dayHoverHandler = container.dayHoverHandler;
-        const hoverWrapper = (event: CellHoverEvent) => {
-            const { cell, isHovered } = event;
-            if ((isHovered &&
-                !!navigator.platform &&
-                /iPad|iPhone|iPod/.test(navigator.platform)) &&
-                'ontouchstart' in window
-            ) {
-                (<any>this.reservationDateFrom)._datepickerRef.instance.daySelectHandler(cell);
-                (<any>this.reservationDateThrough)._datepickerRef.instance.daySelectHandler(cell);
-                (<any>this.eventStartDateFrom)._datepickerRef.instance.daySelectHandler(cell);
-                (<any>this.eventStartDateThrough)._datepickerRef.instance.daySelectHandler(cell);
-            }
-
-            return dayHoverHandler(event);
-        };
-        container.dayHoverHandler = hoverWrapper;
+        iOSDatepickerTapBugFix(container, [
+            this.reservationDateFrom,
+            this.reservationDateThrough,
+            this.eventStartDateFrom,
+            this.eventStartDateThrough
+        ]);
     }
 
 }

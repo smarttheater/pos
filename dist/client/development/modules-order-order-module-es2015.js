@@ -466,21 +466,12 @@ let OrderSearchComponent = class OrderSearchComponent {
      * iOS bugfix（2回タップしないと選択できない）
      */
     onShowPicker(container) {
-        const dayHoverHandler = container.dayHoverHandler;
-        const hoverWrapper = (event) => {
-            const { cell, isHovered } = event;
-            if ((isHovered &&
-                !!navigator.platform &&
-                /iPad|iPhone|iPod/.test(navigator.platform)) &&
-                'ontouchstart' in window) {
-                this.orderDateFrom._datepickerRef.instance.daySelectHandler(cell);
-                this.orderDateThrough._datepickerRef.instance.daySelectHandler(cell);
-                this.eventStartDateFrom._datepickerRef.instance.daySelectHandler(cell);
-                this.eventStartDateThrough._datepickerRef.instance.daySelectHandler(cell);
-            }
-            return dayHoverHandler(event);
-        };
-        container.dayHoverHandler = hoverWrapper;
+        Object(_functions__WEBPACK_IMPORTED_MODULE_8__["iOSDatepickerTapBugFix"])(container, [
+            this.orderDateFrom,
+            this.orderDateThrough,
+            this.eventStartDateFrom,
+            this.eventStartDateThrough
+        ]);
     }
 };
 OrderSearchComponent.ctorParameters = () => [
