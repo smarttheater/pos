@@ -188,7 +188,8 @@ export async function createPrintCanvas(args: {
         screenNameEn: acceptedOffer.itemOffered.reservationFor.location.name.en,
         startDate: moment(acceptedOffer.itemOffered.reservationFor.startDate).toISOString(),
         endDate: moment(acceptedOffer.itemOffered.reservationFor.endDate).toISOString(),
-        seatNumber: (acceptedOffer.itemOffered.reservedTicket.ticketedSeat === undefined)
+        seatNumber: (acceptedOffer.itemOffered.reservedTicket.ticketedSeat === undefined
+            || acceptedOffer.itemOffered.reservedTicket.ticketedSeat === null)
             ? undefined : acceptedOffer.itemOffered.reservedTicket.ticketedSeat.seatNumber,
         ticketNameJa: acceptedOffer.itemOffered.reservedTicket.ticketType.name.ja,
         ticketNameEn: acceptedOffer.itemOffered.reservedTicket.ticketType.name.en,
