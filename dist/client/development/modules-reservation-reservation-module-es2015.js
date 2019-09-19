@@ -157,6 +157,11 @@ let ReservationSearchComponent = class ReservationSearchComponent {
             if (event !== undefined) {
                 this.confirmedConditions.page = event.page;
             }
+            // iOS bugfix
+            this.conditions.id
+                = document.getElementById('id').value;
+            this.conditions.reservationNumber
+                = document.getElementById('reservationNumber').value;
             if (changeConditions) {
                 this.confirmedConditions = {
                     reservationDateFrom: this.conditions.reservationDateFrom,
@@ -192,6 +197,9 @@ let ReservationSearchComponent = class ReservationSearchComponent {
             reservationStatus: '',
             page: 1
         };
+        // iOS bugfix
+        document.getElementById('id').value = '';
+        document.getElementById('reservationNumber').value = '';
     }
     /**
      * 詳細を表示

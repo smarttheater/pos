@@ -115,6 +115,12 @@ export class ReservationSearchComponent implements OnInit {
         if (event !== undefined) {
             this.confirmedConditions.page = event.page;
         }
+        // iOS bugfix
+        this.conditions.id
+            = (<HTMLInputElement>document.getElementById('id')).value;
+        this.conditions.reservationNumber
+            = (<HTMLInputElement>document.getElementById('reservationNumber')).value;
+
         if (changeConditions) {
             this.confirmedConditions = {
                 reservationDateFrom: this.conditions.reservationDateFrom,
@@ -149,6 +155,9 @@ export class ReservationSearchComponent implements OnInit {
             reservationStatus: '',
             page: 1
         };
+        // iOS bugfix
+        (<HTMLInputElement>document.getElementById('id')).value = '';
+        (<HTMLInputElement>document.getElementById('reservationNumber')).value = '';
     }
 
     /**

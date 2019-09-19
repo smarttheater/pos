@@ -226,6 +226,19 @@ let OrderSearchComponent = class OrderSearchComponent {
             if (event !== undefined) {
                 this.confirmedConditions.page = event.page;
             }
+            // iOS bugfix
+            this.conditions.confirmationNumber
+                = document.getElementById('confirmationNumber').value;
+            this.conditions.orderNumber
+                = document.getElementById('orderNumber').value;
+            this.conditions.customer.familyName
+                = document.getElementById('familyName').value;
+            this.conditions.customer.givenName
+                = document.getElementById('givenName').value;
+            this.conditions.customer.email
+                = document.getElementById('email').value;
+            this.conditions.customer.telephone
+                = document.getElementById('telephone').value;
             if (changeConditions) {
                 this.confirmedConditions = {
                     orderDateFrom: this.conditions.orderDateFrom,
@@ -277,6 +290,13 @@ let OrderSearchComponent = class OrderSearchComponent {
             posId: '',
             page: 1
         };
+        // iOS bugfix
+        document.getElementById('confirmationNumber').value = '';
+        document.getElementById('orderNumber').value = '';
+        document.getElementById('familyName').value = '';
+        document.getElementById('givenName').value = '';
+        document.getElementById('email').value = '';
+        document.getElementById('telephone').value = '';
     }
     /**
      * 印刷確認

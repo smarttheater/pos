@@ -182,6 +182,19 @@ export class OrderSearchComponent implements OnInit {
         if (event !== undefined) {
             this.confirmedConditions.page = event.page;
         }
+        // iOS bugfix
+        this.conditions.confirmationNumber
+            = (<HTMLInputElement>document.getElementById('confirmationNumber')).value;
+        this.conditions.orderNumber
+            = (<HTMLInputElement>document.getElementById('orderNumber')).value;
+        this.conditions.customer.familyName
+            = (<HTMLInputElement>document.getElementById('familyName')).value;
+        this.conditions.customer.givenName
+            = (<HTMLInputElement>document.getElementById('givenName')).value;
+        this.conditions.customer.email
+            = (<HTMLInputElement>document.getElementById('email')).value;
+        this.conditions.customer.telephone
+            = (<HTMLInputElement>document.getElementById('telephone')).value;
         if (changeConditions) {
             this.confirmedConditions = {
                 orderDateFrom: this.conditions.orderDateFrom,
@@ -232,6 +245,13 @@ export class OrderSearchComponent implements OnInit {
             posId: '',
             page: 1
         };
+        // iOS bugfix
+        (<HTMLInputElement>document.getElementById('confirmationNumber')).value = '';
+        (<HTMLInputElement>document.getElementById('orderNumber')).value = '';
+        (<HTMLInputElement>document.getElementById('familyName')).value = '';
+        (<HTMLInputElement>document.getElementById('givenName')).value = '';
+        (<HTMLInputElement>document.getElementById('email')).value = '';
+        (<HTMLInputElement>document.getElementById('telephone')).value = '';
     }
 
     /**

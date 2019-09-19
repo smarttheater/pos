@@ -13,6 +13,10 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/).
 
 ### Security
 
+## 2.2.1 - 2019-09-19
+###  Fixed
+- 座席指定なし印刷修正
+
 ## 2.2.0 - 2019-08-29
 ###  Added
 - テンキーに電話番号入力追加
