@@ -14,7 +14,6 @@
     <script src="https://p01.mul-pay.jp/ext/js/token.js"></script>
     <script src="/assets/lib/star-web-print/trader.js"></script>
     <script src="/assets/lib/star-web-print/builder.js"></script>
-    <script src="/assets/lib/ejs.min.js"></script>
     <script src="/storage/js/environment.js"></script>
     <script>
         document.title = environment.APP_TITLE;
@@ -33,10 +32,83 @@
         }
     </script>
     <!-- End Google Tag Manager -->
-<link rel="stylesheet" href="styles.fab6dd3a1a59d77f4adb.css"></head>
+<link rel="stylesheet" href="styles.5f42806218d6b54d3c18.css"></head>
 
 <body class="production">
-    <app-root></app-root>
-<script src="runtime.fd090508f518df362df3.js"></script><script src="polyfills-es5.054dfa6f7e5d38a263aa.js" nomodule></script><script src="polyfills.ef1a213889df7f32440a.js"></script><script src="scripts.59e847974dfa927ca719.js"></script><script src="vendor.ad06918b7b54094a610a.js"></script><script src="main.c07ca7b76c49ab8e8c49.js"></script></body>
+    <style>
+        body,
+        html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            background-color: #eee;
+        }
+
+        .init-cover,
+        .init-loading {
+            z-index: 2000;
+            position: fixed;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+        }
+
+        .init-cover {
+            background-color: rgba(0, 0, 0, 0.7);
+            animation: init-fadein 0.2s both;
+        }
+
+        .init-loading {
+            opacity: 1;
+            z-index: 2000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .init-loader,
+        .init-loader:after {
+            border-radius: 50%;
+            width: 90px;
+            height: 90px;
+        }
+
+        .init-loader {
+            position: relative;
+            text-indent: -9999em;
+            border: 3px solid rgba(255, 255, 255, 0.2);
+            border-left-color: #FFF;
+            transform: translateZ(0);
+            animation: init-load8 1.1s infinite linear;
+        }
+
+        @keyframes init-fadein {
+            0% {
+                opacity: 0;
+            }
+
+            100% {
+                opacity: 1;
+            }
+        }
+
+        @keyframes init-load8 {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+    </style>
+    <app-root>
+        <div class="init-cover"></div>
+        <div class="init-loading">
+            <div class="init-loader">Loading...</div>
+        </div>
+    </app-root>
+<script src="polyfills-es5.32067d5d02c197fd460f.js" nomodule defer></script><script src="polyfills-es2015.ca3cc74c5732dcab77df.js" type="module"></script><script src="scripts.f1c30689154c69adf1be.js" defer></script><script src="runtime-es2015.789f21c5c73a3432bafc.js" type="module"></script><script src="vendor-es2015.7b9bd5ab4882a5cca005.js" type="module"></script><script src="main-es2015.ec9522fbf1d8cc102313.js" type="module"></script><script src="runtime-es5.789f21c5c73a3432bafc.js" nomodule defer></script><script src="vendor-es5.7b9bd5ab4882a5cca005.js" nomodule defer></script><script src="main-es5.ec9522fbf1d8cc102313.js" nomodule defer></script></body>
 
 </html>

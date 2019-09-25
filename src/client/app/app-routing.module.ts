@@ -3,45 +3,47 @@
  */
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import {
-    BaseComponent,
-    CongestionComponent,
-    ErrorComponent,
-    ExpiredComponent,
-    MaintenanceComponent,
-    NotfoundComponent,
-    SettingComponent
-} from './components/pages';
-import * as admission from './routes/admission.route';
-import * as auth from './routes/auth.route';
-import * as development from './routes/development.route';
-import * as inquiry from './routes/inquiry.route';
-import * as order from './routes/order.route';
-import * as purchase from './routes/purchase.route';
-import * as reservation from './routes/reservation.route';
+import { environment } from '../environments/environment';
+import { ErrorModule } from './modules/error/error.module';
 
 const appRoutes: Routes = [
     { path: '', redirectTo: 'auth', pathMatch: 'full' },
-    purchase.route,
-    purchase.schedule,
-    auth.route,
-    inquiry.route,
-    admission.route,
-    order.route,
-    reservation.route,
-    development.route,
+    {
+        path: 'purchase',
+        loadChildren: () => import('./modules/purchase/purchase.module').then(m => m.PurchaseModule)
+    },
+    {
+        path: 'auth',
+        loadChildren: () => import('./modules/auth/auth.module').then(m => m.AuthModule)
+    },
+    {
+        path: 'inquiry',
+        loadChildren: () => import('./modules/inquiry/inquiry.module').then(m => m.InquiryModule)
+    },
+    {
+        path: 'admission',
+        loadChildren: () => import('./modules/admission/admission.module').then(m => m.AdmissionModule)
+    },
+    {
+        path: 'order',
+        loadChildren: () => import('./modules/order/order.module').then(m => m.OrderModule)
+    },
+    {
+        path: 'reservation',
+        loadChildren: () => import('./modules/reservation/reservation.module').then(m => m.ReservationModule)
+    },
+    {
+        path: 'development',
+        loadChildren: () => import('./modules/development/development.module').then(m => m.DevelopmentModule)
+    },
+    {
+        path: 'setting',
+        loadChildren: () => import('./modules/setting/setting.module').then(m => m.SettingModule)
+    },
     {
         path: '',
-        component: BaseComponent,
-        children: [
-            { path: 'setting', component: SettingComponent },
-            { path: 'error', component: ErrorComponent },
-            { path: 'expired', component: ExpiredComponent },
-            { path: 'maintenance', component: MaintenanceComponent },
-            { path: 'congestion', component: CongestionComponent },
-            { path: '**', component: NotfoundComponent }
-        ]
-    }
+        loadChildren: () => ErrorModule
+    },
 ];
 
 // tslint:disable-next-line:no-stateless-class
@@ -49,7 +51,7 @@ const appRoutes: Routes = [
     imports: [
         RouterModule.forRoot(
             appRoutes,
-            { useHash: true, enableTracing: true }
+            { useHash: true, enableTracing: !environment.production }
         )
     ],
     exports: [
