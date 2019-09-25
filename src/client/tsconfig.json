@@ -14,7 +14,7 @@
     "listEmittedFiles": false,
     "listFiles": false,
     "locale": "en-us",
-    "module": "commonjs",
+    "module": "esnext",
     "newLine": "CRLF",
     "noImplicitAny": true,
     "noImplicitReturns": true,
@@ -36,7 +36,7 @@
     "moduleResolution": "node",
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
-    "target": "es5",
+    "target": "es2015",
     "types": ["node"],
     "typeRoots": [
       "../../node_modules/@types"

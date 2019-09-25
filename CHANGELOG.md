@@ -13,6 +13,11 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/).
 
 ### Security
 
+## 2.3.0 - 2019-09-25
+### Changed
+ - モジュール分割
+ - モジュールごとに遅延ロード
+
 ## 2.2.1 - 2019-09-19
 ###  Fixed
 - 座席指定なし印刷修正

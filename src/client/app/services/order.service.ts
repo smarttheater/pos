@@ -44,7 +44,7 @@ export class OrderService {
      * 注文検索
      */
     public search(params: factory.order.ISearchConditions) {
-        return new Promise((resolve, reject) => {
+        return new Promise<void>((resolve, reject) => {
             this.store.dispatch(new orderAction.Search({ params }));
 
             const success = this.actions.pipe(
