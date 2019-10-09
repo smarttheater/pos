@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { factory } from '@cinerino/api-javascript-client';
 import * as json2csv from 'json2csv';
 import * as moment from 'moment';
-import { formatTelephone, getTicketPrice } from '../functions';
+import { formatTelephone, getTicketPrice, getTransactionAgentIdentifier } from '../functions';
 import { CinerinoService } from './cinerino.service';
 import { UtilService } from './util.service';
 
@@ -56,10 +56,14 @@ export class DownloadService {
                         ...order.customer,
                         formatTelephone: formatTelephone((<string>order.customer.telephone)),
                         pos: {
-                            name: (order.customer.identifier === undefined
-                                || order.customer.identifier.find(i => (i.name === 'posName')) === undefined)
-                                ? { name: '', value: ''}
-                                : order.customer.identifier.find(i => (i.name === 'posName'))
+                            name: (getTransactionAgentIdentifier(order, 'posName') === undefined)
+                                ? { name: '', value: '' }
+                                : (<factory.propertyValue.IPropertyValue<string>>getTransactionAgentIdentifier(order, 'posName'))
+                        },
+                        liny: {
+                            id: (getTransactionAgentIdentifier(order, 'linyId') === undefined)
+                                ? { name: '', value: '' }
+                                : (<factory.propertyValue.IPropertyValue<string>>getTransactionAgentIdentifier(order, 'linyId'))
                         }
                     },
                     itemOffered: {
@@ -75,7 +79,7 @@ export class DownloadService {
                 data.push(customData);
             });
         });
-        await this.splitDownload('order', data, opts, 1000);
+        await this.splitDownload('order', data, opts, 5000);
     }
 
     /**
@@ -121,7 +125,7 @@ export class DownloadService {
             };
             data.push(customData);
         });
-        await this.splitDownload('reservation', data, opts, 1000);
+        await this.splitDownload('reservation', data, opts, 5000);
     }
 
     private async splitDownload(filename: string, data: any, opts: any, split: number) {

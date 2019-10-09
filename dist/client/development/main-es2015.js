@@ -503,7 +503,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("<div class=\"p-3 scroll-vertical text-small\">\n    <div class=\"mb-4\">\n        <div class=\"py-3 border-bottom border-gray\">\n            <div class=\"row align-items-center\">\n                <p class=\"mb-2 mb-md-0 col-md-4\">[{{ 'common.orderDate' | translate }}]</p>\n                <p class=\"col-md-8\">{{ moment(order.orderDate).format('YYYY/MM/DD (ddd) HH:mm') }}</p>\n            </div>\n        </div>\n        <div class=\"py-3 border-bottom border-gray\">\n            <div class=\"row align-items-center\">\n                <p class=\"mb-2 mb-md-0 col-md-4\">[{{ 'common.confirmationNumber' | translate }}]</p>\n                <p class=\"col-md-8\">{{ order.confirmationNumber }}</p>\n            </div>\n        </div>\n        <div class=\"py-3 border-bottom border-gray\">\n            <div class=\"row align-items-center\">\n                <p class=\"mb-2 mb-md-0 col-md-4\">[{{ 'common.orderNumber' | translate }}]</p>\n                <p class=\"col-md-8\">{{ order.orderNumber }}</p>\n            </div>\n        </div>\n        <div class=\"py-3 border-bottom border-gray\">\n            <div class=\"row align-items-center\">\n                <p class=\"mb-2 mb-md-0 col-md-4\">[{{ 'common.event' | translate }}]</p>\n                <div class=\"col-md-8\">\n                    <div *ngFor=\"let eventOrder of eventOrders\" class=\"mb-3\">\n                        <div class=\"mb-1\">\n                            <p class=\"font-weight-bold text-large\">{{ eventOrder.event.name | changeLanguage }}</p>\n                            <p class=\"text-small\"\n                                *ngIf=\"eventOrder.event.superEvent.headline && (eventOrder.event.superEvent.headline | changeLanguage)\">\n                                {{ eventOrder.event.superEvent.headline | changeLanguage }}</p>\n                            <!-- <p class=\"text-small\"\n                                    *ngIf=\"eventOrder.event.superEvent.description && (eventOrder.event.superEvent.description | changeLanguage)\">{{\n                                            eventOrder.event.superEvent.description | changeLanguage }}</p> -->\n                        </div>\n                        <p class=\"mb-1\">\n                            {{ eventOrder.event.startDate | formatDate: 'MM/DD(ddd) HH:mm' }}-{{ eventOrder.event.endDate | formatDate: 'HH:mm' }}\n                        </p>\n                        <p class=\"text-small mb-1\">\n                            <span class=\"theatre-name\">{{ eventOrder.event.superEvent.location.name | changeLanguage }}</span>\n                            <span class=\"screen-name\">&nbsp;/&nbsp;{{ eventOrder.event.location.name | changeLanguage }}</span>\n                            <span\n                                *ngIf=\"eventOrder.event.workPerformed?.duration && moment.duration(eventOrder.event.workPerformed?.duration).asMinutes() > 0\">\n                                &nbsp;/&nbsp;<span class=\"mr-1\">{{ 'common.duration' | translate }}</span>{{ moment.duration(eventOrder.event.workPerformed?.duration).asMinutes() }}{{ 'common.date.minute' | translate }}\n                            </span>\n                        </p>\n                        <div *ngFor=\"let acceptedOffer of eventOrder.data\">\n                            <p>[{{ 'common.reservationNumber' | translate }}]\n                                {{ acceptedOffer.itemOffered.reservationNumber }}</p>\n                            <p>[{{ 'common.reservationId' | translate }}] {{ acceptedOffer.itemOffered.id }}</p>\n                            <p>\n                                <span\n                                    *ngIf=\"acceptedOffer.itemOffered.reservedTicket.ticketedSeat && environment.DISPLAY_TICKETED_SEAT\">\n                                    {{ acceptedOffer.itemOffered.reservedTicket.ticketedSeat.seatNumber }}&nbsp;/&nbsp;</span>{{ acceptedOffer.itemOffered.reservedTicket.ticketType.name | changeLanguage }}&nbsp;/&nbsp;{{\n                                            getTicketPrice(acceptedOffer).single | currency : 'JPY' }}\n                            </p>\n                        </div>\n                    </div>\n                </div>\n            </div>\n        </div>\n        <div class=\"py-3 border-bottom border-gray\">\n            <div class=\"row align-items-center\">\n                <p class=\"mb-2 mb-md-0 col-md-4\">[{{ 'common.customer' | translate }}]</p>\n                <div class=\"col-md-8\">\n                    <p>{{ order.customer.familyName }} {{ order.customer.givenName }}</p>\n                    <p>{{ order.customer.email }}</p>\n                    <p>{{ order.customer.telephone | libphonenumberFormat }}</p>\n                </div>\n            </div>\n        </div>\n        <div class=\"py-3 border-bottom border-gray\">\n            <div class=\"row align-items-center\">\n                <p class=\"mb-2 mb-md-0 col-md-4\">[{{ 'common.price' | translate }}]</p>\n                <p class=\"col-md-8\">\n                    {{ order.price | currency : 'JPY' }}\n                </p>\n            </div>\n        </div>\n        <div class=\"py-3 border-bottom border-gray\">\n            <div class=\"row align-items-center\">\n                <p class=\"mb-2 mb-md-0 col-md-4\">[{{ 'common.orderStatus' | translate }}]</p>\n                <p class=\"col-md-8\">{{ order.orderStatus }}</p>\n            </div>\n        </div>\n        <div class=\"py-3 border-bottom border-gray\">\n            <div class=\"row align-items-center\">\n                <p class=\"mb-2 mb-md-0 col-md-4\">[{{ 'common.paymentMethod' | translate }}]</p>\n                <div class=\"col-md-8\">\n                    <p *ngFor=\"let paymentMethod of order.paymentMethods\">\n                        {{ paymentMethod.name }}&nbsp;/&nbsp;{{ paymentMethod.totalPaymentDue.value | currency : 'JPY' }}\n                    </p>\n                    <div *ngIf=\"regiGrow\" class=\"mt-2\"><img class=\"border\" [src]=\"regiGrow\"></div>\n                </div>\n            </div>\n        </div>\n\n    </div>\n\n    <div class=\"buttons mx-auto text-center\">\n        <button type=\"button\" class=\"btn btn-link btn-sm\"\n            (click)=\"modal.hide()\">{{ 'common.close' | translate }}</button>\n    </div>\n\n</div>");
+/* harmony default export */ __webpack_exports__["default"] = ("<div class=\"p-3 scroll-vertical text-small\">\n    <div class=\"mb-4\">\n        <div class=\"py-3 border-bottom border-gray\">\n            <div class=\"row align-items-center\">\n                <p class=\"mb-2 mb-md-0 col-md-4\">[{{ 'common.orderDate' | translate }}]</p>\n                <p class=\"col-md-8\">{{ moment(order.orderDate).format('YYYY/MM/DD (ddd) HH:mm') }}</p>\n            </div>\n        </div>\n        <div class=\"py-3 border-bottom border-gray\">\n            <div class=\"row align-items-center\">\n                <p class=\"mb-2 mb-md-0 col-md-4\">[{{ 'common.confirmationNumber' | translate }}]</p>\n                <p class=\"col-md-8\">{{ order.confirmationNumber }}</p>\n            </div>\n        </div>\n        <div class=\"py-3 border-bottom border-gray\">\n            <div class=\"row align-items-center\">\n                <p class=\"mb-2 mb-md-0 col-md-4\">[{{ 'common.orderNumber' | translate }}]</p>\n                <p class=\"col-md-8\">{{ order.orderNumber }}</p>\n            </div>\n        </div>\n        <div class=\"py-3 border-bottom border-gray\">\n            <div class=\"row align-items-center\">\n                <p class=\"mb-2 mb-md-0 col-md-4\">[{{ 'common.event' | translate }}]</p>\n                <div class=\"col-md-8\">\n                    <div *ngFor=\"let eventOrder of eventOrders\" class=\"mb-3\">\n                        <div class=\"mb-1\">\n                            <p class=\"font-weight-bold text-large\">{{ eventOrder.event.name | changeLanguage }}</p>\n                            <p class=\"text-small\"\n                                *ngIf=\"eventOrder.event.superEvent.headline && (eventOrder.event.superEvent.headline | changeLanguage)\">\n                                {{ eventOrder.event.superEvent.headline | changeLanguage }}</p>\n                            <!-- <p class=\"text-small\"\n                                    *ngIf=\"eventOrder.event.superEvent.description && (eventOrder.event.superEvent.description | changeLanguage)\">{{\n                                            eventOrder.event.superEvent.description | changeLanguage }}</p> -->\n                        </div>\n                        <p class=\"mb-1\">\n                            {{ eventOrder.event.startDate | formatDate: 'MM/DD(ddd) HH:mm' }}-{{ eventOrder.event.endDate | formatDate: 'HH:mm' }}\n                        </p>\n                        <p class=\"text-small mb-1\">\n                            <span\n                                class=\"theatre-name\">{{ eventOrder.event.superEvent.location.name | changeLanguage }}</span>\n                            <span\n                                class=\"screen-name\">&nbsp;/&nbsp;{{ eventOrder.event.location.name | changeLanguage }}</span>\n                            <span\n                                *ngIf=\"eventOrder.event.workPerformed?.duration && moment.duration(eventOrder.event.workPerformed?.duration).asMinutes() > 0\">\n                                &nbsp;/&nbsp;<span\n                                    class=\"mr-1\">{{ 'common.duration' | translate }}</span>{{ moment.duration(eventOrder.event.workPerformed?.duration).asMinutes() }}{{ 'common.date.minute' | translate }}\n                            </span>\n                        </p>\n                        <div *ngFor=\"let acceptedOffer of eventOrder.data\">\n                            <p>[{{ 'common.reservationNumber' | translate }}]\n                                {{ acceptedOffer.itemOffered.reservationNumber }}</p>\n                            <p>[{{ 'common.reservationId' | translate }}] {{ acceptedOffer.itemOffered.id }}</p>\n                            <p>\n                                <span\n                                    *ngIf=\"acceptedOffer.itemOffered.reservedTicket.ticketedSeat && environment.DISPLAY_TICKETED_SEAT\">\n                                    {{ acceptedOffer.itemOffered.reservedTicket.ticketedSeat.seatNumber }}&nbsp;/&nbsp;</span>{{ acceptedOffer.itemOffered.reservedTicket.ticketType.name | changeLanguage }}&nbsp;/&nbsp;{{\n                                            getTicketPrice(acceptedOffer).single | currency : 'JPY' }}\n                            </p>\n                        </div>\n                    </div>\n                </div>\n            </div>\n        </div>\n        <div class=\"py-3 border-bottom border-gray\">\n            <div class=\"row align-items-center\">\n                <p class=\"mb-2 mb-md-0 col-md-4\">[{{ 'common.customer' | translate }}]</p>\n                <div class=\"col-md-8\">\n                    <p>{{ order.customer.familyName }} {{ order.customer.givenName }}</p>\n                    <p>{{ order.customer.email }}</p>\n                    <p>{{ order.customer.telephone | libphonenumberFormat }}</p>\n                </div>\n            </div>\n        </div>\n        <div class=\"py-3 border-bottom border-gray\">\n            <div class=\"row align-items-center\">\n                <p class=\"mb-2 mb-md-0 col-md-4\">[{{ 'common.price' | translate }}]</p>\n                <p class=\"col-md-8\">\n                    {{ order.price | currency : 'JPY' }}\n                </p>\n            </div>\n        </div>\n        <div class=\"py-3 border-bottom border-gray\">\n            <div class=\"row align-items-center\">\n                <p class=\"mb-2 mb-md-0 col-md-4\">[{{ 'common.orderStatus' | translate }}]</p>\n                <p class=\"col-md-8\">{{ order.orderStatus }}</p>\n            </div>\n        </div>\n        <div class=\"py-3 border-bottom border-gray\">\n            <div class=\"row align-items-center\">\n                <p class=\"mb-2 mb-md-0 col-md-4\">[{{ 'common.paymentMethod' | translate }}]</p>\n                <div class=\"col-md-8\">\n                    <p *ngFor=\"let paymentMethod of order.paymentMethods\">\n                        {{ paymentMethod.name }}&nbsp;/&nbsp;{{ paymentMethod.totalPaymentDue.value | currency : 'JPY' }}\n                    </p>\n                    <div *ngIf=\"regiGrow\" class=\"mt-2\"><img class=\"border\" [src]=\"regiGrow\"></div>\n                </div>\n            </div>\n        </div>\n        <div class=\"py-3 border-bottom border-gray\">\n            <div class=\"row align-items-center\">\n                <p class=\"mb-2 mb-md-0 col-md-4\">[{{ 'common.etc' | translate }}]</p>\n                <div class=\"col-md-8\">\n                    <p *ngIf=\"getTransactionAgentIdentifier(order, 'linyId')\">\n                        [linyId]<br>\n                        {{ getTransactionAgentIdentifier(order, 'linyId').value }}\n                    </p>\n                    <p *ngIf=\"getTransactionAgentIdentifier(order, 'userAgent')\">\n                        [platform]<br>\n                        name: {{ platform.parse(getTransactionAgentIdentifier(order, 'userAgent').value).name }}<br>\n                        version:\n                        {{ platform.parse(getTransactionAgentIdentifier(order, 'userAgent').value).version }}<br>\n                        product: <span\n                            *ngIf=\"platform.parse(getTransactionAgentIdentifier(order, 'userAgent').value).product\">{{ platform.parse(getTransactionAgentIdentifier(order, 'userAgent').value).product }}</span><span\n                            *ngIf=\"!platform.parse(getTransactionAgentIdentifier(order, 'userAgent').value).product\">PC</span><br>\n                        layout: {{ platform.parse(getTransactionAgentIdentifier(order, 'userAgent').value).layout }}<br>\n                        os: {{ platform.parse(getTransactionAgentIdentifier(order, 'userAgent').value).os }}<br>\n                        ({{ platform.parse(getTransactionAgentIdentifier(order, 'userAgent').value).description }})\n                    </p>\n                    <p\n                        *ngIf=\"getTransactionAgentIdentifier(order, 'posId') && getTransactionAgentIdentifier(order, 'posName')\">\n                        [POS]<br>\n                        id: {{ getTransactionAgentIdentifier(order, 'posId').value }}<br>\n                        name: {{ getTransactionAgentIdentifier(order, 'posName').value }}\n                    </p>\n                </div>\n            </div>\n        </div>\n\n    </div>\n\n    <div class=\"buttons mx-auto text-center\">\n        <button type=\"button\" class=\"btn btn-link btn-sm\"\n            (click)=\"modal.hide()\">{{ 'common.close' | translate }}</button>\n    </div>\n\n</div>");
 
 /***/ }),
 
@@ -879,7 +879,7 @@ AppComponent = __decorate([
 /*!********************************!*\
   !*** ./app/functions/index.ts ***!
   \********************************/
-/*! exports provided: screeningEventsToWorkEvents, createGmoTokenObject, sameMovieTicketFilter, isAvailabilityMovieTicket, createMovieTicketsFromAuthorizeSeatReservation, createPaymentMethodFromType, getTicketPrice, movieTicketAuthErroCodeToMessage, getAmount, orderToEventOrders, authorizeSeatReservationToEvent, isScheduleStatusThreshold, isSales, isTicketedSeatScreeningEvent, changeTicketCount, getRemainingSeatLength, formatTelephone, toFull, toHalf, retry, sleep, buildQueryString, iOSDatepickerTapBugFix, createPrintCanvas, createTestPrintCanvas, createRegiGrowQrcode, changeTicketCountByOrder */
+/*! exports provided: screeningEventsToWorkEvents, createGmoTokenObject, sameMovieTicketFilter, isAvailabilityMovieTicket, createMovieTicketsFromAuthorizeSeatReservation, createPaymentMethodFromType, getTicketPrice, movieTicketAuthErroCodeToMessage, getAmount, orderToEventOrders, authorizeSeatReservationToEvent, isScheduleStatusThreshold, isSales, isTicketedSeatScreeningEvent, changeTicketCount, getRemainingSeatLength, formatTelephone, toFull, toHalf, retry, sleep, buildQueryString, iOSDatepickerTapBugFix, createPrintCanvas, createTestPrintCanvas, createRegiGrowQrcode, changeTicketCountByOrder, getTransactionAgentIdentifier */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -941,6 +941,8 @@ __webpack_require__.r(__webpack_exports__);
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "changeTicketCountByOrder", function() { return _order_function__WEBPACK_IMPORTED_MODULE_2__["changeTicketCountByOrder"]; });
 
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "getTransactionAgentIdentifier", function() { return _order_function__WEBPACK_IMPORTED_MODULE_2__["getTransactionAgentIdentifier"]; });
+
 var __importDefault = (undefined && undefined.__importDefault) || function (mod) {
   return (mod && mod.__esModule) ? mod : { "default": mod };
 };
@@ -955,7 +957,7 @@ var __importDefault = (undefined && undefined.__importDefault) || function (mod)
 /*!*****************************************!*\
   !*** ./app/functions/order.function.ts ***!
   \*****************************************/
-/*! exports provided: createPrintCanvas, createTestPrintCanvas, createRegiGrowQrcode, changeTicketCountByOrder */
+/*! exports provided: createPrintCanvas, createTestPrintCanvas, createRegiGrowQrcode, changeTicketCountByOrder, getTransactionAgentIdentifier */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -964,6 +966,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "createTestPrintCanvas", function() { return createTestPrintCanvas; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "createRegiGrowQrcode", function() { return createRegiGrowQrcode; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "changeTicketCountByOrder", function() { return changeTicketCountByOrder; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getTransactionAgentIdentifier", function() { return getTransactionAgentIdentifier; });
 /* harmony import */ var _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @cinerino/api-javascript-client */ "../../node_modules/@cinerino/api-javascript-client/lib/index.js");
 /* harmony import */ var _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! moment */ "../../node_modules/moment/moment.js");
@@ -1211,6 +1214,15 @@ function changeTicketCountByOrder(acceptedOffer) {
         }
     });
     return result;
+}
+/**
+ * 取引追加情報取得
+ */
+function getTransactionAgentIdentifier(order, key) {
+    if (order.customer.identifier === undefined) {
+        return;
+    }
+    return order.customer.identifier.find(i => i.name === key);
 }
 
 
@@ -3765,8 +3777,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! moment */ "../../node_modules/moment/moment.js");
 /* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_2__);
 /* harmony import */ var ngx_bootstrap__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ngx-bootstrap */ "../../node_modules/ngx-bootstrap/esm5/ngx-bootstrap.js");
-/* harmony import */ var _environments_environment__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../../../../environments/environment */ "./environments/environment.ts");
-/* harmony import */ var _functions__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../../../../functions */ "./app/functions/index.ts");
+/* harmony import */ var platform__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! platform */ "../../node_modules/platform/platform.js");
+/* harmony import */ var platform__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(platform__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var _environments_environment__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../../../../../environments/environment */ "./environments/environment.ts");
+/* harmony import */ var _functions__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../../../../functions */ "./app/functions/index.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -3785,23 +3799,26 @@ var __importDefault = (undefined && undefined.__importDefault) || function (mod)
 
 
 
+
 let OrderDetailModalComponent = class OrderDetailModalComponent {
     constructor(modal, elementRef) {
         this.modal = modal;
         this.elementRef = elementRef;
         this.moment = moment__WEBPACK_IMPORTED_MODULE_2__;
-        this.getTicketPrice = _functions__WEBPACK_IMPORTED_MODULE_5__["getTicketPrice"];
-        this.environment = _environments_environment__WEBPACK_IMPORTED_MODULE_4__["environment"];
+        this.getTicketPrice = _functions__WEBPACK_IMPORTED_MODULE_6__["getTicketPrice"];
+        this.environment = _environments_environment__WEBPACK_IMPORTED_MODULE_5__["environment"];
+        this.getTransactionAgentIdentifier = _functions__WEBPACK_IMPORTED_MODULE_6__["getTransactionAgentIdentifier"];
+        this.platform = platform__WEBPACK_IMPORTED_MODULE_4__;
     }
     ngOnInit() {
         const order = this.order;
-        this.eventOrders = Object(_functions__WEBPACK_IMPORTED_MODULE_5__["orderToEventOrders"])({ order: this.order });
+        this.eventOrders = Object(_functions__WEBPACK_IMPORTED_MODULE_6__["orderToEventOrders"])({ order: this.order });
         const element = this.elementRef.nativeElement.querySelector('.scroll-vertical');
         setTimeout(() => {
             element.scrollTop = 0;
         }, 0);
         if (order.paymentMethods.find(p => p.name === 'RegiGrow') !== undefined) {
-            Object(_functions__WEBPACK_IMPORTED_MODULE_5__["createRegiGrowQrcode"])(order).then((code) => {
+            Object(_functions__WEBPACK_IMPORTED_MODULE_6__["createRegiGrowQrcode"])(order).then((code) => {
                 this.regiGrow = code;
             }).catch(() => { });
         }
@@ -5349,10 +5366,13 @@ let DownloadService = class DownloadService {
                         seller: order.seller,
                         paymentMethodsNames: order.paymentMethods.map(m => m.name).join(','),
                         customer: Object.assign({}, order.customer, { formatTelephone: Object(_functions__WEBPACK_IMPORTED_MODULE_4__["formatTelephone"])(order.customer.telephone), pos: {
-                                name: (order.customer.identifier === undefined
-                                    || order.customer.identifier.find(i => (i.name === 'posName')) === undefined)
+                                name: (Object(_functions__WEBPACK_IMPORTED_MODULE_4__["getTransactionAgentIdentifier"])(order, 'posName') === undefined)
                                     ? { name: '', value: '' }
-                                    : order.customer.identifier.find(i => (i.name === 'posName'))
+                                    : Object(_functions__WEBPACK_IMPORTED_MODULE_4__["getTransactionAgentIdentifier"])(order, 'posName')
+                            }, liny: {
+                                id: (Object(_functions__WEBPACK_IMPORTED_MODULE_4__["getTransactionAgentIdentifier"])(order, 'linyId') === undefined)
+                                    ? { name: '', value: '' }
+                                    : Object(_functions__WEBPACK_IMPORTED_MODULE_4__["getTransactionAgentIdentifier"])(order, 'linyId')
                             } }),
                         itemOffered: {
                             id: acceptedOffer.itemOffered.id,
@@ -5364,7 +5384,7 @@ let DownloadService = class DownloadService {
                     data.push(customData);
                 });
             });
-            yield this.splitDownload('order', data, opts, 1000);
+            yield this.splitDownload('order', data, opts, 5000);
         });
     }
     /**
@@ -5407,7 +5427,7 @@ let DownloadService = class DownloadService {
                 };
                 data.push(customData);
             });
-            yield this.splitDownload('reservation', data, opts, 1000);
+            yield this.splitDownload('reservation', data, opts, 5000);
         });
     }
     splitDownload(filename, data, opts, split) {
