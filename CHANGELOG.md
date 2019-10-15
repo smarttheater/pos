@@ -13,6 +13,10 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/).
 
 ### Security
 
+## 2.3.1 - 2019-10-15
+### Added
+ - 注文検索詳細へ取引時追加情報を表示
+
 ## 2.3.0 - 2019-09-25
 ### Changed
  - モジュール分割
