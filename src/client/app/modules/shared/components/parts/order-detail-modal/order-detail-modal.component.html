@@ -111,7 +111,7 @@
                         {{ platform.parse(getTransactionAgentIdentifier(order, 'userAgent').value).version }}<br>
                         product: <span
                             *ngIf="platform.parse(getTransactionAgentIdentifier(order, 'userAgent').value).product">{{ platform.parse(getTransactionAgentIdentifier(order, 'userAgent').value).product }}</span><span
-                            *ngIf="!platform.parse(getTransactionAgentIdentifier(order, 'userAgent').value).product">PC</span><br>
+                            *ngIf="!platform.parse(getTransactionAgentIdentifier(order, 'userAgent').value).product">-</span><br>
                         layout: {{ platform.parse(getTransactionAgentIdentifier(order, 'userAgent').value).layout }}<br>
                         os: {{ platform.parse(getTransactionAgentIdentifier(order, 'userAgent').value).os }}<br>
                         ({{ platform.parse(getTransactionAgentIdentifier(order, 'userAgent').value).description }})
