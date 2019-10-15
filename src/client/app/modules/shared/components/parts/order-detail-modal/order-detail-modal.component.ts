@@ -2,8 +2,15 @@ import { Component, ElementRef, Input, OnInit } from '@angular/core';
 import { factory } from '@cinerino/api-javascript-client';
 import * as moment from 'moment';
 import { BsModalRef } from 'ngx-bootstrap';
+import * as platform from 'platform';
 import { environment } from '../../../../../../environments/environment';
-import { createRegiGrowQrcode, getTicketPrice, IEventOrder, orderToEventOrders } from '../../../../../functions';
+import {
+    createRegiGrowQrcode,
+    getTicketPrice,
+    getTransactionAgentIdentifier,
+    IEventOrder,
+    orderToEventOrders
+} from '../../../../../functions';
 
 @Component({
     selector: 'app-order-detail-modal',
@@ -17,6 +24,8 @@ export class OrderDetailModalComponent implements OnInit {
     public eventOrders: IEventOrder[];
     public environment = environment;
     public regiGrow?: string;
+    public getTransactionAgentIdentifier = getTransactionAgentIdentifier;
+    public platform = platform;
 
     constructor(
         public modal: BsModalRef,

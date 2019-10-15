@@ -36,11 +36,14 @@
                             {{ eventOrder.event.startDate | formatDate: 'MM/DD(ddd) HH:mm' }}-{{ eventOrder.event.endDate | formatDate: 'HH:mm' }}
                         </p>
                         <p class="text-small mb-1">
-                            <span class="theatre-name">{{ eventOrder.event.superEvent.location.name | changeLanguage }}</span>
-                            <span class="screen-name">&nbsp;/&nbsp;{{ eventOrder.event.location.name | changeLanguage }}</span>
+                            <span
+                                class="theatre-name">{{ eventOrder.event.superEvent.location.name | changeLanguage }}</span>
+                            <span
+                                class="screen-name">&nbsp;/&nbsp;{{ eventOrder.event.location.name | changeLanguage }}</span>
                             <span
                                 *ngIf="eventOrder.event.workPerformed?.duration && moment.duration(eventOrder.event.workPerformed?.duration).asMinutes() > 0">
-                                &nbsp;/&nbsp;<span class="mr-1">{{ 'common.duration' | translate }}</span>{{ moment.duration(eventOrder.event.workPerformed?.duration).asMinutes() }}{{ 'common.date.minute' | translate }}
+                                &nbsp;/&nbsp;<span
+                                    class="mr-1">{{ 'common.duration' | translate }}</span>{{ moment.duration(eventOrder.event.workPerformed?.duration).asMinutes() }}{{ 'common.date.minute' | translate }}
                             </span>
                         </p>
                         <div *ngFor="let acceptedOffer of eventOrder.data">
@@ -90,6 +93,35 @@
                         {{ paymentMethod.name }}&nbsp;/&nbsp;{{ paymentMethod.totalPaymentDue.value | currency : 'JPY' }}
                     </p>
                     <div *ngIf="regiGrow" class="mt-2"><img class="border" [src]="regiGrow"></div>
+                </div>
+            </div>
+        </div>
+        <div class="py-3 border-bottom border-gray">
+            <div class="row align-items-center">
+                <p class="mb-2 mb-md-0 col-md-4">[{{ 'common.etc' | translate }}]</p>
+                <div class="col-md-8">
+                    <p *ngIf="getTransactionAgentIdentifier(order, 'linyId')">
+                        [linyId]<br>
+                        {{ getTransactionAgentIdentifier(order, 'linyId').value }}
+                    </p>
+                    <p *ngIf="getTransactionAgentIdentifier(order, 'userAgent')">
+                        [platform]<br>
+                        name: {{ platform.parse(getTransactionAgentIdentifier(order, 'userAgent').value).name }}<br>
+                        version:
+                        {{ platform.parse(getTransactionAgentIdentifier(order, 'userAgent').value).version }}<br>
+                        product: <span
+                            *ngIf="platform.parse(getTransactionAgentIdentifier(order, 'userAgent').value).product">{{ platform.parse(getTransactionAgentIdentifier(order, 'userAgent').value).product }}</span><span
+                            *ngIf="!platform.parse(getTransactionAgentIdentifier(order, 'userAgent').value).product">PC</span><br>
+                        layout: {{ platform.parse(getTransactionAgentIdentifier(order, 'userAgent').value).layout }}<br>
+                        os: {{ platform.parse(getTransactionAgentIdentifier(order, 'userAgent').value).os }}<br>
+                        ({{ platform.parse(getTransactionAgentIdentifier(order, 'userAgent').value).description }})
+                    </p>
+                    <p
+                        *ngIf="getTransactionAgentIdentifier(order, 'posId') && getTransactionAgentIdentifier(order, 'posName')">
+                        [POS]<br>
+                        id: {{ getTransactionAgentIdentifier(order, 'posId').value }}<br>
+                        name: {{ getTransactionAgentIdentifier(order, 'posName').value }}
+                    </p>
                 </div>
             </div>
         </div>
