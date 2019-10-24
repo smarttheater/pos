@@ -153,6 +153,14 @@ interface IEnvironment {
      */
     INQUIRY_INPUT_KEYPAD: boolean;
     /**
+     * 照会可能期間値（注文日）
+     */
+    INQUIRY_ORDER_DATE_FROM_VALUE: string;
+    /**
+     * 照会可能期間単位（注文日）
+     */
+    INQUIRY_ORDER_DATE_FROM_UNIT: moment.DurationInputArg2;
+    /**
      * 注文キャンセル
      */
     ORDER_CANCEL: boolean;
@@ -220,6 +228,8 @@ const defaultEnvironment: IEnvironment = {
     INQUIRY_PRINT_WAIT_TIME: '',
     INQUIRY_PRINT_SUCCESS_WAIT_TIME: '',
     INQUIRY_INPUT_KEYPAD: false,
+    INQUIRY_ORDER_DATE_FROM_VALUE: '-3',
+    INQUIRY_ORDER_DATE_FROM_UNIT: 'month',
     ORDER_CANCEL: false,
     ORDER_QRCODE: false,
     ORDER_PRINT: false,

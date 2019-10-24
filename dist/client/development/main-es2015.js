@@ -1354,6 +1354,7 @@ function createMovieTicketsFromAuthorizeSeatReservation(args) {
     const results = [];
     const authorizeSeatReservation = args.authorizeSeatReservation;
     const pendingMovieTickets = args.pendingMovieTickets;
+    const seller = args.seller;
     if (authorizeSeatReservation.result === undefined) {
         return [];
     }
@@ -1385,6 +1386,7 @@ function createMovieTicketsFromAuthorizeSeatReservation(args) {
         }
         results.push({
             typeOf: _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_0__["factory"].paymentMethodType.MovieTicket,
+            project: seller.project,
             identifier: findReservation.identifier,
             accessCode: findReservation.accessCode,
             serviceType: findReservation.serviceType,
@@ -3492,11 +3494,17 @@ let MvtkCheckModalComponent = class MvtkCheckModalComponent {
             }
             this.errorMessage = '';
             try {
-                yield this.purchaseService.checkMovieTicket({
-                    code: this.mvtkForm.controls.code.value,
-                    password: this.mvtkForm.controls.password.value // PINコード
-                });
                 const purchase = yield this.purchaseService.getData();
+                if (purchase.seller === undefined) {
+                    throw new Error('seller undefined');
+                }
+                yield this.purchaseService.checkMovieTicket({
+                    movieTicket: {
+                        code: this.mvtkForm.controls.code.value,
+                        password: this.mvtkForm.controls.password.value // PINコード
+                    },
+                    seller: purchase.seller
+                });
                 const checkMovieTicketAction = purchase.checkMovieTicketAction;
                 if (checkMovieTicketAction === undefined
                     || checkMovieTicketAction.result === undefined
@@ -6110,7 +6118,8 @@ let PurchaseService = class PurchaseService {
         return __awaiter(this, void 0, void 0, function* () {
             const purchase = yield this.getData();
             return new Promise((resolve, reject) => {
-                if (purchase.transaction === undefined) {
+                if (purchase.transaction === undefined
+                    || purchase.seller === undefined) {
                     reject();
                     return;
                 }
@@ -6118,7 +6127,8 @@ let PurchaseService = class PurchaseService {
                     transaction: purchase.transaction,
                     authorizeMovieTicketPayments: purchase.authorizeMovieTicketPayments,
                     authorizeSeatReservations: purchase.authorizeSeatReservations,
-                    pendingMovieTickets: purchase.pendingMovieTickets
+                    pendingMovieTickets: purchase.pendingMovieTickets,
+                    seller: purchase.seller
                 }));
                 const success = this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_9__["purchaseAction"].ActionTypes.AuthorizeMovieTicketSuccess), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["tap"])(() => { resolve(); }));
                 const fail = this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_9__["purchaseAction"].ActionTypes.AuthorizeMovieTicketFail), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["tap"])(() => { this.error.subscribe((error) => { reject(error); }).unsubscribe(); }));
@@ -6129,8 +6139,10 @@ let PurchaseService = class PurchaseService {
     /**
      * ムビチケ認証
      */
-    checkMovieTicket(movieTicket) {
+    checkMovieTicket(params) {
         return __awaiter(this, void 0, void 0, function* () {
+            const movieTicket = params.movieTicket;
+            const seller = params.seller;
             const purchase = yield this.getData();
             return new Promise((resolve, reject) => {
                 if (purchase.transaction === undefined || purchase.screeningEvent === undefined) {
@@ -6141,6 +6153,7 @@ let PurchaseService = class PurchaseService {
                     transaction: purchase.transaction,
                     movieTickets: [{
                             typeOf: _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_1__["factory"].paymentMethodType.MovieTicket,
+                            project: seller.project,
                             identifier: movieTicket.code,
                             accessCode: movieTicket.password // PINコード
                         }],
@@ -8334,7 +8347,7 @@ let AdmissionEffects = class AdmissionEffects {
             // console.log(payload);
             try {
                 yield this.cinerino.getServices();
-                const screeningEvent = yield this.cinerino.event.findScreeningEventById(payload.params);
+                const screeningEvent = yield this.cinerino.event.findById(payload.params);
                 return new _actions__WEBPACK_IMPORTED_MODULE_8__["admissionAction"].GetScreeningEventSuccess({ screeningEvent });
             }
             catch (error) {
@@ -8547,7 +8560,7 @@ let MasterEffects = class MasterEffects {
                 let roop = true;
                 let screeningEvents = [];
                 while (roop) {
-                    const screeningEventsResult = yield this.cinerino.event.searchScreeningEvents({
+                    const screeningEventsResult = yield this.cinerino.event.search({
                         page,
                         limit,
                         typeOf: _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_1__["factory"].chevre.eventType.ScreeningEvent,
@@ -8796,16 +8809,26 @@ let OrderEffects = class OrderEffects {
          * inquiry
          */
         this.inquiry = this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_actions__WEBPACK_IMPORTED_MODULE_10__["orderAction"].ActionTypes.Inquiry), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["map"])(action => action.payload), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["mergeMap"])((payload) => __awaiter(this, void 0, void 0, function* () {
-            yield this.cinerino.getServices();
-            const confirmationNumber = Number(payload.confirmationNumber);
-            const customer = {
-                telephone: (payload.customer.telephone === undefined)
-                    ? '' : Object(_functions__WEBPACK_IMPORTED_MODULE_7__["formatTelephone"])(payload.customer.telephone)
-            };
             try {
-                const order = yield this.cinerino.order.findByConfirmationNumber({
-                    confirmationNumber, customer
-                });
+                yield this.cinerino.getServices();
+                const now = (yield this.utilService.getServerTime()).date;
+                const today = moment__WEBPACK_IMPORTED_MODULE_4__(moment__WEBPACK_IMPORTED_MODULE_4__(now).format('YYYYMMDD')).toISOString();
+                const confirmationNumber = Number(payload.confirmationNumber);
+                const customer = {
+                    telephone: (payload.customer.telephone === undefined)
+                        ? '' : Object(_functions__WEBPACK_IMPORTED_MODULE_7__["formatTelephone"])(payload.customer.telephone)
+                };
+                const orderDateFrom = {
+                    value: _environments_environment__WEBPACK_IMPORTED_MODULE_6__["environment"].INQUIRY_ORDER_DATE_FROM_VALUE,
+                    unit: _environments_environment__WEBPACK_IMPORTED_MODULE_6__["environment"].INQUIRY_ORDER_DATE_FROM_UNIT
+                };
+                const params = {
+                    confirmationNumber,
+                    customer,
+                    orderDateFrom: moment__WEBPACK_IMPORTED_MODULE_4__(today).add(orderDateFrom.value, orderDateFrom.unit).toDate(),
+                    orderDateThrough: moment__WEBPACK_IMPORTED_MODULE_4__(now).toDate()
+                };
+                const order = yield this.cinerino.order.findByConfirmationNumber(params);
                 return new _actions__WEBPACK_IMPORTED_MODULE_10__["orderAction"].InquirySuccess({ order });
             }
             catch (error) {
@@ -9099,8 +9122,8 @@ let PurchaseEffects = class PurchaseEffects {
                     screenCode = `000${payload.screenCode}`.slice(-3);
                 }
                 else {
-                    screeningEventOffers = yield this.cinerino.event.searchScreeningEventOffers({
-                        eventId: payload.screeningEvent.id
+                    screeningEventOffers = yield this.cinerino.event.searchOffers({
+                        event: { id: payload.screeningEvent.id }
                     });
                     theaterCode = payload.screeningEvent.superEvent.location.branchCode;
                     screenCode = `000${payload.screeningEvent.location.branchCode}`.slice(-3);
@@ -9123,8 +9146,8 @@ let PurchaseEffects = class PurchaseEffects {
                 const screeningEvent = payload.screeningEvent;
                 let screeningEventOffers = [];
                 if (Object(_functions__WEBPACK_IMPORTED_MODULE_8__["isTicketedSeatScreeningEvent"])(screeningEvent)) {
-                    screeningEventOffers = yield this.cinerino.event.searchScreeningEventOffers({
-                        eventId: screeningEvent.id
+                    screeningEventOffers = yield this.cinerino.event.searchOffers({
+                        event: { id: screeningEvent.id }
                     });
                 }
                 return new _actions__WEBPACK_IMPORTED_MODULE_10__["purchaseAction"].GetScreeningEventOffersSuccess({ screeningEventOffers });
@@ -9245,7 +9268,7 @@ let PurchaseEffects = class PurchaseEffects {
                 const clientId = this.cinerino.auth.options.clientId;
                 const screeningEvent = payload.screeningEvent;
                 const seller = payload.seller;
-                let screeningEventTicketOffers = yield this.cinerino.event.searchScreeningEventTicketOffers({
+                let screeningEventTicketOffers = yield this.cinerino.event.searchTicketOffers({
                     event: { id: screeningEvent.id },
                     seller: { typeOf: seller.typeOf, id: seller.id },
                     store: { id: clientId }
@@ -9332,9 +9355,10 @@ let PurchaseEffects = class PurchaseEffects {
                 const pendingMovieTickets = payload.pendingMovieTickets;
                 const authorizeSeatReservations = payload.authorizeSeatReservations;
                 const authorizeMovieTicketPayments = [];
+                const seller = payload.seller;
                 for (const authorizeSeatReservation of authorizeSeatReservations) {
                     const movieTickets = Object(_functions__WEBPACK_IMPORTED_MODULE_8__["createMovieTicketsFromAuthorizeSeatReservation"])({
-                        authorizeSeatReservation, pendingMovieTickets
+                        authorizeSeatReservation, pendingMovieTickets, seller
                     });
                     const movieTicketIdentifiers = [];
                     movieTickets.forEach((movieTicket) => {
@@ -10727,6 +10751,8 @@ const defaultEnvironment = {
     INQUIRY_PRINT_WAIT_TIME: '',
     INQUIRY_PRINT_SUCCESS_WAIT_TIME: '',
     INQUIRY_INPUT_KEYPAD: false,
+    INQUIRY_ORDER_DATE_FROM_VALUE: '-3',
+    INQUIRY_ORDER_DATE_FROM_UNIT: 'month',
     ORDER_CANCEL: false,
     ORDER_QRCODE: false,
     ORDER_PRINT: false,

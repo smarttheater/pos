@@ -90,8 +90,8 @@ export class PurchaseEffects {
                     theaterCode = payload.theaterCode;
                     screenCode = `000${payload.screenCode}`.slice(-3);
                 } else {
-                    screeningEventOffers = await this.cinerino.event.searchScreeningEventOffers({
-                        eventId: payload.screeningEvent.id
+                    screeningEventOffers = await this.cinerino.event.searchOffers({
+                        event: { id: payload.screeningEvent.id }
                     });
                     theaterCode = payload.screeningEvent.superEvent.location.branchCode;
                     screenCode = `000${payload.screeningEvent.location.branchCode}`.slice(-3);
@@ -121,8 +121,8 @@ export class PurchaseEffects {
                 const screeningEvent = payload.screeningEvent;
                 let screeningEventOffers: factory.chevre.event.screeningEvent.IScreeningRoomSectionOffer[] = [];
                 if (isTicketedSeatScreeningEvent(screeningEvent)) {
-                    screeningEventOffers = await this.cinerino.event.searchScreeningEventOffers({
-                        eventId: screeningEvent.id
+                    screeningEventOffers = await this.cinerino.event.searchOffers({
+                        event: { id: screeningEvent.id }
                     });
                 }
 
@@ -266,7 +266,7 @@ export class PurchaseEffects {
                 const clientId = this.cinerino.auth.options.clientId;
                 const screeningEvent = payload.screeningEvent;
                 const seller = payload.seller;
-                let screeningEventTicketOffers = await this.cinerino.event.searchScreeningEventTicketOffers({
+                let screeningEventTicketOffers = await this.cinerino.event.searchTicketOffers({
                     event: { id: screeningEvent.id },
                     seller: { typeOf: seller.typeOf, id: seller.id },
                     store: { id: clientId }
@@ -369,9 +369,10 @@ export class PurchaseEffects {
                 const pendingMovieTickets = payload.pendingMovieTickets;
                 const authorizeSeatReservations = payload.authorizeSeatReservations;
                 const authorizeMovieTicketPayments: factory.action.authorize.paymentMethod.movieTicket.IAction[] = [];
+                const seller = payload.seller;
                 for (const authorizeSeatReservation of authorizeSeatReservations) {
                     const movieTickets = createMovieTicketsFromAuthorizeSeatReservation({
-                        authorizeSeatReservation, pendingMovieTickets
+                        authorizeSeatReservation, pendingMovieTickets, seller
                     });
                     const movieTicketIdentifiers: {
                         identifier: string;

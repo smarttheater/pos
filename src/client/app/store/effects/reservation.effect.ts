@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { factory } from '@cinerino/api-javascript-client/lib/abstract';
 import { Actions, Effect, ofType } from '@ngrx/effects';
 import { map, mergeMap } from 'rxjs/operators';
 import { CinerinoService } from '../../services';
@@ -29,7 +30,7 @@ export class ReservationEffects {
                 //     && params.customer.telephone !== undefined) {
                 //     params.customer.telephone = formatTelephone(params.customer.telephone)
                 // }
-                const searchResult = await this.cinerino.reservation.search(params);
+                const searchResult = await this.cinerino.reservation.search<factory.chevre.reservationType.EventReservation>(params);
                 const limit = <number>params.limit;
                 return new reservationAction.SearchSuccess({ searchResult, limit });
             } catch (error) {

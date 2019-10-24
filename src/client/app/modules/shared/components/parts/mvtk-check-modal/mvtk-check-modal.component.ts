@@ -79,11 +79,17 @@ export class MvtkCheckModalComponent implements OnInit, OnDestroy {
         }
         this.errorMessage = '';
         try {
-            await this.purchaseService.checkMovieTicket({
-                code: this.mvtkForm.controls.code.value, // 購入管理番号
-                password: this.mvtkForm.controls.password.value // PINコード
-            });
             const purchase = await this.purchaseService.getData();
+            if (purchase.seller === undefined) {
+                throw new Error('seller undefined');
+            }
+            await this.purchaseService.checkMovieTicket({
+                movieTicket: {
+                    code: this.mvtkForm.controls.code.value, // 購入管理番号
+                    password: this.mvtkForm.controls.password.value // PINコード
+                },
+                seller: purchase.seller
+            });
             const checkMovieTicketAction = purchase.checkMovieTicketAction;
             if (checkMovieTicketAction === undefined
                 || checkMovieTicketAction.result === undefined

@@ -7,7 +7,7 @@ import { userAction } from '../actions';
 export interface IUserState {
     seller?: factory.seller.IOrganization<factory.seller.IAttributes<factory.organizationType>>;
     pos?: factory.seller.IPOS;
-    customerContact?: factory.transaction.placeOrder.ICustomerContact;
+    customerContact?: factory.transaction.placeOrder.ICustomerProfile;
     printer?: IPrinter;
     language: string;
     isPurchaseCart: boolean;

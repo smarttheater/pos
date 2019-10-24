@@ -44,7 +44,7 @@ export class UserService {
     public updateAll(params: {
         seller: factory.seller.IOrganization<factory.seller.IAttributes<factory.organizationType>>;
         pos: factory.seller.IPOS;
-        customerContact: factory.transaction.placeOrder.ICustomerContact;
+        customerContact: factory.transaction.placeOrder.ICustomerProfile;
         printer: IPrinter;
         isPurchaseCart: boolean;
         viewType: ViewType;

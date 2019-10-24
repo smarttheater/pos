@@ -31,7 +31,7 @@ export class AdmissionEffects {
             // console.log(payload);
             try {
                 await this.cinerino.getServices();
-                const screeningEvent = await this.cinerino.event.findScreeningEventById(payload.params);
+                const screeningEvent = await this.cinerino.event.findById<factory.chevre.eventType.ScreeningEvent>(payload.params);
                 return new admissionAction.GetScreeningEventSuccess({ screeningEvent });
             } catch (error) {
                 return new admissionAction.GetScreeningEventFail({ error: error });
@@ -69,7 +69,7 @@ export class AdmissionEffects {
                     factory.chevre.reservation.IReservation<factory.chevre.reservationType.EventReservation>[] = [];
                 while (roop) {
                     const screeningEventReservationsResult =
-                        await this.cinerino.reservation.search({
+                        await this.cinerino.reservation.search<factory.chevre.reservationType.EventReservation>({
                             typeOf: factory.chevre.reservationType.EventReservation,
                             page,
                             limit,

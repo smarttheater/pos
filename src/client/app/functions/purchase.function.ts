@@ -129,10 +129,12 @@ export function isAvailabilityMovieTicket(checkMovieTicketAction: factory.action
 export function createMovieTicketsFromAuthorizeSeatReservation(args: {
     authorizeSeatReservation: factory.action.authorize.offer.seatReservation.IAction<factory.service.webAPI.Identifier>;
     pendingMovieTickets: IMovieTicket[];
+    seller: factory.seller.IOrganization<factory.seller.IAttributes<factory.organizationType>>
 }) {
     const results: factory.paymentMethod.paymentCard.movieTicket.IMovieTicket[] = [];
     const authorizeSeatReservation = args.authorizeSeatReservation;
     const pendingMovieTickets = args.pendingMovieTickets;
+    const seller = args.seller;
     if (authorizeSeatReservation.result === undefined) {
         return [];
     }
@@ -171,6 +173,7 @@ export function createMovieTicketsFromAuthorizeSeatReservation(args: {
 
         results.push({
             typeOf: factory.paymentMethodType.MovieTicket,
+            project: seller.project,
             identifier: findReservation.identifier,
             accessCode: findReservation.accessCode,
             serviceType: findReservation.serviceType,
