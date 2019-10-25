@@ -33,6 +33,10 @@ const appRoutes: Routes = [
         loadChildren: () => import('./modules/reservation/reservation.module').then(m => m.ReservationModule)
     },
     {
+        path: 'person',
+        loadChildren: () => import('./modules/person/person.module').then(m => m.PersonModule)
+    },
+    {
         path: 'development',
         loadChildren: () => import('./modules/development/development.module').then(m => m.DevelopmentModule)
     },
