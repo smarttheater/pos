@@ -97,7 +97,7 @@ export class DownloadService {
         while (roop) {
             params.limit = limit;
             params.page = page;
-            const searchResult = await this.cinerino.reservation.search(params);
+            const searchResult = await this.cinerino.reservation.search<factory.chevre.reservationType.EventReservation>(params);
             reservations = reservations.concat(searchResult.data);
             const lastPage = Math.ceil(searchResult.totalCount / limit);
             page++;
