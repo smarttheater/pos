@@ -13,6 +13,10 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/).
 
 ### Security
 
+## 2.4.0 - 2019-10-28
+### Changed
+ - パッケージ更新対応
+
 ## 2.3.2 - 2019-10-15
 ### fixed
  - 注文検索詳細の取引時追加情報修正
