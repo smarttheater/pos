@@ -17,6 +17,7 @@ export * from './user.reducer';
 export * from './master.reducer';
 export * from './admission.reducer';
 export * from './order.reducer';
+export * from './person.reducer';
 export * from './reservation.reducer';
 
 /**
@@ -31,4 +32,5 @@ export const getUser = createSelector(getFeatureState, reducer.getUser);
 export const getMaster = createSelector(getFeatureState, reducer.getMaster);
 export const getAdmission = createSelector(getFeatureState, reducer.getAdmission);
 export const getOrder = createSelector(getFeatureState, reducer.getOrder);
+export const getPerson = createSelector(getFeatureState, reducer.getPerson);
 export const getReservation = createSelector(getFeatureState, reducer.getReservation);

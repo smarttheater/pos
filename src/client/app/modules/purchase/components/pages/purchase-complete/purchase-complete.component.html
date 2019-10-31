@@ -112,7 +112,7 @@
     </div>
 
     <div class="buttons mx-auto text-center">
-        <button type="button" class="btn btn-primary btn-block py-3 mb-3" [disabled]="isLoading | async"
+        <button type="submit" class="btn btn-primary btn-block py-3 mb-3" [disabled]="isLoading | async"
             (click)="print()">{{ 'purchase.complete.next' | translate }}</button>
         <button type="button" class="btn btn-link"
             routerLink="/purchase/root">{{ 'purchase.complete.prev' | translate }}</button>

@@ -21,6 +21,7 @@ export class SettingComponent implements OnInit {
     public user: Observable<reducers.IUserState>;
     public master: Observable<reducers.IMasterState>;
     public error: Observable<string | null>;
+    public isLoading: Observable<boolean>;
     public posList: { id: string; name: string; typeOf: string; }[];
     public printers: typeof printers = printers;
     public connectionType: typeof connectionType = connectionType;
@@ -45,6 +46,7 @@ export class SettingComponent implements OnInit {
         this.user = this.store.pipe(select(reducers.getUser));
         this.master = this.store.pipe(select(reducers.getMaster));
         this.error = this.store.pipe(select(reducers.getError));
+        this.isLoading = this.store.pipe(select(reducers.getLoading));
         this.posList = [];
         try {
             await this.masterService.getSellers();
