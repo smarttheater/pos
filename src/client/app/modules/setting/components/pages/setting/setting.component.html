@@ -1,9 +1,10 @@
 <div class="contents-width mx-auto px-3 py-5">
-    <div class="mb-4">
-        <h2 class="text-large mb-4 text-center font-weight-bold">{{ 'setting.title' | translate }}</h2>
-        <p class="mb-4 text-md-center" [innerHTML]="'setting.read' | translate"></p>
-        <div class="p-3 bg-white">
-            <form *ngIf="settingForm" [formGroup]="settingForm">
+    <form *ngIf="settingForm" [formGroup]="settingForm">
+        <div class="mb-4">
+            <h2 class="text-large mb-4 text-center font-weight-bold">{{ 'setting.title' | translate }}</h2>
+            <p class="mb-4 text-md-center" [innerHTML]="'setting.read' | translate"></p>
+            <div class="p-3 bg-white">
+
                 <div class="form-group">
                     <div class="row align-items-center">
                         <p class="col-md-4 py-2 text-md-right">{{ 'common.theater' | translate }}</p>
@@ -178,15 +179,15 @@
                         </div>
                     </div>
                 </div>
-            </form>
+
+            </div>
         </div>
-    </div>
 
-    <div class="buttons mx-auto text-center">
-        <button type="button" class="btn btn-primary btn-block py-3 mb-3"
-            (click)="onSubmit()">{{ 'setting.next' | translate }}</button>
-        <button type="button" class="btn btn-link"
-            [routerLink]="environment.BASE_URL">{{ 'setting.prev' | translate }}</button>
-    </div>
-
+        <div class="buttons mx-auto text-center">
+            <button type="submit" [disabled]="isLoading | async" class="btn btn-primary btn-block py-3 mb-3"
+                (click)="onSubmit()">{{ 'setting.next' | translate }}</button>
+            <button type="button" class="btn btn-link"
+                [routerLink]="environment.BASE_URL">{{ 'setting.prev' | translate }}</button>
+        </div>
+    </form>
 </div>

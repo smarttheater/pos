@@ -7,6 +7,7 @@ export * from './util/printer';
 export * from './order/action';
 export * from './order/print';
 export * from './order/search';
+export * from './person/search';
 export * from './reservation/search';
 export * from './util/language';
 export * from './util/viewType';

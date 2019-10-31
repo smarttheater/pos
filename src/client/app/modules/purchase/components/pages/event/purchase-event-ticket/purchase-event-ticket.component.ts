@@ -32,6 +32,7 @@ export class PurchaseEventTicketComponent implements OnInit, OnDestroy {
     public user: Observable<reducers.IUserState>;
     public master: Observable<reducers.IMasterState>;
     public error: Observable<string | null>;
+    public isLoading: Observable<boolean>;
     public screeningWorkEvents: IScreeningEventWork[];
     public moment: typeof moment = moment;
     public getTicketPrice = getTicketPrice;
@@ -55,6 +56,7 @@ export class PurchaseEventTicketComponent implements OnInit, OnDestroy {
         this.user = this.store.pipe(select(reducers.getUser));
         this.master = this.store.pipe(select(reducers.getMaster));
         this.error = this.store.pipe(select(reducers.getError));
+        this.isLoading = this.store.pipe(select(reducers.getLoading));
         this.screeningWorkEvents = [];
         this.purchase.subscribe((purchase) => {
             if (purchase.transaction === undefined) {

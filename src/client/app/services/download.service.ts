@@ -128,6 +128,47 @@ export class DownloadService {
         await this.splitDownload('reservation', data, opts, 5000);
     }
 
+    /**
+     * 会員情報CSVダウンロード
+     */
+    public async person(params: {
+        limit?: number;
+        page?: number;
+        id?: string;
+        username?: string;
+        email?: string;
+        telephone?: string;
+        givenName?: string;
+        familyName?: string;
+    }) {
+        const url = '/storage/json/csv/person.json';
+        const fields = await this.utilService.getJson<{ label: string, value: string }[]>(url);
+        const opts = { fields, unwind: [] };
+        await this.cinerino.getServices();
+        const limit = 100;
+        let page = 1;
+        let roop = true;
+        let persons: factory.person.IPerson[] = [];
+        while (roop) {
+            params.limit = limit;
+            params.page = page;
+            const searchResult = await this.cinerino.person.search(params);
+            persons = persons.concat(searchResult.data);
+            const lastPage = Math.ceil(searchResult.totalCount / limit);
+            page++;
+            roop = !(page > lastPage);
+        }
+
+        const data: any[] = [];
+        persons.forEach((person) => {
+            const customData = {
+                id: person.id,
+            };
+            data.push(customData);
+        });
+        await this.splitDownload('person', data, opts, 5000);
+    }
+
     private async splitDownload(filename: string, data: any, opts: any, split: number) {
         const limit = Math.ceil(data.length / split);
         for (let i = 0; i < limit; i++) {

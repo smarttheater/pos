@@ -16,6 +16,7 @@ export class DevelopmentScreenComponent implements OnInit {
     public environment = environment;
     public theaterCode: string;
     public screenCode: string;
+    public isLoading: Observable<boolean>;
 
     constructor(
         private store: Store<reducers.IState>,
@@ -24,6 +25,7 @@ export class DevelopmentScreenComponent implements OnInit {
 
     public ngOnInit() {
         this.purchase = this.store.pipe(select(reducers.getPurchase));
+        this.isLoading = this.store.pipe(select(reducers.getLoading));
         this.table = this.createTable();
         this.theaterCode = this.table[0].theaterCode;
         this.screenCode = this.table[0].screens[0];
