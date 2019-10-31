@@ -5,13 +5,16 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/).
 
 ## Unreleased
 ###  Added
-- 照会へ操作期限を追加
+
 ### Changed
-- 照会から発券済みのチケットを印刷不可へ変更
 
 ### Fixed
 
 ### Security
+
+## 2.4.1 - 2019-10-31
+### Changed
+ - 決定ボタンをsubmitへ変更
 
 ## 2.4.0 - 2019-10-28
 ### Changed
