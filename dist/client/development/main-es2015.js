@@ -438,7 +438,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("<div class=\"cover\" [class.active]=\"isOpen\" (click)=\"close.emit()\"></div>\n\n<div class=\"menu text-white bg-dark\" [class.active]=\"isOpen\">\n    <ul>\n        <li *ngIf=\"isVisible('purchase')\" class=\"p-3 border-bottom pointer\" routerLink=\"/purchase/root\" (click)=\"close.emit()\"><i class=\"fas fa-shopping-cart mr-2\"></i>{{ 'menu.purchase' | translate }}</li>\n        <li *ngIf=\"isVisible('inquiry')\" class=\"p-3 border-bottom pointer\" routerLink=\"/inquiry/input\" (click)=\"close.emit()\"><i class=\"fas fa-search mr-2\"></i>{{ 'menu.inquiry' | translate }}</li>\n        <li *ngIf=\"isVisible('order')\" class=\"p-3 border-bottom pointer\" routerLink=\"/order/search\" (click)=\"close.emit()\"><i class=\"far fa-list-alt mr-2\"></i>{{ 'menu.orderSearch' | translate }}</li>\n        <li *ngIf=\"isVisible('reservation')\" class=\"p-3 border-bottom pointer\" routerLink=\"/reservation/search\" (click)=\"close.emit()\"><i class=\"far fa-list-alt mr-2\"></i>{{ 'menu.reservationSearch' | translate }}</li>\n        <li *ngIf=\"isVisible('person')\" class=\"p-3 border-bottom pointer\" routerLink=\"/person/search\" (click)=\"close.emit()\"><i class=\"far fa-list-alt mr-2\"></i>{{ 'menu.personSearch' | translate }}</li>\n        <li *ngIf=\"isVisible('admission')\" class=\"p-3 border-bottom pointer\" routerLink=\"/admission/schedule\" (click)=\"close.emit()\"><i class=\"far fa-check-circle mr-2\"></i>{{ 'menu.admission' | translate }}</li>\n        <li *ngIf=\"isVisible('setting')\" class=\"p-3 border-bottom pointer\" routerLink=\"/setting\" (click)=\"close.emit()\"><i class=\"fas fa-cog mr-2\"></i>{{ 'menu.settings' | translate }}</li>\n        <li *ngIf=\"isVisible('development')\" class=\"p-3 border-bottom pointer\" routerLink=\"/development\" (click)=\"close.emit()\"><i class=\"fas fa-flask mr-2\"></i>{{ 'menu.development' | translate }}</li>\n        <li *ngIf=\"isVisible('instruction')\" class=\"border-bottom pointer\" (click)=\"close.emit()\"><a [href]=\"environment.INSTRUCTION_URL\" target=\"_blank\" class=\"d-block p-3\"><i class=\"far fa-file mr-2\"></i>{{ 'menu.instruction' | translate }}</a></li>\n        <li *ngIf=\"isVisible('auth')\" class=\"p-3 border-bottom pointer\" (click)=\"signOut()\"><i class=\"fas fa-sign-out-alt mr-2\"></i>{{ 'menu.logout' | translate }}</li>\n    </ul>\n</div>");
+/* harmony default export */ __webpack_exports__["default"] = ("<div class=\"cover\" [class.active]=\"isOpen\" (click)=\"close.emit()\"></div>\n\n<div class=\"menu text-white bg-dark\" [class.active]=\"isOpen\">\n    <ul>\n        <li *ngIf=\"isVisible('purchase')\" class=\"p-3 border-bottom pointer\" routerLink=\"/purchase/root\" (click)=\"close.emit()\"><i class=\"fas fa-shopping-cart mr-2\"></i>{{ 'menu.purchase' | translate }}</li>\n        <li *ngIf=\"isVisible('inquiry')\" class=\"p-3 border-bottom pointer\" routerLink=\"/inquiry/input\" (click)=\"close.emit()\"><i class=\"fas fa-search mr-2\"></i>{{ 'menu.inquiry' | translate }}</li>\n        <li *ngIf=\"isVisible('order')\" class=\"p-3 border-bottom pointer\" routerLink=\"/order/search\" (click)=\"close.emit()\"><i class=\"far fa-list-alt mr-2\"></i>{{ 'menu.orderSearch' | translate }}</li>\n        <li *ngIf=\"isVisible('reservation')\" class=\"p-3 border-bottom pointer\" routerLink=\"/reservation/search\" (click)=\"close.emit()\"><i class=\"far fa-list-alt mr-2\"></i>{{ 'menu.reservationSearch' | translate }}</li>\n        <li *ngIf=\"isVisible('person')\" class=\"p-3 border-bottom pointer\" routerLink=\"/person/search\" (click)=\"close.emit()\"><i class=\"far fa-list-alt mr-2\"></i>{{ 'menu.personSearch' | translate }}</li>\n        <li *ngIf=\"isVisible('admission')\" class=\"p-3 border-bottom pointer\" routerLink=\"/admission/schedule\" (click)=\"close.emit()\"><i class=\"far fa-check-circle mr-2\"></i>{{ 'menu.admission' | translate }}</li>\n        <li *ngIf=\"isVisible('setting')\" class=\"p-3 border-bottom pointer\" routerLink=\"/setting\" (click)=\"close.emit()\"><i class=\"fas fa-cog mr-2\"></i>{{ 'menu.settings' | translate }}</li>\n        <li *ngIf=\"isVisible('tasks')\" class=\"p-3 border-bottom pointer\" routerLink=\"/tasks\" (click)=\"close.emit()\"><i class=\"fas fa-flask mr-2\"></i>{{ 'menu.tasks' | translate }}</li>\n        <li *ngIf=\"isVisible('development')\" class=\"p-3 border-bottom pointer\" routerLink=\"/development\" (click)=\"close.emit()\"><i class=\"fas fa-flask mr-2\"></i>{{ 'menu.development' | translate }}</li>\n        <li *ngIf=\"isVisible('instruction')\" class=\"border-bottom pointer\" (click)=\"close.emit()\"><a [href]=\"environment.INSTRUCTION_URL\" target=\"_blank\" class=\"d-block p-3\"><i class=\"far fa-file mr-2\"></i>{{ 'menu.instruction' | translate }}</a></li>\n        <li *ngIf=\"isVisible('auth')\" class=\"p-3 border-bottom pointer\" (click)=\"signOut()\"><i class=\"fas fa-sign-out-alt mr-2\"></i>{{ 'menu.logout' | translate }}</li>\n    </ul>\n</div>");
 
 /***/ }),
 
@@ -667,6 +667,10 @@ const appRoutes = [
     {
         path: 'person',
         loadChildren: () => Promise.all(/*! import() | modules-person-person-module */[__webpack_require__.e("common"), __webpack_require__.e("modules-person-person-module")]).then(__webpack_require__.bind(null, /*! ./modules/person/person.module */ "./app/modules/person/person.module.ts")).then(m => m.PersonModule)
+    },
+    {
+        path: 'tasks',
+        loadChildren: () => Promise.all(/*! import() | modules-tasks-tasks-module */[__webpack_require__.e("common"), __webpack_require__.e("modules-tasks-tasks-module")]).then(__webpack_require__.bind(null, /*! ./modules/tasks/tasks.module */ "./app/modules/tasks/tasks.module.ts")).then(m => m.TasksModule)
     },
     {
         path: 'development',
@@ -1930,9 +1934,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _util_viewType__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./util/viewType */ "./app/models/util/viewType.ts");
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "ViewType", function() { return _util_viewType__WEBPACK_IMPORTED_MODULE_7__["ViewType"]; });
 
-var __importDefault = (undefined && undefined.__importDefault) || function (mod) {
+/* empty/unused harmony star reexport */var __importDefault = (undefined && undefined.__importDefault) || function (mod) {
   return (mod && mod.__esModule) ? mod : { "default": mod };
 };
+
 
 
 
@@ -5174,6 +5179,7 @@ let CinerinoService = class CinerinoService {
         return __awaiter(this, void 0, void 0, function* () {
             try {
                 const option = yield this.createOption();
+                this.account = new _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_2__["service"].Account(option);
                 this.event = new _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_2__["service"].Event(option);
                 this.order = new _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_2__["service"].Order(option);
                 this.seller = new _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_2__["service"].Seller(option);
@@ -6857,9 +6863,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "UtilService", function() { return UtilService; });
 /* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/common/http */ "../../node_modules/@angular/common/fesm2015/http.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "../../node_modules/@angular/core/fesm2015/core.js");
-/* harmony import */ var ngx_bootstrap__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ngx-bootstrap */ "../../node_modules/ngx-bootstrap/esm5/ngx-bootstrap.js");
-/* harmony import */ var _modules_shared_components_parts_alert_modal_alert_modal_component__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../modules/shared/components/parts/alert-modal/alert-modal.component */ "./app/modules/shared/components/parts/alert-modal/alert-modal.component.ts");
-/* harmony import */ var _modules_shared_components_parts_confirm_modal_confirm_modal_component__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../modules/shared/components/parts/confirm-modal/confirm-modal.component */ "./app/modules/shared/components/parts/confirm-modal/confirm-modal.component.ts");
+/* harmony import */ var _ngrx_store__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @ngrx/store */ "../../node_modules/@ngrx/store/fesm2015/store.js");
+/* harmony import */ var ngx_bootstrap__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ngx-bootstrap */ "../../node_modules/ngx-bootstrap/esm5/ngx-bootstrap.js");
+/* harmony import */ var _modules_shared_components_parts_alert_modal_alert_modal_component__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../modules/shared/components/parts/alert-modal/alert-modal.component */ "./app/modules/shared/components/parts/alert-modal/alert-modal.component.ts");
+/* harmony import */ var _modules_shared_components_parts_confirm_modal_confirm_modal_component__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../modules/shared/components/parts/confirm-modal/confirm-modal.component */ "./app/modules/shared/components/parts/confirm-modal/confirm-modal.component.ts");
+/* harmony import */ var _store_actions__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../store/actions */ "./app/store/actions/index.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -6885,10 +6893,13 @@ var __importDefault = (undefined && undefined.__importDefault) || function (mod)
 
 
 
+
+
 let UtilService = class UtilService {
-    constructor(modal, http) {
+    constructor(modal, http, store) {
         this.modal = modal;
         this.http = http;
+        this.store = store;
     }
     /**
      * 警告モーダル表示
@@ -6896,7 +6907,7 @@ let UtilService = class UtilService {
     openAlert(args) {
         const title = args.title;
         const body = args.body;
-        const modalRef = this.modal.show(_modules_shared_components_parts_alert_modal_alert_modal_component__WEBPACK_IMPORTED_MODULE_3__["AlertModalComponent"], {
+        const modalRef = this.modal.show(_modules_shared_components_parts_alert_modal_alert_modal_component__WEBPACK_IMPORTED_MODULE_4__["AlertModalComponent"], {
             initialState: { title, body },
             class: 'modal-dialog-centered'
         });
@@ -6909,7 +6920,7 @@ let UtilService = class UtilService {
         const title = args.title;
         const body = args.body;
         const cb = args.cb;
-        this.modal.show(_modules_shared_components_parts_confirm_modal_confirm_modal_component__WEBPACK_IMPORTED_MODULE_4__["ConfirmModalComponent"], {
+        this.modal.show(_modules_shared_components_parts_confirm_modal_confirm_modal_component__WEBPACK_IMPORTED_MODULE_5__["ConfirmModalComponent"], {
             initialState: { title, body, cb },
             class: 'modal-dialog-centered'
         });
@@ -6972,17 +6983,31 @@ let UtilService = class UtilService {
             return decryptedResult;
         });
     }
+    /**
+     * ローディング開始
+     */
+    loadStart() {
+        this.store.dispatch(new _store_actions__WEBPACK_IMPORTED_MODULE_6__["utilAction"].LoadStart());
+    }
+    /**
+     * ローディング終了
+     */
+    loadEnd() {
+        this.store.dispatch(new _store_actions__WEBPACK_IMPORTED_MODULE_6__["utilAction"].LoadEnd());
+    }
 };
 UtilService.ctorParameters = () => [
-    { type: ngx_bootstrap__WEBPACK_IMPORTED_MODULE_2__["BsModalService"] },
-    { type: _angular_common_http__WEBPACK_IMPORTED_MODULE_0__["HttpClient"] }
+    { type: ngx_bootstrap__WEBPACK_IMPORTED_MODULE_3__["BsModalService"] },
+    { type: _angular_common_http__WEBPACK_IMPORTED_MODULE_0__["HttpClient"] },
+    { type: _ngrx_store__WEBPACK_IMPORTED_MODULE_2__["Store"] }
 ];
 UtilService = __decorate([
     Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])({
         providedIn: 'root'
     }),
-    __metadata("design:paramtypes", [ngx_bootstrap__WEBPACK_IMPORTED_MODULE_2__["BsModalService"],
-        _angular_common_http__WEBPACK_IMPORTED_MODULE_0__["HttpClient"]])
+    __metadata("design:paramtypes", [ngx_bootstrap__WEBPACK_IMPORTED_MODULE_3__["BsModalService"],
+        _angular_common_http__WEBPACK_IMPORTED_MODULE_0__["HttpClient"],
+        _ngrx_store__WEBPACK_IMPORTED_MODULE_2__["Store"]])
 ], UtilService);
 
 
@@ -7174,7 +7199,7 @@ class CheckFail {
 /*!************************************!*\
   !*** ./app/store/actions/index.ts ***!
   \************************************/
-/*! exports provided: admissionAction, masterAction, orderAction, personAction, reservationAction, purchaseAction, userAction */
+/*! exports provided: admissionAction, masterAction, orderAction, personAction, reservationAction, purchaseAction, userAction, utilAction */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -7186,6 +7211,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "reservationAction", function() { return reservationAction; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "purchaseAction", function() { return purchaseAction; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "userAction", function() { return userAction; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "utilAction", function() { return utilAction; });
 /* harmony import */ var _admission_action__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./admission.action */ "./app/store/actions/admission.action.ts");
 /* harmony import */ var _master_action__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./master.action */ "./app/store/actions/master.action.ts");
 /* harmony import */ var _order_action__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./order.action */ "./app/store/actions/order.action.ts");
@@ -7193,9 +7219,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _purchase_action__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./purchase.action */ "./app/store/actions/purchase.action.ts");
 /* harmony import */ var _reservation_action__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./reservation.action */ "./app/store/actions/reservation.action.ts");
 /* harmony import */ var _user_action__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./user.action */ "./app/store/actions/user.action.ts");
+/* harmony import */ var _util_action__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./util.action */ "./app/store/actions/util.action.ts");
 var __importDefault = (undefined && undefined.__importDefault) || function (mod) {
   return (mod && mod.__esModule) ? mod : { "default": mod };
 };
+
 
 
 
@@ -7210,6 +7238,7 @@ var personAction = _person_action__WEBPACK_IMPORTED_MODULE_3__;
 var reservationAction = _reservation_action__WEBPACK_IMPORTED_MODULE_5__;
 var purchaseAction = _purchase_action__WEBPACK_IMPORTED_MODULE_4__;
 var userAction = _user_action__WEBPACK_IMPORTED_MODULE_6__;
+var utilAction = _util_action__WEBPACK_IMPORTED_MODULE_7__;
 
 
 /***/ }),
@@ -8320,6 +8349,51 @@ class UpdateLanguage {
 
 /***/ }),
 
+/***/ "./app/store/actions/util.action.ts":
+/*!******************************************!*\
+  !*** ./app/store/actions/util.action.ts ***!
+  \******************************************/
+/*! exports provided: ActionTypes, LoadStart, LoadEnd */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ActionTypes", function() { return ActionTypes; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "LoadStart", function() { return LoadStart; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "LoadEnd", function() { return LoadEnd; });
+var __importDefault = (undefined && undefined.__importDefault) || function (mod) {
+  return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+/**
+ * Action types
+ */
+var ActionTypes;
+(function (ActionTypes) {
+    ActionTypes["LoadStart"] = "[Util] Load Start";
+    ActionTypes["LoadEnd"] = "[Util] Load End";
+})(ActionTypes || (ActionTypes = {}));
+/**
+ * LoadStart
+ */
+class LoadStart {
+    constructor(payload) {
+        this.payload = payload;
+        this.type = ActionTypes.LoadStart;
+    }
+}
+/**
+ * LoadEnd
+ */
+class LoadEnd {
+    constructor(payload) {
+        this.payload = payload;
+        this.type = ActionTypes.LoadEnd;
+    }
+}
+
+
+/***/ }),
+
 /***/ "./app/store/app-store.module.ts":
 /*!***************************************!*\
   !*** ./app/store/app-store.module.ts ***!
@@ -8755,7 +8829,7 @@ let MasterEffects = class MasterEffects {
                 yield this.cinerino.getServices();
                 const searchMovieTheatersResult = yield this.cinerino.seller.search((payload === undefined) ? {} : payload);
                 const sellers = searchMovieTheatersResult.data
-                    .filter(s => (s.location !== undefined && s.location.branchCode !== undefined));
+                    .filter(s => (s.location !== undefined && s.location !== null && s.location.branchCode !== undefined));
                 return new _actions__WEBPACK_IMPORTED_MODULE_6__["masterAction"].GetSellersSuccess({ sellers });
             }
             catch (error) {
@@ -10858,9 +10932,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _purchase_reducer__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./purchase.reducer */ "./app/store/reducers/purchase.reducer.ts");
 /* harmony import */ var _reservation_reducer__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./reservation.reducer */ "./app/store/reducers/reservation.reducer.ts");
 /* harmony import */ var _user_reducer__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./user.reducer */ "./app/store/reducers/user.reducer.ts");
+/* harmony import */ var _util_reducer__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./util.reducer */ "./app/store/reducers/util.reducer.ts");
 var __importDefault = (undefined && undefined.__importDefault) || function (mod) {
   return (mod && mod.__esModule) ? mod : { "default": mod };
 };
+
 
 
 
@@ -10926,6 +11002,9 @@ function reducer(state = getInitialState(), action) {
     }
     else if (/\[Reservation\]/.test(action.type)) {
         return _reservation_reducer__WEBPACK_IMPORTED_MODULE_7__["reducer"](state, action);
+    }
+    else if (/\[Util\]/.test(action.type)) {
+        return _util_reducer__WEBPACK_IMPORTED_MODULE_9__["reducer"](state, action);
     }
     else {
         return state;
@@ -11059,6 +11138,43 @@ function reducer(state, action) {
         case _actions__WEBPACK_IMPORTED_MODULE_1__["userAction"].ActionTypes.UpdateLanguage: {
             state.userData.language = action.payload.language;
             return Object.assign({}, state);
+        }
+        default: {
+            return state;
+        }
+    }
+}
+
+
+/***/ }),
+
+/***/ "./app/store/reducers/util.reducer.ts":
+/*!********************************************!*\
+  !*** ./app/store/reducers/util.reducer.ts ***!
+  \********************************************/
+/*! exports provided: reducer */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "reducer", function() { return reducer; });
+/* harmony import */ var _actions__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../actions */ "./app/store/actions/index.ts");
+var __importDefault = (undefined && undefined.__importDefault) || function (mod) {
+  return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+
+/**
+ * Reducer
+ * @param state
+ * @param action
+ */
+function reducer(state, action) {
+    switch (action.type) {
+        case _actions__WEBPACK_IMPORTED_MODULE_0__["utilAction"].ActionTypes.LoadStart: {
+            return Object.assign({}, state, { loading: true, process: 'load' });
+        }
+        case _actions__WEBPACK_IMPORTED_MODULE_0__["utilAction"].ActionTypes.LoadEnd: {
+            return Object.assign({}, state, { loading: false, process: '' });
         }
         default: {
             return state;

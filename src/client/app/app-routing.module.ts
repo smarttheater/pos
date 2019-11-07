@@ -37,6 +37,10 @@ const appRoutes: Routes = [
         loadChildren: () => import('./modules/person/person.module').then(m => m.PersonModule)
     },
     {
+        path: 'tasks',
+        loadChildren: () => import('./modules/tasks/tasks.module').then(m => m.TasksModule)
+    },
+    {
         path: 'development',
         loadChildren: () => import('./modules/development/development.module').then(m => m.DevelopmentModule)
     },

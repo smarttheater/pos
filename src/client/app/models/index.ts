@@ -11,3 +11,5 @@ export * from './person/search';
 export * from './reservation/search';
 export * from './util/language';
 export * from './util/viewType';
+export * from './util/language';
+export * from './ownershipinfo/search';
