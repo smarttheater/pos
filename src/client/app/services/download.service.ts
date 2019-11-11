@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { factory } from '@cinerino/api-javascript-client';
 import * as json2csv from 'json2csv';
 import * as moment from 'moment';
-import { formatTelephone, getTicketPrice, getTransactionAgentIdentifier } from '../functions';
+import { buildQueryString, formatTelephone, getTicketPrice, getTransactionAgentIdentifier } from '../functions';
 import { CinerinoService } from './cinerino.service';
 import { UtilService } from './util.service';
 
@@ -80,6 +80,17 @@ export class DownloadService {
             });
         });
         await this.splitDownload('order', data, opts, 5000);
+    }
+
+    /**
+     * 注文情報CSVダウンロード
+     */
+    public orderStream(prams: factory.order.ISearchConditions & {
+        format: factory.encodingFormat.Application | factory.encodingFormat.Text;
+    }) {
+        const url = `/download/order?${buildQueryString(prams)}`;
+        this.cinerino.order.download(prams);
+        window.open(url, '_blank');
     }
 
     /**
