@@ -5437,7 +5437,6 @@ let DownloadService = class DownloadService {
      */
     orderStream(prams) {
         const url = `/download/order?${Object(_functions__WEBPACK_IMPORTED_MODULE_4__["buildQueryString"])(prams)}`;
-        this.cinerino.order.download(prams);
         window.open(url, '_blank');
     }
     /**

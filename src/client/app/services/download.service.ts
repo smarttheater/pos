@@ -89,7 +89,6 @@ export class DownloadService {
         format: factory.encodingFormat.Application | factory.encodingFormat.Text;
     }) {
         const url = `/download/order?${buildQueryString(prams)}`;
-        this.cinerino.order.download(prams);
         window.open(url, '_blank');
     }
 
