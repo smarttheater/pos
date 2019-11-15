@@ -9733,39 +9733,35 @@ let PurchaseEffects = class PurchaseEffects {
             const seller = payload.seller;
             try {
                 yield this.cinerino.getServices();
-                const email = {
-                    sender: {
-                        name: (this.translate.instant('email.purchase.complete.sender.name') === '')
-                            ? undefined : this.translate.instant('email.purchase.complete.sender.name'),
-                        email: (this.translate.instant('email.purchase.complete.sender.email') === '')
-                            ? undefined : this.translate.instant('email.purchase.complete.sender.email')
-                    },
-                    toRecipient: {
-                        name: (this.translate.instant('email.purchase.complete.toRecipient.name') === '')
-                            ? undefined : this.translate.instant('email.purchase.complete.toRecipient.name'),
-                        email: (this.translate.instant('email.purchase.complete.toRecipient.email') === '')
-                            ? undefined : this.translate.instant('email.purchase.complete.toRecipient.email')
-                    },
-                    about: (this.translate.instant('email.purchase.complete.about') === '')
-                        ? undefined : this.translate.instant('email.purchase.complete.about'),
-                    template: undefined
-                };
                 const params = {
                     id: transaction.id,
-                    options: {
-                        sendEmailMessage: true,
-                        email
+                    sendEmailMessage: true,
+                    email: {
+                        sender: {
+                            name: (this.translate.instant('email.purchase.complete.sender.name') === '')
+                                ? undefined : this.translate.instant('email.purchase.complete.sender.name'),
+                            email: (this.translate.instant('email.purchase.complete.sender.email') === '')
+                                ? undefined : this.translate.instant('email.purchase.complete.sender.email')
+                        },
+                        toRecipient: {
+                            name: (this.translate.instant('email.purchase.complete.toRecipient.name') === '')
+                                ? undefined : this.translate.instant('email.purchase.complete.toRecipient.name'),
+                            email: (this.translate.instant('email.purchase.complete.toRecipient.email') === '')
+                                ? undefined : this.translate.instant('email.purchase.complete.toRecipient.email')
+                        },
+                        about: (this.translate.instant('email.purchase.complete.about') === '')
+                            ? undefined : this.translate.instant('email.purchase.complete.about'),
+                        template: undefined
                     }
                 };
-                if (_environments_environment__WEBPACK_IMPORTED_MODULE_7__["environment"].PURCHASE_COMPLETE_MAIL_CUSTOM) {
+                if (_environments_environment__WEBPACK_IMPORTED_MODULE_7__["environment"].PURCHASE_COMPLETE_MAIL_CUSTOM && params.email !== undefined) {
                     // 完了メールをカスタマイズ
                     const view = yield this.utilService.getText(`/storage/ejs/mail/complete/${payload.language}.ejs`);
-                    const template = yield window.ejs.render(view, {
+                    params.email.template = yield window.ejs.render(view, {
                         authorizeSeatReservations: Object(_functions__WEBPACK_IMPORTED_MODULE_8__["authorizeSeatReservationToEvent"])({ authorizeSeatReservations }),
                         seller,
                         moment: moment__WEBPACK_IMPORTED_MODULE_5__, formatTelephone: _functions__WEBPACK_IMPORTED_MODULE_8__["formatTelephone"], getTicketPrice: _functions__WEBPACK_IMPORTED_MODULE_8__["getTicketPrice"]
                     }, { async: true });
-                    email.template = template;
                 }
                 const result = yield this.cinerino.transaction.placeOrder.confirm(params);
                 return new _actions__WEBPACK_IMPORTED_MODULE_10__["purchaseAction"].EndTransactionSuccess({ order: result.order });
