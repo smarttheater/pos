@@ -12,6 +12,10 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/).
 
 ### Security
 
+## 2.5.0 - 2019-11-19
+### Added
+ - 注文検索へストリーミングダウンロード追加
+
 ## 2.4.1 - 2019-10-31
 ### Changed
  - 決定ボタンをsubmitへ変更
