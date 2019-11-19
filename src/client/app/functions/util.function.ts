@@ -86,29 +86,51 @@ export async function sleep(time: number) {
 /**
  * クエリストリング変換
  */
-export function buildQueryString(obj: any) {
+export function buildQueryString(data: Object) {
+    let key, value, type, i, max;
+    const encode = encodeURIComponent;
     let query = '';
-    let key;
-    let val;
-
-    const fixedEncodeURIComponent = (str: string) => {
-        return encodeURIComponent(str).replace(/[!'()]/g, escape).replace(/\*/g, '%2A');
-    };
-
-    for (key in obj) {
-        if (!obj.hasOwnProperty(key)) {
-            continue;
+    for (key of Object.keys(data)) {
+        value = (<any>data)[key];
+        type = typeof(value) === 'object' && value instanceof Array ? 'array' : typeof(value);
+        switch (type) {
+            case 'undefined':
+                break;
+            case 'array':
+                // 配列
+                for (i = 0, max = value.length; i < max; i++) {
+                    query += key + '[]';
+                    query += '=';
+                    query += encode(value[i]);
+                    query += '&';
+                }
+                query = query.substr(0, query.length - 1);
+                break;
+            case 'object':
+                // ハッシュ
+                for (i of Object.keys(value)) {
+                    if (value[i] === undefined || value[i] === '') {
+                        break;
+                    }
+                    query += key + '[' + i + ']';
+                    query += '=';
+                    query += encode(value[i]);
+                    query += '&';
+                }
+                query = query.substr(0, query.length - 1);
+                break;
+            default:
+                if (value === '') {
+                    break;
+                }
+                query += key;
+                query += '=';
+                query += encode(value);
+                break;
         }
-
-        val = obj[key];
-        query += (query === '') ? '' : '&';
-        query += fixedEncodeURIComponent(key) + '=';
-
-        if (val != null) {
-            query += fixedEncodeURIComponent(val);
-        }
+        query += '&';
     }
-
+    query = query.substr(0, query.length - 1);
     return query;
 }
 

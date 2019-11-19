@@ -7,6 +7,7 @@ import * as cinerino from '@cinerino/api-javascript-client';
 })
 export class CinerinoService {
     public auth: cinerino.IImplicitGrantClient;
+    public account: cinerino.service.Account;
     public event: cinerino.service.Event;
     public order: cinerino.service.Order;
     public seller: cinerino.service.Seller;
@@ -35,6 +36,7 @@ export class CinerinoService {
     public async getServices(): Promise<void> {
         try {
             const option = await this.createOption();
+            this.account = new cinerino.service.Account(option);
             this.event = new cinerino.service.Event(option);
             this.order = new cinerino.service.Order(option);
             this.seller = new cinerino.service.Seller(option);

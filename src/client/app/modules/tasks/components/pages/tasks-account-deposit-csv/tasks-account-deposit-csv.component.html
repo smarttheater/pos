@@ -1,0 +1,125 @@
+<div class="contents-width mx-auto px-3 py-5">
+    <h2 class="text-large mb-4 text-center font-weight-bold">{{ 'tasks.accountDepositCSV.title' | translate }}</h2>
+    <p class="mb-4 text-md-center" [innerHTML]="'tasks.accountDepositCSV.read' | translate"></p>
+    <div class="p-3 bg-white mb-4">
+        <div class="mb-3 py-2"><input type="file" (change)="onChangeInput($event)"></div>
+        <div class="form-group">
+            <div class="d-md-flex align-items-center">
+                <p class="py-2 mr-md-3">{{ 'tasks.accountDepositCSV.years' | translate }}</p>
+                <div class="py-2 mr-md-3">
+                    <select class="form-control" [(ngModel)]="refineYears">
+                        <option [value]="null">{{ 'common.all' | translate }}</option>
+                        <option [value]="1">1</option>
+                        <option [value]="2">2</option>
+                        <option [value]="3">3</option>
+                        <option [value]="4">4</option>
+                        <option [value]="5">5</option>
+                    </select>
+                </div>
+                <div class="py-2">
+                    <button type="button" class="btn btn-primary btn-block py-2"
+                        [disabled]="json.length === 0 || (isLoading | async)"
+                        (click)="refine()">{{ 'tasks.accountDepositCSV.refine' | translate }}</button>
+                </div>
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label for="familyName" class="mb-2">{{ 'tasks.accountDepositCSV.amount' | translate }}</label>
+                <input class="form-control" [(ngModel)]="amount" type="number">
+            </div>
+            <div class="form-group col-md-6">
+                <label for="familyName" class="mb-2">{{ 'tasks.accountDepositCSV.message' | translate }}</label>
+                <input class="form-control" [(ngModel)]="message" type="text">
+            </div>
+        </div>
+
+        <div class="buttons mx-auto text-center">
+            <button (click)="deposit()" type="button" class="btn btn-primary btn-block py-3 mb-3"
+                [disabled]="targetTable.length === 0 || (isLoading | async)">{{ 'tasks.accountDepositCSV.next' | translate }}</button>
+        </div>
+    </div>
+    <p class="mb-4" *ngIf="targetTable.length === 0">{{ 'tasks.accountDepositCSV.notfound' | translate }}</p>
+
+    <div *ngIf="targetTable.length > 0" class="mb-4">
+        <h2 class="mb-2 font-weight-bold">{{ 'tasks.accountDepositCSV.targetTable' | translate }}</h2>
+        <div class="scroll-horizontal">
+            <table class="table bg-white bperson text-small mb-0 border border-gray">
+                <thead>
+                    <tr>
+                        <th scope="col">{{ 'person.search.username' | translate }}</th>
+                        <th scope="col">{{ 'person.search.name' | translate }}</th>
+                        <th scope="col">{{ 'common.email' | translate }}</th>
+                        <th scope="col">{{ 'common.telephone' | translate }}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let data of targetTable let index = index" [class.bg-light-gray]="index % 2 === 0">
+                        <td class="align-middle">
+                            {{ ((data.person.memberOf.membershipNumber !== undefined) ? data.person.memberOf.membershipNumber : '') }}
+                        </td>
+                        <td class="align-middle">{{ data.person.familyName }} {{ data.person.givenName }}</td>
+                        <td class="align-middle">{{ data.person.email }}</td>
+                        <td class="align-middle">{{ data.person.telephone }}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div *ngIf="successTable.length > 0" class="mb-4">
+        <h2 class="mb-2 font-weight-bold">{{ 'tasks.accountDepositCSV.successTable' | translate }}</h2>
+        <div class="scroll-horizontal">
+            <table class="table bg-white bperson text-small mb-0 border border-gray">
+                <thead>
+                    <tr>
+                        <th scope="col">{{ 'person.search.username' | translate }}</th>
+                        <th scope="col">{{ 'person.search.name' | translate }}</th>
+                        <th scope="col">{{ 'common.email' | translate }}</th>
+                        <th scope="col">{{ 'common.telephone' | translate }}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let data of successTable let index = index" [class.bg-light-gray]="index % 2 === 0">
+                        <td class="align-middle">
+                            {{ ((data.person.memberOf.membershipNumber !== undefined) ? data.person.memberOf.membershipNumber : '') }}
+                        </td>
+                        <td class="align-middle">{{ data.person.familyName }} {{ data.person.givenName }}</td>
+                        <td class="align-middle">{{ data.person.email }}</td>
+                        <td class="align-middle">{{ data.person.telephone }}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div *ngIf="failTable.length > 0" class="mb-4">
+        <h2 class="mb-2 font-weight-bold">{{ 'tasks.accountDepositCSV.failTable' | translate }}</h2>
+        <div class="scroll-horizontal">
+            <table class="table bg-white bperson text-small mb-0 border border-gray">
+                <thead>
+                    <tr>
+                        <th scope="col">{{ 'person.search.username' | translate }}</th>
+                        <th scope="col">{{ 'person.search.name' | translate }}</th>
+                        <th scope="col">{{ 'common.email' | translate }}</th>
+                        <th scope="col">{{ 'common.telephone' | translate }}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let data of failTable let index = index" [class.bg-light-gray]="index % 2 === 0">
+                        <td class="align-middle">
+                            {{ ((data.person.memberOf.membershipNumber !== undefined) ? data.person.memberOf.membershipNumber : '') }}
+                        </td>
+                        <td class="align-middle">{{ data.person.familyName }} {{ data.person.givenName }}</td>
+                        <td class="align-middle">{{ data.person.email }}</td>
+                        <td class="align-middle">{{ data.person.telephone }}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="buttons mx-auto text-center">
+        <button type="button" class="btn btn-link"
+            routerLink="/tasks">{{ 'tasks.accountDepositCSV.prev' | translate }}</button>
+    </div>
+</div>

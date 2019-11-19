@@ -153,10 +153,10 @@ export class OrderSearchComponent implements OnInit {
                     acceptedOffers: {
                         itemOffered: {
                             reservationFor: {
-                                startFrom: (this.confirmedConditions.eventStartDateFrom === undefined)
+                                inSessionFrom: (this.confirmedConditions.eventStartDateFrom === undefined)
                                     ? undefined
                                     : moment(moment(this.confirmedConditions.eventStartDateFrom).format('YYYYMMDD')).toDate(),
-                                startThrough: (this.confirmedConditions.eventStartDateThrough === undefined)
+                                inSessionThrough: (this.confirmedConditions.eventStartDateThrough === undefined)
                                     ? undefined
                                     : moment(moment(this.confirmedConditions.eventStartDateThrough)
                                         .format('YYYYMMDD')).add(1, 'day').toDate(),
