@@ -134,7 +134,7 @@ let OrderDownloadComponent = class OrderDownloadComponent {
         const now = moment__WEBPACK_IMPORTED_MODULE_4__().toDate();
         const today = moment__WEBPACK_IMPORTED_MODULE_4__(moment__WEBPACK_IMPORTED_MODULE_4__(now).format('YYYYMMDD'));
         this.conditions = {
-            orderDateFrom: moment__WEBPACK_IMPORTED_MODULE_4__(today).add(-1, 'month').toDate(),
+            orderDateFrom: moment__WEBPACK_IMPORTED_MODULE_4__(today).add(-4, 'month').toDate(),
             orderDateThrough: moment__WEBPACK_IMPORTED_MODULE_4__(today).toDate(),
             confirmationNumber: '',
             orderNumber: '',
@@ -297,7 +297,7 @@ let OrderDownloadComponent = class OrderDownloadComponent {
         const now = moment__WEBPACK_IMPORTED_MODULE_4__().toDate();
         const today = moment__WEBPACK_IMPORTED_MODULE_4__(moment__WEBPACK_IMPORTED_MODULE_4__(now).format('YYYYMMDD'));
         this.conditions = {
-            orderDateFrom: moment__WEBPACK_IMPORTED_MODULE_4__(today).add(-1, 'month').toDate(),
+            orderDateFrom: moment__WEBPACK_IMPORTED_MODULE_4__(today).add(-4, 'month').toDate(),
             orderDateThrough: moment__WEBPACK_IMPORTED_MODULE_4__(today).toDate(),
             confirmationNumber: '',
             orderNumber: '',

@@ -64,7 +64,7 @@ export class OrderDownloadComponent implements OnInit {
         const now = moment().toDate();
         const today = moment(moment(now).format('YYYYMMDD'));
         this.conditions = {
-            orderDateFrom: moment(today).add(-1, 'month').toDate(),
+            orderDateFrom: moment(today).add(-4, 'month').toDate(),
             orderDateThrough: moment(today).toDate(),
             confirmationNumber: '',
             orderNumber: '',
@@ -233,7 +233,7 @@ export class OrderDownloadComponent implements OnInit {
         const now = moment().toDate();
         const today = moment(moment(now).format('YYYYMMDD'));
         this.conditions = {
-            orderDateFrom: moment(today).add(-1, 'month').toDate(),
+            orderDateFrom: moment(today).add(-4, 'month').toDate(),
             orderDateThrough: moment(today).toDate(),
             confirmationNumber: '',
             orderNumber: '',
