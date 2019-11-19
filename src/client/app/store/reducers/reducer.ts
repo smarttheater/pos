@@ -7,7 +7,8 @@ import {
     personAction,
     purchaseAction,
     reservationAction,
-    userAction
+    userAction,
+    utilAction
 } from '../actions';
 import * as admissionReducer from './admission.reducer';
 import * as masterReducer from './master.reducer';
@@ -16,6 +17,7 @@ import * as personReducer from './person.reducer';
 import * as purchaseReducer from './purchase.reducer';
 import * as reservationReducer from './reservation.reducer';
 import * as userReducer from './user.reducer';
+import * as utilReducer from './util.reducer';
 
 /**
  * State
@@ -73,7 +75,8 @@ type Actions =
     | admissionAction.Actions
     | orderAction.Actions
     | personAction.Actions
-    | reservationAction.Actions;
+    | reservationAction.Actions
+    | utilAction.Actions;
 
 /**
  * Reducer
@@ -98,6 +101,8 @@ export function reducer(
         return personReducer.reducer(state, <personAction.Actions>action);
     } else if (/\[Reservation\]/.test(action.type)) {
         return reservationReducer.reducer(state, <reservationAction.Actions>action);
+    } else if (/\[Util\]/.test(action.type)) {
+        return utilReducer.reducer(state, <utilAction.Actions>action);
     } else {
         return state;
     }

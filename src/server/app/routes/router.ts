@@ -6,6 +6,7 @@ import * as moment from 'moment';
 import * as path from 'path';
 import * as authorize from '../controllers/authorize/authorize.controller';
 import authorizeRouter from './authorize';
+import downloadRouter from './download';
 import encryptionRouter from './encryption';
 
 export default (app: express.Application) => {
@@ -22,7 +23,7 @@ export default (app: express.Application) => {
     app.use('/api/encryption', encryptionRouter);
     app.get('/api/storage', (_req, res) => { res.json({ storage: process.env.STORAGE_URL }); });
     app.get('/api/serverTime', (_req, res) => { res.json({ date: moment().toISOString() }); });
-
+    app.use('/download', downloadRouter);
     app.get('/signIn', authorize.signInRedirect);
     app.get('/signOut', authorize.signOutRedirect);
 

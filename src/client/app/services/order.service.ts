@@ -7,6 +7,7 @@ import { take, tap } from 'rxjs/operators';
 import { IPrinter } from '../models';
 import { orderAction } from '../store/actions';
 import * as reducers from '../store/reducers';
+import { CinerinoService } from './cinerino.service';
 
 @Injectable({
     providedIn: 'root'
@@ -16,7 +17,8 @@ export class OrderService {
     public error: Observable<string | null>;
     constructor(
         private store: Store<reducers.IState>,
-        private actions: Actions
+        private actions: Actions,
+        private cinerino: CinerinoService
     ) {
         this.order = this.store.pipe(select(reducers.getOrder));
         this.error = this.store.pipe(select(reducers.getError));
@@ -153,6 +155,15 @@ export class OrderService {
             );
             race(success, fail).pipe(take(1)).subscribe();
         });
+    }
+
+    /**
+     * ストリーミングダウンロード
+     */
+    public async streamingDownload(prams: factory.order.ISearchConditions & {
+        format: factory.encodingFormat.Application | factory.encodingFormat.Text;
+    }) {
+        await this.cinerino.order.download(prams);
     }
 
 }

@@ -7,7 +7,7 @@ import { Response } from 'express';
 import * as httpStatus from 'http-status';
 // import { AuthModel } from '../../models/auth/auth.model';
 
-const log = debug('frontend:base');
+const log = debug('pos:base');
 
 /**
  * エラー
@@ -22,5 +22,5 @@ export function errorProsess(res: Response, err: any) {
     } else {
         res.status(httpStatus.BAD_REQUEST);
     }
-    res.json(err);
+    res.json({ err: err, message: err.message, name: err.name, code: err.code });
 }

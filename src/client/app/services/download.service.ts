@@ -83,6 +83,16 @@ export class DownloadService {
     }
 
     /**
+     * 注文情報CSVダウンロード
+     */
+    public orderStream(params: factory.order.ISearchConditions & {
+        format: factory.encodingFormat.Application | factory.encodingFormat.Text;
+    }) {
+        const url = `/download/order?params=${JSON.stringify(params)}`;
+        window.open(url, '_blank');
+    }
+
+    /**
      * 予約情報CSVダウンロード
      */
     public async reservation(params: factory.chevre.reservation.ISearchConditions<factory.chevre.reservationType.EventReservation>) {

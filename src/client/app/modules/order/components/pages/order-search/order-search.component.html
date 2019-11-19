@@ -136,9 +136,9 @@
             </div>
         </form>
     </div>
-    <p *ngIf="(order | async).orders.length === 0">{{ 'order.search.notfound' | translate }}</p>
+    <p class="mb-4" *ngIf="(order | async).orders.length === 0">{{ 'order.search.notfound' | translate }}</p>
 
-    <div *ngIf="(order | async).orders.length > 0">
+    <div class="mb-4" *ngIf="(order | async).orders.length > 0">
         <div class="mb-3 text-md-left text-center">
             <button class="btn btn-primary" (click)="downloadCsv()"
                 [disabled]="isDownload">{{ 'order.search.download' | translate }}</button>
@@ -238,7 +238,9 @@
                 </tbody>
             </table>
         </div>
-
-
+    </div>
+    <div class="buttons mx-auto text-center">
+        <button type="button" class="btn btn-link"
+            routerLink="/order">{{ 'order.search.prev' | translate }}</button>
     </div>
 </div>
