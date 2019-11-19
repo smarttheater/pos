@@ -14,17 +14,17 @@ router.get('/order', async (req: express.Request, res: express.Response) => {
     try {
         const params = <cinerino.factory.order.ISearchConditions & {
             format: cinerino.factory.encodingFormat.Application | cinerino.factory.encodingFormat.Text;
-        }>req.query;
+        }>JSON.parse(req.query.params);
         const orderService = new cinerino.service.Order({
             endpoint: <string>process.env.API_ENDPOINT,
             auth: new Auth2Model((<Express.Session>req.session).auth).create()
         });
         const stream = <NodeJS.ReadableStream>await orderService.download(params);
         const filename = 'OrderReport';
-        if (req.query.format === cinerino.factory.encodingFormat.Application.json) {
+        if (params.format === cinerino.factory.encodingFormat.Application.json) {
             res.setHeader('Content-disposition', `attachment; filename*=UTF-8\'\'${encodeURIComponent(`${filename}.json`)}`);
             res.setHeader('Content-Type', `${cinerino.factory.encodingFormat.Application.json}; charset=UTF-8`);
-        } else if (req.query.format === cinerino.factory.encodingFormat.Text.csv) {
+        } else if (params.format === cinerino.factory.encodingFormat.Text.csv) {
             res.setHeader('Content-disposition', `attachment; filename*=UTF-8\'\'${encodeURIComponent(`${filename}.csv`)}`);
             res.setHeader('Content-Type', `${cinerino.factory.encodingFormat.Text.csv}; charset=UTF-8`);
         }

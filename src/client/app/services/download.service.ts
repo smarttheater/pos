@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { factory } from '@cinerino/api-javascript-client';
 import * as json2csv from 'json2csv';
 import * as moment from 'moment';
-import { buildQueryString, formatTelephone, getTicketPrice, getTransactionAgentIdentifier } from '../functions';
+import { formatTelephone, getTicketPrice, getTransactionAgentIdentifier } from '../functions';
 import { CinerinoService } from './cinerino.service';
 import { UtilService } from './util.service';
 
@@ -85,10 +85,10 @@ export class DownloadService {
     /**
      * 注文情報CSVダウンロード
      */
-    public orderStream(prams: factory.order.ISearchConditions & {
+    public orderStream(params: factory.order.ISearchConditions & {
         format: factory.encodingFormat.Application | factory.encodingFormat.Text;
     }) {
-        const url = `/download/order?${buildQueryString(prams)}`;
+        const url = `/download/order?params=${JSON.stringify(params)}`;
         window.open(url, '_blank');
     }
 

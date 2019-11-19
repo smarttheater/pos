@@ -21,18 +21,18 @@ const router = express.Router();
 router.get('/order', (req, res) => __awaiter(this, void 0, void 0, function* () {
     log('order', req.query);
     try {
-        const params = req.query;
+        const params = JSON.parse(req.query.params);
         const orderService = new cinerino.service.Order({
             endpoint: process.env.API_ENDPOINT,
             auth: new auth2_model_1.Auth2Model(req.session.auth).create()
         });
         const stream = yield orderService.download(params);
         const filename = 'OrderReport';
-        if (req.query.format === cinerino.factory.encodingFormat.Application.json) {
+        if (params.format === cinerino.factory.encodingFormat.Application.json) {
             res.setHeader('Content-disposition', `attachment; filename*=UTF-8\'\'${encodeURIComponent(`${filename}.json`)}`);
             res.setHeader('Content-Type', `${cinerino.factory.encodingFormat.Application.json}; charset=UTF-8`);
         }
-        else if (req.query.format === cinerino.factory.encodingFormat.Text.csv) {
+        else if (params.format === cinerino.factory.encodingFormat.Text.csv) {
             res.setHeader('Content-disposition', `attachment; filename*=UTF-8\'\'${encodeURIComponent(`${filename}.csv`)}`);
             res.setHeader('Content-Type', `${cinerino.factory.encodingFormat.Text.csv}; charset=UTF-8`);
         }

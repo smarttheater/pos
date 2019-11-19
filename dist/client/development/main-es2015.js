@@ -5435,8 +5435,8 @@ let DownloadService = class DownloadService {
     /**
      * 注文情報CSVダウンロード
      */
-    orderStream(prams) {
-        const url = `/download/order?${Object(_functions__WEBPACK_IMPORTED_MODULE_4__["buildQueryString"])(prams)}`;
+    orderStream(params) {
+        const url = `/download/order?params=${JSON.stringify(params)}`;
         window.open(url, '_blank');
     }
     /**

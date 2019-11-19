@@ -155,13 +155,14 @@ export class OrderDownloadComponent implements OnInit {
                     acceptedOffers: {
                         itemOffered: {
                             reservationFor: {
-                                startFrom: (this.confirmedConditions.eventStartDateFrom === undefined)
+                                inSessionFrom: (this.confirmedConditions.eventStartDateFrom === undefined)
                                     ? undefined
                                     : <any>moment(moment(this.confirmedConditions.eventStartDateFrom).format('YYYYMMDD')).toISOString(),
-                                startThrough: (this.confirmedConditions.eventStartDateThrough === undefined)
+                                inSessionThrough: (this.confirmedConditions.eventStartDateThrough === undefined)
                                     ? undefined
                                     : <any>moment(moment(this.confirmedConditions.eventStartDateThrough)
                                         .format('YYYYMMDD')).add(1, 'day').toISOString(),
+
                             }
                         }
                     },
