@@ -140,7 +140,7 @@
 
     <div class="mb-4" *ngIf="(order | async).orders.length > 0">
         <div class="mb-3 text-md-left text-center">
-            <button class="btn btn-primary" (click)="downloadCsv()"
+            <button id="downloadButton" class="btn btn-primary" (click)="downloadCsv()"
                 [disabled]="isDownload">{{ 'order.search.download' | translate }}</button>
         </div>
         <div class="d-md-flex align-items-center justify-content-between mb-4">
@@ -159,8 +159,8 @@
                     <option [value]="OrderActions.Cancel">{{ 'order.search.cancel' | translate }}</option>
                     <option [value]="OrderActions.Print">{{ 'order.search.print' | translate }}</option>
                 </select>
-                <button type="button" class="btn btn-primary py-2 px-4"
-                    (click)="selecedtAction()">{{ 'order.search.apply' | translate }}</button>
+                <button id="selectedActionButton" type="button" class="btn btn-primary py-2 px-4"
+                    (click)="selectedAction()">{{ 'order.search.apply' | translate }}</button>
             </div>
         </div>
 

@@ -325,7 +325,7 @@ export class OrderSearchComponent implements OnInit {
     /**
      * 選択した注文へのアクション
      */
-    public selecedtAction() {
+    public selectedAction() {
         if (this.selectedOrders.length === 0) {
             this.utilService.openAlert({
                 title: this.translate.instant('common.error'),
