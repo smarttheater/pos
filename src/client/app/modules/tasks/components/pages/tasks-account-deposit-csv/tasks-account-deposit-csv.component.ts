@@ -5,6 +5,7 @@ import { TranslateService } from '@ngx-translate/core';
 import * as csvtojson from 'csvtojson';
 import * as moment from 'moment';
 import { Observable } from 'rxjs';
+import { sleep } from '../../../../../functions';
 import { CinerinoService, UtilService } from '../../../../../services';
 import * as reducers from '../../../../../store/reducers';
 
@@ -161,6 +162,7 @@ export class TasksAccountDepositCSVComponent implements OnInit {
                     programMembership: programMembership.data,
                     account: account.data[0]
                 });
+                await sleep(1000);
             }
             if (this.refineYears === null) {
                 this.targetTable = tmpData;
@@ -220,6 +222,7 @@ export class TasksAccountDepositCSVComponent implements OnInit {
                     console.error(error);
                     this.failTable.push(data);
                 }
+                await sleep(1000);
             }
         } catch (error) {
             this.utilService.openAlert({

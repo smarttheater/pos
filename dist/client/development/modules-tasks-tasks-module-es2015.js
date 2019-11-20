@@ -102,8 +102,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var csvtojson__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(csvtojson__WEBPACK_IMPORTED_MODULE_4__);
 /* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! moment */ "../../node_modules/moment/moment.js");
 /* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_5__);
-/* harmony import */ var _services__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../../../../services */ "./app/services/index.ts");
-/* harmony import */ var _store_reducers__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../../../../../store/reducers */ "./app/store/reducers/index.ts");
+/* harmony import */ var _functions__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../../../../functions */ "./app/functions/index.ts");
+/* harmony import */ var _services__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../../../../../services */ "./app/services/index.ts");
+/* harmony import */ var _store_reducers__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../../../../../store/reducers */ "./app/store/reducers/index.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -132,6 +133,7 @@ var __importDefault = (undefined && undefined.__importDefault) || function (mod)
 
 
 
+
 let TasksAccountDepositCSVComponent = class TasksAccountDepositCSVComponent {
     constructor(store, utilService, translate, cinerinoService) {
         this.store = store;
@@ -140,7 +142,7 @@ let TasksAccountDepositCSVComponent = class TasksAccountDepositCSVComponent {
         this.cinerinoService = cinerinoService;
     }
     ngOnInit() {
-        this.isLoading = this.store.pipe(Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_2__["select"])(_store_reducers__WEBPACK_IMPORTED_MODULE_7__["getLoading"]));
+        this.isLoading = this.store.pipe(Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_2__["select"])(_store_reducers__WEBPACK_IMPORTED_MODULE_8__["getLoading"]));
         this.json = [];
         this.targetTable = [];
         this.successTable = [];
@@ -253,6 +255,7 @@ let TasksAccountDepositCSVComponent = class TasksAccountDepositCSVComponent {
                         programMembership: programMembership.data,
                         account: account.data[0]
                     });
+                    yield Object(_functions__WEBPACK_IMPORTED_MODULE_6__["sleep"])(1000);
                 }
                 if (this.refineYears === null) {
                     this.targetTable = tmpData;
@@ -316,6 +319,7 @@ let TasksAccountDepositCSVComponent = class TasksAccountDepositCSVComponent {
                         console.error(error);
                         this.failTable.push(data);
                     }
+                    yield Object(_functions__WEBPACK_IMPORTED_MODULE_6__["sleep"])(1000);
                 }
             }
             catch (error) {
@@ -334,9 +338,9 @@ let TasksAccountDepositCSVComponent = class TasksAccountDepositCSVComponent {
 };
 TasksAccountDepositCSVComponent.ctorParameters = () => [
     { type: _ngrx_store__WEBPACK_IMPORTED_MODULE_2__["Store"] },
-    { type: _services__WEBPACK_IMPORTED_MODULE_6__["UtilService"] },
+    { type: _services__WEBPACK_IMPORTED_MODULE_7__["UtilService"] },
     { type: _ngx_translate_core__WEBPACK_IMPORTED_MODULE_3__["TranslateService"] },
-    { type: _services__WEBPACK_IMPORTED_MODULE_6__["CinerinoService"] }
+    { type: _services__WEBPACK_IMPORTED_MODULE_7__["CinerinoService"] }
 ];
 TasksAccountDepositCSVComponent = __decorate([
     Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
@@ -345,9 +349,9 @@ TasksAccountDepositCSVComponent = __decorate([
         styles: [__importDefault(__webpack_require__(/*! ./tasks-account-deposit-csv.component.scss */ "./app/modules/tasks/components/pages/tasks-account-deposit-csv/tasks-account-deposit-csv.component.scss")).default]
     }),
     __metadata("design:paramtypes", [_ngrx_store__WEBPACK_IMPORTED_MODULE_2__["Store"],
-        _services__WEBPACK_IMPORTED_MODULE_6__["UtilService"],
+        _services__WEBPACK_IMPORTED_MODULE_7__["UtilService"],
         _ngx_translate_core__WEBPACK_IMPORTED_MODULE_3__["TranslateService"],
-        _services__WEBPACK_IMPORTED_MODULE_6__["CinerinoService"]])
+        _services__WEBPACK_IMPORTED_MODULE_7__["CinerinoService"]])
 ], TasksAccountDepositCSVComponent);
 
 
