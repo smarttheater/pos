@@ -68,7 +68,11 @@ export class OrderSearchComponent implements OnInit {
         this.order = this.store.pipe(select(reducers.getOrder));
         this.user = this.store.pipe(select(reducers.getUser));
         this.limit = 20;
+        const now = moment().toDate();
+        const today = moment(moment(now).format('YYYYMMDD'));
         this.conditions = {
+            orderDateFrom: moment(today).add(-2, 'week').toDate(),
+            orderDateThrough: moment(today).toDate(),
             confirmationNumber: '',
             orderNumber: '',
             customer: {
@@ -231,7 +235,11 @@ export class OrderSearchComponent implements OnInit {
      * 検索条件クリア
      */
     public searchConditionClear() {
+        const now = moment().toDate();
+        const today = moment(moment(now).format('YYYYMMDD'));
         this.conditions = {
+            orderDateFrom: moment(today).add(-2, 'week').toDate(),
+            orderDateThrough: moment(today).toDate(),
             confirmationNumber: '',
             orderNumber: '',
             customer: {
