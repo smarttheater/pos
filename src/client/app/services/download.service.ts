@@ -85,10 +85,11 @@ export class DownloadService {
     /**
      * 注文情報CSVダウンロード
      */
-    public orderStream(params: factory.order.ISearchConditions & {
+    public async orderStream(params: factory.order.ISearchConditions & {
         format: factory.encodingFormat.Application | factory.encodingFormat.Text;
     }) {
         const url = `/download/order?params=${JSON.stringify(params)}`;
+        await this.cinerino.order.download({ ...params, format: factory.encodingFormat.Application.json });
         window.open(url, '_blank');
     }
 

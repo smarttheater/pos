@@ -27,7 +27,7 @@ var n=r(38),i=r(39),o=r(40);function s(){return u.TYPED_ARRAY_SUPPORT?2147483647
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("<div class=\"contents-width mx-auto px-3 py-5\">\n    <h2 class=\"text-large mb-4 text-center font-weight-bold\">{{ 'tasks.accountDepositCSV.title' | translate }}</h2>\n    <p class=\"mb-4 text-md-center\" [innerHTML]=\"'tasks.accountDepositCSV.read' | translate\"></p>\n    <div class=\"p-3 bg-white mb-4\">\n        <div class=\"mb-3 py-2\"><input type=\"file\" (change)=\"onChangeInput($event)\"></div>\n        <div class=\"form-group\">\n            <div class=\"d-md-flex align-items-center\">\n                <p class=\"py-2 mr-md-3\">{{ 'tasks.accountDepositCSV.years' | translate }}</p>\n                <div class=\"py-2 mr-md-3\">\n                    <select class=\"form-control\" [(ngModel)]=\"refineYears\">\n                        <option [value]=\"null\">{{ 'common.all' | translate }}</option>\n                        <option [value]=\"1\">1</option>\n                        <option [value]=\"2\">2</option>\n                        <option [value]=\"3\">3</option>\n                        <option [value]=\"4\">4</option>\n                        <option [value]=\"5\">5</option>\n                    </select>\n                </div>\n                <div class=\"py-2\">\n                    <button type=\"button\" class=\"btn btn-primary btn-block py-2\"\n                        [disabled]=\"json.length === 0 || (isLoading | async)\"\n                        (click)=\"refine()\">{{ 'tasks.accountDepositCSV.refine' | translate }}</button>\n                </div>\n            </div>\n        </div>\n        <div class=\"form-row\">\n            <div class=\"form-group col-md-6\">\n                <label for=\"familyName\" class=\"mb-2\">{{ 'tasks.accountDepositCSV.amount' | translate }}</label>\n                <input class=\"form-control\" [(ngModel)]=\"amount\" type=\"number\">\n            </div>\n            <div class=\"form-group col-md-6\">\n                <label for=\"familyName\" class=\"mb-2\">{{ 'tasks.accountDepositCSV.message' | translate }}</label>\n                <input class=\"form-control\" [(ngModel)]=\"message\" type=\"text\">\n            </div>\n        </div>\n\n        <div class=\"buttons mx-auto text-center\">\n            <button (click)=\"deposit()\" type=\"button\" class=\"btn btn-primary btn-block py-3 mb-3\"\n                [disabled]=\"targetTable.length === 0 || (isLoading | async)\">{{ 'tasks.accountDepositCSV.next' | translate }}</button>\n        </div>\n    </div>\n    <p class=\"mb-4\" *ngIf=\"targetTable.length === 0\">{{ 'tasks.accountDepositCSV.notfound' | translate }}</p>\n\n    <div *ngIf=\"targetTable.length > 0\" class=\"mb-4\">\n        <h2 class=\"mb-2 font-weight-bold\">{{ 'tasks.accountDepositCSV.targetTable' | translate }}</h2>\n        <div class=\"scroll-horizontal\">\n            <table class=\"table bg-white bperson text-small mb-0 border border-gray\">\n                <thead>\n                    <tr>\n                        <th scope=\"col\">{{ 'person.search.username' | translate }}</th>\n                        <th scope=\"col\">{{ 'person.search.name' | translate }}</th>\n                        <th scope=\"col\">{{ 'common.email' | translate }}</th>\n                        <th scope=\"col\">{{ 'common.telephone' | translate }}</th>\n                    </tr>\n                </thead>\n                <tbody>\n                    <tr *ngFor=\"let data of targetTable let index = index\" [class.bg-light-gray]=\"index % 2 === 0\">\n                        <td class=\"align-middle\">\n                            {{ ((data.person.memberOf.membershipNumber !== undefined) ? data.person.memberOf.membershipNumber : '') }}\n                        </td>\n                        <td class=\"align-middle\">{{ data.person.familyName }} {{ data.person.givenName }}</td>\n                        <td class=\"align-middle\">{{ data.person.email }}</td>\n                        <td class=\"align-middle\">{{ data.person.telephone }}</td>\n                    </tr>\n                </tbody>\n            </table>\n        </div>\n    </div>\n\n    <div *ngIf=\"successTable.length > 0\" class=\"mb-4\">\n        <h2 class=\"mb-2 font-weight-bold\">{{ 'tasks.accountDepositCSV.successTable' | translate }}</h2>\n        <div class=\"scroll-horizontal\">\n            <table class=\"table bg-white bperson text-small mb-0 border border-gray\">\n                <thead>\n                    <tr>\n                        <th scope=\"col\">{{ 'person.search.username' | translate }}</th>\n                        <th scope=\"col\">{{ 'person.search.name' | translate }}</th>\n                        <th scope=\"col\">{{ 'common.email' | translate }}</th>\n                        <th scope=\"col\">{{ 'common.telephone' | translate }}</th>\n                    </tr>\n                </thead>\n                <tbody>\n                    <tr *ngFor=\"let data of successTable let index = index\" [class.bg-light-gray]=\"index % 2 === 0\">\n                        <td class=\"align-middle\">\n                            {{ ((data.person.memberOf.membershipNumber !== undefined) ? data.person.memberOf.membershipNumber : '') }}\n                        </td>\n                        <td class=\"align-middle\">{{ data.person.familyName }} {{ data.person.givenName }}</td>\n                        <td class=\"align-middle\">{{ data.person.email }}</td>\n                        <td class=\"align-middle\">{{ data.person.telephone }}</td>\n                    </tr>\n                </tbody>\n            </table>\n        </div>\n    </div>\n\n    <div *ngIf=\"failTable.length > 0\" class=\"mb-4\">\n        <h2 class=\"mb-2 font-weight-bold\">{{ 'tasks.accountDepositCSV.failTable' | translate }}</h2>\n        <div class=\"scroll-horizontal\">\n            <table class=\"table bg-white bperson text-small mb-0 border border-gray\">\n                <thead>\n                    <tr>\n                        <th scope=\"col\">{{ 'person.search.username' | translate }}</th>\n                        <th scope=\"col\">{{ 'person.search.name' | translate }}</th>\n                        <th scope=\"col\">{{ 'common.email' | translate }}</th>\n                        <th scope=\"col\">{{ 'common.telephone' | translate }}</th>\n                    </tr>\n                </thead>\n                <tbody>\n                    <tr *ngFor=\"let data of failTable let index = index\" [class.bg-light-gray]=\"index % 2 === 0\">\n                        <td class=\"align-middle\">\n                            {{ ((data.person.memberOf.membershipNumber !== undefined) ? data.person.memberOf.membershipNumber : '') }}\n                        </td>\n                        <td class=\"align-middle\">{{ data.person.familyName }} {{ data.person.givenName }}</td>\n                        <td class=\"align-middle\">{{ data.person.email }}</td>\n                        <td class=\"align-middle\">{{ data.person.telephone }}</td>\n                    </tr>\n                </tbody>\n            </table>\n        </div>\n    </div>\n    <div class=\"buttons mx-auto text-center\">\n        <button type=\"button\" class=\"btn btn-link\"\n            routerLink=\"/tasks\">{{ 'tasks.accountDepositCSV.prev' | translate }}</button>\n    </div>\n</div>");
+/* harmony default export */ __webpack_exports__["default"] = ("<div class=\"contents-width mx-auto px-3 py-5\">\n    <h2 class=\"text-large mb-4 text-center font-weight-bold\">{{ 'tasks.accountDepositCSV.title' | translate }}</h2>\n    <p class=\"mb-4 text-md-center\" [innerHTML]=\"'tasks.accountDepositCSV.read' | translate\"></p>\n    <div class=\"p-3 bg-white mb-4\">\n        <div class=\"form-row\">\n            <div class=\"form-group col-md-3\">\n                <label for=\"orderDateFrom\"\n                    class=\"mb-2\">{{ 'tasks.accountDepositCSV.conditions.orderDateFrom' | translate }}</label>\n                <input type=\"text\" name=\"orderDateFrom\" id=\"orderDateFrom\" placeholder=\"YYYY/MM/DD\" class=\"form-control\"\n                    #orderDateFrom=\"bsDatepicker\" bsDatepicker [(ngModel)]=\"conditions.orderDateFrom\"\n                    [bsConfig]=\"{ dateInputFormat: 'YYYY/MM/DD', adaptivePosition: true, showWeekNumbers: false }\"\n                    readonly (onShown)=\"onShowPicker($event)\" (click)=\"setDatePicker()\">\n            </div>\n            <div class=\"form-group col-md-3\">\n                <label for=\"orderDateThrough\"\n                    class=\"mb-2\">{{ 'tasks.accountDepositCSV.conditions.orderDateThrough' | translate }}</label>\n                <input type=\"text\" name=\"orderDateThrough\" id=\"orderDateThrough\" placeholder=\"YYYY/MM/DD\"\n                    class=\"form-control\" #orderDateThrough=\"bsDatepicker\" bsDatepicker\n                    [(ngModel)]=\"conditions.orderDateThrough\"\n                    [bsConfig]=\"{ dateInputFormat: 'YYYY/MM/DD', adaptivePosition: true, showWeekNumbers: false }\"\n                    readonly (onShown)=\"onShowPicker($event)\" (click)=\"setDatePicker()\">\n            </div>\n            <div class=\"form-group col-md-3\">\n                <label for=\"itemId\" class=\"mb-2\">{{ 'tasks.accountDepositCSV.conditions.itemId' | translate }}</label>\n                <input type=\"text\" class=\"form-control\" name=\"itemId\" id=\"itemId\" [(ngModel)]=\"conditions.itemId\"\n                    placeholder=\"{{ 'tasks.accountDepositCSV.conditions.itemId' | translate }}\">\n            </div>\n        </div>\n        <div class=\"form-row\">\n            <div class=\"form-group col-md-3\">\n                <button type=\"button\" class=\"btn btn-primary btn-block py-2\"\n                    [disabled]=\"conditions.itemId === '' || (isLoading | async)\"\n                    (click)=\"download()\">{{ 'tasks.accountDepositCSV.download' | translate }}</button>\n            </div>\n        </div>\n\n        <div class=\"mb-3 py-2\"><input type=\"file\" (change)=\"onChangeInput($event)\"></div>\n\n        <div class=\"form-row form-group align-items-center\">\n            <div class=\"col-md-3 mb-md-0 mb-2\">\n                <label for=\"message\">{{ 'tasks.accountDepositCSV.message' | translate }}</label>\n            </div>\n            <div class=\"col-md-4 mb-md-0 mb-2\">\n                <input id=\"message\" class=\"form-control\" [(ngModel)]=\"message\" type=\"text\">\n            </div>\n            <div class=\"col-md-2 mb-md-0 mb-3\">\n                <button type=\"button\" class=\"btn btn-primary btn-block py-2\"\n                    [disabled]=\"json.length === 0 || (isLoading | async)\"\n                    (click)=\"refine()\">{{ 'tasks.accountDepositCSV.refine' | translate }}</button>\n            </div>\n        </div>\n        <div class=\"form-row form-group align-items-center\">\n            <div class=\"col-md-3 mb-md-0 mb-2\">\n                <label for=\"amount\">{{ 'tasks.accountDepositCSV.amount' | translate }}</label>\n            </div>\n            <div class=\"col-md-4 mb-md-0 mb-2\">\n                <input id=\"amount\" class=\"form-control\" [(ngModel)]=\"amount\" type=\"text\">\n            </div>\n            <div class=\"col-md-2 mb-md-0 mb-3\">\n                <button type=\"button\" class=\"btn btn-primary btn-block py-2\"\n                    [disabled]=\"json.length === 0 || (isLoading | async)\"\n                    (click)=\"deposit()\">{{ 'tasks.accountDepositCSV.next' | translate }}</button>\n            </div>\n        </div>\n    </div>\n    <p class=\"mb-4\" *ngIf=\"targetTable.length === 0\">{{ 'tasks.accountDepositCSV.notfound' | translate }}</p>\n\n    <div *ngIf=\"targetTable.length > 0\" class=\"mb-4\">\n        <h2 class=\"mb-2 font-weight-bold\">{{ 'tasks.accountDepositCSV.targetTable' | translate }}</h2>\n        <div class=\"scroll-horizontal\">\n            <table class=\"table bg-white bperson text-small mb-0 border border-gray\">\n                <thead>\n                    <tr>\n                        <th scope=\"col\">{{ 'person.search.username' | translate }}</th>\n                        <th scope=\"col\">{{ 'person.search.name' | translate }}</th>\n                        <th scope=\"col\">{{ 'common.email' | translate }}</th>\n                        <th scope=\"col\">{{ 'common.telephone' | translate }}</th>\n                    </tr>\n                </thead>\n                <tbody>\n                    <tr *ngFor=\"let data of targetTable let index = index\" [class.bg-light-gray]=\"index % 2 === 0\">\n                        <td class=\"align-middle\">\n                            {{ ((data.person.memberOf.membershipNumber !== undefined) ? data.person.memberOf.membershipNumber : '') }}\n                        </td>\n                        <td class=\"align-middle\">{{ data.person.familyName }} {{ data.person.givenName }}</td>\n                        <td class=\"align-middle\">{{ data.person.email }}</td>\n                        <td class=\"align-middle\">{{ data.person.telephone }}</td>\n                    </tr>\n                </tbody>\n            </table>\n        </div>\n    </div>\n\n    <div *ngIf=\"successTable.length > 0\" class=\"mb-4\">\n        <h2 class=\"mb-2 font-weight-bold\">{{ 'tasks.accountDepositCSV.successTable' | translate }}</h2>\n        <div class=\"scroll-horizontal\">\n            <table class=\"table bg-white bperson text-small mb-0 border border-gray\">\n                <thead>\n                    <tr>\n                        <th scope=\"col\">{{ 'person.search.username' | translate }}</th>\n                        <th scope=\"col\">{{ 'person.search.name' | translate }}</th>\n                        <th scope=\"col\">{{ 'common.email' | translate }}</th>\n                        <th scope=\"col\">{{ 'common.telephone' | translate }}</th>\n                    </tr>\n                </thead>\n                <tbody>\n                    <tr *ngFor=\"let data of successTable let index = index\" [class.bg-light-gray]=\"index % 2 === 0\">\n                        <td class=\"align-middle\">\n                            {{ ((data.person.memberOf.membershipNumber !== undefined) ? data.person.memberOf.membershipNumber : '') }}\n                        </td>\n                        <td class=\"align-middle\">{{ data.person.familyName }} {{ data.person.givenName }}</td>\n                        <td class=\"align-middle\">{{ data.person.email }}</td>\n                        <td class=\"align-middle\">{{ data.person.telephone }}</td>\n                    </tr>\n                </tbody>\n            </table>\n        </div>\n    </div>\n\n    <div *ngIf=\"failTable.length > 0\" class=\"mb-4\">\n        <h2 class=\"mb-2 font-weight-bold\">{{ 'tasks.accountDepositCSV.failTable' | translate }}</h2>\n        <div class=\"scroll-horizontal\">\n            <table class=\"table bg-white bperson text-small mb-0 border border-gray\">\n                <thead>\n                    <tr>\n                        <th scope=\"col\">{{ 'person.search.username' | translate }}</th>\n                        <th scope=\"col\">{{ 'person.search.name' | translate }}</th>\n                        <th scope=\"col\">{{ 'common.email' | translate }}</th>\n                        <th scope=\"col\">{{ 'common.telephone' | translate }}</th>\n                    </tr>\n                </thead>\n                <tbody>\n                    <tr *ngFor=\"let data of failTable let index = index\" [class.bg-light-gray]=\"index % 2 === 0\">\n                        <td class=\"align-middle\">\n                            {{ ((data.person.memberOf.membershipNumber !== undefined) ? data.person.memberOf.membershipNumber : '') }}\n                        </td>\n                        <td class=\"align-middle\">{{ data.person.familyName }} {{ data.person.givenName }}</td>\n                        <td class=\"align-middle\">{{ data.person.email }}</td>\n                        <td class=\"align-middle\">{{ data.person.telephone }}</td>\n                    </tr>\n                </tbody>\n            </table>\n        </div>\n    </div>\n    <div class=\"buttons mx-auto text-center\">\n        <button type=\"button\" class=\"btn btn-link\"\n            routerLink=\"/tasks\">{{ 'tasks.accountDepositCSV.prev' | translate }}</button>\n    </div>\n</div>");
 
 /***/ }),
 
@@ -102,9 +102,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var csvtojson__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(csvtojson__WEBPACK_IMPORTED_MODULE_4__);
 /* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! moment */ "../../node_modules/moment/moment.js");
 /* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_5__);
-/* harmony import */ var _functions__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../../../../functions */ "./app/functions/index.ts");
-/* harmony import */ var _services__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../../../../../services */ "./app/services/index.ts");
-/* harmony import */ var _store_reducers__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../../../../../store/reducers */ "./app/store/reducers/index.ts");
+/* harmony import */ var ngx_bootstrap__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ngx-bootstrap */ "../../node_modules/ngx-bootstrap/esm5/ngx-bootstrap.js");
+/* harmony import */ var _functions__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../../../../../functions */ "./app/functions/index.ts");
+/* harmony import */ var _services__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../../../../../services */ "./app/services/index.ts");
+/* harmony import */ var _store_reducers__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../../../../../store/reducers */ "./app/store/reducers/index.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -134,22 +135,72 @@ var __importDefault = (undefined && undefined.__importDefault) || function (mod)
 
 
 
+
 let TasksAccountDepositCSVComponent = class TasksAccountDepositCSVComponent {
-    constructor(store, utilService, translate, cinerinoService) {
+    constructor(store, utilService, translate, cinerinoService, downloadService, localeService) {
         this.store = store;
         this.utilService = utilService;
         this.translate = translate;
         this.cinerinoService = cinerinoService;
+        this.downloadService = downloadService;
+        this.localeService = localeService;
     }
     ngOnInit() {
-        this.isLoading = this.store.pipe(Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_2__["select"])(_store_reducers__WEBPACK_IMPORTED_MODULE_8__["getLoading"]));
+        this.isLoading = this.store.pipe(Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_2__["select"])(_store_reducers__WEBPACK_IMPORTED_MODULE_9__["getLoading"]));
+        this.user = this.store.pipe(Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_2__["select"])(_store_reducers__WEBPACK_IMPORTED_MODULE_9__["getUser"]));
         this.json = [];
         this.targetTable = [];
         this.successTable = [];
         this.failTable = [];
-        this.refineYears = null;
         this.message = this.translate.instant('tasks.accountDepositCSV.defaultMessage');
         this.amount = 1;
+        const now = moment__WEBPACK_IMPORTED_MODULE_5__().toDate();
+        const today = moment__WEBPACK_IMPORTED_MODULE_5__(moment__WEBPACK_IMPORTED_MODULE_5__(now).format('YYYYMMDD'));
+        this.conditions = {
+            // orderDateFrom: moment(today).add(-2, 'year').toDate(),
+            // orderDateThrough: moment(today).add(-1, 'year').toDate(),
+            orderDateFrom: moment__WEBPACK_IMPORTED_MODULE_5__(today).add(-2, 'day').toDate(),
+            orderDateThrough: moment__WEBPACK_IMPORTED_MODULE_5__(today).add(1, 'day').toDate(),
+            itemId: ''
+        };
+    }
+    /**
+     * ファイルダウンロード
+     */
+    download() {
+        return __awaiter(this, void 0, void 0, function* () {
+            // iOS bugfix
+            this.conditions.itemId
+                = document.getElementById('itemId').value;
+            try {
+                const params = {
+                    orderDateFrom: (this.conditions.orderDateFrom === undefined)
+                        ? undefined
+                        : moment__WEBPACK_IMPORTED_MODULE_5__(moment__WEBPACK_IMPORTED_MODULE_5__(this.conditions.orderDateFrom).format('YYYYMMDD')).toISOString(),
+                    orderDateThrough: (this.conditions.orderDateThrough === undefined)
+                        ? undefined
+                        : moment__WEBPACK_IMPORTED_MODULE_5__(moment__WEBPACK_IMPORTED_MODULE_5__(this.conditions.orderDateThrough)
+                            .add(1, 'day').format('YYYYMMDD')).add(1, 'day').toISOString(),
+                    acceptedOffers: {
+                        itemOffered: {
+                            ids: [this.conditions.itemId]
+                        }
+                    },
+                    sort: {
+                        orderDate: _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_1__["factory"].sortType.Descending
+                    },
+                    format: _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_1__["factory"].encodingFormat.Text.csv
+                };
+                this.downloadService.orderStream(params);
+            }
+            catch (error) {
+                console.error(error);
+                this.utilService.openAlert({
+                    title: this.translate.instant('common.error'),
+                    body: this.translate.instant('tasks.accountDepositCSV.alert.download')
+                });
+            }
+        });
     }
     /**
      * ファイルアップロード
@@ -231,48 +282,70 @@ let TasksAccountDepositCSVComponent = class TasksAccountDepositCSVComponent {
                         deduplication.push({ id, userName, name, email, telephone });
                     }
                 });
-                const tmpData = [];
+                const data = [];
+                const now = (yield this.utilService.getServerTime()).date;
                 yield this.cinerinoService.getServices();
-                for (const data of deduplication) {
-                    const person = yield this.cinerinoService.person.search({ id: data.id });
+                for (const d of deduplication) {
+                    // 会員情報取得
+                    const person = yield this.cinerinoService.person.search({ id: d.id });
+                    // 会員プログラム取得
                     const programMembership = yield this.cinerinoService.admin.ownershipInfo
                         .search({
-                        ownedBy: { id: data.id },
+                        sort: { ownedFrom: _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_1__["factory"].sortType.Descending },
+                        limit: 10,
+                        ownedBy: { id: d.id },
                         typeOfGood: {
                             typeOf: _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_1__["factory"].programMembership.ProgramMembershipType.ProgramMembership
                         }
                     });
+                    // ポイント口座取得
                     const account = yield this.cinerinoService.admin.ownershipInfo
                         .search({
-                        ownedBy: { id: data.id },
+                        ownedBy: { id: d.id },
                         typeOfGood: {
                             typeOf: _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_1__["factory"].ownershipInfo.AccountGoodType.Account,
                             accountType: _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_1__["factory"].accountType.Point
                         }
                     });
-                    tmpData.push({
+                    // ポイント遷移
+                    // const getPointTransferActions = async () => {
+                    //     const limit = 100;
+                    //     let page = 1;
+                    //     let roop = true;
+                    //     let result: factory.pecorino.action.transfer.moneyTransfer.IAction<factory.accountType.Point>[] = [];
+                    //     while (roop) {
+                    //         const pointTransferActionsResult =
+                    //             await this.cinerinoService.ownershipInfo
+                    //                 .searchAccountMoneyTransferActions<factory.accountType.Point>({
+                    //                     page,
+                    //                     limit,
+                    //                     id: d.id,
+                    //                     accountType: factory.accountType.Point,
+                    //                     accountNumber: account.data[0].typeOfGood.accountNumber
+                    //                 });
+                    //         result = result.concat(pointTransferActionsResult.data);
+                    //         const lastPage = Math.ceil(pointTransferActionsResult.totalCount / limit);
+                    //         page++;
+                    //         roop = !(page > lastPage);
+                    //     }
+                    //     return result;
+                    // };
+                    // const pointTransferActions = await getPointTransferActions();
+                    const pointTransferActions = [];
+                    const depositedCount = pointTransferActions.filter(p => p.description === this.message).length;
+                    data.push({
                         person: person.data[0],
-                        programMembership: programMembership.data,
-                        account: account.data[0]
+                        programMembership: programMembership.data[0],
+                        account: account.data[0],
+                        validityMember: (moment__WEBPACK_IMPORTED_MODULE_5__(programMembership.data[0].ownedFrom).unix() < moment__WEBPACK_IMPORTED_MODULE_5__(now).unix()
+                            && moment__WEBPACK_IMPORTED_MODULE_5__(programMembership.data[0].ownedThrough).unix() > moment__WEBPACK_IMPORTED_MODULE_5__(now).unix()),
+                        programMembershipCount: programMembership.totalCount,
+                        depositedCount,
+                        depositCount: ((programMembership.totalCount - 1 - depositedCount) > 0)
+                            ? programMembership.totalCount - 1 - depositedCount : 0,
+                        pointTransferActions
                     });
-                    yield Object(_functions__WEBPACK_IMPORTED_MODULE_6__["sleep"])(1000);
-                }
-                if (this.refineYears === null) {
-                    this.targetTable = tmpData;
-                }
-                else {
-                    // 会員年数で絞り込み
-                    const now = (yield this.utilService.getServerTime()).date;
-                    tmpData.forEach((data) => {
-                        const validity = data.programMembership.find((p) => {
-                            return (moment__WEBPACK_IMPORTED_MODULE_5__(p.ownedFrom).unix() < moment__WEBPACK_IMPORTED_MODULE_5__(now).unix()
-                                && moment__WEBPACK_IMPORTED_MODULE_5__(p.ownedThrough).unix() > moment__WEBPACK_IMPORTED_MODULE_5__(now).unix());
-                        });
-                        if (data.programMembership.length === this.refineYears
-                            && validity !== undefined) {
-                            this.targetTable.push(data);
-                        }
-                    });
+                    yield Object(_functions__WEBPACK_IMPORTED_MODULE_7__["sleep"])(1000);
                 }
             }
             catch (error) {
@@ -319,7 +392,7 @@ let TasksAccountDepositCSVComponent = class TasksAccountDepositCSVComponent {
                         console.error(error);
                         this.failTable.push(data);
                     }
-                    yield Object(_functions__WEBPACK_IMPORTED_MODULE_6__["sleep"])(1000);
+                    yield Object(_functions__WEBPACK_IMPORTED_MODULE_7__["sleep"])(1000);
                 }
             }
             catch (error) {
@@ -335,13 +408,40 @@ let TasksAccountDepositCSVComponent = class TasksAccountDepositCSVComponent {
             this.utilService.loadEnd();
         });
     }
+    /**
+     * DatePicker設定
+     */
+    setDatePicker() {
+        this.user.subscribe((user) => {
+            this.localeService.use(user.language);
+        }).unsubscribe();
+    }
+    /**
+     * iOS bugfix（2回タップしないと選択できない）
+     */
+    onShowPicker(container) {
+        Object(_functions__WEBPACK_IMPORTED_MODULE_7__["iOSDatepickerTapBugFix"])(container, [
+            this.orderDateFrom,
+            this.orderDateThrough
+        ]);
+    }
 };
 TasksAccountDepositCSVComponent.ctorParameters = () => [
     { type: _ngrx_store__WEBPACK_IMPORTED_MODULE_2__["Store"] },
-    { type: _services__WEBPACK_IMPORTED_MODULE_7__["UtilService"] },
+    { type: _services__WEBPACK_IMPORTED_MODULE_8__["UtilService"] },
     { type: _ngx_translate_core__WEBPACK_IMPORTED_MODULE_3__["TranslateService"] },
-    { type: _services__WEBPACK_IMPORTED_MODULE_7__["CinerinoService"] }
+    { type: _services__WEBPACK_IMPORTED_MODULE_8__["CinerinoService"] },
+    { type: _services__WEBPACK_IMPORTED_MODULE_8__["DownloadService"] },
+    { type: ngx_bootstrap__WEBPACK_IMPORTED_MODULE_6__["BsLocaleService"] }
 ];
+__decorate([
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ViewChild"])('orderDateFrom', { static: true }),
+    __metadata("design:type", ngx_bootstrap__WEBPACK_IMPORTED_MODULE_6__["BsDatepickerDirective"])
+], TasksAccountDepositCSVComponent.prototype, "orderDateFrom", void 0);
+__decorate([
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ViewChild"])('orderDateThrough', { static: true }),
+    __metadata("design:type", ngx_bootstrap__WEBPACK_IMPORTED_MODULE_6__["BsDatepickerDirective"])
+], TasksAccountDepositCSVComponent.prototype, "orderDateThrough", void 0);
 TasksAccountDepositCSVComponent = __decorate([
     Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
         selector: 'app-tasks-account-deposit-csv',
@@ -349,9 +449,11 @@ TasksAccountDepositCSVComponent = __decorate([
         styles: [__importDefault(__webpack_require__(/*! ./tasks-account-deposit-csv.component.scss */ "./app/modules/tasks/components/pages/tasks-account-deposit-csv/tasks-account-deposit-csv.component.scss")).default]
     }),
     __metadata("design:paramtypes", [_ngrx_store__WEBPACK_IMPORTED_MODULE_2__["Store"],
-        _services__WEBPACK_IMPORTED_MODULE_7__["UtilService"],
+        _services__WEBPACK_IMPORTED_MODULE_8__["UtilService"],
         _ngx_translate_core__WEBPACK_IMPORTED_MODULE_3__["TranslateService"],
-        _services__WEBPACK_IMPORTED_MODULE_7__["CinerinoService"]])
+        _services__WEBPACK_IMPORTED_MODULE_8__["CinerinoService"],
+        _services__WEBPACK_IMPORTED_MODULE_8__["DownloadService"],
+        ngx_bootstrap__WEBPACK_IMPORTED_MODULE_6__["BsLocaleService"]])
 ], TasksAccountDepositCSVComponent);
 
 

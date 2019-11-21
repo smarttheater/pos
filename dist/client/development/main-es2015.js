@@ -5436,8 +5436,11 @@ let DownloadService = class DownloadService {
      * 注文情報CSVダウンロード
      */
     orderStream(params) {
-        const url = `/download/order?params=${JSON.stringify(params)}`;
-        window.open(url, '_blank');
+        return __awaiter(this, void 0, void 0, function* () {
+            const url = `/download/order?params=${JSON.stringify(params)}`;
+            yield this.cinerino.order.download(Object.assign({}, params, { format: _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_1__["factory"].encodingFormat.Application.json }));
+            window.open(url, '_blank');
+        });
     }
     /**
      * 予約情報CSVダウンロード
