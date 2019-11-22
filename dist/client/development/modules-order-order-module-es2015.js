@@ -538,7 +538,11 @@ let OrderSearchComponent = class OrderSearchComponent {
         this.order = this.store.pipe(Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_3__["select"])(_store_reducers__WEBPACK_IMPORTED_MODULE_11__["getOrder"]));
         this.user = this.store.pipe(Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_3__["select"])(_store_reducers__WEBPACK_IMPORTED_MODULE_11__["getUser"]));
         this.limit = 20;
+        const now = moment__WEBPACK_IMPORTED_MODULE_5__().toDate();
+        const today = moment__WEBPACK_IMPORTED_MODULE_5__(moment__WEBPACK_IMPORTED_MODULE_5__(now).format('YYYYMMDD'));
         this.conditions = {
+            orderDateFrom: moment__WEBPACK_IMPORTED_MODULE_5__(today).add(-2, 'week').toDate(),
+            orderDateThrough: moment__WEBPACK_IMPORTED_MODULE_5__(today).toDate(),
             confirmationNumber: '',
             orderNumber: '',
             customer: {
@@ -700,7 +704,11 @@ let OrderSearchComponent = class OrderSearchComponent {
      * 検索条件クリア
      */
     searchConditionClear() {
+        const now = moment__WEBPACK_IMPORTED_MODULE_5__().toDate();
+        const today = moment__WEBPACK_IMPORTED_MODULE_5__(moment__WEBPACK_IMPORTED_MODULE_5__(now).format('YYYYMMDD'));
         this.conditions = {
+            orderDateFrom: moment__WEBPACK_IMPORTED_MODULE_5__(today).add(-2, 'week').toDate(),
+            orderDateThrough: moment__WEBPACK_IMPORTED_MODULE_5__(today).toDate(),
             confirmationNumber: '',
             orderNumber: '',
             customer: {
