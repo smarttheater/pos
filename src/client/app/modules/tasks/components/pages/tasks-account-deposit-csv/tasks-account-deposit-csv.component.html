@@ -3,7 +3,7 @@
     <p class="mb-4 text-md-center" [innerHTML]="'tasks.accountDepositCSV.read' | translate"></p>
     <div class="p-3 bg-white mb-4">
         <div class="form-row">
-            <div class="form-group col-md-3">
+            <div class="form-group col-md-4">
                 <label for="orderDateFrom"
                     class="mb-2">{{ 'tasks.accountDepositCSV.conditions.orderDateFrom' | translate }}</label>
                 <input type="text" name="orderDateFrom" id="orderDateFrom" placeholder="YYYY/MM/DD" class="form-control"
@@ -11,7 +11,7 @@
                     [bsConfig]="{ dateInputFormat: 'YYYY/MM/DD', adaptivePosition: true, showWeekNumbers: false }"
                     readonly (onShown)="onShowPicker($event)" (click)="setDatePicker()">
             </div>
-            <div class="form-group col-md-3">
+            <div class="form-group col-md-4">
                 <label for="orderDateThrough"
                     class="mb-2">{{ 'tasks.accountDepositCSV.conditions.orderDateThrough' | translate }}</label>
                 <input type="text" name="orderDateThrough" id="orderDateThrough" placeholder="YYYY/MM/DD"
@@ -20,14 +20,14 @@
                     [bsConfig]="{ dateInputFormat: 'YYYY/MM/DD', adaptivePosition: true, showWeekNumbers: false }"
                     readonly (onShown)="onShowPicker($event)" (click)="setDatePicker()">
             </div>
-            <div class="form-group col-md-3">
+            <div class="form-group col-md-4">
                 <label for="itemId" class="mb-2">{{ 'tasks.accountDepositCSV.conditions.itemId' | translate }}</label>
                 <input type="text" class="form-control" name="itemId" id="itemId" [(ngModel)]="conditions.itemId"
                     placeholder="{{ 'tasks.accountDepositCSV.conditions.itemId' | translate }}">
             </div>
         </div>
         <div class="form-row">
-            <div class="form-group col-md-3">
+            <div class="form-group col-md-4">
                 <button type="button" class="btn btn-primary btn-block py-2"
                     [disabled]="conditions.itemId === '' || (isLoading | async)"
                     (click)="download()">{{ 'tasks.accountDepositCSV.download' | translate }}</button>
@@ -36,45 +36,56 @@
 
         <div class="mb-3 py-2"><input type="file" (change)="onChangeInput($event)"></div>
 
-        <div class="form-row form-group align-items-center">
-            <div class="col-md-3 mb-md-0 mb-2">
-                <label for="message">{{ 'tasks.accountDepositCSV.message' | translate }}</label>
+        <div class="form-group">
+            <div class="form-row align-items-center mb-2">
+                <div class="col-md-2 mb-md-0 mb-2">
+                    <label for="years">{{ 'tasks.accountDepositCSV.years' | translate }}</label>
+                </div>
+                <div class="col-md-2 mb-md-0 mb-2">
+                    <input id="years" class="form-control" [(ngModel)]="years" type="number">
+                </div>
+                <div class="col-md-2 mb-md-0 mb-3">
+                    <button type="button" class="btn btn-primary btn-block py-2"
+                        [disabled]="json.length === 0 || (isLoading | async)"
+                        (click)="refine()">{{ 'tasks.accountDepositCSV.refine' | translate }}</button>
+                </div>
             </div>
-            <div class="col-md-4 mb-md-0 mb-2">
-                <input id="message" class="form-control" [(ngModel)]="message" type="text">
+            <p>{{ 'tasks.accountDepositCSV.refineDescription' | translate }}</p>
+        </div>
+
+        <div class="form-row">
+            <div class="form-group col-md-4">
+                <label for="amount" class="mb-2">{{ 'tasks.accountDepositCSV.amount' | translate }}</label>
+                <input type="text" class="form-control" name="amount" id="amount" [(ngModel)]="amount" placeholder="">
             </div>
-            <div class="col-md-2 mb-md-0 mb-3">
-                <button type="button" class="btn btn-primary btn-block py-2"
-                    [disabled]="json.length === 0 || (isLoading | async)"
-                    (click)="refine()">{{ 'tasks.accountDepositCSV.refine' | translate }}</button>
+            <div class="form-group col-md-8">
+                <label for="message" class="mb-2">{{ 'tasks.accountDepositCSV.message' | translate }}</label>
+                <input type="text" class="form-control" name="message" id="message" [(ngModel)]="message"
+                    placeholder="">
             </div>
         </div>
-        <div class="form-row form-group align-items-center">
-            <div class="col-md-3 mb-md-0 mb-2">
-                <label for="amount">{{ 'tasks.accountDepositCSV.amount' | translate }}</label>
-            </div>
-            <div class="col-md-4 mb-md-0 mb-2">
-                <input id="amount" class="form-control" [(ngModel)]="amount" type="text">
-            </div>
-            <div class="col-md-2 mb-md-0 mb-3">
+        <div class="form-row">
+            <div class="form-group col-md-4">
                 <button type="button" class="btn btn-primary btn-block py-2"
-                    [disabled]="json.length === 0 || (isLoading | async)"
+                    [disabled]="targetTable.length === 0 || (isLoading | async)"
                     (click)="deposit()">{{ 'tasks.accountDepositCSV.next' | translate }}</button>
             </div>
         </div>
+
     </div>
     <p class="mb-4" *ngIf="targetTable.length === 0">{{ 'tasks.accountDepositCSV.notfound' | translate }}</p>
 
     <div *ngIf="targetTable.length > 0" class="mb-4">
-        <h2 class="mb-2 font-weight-bold">{{ 'tasks.accountDepositCSV.targetTable' | translate }}</h2>
+        <h2 class="mb-2 font-weight-bold">{{ 'tasks.accountDepositCSV.targetTable' | translate }} [{{ targetTable.length }}]</h2>
         <div class="scroll-horizontal">
             <table class="table bg-white bperson text-small mb-0 border border-gray">
                 <thead>
                     <tr>
                         <th scope="col">{{ 'person.search.username' | translate }}</th>
                         <th scope="col">{{ 'person.search.name' | translate }}</th>
-                        <th scope="col">{{ 'common.email' | translate }}</th>
-                        <th scope="col">{{ 'common.telephone' | translate }}</th>
+                        <th scope="col">{{ 'tasks.accountDepositCSV.years' | translate }}</th>
+                        <th scope="col">{{ 'tasks.accountDepositCSV.validityMember' | translate }}</th>
+                        <th scope="col">{{ 'tasks.accountDepositCSV.status' | translate }}</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -83,60 +94,9 @@
                             {{ ((data.person.memberOf.membershipNumber !== undefined) ? data.person.memberOf.membershipNumber : '') }}
                         </td>
                         <td class="align-middle">{{ data.person.familyName }} {{ data.person.givenName }}</td>
-                        <td class="align-middle">{{ data.person.email }}</td>
-                        <td class="align-middle">{{ data.person.telephone }}</td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-    </div>
-
-    <div *ngIf="successTable.length > 0" class="mb-4">
-        <h2 class="mb-2 font-weight-bold">{{ 'tasks.accountDepositCSV.successTable' | translate }}</h2>
-        <div class="scroll-horizontal">
-            <table class="table bg-white bperson text-small mb-0 border border-gray">
-                <thead>
-                    <tr>
-                        <th scope="col">{{ 'person.search.username' | translate }}</th>
-                        <th scope="col">{{ 'person.search.name' | translate }}</th>
-                        <th scope="col">{{ 'common.email' | translate }}</th>
-                        <th scope="col">{{ 'common.telephone' | translate }}</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr *ngFor="let data of successTable let index = index" [class.bg-light-gray]="index % 2 === 0">
-                        <td class="align-middle">
-                            {{ ((data.person.memberOf.membershipNumber !== undefined) ? data.person.memberOf.membershipNumber : '') }}
-                        </td>
-                        <td class="align-middle">{{ data.person.familyName }} {{ data.person.givenName }}</td>
-                        <td class="align-middle">{{ data.person.email }}</td>
-                        <td class="align-middle">{{ data.person.telephone }}</td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-    </div>
-
-    <div *ngIf="failTable.length > 0" class="mb-4">
-        <h2 class="mb-2 font-weight-bold">{{ 'tasks.accountDepositCSV.failTable' | translate }}</h2>
-        <div class="scroll-horizontal">
-            <table class="table bg-white bperson text-small mb-0 border border-gray">
-                <thead>
-                    <tr>
-                        <th scope="col">{{ 'person.search.username' | translate }}</th>
-                        <th scope="col">{{ 'person.search.name' | translate }}</th>
-                        <th scope="col">{{ 'common.email' | translate }}</th>
-                        <th scope="col">{{ 'common.telephone' | translate }}</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr *ngFor="let data of failTable let index = index" [class.bg-light-gray]="index % 2 === 0">
-                        <td class="align-middle">
-                            {{ ((data.person.memberOf.membershipNumber !== undefined) ? data.person.memberOf.membershipNumber : '') }}
-                        </td>
-                        <td class="align-middle">{{ data.person.familyName }} {{ data.person.givenName }}</td>
-                        <td class="align-middle">{{ data.person.email }}</td>
-                        <td class="align-middle">{{ data.person.telephone }}</td>
+                        <td class="align-middle">{{ data.programMembershipCount }}</td>
+                        <td class="align-middle">{{ data.validityMember }}</td>
+                        <td class="align-middle">{{ data.status }}</td>
                     </tr>
                 </tbody>
             </table>

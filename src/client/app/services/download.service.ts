@@ -191,7 +191,7 @@ export class DownloadService {
         }
     }
 
-    private download(blob: Blob, fileName: string) {
+    public download(blob: Blob, fileName: string) {
         if (window.navigator.msSaveBlob) {
             window.navigator.msSaveBlob(blob, fileName);
             window.navigator.msSaveOrOpenBlob(blob, fileName);

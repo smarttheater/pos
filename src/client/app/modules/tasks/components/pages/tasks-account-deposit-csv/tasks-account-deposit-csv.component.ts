@@ -3,6 +3,7 @@ import { factory } from '@cinerino/api-javascript-client';
 import { select, Store } from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
 import * as csvtojson from 'csvtojson';
+import * as json2csv from 'json2csv';
 import * as moment from 'moment';
 import { BsDatepickerContainerComponent, BsDatepickerDirective, BsLocaleService } from 'ngx-bootstrap';
 import { Observable } from 'rxjs';
@@ -19,6 +20,7 @@ interface IData {
     depositedCount: number;
     depositCount: number;
     pointTransferActions: factory.pecorino.action.transfer.moneyTransfer.IAction<factory.accountType.Point>[];
+    status: boolean;
 }
 
 @Component({
@@ -29,6 +31,7 @@ interface IData {
 export class TasksAccountDepositCSVComponent implements OnInit {
     public isLoading: Observable<boolean>;
     public user: Observable<reducers.IUserState>;
+    public years: number;
     public message: string;
     public amount: number;
     public json: {
@@ -67,6 +70,7 @@ export class TasksAccountDepositCSVComponent implements OnInit {
         this.targetTable = [];
         this.successTable = [];
         this.failTable = [];
+        this.years = 0;
         this.message = this.translate.instant('tasks.accountDepositCSV.defaultMessage');
         this.amount = 1;
         const now = moment().toDate();
@@ -262,10 +266,17 @@ export class TasksAccountDepositCSVComponent implements OnInit {
                     depositedCount,
                     depositCount: ((programMembership.totalCount - 1 - depositedCount) > 0)
                         ? programMembership.totalCount - 1 - depositedCount : 0, // 初年度は自動なので-1
-                    pointTransferActions
+                    pointTransferActions,
+                    status: false
                 });
                 await sleep(1000);
             }
+            if (this.years === 0) {
+                this.targetTable = data;
+                this.utilService.loadEnd();
+                return;
+            }
+            this.targetTable = data.filter(d => d.programMembershipCount === this.years);
         } catch (error) {
             this.utilService.openAlert({
                 title: this.translate.instant('common.error'),
@@ -303,10 +314,9 @@ export class TasksAccountDepositCSVComponent implements OnInit {
                             url: ''
                         }
                     });
-                    this.successTable.push(data);
+                    data.status = true;
                 } catch (error) {
                     console.error(error);
-                    this.failTable.push(data);
                 }
                 await sleep(1000);
             }
@@ -315,6 +325,32 @@ export class TasksAccountDepositCSVComponent implements OnInit {
                 title: this.translate.instant('common.error'),
                 body: `
                 <p class="mb-4">${this.translate.instant('tasks.accountDepositCSV.alert.deposit')}</p>
+                    <div class="p-3 bg-light-gray select-text">
+                    <code>${error.message}</code>
+                </div>`
+            });
+        }
+        try {
+            const bom = new Uint8Array([0xEF, 0xBB, 0xBF]);
+            const fields = [
+                { label: '購入者ID', value: 'person.id' },
+                { label: '購入者お名前（姓）', value: 'person.familyName' },
+                { label: '購入者お名前（名）', value: 'person.givenName' },
+                { label: '購入者会員ID', value: 'person.memberOf.membershipNumber' },
+                { label: '購入者メールアドレス', value: 'person.email' },
+                { label: '購入者電話番号', value: 'person.telephone' },
+                { label: '会員年数', value: 'programMembershipCount' },
+                { label: 'ステータス', value: 'status' }
+            ];
+            const opts = { fields, unwind: [] };
+            const csv = await json2csv.parseAsync(this.targetTable, opts);
+            const blob = new Blob([bom, csv], { 'type': 'text/csv' });
+            this.downloadService.download(blob, 'deposit.csv');
+        } catch (error) {
+            this.utilService.openAlert({
+                title: this.translate.instant('common.error'),
+                body: `
+                <p class="mb-4">${this.translate.instant('tasks.accountDepositCSV.alert.download')}</p>
                     <div class="p-3 bg-light-gray select-text">
                     <code>${error.message}</code>
                 </div>`
