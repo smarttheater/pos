@@ -161,10 +161,10 @@ let TasksAccountDepositCSVComponent = class TasksAccountDepositCSVComponent {
         const now = moment__WEBPACK_IMPORTED_MODULE_6__().toDate();
         const today = moment__WEBPACK_IMPORTED_MODULE_6__(moment__WEBPACK_IMPORTED_MODULE_6__(now).format('YYYYMMDD'));
         this.conditions = {
-            // orderDateFrom: moment(today).add(-2, 'year').toDate(),
-            // orderDateThrough: moment(today).add(-1, 'year').toDate(),
-            orderDateFrom: moment__WEBPACK_IMPORTED_MODULE_6__(today).add(-2, 'day').toDate(),
-            orderDateThrough: moment__WEBPACK_IMPORTED_MODULE_6__(today).add(1, 'day').toDate(),
+            orderDateFrom: moment__WEBPACK_IMPORTED_MODULE_6__(today).add(-2, 'year').toDate(),
+            orderDateThrough: moment__WEBPACK_IMPORTED_MODULE_6__(today).add(-1, 'year').toDate(),
+            // orderDateFrom: moment(today).add(-2, 'day').toDate(),
+            // orderDateThrough: moment(today).add(1, 'day').toDate(),
             itemId: ''
         };
     }
@@ -213,13 +213,14 @@ let TasksAccountDepositCSVComponent = class TasksAccountDepositCSVComponent {
         return __awaiter(this, void 0, void 0, function* () {
             this.json = [];
             const file = event.target.files[0];
-            if (file.size > 5000000) {
+            const limit = 100000000;
+            if (file.size > limit) {
                 this.utilService.openAlert({
                     title: this.translate.instant('common.error'),
                     body: `
                 <p class="mb-4">${this.translate.instant('tasks.accountDepositCSV.alert.upload')}</p>
                     <div class="p-3 bg-light-gray select-text">
-                    <code>File size upper limit 5MB</code>
+                    <code>File size upper limit 100MB</code>
                 </div>`
                 });
                 return;

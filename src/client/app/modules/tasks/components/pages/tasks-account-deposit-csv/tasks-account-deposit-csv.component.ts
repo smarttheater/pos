@@ -76,10 +76,10 @@ export class TasksAccountDepositCSVComponent implements OnInit {
         const now = moment().toDate();
         const today = moment(moment(now).format('YYYYMMDD'));
         this.conditions = {
-            // orderDateFrom: moment(today).add(-2, 'year').toDate(),
-            // orderDateThrough: moment(today).add(-1, 'year').toDate(),
-            orderDateFrom: moment(today).add(-2, 'day').toDate(),
-            orderDateThrough: moment(today).add(1, 'day').toDate(),
+            orderDateFrom: moment(today).add(-2, 'year').toDate(),
+            orderDateThrough: moment(today).add(-1, 'year').toDate(),
+            // orderDateFrom: moment(today).add(-2, 'day').toDate(),
+            // orderDateThrough: moment(today).add(1, 'day').toDate(),
             itemId: ''
         };
     }
@@ -128,13 +128,14 @@ export class TasksAccountDepositCSVComponent implements OnInit {
     public async onChangeInput(event: any) {
         this.json = [];
         const file = event.target.files[0];
-        if (file.size > 5000000) {
+        const limit = 100000000;
+        if (file.size > limit) {
             this.utilService.openAlert({
                 title: this.translate.instant('common.error'),
                 body: `
                 <p class="mb-4">${this.translate.instant('tasks.accountDepositCSV.alert.upload')}</p>
                     <div class="p-3 bg-light-gray select-text">
-                    <code>File size upper limit 5MB</code>
+                    <code>File size upper limit 100MB</code>
                 </div>`
             });
             return;

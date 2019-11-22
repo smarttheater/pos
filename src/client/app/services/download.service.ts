@@ -89,7 +89,7 @@ export class DownloadService {
         format: factory.encodingFormat.Application | factory.encodingFormat.Text;
     }) {
         const url = `/download/order?params=${JSON.stringify(params)}`;
-        await this.cinerino.order.download({ ...params, format: factory.encodingFormat.Application.json });
+        // await this.cinerino.order.download({ ...params, format: factory.encodingFormat.Application.json });
         window.open(url, '_blank');
     }
 

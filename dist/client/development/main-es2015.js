@@ -5438,7 +5438,7 @@ let DownloadService = class DownloadService {
     orderStream(params) {
         return __awaiter(this, void 0, void 0, function* () {
             const url = `/download/order?params=${JSON.stringify(params)}`;
-            yield this.cinerino.order.download(Object.assign({}, params, { format: _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_1__["factory"].encodingFormat.Application.json }));
+            // await this.cinerino.order.download({ ...params, format: factory.encodingFormat.Application.json });
             window.open(url, '_blank');
         });
     }
