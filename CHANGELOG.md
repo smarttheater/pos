@@ -12,6 +12,12 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/).
 
 ### Security
 
+## 2.5.2 - 2019-11-22
+### Changed
+ - 注文検索の注文期間を必須（デフォルトで入力）へ変更
+### Fixed
+ - 辞書ファイル読み込みキャッシュを適用しない修正
+
 ## 2.5.1 - 2019-11-20
 ### Fixed
  - 注文検索のダウンロードボタン削除

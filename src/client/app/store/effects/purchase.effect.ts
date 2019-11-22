@@ -471,39 +471,38 @@ export class PurchaseEffects {
             const seller = payload.seller;
             try {
                 await this.cinerino.getServices();
-                const email: factory.creativeWork.message.email.ICustomization = {
-                    sender: {
-                        name: (this.translate.instant('email.purchase.complete.sender.name') === '')
-                            ? undefined : this.translate.instant('email.purchase.complete.sender.name'),
-                        email: (this.translate.instant('email.purchase.complete.sender.email') === '')
-                            ? undefined : this.translate.instant('email.purchase.complete.sender.email')
-                    },
-                    toRecipient: {
-                        name: (this.translate.instant('email.purchase.complete.toRecipient.name') === '')
-                            ? undefined : this.translate.instant('email.purchase.complete.toRecipient.name'),
-                        email: (this.translate.instant('email.purchase.complete.toRecipient.email') === '')
-                            ? undefined : this.translate.instant('email.purchase.complete.toRecipient.email')
-                    },
-                    about: (this.translate.instant('email.purchase.complete.about') === '')
-                        ? undefined : this.translate.instant('email.purchase.complete.about'),
-                    template: undefined
-                };
-                const params = {
+                const params: factory.transaction.placeOrder.IConfirmParams & {
+                    sendEmailMessage?: boolean;
+                    email?: factory.creativeWork.message.email.ICustomization;
+                } = {
                     id: transaction.id,
-                    options: {
-                        sendEmailMessage: true,
-                        email
+                    sendEmailMessage: true,
+                    email: {
+                        sender: {
+                            name: (this.translate.instant('email.purchase.complete.sender.name') === '')
+                                ? undefined : this.translate.instant('email.purchase.complete.sender.name'),
+                            email: (this.translate.instant('email.purchase.complete.sender.email') === '')
+                                ? undefined : this.translate.instant('email.purchase.complete.sender.email')
+                        },
+                        toRecipient: {
+                            name: (this.translate.instant('email.purchase.complete.toRecipient.name') === '')
+                                ? undefined : this.translate.instant('email.purchase.complete.toRecipient.name'),
+                            email: (this.translate.instant('email.purchase.complete.toRecipient.email') === '')
+                                ? undefined : this.translate.instant('email.purchase.complete.toRecipient.email')
+                        },
+                        about: (this.translate.instant('email.purchase.complete.about') === '')
+                            ? undefined : this.translate.instant('email.purchase.complete.about'),
+                        template: undefined
                     }
                 };
-                if (environment.PURCHASE_COMPLETE_MAIL_CUSTOM) {
+                if (environment.PURCHASE_COMPLETE_MAIL_CUSTOM && params.email !== undefined) {
                     // 完了メールをカスタマイズ
                     const view = await this.utilService.getText(`/storage/ejs/mail/complete/${payload.language}.ejs`);
-                    const template = await (<any>window).ejs.render(view, {
+                    params.email.template = await (<any>window).ejs.render(view, {
                         authorizeSeatReservations: authorizeSeatReservationToEvent({ authorizeSeatReservations }),
                         seller,
                         moment, formatTelephone, getTicketPrice
                     }, { async: true });
-                    email.template = template;
                 }
 
                 const result = await this.cinerino.transaction.placeOrder.confirm(params);
