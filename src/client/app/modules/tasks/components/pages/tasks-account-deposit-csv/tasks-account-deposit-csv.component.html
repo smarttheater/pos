@@ -91,9 +91,9 @@
                 <tbody>
                     <tr *ngFor="let data of targetTable let index = index" [class.bg-light-gray]="index % 2 === 0">
                         <td class="align-middle">
-                            {{ ((data.person.memberOf.membershipNumber !== undefined) ? data.person.memberOf.membershipNumber : '') }}
+                            {{ data.userName }}
                         </td>
-                        <td class="align-middle">{{ data.person.familyName }} {{ data.person.givenName }}</td>
+                        <td class="align-middle">{{ data.person?.familyName }} {{ data.person?.givenName }}</td>
                         <td class="align-middle">{{ data.programMembershipCount }}</td>
                         <td class="align-middle">{{ data.validityMember }}</td>
                         <td class="align-middle">{{ data.status }}</td>

@@ -12,6 +12,8 @@ import { CinerinoService, DownloadService, UtilService } from '../../../../../se
 import * as reducers from '../../../../../store/reducers';
 
 interface IData {
+    id: string;
+    userName: string;
     person: factory.person.IPerson;
     programMembership: factory.ownershipInfo.IOwnershipInfo<factory.programMembership.IProgramMembership>;
     account: factory.ownershipInfo.IOwnershipInfo<factory.ownershipInfo.IAccount<factory.accountType>>;
@@ -20,7 +22,7 @@ interface IData {
     depositedCount: number;
     depositCount: number;
     pointTransferActions: factory.pecorino.action.transfer.moneyTransfer.IAction<factory.accountType.Point>[];
-    status: boolean;
+    status?: boolean;
 }
 
 @Component({
@@ -37,7 +39,7 @@ export class TasksAccountDepositCSVComponent implements OnInit {
     public json: {
         '購入者ID': string;
         '購入者お名前': string;
-        '購入者会員ID': string;
+        '購入者会員番号': string;
         '購入者メールアドレス': string;
         '購入者電話番号': string;
     }[];
@@ -196,8 +198,9 @@ export class TasksAccountDepositCSVComponent implements OnInit {
                 telephone: string;
             }[] = [];
             this.json.forEach((row) => {
+                // console.log(row);
                 const id = row.購入者ID;
-                const userName = row.購入者会員ID;
+                const userName = row.購入者会員番号;
                 const name = row.購入者お名前;
                 const email = row.購入者メールアドレス;
                 const telephone = row.購入者電話番号;
@@ -258,6 +261,11 @@ export class TasksAccountDepositCSVComponent implements OnInit {
                 const pointTransferActions: any[] = [];
                 const depositedCount = pointTransferActions.filter(p => p.description === this.message).length;
                 data.push({
+                    id: (person.data.length === 0) ? d.id : person.data[0].id,
+                    userName: (person.data.length === 0
+                        || person.data[0].memberOf === undefined
+                        || person.data[0].memberOf.membershipNumber === undefined)
+                        ? d.userName : person.data[0].memberOf.membershipNumber,
                     person: person.data[0],
                     programMembership: programMembership.data[0],
                     account: account.data[0],
@@ -268,12 +276,12 @@ export class TasksAccountDepositCSVComponent implements OnInit {
                     depositCount: ((programMembership.totalCount - 1 - depositedCount) > 0)
                         ? programMembership.totalCount - 1 - depositedCount : 0, // 初年度は自動なので-1
                     pointTransferActions,
-                    status: false
                 });
                 await sleep(1000);
             }
             if (this.years === 0) {
                 this.targetTable = data;
+                console.log(this.targetTable);
                 this.utilService.loadEnd();
                 return;
             }
@@ -317,6 +325,7 @@ export class TasksAccountDepositCSVComponent implements OnInit {
                     });
                     data.status = true;
                 } catch (error) {
+                    data.status = false;
                     console.error(error);
                 }
                 await sleep(1000);
@@ -334,10 +343,10 @@ export class TasksAccountDepositCSVComponent implements OnInit {
         try {
             const bom = new Uint8Array([0xEF, 0xBB, 0xBF]);
             const fields = [
-                { label: '購入者ID', value: 'person.id' },
+                { label: '購入者ID', value: 'id' },
                 { label: '購入者お名前（姓）', value: 'person.familyName' },
                 { label: '購入者お名前（名）', value: 'person.givenName' },
-                { label: '購入者会員ID', value: 'person.memberOf.membershipNumber' },
+                { label: '購入者会員番号', value: 'userName' },
                 { label: '購入者メールアドレス', value: 'person.email' },
                 { label: '購入者電話番号', value: 'person.telephone' },
                 { label: '会員年数', value: 'programMembershipCount' },
