@@ -65,9 +65,9 @@ export class DownloadService {
                 return;
             }
             streamText += decoder.decode(chunk.value);
-            reader.read().then(readChunk);
+            await readChunk(await reader.read());
         };
-        reader.read().then(readChunk);
+        await readChunk(await reader.read());
     }
 
     /**

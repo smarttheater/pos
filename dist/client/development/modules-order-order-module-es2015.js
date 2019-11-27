@@ -277,6 +277,7 @@ let OrderDownloadComponent = class OrderDownloadComponent {
                     format: this.conditions.format,
                 };
             }
+            this.utilService.loadStart();
             try {
                 const params = yield this.convertToSearchParams();
                 yield this.downloadService.orderStream(params);
@@ -285,9 +286,10 @@ let OrderDownloadComponent = class OrderDownloadComponent {
                 console.error(error);
                 this.utilService.openAlert({
                     title: this.translate.instant('common.error'),
-                    body: this.translate.instant('order.search.alert.search')
+                    body: this.translate.instant('order.download.alert.download')
                 });
             }
+            this.utilService.loadEnd();
         });
     }
     /**

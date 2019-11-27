@@ -5470,9 +5470,9 @@ let DownloadService = DownloadService_1 = class DownloadService {
                     return;
                 }
                 streamText += decoder.decode(chunk.value);
-                reader.read().then(readChunk);
+                yield readChunk(yield reader.read());
             });
-            reader.read().then(readChunk);
+            yield readChunk(yield reader.read());
         });
     }
     /**
