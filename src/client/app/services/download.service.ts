@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { factory } from '@cinerino/api-javascript-client';
 import * as json2csv from 'json2csv';
 import * as moment from 'moment';
-import { formatTelephone, getTicketPrice, getTransactionAgentIdentifier } from '../functions';
+import { getTicketPrice, order2report } from '../functions';
 import { CinerinoService } from './cinerino.service';
 import { UtilService } from './util.service';
 
@@ -10,6 +10,7 @@ import { UtilService } from './util.service';
     providedIn: 'root'
 })
 export class DownloadService {
+    public static SPLIT_COUNT = 10000;
 
     constructor(
         private cinerino: CinerinoService,
@@ -37,59 +38,36 @@ export class DownloadService {
             page++;
             roop = !(page > lastPage);
         }
-        const data: any[] = [];
-        orders.forEach((order) => {
-            order.acceptedOffers.forEach((acceptedOffer) => {
-                if (acceptedOffer.itemOffered.typeOf !== factory.chevre.reservationType.EventReservation) {
-                    return;
-                }
-                const customData = {
-                    orderDate: order.orderDate,
-                    orderDateJST: moment(order.orderDate).format('YYYY/MM/DD/HH:mm'),
-                    orderNumber: order.orderNumber,
-                    orderStatus: order.orderStatus,
-                    confirmationNumber: order.confirmationNumber,
-                    price: order.price,
-                    seller: order.seller,
-                    paymentMethodsNames: order.paymentMethods.map(m => m.name).join(','),
-                    customer: {
-                        ...order.customer,
-                        formatTelephone: formatTelephone((<string>order.customer.telephone)),
-                        pos: {
-                            name: (getTransactionAgentIdentifier(order, 'posName') === undefined)
-                                ? { name: '', value: '' }
-                                : (<factory.propertyValue.IPropertyValue<string>>getTransactionAgentIdentifier(order, 'posName'))
-                        },
-                        liny: {
-                            id: (getTransactionAgentIdentifier(order, 'linyId') === undefined)
-                                ? { name: '', value: '' }
-                                : (<factory.propertyValue.IPropertyValue<string>>getTransactionAgentIdentifier(order, 'linyId'))
-                        }
-                    },
-                    itemOffered: {
-                        id: acceptedOffer.itemOffered.id,
-                        price: getTicketPrice(acceptedOffer).total,
-                        reservedTicket: acceptedOffer.itemOffered.reservedTicket,
-                        reservationFor: {
-                            ...acceptedOffer.itemOffered.reservationFor,
-                            startDateJST: moment(acceptedOffer.itemOffered.reservationFor.startDate).format('YYYY/MM/DD/HH:mm')
-                        }
-                    }
-                };
-                data.push(customData);
-            });
-        });
-        await this.splitDownload('order', data, opts, 5000);
+        const data = order2report(orders);
+        await this.splitDownload('order', data, opts, DownloadService.SPLIT_COUNT);
     }
 
     /**
      * 注文情報CSVダウンロード
      */
-    public orderStream(params: factory.order.ISearchConditions & {
+    public async orderStream(params: factory.order.ISearchConditions & {
         format: factory.encodingFormat.Application | factory.encodingFormat.Text;
     }) {
-        const url = `/download/order?params=${JSON.stringify(params)}`;
-        window.open(url, '_blank');
+        // const url = `/download/order?params=${JSON.stringify(params)}`;
+        // window.open(url, '_blank');
+        const url = '/storage/json/csv/order.json';
+        const fields = await this.utilService.getJson<{ label: string, value: string }[]>(url);
+        const opts = { fields, unwind: [] };
+        const decoder = new TextDecoder();
+        await this.cinerino.getServices();
+        const stream = await this.cinerino.order.download({ ...params, format: factory.encodingFormat.Application.json });
+        const reader = await (<ReadableStream<any>>stream).getReader();
+        let streamText = '';
+        const readChunk = async (chunk: { done: boolean; value: any; }) => {
+            if (chunk.done) {
+                const data = order2report(JSON.parse(streamText));
+                await this.splitDownload('order', data, opts, DownloadService.SPLIT_COUNT);
+                return;
+            }
+            streamText += decoder.decode(chunk.value);
+            reader.read().then(readChunk);
+        };
+        reader.read().then(readChunk);
     }
 
     /**
@@ -135,7 +113,7 @@ export class DownloadService {
             };
             data.push(customData);
         });
-        await this.splitDownload('reservation', data, opts, 5000);
+        await this.splitDownload('reservation', data, opts, DownloadService.SPLIT_COUNT);
     }
 
     /**
@@ -176,7 +154,7 @@ export class DownloadService {
             };
             data.push(customData);
         });
-        await this.splitDownload('person', data, opts, 5000);
+        await this.splitDownload('person', data, opts, DownloadService.SPLIT_COUNT);
     }
 
     private async splitDownload(filename: string, data: any, opts: any, split: number) {

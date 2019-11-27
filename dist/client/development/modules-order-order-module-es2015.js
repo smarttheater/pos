@@ -147,7 +147,7 @@ let OrderDownloadComponent = class OrderDownloadComponent {
             orderStatus: '',
             paymentMethodType: '',
             posId: '',
-            format: _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_1__["factory"].encodingFormat.Text.csv,
+            format: _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_1__["factory"].encodingFormat.Application.json,
         };
         this.orderService.delete();
     }
@@ -279,7 +279,7 @@ let OrderDownloadComponent = class OrderDownloadComponent {
             }
             try {
                 const params = yield this.convertToSearchParams();
-                this.downloadService.orderStream(params);
+                yield this.downloadService.orderStream(params);
             }
             catch (error) {
                 console.error(error);

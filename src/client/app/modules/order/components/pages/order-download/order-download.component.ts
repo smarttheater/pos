@@ -77,7 +77,7 @@ export class OrderDownloadComponent implements OnInit {
             orderStatus: '',
             paymentMethodType: '',
             posId: '',
-            format: factory.encodingFormat.Text.csv,
+            format: factory.encodingFormat.Application.json,
         };
         this.orderService.delete();
     }
@@ -216,7 +216,7 @@ export class OrderDownloadComponent implements OnInit {
         }
         try {
             const params = await this.convertToSearchParams();
-            this.downloadService.orderStream(params);
+            await this.downloadService.orderStream(params);
         } catch (error) {
             console.error(error);
             this.utilService.openAlert({

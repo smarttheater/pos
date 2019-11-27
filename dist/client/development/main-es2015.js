@@ -890,7 +890,7 @@ AppComponent = __decorate([
 /*!********************************!*\
   !*** ./app/functions/index.ts ***!
   \********************************/
-/*! exports provided: screeningEventsToWorkEvents, createGmoTokenObject, sameMovieTicketFilter, isAvailabilityMovieTicket, createMovieTicketsFromAuthorizeSeatReservation, createPaymentMethodFromType, getTicketPrice, movieTicketAuthErroCodeToMessage, getAmount, orderToEventOrders, authorizeSeatReservationToEvent, isScheduleStatusThreshold, isSales, isTicketedSeatScreeningEvent, changeTicketCount, getRemainingSeatLength, formatTelephone, toFull, toHalf, retry, sleep, buildQueryString, iOSDatepickerTapBugFix, createPrintCanvas, createTestPrintCanvas, createRegiGrowQrcode, changeTicketCountByOrder, getTransactionAgentIdentifier */
+/*! exports provided: screeningEventsToWorkEvents, createGmoTokenObject, sameMovieTicketFilter, isAvailabilityMovieTicket, createMovieTicketsFromAuthorizeSeatReservation, createPaymentMethodFromType, getTicketPrice, movieTicketAuthErroCodeToMessage, getAmount, orderToEventOrders, authorizeSeatReservationToEvent, isScheduleStatusThreshold, isSales, isTicketedSeatScreeningEvent, changeTicketCount, getRemainingSeatLength, formatTelephone, toFull, toHalf, retry, sleep, buildQueryString, iOSDatepickerTapBugFix, createPrintCanvas, createTestPrintCanvas, createRegiGrowQrcode, changeTicketCountByOrder, getTransactionAgentIdentifier, order2report */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -954,6 +954,8 @@ __webpack_require__.r(__webpack_exports__);
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "getTransactionAgentIdentifier", function() { return _order_function__WEBPACK_IMPORTED_MODULE_2__["getTransactionAgentIdentifier"]; });
 
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "order2report", function() { return _order_function__WEBPACK_IMPORTED_MODULE_2__["order2report"]; });
+
 var __importDefault = (undefined && undefined.__importDefault) || function (mod) {
   return (mod && mod.__esModule) ? mod : { "default": mod };
 };
@@ -968,7 +970,7 @@ var __importDefault = (undefined && undefined.__importDefault) || function (mod)
 /*!*****************************************!*\
   !*** ./app/functions/order.function.ts ***!
   \*****************************************/
-/*! exports provided: createPrintCanvas, createTestPrintCanvas, createRegiGrowQrcode, changeTicketCountByOrder, getTransactionAgentIdentifier */
+/*! exports provided: createPrintCanvas, createTestPrintCanvas, createRegiGrowQrcode, changeTicketCountByOrder, getTransactionAgentIdentifier, order2report */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -978,6 +980,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "createRegiGrowQrcode", function() { return createRegiGrowQrcode; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "changeTicketCountByOrder", function() { return changeTicketCountByOrder; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getTransactionAgentIdentifier", function() { return getTransactionAgentIdentifier; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "order2report", function() { return order2report; });
 /* harmony import */ var _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @cinerino/api-javascript-client */ "../../node_modules/@cinerino/api-javascript-client/lib/index.js");
 /* harmony import */ var _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! moment */ "../../node_modules/moment/moment.js");
@@ -986,6 +989,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var qrcode__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(qrcode__WEBPACK_IMPORTED_MODULE_2__);
 /* harmony import */ var _environments_environment__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../environments/environment */ "./environments/environment.ts");
 /* harmony import */ var _purchase_function__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./purchase.function */ "./app/functions/purchase.function.ts");
+/* harmony import */ var _util_function__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./util.function */ "./app/functions/util.function.ts");
 var __awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
     return new (P || (P = Promise))(function (resolve, reject) {
         function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
@@ -997,6 +1001,7 @@ var __awaiter = (undefined && undefined.__awaiter) || function (thisArg, _argume
 var __importDefault = (undefined && undefined.__importDefault) || function (mod) {
   return (mod && mod.__esModule) ? mod : { "default": mod };
 };
+
 
 
 
@@ -1234,6 +1239,46 @@ function getTransactionAgentIdentifier(order, key) {
         return;
     }
     return order.customer.identifier.find(i => i.name === key);
+}
+/**
+ * CSV変換
+ */
+function order2report(orders) {
+    const data = [];
+    orders.forEach((order) => {
+        order.acceptedOffers.forEach((acceptedOffer) => {
+            if (acceptedOffer.itemOffered.typeOf !== _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_0__["factory"].chevre.reservationType.EventReservation) {
+                return;
+            }
+            const customData = {
+                orderDate: order.orderDate,
+                orderDateJST: moment__WEBPACK_IMPORTED_MODULE_1__(order.orderDate).format('YYYY/MM/DD/HH:mm'),
+                orderNumber: order.orderNumber,
+                orderStatus: order.orderStatus,
+                confirmationNumber: order.confirmationNumber,
+                price: order.price,
+                seller: order.seller,
+                paymentMethodsNames: order.paymentMethods.map(m => m.name).join(','),
+                customer: Object.assign({}, order.customer, { formatTelephone: Object(_util_function__WEBPACK_IMPORTED_MODULE_5__["formatTelephone"])(order.customer.telephone), pos: {
+                        name: (getTransactionAgentIdentifier(order, 'posName') === undefined)
+                            ? { name: '', value: '' }
+                            : getTransactionAgentIdentifier(order, 'posName')
+                    }, liny: {
+                        id: (getTransactionAgentIdentifier(order, 'linyId') === undefined)
+                            ? { name: '', value: '' }
+                            : getTransactionAgentIdentifier(order, 'linyId')
+                    } }),
+                itemOffered: {
+                    id: acceptedOffer.itemOffered.id,
+                    price: Object(_purchase_function__WEBPACK_IMPORTED_MODULE_4__["getTicketPrice"])(acceptedOffer).total,
+                    reservedTicket: acceptedOffer.itemOffered.reservedTicket,
+                    reservationFor: Object.assign({}, acceptedOffer.itemOffered.reservationFor, { startDateJST: moment__WEBPACK_IMPORTED_MODULE_1__(acceptedOffer.itemOffered.reservationFor.startDate).format('YYYY/MM/DD/HH:mm') })
+                }
+            };
+            data.push(customData);
+        });
+    });
+    return data;
 }
 
 
@@ -5364,6 +5409,7 @@ var __awaiter = (undefined && undefined.__awaiter) || function (thisArg, _argume
 var __importDefault = (undefined && undefined.__importDefault) || function (mod) {
   return (mod && mod.__esModule) ? mod : { "default": mod };
 };
+var DownloadService_1;
 
 
 
@@ -5371,7 +5417,7 @@ var __importDefault = (undefined && undefined.__importDefault) || function (mod)
 
 
 
-let DownloadService = class DownloadService {
+let DownloadService = DownloadService_1 = class DownloadService {
     constructor(cinerino, utilService) {
         this.cinerino = cinerino;
         this.utilService = utilService;
@@ -5398,49 +5444,36 @@ let DownloadService = class DownloadService {
                 page++;
                 roop = !(page > lastPage);
             }
-            const data = [];
-            orders.forEach((order) => {
-                order.acceptedOffers.forEach((acceptedOffer) => {
-                    if (acceptedOffer.itemOffered.typeOf !== _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_1__["factory"].chevre.reservationType.EventReservation) {
-                        return;
-                    }
-                    const customData = {
-                        orderDate: order.orderDate,
-                        orderDateJST: moment__WEBPACK_IMPORTED_MODULE_3__(order.orderDate).format('YYYY/MM/DD/HH:mm'),
-                        orderNumber: order.orderNumber,
-                        orderStatus: order.orderStatus,
-                        confirmationNumber: order.confirmationNumber,
-                        price: order.price,
-                        seller: order.seller,
-                        paymentMethodsNames: order.paymentMethods.map(m => m.name).join(','),
-                        customer: Object.assign({}, order.customer, { formatTelephone: Object(_functions__WEBPACK_IMPORTED_MODULE_4__["formatTelephone"])(order.customer.telephone), pos: {
-                                name: (Object(_functions__WEBPACK_IMPORTED_MODULE_4__["getTransactionAgentIdentifier"])(order, 'posName') === undefined)
-                                    ? { name: '', value: '' }
-                                    : Object(_functions__WEBPACK_IMPORTED_MODULE_4__["getTransactionAgentIdentifier"])(order, 'posName')
-                            }, liny: {
-                                id: (Object(_functions__WEBPACK_IMPORTED_MODULE_4__["getTransactionAgentIdentifier"])(order, 'linyId') === undefined)
-                                    ? { name: '', value: '' }
-                                    : Object(_functions__WEBPACK_IMPORTED_MODULE_4__["getTransactionAgentIdentifier"])(order, 'linyId')
-                            } }),
-                        itemOffered: {
-                            id: acceptedOffer.itemOffered.id,
-                            price: Object(_functions__WEBPACK_IMPORTED_MODULE_4__["getTicketPrice"])(acceptedOffer).total,
-                            reservedTicket: acceptedOffer.itemOffered.reservedTicket,
-                            reservationFor: Object.assign({}, acceptedOffer.itemOffered.reservationFor, { startDateJST: moment__WEBPACK_IMPORTED_MODULE_3__(acceptedOffer.itemOffered.reservationFor.startDate).format('YYYY/MM/DD/HH:mm') })
-                        }
-                    };
-                    data.push(customData);
-                });
-            });
-            yield this.splitDownload('order', data, opts, 5000);
+            const data = Object(_functions__WEBPACK_IMPORTED_MODULE_4__["order2report"])(orders);
+            yield this.splitDownload('order', data, opts, DownloadService_1.SPLIT_COUNT);
         });
     }
     /**
      * 注文情報CSVダウンロード
      */
     orderStream(params) {
-        const url = `/download/order?params=${JSON.stringify(params)}`;
-        window.open(url, '_blank');
+        return __awaiter(this, void 0, void 0, function* () {
+            // const url = `/download/order?params=${JSON.stringify(params)}`;
+            // window.open(url, '_blank');
+            const url = '/storage/json/csv/order.json';
+            const fields = yield this.utilService.getJson(url);
+            const opts = { fields, unwind: [] };
+            const decoder = new TextDecoder();
+            yield this.cinerino.getServices();
+            const stream = yield this.cinerino.order.download(Object.assign({}, params, { format: _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_1__["factory"].encodingFormat.Application.json }));
+            const reader = yield stream.getReader();
+            let streamText = '';
+            const readChunk = (chunk) => __awaiter(this, void 0, void 0, function* () {
+                if (chunk.done) {
+                    const data = Object(_functions__WEBPACK_IMPORTED_MODULE_4__["order2report"])(JSON.parse(streamText));
+                    yield this.splitDownload('order', data, opts, DownloadService_1.SPLIT_COUNT);
+                    return;
+                }
+                streamText += decoder.decode(chunk.value);
+                reader.read().then(readChunk);
+            });
+            reader.read().then(readChunk);
+        });
     }
     /**
      * 予約情報CSVダウンロード
@@ -5482,7 +5515,7 @@ let DownloadService = class DownloadService {
                 };
                 data.push(customData);
             });
-            yield this.splitDownload('reservation', data, opts, 5000);
+            yield this.splitDownload('reservation', data, opts, DownloadService_1.SPLIT_COUNT);
         });
     }
     /**
@@ -5514,7 +5547,7 @@ let DownloadService = class DownloadService {
                 };
                 data.push(customData);
             });
-            yield this.splitDownload('person', data, opts, 5000);
+            yield this.splitDownload('person', data, opts, DownloadService_1.SPLIT_COUNT);
         });
     }
     splitDownload(filename, data, opts, split) {
@@ -5542,11 +5575,12 @@ let DownloadService = class DownloadService {
         }
     }
 };
+DownloadService.SPLIT_COUNT = 10000;
 DownloadService.ctorParameters = () => [
     { type: _cinerino_service__WEBPACK_IMPORTED_MODULE_5__["CinerinoService"] },
     { type: _util_service__WEBPACK_IMPORTED_MODULE_6__["UtilService"] }
 ];
-DownloadService = __decorate([
+DownloadService = DownloadService_1 = __decorate([
     Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"])({
         providedIn: 'root'
     }),
