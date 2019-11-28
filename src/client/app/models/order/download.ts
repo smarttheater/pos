@@ -17,4 +17,10 @@ export interface IOrderDownloadConditions {
     eventStartDateThrough?: Date;
     posId: string;
     format: factory.encodingFormat.Application | factory.encodingFormat.Text;
+    csvFormat: CsvFormat;
+}
+
+export enum CsvFormat {
+    Default = 'Default',
+    Custom = 'Custom'
 }

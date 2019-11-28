@@ -1978,7 +1978,7 @@ function iOSDatepickerTapBugFix(container, datepickerDirectives) {
 /*!*****************************!*\
   !*** ./app/models/index.ts ***!
   \*****************************/
-/*! exports provided: SeatStatus, Reservation, PaymentMethodType, connectionType, printers, OrderActions, PrintQrcodeType, Language, ViewType */
+/*! exports provided: SeatStatus, Reservation, PaymentMethodType, connectionType, printers, OrderActions, CsvFormat, PrintQrcodeType, Language, ViewType */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -2000,18 +2000,22 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _order_action__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./order/action */ "./app/models/order/action.ts");
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "OrderActions", function() { return _order_action__WEBPACK_IMPORTED_MODULE_4__["OrderActions"]; });
 
-/* harmony import */ var _order_print__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./order/print */ "./app/models/order/print.ts");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "PrintQrcodeType", function() { return _order_print__WEBPACK_IMPORTED_MODULE_5__["PrintQrcodeType"]; });
+/* harmony import */ var _order_download__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./order/download */ "./app/models/order/download.ts");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "CsvFormat", function() { return _order_download__WEBPACK_IMPORTED_MODULE_5__["CsvFormat"]; });
 
-/* harmony import */ var _util_language__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./util/language */ "./app/models/util/language.ts");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "Language", function() { return _util_language__WEBPACK_IMPORTED_MODULE_6__["Language"]; });
+/* harmony import */ var _order_print__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./order/print */ "./app/models/order/print.ts");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "PrintQrcodeType", function() { return _order_print__WEBPACK_IMPORTED_MODULE_6__["PrintQrcodeType"]; });
 
-/* harmony import */ var _util_viewType__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./util/viewType */ "./app/models/util/viewType.ts");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "ViewType", function() { return _util_viewType__WEBPACK_IMPORTED_MODULE_7__["ViewType"]; });
+/* harmony import */ var _util_language__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./util/language */ "./app/models/util/language.ts");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "Language", function() { return _util_language__WEBPACK_IMPORTED_MODULE_7__["Language"]; });
+
+/* harmony import */ var _util_viewType__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./util/viewType */ "./app/models/util/viewType.ts");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "ViewType", function() { return _util_viewType__WEBPACK_IMPORTED_MODULE_8__["ViewType"]; });
 
 /* empty/unused harmony star reexport */var __importDefault = (undefined && undefined.__importDefault) || function (mod) {
   return (mod && mod.__esModule) ? mod : { "default": mod };
 };
+
 
 
 
@@ -2049,6 +2053,28 @@ var OrderActions;
      */
     OrderActions["Print"] = "Print";
 })(OrderActions || (OrderActions = {}));
+
+
+/***/ }),
+
+/***/ "./app/models/order/download.ts":
+/*!**************************************!*\
+  !*** ./app/models/order/download.ts ***!
+  \**************************************/
+/*! exports provided: CsvFormat */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CsvFormat", function() { return CsvFormat; });
+var __importDefault = (undefined && undefined.__importDefault) || function (mod) {
+  return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+var CsvFormat;
+(function (CsvFormat) {
+    CsvFormat["Default"] = "Default";
+    CsvFormat["Custom"] = "Custom";
+})(CsvFormat || (CsvFormat = {}));
 
 
 /***/ }),
@@ -5387,8 +5413,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! moment */ "../../node_modules/moment/moment.js");
 /* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_3__);
 /* harmony import */ var _functions__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../functions */ "./app/functions/index.ts");
-/* harmony import */ var _cinerino_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./cinerino.service */ "./app/services/cinerino.service.ts");
-/* harmony import */ var _util_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./util.service */ "./app/services/util.service.ts");
+/* harmony import */ var _models__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../models */ "./app/models/index.ts");
+/* harmony import */ var _cinerino_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./cinerino.service */ "./app/services/cinerino.service.ts");
+/* harmony import */ var _util_service__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./util.service */ "./app/services/util.service.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -5410,6 +5437,7 @@ var __importDefault = (undefined && undefined.__importDefault) || function (mod)
   return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 var DownloadService_1;
+
 
 
 
@@ -5453,8 +5481,10 @@ let DownloadService = DownloadService_1 = class DownloadService {
      */
     orderStream(params) {
         return __awaiter(this, void 0, void 0, function* () {
-            // const url = `/download/order?params=${JSON.stringify(params)}`;
-            // window.open(url, '_blank');
+            if (params.csvFormat === _models__WEBPACK_IMPORTED_MODULE_5__["CsvFormat"].Default) {
+                window.open(`/download/order?params=${JSON.stringify(params)}`, '_blank');
+                return;
+            }
             const url = '/storage/json/csv/order.json';
             const fields = yield this.utilService.getJson(url);
             const opts = { fields, unwind: [] };
@@ -5577,15 +5607,15 @@ let DownloadService = DownloadService_1 = class DownloadService {
 };
 DownloadService.SPLIT_COUNT = 10000;
 DownloadService.ctorParameters = () => [
-    { type: _cinerino_service__WEBPACK_IMPORTED_MODULE_5__["CinerinoService"] },
-    { type: _util_service__WEBPACK_IMPORTED_MODULE_6__["UtilService"] }
+    { type: _cinerino_service__WEBPACK_IMPORTED_MODULE_6__["CinerinoService"] },
+    { type: _util_service__WEBPACK_IMPORTED_MODULE_7__["UtilService"] }
 ];
 DownloadService = DownloadService_1 = __decorate([
     Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"])({
         providedIn: 'root'
     }),
-    __metadata("design:paramtypes", [_cinerino_service__WEBPACK_IMPORTED_MODULE_5__["CinerinoService"],
-        _util_service__WEBPACK_IMPORTED_MODULE_6__["UtilService"]])
+    __metadata("design:paramtypes", [_cinerino_service__WEBPACK_IMPORTED_MODULE_6__["CinerinoService"],
+        _util_service__WEBPACK_IMPORTED_MODULE_7__["UtilService"]])
 ], DownloadService);
 
 

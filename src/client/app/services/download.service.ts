@@ -3,6 +3,7 @@ import { factory } from '@cinerino/api-javascript-client';
 import * as json2csv from 'json2csv';
 import * as moment from 'moment';
 import { getTicketPrice, order2report } from '../functions';
+import { CsvFormat } from '../models';
 import { CinerinoService } from './cinerino.service';
 import { UtilService } from './util.service';
 
@@ -47,9 +48,12 @@ export class DownloadService {
      */
     public async orderStream(params: factory.order.ISearchConditions & {
         format: factory.encodingFormat.Application | factory.encodingFormat.Text;
+        csvFormat: CsvFormat;
     }) {
-        // const url = `/download/order?params=${JSON.stringify(params)}`;
-        // window.open(url, '_blank');
+        if (params.csvFormat === CsvFormat.Default) {
+            window.open(`/download/order?params=${JSON.stringify(params)}`, '_blank');
+            return;
+        }
         const url = '/storage/json/csv/order.json';
         const fields = await this.utilService.getJson<{ label: string, value: string }[]>(url);
         const opts = { fields, unwind: [] };
