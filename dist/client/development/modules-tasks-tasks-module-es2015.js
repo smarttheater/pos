@@ -40,7 +40,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("<div class=\"contents-width mx-auto px-3 py-5\">\n    <h2 class=\"text-large mb-4 text-center font-weight-bold\">{{ 'tasks.accountDeposit.title' | translate }}</h2>\n    <p class=\"mb-4 text-md-center\" [innerHTML]=\"'tasks.accountDeposit.read' | translate\"></p>\n    <div class=\"p-3 bg-white mb-4\">\n        <div class=\"form-group\">\n            <div class=\"d-md-flex align-items-center\">\n                <p class=\"py-2 mr-md-3\">{{ 'tasks.accountDeposit.accountNumber' | translate }}</p>\n                <div class=\"py-2 mr-md-3\">\n                    <input class=\"form-control\" [(ngModel)]=\"accountNumber\" name=\"accountNumber\" type=\"text\">\n                </div>\n                <div class=\"py-2\">\n                    <button type=\"button\" class=\"btn btn-primary btn-block py-2\"\n                        [disabled]=\"accountNumber === '' || (isLoading | async)\"\n                        (click)=\"search()\">{{ 'tasks.accountDeposit.search' | translate }}</button>\n                </div>\n            </div>\n        </div>\n        <div class=\"form-row\">\n            <div class=\"form-group col-md-6\">\n                <label for=\"familyName\" class=\"mb-2\">{{ 'tasks.accountDeposit.amount' | translate }}</label>\n                <input class=\"form-control\" [(ngModel)]=\"amount\" type=\"number\">\n            </div>\n            <div class=\"form-group col-md-6\">\n                <label for=\"familyName\" class=\"mb-2\">{{ 'tasks.accountDeposit.message' | translate }}</label>\n                <input class=\"form-control\" [(ngModel)]=\"message\" type=\"text\">\n            </div>\n        </div>\n\n        <div class=\"buttons mx-auto text-center\">\n            <button (click)=\"deposit()\" type=\"button\" class=\"btn btn-primary btn-block py-3 mb-3\"\n                [disabled]=\"!target || (isLoading | async)\">{{ 'tasks.accountDeposit.next' | translate }}</button>\n        </div>\n    </div>\n    <p class=\"mb-4\" *ngIf=\"!target\">{{ 'tasks.accountDeposit.notfound' | translate }}</p>\n\n    <div *ngIf=\"target\" class=\"mb-4\">\n        <div class=\"scroll-horizontal\">\n            <table class=\"table bg-white bperson text-small mb-0 border border-gray\">\n                <thead>\n                    <tr>\n                        <th scope=\"col\">{{ 'person.search.username' | translate }}</th>\n                        <th scope=\"col\">{{ 'person.search.name' | translate }}</th>\n                        <th scope=\"col\">{{ 'common.email' | translate }}</th>\n                        <th scope=\"col\">{{ 'common.telephone' | translate }}</th>\n                    </tr>\n                </thead>\n                <tbody>\n                    <tr>\n                        <td class=\"align-middle\">\n                            {{ ((target.person.memberOf.membershipNumber !== undefined) ? target.person.memberOf.membershipNumber : '') }}\n                        </td>\n                        <td class=\"align-middle\">{{ target.person.familyName }} {{ target.person.givenName }}</td>\n                        <td class=\"align-middle\">{{ target.person.email }}</td>\n                        <td class=\"align-middle\">{{ target.person.telephone }}</td>\n                    </tr>\n                </tbody>\n            </table>\n        </div>\n    </div>\n\n    \n    <div class=\"buttons mx-auto text-center\">\n        <button type=\"button\" class=\"btn btn-link\"\n        routerLink=\"/tasks\">{{ 'tasks.accountDeposit.prev' | translate }}</button>\n    </div>\n</div>");
+/* harmony default export */ __webpack_exports__["default"] = ("<div class=\"contents-width mx-auto px-3 py-5\">\n    <h2 class=\"text-large mb-4 text-center font-weight-bold\">{{ 'tasks.accountDeposit.title' | translate }}</h2>\n    <p class=\"mb-4 text-md-center\" [innerHTML]=\"'tasks.accountDeposit.read' | translate\"></p>\n    <div class=\"p-3 bg-white mb-4\">\n        <div class=\"form-row\">\n            <div class=\"form-group col-md-4\">\n                <label for=\"familyName\" class=\"mb-2\">{{ 'tasks.accountDeposit.recipient.familyName' | translate }}</label>\n                <input class=\"form-control\" [(ngModel)]=\"conditions.recipient.familyName\" type=\"text\">\n            </div>\n            <div class=\"form-group col-md-4\">\n                <label for=\"familyName\" class=\"mb-2\">{{ 'tasks.accountDeposit.recipient.givenName' | translate }}</label>\n                <input class=\"form-control\" [(ngModel)]=\"conditions.recipient.givenName\" type=\"text\">\n            </div>\n            <div class=\"form-group col-md-4\">\n                <label for=\"familyName\" class=\"mb-2\">{{ 'tasks.accountDeposit.recipient.accountNumber' | translate }}</label>\n                <input class=\"form-control\" [(ngModel)]=\"conditions.recipient.accountNumber\" type=\"text\">\n            </div>\n        </div>\n        <div class=\"form-row\">\n            <div class=\"form-group col-md-4\">\n                <label for=\"familyName\" class=\"mb-2\">{{ 'tasks.accountDeposit.amount' | translate }}</label>\n                <input class=\"form-control\" [(ngModel)]=\"conditions.amount\" type=\"number\">\n            </div>\n            <div class=\"form-group col-md-4\">\n                <label for=\"familyName\" class=\"mb-2\">{{ 'tasks.accountDeposit.message' | translate }}</label>\n                <input class=\"form-control\" [(ngModel)]=\"conditions.message\" type=\"text\">\n            </div>\n        </div>\n\n        <div class=\"buttons mx-auto text-center\">\n            <button (click)=\"deposit()\" type=\"button\" class=\"btn btn-primary btn-block py-3 mb-3\"\n                [disabled]=\"(isLoading | async)\">{{ 'tasks.accountDeposit.next' | translate }}</button>\n            <button (click)=\"conditionClear()\" type=\"button\"\n                class=\"btn btn-outline-primary btn-block py-3 mb-3\">{{ 'tasks.accountDeposit.clear' | translate }}</button>\n        </div>\n    </div>\n\n\n    <div class=\"buttons mx-auto text-center\">\n        <button type=\"button\" class=\"btn btn-link\"\n            routerLink=\"/tasks\">{{ 'tasks.accountDeposit.prev' | translate }}</button>\n    </div>\n</div>");
 
 /***/ }),
 
@@ -531,12 +531,10 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "TasksAccountDepositComponent", function() { return TasksAccountDepositComponent; });
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "../../node_modules/@angular/core/fesm2015/core.js");
-/* harmony import */ var _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @cinerino/api-javascript-client */ "../../node_modules/@cinerino/api-javascript-client/lib/index.js");
-/* harmony import */ var _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _ngrx_store__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @ngrx/store */ "../../node_modules/@ngrx/store/fesm2015/store.js");
-/* harmony import */ var _ngx_translate_core__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @ngx-translate/core */ "../../node_modules/@ngx-translate/core/fesm2015/ngx-translate-core.js");
-/* harmony import */ var _services__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../../../services */ "./app/services/index.ts");
-/* harmony import */ var _store_reducers__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../../../../store/reducers */ "./app/store/reducers/index.ts");
+/* harmony import */ var _ngrx_store__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @ngrx/store */ "../../node_modules/@ngrx/store/fesm2015/store.js");
+/* harmony import */ var _ngx_translate_core__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @ngx-translate/core */ "../../node_modules/@ngx-translate/core/fesm2015/ngx-translate-core.js");
+/* harmony import */ var _services__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../../../services */ "./app/services/index.ts");
+/* harmony import */ var _store_reducers__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../../../store/reducers */ "./app/store/reducers/index.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -562,7 +560,6 @@ var __importDefault = (undefined && undefined.__importDefault) || function (mod)
 
 
 
-
 let TasksAccountDepositComponent = class TasksAccountDepositComponent {
     constructor(store, utilService, translate, cinerinoService) {
         this.store = store;
@@ -571,61 +568,16 @@ let TasksAccountDepositComponent = class TasksAccountDepositComponent {
         this.cinerinoService = cinerinoService;
     }
     ngOnInit() {
-        this.isLoading = this.store.pipe(Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_2__["select"])(_store_reducers__WEBPACK_IMPORTED_MODULE_5__["getLoading"]));
-        this.accountNumber = '';
-        this.message = this.translate.instant('tasks.accountDeposit.defaultMessage');
-        this.amount = 1;
-    }
-    /**
-     * 検索
-     */
-    search() {
-        return __awaiter(this, void 0, void 0, function* () {
-            this.utilService.loadStart();
-            try {
-                this.target = undefined;
-                yield this.cinerinoService.getServices();
-                const account = yield this.cinerinoService.admin.ownershipInfo
-                    .search({
-                    typeOfGood: {
-                        typeOf: _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_1__["factory"].ownershipInfo.AccountGoodType.Account,
-                        accountType: _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_1__["factory"].accountType.Point,
-                        accountNumbers: [this.accountNumber]
-                    }
-                });
-                if (account.data.length === 0) {
-                    throw new Error('account notfound');
-                }
-                const person = yield this.cinerinoService.person.search({ id: account.data[0].ownedBy.id });
-                if (person.data.length === 0) {
-                    throw new Error('person notfound');
-                }
-                const programMembership = yield this.cinerinoService.admin.ownershipInfo
-                    .search({
-                    ownedBy: { id: person.data[0].id },
-                    typeOfGood: {
-                        typeOf: _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_1__["factory"].programMembership.ProgramMembershipType.ProgramMembership
-                    }
-                });
-                this.target = {
-                    person: person.data[0],
-                    programMembership: programMembership.data,
-                    account: account.data[0]
-                };
-            }
-            catch (error) {
-                this.utilService.openAlert({
-                    title: this.translate.instant('common.error'),
-                    body: `
-                <p class="mb-4">${this.translate.instant('tasks.accountDeposit.alert.search')}</p>
-                    <div class="p-3 bg-light-gray select-text">
-                    <code>${error.message}</code>
-                </div>`
-                });
-            }
-            console.log(this.target);
-            this.utilService.loadEnd();
-        });
+        this.isLoading = this.store.pipe(Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_1__["select"])(_store_reducers__WEBPACK_IMPORTED_MODULE_4__["getLoading"]));
+        this.conditions = {
+            recipient: {
+                familyName: '',
+                givenName: '',
+                accountNumber: '',
+            },
+            message: this.translate.instant('tasks.accountDeposit.defaultMessage'),
+            amount: 1,
+        };
     }
     /**
      * ポイント付与
@@ -634,19 +586,16 @@ let TasksAccountDepositComponent = class TasksAccountDepositComponent {
         return __awaiter(this, void 0, void 0, function* () {
             this.utilService.loadStart();
             try {
-                if (this.target === undefined) {
-                    throw new Error('target undefined');
-                }
                 yield this.cinerinoService.getServices();
                 yield this.cinerinoService.account.deposit4sskts({
                     object: {
-                        amount: this.amount,
-                        toLocation: { accountNumber: this.target.account.typeOfGood.accountNumber },
-                        description: this.message
+                        amount: this.conditions.amount,
+                        toLocation: { accountNumber: this.conditions.recipient.accountNumber },
+                        description: this.conditions.message
                     },
                     recipient: {
-                        id: this.target.account.typeOfGood.accountNumber,
-                        name: `${this.target.person.givenName} ${this.target.person.familyName}`,
+                        id: this.conditions.recipient.accountNumber,
+                        name: `${this.conditions.recipient.givenName} ${this.conditions.recipient.familyName}`,
                         url: ''
                     }
                 });
@@ -668,12 +617,26 @@ let TasksAccountDepositComponent = class TasksAccountDepositComponent {
             this.utilService.loadEnd();
         });
     }
+    /**
+     * 検索条件クリア
+     */
+    conditionClear() {
+        this.conditions = {
+            recipient: {
+                familyName: '',
+                givenName: '',
+                accountNumber: '',
+            },
+            message: this.translate.instant('tasks.accountDeposit.defaultMessage'),
+            amount: 1,
+        };
+    }
 };
 TasksAccountDepositComponent.ctorParameters = () => [
-    { type: _ngrx_store__WEBPACK_IMPORTED_MODULE_2__["Store"] },
-    { type: _services__WEBPACK_IMPORTED_MODULE_4__["UtilService"] },
-    { type: _ngx_translate_core__WEBPACK_IMPORTED_MODULE_3__["TranslateService"] },
-    { type: _services__WEBPACK_IMPORTED_MODULE_4__["CinerinoService"] }
+    { type: _ngrx_store__WEBPACK_IMPORTED_MODULE_1__["Store"] },
+    { type: _services__WEBPACK_IMPORTED_MODULE_3__["UtilService"] },
+    { type: _ngx_translate_core__WEBPACK_IMPORTED_MODULE_2__["TranslateService"] },
+    { type: _services__WEBPACK_IMPORTED_MODULE_3__["CinerinoService"] }
 ];
 TasksAccountDepositComponent = __decorate([
     Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
@@ -681,10 +644,10 @@ TasksAccountDepositComponent = __decorate([
         template: __importDefault(__webpack_require__(/*! raw-loader!./tasks-account-deposit.component.html */ "../../node_modules/raw-loader/dist/cjs.js!./app/modules/tasks/components/pages/tasks-account-deposit/tasks-account-deposit.component.html")).default,
         styles: [__importDefault(__webpack_require__(/*! ./tasks-account-deposit.component.scss */ "./app/modules/tasks/components/pages/tasks-account-deposit/tasks-account-deposit.component.scss")).default]
     }),
-    __metadata("design:paramtypes", [_ngrx_store__WEBPACK_IMPORTED_MODULE_2__["Store"],
-        _services__WEBPACK_IMPORTED_MODULE_4__["UtilService"],
-        _ngx_translate_core__WEBPACK_IMPORTED_MODULE_3__["TranslateService"],
-        _services__WEBPACK_IMPORTED_MODULE_4__["CinerinoService"]])
+    __metadata("design:paramtypes", [_ngrx_store__WEBPACK_IMPORTED_MODULE_1__["Store"],
+        _services__WEBPACK_IMPORTED_MODULE_3__["UtilService"],
+        _ngx_translate_core__WEBPACK_IMPORTED_MODULE_2__["TranslateService"],
+        _services__WEBPACK_IMPORTED_MODULE_3__["CinerinoService"]])
 ], TasksAccountDepositComponent);
 
 
