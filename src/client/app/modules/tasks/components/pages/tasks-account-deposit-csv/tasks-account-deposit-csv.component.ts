@@ -218,19 +218,19 @@ export class TasksAccountDepositCSVComponent implements OnInit {
                 const programMembership = await this.cinerinoService.ownershipInfo.search({
                     sort: { ownedFrom: factory.sortType.Descending },
                     limit: 10,
-                    ownedBy: { id: d.id },
+                    id: d.id,
                     typeOfGood: {
                         typeOf: factory.programMembership.ProgramMembershipType.ProgramMembership
                     }
                 });
                 // ポイント口座取得
                 const account = await this.cinerinoService.ownershipInfo.search({
-                        ownedBy: { id: d.id },
-                        typeOfGood: {
-                            typeOf: factory.ownershipInfo.AccountGoodType.Account,
-                            accountType: factory.accountType.Point
-                        }
-                    });
+                    id: d.id,
+                    typeOfGood: {
+                        typeOf: factory.ownershipInfo.AccountGoodType.Account,
+                        accountType: factory.accountType.Point
+                    }
+                });
                 // ポイント遷移
                 // const getPointTransferActions = async () => {
                 //     const limit = 100;
@@ -266,8 +266,9 @@ export class TasksAccountDepositCSVComponent implements OnInit {
                     person: person.data[0],
                     programMembership: programMembership.data[0],
                     account: account.data[0],
-                    validityMember: (moment(programMembership.data[0].ownedFrom).unix() < moment(now).unix()
-                        && moment(programMembership.data[0].ownedThrough).unix() > moment(now).unix()),
+                    validityMember: (programMembership.data[0] === undefined)
+                        ? false : (moment(programMembership.data[0].ownedFrom).unix() < moment(now).unix()
+                            && moment(programMembership.data[0].ownedThrough).unix() > moment(now).unix()),
                     programMembershipCount: programMembership.totalCount,
                     depositedCount,
                     depositCount: ((programMembership.totalCount - 1 - depositedCount) > 0)
@@ -278,12 +279,13 @@ export class TasksAccountDepositCSVComponent implements OnInit {
             }
             if (this.years === 0) {
                 this.targetTable = data;
-                console.log(this.targetTable);
+                // console.log(this.targetTable);
                 this.utilService.loadEnd();
                 return;
             }
             this.targetTable = data.filter(d => d.programMembershipCount === this.years);
         } catch (error) {
+            console.error(error);
             this.utilService.openAlert({
                 title: this.translate.instant('common.error'),
                 body: `
@@ -293,7 +295,7 @@ export class TasksAccountDepositCSVComponent implements OnInit {
                 </div>`
             });
         }
-        console.log(this.targetTable);
+        // console.log(this.targetTable);
         this.utilService.loadEnd();
     }
 
@@ -328,6 +330,7 @@ export class TasksAccountDepositCSVComponent implements OnInit {
                 await sleep(1000);
             }
         } catch (error) {
+            console.error(error);
             this.utilService.openAlert({
                 title: this.translate.instant('common.error'),
                 body: `
@@ -354,6 +357,7 @@ export class TasksAccountDepositCSVComponent implements OnInit {
             const blob = new Blob([bom, csv], { 'type': 'text/csv' });
             this.downloadService.download(blob, 'deposit.csv');
         } catch (error) {
+            console.error(error);
             this.utilService.openAlert({
                 title: this.translate.instant('common.error'),
                 body: `
