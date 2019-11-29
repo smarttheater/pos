@@ -11,7 +11,7 @@ import { UtilService } from './util.service';
     providedIn: 'root'
 })
 export class DownloadService {
-    public static SPLIT_COUNT = 10000;
+    public static SPLIT_COUNT = 50000;
 
     constructor(
         private cinerino: CinerinoService,
@@ -20,6 +20,7 @@ export class DownloadService {
 
     /**
      * 注文情報CSVダウンロード
+     * @deprecated
      */
     public async order(params: factory.order.ISearchConditions) {
         const url = '/storage/json/csv/order.json';
@@ -51,7 +52,7 @@ export class DownloadService {
         csvFormat: CsvFormat;
     }) {
         if (params.csvFormat === CsvFormat.Default) {
-            window.open(`/download/order?params=${JSON.stringify(params)}`, '_blank');
+            window.open(`/download/order?params=${JSON.stringify({...params, format: factory.encodingFormat.Text.csv})}`, '_blank');
             return;
         }
         const url = '/storage/json/csv/order.json';
@@ -64,8 +65,9 @@ export class DownloadService {
         let streamText = '';
         const readChunk = async (chunk: { done: boolean; value: any; }) => {
             if (chunk.done) {
-                const data = order2report(JSON.parse(streamText));
-                await this.splitDownload('order', data, opts, DownloadService.SPLIT_COUNT);
+                const orders = JSON.parse(streamText);
+                const data = order2report(orders);
+                await this.splitDownload('CustomOrderReport', data, opts, DownloadService.SPLIT_COUNT);
                 return;
             }
             streamText += decoder.decode(chunk.value);

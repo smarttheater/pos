@@ -5452,6 +5452,7 @@ let DownloadService = DownloadService_1 = class DownloadService {
     }
     /**
      * 注文情報CSVダウンロード
+     * @deprecated
      */
     order(params) {
         return __awaiter(this, void 0, void 0, function* () {
@@ -5482,7 +5483,7 @@ let DownloadService = DownloadService_1 = class DownloadService {
     orderStream(params) {
         return __awaiter(this, void 0, void 0, function* () {
             if (params.csvFormat === _models__WEBPACK_IMPORTED_MODULE_5__["CsvFormat"].Default) {
-                window.open(`/download/order?params=${JSON.stringify(params)}`, '_blank');
+                window.open(`/download/order?params=${JSON.stringify(Object.assign({}, params, { format: _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_1__["factory"].encodingFormat.Text.csv }))}`, '_blank');
                 return;
             }
             const url = '/storage/json/csv/order.json';
@@ -5495,8 +5496,9 @@ let DownloadService = DownloadService_1 = class DownloadService {
             let streamText = '';
             const readChunk = (chunk) => __awaiter(this, void 0, void 0, function* () {
                 if (chunk.done) {
-                    const data = Object(_functions__WEBPACK_IMPORTED_MODULE_4__["order2report"])(JSON.parse(streamText));
-                    yield this.splitDownload('order', data, opts, DownloadService_1.SPLIT_COUNT);
+                    const orders = JSON.parse(streamText);
+                    const data = Object(_functions__WEBPACK_IMPORTED_MODULE_4__["order2report"])(orders);
+                    yield this.splitDownload('CustomOrderReport', data, opts, DownloadService_1.SPLIT_COUNT);
                     return;
                 }
                 streamText += decoder.decode(chunk.value);
@@ -5605,7 +5607,7 @@ let DownloadService = DownloadService_1 = class DownloadService {
         }
     }
 };
-DownloadService.SPLIT_COUNT = 10000;
+DownloadService.SPLIT_COUNT = 50000;
 DownloadService.ctorParameters = () => [
     { type: _cinerino_service__WEBPACK_IMPORTED_MODULE_6__["CinerinoService"] },
     { type: _util_service__WEBPACK_IMPORTED_MODULE_7__["UtilService"] }
