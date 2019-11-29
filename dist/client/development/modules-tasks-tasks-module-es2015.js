@@ -161,8 +161,8 @@ let TasksAccountDepositCSVComponent = class TasksAccountDepositCSVComponent {
         const now = moment__WEBPACK_IMPORTED_MODULE_6__().toDate();
         const today = moment__WEBPACK_IMPORTED_MODULE_6__(moment__WEBPACK_IMPORTED_MODULE_6__(now).format('YYYYMMDD'));
         this.conditions = {
-            orderDateFrom: moment__WEBPACK_IMPORTED_MODULE_6__(today).add(-2, 'year').toDate(),
-            orderDateThrough: moment__WEBPACK_IMPORTED_MODULE_6__(today).add(-1, 'year').toDate(),
+            orderDateFrom: moment__WEBPACK_IMPORTED_MODULE_6__(today).add(-1, 'year').toDate(),
+            orderDateThrough: moment__WEBPACK_IMPORTED_MODULE_6__(today).toDate(),
             // orderDateFrom: moment(today).add(-2, 'day').toDate(),
             // orderDateThrough: moment(today).add(1, 'day').toDate(),
             itemId: ''
@@ -295,8 +295,7 @@ let TasksAccountDepositCSVComponent = class TasksAccountDepositCSVComponent {
                     // 会員情報取得
                     const person = yield this.cinerinoService.person.search({ id: d.id });
                     // 会員プログラム取得
-                    const programMembership = yield this.cinerinoService.admin.ownershipInfo
-                        .search({
+                    const programMembership = yield this.cinerinoService.ownershipInfo.search({
                         sort: { ownedFrom: _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_1__["factory"].sortType.Descending },
                         limit: 10,
                         ownedBy: { id: d.id },
@@ -305,8 +304,7 @@ let TasksAccountDepositCSVComponent = class TasksAccountDepositCSVComponent {
                         }
                     });
                     // ポイント口座取得
-                    const account = yield this.cinerinoService.admin.ownershipInfo
-                        .search({
+                    const account = yield this.cinerinoService.ownershipInfo.search({
                         ownedBy: { id: d.id },
                         typeOfGood: {
                             typeOf: _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_1__["factory"].ownershipInfo.AccountGoodType.Account,

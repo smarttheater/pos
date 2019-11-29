@@ -16,7 +16,7 @@ interface IData {
     userName: string;
     person: factory.person.IPerson;
     programMembership: factory.ownershipInfo.IOwnershipInfo<factory.programMembership.IProgramMembership>;
-    account: factory.ownershipInfo.IOwnershipInfo<factory.ownershipInfo.IAccount<factory.accountType>>;
+    account: factory.ownershipInfo.IOwnershipInfo<factory.pecorino.account.IAccount<factory.accountType>>;
     validityMember: boolean;
     programMembershipCount: number;
     depositedCount: number;
@@ -78,8 +78,8 @@ export class TasksAccountDepositCSVComponent implements OnInit {
         const now = moment().toDate();
         const today = moment(moment(now).format('YYYYMMDD'));
         this.conditions = {
-            orderDateFrom: moment(today).add(-2, 'year').toDate(),
-            orderDateThrough: moment(today).add(-1, 'year').toDate(),
+            orderDateFrom: moment(today).add(-1, 'year').toDate(),
+            orderDateThrough: moment(today).toDate(),
             // orderDateFrom: moment(today).add(-2, 'day').toDate(),
             // orderDateThrough: moment(today).add(1, 'day').toDate(),
             itemId: ''
@@ -215,25 +215,22 @@ export class TasksAccountDepositCSVComponent implements OnInit {
                 // 会員情報取得
                 const person = await this.cinerinoService.person.search({ id: d.id });
                 // 会員プログラム取得
-                const programMembership = await this.cinerinoService.admin.ownershipInfo
-                    .search<factory.programMembership.ProgramMembershipType.ProgramMembership>({
-                        sort: { ownedFrom: factory.sortType.Descending },
-                        limit: 10,
+                const programMembership = await this.cinerinoService.ownershipInfo.search({
+                    sort: { ownedFrom: factory.sortType.Descending },
+                    limit: 10,
+                    ownedBy: { id: d.id },
+                    typeOfGood: {
+                        typeOf: factory.programMembership.ProgramMembershipType.ProgramMembership
+                    }
+                });
+                // ポイント口座取得
+                const account = await this.cinerinoService.ownershipInfo.search({
                         ownedBy: { id: d.id },
                         typeOfGood: {
-                            typeOf: factory.programMembership.ProgramMembershipType.ProgramMembership
+                            typeOf: factory.ownershipInfo.AccountGoodType.Account,
+                            accountType: factory.accountType.Point
                         }
                     });
-                // ポイント口座取得
-                const account =
-                    await this.cinerinoService.admin.ownershipInfo
-                        .search<factory.ownershipInfo.AccountGoodType.Account>({
-                            ownedBy: { id: d.id },
-                            typeOfGood: {
-                                typeOf: factory.ownershipInfo.AccountGoodType.Account,
-                                accountType: factory.accountType.Point
-                            }
-                        });
                 // ポイント遷移
                 // const getPointTransferActions = async () => {
                 //     const limit = 100;
