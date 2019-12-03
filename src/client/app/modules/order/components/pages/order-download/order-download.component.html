@@ -124,6 +124,13 @@
                         </option>
                     </select>
                 </div>
+                <div class="form-group col-md-3">
+                    <label for="csvFormat" class="mb-2">{{ 'order.download.conditions.csvFormat' | translate }}</label>
+                    <select class="form-control" name="csvFormat" id="csvFormat" [(ngModel)]="conditions.csvFormat">
+                        <option [value]="csvFormat.Default">{{ 'order.download.csvFormat.default' | translate }}</option>
+                        <option [value]="csvFormat.Custom">{{ 'order.download.csvFormat.custom' | translate }}</option>
+                    </select>
+                </div>
             </div>
             <div class="buttons mx-auto text-center">
                 <button type="submit" class="btn btn-primary btn-block py-3 mb-3"

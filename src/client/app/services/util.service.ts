@@ -115,7 +115,7 @@ export class UtilService {
         responseType?: 'json';
         withCredentials?: boolean;
     }) {
-        const result = await this.http.get<T>(url, {...options, responseType: (<any>'text')}).toPromise();
+        const result = await this.http.get<T>(url, { ...options, responseType: (<any>'text') }).toPromise();
 
         return result;
     }
@@ -140,10 +140,10 @@ export class UtilService {
     }) {
         const decryptedResult = await this.http.post<{ decrypted: string; }>(
             '/api/encryption/decode', {
-                salt: encryptedResult.salt,
-                iv: encryptedResult.iv,
-                encrypted: encryptedResult.encrypted
-            }
+            salt: encryptedResult.salt,
+            iv: encryptedResult.iv,
+            encrypted: encryptedResult.encrypted
+        }
         ).toPromise();
         return decryptedResult;
     }
@@ -151,8 +151,8 @@ export class UtilService {
     /**
      * ローディング開始
      */
-    public loadStart() {
-        this.store.dispatch(new utilAction.LoadStart());
+    public loadStart(params?: { process: string }) {
+        this.store.dispatch(new utilAction.LoadStart(params));
     }
 
     /**
@@ -160,6 +160,13 @@ export class UtilService {
      */
     public loadEnd() {
         this.store.dispatch(new utilAction.LoadEnd());
+    }
+
+    /**
+     * エラー設定
+     */
+    public setError(erorr: any) {
+        this.store.dispatch(new utilAction.SetError(erorr));
     }
 
 }
