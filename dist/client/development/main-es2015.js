@@ -5897,7 +5897,8 @@ let OrderService = class OrderService {
                 this.utilService.loadStart({ process: 'orderAction.Search' });
                 yield this.cinerino.getServices();
                 let orders = [];
-                const splitDay = 7;
+                const displayedCount = 300;
+                const splitDay = 14;
                 const splitCount = Math.ceil(moment__WEBPACK_IMPORTED_MODULE_3__(params.orderDateThrough).diff(moment__WEBPACK_IMPORTED_MODULE_3__(params.orderDateFrom), 'days') / splitDay);
                 for (let i = 0; i < splitCount; i++) {
                     const limit = 100;
@@ -5919,7 +5920,7 @@ let OrderService = class OrderService {
                     }
                 }
                 this.utilService.loadEnd();
-                return { data: orders, totalCount: orders.length };
+                return { data: orders.slice(0, displayedCount), totalCount: orders.length };
             }
             catch (error) {
                 this.utilService.setError(error);
