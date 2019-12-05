@@ -25,8 +25,9 @@ export class OrderSearchComponent implements OnInit {
     public isDownload: boolean;
     public error: Observable<string | null>;
     public user: Observable<reducers.IUserState>;
-    public orders: factory.order.IOrder[];
+    public orders: factory.order.IOrder[][];
     public totalCount: number;
+    public currentPage: number;
     public moment: typeof moment = moment;
     public orderStatus: typeof factory.orderStatus = factory.orderStatus;
     public paymentMethodType: typeof factory.paymentMethodType = factory.paymentMethodType;
@@ -69,7 +70,8 @@ export class OrderSearchComponent implements OnInit {
         this.user = this.store.pipe(select(reducers.getUser));
         this.orders = [];
         this.totalCount = 0;
-        this.limit = 20;
+        this.currentPage = 1;
+        this.limit = 50;
         const now = moment().toDate();
         const today = moment(moment(now).format('YYYYMMDD'));
         this.conditions = {
@@ -181,9 +183,17 @@ export class OrderSearchComponent implements OnInit {
     }
 
     /**
+     * ページ変更
+     */
+    public changePage(event: { page: number }) {
+        this.currentPage = event.page;
+    }
+
+    /**
      * 検索
      */
     public async orderSearch(changeConditions: boolean, event?: { page: number }) {
+        this.currentPage = 1;
         this.selectedOrders = [];
         if (event !== undefined) {
             this.confirmedConditions.page = event.page;
@@ -227,7 +237,12 @@ export class OrderSearchComponent implements OnInit {
             const params = await this.convertToSearchParams();
             const searchResult = await this.orderService.splitSearch(params);
             this.totalCount = searchResult.totalCount;
-            this.orders = searchResult.data;
+            for (let i = 0; i < Math.ceil(searchResult.data.length / this.limit); i++) {
+                this.orders.push(searchResult.data.slice(
+                    i * this.limit,
+                    ((i + 1) * this.limit > searchResult.data.length) ? (i + 1) * this.limit : searchResult.data.length
+                ));
+            }
         } catch (error) {
             console.error(error);
             this.utilService.openAlert({
