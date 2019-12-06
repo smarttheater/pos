@@ -545,7 +545,7 @@ let OrderSearchComponent = class OrderSearchComponent {
         this.orders = [];
         this.totalCount = 0;
         this.currentPage = 1;
-        this.limit = 50;
+        this.limit = 20;
         const now = moment__WEBPACK_IMPORTED_MODULE_5__().toDate();
         const today = moment__WEBPACK_IMPORTED_MODULE_5__(moment__WEBPACK_IMPORTED_MODULE_5__(now).format('YYYYMMDD'));
         this.conditions = {
@@ -709,7 +709,7 @@ let OrderSearchComponent = class OrderSearchComponent {
                 const searchResult = yield this.orderService.splitSearch(params);
                 this.totalCount = searchResult.totalCount;
                 for (let i = 0; i < Math.ceil(searchResult.data.length / this.limit); i++) {
-                    this.orders.push(searchResult.data.slice(i * this.limit, ((i + 1) * this.limit > searchResult.data.length) ? (i + 1) * this.limit : searchResult.data.length));
+                    this.orders.push(searchResult.data.slice(i * this.limit, ((i + 1) * this.limit < searchResult.data.length) ? (i + 1) * this.limit : searchResult.data.length));
                 }
             }
             catch (error) {

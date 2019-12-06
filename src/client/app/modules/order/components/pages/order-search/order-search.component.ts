@@ -71,7 +71,7 @@ export class OrderSearchComponent implements OnInit {
         this.orders = [];
         this.totalCount = 0;
         this.currentPage = 1;
-        this.limit = 50;
+        this.limit = 20;
         const now = moment().toDate();
         const today = moment(moment(now).format('YYYYMMDD'));
         this.conditions = {
@@ -240,7 +240,7 @@ export class OrderSearchComponent implements OnInit {
             for (let i = 0; i < Math.ceil(searchResult.data.length / this.limit); i++) {
                 this.orders.push(searchResult.data.slice(
                     i * this.limit,
-                    ((i + 1) * this.limit > searchResult.data.length) ? (i + 1) * this.limit : searchResult.data.length
+                    ((i + 1) * this.limit < searchResult.data.length) ? (i + 1) * this.limit : searchResult.data.length
                 ));
             }
         } catch (error) {
