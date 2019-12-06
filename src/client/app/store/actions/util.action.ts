@@ -5,7 +5,8 @@ import { Action } from '@ngrx/store';
  */
 export enum ActionTypes {
     LoadStart = '[Util] Load Start',
-    LoadEnd = '[Util] Load End'
+    LoadEnd = '[Util] Load End',
+    SetError = '[Util] Set Error'
 }
 
 /**
@@ -13,7 +14,7 @@ export enum ActionTypes {
  */
 export class LoadStart implements Action {
     public readonly type = ActionTypes.LoadStart;
-    constructor(public payload?: {}) { }
+    constructor(public payload?: { process: string; }) { }
 }
 
 /**
@@ -25,8 +26,17 @@ export class LoadEnd implements Action {
 }
 
 /**
+ * SetError
+ */
+export class SetError implements Action {
+    public readonly type = ActionTypes.SetError;
+    constructor(public payload: { error: any }) { }
+}
+
+/**
  * Actions
  */
 export type Actions =
     | LoadStart
-    | LoadEnd;
+    | LoadEnd
+    | SetError;

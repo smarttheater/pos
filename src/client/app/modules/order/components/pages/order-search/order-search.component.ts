@@ -24,8 +24,9 @@ export class OrderSearchComponent implements OnInit {
     public isLoading: Observable<boolean>;
     public isDownload: boolean;
     public error: Observable<string | null>;
-    public order: Observable<reducers.IOrderState>;
     public user: Observable<reducers.IUserState>;
+    public orders: factory.order.IOrder[];
+    public totalCount: number;
     public moment: typeof moment = moment;
     public orderStatus: typeof factory.orderStatus = factory.orderStatus;
     public paymentMethodType: typeof factory.paymentMethodType = factory.paymentMethodType;
@@ -65,8 +66,9 @@ export class OrderSearchComponent implements OnInit {
         this.selectedOrders = [];
         this.isLoading = this.store.pipe(select(reducers.getLoading));
         this.error = this.store.pipe(select(reducers.getError));
-        this.order = this.store.pipe(select(reducers.getOrder));
         this.user = this.store.pipe(select(reducers.getUser));
+        this.orders = [];
+        this.totalCount = 0;
         this.limit = 20;
         const now = moment().toDate();
         const today = moment(moment(now).format('YYYYMMDD'));
@@ -220,8 +222,12 @@ export class OrderSearchComponent implements OnInit {
             };
         }
         try {
+            this.totalCount = 0;
+            this.orders = [];
             const params = await this.convertToSearchParams();
-            await this.orderService.search(params);
+            const searchResult = await this.orderService.splitSearch(params);
+            this.totalCount = searchResult.totalCount;
+            this.orders = searchResult.data;
         } catch (error) {
             console.error(error);
             this.utilService.openAlert({
