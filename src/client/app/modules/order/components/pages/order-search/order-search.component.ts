@@ -24,8 +24,10 @@ export class OrderSearchComponent implements OnInit {
     public isLoading: Observable<boolean>;
     public isDownload: boolean;
     public error: Observable<string | null>;
-    public order: Observable<reducers.IOrderState>;
     public user: Observable<reducers.IUserState>;
+    public orders: factory.order.IOrder[][];
+    public totalCount: number;
+    public currentPage: number;
     public moment: typeof moment = moment;
     public orderStatus: typeof factory.orderStatus = factory.orderStatus;
     public paymentMethodType: typeof factory.paymentMethodType = factory.paymentMethodType;
@@ -65,13 +67,15 @@ export class OrderSearchComponent implements OnInit {
         this.selectedOrders = [];
         this.isLoading = this.store.pipe(select(reducers.getLoading));
         this.error = this.store.pipe(select(reducers.getError));
-        this.order = this.store.pipe(select(reducers.getOrder));
         this.user = this.store.pipe(select(reducers.getUser));
+        this.orders = [];
+        this.totalCount = 0;
+        this.currentPage = 1;
         this.limit = 20;
         const now = moment().toDate();
         const today = moment(moment(now).format('YYYYMMDD'));
         this.conditions = {
-            orderDateFrom: moment(today).add(-2, 'week').toDate(),
+            orderDateFrom: moment(today).add(-14, 'week').toDate(),
             orderDateThrough: moment(today).toDate(),
             confirmationNumber: '',
             orderNumber: '',
@@ -179,9 +183,17 @@ export class OrderSearchComponent implements OnInit {
     }
 
     /**
+     * ページ変更
+     */
+    public changePage(event: { page: number }) {
+        this.currentPage = event.page;
+    }
+
+    /**
      * 検索
      */
     public async orderSearch(changeConditions: boolean, event?: { page: number }) {
+        this.currentPage = 1;
         this.selectedOrders = [];
         if (event !== undefined) {
             this.confirmedConditions.page = event.page;
@@ -220,8 +232,17 @@ export class OrderSearchComponent implements OnInit {
             };
         }
         try {
+            this.totalCount = 0;
+            this.orders = [];
             const params = await this.convertToSearchParams();
-            await this.orderService.search(params);
+            const searchResult = await this.orderService.splitSearch(params);
+            this.totalCount = searchResult.totalCount;
+            for (let i = 0; i < Math.ceil(searchResult.data.length / this.limit); i++) {
+                this.orders.push(searchResult.data.slice(
+                    i * this.limit,
+                    ((i + 1) * this.limit < searchResult.data.length) ? (i + 1) * this.limit : searchResult.data.length
+                ));
+            }
         } catch (error) {
             console.error(error);
             this.utilService.openAlert({
@@ -238,7 +259,7 @@ export class OrderSearchComponent implements OnInit {
         const now = moment().toDate();
         const today = moment(moment(now).format('YYYYMMDD'));
         this.conditions = {
-            orderDateFrom: moment(today).add(-2, 'week').toDate(),
+            orderDateFrom: moment(today).add(-14, 'week').toDate(),
             orderDateThrough: moment(today).toDate(),
             confirmationNumber: '',
             orderNumber: '',

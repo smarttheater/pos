@@ -12,6 +12,15 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/).
 
 ### Security
 
+## 2.5.3 - 2019-12-06
+### Added
+ - 注文ダウンロードにCSVフォーマット選択を追加
+### Changed
+ - 注文検索を分割検索を変更
+### Fixed
+ - テンキー位置調整
+ - 検索条件UI調整
+
 ## 2.5.2 - 2019-11-22
 ### Changed
  - 注文検索の注文期間を必須（デフォルトで入力）へ変更

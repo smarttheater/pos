@@ -4,6 +4,7 @@ import * as qrcode from 'qrcode';
 import { environment } from '../../environments/environment';
 import { ITicketPrintData } from '../models';
 import { getTicketPrice } from './purchase.function';
+import { formatTelephone } from './util.function';
 
 /**
  * キャンバスへ描画
@@ -292,4 +293,53 @@ export function getTransactionAgentIdentifier(order: factory.order.IOrder, key: 
         return;
     }
     return order.customer.identifier.find(i => i.name === key);
+}
+
+/**
+ * CSV変換
+ */
+export function order2report(orders: factory.order.IOrder[]) {
+    const data: any[] = [];
+    orders.forEach((order) => {
+        order.acceptedOffers.forEach((acceptedOffer) => {
+            if (acceptedOffer.itemOffered.typeOf !== factory.chevre.reservationType.EventReservation) {
+                return;
+            }
+            const customData = {
+                orderDate: order.orderDate,
+                orderDateJST: moment(order.orderDate).format('YYYY/MM/DD/HH:mm'),
+                orderNumber: order.orderNumber,
+                orderStatus: order.orderStatus,
+                confirmationNumber: order.confirmationNumber,
+                price: order.price,
+                seller: order.seller,
+                paymentMethodsNames: order.paymentMethods.map(m => m.name).join(','),
+                customer: {
+                    ...order.customer,
+                    formatTelephone: formatTelephone((<string>order.customer.telephone)),
+                    pos: {
+                        name: (getTransactionAgentIdentifier(order, 'posName') === undefined)
+                            ? { name: '', value: '' }
+                            : (<factory.propertyValue.IPropertyValue<string>>getTransactionAgentIdentifier(order, 'posName'))
+                    },
+                    liny: {
+                        id: (getTransactionAgentIdentifier(order, 'linyId') === undefined)
+                            ? { name: '', value: '' }
+                            : (<factory.propertyValue.IPropertyValue<string>>getTransactionAgentIdentifier(order, 'linyId'))
+                    }
+                },
+                itemOffered: {
+                    id: acceptedOffer.itemOffered.id,
+                    price: getTicketPrice(acceptedOffer).total,
+                    reservedTicket: acceptedOffer.itemOffered.reservedTicket,
+                    reservationFor: {
+                        ...acceptedOffer.itemOffered.reservationFor,
+                        startDateJST: moment(acceptedOffer.itemOffered.reservationFor.startDate).format('YYYY/MM/DD/HH:mm')
+                    }
+                }
+            };
+            data.push(customData);
+        });
+    });
+    return data;
 }

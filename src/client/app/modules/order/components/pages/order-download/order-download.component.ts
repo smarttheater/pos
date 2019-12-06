@@ -8,7 +8,7 @@ import { BsDatepickerContainerComponent } from 'ngx-bootstrap/datepicker/themes/
 import { Observable } from 'rxjs';
 import { environment } from '../../../../../../environments/environment';
 import { buildQueryString, iOSDatepickerTapBugFix, orderToEventOrders } from '../../../../../functions';
-import { IOrderDownloadConditions, OrderActions } from '../../../../../models';
+import { CsvFormat, IOrderDownloadConditions, OrderActions } from '../../../../../models';
 import { DownloadService, OrderService, UtilService } from '../../../../../services';
 import * as reducers from '../../../../../store/reducers';
 
@@ -29,12 +29,12 @@ export class OrderDownloadComponent implements OnInit {
     public conditions: IOrderDownloadConditions;
     public confirmedConditions: IOrderDownloadConditions;
     public selectedOrders: factory.order.IOrder[];
-    public OrderActions: typeof OrderActions = OrderActions;
     public actionSelect: OrderActions | '';
     public buildQueryString = buildQueryString;
     public environment = environment;
     public encodingFormat = factory.encodingFormat;
     public orderToEventOrders = orderToEventOrders;
+    public csvFormat = CsvFormat;
     @ViewChild('orderDateFrom', { static: true })
     private orderDateFrom: BsDatepickerDirective;
     @ViewChild('orderDateThrough', { static: true })
@@ -77,7 +77,8 @@ export class OrderDownloadComponent implements OnInit {
             orderStatus: '',
             paymentMethodType: '',
             posId: '',
-            format: factory.encodingFormat.Text.csv,
+            format: factory.encodingFormat.Application.json,
+            csvFormat: CsvFormat.Default
         };
         this.orderService.delete();
     }
@@ -111,6 +112,7 @@ export class OrderDownloadComponent implements OnInit {
     public async convertToSearchParams() {
         return new Promise<factory.order.ISearchConditions & {
             format: factory.encodingFormat.Application | factory.encodingFormat.Text;
+            csvFormat: CsvFormat;
         }>((resolve) => {
             this.user.subscribe((user) => {
                 const identifiers: factory.propertyValue.IPropertyValue<string>[] = [];
@@ -119,6 +121,7 @@ export class OrderDownloadComponent implements OnInit {
                 }
                 const params: factory.order.ISearchConditions & {
                     format: factory.encodingFormat.Application | factory.encodingFormat.Text;
+                    csvFormat: CsvFormat;
                 } = {
                     seller: {
                         typeOf: (user.seller === undefined)
@@ -169,7 +172,8 @@ export class OrderDownloadComponent implements OnInit {
                     sort: {
                         orderDate: factory.sortType.Descending
                     },
-                    format: this.confirmedConditions.format
+                    format: this.confirmedConditions.format,
+                    csvFormat: this.confirmedConditions.csvFormat
                 };
                 resolve(params);
             }).unsubscribe();
@@ -212,18 +216,21 @@ export class OrderDownloadComponent implements OnInit {
                 eventStartDateThrough: this.conditions.eventStartDateThrough,
                 posId: this.conditions.posId,
                 format: this.conditions.format,
+                csvFormat: this.conditions.csvFormat
             };
         }
+        this.utilService.loadStart();
         try {
             const params = await this.convertToSearchParams();
-            this.downloadService.orderStream(params);
+            await this.downloadService.orderStream(params);
         } catch (error) {
             console.error(error);
             this.utilService.openAlert({
                 title: this.translate.instant('common.error'),
-                body: this.translate.instant('order.search.alert.search')
+                body: this.translate.instant('order.download.alert.download')
             });
         }
+        this.utilService.loadEnd();
     }
 
     /**
@@ -246,7 +253,8 @@ export class OrderDownloadComponent implements OnInit {
             orderStatus: '',
             paymentMethodType: '',
             posId: '',
-            format: factory.encodingFormat.Text.csv
+            format: factory.encodingFormat.Text.csv,
+            csvFormat: CsvFormat.Default
         };
         // iOS bugfix
         (<HTMLInputElement>document.getElementById('confirmationNumber')).value = '';
