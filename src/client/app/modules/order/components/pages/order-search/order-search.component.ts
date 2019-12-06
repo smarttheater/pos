@@ -75,7 +75,7 @@ export class OrderSearchComponent implements OnInit {
         const now = moment().toDate();
         const today = moment(moment(now).format('YYYYMMDD'));
         this.conditions = {
-            orderDateFrom: moment(today).add(-2, 'week').toDate(),
+            orderDateFrom: moment(today).add(-14, 'week').toDate(),
             orderDateThrough: moment(today).toDate(),
             confirmationNumber: '',
             orderNumber: '',
@@ -259,7 +259,7 @@ export class OrderSearchComponent implements OnInit {
         const now = moment().toDate();
         const today = moment(moment(now).format('YYYYMMDD'));
         this.conditions = {
-            orderDateFrom: moment(today).add(-2, 'week').toDate(),
+            orderDateFrom: moment(today).add(-14, 'week').toDate(),
             orderDateThrough: moment(today).toDate(),
             confirmationNumber: '',
             orderNumber: '',

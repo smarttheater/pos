@@ -549,7 +549,7 @@ let OrderSearchComponent = class OrderSearchComponent {
         const now = moment__WEBPACK_IMPORTED_MODULE_5__().toDate();
         const today = moment__WEBPACK_IMPORTED_MODULE_5__(moment__WEBPACK_IMPORTED_MODULE_5__(now).format('YYYYMMDD'));
         this.conditions = {
-            orderDateFrom: moment__WEBPACK_IMPORTED_MODULE_5__(today).add(-2, 'week').toDate(),
+            orderDateFrom: moment__WEBPACK_IMPORTED_MODULE_5__(today).add(-14, 'week').toDate(),
             orderDateThrough: moment__WEBPACK_IMPORTED_MODULE_5__(today).toDate(),
             confirmationNumber: '',
             orderNumber: '',
@@ -728,7 +728,7 @@ let OrderSearchComponent = class OrderSearchComponent {
         const now = moment__WEBPACK_IMPORTED_MODULE_5__().toDate();
         const today = moment__WEBPACK_IMPORTED_MODULE_5__(moment__WEBPACK_IMPORTED_MODULE_5__(now).format('YYYYMMDD'));
         this.conditions = {
-            orderDateFrom: moment__WEBPACK_IMPORTED_MODULE_5__(today).add(-2, 'week').toDate(),
+            orderDateFrom: moment__WEBPACK_IMPORTED_MODULE_5__(today).add(-14, 'week').toDate(),
             orderDateThrough: moment__WEBPACK_IMPORTED_MODULE_5__(today).toDate(),
             confirmationNumber: '',
             orderNumber: '',
