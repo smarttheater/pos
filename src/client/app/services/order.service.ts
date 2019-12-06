@@ -71,7 +71,7 @@ export class OrderService {
             this.utilService.loadStart({ process: 'orderAction.Search' });
             await this.cinerino.getServices();
             let orders: factory.order.IOrder[] = [];
-            const splitDay = 7;
+            const splitDay = 14;
             const splitCount =
                 Math.ceil(moment(params.orderDateThrough).diff(moment(params.orderDateFrom), 'days') / splitDay);
             for (let i = 0; i < splitCount; i++) {
