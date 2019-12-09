@@ -106,8 +106,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_6__);
 /* harmony import */ var ngx_bootstrap__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ngx-bootstrap */ "../../node_modules/ngx-bootstrap/esm5/ngx-bootstrap.js");
 /* harmony import */ var _functions__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../../../../../functions */ "./app/functions/index.ts");
-/* harmony import */ var _services__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../../../../../services */ "./app/services/index.ts");
-/* harmony import */ var _store_reducers__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../../../../../store/reducers */ "./app/store/reducers/index.ts");
+/* harmony import */ var _models__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../../../../../models */ "./app/models/index.ts");
+/* harmony import */ var _services__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../../../../../services */ "./app/services/index.ts");
+/* harmony import */ var _store_reducers__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ../../../../../store/reducers */ "./app/store/reducers/index.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -139,6 +140,7 @@ var __importDefault = (undefined && undefined.__importDefault) || function (mod)
 
 
 
+
 let TasksAccountDepositCSVComponent = class TasksAccountDepositCSVComponent {
     constructor(store, utilService, translate, cinerinoService, downloadService, localeService) {
         this.store = store;
@@ -149,8 +151,8 @@ let TasksAccountDepositCSVComponent = class TasksAccountDepositCSVComponent {
         this.localeService = localeService;
     }
     ngOnInit() {
-        this.isLoading = this.store.pipe(Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_2__["select"])(_store_reducers__WEBPACK_IMPORTED_MODULE_10__["getLoading"]));
-        this.user = this.store.pipe(Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_2__["select"])(_store_reducers__WEBPACK_IMPORTED_MODULE_10__["getUser"]));
+        this.isLoading = this.store.pipe(Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_2__["select"])(_store_reducers__WEBPACK_IMPORTED_MODULE_11__["getLoading"]));
+        this.user = this.store.pipe(Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_2__["select"])(_store_reducers__WEBPACK_IMPORTED_MODULE_11__["getUser"]));
         this.json = [];
         this.targetTable = [];
         this.successTable = [];
@@ -195,7 +197,7 @@ let TasksAccountDepositCSVComponent = class TasksAccountDepositCSVComponent {
                     },
                     format: _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_1__["factory"].encodingFormat.Text.csv
                 };
-                this.downloadService.orderStream(params);
+                this.downloadService.orderStream(Object.assign({}, params, { csvFormat: _models__WEBPACK_IMPORTED_MODULE_9__["CsvFormat"].Default }));
             }
             catch (error) {
                 console.error(error);
@@ -475,10 +477,10 @@ let TasksAccountDepositCSVComponent = class TasksAccountDepositCSVComponent {
 };
 TasksAccountDepositCSVComponent.ctorParameters = () => [
     { type: _ngrx_store__WEBPACK_IMPORTED_MODULE_2__["Store"] },
-    { type: _services__WEBPACK_IMPORTED_MODULE_9__["UtilService"] },
+    { type: _services__WEBPACK_IMPORTED_MODULE_10__["UtilService"] },
     { type: _ngx_translate_core__WEBPACK_IMPORTED_MODULE_3__["TranslateService"] },
-    { type: _services__WEBPACK_IMPORTED_MODULE_9__["CinerinoService"] },
-    { type: _services__WEBPACK_IMPORTED_MODULE_9__["DownloadService"] },
+    { type: _services__WEBPACK_IMPORTED_MODULE_10__["CinerinoService"] },
+    { type: _services__WEBPACK_IMPORTED_MODULE_10__["DownloadService"] },
     { type: ngx_bootstrap__WEBPACK_IMPORTED_MODULE_7__["BsLocaleService"] }
 ];
 __decorate([
@@ -496,10 +498,10 @@ TasksAccountDepositCSVComponent = __decorate([
         styles: [__importDefault(__webpack_require__(/*! ./tasks-account-deposit-csv.component.scss */ "./app/modules/tasks/components/pages/tasks-account-deposit-csv/tasks-account-deposit-csv.component.scss")).default]
     }),
     __metadata("design:paramtypes", [_ngrx_store__WEBPACK_IMPORTED_MODULE_2__["Store"],
-        _services__WEBPACK_IMPORTED_MODULE_9__["UtilService"],
+        _services__WEBPACK_IMPORTED_MODULE_10__["UtilService"],
         _ngx_translate_core__WEBPACK_IMPORTED_MODULE_3__["TranslateService"],
-        _services__WEBPACK_IMPORTED_MODULE_9__["CinerinoService"],
-        _services__WEBPACK_IMPORTED_MODULE_9__["DownloadService"],
+        _services__WEBPACK_IMPORTED_MODULE_10__["CinerinoService"],
+        _services__WEBPACK_IMPORTED_MODULE_10__["DownloadService"],
         ngx_bootstrap__WEBPACK_IMPORTED_MODULE_7__["BsLocaleService"]])
 ], TasksAccountDepositCSVComponent);
 

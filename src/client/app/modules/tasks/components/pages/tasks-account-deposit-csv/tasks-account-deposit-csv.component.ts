@@ -8,6 +8,7 @@ import * as moment from 'moment';
 import { BsDatepickerContainerComponent, BsDatepickerDirective, BsLocaleService } from 'ngx-bootstrap';
 import { Observable } from 'rxjs';
 import { iOSDatepickerTapBugFix, sleep } from '../../../../../functions';
+import { CsvFormat } from '../../../../../models';
 import { CinerinoService, DownloadService, UtilService } from '../../../../../services';
 import * as reducers from '../../../../../store/reducers';
 
@@ -114,7 +115,7 @@ export class TasksAccountDepositCSVComponent implements OnInit {
                 },
                 format: factory.encodingFormat.Text.csv
             };
-            this.downloadService.orderStream(params);
+            this.downloadService.orderStream({ ...params, csvFormat: CsvFormat.Default });
         } catch (error) {
             console.error(error);
             this.utilService.openAlert({
