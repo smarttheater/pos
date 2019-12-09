@@ -163,7 +163,7 @@ let TasksAccountDepositCSVComponent = class TasksAccountDepositCSVComponent {
         const now = moment__WEBPACK_IMPORTED_MODULE_6__().toDate();
         const today = moment__WEBPACK_IMPORTED_MODULE_6__(moment__WEBPACK_IMPORTED_MODULE_6__(now).format('YYYYMMDD'));
         this.conditions = {
-            orderDateFrom: moment__WEBPACK_IMPORTED_MODULE_6__(today).add(-1, 'year').toDate(),
+            orderDateFrom: moment__WEBPACK_IMPORTED_MODULE_6__(today).add(-7, 'days').toDate(),
             orderDateThrough: moment__WEBPACK_IMPORTED_MODULE_6__(today).toDate(),
             // orderDateFrom: moment(today).add(-2, 'day').toDate(),
             // orderDateThrough: moment(today).add(1, 'day').toDate(),
@@ -185,8 +185,7 @@ let TasksAccountDepositCSVComponent = class TasksAccountDepositCSVComponent {
                         : moment__WEBPACK_IMPORTED_MODULE_6__(moment__WEBPACK_IMPORTED_MODULE_6__(this.conditions.orderDateFrom).format('YYYYMMDD')).toISOString(),
                     orderDateThrough: (this.conditions.orderDateThrough === undefined)
                         ? undefined
-                        : moment__WEBPACK_IMPORTED_MODULE_6__(moment__WEBPACK_IMPORTED_MODULE_6__(this.conditions.orderDateThrough)
-                            .add(1, 'day').format('YYYYMMDD')).add(1, 'day').toISOString(),
+                        : moment__WEBPACK_IMPORTED_MODULE_6__(moment__WEBPACK_IMPORTED_MODULE_6__(this.conditions.orderDateThrough).format('YYYYMMDD')).add(1, 'day').toISOString(),
                     acceptedOffers: {
                         itemOffered: {
                             ids: [this.conditions.itemId]
@@ -197,6 +196,7 @@ let TasksAccountDepositCSVComponent = class TasksAccountDepositCSVComponent {
                     },
                     format: _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_1__["factory"].encodingFormat.Text.csv
                 };
+                console.log(params);
                 this.downloadService.orderStream(Object.assign({}, params, { csvFormat: _models__WEBPACK_IMPORTED_MODULE_9__["CsvFormat"].Default }));
             }
             catch (error) {
@@ -292,8 +292,11 @@ let TasksAccountDepositCSVComponent = class TasksAccountDepositCSVComponent {
                 });
                 const data = [];
                 const now = (yield this.utilService.getServerTime()).date;
-                yield this.cinerinoService.getServices();
+                let loopCount = 0;
                 for (const d of deduplication) {
+                    if (loopCount % 10 === 0) {
+                        yield this.cinerinoService.getServices();
+                    }
                     // 会員情報取得
                     const person = yield this.cinerinoService.person.search({ id: d.id });
                     // 会員プログラム取得
@@ -358,6 +361,7 @@ let TasksAccountDepositCSVComponent = class TasksAccountDepositCSVComponent {
                         pointTransferActions,
                     });
                     yield Object(_functions__WEBPACK_IMPORTED_MODULE_8__["sleep"])(1000);
+                    loopCount++;
                 }
                 if (this.years === 0) {
                     this.targetTable = data;

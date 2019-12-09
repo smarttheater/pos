@@ -49,7 +49,7 @@ export class DownloadService {
      */
     public async orderStream(params: factory.order.ISearchConditions & {
         format: factory.encodingFormat.Application | factory.encodingFormat.Text;
-        csvFormat: CsvFormat;
+        csvFormat?: CsvFormat;
     }) {
         if (params.csvFormat === CsvFormat.Default) {
             window.open(`/download/order?params=${JSON.stringify({...params, format: factory.encodingFormat.Text.csv})}`, '_blank');

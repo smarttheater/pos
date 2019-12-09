@@ -79,7 +79,7 @@ export class TasksAccountDepositCSVComponent implements OnInit {
         const now = moment().toDate();
         const today = moment(moment(now).format('YYYYMMDD'));
         this.conditions = {
-            orderDateFrom: moment(today).add(-1, 'year').toDate(),
+            orderDateFrom: moment(today).add(-7, 'days').toDate(),
             orderDateThrough: moment(today).toDate(),
             // orderDateFrom: moment(today).add(-2, 'day').toDate(),
             // orderDateThrough: moment(today).add(1, 'day').toDate(),
@@ -103,8 +103,7 @@ export class TasksAccountDepositCSVComponent implements OnInit {
                     : <any>moment(moment(this.conditions.orderDateFrom).format('YYYYMMDD')).toISOString(),
                 orderDateThrough: (this.conditions.orderDateThrough === undefined)
                     ? undefined
-                    : <any>moment(moment(this.conditions.orderDateThrough)
-                        .add(1, 'day').format('YYYYMMDD')).add(1, 'day').toISOString(),
+                    : <any>moment(moment(this.conditions.orderDateThrough).format('YYYYMMDD')).add(1, 'day').toISOString(),
                 acceptedOffers: {
                     itemOffered: {
                         ids: [this.conditions.itemId]
@@ -115,6 +114,7 @@ export class TasksAccountDepositCSVComponent implements OnInit {
                 },
                 format: factory.encodingFormat.Text.csv
             };
+            console.log(params);
             this.downloadService.orderStream({ ...params, csvFormat: CsvFormat.Default });
         } catch (error) {
             console.error(error);
@@ -211,8 +211,11 @@ export class TasksAccountDepositCSVComponent implements OnInit {
             });
             const data: IData[] = [];
             const now = (await this.utilService.getServerTime()).date;
-            await this.cinerinoService.getServices();
+            let loopCount = 0;
             for (const d of deduplication) {
+                if (loopCount % 10 === 0) {
+                    await this.cinerinoService.getServices();
+                }
                 // 会員情報取得
                 const person = await this.cinerinoService.person.search({ id: d.id });
                 // 会員プログラム取得
@@ -277,6 +280,7 @@ export class TasksAccountDepositCSVComponent implements OnInit {
                     pointTransferActions,
                 });
                 await sleep(1000);
+                loopCount++;
             }
             if (this.years === 0) {
                 this.targetTable = data;
