@@ -147,8 +147,7 @@ export class OrderDownloadComponent implements OnInit {
                         : <any>moment(moment(this.confirmedConditions.orderDateFrom).format('YYYYMMDD')).toISOString(),
                     orderDateThrough: (this.confirmedConditions.orderDateThrough === undefined)
                         ? undefined
-                        : <any>moment(moment(this.confirmedConditions.orderDateThrough)
-                            .add(1, 'day').format('YYYYMMDD')).add(1, 'day').toISOString(),
+                        : <any>moment(moment(this.confirmedConditions.orderDateThrough).format('YYYYMMDD')).add(1, 'day').toISOString(),
                     confirmationNumbers: (this.confirmedConditions.confirmationNumber === '')
                         ? undefined : [this.confirmedConditions.confirmationNumber],
                     orderNumbers: (this.confirmedConditions.orderNumber === '')

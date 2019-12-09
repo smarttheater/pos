@@ -208,8 +208,7 @@ let OrderDownloadComponent = class OrderDownloadComponent {
                             : moment__WEBPACK_IMPORTED_MODULE_4__(moment__WEBPACK_IMPORTED_MODULE_4__(this.confirmedConditions.orderDateFrom).format('YYYYMMDD')).toISOString(),
                         orderDateThrough: (this.confirmedConditions.orderDateThrough === undefined)
                             ? undefined
-                            : moment__WEBPACK_IMPORTED_MODULE_4__(moment__WEBPACK_IMPORTED_MODULE_4__(this.confirmedConditions.orderDateThrough)
-                                .add(1, 'day').format('YYYYMMDD')).add(1, 'day').toISOString(),
+                            : moment__WEBPACK_IMPORTED_MODULE_4__(moment__WEBPACK_IMPORTED_MODULE_4__(this.confirmedConditions.orderDateThrough).format('YYYYMMDD')).add(1, 'day').toISOString(),
                         confirmationNumbers: (this.confirmedConditions.confirmationNumber === '')
                             ? undefined : [this.confirmedConditions.confirmationNumber],
                         orderNumbers: (this.confirmedConditions.orderNumber === '')
