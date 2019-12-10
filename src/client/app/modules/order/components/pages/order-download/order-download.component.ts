@@ -221,7 +221,7 @@ export class OrderDownloadComponent implements OnInit {
         this.utilService.loadStart();
         try {
             const params = await this.convertToSearchParams();
-            await this.downloadService.orderStream(params);
+            await this.downloadService.order(params, params.csvFormat);
         } catch (error) {
             console.error(error);
             this.utilService.openAlert({

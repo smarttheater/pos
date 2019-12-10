@@ -80,9 +80,13 @@ export class OrderService {
                 let roop = true;
                 const orderDateThrough = moment(params.orderDateThrough).add(-1 * splitDay * i, 'days').toDate();
                 const orderDateFrom =
-                    (moment(params.orderDateThrough).add(-1 * splitDay * (i + 1), 'days').toDate() > <Date>params.orderDateFrom)
+                    (moment(params.orderDateThrough).add(-1 * splitDay * (i + 1), 'days').toDate() > moment(params.orderDateFrom).toDate())
                         ? moment(params.orderDateThrough).add(-1 * splitDay * (i + 1), 'days').toDate()
-                        : params.orderDateFrom;
+                        : moment(params.orderDateFrom).toDate();
+                console.log(
+                    moment(orderDateFrom).format('YYYY/MM/DD HH:mm'),
+                    moment(orderDateThrough).format('YYYY/MM/DD HH:mm')
+                );
                 while (roop) {
                     params.limit = limit;
                     params.page = page;

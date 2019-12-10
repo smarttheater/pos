@@ -9,7 +9,7 @@ import { BsDatepickerContainerComponent } from 'ngx-bootstrap/datepicker/themes/
 import { Observable } from 'rxjs';
 import { environment } from '../../../../../../environments/environment';
 import { buildQueryString, iOSDatepickerTapBugFix, orderToEventOrders } from '../../../../../functions';
-import { IOrderSearchConditions, OrderActions } from '../../../../../models';
+import { CsvFormat, IOrderSearchConditions, OrderActions } from '../../../../../models';
 import { DownloadService, OrderService, UserService, UtilService } from '../../../../../services';
 import * as reducers from '../../../../../store/reducers';
 import { OrderDetailModalComponent } from '../../../../shared/components/parts/order-detail-modal/order-detail-modal.component';
@@ -57,7 +57,7 @@ export class OrderSearchComponent implements OnInit {
         private userService: UserService,
         private orderService: OrderService,
         private translate: TranslateService,
-        private download: DownloadService,
+        private downloadService: DownloadService,
         private localeService: BsLocaleService,
     ) { }
 
@@ -447,7 +447,7 @@ export class OrderSearchComponent implements OnInit {
         this.isDownload = true;
         try {
             const params = await this.convertToSearchParams();
-            await this.download.order(params);
+            await this.downloadService.order(params, CsvFormat.Custom);
         } catch (error) {
             console.error(error);
         }
