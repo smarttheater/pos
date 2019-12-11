@@ -12,6 +12,10 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/).
 
 ### Security
 
+## 2.5.4 - 2019-12-11
+### Changed
+ - 注文ダウンロードを分割ダウンロードへ変更
+
 ## 2.5.3 - 2019-12-06
 ### Added
  - 注文ダウンロードにCSVフォーマット選択を追加
