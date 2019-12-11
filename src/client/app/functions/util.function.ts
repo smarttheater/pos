@@ -92,7 +92,7 @@ export function buildQueryString(data: Object) {
     let query = '';
     for (key of Object.keys(data)) {
         value = (<any>data)[key];
-        type = typeof(value) === 'object' && value instanceof Array ? 'array' : typeof(value);
+        type = typeof (value) === 'object' && value instanceof Array ? 'array' : typeof (value);
         switch (type) {
             case 'undefined':
                 break;
@@ -155,4 +155,36 @@ export function iOSDatepickerTapBugFix(
         return dayHoverHandler(event);
     };
     container.dayHoverHandler = hoverWrapper;
+}
+
+/**
+ * ストリーミングダウンロード
+ */
+export async function streamingDownload<T>(stream: ReadableStream<T>) {
+    const reader = stream.getReader();
+    const decoder = new TextDecoder();
+    let streamText = '';
+    return new Promise<string>(async (resolve, reject) => {
+        try {
+            const readChunk = async (chunk: { done: boolean; value: any; }) => {
+                if (chunk.done) {
+                    resolve(streamText);
+                    return;
+                }
+                streamText += decoder.decode(chunk.value);
+                await readChunk(await reader.read());
+            };
+            await readChunk(await reader.read());
+        } catch (error) {
+            reject(error);
+        }
+    });
+}
+
+/**
+ * 文字列をBLOB変換
+ */
+export function string2blob(value: string, options?: BlobPropertyBag) {
+    const bom = new Uint8Array([0xEF, 0xBB, 0xBF]);
+    return new Blob([bom, value], options);
 }

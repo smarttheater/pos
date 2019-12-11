@@ -208,8 +208,7 @@ let OrderDownloadComponent = class OrderDownloadComponent {
                             : moment__WEBPACK_IMPORTED_MODULE_4__(moment__WEBPACK_IMPORTED_MODULE_4__(this.confirmedConditions.orderDateFrom).format('YYYYMMDD')).toISOString(),
                         orderDateThrough: (this.confirmedConditions.orderDateThrough === undefined)
                             ? undefined
-                            : moment__WEBPACK_IMPORTED_MODULE_4__(moment__WEBPACK_IMPORTED_MODULE_4__(this.confirmedConditions.orderDateThrough)
-                                .add(1, 'day').format('YYYYMMDD')).add(1, 'day').toISOString(),
+                            : moment__WEBPACK_IMPORTED_MODULE_4__(moment__WEBPACK_IMPORTED_MODULE_4__(this.confirmedConditions.orderDateThrough).format('YYYYMMDD')).add(1, 'day').toISOString(),
                         confirmationNumbers: (this.confirmedConditions.confirmationNumber === '')
                             ? undefined : [this.confirmedConditions.confirmationNumber],
                         orderNumbers: (this.confirmedConditions.orderNumber === '')
@@ -283,7 +282,7 @@ let OrderDownloadComponent = class OrderDownloadComponent {
             this.utilService.loadStart();
             try {
                 const params = yield this.convertToSearchParams();
-                yield this.downloadService.orderStream(params);
+                yield this.downloadService.order(params, params.csvFormat);
             }
             catch (error) {
                 console.error(error);
@@ -517,7 +516,7 @@ var __importDefault = (undefined && undefined.__importDefault) || function (mod)
 
 
 let OrderSearchComponent = class OrderSearchComponent {
-    constructor(store, modal, router, utilService, userService, orderService, translate, download, localeService) {
+    constructor(store, modal, router, utilService, userService, orderService, translate, downloadService, localeService) {
         this.store = store;
         this.modal = modal;
         this.router = router;
@@ -525,7 +524,7 @@ let OrderSearchComponent = class OrderSearchComponent {
         this.userService = userService;
         this.orderService = orderService;
         this.translate = translate;
-        this.download = download;
+        this.downloadService = downloadService;
         this.localeService = localeService;
         this.moment = moment__WEBPACK_IMPORTED_MODULE_5__;
         this.orderStatus = _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_2__["factory"].orderStatus;
@@ -919,7 +918,7 @@ let OrderSearchComponent = class OrderSearchComponent {
             this.isDownload = true;
             try {
                 const params = yield this.convertToSearchParams();
-                yield this.download.order(params);
+                yield this.downloadService.order(params, _models__WEBPACK_IMPORTED_MODULE_9__["CsvFormat"].Custom);
             }
             catch (error) {
                 console.error(error);
