@@ -890,7 +890,7 @@ AppComponent = __decorate([
 /*!********************************!*\
   !*** ./app/functions/index.ts ***!
   \********************************/
-/*! exports provided: screeningEventsToWorkEvents, createGmoTokenObject, sameMovieTicketFilter, isAvailabilityMovieTicket, createMovieTicketsFromAuthorizeSeatReservation, createPaymentMethodFromType, getTicketPrice, movieTicketAuthErroCodeToMessage, getAmount, orderToEventOrders, authorizeSeatReservationToEvent, isScheduleStatusThreshold, isSales, isTicketedSeatScreeningEvent, changeTicketCount, getRemainingSeatLength, formatTelephone, toFull, toHalf, retry, sleep, buildQueryString, iOSDatepickerTapBugFix, createPrintCanvas, createTestPrintCanvas, createRegiGrowQrcode, changeTicketCountByOrder, getTransactionAgentIdentifier, order2report */
+/*! exports provided: screeningEventsToWorkEvents, createGmoTokenObject, sameMovieTicketFilter, isAvailabilityMovieTicket, createMovieTicketsFromAuthorizeSeatReservation, createPaymentMethodFromType, getTicketPrice, movieTicketAuthErroCodeToMessage, getAmount, orderToEventOrders, authorizeSeatReservationToEvent, isScheduleStatusThreshold, isSales, isTicketedSeatScreeningEvent, changeTicketCount, getRemainingSeatLength, formatTelephone, toFull, toHalf, retry, sleep, buildQueryString, iOSDatepickerTapBugFix, streamingDownload, string2blob, createPrintCanvas, createTestPrintCanvas, createRegiGrowQrcode, changeTicketCountByOrder, getTransactionAgentIdentifier, order2report */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -942,6 +942,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "buildQueryString", function() { return _util_function__WEBPACK_IMPORTED_MODULE_1__["buildQueryString"]; });
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "iOSDatepickerTapBugFix", function() { return _util_function__WEBPACK_IMPORTED_MODULE_1__["iOSDatepickerTapBugFix"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "streamingDownload", function() { return _util_function__WEBPACK_IMPORTED_MODULE_1__["streamingDownload"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "string2blob", function() { return _util_function__WEBPACK_IMPORTED_MODULE_1__["string2blob"]; });
 
 /* harmony import */ var _order_function__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./order.function */ "./app/functions/order.function.ts");
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "createPrintCanvas", function() { return _order_function__WEBPACK_IMPORTED_MODULE_2__["createPrintCanvas"]; });
@@ -1802,7 +1806,7 @@ function getRemainingSeatLength(screeningEventOffers, screeningEvent) {
 /*!****************************************!*\
   !*** ./app/functions/util.function.ts ***!
   \****************************************/
-/*! exports provided: formatTelephone, toFull, toHalf, retry, sleep, buildQueryString, iOSDatepickerTapBugFix */
+/*! exports provided: formatTelephone, toFull, toHalf, retry, sleep, buildQueryString, iOSDatepickerTapBugFix, streamingDownload, string2blob */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1814,6 +1818,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "sleep", function() { return sleep; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "buildQueryString", function() { return buildQueryString; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "iOSDatepickerTapBugFix", function() { return iOSDatepickerTapBugFix; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "streamingDownload", function() { return streamingDownload; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "string2blob", function() { return string2blob; });
 /* harmony import */ var libphonenumber_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! libphonenumber-js */ "../../node_modules/libphonenumber-js/index.es6.js");
 var __awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -1969,6 +1975,39 @@ function iOSDatepickerTapBugFix(container, datepickerDirectives) {
         return dayHoverHandler(event);
     };
     container.dayHoverHandler = hoverWrapper;
+}
+/**
+ * ストリーミングダウンロード
+ */
+function streamingDownload(stream) {
+    return __awaiter(this, void 0, void 0, function* () {
+        const reader = stream.getReader();
+        const decoder = new TextDecoder();
+        let streamText = '';
+        return new Promise((resolve, reject) => __awaiter(this, void 0, void 0, function* () {
+            try {
+                const readChunk = (chunk) => __awaiter(this, void 0, void 0, function* () {
+                    if (chunk.done) {
+                        resolve(streamText);
+                        return;
+                    }
+                    streamText += decoder.decode(chunk.value);
+                    yield readChunk(yield reader.read());
+                });
+                yield readChunk(yield reader.read());
+            }
+            catch (error) {
+                reject(error);
+            }
+        }));
+    });
+}
+/**
+ * 文字列をBLOB変換
+ */
+function string2blob(value, options) {
+    const bom = new Uint8Array([0xEF, 0xBB, 0xBF]);
+    return new Blob([bom, value], options);
 }
 
 
@@ -5415,7 +5454,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _functions__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../functions */ "./app/functions/index.ts");
 /* harmony import */ var _models__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../models */ "./app/models/index.ts");
 /* harmony import */ var _cinerino_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./cinerino.service */ "./app/services/cinerino.service.ts");
-/* harmony import */ var _util_service__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./util.service */ "./app/services/util.service.ts");
+/* harmony import */ var _order_service__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./order.service */ "./app/services/order.service.ts");
+/* harmony import */ var _util_service__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./util.service */ "./app/services/util.service.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -5445,66 +5485,40 @@ var DownloadService_1;
 
 
 
+
 let DownloadService = DownloadService_1 = class DownloadService {
-    constructor(cinerino, utilService) {
+    constructor(cinerino, utilService, orderService) {
         this.cinerino = cinerino;
         this.utilService = utilService;
-    }
-    /**
-     * 注文情報CSVダウンロード
-     * @deprecated
-     */
-    order(params) {
-        return __awaiter(this, void 0, void 0, function* () {
-            const url = '/storage/json/csv/order.json';
-            const fields = yield this.utilService.getJson(url);
-            const opts = { fields, unwind: [] };
-            yield this.cinerino.getServices();
-            const limit = 100;
-            let page = 1;
-            let roop = true;
-            let orders = [];
-            while (roop) {
-                params.limit = limit;
-                params.page = page;
-                const searchResult = yield this.cinerino.order.search(params);
-                orders = orders.concat(searchResult.data);
-                const lastPage = Math.ceil(searchResult.totalCount / limit);
-                page++;
-                roop = !(page > lastPage);
-            }
-            const data = Object(_functions__WEBPACK_IMPORTED_MODULE_4__["order2report"])(orders);
-            yield this.splitDownload('order', data, opts, DownloadService_1.SPLIT_COUNT);
-        });
+        this.orderService = orderService;
     }
     /**
      * 注文情報CSVダウンロード
      */
-    orderStream(params) {
+    order(params, csvFormat) {
         return __awaiter(this, void 0, void 0, function* () {
-            if (params.csvFormat === _models__WEBPACK_IMPORTED_MODULE_5__["CsvFormat"].Default) {
-                window.open(`/download/order?params=${JSON.stringify(Object.assign({}, params, { format: _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_1__["factory"].encodingFormat.Text.csv }))}`, '_blank');
-                return;
-            }
-            const url = '/storage/json/csv/order.json';
-            const fields = yield this.utilService.getJson(url);
-            const opts = { fields, unwind: [] };
-            const decoder = new TextDecoder();
             yield this.cinerino.getServices();
-            const stream = yield this.cinerino.order.download(Object.assign({}, params, { format: _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_1__["factory"].encodingFormat.Application.json }));
-            const reader = yield stream.getReader();
-            let streamText = '';
-            const readChunk = (chunk) => __awaiter(this, void 0, void 0, function* () {
-                if (chunk.done) {
-                    const orders = JSON.parse(streamText);
-                    const data = Object(_functions__WEBPACK_IMPORTED_MODULE_4__["order2report"])(orders);
-                    yield this.splitDownload('CustomOrderReport', data, opts, DownloadService_1.SPLIT_COUNT);
-                    return;
-                }
-                streamText += decoder.decode(chunk.value);
-                yield readChunk(yield reader.read());
-            });
-            yield readChunk(yield reader.read());
+            if (csvFormat === _models__WEBPACK_IMPORTED_MODULE_5__["CsvFormat"].Default) {
+                // デフォルト
+                const format = _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_1__["factory"].encodingFormat.Text.csv;
+                const stream = (yield this.cinerino.order.download(Object.assign({}, params, { format })));
+                const csv = yield Object(_functions__WEBPACK_IMPORTED_MODULE_4__["streamingDownload"])(stream);
+                const blob = Object(_functions__WEBPACK_IMPORTED_MODULE_4__["string2blob"])(csv, { type: 'text/csv' });
+                const fileName = 'OrderReport.csv';
+                this.download(blob, fileName);
+            }
+            else {
+                // カスタム
+                const searchResult = yield this.orderService.splitSearch(params);
+                const url = '/storage/json/csv/order.json';
+                const fields = yield this.utilService.getJson(url);
+                const opts = { fields, unwind: [] };
+                const data = Object(_functions__WEBPACK_IMPORTED_MODULE_4__["order2report"])(searchResult.data);
+                const csv = yield json2csv__WEBPACK_IMPORTED_MODULE_2__["parseAsync"](data, opts);
+                const blob = Object(_functions__WEBPACK_IMPORTED_MODULE_4__["string2blob"])(csv, { type: 'text/csv' });
+                const fileName = 'CustomOrderReport.csv';
+                this.download(blob, fileName);
+            }
         });
     }
     /**
@@ -5582,18 +5596,24 @@ let DownloadService = DownloadService_1 = class DownloadService {
             yield this.splitDownload('person', data, opts, DownloadService_1.SPLIT_COUNT);
         });
     }
+    /**
+     * ファイル分割ダウンロード
+     */
     splitDownload(filename, data, opts, split) {
         return __awaiter(this, void 0, void 0, function* () {
             const limit = Math.ceil(data.length / split);
             for (let i = 0; i < limit; i++) {
                 const splitData = data.slice(i * split, ((i + 1) * split > data.length) ? data.length : (i + 1) * split);
-                const bom = new Uint8Array([0xEF, 0xBB, 0xBF]);
                 const csv = yield json2csv__WEBPACK_IMPORTED_MODULE_2__["parseAsync"](splitData, opts);
-                const blob = new Blob([bom, csv], { 'type': 'text/csv' });
-                this.download(blob, `${filename}${(limit > 1) ? `_${(i + 1)}` : ''}.csv`);
+                const blob = Object(_functions__WEBPACK_IMPORTED_MODULE_4__["string2blob"])(csv, { type: 'text/csv' });
+                const fileName = `${filename}${(limit > 1) ? `_${(i + 1)}` : ''}.csv`;
+                this.download(blob, fileName);
             }
         });
     }
+    /**
+     * ダウンロード
+     */
     download(blob, fileName) {
         if (window.navigator.msSaveBlob) {
             window.navigator.msSaveBlob(blob, fileName);
@@ -5610,14 +5630,16 @@ let DownloadService = DownloadService_1 = class DownloadService {
 DownloadService.SPLIT_COUNT = 50000;
 DownloadService.ctorParameters = () => [
     { type: _cinerino_service__WEBPACK_IMPORTED_MODULE_6__["CinerinoService"] },
-    { type: _util_service__WEBPACK_IMPORTED_MODULE_7__["UtilService"] }
+    { type: _util_service__WEBPACK_IMPORTED_MODULE_8__["UtilService"] },
+    { type: _order_service__WEBPACK_IMPORTED_MODULE_7__["OrderService"] }
 ];
 DownloadService = DownloadService_1 = __decorate([
     Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"])({
         providedIn: 'root'
     }),
     __metadata("design:paramtypes", [_cinerino_service__WEBPACK_IMPORTED_MODULE_6__["CinerinoService"],
-        _util_service__WEBPACK_IMPORTED_MODULE_7__["UtilService"]])
+        _util_service__WEBPACK_IMPORTED_MODULE_8__["UtilService"],
+        _order_service__WEBPACK_IMPORTED_MODULE_7__["OrderService"]])
 ], DownloadService);
 
 
@@ -5904,9 +5926,10 @@ let OrderService = class OrderService {
                     let page = 1;
                     let roop = true;
                     const orderDateThrough = moment__WEBPACK_IMPORTED_MODULE_3__(params.orderDateThrough).add(-1 * splitDay * i, 'days').toDate();
-                    const orderDateFrom = (moment__WEBPACK_IMPORTED_MODULE_3__(params.orderDateThrough).add(-1 * splitDay * (i + 1), 'days').toDate() > params.orderDateFrom)
+                    const orderDateFrom = (moment__WEBPACK_IMPORTED_MODULE_3__(params.orderDateThrough).add(-1 * splitDay * (i + 1), 'days').toDate() > moment__WEBPACK_IMPORTED_MODULE_3__(params.orderDateFrom).toDate())
                         ? moment__WEBPACK_IMPORTED_MODULE_3__(params.orderDateThrough).add(-1 * splitDay * (i + 1), 'days').toDate()
-                        : params.orderDateFrom;
+                        : moment__WEBPACK_IMPORTED_MODULE_3__(params.orderDateFrom).toDate();
+                    console.log(moment__WEBPACK_IMPORTED_MODULE_3__(orderDateFrom).format('YYYY/MM/DD HH:mm'), moment__WEBPACK_IMPORTED_MODULE_3__(orderDateThrough).format('YYYY/MM/DD HH:mm'));
                     while (roop) {
                         params.limit = limit;
                         params.page = page;
