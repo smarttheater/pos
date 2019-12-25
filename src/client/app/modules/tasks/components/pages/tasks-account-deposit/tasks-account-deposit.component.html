@@ -2,65 +2,42 @@
     <h2 class="text-large mb-4 text-center font-weight-bold">{{ 'tasks.accountDeposit.title' | translate }}</h2>
     <p class="mb-4 text-md-center" [innerHTML]="'tasks.accountDeposit.read' | translate"></p>
     <div class="p-3 bg-white mb-4">
-        <div class="form-group">
-            <div class="d-md-flex align-items-center">
-                <p class="py-2 mr-md-3">{{ 'tasks.accountDeposit.accountNumber' | translate }}</p>
-                <div class="py-2 mr-md-3">
-                    <input class="form-control" [(ngModel)]="accountNumber" name="accountNumber" type="text">
-                </div>
-                <div class="py-2">
-                    <button type="button" class="btn btn-primary btn-block py-2"
-                        [disabled]="accountNumber === '' || (isLoading | async)"
-                        (click)="search()">{{ 'tasks.accountDeposit.search' | translate }}</button>
-                </div>
+        <div class="form-row">
+            <div class="form-group col-md-4">
+                <label for="familyName" class="mb-2">{{ 'tasks.accountDeposit.recipient.familyName' | translate }}</label>
+                <input class="form-control" [(ngModel)]="conditions.recipient.familyName" type="text">
+            </div>
+            <div class="form-group col-md-4">
+                <label for="familyName" class="mb-2">{{ 'tasks.accountDeposit.recipient.givenName' | translate }}</label>
+                <input class="form-control" [(ngModel)]="conditions.recipient.givenName" type="text">
+            </div>
+            <div class="form-group col-md-4">
+                <label for="familyName" class="mb-2">{{ 'tasks.accountDeposit.recipient.accountNumber' | translate }}</label>
+                <input class="form-control" [(ngModel)]="conditions.recipient.accountNumber" type="text">
             </div>
         </div>
         <div class="form-row">
-            <div class="form-group col-md-6">
+            <div class="form-group col-md-4">
                 <label for="familyName" class="mb-2">{{ 'tasks.accountDeposit.amount' | translate }}</label>
-                <input class="form-control" [(ngModel)]="amount" type="number">
+                <input class="form-control" [(ngModel)]="conditions.amount" type="number">
             </div>
-            <div class="form-group col-md-6">
+            <div class="form-group col-md-4">
                 <label for="familyName" class="mb-2">{{ 'tasks.accountDeposit.message' | translate }}</label>
-                <input class="form-control" [(ngModel)]="message" type="text">
+                <input class="form-control" [(ngModel)]="conditions.message" type="text">
             </div>
         </div>
 
         <div class="buttons mx-auto text-center">
             <button (click)="deposit()" type="button" class="btn btn-primary btn-block py-3 mb-3"
-                [disabled]="!target || (isLoading | async)">{{ 'tasks.accountDeposit.next' | translate }}</button>
-        </div>
-    </div>
-    <p class="mb-4" *ngIf="!target">{{ 'tasks.accountDeposit.notfound' | translate }}</p>
-
-    <div *ngIf="target" class="mb-4">
-        <div class="scroll-horizontal">
-            <table class="table bg-white bperson text-small mb-0 border border-gray">
-                <thead>
-                    <tr>
-                        <th scope="col">{{ 'person.search.username' | translate }}</th>
-                        <th scope="col">{{ 'person.search.name' | translate }}</th>
-                        <th scope="col">{{ 'common.email' | translate }}</th>
-                        <th scope="col">{{ 'common.telephone' | translate }}</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td class="align-middle">
-                            {{ ((target.person.memberOf.membershipNumber !== undefined) ? target.person.memberOf.membershipNumber : '') }}
-                        </td>
-                        <td class="align-middle">{{ target.person.familyName }} {{ target.person.givenName }}</td>
-                        <td class="align-middle">{{ target.person.email }}</td>
-                        <td class="align-middle">{{ target.person.telephone }}</td>
-                    </tr>
-                </tbody>
-            </table>
+                [disabled]="(isLoading | async)">{{ 'tasks.accountDeposit.next' | translate }}</button>
+            <button (click)="conditionClear()" type="button"
+                class="btn btn-outline-primary btn-block py-3 mb-3">{{ 'tasks.accountDeposit.clear' | translate }}</button>
         </div>
     </div>
 
-    
+
     <div class="buttons mx-auto text-center">
         <button type="button" class="btn btn-link"
-        routerLink="/tasks">{{ 'tasks.accountDeposit.prev' | translate }}</button>
+            routerLink="/tasks">{{ 'tasks.accountDeposit.prev' | translate }}</button>
     </div>
 </div>
