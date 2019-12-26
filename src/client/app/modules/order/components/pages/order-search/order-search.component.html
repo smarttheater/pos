@@ -222,10 +222,6 @@
                         <td class="align-middle">
                             <button class="btn btn-primary mr-2" (click)="openDetail(order)"><i
                                     class="fas fa-search-plus"></i></button>
-                            <button *ngIf="environment.ORDER_QRCODE"
-                                [disabled]="order.orderStatus !== orderStatus.OrderDelivered"
-                                class="btn btn-primary mr-2" (click)="openQrCode(order)"><i
-                                    class="fas fa-qrcode"></i></button>
                             <button *ngIf="environment.ORDER_PRINT"
                                 [disabled]="order.orderStatus !== orderStatus.OrderDelivered"
                                 class="btn btn-primary mr-2" (click)="printConfirm([order])"><i

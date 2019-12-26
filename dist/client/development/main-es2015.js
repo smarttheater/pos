@@ -468,16 +468,16 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "../../node_modules/raw-loader/dist/cjs.js!./app/modules/shared/components/parts/mvtk-check-modal/mvtk-check-modal.component.html":
-/*!************************************************************************************************************************************************************************************!*\
-  !*** C:/Users/hataguchi/Desktop/workspace/Cinerino/pos/node_modules/raw-loader/dist/cjs.js!./app/modules/shared/components/parts/mvtk-check-modal/mvtk-check-modal.component.html ***!
-  \************************************************************************************************************************************************************************************/
+/***/ "../../node_modules/raw-loader/dist/cjs.js!./app/modules/shared/components/parts/mvtk/check-modal/check-modal.component.html":
+/*!*******************************************************************************************************************************************************************************!*\
+  !*** C:/Users/hataguchi/Desktop/workspace/Cinerino/pos/node_modules/raw-loader/dist/cjs.js!./app/modules/shared/components/parts/mvtk/check-modal/check-modal.component.html ***!
+  \*******************************************************************************************************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("<div class=\"p-3 scroll-vertical\">\n        <form [formGroup]=\"mvtkForm\">\n            <div [class.d-none]=\"isShowVideo\">\n                <div class=\"mb-4\">\n                    <p *ngIf=\"errorMessage !== '' && !isSuccess\" class=\"mb-3 p-2 alert alert-danger\">{{ errorMessage }}</p>\n                    <p *ngIf=\"isSuccess\" class=\"mb-3 p-2 alert alert-success\">{{ 'modal.mvtkCheck.success' | translate }}\n                    </p>\n                    <div class=\"form-group\">\n                        <label class=\"mb-2\" for=\"\">{{ 'modal.mvtkCheck.success' | translate }}</label>\n                        <input type=\"text\" class=\"form-control\" formControlName=\"code\" id=\"code\" autocomplete=\"off\"\n                            placeholder=\"(例)012345789\" maxlength=\"10\">\n                        <div *ngIf=\"mvtkForm.controls.code.invalid && mvtkForm.controls.code.touched\" class=\"mt-2\">\n                            <p *ngIf=\"mvtkForm.controls.code.errors.required\" class=\"text-danger\">\n                                {{ 'form.validation.required' | translate }}</p>\n                            <p *ngIf=\"mvtkForm.controls.code.errors.maxlength\" class=\"text-danger\">\n                                {{ 'form.validation.maxlength' | translate:{ value: mvtkForm.controls.code.errors.maxlength.requiredLength } }}\n                            </p>\n                            <p *ngIf=\"mvtkForm.controls.code.errors.minlength\" class=\"text-danger\">\n                                {{ 'form.validation.minlength' | translate:{ value: mvtkForm.controls.code.errors.minlength.requiredLength } }}\n                            </p>\n                            <p *ngIf=\"mvtkForm.controls.code.errors.pattern\" class=\"text-danger\">\n                                {{ 'form.validation.number' | translate }}</p>\n                        </div>\n                    </div>\n    \n                    <div class=\"form-group\">\n                        <label class=\"mb-2\" for=\"\">{{ 'modal.mvtkCheck.success' | translate }}</label>\n                        <input type=\"password\" class=\"form-control\" formControlName=\"password\" id=\"password\"\n                            autocomplete=\"off\" placeholder=\"(例)0123\" maxlength=\"4\">\n                        <div *ngIf=\"mvtkForm.controls.password.invalid && mvtkForm.controls.password.touched\" class=\"mt-2\">\n                            <p *ngIf=\"mvtkForm.controls.password.errors.required\" class=\"text-danger\">\n                                {{ 'form.validation.required' | translate }}</p>\n                            <p *ngIf=\"mvtkForm.controls.password.errors.maxlength\" class=\"text-danger\">\n                                {{ 'form.validation.maxlength' | translate:{ value: mvtkForm.controls.password.errors.maxlength.requiredLength } }}\n                            </p>\n                            <p *ngIf=\"mvtkForm.controls.password.errors.minlength\" class=\"text-danger\">\n                                {{ 'form.validation.minlength' | translate:{ value: customerContactForm.controls.givenName.errors.maxlength.requiredLength } }}\n                            </p>\n                            <p *ngIf=\"mvtkForm.controls.password.errors.pattern\" class=\"text-danger\">\n                                {{ 'form.validation.number' | translate }}</p>\n                        </div>\n                    </div>\n                </div>\n                <div class=\"buttons mx-auto text-center\">\n                    <button *ngIf=\"stream === null\" type=\"button\" class=\"btn btn-success btn-block py-3\"\n                        [disabled]=\"isLoading | async\"\n                        (click)=\"activationCamera()\">{{ 'modal.mvtkCheck.camera.start' | translate }}</button>\n                    <button type=\"button\" class=\"btn btn-primary btn-block py-3\" [disabled]=\"isLoading | async\"\n                        (click)=\"checkMovieTicket()\">{{ 'modal.mvtkCheck.next' | translate }}</button>\n                    <button type=\"button\" class=\"btn btn-link btn-sm\"\n                        (click)=\"modal.hide()\">{{ 'common.close' | translate }}</button>\n                </div>\n            </div>\n            <div [class.d-block]=\"isShowVideo\" [class.d-none]=\"!isShowVideo\">\n                <div class=\"mb-2\">\n                    <div class=\"video-area text-center\">\n                        <video id=\"video\" class=\"bg-black mx-auto\" src=\"\" autoplay muted playsinline></video>\n                    </div>\n                    <div class=\"d-none\"><canvas id=\"canvas\"></canvas></div>\n                </div>\n                <div class=\"buttons mx-auto text-center mb-2\">\n                    <button *ngIf=\"stream !== null\" type=\"button\" class=\"btn btn-success btn-block\"\n                        [disabled]=\"isLoading | async\"\n                        (click)=\"stopCamera()\">{{ 'modal.mvtkCheck.camera.stop' | translate }}</button>\n                </div>\n            </div>\n    \n        </form>\n    </div>");
+/* harmony default export */ __webpack_exports__["default"] = ("<div class=\"p-3 scroll-vertical\">\n    <form [formGroup]=\"mvtkForm\">\n        <div [class.d-none]=\"isShowVideo\">\n            <div class=\"mb-4\">\n                <p *ngIf=\"errorMessage !== '' && !isSuccess\" class=\"mb-3 p-2 alert alert-danger\" [innerHTML]=\"errorMessage\"></p>\n                <p *ngIf=\"isSuccess\" class=\"mb-3 p-2 alert alert-success\">{{ 'modal.mvtk.check.success' | translate }}\n                </p>\n                <div class=\"form-group\">\n                    <label class=\"mb-2\" for=\"\">{{ 'modal.mvtk.check.code' | translate }}</label>\n                    <div class=\"input-group\">\n                        <input type=\"text\" class=\"form-control\" formControlName=\"code\" id=\"code\" autocomplete=\"off\"\n                        placeholder=\"012345789\" maxlength=\"10\">\n                        <div class=\"input-group-append\" (click)=\"openQRReader()\">\n                            <span class=\"input-group-text\"><i class=\"fas fa-qrcode\"></i></span>\n                        </div>\n                    </div>\n                    <div *ngIf=\"mvtkForm.controls.code.invalid && mvtkForm.controls.code.touched\" class=\"mt-2\">\n                        <p *ngIf=\"mvtkForm.controls.code.errors.required\" class=\"text-danger\">\n                            {{ 'form.validation.required' | translate }}</p>\n                        <p *ngIf=\"mvtkForm.controls.code.errors.maxlength\" class=\"text-danger\">\n                            {{ 'form.validation.maxlength' | translate:{ value: mvtkForm.controls.code.errors.maxlength.requiredLength } }}\n                        </p>\n                        <p *ngIf=\"mvtkForm.controls.code.errors.minlength\" class=\"text-danger\">\n                            {{ 'form.validation.minlength' | translate:{ value: mvtkForm.controls.code.errors.minlength.requiredLength } }}\n                        </p>\n                        <p *ngIf=\"mvtkForm.controls.code.errors.pattern\" class=\"text-danger\">\n                            {{ 'form.validation.number' | translate }}</p>\n                    </div>\n                </div>\n\n                <div class=\"form-group\">\n                    <label class=\"mb-2\" for=\"\">{{ 'modal.mvtk.check.password' | translate }}</label>\n                    <input type=\"password\" class=\"form-control\" formControlName=\"password\" id=\"password\"\n                        autocomplete=\"off\" placeholder=\"0123\">\n                    <div *ngIf=\"mvtkForm.controls.password.invalid && mvtkForm.controls.password.touched\" class=\"mt-2\">\n                        <p *ngIf=\"mvtkForm.controls.password.errors.required\" class=\"text-danger\">\n                            {{ 'form.validation.required' | translate }}</p>\n                        <!-- <p *ngIf=\"mvtkForm.controls.password.errors.maxlength\" class=\"text-danger\">\n                            {{ 'form.validation.maxlength' | translate:{ value: mvtkForm.controls.password.errors.maxlength.requiredLength } }}\n                        </p>\n                        <p *ngIf=\"mvtkForm.controls.password.errors.minlength\" class=\"text-danger\">\n                            {{ 'form.validation.minlength' | translate:{ value: customerContactForm.controls.givenName.errors.maxlength.requiredLength } }}\n                        </p>\n                        <p *ngIf=\"mvtkForm.controls.password.errors.pattern\" class=\"text-danger\">\n                            {{ 'form.validation.number' | translate }}</p> -->\n                    </div>\n                </div>\n            </div>\n            <div class=\"buttons mx-auto text-center\">\n                <button type=\"button\" class=\"btn btn-primary btn-block py-3 mb-3\" [disabled]=\"isLoading | async\"\n                    (click)=\"checkMovieTicket()\">{{ 'modal.mvtk.check.next' | translate }}</button>\n                <button type=\"button\" class=\"btn btn-link btn-sm\"\n                    (click)=\"modal.hide()\">{{ 'common.close' | translate }}</button>\n            </div>\n        </div>\n\n    </form>\n</div>");
 
 /***/ }),
 
@@ -494,10 +494,10 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "../../node_modules/raw-loader/dist/cjs.js!./app/modules/shared/components/parts/order-detail-modal/order-detail-modal.component.html":
-/*!****************************************************************************************************************************************************************************************!*\
-  !*** C:/Users/hataguchi/Desktop/workspace/Cinerino/pos/node_modules/raw-loader/dist/cjs.js!./app/modules/shared/components/parts/order-detail-modal/order-detail-modal.component.html ***!
-  \****************************************************************************************************************************************************************************************/
+/***/ "../../node_modules/raw-loader/dist/cjs.js!./app/modules/shared/components/parts/order/detail-modal/detail-modal.component.html":
+/*!**********************************************************************************************************************************************************************************!*\
+  !*** C:/Users/hataguchi/Desktop/workspace/Cinerino/pos/node_modules/raw-loader/dist/cjs.js!./app/modules/shared/components/parts/order/detail-modal/detail-modal.component.html ***!
+  \**********************************************************************************************************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -507,10 +507,10 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "../../node_modules/raw-loader/dist/cjs.js!./app/modules/shared/components/parts/purchase-cinema-ticket-modal/purchase-cinema-ticket-modal.component.html":
-/*!************************************************************************************************************************************************************************************************************!*\
-  !*** C:/Users/hataguchi/Desktop/workspace/Cinerino/pos/node_modules/raw-loader/dist/cjs.js!./app/modules/shared/components/parts/purchase-cinema-ticket-modal/purchase-cinema-ticket-modal.component.html ***!
-  \************************************************************************************************************************************************************************************************************/
+/***/ "../../node_modules/raw-loader/dist/cjs.js!./app/modules/shared/components/parts/purchase/cinema/ticket-modal/ticket-modal.component.html":
+/*!********************************************************************************************************************************************************************************************!*\
+  !*** C:/Users/hataguchi/Desktop/workspace/Cinerino/pos/node_modules/raw-loader/dist/cjs.js!./app/modules/shared/components/parts/purchase/cinema/ticket-modal/ticket-modal.component.html ***!
+  \********************************************************************************************************************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -520,10 +520,10 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "../../node_modules/raw-loader/dist/cjs.js!./app/modules/shared/components/parts/purchase-event-ticket-modal/purchase-event-ticket-modal.component.html":
-/*!**********************************************************************************************************************************************************************************************************!*\
-  !*** C:/Users/hataguchi/Desktop/workspace/Cinerino/pos/node_modules/raw-loader/dist/cjs.js!./app/modules/shared/components/parts/purchase-event-ticket-modal/purchase-event-ticket-modal.component.html ***!
-  \**********************************************************************************************************************************************************************************************************/
+/***/ "../../node_modules/raw-loader/dist/cjs.js!./app/modules/shared/components/parts/purchase/event/ticket-modal/ticket-modal.component.html":
+/*!*******************************************************************************************************************************************************************************************!*\
+  !*** C:/Users/hataguchi/Desktop/workspace/Cinerino/pos/node_modules/raw-loader/dist/cjs.js!./app/modules/shared/components/parts/purchase/event/ticket-modal/ticket-modal.component.html ***!
+  \*******************************************************************************************************************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -533,10 +533,10 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "../../node_modules/raw-loader/dist/cjs.js!./app/modules/shared/components/parts/purchase-transaction-modal/purchase-transaction-modal.component.html":
-/*!********************************************************************************************************************************************************************************************************!*\
-  !*** C:/Users/hataguchi/Desktop/workspace/Cinerino/pos/node_modules/raw-loader/dist/cjs.js!./app/modules/shared/components/parts/purchase-transaction-modal/purchase-transaction-modal.component.html ***!
-  \********************************************************************************************************************************************************************************************************/
+/***/ "../../node_modules/raw-loader/dist/cjs.js!./app/modules/shared/components/parts/purchase/transaction-modal/transaction-modal.component.html":
+/*!***********************************************************************************************************************************************************************************************!*\
+  !*** C:/Users/hataguchi/Desktop/workspace/Cinerino/pos/node_modules/raw-loader/dist/cjs.js!./app/modules/shared/components/parts/purchase/transaction-modal/transaction-modal.component.html ***!
+  \***********************************************************************************************************************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -546,23 +546,36 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "../../node_modules/raw-loader/dist/cjs.js!./app/modules/shared/components/parts/qrcode-modal/qrcode-modal.component.html":
-/*!****************************************************************************************************************************************************************************!*\
-  !*** C:/Users/hataguchi/Desktop/workspace/Cinerino/pos/node_modules/raw-loader/dist/cjs.js!./app/modules/shared/components/parts/qrcode-modal/qrcode-modal.component.html ***!
-  \****************************************************************************************************************************************************************************/
+/***/ "../../node_modules/raw-loader/dist/cjs.js!./app/modules/shared/components/parts/qrcode/reader-modal/reader-modal.component.html":
+/*!***********************************************************************************************************************************************************************************!*\
+  !*** C:/Users/hataguchi/Desktop/workspace/Cinerino/pos/node_modules/raw-loader/dist/cjs.js!./app/modules/shared/components/parts/qrcode/reader-modal/reader-modal.component.html ***!
+  \***********************************************************************************************************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("<div class=\"p-3\">\n    <div class=\"mb-4\">\n        <div class=\"py-3 border-bottom border-gray\">\n            <div class=\"row align-items-center\">\n                <p class=\"mb-2 mb-md-0 col-md-4\">[{{ 'common.confirmationNumber' | translate }}]</p>\n                <p class=\"col-md-8\">{{ order.confirmationNumber }}</p>\n            </div>\n        </div>\n        <div class=\"py-3 border-bottom border-gray\">\n            <div class=\"row align-items-center\">\n                <p class=\"mb-2 mb-md-0 col-md-4\">[{{ 'common.qrcode' | translate }}]</p>\n                <div class=\"col-md-8\">\n                    <div *ngFor=\"let acceptedOffer of order.acceptedOffers; let index = index\" class=\"mb-3\">\n                        <div class=\"mb-2\">\n                            <p class=\"text-x-small\">\n                                {{ acceptedOffer.itemOffered.reservationFor.name | changeLanguage }}\n                            </p>\n                            <p class=\"text-x-small\">\n                                <span *ngIf=\"acceptedOffer.itemOffered.reservedTicket.ticketedSeat && environment.DISPLAY_TICKETED_SEAT\">\n                                    {{ acceptedOffer.itemOffered.reservedTicket.ticketedSeat.seatNumber }}&nbsp;/&nbsp;</span>\n                                <span>{{ acceptedOffer.itemOffered.reservedTicket.ticketType.name | changeLanguage }}&nbsp;/&nbsp;\n                                    {{ getTicketPrice(acceptedOffer).single | currency : 'JPY' }}</span>\n                            </p>\n                        </div>\n                        <div><img [src]=\"urlList[index] | async\"></div>\n                    </div>\n                </div>\n            </div>\n        </div>\n    </div>\n    <div class=\"buttons mx-auto text-center\">\n        <button type=\"button\" class=\"btn btn-link btn-sm\"\n            (click)=\"modal.hide()\">{{ 'common.close' | translate }}</button>\n    </div>\n</div>");
+/* harmony default export */ __webpack_exports__["default"] = ("<div class=\"full-screen bg-black\">\n    <video #video id=\"video\" autoplay muted playsinline></video>\n    <div class=\"top w-100 px-3\">\n        <p class=\"text-white text-center title w-100\">{{ 'qrcode.reader.title' | translate }}</p>\n    </div>\n    <div class=\"bottom w-100\">\n        <div class=\"buttons mx-auto text-center px-3\">\n            <button type=\"button\" class=\"btn btn-primary btn-block py-3\"\n                (click)=\"modal.hide()\">{{ 'common.close' | translate }}</button>\n        </div>\n    </div>\n    <div *ngIf=\"running\" class=\"scan border border-primary\"></div>\n</div>");
 
 /***/ }),
 
-/***/ "../../node_modules/raw-loader/dist/cjs.js!./app/modules/shared/components/parts/reservation-detail-modal/reservation-detail-modal.component.html":
-/*!****************************************************************************************************************************************************************************************************!*\
-  !*** C:/Users/hataguchi/Desktop/workspace/Cinerino/pos/node_modules/raw-loader/dist/cjs.js!./app/modules/shared/components/parts/reservation-detail-modal/reservation-detail-modal.component.html ***!
-  \****************************************************************************************************************************************************************************************************/
+/***/ "../../node_modules/raw-loader/dist/cjs.js!./app/modules/shared/components/parts/qrcode/viewer-modal/viewer-modal.component.html":
+/*!***********************************************************************************************************************************************************************************!*\
+  !*** C:/Users/hataguchi/Desktop/workspace/Cinerino/pos/node_modules/raw-loader/dist/cjs.js!./app/modules/shared/components/parts/qrcode/viewer-modal/viewer-modal.component.html ***!
+  \***********************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = ("<div class=\"p-3 scroll-vertical\">\n    <div *ngIf=\"title\" class=\"mb-3 text-large text-center\">{{ title }}</div>\n    <p *ngIf=\"body\" class=\"mb-3 text-center\" [innerHTML]=\"body\"></p>\n    <div class=\"mb-3 text-center\">\n        <img [src]=\"url | async\">\n    </div>\n    <div class=\"buttons mx-auto text-center\">\n        <button type=\"button\" class=\"btn btn-link btn-sm\"\n            (click)=\"modal.hide()\">{{ 'common.close' | translate }}</button>\n    </div>\n</div>");
+
+/***/ }),
+
+/***/ "../../node_modules/raw-loader/dist/cjs.js!./app/modules/shared/components/parts/reservation/detail-modal/detail-modal.component.html":
+/*!****************************************************************************************************************************************************************************************!*\
+  !*** C:/Users/hataguchi/Desktop/workspace/Cinerino/pos/node_modules/raw-loader/dist/cjs.js!./app/modules/shared/components/parts/reservation/detail-modal/detail-modal.component.html ***!
+  \****************************************************************************************************************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -1540,44 +1553,21 @@ function getTicketPrice(ticket) {
  * ムビチケ認証購入管理番号無効事由区分変換
  */
 function movieTicketAuthErroCodeToMessage(code) {
-    switch (code) {
-        case '01': {
-            return { ja: '存在無', en: 'no existence' };
-        }
-        case '02': {
-            return { ja: 'PINｺｰﾄﾞ必須', en: 'PIN code required' };
-        }
-        case '03': {
-            return { ja: 'PINｺｰﾄﾞ認証ｴﾗｰ', en: 'PIN code authentication error' };
-        }
-        case '04': {
-            return { ja: '作品不一致', en: 'Work disagreement' };
-        }
-        case '05': {
-            return { ja: '未ｱｸﾃｨﾍﾞｰﾄ', en: 'unactivated' };
-        }
-        case '06': {
-            return { ja: '選択興行対象外', en: 'Not eligible for selection box' };
-        }
-        case '07': {
-            return { ja: '有効期限切れ', en: 'expired' };
-        }
-        case '08': {
-            return { ja: '座席予約期間外', en: 'outside the seat reservation period' };
-        }
-        case '09': {
-            return { ja: 'その他', en: 'other' };
-        }
-        case '11': {
-            return { ja: '座席予約開始前', en: 'Before starting seat reservation' };
-        }
-        case '12': {
-            return { ja: '仮お直り購入番号数不一致', en: 'temporary redemption purchase number mismatch' };
-        }
-        default: {
-            return { ja: 'その他', en: 'other' };
-        }
-    }
+    const table = [
+        { code: '01', ja: '存在無', en: 'no existence' },
+        { code: '02', ja: '存在無', en: 'no existence' },
+        { code: '03', ja: 'PINｺｰﾄﾞ認証ｴﾗｰ', en: 'PIN code authentication error' },
+        { code: '04', ja: '作品不一致', en: 'Work disagreement' },
+        { code: '05', ja: '未ｱｸﾃｨﾍﾞｰﾄ', en: 'unactivated' },
+        { code: '06', ja: '選択興行対象外', en: 'Not eligible for selection box' },
+        { code: '07', ja: '有効期限切れ', en: 'expired' },
+        { code: '08', ja: '座席予約期間外', en: 'outside the seat reservation period' },
+        { code: '09', ja: 'その他', en: 'other' },
+        { code: '11', ja: '座席予約開始前', en: 'Before starting seat reservation' },
+        { code: '12', ja: '仮お直り購入番号数不一致', en: 'temporary redemption purchase number mismatch' }
+    ];
+    const findResult = table.find(data => data.code === code);
+    return (findResult === undefined) ? { ja: 'その他', en: 'other' } : { ja: findResult.ja, en: findResult.en };
 }
 /**
  * 予約金額取得
@@ -3545,23 +3535,23 @@ LoadingComponent = __decorate([
 
 /***/ }),
 
-/***/ "./app/modules/shared/components/parts/mvtk-check-modal/mvtk-check-modal.component.scss":
-/*!**********************************************************************************************!*\
-  !*** ./app/modules/shared/components/parts/mvtk-check-modal/mvtk-check-modal.component.scss ***!
-  \**********************************************************************************************/
+/***/ "./app/modules/shared/components/parts/mvtk/check-modal/check-modal.component.scss":
+/*!*****************************************************************************************!*\
+  !*** ./app/modules/shared/components/parts/mvtk/check-modal/check-modal.component.scss ***!
+  \*****************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = (".scroll-vertical {\n  max-height: 75vh;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9jbGllbnQvYXBwL21vZHVsZXMvc2hhcmVkL2NvbXBvbmVudHMvcGFydHMvbXZ0ay1jaGVjay1tb2RhbC9DOlxcVXNlcnNcXGhhdGFndWNoaVxcRGVza3RvcFxcd29ya3NwYWNlXFxDaW5lcmlub1xccG9zL3NyY1xcY2xpZW50XFxhcHBcXG1vZHVsZXNcXHNoYXJlZFxcY29tcG9uZW50c1xccGFydHNcXG12dGstY2hlY2stbW9kYWxcXG12dGstY2hlY2stbW9kYWwuY29tcG9uZW50LnNjc3MiLCJzcmMvY2xpZW50L2FwcC9tb2R1bGVzL3NoYXJlZC9jb21wb25lbnRzL3BhcnRzL212dGstY2hlY2stbW9kYWwvbXZ0ay1jaGVjay1tb2RhbC5jb21wb25lbnQuc2NzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtFQUNJLGdCQUFBO0FDQ0oiLCJmaWxlIjoic3JjL2NsaWVudC9hcHAvbW9kdWxlcy9zaGFyZWQvY29tcG9uZW50cy9wYXJ0cy9tdnRrLWNoZWNrLW1vZGFsL212dGstY2hlY2stbW9kYWwuY29tcG9uZW50LnNjc3MiLCJzb3VyY2VzQ29udGVudCI6WyIuc2Nyb2xsLXZlcnRpY2FsIHtcbiAgICBtYXgtaGVpZ2h0OiA3NXZoO1xufSIsIi5zY3JvbGwtdmVydGljYWwge1xuICBtYXgtaGVpZ2h0OiA3NXZoO1xufSJdfQ== */");
+/* harmony default export */ __webpack_exports__["default"] = (".scroll-vertical {\n  max-height: 75vh;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9jbGllbnQvYXBwL21vZHVsZXMvc2hhcmVkL2NvbXBvbmVudHMvcGFydHMvbXZ0ay9jaGVjay1tb2RhbC9DOlxcVXNlcnNcXGhhdGFndWNoaVxcRGVza3RvcFxcd29ya3NwYWNlXFxDaW5lcmlub1xccG9zL3NyY1xcY2xpZW50XFxhcHBcXG1vZHVsZXNcXHNoYXJlZFxcY29tcG9uZW50c1xccGFydHNcXG12dGtcXGNoZWNrLW1vZGFsXFxjaGVjay1tb2RhbC5jb21wb25lbnQuc2NzcyIsInNyYy9jbGllbnQvYXBwL21vZHVsZXMvc2hhcmVkL2NvbXBvbmVudHMvcGFydHMvbXZ0ay9jaGVjay1tb2RhbC9jaGVjay1tb2RhbC5jb21wb25lbnQuc2NzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtFQUNJLGdCQUFBO0FDQ0oiLCJmaWxlIjoic3JjL2NsaWVudC9hcHAvbW9kdWxlcy9zaGFyZWQvY29tcG9uZW50cy9wYXJ0cy9tdnRrL2NoZWNrLW1vZGFsL2NoZWNrLW1vZGFsLmNvbXBvbmVudC5zY3NzIiwic291cmNlc0NvbnRlbnQiOlsiLnNjcm9sbC12ZXJ0aWNhbCB7XG4gICAgbWF4LWhlaWdodDogNzV2aDtcbn0iLCIuc2Nyb2xsLXZlcnRpY2FsIHtcbiAgbWF4LWhlaWdodDogNzV2aDtcbn0iXX0= */");
 
 /***/ }),
 
-/***/ "./app/modules/shared/components/parts/mvtk-check-modal/mvtk-check-modal.component.ts":
-/*!********************************************************************************************!*\
-  !*** ./app/modules/shared/components/parts/mvtk-check-modal/mvtk-check-modal.component.ts ***!
-  \********************************************************************************************/
+/***/ "./app/modules/shared/components/parts/mvtk/check-modal/check-modal.component.ts":
+/*!***************************************************************************************!*\
+  !*** ./app/modules/shared/components/parts/mvtk/check-modal/check-modal.component.ts ***!
+  \***************************************************************************************/
 /*! exports provided: MvtkCheckModalComponent */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -3572,13 +3562,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/forms */ "../../node_modules/@angular/forms/fesm2015/forms.js");
 /* harmony import */ var _ngrx_store__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @ngrx/store */ "../../node_modules/@ngrx/store/fesm2015/store.js");
 /* harmony import */ var _ngx_translate_core__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @ngx-translate/core */ "../../node_modules/@ngx-translate/core/fesm2015/ngx-translate-core.js");
-/* harmony import */ var jsqr__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! jsqr */ "../../node_modules/jsqr/dist/jsQR.js");
-/* harmony import */ var jsqr__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(jsqr__WEBPACK_IMPORTED_MODULE_4__);
-/* harmony import */ var ngx_bootstrap__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ngx-bootstrap */ "../../node_modules/ngx-bootstrap/esm5/ngx-bootstrap.js");
-/* harmony import */ var _functions__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../../../../functions */ "./app/functions/index.ts");
-/* harmony import */ var _services__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../../../../../services */ "./app/services/index.ts");
-/* harmony import */ var _store_reducers__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../../../../../store/reducers */ "./app/store/reducers/index.ts");
-/* harmony import */ var _pipes_change_language_pipe__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../../../pipes/change-language.pipe */ "./app/modules/shared/pipes/change-language.pipe.ts");
+/* harmony import */ var ngx_bootstrap__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ngx-bootstrap */ "../../node_modules/ngx-bootstrap/esm5/ngx-bootstrap.js");
+/* harmony import */ var _functions__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../../../../../functions */ "./app/functions/index.ts");
+/* harmony import */ var _services__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../../../../../services */ "./app/services/index.ts");
+/* harmony import */ var _store_reducers__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../../../../../../store/reducers */ "./app/store/reducers/index.ts");
+/* harmony import */ var _shared_pipes_change_language_pipe__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../../../../../shared/pipes/change-language.pipe */ "./app/modules/shared/pipes/change-language.pipe.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -3608,26 +3596,21 @@ var __importDefault = (undefined && undefined.__importDefault) || function (mod)
 
 
 
-
 let MvtkCheckModalComponent = class MvtkCheckModalComponent {
-    constructor(modal, store, formBuilder, purchaseService, translate) {
+    constructor(modal, store, formBuilder, purchaseService, userService, translate, qrcodeService) {
         this.modal = modal;
         this.store = store;
         this.formBuilder = formBuilder;
         this.purchaseService = purchaseService;
+        this.userService = userService;
         this.translate = translate;
+        this.qrcodeService = qrcodeService;
     }
     ngOnInit() {
-        this.stream = null;
-        this.video = document.getElementById('video');
-        this.video.width = 300;
         this.errorMessage = '';
-        this.isLoading = this.store.pipe(Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_2__["select"])(_store_reducers__WEBPACK_IMPORTED_MODULE_8__["getLoading"]));
-        this.purchase = this.store.pipe(Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_2__["select"])(_store_reducers__WEBPACK_IMPORTED_MODULE_8__["getPurchase"]));
+        this.isLoading = this.store.pipe(Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_2__["select"])(_store_reducers__WEBPACK_IMPORTED_MODULE_7__["getLoading"]));
+        this.purchase = this.store.pipe(Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_2__["select"])(_store_reducers__WEBPACK_IMPORTED_MODULE_7__["getPurchase"]));
         this.createMvtkForm();
-    }
-    ngOnDestroy() {
-        this.stopCamera();
     }
     createMvtkForm() {
         const CODE_LENGTH = 10;
@@ -3659,37 +3642,38 @@ let MvtkCheckModalComponent = class MvtkCheckModalComponent {
             }
             this.errorMessage = '';
             try {
-                const purchase = yield this.purchaseService.getData();
-                if (purchase.seller === undefined) {
+                const seller = (yield this.userService.getData()).seller;
+                if (seller === undefined) {
                     throw new Error('seller undefined');
                 }
                 yield this.purchaseService.checkMovieTicket({
                     movieTicket: {
                         code: this.mvtkForm.controls.code.value,
-                        password: this.mvtkForm.controls.password.value // PINコード
+                        password: this.mvtkForm.controls.password.value
                     },
-                    seller: purchase.seller
+                    seller
                 });
+                const purchase = yield this.purchaseService.getData();
                 const checkMovieTicketAction = purchase.checkMovieTicketAction;
                 if (checkMovieTicketAction === undefined
                     || checkMovieTicketAction.result === undefined
                     || checkMovieTicketAction.result.purchaseNumberAuthResult.knyknrNoInfoOut === null) {
                     this.isSuccess = false;
-                    this.errorMessage = this.translate.instant('modal.mvtkCheck.alert.validation');
+                    this.errorMessage = this.translate.instant('modal.mvtk.check.alert.validation');
                     return;
                 }
                 if (checkMovieTicketAction.result.purchaseNumberAuthResult.knyknrNoInfoOut[0].ykknmiNum === '0') {
                     this.isSuccess = false;
-                    this.errorMessage = this.translate.instant('modal.mvtkCheck.alert.used');
+                    this.errorMessage = this.translate.instant('modal.mvtk.check.alert.used');
                     return;
                 }
                 const knyknrNoMkujyuCd = checkMovieTicketAction.result.purchaseNumberAuthResult.knyknrNoInfoOut[0].knyknrNoMkujyuCd;
                 if (knyknrNoMkujyuCd !== undefined) {
-                    const message = new _pipes_change_language_pipe__WEBPACK_IMPORTED_MODULE_9__["ChangeLanguagePipe"](this.translate)
-                        .transform(Object(_functions__WEBPACK_IMPORTED_MODULE_6__["movieTicketAuthErroCodeToMessage"])(knyknrNoMkujyuCd));
+                    const message = new _shared_pipes_change_language_pipe__WEBPACK_IMPORTED_MODULE_8__["ChangeLanguagePipe"](this.translate)
+                        .transform(Object(_functions__WEBPACK_IMPORTED_MODULE_5__["movieTicketAuthErroCodeToMessage"])(knyknrNoMkujyuCd));
                     this.isSuccess = false;
-                    this.errorMessage = `${this.translate.instant('modal.mvtkCheck.alert.validation')}<br>
-                        [${knyknrNoMkujyuCd}] ${message}`;
+                    this.errorMessage = `${this.translate.instant('modal.mvtk.check.alert.validation')}<br>
+                [${knyknrNoMkujyuCd}] ${message}`;
                     return;
                 }
                 this.createMvtkForm();
@@ -3698,97 +3682,43 @@ let MvtkCheckModalComponent = class MvtkCheckModalComponent {
             catch (error) {
                 console.error(error);
                 this.isSuccess = false;
-                this.errorMessage = this.translate.instant('modal.mvtkCheck.alert.error');
+                this.errorMessage = this.translate.instant('modal.mvtk.check.alert.error');
             }
         });
     }
-    /**
-     * カメラ起動
-     */
-    activationCamera() {
-        return __awaiter(this, void 0, void 0, function* () {
-            try {
-                const constraints = {
-                    audio: false,
-                    video: { facingMode: { exact: 'environment' } }
-                };
-                const stream = yield navigator.mediaDevices.getUserMedia(constraints);
-                this.stream = stream;
-                this.video.srcObject = this.stream;
-                const scanLoopTime = 500;
-                this.scanLoop = setInterval(() => {
-                    const result = this.scan();
-                    if (result !== null) {
-                        // 読み取り完了
-                        const code = result.slice(0, 10);
-                        const password = result.slice(10, result.length);
-                        this.mvtkForm.controls.code.setValue(code);
-                        this.mvtkForm.controls.password.setValue(password);
-                        this.stopCamera();
-                    }
-                }, scanLoopTime);
-                this.isShowVideo = true;
-            }
-            catch (error) {
-                console.error(error);
+    openQRReader() {
+        this.qrcodeService.openQRCodeReader({
+            cb: (data) => {
+                const code = data.slice(0, 10);
+                const password = data.slice(10, data.length);
+                this.mvtkForm.controls.code.setValue(code);
+                this.mvtkForm.controls.password.setValue(password);
             }
         });
-    }
-    /**
-     * カメラ停止
-     */
-    stopCamera() {
-        if (this.stream === null) {
-            return;
-        }
-        this.stream.getVideoTracks().forEach((track) => {
-            track.stop();
-        });
-        this.stream = null;
-        this.isShowVideo = false;
-    }
-    /**
-     * カメラ読み取り
-     */
-    scan() {
-        if (this.stream === null) {
-            return null;
-        }
-        // キャンバスへ反映
-        const canvas = document.getElementById('canvas');
-        const context = canvas.getContext('2d');
-        const width = this.video.offsetWidth;
-        const height = this.video.offsetHeight;
-        canvas.setAttribute('width', String(width));
-        canvas.setAttribute('height', String(height));
-        context.drawImage(this.video, 0, 0, width, height);
-        // QRコードデコード
-        const imageData = context.getImageData(0, 0, width, height);
-        const qrcode = jsqr__WEBPACK_IMPORTED_MODULE_4___default()(imageData.data, width, height);
-        if (qrcode === null) {
-            return null;
-        }
-        return qrcode.data;
     }
 };
 MvtkCheckModalComponent.ctorParameters = () => [
-    { type: ngx_bootstrap__WEBPACK_IMPORTED_MODULE_5__["BsModalRef"] },
+    { type: ngx_bootstrap__WEBPACK_IMPORTED_MODULE_4__["BsModalRef"] },
     { type: _ngrx_store__WEBPACK_IMPORTED_MODULE_2__["Store"] },
     { type: _angular_forms__WEBPACK_IMPORTED_MODULE_1__["FormBuilder"] },
-    { type: _services__WEBPACK_IMPORTED_MODULE_7__["PurchaseService"] },
-    { type: _ngx_translate_core__WEBPACK_IMPORTED_MODULE_3__["TranslateService"] }
+    { type: _services__WEBPACK_IMPORTED_MODULE_6__["PurchaseService"] },
+    { type: _services__WEBPACK_IMPORTED_MODULE_6__["UserService"] },
+    { type: _ngx_translate_core__WEBPACK_IMPORTED_MODULE_3__["TranslateService"] },
+    { type: _services__WEBPACK_IMPORTED_MODULE_6__["QRCodeService"] }
 ];
 MvtkCheckModalComponent = __decorate([
     Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
         selector: 'app-mvtk-check-modal',
-        template: __importDefault(__webpack_require__(/*! raw-loader!./mvtk-check-modal.component.html */ "../../node_modules/raw-loader/dist/cjs.js!./app/modules/shared/components/parts/mvtk-check-modal/mvtk-check-modal.component.html")).default,
-        styles: [__importDefault(__webpack_require__(/*! ./mvtk-check-modal.component.scss */ "./app/modules/shared/components/parts/mvtk-check-modal/mvtk-check-modal.component.scss")).default]
+        template: __importDefault(__webpack_require__(/*! raw-loader!./check-modal.component.html */ "../../node_modules/raw-loader/dist/cjs.js!./app/modules/shared/components/parts/mvtk/check-modal/check-modal.component.html")).default,
+        styles: [__importDefault(__webpack_require__(/*! ./check-modal.component.scss */ "./app/modules/shared/components/parts/mvtk/check-modal/check-modal.component.scss")).default]
     }),
-    __metadata("design:paramtypes", [ngx_bootstrap__WEBPACK_IMPORTED_MODULE_5__["BsModalRef"],
+    __metadata("design:paramtypes", [ngx_bootstrap__WEBPACK_IMPORTED_MODULE_4__["BsModalRef"],
         _ngrx_store__WEBPACK_IMPORTED_MODULE_2__["Store"],
         _angular_forms__WEBPACK_IMPORTED_MODULE_1__["FormBuilder"],
-        _services__WEBPACK_IMPORTED_MODULE_7__["PurchaseService"],
-        _ngx_translate_core__WEBPACK_IMPORTED_MODULE_3__["TranslateService"]])
+        _services__WEBPACK_IMPORTED_MODULE_6__["PurchaseService"],
+        _services__WEBPACK_IMPORTED_MODULE_6__["UserService"],
+        _ngx_translate_core__WEBPACK_IMPORTED_MODULE_3__["TranslateService"],
+        _services__WEBPACK_IMPORTED_MODULE_6__["QRCodeService"]])
 ], MvtkCheckModalComponent);
 
 
@@ -3921,23 +3851,23 @@ NumericKeypadComponent = __decorate([
 
 /***/ }),
 
-/***/ "./app/modules/shared/components/parts/order-detail-modal/order-detail-modal.component.scss":
-/*!**************************************************************************************************!*\
-  !*** ./app/modules/shared/components/parts/order-detail-modal/order-detail-modal.component.scss ***!
-  \**************************************************************************************************/
+/***/ "./app/modules/shared/components/parts/order/detail-modal/detail-modal.component.scss":
+/*!********************************************************************************************!*\
+  !*** ./app/modules/shared/components/parts/order/detail-modal/detail-modal.component.scss ***!
+  \********************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = (".scroll-vertical {\n  max-height: 75vh;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9jbGllbnQvYXBwL21vZHVsZXMvc2hhcmVkL2NvbXBvbmVudHMvcGFydHMvb3JkZXItZGV0YWlsLW1vZGFsL0M6XFxVc2Vyc1xcaGF0YWd1Y2hpXFxEZXNrdG9wXFx3b3Jrc3BhY2VcXENpbmVyaW5vXFxwb3Mvc3JjXFxjbGllbnRcXGFwcFxcbW9kdWxlc1xcc2hhcmVkXFxjb21wb25lbnRzXFxwYXJ0c1xcb3JkZXItZGV0YWlsLW1vZGFsXFxvcmRlci1kZXRhaWwtbW9kYWwuY29tcG9uZW50LnNjc3MiLCJzcmMvY2xpZW50L2FwcC9tb2R1bGVzL3NoYXJlZC9jb21wb25lbnRzL3BhcnRzL29yZGVyLWRldGFpbC1tb2RhbC9vcmRlci1kZXRhaWwtbW9kYWwuY29tcG9uZW50LnNjc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7RUFDSSxnQkFBQTtBQ0NKIiwiZmlsZSI6InNyYy9jbGllbnQvYXBwL21vZHVsZXMvc2hhcmVkL2NvbXBvbmVudHMvcGFydHMvb3JkZXItZGV0YWlsLW1vZGFsL29yZGVyLWRldGFpbC1tb2RhbC5jb21wb25lbnQuc2NzcyIsInNvdXJjZXNDb250ZW50IjpbIi5zY3JvbGwtdmVydGljYWwge1xuICAgIG1heC1oZWlnaHQ6IDc1dmg7XG59IiwiLnNjcm9sbC12ZXJ0aWNhbCB7XG4gIG1heC1oZWlnaHQ6IDc1dmg7XG59Il19 */");
+/* harmony default export */ __webpack_exports__["default"] = (".scroll-vertical {\n  max-height: 75vh;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9jbGllbnQvYXBwL21vZHVsZXMvc2hhcmVkL2NvbXBvbmVudHMvcGFydHMvb3JkZXIvZGV0YWlsLW1vZGFsL0M6XFxVc2Vyc1xcaGF0YWd1Y2hpXFxEZXNrdG9wXFx3b3Jrc3BhY2VcXENpbmVyaW5vXFxwb3Mvc3JjXFxjbGllbnRcXGFwcFxcbW9kdWxlc1xcc2hhcmVkXFxjb21wb25lbnRzXFxwYXJ0c1xcb3JkZXJcXGRldGFpbC1tb2RhbFxcZGV0YWlsLW1vZGFsLmNvbXBvbmVudC5zY3NzIiwic3JjL2NsaWVudC9hcHAvbW9kdWxlcy9zaGFyZWQvY29tcG9uZW50cy9wYXJ0cy9vcmRlci9kZXRhaWwtbW9kYWwvZGV0YWlsLW1vZGFsLmNvbXBvbmVudC5zY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0VBQ0ksZ0JBQUE7QUNDSiIsImZpbGUiOiJzcmMvY2xpZW50L2FwcC9tb2R1bGVzL3NoYXJlZC9jb21wb25lbnRzL3BhcnRzL29yZGVyL2RldGFpbC1tb2RhbC9kZXRhaWwtbW9kYWwuY29tcG9uZW50LnNjc3MiLCJzb3VyY2VzQ29udGVudCI6WyIuc2Nyb2xsLXZlcnRpY2FsIHtcbiAgICBtYXgtaGVpZ2h0OiA3NXZoO1xufSIsIi5zY3JvbGwtdmVydGljYWwge1xuICBtYXgtaGVpZ2h0OiA3NXZoO1xufSJdfQ== */");
 
 /***/ }),
 
-/***/ "./app/modules/shared/components/parts/order-detail-modal/order-detail-modal.component.ts":
-/*!************************************************************************************************!*\
-  !*** ./app/modules/shared/components/parts/order-detail-modal/order-detail-modal.component.ts ***!
-  \************************************************************************************************/
+/***/ "./app/modules/shared/components/parts/order/detail-modal/detail-modal.component.ts":
+/*!******************************************************************************************!*\
+  !*** ./app/modules/shared/components/parts/order/detail-modal/detail-modal.component.ts ***!
+  \******************************************************************************************/
 /*! exports provided: OrderDetailModalComponent */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -3952,8 +3882,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var ngx_bootstrap__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ngx-bootstrap */ "../../node_modules/ngx-bootstrap/esm5/ngx-bootstrap.js");
 /* harmony import */ var platform__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! platform */ "../../node_modules/platform/platform.js");
 /* harmony import */ var platform__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(platform__WEBPACK_IMPORTED_MODULE_4__);
-/* harmony import */ var _environments_environment__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../../../../../environments/environment */ "./environments/environment.ts");
-/* harmony import */ var _functions__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../../../../functions */ "./app/functions/index.ts");
+/* harmony import */ var _environments_environment__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../../../../../../environments/environment */ "./environments/environment.ts");
+/* harmony import */ var _functions__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../../../../../functions */ "./app/functions/index.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -4008,8 +3938,8 @@ __decorate([
 OrderDetailModalComponent = __decorate([
     Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
         selector: 'app-order-detail-modal',
-        template: __importDefault(__webpack_require__(/*! raw-loader!./order-detail-modal.component.html */ "../../node_modules/raw-loader/dist/cjs.js!./app/modules/shared/components/parts/order-detail-modal/order-detail-modal.component.html")).default,
-        styles: [__importDefault(__webpack_require__(/*! ./order-detail-modal.component.scss */ "./app/modules/shared/components/parts/order-detail-modal/order-detail-modal.component.scss")).default]
+        template: __importDefault(__webpack_require__(/*! raw-loader!./detail-modal.component.html */ "../../node_modules/raw-loader/dist/cjs.js!./app/modules/shared/components/parts/order/detail-modal/detail-modal.component.html")).default,
+        styles: [__importDefault(__webpack_require__(/*! ./detail-modal.component.scss */ "./app/modules/shared/components/parts/order/detail-modal/detail-modal.component.scss")).default]
     }),
     __metadata("design:paramtypes", [ngx_bootstrap__WEBPACK_IMPORTED_MODULE_3__["BsModalRef"],
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ElementRef"]])
@@ -4019,23 +3949,23 @@ OrderDetailModalComponent = __decorate([
 
 /***/ }),
 
-/***/ "./app/modules/shared/components/parts/purchase-cinema-ticket-modal/purchase-cinema-ticket-modal.component.scss":
-/*!**********************************************************************************************************************!*\
-  !*** ./app/modules/shared/components/parts/purchase-cinema-ticket-modal/purchase-cinema-ticket-modal.component.scss ***!
-  \**********************************************************************************************************************/
+/***/ "./app/modules/shared/components/parts/purchase/cinema/ticket-modal/ticket-modal.component.scss":
+/*!******************************************************************************************************!*\
+  !*** ./app/modules/shared/components/parts/purchase/cinema/ticket-modal/ticket-modal.component.scss ***!
+  \******************************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = (".close {\n  position: absolute;\n  top: -30px;\n  right: 0;\n}\n\n.scroll-vertical {\n  max-height: 75vh;\n}\n\n.ticket:last-child {\n  margin-bottom: 0 !important;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9jbGllbnQvYXBwL21vZHVsZXMvc2hhcmVkL2NvbXBvbmVudHMvcGFydHMvcHVyY2hhc2UtY2luZW1hLXRpY2tldC1tb2RhbC9DOlxcVXNlcnNcXGhhdGFndWNoaVxcRGVza3RvcFxcd29ya3NwYWNlXFxDaW5lcmlub1xccG9zL3NyY1xcY2xpZW50XFxhcHBcXG1vZHVsZXNcXHNoYXJlZFxcY29tcG9uZW50c1xccGFydHNcXHB1cmNoYXNlLWNpbmVtYS10aWNrZXQtbW9kYWxcXHB1cmNoYXNlLWNpbmVtYS10aWNrZXQtbW9kYWwuY29tcG9uZW50LnNjc3MiLCJzcmMvY2xpZW50L2FwcC9tb2R1bGVzL3NoYXJlZC9jb21wb25lbnRzL3BhcnRzL3B1cmNoYXNlLWNpbmVtYS10aWNrZXQtbW9kYWwvcHVyY2hhc2UtY2luZW1hLXRpY2tldC1tb2RhbC5jb21wb25lbnQuc2NzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtFQUNJLGtCQUFBO0VBQ0EsVUFBQTtFQUNBLFFBQUE7QUNDSjs7QURDQTtFQUNJLGdCQUFBO0FDRUo7O0FEQ0k7RUFDSSwyQkFBQTtBQ0VSIiwiZmlsZSI6InNyYy9jbGllbnQvYXBwL21vZHVsZXMvc2hhcmVkL2NvbXBvbmVudHMvcGFydHMvcHVyY2hhc2UtY2luZW1hLXRpY2tldC1tb2RhbC9wdXJjaGFzZS1jaW5lbWEtdGlja2V0LW1vZGFsLmNvbXBvbmVudC5zY3NzIiwic291cmNlc0NvbnRlbnQiOlsiLmNsb3NlIHtcbiAgICBwb3NpdGlvbjogYWJzb2x1dGU7XG4gICAgdG9wOiAtMzBweDtcbiAgICByaWdodDogMDtcbn1cbi5zY3JvbGwtdmVydGljYWwge1xuICAgIG1heC1oZWlnaHQ6IDc1dmg7XG59XG4udGlja2V0IHtcbiAgICAmOmxhc3QtY2hpbGQge1xuICAgICAgICBtYXJnaW4tYm90dG9tOiAwICFpbXBvcnRhbnQ7XG4gICAgfVxufSIsIi5jbG9zZSB7XG4gIHBvc2l0aW9uOiBhYnNvbHV0ZTtcbiAgdG9wOiAtMzBweDtcbiAgcmlnaHQ6IDA7XG59XG5cbi5zY3JvbGwtdmVydGljYWwge1xuICBtYXgtaGVpZ2h0OiA3NXZoO1xufVxuXG4udGlja2V0Omxhc3QtY2hpbGQge1xuICBtYXJnaW4tYm90dG9tOiAwICFpbXBvcnRhbnQ7XG59Il19 */");
+/* harmony default export */ __webpack_exports__["default"] = (".close {\n  position: absolute;\n  top: -30px;\n  right: 0;\n}\n\n.scroll-vertical {\n  max-height: 75vh;\n}\n\n.ticket:last-child {\n  margin-bottom: 0 !important;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9jbGllbnQvYXBwL21vZHVsZXMvc2hhcmVkL2NvbXBvbmVudHMvcGFydHMvcHVyY2hhc2UvY2luZW1hL3RpY2tldC1tb2RhbC9DOlxcVXNlcnNcXGhhdGFndWNoaVxcRGVza3RvcFxcd29ya3NwYWNlXFxDaW5lcmlub1xccG9zL3NyY1xcY2xpZW50XFxhcHBcXG1vZHVsZXNcXHNoYXJlZFxcY29tcG9uZW50c1xccGFydHNcXHB1cmNoYXNlXFxjaW5lbWFcXHRpY2tldC1tb2RhbFxcdGlja2V0LW1vZGFsLmNvbXBvbmVudC5zY3NzIiwic3JjL2NsaWVudC9hcHAvbW9kdWxlcy9zaGFyZWQvY29tcG9uZW50cy9wYXJ0cy9wdXJjaGFzZS9jaW5lbWEvdGlja2V0LW1vZGFsL3RpY2tldC1tb2RhbC5jb21wb25lbnQuc2NzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtFQUNJLGtCQUFBO0VBQ0EsVUFBQTtFQUNBLFFBQUE7QUNDSjs7QURDQTtFQUNJLGdCQUFBO0FDRUo7O0FEQ0k7RUFDSSwyQkFBQTtBQ0VSIiwiZmlsZSI6InNyYy9jbGllbnQvYXBwL21vZHVsZXMvc2hhcmVkL2NvbXBvbmVudHMvcGFydHMvcHVyY2hhc2UvY2luZW1hL3RpY2tldC1tb2RhbC90aWNrZXQtbW9kYWwuY29tcG9uZW50LnNjc3MiLCJzb3VyY2VzQ29udGVudCI6WyIuY2xvc2Uge1xuICAgIHBvc2l0aW9uOiBhYnNvbHV0ZTtcbiAgICB0b3A6IC0zMHB4O1xuICAgIHJpZ2h0OiAwO1xufVxuLnNjcm9sbC12ZXJ0aWNhbCB7XG4gICAgbWF4LWhlaWdodDogNzV2aDtcbn1cbi50aWNrZXQge1xuICAgICY6bGFzdC1jaGlsZCB7XG4gICAgICAgIG1hcmdpbi1ib3R0b206IDAgIWltcG9ydGFudDtcbiAgICB9XG59IiwiLmNsb3NlIHtcbiAgcG9zaXRpb246IGFic29sdXRlO1xuICB0b3A6IC0zMHB4O1xuICByaWdodDogMDtcbn1cblxuLnNjcm9sbC12ZXJ0aWNhbCB7XG4gIG1heC1oZWlnaHQ6IDc1dmg7XG59XG5cbi50aWNrZXQ6bGFzdC1jaGlsZCB7XG4gIG1hcmdpbi1ib3R0b206IDAgIWltcG9ydGFudDtcbn0iXX0= */");
 
 /***/ }),
 
-/***/ "./app/modules/shared/components/parts/purchase-cinema-ticket-modal/purchase-cinema-ticket-modal.component.ts":
-/*!********************************************************************************************************************!*\
-  !*** ./app/modules/shared/components/parts/purchase-cinema-ticket-modal/purchase-cinema-ticket-modal.component.ts ***!
-  \********************************************************************************************************************/
+/***/ "./app/modules/shared/components/parts/purchase/cinema/ticket-modal/ticket-modal.component.ts":
+/*!****************************************************************************************************!*\
+  !*** ./app/modules/shared/components/parts/purchase/cinema/ticket-modal/ticket-modal.component.ts ***!
+  \****************************************************************************************************/
 /*! exports provided: PurchaseCinemaTicketModalComponent */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -4046,7 +3976,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @cinerino/api-javascript-client */ "../../node_modules/@cinerino/api-javascript-client/lib/index.js");
 /* harmony import */ var _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var ngx_bootstrap__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ngx-bootstrap */ "../../node_modules/ngx-bootstrap/esm5/ngx-bootstrap.js");
-/* harmony import */ var _functions__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../../../functions */ "./app/functions/index.ts");
+/* harmony import */ var _functions__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../../../../../functions */ "./app/functions/index.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -4164,8 +4094,8 @@ __decorate([
 PurchaseCinemaTicketModalComponent = __decorate([
     Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
         selector: 'app-purchase-cinema-ticket-modal',
-        template: __importDefault(__webpack_require__(/*! raw-loader!./purchase-cinema-ticket-modal.component.html */ "../../node_modules/raw-loader/dist/cjs.js!./app/modules/shared/components/parts/purchase-cinema-ticket-modal/purchase-cinema-ticket-modal.component.html")).default,
-        styles: [__importDefault(__webpack_require__(/*! ./purchase-cinema-ticket-modal.component.scss */ "./app/modules/shared/components/parts/purchase-cinema-ticket-modal/purchase-cinema-ticket-modal.component.scss")).default]
+        template: __importDefault(__webpack_require__(/*! raw-loader!./ticket-modal.component.html */ "../../node_modules/raw-loader/dist/cjs.js!./app/modules/shared/components/parts/purchase/cinema/ticket-modal/ticket-modal.component.html")).default,
+        styles: [__importDefault(__webpack_require__(/*! ./ticket-modal.component.scss */ "./app/modules/shared/components/parts/purchase/cinema/ticket-modal/ticket-modal.component.scss")).default]
     }),
     __metadata("design:paramtypes", [ngx_bootstrap__WEBPACK_IMPORTED_MODULE_2__["BsModalRef"]])
 ], PurchaseCinemaTicketModalComponent);
@@ -4174,23 +4104,23 @@ PurchaseCinemaTicketModalComponent = __decorate([
 
 /***/ }),
 
-/***/ "./app/modules/shared/components/parts/purchase-event-ticket-modal/purchase-event-ticket-modal.component.scss":
-/*!********************************************************************************************************************!*\
-  !*** ./app/modules/shared/components/parts/purchase-event-ticket-modal/purchase-event-ticket-modal.component.scss ***!
-  \********************************************************************************************************************/
+/***/ "./app/modules/shared/components/parts/purchase/event/ticket-modal/ticket-modal.component.scss":
+/*!*****************************************************************************************************!*\
+  !*** ./app/modules/shared/components/parts/purchase/event/ticket-modal/ticket-modal.component.scss ***!
+  \*****************************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = (".close {\n  position: absolute;\n  top: -30px;\n  right: 0;\n}\n\n.scroll-vertical {\n  max-height: 75vh;\n}\n\n.ticket:last-child {\n  margin-bottom: 0 !important;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9jbGllbnQvYXBwL21vZHVsZXMvc2hhcmVkL2NvbXBvbmVudHMvcGFydHMvcHVyY2hhc2UtZXZlbnQtdGlja2V0LW1vZGFsL0M6XFxVc2Vyc1xcaGF0YWd1Y2hpXFxEZXNrdG9wXFx3b3Jrc3BhY2VcXENpbmVyaW5vXFxwb3Mvc3JjXFxjbGllbnRcXGFwcFxcbW9kdWxlc1xcc2hhcmVkXFxjb21wb25lbnRzXFxwYXJ0c1xccHVyY2hhc2UtZXZlbnQtdGlja2V0LW1vZGFsXFxwdXJjaGFzZS1ldmVudC10aWNrZXQtbW9kYWwuY29tcG9uZW50LnNjc3MiLCJzcmMvY2xpZW50L2FwcC9tb2R1bGVzL3NoYXJlZC9jb21wb25lbnRzL3BhcnRzL3B1cmNoYXNlLWV2ZW50LXRpY2tldC1tb2RhbC9wdXJjaGFzZS1ldmVudC10aWNrZXQtbW9kYWwuY29tcG9uZW50LnNjc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7RUFDSSxrQkFBQTtFQUNBLFVBQUE7RUFDQSxRQUFBO0FDQ0o7O0FEQ0E7RUFDSSxnQkFBQTtBQ0VKOztBRENJO0VBQ0ksMkJBQUE7QUNFUiIsImZpbGUiOiJzcmMvY2xpZW50L2FwcC9tb2R1bGVzL3NoYXJlZC9jb21wb25lbnRzL3BhcnRzL3B1cmNoYXNlLWV2ZW50LXRpY2tldC1tb2RhbC9wdXJjaGFzZS1ldmVudC10aWNrZXQtbW9kYWwuY29tcG9uZW50LnNjc3MiLCJzb3VyY2VzQ29udGVudCI6WyIuY2xvc2Uge1xuICAgIHBvc2l0aW9uOiBhYnNvbHV0ZTtcbiAgICB0b3A6IC0zMHB4O1xuICAgIHJpZ2h0OiAwO1xufVxuLnNjcm9sbC12ZXJ0aWNhbCB7XG4gICAgbWF4LWhlaWdodDogNzV2aDtcbn1cbi50aWNrZXQge1xuICAgICY6bGFzdC1jaGlsZCB7XG4gICAgICAgIG1hcmdpbi1ib3R0b206IDAgIWltcG9ydGFudDtcbiAgICB9XG59IiwiLmNsb3NlIHtcbiAgcG9zaXRpb246IGFic29sdXRlO1xuICB0b3A6IC0zMHB4O1xuICByaWdodDogMDtcbn1cblxuLnNjcm9sbC12ZXJ0aWNhbCB7XG4gIG1heC1oZWlnaHQ6IDc1dmg7XG59XG5cbi50aWNrZXQ6bGFzdC1jaGlsZCB7XG4gIG1hcmdpbi1ib3R0b206IDAgIWltcG9ydGFudDtcbn0iXX0= */");
+/* harmony default export */ __webpack_exports__["default"] = (".close {\n  position: absolute;\n  top: -30px;\n  right: 0;\n}\n\n.scroll-vertical {\n  max-height: 75vh;\n}\n\n.ticket:last-child {\n  margin-bottom: 0 !important;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9jbGllbnQvYXBwL21vZHVsZXMvc2hhcmVkL2NvbXBvbmVudHMvcGFydHMvcHVyY2hhc2UvZXZlbnQvdGlja2V0LW1vZGFsL0M6XFxVc2Vyc1xcaGF0YWd1Y2hpXFxEZXNrdG9wXFx3b3Jrc3BhY2VcXENpbmVyaW5vXFxwb3Mvc3JjXFxjbGllbnRcXGFwcFxcbW9kdWxlc1xcc2hhcmVkXFxjb21wb25lbnRzXFxwYXJ0c1xccHVyY2hhc2VcXGV2ZW50XFx0aWNrZXQtbW9kYWxcXHRpY2tldC1tb2RhbC5jb21wb25lbnQuc2NzcyIsInNyYy9jbGllbnQvYXBwL21vZHVsZXMvc2hhcmVkL2NvbXBvbmVudHMvcGFydHMvcHVyY2hhc2UvZXZlbnQvdGlja2V0LW1vZGFsL3RpY2tldC1tb2RhbC5jb21wb25lbnQuc2NzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtFQUNJLGtCQUFBO0VBQ0EsVUFBQTtFQUNBLFFBQUE7QUNDSjs7QURDQTtFQUNJLGdCQUFBO0FDRUo7O0FEQ0k7RUFDSSwyQkFBQTtBQ0VSIiwiZmlsZSI6InNyYy9jbGllbnQvYXBwL21vZHVsZXMvc2hhcmVkL2NvbXBvbmVudHMvcGFydHMvcHVyY2hhc2UvZXZlbnQvdGlja2V0LW1vZGFsL3RpY2tldC1tb2RhbC5jb21wb25lbnQuc2NzcyIsInNvdXJjZXNDb250ZW50IjpbIi5jbG9zZSB7XG4gICAgcG9zaXRpb246IGFic29sdXRlO1xuICAgIHRvcDogLTMwcHg7XG4gICAgcmlnaHQ6IDA7XG59XG4uc2Nyb2xsLXZlcnRpY2FsIHtcbiAgICBtYXgtaGVpZ2h0OiA3NXZoO1xufVxuLnRpY2tldCB7XG4gICAgJjpsYXN0LWNoaWxkIHtcbiAgICAgICAgbWFyZ2luLWJvdHRvbTogMCAhaW1wb3J0YW50O1xuICAgIH1cbn0iLCIuY2xvc2Uge1xuICBwb3NpdGlvbjogYWJzb2x1dGU7XG4gIHRvcDogLTMwcHg7XG4gIHJpZ2h0OiAwO1xufVxuXG4uc2Nyb2xsLXZlcnRpY2FsIHtcbiAgbWF4LWhlaWdodDogNzV2aDtcbn1cblxuLnRpY2tldDpsYXN0LWNoaWxkIHtcbiAgbWFyZ2luLWJvdHRvbTogMCAhaW1wb3J0YW50O1xufSJdfQ== */");
 
 /***/ }),
 
-/***/ "./app/modules/shared/components/parts/purchase-event-ticket-modal/purchase-event-ticket-modal.component.ts":
-/*!******************************************************************************************************************!*\
-  !*** ./app/modules/shared/components/parts/purchase-event-ticket-modal/purchase-event-ticket-modal.component.ts ***!
-  \******************************************************************************************************************/
+/***/ "./app/modules/shared/components/parts/purchase/event/ticket-modal/ticket-modal.component.ts":
+/*!***************************************************************************************************!*\
+  !*** ./app/modules/shared/components/parts/purchase/event/ticket-modal/ticket-modal.component.ts ***!
+  \***************************************************************************************************/
 /*! exports provided: PurchaseEventTicketModalComponent */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -4203,8 +4133,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! moment */ "../../node_modules/moment/moment.js");
 /* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_2__);
 /* harmony import */ var ngx_bootstrap__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ngx-bootstrap */ "../../node_modules/ngx-bootstrap/esm5/ngx-bootstrap.js");
-/* harmony import */ var _environments_environment__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../../../../environments/environment */ "./environments/environment.ts");
-/* harmony import */ var _functions__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../../../../functions */ "./app/functions/index.ts");
+/* harmony import */ var _environments_environment__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../../../../../../environments/environment */ "./environments/environment.ts");
+/* harmony import */ var _functions__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../../../../../../functions */ "./app/functions/index.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -4303,8 +4233,8 @@ __decorate([
 PurchaseEventTicketModalComponent = __decorate([
     Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
         selector: 'app-purchase-event-ticket-modal',
-        template: __importDefault(__webpack_require__(/*! raw-loader!./purchase-event-ticket-modal.component.html */ "../../node_modules/raw-loader/dist/cjs.js!./app/modules/shared/components/parts/purchase-event-ticket-modal/purchase-event-ticket-modal.component.html")).default,
-        styles: [__importDefault(__webpack_require__(/*! ./purchase-event-ticket-modal.component.scss */ "./app/modules/shared/components/parts/purchase-event-ticket-modal/purchase-event-ticket-modal.component.scss")).default]
+        template: __importDefault(__webpack_require__(/*! raw-loader!./ticket-modal.component.html */ "../../node_modules/raw-loader/dist/cjs.js!./app/modules/shared/components/parts/purchase/event/ticket-modal/ticket-modal.component.html")).default,
+        styles: [__importDefault(__webpack_require__(/*! ./ticket-modal.component.scss */ "./app/modules/shared/components/parts/purchase/event/ticket-modal/ticket-modal.component.scss")).default]
     }),
     __metadata("design:paramtypes", [ngx_bootstrap__WEBPACK_IMPORTED_MODULE_3__["BsModalRef"]])
 ], PurchaseEventTicketModalComponent);
@@ -4313,23 +4243,23 @@ PurchaseEventTicketModalComponent = __decorate([
 
 /***/ }),
 
-/***/ "./app/modules/shared/components/parts/purchase-transaction-modal/purchase-transaction-modal.component.scss":
-/*!******************************************************************************************************************!*\
-  !*** ./app/modules/shared/components/parts/purchase-transaction-modal/purchase-transaction-modal.component.scss ***!
-  \******************************************************************************************************************/
+/***/ "./app/modules/shared/components/parts/purchase/transaction-modal/transaction-modal.component.scss":
+/*!*********************************************************************************************************!*\
+  !*** ./app/modules/shared/components/parts/purchase/transaction-modal/transaction-modal.component.scss ***!
+  \*********************************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvY2xpZW50L2FwcC9tb2R1bGVzL3NoYXJlZC9jb21wb25lbnRzL3BhcnRzL3B1cmNoYXNlLXRyYW5zYWN0aW9uLW1vZGFsL3B1cmNoYXNlLXRyYW5zYWN0aW9uLW1vZGFsLmNvbXBvbmVudC5zY3NzIn0= */");
+/* harmony default export */ __webpack_exports__["default"] = ("\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvY2xpZW50L2FwcC9tb2R1bGVzL3NoYXJlZC9jb21wb25lbnRzL3BhcnRzL3B1cmNoYXNlL3RyYW5zYWN0aW9uLW1vZGFsL3RyYW5zYWN0aW9uLW1vZGFsLmNvbXBvbmVudC5zY3NzIn0= */");
 
 /***/ }),
 
-/***/ "./app/modules/shared/components/parts/purchase-transaction-modal/purchase-transaction-modal.component.ts":
-/*!****************************************************************************************************************!*\
-  !*** ./app/modules/shared/components/parts/purchase-transaction-modal/purchase-transaction-modal.component.ts ***!
-  \****************************************************************************************************************/
+/***/ "./app/modules/shared/components/parts/purchase/transaction-modal/transaction-modal.component.ts":
+/*!*******************************************************************************************************!*\
+  !*** ./app/modules/shared/components/parts/purchase/transaction-modal/transaction-modal.component.ts ***!
+  \*******************************************************************************************************/
 /*! exports provided: PurchaseTransactionModalComponent */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -4338,7 +4268,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "PurchaseTransactionModalComponent", function() { return PurchaseTransactionModalComponent; });
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "../../node_modules/@angular/core/fesm2015/core.js");
 /* harmony import */ var ngx_bootstrap__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ngx-bootstrap */ "../../node_modules/ngx-bootstrap/esm5/ngx-bootstrap.js");
-/* harmony import */ var _store_reducers__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../../store/reducers */ "./app/store/reducers/index.ts");
+/* harmony import */ var _store_reducers__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../../../store/reducers */ "./app/store/reducers/index.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -4383,8 +4313,8 @@ __decorate([
 PurchaseTransactionModalComponent = __decorate([
     Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
         selector: 'app-purchase-transaction-modal',
-        template: __importDefault(__webpack_require__(/*! raw-loader!./purchase-transaction-modal.component.html */ "../../node_modules/raw-loader/dist/cjs.js!./app/modules/shared/components/parts/purchase-transaction-modal/purchase-transaction-modal.component.html")).default,
-        styles: [__importDefault(__webpack_require__(/*! ./purchase-transaction-modal.component.scss */ "./app/modules/shared/components/parts/purchase-transaction-modal/purchase-transaction-modal.component.scss")).default]
+        template: __importDefault(__webpack_require__(/*! raw-loader!./transaction-modal.component.html */ "../../node_modules/raw-loader/dist/cjs.js!./app/modules/shared/components/parts/purchase/transaction-modal/transaction-modal.component.html")).default,
+        styles: [__importDefault(__webpack_require__(/*! ./transaction-modal.component.scss */ "./app/modules/shared/components/parts/purchase/transaction-modal/transaction-modal.component.scss")).default]
     }),
     __metadata("design:paramtypes", [ngx_bootstrap__WEBPACK_IMPORTED_MODULE_1__["BsModalRef"]])
 ], PurchaseTransactionModalComponent);
@@ -4393,39 +4323,185 @@ PurchaseTransactionModalComponent = __decorate([
 
 /***/ }),
 
-/***/ "./app/modules/shared/components/parts/qrcode-modal/qrcode-modal.component.scss":
-/*!**************************************************************************************!*\
-  !*** ./app/modules/shared/components/parts/qrcode-modal/qrcode-modal.component.scss ***!
-  \**************************************************************************************/
+/***/ "./app/modules/shared/components/parts/qrcode/reader-modal/reader-modal.component.scss":
+/*!*********************************************************************************************!*\
+  !*** ./app/modules/shared/components/parts/qrcode/reader-modal/reader-modal.component.scss ***!
+  \*********************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvY2xpZW50L2FwcC9tb2R1bGVzL3NoYXJlZC9jb21wb25lbnRzL3BhcnRzL3FyY29kZS1tb2RhbC9xcmNvZGUtbW9kYWwuY29tcG9uZW50LnNjc3MifQ== */");
+/* harmony default export */ __webpack_exports__["default"] = (".full-screen {\n  position: fixed;\n  left: 0;\n  top: 0;\n  bottom: 0;\n  right: 0;\n}\n\nvideo {\n  width: 100%;\n  height: 100%;\n}\n\n.top {\n  position: absolute;\n  top: 1rem;\n  left: 0;\n}\n\n.bottom {\n  position: absolute;\n  bottom: 1rem;\n  left: 0;\n}\n\n.scan {\n  position: absolute;\n  top: 50%;\n  left: 50%;\n  width: 100px;\n  height: 100px;\n  border-width: 3px !important;\n  margin: -50px 0 0 -50px;\n  -webkit-animation: scale 2s infinite linear;\n          animation: scale 2s infinite linear;\n}\n\n@-webkit-keyframes scale {\n  0% {\n    transform: scale(0.75);\n  }\n  50% {\n    transform: scale(1.5);\n  }\n  100% {\n    transform: scale(0.75);\n  }\n}\n\n@keyframes scale {\n  0% {\n    transform: scale(0.75);\n  }\n  50% {\n    transform: scale(1.5);\n  }\n  100% {\n    transform: scale(0.75);\n  }\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9jbGllbnQvYXBwL21vZHVsZXMvc2hhcmVkL2NvbXBvbmVudHMvcGFydHMvcXJjb2RlL3JlYWRlci1tb2RhbC9DOlxcVXNlcnNcXGhhdGFndWNoaVxcRGVza3RvcFxcd29ya3NwYWNlXFxDaW5lcmlub1xccG9zL3NyY1xcY2xpZW50XFxhcHBcXG1vZHVsZXNcXHNoYXJlZFxcY29tcG9uZW50c1xccGFydHNcXHFyY29kZVxccmVhZGVyLW1vZGFsXFxyZWFkZXItbW9kYWwuY29tcG9uZW50LnNjc3MiLCJzcmMvY2xpZW50L2FwcC9tb2R1bGVzL3NoYXJlZC9jb21wb25lbnRzL3BhcnRzL3FyY29kZS9yZWFkZXItbW9kYWwvcmVhZGVyLW1vZGFsLmNvbXBvbmVudC5zY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0VBQ0ksZUFBQTtFQUNBLE9BQUE7RUFDQSxNQUFBO0VBQ0EsU0FBQTtFQUNBLFFBQUE7QUNDSjs7QURFQTtFQUNJLFdBQUE7RUFDQSxZQUFBO0FDQ0o7O0FERUE7RUFDSSxrQkFBQTtFQUNBLFNBQUE7RUFDQSxPQUFBO0FDQ0o7O0FERUE7RUFDSSxrQkFBQTtFQUNBLFlBQUE7RUFDQSxPQUFBO0FDQ0o7O0FERUE7RUFDSSxrQkFBQTtFQUNBLFFBQUE7RUFDQSxTQUFBO0VBQ0EsWUFBQTtFQUNBLGFBQUE7RUFDQSw0QkFBQTtFQUNBLHVCQUFBO0VBQ0EsMkNBQUE7VUFBQSxtQ0FBQTtBQ0NKOztBREVBO0VBQ0k7SUFDSSxzQkFBQTtFQ0NOO0VEQ0U7SUFDSSxxQkFBQTtFQ0NOO0VEQ0U7SUFDSSxzQkFBQTtFQ0NOO0FBQ0Y7O0FEVkE7RUFDSTtJQUNJLHNCQUFBO0VDQ047RURDRTtJQUNJLHFCQUFBO0VDQ047RURDRTtJQUNJLHNCQUFBO0VDQ047QUFDRiIsImZpbGUiOiJzcmMvY2xpZW50L2FwcC9tb2R1bGVzL3NoYXJlZC9jb21wb25lbnRzL3BhcnRzL3FyY29kZS9yZWFkZXItbW9kYWwvcmVhZGVyLW1vZGFsLmNvbXBvbmVudC5zY3NzIiwic291cmNlc0NvbnRlbnQiOlsiLmZ1bGwtc2NyZWVuIHtcbiAgICBwb3NpdGlvbjogZml4ZWQ7XG4gICAgbGVmdDogMDtcbiAgICB0b3A6IDA7XG4gICAgYm90dG9tOiAwO1xuICAgIHJpZ2h0OiAwO1xufVxuXG52aWRlbyB7XG4gICAgd2lkdGg6IDEwMCU7XG4gICAgaGVpZ2h0OiAxMDAlO1xufVxuXG4udG9wIHtcbiAgICBwb3NpdGlvbjogYWJzb2x1dGU7XG4gICAgdG9wOiAxcmVtO1xuICAgIGxlZnQ6IDA7XG59XG5cbi5ib3R0b20ge1xuICAgIHBvc2l0aW9uOiBhYnNvbHV0ZTtcbiAgICBib3R0b206IDFyZW07XG4gICAgbGVmdDogMDtcbn1cblxuLnNjYW4ge1xuICAgIHBvc2l0aW9uOiBhYnNvbHV0ZTtcbiAgICB0b3A6IDUwJTtcbiAgICBsZWZ0OiA1MCU7XG4gICAgd2lkdGg6IDEwMHB4O1xuICAgIGhlaWdodDogMTAwcHg7XG4gICAgYm9yZGVyLXdpZHRoOiAzcHggIWltcG9ydGFudDtcbiAgICBtYXJnaW46IC01MHB4IDAgMCAtNTBweDtcbiAgICBhbmltYXRpb246IHNjYWxlIDJzIGluZmluaXRlIGxpbmVhcjtcbn1cblxuQGtleWZyYW1lcyBzY2FsZSB7XG4gICAgMCUge1xuICAgICAgICB0cmFuc2Zvcm06IHNjYWxlKDAuNzUpO1xuICAgIH1cbiAgICA1MCUge1xuICAgICAgICB0cmFuc2Zvcm06IHNjYWxlKDEuNSk7XG4gICAgfSAgXG4gICAgMTAwJSB7XG4gICAgICAgIHRyYW5zZm9ybTogc2NhbGUoMC43NSk7XG4gICAgfVxufVxuIiwiLmZ1bGwtc2NyZWVuIHtcbiAgcG9zaXRpb246IGZpeGVkO1xuICBsZWZ0OiAwO1xuICB0b3A6IDA7XG4gIGJvdHRvbTogMDtcbiAgcmlnaHQ6IDA7XG59XG5cbnZpZGVvIHtcbiAgd2lkdGg6IDEwMCU7XG4gIGhlaWdodDogMTAwJTtcbn1cblxuLnRvcCB7XG4gIHBvc2l0aW9uOiBhYnNvbHV0ZTtcbiAgdG9wOiAxcmVtO1xuICBsZWZ0OiAwO1xufVxuXG4uYm90dG9tIHtcbiAgcG9zaXRpb246IGFic29sdXRlO1xuICBib3R0b206IDFyZW07XG4gIGxlZnQ6IDA7XG59XG5cbi5zY2FuIHtcbiAgcG9zaXRpb246IGFic29sdXRlO1xuICB0b3A6IDUwJTtcbiAgbGVmdDogNTAlO1xuICB3aWR0aDogMTAwcHg7XG4gIGhlaWdodDogMTAwcHg7XG4gIGJvcmRlci13aWR0aDogM3B4ICFpbXBvcnRhbnQ7XG4gIG1hcmdpbjogLTUwcHggMCAwIC01MHB4O1xuICBhbmltYXRpb246IHNjYWxlIDJzIGluZmluaXRlIGxpbmVhcjtcbn1cblxuQGtleWZyYW1lcyBzY2FsZSB7XG4gIDAlIHtcbiAgICB0cmFuc2Zvcm06IHNjYWxlKDAuNzUpO1xuICB9XG4gIDUwJSB7XG4gICAgdHJhbnNmb3JtOiBzY2FsZSgxLjUpO1xuICB9XG4gIDEwMCUge1xuICAgIHRyYW5zZm9ybTogc2NhbGUoMC43NSk7XG4gIH1cbn0iXX0= */");
 
 /***/ }),
 
-/***/ "./app/modules/shared/components/parts/qrcode-modal/qrcode-modal.component.ts":
-/*!************************************************************************************!*\
-  !*** ./app/modules/shared/components/parts/qrcode-modal/qrcode-modal.component.ts ***!
-  \************************************************************************************/
-/*! exports provided: QrCodeModalComponent */
+/***/ "./app/modules/shared/components/parts/qrcode/reader-modal/reader-modal.component.ts":
+/*!*******************************************************************************************!*\
+  !*** ./app/modules/shared/components/parts/qrcode/reader-modal/reader-modal.component.ts ***!
+  \*******************************************************************************************/
+/*! exports provided: QRCodeReaderModalComponent */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "QrCodeModalComponent", function() { return QrCodeModalComponent; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "QRCodeReaderModalComponent", function() { return QRCodeReaderModalComponent; });
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "../../node_modules/@angular/core/fesm2015/core.js");
-/* harmony import */ var _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @cinerino/api-javascript-client */ "../../node_modules/@cinerino/api-javascript-client/lib/index.js");
-/* harmony import */ var _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! moment */ "../../node_modules/moment/moment.js");
-/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var ngx_bootstrap__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ngx-bootstrap */ "../../node_modules/ngx-bootstrap/esm5/ngx-bootstrap.js");
-/* harmony import */ var qrcode__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! qrcode */ "../../node_modules/qrcode/lib/browser.js");
-/* harmony import */ var qrcode__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(qrcode__WEBPACK_IMPORTED_MODULE_4__);
-/* harmony import */ var _environments_environment__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../../../../../environments/environment */ "./environments/environment.ts");
-/* harmony import */ var _functions__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../../../../functions */ "./app/functions/index.ts");
+/* harmony import */ var jsqr__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! jsqr */ "../../node_modules/jsqr/dist/jsQR.js");
+/* harmony import */ var jsqr__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(jsqr__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var ngx_bootstrap__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ngx-bootstrap */ "../../node_modules/ngx-bootstrap/esm5/ngx-bootstrap.js");
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (undefined && undefined.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var __awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : new P(function (resolve) { resolve(result.value); }).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+var __importDefault = (undefined && undefined.__importDefault) || function (mod) {
+  return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+
+
+
+let QRCodeReaderModalComponent = class QRCodeReaderModalComponent {
+    constructor(modal) {
+        this.modal = modal;
+    }
+    ngOnInit() {
+        return __awaiter(this, void 0, void 0, function* () {
+            this.running = false;
+            this.video = document.getElementById('video');
+            this.video.width = 300;
+            const constraints = {
+                audio: false,
+                video: {
+                    width: { min: 1024, ideal: 1280, max: 1920 },
+                    height: { min: 776, ideal: 720, max: 1080 },
+                    frameRate: { ideal: 5, max: 30 },
+                    facingMode: { exact: 'environment' }
+                }
+            };
+            this.start(constraints);
+        });
+    }
+    ngOnDestroy() {
+        this.stop();
+    }
+    /**
+     * カメラ起動
+     */
+    start(constraints) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                const stream = yield navigator.mediaDevices.getUserMedia(constraints);
+                this.stream = stream;
+                this.video.srcObject = this.stream;
+                const scanLoopTime = 500;
+                this.running = true;
+                this.scanLoop = setInterval(() => {
+                    if (this.scan()) {
+                        this.modal.hide();
+                        this.cb(this.readerResult);
+                    }
+                }, scanLoopTime);
+            }
+            catch (error) {
+                console.error(error);
+                this.modal.hide();
+            }
+        });
+    }
+    /**
+     * カメラ停止
+     */
+    stop() {
+        clearInterval(this.scanLoop);
+        if (this.stream === undefined) {
+            return;
+        }
+        this.stream.getVideoTracks().forEach((track) => {
+            track.stop();
+        });
+        this.stream = undefined;
+    }
+    /**
+     * カメラ読み取り
+     */
+    scan() {
+        // キャンバスへ反映
+        const canvas = document.createElement('canvas');
+        const context = canvas.getContext('2d');
+        const width = this.video.offsetWidth;
+        const height = this.video.offsetHeight;
+        canvas.width = width;
+        canvas.height = height;
+        context.drawImage(this.video, 0, 0, width, height);
+        // QRコードデコード
+        const imageData = context.getImageData(0, 0, width, height);
+        const qrcode = jsqr__WEBPACK_IMPORTED_MODULE_1___default()(imageData.data, width, height);
+        if (qrcode !== null) {
+            this.readerResult = qrcode.data;
+        }
+        return (qrcode !== null);
+    }
+};
+QRCodeReaderModalComponent.ctorParameters = () => [
+    { type: ngx_bootstrap__WEBPACK_IMPORTED_MODULE_2__["BsModalRef"] }
+];
+__decorate([
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"])(),
+    __metadata("design:type", Function)
+], QRCodeReaderModalComponent.prototype, "cb", void 0);
+QRCodeReaderModalComponent = __decorate([
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
+        selector: 'app-qrcode-reader-modal',
+        template: __importDefault(__webpack_require__(/*! raw-loader!./reader-modal.component.html */ "../../node_modules/raw-loader/dist/cjs.js!./app/modules/shared/components/parts/qrcode/reader-modal/reader-modal.component.html")).default,
+        styles: [__importDefault(__webpack_require__(/*! ./reader-modal.component.scss */ "./app/modules/shared/components/parts/qrcode/reader-modal/reader-modal.component.scss")).default]
+    }),
+    __metadata("design:paramtypes", [ngx_bootstrap__WEBPACK_IMPORTED_MODULE_2__["BsModalRef"]])
+], QRCodeReaderModalComponent);
+
+
+
+/***/ }),
+
+/***/ "./app/modules/shared/components/parts/qrcode/viewer-modal/viewer-modal.component.scss":
+/*!*********************************************************************************************!*\
+  !*** ./app/modules/shared/components/parts/qrcode/viewer-modal/viewer-modal.component.scss ***!
+  \*********************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = (".scroll-vertical {\n  max-height: 75vh;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9jbGllbnQvYXBwL21vZHVsZXMvc2hhcmVkL2NvbXBvbmVudHMvcGFydHMvcXJjb2RlL3ZpZXdlci1tb2RhbC9DOlxcVXNlcnNcXGhhdGFndWNoaVxcRGVza3RvcFxcd29ya3NwYWNlXFxDaW5lcmlub1xccG9zL3NyY1xcY2xpZW50XFxhcHBcXG1vZHVsZXNcXHNoYXJlZFxcY29tcG9uZW50c1xccGFydHNcXHFyY29kZVxcdmlld2VyLW1vZGFsXFx2aWV3ZXItbW9kYWwuY29tcG9uZW50LnNjc3MiLCJzcmMvY2xpZW50L2FwcC9tb2R1bGVzL3NoYXJlZC9jb21wb25lbnRzL3BhcnRzL3FyY29kZS92aWV3ZXItbW9kYWwvdmlld2VyLW1vZGFsLmNvbXBvbmVudC5zY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0VBQ0ksZ0JBQUE7QUNDSiIsImZpbGUiOiJzcmMvY2xpZW50L2FwcC9tb2R1bGVzL3NoYXJlZC9jb21wb25lbnRzL3BhcnRzL3FyY29kZS92aWV3ZXItbW9kYWwvdmlld2VyLW1vZGFsLmNvbXBvbmVudC5zY3NzIiwic291cmNlc0NvbnRlbnQiOlsiLnNjcm9sbC12ZXJ0aWNhbCB7XG4gICAgbWF4LWhlaWdodDogNzV2aDtcbn0iLCIuc2Nyb2xsLXZlcnRpY2FsIHtcbiAgbWF4LWhlaWdodDogNzV2aDtcbn0iXX0= */");
+
+/***/ }),
+
+/***/ "./app/modules/shared/components/parts/qrcode/viewer-modal/viewer-modal.component.ts":
+/*!*******************************************************************************************!*\
+  !*** ./app/modules/shared/components/parts/qrcode/viewer-modal/viewer-modal.component.ts ***!
+  \*******************************************************************************************/
+/*! exports provided: QRCodeViewerModalComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "QRCodeViewerModalComponent", function() { return QRCodeViewerModalComponent; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "../../node_modules/@angular/core/fesm2015/core.js");
+/* harmony import */ var ngx_bootstrap__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ngx-bootstrap */ "../../node_modules/ngx-bootstrap/esm5/ngx-bootstrap.js");
+/* harmony import */ var qrcode__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! qrcode */ "../../node_modules/qrcode/lib/browser.js");
+/* harmony import */ var qrcode__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(qrcode__WEBPACK_IMPORTED_MODULE_2__);
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -4441,71 +4517,63 @@ var __importDefault = (undefined && undefined.__importDefault) || function (mod)
 
 
 
-
-
-
-
-let QrCodeModalComponent = class QrCodeModalComponent {
+let QRCodeViewerModalComponent = class QRCodeViewerModalComponent {
     constructor(modal) {
         this.modal = modal;
-        this.moment = moment__WEBPACK_IMPORTED_MODULE_2__;
-        this.getTicketPrice = _functions__WEBPACK_IMPORTED_MODULE_6__["getTicketPrice"];
-        this.environment = _environments_environment__WEBPACK_IMPORTED_MODULE_5__["environment"];
     }
     ngOnInit() {
-        this.urlList = [];
-        this.order.acceptedOffers.forEach((acceptedOffer) => {
-            if (acceptedOffer.itemOffered.typeOf !== _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_1__["factory"].chevre.reservationType.EventReservation) {
-                return;
-            }
-            const ticketToken = acceptedOffer.itemOffered.reservedTicket.ticketToken;
-            const basicSize = 21;
-            const option = {
-                margin: 0,
-                scale: (60 / basicSize)
-            };
-            const url = qrcode__WEBPACK_IMPORTED_MODULE_4__["toDataURL"](ticketToken, option);
-            this.urlList.push(url);
-        });
+        const option = {
+            margin: 0,
+            scale: 5,
+        };
+        this.url = qrcode__WEBPACK_IMPORTED_MODULE_2__["toDataURL"](this.code, option);
     }
 };
-QrCodeModalComponent.ctorParameters = () => [
-    { type: ngx_bootstrap__WEBPACK_IMPORTED_MODULE_3__["BsModalRef"] }
+QRCodeViewerModalComponent.ctorParameters = () => [
+    { type: ngx_bootstrap__WEBPACK_IMPORTED_MODULE_1__["BsModalRef"] }
 ];
 __decorate([
     Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"])(),
-    __metadata("design:type", Object)
-], QrCodeModalComponent.prototype, "order", void 0);
-QrCodeModalComponent = __decorate([
+    __metadata("design:type", String)
+], QRCodeViewerModalComponent.prototype, "title", void 0);
+__decorate([
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"])(),
+    __metadata("design:type", String)
+], QRCodeViewerModalComponent.prototype, "body", void 0);
+__decorate([
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"])(),
+    __metadata("design:type", String)
+], QRCodeViewerModalComponent.prototype, "code", void 0);
+QRCodeViewerModalComponent = __decorate([
     Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
-        selector: 'app-qrcode-modal',
-        template: __importDefault(__webpack_require__(/*! raw-loader!./qrcode-modal.component.html */ "../../node_modules/raw-loader/dist/cjs.js!./app/modules/shared/components/parts/qrcode-modal/qrcode-modal.component.html")).default,
-        styles: [__importDefault(__webpack_require__(/*! ./qrcode-modal.component.scss */ "./app/modules/shared/components/parts/qrcode-modal/qrcode-modal.component.scss")).default]
+        selector: 'app-qrcode-viewer-modal',
+        template: __importDefault(__webpack_require__(/*! raw-loader!./viewer-modal.component.html */ "../../node_modules/raw-loader/dist/cjs.js!./app/modules/shared/components/parts/qrcode/viewer-modal/viewer-modal.component.html")).default,
+        styles: [__importDefault(__webpack_require__(/*! ./viewer-modal.component.scss */ "./app/modules/shared/components/parts/qrcode/viewer-modal/viewer-modal.component.scss")).default]
     }),
-    __metadata("design:paramtypes", [ngx_bootstrap__WEBPACK_IMPORTED_MODULE_3__["BsModalRef"]])
-], QrCodeModalComponent);
+    __metadata("design:paramtypes", [ngx_bootstrap__WEBPACK_IMPORTED_MODULE_1__["BsModalRef"]])
+], QRCodeViewerModalComponent);
 
 
 
 /***/ }),
 
-/***/ "./app/modules/shared/components/parts/reservation-detail-modal/reservation-detail-modal.component.scss":
-/*!**************************************************************************************************************!*\
-  !*** ./app/modules/shared/components/parts/reservation-detail-modal/reservation-detail-modal.component.scss ***!
-  \**************************************************************************************************************/
+/***/ "./app/modules/shared/components/parts/reservation/detail-modal/detail-modal.component.scss":
+/*!**************************************************************************************************!*\
+  !*** ./app/modules/shared/components/parts/reservation/detail-modal/detail-modal.component.scss ***!
+  \**************************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvY2xpZW50L2FwcC9tb2R1bGVzL3NoYXJlZC9jb21wb25lbnRzL3BhcnRzL3Jlc2VydmF0aW9uLWRldGFpbC1tb2RhbC9yZXNlcnZhdGlvbi1kZXRhaWwtbW9kYWwuY29tcG9uZW50LnNjc3MifQ== */");
+/* harmony default export */ __webpack_exports__["default"] = ("\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvY2xpZW50L2FwcC9tb2R1bGVzL3NoYXJlZC9jb21wb25lbnRzL3BhcnRzL3Jlc2VydmF0aW9uL2RldGFpbC1tb2RhbC9kZXRhaWwtbW9kYWwuY29tcG9uZW50LnNjc3MifQ== */");
 
 /***/ }),
 
-/***/ "./app/modules/shared/components/parts/reservation-detail-modal/reservation-detail-modal.component.ts":
-/*!************************************************************************************************************!*\
-  !*** ./app/modules/shared/components/parts/reservation-detail-modal/reservation-detail-modal.component.ts ***!
-  \************************************************************************************************************/
+/***/ "./app/modules/shared/components/parts/reservation/detail-modal/detail-modal.component.ts":
+/*!************************************************************************************************!*\
+  !*** ./app/modules/shared/components/parts/reservation/detail-modal/detail-modal.component.ts ***!
+  \************************************************************************************************/
 /*! exports provided: ReservationDetailModalComponent */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -4518,8 +4586,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! moment */ "../../node_modules/moment/moment.js");
 /* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_2__);
 /* harmony import */ var ngx_bootstrap__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ngx-bootstrap */ "../../node_modules/ngx-bootstrap/esm5/ngx-bootstrap.js");
-/* harmony import */ var _environments_environment__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../../../../environments/environment */ "./environments/environment.ts");
-/* harmony import */ var _functions__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../../../../functions */ "./app/functions/index.ts");
+/* harmony import */ var _environments_environment__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../../../../../environments/environment */ "./environments/environment.ts");
+/* harmony import */ var _functions__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../../../../../functions */ "./app/functions/index.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -4564,8 +4632,8 @@ __decorate([
 ReservationDetailModalComponent = __decorate([
     Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
         selector: 'app-reservation-detail-modal',
-        template: __importDefault(__webpack_require__(/*! raw-loader!./reservation-detail-modal.component.html */ "../../node_modules/raw-loader/dist/cjs.js!./app/modules/shared/components/parts/reservation-detail-modal/reservation-detail-modal.component.html")).default,
-        styles: [__importDefault(__webpack_require__(/*! ./reservation-detail-modal.component.scss */ "./app/modules/shared/components/parts/reservation-detail-modal/reservation-detail-modal.component.scss")).default]
+        template: __importDefault(__webpack_require__(/*! raw-loader!./detail-modal.component.html */ "../../node_modules/raw-loader/dist/cjs.js!./app/modules/shared/components/parts/reservation/detail-modal/detail-modal.component.html")).default,
+        styles: [__importDefault(__webpack_require__(/*! ./detail-modal.component.scss */ "./app/modules/shared/components/parts/reservation/detail-modal/detail-modal.component.scss")).default]
     }),
     __metadata("design:paramtypes", [ngx_bootstrap__WEBPACK_IMPORTED_MODULE_3__["BsModalRef"],
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ElementRef"]])
@@ -5174,18 +5242,19 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_parts_header_menu_header_menu_component__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./components/parts/header-menu/header-menu.component */ "./app/modules/shared/components/parts/header-menu/header-menu.component.ts");
 /* harmony import */ var _components_parts_header_header_component__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./components/parts/header/header.component */ "./app/modules/shared/components/parts/header/header.component.ts");
 /* harmony import */ var _components_parts_loading_loading_component__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./components/parts/loading/loading.component */ "./app/modules/shared/components/parts/loading/loading.component.ts");
-/* harmony import */ var _components_parts_mvtk_check_modal_mvtk_check_modal_component__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./components/parts/mvtk-check-modal/mvtk-check-modal.component */ "./app/modules/shared/components/parts/mvtk-check-modal/mvtk-check-modal.component.ts");
+/* harmony import */ var _components_parts_mvtk_check_modal_check_modal_component__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./components/parts/mvtk/check-modal/check-modal.component */ "./app/modules/shared/components/parts/mvtk/check-modal/check-modal.component.ts");
 /* harmony import */ var _components_parts_numeric_keypad_numeric_keypad_component__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./components/parts/numeric-keypad/numeric-keypad.component */ "./app/modules/shared/components/parts/numeric-keypad/numeric-keypad.component.ts");
-/* harmony import */ var _components_parts_order_detail_modal_order_detail_modal_component__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ./components/parts/order-detail-modal/order-detail-modal.component */ "./app/modules/shared/components/parts/order-detail-modal/order-detail-modal.component.ts");
-/* harmony import */ var _components_parts_purchase_cinema_ticket_modal_purchase_cinema_ticket_modal_component__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ./components/parts/purchase-cinema-ticket-modal/purchase-cinema-ticket-modal.component */ "./app/modules/shared/components/parts/purchase-cinema-ticket-modal/purchase-cinema-ticket-modal.component.ts");
-/* harmony import */ var _components_parts_purchase_event_ticket_modal_purchase_event_ticket_modal_component__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ./components/parts/purchase-event-ticket-modal/purchase-event-ticket-modal.component */ "./app/modules/shared/components/parts/purchase-event-ticket-modal/purchase-event-ticket-modal.component.ts");
-/* harmony import */ var _components_parts_purchase_transaction_modal_purchase_transaction_modal_component__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! ./components/parts/purchase-transaction-modal/purchase-transaction-modal.component */ "./app/modules/shared/components/parts/purchase-transaction-modal/purchase-transaction-modal.component.ts");
-/* harmony import */ var _components_parts_qrcode_modal_qrcode_modal_component__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! ./components/parts/qrcode-modal/qrcode-modal.component */ "./app/modules/shared/components/parts/qrcode-modal/qrcode-modal.component.ts");
-/* harmony import */ var _components_parts_reservation_detail_modal_reservation_detail_modal_component__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! ./components/parts/reservation-detail-modal/reservation-detail-modal.component */ "./app/modules/shared/components/parts/reservation-detail-modal/reservation-detail-modal.component.ts");
-/* harmony import */ var _components_parts_screen_screen_component__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! ./components/parts/screen/screen.component */ "./app/modules/shared/components/parts/screen/screen.component.ts");
-/* harmony import */ var _pipes_change_language_pipe__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(/*! ./pipes/change-language.pipe */ "./app/modules/shared/pipes/change-language.pipe.ts");
-/* harmony import */ var _pipes_format_date_pipe__WEBPACK_IMPORTED_MODULE_25__ = __webpack_require__(/*! ./pipes/format-date.pipe */ "./app/modules/shared/pipes/format-date.pipe.ts");
-/* harmony import */ var _pipes_libphonenumber_format_pipe__WEBPACK_IMPORTED_MODULE_26__ = __webpack_require__(/*! ./pipes/libphonenumber-format.pipe */ "./app/modules/shared/pipes/libphonenumber-format.pipe.ts");
+/* harmony import */ var _components_parts_order_detail_modal_detail_modal_component__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ./components/parts/order/detail-modal/detail-modal.component */ "./app/modules/shared/components/parts/order/detail-modal/detail-modal.component.ts");
+/* harmony import */ var _components_parts_purchase_cinema_ticket_modal_ticket_modal_component__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ./components/parts/purchase/cinema/ticket-modal/ticket-modal.component */ "./app/modules/shared/components/parts/purchase/cinema/ticket-modal/ticket-modal.component.ts");
+/* harmony import */ var _components_parts_purchase_event_ticket_modal_ticket_modal_component__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ./components/parts/purchase/event/ticket-modal/ticket-modal.component */ "./app/modules/shared/components/parts/purchase/event/ticket-modal/ticket-modal.component.ts");
+/* harmony import */ var _components_parts_purchase_transaction_modal_transaction_modal_component__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! ./components/parts/purchase/transaction-modal/transaction-modal.component */ "./app/modules/shared/components/parts/purchase/transaction-modal/transaction-modal.component.ts");
+/* harmony import */ var _components_parts_qrcode_reader_modal_reader_modal_component__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! ./components/parts/qrcode/reader-modal/reader-modal.component */ "./app/modules/shared/components/parts/qrcode/reader-modal/reader-modal.component.ts");
+/* harmony import */ var _components_parts_qrcode_viewer_modal_viewer_modal_component__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! ./components/parts/qrcode/viewer-modal/viewer-modal.component */ "./app/modules/shared/components/parts/qrcode/viewer-modal/viewer-modal.component.ts");
+/* harmony import */ var _components_parts_reservation_detail_modal_detail_modal_component__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! ./components/parts/reservation/detail-modal/detail-modal.component */ "./app/modules/shared/components/parts/reservation/detail-modal/detail-modal.component.ts");
+/* harmony import */ var _components_parts_screen_screen_component__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(/*! ./components/parts/screen/screen.component */ "./app/modules/shared/components/parts/screen/screen.component.ts");
+/* harmony import */ var _pipes_change_language_pipe__WEBPACK_IMPORTED_MODULE_25__ = __webpack_require__(/*! ./pipes/change-language.pipe */ "./app/modules/shared/pipes/change-language.pipe.ts");
+/* harmony import */ var _pipes_format_date_pipe__WEBPACK_IMPORTED_MODULE_26__ = __webpack_require__(/*! ./pipes/format-date.pipe */ "./app/modules/shared/pipes/format-date.pipe.ts");
+/* harmony import */ var _pipes_libphonenumber_format_pipe__WEBPACK_IMPORTED_MODULE_27__ = __webpack_require__(/*! ./pipes/libphonenumber-format.pipe */ "./app/modules/shared/pipes/libphonenumber-format.pipe.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -5222,6 +5291,7 @@ var __importDefault = (undefined && undefined.__importDefault) || function (mod)
 
 
 
+
 const components = [
     _components_pages_base_base_component__WEBPACK_IMPORTED_MODULE_7__["BaseComponent"],
     _components_parts_contents_contents_component__WEBPACK_IMPORTED_MODULE_10__["ContentsComponent"],
@@ -5229,19 +5299,20 @@ const components = [
     _components_parts_header_header_component__WEBPACK_IMPORTED_MODULE_13__["HeaderComponent"],
     _components_parts_header_menu_header_menu_component__WEBPACK_IMPORTED_MODULE_12__["HeaderMenuComponent"],
     _components_parts_loading_loading_component__WEBPACK_IMPORTED_MODULE_14__["LoadingComponent"],
-    _components_parts_screen_screen_component__WEBPACK_IMPORTED_MODULE_23__["ScreenComponent"],
+    _components_parts_screen_screen_component__WEBPACK_IMPORTED_MODULE_24__["ScreenComponent"],
 ];
 const entryComponents = [
     _components_parts_alert_modal_alert_modal_component__WEBPACK_IMPORTED_MODULE_8__["AlertModalComponent"],
     _components_parts_confirm_modal_confirm_modal_component__WEBPACK_IMPORTED_MODULE_9__["ConfirmModalComponent"],
-    _components_parts_mvtk_check_modal_mvtk_check_modal_component__WEBPACK_IMPORTED_MODULE_15__["MvtkCheckModalComponent"],
+    _components_parts_mvtk_check_modal_check_modal_component__WEBPACK_IMPORTED_MODULE_15__["MvtkCheckModalComponent"],
     _components_parts_numeric_keypad_numeric_keypad_component__WEBPACK_IMPORTED_MODULE_16__["NumericKeypadComponent"],
-    _components_parts_order_detail_modal_order_detail_modal_component__WEBPACK_IMPORTED_MODULE_17__["OrderDetailModalComponent"],
-    _components_parts_purchase_cinema_ticket_modal_purchase_cinema_ticket_modal_component__WEBPACK_IMPORTED_MODULE_18__["PurchaseCinemaTicketModalComponent"],
-    _components_parts_purchase_event_ticket_modal_purchase_event_ticket_modal_component__WEBPACK_IMPORTED_MODULE_19__["PurchaseEventTicketModalComponent"],
-    _components_parts_purchase_transaction_modal_purchase_transaction_modal_component__WEBPACK_IMPORTED_MODULE_20__["PurchaseTransactionModalComponent"],
-    _components_parts_qrcode_modal_qrcode_modal_component__WEBPACK_IMPORTED_MODULE_21__["QrCodeModalComponent"],
-    _components_parts_reservation_detail_modal_reservation_detail_modal_component__WEBPACK_IMPORTED_MODULE_22__["ReservationDetailModalComponent"],
+    _components_parts_order_detail_modal_detail_modal_component__WEBPACK_IMPORTED_MODULE_17__["OrderDetailModalComponent"],
+    _components_parts_purchase_cinema_ticket_modal_ticket_modal_component__WEBPACK_IMPORTED_MODULE_18__["PurchaseCinemaTicketModalComponent"],
+    _components_parts_purchase_event_ticket_modal_ticket_modal_component__WEBPACK_IMPORTED_MODULE_19__["PurchaseEventTicketModalComponent"],
+    _components_parts_purchase_transaction_modal_transaction_modal_component__WEBPACK_IMPORTED_MODULE_20__["PurchaseTransactionModalComponent"],
+    _components_parts_qrcode_reader_modal_reader_modal_component__WEBPACK_IMPORTED_MODULE_21__["QRCodeReaderModalComponent"],
+    _components_parts_qrcode_viewer_modal_viewer_modal_component__WEBPACK_IMPORTED_MODULE_22__["QRCodeViewerModalComponent"],
+    _components_parts_reservation_detail_modal_detail_modal_component__WEBPACK_IMPORTED_MODULE_23__["ReservationDetailModalComponent"],
 ];
 let SharedModule = class SharedModule {
 };
@@ -5250,9 +5321,9 @@ SharedModule = __decorate([
         declarations: [
             ...components,
             ...entryComponents,
-            _pipes_libphonenumber_format_pipe__WEBPACK_IMPORTED_MODULE_26__["LibphonenumberFormatPipe"],
-            _pipes_change_language_pipe__WEBPACK_IMPORTED_MODULE_24__["ChangeLanguagePipe"],
-            _pipes_format_date_pipe__WEBPACK_IMPORTED_MODULE_25__["FormatDatePipe"],
+            _pipes_libphonenumber_format_pipe__WEBPACK_IMPORTED_MODULE_27__["LibphonenumberFormatPipe"],
+            _pipes_change_language_pipe__WEBPACK_IMPORTED_MODULE_25__["ChangeLanguagePipe"],
+            _pipes_format_date_pipe__WEBPACK_IMPORTED_MODULE_26__["FormatDatePipe"],
         ],
         entryComponents,
         imports: [
@@ -5269,9 +5340,9 @@ SharedModule = __decorate([
         exports: [
             ...components,
             ...entryComponents,
-            _pipes_libphonenumber_format_pipe__WEBPACK_IMPORTED_MODULE_26__["LibphonenumberFormatPipe"],
-            _pipes_change_language_pipe__WEBPACK_IMPORTED_MODULE_24__["ChangeLanguagePipe"],
-            _pipes_format_date_pipe__WEBPACK_IMPORTED_MODULE_25__["FormatDatePipe"],
+            _pipes_libphonenumber_format_pipe__WEBPACK_IMPORTED_MODULE_27__["LibphonenumberFormatPipe"],
+            _pipes_change_language_pipe__WEBPACK_IMPORTED_MODULE_25__["ChangeLanguagePipe"],
+            _pipes_format_date_pipe__WEBPACK_IMPORTED_MODULE_26__["FormatDatePipe"],
             _angular_forms__WEBPACK_IMPORTED_MODULE_2__["ReactiveFormsModule"],
             _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormsModule"],
             _ngx_translate_core__WEBPACK_IMPORTED_MODULE_4__["TranslateModule"],
@@ -5282,6 +5353,143 @@ SharedModule = __decorate([
         ]
     })
 ], SharedModule);
+
+
+
+/***/ }),
+
+/***/ "./app/services/admission.service.ts":
+/*!*******************************************!*\
+  !*** ./app/services/admission.service.ts ***!
+  \*******************************************/
+/*! exports provided: AdmissionService */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AdmissionService", function() { return AdmissionService; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "../../node_modules/@angular/core/fesm2015/core.js");
+/* harmony import */ var _ngrx_effects__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @ngrx/effects */ "../../node_modules/@ngrx/effects/fesm2015/effects.js");
+/* harmony import */ var _ngrx_store__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @ngrx/store */ "../../node_modules/@ngrx/store/fesm2015/store.js");
+/* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! rxjs */ "../../node_modules/rxjs/_esm2015/index.js");
+/* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! rxjs/operators */ "../../node_modules/rxjs/_esm2015/operators/index.js");
+/* harmony import */ var _store_actions__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../store/actions */ "./app/store/actions/index.ts");
+/* harmony import */ var _store_reducers__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../store/reducers */ "./app/store/reducers/index.ts");
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (undefined && undefined.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var __awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : new P(function (resolve) { resolve(result.value); }).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+var __importDefault = (undefined && undefined.__importDefault) || function (mod) {
+  return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+
+
+
+
+
+
+
+let AdmissionService = class AdmissionService {
+    constructor(actions, store) {
+        this.actions = actions;
+        this.store = store;
+        this.admission = this.store.pipe(Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_2__["select"])(_store_reducers__WEBPACK_IMPORTED_MODULE_6__["getAdmission"]));
+        this.error = this.store.pipe(Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_2__["select"])(_store_reducers__WEBPACK_IMPORTED_MODULE_6__["getError"]));
+    }
+    /**
+     * データ取得
+     */
+    getData() {
+        return __awaiter(this, void 0, void 0, function* () {
+            return new Promise((resolve) => {
+                this.admission.subscribe((admission) => {
+                    resolve(admission);
+                }).unsubscribe();
+            });
+        });
+    }
+    /**
+     * データ削除
+     */
+    delete() {
+    }
+    /**
+     * スケジュール選択
+     */
+    selectScheduleDate(scheduleDate) {
+        this.store.dispatch(new _store_actions__WEBPACK_IMPORTED_MODULE_5__["admissionAction"].SelectScheduleDate({ scheduleDate }));
+    }
+    /**
+     * イベント選択
+     */
+    selectScreeningEvent(screeningEvent) {
+        this.store.dispatch(new _store_actions__WEBPACK_IMPORTED_MODULE_5__["admissionAction"].SelectScreeningEvent({ screeningEvent }));
+    }
+    /**
+     * QRコード初期化
+     */
+    initializeQrcodeToken() {
+        this.store.dispatch(new _store_actions__WEBPACK_IMPORTED_MODULE_5__["admissionAction"].InitializeQrcodeToken());
+    }
+    /**
+     * QRコード確認
+     */
+    checkQrcodeToken(code) {
+        return __awaiter(this, void 0, void 0, function* () {
+            return new Promise((resolve, reject) => __awaiter(this, void 0, void 0, function* () {
+                const { screeningEvent } = yield this.getData();
+                if (screeningEvent === undefined) {
+                    reject(new Error('screeningEvent === undefined'));
+                    return;
+                }
+                this.store.dispatch(new _store_actions__WEBPACK_IMPORTED_MODULE_5__["admissionAction"].Check({ code, screeningEvent }));
+                const success = this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_1__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_5__["admissionAction"].ActionTypes.CheckSuccess), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["tap"])(() => resolve()));
+                const fail = this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_1__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_5__["admissionAction"].ActionTypes.CheckFail), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["tap"])(() => { this.error.subscribe((error) => { reject(error); }).unsubscribe(); }));
+                Object(rxjs__WEBPACK_IMPORTED_MODULE_3__["race"])(success, fail).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["take"])(1)).subscribe();
+            }));
+        });
+    }
+    /**
+     * イベント情報取得
+     */
+    getScreeningEvent() {
+        return new Promise((resolve, reject) => __awaiter(this, void 0, void 0, function* () {
+            const { screeningEvent } = yield this.getData();
+            if (screeningEvent === undefined) {
+                reject(new Error('screeningEvent === undefined'));
+                return;
+            }
+            this.store.dispatch(new _store_actions__WEBPACK_IMPORTED_MODULE_5__["admissionAction"].GetScreeningEvent({ params: { id: screeningEvent.id } }));
+            const success = this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_1__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_5__["admissionAction"].ActionTypes.GetScreeningEventSuccess), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["tap"])(() => resolve()));
+            const fail = this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_1__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_5__["admissionAction"].ActionTypes.GetScreeningEventFail), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["tap"])(() => { this.error.subscribe((error) => { reject(error); }).unsubscribe(); }));
+            Object(rxjs__WEBPACK_IMPORTED_MODULE_3__["race"])(success, fail).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["take"])(1)).subscribe();
+        }));
+    }
+};
+AdmissionService.ctorParameters = () => [
+    { type: _ngrx_effects__WEBPACK_IMPORTED_MODULE_1__["Actions"] },
+    { type: _ngrx_store__WEBPACK_IMPORTED_MODULE_2__["Store"] }
+];
+AdmissionService = __decorate([
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"])({
+        providedIn: 'root'
+    }),
+    __metadata("design:paramtypes", [_ngrx_effects__WEBPACK_IMPORTED_MODULE_1__["Actions"],
+        _ngrx_store__WEBPACK_IMPORTED_MODULE_2__["Store"]])
+], AdmissionService);
 
 
 
@@ -5666,44 +5874,52 @@ DownloadService = DownloadService_1 = __decorate([
 /*!*******************************!*\
   !*** ./app/services/index.ts ***!
   \*******************************/
-/*! exports provided: CinerinoService, PurchaseService, UserService, MasterService, OrderService, PersonService, ReservationService, UtilService, StarPrintService, DownloadService */
+/*! exports provided: CinerinoService, AdmissionService, PurchaseService, UserService, MasterService, OrderService, PersonService, ReservationService, UtilService, StarPrintService, DownloadService, QRCodeService */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _cinerino_service__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./cinerino.service */ "./app/services/cinerino.service.ts");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "CinerinoService", function() { return _cinerino_service__WEBPACK_IMPORTED_MODULE_0__["CinerinoService"]; });
+/* harmony import */ var _admission_service__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./admission.service */ "./app/services/admission.service.ts");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "AdmissionService", function() { return _admission_service__WEBPACK_IMPORTED_MODULE_0__["AdmissionService"]; });
 
-/* harmony import */ var _purchase_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./purchase.service */ "./app/services/purchase.service.ts");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "PurchaseService", function() { return _purchase_service__WEBPACK_IMPORTED_MODULE_1__["PurchaseService"]; });
+/* harmony import */ var _cinerino_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./cinerino.service */ "./app/services/cinerino.service.ts");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "CinerinoService", function() { return _cinerino_service__WEBPACK_IMPORTED_MODULE_1__["CinerinoService"]; });
 
-/* harmony import */ var _user_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./user.service */ "./app/services/user.service.ts");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "UserService", function() { return _user_service__WEBPACK_IMPORTED_MODULE_2__["UserService"]; });
+/* harmony import */ var _purchase_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./purchase.service */ "./app/services/purchase.service.ts");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "PurchaseService", function() { return _purchase_service__WEBPACK_IMPORTED_MODULE_2__["PurchaseService"]; });
 
-/* harmony import */ var _master_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./master.service */ "./app/services/master.service.ts");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "MasterService", function() { return _master_service__WEBPACK_IMPORTED_MODULE_3__["MasterService"]; });
+/* harmony import */ var _user_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./user.service */ "./app/services/user.service.ts");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "UserService", function() { return _user_service__WEBPACK_IMPORTED_MODULE_3__["UserService"]; });
 
-/* harmony import */ var _order_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./order.service */ "./app/services/order.service.ts");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "OrderService", function() { return _order_service__WEBPACK_IMPORTED_MODULE_4__["OrderService"]; });
+/* harmony import */ var _master_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./master.service */ "./app/services/master.service.ts");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "MasterService", function() { return _master_service__WEBPACK_IMPORTED_MODULE_4__["MasterService"]; });
 
-/* harmony import */ var _person_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./person.service */ "./app/services/person.service.ts");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "PersonService", function() { return _person_service__WEBPACK_IMPORTED_MODULE_5__["PersonService"]; });
+/* harmony import */ var _order_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./order.service */ "./app/services/order.service.ts");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "OrderService", function() { return _order_service__WEBPACK_IMPORTED_MODULE_5__["OrderService"]; });
 
-/* harmony import */ var _reservation_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./reservation.service */ "./app/services/reservation.service.ts");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "ReservationService", function() { return _reservation_service__WEBPACK_IMPORTED_MODULE_6__["ReservationService"]; });
+/* harmony import */ var _person_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./person.service */ "./app/services/person.service.ts");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "PersonService", function() { return _person_service__WEBPACK_IMPORTED_MODULE_6__["PersonService"]; });
 
-/* harmony import */ var _util_service__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./util.service */ "./app/services/util.service.ts");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "UtilService", function() { return _util_service__WEBPACK_IMPORTED_MODULE_7__["UtilService"]; });
+/* harmony import */ var _reservation_service__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./reservation.service */ "./app/services/reservation.service.ts");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "ReservationService", function() { return _reservation_service__WEBPACK_IMPORTED_MODULE_7__["ReservationService"]; });
 
-/* harmony import */ var _star_print_service__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./star-print.service */ "./app/services/star-print.service.ts");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "StarPrintService", function() { return _star_print_service__WEBPACK_IMPORTED_MODULE_8__["StarPrintService"]; });
+/* harmony import */ var _util_service__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./util.service */ "./app/services/util.service.ts");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "UtilService", function() { return _util_service__WEBPACK_IMPORTED_MODULE_8__["UtilService"]; });
 
-/* harmony import */ var _download_service__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./download.service */ "./app/services/download.service.ts");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "DownloadService", function() { return _download_service__WEBPACK_IMPORTED_MODULE_9__["DownloadService"]; });
+/* harmony import */ var _star_print_service__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./star-print.service */ "./app/services/star-print.service.ts");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "StarPrintService", function() { return _star_print_service__WEBPACK_IMPORTED_MODULE_9__["StarPrintService"]; });
+
+/* harmony import */ var _download_service__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./download.service */ "./app/services/download.service.ts");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "DownloadService", function() { return _download_service__WEBPACK_IMPORTED_MODULE_10__["DownloadService"]; });
+
+/* harmony import */ var _qrcode_service__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./qrcode.service */ "./app/services/qrcode.service.ts");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "QRCodeService", function() { return _qrcode_service__WEBPACK_IMPORTED_MODULE_11__["QRCodeService"]; });
 
 var __importDefault = (undefined && undefined.__importDefault) || function (mod) {
   return (mod && mod.__esModule) ? mod : { "default": mod };
 };
+
+
 
 
 
@@ -6607,6 +6823,77 @@ PurchaseService = __decorate([
         _ngrx_store__WEBPACK_IMPORTED_MODULE_3__["Store"],
         _util_service__WEBPACK_IMPORTED_MODULE_11__["UtilService"]])
 ], PurchaseService);
+
+
+
+/***/ }),
+
+/***/ "./app/services/qrcode.service.ts":
+/*!****************************************!*\
+  !*** ./app/services/qrcode.service.ts ***!
+  \****************************************/
+/*! exports provided: QRCodeService */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "QRCodeService", function() { return QRCodeService; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "../../node_modules/@angular/core/fesm2015/core.js");
+/* harmony import */ var ngx_bootstrap__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ngx-bootstrap */ "../../node_modules/ngx-bootstrap/esm5/ngx-bootstrap.js");
+/* harmony import */ var _modules_shared_components_parts_qrcode_reader_modal_reader_modal_component__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../modules/shared/components/parts/qrcode/reader-modal/reader-modal.component */ "./app/modules/shared/components/parts/qrcode/reader-modal/reader-modal.component.ts");
+/* harmony import */ var _modules_shared_components_parts_qrcode_viewer_modal_viewer_modal_component__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../modules/shared/components/parts/qrcode/viewer-modal/viewer-modal.component */ "./app/modules/shared/components/parts/qrcode/viewer-modal/viewer-modal.component.ts");
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (undefined && undefined.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var __importDefault = (undefined && undefined.__importDefault) || function (mod) {
+  return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+
+
+
+
+let QRCodeService = class QRCodeService {
+    constructor(modal) {
+        this.modal = modal;
+    }
+    /**
+     * QRコードリーダー表示
+     */
+    openQRCodeReader(args) {
+        this.modal.show(_modules_shared_components_parts_qrcode_reader_modal_reader_modal_component__WEBPACK_IMPORTED_MODULE_2__["QRCodeReaderModalComponent"], {
+            initialState: { cb: args.cb },
+            class: 'modal-dialog-centered',
+            animated: false
+        });
+    }
+    /**
+     * QRコードビューアー表示
+     */
+    openQRCodeViewer(args) {
+        const title = args.title;
+        const body = args.body;
+        const code = args.code;
+        this.modal.show(_modules_shared_components_parts_qrcode_viewer_modal_viewer_modal_component__WEBPACK_IMPORTED_MODULE_3__["QRCodeViewerModalComponent"], {
+            initialState: { title, body, code },
+            class: 'modal-dialog-centered'
+        });
+    }
+};
+QRCodeService.ctorParameters = () => [
+    { type: ngx_bootstrap__WEBPACK_IMPORTED_MODULE_1__["BsModalService"] }
+];
+QRCodeService = __decorate([
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"])({
+        providedIn: 'root'
+    }),
+    __metadata("design:paramtypes", [ngx_bootstrap__WEBPACK_IMPORTED_MODULE_1__["BsModalService"]])
+], QRCodeService);
 
 
 
@@ -11433,7 +11720,6 @@ const defaultEnvironment = {
     INQUIRY_ORDER_DATE_FROM_VALUE: '-3',
     INQUIRY_ORDER_DATE_FROM_UNIT: 'month',
     ORDER_CANCEL: false,
-    ORDER_QRCODE: false,
     ORDER_PRINT: false,
     PRINT_QRCODE_TYPE: 'token',
     PRINT_QRCODE_CUSTOM: '',

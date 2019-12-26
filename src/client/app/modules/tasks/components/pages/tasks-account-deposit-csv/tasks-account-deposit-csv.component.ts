@@ -52,10 +52,8 @@ export class TasksAccountDepositCSVComponent implements OnInit {
         orderDateThrough: Date;
         itemId: string;
     };
-    @ViewChild('orderDateFrom', { static: true })
-    private orderDateFrom: BsDatepickerDirective;
-    @ViewChild('orderDateThrough', { static: true })
-    private orderDateThrough: BsDatepickerDirective;
+    @ViewChild('orderDateFrom', { static: true }) private orderDateFrom: BsDatepickerDirective;
+    @ViewChild('orderDateThrough', { static: true }) private orderDateThrough: BsDatepickerDirective;
 
     constructor(
         private store: Store<reducers.IState>,

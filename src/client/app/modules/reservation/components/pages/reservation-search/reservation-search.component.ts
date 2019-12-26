@@ -13,7 +13,7 @@ import { DownloadService, ReservationService, UtilService } from '../../../../..
 import * as reducers from '../../../../../store/reducers';
 import {
     ReservationDetailModalComponent
-} from '../../../../shared/components/parts/reservation-detail-modal/reservation-detail-modal.component';
+} from '../../../../shared/components/parts/reservation/detail-modal/detail-modal.component';
 
 @Component({
     selector: 'app-reservation-search',
@@ -34,14 +34,10 @@ export class ReservationSearchComponent implements OnInit {
     public reservationStatus = factory.chevre.reservationStatusType;
     public getTicketPrice = getTicketPrice;
     public environment = environment;
-    @ViewChild('reservationDateFrom', { static: true })
-    private reservationDateFrom: BsDatepickerDirective;
-    @ViewChild('reservationDateThrough', { static: true })
-    private reservationDateThrough: BsDatepickerDirective;
-    @ViewChild('eventStartDateFrom', { static: true })
-    private eventStartDateFrom: BsDatepickerDirective;
-    @ViewChild('eventStartDateThrough', { static: true })
-    private eventStartDateThrough: BsDatepickerDirective;
+    @ViewChild('reservationDateFrom', { static: true }) private reservationDateFrom: BsDatepickerDirective;
+    @ViewChild('reservationDateThrough', { static: true }) private reservationDateThrough: BsDatepickerDirective;
+    @ViewChild('eventStartDateFrom', { static: true }) private eventStartDateFrom: BsDatepickerDirective;
+    @ViewChild('eventStartDateThrough', { static: true }) private eventStartDateThrough: BsDatepickerDirective;
 
     constructor(
         private store: Store<reducers.IReservationState>,
