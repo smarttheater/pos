@@ -890,7 +890,7 @@ AppComponent = __decorate([
 /*!********************************!*\
   !*** ./app/functions/index.ts ***!
   \********************************/
-/*! exports provided: screeningEventsToWorkEvents, createGmoTokenObject, sameMovieTicketFilter, isAvailabilityMovieTicket, createMovieTicketsFromAuthorizeSeatReservation, createPaymentMethodFromType, getTicketPrice, movieTicketAuthErroCodeToMessage, getAmount, orderToEventOrders, authorizeSeatReservationToEvent, isScheduleStatusThreshold, isSales, isTicketedSeatScreeningEvent, changeTicketCount, getRemainingSeatLength, formatTelephone, toFull, toHalf, retry, sleep, buildQueryString, iOSDatepickerTapBugFix, streamingDownload, string2blob, createPrintCanvas, createTestPrintCanvas, createRegiGrowQrcode, changeTicketCountByOrder, getTransactionAgentIdentifier, order2report */
+/*! exports provided: screeningEventsToWorkEvents, createGmoTokenObject, sameMovieTicketFilter, isAvailabilityMovieTicket, createMovieTicketsFromAuthorizeSeatReservation, createPaymentMethodFromType, getTicketPrice, movieTicketAuthErroCodeToMessage, getAmount, orderToEventOrders, authorizeSeatReservationToEvent, isScheduleStatusThreshold, isSales, isTicketedSeatScreeningEvent, changeTicketCount, getRemainingSeatLength, formatTelephone, toFull, toHalf, retry, sleep, buildQueryString, iOSDatepickerTapBugFix, streamingDownload, string2blob, getProject, getParameter, createPrintCanvas, createTestPrintCanvas, createRegiGrowQrcode, changeTicketCountByOrder, getTransactionAgentIdentifier, order2report */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -946,6 +946,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "streamingDownload", function() { return _util_function__WEBPACK_IMPORTED_MODULE_1__["streamingDownload"]; });
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "string2blob", function() { return _util_function__WEBPACK_IMPORTED_MODULE_1__["string2blob"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "getProject", function() { return _util_function__WEBPACK_IMPORTED_MODULE_1__["getProject"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "getParameter", function() { return _util_function__WEBPACK_IMPORTED_MODULE_1__["getParameter"]; });
 
 /* harmony import */ var _order_function__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./order.function */ "./app/functions/order.function.ts");
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "createPrintCanvas", function() { return _order_function__WEBPACK_IMPORTED_MODULE_2__["createPrintCanvas"]; });
@@ -1806,7 +1810,7 @@ function getRemainingSeatLength(screeningEventOffers, screeningEvent) {
 /*!****************************************!*\
   !*** ./app/functions/util.function.ts ***!
   \****************************************/
-/*! exports provided: formatTelephone, toFull, toHalf, retry, sleep, buildQueryString, iOSDatepickerTapBugFix, streamingDownload, string2blob */
+/*! exports provided: formatTelephone, toFull, toHalf, retry, sleep, buildQueryString, iOSDatepickerTapBugFix, streamingDownload, string2blob, getProject, getParameter */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1820,6 +1824,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "iOSDatepickerTapBugFix", function() { return iOSDatepickerTapBugFix; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "streamingDownload", function() { return streamingDownload; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "string2blob", function() { return string2blob; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getProject", function() { return getProject; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getParameter", function() { return getParameter; });
 /* harmony import */ var libphonenumber_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! libphonenumber-js */ "../../node_modules/libphonenumber-js/index.es6.js");
 var __awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -2008,6 +2014,29 @@ function streamingDownload(stream) {
 function string2blob(value, options) {
     const bom = new Uint8Array([0xEF, 0xBB, 0xBF]);
     return new Blob([bom, value], options);
+}
+/**
+ * プロジェクト取得
+ */
+function getProject() {
+    const project = (sessionStorage.getItem('PROJECT'));
+    return (project === null) ? '' : project;
+}
+/**
+ * パラメータ取得
+ */
+function getParameter() {
+    const result = {};
+    const params = location.search.replace('?', '').split('&');
+    for (let i = 0; i < params.length; i++) {
+        const param = params[i].split('=');
+        const key = param[0];
+        const value = param[1];
+        if (key && value) {
+            result[key] = value;
+        }
+    }
+    return result;
 }
 
 
@@ -5301,6 +5330,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "../../node_modules/@angular/core/fesm2015/core.js");
 /* harmony import */ var _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @cinerino/api-javascript-client */ "../../node_modules/@cinerino/api-javascript-client/lib/index.js");
 /* harmony import */ var _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! moment */ "../../node_modules/moment/moment.js");
+/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var _functions__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../functions */ "./app/functions/index.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -5321,6 +5353,8 @@ var __awaiter = (undefined && undefined.__awaiter) || function (thisArg, _argume
 var __importDefault = (undefined && undefined.__importDefault) || function (mod) {
   return (mod && mod.__esModule) ? mod : { "default": mod };
 };
+
+
 
 
 
@@ -5359,10 +5393,11 @@ let CinerinoService = class CinerinoService {
         });
     }
     /**
-     * @method createOption
+     * createOption
      */
     createOption() {
         return __awaiter(this, void 0, void 0, function* () {
+            yield this.getConfig();
             yield this.authorize();
             return {
                 endpoint: this.endpoint,
@@ -5371,39 +5406,54 @@ let CinerinoService = class CinerinoService {
         });
     }
     /**
-     * @method authorize
+     * 設定取得
+     */
+    getConfig() {
+        return __awaiter(this, void 0, void 0, function* () {
+            const url = `/api/config?date=${moment__WEBPACK_IMPORTED_MODULE_3__().toISOString()}&project=${Object(_functions__WEBPACK_IMPORTED_MODULE_4__["getProject"])()}`;
+            const result = yield this.http.get(url).toPromise();
+            this.endpoint = result.endpoint;
+            this.waiterServerUrl = result.waiterServerUrl;
+        });
+    }
+    /**
+     * 認証情報取得
      */
     authorize() {
         return __awaiter(this, void 0, void 0, function* () {
             const url = '/api/authorize/getCredentials';
             const body = {
-                // member: '0'
-                member: '1'
+                project: Object(_functions__WEBPACK_IMPORTED_MODULE_4__["getProject"])()
             };
             const result = yield this.http.post(url, body).toPromise();
-            const option = {
-                domain: '',
-                clientId: result.clientId,
-                redirectUri: '',
-                logoutUri: '',
-                responseType: '',
-                scope: '',
-                state: '',
-                nonce: null,
-                tokenIssuer: ''
-            };
-            this.auth = _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_2__["createAuthInstance"](option);
-            this.auth.setCredentials({ accessToken: result.accessToken });
-            this.endpoint = result.endpoint;
-            this.waiterServerUrl = result.waiterServerUrl;
+            this.setCredentials(result);
         });
+    }
+    /**
+     * 認証情報設定
+     */
+    setCredentials(params) {
+        const option = {
+            domain: '',
+            clientId: params.clientId,
+            redirectUri: '',
+            logoutUri: '',
+            responseType: '',
+            scope: '',
+            state: '',
+            nonce: null,
+            tokenIssuer: ''
+        };
+        this.auth = _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_2__["createAuthInstance"](option);
+        this.auth.setCredentials({ accessToken: params.accessToken, expiryDate: params.expiryDate });
+        this.userName = params.userName;
     }
     /**
      * サインイン
      */
     signIn() {
         return __awaiter(this, void 0, void 0, function* () {
-            const url = '/api/authorize/signIn';
+            const url = `/api/authorize/signIn?project=${Object(_functions__WEBPACK_IMPORTED_MODULE_4__["getProject"])()}`;
             const result = yield this.http.get(url, {}).toPromise();
             // console.log(result.url);
             location.href = result.url;
@@ -5414,7 +5464,7 @@ let CinerinoService = class CinerinoService {
      */
     signOut() {
         return __awaiter(this, void 0, void 0, function* () {
-            const url = '/api/authorize/signOut';
+            const url = `/api/authorize/signOut?project=${Object(_functions__WEBPACK_IMPORTED_MODULE_4__["getProject"])()}`;
             const result = yield this.http.get(url, {}).toPromise();
             // console.log(result.url);
             location.href = result.url;
@@ -11456,14 +11506,22 @@ const environment = Object.assign(defaultEnvironment, window.environment);
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "../../node_modules/@angular/core/fesm2015/core.js");
 /* harmony import */ var _angular_platform_browser_dynamic__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/platform-browser-dynamic */ "../../node_modules/@angular/platform-browser-dynamic/fesm2015/platform-browser-dynamic.js");
-/* harmony import */ var _app_app_module__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./app/app.module */ "./app/app.module.ts");
-/* harmony import */ var _environments_environment__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./environments/environment */ "./environments/environment.ts");
-/* harmony import */ var moment_timezone__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! moment-timezone */ "../../node_modules/moment-timezone/index.js");
-/* harmony import */ var moment_timezone__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(moment_timezone__WEBPACK_IMPORTED_MODULE_4__);
-/* harmony import */ var ngx_bootstrap_chronos__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ngx-bootstrap/chronos */ "../../node_modules/ngx-bootstrap/chronos/fesm2015/ngx-bootstrap-chronos.js");
-/* harmony import */ var ngx_bootstrap_locale__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ngx-bootstrap/locale */ "../../node_modules/ngx-bootstrap/locale/fesm2015/ngx-bootstrap-locale.js");
-/* harmony import */ var hammerjs__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! hammerjs */ "../../node_modules/hammerjs/hammer.js");
-/* harmony import */ var hammerjs__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(hammerjs__WEBPACK_IMPORTED_MODULE_7__);
+/* harmony import */ var hammerjs__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! hammerjs */ "../../node_modules/hammerjs/hammer.js");
+/* harmony import */ var hammerjs__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(hammerjs__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var moment_timezone__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! moment-timezone */ "../../node_modules/moment-timezone/index.js");
+/* harmony import */ var moment_timezone__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(moment_timezone__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var ngx_bootstrap_chronos__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ngx-bootstrap/chronos */ "../../node_modules/ngx-bootstrap/chronos/fesm2015/ngx-bootstrap-chronos.js");
+/* harmony import */ var ngx_bootstrap_locale__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ngx-bootstrap/locale */ "../../node_modules/ngx-bootstrap/locale/fesm2015/ngx-bootstrap-locale.js");
+/* harmony import */ var _app_app_module__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./app/app.module */ "./app/app.module.ts");
+/* harmony import */ var _environments_environment__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./environments/environment */ "./environments/environment.ts");
+var __awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : new P(function (resolve) { resolve(result.value); }).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
 var __importDefault = (undefined && undefined.__importDefault) || function (mod) {
   return (mod && mod.__esModule) ? mod : { "default": mod };
 };
@@ -11474,26 +11532,58 @@ var __importDefault = (undefined && undefined.__importDefault) || function (mod)
 
 
 
-/**
- * タイムゾーン設定
- */
-
-moment_timezone__WEBPACK_IMPORTED_MODULE_4__["tz"].setDefault('Asia/Tokyo');
-moment_timezone__WEBPACK_IMPORTED_MODULE_4__["locale"]('ja');
-/**
- * 言語設定
- */
 
 
-Object(ngx_bootstrap_chronos__WEBPACK_IMPORTED_MODULE_5__["defineLocale"])('ja', ngx_bootstrap_locale__WEBPACK_IMPORTED_MODULE_6__["jaLocale"]);
-/**
- * タッチイベント対応
- */
 
-if (_environments_environment__WEBPACK_IMPORTED_MODULE_3__["environment"].production) {
-    Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["enableProdMode"])();
+
+function main() {
+    return __awaiter(this, void 0, void 0, function* () {
+        // タイムゾーン設定
+        moment_timezone__WEBPACK_IMPORTED_MODULE_3__["tz"].setDefault('Asia/Tokyo');
+        moment_timezone__WEBPACK_IMPORTED_MODULE_3__["locale"]('ja');
+        // 言語設定
+        Object(ngx_bootstrap_chronos__WEBPACK_IMPORTED_MODULE_4__["defineLocale"])('ja', ngx_bootstrap_locale__WEBPACK_IMPORTED_MODULE_5__["jaLocale"]);
+        // プロジェクト設定
+        // if (getParameter<{ project: string }>().project !== undefined) {
+        //     sessionStorage.setItem('PROJECT', getParameter<{ project: string }>().project);
+        // }
+        // const project = (sessionStorage.getItem('PROJECT'));
+        // const config = await fetch(`/api/config?date=${momentTimezone().toISOString()}&project=${project}`, { method: 'GET' });
+        // const storageUrl = (await config.json()).storageUrl;
+        // const style = document.createElement('link');
+        // style.rel = 'stylesheet';
+        // style.href = `${storageUrl}/css/style.css`;
+        // document.body.appendChild(style);
+        // try {
+        //     const env = await fetch(`${storageUrl}/json/environment.json?date=${momentTimezone().toISOString()}`, { method: 'GET' });
+        //     (<any>window).environment = await env.json();
+        // } catch (error) {
+        //     const env = await fetch(`${storageUrl}/js/environment.js?date=${momentTimezone().toISOString()}`, { method: 'GET' });
+        //     (<any>window).eval(<any>(env.body));
+        // }
+        // // GTM設定
+        // if (environment.GTM_ID) {
+        //     (function (w, d, s, l, i) {
+        //         (<any>w)[l] = (<any>w)[l] || [];
+        //         (<any>w)[l].push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' });
+        //         const f =
+        //             d.getElementsByTagName(s)[0],
+        //             j = d.createElement(s),
+        //             dl = l !== 'dataLayer' ? '&l=' + l : ''; (<any>j).async = true;
+        //         (<any>j).src = 'https://www.googletagmanager.com/gtm.js?id=' + i + dl;
+        //         (<any>f).parentNode.insertBefore(j, f);
+        //     })(window, document, 'script', 'dataLayer', environment.GTM_ID);
+        // }
+    });
 }
-Object(_angular_platform_browser_dynamic__WEBPACK_IMPORTED_MODULE_1__["platformBrowserDynamic"])().bootstrapModule(_app_app_module__WEBPACK_IMPORTED_MODULE_2__["AppModule"]);
+main().then(() => {
+    if (_environments_environment__WEBPACK_IMPORTED_MODULE_7__["environment"].production) {
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["enableProdMode"])();
+    }
+    Object(_angular_platform_browser_dynamic__WEBPACK_IMPORTED_MODULE_1__["platformBrowserDynamic"])().bootstrapModule(_app_app_module__WEBPACK_IMPORTED_MODULE_6__["AppModule"]);
+}).catch((error) => {
+    console.error(error);
+});
 
 
 /***/ }),

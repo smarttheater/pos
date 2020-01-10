@@ -1,6 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import * as cinerino from '@cinerino/api-javascript-client';
+import * as moment from 'moment';
+import { getProject } from '../functions';
 
 @Injectable({
     providedIn: 'root'
@@ -23,6 +25,7 @@ export class CinerinoService {
     public admin: {
         ownershipInfo: cinerino.service.OwnershipInfo
     };
+    public userName: string;
     private endpoint: string;
     private waiterServerUrl: string;
 
@@ -59,9 +62,10 @@ export class CinerinoService {
     }
 
     /**
-     * @method createOption
+     * createOption
      */
     public async createOption() {
+        await this.getConfig();
         await this.authorize();
         return {
             endpoint: this.endpoint,
@@ -70,24 +74,44 @@ export class CinerinoService {
     }
 
     /**
-     * @method authorize
+     * 設定取得
+     */
+    public async getConfig() {
+        const url = `/api/config?date=${moment().toISOString()}&project=${getProject()}`;
+        const result = await this.http.get<{ endpoint: string; waiterServerUrl: string; storageUrl: string; }>(url).toPromise();
+        this.endpoint = result.endpoint;
+        this.waiterServerUrl = result.waiterServerUrl;
+    }
+
+    /**
+     * 認証情報取得
      */
     public async authorize() {
         const url = '/api/authorize/getCredentials';
         const body = {
-            // member: '0'
-            member: '1'
+            project: getProject()
         };
         const result = await this.http.post<{
             accessToken: string;
+            expiryDate: number;
             userName: string;
             clientId: string;
-            endpoint: string;
-            waiterServerUrl: string;
         }>(url, body).toPromise();
+        this.setCredentials(result);
+    }
+
+    /**
+     * 認証情報設定
+     */
+    public setCredentials(params: {
+        clientId: string;
+        accessToken: string;
+        expiryDate: number;
+        userName: string;
+    }) {
         const option = {
             domain: '',
-            clientId: result.clientId,
+            clientId: params.clientId,
             redirectUri: '',
             logoutUri: '',
             responseType: '',
@@ -97,16 +121,15 @@ export class CinerinoService {
             tokenIssuer: ''
         };
         this.auth = cinerino.createAuthInstance(option);
-        this.auth.setCredentials({ accessToken: result.accessToken });
-        this.endpoint = result.endpoint;
-        this.waiterServerUrl = result.waiterServerUrl;
+        this.auth.setCredentials({ accessToken: params.accessToken, expiryDate: params.expiryDate });
+        this.userName = params.userName;
     }
 
     /**
      * サインイン
      */
     public async signIn() {
-        const url = '/api/authorize/signIn';
+        const url = `/api/authorize/signIn?project=${getProject()}`;
         const result = await this.http.get<any>(url, {}).toPromise();
         // console.log(result.url);
         location.href = result.url;
@@ -116,7 +139,7 @@ export class CinerinoService {
      * サインアウト
      */
     public async signOut() {
-        const url = '/api/authorize/signOut';
+        const url = `/api/authorize/signOut?project=${getProject()}`;
         const result = await this.http.get<any>(url, {}).toPromise();
         // console.log(result.url);
         location.href = result.url;
