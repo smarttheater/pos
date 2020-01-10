@@ -22,7 +22,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("<app-loading [isLoading]=\"true\" [process]=\"{ja: '会員初期化しています', en: 'Members are initializing'}\"></app-loading>");
+/* harmony default export */ __webpack_exports__["default"] = ("<app-loading [isLoading]=\"true\" process=\"process.authAction.Login\"></app-loading>");
 
 /***/ }),
 

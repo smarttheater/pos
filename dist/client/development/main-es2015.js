@@ -639,7 +639,7 @@ var __importDefault = (undefined && undefined.__importDefault) || function (mod)
 
 
 const appRoutes = [
-    { path: '', redirectTo: 'auth', pathMatch: 'full' },
+    { path: '', redirectTo: '/auth', pathMatch: 'full' },
     {
         path: 'purchase',
         loadChildren: () => Promise.all(/*! import() | modules-purchase-purchase-module */[__webpack_require__.e("common"), __webpack_require__.e("modules-purchase-purchase-module")]).then(__webpack_require__.bind(null, /*! ./modules/purchase/purchase.module */ "./app/modules/purchase/purchase.module.ts")).then(m => m.PurchaseModule)
@@ -1239,7 +1239,7 @@ function changeTicketCountByOrder(acceptedOffer) {
  * 取引追加情報取得
  */
 function getTransactionAgentIdentifier(order, key) {
-    if (order.customer.identifier === undefined) {
+    if (order.customer.identifier === undefined || typeof order.customer.identifier === 'string') {
         return;
     }
     return order.customer.identifier.find(i => i.name === key);

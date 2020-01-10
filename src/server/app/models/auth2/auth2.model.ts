@@ -1,4 +1,6 @@
 import * as cinerino from '@cinerino/api-nodejs-client';
+import * as express from 'express';
+import { getEnvironment } from '../../functions/util';
 
 /**
  * 認証セッション
@@ -61,7 +63,6 @@ export class Auth2Model {
         if (session === undefined) {
             session = {};
         }
-        // const resourceServerUrl  = <string>process.env.RESOURCE_SERVER_URL;
         this.scopes = [];
         this.credentials = session.credentials;
         this.state = Auth2Model.STATE;
@@ -71,16 +72,18 @@ export class Auth2Model {
     /**
      * 認証クラス作成
      * @memberof Auth2Model
-     * @method create
-     * @returns {cinerino.auth.ClientCredentials}
      */
-    public create(): cinerino.auth.OAuth2 {
+    public async create(req: express.Request) {
+        const env = await getEnvironment(req);
+        if (env === undefined) {
+            throw new Error('project not found');
+        }
         const auth = new cinerino.auth.OAuth2({
-            domain: (<string>process.env.OAUTH2_SERVER_DOMAIN),
-            clientId: (<string>process.env.CLIENT_ID_OAUTH2),
-            clientSecret: (<string>process.env.CLIENT_SECRET_OAUTH2),
-            redirectUri: (<string>process.env.AUTH_REDIRECT_URI),
-            logoutUri: (<string>process.env.AUTH_LOGUOT_URI),
+            domain: env.OAUTH2_SERVER_DOMAIN,
+            clientId: env.CLIENT_ID_OAUTH2,
+            clientSecret: env.CLIENT_SECRET_OAUTH2,
+            redirectUri: `${req.protocol}://${req.hostname}/signIn`,
+            logoutUri: `${req.protocol}://${req.hostname}/signOut`,
             state: this.state,
             scopes: <any>this.scopes.join(' ')
         });

@@ -289,7 +289,7 @@ export function changeTicketCountByOrder(
  * 取引追加情報取得
  */
 export function getTransactionAgentIdentifier(order: factory.order.IOrder, key: string) {
-    if (order.customer.identifier === undefined) {
+    if (order.customer.identifier === undefined || typeof order.customer.identifier === 'string') {
         return;
     }
     return order.customer.identifier.find(i => i.name === key);

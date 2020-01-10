@@ -12,24 +12,27 @@ Object.defineProperty(exports, "__esModule", { value: true });
  * ルーティング
  */
 const debug = require("debug");
+const http_status_1 = require("http-status");
 const path = require("path");
+const util_1 = require("../functions/util");
 const auth2_model_1 = require("../models/auth2/auth2.model");
 const authorize_1 = require("./api/authorize");
-const encryption_1 = require("./api/encryption");
-const util_1 = require("./api/util");
+const util_2 = require("./api/util");
 const log = debug('application: router');
 exports.default = (app) => {
-    app.use((_req, res, next) => {
-        res.locals.NODE_ENV = process.env.NODE_ENV;
-        next();
-    });
-    app.use('/storage', (req, res) => {
-        const url = req.originalUrl.replace('/storage', process.env.STORAGE_URL);
-        res.redirect(url);
-    });
+    app.use('/storage', (req, res) => __awaiter(this, void 0, void 0, function* () {
+        try {
+            const env = yield util_1.getEnvironment(req);
+            const url = req.originalUrl.replace('/storage', env.STORAGE_URL);
+            res.redirect(url);
+        }
+        catch (error) {
+            res.status(http_status_1.NOT_FOUND);
+            res.end(error);
+        }
+    }));
     app.use('/api/authorize', authorize_1.authorizeRouter);
-    app.use('/api/encryption', encryption_1.encryptionRouter);
-    app.use('/api', util_1.utilRouter);
+    app.use('/api', util_2.utilRouter);
     app.get('/signIn', (req, res, next) => __awaiter(this, void 0, void 0, function* () {
         log('signInRedirect');
         try {
@@ -40,43 +43,59 @@ exports.default = (app) => {
             if (req.query.state !== authModel.state) {
                 throw (new Error(`state not matched ${req.query.state} !== ${authModel.state}`));
             }
-            const auth = authModel.create();
+            const auth = yield authModel.create(req);
             const credentials = yield auth.getToken(req.query.code, authModel.codeVerifier);
             // log('credentials published', credentials);
             authModel.credentials = credentials;
             authModel.save(req.session);
             auth.setCredentials(credentials);
-            res.redirect('/#/auth/signin');
+            res.redirect(`/#/auth/signin`);
         }
         catch (error) {
             next(error);
         }
     }));
-    app.get('/signOut', (req, res) => {
+    app.get('/signOut', (req, res, next) => {
         log('signOutRedirect');
+        if (req.session === undefined) {
+            next();
+            return;
+        }
         delete req.session.auth;
-        res.redirect('/#/auth/signout');
+        res.redirect(`/#/auth/signout`);
     });
-    app.get('*', (req, res, _next) => {
+    app.get('*', (req, res, next) => __awaiter(this, void 0, void 0, function* () {
         if (req.xhr) {
             res.status(httpStatus.NOT_FOUND).json('NOT FOUND');
             return;
         }
-        if (req.session !== undefined) {
-            if (req.query.performanceId !== undefined && req.query.eventId === undefined) {
-                req.query.eventId = req.query.performanceId;
+        if (req.session === undefined) {
+            next();
+            return;
+        }
+        if (req.query.performanceId !== undefined
+            && req.query.eventId === undefined) {
+            req.query.eventId = req.query.performanceId;
+        }
+        if (req.query.project !== undefined) {
+            delete req.session.auth;
+            req.session.project = req.query.project;
+            try {
+                yield util_1.getEnvironment(req);
             }
-            req.session.external = req.query;
+            catch (error) {
+                res.sendFile(path.resolve(`${__dirname}/../../../../public/404.html`));
+                return;
+            }
         }
         const dir = (process.env.NODE_ENV === 'production') ? 'production' : 'development';
         res.sendFile(path.resolve(`${__dirname}/../../../client/${dir}/index.html`));
-    });
+    }));
     app.all('*', (req, res, _next) => {
-        res.status(httpStatus.NOT_FOUND);
+        res.status(http_status_1.NOT_FOUND);
         if (req.xhr) {
             res.json('NOT FOUND');
             return;
         }
-        res.redirect('/#/error');
     });
 };
