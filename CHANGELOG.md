@@ -12,6 +12,10 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/).
 
 ### Security
 
+## 2.5.5 - 2019-12-17
+### Added
+ - バージョン確認追加
+
 ## 2.5.4 - 2019-12-11
 ### Changed
  - 注文ダウンロードを分割ダウンロードへ変更

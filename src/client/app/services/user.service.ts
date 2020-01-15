@@ -2,10 +2,12 @@ import { Injectable } from '@angular/core';
 import { factory } from '@cinerino/api-javascript-client';
 import { select, Store } from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
+import * as moment from 'moment';
 import { Observable } from 'rxjs';
 import { IPrinter, ViewType } from '../models';
 import { userAction } from '../store/actions';
 import * as reducers from '../store/reducers';
+import { UtilService } from './util.service';
 
 @Injectable({
     providedIn: 'root'
@@ -15,7 +17,8 @@ export class UserService {
 
     constructor(
         private store: Store<reducers.IState>,
-        private translate: TranslateService
+        private translate: TranslateService,
+        private utilService: UtilService
     ) {
         this.user = this.store.pipe(select(reducers.getUser));
     }
@@ -64,6 +67,25 @@ export class UserService {
         const html = <HTMLElement>document.querySelector('html');
         html.setAttribute('lang', language);
         this.store.dispatch(new userAction.UpdateLanguage({ language }));
+    }
+
+    /**
+     * バージョン確認
+     */
+    public async checkVersion() {
+        this.utilService.loadStart();
+        const query = `?date=${moment().toISOString()}`;
+        const { version } = await this.utilService.getJson<{ version: string }>(`/api/version${query}`);
+        const data = await this.getData();
+        if (data.version === undefined) {
+            this.store.dispatch(new userAction.SetVersion({ version }));
+        }
+        if (data.version !== undefined
+            && data.version !== version) {
+            this.store.dispatch(new userAction.SetVersion({ version }));
+            location.reload();
+        }
+        this.utilService.loadEnd();
     }
 
 }

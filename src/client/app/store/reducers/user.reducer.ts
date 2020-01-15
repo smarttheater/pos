@@ -5,13 +5,38 @@ import { IPrinter, ViewType } from '../../models';
 import { userAction } from '../actions';
 
 export interface IUserState {
+    /**
+     * 販売者情報
+     */
     seller?: factory.seller.IOrganization<factory.seller.IAttributes<factory.organizationType>>;
+    /**
+     * POS
+     */
     pos?: factory.seller.IPOS;
+    /**
+     * 購入者情報
+     */
     customerContact?: factory.transaction.placeOrder.ICustomerProfile;
+    /**
+     * プリンター
+     */
     printer?: IPrinter;
+    /**
+     * 言語
+     */
     language: string;
+    /**
+     * カート設定
+     */
     isPurchaseCart: boolean;
+    /**
+     * 表示タイプ
+     */
     viewType: ViewType;
+    /**
+     * バージョン
+     */
+    version?: string;
 }
 
 export const userInitialState: IUserState = {
@@ -48,6 +73,10 @@ export function reducer(state: IState, action: userAction.Actions): IState {
         }
         case userAction.ActionTypes.UpdateLanguage: {
             state.userData.language = action.payload.language;
+            return { ...state };
+        }
+        case userAction.ActionTypes.SetVersion: {
+            state.userData.version = action.payload.version;
             return { ...state };
         }
         default: {

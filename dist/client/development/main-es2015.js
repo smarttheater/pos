@@ -3142,6 +3142,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ContentsComponent", function() { return ContentsComponent; });
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "../../node_modules/@angular/core/fesm2015/core.js");
 /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/router */ "../../node_modules/@angular/router/fesm2015/router.js");
+/* harmony import */ var _services__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../../services */ "./app/services/index.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -3151,33 +3152,47 @@ var __decorate = (undefined && undefined.__decorate) || function (decorators, ta
 var __metadata = (undefined && undefined.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
+var __awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : new P(function (resolve) { resolve(result.value); }).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
 var __importDefault = (undefined && undefined.__importDefault) || function (mod) {
   return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 
 
+
 let ContentsComponent = class ContentsComponent {
-    constructor(router, elementRef) {
+    constructor(router, elementRef, userService) {
         this.router = router;
         this.elementRef = elementRef;
+        this.userService = userService;
     }
     ngOnInit() {
-        this.router.events.subscribe(event => {
-            if (event instanceof _angular_router__WEBPACK_IMPORTED_MODULE_1__["NavigationEnd"]) {
-                const element = this.elementRef.nativeElement.querySelector('.scroll');
-                setTimeout(() => {
-                    element.scrollTop = 0;
-                }, 0);
+        return __awaiter(this, void 0, void 0, function* () {
+            yield this.userService.checkVersion();
+            this.router.events.subscribe(event => {
+                if (event instanceof _angular_router__WEBPACK_IMPORTED_MODULE_1__["NavigationEnd"]) {
+                    const element = this.elementRef.nativeElement.querySelector('.scroll');
+                    setTimeout(() => {
+                        element.scrollTop = 0;
+                    }, 0);
+                }
+            });
+            if (this.touch === undefined) {
+                this.touch = true;
             }
         });
-        if (this.touch === undefined) {
-            this.touch = true;
-        }
     }
 };
 ContentsComponent.ctorParameters = () => [
     { type: _angular_router__WEBPACK_IMPORTED_MODULE_1__["Router"] },
-    { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["ElementRef"] }
+    { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["ElementRef"] },
+    { type: _services__WEBPACK_IMPORTED_MODULE_2__["UserService"] }
 ];
 __decorate([
     Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"])(),
@@ -3190,7 +3205,8 @@ ContentsComponent = __decorate([
         styles: [__importDefault(__webpack_require__(/*! ./contents.component.scss */ "./app/modules/shared/components/parts/contents/contents.component.scss")).default]
     }),
     __metadata("design:paramtypes", [_angular_router__WEBPACK_IMPORTED_MODULE_1__["Router"],
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ElementRef"]])
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ElementRef"],
+        _services__WEBPACK_IMPORTED_MODULE_2__["UserService"]])
 ], ContentsComponent);
 
 
@@ -6961,8 +6977,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "../../node_modules/@angular/core/fesm2015/core.js");
 /* harmony import */ var _ngrx_store__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @ngrx/store */ "../../node_modules/@ngrx/store/fesm2015/store.js");
 /* harmony import */ var _ngx_translate_core__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @ngx-translate/core */ "../../node_modules/@ngx-translate/core/fesm2015/ngx-translate-core.js");
-/* harmony import */ var _store_actions__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../store/actions */ "./app/store/actions/index.ts");
-/* harmony import */ var _store_reducers__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../store/reducers */ "./app/store/reducers/index.ts");
+/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! moment */ "../../node_modules/moment/moment.js");
+/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var _store_actions__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../store/actions */ "./app/store/actions/index.ts");
+/* harmony import */ var _store_reducers__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../store/reducers */ "./app/store/reducers/index.ts");
+/* harmony import */ var _util_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./util.service */ "./app/services/util.service.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -6988,11 +7007,14 @@ var __importDefault = (undefined && undefined.__importDefault) || function (mod)
 
 
 
+
+
 let UserService = class UserService {
-    constructor(store, translate) {
+    constructor(store, translate, utilService) {
         this.store = store;
         this.translate = translate;
-        this.user = this.store.pipe(Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_1__["select"])(_store_reducers__WEBPACK_IMPORTED_MODULE_4__["getUser"]));
+        this.utilService = utilService;
+        this.user = this.store.pipe(Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_1__["select"])(_store_reducers__WEBPACK_IMPORTED_MODULE_5__["getUser"]));
     }
     /**
      * ユーザーデータ取得
@@ -7010,13 +7032,13 @@ let UserService = class UserService {
      * ユーザーデータ削除
      */
     delete() {
-        this.store.dispatch(new _store_actions__WEBPACK_IMPORTED_MODULE_3__["userAction"].Delete());
+        this.store.dispatch(new _store_actions__WEBPACK_IMPORTED_MODULE_4__["userAction"].Delete());
     }
     /**
      * すべて更新
      */
     updateAll(params) {
-        this.store.dispatch(new _store_actions__WEBPACK_IMPORTED_MODULE_3__["userAction"].UpdateAll(params));
+        this.store.dispatch(new _store_actions__WEBPACK_IMPORTED_MODULE_4__["userAction"].UpdateAll(params));
     }
     /**
      * 言語更新
@@ -7029,19 +7051,41 @@ let UserService = class UserService {
         this.translate.use(language);
         const html = document.querySelector('html');
         html.setAttribute('lang', language);
-        this.store.dispatch(new _store_actions__WEBPACK_IMPORTED_MODULE_3__["userAction"].UpdateLanguage({ language }));
+        this.store.dispatch(new _store_actions__WEBPACK_IMPORTED_MODULE_4__["userAction"].UpdateLanguage({ language }));
+    }
+    /**
+     * バージョン確認
+     */
+    checkVersion() {
+        return __awaiter(this, void 0, void 0, function* () {
+            this.utilService.loadStart();
+            const query = `?date=${moment__WEBPACK_IMPORTED_MODULE_3__().toISOString()}`;
+            const { version } = yield this.utilService.getJson(`/api/version${query}`);
+            const data = yield this.getData();
+            if (data.version === undefined) {
+                this.store.dispatch(new _store_actions__WEBPACK_IMPORTED_MODULE_4__["userAction"].SetVersion({ version }));
+            }
+            if (data.version !== undefined
+                && data.version !== version) {
+                this.store.dispatch(new _store_actions__WEBPACK_IMPORTED_MODULE_4__["userAction"].SetVersion({ version }));
+                location.reload();
+            }
+            this.utilService.loadEnd();
+        });
     }
 };
 UserService.ctorParameters = () => [
     { type: _ngrx_store__WEBPACK_IMPORTED_MODULE_1__["Store"] },
-    { type: _ngx_translate_core__WEBPACK_IMPORTED_MODULE_2__["TranslateService"] }
+    { type: _ngx_translate_core__WEBPACK_IMPORTED_MODULE_2__["TranslateService"] },
+    { type: _util_service__WEBPACK_IMPORTED_MODULE_6__["UtilService"] }
 ];
 UserService = __decorate([
     Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"])({
         providedIn: 'root'
     }),
     __metadata("design:paramtypes", [_ngrx_store__WEBPACK_IMPORTED_MODULE_1__["Store"],
-        _ngx_translate_core__WEBPACK_IMPORTED_MODULE_2__["TranslateService"]])
+        _ngx_translate_core__WEBPACK_IMPORTED_MODULE_2__["TranslateService"],
+        _util_service__WEBPACK_IMPORTED_MODULE_6__["UtilService"]])
 ], UserService);
 
 
@@ -8467,7 +8511,7 @@ class SearchFail {
 /*!******************************************!*\
   !*** ./app/store/actions/user.action.ts ***!
   \******************************************/
-/*! exports provided: ActionTypes, Delete, UpdateAll, UpdateLanguage */
+/*! exports provided: ActionTypes, Delete, UpdateAll, UpdateLanguage, SetVersion */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -8476,6 +8520,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Delete", function() { return Delete; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "UpdateAll", function() { return UpdateAll; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "UpdateLanguage", function() { return UpdateLanguage; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SetVersion", function() { return SetVersion; });
 var __importDefault = (undefined && undefined.__importDefault) || function (mod) {
   return (mod && mod.__esModule) ? mod : { "default": mod };
 };
@@ -8487,9 +8532,10 @@ var ActionTypes;
     ActionTypes["Delete"] = "[User] Delete";
     ActionTypes["UpdateAll"] = "[User] Update All";
     ActionTypes["UpdateLanguage"] = "[User] Update Language";
+    ActionTypes["SetVersion"] = "[User] Set Version";
 })(ActionTypes || (ActionTypes = {}));
 /**
- * Delete
+ * 削除
  */
 class Delete {
     constructor(payload) {
@@ -8498,7 +8544,7 @@ class Delete {
     }
 }
 /**
- * UpdateAll
+ * 設定更新
  */
 class UpdateAll {
     constructor(payload) {
@@ -8507,12 +8553,21 @@ class UpdateAll {
     }
 }
 /**
- * UpdateLanguage
+ * 言語更新
  */
 class UpdateLanguage {
     constructor(payload) {
         this.payload = payload;
         this.type = ActionTypes.UpdateLanguage;
+    }
+}
+/**
+ * バージョン設定
+ */
+class SetVersion {
+    constructor(payload) {
+        this.payload = payload;
+        this.type = ActionTypes.SetVersion;
     }
 }
 
@@ -11268,6 +11323,10 @@ function reducer(state, action) {
         }
         case _actions__WEBPACK_IMPORTED_MODULE_1__["userAction"].ActionTypes.UpdateLanguage: {
             state.userData.language = action.payload.language;
+            return Object.assign({}, state);
+        }
+        case _actions__WEBPACK_IMPORTED_MODULE_1__["userAction"].ActionTypes.SetVersion: {
+            state.userData.version = action.payload.version;
             return Object.assign({}, state);
         }
         default: {

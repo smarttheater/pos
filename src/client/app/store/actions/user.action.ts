@@ -9,10 +9,11 @@ export enum ActionTypes {
     Delete = '[User] Delete',
     UpdateAll = '[User] Update All',
     UpdateLanguage = '[User] Update Language',
+    SetVersion = '[User] Set Version',
 }
 
 /**
- * Delete
+ * 削除
  */
 export class Delete implements Action {
     public readonly type = ActionTypes.Delete;
@@ -20,7 +21,7 @@ export class Delete implements Action {
 }
 
 /**
- * UpdateAll
+ * 設定更新
  */
 export class UpdateAll implements Action {
     public readonly type = ActionTypes.UpdateAll;
@@ -36,11 +37,19 @@ export class UpdateAll implements Action {
 
 
 /**
- * UpdateLanguage
+ * 言語更新
  */
 export class UpdateLanguage implements Action {
     public readonly type = ActionTypes.UpdateLanguage;
     constructor(public payload: { language: string }) { }
+}
+
+/**
+ * バージョン設定
+ */
+export class SetVersion implements Action {
+    public readonly type = ActionTypes.SetVersion;
+    constructor(public payload: { version: string }) { }
 }
 
 /**
@@ -49,4 +58,5 @@ export class UpdateLanguage implements Action {
 export type Actions =
     | Delete
     | UpdateAll
-    | UpdateLanguage;
+    | UpdateLanguage
+    | SetVersion;
