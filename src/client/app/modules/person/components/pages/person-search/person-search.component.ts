@@ -4,7 +4,7 @@ import { select, Store } from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
 import * as moment from 'moment';
 import { Observable } from 'rxjs';
-import { environment } from '../../../../../../environments/environment';
+import { getEnvironment } from '../../../../../../environments/environment';
 import { buildQueryString } from '../../../../../functions';
 import { IPersonSearchConditions } from '../../../../../models';
 import { DownloadService, PersonService, UtilService } from '../../../../../services';
@@ -28,7 +28,7 @@ export class PersonSearchComponent implements OnInit {
     public confirmedConditions: IPersonSearchConditions;
     public selectedPersons: factory.person.IPerson[];
     public buildQueryString = buildQueryString;
-    public environment = environment;
+    public environment = getEnvironment();
 
 
     constructor(

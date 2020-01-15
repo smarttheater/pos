@@ -1,15 +1,6 @@
 "use strict";
-var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : new P(function (resolve) { resolve(result.value); }).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-};
 Object.defineProperty(exports, "__esModule", { value: true });
 const cinerino = require("@cinerino/api-nodejs-client");
-const util_1 = require("../../functions/util");
 /**
  * 認証モデル
  * @class Auth2Model
@@ -33,25 +24,19 @@ class Auth2Model {
      * @memberof Auth2Model
      */
     create(req) {
-        return __awaiter(this, void 0, void 0, function* () {
-            const env = yield util_1.getEnvironment(req);
-            if (env === undefined) {
-                throw new Error('project not found');
-            }
-            const auth = new cinerino.auth.OAuth2({
-                domain: env.OAUTH2_SERVER_DOMAIN,
-                clientId: env.CLIENT_ID_OAUTH2,
-                clientSecret: env.CLIENT_SECRET_OAUTH2,
-                redirectUri: `${req.protocol}://${req.hostname}/signIn`,
-                logoutUri: `${req.protocol}://${req.hostname}/signOut`,
-                state: this.state,
-                scopes: this.scopes.join(' ')
-            });
-            if (this.credentials !== undefined) {
-                auth.setCredentials(this.credentials);
-            }
-            return auth;
+        const auth = new cinerino.auth.OAuth2({
+            domain: process.env.OAUTH2_SERVER_DOMAIN,
+            clientId: process.env.CLIENT_ID_OAUTH2,
+            clientSecret: process.env.CLIENT_SECRET_OAUTH2,
+            redirectUri: `${req.protocol}://${req.hostname}/signIn`,
+            logoutUri: `${req.protocol}://${req.hostname}/signOut`,
+            state: this.state,
+            scopes: this.scopes.join(' ')
         });
+        if (this.credentials !== undefined) {
+            auth.setCredentials(this.credentials);
+        }
+        return auth;
     }
     /**
      * セッションへ保存

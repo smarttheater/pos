@@ -4,7 +4,7 @@ import { factory } from '@cinerino/api-javascript-client';
 import { select, Store } from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
-import { environment } from '../../../../../../../environments/environment';
+import { getEnvironment } from '../../../../../../../environments/environment';
 import { IReservationSeat, SeatStatus } from '../../../../../../models';
 import { PurchaseService, UserService, UtilService } from '../../../../../../services';
 import * as reducers from '../../../../../../store/reducers';
@@ -18,7 +18,7 @@ export class PurchaseCinemaSeatComponent implements OnInit {
     public purchase: Observable<reducers.IPurchaseState>;
     public user: Observable<reducers.IUserState>;
     public isLoading: Observable<boolean>;
-    public environment = environment;
+    public environment = getEnvironment();
 
     constructor(
         private store: Store<reducers.IState>,
@@ -133,7 +133,7 @@ export class PurchaseCinemaSeatComponent implements OnInit {
                 title: this.translate.instant('common.error'),
                 body: this.translate.instant(
                     'purchase.cinema.seat.alert.limit',
-                    { value: environment.PURCHASE_ITEM_MAX_LENGTH }
+                    { value: getEnvironment().PURCHASE_ITEM_MAX_LENGTH }
                 )
             });
             return;

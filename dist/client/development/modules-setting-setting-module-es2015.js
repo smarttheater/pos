@@ -91,7 +91,7 @@ let SettingComponent = class SettingComponent {
         this.printers = _models__WEBPACK_IMPORTED_MODULE_7__["printers"];
         this.connectionType = _models__WEBPACK_IMPORTED_MODULE_7__["connectionType"];
         this.viewType = _models__WEBPACK_IMPORTED_MODULE_7__["ViewType"];
-        this.environment = _environments_environment__WEBPACK_IMPORTED_MODULE_6__["environment"];
+        this.environment = Object(_environments_environment__WEBPACK_IMPORTED_MODULE_6__["getEnvironment"])();
     }
     /**
      * 初期化

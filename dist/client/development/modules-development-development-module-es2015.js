@@ -67,7 +67,7 @@ var __importDefault = (undefined && undefined.__importDefault) || function (mod)
 
 let DevelopmentIndexComponent = class DevelopmentIndexComponent {
     constructor() {
-        this.environment = _environments_environment__WEBPACK_IMPORTED_MODULE_1__["environment"];
+        this.environment = Object(_environments_environment__WEBPACK_IMPORTED_MODULE_1__["getEnvironment"])();
     }
     ngOnInit() {
     }
@@ -142,7 +142,7 @@ let DevelopmentScreenComponent = class DevelopmentScreenComponent {
     constructor(store, purchaseService) {
         this.store = store;
         this.purchaseService = purchaseService;
-        this.environment = _environments_environment__WEBPACK_IMPORTED_MODULE_2__["environment"];
+        this.environment = Object(_environments_environment__WEBPACK_IMPORTED_MODULE_2__["getEnvironment"])();
     }
     ngOnInit() {
         this.purchase = this.store.pipe(Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_1__["select"])(_store_reducers__WEBPACK_IMPORTED_MODULE_4__["getPurchase"]));

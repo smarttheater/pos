@@ -4,7 +4,7 @@ import { factory } from '@cinerino/api-javascript-client';
 import { select, Store } from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
-import { environment } from '../../../../../../environments/environment';
+import { getEnvironment } from '../../../../../../environments/environment';
 import { ViewType } from '../../../../../models';
 import { PurchaseService, UtilService } from '../../../../../services';
 import * as reducers from '../../../../../store/reducers';
@@ -18,7 +18,7 @@ export class PurchasePaymentComponent implements OnInit {
     public user: Observable<reducers.IUserState>;
     public paymentMethodType = factory.paymentMethodType;
     public viewType: typeof ViewType = ViewType;
-    public environment = environment;
+    public environment = getEnvironment();
 
     constructor(
         private store: Store<reducers.IState>,
@@ -64,7 +64,7 @@ export class PurchasePaymentComponent implements OnInit {
      * 表示判定
      */
     public isDisplay(paymentMethodType: factory.paymentMethodType | string) {
-        const findResult = environment.PAYMENT_METHOD_TO_USE.find(p => p === paymentMethodType);
+        const findResult = getEnvironment().PAYMENT_METHOD_TO_USE.find(p => p === paymentMethodType);
         return (findResult !== undefined);
     }
 

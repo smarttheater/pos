@@ -5,21 +5,28 @@ import * as debug from 'debug';
 import * as express from 'express';
 import { NOT_FOUND } from 'http-status';
 import * as path from 'path';
-import { getEnvironment } from '../functions/util';
+import { getProject } from '../functions/util';
 import { Auth2Model } from '../models/auth2/auth2.model';
 import { authorizeRouter } from './api/authorize';
 import { utilRouter } from './api/util';
 const log = debug('application: router');
 
 export default (app: express.Application) => {
-    app.use('/storage', async (req, res) => {
+    app.use('/storage', (req, res) => {
+        const project = <string | undefined>(req.body.project || req.query.project);
+        if (project === undefined) {
+            res.redirect(req.originalUrl.replace('/storage', <string>process.env.STORAGE_URL));
+            return;
+        }
         try {
-            const env = await getEnvironment(req);
-            const url = req.originalUrl.replace('/storage', env.STORAGE_URL);
-            res.redirect(url);
+            const findResult = getProject(project);
+            if (findResult === undefined) {
+                throw new Error('project not found');
+            }
+            res.redirect(req.originalUrl.replace('/storage', findResult.STORAGE_URL));
         } catch (error) {
             res.status(NOT_FOUND);
-            res.end(error);
+            res.end();
         }
     });
 
@@ -36,7 +43,7 @@ export default (app: express.Application) => {
             if (req.query.state !== authModel.state) {
                 throw (new Error(`state not matched ${req.query.state} !== ${authModel.state}`));
             }
-            const auth = await authModel.create(req);
+            const auth = authModel.create(req);
             const credentials = await auth.getToken(
                 req.query.code,
                 <string>authModel.codeVerifier
@@ -75,10 +82,11 @@ export default (app: express.Application) => {
             req.query.eventId = req.query.performanceId;
         }
         if (req.query.project !== undefined) {
-            delete (<Express.Session>req.session).auth;
-            req.session.project = req.query.project;
             try {
-                await getEnvironment(req);
+                const findResult = getProject(req.query.project);
+                if (findResult === undefined) {
+                    throw new Error('project not found');
+                }
             } catch (error) {
                 res.sendFile(path.resolve(`${__dirname}/../../../../public/404.html`));
                 return;

@@ -13,28 +13,42 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 const debug = require("debug");
 const express = require("express");
+const http_status_1 = require("http-status");
 const moment = require("moment");
 const util_1 = require("../../functions/util");
 const log = debug('application: /api/util');
 const router = express.Router();
 /**
- * 設定取得
+ * プロジェクト設定取得
  */
-router.get('/config', (req, res) => __awaiter(this, void 0, void 0, function* () {
-    log('config');
-    const env = yield util_1.getEnvironment(req);
-    const endpoint = process.env.API_ENDPOINT;
-    const waiterServerUrl = env.WAITER_SERVER_URL;
-    const storageUrl = env.STORAGE_URL;
-    res.json({ endpoint, waiterServerUrl, storageUrl });
+router.post('/project', (req, res) => __awaiter(this, void 0, void 0, function* () {
+    log('project', req.body.project);
+    const project = (req.body.project);
+    if (project === undefined) {
+        res.json({
+            projectId: process.env.PROJECT_ID,
+            projectName: process.env.PROJECT_NAME,
+            storageUrl: process.env.STORAGE_URL
+        });
+        return;
+    }
+    try {
+        const findResult = util_1.getProject(project);
+        if (findResult === undefined) {
+            throw new Error('project not found');
+        }
+        res.json({
+            projectId: findResult.PROJECT_ID,
+            projectName: findResult.PROJECT_NAME,
+            storageUrl: findResult.STORAGE_URL
+        });
+    }
+    catch (error) {
+        log('project', error.message);
+        res.status(http_status_1.NOT_FOUND);
+        res.json({ error: error.message });
+    }
 }));
-/**
- * ストレージURL取得
- */
-router.get('/storage', (_req, res) => {
-    log('storage');
-    res.json({ storage: process.env.STORAGE_URL });
-});
 /**
  * サーバータイム取得
  */

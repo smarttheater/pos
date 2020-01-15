@@ -1,10 +1,10 @@
 import { factory } from '@cinerino/api-javascript-client';
 import * as moment from 'moment';
 import * as qrcode from 'qrcode';
-import { environment } from '../../environments/environment';
+import { getEnvironment } from '../../environments/environment';
 import { ITicketPrintData } from '../models';
 import { getTicketPrice } from './purchase.function';
-import { formatTelephone } from './util.function';
+import { formatTelephone, getProject } from './util.function';
 
 /**
  * キャンバスへ描画
@@ -78,11 +78,9 @@ async function drawCanvas(args: {
     const font = `"Hiragino Sans", "Hiragino Kaku Gothic ProN", "游ゴシック  Medium", meiryo, sans-serif`;
     // 画像描画
     for (const image of printData.image) {
-        const response = await fetch('/api/storage', { method: 'get' });
-        const json = await response.json();
         const imageInstance = new Image();
         imageInstance.crossOrigin = 'anonymous';
-        imageInstance.src = image.src.replace('/storage', json.storage);
+        imageInstance.src = image.src.replace('/storage', getProject().storageUrl);
         await drawImage({
             image: imageInstance,
             x: image.x,
@@ -247,7 +245,7 @@ export async function createTestPrintCanvas(args: { printData: ITicketPrintData 
  */
 export async function createRegiGrowQrcode(order: factory.order.IOrder) {
     const canvas = document.createElement('canvas');
-    let qrcodeText = environment.REGIGROW_QRCODE;
+    let qrcodeText = getEnvironment().REGIGROW_QRCODE;
     qrcodeText = qrcodeText
         .replace(/\{\{ orderNumber \}\}/g, order.orderNumber);
     qrcodeText = qrcodeText

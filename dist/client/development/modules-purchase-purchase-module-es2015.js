@@ -305,7 +305,7 @@ let PurchaseCinemaCartComponent = class PurchaseCinemaCartComponent {
         this.translate = translate;
         this.moment = moment__WEBPACK_IMPORTED_MODULE_4__;
         this.getTicketPrice = _functions__WEBPACK_IMPORTED_MODULE_6__["getTicketPrice"];
-        this.environment = _environments_environment__WEBPACK_IMPORTED_MODULE_5__["environment"];
+        this.environment = Object(_environments_environment__WEBPACK_IMPORTED_MODULE_5__["getEnvironment"])();
     }
     ngOnInit() {
         return __awaiter(this, void 0, void 0, function* () {
@@ -488,7 +488,7 @@ let PurchaseCinemaScheduleComponent = class PurchaseCinemaScheduleComponent {
             const seller = user.seller;
             if (this.scheduleDate === undefined) {
                 this.scheduleDate = moment__WEBPACK_IMPORTED_MODULE_5__()
-                    .add(_environments_environment__WEBPACK_IMPORTED_MODULE_7__["environment"].PURCHASE_SCHEDULE_DEFAULT_SELECTED_DATE, 'day')
+                    .add(Object(_environments_environment__WEBPACK_IMPORTED_MODULE_7__["getEnvironment"])().PURCHASE_SCHEDULE_DEFAULT_SELECTED_DATE, 'day')
                     .toDate();
             }
             const scheduleDate = moment__WEBPACK_IMPORTED_MODULE_5__(this.scheduleDate).format('YYYY-MM-DD');
@@ -727,7 +727,7 @@ let PurchaseCinemaSeatComponent = class PurchaseCinemaSeatComponent {
         this.userService = userService;
         this.purchaseService = purchaseService;
         this.translate = translate;
-        this.environment = _environments_environment__WEBPACK_IMPORTED_MODULE_5__["environment"];
+        this.environment = Object(_environments_environment__WEBPACK_IMPORTED_MODULE_5__["getEnvironment"])();
     }
     ngOnInit() {
         return __awaiter(this, void 0, void 0, function* () {
@@ -832,7 +832,7 @@ let PurchaseCinemaSeatComponent = class PurchaseCinemaSeatComponent {
             if (purchase.reservations.length === 0) {
                 this.utilService.openAlert({
                     title: this.translate.instant('common.error'),
-                    body: this.translate.instant('purchase.cinema.seat.alert.limit', { value: _environments_environment__WEBPACK_IMPORTED_MODULE_5__["environment"].PURCHASE_ITEM_MAX_LENGTH })
+                    body: this.translate.instant('purchase.cinema.seat.alert.limit', { value: Object(_environments_environment__WEBPACK_IMPORTED_MODULE_5__["getEnvironment"])().PURCHASE_ITEM_MAX_LENGTH })
                 });
                 return;
             }
@@ -1150,7 +1150,7 @@ let PurchaseEventScheduleComponent = class PurchaseEventScheduleComponent {
         this.userService = userService;
         this.localeService = localeService;
         this.moment = moment__WEBPACK_IMPORTED_MODULE_4__;
-        this.environment = _environments_environment__WEBPACK_IMPORTED_MODULE_6__["environment"];
+        this.environment = Object(_environments_environment__WEBPACK_IMPORTED_MODULE_6__["getEnvironment"])();
     }
     /**
      * 初期化
@@ -1165,7 +1165,7 @@ let PurchaseEventScheduleComponent = class PurchaseEventScheduleComponent {
             this.screeningWorkEvents = [];
             if (this.scheduleDate === undefined) {
                 this.scheduleDate = moment__WEBPACK_IMPORTED_MODULE_4__()
-                    .add(_environments_environment__WEBPACK_IMPORTED_MODULE_6__["environment"].PURCHASE_SCHEDULE_DEFAULT_SELECTED_DATE, 'day')
+                    .add(Object(_environments_environment__WEBPACK_IMPORTED_MODULE_6__["getEnvironment"])().PURCHASE_SCHEDULE_DEFAULT_SELECTED_DATE, 'day')
                     .toDate();
             }
             try {
@@ -1212,7 +1212,7 @@ let PurchaseEventScheduleComponent = class PurchaseEventScheduleComponent {
                 }
                 if (this.scheduleDate === undefined || this.scheduleDate === null) {
                     this.scheduleDate = moment__WEBPACK_IMPORTED_MODULE_4__()
-                        .add(_environments_environment__WEBPACK_IMPORTED_MODULE_6__["environment"].PURCHASE_SCHEDULE_DEFAULT_SELECTED_DATE, 'day')
+                        .add(Object(_environments_environment__WEBPACK_IMPORTED_MODULE_6__["getEnvironment"])().PURCHASE_SCHEDULE_DEFAULT_SELECTED_DATE, 'day')
                         .toDate();
                 }
                 const scheduleDate = moment__WEBPACK_IMPORTED_MODULE_4__(this.scheduleDate).format('YYYY-MM-DD');
@@ -1403,7 +1403,7 @@ let PurchaseEventTicketComponent = class PurchaseEventTicketComponent {
         this.moment = moment__WEBPACK_IMPORTED_MODULE_4__;
         this.getTicketPrice = _functions__WEBPACK_IMPORTED_MODULE_7__["getTicketPrice"];
         this.changeTicketCount = _functions__WEBPACK_IMPORTED_MODULE_7__["changeTicketCount"];
-        this.environment = _environments_environment__WEBPACK_IMPORTED_MODULE_6__["environment"];
+        this.environment = Object(_environments_environment__WEBPACK_IMPORTED_MODULE_6__["getEnvironment"])();
     }
     ngOnInit() {
         return __awaiter(this, void 0, void 0, function* () {
@@ -1532,10 +1532,10 @@ let PurchaseEventTicketComponent = class PurchaseEventTicketComponent {
      */
     selectTicket(reservationTickets) {
         return __awaiter(this, void 0, void 0, function* () {
-            if (reservationTickets.length > Number(_environments_environment__WEBPACK_IMPORTED_MODULE_6__["environment"].PURCHASE_ITEM_MAX_LENGTH)) {
+            if (reservationTickets.length > Number(Object(_environments_environment__WEBPACK_IMPORTED_MODULE_6__["getEnvironment"])().PURCHASE_ITEM_MAX_LENGTH)) {
                 this.utilService.openAlert({
                     title: this.translate.instant('common.error'),
-                    body: this.translate.instant('purchase.event.ticket.alert.limit', { value: _environments_environment__WEBPACK_IMPORTED_MODULE_6__["environment"].PURCHASE_ITEM_MAX_LENGTH })
+                    body: this.translate.instant('purchase.event.ticket.alert.limit', { value: Object(_environments_environment__WEBPACK_IMPORTED_MODULE_6__["getEnvironment"])().PURCHASE_ITEM_MAX_LENGTH })
                 });
                 return;
             }
@@ -1595,10 +1595,10 @@ let PurchaseEventTicketComponent = class PurchaseEventTicketComponent {
             // チケット枚数上限判定
             let itemCount = 0;
             authorizeSeatReservations.forEach(a => itemCount += a.object.acceptedOffer.length);
-            if (itemCount > Number(_environments_environment__WEBPACK_IMPORTED_MODULE_6__["environment"].PURCHASE_ITEM_MAX_LENGTH)) {
+            if (itemCount > Number(Object(_environments_environment__WEBPACK_IMPORTED_MODULE_6__["getEnvironment"])().PURCHASE_ITEM_MAX_LENGTH)) {
                 this.utilService.openAlert({
                     title: this.translate.instant('common.error'),
-                    body: this.translate.instant('purchase.event.ticket.alert.limit', { value: Number(_environments_environment__WEBPACK_IMPORTED_MODULE_6__["environment"].PURCHASE_ITEM_MAX_LENGTH) })
+                    body: this.translate.instant('purchase.event.ticket.alert.limit', { value: Number(Object(_environments_environment__WEBPACK_IMPORTED_MODULE_6__["getEnvironment"])().PURCHASE_ITEM_MAX_LENGTH) })
                 });
                 return;
             }
@@ -1810,7 +1810,7 @@ let PurchaseCompleteComponent = class PurchaseCompleteComponent {
         this.moment = moment__WEBPACK_IMPORTED_MODULE_5__;
         this.getTicketPrice = _functions__WEBPACK_IMPORTED_MODULE_7__["getTicketPrice"];
         this.changeTicketCountByOrder = _functions__WEBPACK_IMPORTED_MODULE_7__["changeTicketCountByOrder"];
-        this.environment = _environments_environment__WEBPACK_IMPORTED_MODULE_6__["environment"];
+        this.environment = Object(_environments_environment__WEBPACK_IMPORTED_MODULE_6__["getEnvironment"])();
         this.paymentMethodType = _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_2__["factory"].paymentMethodType;
     }
     ngOnInit() {
@@ -1983,7 +1983,7 @@ let PurchaseConfirmComponent = class PurchaseConfirmComponent {
         this.viewType = _models__WEBPACK_IMPORTED_MODULE_8__["ViewType"];
         this.getTicketPrice = _functions__WEBPACK_IMPORTED_MODULE_7__["getTicketPrice"];
         this.changeTicketCount = _functions__WEBPACK_IMPORTED_MODULE_7__["changeTicketCount"];
-        this.environment = _environments_environment__WEBPACK_IMPORTED_MODULE_6__["environment"];
+        this.environment = Object(_environments_environment__WEBPACK_IMPORTED_MODULE_6__["getEnvironment"])();
     }
     ngOnInit() {
         this.purchase = this.store.pipe(Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_3__["select"])(_store_reducers__WEBPACK_IMPORTED_MODULE_10__["getPurchase"]));
@@ -2135,7 +2135,7 @@ let PurchasePaymentComponent = class PurchasePaymentComponent {
         this.translate = translate;
         this.paymentMethodType = _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_2__["factory"].paymentMethodType;
         this.viewType = _models__WEBPACK_IMPORTED_MODULE_6__["ViewType"];
-        this.environment = _environments_environment__WEBPACK_IMPORTED_MODULE_5__["environment"];
+        this.environment = Object(_environments_environment__WEBPACK_IMPORTED_MODULE_5__["getEnvironment"])();
     }
     ngOnInit() {
         this.user = this.store.pipe(Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_3__["select"])(_store_reducers__WEBPACK_IMPORTED_MODULE_8__["getUser"]));
@@ -2168,7 +2168,7 @@ let PurchasePaymentComponent = class PurchasePaymentComponent {
      * 表示判定
      */
     isDisplay(paymentMethodType) {
-        const findResult = _environments_environment__WEBPACK_IMPORTED_MODULE_5__["environment"].PAYMENT_METHOD_TO_USE.find(p => p === paymentMethodType);
+        const findResult = Object(_environments_environment__WEBPACK_IMPORTED_MODULE_5__["getEnvironment"])().PAYMENT_METHOD_TO_USE.find(p => p === paymentMethodType);
         return (findResult !== undefined);
     }
 };
@@ -2354,7 +2354,7 @@ let PurchaseCinemaPerformanceComponent = class PurchaseCinemaPerformanceComponen
         this.moment = moment__WEBPACK_IMPORTED_MODULE_1__;
         this.isScheduleStatusThreshold = _functions__WEBPACK_IMPORTED_MODULE_3__["isScheduleStatusThreshold"];
         this.isSales = _functions__WEBPACK_IMPORTED_MODULE_3__["isSales"];
-        this.environment = _environments_environment__WEBPACK_IMPORTED_MODULE_2__["environment"];
+        this.environment = Object(_environments_environment__WEBPACK_IMPORTED_MODULE_2__["getEnvironment"])();
     }
     ngOnInit() {
     }
@@ -2510,7 +2510,7 @@ let PurchaseEventPerformanceComponent = class PurchaseEventPerformanceComponent 
         this.isScheduleStatusThreshold = _functions__WEBPACK_IMPORTED_MODULE_4__["isScheduleStatusThreshold"];
         this.isSales = _functions__WEBPACK_IMPORTED_MODULE_4__["isSales"];
         this.isTicketedSeatScreeningEvent = _functions__WEBPACK_IMPORTED_MODULE_4__["isTicketedSeatScreeningEvent"];
-        this.environment = _environments_environment__WEBPACK_IMPORTED_MODULE_3__["environment"];
+        this.environment = Object(_environments_environment__WEBPACK_IMPORTED_MODULE_3__["getEnvironment"])();
     }
     ngOnInit() {
         this.swiperConfig = {
@@ -2677,7 +2677,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @cinerino/api-javascript-client */ "../../node_modules/@cinerino/api-javascript-client/lib/index.js");
 /* harmony import */ var _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var _environments_environment__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../../../environments/environment */ "./environments/environment.ts");
-/* harmony import */ var _services__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../../../services */ "./app/services/index.ts");
+/* harmony import */ var _functions__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../../../functions */ "./app/functions/index.ts");
+/* harmony import */ var _services__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../../../services */ "./app/services/index.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -2702,17 +2703,18 @@ var __importDefault = (undefined && undefined.__importDefault) || function (mod)
 
 
 
+
 let PurchaseTermsComponent = class PurchaseTermsComponent {
     constructor(utilService) {
         this.utilService = utilService;
-        this.environment = _environments_environment__WEBPACK_IMPORTED_MODULE_2__["environment"];
+        this.environment = Object(_environments_environment__WEBPACK_IMPORTED_MODULE_2__["getEnvironment"])();
     }
     ngOnInit() {
     }
     ngOnChanges() {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                const url = `/storage/text/purchase/terms/${this.language}.txt`;
+                const url = `${Object(_functions__WEBPACK_IMPORTED_MODULE_3__["getProject"])().storageUrl}/text/purchase/terms/${this.language}.txt`;
                 const result = yield this.utilService.getText(url);
                 this.terms = result.replace(/\n/g, '<br>');
             }
@@ -2723,7 +2725,7 @@ let PurchaseTermsComponent = class PurchaseTermsComponent {
     }
 };
 PurchaseTermsComponent.ctorParameters = () => [
-    { type: _services__WEBPACK_IMPORTED_MODULE_3__["UtilService"] }
+    { type: _services__WEBPACK_IMPORTED_MODULE_4__["UtilService"] }
 ];
 __decorate([
     Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"])(),
@@ -2739,7 +2741,7 @@ PurchaseTermsComponent = __decorate([
         template: __importDefault(__webpack_require__(/*! raw-loader!./purchase-terms.component.html */ "../../node_modules/raw-loader/dist/cjs.js!./app/modules/purchase/components/parts/purchase-terms/purchase-terms.component.html")).default,
         styles: [__importDefault(__webpack_require__(/*! ./purchase-terms.component.scss */ "./app/modules/purchase/components/parts/purchase-terms/purchase-terms.component.scss")).default]
     }),
-    __metadata("design:paramtypes", [_services__WEBPACK_IMPORTED_MODULE_3__["UtilService"]])
+    __metadata("design:paramtypes", [_services__WEBPACK_IMPORTED_MODULE_4__["UtilService"]])
 ], PurchaseTermsComponent);
 
 
@@ -2773,7 +2775,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @cinerino/api-javascript-client */ "../../node_modules/@cinerino/api-javascript-client/lib/index.js");
 /* harmony import */ var _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var _environments_environment__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../../../environments/environment */ "./environments/environment.ts");
-/* harmony import */ var _services__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../../../services */ "./app/services/index.ts");
+/* harmony import */ var _functions__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../../../functions */ "./app/functions/index.ts");
+/* harmony import */ var _services__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../../../services */ "./app/services/index.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -2798,17 +2801,18 @@ var __importDefault = (undefined && undefined.__importDefault) || function (mod)
 
 
 
+
 let PurchaseWarningComponent = class PurchaseWarningComponent {
     constructor(utilService) {
         this.utilService = utilService;
-        this.environment = _environments_environment__WEBPACK_IMPORTED_MODULE_2__["environment"];
+        this.environment = Object(_environments_environment__WEBPACK_IMPORTED_MODULE_2__["getEnvironment"])();
     }
     ngOnInit() {
     }
     ngOnChanges() {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                const url = `/storage/text/purchase/warning/${this.language}.txt`;
+                const url = `${Object(_functions__WEBPACK_IMPORTED_MODULE_3__["getProject"])().storageUrl}/text/purchase/warning/${this.language}.txt`;
                 const result = yield this.utilService.getText(url);
                 this.warning = result.replace(/\n/g, '<br>');
             }
@@ -2819,7 +2823,7 @@ let PurchaseWarningComponent = class PurchaseWarningComponent {
     }
 };
 PurchaseWarningComponent.ctorParameters = () => [
-    { type: _services__WEBPACK_IMPORTED_MODULE_3__["UtilService"] }
+    { type: _services__WEBPACK_IMPORTED_MODULE_4__["UtilService"] }
 ];
 __decorate([
     Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"])(),
@@ -2835,7 +2839,7 @@ PurchaseWarningComponent = __decorate([
         template: __importDefault(__webpack_require__(/*! raw-loader!./purchase-warning.component.html */ "../../node_modules/raw-loader/dist/cjs.js!./app/modules/purchase/components/parts/purchase-warning/purchase-warning.component.html")).default,
         styles: [__importDefault(__webpack_require__(/*! ./purchase-warning.component.scss */ "./app/modules/purchase/components/parts/purchase-warning/purchase-warning.component.scss")).default]
     }),
-    __metadata("design:paramtypes", [_services__WEBPACK_IMPORTED_MODULE_3__["UtilService"]])
+    __metadata("design:paramtypes", [_services__WEBPACK_IMPORTED_MODULE_4__["UtilService"]])
 ], PurchaseWarningComponent);
 
 
@@ -2892,7 +2896,7 @@ var __importDefault = (undefined && undefined.__importDefault) || function (mod)
 let TransactionRemainingTimeComponent = class TransactionRemainingTimeComponent {
     constructor(router) {
         this.router = router;
-        this.environment = _environments_environment__WEBPACK_IMPORTED_MODULE_4__["environment"];
+        this.environment = Object(_environments_environment__WEBPACK_IMPORTED_MODULE_4__["getEnvironment"])();
     }
     ngOnInit() {
         this.update();
@@ -2914,7 +2918,7 @@ let TransactionRemainingTimeComponent = class TransactionRemainingTimeComponent 
             minutes: `00${expires.diff(now, 'minutes') % 60}`.slice(-2),
             seconds: `00${expires.diff(now, 'seconds') % 60 % 60}`.slice(-2)
         };
-        this.width = Math.floor(expires.diff(now, 'seconds') / (Number(_environments_environment__WEBPACK_IMPORTED_MODULE_4__["environment"].PURCHASE_TRANSACTION_TIME) * 60) * 100);
+        this.width = Math.floor(expires.diff(now, 'seconds') / (Number(Object(_environments_environment__WEBPACK_IMPORTED_MODULE_4__["getEnvironment"])().PURCHASE_TRANSACTION_TIME) * 60) * 100);
         if (this.isExpired) {
             this.router.navigate(['/expired']);
         }

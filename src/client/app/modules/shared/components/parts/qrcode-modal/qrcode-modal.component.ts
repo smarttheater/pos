@@ -3,7 +3,7 @@ import { factory } from '@cinerino/api-javascript-client';
 import * as moment from 'moment';
 import { BsModalRef } from 'ngx-bootstrap';
 import * as qrcode from 'qrcode';
-import { environment } from '../../../../../../environments/environment';
+import { getEnvironment } from '../../../../../../environments/environment';
 import { getTicketPrice } from '../../../../../functions';
 
 @Component({
@@ -16,7 +16,7 @@ export class QrCodeModalComponent implements OnInit {
     public moment: typeof moment = moment;
     public urlList: Promise<string>[];
     public getTicketPrice = getTicketPrice;
-    public environment = environment;
+    public environment = getEnvironment();
 
     constructor(
         public modal: BsModalRef

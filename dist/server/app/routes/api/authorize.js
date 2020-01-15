@@ -26,7 +26,7 @@ router.post('/getCredentials', (req, res) => __awaiter(this, void 0, void 0, fun
         const endpoint = process.env.API_ENDPOINT;
         const waiterServerUrl = process.env.WAITER_SERVER_URL;
         const authModel = new auth2_model_1.Auth2Model(req.session.auth);
-        const options = { endpoint, auth: yield authModel.create(req) };
+        const options = { endpoint, auth: authModel.create(req) };
         const accessToken = yield options.auth.getAccessToken();
         const expiryDate = options.auth.credentials.expiry_date;
         const userName = options.auth.verifyIdToken({}).getUsername();
@@ -44,7 +44,7 @@ router.get('/signIn', (req, res) => __awaiter(this, void 0, void 0, function* ()
     }
     delete req.session.auth;
     const authModel = new auth2_model_1.Auth2Model(req.session.auth);
-    const auth = yield authModel.create(req);
+    const auth = authModel.create(req);
     const url = auth.generateAuthUrl({
         scopes: authModel.scopes,
         state: authModel.state,
@@ -56,7 +56,7 @@ router.get('/signIn', (req, res) => __awaiter(this, void 0, void 0, function* ()
 router.get('/signOut', (req, res) => __awaiter(this, void 0, void 0, function* () {
     log('signOut');
     const authModel = new auth2_model_1.Auth2Model(req.session.auth);
-    const auth = yield authModel.create(req);
+    const auth = authModel.create(req);
     const url = auth.generateLogoutUrl();
     log('url:', url);
     res.json({ url });

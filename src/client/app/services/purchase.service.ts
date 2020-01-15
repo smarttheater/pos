@@ -5,7 +5,7 @@ import { select, Store } from '@ngrx/store';
 import * as moment from 'moment';
 import { Observable, race } from 'rxjs';
 import { take, tap } from 'rxjs/operators';
-import { environment } from '../../environments/environment';
+import { getEnvironment } from '../../environments/environment';
 import { IReservationSeat, IReservationTicket, Reservation } from '../models';
 import { purchaseAction } from '../store/actions';
 import * as reducers from '../store/reducers';
@@ -84,7 +84,7 @@ export class PurchaseService {
         const now = (await this.utilService.getServerTime()).date;
         return new Promise<void>((resolve, reject) => {
             this.store.dispatch(new purchaseAction.StartTransaction({
-                expires: moment(now).add(environment.PURCHASE_TRANSACTION_TIME, 'minutes').toDate(),
+                expires: moment(now).add(getEnvironment().PURCHASE_TRANSACTION_TIME, 'minutes').toDate(),
                 seller: { typeOf: params.seller.typeOf, id: params.seller.id },
                 object: {},
                 agent: (params.pos === undefined)

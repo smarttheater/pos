@@ -239,6 +239,6 @@ const defaultEnvironment: IEnvironment = {
     SETTING_DEVELOP_OPTION: false
 };
 
-
-export const environment: IEnvironment = Object.assign(defaultEnvironment, (<any>window).environment);
-
+export function getEnvironment(): IEnvironment {
+    return { ...defaultEnvironment, ...(<any>window).environment };
+}

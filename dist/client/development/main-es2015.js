@@ -451,7 +451,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("<header class=\"fixed-top text-white border-bottom border-gray\">\n    <div class=\"header contents-width mx-auto d-flex align-items-center justify-content-between px-3\">\n        <div class=\"logo\">\n            <img class=\"d-none d-md-block h-100\" src=\"/storage/images/logo.svg\">\n            <img class=\"d-md-none h-100\" src=\"/storage/images/logo-sp.svg\">\n        </div>\n        <div class=\"d-flex align-items-center\">\n            <div *ngIf=\"environment.LANGUAGE.length > 1\" class=\"mr-3 d-flex align-items-center\">\n                <select class=\"form-control border-0\" [(ngModel)]=\"language\" (change)=\"changeLanguage()\">\n                    <option *ngFor=\"let language of environment.LANGUAGE\" [value]=\"language\">{{ getLanguageName(language) }}</option>\n                </select>\n            </div>\n            <div *ngIf=\"environment.HEADER_MENU\" class=\"menu-button pointer\" [class.active]=\"isMenuOpen\"\n                (click)=\"(isMenuOpen) ? menuClose() : menuOpen()\">\n                <div></div>\n                <div></div>\n                <div></div>\n            </div>\n        </div>\n    </div>\n</header>\n\n<app-header-menu [isOpen]=\"isMenuOpen\" (close)=\"menuClose()\"></app-header-menu>");
+/* harmony default export */ __webpack_exports__["default"] = ("<header class=\"fixed-top text-white border-bottom border-gray\">\n    <div class=\"header contents-width mx-auto d-flex align-items-center justify-content-between px-3\">\n        <div class=\"logo\">\n            <img class=\"d-none d-md-block h-100\" [src]=\"storageUrl + '/images/logo.svg'\">\n            <img class=\"d-md-none h-100\" [src]=\"storageUrl + '/images/logo-sp.svg'\">\n        </div>\n        <div class=\"d-flex align-items-center\">\n            <div *ngIf=\"environment.LANGUAGE.length > 1\" class=\"mr-3 d-flex align-items-center\">\n                <select class=\"form-control border-0\" [(ngModel)]=\"language\" (change)=\"changeLanguage()\">\n                    <option *ngFor=\"let language of environment.LANGUAGE\" [value]=\"language\">{{ getLanguageName(language) }}</option>\n                </select>\n            </div>\n            <div *ngIf=\"environment.HEADER_MENU\" class=\"menu-button pointer\" [class.active]=\"isMenuOpen\"\n                (click)=\"(isMenuOpen) ? menuClose() : menuOpen()\">\n                <div></div>\n                <div></div>\n                <div></div>\n            </div>\n        </div>\n    </div>\n</header>\n\n<app-header-menu [isOpen]=\"isMenuOpen\" (close)=\"menuClose()\"></app-header-menu>");
 
 /***/ }),
 
@@ -691,7 +691,7 @@ let AppRoutingModule = class AppRoutingModule {
 AppRoutingModule = __decorate([
     Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["NgModule"])({
         imports: [
-            _angular_router__WEBPACK_IMPORTED_MODULE_1__["RouterModule"].forRoot(appRoutes, { useHash: true, enableTracing: !_environments_environment__WEBPACK_IMPORTED_MODULE_2__["environment"].production })
+            _angular_router__WEBPACK_IMPORTED_MODULE_1__["RouterModule"].forRoot(appRoutes, { useHash: true, enableTracing: !Object(_environments_environment__WEBPACK_IMPORTED_MODULE_2__["getEnvironment"])().production })
         ],
         exports: [
             _angular_router__WEBPACK_IMPORTED_MODULE_1__["RouterModule"]
@@ -707,28 +707,24 @@ AppRoutingModule = __decorate([
 /*!***************************!*\
   !*** ./app/app.module.ts ***!
   \***************************/
-/*! exports provided: HttpLoaderFactory, AppModule */
+/*! exports provided: AppModule */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "HttpLoaderFactory", function() { return HttpLoaderFactory; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AppModule", function() { return AppModule; });
-/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/common/http */ "../../node_modules/@angular/common/fesm2015/http.js");
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "../../node_modules/@angular/core/fesm2015/core.js");
-/* harmony import */ var _angular_platform_browser__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/platform-browser */ "../../node_modules/@angular/platform-browser/fesm2015/platform-browser.js");
-/* harmony import */ var _angular_platform_browser_animations__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/platform-browser/animations */ "../../node_modules/@angular/platform-browser/fesm2015/animations.js");
-/* harmony import */ var _ngx_translate_core__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @ngx-translate/core */ "../../node_modules/@ngx-translate/core/fesm2015/ngx-translate-core.js");
-/* harmony import */ var _ngx_translate_http_loader__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @ngx-translate/http-loader */ "../../node_modules/@ngx-translate/http-loader/fesm2015/ngx-translate-http-loader.js");
-/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! moment */ "../../node_modules/moment/moment.js");
-/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_6__);
-/* harmony import */ var ngx_bootstrap__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ngx-bootstrap */ "../../node_modules/ngx-bootstrap/esm5/ngx-bootstrap.js");
-/* harmony import */ var _app_routing_module__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./app-routing.module */ "./app/app-routing.module.ts");
-/* harmony import */ var _app_app_component__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./app/app.component */ "./app/app/app.component.ts");
-/* harmony import */ var _modules_core_core_module__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./modules/core/core.module */ "./app/modules/core/core.module.ts");
-/* harmony import */ var _modules_shared_shared_module__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./modules/shared/shared.module */ "./app/modules/shared/shared.module.ts");
-/* harmony import */ var _store_module__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./store.module */ "./app/store.module.ts");
-/* harmony import */ var _store_core_store__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./store/core/store */ "./app/store/core/store/index.ts");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "../../node_modules/@angular/core/fesm2015/core.js");
+/* harmony import */ var _angular_platform_browser__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/platform-browser */ "../../node_modules/@angular/platform-browser/fesm2015/platform-browser.js");
+/* harmony import */ var _angular_platform_browser_animations__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/platform-browser/animations */ "../../node_modules/@angular/platform-browser/fesm2015/animations.js");
+/* harmony import */ var _ngx_translate_core__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @ngx-translate/core */ "../../node_modules/@ngx-translate/core/fesm2015/ngx-translate-core.js");
+/* harmony import */ var ngx_bootstrap__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ngx-bootstrap */ "../../node_modules/ngx-bootstrap/esm5/ngx-bootstrap.js");
+/* harmony import */ var _app_routing_module__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./app-routing.module */ "./app/app-routing.module.ts");
+/* harmony import */ var _app_app_component__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./app/app.component */ "./app/app/app.component.ts");
+/* harmony import */ var _functions__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./functions */ "./app/functions/index.ts");
+/* harmony import */ var _modules_core_core_module__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./modules/core/core.module */ "./app/modules/core/core.module.ts");
+/* harmony import */ var _modules_shared_shared_module__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./modules/shared/shared.module */ "./app/modules/shared/shared.module.ts");
+/* harmony import */ var _store_module__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./store.module */ "./app/store.module.ts");
+/* harmony import */ var _store_core_store__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./store/core/store */ "./app/store/core/store/index.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -753,39 +749,28 @@ var __importDefault = (undefined && undefined.__importDefault) || function (mod)
 
 
 
-
-
-function HttpLoaderFactory(http) {
-    return new _ngx_translate_http_loader__WEBPACK_IMPORTED_MODULE_5__["TranslateHttpLoader"](http, '/storage/i18n/', `.json?date=${moment__WEBPACK_IMPORTED_MODULE_6__().toISOString()}`);
-}
 let AppModule = class AppModule {
 };
 AppModule = __decorate([
-    Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["NgModule"])({
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["NgModule"])({
         declarations: [
-            _app_app_component__WEBPACK_IMPORTED_MODULE_9__["AppComponent"],
+            _app_app_component__WEBPACK_IMPORTED_MODULE_6__["AppComponent"],
         ],
         imports: [
-            _angular_platform_browser__WEBPACK_IMPORTED_MODULE_2__["BrowserModule"],
-            _angular_platform_browser_animations__WEBPACK_IMPORTED_MODULE_3__["BrowserAnimationsModule"],
-            _app_routing_module__WEBPACK_IMPORTED_MODULE_8__["AppRoutingModule"],
-            _store_module__WEBPACK_IMPORTED_MODULE_12__["StoreModule"],
-            _store_core_store__WEBPACK_IMPORTED_MODULE_13__["CoreStoreModule"],
-            _modules_core_core_module__WEBPACK_IMPORTED_MODULE_10__["CoreModule"],
-            _modules_shared_shared_module__WEBPACK_IMPORTED_MODULE_11__["SharedModule"],
-            ngx_bootstrap__WEBPACK_IMPORTED_MODULE_7__["ModalModule"].forRoot(),
-            ngx_bootstrap__WEBPACK_IMPORTED_MODULE_7__["BsDatepickerModule"].forRoot(),
-            ngx_bootstrap__WEBPACK_IMPORTED_MODULE_7__["PaginationModule"].forRoot(),
-            _ngx_translate_core__WEBPACK_IMPORTED_MODULE_4__["TranslateModule"].forRoot({
-                loader: {
-                    provide: _ngx_translate_core__WEBPACK_IMPORTED_MODULE_4__["TranslateLoader"],
-                    useFactory: HttpLoaderFactory,
-                    deps: [_angular_common_http__WEBPACK_IMPORTED_MODULE_0__["HttpClient"]]
-                }
-            })
+            _angular_platform_browser__WEBPACK_IMPORTED_MODULE_1__["BrowserModule"],
+            _angular_platform_browser_animations__WEBPACK_IMPORTED_MODULE_2__["BrowserAnimationsModule"],
+            _app_routing_module__WEBPACK_IMPORTED_MODULE_5__["AppRoutingModule"],
+            _store_module__WEBPACK_IMPORTED_MODULE_10__["StoreModule"],
+            _store_core_store__WEBPACK_IMPORTED_MODULE_11__["CoreStoreModule"],
+            _modules_core_core_module__WEBPACK_IMPORTED_MODULE_8__["CoreModule"],
+            _modules_shared_shared_module__WEBPACK_IMPORTED_MODULE_9__["SharedModule"],
+            ngx_bootstrap__WEBPACK_IMPORTED_MODULE_4__["ModalModule"].forRoot(),
+            ngx_bootstrap__WEBPACK_IMPORTED_MODULE_4__["BsDatepickerModule"].forRoot(),
+            ngx_bootstrap__WEBPACK_IMPORTED_MODULE_4__["PaginationModule"].forRoot(),
+            _ngx_translate_core__WEBPACK_IMPORTED_MODULE_3__["TranslateModule"].forRoot(Object(_functions__WEBPACK_IMPORTED_MODULE_7__["getTranslateModuleConfig"])())
         ],
         providers: [],
-        bootstrap: [_app_app_component__WEBPACK_IMPORTED_MODULE_9__["AppComponent"]]
+        bootstrap: [_app_app_component__WEBPACK_IMPORTED_MODULE_6__["AppComponent"]]
     })
 ], AppModule);
 
@@ -837,18 +822,16 @@ let AppComponent = class AppComponent {
      */
     ngOnInit() {
         this.locales();
-        if (_environments_environment__WEBPACK_IMPORTED_MODULE_3__["environment"].ANALYTICS_ID !== '') {
+        if (Object(_environments_environment__WEBPACK_IMPORTED_MODULE_3__["getEnvironment"])().ANALYTICS_ID !== '') {
             this.analytics();
         }
     }
     /**
      * 言語設定
-     * @example {{ 'HOME.HELLO' | translate: { value: 'world'} }}
      */
     locales() {
-        this.translate.addLangs(_environments_environment__WEBPACK_IMPORTED_MODULE_3__["environment"].LANGUAGE);
+        this.translate.addLangs(Object(_environments_environment__WEBPACK_IMPORTED_MODULE_3__["getEnvironment"])().LANGUAGE);
         this.translate.setDefaultLang('ja');
-        console.log('translate', this.translate);
     }
     /**
      * Googleアナリティクス pageview イベント
@@ -858,7 +841,7 @@ let AppComponent = class AppComponent {
             if (event instanceof _angular_router__WEBPACK_IMPORTED_MODULE_1__["NavigationEnd"]) {
                 // Googleアナリティクス pageview
                 try {
-                    ga('create', _environments_environment__WEBPACK_IMPORTED_MODULE_3__["environment"].ANALYTICS_ID, 'auto');
+                    ga('create', Object(_environments_environment__WEBPACK_IMPORTED_MODULE_3__["getEnvironment"])().ANALYTICS_ID, 'auto');
                     ga('set', 'page', event.urlAfterRedirects);
                     ga('send', 'pageview');
                 }
@@ -890,7 +873,7 @@ AppComponent = __decorate([
 /*!********************************!*\
   !*** ./app/functions/index.ts ***!
   \********************************/
-/*! exports provided: screeningEventsToWorkEvents, createGmoTokenObject, sameMovieTicketFilter, isAvailabilityMovieTicket, createMovieTicketsFromAuthorizeSeatReservation, createPaymentMethodFromType, getTicketPrice, movieTicketAuthErroCodeToMessage, getAmount, orderToEventOrders, authorizeSeatReservationToEvent, isScheduleStatusThreshold, isSales, isTicketedSeatScreeningEvent, changeTicketCount, getRemainingSeatLength, formatTelephone, toFull, toHalf, retry, sleep, buildQueryString, iOSDatepickerTapBugFix, streamingDownload, string2blob, getProject, getParameter, createPrintCanvas, createTestPrintCanvas, createRegiGrowQrcode, changeTicketCountByOrder, getTransactionAgentIdentifier, order2report */
+/*! exports provided: screeningEventsToWorkEvents, createGmoTokenObject, sameMovieTicketFilter, isAvailabilityMovieTicket, createMovieTicketsFromAuthorizeSeatReservation, createPaymentMethodFromType, getTicketPrice, movieTicketAuthErroCodeToMessage, getAmount, orderToEventOrders, authorizeSeatReservationToEvent, isScheduleStatusThreshold, isSales, isTicketedSeatScreeningEvent, changeTicketCount, getRemainingSeatLength, formatTelephone, toFull, toHalf, retry, sleep, buildQueryString, iOSDatepickerTapBugFix, streamingDownload, string2blob, getParameter, setProject, getProject, createPrintCanvas, createTestPrintCanvas, createRegiGrowQrcode, changeTicketCountByOrder, getTransactionAgentIdentifier, order2report, getTranslateModuleConfig */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -947,9 +930,11 @@ __webpack_require__.r(__webpack_exports__);
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "string2blob", function() { return _util_function__WEBPACK_IMPORTED_MODULE_1__["string2blob"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "getProject", function() { return _util_function__WEBPACK_IMPORTED_MODULE_1__["getProject"]; });
-
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "getParameter", function() { return _util_function__WEBPACK_IMPORTED_MODULE_1__["getParameter"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "setProject", function() { return _util_function__WEBPACK_IMPORTED_MODULE_1__["setProject"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "getProject", function() { return _util_function__WEBPACK_IMPORTED_MODULE_1__["getProject"]; });
 
 /* harmony import */ var _order_function__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./order.function */ "./app/functions/order.function.ts");
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "createPrintCanvas", function() { return _order_function__WEBPACK_IMPORTED_MODULE_2__["createPrintCanvas"]; });
@@ -964,9 +949,13 @@ __webpack_require__.r(__webpack_exports__);
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "order2report", function() { return _order_function__WEBPACK_IMPORTED_MODULE_2__["order2report"]; });
 
+/* harmony import */ var _translate_function__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./translate.function */ "./app/functions/translate.function.ts");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "getTranslateModuleConfig", function() { return _translate_function__WEBPACK_IMPORTED_MODULE_3__["getTranslateModuleConfig"]; });
+
 var __importDefault = (undefined && undefined.__importDefault) || function (mod) {
   return (mod && mod.__esModule) ? mod : { "default": mod };
 };
+
 
 
 
@@ -1060,11 +1049,9 @@ function drawCanvas(args) {
         const font = `"Hiragino Sans", "Hiragino Kaku Gothic ProN", "游ゴシック  Medium", meiryo, sans-serif`;
         // 画像描画
         for (const image of printData.image) {
-            const response = yield fetch('/api/storage', { method: 'get' });
-            const json = yield response.json();
             const imageInstance = new Image();
             imageInstance.crossOrigin = 'anonymous';
-            imageInstance.src = image.src.replace('/storage', json.storage);
+            imageInstance.src = image.src.replace('/storage', Object(_util_function__WEBPACK_IMPORTED_MODULE_5__["getProject"])().storageUrl);
             yield drawImage({
                 image: imageInstance,
                 x: image.x,
@@ -1208,7 +1195,7 @@ function createTestPrintCanvas(args) {
 function createRegiGrowQrcode(order) {
     return __awaiter(this, void 0, void 0, function* () {
         const canvas = document.createElement('canvas');
-        let qrcodeText = _environments_environment__WEBPACK_IMPORTED_MODULE_3__["environment"].REGIGROW_QRCODE;
+        let qrcodeText = Object(_environments_environment__WEBPACK_IMPORTED_MODULE_3__["getEnvironment"])().REGIGROW_QRCODE;
         qrcodeText = qrcodeText
             .replace(/\{\{ orderNumber \}\}/g, order.orderNumber);
         qrcodeText = qrcodeText
@@ -1684,8 +1671,8 @@ function isScheduleStatusThreshold(screeningEvent, status) {
         maximumAttendeeCapacity = Number(limitSeatNumber.value);
     }
     let result = false;
-    const unit = _environments_environment__WEBPACK_IMPORTED_MODULE_2__["environment"].PURCHASE_SCHEDULE_STATUS_THRESHOLD_UNIT;
-    const value = Number(_environments_environment__WEBPACK_IMPORTED_MODULE_2__["environment"].PURCHASE_SCHEDULE_STATUS_THRESHOLD_VALUE);
+    const unit = Object(_environments_environment__WEBPACK_IMPORTED_MODULE_2__["getEnvironment"])().PURCHASE_SCHEDULE_STATUS_THRESHOLD_UNIT;
+    const value = Number(Object(_environments_environment__WEBPACK_IMPORTED_MODULE_2__["getEnvironment"])().PURCHASE_SCHEDULE_STATUS_THRESHOLD_VALUE);
     if (unit === '%') {
         switch (status) {
             case 'success':
@@ -1806,11 +1793,59 @@ function getRemainingSeatLength(screeningEventOffers, screeningEvent) {
 
 /***/ }),
 
+/***/ "./app/functions/translate.function.ts":
+/*!*********************************************!*\
+  !*** ./app/functions/translate.function.ts ***!
+  \*********************************************/
+/*! exports provided: getTranslateModuleConfig */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getTranslateModuleConfig", function() { return getTranslateModuleConfig; });
+/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/common/http */ "../../node_modules/@angular/common/fesm2015/http.js");
+/* harmony import */ var _ngx_translate_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @ngx-translate/core */ "../../node_modules/@ngx-translate/core/fesm2015/ngx-translate-core.js");
+/* harmony import */ var _ngx_translate_http_loader__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @ngx-translate/http-loader */ "../../node_modules/@ngx-translate/http-loader/fesm2015/ngx-translate-http-loader.js");
+/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! moment */ "../../node_modules/moment/moment.js");
+/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var _util_function__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./util.function */ "./app/functions/util.function.ts");
+var __importDefault = (undefined && undefined.__importDefault) || function (mod) {
+  return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+
+
+
+
+
+/**
+ *  設定ファイル取得設定
+ */
+function getUseFactory(http) {
+    const prefix = `${Object(_util_function__WEBPACK_IMPORTED_MODULE_4__["getProject"])().storageUrl}/i18n/`;
+    const suffix = `.json?date=${moment__WEBPACK_IMPORTED_MODULE_3__().toISOString()}`;
+    return new _ngx_translate_http_loader__WEBPACK_IMPORTED_MODULE_2__["TranslateHttpLoader"](http, prefix, suffix);
+}
+/**
+ * 多言語設定取得
+ */
+function getTranslateModuleConfig() {
+    return {
+        loader: {
+            provide: _ngx_translate_core__WEBPACK_IMPORTED_MODULE_1__["TranslateLoader"],
+            useFactory: getUseFactory,
+            deps: [_angular_common_http__WEBPACK_IMPORTED_MODULE_0__["HttpClient"]]
+        }
+    };
+}
+
+
+/***/ }),
+
 /***/ "./app/functions/util.function.ts":
 /*!****************************************!*\
   !*** ./app/functions/util.function.ts ***!
   \****************************************/
-/*! exports provided: formatTelephone, toFull, toHalf, retry, sleep, buildQueryString, iOSDatepickerTapBugFix, streamingDownload, string2blob, getProject, getParameter */
+/*! exports provided: formatTelephone, toFull, toHalf, retry, sleep, buildQueryString, iOSDatepickerTapBugFix, streamingDownload, string2blob, getParameter, setProject, getProject */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1824,8 +1859,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "iOSDatepickerTapBugFix", function() { return iOSDatepickerTapBugFix; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "streamingDownload", function() { return streamingDownload; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "string2blob", function() { return string2blob; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getProject", function() { return getProject; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getParameter", function() { return getParameter; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "setProject", function() { return setProject; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getProject", function() { return getProject; });
 /* harmony import */ var libphonenumber_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! libphonenumber-js */ "../../node_modules/libphonenumber-js/index.es6.js");
 var __awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -2016,13 +2052,6 @@ function string2blob(value, options) {
     return new Blob([bom, value], options);
 }
 /**
- * プロジェクト取得
- */
-function getProject() {
-    const project = (sessionStorage.getItem('PROJECT'));
-    return (project === null) ? '' : project;
-}
-/**
  * パラメータ取得
  */
 function getParameter() {
@@ -2037,6 +2066,40 @@ function getParameter() {
         }
     }
     return result;
+}
+/**
+ * プロジェクト情報設定
+ */
+function setProject(params) {
+    return __awaiter(this, void 0, void 0, function* () {
+        const fetchResult = yield fetch('/api/project', {
+            method: 'POST',
+            cache: 'no-cache',
+            headers: {
+                'Content-Type': 'application/json; charset=utf-8'
+            },
+            body: JSON.stringify(params)
+        });
+        if (!fetchResult.ok) {
+            throw new Error(JSON.stringify({ status: fetchResult.status, statusText: fetchResult.statusText }));
+        }
+        const json = yield fetchResult.json();
+        sessionStorage.setItem('PROJECT', JSON.stringify(json));
+    });
+}
+/**
+ * プロジェクト情報取得
+ */
+function getProject() {
+    const project = sessionStorage.getItem('PROJECT');
+    if (project === null || project === '') {
+        return {
+            projectId: '',
+            projectName: '',
+            storageUrl: ''
+        };
+    }
+    return JSON.parse(project);
 }
 
 
@@ -3359,7 +3422,7 @@ let HeaderMenuComponent = class HeaderMenuComponent {
         this.utilService = utilService;
         this.translate = translate;
         this.close = new _angular_core__WEBPACK_IMPORTED_MODULE_0__["EventEmitter"]();
-        this.environment = _environments_environment__WEBPACK_IMPORTED_MODULE_2__["environment"];
+        this.environment = Object(_environments_environment__WEBPACK_IMPORTED_MODULE_2__["getEnvironment"])();
     }
     ngOnInit() {
     }
@@ -3380,7 +3443,7 @@ let HeaderMenuComponent = class HeaderMenuComponent {
         });
     }
     isVisible(value) {
-        return (_environments_environment__WEBPACK_IMPORTED_MODULE_2__["environment"].HEADER_MENU_SCOPE.find(r => r === value) !== undefined);
+        return (Object(_environments_environment__WEBPACK_IMPORTED_MODULE_2__["getEnvironment"])().HEADER_MENU_SCOPE.find(r => r === value) !== undefined);
     }
 };
 HeaderMenuComponent.ctorParameters = () => [
@@ -3438,9 +3501,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _ngrx_store__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @ngrx/store */ "../../node_modules/@ngrx/store/fesm2015/store.js");
 /* harmony import */ var _ngx_translate_core__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @ngx-translate/core */ "../../node_modules/@ngx-translate/core/fesm2015/ngx-translate-core.js");
 /* harmony import */ var _environments_environment__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../../../../environments/environment */ "./environments/environment.ts");
-/* harmony import */ var _models__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../../../models */ "./app/models/index.ts");
-/* harmony import */ var _services__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../../../../services */ "./app/services/index.ts");
-/* harmony import */ var _store_reducers__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../../../../store/reducers */ "./app/store/reducers/index.ts");
+/* harmony import */ var _functions__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../../../functions */ "./app/functions/index.ts");
+/* harmony import */ var _models__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../../../../models */ "./app/models/index.ts");
+/* harmony import */ var _services__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../../../../services */ "./app/services/index.ts");
+/* harmony import */ var _store_reducers__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../../../../../store/reducers */ "./app/store/reducers/index.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -3460,15 +3524,17 @@ var __importDefault = (undefined && undefined.__importDefault) || function (mod)
 
 
 
+
 let HeaderComponent = class HeaderComponent {
     constructor(store, translate, userService) {
         this.store = store;
         this.translate = translate;
         this.userService = userService;
-        this.environment = _environments_environment__WEBPACK_IMPORTED_MODULE_3__["environment"];
+        this.environment = Object(_environments_environment__WEBPACK_IMPORTED_MODULE_3__["getEnvironment"])();
+        this.storageUrl = Object(_functions__WEBPACK_IMPORTED_MODULE_4__["getProject"])().storageUrl;
     }
     ngOnInit() {
-        this.user = this.store.pipe(Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_1__["select"])(_store_reducers__WEBPACK_IMPORTED_MODULE_6__["getUser"]));
+        this.user = this.store.pipe(Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_1__["select"])(_store_reducers__WEBPACK_IMPORTED_MODULE_7__["getUser"]));
         this.user.subscribe((user) => {
             this.language = user.language;
             this.translate.use(this.language);
@@ -3483,7 +3549,7 @@ let HeaderComponent = class HeaderComponent {
         this.userService.updateLanguage(language);
     }
     getLanguageName(key) {
-        return _models__WEBPACK_IMPORTED_MODULE_4__["Language"][key];
+        return _models__WEBPACK_IMPORTED_MODULE_5__["Language"][key];
     }
     menuOpen() {
         this.isMenuOpen = true;
@@ -3495,7 +3561,7 @@ let HeaderComponent = class HeaderComponent {
 HeaderComponent.ctorParameters = () => [
     { type: _ngrx_store__WEBPACK_IMPORTED_MODULE_1__["Store"] },
     { type: _ngx_translate_core__WEBPACK_IMPORTED_MODULE_2__["TranslateService"] },
-    { type: _services__WEBPACK_IMPORTED_MODULE_5__["UserService"] }
+    { type: _services__WEBPACK_IMPORTED_MODULE_6__["UserService"] }
 ];
 HeaderComponent = __decorate([
     Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
@@ -3505,7 +3571,7 @@ HeaderComponent = __decorate([
     }),
     __metadata("design:paramtypes", [_ngrx_store__WEBPACK_IMPORTED_MODULE_1__["Store"],
         _ngx_translate_core__WEBPACK_IMPORTED_MODULE_2__["TranslateService"],
-        _services__WEBPACK_IMPORTED_MODULE_5__["UserService"]])
+        _services__WEBPACK_IMPORTED_MODULE_6__["UserService"]])
 ], HeaderComponent);
 
 
@@ -4008,7 +4074,7 @@ let OrderDetailModalComponent = class OrderDetailModalComponent {
         this.elementRef = elementRef;
         this.moment = moment__WEBPACK_IMPORTED_MODULE_2__;
         this.getTicketPrice = _functions__WEBPACK_IMPORTED_MODULE_6__["getTicketPrice"];
-        this.environment = _environments_environment__WEBPACK_IMPORTED_MODULE_5__["environment"];
+        this.environment = Object(_environments_environment__WEBPACK_IMPORTED_MODULE_5__["getEnvironment"])();
         this.getTransactionAgentIdentifier = _functions__WEBPACK_IMPORTED_MODULE_6__["getTransactionAgentIdentifier"];
         this.platform = platform__WEBPACK_IMPORTED_MODULE_4__;
     }
@@ -4270,7 +4336,7 @@ let PurchaseEventTicketModalComponent = class PurchaseEventTicketModalComponent 
             return movieTicketTypeChargeSpecification === undefined;
         });
         this.values = [];
-        let limit = Number(_environments_environment__WEBPACK_IMPORTED_MODULE_4__["environment"].PURCHASE_ITEM_MAX_LENGTH);
+        let limit = Number(Object(_environments_environment__WEBPACK_IMPORTED_MODULE_4__["getEnvironment"])().PURCHASE_ITEM_MAX_LENGTH);
         if (Object(_functions__WEBPACK_IMPORTED_MODULE_5__["isTicketedSeatScreeningEvent"])(this.screeningEvent)) {
             const remainingSeatLength = this.getRemainingSeatLength(this.screeningEventOffers, this.screeningEvent);
             limit = (limit > remainingSeatLength) ? remainingSeatLength : limit;
@@ -4479,7 +4545,7 @@ let QrCodeModalComponent = class QrCodeModalComponent {
         this.modal = modal;
         this.moment = moment__WEBPACK_IMPORTED_MODULE_2__;
         this.getTicketPrice = _functions__WEBPACK_IMPORTED_MODULE_6__["getTicketPrice"];
-        this.environment = _environments_environment__WEBPACK_IMPORTED_MODULE_5__["environment"];
+        this.environment = Object(_environments_environment__WEBPACK_IMPORTED_MODULE_5__["getEnvironment"])();
     }
     ngOnInit() {
         this.urlList = [];
@@ -4573,7 +4639,7 @@ let ReservationDetailModalComponent = class ReservationDetailModalComponent {
         this.elementRef = elementRef;
         this.moment = moment__WEBPACK_IMPORTED_MODULE_2__;
         this.getTicketPrice = _functions__WEBPACK_IMPORTED_MODULE_5__["getTicketPrice"];
-        this.environment = _environments_environment__WEBPACK_IMPORTED_MODULE_4__["environment"];
+        this.environment = Object(_environments_environment__WEBPACK_IMPORTED_MODULE_4__["getEnvironment"])();
     }
     ngOnInit() {
         const element = this.elementRef.nativeElement.querySelector('.scroll-vertical');
@@ -5330,9 +5396,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "../../node_modules/@angular/core/fesm2015/core.js");
 /* harmony import */ var _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @cinerino/api-javascript-client */ "../../node_modules/@cinerino/api-javascript-client/lib/index.js");
 /* harmony import */ var _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! moment */ "../../node_modules/moment/moment.js");
-/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_3__);
-/* harmony import */ var _functions__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../functions */ "./app/functions/index.ts");
+/* harmony import */ var _functions__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../functions */ "./app/functions/index.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -5353,7 +5417,6 @@ var __awaiter = (undefined && undefined.__awaiter) || function (thisArg, _argume
 var __importDefault = (undefined && undefined.__importDefault) || function (mod) {
   return (mod && mod.__esModule) ? mod : { "default": mod };
 };
-
 
 
 
@@ -5397,7 +5460,6 @@ let CinerinoService = class CinerinoService {
      */
     createOption() {
         return __awaiter(this, void 0, void 0, function* () {
-            yield this.getConfig();
             yield this.authorize();
             return {
                 endpoint: this.endpoint,
@@ -5406,25 +5468,12 @@ let CinerinoService = class CinerinoService {
         });
     }
     /**
-     * 設定取得
-     */
-    getConfig() {
-        return __awaiter(this, void 0, void 0, function* () {
-            const url = `/api/config?date=${moment__WEBPACK_IMPORTED_MODULE_3__().toISOString()}&project=${Object(_functions__WEBPACK_IMPORTED_MODULE_4__["getProject"])()}`;
-            const result = yield this.http.get(url).toPromise();
-            this.endpoint = result.endpoint;
-            this.waiterServerUrl = result.waiterServerUrl;
-        });
-    }
-    /**
      * 認証情報取得
      */
     authorize() {
         return __awaiter(this, void 0, void 0, function* () {
             const url = '/api/authorize/getCredentials';
-            const body = {
-                project: Object(_functions__WEBPACK_IMPORTED_MODULE_4__["getProject"])()
-            };
+            const body = {};
             const result = yield this.http.post(url, body).toPromise();
             this.setCredentials(result);
         });
@@ -5446,6 +5495,8 @@ let CinerinoService = class CinerinoService {
         };
         this.auth = _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_2__["createAuthInstance"](option);
         this.auth.setCredentials({ accessToken: params.accessToken, expiryDate: params.expiryDate });
+        this.endpoint = params.endpoint;
+        this.waiterServerUrl = params.waiterServerUrl;
         this.userName = params.userName;
     }
     /**
@@ -5453,7 +5504,7 @@ let CinerinoService = class CinerinoService {
      */
     signIn() {
         return __awaiter(this, void 0, void 0, function* () {
-            const url = `/api/authorize/signIn?project=${Object(_functions__WEBPACK_IMPORTED_MODULE_4__["getProject"])()}`;
+            const url = '/api/authorize/signIn';
             const result = yield this.http.get(url, {}).toPromise();
             // console.log(result.url);
             location.href = result.url;
@@ -5464,7 +5515,7 @@ let CinerinoService = class CinerinoService {
      */
     signOut() {
         return __awaiter(this, void 0, void 0, function* () {
-            const url = `/api/authorize/signOut?project=${Object(_functions__WEBPACK_IMPORTED_MODULE_4__["getProject"])()}`;
+            const url = '/api/authorize/signOut';
             const result = yield this.http.get(url, {}).toPromise();
             // console.log(result.url);
             location.href = result.url;
@@ -5479,7 +5530,7 @@ let CinerinoService = class CinerinoService {
                 || this.waiterServerUrl === '') {
                 return { token: '' };
             }
-            const url = this.waiterServerUrl;
+            const url = `${this.waiterServerUrl}/projects/${Object(_functions__WEBPACK_IMPORTED_MODULE_3__["getProject"])().projectId}/passports`;
             const body = { scope: `Transaction:PlaceOrder:${selleId}` };
             const result = yield this.http.post(url, body).toPromise();
             return result;
@@ -5576,7 +5627,7 @@ let DownloadService = DownloadService_1 = class DownloadService {
             else {
                 // カスタム
                 const searchResult = yield this.orderService.splitSearch(params);
-                const url = '/storage/json/csv/order.json';
+                const url = `${Object(_functions__WEBPACK_IMPORTED_MODULE_4__["getProject"])().storageUrl}/json/csv/order.json`;
                 const fields = yield this.utilService.getJson(url);
                 const opts = { fields, unwind: [] };
                 const data = Object(_functions__WEBPACK_IMPORTED_MODULE_4__["order2report"])(searchResult.data);
@@ -5592,7 +5643,7 @@ let DownloadService = DownloadService_1 = class DownloadService {
      */
     reservation(params) {
         return __awaiter(this, void 0, void 0, function* () {
-            const url = '/storage/json/csv/reservation.json';
+            const url = `${Object(_functions__WEBPACK_IMPORTED_MODULE_4__["getProject"])().storageUrl}/json/csv/reservation.json`;
             const fields = yield this.utilService.getJson(url);
             const opts = { fields, unwind: [] };
             yield this.cinerino.getServices();
@@ -5635,7 +5686,7 @@ let DownloadService = DownloadService_1 = class DownloadService {
      */
     person(params) {
         return __awaiter(this, void 0, void 0, function* () {
-            const url = '/storage/json/csv/person.json';
+            const url = `${Object(_functions__WEBPACK_IMPORTED_MODULE_4__["getProject"])().storageUrl}/json/csv/person.json`;
             const fields = yield this.utilService.getJson(url);
             const opts = { fields, unwind: [] };
             yield this.cinerino.getServices();
@@ -6316,7 +6367,7 @@ let PurchaseService = class PurchaseService {
             const now = (yield this.utilService.getServerTime()).date;
             return new Promise((resolve, reject) => {
                 this.store.dispatch(new _store_actions__WEBPACK_IMPORTED_MODULE_9__["purchaseAction"].StartTransaction({
-                    expires: moment__WEBPACK_IMPORTED_MODULE_4__(now).add(_environments_environment__WEBPACK_IMPORTED_MODULE_7__["environment"].PURCHASE_TRANSACTION_TIME, 'minutes').toDate(),
+                    expires: moment__WEBPACK_IMPORTED_MODULE_4__(now).add(Object(_environments_environment__WEBPACK_IMPORTED_MODULE_7__["getEnvironment"])().PURCHASE_TRANSACTION_TIME, 'minutes').toDate(),
                     seller: { typeOf: params.seller.typeOf, id: params.seller.id },
                     object: {},
                     agent: (params.pos === undefined)
@@ -8841,7 +8892,7 @@ function storageSync(state) {
         || Object.keys(state).length === 0) {
         return;
     }
-    window[_environments_environment__WEBPACK_IMPORTED_MODULE_0__["environment"].STORAGE_TYPE].setItem(_environments_environment__WEBPACK_IMPORTED_MODULE_0__["environment"].STORAGE_NAME, JSON.stringify(state));
+    window[Object(_environments_environment__WEBPACK_IMPORTED_MODULE_0__["getEnvironment"])().STORAGE_TYPE].setItem(Object(_environments_environment__WEBPACK_IMPORTED_MODULE_0__["getEnvironment"])().STORAGE_NAME, JSON.stringify(state));
 }
 /**
  * Meta reducer
@@ -8950,7 +9001,7 @@ let AdmissionEffects = class AdmissionEffects {
                         typeOf: _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_1__["factory"].chevre.reservationType.EventReservation,
                         page,
                         limit,
-                        project: { ids: [_environments_environment__WEBPACK_IMPORTED_MODULE_6__["environment"].PROJECT_ID] },
+                        project: { ids: [Object(_environments_environment__WEBPACK_IMPORTED_MODULE_6__["getEnvironment"])().PROJECT_ID] },
                         reservationStatuses: [_cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_1__["factory"].chevre.reservationStatusType.ReservationConfirmed],
                         reservationFor: {
                             typeOf: _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_1__["factory"].chevre.eventType.ScreeningEvent,
@@ -9297,9 +9348,9 @@ let OrderEffects = class OrderEffects {
                             ? undefined : this.translate.instant('email.order.return.about'),
                         template: undefined
                     };
-                    if (_environments_environment__WEBPACK_IMPORTED_MODULE_6__["environment"].PURCHASE_COMPLETE_MAIL_CUSTOM) {
+                    if (Object(_environments_environment__WEBPACK_IMPORTED_MODULE_6__["getEnvironment"])().PURCHASE_COMPLETE_MAIL_CUSTOM) {
                         // メールをカスタマイズ
-                        const view = yield this.utilService.getText(`/storage/ejs/mail/return/${payload.language}.ejs`);
+                        const view = yield this.utilService.getText(`${Object(_functions__WEBPACK_IMPORTED_MODULE_7__["getProject"])().storageUrl}/ejs/mail/return/${payload.language}.ejs`);
                         const template = yield window.ejs.render(view, { moment: moment__WEBPACK_IMPORTED_MODULE_4__, formatTelephone: _functions__WEBPACK_IMPORTED_MODULE_7__["formatTelephone"], getTicketPrice: _functions__WEBPACK_IMPORTED_MODULE_7__["getTicketPrice"] }, { async: true });
                         email.template = template;
                     }
@@ -9373,8 +9424,8 @@ let OrderEffects = class OrderEffects {
                         ? '' : Object(_functions__WEBPACK_IMPORTED_MODULE_7__["formatTelephone"])(payload.customer.telephone)
                 };
                 const orderDateFrom = {
-                    value: _environments_environment__WEBPACK_IMPORTED_MODULE_6__["environment"].INQUIRY_ORDER_DATE_FROM_VALUE,
-                    unit: _environments_environment__WEBPACK_IMPORTED_MODULE_6__["environment"].INQUIRY_ORDER_DATE_FROM_UNIT
+                    value: Object(_environments_environment__WEBPACK_IMPORTED_MODULE_6__["getEnvironment"])().INQUIRY_ORDER_DATE_FROM_VALUE,
+                    unit: Object(_environments_environment__WEBPACK_IMPORTED_MODULE_6__["getEnvironment"])().INQUIRY_ORDER_DATE_FROM_UNIT
                 };
                 const params = {
                     confirmationNumber,
@@ -9418,7 +9469,7 @@ let OrderEffects = class OrderEffects {
                     });
                     authorizeOrders.push(result);
                 }
-                const printData = yield this.utilService.getJson('/storage/json/print/ticket.json');
+                const printData = yield this.utilService.getJson(`${Object(_functions__WEBPACK_IMPORTED_MODULE_7__["getProject"])().storageUrl}/json/print/ticket.json`);
                 const testFlg = authorizeOrders.length === 0;
                 const canvasList = [];
                 if (testFlg) {
@@ -9445,7 +9496,7 @@ let OrderEffects = class OrderEffects {
                                 }
                             }
                             if (qrcode !== undefined
-                                && _environments_environment__WEBPACK_IMPORTED_MODULE_6__["environment"].PRINT_QRCODE_TYPE === _models__WEBPACK_IMPORTED_MODULE_8__["PrintQrcodeType"].Encryption) {
+                                && Object(_environments_environment__WEBPACK_IMPORTED_MODULE_6__["getEnvironment"])().PRINT_QRCODE_TYPE === _models__WEBPACK_IMPORTED_MODULE_8__["PrintQrcodeType"].Encryption) {
                                 // QRコード暗号化(id + startDate)
                                 const encyptText = `${itemOffered.reservationFor.id}=${itemOffered.reservationFor.startDate}`;
                                 const encryptionEncodeResult = yield this.utilService.encryptionEncode(encyptText);
@@ -9453,9 +9504,9 @@ let OrderEffects = class OrderEffects {
                                     `${encryptionEncodeResult.salt},${encryptionEncodeResult.iv},${encryptionEncodeResult.encrypted}`;
                             }
                             if (qrcode !== undefined
-                                && _environments_environment__WEBPACK_IMPORTED_MODULE_6__["environment"].PRINT_QRCODE_TYPE === _models__WEBPACK_IMPORTED_MODULE_8__["PrintQrcodeType"].Custom) {
+                                && Object(_environments_environment__WEBPACK_IMPORTED_MODULE_6__["getEnvironment"])().PRINT_QRCODE_TYPE === _models__WEBPACK_IMPORTED_MODULE_8__["PrintQrcodeType"].Custom) {
                                 // QRコードカスタム文字列
-                                qrcode = _environments_environment__WEBPACK_IMPORTED_MODULE_6__["environment"].PRINT_QRCODE_CUSTOM;
+                                qrcode = Object(_environments_environment__WEBPACK_IMPORTED_MODULE_6__["getEnvironment"])().PRINT_QRCODE_CUSTOM;
                                 qrcode = qrcode
                                     .replace(/\{\{ orderDate \| YYMMDD \}\}/g, moment__WEBPACK_IMPORTED_MODULE_4__(order.orderDate).format('YYMMDD'));
                                 qrcode = qrcode
@@ -9760,8 +9811,12 @@ let PurchaseEffects = class PurchaseEffects {
                     theaterCode = payload.screeningEvent.superEvent.location.branchCode;
                     screenCode = `000${payload.screeningEvent.location.branchCode}`.slice(-3);
                 }
-                const screen = yield this.http.get(`/storage/json/theater/${theaterCode}/${screenCode}.json?${moment__WEBPACK_IMPORTED_MODULE_5__().format('YYYYMMDDHHmm')}`).toPromise();
-                const setting = yield this.http.get(`/storage/json/theater/setting.json`).toPromise();
+                const screen = yield this.http.get(`${Object(_functions__WEBPACK_IMPORTED_MODULE_8__["getProject"])().storageUrl}/json/theater/${theaterCode}/${screenCode}.json?${moment__WEBPACK_IMPORTED_MODULE_5__().format('YYYYMMDDHHmm')}`).toPromise();
+                const objects = screen.objects.map((o) => {
+                    return Object.assign({}, o, { image: o.image.replace('/storage', Object(_functions__WEBPACK_IMPORTED_MODULE_8__["getProject"])().storageUrl) });
+                });
+                screen.objects = objects;
+                const setting = yield this.http.get(`${Object(_functions__WEBPACK_IMPORTED_MODULE_8__["getProject"])().storageUrl}/json/theater/setting.json`).toPromise();
                 const screenData = Object.assign(setting, screen);
                 return new _actions__WEBPACK_IMPORTED_MODULE_10__["purchaseAction"].GetScreenSuccess({ screeningEventOffers, screenData });
             }
@@ -10091,9 +10146,9 @@ let PurchaseEffects = class PurchaseEffects {
                         template: undefined
                     }
                 };
-                if (_environments_environment__WEBPACK_IMPORTED_MODULE_7__["environment"].PURCHASE_COMPLETE_MAIL_CUSTOM && params.email !== undefined) {
+                if (Object(_environments_environment__WEBPACK_IMPORTED_MODULE_7__["getEnvironment"])().PURCHASE_COMPLETE_MAIL_CUSTOM && params.email !== undefined) {
                     // 完了メールをカスタマイズ
-                    const view = yield this.utilService.getText(`/storage/ejs/mail/complete/${payload.language}.ejs`);
+                    const view = yield this.utilService.getText(`${Object(_functions__WEBPACK_IMPORTED_MODULE_8__["getProject"])().storageUrl}/ejs/mail/complete/${payload.language}.ejs`);
                     params.email.template = yield window.ejs.render(view, {
                         authorizeSeatReservations: Object(_functions__WEBPACK_IMPORTED_MODULE_8__["authorizeSeatReservationToEvent"])({ authorizeSeatReservations }),
                         seller,
@@ -10650,7 +10705,7 @@ function reducer(state, action) {
             return Object.assign({}, state, { loading: false, process: '', error: JSON.stringify(error) });
         }
         case _actions__WEBPACK_IMPORTED_MODULE_1__["orderAction"].ActionTypes.Print: {
-            return Object.assign({}, state, { loading: _environments_environment__WEBPACK_IMPORTED_MODULE_0__["environment"].PRINT_LOADING, process: 'orderAction.Print' });
+            return Object.assign({}, state, { loading: Object(_environments_environment__WEBPACK_IMPORTED_MODULE_0__["getEnvironment"])().PRINT_LOADING, process: 'orderAction.Print' });
         }
         case _actions__WEBPACK_IMPORTED_MODULE_1__["orderAction"].ActionTypes.PrintSuccess: {
             return Object.assign({}, state, { loading: false, process: '', error: null });
@@ -11198,7 +11253,7 @@ const initialState = {
     reservationData: _reservation_reducer__WEBPACK_IMPORTED_MODULE_7__["reservationInitialState"],
 };
 function getInitialState() {
-    const json = window[_environments_environment__WEBPACK_IMPORTED_MODULE_0__["environment"].STORAGE_TYPE].getItem(_environments_environment__WEBPACK_IMPORTED_MODULE_0__["environment"].STORAGE_NAME);
+    const json = window[Object(_environments_environment__WEBPACK_IMPORTED_MODULE_0__["getEnvironment"])().STORAGE_TYPE].getItem(Object(_environments_environment__WEBPACK_IMPORTED_MODULE_0__["getEnvironment"])().STORAGE_NAME);
     if (json === undefined || json === null) {
         return initialState;
     }
@@ -11343,8 +11398,8 @@ var __importDefault = (undefined && undefined.__importDefault) || function (mod)
 
 const userInitialState = {
     language: 'ja',
-    isPurchaseCart: _environments_environment__WEBPACK_IMPORTED_MODULE_0__["environment"].PURCHASE_CART,
-    viewType: _environments_environment__WEBPACK_IMPORTED_MODULE_0__["environment"].VIEW_TYPE
+    isPurchaseCart: Object(_environments_environment__WEBPACK_IMPORTED_MODULE_0__["getEnvironment"])().PURCHASE_CART,
+    viewType: Object(_environments_environment__WEBPACK_IMPORTED_MODULE_0__["getEnvironment"])().VIEW_TYPE
 };
 /**
  * Reducer
@@ -11433,12 +11488,12 @@ function reducer(state, action) {
 /*!*************************************!*\
   !*** ./environments/environment.ts ***!
   \*************************************/
-/*! exports provided: environment */
+/*! exports provided: getEnvironment */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "environment", function() { return environment; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getEnvironment", function() { return getEnvironment; });
 var __importDefault = (undefined && undefined.__importDefault) || function (mod) {
   return (mod && mod.__esModule) ? mod : { "default": mod };
 };
@@ -11490,7 +11545,9 @@ const defaultEnvironment = {
     PRINT_LOADING: true,
     SETTING_DEVELOP_OPTION: false
 };
-const environment = Object.assign(defaultEnvironment, window.environment);
+function getEnvironment() {
+    return Object.assign({}, defaultEnvironment, window.environment);
+}
 
 
 /***/ }),
@@ -11513,7 +11570,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var ngx_bootstrap_chronos__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ngx-bootstrap/chronos */ "../../node_modules/ngx-bootstrap/chronos/fesm2015/ngx-bootstrap-chronos.js");
 /* harmony import */ var ngx_bootstrap_locale__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ngx-bootstrap/locale */ "../../node_modules/ngx-bootstrap/locale/fesm2015/ngx-bootstrap-locale.js");
 /* harmony import */ var _app_app_module__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./app/app.module */ "./app/app.module.ts");
-/* harmony import */ var _environments_environment__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./environments/environment */ "./environments/environment.ts");
+/* harmony import */ var _app_functions__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./app/functions */ "./app/functions/index.ts");
+/* harmony import */ var _environments_environment__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./environments/environment */ "./environments/environment.ts");
 var __awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
     return new (P || (P = Promise))(function (resolve, reject) {
         function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
@@ -11536,6 +11594,7 @@ var __importDefault = (undefined && undefined.__importDefault) || function (mod)
 
 
 
+
 function main() {
     return __awaiter(this, void 0, void 0, function* () {
         // タイムゾーン設定
@@ -11544,42 +11603,61 @@ function main() {
         // 言語設定
         Object(ngx_bootstrap_chronos__WEBPACK_IMPORTED_MODULE_4__["defineLocale"])('ja', ngx_bootstrap_locale__WEBPACK_IMPORTED_MODULE_5__["jaLocale"]);
         // プロジェクト設定
-        // if (getParameter<{ project: string }>().project !== undefined) {
-        //     sessionStorage.setItem('PROJECT', getParameter<{ project: string }>().project);
-        // }
-        // const project = (sessionStorage.getItem('PROJECT'));
-        // const config = await fetch(`/api/config?date=${momentTimezone().toISOString()}&project=${project}`, { method: 'GET' });
-        // const storageUrl = (await config.json()).storageUrl;
-        // const style = document.createElement('link');
-        // style.rel = 'stylesheet';
-        // style.href = `${storageUrl}/css/style.css`;
-        // document.body.appendChild(style);
-        // try {
-        //     const env = await fetch(`${storageUrl}/json/environment.json?date=${momentTimezone().toISOString()}`, { method: 'GET' });
-        //     (<any>window).environment = await env.json();
-        // } catch (error) {
-        //     const env = await fetch(`${storageUrl}/js/environment.js?date=${momentTimezone().toISOString()}`, { method: 'GET' });
-        //     (<any>window).eval(<any>(env.body));
-        // }
-        // // GTM設定
-        // if (environment.GTM_ID) {
-        //     (function (w, d, s, l, i) {
-        //         (<any>w)[l] = (<any>w)[l] || [];
-        //         (<any>w)[l].push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' });
-        //         const f =
-        //             d.getElementsByTagName(s)[0],
-        //             j = d.createElement(s),
-        //             dl = l !== 'dataLayer' ? '&l=' + l : ''; (<any>j).async = true;
-        //         (<any>j).src = 'https://www.googletagmanager.com/gtm.js?id=' + i + dl;
-        //         (<any>f).parentNode.insertBefore(j, f);
-        //     })(window, document, 'script', 'dataLayer', environment.GTM_ID);
-        // }
+        const project = Object(_app_functions__WEBPACK_IMPORTED_MODULE_7__["getParameter"])().project
+            || (Object(_app_functions__WEBPACK_IMPORTED_MODULE_7__["getProject"])().projectName === '') ? undefined : Object(_app_functions__WEBPACK_IMPORTED_MODULE_7__["getProject"])().projectName;
+        yield Object(_app_functions__WEBPACK_IMPORTED_MODULE_7__["setProject"])({ project });
+        yield setProjectConfig();
+    });
+}
+/**
+ * プロジェクトごとのアプリケーション設定
+ */
+function setProjectConfig() {
+    return __awaiter(this, void 0, void 0, function* () {
+        // 設定読み込み
+        const fetchResult = yield fetch(`${Object(_app_functions__WEBPACK_IMPORTED_MODULE_7__["getProject"])().storageUrl}/js/environment.js`, {
+            method: 'GET',
+            cache: 'no-cache',
+            headers: { 'Content-Type': 'application/json; charset=utf-8' }
+        });
+        if (!fetchResult.ok) {
+            throw new Error(JSON.stringify({ status: fetchResult.status, statusText: fetchResult.statusText }));
+        }
+        if (fetchResult.body === null) {
+            throw new Error('fetchResult.body null');
+        }
+        window.eval(yield Object(_app_functions__WEBPACK_IMPORTED_MODULE_7__["streamingDownload"])(fetchResult.body));
+        // スタイル設定
+        const style = document.createElement('link');
+        style.rel = 'stylesheet';
+        style.href = `${Object(_app_functions__WEBPACK_IMPORTED_MODULE_7__["getProject"])().storageUrl}/css/style.css`;
+        document.body.appendChild(style);
+        // ファビコン設定
+        const favicon = document.createElement('link');
+        favicon.rel = 'icon';
+        favicon.type = 'image/x-icon"';
+        favicon.href = `${Object(_app_functions__WEBPACK_IMPORTED_MODULE_7__["getProject"])().storageUrl}/favicon.ico`;
+        document.body.appendChild(favicon);
+        // タイトル設定
+        document.title = Object(_environments_environment__WEBPACK_IMPORTED_MODULE_8__["getEnvironment"])().APP_TITLE;
+        // GTM設定
+        if (Object(_environments_environment__WEBPACK_IMPORTED_MODULE_8__["getEnvironment"])().GTM_ID) {
+            (function (w, d, s, l, i) {
+                w[l] = w[l] || [];
+                w[l].push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' });
+                const f = d.getElementsByTagName(s)[0];
+                const j = d.createElement(s), dl = l !== 'dataLayer' ? '&l=' + l : '';
+                j.async = true;
+                j.src = 'https://www.googletagmanager.com/gtm.js?id=' + i + dl;
+                f.parentNode.insertBefore(j, f);
+            })(window, document, 'script', 'dataLayer', Object(_environments_environment__WEBPACK_IMPORTED_MODULE_8__["getEnvironment"])().GTM_ID);
+        }
+        if (Object(_environments_environment__WEBPACK_IMPORTED_MODULE_8__["getEnvironment"])().production) {
+            Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["enableProdMode"])();
+        }
     });
 }
 main().then(() => {
-    if (_environments_environment__WEBPACK_IMPORTED_MODULE_7__["environment"].production) {
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["enableProdMode"])();
-    }
     Object(_angular_platform_browser_dynamic__WEBPACK_IMPORTED_MODULE_1__["platformBrowserDynamic"])().bootstrapModule(_app_app_module__WEBPACK_IMPORTED_MODULE_6__["AppModule"]);
 }).catch((error) => {
     console.error(error);

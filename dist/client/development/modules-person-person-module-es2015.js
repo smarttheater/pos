@@ -82,7 +82,7 @@ let PersonSearchComponent = class PersonSearchComponent {
         this.download = download;
         this.moment = moment__WEBPACK_IMPORTED_MODULE_3__;
         this.buildQueryString = _functions__WEBPACK_IMPORTED_MODULE_5__["buildQueryString"];
-        this.environment = _environments_environment__WEBPACK_IMPORTED_MODULE_4__["environment"];
+        this.environment = Object(_environments_environment__WEBPACK_IMPORTED_MODULE_4__["getEnvironment"])();
     }
     ngOnInit() {
         this.isDownload = false;

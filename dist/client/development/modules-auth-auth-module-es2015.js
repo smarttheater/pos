@@ -205,7 +205,7 @@ let AuthIndexComponent = class AuthIndexComponent {
         return __awaiter(this, void 0, void 0, function* () {
             try {
                 yield this.cinerino.getServices();
-                this.router.navigate([_environments_environment__WEBPACK_IMPORTED_MODULE_2__["environment"].BASE_URL]);
+                this.router.navigate([Object(_environments_environment__WEBPACK_IMPORTED_MODULE_2__["getEnvironment"])().BASE_URL]);
             }
             catch (error) {
                 yield this.cinerino.signIn();
@@ -283,7 +283,7 @@ let AuthSigninComponent = class AuthSigninComponent {
     ngOnInit() {
         this.orderService.delete();
         this.purchaseService.delete();
-        this.router.navigate([_environments_environment__WEBPACK_IMPORTED_MODULE_2__["environment"].BASE_URL]);
+        this.router.navigate([Object(_environments_environment__WEBPACK_IMPORTED_MODULE_2__["getEnvironment"])().BASE_URL]);
     }
 };
 AuthSigninComponent.ctorParameters = () => [

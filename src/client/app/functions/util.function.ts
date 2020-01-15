@@ -190,14 +190,6 @@ export function string2blob(value: string, options?: BlobPropertyBag) {
 }
 
 /**
- * プロジェクト取得
- */
-export function getProject() {
-    const project = (sessionStorage.getItem('PROJECT'));
-    return (project === null) ? '' : project;
-}
-
-/**
  * パラメータ取得
  */
 export function getParameter<T>() {
@@ -213,3 +205,49 @@ export function getParameter<T>() {
     }
     return <T>result;
 }
+
+/**
+ * プロジェクト情報設定
+ */
+export async function setProject(params: {
+    project?: string;
+}) {
+    const fetchResult = await fetch('/api/project', {
+        method: 'POST',
+        cache: 'no-cache',
+        headers: {
+            'Content-Type': 'application/json; charset=utf-8'
+        },
+        body: JSON.stringify(params)
+    });
+    if (!fetchResult.ok) {
+        throw new Error(JSON.stringify({ status: fetchResult.status, statusText: fetchResult.statusText }));
+    }
+    const json: {
+        projectId: string;
+        projectName: string;
+        storageUrl: string;
+    } = await fetchResult.json();
+    sessionStorage.setItem('PROJECT', JSON.stringify(json));
+}
+
+/**
+ * プロジェクト情報取得
+ */
+export function getProject() {
+    const project = sessionStorage.getItem('PROJECT');
+    if (project === null || project === '') {
+        return {
+            projectId: '',
+            projectName: '',
+            storageUrl: ''
+        };
+    }
+    return <{
+        projectId: string;
+        projectName: string;
+        storageUrl: string;
+    }>JSON.parse(project);
+}
+
+

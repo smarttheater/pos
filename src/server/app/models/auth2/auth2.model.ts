@@ -1,6 +1,5 @@
 import * as cinerino from '@cinerino/api-nodejs-client';
 import * as express from 'express';
-import { getEnvironment } from '../../functions/util';
 
 /**
  * 認証セッション
@@ -73,15 +72,11 @@ export class Auth2Model {
      * 認証クラス作成
      * @memberof Auth2Model
      */
-    public async create(req: express.Request) {
-        const env = await getEnvironment(req);
-        if (env === undefined) {
-            throw new Error('project not found');
-        }
+    public create(req: express.Request) {
         const auth = new cinerino.auth.OAuth2({
-            domain: env.OAUTH2_SERVER_DOMAIN,
-            clientId: env.CLIENT_ID_OAUTH2,
-            clientSecret: env.CLIENT_SECRET_OAUTH2,
+            domain: <string>process.env.OAUTH2_SERVER_DOMAIN,
+            clientId: <string>process.env.CLIENT_ID_OAUTH2,
+            clientSecret: <string>process.env.CLIENT_SECRET_OAUTH2,
             redirectUri: `${req.protocol}://${req.hostname}/signIn`,
             logoutUri: `${req.protocol}://${req.hostname}/signOut`,
             state: this.state,

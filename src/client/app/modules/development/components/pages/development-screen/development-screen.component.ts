@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { select, Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import { environment } from '../../../../../../environments/environment';
+import { getEnvironment } from '../../../../../../environments/environment';
 import { PurchaseService } from '../../../../../services';
 import * as reducers from '../../../../../store/reducers';
 
@@ -13,7 +13,7 @@ import * as reducers from '../../../../../store/reducers';
 export class DevelopmentScreenComponent implements OnInit {
     public purchase: Observable<reducers.IPurchaseState>;
     public table: { theaterCode: string; screens: string[]; }[];
-    public environment = environment;
+    public environment = getEnvironment();
     public theaterCode: string;
     public screenCode: string;
     public isLoading: Observable<boolean>;

@@ -3,7 +3,7 @@
  */
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
-import { environment } from '../../../../../../environments/environment';
+import { getEnvironment } from '../../../../../../environments/environment';
 import { UtilService } from '../../../../../services';
 import { CinerinoService } from '../../../../../services/cinerino.service';
 
@@ -15,7 +15,7 @@ import { CinerinoService } from '../../../../../services/cinerino.service';
 export class HeaderMenuComponent implements OnInit {
     @Input() public isOpen: boolean;
     @Output() public close: EventEmitter<{}> = new EventEmitter();
-    public environment = environment;
+    public environment = getEnvironment();
 
     constructor(
         private cinerino: CinerinoService,
@@ -43,7 +43,7 @@ export class HeaderMenuComponent implements OnInit {
     }
 
     public isVisible(value: string) {
-        return (environment.HEADER_MENU_SCOPE.find(r => r === value) !== undefined);
+        return (getEnvironment().HEADER_MENU_SCOPE.find(r => r === value) !== undefined);
     }
 
 }

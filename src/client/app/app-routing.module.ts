@@ -3,7 +3,7 @@
  */
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { environment } from '../environments/environment';
+import { getEnvironment } from '../environments/environment';
 import { ErrorModule } from './modules/error/error.module';
 
 const appRoutes: Routes = [
@@ -59,7 +59,7 @@ const appRoutes: Routes = [
     imports: [
         RouterModule.forRoot(
             appRoutes,
-            { useHash: true, enableTracing: !environment.production }
+            { useHash: true, enableTracing: !getEnvironment().production }
         )
     ],
     exports: [

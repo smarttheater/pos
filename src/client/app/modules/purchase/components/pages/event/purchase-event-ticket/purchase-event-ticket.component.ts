@@ -6,7 +6,7 @@ import { TranslateService } from '@ngx-translate/core';
 import * as moment from 'moment';
 import { BsModalService } from 'ngx-bootstrap';
 import { Observable } from 'rxjs';
-import { environment } from '../../../../../../../environments/environment';
+import { getEnvironment } from '../../../../../../../environments/environment';
 import {
     changeTicketCount,
     getRemainingSeatLength,
@@ -38,7 +38,7 @@ export class PurchaseEventTicketComponent implements OnInit, OnDestroy {
     public getTicketPrice = getTicketPrice;
     public changeTicketCount = changeTicketCount;
     private updateTimer: any;
-    public environment = environment;
+    public environment = getEnvironment();
 
     constructor(
         private store: Store<reducers.IState>,
@@ -176,12 +176,12 @@ export class PurchaseEventTicketComponent implements OnInit, OnDestroy {
     private async selectTicket(
         reservationTickets: IReservationTicket[]
     ) {
-        if (reservationTickets.length > Number(environment.PURCHASE_ITEM_MAX_LENGTH)) {
+        if (reservationTickets.length > Number(getEnvironment().PURCHASE_ITEM_MAX_LENGTH)) {
             this.utilService.openAlert({
                 title: this.translate.instant('common.error'),
                 body: this.translate.instant(
                     'purchase.event.ticket.alert.limit',
-                    { value: environment.PURCHASE_ITEM_MAX_LENGTH }
+                    { value: getEnvironment().PURCHASE_ITEM_MAX_LENGTH }
                 )
             });
             return;
@@ -240,12 +240,12 @@ export class PurchaseEventTicketComponent implements OnInit, OnDestroy {
         // チケット枚数上限判定
         let itemCount = 0;
         authorizeSeatReservations.forEach(a => itemCount += a.object.acceptedOffer.length);
-        if (itemCount > Number(environment.PURCHASE_ITEM_MAX_LENGTH)) {
+        if (itemCount > Number(getEnvironment().PURCHASE_ITEM_MAX_LENGTH)) {
             this.utilService.openAlert({
                 title: this.translate.instant('common.error'),
                 body: this.translate.instant(
                     'purchase.event.ticket.alert.limit',
-                    { value: Number(environment.PURCHASE_ITEM_MAX_LENGTH) }
+                    { value: Number(getEnvironment().PURCHASE_ITEM_MAX_LENGTH) }
                 )
             });
             return;

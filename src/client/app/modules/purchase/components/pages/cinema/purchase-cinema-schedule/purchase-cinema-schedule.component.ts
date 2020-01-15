@@ -8,7 +8,7 @@ import * as moment from 'moment';
 import { BsDatepickerDirective, BsLocaleService, BsModalService } from 'ngx-bootstrap';
 import { BsDatepickerContainerComponent } from 'ngx-bootstrap/datepicker/themes/bs/bs-datepicker-container.component';
 import { Observable } from 'rxjs';
-import { environment } from '../../../../../../../environments/environment';
+import { getEnvironment } from '../../../../../../../environments/environment';
 import { iOSDatepickerTapBugFix, IScreeningEventWork, screeningEventsToWorkEvents } from '../../../../../../functions';
 import { MasterService, PurchaseService, UserService, UtilService } from '../../../../../../services';
 import * as reducers from '../../../../../../store/reducers';
@@ -88,7 +88,7 @@ export class PurchaseCinemaScheduleComponent implements OnInit, OnDestroy {
         const seller = user.seller;
         if (this.scheduleDate === undefined) {
             this.scheduleDate = moment()
-                .add(environment.PURCHASE_SCHEDULE_DEFAULT_SELECTED_DATE, 'day')
+                .add(getEnvironment().PURCHASE_SCHEDULE_DEFAULT_SELECTED_DATE, 'day')
                 .toDate();
         }
         const scheduleDate = moment(this.scheduleDate).format('YYYY-MM-DD');

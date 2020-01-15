@@ -2,7 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { factory } from '@cinerino/api-javascript-client';
 import * as moment from 'moment';
 import { BsModalRef } from 'ngx-bootstrap';
-import { environment } from '../../../../../../environments/environment';
+import { getEnvironment } from '../../../../../../environments/environment';
 import {
     getRemainingSeatLength,
     getTicketPrice,
@@ -45,7 +45,7 @@ export class PurchaseEventTicketModalComponent implements OnInit {
             return movieTicketTypeChargeSpecification === undefined;
         });
         this.values = [];
-        let limit = Number(environment.PURCHASE_ITEM_MAX_LENGTH);
+        let limit = Number(getEnvironment().PURCHASE_ITEM_MAX_LENGTH);
         if (isTicketedSeatScreeningEvent(this.screeningEvent)) {
             const remainingSeatLength = this.getRemainingSeatLength(this.screeningEventOffers, this.screeningEvent);
             limit = (limit > remainingSeatLength) ? remainingSeatLength : limit;

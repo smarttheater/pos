@@ -5,11 +5,12 @@ import { Actions, Effect, ofType } from '@ngrx/effects';
 import { TranslateService } from '@ngx-translate/core';
 import * as moment from 'moment';
 import { map, mergeMap } from 'rxjs/operators';
-import { environment } from '../../../environments/environment';
+import { getEnvironment } from '../../../environments/environment';
 import {
     authorizeSeatReservationToEvent,
     createMovieTicketsFromAuthorizeSeatReservation,
     formatTelephone,
+    getProject,
     getTicketPrice,
     isTicketedSeatScreeningEvent
 } from '../../functions';
@@ -97,9 +98,13 @@ export class PurchaseEffects {
                     screenCode = `000${payload.screeningEvent.location.branchCode}`.slice(-3);
                 }
                 const screen = await this.http.get<IScreen>(
-                    `/storage/json/theater/${theaterCode}/${screenCode}.json?${moment().format('YYYYMMDDHHmm')}`
+                    `${getProject().storageUrl}/json/theater/${theaterCode}/${screenCode}.json?${moment().format('YYYYMMDDHHmm')}`
                 ).toPromise();
-                const setting = await this.http.get<IScreen>(`/storage/json/theater/setting.json`).toPromise();
+                const objects = screen.objects.map((o) => {
+                    return {...o, image: o.image.replace('/storage', getProject().storageUrl)};
+                });
+                screen.objects = objects;
+                const setting = await this.http.get<IScreen>(`${getProject().storageUrl}/json/theater/setting.json`).toPromise();
                 const screenData = Object.assign(setting, screen);
                 return new purchaseAction.GetScreenSuccess({ screeningEventOffers, screenData });
             } catch (error) {
@@ -495,9 +500,9 @@ export class PurchaseEffects {
                         template: undefined
                     }
                 };
-                if (environment.PURCHASE_COMPLETE_MAIL_CUSTOM && params.email !== undefined) {
+                if (getEnvironment().PURCHASE_COMPLETE_MAIL_CUSTOM && params.email !== undefined) {
                     // 完了メールをカスタマイズ
-                    const view = await this.utilService.getText(`/storage/ejs/mail/complete/${payload.language}.ejs`);
+                    const view = await this.utilService.getText(`${getProject().storageUrl}/ejs/mail/complete/${payload.language}.ejs`);
                     params.email.template = await (<any>window).ejs.render(view, {
                         authorizeSeatReservations: authorizeSeatReservationToEvent({ authorizeSeatReservations }),
                         seller,

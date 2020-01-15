@@ -92,7 +92,7 @@ let ReservationSearchComponent = class ReservationSearchComponent {
         this.moment = moment__WEBPACK_IMPORTED_MODULE_4__;
         this.reservationStatus = _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_1__["factory"].chevre.reservationStatusType;
         this.getTicketPrice = _functions__WEBPACK_IMPORTED_MODULE_7__["getTicketPrice"];
-        this.environment = _environments_environment__WEBPACK_IMPORTED_MODULE_6__["environment"];
+        this.environment = Object(_environments_environment__WEBPACK_IMPORTED_MODULE_6__["getEnvironment"])();
     }
     ngOnInit() {
         this.isDownload = false;

@@ -1,6 +1,6 @@
 import { factory } from '@cinerino/api-javascript-client';
 import { IState } from '.';
-import { environment } from '../../../environments/environment';
+import { getEnvironment } from '../../../environments/environment';
 import { IPrinter, ViewType } from '../../models';
 import { userAction } from '../actions';
 
@@ -41,8 +41,8 @@ export interface IUserState {
 
 export const userInitialState: IUserState = {
     language: 'ja',
-    isPurchaseCart: environment.PURCHASE_CART,
-    viewType: (<ViewType>environment.VIEW_TYPE)
+    isPurchaseCart: getEnvironment().PURCHASE_CART,
+    viewType: (<ViewType>getEnvironment().VIEW_TYPE)
 };
 
 /**

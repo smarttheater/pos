@@ -20,17 +20,24 @@ const authorize_1 = require("./api/authorize");
 const util_2 = require("./api/util");
 const log = debug('application: router');
 exports.default = (app) => {
-    app.use('/storage', (req, res) => __awaiter(this, void 0, void 0, function* () {
+    app.use('/storage', (req, res) => {
+        const project = (req.body.project || req.query.project);
+        if (project === undefined) {
+            res.redirect(req.originalUrl.replace('/storage', process.env.STORAGE_URL));
+            return;
+        }
         try {
-            const env = yield util_1.getEnvironment(req);
-            const url = req.originalUrl.replace('/storage', env.STORAGE_URL);
-            res.redirect(url);
+            const findResult = util_1.getProject(project);
+            if (findResult === undefined) {
+                throw new Error('project not found');
+            }
+            res.redirect(req.originalUrl.replace('/storage', findResult.STORAGE_URL));
         }
         catch (error) {
             res.status(http_status_1.NOT_FOUND);
-            res.end(error);
+            res.end();
         }
-    }));
+    });
     app.use('/api/authorize', authorize_1.authorizeRouter);
     app.use('/api', util_2.utilRouter);
     app.get('/signIn', (req, res, next) => __awaiter(this, void 0, void 0, function* () {
@@ -43,7 +50,7 @@ exports.default = (app) => {
             if (req.query.state !== authModel.state) {
                 throw (new Error(`state not matched ${req.query.state} !== ${authModel.state}`));
             }
-            const auth = yield authModel.create(req);
+            const auth = authModel.create(req);
             const credentials = yield auth.getToken(req.query.code, authModel.codeVerifier);
             // log('credentials published', credentials);
             authModel.credentials = credentials;
@@ -78,10 +85,11 @@ exports.default = (app) => {
             req.query.eventId = req.query.performanceId;
         }
         if (req.query.project !== undefined) {
-            delete req.session.auth;
-            req.session.project = req.query.project;
             try {
-                yield util_1.getEnvironment(req);
+                const findResult = util_1.getProject(req.query.project);
+                if (findResult === undefined) {
+                    throw new Error('project not found');
+                }
             }
             catch (error) {
                 res.sendFile(path.resolve(`${__dirname}/../../../../public/404.html`));

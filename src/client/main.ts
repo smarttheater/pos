@@ -8,7 +8,8 @@ import * as momentTimezone from 'moment-timezone';
 import { defineLocale } from 'ngx-bootstrap/chronos';
 import { jaLocale } from 'ngx-bootstrap/locale';
 import { AppModule } from './app/app.module';
-import { environment } from './environments/environment';
+import { getParameter, getProject, setProject, streamingDownload } from './app/functions';
+import { getEnvironment } from './environments/environment';
 
 async function main() {
     // タイムゾーン設定
@@ -19,44 +20,61 @@ async function main() {
     defineLocale('ja', jaLocale);
 
     // プロジェクト設定
-    // if (getParameter<{ project: string }>().project !== undefined) {
-    //     sessionStorage.setItem('PROJECT', getParameter<{ project: string }>().project);
-    // }
-    // const project = (sessionStorage.getItem('PROJECT'));
-    // const config = await fetch(`/api/config?date=${momentTimezone().toISOString()}&project=${project}`, { method: 'GET' });
-    // const storageUrl = (await config.json()).storageUrl;
-    // const style = document.createElement('link');
-    // style.rel = 'stylesheet';
-    // style.href = `${storageUrl}/css/style.css`;
-    // document.body.appendChild(style);
-    // try {
-    //     const env = await fetch(`${storageUrl}/json/environment.json?date=${momentTimezone().toISOString()}`, { method: 'GET' });
-    //     (<any>window).environment = await env.json();
-    // } catch (error) {
-    //     const env = await fetch(`${storageUrl}/js/environment.js?date=${momentTimezone().toISOString()}`, { method: 'GET' });
-    //     (<any>window).eval(<any>(env.body));
-    // }
+    const project = getParameter<{ project: string | undefined }>().project
+        || (getProject().projectName === '') ? undefined : getProject().projectName;
+    await setProject({ project });
+    await setProjectConfig();
+}
 
-    // // GTM設定
-    // if (environment.GTM_ID) {
-    //     (function (w, d, s, l, i) {
-    //         (<any>w)[l] = (<any>w)[l] || [];
-    //         (<any>w)[l].push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' });
-    //         const f =
-    //             d.getElementsByTagName(s)[0],
-    //             j = d.createElement(s),
-    //             dl = l !== 'dataLayer' ? '&l=' + l : ''; (<any>j).async = true;
-    //         (<any>j).src = 'https://www.googletagmanager.com/gtm.js?id=' + i + dl;
-    //         (<any>f).parentNode.insertBefore(j, f);
-    //     })(window, document, 'script', 'dataLayer', environment.GTM_ID);
-    // }
+/**
+ * プロジェクトごとのアプリケーション設定
+ */
+async function setProjectConfig() {
+    // 設定読み込み
+    const fetchResult = await fetch(`${getProject().storageUrl}/js/environment.js`, {
+        method: 'GET',
+        cache: 'no-cache',
+        headers: { 'Content-Type': 'application/json; charset=utf-8' }
+    });
+    if (!fetchResult.ok) {
+        throw new Error(JSON.stringify({ status: fetchResult.status, statusText: fetchResult.statusText }));
+    }
+    if (fetchResult.body === null) {
+        throw new Error('fetchResult.body null');
+    }
+    (<any>window).eval(await streamingDownload(fetchResult.body));
+    // スタイル設定
+    const style = document.createElement('link');
+    style.rel = 'stylesheet';
+    style.href = `${getProject().storageUrl}/css/style.css`;
+    document.body.appendChild(style);
+    // ファビコン設定
+    const favicon = document.createElement('link');
+    favicon.rel = 'icon';
+    favicon.type = 'image/x-icon"';
+    favicon.href = `${getProject().storageUrl}/favicon.ico`;
+    document.body.appendChild(favicon);
+    // タイトル設定
+    document.title = getEnvironment().APP_TITLE;
+    // GTM設定
+    if (getEnvironment().GTM_ID) {
+        (function (w, d, s, l, i) {
+            (<any>w)[l] = (<any>w)[l] || [];
+            (<any>w)[l].push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' });
+            const f = d.getElementsByTagName(s)[0];
+            const j = d.createElement(s), dl = l !== 'dataLayer' ? '&l=' + l : '';
+            (<any>j).async = true;
+            (<any>j).src = 'https://www.googletagmanager.com/gtm.js?id=' + i + dl;
+            (<any>f).parentNode.insertBefore(j, f);
+        })(window, document, 'script', 'dataLayer', getEnvironment().GTM_ID);
+    }
+    if (getEnvironment().production) {
+        enableProdMode();
+    }
 }
 
 
 main().then(() => {
-    if (environment.production) {
-        enableProdMode();
-    }
     platformBrowserDynamic().bootstrapModule(AppModule);
 }).catch((error) => {
     console.error(error);
