@@ -9,7 +9,7 @@
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("<div class=\"contents-width mx-auto px-3 pt-5\">\n    <h2 class=\"text-large mb-4 text-center font-weight-bold\">{{ 'admission.check.title' | translate }}</h2>\n    <p class=\"mb-4 text-md-center\" [innerHTML]=\"'admission.check.read' | translate\"></p>\n</div>\n\n<div class=\"mb-4\" [class.d-block]=\"isShowVideo\" [class.d-none]=\"!isShowVideo\">\n    <div class=\"d-flex align-items-center video-area\"><video id=\"video\" class=\"bg-black\" src=\"\" autoplay muted\n            playsinline></video></div>\n    <div class=\"d-none\"><canvas id=\"canvas\"></canvas></div>\n</div>\n\n<div class=\"contents-width mx-auto px-3\">\n    <div class=\"buttons mx-auto text-center mb-4\">\n        <button *ngIf=\"stream === null\" type=\"button\" class=\"btn btn-success btn-block py-3\"\n            (click)=\"start()\">{{ 'admission.check.camera.start' | translate }}</button>\n        <button *ngIf=\"stream !== null\" type=\"button\" class=\"btn btn-danger btn-block py-3\"\n            (click)=\"stop()\">{{ 'admission.check.camera.stop' | translate }}</button>\n    </div>\n</div>\n\n\n<div *ngIf=\"!(isLoading | async)\" class=\"mb-4\">\n    <div *ngIf=\"(admission | async).qrcodeToken\">\n        <div *ngIf=\"(admission | async).qrcodeToken.availableReservation\" class=\"p-4 bg-success text-white text-center\">\n            <div *ngIf=\"(admission | async).qrcodeToken.checkTokenActions.length === 0\"\n                class=\"flash-text text-xx-large font-weight-bold mb-2\">{{ 'admission.check.success' | translate }}</div>\n            <div *ngIf=\"(admission | async).qrcodeToken.checkTokenActions.length > 0\"\n                class=\"flash-text text-xx-large font-weight-bold mb-2\">{{ 'admission.check.reEntry' | translate }}</div>\n            <p *ngIf=\"(admission | async).qrcodeToken.availableReservation.reservedTicket.ticketedSeat && environment.DISPLAY_TICKETED_SEAT\">\n                <strong class=\"mr-2\">{{ 'common.seat' | translate }}</strong>\n                {{ (admission | async).qrcodeToken.availableReservation.reservedTicket.ticketedSeat.seatNumber }}\n            </p>\n            <p>\n                <strong class=\"mr-2\">{{ 'common.ticket' | translate }}</strong>\n                {{ (admission | async).qrcodeToken.availableReservation.reservedTicket.ticketType.name | changeLanguage }}\n            </p>\n            <p>\n                <strong class=\"mr-2\">{{ 'admission.check.entryCount' | translate }}</strong>\n                {{ (admission | async).qrcodeToken.checkTokenActions.length }}\n            </p>\n        </div>\n        <div *ngIf=\"!(admission | async).qrcodeToken.availableReservation\" class=\"p-4 bg-danger text-white text-center\">\n            <div class=\"flash-text text-xx-large font-weight-bold mb-2\">{{ 'admission.check.danger' | translate }}</div>\n            <p *ngIf=\"(admission | async).qrcodeToken.statusCode === 200\">\n                {{ 'admission.check.alert.event' | translate }}<br>\n                <strong>{{ (admission | async).qrcodeToken.statusCode }}</strong>\n\n            </p>\n            <p *ngIf=\"(admission | async).qrcodeToken.statusCode !== 200\">\n                {{ 'admission.check.alert.qrcode' | translate }}<br>\n                <strong>{{ (admission | async).qrcodeToken.statusCode }}</strong>\n            </p>\n        </div>\n    </div>\n    <div *ngIf=\"!(admission | async).qrcodeToken\" class=\"p-4 bg-dark text-white text-center\">\n        <div class=\"text-xx-large font-weight-bold mb-2\">{{ 'admission.check.waiting' | translate }}</div>\n        <p>{{ 'admission.check.alert.waiting' | translate }}</p>\n    </div>\n</div>\n\n\n<div class=\"contents-width mx-auto px-3 pb-5\">\n    <div class=\"mb-4 bg-white\">\n        <div class=\"p-3\">\n            <div class=\"mb-2\">\n                <p class=\"font-weight-bold text-large\">{{ (admission | async).screeningEvent.name | changeLanguage }}</p>\n                <p *ngIf=\"(admission | async).screeningEvent.workPerformed.headline\" class=\"text-small\">\n                    {{ (admission | async).screeningEvent.workPerformed.headline }}\n                </p>\n                <p *ngIf=\"(admission | async).screeningEvent.superEvent.description && ((admission | async).screeningEvent.superEvent.description | changeLanguage)\"\n                    class=\"text-small\">\n                    {{ (admission | async).screeningEvent.superEvent.description | changeLanguage }}\n                </p>\n            </div>\n            <div class=\"d-flex align-items-center mb-2\">\n                <div *ngIf=\"(admission | async).screeningEvent.workPerformed.contentRating\"\n                    class=\"text-small text-white bg-dark py-1 px-3 mr-2\">{{\n                (admission | async).screeningEvent.workPerformed.contentRating }}</div>\n                <div *ngIf=\"(admission | async).screeningEvent.superEvent.dubLanguage\"\n                    class=\"text-small text-white bg-dark py-1 px-3 mr-2\">{{ 'common.dubbing' | translate }}</div>\n                <div *ngIf=\"(admission | async).screeningEvent.superEvent.subtitleLanguage\"\n                    class=\"text-small text-white bg-dark py-1 px-3 mr-2\">{{ 'common.subtitles' | translate }}</div>\n                <div *ngIf=\"(admission | async).screeningEvent.workPerformed?.duration && moment.duration((admission | async).screeningEvent.workPerformed?.duration).asMinutes() > 0\"\n                    class=\"text-small ml-auto\">\n                    <span class=\"mr-1\">{{ 'common.duration' | translate }}</span>{{ moment.duration((admission | async).screeningEvent.workPerformed?.duration).asMinutes() }}{{ 'common.date.minute' | translate }}\n                </div>\n            </div>\n        </div>\n        <div class=\"p-3\">\n            <p class=\"theatre-name\">{{ (admission | async).screeningEvent.superEvent.location.name | changeLanguage }}</p>\n            <p class=\"screen-name\">\n                <span *ngIf=\"(admission | async).screeningEvent.location.address\" class=\"mr-2\">\n                    {{ (admission | async).screeningEvent.location.address | changeLanguage }}\n                </span>\n                <span>\n                    {{ (admission | async).screeningEvent.location.name | changeLanguage }}\n                </span>\n            </p>\n            <div>\n                <p class=\"mr-3\">\n                    <strong class=\"mr-2\">{{ 'common.doorTime' | translate }}</strong>\n                    {{ (admission | async).screeningEvent.doorTime | formatDate: 'MM/DD (ddd) HH:mm' }}\n                </p>\n                <p>\n                    <strong class=\"mr-2\">{{ 'common.startDate' | translate }}</strong>\n                    {{ (admission | async).screeningEvent.startDate | formatDate: 'MM/DD (ddd) HH:mm' }} -\n                    {{ (admission | async).screeningEvent.endDate | formatDate: 'HH:mm' }}\n                </p>\n                <p class=\"mr-3\">\n                    <strong class=\"mr-2\">{{ 'common.reservation' | translate }}</strong>\n                    {{ (admission | async).screeningEvent.maximumAttendeeCapacity - (admission |\n                async).screeningEvent.remainingAttendeeCapacity }}\n                </p>\n                <p>\n                    <strong class=\"mr-2\">{{ 'common.admission' | translate }}</strong>\n                    {{ (admission | async).screeningEvent.attendeeCount }}\n                </p>\n            </div>\n        </div>\n    </div>\n    <!-- <div class=\"p-3 mb-4 bg-light-gray\">\n        <p><strong class=\"mr-2\">未送信件数</strong> {{ (admission | async).usentList.length }}</p>\n        <p>※1分に1回送信されます</p>\n    </div> -->\n\n    <div class=\"buttons mx-auto text-center\">\n        <button type=\"button\" class=\"btn btn-link\"\n            routerLink=\"/admission/schedule\">{{ 'admission.schedule.prev' | translate }}</button>\n    </div>\n\n</div>");
+/* harmony default export */ __webpack_exports__["default"] = ("<div class=\"contents-width mx-auto px-3 pt-5\">\n    <h2 class=\"text-large mb-4 text-center font-weight-bold\">{{ 'admission.check.title' | translate }}</h2>\n    <p class=\"mb-4 text-md-center\" [innerHTML]=\"'admission.check.read' | translate\"></p>\n</div>\n\n<div class=\"contents-width mx-auto px-3\">\n    <div class=\"buttons mx-auto text-center mb-4\">\n        <button type=\"button\" class=\"btn btn-success btn-block py-3\"\n            (click)=\"openQRCodeReader()\">{{ 'admission.check.camera.start' | translate }}</button>\n    </div>\n</div>\n\n\n<div *ngIf=\"!(isLoading | async)\" class=\"mb-4\">\n    <div *ngIf=\"(admission | async).qrcodeToken\">\n        <div *ngIf=\"(admission | async).qrcodeToken.availableReservation\" class=\"p-4 bg-success text-white text-center\">\n            <div *ngIf=\"(admission | async).qrcodeToken.checkTokenActions.length === 0\"\n                class=\"flash-text text-xx-large font-weight-bold mb-2\">{{ 'admission.check.success' | translate }}</div>\n            <div *ngIf=\"(admission | async).qrcodeToken.checkTokenActions.length > 0\"\n                class=\"flash-text text-xx-large font-weight-bold mb-2\">{{ 'admission.check.reEntry' | translate }}</div>\n            <p *ngIf=\"(admission | async).qrcodeToken.availableReservation.reservedTicket.ticketedSeat && environment.DISPLAY_TICKETED_SEAT\">\n                <strong class=\"mr-2\">{{ 'common.seat' | translate }}</strong>\n                {{ (admission | async).qrcodeToken.availableReservation.reservedTicket.ticketedSeat.seatNumber }}\n            </p>\n            <p>\n                <strong class=\"mr-2\">{{ 'common.ticket' | translate }}</strong>\n                {{ (admission | async).qrcodeToken.availableReservation.reservedTicket.ticketType.name | changeLanguage }}\n            </p>\n            <p>\n                <strong class=\"mr-2\">{{ 'admission.check.entryCount' | translate }}</strong>\n                {{ (admission | async).qrcodeToken.checkTokenActions.length }}\n            </p>\n        </div>\n        <div *ngIf=\"!(admission | async).qrcodeToken.availableReservation\" class=\"p-4 bg-danger text-white text-center\">\n            <div class=\"flash-text text-xx-large font-weight-bold mb-2\">{{ 'admission.check.danger' | translate }}</div>\n            <p *ngIf=\"(admission | async).qrcodeToken.statusCode === 200\">\n                {{ 'admission.check.alert.event' | translate }}<br>\n                <strong>{{ (admission | async).qrcodeToken.statusCode }}</strong>\n\n            </p>\n            <p *ngIf=\"(admission | async).qrcodeToken.statusCode !== 200\">\n                {{ 'admission.check.alert.qrcode' | translate }}<br>\n                <strong>{{ (admission | async).qrcodeToken.statusCode }}</strong>\n            </p>\n        </div>\n    </div>\n    <div *ngIf=\"!(admission | async).qrcodeToken\" class=\"p-4 bg-dark text-white text-center\">\n        <div class=\"text-xx-large font-weight-bold mb-2\">{{ 'admission.check.waiting' | translate }}</div>\n        <p>{{ 'admission.check.alert.waiting' | translate }}</p>\n    </div>\n</div>\n\n\n<div class=\"contents-width mx-auto px-3 pb-5\">\n    <div class=\"mb-4 bg-white\">\n        <div class=\"p-3\">\n            <div class=\"mb-2\">\n                <p class=\"font-weight-bold text-large\">{{ (admission | async).screeningEvent.name | changeLanguage }}</p>\n                <p *ngIf=\"(admission | async).screeningEvent.workPerformed.headline\" class=\"text-small\">\n                    {{ (admission | async).screeningEvent.workPerformed.headline }}\n                </p>\n                <p *ngIf=\"(admission | async).screeningEvent.superEvent.description && ((admission | async).screeningEvent.superEvent.description | changeLanguage)\"\n                    class=\"text-small\">\n                    {{ (admission | async).screeningEvent.superEvent.description | changeLanguage }}\n                </p>\n            </div>\n            <div class=\"d-flex align-items-center mb-2\">\n                <div *ngIf=\"(admission | async).screeningEvent.workPerformed.contentRating\"\n                    class=\"text-small text-white bg-dark py-1 px-3 mr-2\">{{\n                (admission | async).screeningEvent.workPerformed.contentRating }}</div>\n                <div *ngIf=\"(admission | async).screeningEvent.superEvent.dubLanguage\"\n                    class=\"text-small text-white bg-dark py-1 px-3 mr-2\">{{ 'common.dubbing' | translate }}</div>\n                <div *ngIf=\"(admission | async).screeningEvent.superEvent.subtitleLanguage\"\n                    class=\"text-small text-white bg-dark py-1 px-3 mr-2\">{{ 'common.subtitles' | translate }}</div>\n                <div *ngIf=\"(admission | async).screeningEvent.workPerformed?.duration && moment.duration((admission | async).screeningEvent.workPerformed?.duration).asMinutes() > 0\"\n                    class=\"text-small ml-auto\">\n                    <span class=\"mr-1\">{{ 'common.duration' | translate }}</span>{{ moment.duration((admission | async).screeningEvent.workPerformed?.duration).asMinutes() }}{{ 'common.date.minute' | translate }}\n                </div>\n            </div>\n        </div>\n        <div class=\"p-3\">\n            <p class=\"theatre-name\">{{ (admission | async).screeningEvent.superEvent.location.name | changeLanguage }}</p>\n            <p class=\"screen-name\">\n                <span *ngIf=\"(admission | async).screeningEvent.location.address\" class=\"mr-2\">\n                    {{ (admission | async).screeningEvent.location.address | changeLanguage }}\n                </span>\n                <span>\n                    {{ (admission | async).screeningEvent.location.name | changeLanguage }}\n                </span>\n            </p>\n            <div>\n                <p class=\"mr-3\">\n                    <strong class=\"mr-2\">{{ 'common.doorTime' | translate }}</strong>\n                    {{ (admission | async).screeningEvent.doorTime | formatDate: 'MM/DD (ddd) HH:mm' }}\n                </p>\n                <p>\n                    <strong class=\"mr-2\">{{ 'common.startDate' | translate }}</strong>\n                    {{ (admission | async).screeningEvent.startDate | formatDate: 'MM/DD (ddd) HH:mm' }} -\n                    {{ (admission | async).screeningEvent.endDate | formatDate: 'HH:mm' }}\n                </p>\n                <p class=\"mr-3\">\n                    <strong class=\"mr-2\">{{ 'common.reservation' | translate }}</strong>\n                    {{ (admission | async).screeningEvent.maximumAttendeeCapacity - (admission |\n                async).screeningEvent.remainingAttendeeCapacity }}\n                </p>\n                <p>\n                    <strong class=\"mr-2\">{{ 'common.admission' | translate }}</strong>\n                    {{ (admission | async).screeningEvent.attendeeCount }}\n                </p>\n            </div>\n        </div>\n    </div>\n    <!-- <div class=\"p-3 mb-4 bg-light-gray\">\n        <p><strong class=\"mr-2\">未送信件数</strong> {{ (admission | async).usentList.length }}</p>\n        <p>※1分に1回送信されます</p>\n    </div> -->\n\n    <div class=\"buttons mx-auto text-center\">\n        <button type=\"button\" class=\"btn btn-link\"\n            routerLink=\"/admission/schedule\">{{ 'admission.schedule.prev' | translate }}</button>\n    </div>\n\n</div>");
 
 /***/ }),
 
@@ -22,7 +22,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("<div class=\"contents-width mx-auto px-3 py-5\">\n    <h2 class=\"text-large mb-4 text-center font-weight-bold\">{{ 'admission.schedule.title' | translate }}</h2>\n    <p class=\"mb-4 text-md-center\" [innerHTML]=\"'admission.schedule.read' | translate\"></p>\n    <div class=\"mb-3\">\n        <input type=\"date\" class=\"form-control rounded-0 text-large\" name=\"date\" [(ngModel)]=\"scheduleDate\"\n            (change)=\"selectDate()\">\n    </div>\n    <p *ngIf=\"(admission | async).scheduleDate\" class=\"text-primary text-large mb-3\">{{ (admission |\n        async).scheduleDate | formatDate: 'YYYY/MM/DD (ddd)' }}</p>\n    <p *ngIf=\"screeningWorkEvents.length === 0\" class=\"mb-3\" [innerHTML]=\"'admission.schedule.notfound' | translate\"></p>\n    <app-admission-schedule-work *ngFor=\"let screeningWorkEvent of screeningWorkEvents\"\n        [screeningWorkEvent]=\"screeningWorkEvent\" (select)=\"selectSchedule($event)\" class=\"mb-3\"></app-admission-schedule-work>\n</div>");
+/* harmony default export */ __webpack_exports__["default"] = ("<div class=\"contents-width mx-auto px-3 py-5\">\n    <h2 class=\"text-large mb-4 text-center font-weight-bold\">{{ 'admission.schedule.title' | translate }}</h2>\n    <p class=\"mb-4 text-md-center\" [innerHTML]=\"'admission.schedule.read' | translate\"></p>\n\n    <div class=\"mb-3\">\n        <div class=\"input-group\">\n            <input type=\"text\" placeholder=\"Datepicker\" class=\"form-control\" #datepicker=\"bsDatepicker\" bsDatepicker\n                [(ngModel)]=\"scheduleDate\"\n                [bsConfig]=\"{ dateInputFormat: 'YYYY/MM/DD', adaptivePosition: true, showWeekNumbers: false }\"\n                (bsValueChange)=\"selectDate($event)\" readonly (click)=\"setDatePicker()\"\n                (onShown)=\"onShowPicker($event)\">\n            <!-- <input type=\"date\" class=\"form-control rounded-0 text-large\" name=\"date\" [(ngModel)]=\"scheduleDate\"\n                (change)=\"selectDate()\"> -->\n            <div class=\"input-group-append pointer\" (click)=\"toggleDatepicker()\">\n                <span class=\"input-group-text\"><i class=\"fas fa-caret-down\"></i></span>\n            </div>\n        </div>\n    </div>\n    <p *ngIf=\"(admission | async).scheduleDate\" class=\"text-primary text-large mb-3\">{{ (admission |\n        async).scheduleDate | formatDate: 'YYYY/MM/DD (ddd)' }}</p>\n    <p *ngIf=\"screeningWorkEvents.length === 0\" class=\"mb-3\" [innerHTML]=\"'admission.schedule.notfound' | translate\">\n    </p>\n    <app-admission-schedule-work *ngFor=\"let screeningWorkEvent of screeningWorkEvents\"\n        [screeningWorkEvent]=\"screeningWorkEvent\" (select)=\"selectSchedule($event)\" class=\"mb-3\">\n    </app-admission-schedule-work>\n</div>");
 
 /***/ }),
 
@@ -35,7 +35,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("<div class=\"bg-white\">\n    <div class=\"p-3\">\n        <div class=\"mb-2\">\n            <p><strong>{{ screeningWorkEvent.info.name | changeLanguage }}</strong></p>\n            <p\n                *ngIf=\"screeningWorkEvent.info.superEvent.headline && (screeningWorkEvent.info.superEvent.headline | changeLanguage)\">\n                {{ screeningWorkEvent.info.superEvent.headline | changeLanguage }}</p>\n            <p\n                *ngIf=\"screeningWorkEvent.info.superEvent.description && (screeningWorkEvent.info.superEvent.description | changeLanguage)\">{{\n                    screeningWorkEvent.info.superEvent.description | changeLanguage }}</p>\n        </div>\n        <div class=\"d-flex align-items-center\">\n            <div *ngIf=\"screeningWorkEvent.info.workPerformed?.contentRating\"\n                class=\"text-small bg-dark-gray text-white py-1 px-3 mr-2\">{{\n                    screeningWorkEvent.info.workPerformed.contentRating }}</div>\n            <div *ngIf=\"screeningWorkEvent.info.superEvent.dubLanguage\"\n                class=\"text-small bg-dark-gray text-white py-1 px-3 mr-2\">{{ 'common.dubbing' | translate }}</div>\n            <div *ngIf=\"screeningWorkEvent.info.superEvent.subtitleLanguage\"\n                class=\"text-small bg-dark-gray text-white py-1 px-3 mr-2\">{{ 'common.subtitles' | translate }}</div>\n            <div *ngIf=\"screeningWorkEvent.info.workPerformed?.duration && moment.duration(screeningWorkEvent.info.workPerformed.duration).asMinutes() > 0\" class=\"text-small ml-auto\">\n                <span class=\"mr-1\">{{ 'common.duration' | translate }}</span>{{ moment.duration(screeningWorkEvent.info.workPerformed.duration).asMinutes() }}{{ 'common.date.minute' | translate }}\n            </div>\n        </div>\n    </div>\n    <ul class=\"p-3\">\n        <li *ngFor=\"let screeningEvent of screeningWorkEvent.data\"\n            class=\"border boder-gray rounded p-2 py-md-3 text-md-center d-md-block d-flex justify-content-between align-items-center pointer\"\n            [ngClass]=\"{ \n          'bg-white': (moment(screeningEvent.doorTime).unix() < moment().unix() && moment(screeningEvent.endDate).unix() > moment().unix()), \n          'bg-dark-gray text-light-gray': !(moment(screeningEvent.doorTime).unix() < moment().unix() && moment(screeningEvent.endDate).unix() > moment().unix())\n          }\" (click)=\"select.emit(screeningEvent)\">\n            <div>\n                <div class=\"mb-2 text-small screen-name\">\n                    {{ screeningEvent.location.name | changeLanguage }}\n                </div>\n                <div>\n                    <strong class=\"text-large\">{{ moment(screeningEvent.startDate).format('HH:mm') }}</strong>\n                    <span>-</span>\n                    <span>{{ moment(screeningEvent.endDate).format('HH:mm') }}</span>\n                </div>\n            </div>\n            <hr class=\"border-0 bg-light-gray my-2\">\n            <div class=\"text-center\">\n                <div\n                    *ngIf=\"moment(screeningEvent.doorTime).unix() < moment().unix() && moment(screeningEvent.endDate).unix() > moment().unix()\">\n                    <div class=\"status mb-2\" *ngIf=\"!(moment(screeningEvent.startDate).unix() < moment().unix())\">\n                        {{ 'admission.schedule.status.opening' | translate }}\n                    </div>\n                    <div class=\"status mb-2\" *ngIf=\"moment(screeningEvent.startDate).unix() < moment().unix()\">\n                        {{ 'admission.schedule.status.nowShowing' | translate }}</div>\n                </div>\n\n                <div class=\"status mb-2\" *ngIf=\"!(moment(screeningEvent.doorTime).unix() < moment().unix())\">\n                    {{ 'admission.schedule.status.beforeOpening' | translate }}</div>\n                <div class=\"status mb-2\" *ngIf=\"!(moment(screeningEvent.endDate).unix() > moment().unix())\">\n                    {{ 'admission.schedule.status.filmCompletion' | translate }}</div>\n                <div *ngIf=\"screeningEvent.offers?.itemOffered.serviceOutput?.reservedTicket?.ticketedSeat && environment.DISPLAY_TICKETED_SEAT\" class=\"mb-2 text-small\">{{ 'common.seat' | translate }}\n                    {{ screeningEvent.remainingAttendeeCapacity }} / {{ screeningEvent.maximumAttendeeCapacity }}\n                </div>\n                <div *ngIf=\"!(screeningEvent.offers?.itemOffered.serviceOutput?.reservedTicket?.ticketedSeat)\" class=\"mb-2 text-small\">\n                    {{ 'admission.schedule.infiniteStock' | translate }}</div>\n                <div class=\"text-small mb-1\">{{ 'common.ticketing' | translate }} {{ screeningEvent.checkInCount }}</div>\n                <div class=\"text-small\">{{ 'common.admission' | translate }} {{ screeningEvent.attendeeCount }}</div>\n            </div>\n        </li>\n    </ul>\n</div>");
+/* harmony default export */ __webpack_exports__["default"] = ("<div class=\"bg-white\">\n    <div class=\"p-3\">\n        <div class=\"mb-2\">\n            <p class=\"font-weight-bold text-large\">{{ screeningWorkEvent.info.name | changeLanguage }}</p>\n            <p\n                *ngIf=\"screeningWorkEvent.info.superEvent.headline && (screeningWorkEvent.info.superEvent.headline | changeLanguage)\">\n                {{ screeningWorkEvent.info.superEvent.headline | changeLanguage }}</p>\n            <p\n                *ngIf=\"screeningWorkEvent.info.superEvent.description && (screeningWorkEvent.info.superEvent.description | changeLanguage)\">{{\n                    screeningWorkEvent.info.superEvent.description | changeLanguage }}</p>\n        </div>\n        <div class=\"d-flex align-items-center\">\n            <div *ngIf=\"screeningWorkEvent.info.workPerformed?.contentRating\"\n                class=\"text-small bg-dark-gray text-white py-1 px-3 mr-2\">{{\n                    screeningWorkEvent.info.workPerformed.contentRating }}</div>\n            <div *ngIf=\"screeningWorkEvent.info.superEvent.dubLanguage\"\n                class=\"text-small bg-dark-gray text-white py-1 px-3 mr-2\">{{ 'common.dubbing' | translate }}</div>\n            <div *ngIf=\"screeningWorkEvent.info.superEvent.subtitleLanguage\"\n                class=\"text-small bg-dark-gray text-white py-1 px-3 mr-2\">{{ 'common.subtitles' | translate }}</div>\n            <div *ngIf=\"screeningWorkEvent.info.workPerformed?.duration && moment.duration(screeningWorkEvent.info.workPerformed.duration).asMinutes() > 0\" class=\"text-small ml-auto\">\n                <span class=\"mr-1\">{{ 'common.duration' | translate }}</span>{{ moment.duration(screeningWorkEvent.info.workPerformed.duration).asMinutes() }}{{ 'common.date.minute' | translate }}\n            </div>\n        </div>\n    </div>\n    <ul class=\"p-3\">\n        <li *ngFor=\"let screeningEvent of screeningWorkEvent.data\"\n            class=\"border boder-gray rounded p-2 py-md-3 text-md-center d-md-block d-flex justify-content-between align-items-center pointer\"\n            [ngClass]=\"{ \n          'bg-white': (moment(screeningEvent.doorTime).unix() < moment().unix() && moment(screeningEvent.endDate).unix() > moment().unix()), \n          'bg-dark-gray text-light-gray': !(moment(screeningEvent.doorTime).unix() < moment().unix() && moment(screeningEvent.endDate).unix() > moment().unix())\n          }\" (click)=\"select.emit(screeningEvent)\">\n            <div>\n                <div class=\"mb-2 text-small screen-name\">\n                    {{ screeningEvent.location.name | changeLanguage }}\n                </div>\n                <div>\n                    <strong class=\"text-large\">{{ moment(screeningEvent.startDate).format('HH:mm') }}</strong>\n                    <span>-</span>\n                    <span>{{ moment(screeningEvent.endDate).format('HH:mm') }}</span>\n                </div>\n            </div>\n            <hr class=\"border-0 bg-light-gray my-2\">\n            <div class=\"text-center\">\n                <div\n                    *ngIf=\"moment(screeningEvent.doorTime).unix() < moment().unix() && moment(screeningEvent.endDate).unix() > moment().unix()\">\n                    <div class=\"status mb-2\" *ngIf=\"!(moment(screeningEvent.startDate).unix() < moment().unix())\">\n                        {{ 'admission.schedule.status.opening' | translate }}\n                    </div>\n                    <div class=\"status mb-2\" *ngIf=\"moment(screeningEvent.startDate).unix() < moment().unix()\">\n                        {{ 'admission.schedule.status.nowShowing' | translate }}</div>\n                </div>\n\n                <div class=\"status mb-2\" *ngIf=\"!(moment(screeningEvent.doorTime).unix() < moment().unix())\">\n                    {{ 'admission.schedule.status.beforeOpening' | translate }}</div>\n                <div class=\"status mb-2\" *ngIf=\"!(moment(screeningEvent.endDate).unix() > moment().unix())\">\n                    {{ 'admission.schedule.status.filmCompletion' | translate }}</div>\n                <div *ngIf=\"screeningEvent.offers?.itemOffered.serviceOutput?.reservedTicket?.ticketedSeat && environment.DISPLAY_TICKETED_SEAT\" class=\"mb-2 text-small\">{{ 'common.seat' | translate }}\n                    {{ screeningEvent.remainingAttendeeCapacity }} / {{ screeningEvent.maximumAttendeeCapacity }}\n                </div>\n                <div *ngIf=\"!(screeningEvent.offers?.itemOffered.serviceOutput?.reservedTicket?.ticketedSeat)\" class=\"mb-2 text-small\">\n                    {{ 'admission.schedule.infiniteStock' | translate }}</div>\n                <div class=\"text-small mb-1\">{{ 'common.ticketing' | translate }} {{ screeningEvent.checkInCount }}</div>\n                <div class=\"text-small\">{{ 'common.admission' | translate }} {{ screeningEvent.attendeeCount }}</div>\n            </div>\n        </li>\n    </ul>\n</div>");
 
 /***/ }),
 
@@ -174,20 +174,13 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AdmissionCheckComponent", function() { return AdmissionCheckComponent; });
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "../../node_modules/@angular/core/fesm2015/core.js");
-/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/router */ "../../node_modules/@angular/router/fesm2015/router.js");
-/* harmony import */ var _ngrx_effects__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @ngrx/effects */ "../../node_modules/@ngrx/effects/fesm2015/effects.js");
-/* harmony import */ var _ngrx_store__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @ngrx/store */ "../../node_modules/@ngrx/store/fesm2015/store.js");
-/* harmony import */ var _ngx_translate_core__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @ngx-translate/core */ "../../node_modules/@ngx-translate/core/fesm2015/ngx-translate-core.js");
-/* harmony import */ var jsqr__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! jsqr */ "../../node_modules/jsqr/dist/jsQR.js");
-/* harmony import */ var jsqr__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(jsqr__WEBPACK_IMPORTED_MODULE_5__);
-/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! moment */ "../../node_modules/moment/moment.js");
-/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_6__);
-/* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! rxjs */ "../../node_modules/rxjs/_esm2015/index.js");
-/* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! rxjs/operators */ "../../node_modules/rxjs/_esm2015/operators/index.js");
-/* harmony import */ var _environments_environment__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../../../../../../environments/environment */ "./environments/environment.ts");
-/* harmony import */ var _services__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../../../../../services */ "./app/services/index.ts");
-/* harmony import */ var _store_actions__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ../../../../../store/actions */ "./app/store/actions/index.ts");
-/* harmony import */ var _store_reducers__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ../../../../../store/reducers */ "./app/store/reducers/index.ts");
+/* harmony import */ var _ngrx_store__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @ngrx/store */ "../../node_modules/@ngrx/store/fesm2015/store.js");
+/* harmony import */ var _ngx_translate_core__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @ngx-translate/core */ "../../node_modules/@ngx-translate/core/fesm2015/ngx-translate-core.js");
+/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! moment */ "../../node_modules/moment/moment.js");
+/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var _environments_environment__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../../../../environments/environment */ "./environments/environment.ts");
+/* harmony import */ var _services__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../../../../services */ "./app/services/index.ts");
+/* harmony import */ var _store_reducers__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../../../../store/reducers */ "./app/store/reducers/index.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -215,34 +208,23 @@ var __importDefault = (undefined && undefined.__importDefault) || function (mod)
 
 
 
-
-
-
-
-
-
 let AdmissionCheckComponent = class AdmissionCheckComponent {
-    constructor(store, actions, router, utilService, translate) {
+    constructor(store, admissionService, utilService, qrcodeService, translate) {
         this.store = store;
-        this.actions = actions;
-        this.router = router;
+        this.admissionService = admissionService;
         this.utilService = utilService;
+        this.qrcodeService = qrcodeService;
         this.translate = translate;
-        this.moment = moment__WEBPACK_IMPORTED_MODULE_6__;
-        this.environment = Object(_environments_environment__WEBPACK_IMPORTED_MODULE_9__["getEnvironment"])();
+        this.moment = moment__WEBPACK_IMPORTED_MODULE_3__;
+        this.environment = Object(_environments_environment__WEBPACK_IMPORTED_MODULE_4__["getEnvironment"])();
     }
     ngOnInit() {
         this.inputCode = '';
-        this.stream = null;
-        this.video = document.getElementById('video');
-        this.video.width = window.innerWidth;
-        this.isLoading = this.store.pipe(Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_3__["select"])(_store_reducers__WEBPACK_IMPORTED_MODULE_12__["getLoading"]));
-        this.admission = this.store.pipe(Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_3__["select"])(_store_reducers__WEBPACK_IMPORTED_MODULE_12__["getAdmission"]));
-        this.store.dispatch(new _store_actions__WEBPACK_IMPORTED_MODULE_11__["admissionAction"].InitializeQrcodeToken());
+        this.isLoading = this.store.pipe(Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_1__["select"])(_store_reducers__WEBPACK_IMPORTED_MODULE_6__["getLoading"]));
+        this.admission = this.store.pipe(Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_1__["select"])(_store_reducers__WEBPACK_IMPORTED_MODULE_6__["getAdmission"]));
+        this.admissionService.initializeQrcodeToken();
     }
     ngOnDestroy() {
-        clearTimeout(this.scanTimer);
-        clearInterval(this.scanLoop);
         clearInterval(this.updateLoop);
     }
     handleKeyboardEvent(event) {
@@ -257,126 +239,45 @@ let AdmissionCheckComponent = class AdmissionCheckComponent {
             this.inputCode += event.key;
         }
     }
-    start() {
-        return __awaiter(this, void 0, void 0, function* () {
-            try {
-                this.inputCode = '';
-                const constraints = {
-                    audio: false,
-                    video: { facingMode: { exact: 'environment' } }
-                };
-                const stream = yield navigator.mediaDevices.getUserMedia(constraints);
-                this.stream = stream;
-                this.video.srcObject = this.stream;
-                const scanLoopTime = 500;
-                this.scanLoop = setInterval(() => {
-                    const code = this.scan();
-                    if (this.inputCode === code) {
-                        return;
-                    }
-                    if (code !== null) {
-                        this.inputCode = code;
-                        // 読み取り完了
-                        this.check(code);
-                    }
-                }, scanLoopTime);
-                this.isShowVideo = true;
-            }
-            catch (error) {
-                console.error(error);
-                alert(this.translate.instant('admission.check.alert.camera'));
-            }
-        });
-    }
-    stop() {
-        if (this.stream === null) {
-            return;
-        }
-        this.stream.getVideoTracks().forEach((track) => {
-            track.stop();
-        });
-        this.stream = null;
-        this.isShowVideo = false;
-    }
-    scan() {
-        if (this.stream === null) {
-            return null;
-        }
-        // キャンバスへ反映
-        const canvas = document.getElementById('canvas');
-        const context = canvas.getContext('2d');
-        const width = this.video.offsetWidth;
-        const height = this.video.offsetHeight;
-        canvas.setAttribute('width', String(width));
-        canvas.setAttribute('height', String(height));
-        context.drawImage(this.video, 0, 0, width, height);
-        // QRコードデコード
-        const imageData = context.getImageData(0, 0, width, height);
-        const qrcode = jsqr__WEBPACK_IMPORTED_MODULE_5___default()(imageData.data, width, height);
-        if (qrcode === null) {
-            return null;
-        }
-        return qrcode.data;
-    }
     /**
      * QRコードから入場を確認
      * @param {string} code
      */
     check(code) {
-        if (this.scanTimer !== undefined) {
-            clearTimeout(this.scanTimer);
-        }
-        this.admission.subscribe((admission) => {
-            const screeningEvent = admission.screeningEvent;
-            if (screeningEvent === undefined) {
-                return;
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                yield this.admissionService.checkQrcodeToken(code);
             }
-            this.store.dispatch(new _store_actions__WEBPACK_IMPORTED_MODULE_11__["admissionAction"].Check({ code, screeningEvent }));
-        }).unsubscribe();
-        const success = this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_11__["admissionAction"].ActionTypes.CheckSuccess), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_8__["tap"])(() => {
-            const time = 30000;
-            this.scanTimer = setTimeout(() => {
-                this.store.dispatch(new _store_actions__WEBPACK_IMPORTED_MODULE_11__["admissionAction"].InitializeQrcodeToken());
-            }, time);
-        }));
-        const fail = this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_11__["admissionAction"].ActionTypes.CheckFail), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_8__["tap"])(() => {
-            this.utilService.openAlert({
-                title: this.translate.instant('common.error'),
-                body: this.translate.instant('admission.check.alert.check')
-            });
-        }));
-        Object(rxjs__WEBPACK_IMPORTED_MODULE_7__["race"])(success, fail).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_8__["take"])(1)).subscribe();
+            catch (error) {
+                console.error(error);
+                this.utilService.openAlert({
+                    title: this.translate.instant('common.error'),
+                    body: this.translate.instant('admission.check.alert.check')
+                });
+            }
+        });
+    }
+    openQRCodeReader() {
+        this.qrcodeService.openQRCodeReader({
+            cb: (data) => __awaiter(this, void 0, void 0, function* () {
+                yield this.check(data);
+            })
+        });
     }
     update() {
         const loopTime = 60000; // 1分に一回
         clearInterval(this.updateLoop);
-        this.updateLoop = setInterval(() => {
-            // this.getScreeningEventReservations();
-            // this.sendAll();
-            this.getScreeningEvent();
-        }, loopTime);
-    }
-    getScreeningEvent() {
-        this.admission.subscribe((admission) => {
-            const screeningEvent = admission.screeningEvent;
-            if (screeningEvent === undefined) {
-                this.router.navigate(['/error']);
-                return;
-            }
-            const id = screeningEvent.id;
-            this.store.dispatch(new _store_actions__WEBPACK_IMPORTED_MODULE_11__["admissionAction"].GetScreeningEvent({ params: { id } }));
-        }).unsubscribe();
-        const success = this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_11__["admissionAction"].ActionTypes.GetScreeningEventSuccess), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_8__["tap"])(() => { }));
-        const fail = this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_11__["admissionAction"].ActionTypes.GetScreeningEventFail), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_8__["tap"])(() => { }));
-        Object(rxjs__WEBPACK_IMPORTED_MODULE_7__["race"])(success, fail).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_8__["take"])(1)).subscribe();
+        this.updateLoop = setInterval(() => __awaiter(this, void 0, void 0, function* () {
+            yield this.admissionService.getScreeningEvent();
+        }), loopTime);
     }
 };
 AdmissionCheckComponent.ctorParameters = () => [
-    { type: _ngrx_store__WEBPACK_IMPORTED_MODULE_3__["Store"] },
-    { type: _ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["Actions"] },
-    { type: _angular_router__WEBPACK_IMPORTED_MODULE_1__["Router"] },
-    { type: _services__WEBPACK_IMPORTED_MODULE_10__["UtilService"] },
-    { type: _ngx_translate_core__WEBPACK_IMPORTED_MODULE_4__["TranslateService"] }
+    { type: _ngrx_store__WEBPACK_IMPORTED_MODULE_1__["Store"] },
+    { type: _services__WEBPACK_IMPORTED_MODULE_5__["AdmissionService"] },
+    { type: _services__WEBPACK_IMPORTED_MODULE_5__["UtilService"] },
+    { type: _services__WEBPACK_IMPORTED_MODULE_5__["QRCodeService"] },
+    { type: _ngx_translate_core__WEBPACK_IMPORTED_MODULE_2__["TranslateService"] }
 ];
 __decorate([
     Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["HostListener"])('document:keypress', ['$event']),
@@ -390,11 +291,11 @@ AdmissionCheckComponent = __decorate([
         template: __importDefault(__webpack_require__(/*! raw-loader!./admission-check.component.html */ "../../node_modules/raw-loader/dist/cjs.js!./app/modules/admission/components/pages/admission-check/admission-check.component.html")).default,
         styles: [__importDefault(__webpack_require__(/*! ./admission-check.component.scss */ "./app/modules/admission/components/pages/admission-check/admission-check.component.scss")).default]
     }),
-    __metadata("design:paramtypes", [_ngrx_store__WEBPACK_IMPORTED_MODULE_3__["Store"],
-        _ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["Actions"],
-        _angular_router__WEBPACK_IMPORTED_MODULE_1__["Router"],
-        _services__WEBPACK_IMPORTED_MODULE_10__["UtilService"],
-        _ngx_translate_core__WEBPACK_IMPORTED_MODULE_4__["TranslateService"]])
+    __metadata("design:paramtypes", [_ngrx_store__WEBPACK_IMPORTED_MODULE_1__["Store"],
+        _services__WEBPACK_IMPORTED_MODULE_5__["AdmissionService"],
+        _services__WEBPACK_IMPORTED_MODULE_5__["UtilService"],
+        _services__WEBPACK_IMPORTED_MODULE_5__["QRCodeService"],
+        _ngx_translate_core__WEBPACK_IMPORTED_MODULE_2__["TranslateService"]])
 ], AdmissionCheckComponent);
 
 
@@ -426,16 +327,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AdmissionScheduleComponent", function() { return AdmissionScheduleComponent; });
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "../../node_modules/@angular/core/fesm2015/core.js");
 /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/router */ "../../node_modules/@angular/router/fesm2015/router.js");
-/* harmony import */ var _ngrx_effects__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @ngrx/effects */ "../../node_modules/@ngrx/effects/fesm2015/effects.js");
-/* harmony import */ var _ngrx_store__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @ngrx/store */ "../../node_modules/@ngrx/store/fesm2015/store.js");
-/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! moment */ "../../node_modules/moment/moment.js");
-/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_4__);
-/* harmony import */ var ngx_swiper_wrapper__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ngx-swiper-wrapper */ "../../node_modules/ngx-swiper-wrapper/dist/ngx-swiper-wrapper.es5.js");
-/* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! rxjs */ "../../node_modules/rxjs/_esm2015/index.js");
-/* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! rxjs/operators */ "../../node_modules/rxjs/_esm2015/operators/index.js");
-/* harmony import */ var _functions__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../../../../../functions */ "./app/functions/index.ts");
-/* harmony import */ var _store_actions__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../../../../../store/actions */ "./app/store/actions/index.ts");
-/* harmony import */ var _store_reducers__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../../../../../store/reducers */ "./app/store/reducers/index.ts");
+/* harmony import */ var _ngrx_store__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @ngrx/store */ "../../node_modules/@ngrx/store/fesm2015/store.js");
+/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! moment */ "../../node_modules/moment/moment.js");
+/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var ngx_bootstrap__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ngx-bootstrap */ "../../node_modules/ngx-bootstrap/esm5/ngx-bootstrap.js");
+/* harmony import */ var _functions__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../../../../functions */ "./app/functions/index.ts");
+/* harmony import */ var _services__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../../../../services */ "./app/services/index.ts");
+/* harmony import */ var _store_reducers__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../../../../../store/reducers */ "./app/store/reducers/index.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -464,35 +362,21 @@ var __importDefault = (undefined && undefined.__importDefault) || function (mod)
 
 
 
-
-
-
 let AdmissionScheduleComponent = class AdmissionScheduleComponent {
-    constructor(store, actions, router) {
+    constructor(store, router, localeService, admissionService, masterService, userService) {
         this.store = store;
-        this.actions = actions;
         this.router = router;
-        this.moment = moment__WEBPACK_IMPORTED_MODULE_4__;
+        this.localeService = localeService;
+        this.admissionService = admissionService;
+        this.masterService = masterService;
+        this.userService = userService;
+        this.moment = moment__WEBPACK_IMPORTED_MODULE_3__;
     }
     ngOnInit() {
         return __awaiter(this, void 0, void 0, function* () {
-            this.swiperConfig = {
-                spaceBetween: 1,
-                slidesPerView: 7,
-                breakpoints: {
-                    320: { slidesPerView: 2 },
-                    767: { slidesPerView: 3 },
-                    1024: { slidesPerView: 5 }
-                }
-            };
-            this.admission = this.store.pipe(Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_3__["select"])(_store_reducers__WEBPACK_IMPORTED_MODULE_10__["getAdmission"]));
-            this.master = this.store.pipe(Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_3__["select"])(_store_reducers__WEBPACK_IMPORTED_MODULE_10__["getMaster"]));
-            this.user = this.store.pipe(Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_3__["select"])(_store_reducers__WEBPACK_IMPORTED_MODULE_10__["getUser"]));
+            this.admission = this.store.pipe(Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_2__["select"])(_store_reducers__WEBPACK_IMPORTED_MODULE_7__["getAdmission"]));
+            this.user = this.store.pipe(Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_2__["select"])(_store_reducers__WEBPACK_IMPORTED_MODULE_7__["getUser"]));
             this.screeningWorkEvents = [];
-            this.scheduleDates = [];
-            for (let i = 0; i < 7; i++) {
-                this.scheduleDates.push(moment__WEBPACK_IMPORTED_MODULE_4__().add(i, 'day').format('YYYY-MM-DD'));
-            }
             this.selectDate();
         });
     }
@@ -509,76 +393,99 @@ let AdmissionScheduleComponent = class AdmissionScheduleComponent {
         }, time);
     }
     /**
-     * resize
+     * 日付選択
      */
-    resize() {
-        this.directiveRef.update();
-    }
-    /**
-     * selectDate
-     */
-    selectDate() {
-        this.user.subscribe((user) => {
-            const seller = user.seller;
-            if (this.scheduleDate === undefined || this.scheduleDate === '') {
-                this.scheduleDate = moment__WEBPACK_IMPORTED_MODULE_4__().format('YYYY-MM-DD');
+    selectDate(date) {
+        return __awaiter(this, void 0, void 0, function* () {
+            if (date !== undefined && date !== null) {
+                this.scheduleDate = date;
             }
-            const scheduleDate = this.scheduleDate;
-            if (seller === undefined) {
-                return;
-            }
-            this.store.dispatch(new _store_actions__WEBPACK_IMPORTED_MODULE_9__["admissionAction"].SelectScheduleDate({ scheduleDate }));
-            this.store.dispatch(new _store_actions__WEBPACK_IMPORTED_MODULE_9__["masterAction"].GetSchedule({
-                superEvent: {
-                    locationBranchCodes: (seller.location === undefined || seller.location.branchCode === undefined) ? [] : [seller.location.branchCode]
-                },
-                startFrom: moment__WEBPACK_IMPORTED_MODULE_4__(scheduleDate).toDate(),
-                startThrough: moment__WEBPACK_IMPORTED_MODULE_4__(scheduleDate).add(1, 'day').toDate()
-            }));
-        }).unsubscribe();
-        const success = this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_9__["masterAction"].ActionTypes.GetScheduleSuccess), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_7__["tap"])(() => {
-            this.master.subscribe((master) => {
+            try {
+                const user = yield this.userService.getData();
+                const seller = user.seller;
+                if (seller === undefined) {
+                    this.router.navigate(['/error']);
+                    return;
+                }
+                if (this.scheduleDate === undefined || this.scheduleDate === null) {
+                    this.scheduleDate = moment__WEBPACK_IMPORTED_MODULE_3__().toDate();
+                }
+                const scheduleDate = moment__WEBPACK_IMPORTED_MODULE_3__(this.scheduleDate).format('YYYY-MM-DD');
+                this.admissionService.selectScheduleDate(scheduleDate);
+                yield this.masterService.getSchedule({
+                    superEvent: {
+                        locationBranchCodes: (seller.location === undefined || seller.location.branchCode === undefined)
+                            ? [] : [seller.location.branchCode]
+                    },
+                    startFrom: moment__WEBPACK_IMPORTED_MODULE_3__(scheduleDate).toDate(),
+                    startThrough: moment__WEBPACK_IMPORTED_MODULE_3__(scheduleDate).add(1, 'day').toDate()
+                });
+                const master = yield this.masterService.getData();
                 const screeningEvents = master.screeningEvents;
-                this.screeningWorkEvents = Object(_functions__WEBPACK_IMPORTED_MODULE_8__["screeningEventsToWorkEvents"])({ screeningEvents });
+                this.screeningWorkEvents = Object(_functions__WEBPACK_IMPORTED_MODULE_5__["screeningEventsToWorkEvents"])({ screeningEvents });
                 this.update();
-            }).unsubscribe();
-        }));
-        const fail = this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_9__["masterAction"].ActionTypes.GetScheduleFail), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_7__["tap"])(() => {
-            this.router.navigate(['/error']);
-        }));
-        Object(rxjs__WEBPACK_IMPORTED_MODULE_6__["race"])(success, fail).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_7__["take"])(1)).subscribe();
+            }
+            catch (error) {
+                console.error(error);
+                this.router.navigate(['/error']);
+            }
+        });
     }
     /**
-     * selectSchedule
+     * スケジュール選択
      */
     selectSchedule(screeningEvent) {
-        this.store.dispatch(new _store_actions__WEBPACK_IMPORTED_MODULE_9__["admissionAction"].SelectScreeningEvent({ screeningEvent }));
-        this.store.dispatch(new _store_actions__WEBPACK_IMPORTED_MODULE_9__["admissionAction"].InitializeQrcodeToken());
+        this.admissionService.selectScreeningEvent(screeningEvent);
         this.router.navigate(['/admission/check']);
+    }
+    /**
+     * Datepicker言語設定
+     */
+    setDatePicker() {
+        this.user.subscribe((user) => {
+            this.localeService.use(user.language);
+        }).unsubscribe();
+    }
+    /**
+     * Datepicker開閉
+     */
+    toggleDatepicker() {
+        this.setDatePicker();
+        this.datepicker.toggle();
+    }
+    /**
+     * iOS bugfix（2回タップしないと選択できない）
+     */
+    onShowPicker(container) {
+        Object(_functions__WEBPACK_IMPORTED_MODULE_5__["iOSDatepickerTapBugFix"])(container, [
+            this.datepicker
+        ]);
     }
 };
 AdmissionScheduleComponent.ctorParameters = () => [
-    { type: _ngrx_store__WEBPACK_IMPORTED_MODULE_3__["Store"] },
-    { type: _ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["Actions"] },
-    { type: _angular_router__WEBPACK_IMPORTED_MODULE_1__["Router"] }
+    { type: _ngrx_store__WEBPACK_IMPORTED_MODULE_2__["Store"] },
+    { type: _angular_router__WEBPACK_IMPORTED_MODULE_1__["Router"] },
+    { type: ngx_bootstrap__WEBPACK_IMPORTED_MODULE_4__["BsLocaleService"] },
+    { type: _services__WEBPACK_IMPORTED_MODULE_6__["AdmissionService"] },
+    { type: _services__WEBPACK_IMPORTED_MODULE_6__["MasterService"] },
+    { type: _services__WEBPACK_IMPORTED_MODULE_6__["UserService"] }
 ];
 __decorate([
-    Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ViewChild"])(ngx_swiper_wrapper__WEBPACK_IMPORTED_MODULE_5__["SwiperComponent"], { static: false }),
-    __metadata("design:type", ngx_swiper_wrapper__WEBPACK_IMPORTED_MODULE_5__["SwiperComponent"])
-], AdmissionScheduleComponent.prototype, "componentRef", void 0);
-__decorate([
-    Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ViewChild"])(ngx_swiper_wrapper__WEBPACK_IMPORTED_MODULE_5__["SwiperDirective"], { static: false }),
-    __metadata("design:type", ngx_swiper_wrapper__WEBPACK_IMPORTED_MODULE_5__["SwiperDirective"])
-], AdmissionScheduleComponent.prototype, "directiveRef", void 0);
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ViewChild"])('datepicker', { static: true }),
+    __metadata("design:type", ngx_bootstrap__WEBPACK_IMPORTED_MODULE_4__["BsDatepickerDirective"])
+], AdmissionScheduleComponent.prototype, "datepicker", void 0);
 AdmissionScheduleComponent = __decorate([
     Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
         selector: 'app-admission-schedule',
         template: __importDefault(__webpack_require__(/*! raw-loader!./admission-schedule.component.html */ "../../node_modules/raw-loader/dist/cjs.js!./app/modules/admission/components/pages/admission-schedule/admission-schedule.component.html")).default,
         styles: [__importDefault(__webpack_require__(/*! ./admission-schedule.component.scss */ "./app/modules/admission/components/pages/admission-schedule/admission-schedule.component.scss")).default]
     }),
-    __metadata("design:paramtypes", [_ngrx_store__WEBPACK_IMPORTED_MODULE_3__["Store"],
-        _ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["Actions"],
-        _angular_router__WEBPACK_IMPORTED_MODULE_1__["Router"]])
+    __metadata("design:paramtypes", [_ngrx_store__WEBPACK_IMPORTED_MODULE_2__["Store"],
+        _angular_router__WEBPACK_IMPORTED_MODULE_1__["Router"],
+        ngx_bootstrap__WEBPACK_IMPORTED_MODULE_4__["BsLocaleService"],
+        _services__WEBPACK_IMPORTED_MODULE_6__["AdmissionService"],
+        _services__WEBPACK_IMPORTED_MODULE_6__["MasterService"],
+        _services__WEBPACK_IMPORTED_MODULE_6__["UserService"]])
 ], AdmissionScheduleComponent);
 
 

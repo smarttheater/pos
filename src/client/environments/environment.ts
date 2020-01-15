@@ -165,10 +165,6 @@ interface IEnvironment {
      */
     ORDER_CANCEL: boolean;
     /**
-     * 注文QR
-     */
-    ORDER_QRCODE: boolean;
-    /**
      * 注文印刷
      */
     ORDER_PRINT: boolean;
@@ -231,7 +227,6 @@ const defaultEnvironment: IEnvironment = {
     INQUIRY_ORDER_DATE_FROM_VALUE: '-3',
     INQUIRY_ORDER_DATE_FROM_UNIT: 'month',
     ORDER_CANCEL: false,
-    ORDER_QRCODE: false,
     ORDER_PRINT: false,
     PRINT_QRCODE_TYPE: 'token',
     PRINT_QRCODE_CUSTOM: '',

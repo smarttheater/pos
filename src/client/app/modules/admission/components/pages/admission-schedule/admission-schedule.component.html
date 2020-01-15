@@ -1,13 +1,26 @@
 <div class="contents-width mx-auto px-3 py-5">
     <h2 class="text-large mb-4 text-center font-weight-bold">{{ 'admission.schedule.title' | translate }}</h2>
     <p class="mb-4 text-md-center" [innerHTML]="'admission.schedule.read' | translate"></p>
+
     <div class="mb-3">
-        <input type="date" class="form-control rounded-0 text-large" name="date" [(ngModel)]="scheduleDate"
-            (change)="selectDate()">
+        <div class="input-group">
+            <input type="text" placeholder="Datepicker" class="form-control" #datepicker="bsDatepicker" bsDatepicker
+                [(ngModel)]="scheduleDate"
+                [bsConfig]="{ dateInputFormat: 'YYYY/MM/DD', adaptivePosition: true, showWeekNumbers: false }"
+                (bsValueChange)="selectDate($event)" readonly (click)="setDatePicker()"
+                (onShown)="onShowPicker($event)">
+            <!-- <input type="date" class="form-control rounded-0 text-large" name="date" [(ngModel)]="scheduleDate"
+                (change)="selectDate()"> -->
+            <div class="input-group-append pointer" (click)="toggleDatepicker()">
+                <span class="input-group-text"><i class="fas fa-caret-down"></i></span>
+            </div>
+        </div>
     </div>
     <p *ngIf="(admission | async).scheduleDate" class="text-primary text-large mb-3">{{ (admission |
         async).scheduleDate | formatDate: 'YYYY/MM/DD (ddd)' }}</p>
-    <p *ngIf="screeningWorkEvents.length === 0" class="mb-3" [innerHTML]="'admission.schedule.notfound' | translate"></p>
+    <p *ngIf="screeningWorkEvents.length === 0" class="mb-3" [innerHTML]="'admission.schedule.notfound' | translate">
+    </p>
     <app-admission-schedule-work *ngFor="let screeningWorkEvent of screeningWorkEvents"
-        [screeningWorkEvent]="screeningWorkEvent" (select)="selectSchedule($event)" class="mb-3"></app-admission-schedule-work>
+        [screeningWorkEvent]="screeningWorkEvent" (select)="selectSchedule($event)" class="mb-3">
+    </app-admission-schedule-work>
 </div>

@@ -35,14 +35,10 @@ export class OrderDownloadComponent implements OnInit {
     public encodingFormat = factory.encodingFormat;
     public orderToEventOrders = orderToEventOrders;
     public csvFormat = CsvFormat;
-    @ViewChild('orderDateFrom', { static: true })
-    private orderDateFrom: BsDatepickerDirective;
-    @ViewChild('orderDateThrough', { static: true })
-    private orderDateThrough: BsDatepickerDirective;
-    @ViewChild('eventStartDateFrom', { static: true })
-    private eventStartDateFrom: BsDatepickerDirective;
-    @ViewChild('eventStartDateThrough', { static: true })
-    private eventStartDateThrough: BsDatepickerDirective;
+    @ViewChild('orderDateFrom', { static: true }) private orderDateFrom: BsDatepickerDirective;
+    @ViewChild('orderDateThrough', { static: true }) private orderDateThrough: BsDatepickerDirective;
+    @ViewChild('eventStartDateFrom', { static: true }) private eventStartDateFrom: BsDatepickerDirective;
+    @ViewChild('eventStartDateThrough', { static: true }) private eventStartDateThrough: BsDatepickerDirective;
 
     constructor(
         private store: Store<reducers.IOrderState>,
