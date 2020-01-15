@@ -48,7 +48,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _functions__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../../../../../functions */ "./app/functions/index.ts");
 /* harmony import */ var _services__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../../../../../services */ "./app/services/index.ts");
 /* harmony import */ var _store_reducers__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../../../../../store/reducers */ "./app/store/reducers/index.ts");
-/* harmony import */ var _shared_components_parts_reservation_detail_modal_reservation_detail_modal_component__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../../../../shared/components/parts/reservation-detail-modal/reservation-detail-modal.component */ "./app/modules/shared/components/parts/reservation-detail-modal/reservation-detail-modal.component.ts");
+/* harmony import */ var _shared_components_parts_reservation_detail_modal_detail_modal_component__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../../../../shared/components/parts/reservation/detail-modal/detail-modal.component */ "./app/modules/shared/components/parts/reservation/detail-modal/detail-modal.component.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -205,7 +205,7 @@ let ReservationSearchComponent = class ReservationSearchComponent {
      * 詳細を表示
      */
     openDetail(reservation) {
-        this.modal.show(_shared_components_parts_reservation_detail_modal_reservation_detail_modal_component__WEBPACK_IMPORTED_MODULE_10__["ReservationDetailModalComponent"], {
+        this.modal.show(_shared_components_parts_reservation_detail_modal_detail_modal_component__WEBPACK_IMPORTED_MODULE_10__["ReservationDetailModalComponent"], {
             class: 'modal-dialog-centered modal-lg',
             initialState: { reservation }
         });

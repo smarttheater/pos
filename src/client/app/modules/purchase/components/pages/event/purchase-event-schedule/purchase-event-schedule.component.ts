@@ -27,8 +27,7 @@ export class PurchaseEventScheduleComponent implements OnInit, OnDestroy {
     private updateTimer: any;
     public scheduleDate: Date;
     public environment = environment;
-    @ViewChild('datepicker', { static: true })
-    private datepicker: BsDatepickerDirective;
+    @ViewChild('datepicker', { static: true }) private datepicker: BsDatepickerDirective;
 
     constructor(
         private store: Store<reducers.IState>,
@@ -58,6 +57,7 @@ export class PurchaseEventScheduleComponent implements OnInit, OnDestroy {
             await this.purchaseService.cancelTransaction();
             this.selectDate();
         } catch (error) {
+            console.error(error);
             this.router.navigate(['/error']);
         }
     }

@@ -26,10 +26,8 @@ export class TasksOwnershipinfoSearchComponent implements OnInit {
         seller: factory.seller.IOrganization<factory.seller.IAttributes<factory.organizationType>>;
         count: number;
     }[];
-    @ViewChild('fromDate', { static: true })
-    private fromDate: BsDatepickerDirective;
-    @ViewChild('toDate', { static: true })
-    private toDate: BsDatepickerDirective;
+    @ViewChild('fromDate', { static: true }) private fromDate: BsDatepickerDirective;
+    @ViewChild('toDate', { static: true }) private toDate: BsDatepickerDirective;
 
     constructor(
         private store: Store<reducers.IUserState>,
