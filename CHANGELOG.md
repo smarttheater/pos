@@ -12,6 +12,12 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/).
 
 ### Security
 
+## 2.6.0 - 2020-01-15
+### Added
+ - QRコードリーダー追加
+### Removed
+ - 不要なコンポーネント削除
+
 ## 2.5.5 - 2019-12-17
 ### Added
  - バージョン確認追加
