@@ -46,7 +46,7 @@ Thumbs.db
 .env.bat
 .env2.bat
 .prod.bat
-dist/server/public/entrance/
 public/
+private/
 dist/client/production/stats.json
 dist/client/production/stats-es2015.json

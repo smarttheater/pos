@@ -3,18 +3,10 @@
     <p class="mb-4 text-md-center" [innerHTML]="'admission.check.read' | translate"></p>
 </div>
 
-<div class="mb-4" [class.d-block]="isShowVideo" [class.d-none]="!isShowVideo">
-    <div class="d-flex align-items-center video-area"><video id="video" class="bg-black" src="" autoplay muted
-            playsinline></video></div>
-    <div class="d-none"><canvas id="canvas"></canvas></div>
-</div>
-
 <div class="contents-width mx-auto px-3">
     <div class="buttons mx-auto text-center mb-4">
-        <button *ngIf="stream === null" type="button" class="btn btn-success btn-block py-3"
-            (click)="start()">{{ 'admission.check.camera.start' | translate }}</button>
-        <button *ngIf="stream !== null" type="button" class="btn btn-danger btn-block py-3"
-            (click)="stop()">{{ 'admission.check.camera.stop' | translate }}</button>
+        <button type="button" class="btn btn-success btn-block py-3"
+            (click)="openQRCodeReader()">{{ 'admission.check.camera.start' | translate }}</button>
     </div>
 </div>
 

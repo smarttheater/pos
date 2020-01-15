@@ -14,7 +14,7 @@ import { MasterService, PurchaseService, UserService, UtilService } from '../../
 import * as reducers from '../../../../../../store/reducers';
 import {
     PurchaseTransactionModalComponent
-} from '../../../../../shared/components/parts/purchase-transaction-modal/purchase-transaction-modal.component';
+} from '../../../../../shared/components/parts/purchase/transaction-modal/transaction-modal.component';
 
 @Component({
     selector: 'app-purchase-cinema-schedule',
@@ -30,8 +30,7 @@ export class PurchaseCinemaScheduleComponent implements OnInit, OnDestroy {
     public moment: typeof moment = moment;
     public scheduleDate: Date;
     private updateTimer: any;
-    @ViewChild('datepicker', { static: true })
-    private datepicker: BsDatepickerDirective;
+    @ViewChild('datepicker', { static: true }) private datepicker: BsDatepickerDirective;
 
     constructor(
         private store: Store<reducers.IState>,

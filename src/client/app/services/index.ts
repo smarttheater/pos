@@ -1,3 +1,4 @@
+export * from './admission.service';
 export * from './cinerino.service';
 export * from './purchase.service';
 export * from './user.service';
@@ -8,3 +9,4 @@ export * from './reservation.service';
 export * from './util.service';
 export * from './star-print.service';
 export * from './download.service';
+export * from './qrcode.service';
