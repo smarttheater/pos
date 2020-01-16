@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-import { getEnvironment } from '../../../../../../environments/environment';
-import { OrderService, PurchaseService } from '../../../../../services';
+import { select, Store } from '@ngrx/store';
+import { Observable } from 'rxjs';
+import { MasterService, UtilService } from '../../../../../services';
+import * as reducers from '../../../../../store/reducers';
 
 @Component({
     selector: 'app-auth-signin',
@@ -9,17 +10,33 @@ import { OrderService, PurchaseService } from '../../../../../services';
     styleUrls: ['./auth-signin.component.scss']
 })
 export class AuthSigninComponent implements OnInit {
+    public isLoading: Observable<boolean>;
+    public master: Observable<reducers.IMasterState>;
+    public projects: {
+        projectId: string;
+        projectName: string;
+        storageUrl: string;
+    }[];
 
     constructor(
-        private router: Router,
-        private purchaseService: PurchaseService,
-        private orderService: OrderService
+        private store: Store<reducers.IOrderState>,
+        private masterService: MasterService,
+        private utilService: UtilService
     ) { }
 
-    public ngOnInit() {
-        this.orderService.delete();
-        this.purchaseService.delete();
-        this.router.navigate([getEnvironment().BASE_URL]);
+    public async ngOnInit() {
+        this.master = this.store.pipe(select(reducers.getMaster));
+        this.projects = [];
+        await this.masterService.getProjects();
+        this.projects = await this.utilService.postJson<{
+            projectId: string;
+            projectName: string;
+            storageUrl: string;
+        }[]>('/api/projects', {});
+    }
+
+    public getProject(id: string) {
+        return this.projects.find(p => p.projectId === id);
     }
 
 }

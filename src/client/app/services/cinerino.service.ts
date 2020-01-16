@@ -13,6 +13,7 @@ export class CinerinoService {
     public order: cinerino.service.Order;
     public seller: cinerino.service.Seller;
     public person: cinerino.service.Person;
+    public project: cinerino.service.Project;
     public ownershipInfo: cinerino.service.person.OwnershipInfo;
     public reservation: cinerino.service.Reservation;
     public task: cinerino.service.Task;
@@ -43,6 +44,7 @@ export class CinerinoService {
             this.order = new cinerino.service.Order(option);
             this.seller = new cinerino.service.Seller(option);
             this.person = new cinerino.service.Person(option);
+            this.project = new cinerino.service.Project({ ...option, project: undefined });
             this.ownershipInfo = new cinerino.service.person.OwnershipInfo(option);
             this.reservation = new cinerino.service.Reservation(option);
             this.task = new cinerino.service.Task(option);
@@ -67,7 +69,8 @@ export class CinerinoService {
         await this.authorize();
         return {
             endpoint: this.endpoint,
-            auth: this.auth
+            auth: this.auth,
+            project: { id: getProject().projectId }
         };
     }
 

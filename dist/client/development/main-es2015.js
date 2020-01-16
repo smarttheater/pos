@@ -1546,7 +1546,7 @@ function getTicketPrice(ticket) {
 function movieTicketAuthErroCodeToMessage(code) {
     const table = [
         { code: '01', ja: '存在無', en: 'no existence' },
-        { code: '02', ja: '存在無', en: 'no existence' },
+        { code: '02', ja: 'PINｺｰﾄﾞ必須', en: 'PIN code required' },
         { code: '03', ja: 'PINｺｰﾄﾞ認証ｴﾗｰ', en: 'PIN code authentication error' },
         { code: '04', ja: '作品不一致', en: 'Work disagreement' },
         { code: '05', ja: '未ｱｸﾃｨﾍﾞｰﾄ', en: 'unactivated' },
@@ -5645,6 +5645,7 @@ let CinerinoService = class CinerinoService {
                 this.order = new _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_2__["service"].Order(option);
                 this.seller = new _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_2__["service"].Seller(option);
                 this.person = new _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_2__["service"].Person(option);
+                this.project = new _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_2__["service"].Project(Object.assign({}, option, { project: undefined }));
                 this.ownershipInfo = new _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_2__["service"].person.OwnershipInfo(option);
                 this.reservation = new _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_2__["service"].Reservation(option);
                 this.task = new _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_2__["service"].Task(option);
@@ -5671,7 +5672,8 @@ let CinerinoService = class CinerinoService {
             yield this.authorize();
             return {
                 endpoint: this.endpoint,
-                auth: this.auth
+                auth: this.auth,
+                project: { id: Object(_functions__WEBPACK_IMPORTED_MODULE_3__["getProject"])().projectId }
             };
         });
     }
@@ -6127,6 +6129,19 @@ let MasterService = class MasterService {
             });
         });
     }
+    /**
+     * プロジェクト一覧取得
+     */
+    getProjects() {
+        return __awaiter(this, void 0, void 0, function* () {
+            return new Promise((resolve, reject) => {
+                this.store.dispatch(new _store_actions__WEBPACK_IMPORTED_MODULE_5__["masterAction"].GetProjects());
+                const success = this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_1__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_5__["masterAction"].ActionTypes.GetProjectsSuccess), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["tap"])(() => { resolve(); }));
+                const fail = this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_1__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_5__["masterAction"].ActionTypes.GetScheduleFail), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["tap"])(() => { this.error.subscribe((error) => { reject(error); }).unsubscribe(); }));
+                Object(rxjs__WEBPACK_IMPORTED_MODULE_3__["race"])(success, fail).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["take"])(1)).subscribe();
+            });
+        });
+    }
 };
 MasterService.ctorParameters = () => [
     { type: _ngrx_effects__WEBPACK_IMPORTED_MODULE_1__["Actions"] },
@@ -6262,7 +6277,6 @@ let OrderService = class OrderService {
                     const orderDateFrom = (moment__WEBPACK_IMPORTED_MODULE_3__(params.orderDateThrough).add(-1 * splitDay * (i + 1), 'days').toDate() > moment__WEBPACK_IMPORTED_MODULE_3__(params.orderDateFrom).toDate())
                         ? moment__WEBPACK_IMPORTED_MODULE_3__(params.orderDateThrough).add(-1 * splitDay * (i + 1), 'days').toDate()
                         : moment__WEBPACK_IMPORTED_MODULE_3__(params.orderDateFrom).toDate();
-                    console.log(moment__WEBPACK_IMPORTED_MODULE_3__(orderDateFrom).format('YYYY/MM/DD HH:mm'), moment__WEBPACK_IMPORTED_MODULE_3__(orderDateThrough).format('YYYY/MM/DD HH:mm'));
                     while (roop) {
                         params.limit = limit;
                         params.page = page;
@@ -6885,11 +6899,8 @@ let PurchaseService = class PurchaseService {
                 if (purchase.paymentMethod.paymentMethodType === _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_1__["factory"].paymentMethodType.Cash
                     && depositAmount !== undefined) {
                     // 現金
-                    additionalProperty.push({ name: 'depositAmount', value: depositAmount });
-                    additionalProperty.push({
-                        name: 'change',
-                        value: depositAmount - amount
-                    });
+                    additionalProperty.push({ name: 'depositAmount', value: String(depositAmount) });
+                    additionalProperty.push({ name: 'change', value: String(depositAmount - amount) });
                 }
                 this.store.dispatch(new _store_actions__WEBPACK_IMPORTED_MODULE_9__["purchaseAction"].AuthorizeAnyPayment({
                     transaction: transaction,
@@ -7882,7 +7893,7 @@ var utilAction = _util_action__WEBPACK_IMPORTED_MODULE_7__;
 /*!********************************************!*\
   !*** ./app/store/actions/master.action.ts ***!
   \********************************************/
-/*! exports provided: ActionTypes, Delete, GetSellers, GetSellersSuccess, GetSellersFail, GetSchedule, GetScheduleSuccess, GetScheduleFail */
+/*! exports provided: ActionTypes, Delete, GetSellers, GetSellersSuccess, GetSellersFail, GetSchedule, GetScheduleSuccess, GetScheduleFail, GetProjects, GetProjectsSuccess, GetProjectsFail */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -7895,6 +7906,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "GetSchedule", function() { return GetSchedule; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "GetScheduleSuccess", function() { return GetScheduleSuccess; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "GetScheduleFail", function() { return GetScheduleFail; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "GetProjects", function() { return GetProjects; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "GetProjectsSuccess", function() { return GetProjectsSuccess; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "GetProjectsFail", function() { return GetProjectsFail; });
 var __importDefault = (undefined && undefined.__importDefault) || function (mod) {
   return (mod && mod.__esModule) ? mod : { "default": mod };
 };
@@ -7910,6 +7924,9 @@ var ActionTypes;
     ActionTypes["GetSchedule"] = "[Master] Get Schedule";
     ActionTypes["GetScheduleSuccess"] = "[Master] Get Schedule Success";
     ActionTypes["GetScheduleFail"] = "[Master] Get Schedule Fail";
+    ActionTypes["GetProjects"] = "[Master] Get Projects";
+    ActionTypes["GetProjectsSuccess"] = "[Master] Get Projects Success";
+    ActionTypes["GetProjectsFail"] = "[Master] Get Projects Fail";
 })(ActionTypes || (ActionTypes = {}));
 /**
  * Delete
@@ -7972,6 +7989,33 @@ class GetScheduleFail {
     constructor(payload) {
         this.payload = payload;
         this.type = ActionTypes.GetScheduleFail;
+    }
+}
+/**
+ * GetProjects
+ */
+class GetProjects {
+    constructor(payload) {
+        this.payload = payload;
+        this.type = ActionTypes.GetProjects;
+    }
+}
+/**
+ * GetProjectsSuccess
+ */
+class GetProjectsSuccess {
+    constructor(payload) {
+        this.payload = payload;
+        this.type = ActionTypes.GetProjectsSuccess;
+    }
+}
+/**
+ * GetProjectsFail
+ */
+class GetProjectsFail {
+    constructor(payload) {
+        this.payload = payload;
+        this.type = ActionTypes.GetProjectsFail;
     }
 }
 
@@ -9471,7 +9515,7 @@ let MasterEffects = class MasterEffects {
                 let roop = true;
                 let screeningEvents = [];
                 while (roop) {
-                    const screeningEventsResult = yield this.cinerino.event.search({
+                    const searchResult = yield this.cinerino.event.search({
                         page,
                         limit,
                         typeOf: _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_1__["factory"].chevre.eventType.ScreeningEvent,
@@ -9480,8 +9524,8 @@ let MasterEffects = class MasterEffects {
                         startFrom: payload.startFrom,
                         startThrough: payload.startThrough
                     });
-                    screeningEvents = screeningEvents.concat(screeningEventsResult.data);
-                    const lastPage = Math.ceil(screeningEventsResult.totalCount / limit);
+                    screeningEvents = screeningEvents.concat(searchResult.data);
+                    const lastPage = Math.ceil(searchResult.totalCount / limit);
                     page++;
                     roop = !(page > lastPage);
                 }
@@ -9510,6 +9554,32 @@ let MasterEffects = class MasterEffects {
                 return new _actions__WEBPACK_IMPORTED_MODULE_6__["masterAction"].GetScheduleFail({ error: error });
             }
         })));
+        /**
+         * GetProjects
+         */
+        this.GetProjects = this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_actions__WEBPACK_IMPORTED_MODULE_6__["masterAction"].ActionTypes.GetProjects), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["map"])(action => action.payload), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["mergeMap"])(() => __awaiter(this, void 0, void 0, function* () {
+            try {
+                yield this.cinerino.getServices();
+                const limit = 100;
+                let page = 1;
+                let roop = true;
+                let projects = [];
+                while (roop) {
+                    const searchResult = yield this.cinerino.project.search({
+                        page,
+                        limit,
+                    });
+                    projects = projects.concat(searchResult.data);
+                    const lastPage = Math.ceil(searchResult.totalCount / limit);
+                    page++;
+                    roop = !(page > lastPage);
+                }
+                return new _actions__WEBPACK_IMPORTED_MODULE_6__["masterAction"].GetProjectsSuccess({ projects });
+            }
+            catch (error) {
+                return new _actions__WEBPACK_IMPORTED_MODULE_6__["masterAction"].GetProjectsFail({ error: error });
+            }
+        })));
     }
 };
 MasterEffects.ctorParameters = () => [
@@ -9524,6 +9594,10 @@ __decorate([
     Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["Effect"])(),
     __metadata("design:type", Object)
 ], MasterEffects.prototype, "getSchedule", void 0);
+__decorate([
+    Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["Effect"])(),
+    __metadata("design:type", Object)
+], MasterEffects.prototype, "GetProjects", void 0);
 MasterEffects = __decorate([
     Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"])(),
     __metadata("design:paramtypes", [_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["Actions"],
@@ -10268,19 +10342,17 @@ let PurchaseEffects = class PurchaseEffects {
          */
         this.registerContact = this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_3__["ofType"])(_actions__WEBPACK_IMPORTED_MODULE_10__["purchaseAction"].ActionTypes.RegisterContact), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["map"])(action => action.payload), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["mergeMap"])((payload) => __awaiter(this, void 0, void 0, function* () {
             const transaction = payload.transaction;
-            const contact = payload.contact;
-            if (contact.telephone !== undefined) {
-                contact.telephone = Object(_functions__WEBPACK_IMPORTED_MODULE_8__["formatTelephone"])(contact.telephone);
+            const profile = payload.contact;
+            if (profile.telephone !== undefined) {
+                profile.telephone = Object(_functions__WEBPACK_IMPORTED_MODULE_8__["formatTelephone"])(profile.telephone);
             }
             try {
                 yield this.cinerino.getServices();
-                const customerContact = yield this.cinerino.transaction.placeOrder.setCustomerContact({
+                yield this.cinerino.transaction.placeOrder.setProfile({
                     id: transaction.id,
-                    object: {
-                        customerContact: contact
-                    }
+                    agent: profile
                 });
-                return new _actions__WEBPACK_IMPORTED_MODULE_10__["purchaseAction"].RegisterContactSuccess({ customerContact });
+                return new _actions__WEBPACK_IMPORTED_MODULE_10__["purchaseAction"].RegisterContactSuccess({ profile });
             }
             catch (error) {
                 return new _actions__WEBPACK_IMPORTED_MODULE_10__["purchaseAction"].RegisterContactFail({ error: error });
@@ -10455,7 +10527,7 @@ let PurchaseEffects = class PurchaseEffects {
         /**
          * AuthorizeAnyPayment
          */
-        this.addAuthorizeAnyPayment = this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_3__["ofType"])(_actions__WEBPACK_IMPORTED_MODULE_10__["purchaseAction"].ActionTypes.AuthorizeAnyPayment), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["map"])(action => action.payload), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["mergeMap"])((payload) => __awaiter(this, void 0, void 0, function* () {
+        this.authorizeAnyPayment = this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_3__["ofType"])(_actions__WEBPACK_IMPORTED_MODULE_10__["purchaseAction"].ActionTypes.AuthorizeAnyPayment), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["map"])(action => action.payload), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["mergeMap"])((payload) => __awaiter(this, void 0, void 0, function* () {
             const transaction = payload.transaction;
             const typeOf = payload.typeOf;
             const amount = payload.amount;
@@ -10537,7 +10609,7 @@ __decorate([
 __decorate([
     Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_3__["Effect"])(),
     __metadata("design:type", Object)
-], PurchaseEffects.prototype, "addAuthorizeAnyPayment", void 0);
+], PurchaseEffects.prototype, "authorizeAnyPayment", void 0);
 PurchaseEffects = __decorate([
     Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])(),
     __metadata("design:paramtypes", [_ngrx_effects__WEBPACK_IMPORTED_MODULE_3__["Actions"],
@@ -10878,7 +10950,8 @@ var __importDefault = (undefined && undefined.__importDefault) || function (mod)
 
 const masterInitialState = {
     sellers: [],
-    screeningEvents: []
+    screeningEvents: [],
+    projects: []
 };
 /**
  * Reducer
@@ -10890,7 +10963,8 @@ function reducer(state, action) {
         case _actions__WEBPACK_IMPORTED_MODULE_0__["masterAction"].ActionTypes.Delete: {
             state.masterData = {
                 sellers: [],
-                screeningEvents: []
+                screeningEvents: [],
+                projects: []
             };
             return Object.assign({}, state);
         }
@@ -10915,6 +10989,18 @@ function reducer(state, action) {
             return Object.assign({}, state, { loading: false, process: '', error: null });
         }
         case _actions__WEBPACK_IMPORTED_MODULE_0__["masterAction"].ActionTypes.GetScheduleFail: {
+            const error = action.payload.error;
+            return Object.assign({}, state, { loading: false, process: '', error: JSON.stringify(error) });
+        }
+        case _actions__WEBPACK_IMPORTED_MODULE_0__["masterAction"].ActionTypes.GetProjects: {
+            return Object.assign({}, state, { loading: true, process: 'masterAction.GetProjects' });
+        }
+        case _actions__WEBPACK_IMPORTED_MODULE_0__["masterAction"].ActionTypes.GetProjectsSuccess: {
+            const projects = action.payload.projects;
+            state.masterData.projects = projects;
+            return Object.assign({}, state, { loading: false, process: '', error: null });
+        }
+        case _actions__WEBPACK_IMPORTED_MODULE_0__["masterAction"].ActionTypes.GetProjectsFail: {
             const error = action.payload.error;
             return Object.assign({}, state, { loading: false, process: '', error: JSON.stringify(error) });
         }
@@ -11371,8 +11457,8 @@ function reducer(state, action) {
             return Object.assign({}, state, { loading: true, process: 'purchaseAction.RegisterContact' });
         }
         case _actions__WEBPACK_IMPORTED_MODULE_3__["purchaseAction"].ActionTypes.RegisterContactSuccess: {
-            const customerContact = action.payload.customerContact;
-            state.purchaseData.customerContact = customerContact;
+            const profile = action.payload.profile;
+            state.purchaseData.profile = profile;
             return Object.assign({}, state, { loading: false, process: '', error: null });
         }
         case _actions__WEBPACK_IMPORTED_MODULE_3__["purchaseAction"].ActionTypes.RegisterContactFail: {
@@ -11889,19 +11975,23 @@ function main() {
         // 言語設定
         Object(ngx_bootstrap_chronos__WEBPACK_IMPORTED_MODULE_4__["defineLocale"])('ja', ngx_bootstrap_locale__WEBPACK_IMPORTED_MODULE_5__["jaLocale"]);
         // プロジェクト設定
-        const project = Object(_app_functions__WEBPACK_IMPORTED_MODULE_7__["getParameter"])().project
-            || (Object(_app_functions__WEBPACK_IMPORTED_MODULE_7__["getProject"])().projectName === '') ? undefined : Object(_app_functions__WEBPACK_IMPORTED_MODULE_7__["getProject"])().projectName;
+        const project = (Object(_app_functions__WEBPACK_IMPORTED_MODULE_7__["getParameter"])().project === undefined)
+            ? (Object(_app_functions__WEBPACK_IMPORTED_MODULE_7__["getProject"])().projectName === '') ? undefined : Object(_app_functions__WEBPACK_IMPORTED_MODULE_7__["getProject"])().projectName
+            : Object(_app_functions__WEBPACK_IMPORTED_MODULE_7__["getParameter"])().project;
         yield Object(_app_functions__WEBPACK_IMPORTED_MODULE_7__["setProject"])({ project });
-        yield setProjectConfig();
+        if (Object(_app_functions__WEBPACK_IMPORTED_MODULE_7__["getProject"])().storageUrl === undefined) {
+            return;
+        }
+        yield setProjectConfig(Object(_app_functions__WEBPACK_IMPORTED_MODULE_7__["getProject"])().storageUrl);
     });
 }
 /**
  * プロジェクトごとのアプリケーション設定
  */
-function setProjectConfig() {
+function setProjectConfig(storageUrl) {
     return __awaiter(this, void 0, void 0, function* () {
         // 設定読み込み
-        const fetchResult = yield fetch(`${Object(_app_functions__WEBPACK_IMPORTED_MODULE_7__["getProject"])().storageUrl}/js/environment.js`, {
+        const fetchResult = yield fetch(`${storageUrl}/js/environment.js`, {
             method: 'GET',
             cache: 'no-cache',
             headers: { 'Content-Type': 'application/json; charset=utf-8' }
@@ -11916,13 +12006,13 @@ function setProjectConfig() {
         // スタイル設定
         const style = document.createElement('link');
         style.rel = 'stylesheet';
-        style.href = `${Object(_app_functions__WEBPACK_IMPORTED_MODULE_7__["getProject"])().storageUrl}/css/style.css`;
+        style.href = `${storageUrl}/css/style.css`;
         document.body.appendChild(style);
         // ファビコン設定
         const favicon = document.createElement('link');
         favicon.rel = 'icon';
         favicon.type = 'image/x-icon"';
-        favicon.href = `${Object(_app_functions__WEBPACK_IMPORTED_MODULE_7__["getProject"])().storageUrl}/favicon.ico`;
+        favicon.href = `${storageUrl}/favicon.ico`;
         document.body.appendChild(favicon);
         // タイトル設定
         document.title = Object(_environments_environment__WEBPACK_IMPORTED_MODULE_8__["getEnvironment"])().APP_TITLE;

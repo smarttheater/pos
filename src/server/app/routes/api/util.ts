@@ -42,6 +42,35 @@ router.post('/project', async (req, res) => {
 });
 
 /**
+ * プロジェクト設定取得
+ */
+router.post('/projects', async (_req, res) => {
+    log('projects');
+    try {
+        const projects: {
+            projectId: string;
+            projectName: string;
+            storageUrl: string;
+        }[] = JSON.parse(<string>process.env.PROJECTS).map((project: {
+            'PROJECT_NAME': string;
+            'PROJECT_ID': string;
+            'STORAGE_URL': string;
+        }) => {
+            return {
+                projectId: project.PROJECT_ID,
+                projectName: project.PROJECT_NAME,
+                storageUrl: project.STORAGE_URL
+            };
+        });
+        res.json(projects);
+    } catch (error) {
+        log('project', error.message);
+        res.status(NOT_FOUND);
+        res.json({ error: error.message });
+    }
+});
+
+/**
  * サーバータイム取得
  */
 router.get('/serverTime', (_req, res) => {

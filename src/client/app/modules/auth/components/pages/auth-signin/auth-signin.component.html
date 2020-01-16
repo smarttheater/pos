@@ -1,1 +1,18 @@
-<app-loading [isLoading]="true" process="process.authAction.Login"></app-loading>
+<div class="contents-width mx-auto px-3 py-5">
+    <h2 class="text-large mb-4 text-center font-weight-bold">プロジェクト選択</h2>
+    <p class="mb-4 text-md-center">プロジェクトを選択してください。</p>
+
+    <ul class="d-md-flex flex-wrap">
+        <li *ngFor="let project of (master | async).projects" class="my-md-2 mb-3">
+            <div class="card mx-md-2 h-100">
+                <div class="card-body">
+                    <div class="d-flex align-items-center mb-3">
+                        <div class="mr-2"><img [src]="project.logo" class="logo" [alt]="project.name"></div>
+                        <p class="font-weight-bold">{{ project.name }}</p>
+                    </div>
+                    <a class="btn btn-primary" [href]="'/?project=' + getProject(project.id)?.projectName" [class.disabled]="!getProject(project.id)">移動</a>
+                </div>
+            </div>
+        </li>
+    </ul>
+</div>

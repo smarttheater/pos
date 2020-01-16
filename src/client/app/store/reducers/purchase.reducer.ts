@@ -22,7 +22,7 @@ export interface IPurchaseState {
     screeningEventTicketOffers: factory.chevre.event.screeningEvent.ITicketOffer[];
     authorizeSeatReservation?: factory.action.authorize.offer.seatReservation.IAction<factory.service.webAPI.Identifier>;
     authorizeSeatReservations: factory.action.authorize.offer.seatReservation.IAction<factory.service.webAPI.Identifier>[];
-    customerContact?: factory.transaction.placeOrder.ICustomerProfile;
+    profile?: factory.person.IProfile;
     authorizeCreditCardPayments: factory.action.authorize.paymentMethod.creditCard.IAction[];
     authorizeMovieTicketPayments: factory.action.authorize.paymentMethod.movieTicket.IAction[];
     gmoTokenObject?: any;
@@ -330,8 +330,8 @@ export function reducer(state: IState, action: purchaseAction.Actions): IState {
             return { ...state, loading: true, process: 'purchaseAction.RegisterContact' };
         }
         case purchaseAction.ActionTypes.RegisterContactSuccess: {
-            const customerContact = action.payload.customerContact;
-            state.purchaseData.customerContact = customerContact;
+            const profile = action.payload.profile;
+            state.purchaseData.profile = profile;
             return { ...state, loading: false, process: '', error: null };
         }
         case purchaseAction.ActionTypes.RegisterContactFail: {

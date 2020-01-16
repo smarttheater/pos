@@ -8,11 +8,13 @@ import { masterAction } from '../actions';
 export interface IMasterState {
     sellers: factory.seller.IOrganization<factory.seller.IAttributes<factory.organizationType>>[];
     screeningEvents: factory.chevre.event.screeningEvent.IEvent[];
+    projects: factory.project.IProject[];
 }
 
 export const masterInitialState: IMasterState = {
     sellers: [],
-    screeningEvents: []
+    screeningEvents: [],
+    projects: []
 };
 
 /**
@@ -25,7 +27,8 @@ export function reducer(state: IState, action: masterAction.Actions): IState {
         case masterAction.ActionTypes.Delete: {
             state.masterData = {
                 sellers: [],
-                screeningEvents: []
+                screeningEvents: [],
+                projects: []
             };
             return { ...state };
         }
@@ -51,6 +54,19 @@ export function reducer(state: IState, action: masterAction.Actions): IState {
             return { ...state, loading: false, process: '', error: null };
         }
         case masterAction.ActionTypes.GetScheduleFail: {
+            const error = action.payload.error;
+            return { ...state, loading: false, process: '', error: JSON.stringify(error) };
+        }
+        case masterAction.ActionTypes.GetProjects: {
+            return { ...state, loading: true, process: 'masterAction.GetProjects' };
+        }
+        case masterAction.ActionTypes.GetProjectsSuccess: {
+            const projects = action.payload.projects;
+            state.masterData.projects = projects;
+
+            return { ...state, loading: false, process: '', error: null };
+        }
+        case masterAction.ActionTypes.GetProjectsFail: {
             const error = action.payload.error;
             return { ...state, loading: false, process: '', error: JSON.stringify(error) };
         }

@@ -101,7 +101,7 @@ export class PurchaseEffects {
                     `${getProject().storageUrl}/json/theater/${theaterCode}/${screenCode}.json?${moment().format('YYYYMMDDHHmm')}`
                 ).toPromise();
                 const objects = screen.objects.map((o) => {
-                    return {...o, image: o.image.replace('/storage', getProject().storageUrl)};
+                    return { ...o, image: o.image.replace('/storage', getProject().storageUrl) };
                 });
                 screen.objects = objects;
                 const setting = await this.http.get<IScreen>(`${getProject().storageUrl}/json/theater/setting.json`).toPromise();
@@ -299,21 +299,17 @@ export class PurchaseEffects {
         map(action => action.payload),
         mergeMap(async (payload) => {
             const transaction = payload.transaction;
-            const contact = payload.contact;
-            if (contact.telephone !== undefined) {
-                contact.telephone = formatTelephone(contact.telephone);
+            const profile = payload.contact;
+            if (profile.telephone !== undefined) {
+                profile.telephone = formatTelephone(profile.telephone);
             }
             try {
                 await this.cinerino.getServices();
-                const customerContact =
-                    await this.cinerino.transaction.placeOrder.setCustomerContact({
-                        id: transaction.id,
-                        object: {
-                            customerContact: contact
-                        }
-                    });
-
-                return new purchaseAction.RegisterContactSuccess({ customerContact });
+                await this.cinerino.transaction.placeOrder.setProfile({
+                    id: transaction.id,
+                    agent: profile
+                });
+                return new purchaseAction.RegisterContactSuccess({ profile });
             } catch (error) {
                 return new purchaseAction.RegisterContactFail({ error: error });
             }
@@ -525,7 +521,7 @@ export class PurchaseEffects {
      * AuthorizeAnyPayment
      */
     @Effect()
-    public addAuthorizeAnyPayment = this.actions.pipe(
+    public authorizeAnyPayment = this.actions.pipe(
         ofType<purchaseAction.AuthorizeAnyPayment>(purchaseAction.ActionTypes.AuthorizeAnyPayment),
         map(action => action.payload),
         mergeMap(async (payload) => {

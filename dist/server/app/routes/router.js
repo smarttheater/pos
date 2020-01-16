@@ -72,6 +72,7 @@ exports.default = (app) => {
         res.redirect(`/#/auth/signout`);
     });
     app.get('*', (req, res, next) => __awaiter(this, void 0, void 0, function* () {
+        log('root', req.query);
         if (req.xhr) {
             res.status(httpStatus.NOT_FOUND).json('NOT FOUND');
             return;
@@ -79,10 +80,6 @@ exports.default = (app) => {
         if (req.session === undefined) {
             next();
             return;
-        }
-        if (req.query.performanceId !== undefined
-            && req.query.eventId === undefined) {
-            req.query.eventId = req.query.performanceId;
         }
         if (req.query.project !== undefined) {
             try {

@@ -476,11 +476,8 @@ export class PurchaseService {
             if (purchase.paymentMethod.paymentMethodType === factory.paymentMethodType.Cash
                 && depositAmount !== undefined) {
                 // 現金
-                additionalProperty.push({ name: 'depositAmount', value: depositAmount });
-                additionalProperty.push({
-                    name: 'change',
-                    value: depositAmount - amount
-                });
+                additionalProperty.push({ name: 'depositAmount', value: String(depositAmount) });
+                additionalProperty.push({ name: 'change', value: String(depositAmount - amount) });
             }
             this.store.dispatch(new purchaseAction.AuthorizeAnyPayment({
                 transaction: transaction,

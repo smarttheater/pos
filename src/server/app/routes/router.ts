@@ -69,6 +69,7 @@ export default (app: express.Application) => {
     });
 
     app.get('*', async (req, res, next) => {
+        log('root', req.query);
         if (req.xhr) {
             res.status(httpStatus.NOT_FOUND).json('NOT FOUND');
             return;
@@ -76,10 +77,6 @@ export default (app: express.Application) => {
         if (req.session === undefined) {
             next();
             return;
-        }
-        if (req.query.performanceId !== undefined
-            && req.query.eventId === undefined) {
-            req.query.eventId = req.query.performanceId;
         }
         if (req.query.project !== undefined) {
             try {

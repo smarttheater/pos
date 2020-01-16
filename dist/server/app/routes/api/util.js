@@ -50,6 +50,27 @@ router.post('/project', (req, res) => __awaiter(this, void 0, void 0, function* 
     }
 }));
 /**
+ * プロジェクト設定取得
+ */
+router.post('/projects', (_req, res) => __awaiter(this, void 0, void 0, function* () {
+    log('projects');
+    try {
+        const projects = JSON.parse(process.env.PROJECTS).map((project) => {
+            return {
+                projectId: project.PROJECT_ID,
+                projectName: project.PROJECT_NAME,
+                storageUrl: project.STORAGE_URL
+            };
+        });
+        res.json(projects);
+    }
+    catch (error) {
+        log('project', error.message);
+        res.status(http_status_1.NOT_FOUND);
+        res.json({ error: error.message });
+    }
+}));
+/**
  * サーバータイム取得
  */
 router.get('/serverTime', (_req, res) => {

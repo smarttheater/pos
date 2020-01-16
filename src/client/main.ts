@@ -20,18 +20,22 @@ async function main() {
     defineLocale('ja', jaLocale);
 
     // プロジェクト設定
-    const project = getParameter<{ project: string | undefined }>().project
-        || (getProject().projectName === '') ? undefined : getProject().projectName;
+    const project = (getParameter<{ project: string | undefined }>().project === undefined)
+        ? (getProject().projectName === '') ? undefined : getProject().projectName
+        : getParameter<{ project: string | undefined }>().project;
     await setProject({ project });
-    await setProjectConfig();
+    if (getProject().storageUrl === undefined) {
+        return;
+    }
+    await setProjectConfig(getProject().storageUrl);
 }
 
 /**
  * プロジェクトごとのアプリケーション設定
  */
-async function setProjectConfig() {
+async function setProjectConfig(storageUrl: string) {
     // 設定読み込み
-    const fetchResult = await fetch(`${getProject().storageUrl}/js/environment.js`, {
+    const fetchResult = await fetch(`${storageUrl}/js/environment.js`, {
         method: 'GET',
         cache: 'no-cache',
         headers: { 'Content-Type': 'application/json; charset=utf-8' }
@@ -46,13 +50,13 @@ async function setProjectConfig() {
     // スタイル設定
     const style = document.createElement('link');
     style.rel = 'stylesheet';
-    style.href = `${getProject().storageUrl}/css/style.css`;
+    style.href = `${storageUrl}/css/style.css`;
     document.body.appendChild(style);
     // ファビコン設定
     const favicon = document.createElement('link');
     favicon.rel = 'icon';
     favicon.type = 'image/x-icon"';
-    favicon.href = `${getProject().storageUrl}/favicon.ico`;
+    favicon.href = `${storageUrl}/favicon.ico`;
     document.body.appendChild(favicon);
     // タイトル設定
     document.title = getEnvironment().APP_TITLE;
