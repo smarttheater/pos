@@ -830,7 +830,7 @@ let PurchaseCinemaSeatComponent = class PurchaseCinemaSeatComponent {
                 });
                 return;
             }
-            if (purchase.reservations.length === 0) {
+            if (purchase.reservations.length > Number(this.environment.PURCHASE_ITEM_MAX_LENGTH)) {
                 this.utilService.openAlert({
                     title: this.translate.instant('common.error'),
                     body: this.translate.instant('purchase.cinema.seat.alert.limit', { value: this.environment.PURCHASE_ITEM_MAX_LENGTH })

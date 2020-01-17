@@ -1576,7 +1576,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
                     return _context9.abrupt("return");
 
                   case 6:
-                    if (!(purchase.reservations.length === 0)) {
+                    if (!(purchase.reservations.length > Number(this.environment.PURCHASE_ITEM_MAX_LENGTH))) {
                       _context9.next = 9;
                       break;
                     }
