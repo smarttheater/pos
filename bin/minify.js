@@ -6,3 +6,5 @@ function minify(env) {
 }
 minify('local');
 minify('development');
+minify('test');
+minify('production');
