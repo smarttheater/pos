@@ -180,10 +180,6 @@ interface IEnvironment {
      * 印刷時ローディング
      */
     PRINT_LOADING: boolean;
-    /**
-     * 設定開発用オプション
-     */
-    SETTING_DEVELOP_OPTION: boolean;
 }
 
 const defaultEnvironment: IEnvironment = {
@@ -230,10 +226,9 @@ const defaultEnvironment: IEnvironment = {
     ORDER_PRINT: false,
     PRINT_QRCODE_TYPE: 'token',
     PRINT_QRCODE_CUSTOM: '',
-    PRINT_LOADING: true,
-    SETTING_DEVELOP_OPTION: false
+    PRINT_LOADING: true
 };
 
 export function getEnvironment(): IEnvironment {
-    return { ...defaultEnvironment, ...(<any>window).environment };
+    return { ...defaultEnvironment, ...(<any>window).environment, production: (document.querySelector('body.production') !== null) };
 }

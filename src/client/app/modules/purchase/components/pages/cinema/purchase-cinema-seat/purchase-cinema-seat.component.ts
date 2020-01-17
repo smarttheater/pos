@@ -133,7 +133,7 @@ export class PurchaseCinemaSeatComponent implements OnInit {
                 title: this.translate.instant('common.error'),
                 body: this.translate.instant(
                     'purchase.cinema.seat.alert.limit',
-                    { value: getEnvironment().PURCHASE_ITEM_MAX_LENGTH }
+                    { value: this.environment.PURCHASE_ITEM_MAX_LENGTH }
                 )
             });
             return;

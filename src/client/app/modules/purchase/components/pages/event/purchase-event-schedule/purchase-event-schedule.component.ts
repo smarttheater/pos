@@ -50,7 +50,7 @@ export class PurchaseEventScheduleComponent implements OnInit, OnDestroy {
         this.screeningWorkEvents = [];
         if (this.scheduleDate === undefined) {
             this.scheduleDate = moment()
-                .add(getEnvironment().PURCHASE_SCHEDULE_DEFAULT_SELECTED_DATE, 'day')
+                .add(this.environment.PURCHASE_SCHEDULE_DEFAULT_SELECTED_DATE, 'day')
                 .toDate();
         }
         try {
@@ -98,7 +98,7 @@ export class PurchaseEventScheduleComponent implements OnInit, OnDestroy {
             }
             if (this.scheduleDate === undefined || this.scheduleDate === null) {
                 this.scheduleDate = moment()
-                    .add(getEnvironment().PURCHASE_SCHEDULE_DEFAULT_SELECTED_DATE, 'day')
+                    .add(this.environment.PURCHASE_SCHEDULE_DEFAULT_SELECTED_DATE, 'day')
                     .toDate();
             }
             const scheduleDate = moment(this.scheduleDate).format('YYYY-MM-DD');

@@ -2,8 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { select, Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
+import { getEnvironment } from '../../../../../../environments/environment';
 import { ViewType } from '../../../../../models';
-import { PurchaseService, UserService } from '../../../../../services';
+import { PurchaseService } from '../../../../../services';
 import * as reducers from '../../../../../store/reducers';
 
 @Component({
@@ -14,10 +15,11 @@ import * as reducers from '../../../../../store/reducers';
 export class PurchaseRootComponent implements OnInit {
     public purchase: Observable<reducers.IPurchaseState>;
     public user: Observable<reducers.IUserState>;
+    public environment = getEnvironment();
+
     constructor(
         private store: Store<reducers.IState>,
         private purchaseService: PurchaseService,
-        private userService: UserService,
         private router: Router
     ) { }
 
@@ -26,12 +28,11 @@ export class PurchaseRootComponent implements OnInit {
         this.purchase = this.store.pipe(select(reducers.getPurchase));
         try {
             const purchase = await this.purchaseService.getData();
-            const user = await this.userService.getData();
             if (purchase.transaction !== undefined) {
                 await this.purchaseService.cancelTransaction();
             }
             this.purchaseService.delete();
-            if (user.viewType === ViewType.Cinema) {
+            if (this.environment.VIEW_TYPE === ViewType.Cinema) {
                 this.router.navigate(['/purchase/cinema/schedule']);
                 return;
             }

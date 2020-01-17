@@ -1,7 +1,6 @@
 import { factory } from '@cinerino/api-javascript-client';
 import { IState } from '.';
-import { getEnvironment } from '../../../environments/environment';
-import { IPrinter, ViewType } from '../../models';
+import { IPrinter } from '../../models';
 import { userAction } from '../actions';
 
 export interface IUserState {
@@ -16,7 +15,7 @@ export interface IUserState {
     /**
      * 購入者情報
      */
-    customerContact?: factory.transaction.placeOrder.ICustomerProfile;
+    customerContact?: factory.person.IProfile;
     /**
      * プリンター
      */
@@ -26,23 +25,13 @@ export interface IUserState {
      */
     language: string;
     /**
-     * カート設定
-     */
-    isPurchaseCart: boolean;
-    /**
-     * 表示タイプ
-     */
-    viewType: ViewType;
-    /**
      * バージョン
      */
     version?: string;
 }
 
 export const userInitialState: IUserState = {
-    language: 'ja',
-    isPurchaseCart: getEnvironment().PURCHASE_CART,
-    viewType: (<ViewType>getEnvironment().VIEW_TYPE)
+    language: 'ja'
 };
 
 /**
@@ -60,14 +49,10 @@ export function reducer(state: IState, action: userAction.Actions): IState {
             const seller = action.payload.seller;
             const pos = action.payload.pos;
             const printer = action.payload.printer;
-            const isPurchaseCart = action.payload.isPurchaseCart;
-            const viewType = action.payload.viewType;
             state.userData.customerContact = customerContact;
             state.userData.seller = seller;
             state.userData.pos = pos;
             state.userData.printer = printer;
-            state.userData.isPurchaseCart = isPurchaseCart;
-            state.userData.viewType = viewType;
 
             return { ...state, loading: false, process: '' };
         }

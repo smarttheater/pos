@@ -13,6 +13,8 @@ declare const ga: Function;
     templateUrl: './app.component.html'
 })
 export class AppComponent implements OnInit {
+    public environment = getEnvironment();
+
     constructor(
         private router: Router,
         private translate: TranslateService
@@ -24,7 +26,7 @@ export class AppComponent implements OnInit {
      */
     public ngOnInit() {
         this.locales();
-        if (getEnvironment().ANALYTICS_ID !== '') {
+        if (this.environment.ANALYTICS_ID !== '') {
             this.analytics();
         }
     }
@@ -33,7 +35,7 @@ export class AppComponent implements OnInit {
      * 言語設定
      */
     private locales() {
-        this.translate.addLangs(getEnvironment().LANGUAGE);
+        this.translate.addLangs(this.environment.LANGUAGE);
         this.translate.setDefaultLang('ja');
     }
 
@@ -45,7 +47,7 @@ export class AppComponent implements OnInit {
             if (event instanceof NavigationEnd) {
                 // Googleアナリティクス pageview
                 try {
-                    ga('create', getEnvironment().ANALYTICS_ID, 'auto');
+                    ga('create', this.environment.ANALYTICS_ID, 'auto');
                     ga('set', 'page', event.urlAfterRedirects);
                     ga('send', 'pageview');
                 } catch (err) {

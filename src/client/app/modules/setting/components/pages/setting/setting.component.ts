@@ -114,14 +114,7 @@ export class SettingComponent implements OnInit {
                 }
             ]],
             printerType: [''],
-            printerIpAddress: [''],
-            isPurchaseCart: ['0', [
-                Validators.required,
-                Validators.pattern(/^[0-9]+$/)
-            ]],
-            viewType: ['', [
-                Validators.required
-            ]]
+            printerIpAddress: ['']
         });
         const user = await this.userService.getData();
         if (user.seller !== undefined
@@ -146,8 +139,6 @@ export class SettingComponent implements OnInit {
             this.settingForm.controls.printerType.setValue(user.printer.connectionType);
             this.settingForm.controls.printerIpAddress.setValue(user.printer.ipAddress);
         }
-        this.settingForm.controls.isPurchaseCart.setValue((user.isPurchaseCart) ? '1' : '0');
-        this.settingForm.controls.viewType.setValue(user.viewType);
     }
 
     /**
@@ -212,9 +203,7 @@ export class SettingComponent implements OnInit {
                 printer: {
                     ipAddress: this.settingForm.controls.printerIpAddress.value,
                     connectionType: this.settingForm.controls.printerType.value
-                },
-                isPurchaseCart: (this.settingForm.controls.isPurchaseCart.value === '1') ? true : false,
-                viewType: this.settingForm.controls.viewType.value
+                }
             });
             this.utilService.openAlert({
                 title: this.translate.instant('common.complete'),

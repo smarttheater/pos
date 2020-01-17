@@ -5,8 +5,9 @@ import { select, Store } from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
 import { BsModalService } from 'ngx-bootstrap';
 import { Observable } from 'rxjs';
+import { getEnvironment } from '../../../../../../../environments/environment';
 import { IReservationTicket, Reservation } from '../../../../../../models/purchase/reservation';
-import { PurchaseService, UserService, UtilService } from '../../../../../../services';
+import { PurchaseService, UtilService } from '../../../../../../services';
 import * as reducers from '../../../../../../store/reducers';
 import { MvtkCheckModalComponent } from '../../../../../shared/components/parts/mvtk/check-modal/check-modal.component';
 import {
@@ -22,12 +23,13 @@ export class PurchaseCinemaTicketComponent implements OnInit {
     public purchase: Observable<reducers.IPurchaseState>;
     public user: Observable<reducers.IUserState>;
     public isLoading: Observable<boolean>;
+    public environment = getEnvironment();
+
     constructor(
         private store: Store<reducers.IState>,
         private router: Router,
         private modal: BsModalService,
         private purchaseService: PurchaseService,
-        private userService: UserService,
         private utilService: UtilService,
         private translate: TranslateService
     ) { }
@@ -87,8 +89,7 @@ export class PurchaseCinemaTicketComponent implements OnInit {
         }
         try {
             await this.purchaseService.temporaryReservation();
-            const user = await this.userService.getData();
-            if (!user.isPurchaseCart) {
+            if (!this.environment.PURCHASE_CART) {
                 this.router.navigate(['/purchase/payment']);
                 return;
             }

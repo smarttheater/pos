@@ -44,7 +44,7 @@ export class TransactionRemainingTimeComponent implements OnInit, OnDestroy {
             minutes: `00${expires.diff(now, 'minutes') % 60}`.slice(-2),
             seconds: `00${expires.diff(now, 'seconds') % 60 % 60}`.slice(-2)
         };
-        this.width = Math.floor(expires.diff(now, 'seconds') / (Number(getEnvironment().PURCHASE_TRANSACTION_TIME) * 60) * 100);
+        this.width = Math.floor(expires.diff(now, 'seconds') / (Number(this.environment.PURCHASE_TRANSACTION_TIME) * 60) * 100);
         if (this.isExpired) {
             this.router.navigate(['/expired']);
         }

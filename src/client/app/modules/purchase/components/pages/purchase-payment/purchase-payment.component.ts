@@ -64,7 +64,7 @@ export class PurchasePaymentComponent implements OnInit {
      * 表示判定
      */
     public isDisplay(paymentMethodType: factory.paymentMethodType | string) {
-        const findResult = getEnvironment().PAYMENT_METHOD_TO_USE.find(p => p === paymentMethodType);
+        const findResult = this.environment.PAYMENT_METHOD_TO_USE.find(p => p === paymentMethodType);
         return (findResult !== undefined);
     }
 

@@ -20,6 +20,9 @@ async function main() {
     defineLocale('ja', jaLocale);
 
     // プロジェクト設定
+    if (location.hash === '#/auth/signin') {
+        sessionStorage.removeItem('PROJECT');
+    }
     const project = (getParameter<{ project: string | undefined }>().project === undefined)
         ? (getProject().projectName === '') ? undefined : getProject().projectName
         : getParameter<{ project: string | undefined }>().project;
@@ -35,7 +38,7 @@ async function main() {
  */
 async function setProjectConfig(storageUrl: string) {
     // 設定読み込み
-    const fetchResult = await fetch(`${storageUrl}/js/environment.js`, {
+    const fetchResult = await fetch(`${storageUrl}/js/environment.js?=date${momentTimezone().toISOString()}`, {
         method: 'GET',
         cache: 'no-cache',
         headers: { 'Content-Type': 'application/json; charset=utf-8' }
@@ -47,21 +50,22 @@ async function setProjectConfig(storageUrl: string) {
         throw new Error('fetchResult.body null');
     }
     (<any>window).eval(await streamingDownload(fetchResult.body));
+    const environment = getEnvironment();
     // スタイル設定
     const style = document.createElement('link');
     style.rel = 'stylesheet';
-    style.href = `${storageUrl}/css/style.css`;
-    document.body.appendChild(style);
+    style.href = `${storageUrl}/css/style.css?=date${momentTimezone().toISOString()}`;
+    document.head.appendChild(style);
     // ファビコン設定
     const favicon = document.createElement('link');
     favicon.rel = 'icon';
     favicon.type = 'image/x-icon"';
     favicon.href = `${storageUrl}/favicon.ico`;
-    document.body.appendChild(favicon);
+    document.head.appendChild(favicon);
     // タイトル設定
-    document.title = getEnvironment().APP_TITLE;
+    document.title = environment.APP_TITLE;
     // GTM設定
-    if (getEnvironment().GTM_ID) {
+    if (environment.GTM_ID) {
         (function (w, d, s, l, i) {
             (<any>w)[l] = (<any>w)[l] || [];
             (<any>w)[l].push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' });
@@ -70,9 +74,9 @@ async function setProjectConfig(storageUrl: string) {
             (<any>j).async = true;
             (<any>j).src = 'https://www.googletagmanager.com/gtm.js?id=' + i + dl;
             (<any>f).parentNode.insertBefore(j, f);
-        })(window, document, 'script', 'dataLayer', getEnvironment().GTM_ID);
+        })(window, document, 'script', 'dataLayer', environment.GTM_ID);
     }
-    if (getEnvironment().production) {
+    if (environment.production) {
         enableProdMode();
     }
 }

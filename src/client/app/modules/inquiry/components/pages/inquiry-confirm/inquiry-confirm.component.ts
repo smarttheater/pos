@@ -54,8 +54,8 @@ export class InquiryConfirmComponent implements OnInit {
             const order = value.order;
             this.eventOrders = orderToEventOrders({ order });
         }).unsubscribe();
-        if (getEnvironment().INQUIRY_PRINT_WAIT_TIME !== '') {
-            const time = Number(getEnvironment().INQUIRY_PRINT_WAIT_TIME);
+        if (this.environment.INQUIRY_PRINT_WAIT_TIME !== '') {
+            const time = Number(this.environment.INQUIRY_PRINT_WAIT_TIME);
             this.timer = setTimeout(() => {
                 this.router.navigate(['/inquiry/input']);
             }, time);
@@ -111,7 +111,7 @@ export class InquiryConfirmComponent implements OnInit {
     public async print() {
         const today = moment().format('YYYYMMDD');
         const limit = moment(today)
-            .add(getEnvironment().INQUIRY_PRINT_EXPIRED_VALUE, getEnvironment().INQUIRY_PRINT_EXPIRED_UNIT)
+            .add(this.environment.INQUIRY_PRINT_EXPIRED_VALUE, this.environment.INQUIRY_PRINT_EXPIRED_UNIT)
             .format('YYYYMMDD');
         const findResult = this.eventOrders.find(o => moment(o.event.startDate).format('YYYYMMDD') < limit);
         if (findResult !== undefined) {

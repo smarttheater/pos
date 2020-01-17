@@ -31,8 +31,10 @@ export function main(reducer: ActionReducer<IState>) {
  * Logger
  */
 export function logger(newState: any, action: any) {
-    console.log('logger action', action);
-    console.log('logger newState', newState);
+    if (!getEnvironment().production) {
+        console.log('logger action', action);
+        console.log('logger newState', newState);
+    }
 }
 
 /**

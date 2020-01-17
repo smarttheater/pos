@@ -24,6 +24,7 @@ export class PurchaseEventTicketModalComponent implements OnInit {
     public moment: typeof moment = moment;
     public getRemainingSeatLength = getRemainingSeatLength;
     public isTicketedSeatScreeningEvent = isTicketedSeatScreeningEvent;
+    public environment = getEnvironment();
 
     constructor(
         public modal: BsModalRef
@@ -41,7 +42,7 @@ export class PurchaseEventTicketModalComponent implements OnInit {
             return movieTicketTypeChargeSpecification === undefined;
         });
         this.values = [];
-        let limit = Number(getEnvironment().PURCHASE_ITEM_MAX_LENGTH);
+        let limit = Number(this.environment.PURCHASE_ITEM_MAX_LENGTH);
         if (isTicketedSeatScreeningEvent(this.screeningEvent)) {
             const remainingSeatLength = this.getRemainingSeatLength(this.screeningEventOffers, this.screeningEvent);
             limit = (limit > remainingSeatLength) ? remainingSeatLength : limit;
