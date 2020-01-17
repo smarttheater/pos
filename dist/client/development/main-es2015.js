@@ -678,10 +678,6 @@ const appRoutes = [
         loadChildren: () => Promise.all(/*! import() | modules-reservation-reservation-module */[__webpack_require__.e("common"), __webpack_require__.e("modules-reservation-reservation-module")]).then(__webpack_require__.bind(null, /*! ./modules/reservation/reservation.module */ "./app/modules/reservation/reservation.module.ts")).then(m => m.ReservationModule)
     },
     {
-        path: 'person',
-        loadChildren: () => Promise.all(/*! import() | modules-person-person-module */[__webpack_require__.e("common"), __webpack_require__.e("modules-person-person-module")]).then(__webpack_require__.bind(null, /*! ./modules/person/person.module */ "./app/modules/person/person.module.ts")).then(m => m.PersonModule)
-    },
-    {
         path: 'tasks',
         loadChildren: () => Promise.all(/*! import() | modules-tasks-tasks-module */[__webpack_require__.e("common"), __webpack_require__.e("modules-tasks-tasks-module")]).then(__webpack_require__.bind(null, /*! ./modules/tasks/tasks.module */ "./app/modules/tasks/tasks.module.ts")).then(m => m.TasksModule)
     },
@@ -5979,7 +5975,7 @@ DownloadService = DownloadService_1 = __decorate([
 /*!*******************************!*\
   !*** ./app/services/index.ts ***!
   \*******************************/
-/*! exports provided: AdmissionService, CinerinoService, PurchaseService, UserService, MasterService, OrderService, PersonService, ReservationService, UtilService, StarPrintService, DownloadService, QRCodeService */
+/*! exports provided: CinerinoService, AdmissionService, PurchaseService, UserService, MasterService, OrderService, ReservationService, UtilService, StarPrintService, DownloadService, QRCodeService */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -6002,28 +5998,24 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _order_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./order.service */ "./app/services/order.service.ts");
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "OrderService", function() { return _order_service__WEBPACK_IMPORTED_MODULE_5__["OrderService"]; });
 
-/* harmony import */ var _person_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./person.service */ "./app/services/person.service.ts");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "PersonService", function() { return _person_service__WEBPACK_IMPORTED_MODULE_6__["PersonService"]; });
+/* harmony import */ var _reservation_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./reservation.service */ "./app/services/reservation.service.ts");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "ReservationService", function() { return _reservation_service__WEBPACK_IMPORTED_MODULE_6__["ReservationService"]; });
 
-/* harmony import */ var _reservation_service__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./reservation.service */ "./app/services/reservation.service.ts");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "ReservationService", function() { return _reservation_service__WEBPACK_IMPORTED_MODULE_7__["ReservationService"]; });
+/* harmony import */ var _util_service__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./util.service */ "./app/services/util.service.ts");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "UtilService", function() { return _util_service__WEBPACK_IMPORTED_MODULE_7__["UtilService"]; });
 
-/* harmony import */ var _util_service__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./util.service */ "./app/services/util.service.ts");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "UtilService", function() { return _util_service__WEBPACK_IMPORTED_MODULE_8__["UtilService"]; });
+/* harmony import */ var _star_print_service__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./star-print.service */ "./app/services/star-print.service.ts");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "StarPrintService", function() { return _star_print_service__WEBPACK_IMPORTED_MODULE_8__["StarPrintService"]; });
 
-/* harmony import */ var _star_print_service__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./star-print.service */ "./app/services/star-print.service.ts");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "StarPrintService", function() { return _star_print_service__WEBPACK_IMPORTED_MODULE_9__["StarPrintService"]; });
+/* harmony import */ var _download_service__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./download.service */ "./app/services/download.service.ts");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "DownloadService", function() { return _download_service__WEBPACK_IMPORTED_MODULE_9__["DownloadService"]; });
 
-/* harmony import */ var _download_service__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./download.service */ "./app/services/download.service.ts");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "DownloadService", function() { return _download_service__WEBPACK_IMPORTED_MODULE_10__["DownloadService"]; });
-
-/* harmony import */ var _qrcode_service__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./qrcode.service */ "./app/services/qrcode.service.ts");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "QRCodeService", function() { return _qrcode_service__WEBPACK_IMPORTED_MODULE_11__["QRCodeService"]; });
+/* harmony import */ var _qrcode_service__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./qrcode.service */ "./app/services/qrcode.service.ts");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "QRCodeService", function() { return _qrcode_service__WEBPACK_IMPORTED_MODULE_10__["QRCodeService"]; });
 
 var __importDefault = (undefined && undefined.__importDefault) || function (mod) {
   return (mod && mod.__esModule) ? mod : { "default": mod };
 };
-
 
 
 
@@ -6384,103 +6376,6 @@ OrderService = __decorate([
         _cinerino_service__WEBPACK_IMPORTED_MODULE_9__["CinerinoService"],
         _util_service__WEBPACK_IMPORTED_MODULE_10__["UtilService"]])
 ], OrderService);
-
-
-
-/***/ }),
-
-/***/ "./app/services/person.service.ts":
-/*!****************************************!*\
-  !*** ./app/services/person.service.ts ***!
-  \****************************************/
-/*! exports provided: PersonService */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "PersonService", function() { return PersonService; });
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "../../node_modules/@angular/core/fesm2015/core.js");
-/* harmony import */ var _ngrx_effects__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @ngrx/effects */ "../../node_modules/@ngrx/effects/fesm2015/effects.js");
-/* harmony import */ var _ngrx_store__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @ngrx/store */ "../../node_modules/@ngrx/store/fesm2015/store.js");
-/* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! rxjs */ "../../node_modules/rxjs/_esm2015/index.js");
-/* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! rxjs/operators */ "../../node_modules/rxjs/_esm2015/operators/index.js");
-/* harmony import */ var _store_actions__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../store/actions */ "./app/store/actions/index.ts");
-/* harmony import */ var _store_reducers__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../store/reducers */ "./app/store/reducers/index.ts");
-var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata = (undefined && undefined.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-var __awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : new P(function (resolve) { resolve(result.value); }).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-};
-var __importDefault = (undefined && undefined.__importDefault) || function (mod) {
-  return (mod && mod.__esModule) ? mod : { "default": mod };
-};
-
-
-
-
-
-
-
-let PersonService = class PersonService {
-    constructor(store, actions) {
-        this.store = store;
-        this.actions = actions;
-        this.order = this.store.pipe(Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_2__["select"])(_store_reducers__WEBPACK_IMPORTED_MODULE_6__["getOrder"]));
-        this.error = this.store.pipe(Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_2__["select"])(_store_reducers__WEBPACK_IMPORTED_MODULE_6__["getError"]));
-    }
-    /**
-     * データ取得
-     */
-    getData() {
-        return __awaiter(this, void 0, void 0, function* () {
-            return new Promise((resolve) => {
-                this.order.subscribe((order) => {
-                    resolve(order);
-                }).unsubscribe();
-            });
-        });
-    }
-    /**
-     * データ削除
-     */
-    delete() {
-        this.store.dispatch(new _store_actions__WEBPACK_IMPORTED_MODULE_5__["personAction"].Delete());
-    }
-    /**
-     * 検索
-     */
-    search(params) {
-        return new Promise((resolve, reject) => {
-            this.store.dispatch(new _store_actions__WEBPACK_IMPORTED_MODULE_5__["personAction"].Search({ params }));
-            const success = this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_1__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_5__["personAction"].ActionTypes.SearchSuccess), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["tap"])(() => { resolve(); }));
-            const fail = this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_1__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_5__["personAction"].ActionTypes.SearchFail), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["tap"])(() => { this.error.subscribe((error) => { reject(error); }).unsubscribe(); }));
-            Object(rxjs__WEBPACK_IMPORTED_MODULE_3__["race"])(success, fail).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["take"])(1)).subscribe();
-        });
-    }
-};
-PersonService.ctorParameters = () => [
-    { type: _ngrx_store__WEBPACK_IMPORTED_MODULE_2__["Store"] },
-    { type: _ngrx_effects__WEBPACK_IMPORTED_MODULE_1__["Actions"] }
-];
-PersonService = __decorate([
-    Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"])({
-        providedIn: 'root'
-    }),
-    __metadata("design:paramtypes", [_ngrx_store__WEBPACK_IMPORTED_MODULE_2__["Store"],
-        _ngrx_effects__WEBPACK_IMPORTED_MODULE_1__["Actions"]])
-], PersonService);
 
 
 
@@ -7847,7 +7742,7 @@ class CheckFail {
 /*!************************************!*\
   !*** ./app/store/actions/index.ts ***!
   \************************************/
-/*! exports provided: admissionAction, masterAction, orderAction, personAction, reservationAction, purchaseAction, userAction, utilAction */
+/*! exports provided: admissionAction, masterAction, orderAction, reservationAction, purchaseAction, userAction, utilAction */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -7855,7 +7750,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "admissionAction", function() { return admissionAction; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "masterAction", function() { return masterAction; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "orderAction", function() { return orderAction; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "personAction", function() { return personAction; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "reservationAction", function() { return reservationAction; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "purchaseAction", function() { return purchaseAction; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "userAction", function() { return userAction; });
@@ -7863,11 +7757,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _admission_action__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./admission.action */ "./app/store/actions/admission.action.ts");
 /* harmony import */ var _master_action__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./master.action */ "./app/store/actions/master.action.ts");
 /* harmony import */ var _order_action__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./order.action */ "./app/store/actions/order.action.ts");
-/* harmony import */ var _person_action__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./person.action */ "./app/store/actions/person.action.ts");
-/* harmony import */ var _purchase_action__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./purchase.action */ "./app/store/actions/purchase.action.ts");
-/* harmony import */ var _reservation_action__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./reservation.action */ "./app/store/actions/reservation.action.ts");
-/* harmony import */ var _user_action__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./user.action */ "./app/store/actions/user.action.ts");
-/* harmony import */ var _util_action__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./util.action */ "./app/store/actions/util.action.ts");
+/* harmony import */ var _purchase_action__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./purchase.action */ "./app/store/actions/purchase.action.ts");
+/* harmony import */ var _reservation_action__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./reservation.action */ "./app/store/actions/reservation.action.ts");
+/* harmony import */ var _user_action__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./user.action */ "./app/store/actions/user.action.ts");
+/* harmony import */ var _util_action__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./util.action */ "./app/store/actions/util.action.ts");
 var __importDefault = (undefined && undefined.__importDefault) || function (mod) {
   return (mod && mod.__esModule) ? mod : { "default": mod };
 };
@@ -7878,15 +7771,13 @@ var __importDefault = (undefined && undefined.__importDefault) || function (mod)
 
 
 
-
 var admissionAction = _admission_action__WEBPACK_IMPORTED_MODULE_0__;
 var masterAction = _master_action__WEBPACK_IMPORTED_MODULE_1__;
 var orderAction = _order_action__WEBPACK_IMPORTED_MODULE_2__;
-var personAction = _person_action__WEBPACK_IMPORTED_MODULE_3__;
-var reservationAction = _reservation_action__WEBPACK_IMPORTED_MODULE_5__;
-var purchaseAction = _purchase_action__WEBPACK_IMPORTED_MODULE_4__;
-var userAction = _user_action__WEBPACK_IMPORTED_MODULE_6__;
-var utilAction = _util_action__WEBPACK_IMPORTED_MODULE_7__;
+var reservationAction = _reservation_action__WEBPACK_IMPORTED_MODULE_4__;
+var purchaseAction = _purchase_action__WEBPACK_IMPORTED_MODULE_3__;
+var userAction = _user_action__WEBPACK_IMPORTED_MODULE_5__;
+var utilAction = _util_action__WEBPACK_IMPORTED_MODULE_6__;
 
 
 /***/ }),
@@ -8184,73 +8075,6 @@ class OrderAuthorizeFail {
     constructor(payload) {
         this.payload = payload;
         this.type = ActionTypes.OrderAuthorizeFail;
-    }
-}
-
-
-/***/ }),
-
-/***/ "./app/store/actions/person.action.ts":
-/*!********************************************!*\
-  !*** ./app/store/actions/person.action.ts ***!
-  \********************************************/
-/*! exports provided: ActionTypes, Delete, Search, SearchSuccess, SearchFail */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ActionTypes", function() { return ActionTypes; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Delete", function() { return Delete; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Search", function() { return Search; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SearchSuccess", function() { return SearchSuccess; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SearchFail", function() { return SearchFail; });
-var __importDefault = (undefined && undefined.__importDefault) || function (mod) {
-  return (mod && mod.__esModule) ? mod : { "default": mod };
-};
-/**
- * Action types
- */
-var ActionTypes;
-(function (ActionTypes) {
-    ActionTypes["Delete"] = "[Person] Delete";
-    ActionTypes["Search"] = "[Person] Search";
-    ActionTypes["SearchSuccess"] = "[Person] Search Success";
-    ActionTypes["SearchFail"] = "[Person] Search Fail";
-})(ActionTypes || (ActionTypes = {}));
-/**
- * Delete
- */
-class Delete {
-    constructor(payload) {
-        this.payload = payload;
-        this.type = ActionTypes.Delete;
-    }
-}
-/**
- * Search
- */
-class Search {
-    constructor(payload) {
-        this.payload = payload;
-        this.type = ActionTypes.Search;
-    }
-}
-/**
- * SearchSuccess
- */
-class SearchSuccess {
-    constructor(payload) {
-        this.payload = payload;
-        this.type = ActionTypes.SearchSuccess;
-    }
-}
-/**
- * SearchFail
- */
-class SearchFail {
-    constructor(payload) {
-        this.payload = payload;
-        this.type = ActionTypes.SearchFail;
     }
 }
 
@@ -9106,7 +8930,6 @@ AppStoreModule = __decorate([
                 _effects__WEBPACK_IMPORTED_MODULE_3__["MasterEffects"],
                 _effects__WEBPACK_IMPORTED_MODULE_3__["ReservationEffects"],
                 _effects__WEBPACK_IMPORTED_MODULE_3__["OrderEffects"],
-                _effects__WEBPACK_IMPORTED_MODULE_3__["PersonEffects"]
             ])
         ]
     })
@@ -9400,7 +9223,7 @@ AdmissionEffects = __decorate([
 /*!************************************!*\
   !*** ./app/store/effects/index.ts ***!
   \************************************/
-/*! exports provided: PurchaseEffects, UserEffects, MasterEffects, AdmissionEffects, OrderEffects, PersonEffects, ReservationEffects */
+/*! exports provided: PurchaseEffects, UserEffects, MasterEffects, AdmissionEffects, OrderEffects, ReservationEffects */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -9420,16 +9243,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _order_effect__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./order.effect */ "./app/store/effects/order.effect.ts");
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "OrderEffects", function() { return _order_effect__WEBPACK_IMPORTED_MODULE_4__["OrderEffects"]; });
 
-/* harmony import */ var _person_effect__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./person.effect */ "./app/store/effects/person.effect.ts");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "PersonEffects", function() { return _person_effect__WEBPACK_IMPORTED_MODULE_5__["PersonEffects"]; });
-
-/* harmony import */ var _reservation_effect__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./reservation.effect */ "./app/store/effects/reservation.effect.ts");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "ReservationEffects", function() { return _reservation_effect__WEBPACK_IMPORTED_MODULE_6__["ReservationEffects"]; });
+/* harmony import */ var _reservation_effect__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./reservation.effect */ "./app/store/effects/reservation.effect.ts");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "ReservationEffects", function() { return _reservation_effect__WEBPACK_IMPORTED_MODULE_5__["ReservationEffects"]; });
 
 var __importDefault = (undefined && undefined.__importDefault) || function (mod) {
   return (mod && mod.__esModule) ? mod : { "default": mod };
 };
-
 
 
 
@@ -9973,88 +9792,6 @@ OrderEffects = __decorate([
         _services__WEBPACK_IMPORTED_MODULE_9__["UtilService"],
         _ngx_translate_core__WEBPACK_IMPORTED_MODULE_3__["TranslateService"]])
 ], OrderEffects);
-
-
-
-/***/ }),
-
-/***/ "./app/store/effects/person.effect.ts":
-/*!********************************************!*\
-  !*** ./app/store/effects/person.effect.ts ***!
-  \********************************************/
-/*! exports provided: PersonEffects */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "PersonEffects", function() { return PersonEffects; });
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "../../node_modules/@angular/core/fesm2015/core.js");
-/* harmony import */ var _ngrx_effects__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @ngrx/effects */ "../../node_modules/@ngrx/effects/fesm2015/effects.js");
-/* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! rxjs/operators */ "../../node_modules/rxjs/_esm2015/operators/index.js");
-/* harmony import */ var _services__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../services */ "./app/services/index.ts");
-/* harmony import */ var _actions__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../actions */ "./app/store/actions/index.ts");
-var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata = (undefined && undefined.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-var __awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : new P(function (resolve) { resolve(result.value); }).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-};
-var __importDefault = (undefined && undefined.__importDefault) || function (mod) {
-  return (mod && mod.__esModule) ? mod : { "default": mod };
-};
-
-
-
-
-
-/**
- * Person Effects
- */
-let PersonEffects = class PersonEffects {
-    constructor(actions, cinerino) {
-        this.actions = actions;
-        this.cinerino = cinerino;
-        /**
-         * Search
-         */
-        this.search = this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_1__["ofType"])(_actions__WEBPACK_IMPORTED_MODULE_4__["personAction"].ActionTypes.Search), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["map"])(action => action.payload), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["mergeMap"])((payload) => __awaiter(this, void 0, void 0, function* () {
-            try {
-                yield this.cinerino.getServices();
-                const params = payload.params;
-                const searchResult = yield this.cinerino.person.search(params);
-                const limit = params.limit;
-                return new _actions__WEBPACK_IMPORTED_MODULE_4__["personAction"].SearchSuccess({ searchResult, limit });
-            }
-            catch (error) {
-                return new _actions__WEBPACK_IMPORTED_MODULE_4__["personAction"].SearchFail({ error: error });
-            }
-        })));
-    }
-};
-PersonEffects.ctorParameters = () => [
-    { type: _ngrx_effects__WEBPACK_IMPORTED_MODULE_1__["Actions"] },
-    { type: _services__WEBPACK_IMPORTED_MODULE_3__["CinerinoService"] }
-];
-__decorate([
-    Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_1__["Effect"])(),
-    __metadata("design:type", Object)
-], PersonEffects.prototype, "search", void 0);
-PersonEffects = __decorate([
-    Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"])(),
-    __metadata("design:paramtypes", [_ngrx_effects__WEBPACK_IMPORTED_MODULE_1__["Actions"],
-        _services__WEBPACK_IMPORTED_MODULE_3__["CinerinoService"]])
-], PersonEffects);
 
 
 
@@ -10861,7 +10598,7 @@ function reducer(state, action) {
 /*!*************************************!*\
   !*** ./app/store/reducers/index.ts ***!
   \*************************************/
-/*! exports provided: reducer, getFeatureState, getLoading, getProcess, getError, getPurchase, getUser, getMaster, getAdmission, getOrder, getPerson, getReservation, purchaseInitialState, userInitialState, masterInitialState, admissionInitialState, orderInitialState, personInitialState, reservationInitialState */
+/*! exports provided: reducer, getFeatureState, getLoading, getProcess, getError, getPurchase, getUser, getMaster, getAdmission, getOrder, getReservation, purchaseInitialState, userInitialState, masterInitialState, admissionInitialState, orderInitialState, reservationInitialState */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -10875,7 +10612,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getMaster", function() { return getMaster; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getAdmission", function() { return getAdmission; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getOrder", function() { return getOrder; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getPerson", function() { return getPerson; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getReservation", function() { return getReservation; });
 /* harmony import */ var _ngrx_store__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @ngrx/store */ "../../node_modules/@ngrx/store/fesm2015/store.js");
 /* harmony import */ var _reducer__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./reducer */ "./app/store/reducers/reducer.ts");
@@ -10896,11 +10632,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _order_reducer__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./order.reducer */ "./app/store/reducers/order.reducer.ts");
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "orderInitialState", function() { return _order_reducer__WEBPACK_IMPORTED_MODULE_6__["orderInitialState"]; });
 
-/* harmony import */ var _person_reducer__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./person.reducer */ "./app/store/reducers/person.reducer.ts");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "personInitialState", function() { return _person_reducer__WEBPACK_IMPORTED_MODULE_7__["personInitialState"]; });
-
-/* harmony import */ var _reservation_reducer__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./reservation.reducer */ "./app/store/reducers/reservation.reducer.ts");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "reservationInitialState", function() { return _reservation_reducer__WEBPACK_IMPORTED_MODULE_8__["reservationInitialState"]; });
+/* harmony import */ var _reservation_reducer__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./reservation.reducer */ "./app/store/reducers/reservation.reducer.ts");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "reservationInitialState", function() { return _reservation_reducer__WEBPACK_IMPORTED_MODULE_7__["reservationInitialState"]; });
 
 var __importDefault = (undefined && undefined.__importDefault) || function (mod) {
   return (mod && mod.__esModule) ? mod : { "default": mod };
@@ -10910,7 +10643,6 @@ var __importDefault = (undefined && undefined.__importDefault) || function (mod)
 /**
  * State and reducer
  */
-
 
 
 
@@ -10930,7 +10662,6 @@ const getUser = Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_0__["createSelector"
 const getMaster = Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_0__["createSelector"])(getFeatureState, _reducer__WEBPACK_IMPORTED_MODULE_1__["getMaster"]);
 const getAdmission = Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_0__["createSelector"])(getFeatureState, _reducer__WEBPACK_IMPORTED_MODULE_1__["getAdmission"]);
 const getOrder = Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_0__["createSelector"])(getFeatureState, _reducer__WEBPACK_IMPORTED_MODULE_1__["getOrder"]);
-const getPerson = Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_0__["createSelector"])(getFeatureState, _reducer__WEBPACK_IMPORTED_MODULE_1__["getPerson"]);
 const getReservation = Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_0__["createSelector"])(getFeatureState, _reducer__WEBPACK_IMPORTED_MODULE_1__["getReservation"]);
 
 
@@ -11088,66 +10819,6 @@ function reducer(state, action) {
             return Object.assign({}, state, { loading: false, process: '', error: null });
         }
         case _actions__WEBPACK_IMPORTED_MODULE_1__["orderAction"].ActionTypes.PrintFail: {
-            const error = action.payload.error;
-            return Object.assign({}, state, { loading: false, process: '', error: JSON.stringify(error) });
-        }
-        default: {
-            return state;
-        }
-    }
-}
-
-
-/***/ }),
-
-/***/ "./app/store/reducers/person.reducer.ts":
-/*!**********************************************!*\
-  !*** ./app/store/reducers/person.reducer.ts ***!
-  \**********************************************/
-/*! exports provided: personInitialState, reducer */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "personInitialState", function() { return personInitialState; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "reducer", function() { return reducer; });
-/* harmony import */ var _actions__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../actions */ "./app/store/actions/index.ts");
-var __importDefault = (undefined && undefined.__importDefault) || function (mod) {
-  return (mod && mod.__esModule) ? mod : { "default": mod };
-};
-
-const personInitialState = {
-    persons: [],
-    totalCount: 0,
-    pageCount: 1
-};
-/**
- * Reducer
- * @param state
- * @param action
- */
-function reducer(state, action) {
-    switch (action.type) {
-        case _actions__WEBPACK_IMPORTED_MODULE_0__["personAction"].ActionTypes.Delete: {
-            state.personData = {
-                persons: [],
-                totalCount: 0,
-                pageCount: 1
-            };
-            return Object.assign({}, state);
-        }
-        case _actions__WEBPACK_IMPORTED_MODULE_0__["personAction"].ActionTypes.Search: {
-            return Object.assign({}, state, { loading: true, process: 'personAction.Search' });
-        }
-        case _actions__WEBPACK_IMPORTED_MODULE_0__["personAction"].ActionTypes.SearchSuccess: {
-            const searchResult = action.payload.searchResult;
-            const limit = action.payload.limit;
-            state.personData.persons = searchResult.data;
-            state.personData.totalCount = searchResult.totalCount;
-            state.personData.pageCount = Math.ceil(searchResult.totalCount / limit);
-            return Object.assign({}, state, { loading: false, process: '', error: null });
-        }
-        case _actions__WEBPACK_IMPORTED_MODULE_0__["personAction"].ActionTypes.SearchFail: {
             const error = action.payload.error;
             return Object.assign({}, state, { loading: false, process: '', error: JSON.stringify(error) });
         }
@@ -11574,7 +11245,7 @@ function reducer(state, action) {
 /*!***************************************!*\
   !*** ./app/store/reducers/reducer.ts ***!
   \***************************************/
-/*! exports provided: initialState, reducer, getLoading, getProcess, getError, getPurchase, getUser, getMaster, getAdmission, getOrder, getPerson, getReservation */
+/*! exports provided: initialState, reducer, getLoading, getProcess, getError, getPurchase, getUser, getMaster, getAdmission, getOrder, getReservation */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -11589,22 +11260,19 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getMaster", function() { return getMaster; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getAdmission", function() { return getAdmission; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getOrder", function() { return getOrder; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getPerson", function() { return getPerson; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getReservation", function() { return getReservation; });
 /* harmony import */ var _environments_environment__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../environments/environment */ "./environments/environment.ts");
 /* harmony import */ var _models__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../models */ "./app/models/index.ts");
 /* harmony import */ var _admission_reducer__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./admission.reducer */ "./app/store/reducers/admission.reducer.ts");
 /* harmony import */ var _master_reducer__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./master.reducer */ "./app/store/reducers/master.reducer.ts");
 /* harmony import */ var _order_reducer__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./order.reducer */ "./app/store/reducers/order.reducer.ts");
-/* harmony import */ var _person_reducer__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./person.reducer */ "./app/store/reducers/person.reducer.ts");
-/* harmony import */ var _purchase_reducer__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./purchase.reducer */ "./app/store/reducers/purchase.reducer.ts");
-/* harmony import */ var _reservation_reducer__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./reservation.reducer */ "./app/store/reducers/reservation.reducer.ts");
-/* harmony import */ var _user_reducer__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./user.reducer */ "./app/store/reducers/user.reducer.ts");
-/* harmony import */ var _util_reducer__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./util.reducer */ "./app/store/reducers/util.reducer.ts");
+/* harmony import */ var _purchase_reducer__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./purchase.reducer */ "./app/store/reducers/purchase.reducer.ts");
+/* harmony import */ var _reservation_reducer__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./reservation.reducer */ "./app/store/reducers/reservation.reducer.ts");
+/* harmony import */ var _user_reducer__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./user.reducer */ "./app/store/reducers/user.reducer.ts");
+/* harmony import */ var _util_reducer__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./util.reducer */ "./app/store/reducers/util.reducer.ts");
 var __importDefault = (undefined && undefined.__importDefault) || function (mod) {
   return (mod && mod.__esModule) ? mod : { "default": mod };
 };
-
 
 
 
@@ -11621,13 +11289,12 @@ const initialState = {
     loading: false,
     process: '',
     error: null,
-    purchaseData: _purchase_reducer__WEBPACK_IMPORTED_MODULE_6__["purchaseInitialState"],
-    userData: _user_reducer__WEBPACK_IMPORTED_MODULE_8__["userInitialState"],
+    purchaseData: _purchase_reducer__WEBPACK_IMPORTED_MODULE_5__["purchaseInitialState"],
+    userData: _user_reducer__WEBPACK_IMPORTED_MODULE_7__["userInitialState"],
     masterData: _master_reducer__WEBPACK_IMPORTED_MODULE_3__["masterInitialState"],
     admissionData: _admission_reducer__WEBPACK_IMPORTED_MODULE_2__["admissionInitialState"],
     orderData: _order_reducer__WEBPACK_IMPORTED_MODULE_4__["orderInitialState"],
-    personData: _person_reducer__WEBPACK_IMPORTED_MODULE_5__["personInitialState"],
-    reservationData: _reservation_reducer__WEBPACK_IMPORTED_MODULE_7__["reservationInitialState"],
+    reservationData: _reservation_reducer__WEBPACK_IMPORTED_MODULE_6__["reservationInitialState"],
 };
 function getInitialState() {
     const json = window[Object(_environments_environment__WEBPACK_IMPORTED_MODULE_0__["getEnvironment"])().STORAGE_TYPE].getItem(Object(_environments_environment__WEBPACK_IMPORTED_MODULE_0__["getEnvironment"])().STORAGE_NAME);
@@ -11637,7 +11304,7 @@ function getInitialState() {
     const tmpData = JSON.parse(json);
     const data = Object.assign({}, initialState, tmpData.App);
     data.userData.language = (data.userData.language === undefined)
-        ? _user_reducer__WEBPACK_IMPORTED_MODULE_8__["userInitialState"].language
+        ? _user_reducer__WEBPACK_IMPORTED_MODULE_7__["userInitialState"].language
         : data.userData.language;
     const reservations = data.purchaseData.reservations.map((reservation) => new _models__WEBPACK_IMPORTED_MODULE_1__["Reservation"](reservation));
     data.purchaseData.reservations = reservations;
@@ -11651,10 +11318,10 @@ function getInitialState() {
  */
 function reducer(state = getInitialState(), action) {
     if (/\[Purchase\]/.test(action.type)) {
-        return _purchase_reducer__WEBPACK_IMPORTED_MODULE_6__["reducer"](state, action);
+        return _purchase_reducer__WEBPACK_IMPORTED_MODULE_5__["reducer"](state, action);
     }
     else if (/\[User\]/.test(action.type)) {
-        return _user_reducer__WEBPACK_IMPORTED_MODULE_8__["reducer"](state, action);
+        return _user_reducer__WEBPACK_IMPORTED_MODULE_7__["reducer"](state, action);
     }
     else if (/\[Master\]/.test(action.type)) {
         return _master_reducer__WEBPACK_IMPORTED_MODULE_3__["reducer"](state, action);
@@ -11665,14 +11332,11 @@ function reducer(state = getInitialState(), action) {
     else if (/\[Order\]/.test(action.type)) {
         return _order_reducer__WEBPACK_IMPORTED_MODULE_4__["reducer"](state, action);
     }
-    else if (/\[Person\]/.test(action.type)) {
-        return _person_reducer__WEBPACK_IMPORTED_MODULE_5__["reducer"](state, action);
-    }
     else if (/\[Reservation\]/.test(action.type)) {
-        return _reservation_reducer__WEBPACK_IMPORTED_MODULE_7__["reducer"](state, action);
+        return _reservation_reducer__WEBPACK_IMPORTED_MODULE_6__["reducer"](state, action);
     }
     else if (/\[Util\]/.test(action.type)) {
-        return _util_reducer__WEBPACK_IMPORTED_MODULE_9__["reducer"](state, action);
+        return _util_reducer__WEBPACK_IMPORTED_MODULE_8__["reducer"](state, action);
     }
     else {
         return state;
@@ -11689,7 +11353,6 @@ const getUser = (state) => state.userData;
 const getMaster = (state) => state.masterData;
 const getAdmission = (state) => state.admissionData;
 const getOrder = (state) => state.orderData;
-const getPerson = (state) => state.personData;
 const getReservation = (state) => state.reservationData;
 
 

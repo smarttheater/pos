@@ -64,7 +64,7 @@
 /******/
 /******/ 	// script path function
 /******/ 	function jsonpScriptSrc(chunkId) {
-/******/ 		return __webpack_require__.p + "" + ({"common":"common","modules-admission-admission-module":"modules-admission-admission-module","modules-inquiry-inquiry-module":"modules-inquiry-inquiry-module","modules-order-order-module":"modules-order-order-module","modules-person-person-module":"modules-person-person-module","modules-purchase-purchase-module":"modules-purchase-purchase-module","modules-reservation-reservation-module":"modules-reservation-reservation-module","modules-tasks-tasks-module":"modules-tasks-tasks-module","modules-auth-auth-module":"modules-auth-auth-module","modules-development-development-module":"modules-development-development-module","modules-setting-setting-module":"modules-setting-setting-module"}[chunkId]||chunkId) + "-es2015.js"
+/******/ 		return __webpack_require__.p + "" + ({"common":"common","modules-admission-admission-module":"modules-admission-admission-module","modules-inquiry-inquiry-module":"modules-inquiry-inquiry-module","modules-order-order-module":"modules-order-order-module","modules-purchase-purchase-module":"modules-purchase-purchase-module","modules-reservation-reservation-module":"modules-reservation-reservation-module","modules-tasks-tasks-module":"modules-tasks-tasks-module","modules-auth-auth-module":"modules-auth-auth-module","modules-development-development-module":"modules-development-development-module","modules-setting-setting-module":"modules-setting-setting-module"}[chunkId]||chunkId) + "-es2015.js"
 /******/ 	}
 /******/
 /******/ 	// The require function
