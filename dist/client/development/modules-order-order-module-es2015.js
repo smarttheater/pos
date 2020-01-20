@@ -545,7 +545,7 @@ let OrderSearchComponent = class OrderSearchComponent {
         const now = moment__WEBPACK_IMPORTED_MODULE_5__().toDate();
         const today = moment__WEBPACK_IMPORTED_MODULE_5__(moment__WEBPACK_IMPORTED_MODULE_5__(now).format('YYYYMMDD'));
         this.conditions = {
-            orderDateFrom: moment__WEBPACK_IMPORTED_MODULE_5__(today).add(-14, 'week').toDate(),
+            orderDateFrom: moment__WEBPACK_IMPORTED_MODULE_5__(today).add(-13, 'day').toDate(),
             orderDateThrough: moment__WEBPACK_IMPORTED_MODULE_5__(today).toDate(),
             confirmationNumber: '',
             orderNumber: '',
@@ -702,6 +702,12 @@ let OrderSearchComponent = class OrderSearchComponent {
                 this.totalCount = 0;
                 this.orders = [];
                 const params = yield this.convertToSearchParams();
+                if (params.orderDateFrom !== null
+                    && params.orderDateThrough !== null
+                    && moment__WEBPACK_IMPORTED_MODULE_5__(params.orderDateThrough).diff(moment__WEBPACK_IMPORTED_MODULE_5__(params.orderDateFrom), 'day') > 14) {
+                    // 購入日の範囲が14日以上
+                    throw new Error('order date wrong date range');
+                }
                 const searchResult = yield this.orderService.splitSearch(params);
                 this.totalCount = searchResult.totalCount;
                 for (let i = 0; i < Math.ceil(searchResult.data.length / this.limit); i++) {
@@ -724,7 +730,7 @@ let OrderSearchComponent = class OrderSearchComponent {
         const now = moment__WEBPACK_IMPORTED_MODULE_5__().toDate();
         const today = moment__WEBPACK_IMPORTED_MODULE_5__(moment__WEBPACK_IMPORTED_MODULE_5__(now).format('YYYYMMDD'));
         this.conditions = {
-            orderDateFrom: moment__WEBPACK_IMPORTED_MODULE_5__(today).add(-14, 'week').toDate(),
+            orderDateFrom: moment__WEBPACK_IMPORTED_MODULE_5__(today).add(-13, 'day').toDate(),
             orderDateThrough: moment__WEBPACK_IMPORTED_MODULE_5__(today).toDate(),
             confirmationNumber: '',
             orderNumber: '',
