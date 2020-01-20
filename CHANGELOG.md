@@ -12,6 +12,10 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/).
 
 ### Security
 
+## 2.6.1 - 2020-01-20
+### Added
+ - 注文検索バリデーション追加
+
 ## 2.6.0 - 2020-01-15
 ### Added
  - QRコードリーダー追加
