@@ -889,9 +889,9 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     }, {
       path: 'auth',
       loadChildren: function loadChildren() {
-        return __webpack_require__.e(
+        return Promise.all(
         /*! import() | modules-auth-auth-module */
-        "modules-auth-auth-module").then(__webpack_require__.bind(null,
+        [__webpack_require__.e("common"), __webpack_require__.e("modules-auth-auth-module")]).then(__webpack_require__.bind(null,
         /*! ./modules/auth/auth.module */
         "./app/modules/auth/auth.module.ts")).then(function (m) {
           return m.AuthModule;
@@ -22130,8 +22130,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
           while (1) {
             switch (_context100.prev = _context100.next) {
               case 0:
-                console.log('setProject', params);
-                _context100.next = 3;
+                _context100.next = 2;
                 return fetch('/api/project', {
                   method: 'POST',
                   cache: 'no-cache',
@@ -22141,11 +22140,11 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                   body: JSON.stringify(params)
                 });
 
-              case 3:
+              case 2:
                 fetchResult = _context100.sent;
 
                 if (fetchResult.ok) {
-                  _context100.next = 6;
+                  _context100.next = 5;
                   break;
                 }
 
@@ -22154,15 +22153,15 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                   statusText: fetchResult.statusText
                 }));
 
-              case 6:
-                _context100.next = 8;
+              case 5:
+                _context100.next = 7;
                 return fetchResult.json();
 
-              case 8:
+              case 7:
                 json = _context100.sent;
                 sessionStorage.setItem('PROJECT', JSON.stringify(json));
 
-              case 10:
+              case 9:
               case "end":
                 return _context100.stop();
             }

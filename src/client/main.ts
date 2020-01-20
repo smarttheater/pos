@@ -44,7 +44,6 @@ async function main() {
 async function setProject(params: {
     project?: string;
 }) {
-    console.log('setProject', params);
     const fetchResult = await fetch('/api/project', {
         method: 'POST',
         cache: 'no-cache',

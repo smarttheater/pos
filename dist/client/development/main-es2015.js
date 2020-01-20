@@ -659,7 +659,7 @@ const appRoutes = [
     },
     {
         path: 'auth',
-        loadChildren: () => __webpack_require__.e(/*! import() | modules-auth-auth-module */ "modules-auth-auth-module").then(__webpack_require__.bind(null, /*! ./modules/auth/auth.module */ "./app/modules/auth/auth.module.ts")).then(m => m.AuthModule)
+        loadChildren: () => Promise.all(/*! import() | modules-auth-auth-module */[__webpack_require__.e("common"), __webpack_require__.e("modules-auth-auth-module")]).then(__webpack_require__.bind(null, /*! ./modules/auth/auth.module */ "./app/modules/auth/auth.module.ts")).then(m => m.AuthModule)
     },
     {
         path: 'inquiry',
@@ -11630,7 +11630,6 @@ function main() {
  */
 function setProject(params) {
     return __awaiter(this, void 0, void 0, function* () {
-        console.log('setProject', params);
         const fetchResult = yield fetch('/api/project', {
             method: 'POST',
             cache: 'no-cache',

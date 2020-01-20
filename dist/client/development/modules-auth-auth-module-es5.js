@@ -99,19 +99,25 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     /* harmony import */
 
 
-    var _components_pages_auth_index_auth_index_component__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
+    var _canActivates__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
+    /*! ../../canActivates */
+    "./app/canActivates/index.ts");
+    /* harmony import */
+
+
+    var _components_pages_auth_index_auth_index_component__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(
     /*! ./components/pages/auth-index/auth-index.component */
     "./app/modules/auth/components/pages/auth-index/auth-index.component.ts");
     /* harmony import */
 
 
-    var _components_pages_auth_signin_auth_signin_component__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(
+    var _components_pages_auth_signin_auth_signin_component__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(
     /*! ./components/pages/auth-signin/auth-signin.component */
     "./app/modules/auth/components/pages/auth-signin/auth-signin.component.ts");
     /* harmony import */
 
 
-    var _components_pages_auth_signout_auth_signout_component__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(
+    var _components_pages_auth_signout_auth_signout_component__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(
     /*! ./components/pages/auth-signout/auth-signout.component */
     "./app/modules/auth/components/pages/auth-signout/auth-signout.component.ts");
 
@@ -135,13 +141,14 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       path: '',
       children: [{
         path: '',
-        component: _components_pages_auth_index_auth_index_component__WEBPACK_IMPORTED_MODULE_2__["AuthIndexComponent"]
+        component: _components_pages_auth_index_auth_index_component__WEBPACK_IMPORTED_MODULE_3__["AuthIndexComponent"]
       }, {
         path: 'signin',
-        component: _components_pages_auth_signin_auth_signin_component__WEBPACK_IMPORTED_MODULE_3__["AuthSigninComponent"]
+        canActivate: [_canActivates__WEBPACK_IMPORTED_MODULE_2__["AuthGuardService"]],
+        component: _components_pages_auth_signin_auth_signin_component__WEBPACK_IMPORTED_MODULE_4__["AuthSigninComponent"]
       }, {
         path: 'signout',
-        component: _components_pages_auth_signout_auth_signout_component__WEBPACK_IMPORTED_MODULE_4__["AuthSignoutComponent"]
+        component: _components_pages_auth_signout_auth_signout_component__WEBPACK_IMPORTED_MODULE_5__["AuthSignoutComponent"]
       }]
     }];
 
