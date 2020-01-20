@@ -8,7 +8,7 @@ import * as momentTimezone from 'moment-timezone';
 import { defineLocale } from 'ngx-bootstrap/chronos';
 import { jaLocale } from 'ngx-bootstrap/locale';
 import { AppModule } from './app/app.module';
-import { getParameter, getProject, setProject, streamingDownload } from './app/functions';
+import { getParameter, getProject, streamingDownload } from './app/functions';
 import { getEnvironment } from './environments/environment';
 
 async function main() {
@@ -26,11 +26,42 @@ async function main() {
     const project = (getParameter<{ project: string | undefined }>().project === undefined)
         ? (getProject().projectName === '') ? undefined : getProject().projectName
         : getParameter<{ project: string | undefined }>().project;
+    if (project === undefined && location.hash !== '#/auth/signin') {
+        location.href = '/#/auth/signin';
+        location.reload();
+        return;
+    }
     await setProject({ project });
     if (getProject().storageUrl === undefined) {
         return;
     }
     await setProjectConfig(getProject().storageUrl);
+}
+
+/**
+ * プロジェクト情報設定
+ */
+async function setProject(params: {
+    project?: string;
+}) {
+    console.log('setProject', params);
+    const fetchResult = await fetch('/api/project', {
+        method: 'POST',
+        cache: 'no-cache',
+        headers: {
+            'Content-Type': 'application/json; charset=utf-8'
+        },
+        body: JSON.stringify(params)
+    });
+    if (!fetchResult.ok) {
+        throw new Error(JSON.stringify({ status: fetchResult.status, statusText: fetchResult.statusText }));
+    }
+    const json: {
+        projectId: string;
+        projectName: string;
+        storageUrl: string;
+    } = await fetchResult.json();
+    sessionStorage.setItem('PROJECT', JSON.stringify(json));
 }
 
 /**

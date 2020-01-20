@@ -207,31 +207,6 @@ export function getParameter<T>() {
 }
 
 /**
- * プロジェクト情報設定
- */
-export async function setProject(params: {
-    project?: string;
-}) {
-    const fetchResult = await fetch('/api/project', {
-        method: 'POST',
-        cache: 'no-cache',
-        headers: {
-            'Content-Type': 'application/json; charset=utf-8'
-        },
-        body: JSON.stringify(params)
-    });
-    if (!fetchResult.ok) {
-        throw new Error(JSON.stringify({ status: fetchResult.status, statusText: fetchResult.statusText }));
-    }
-    const json: {
-        projectId: string;
-        projectName: string;
-        storageUrl: string;
-    } = await fetchResult.json();
-    sessionStorage.setItem('PROJECT', JSON.stringify(json));
-}
-
-/**
  * プロジェクト情報取得
  */
 export function getProject() {

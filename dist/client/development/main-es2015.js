@@ -883,7 +883,7 @@ AppComponent = __decorate([
 /*!********************************!*\
   !*** ./app/functions/index.ts ***!
   \********************************/
-/*! exports provided: screeningEventsToWorkEvents, createGmoTokenObject, sameMovieTicketFilter, isAvailabilityMovieTicket, createMovieTicketsFromAuthorizeSeatReservation, createPaymentMethodFromType, getTicketPrice, movieTicketAuthErroCodeToMessage, getAmount, orderToEventOrders, authorizeSeatReservationToEvent, isScheduleStatusThreshold, isSales, isTicketedSeatScreeningEvent, changeTicketCount, getRemainingSeatLength, formatTelephone, toFull, toHalf, retry, sleep, buildQueryString, iOSDatepickerTapBugFix, streamingDownload, string2blob, getParameter, setProject, getProject, createPrintCanvas, createTestPrintCanvas, createRegiGrowQrcode, changeTicketCountByOrder, getTransactionAgentIdentifier, order2report, getTranslateModuleConfig */
+/*! exports provided: screeningEventsToWorkEvents, createGmoTokenObject, sameMovieTicketFilter, isAvailabilityMovieTicket, createMovieTicketsFromAuthorizeSeatReservation, createPaymentMethodFromType, getTicketPrice, movieTicketAuthErroCodeToMessage, getAmount, orderToEventOrders, authorizeSeatReservationToEvent, isScheduleStatusThreshold, isSales, isTicketedSeatScreeningEvent, changeTicketCount, getRemainingSeatLength, formatTelephone, toFull, toHalf, retry, sleep, buildQueryString, iOSDatepickerTapBugFix, streamingDownload, string2blob, getParameter, getProject, createPrintCanvas, createTestPrintCanvas, createRegiGrowQrcode, changeTicketCountByOrder, getTransactionAgentIdentifier, order2report, getTranslateModuleConfig */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -941,8 +941,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "string2blob", function() { return _util_function__WEBPACK_IMPORTED_MODULE_1__["string2blob"]; });
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "getParameter", function() { return _util_function__WEBPACK_IMPORTED_MODULE_1__["getParameter"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "setProject", function() { return _util_function__WEBPACK_IMPORTED_MODULE_1__["setProject"]; });
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "getProject", function() { return _util_function__WEBPACK_IMPORTED_MODULE_1__["getProject"]; });
 
@@ -1832,7 +1830,7 @@ function getTranslateModuleConfig() {
 /*!****************************************!*\
   !*** ./app/functions/util.function.ts ***!
   \****************************************/
-/*! exports provided: formatTelephone, toFull, toHalf, retry, sleep, buildQueryString, iOSDatepickerTapBugFix, streamingDownload, string2blob, getParameter, setProject, getProject */
+/*! exports provided: formatTelephone, toFull, toHalf, retry, sleep, buildQueryString, iOSDatepickerTapBugFix, streamingDownload, string2blob, getParameter, getProject */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1847,7 +1845,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "streamingDownload", function() { return streamingDownload; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "string2blob", function() { return string2blob; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getParameter", function() { return getParameter; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "setProject", function() { return setProject; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getProject", function() { return getProject; });
 /* harmony import */ var libphonenumber_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! libphonenumber-js */ "../../node_modules/libphonenumber-js/index.es6.js");
 var __awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
@@ -2053,26 +2050,6 @@ function getParameter() {
         }
     }
     return result;
-}
-/**
- * プロジェクト情報設定
- */
-function setProject(params) {
-    return __awaiter(this, void 0, void 0, function* () {
-        const fetchResult = yield fetch('/api/project', {
-            method: 'POST',
-            cache: 'no-cache',
-            headers: {
-                'Content-Type': 'application/json; charset=utf-8'
-            },
-            body: JSON.stringify(params)
-        });
-        if (!fetchResult.ok) {
-            throw new Error(JSON.stringify({ status: fetchResult.status, statusText: fetchResult.statusText }));
-        }
-        const json = yield fetchResult.json();
-        sessionStorage.setItem('PROJECT', JSON.stringify(json));
-    });
 }
 /**
  * プロジェクト情報取得
@@ -5972,7 +5949,7 @@ DownloadService = DownloadService_1 = __decorate([
 /*!*******************************!*\
   !*** ./app/services/index.ts ***!
   \*******************************/
-/*! exports provided: AdmissionService, CinerinoService, PurchaseService, UserService, MasterService, OrderService, ReservationService, UtilService, StarPrintService, DownloadService, QRCodeService */
+/*! exports provided: CinerinoService, AdmissionService, PurchaseService, UserService, MasterService, OrderService, ReservationService, UtilService, StarPrintService, DownloadService, QRCodeService */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -11636,11 +11613,37 @@ function main() {
         const project = (Object(_app_functions__WEBPACK_IMPORTED_MODULE_7__["getParameter"])().project === undefined)
             ? (Object(_app_functions__WEBPACK_IMPORTED_MODULE_7__["getProject"])().projectName === '') ? undefined : Object(_app_functions__WEBPACK_IMPORTED_MODULE_7__["getProject"])().projectName
             : Object(_app_functions__WEBPACK_IMPORTED_MODULE_7__["getParameter"])().project;
-        yield Object(_app_functions__WEBPACK_IMPORTED_MODULE_7__["setProject"])({ project });
+        if (project === undefined && location.hash !== '#/auth/signin') {
+            location.href = '/#/auth/signin';
+            location.reload();
+            return;
+        }
+        yield setProject({ project });
         if (Object(_app_functions__WEBPACK_IMPORTED_MODULE_7__["getProject"])().storageUrl === undefined) {
             return;
         }
         yield setProjectConfig(Object(_app_functions__WEBPACK_IMPORTED_MODULE_7__["getProject"])().storageUrl);
+    });
+}
+/**
+ * プロジェクト情報設定
+ */
+function setProject(params) {
+    return __awaiter(this, void 0, void 0, function* () {
+        console.log('setProject', params);
+        const fetchResult = yield fetch('/api/project', {
+            method: 'POST',
+            cache: 'no-cache',
+            headers: {
+                'Content-Type': 'application/json; charset=utf-8'
+            },
+            body: JSON.stringify(params)
+        });
+        if (!fetchResult.ok) {
+            throw new Error(JSON.stringify({ status: fetchResult.status, statusText: fetchResult.statusText }));
+        }
+        const json = yield fetchResult.json();
+        sessionStorage.setItem('PROJECT', JSON.stringify(json));
     });
 }
 /**
