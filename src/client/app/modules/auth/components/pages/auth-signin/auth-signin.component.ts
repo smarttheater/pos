@@ -30,11 +30,20 @@ export class AuthSigninComponent implements OnInit {
         this.master = this.store.pipe(select(reducers.getMaster));
         this.projects = [];
         await this.masterService.getProjects();
+        this.utilService.loadStart();
         this.projects = await this.utilService.postJson<{
             projectId: string;
             projectName: string;
             storageUrl: string;
         }[]>('/api/projects', {});
+        const masterData = await this.masterService.getData();
+        const projects = masterData.projects.filter(p => this.getProject(p.id) !== undefined);
+        if (projects.length === 1) {
+            // プロジェクトが一つの場合自動遷移
+            location.href = `/?project=${(<any>this.getProject(projects[0].id)).projectName}`;
+            return;
+        }
+        this.utilService.loadEnd();
     }
 
     public getProject(id: string) {
