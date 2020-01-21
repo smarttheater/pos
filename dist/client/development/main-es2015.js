@@ -5949,7 +5949,7 @@ DownloadService = DownloadService_1 = __decorate([
 /*!*******************************!*\
   !*** ./app/services/index.ts ***!
   \*******************************/
-/*! exports provided: CinerinoService, AdmissionService, PurchaseService, UserService, MasterService, OrderService, ReservationService, UtilService, StarPrintService, DownloadService, QRCodeService */
+/*! exports provided: AdmissionService, CinerinoService, PurchaseService, UserService, MasterService, OrderService, ReservationService, UtilService, StarPrintService, DownloadService, QRCodeService */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -6235,7 +6235,7 @@ let OrderService = class OrderService {
                 this.utilService.loadStart({ process: 'orderAction.Search' });
                 yield this.cinerino.getServices();
                 let orders = [];
-                const splitDay = 14;
+                const splitDay = 1;
                 const splitCount = Math.ceil(moment__WEBPACK_IMPORTED_MODULE_3__(params.orderDateThrough).diff(moment__WEBPACK_IMPORTED_MODULE_3__(params.orderDateFrom), 'days') / splitDay);
                 for (let i = 0; i < splitCount; i++) {
                     const limit = 100;
@@ -6253,7 +6253,7 @@ let OrderService = class OrderService {
                         const lastPage = Math.ceil(searchResult.totalCount / limit);
                         page++;
                         roop = !(page > lastPage);
-                        yield Object(_functions__WEBPACK_IMPORTED_MODULE_6__["sleep"])(1000);
+                        yield Object(_functions__WEBPACK_IMPORTED_MODULE_6__["sleep"])(500);
                     }
                 }
                 this.utilService.loadEnd();

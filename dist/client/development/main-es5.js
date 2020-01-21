@@ -10298,7 +10298,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     !*** ./app/services/index.ts ***!
     \*******************************/
 
-  /*! exports provided: CinerinoService, AdmissionService, PurchaseService, UserService, MasterService, OrderService, ReservationService, UtilService, StarPrintService, DownloadService, QRCodeService */
+  /*! exports provided: AdmissionService, CinerinoService, PurchaseService, UserService, MasterService, OrderService, ReservationService, UtilService, StarPrintService, DownloadService, QRCodeService */
 
   /***/
   function appServicesIndexTs(module, __webpack_exports__, __webpack_require__) {
@@ -10993,7 +10993,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
                   case 4:
                     orders = [];
-                    splitDay = 14;
+                    splitDay = 1;
                     splitCount = Math.ceil(moment__WEBPACK_IMPORTED_MODULE_3__(params.orderDateThrough).diff(moment__WEBPACK_IMPORTED_MODULE_3__(params.orderDateFrom), 'days') / splitDay);
                     i = 0;
 
@@ -11030,7 +11030,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                     page++;
                     roop = !(page > lastPage);
                     _context36.next = 26;
-                    return Object(_functions__WEBPACK_IMPORTED_MODULE_6__["sleep"])(1000);
+                    return Object(_functions__WEBPACK_IMPORTED_MODULE_6__["sleep"])(500);
 
                   case 26:
                     _context36.next = 14;
