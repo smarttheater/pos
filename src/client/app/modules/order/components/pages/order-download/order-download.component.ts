@@ -74,7 +74,7 @@ export class OrderDownloadComponent implements OnInit {
             paymentMethodType: '',
             posId: '',
             format: factory.encodingFormat.Application.json,
-            csvFormat: CsvFormat.Default
+            csvFormat: CsvFormat.Custom
         };
         this.orderService.delete();
     }
@@ -168,7 +168,7 @@ export class OrderDownloadComponent implements OnInit {
                         orderDate: factory.sortType.Descending
                     },
                     format: this.confirmedConditions.format,
-                    csvFormat: this.confirmedConditions.csvFormat
+                    csvFormat: CsvFormat.Custom
                 };
                 resolve(params);
             }).unsubscribe();
@@ -211,7 +211,7 @@ export class OrderDownloadComponent implements OnInit {
                 eventStartDateThrough: this.conditions.eventStartDateThrough,
                 posId: this.conditions.posId,
                 format: this.conditions.format,
-                csvFormat: this.conditions.csvFormat
+                csvFormat: CsvFormat.Custom
             };
         }
         this.utilService.loadStart();
@@ -249,7 +249,7 @@ export class OrderDownloadComponent implements OnInit {
             paymentMethodType: '',
             posId: '',
             format: factory.encodingFormat.Text.csv,
-            csvFormat: CsvFormat.Default
+            csvFormat: CsvFormat.Custom
         };
         // iOS bugfix
         (<HTMLInputElement>document.getElementById('confirmationNumber')).value = '';
