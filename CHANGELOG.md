@@ -12,6 +12,11 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/).
 
 ### Security
 
+## 2.6.2 - 2020-01-21
+### Changed
+ - 分割検索を14日から1日へ変更
+ - APIリクエスト待機時間を1000ms => 500msへ変更
+
 ## 2.6.1 - 2020-01-20
 ### Added
  - 注文検索バリデーション追加
