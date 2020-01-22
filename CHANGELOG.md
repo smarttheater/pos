@@ -12,6 +12,10 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/).
 
 ### Security
 
+## 2.6.3 - 2020-01-22
+### Changed
+ - 注文分割検索を10件づつへ変更
+
 ## 2.6.2 - 2020-01-21
 ### Changed
  - 分割検索を14日から1日へ変更
