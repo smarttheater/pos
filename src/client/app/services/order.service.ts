@@ -75,7 +75,7 @@ export class OrderService {
             const splitCount =
                 Math.ceil(moment(params.orderDateThrough).diff(moment(params.orderDateFrom), 'days') / splitDay);
             for (let i = 0; i < splitCount; i++) {
-                const limit = 100;
+                const limit = 10;
                 let page = 1;
                 let roop = true;
                 const orderDateThrough = moment(params.orderDateThrough).add(-1 * splitDay * i, 'days').toDate();
