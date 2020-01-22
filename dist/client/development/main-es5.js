@@ -11003,7 +11003,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                       break;
                     }
 
-                    limit = 100;
+                    limit = 10;
                     page = 1;
                     roop = true;
                     orderDateThrough = moment__WEBPACK_IMPORTED_MODULE_3__(params.orderDateThrough).add(-1 * splitDay * i, 'days').toDate();
