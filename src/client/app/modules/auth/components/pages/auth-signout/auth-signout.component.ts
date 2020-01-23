@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { OrderService, PurchaseService } from '../../../../../services';
 
 @Component({
     selector: 'app-auth-signout',
@@ -9,11 +10,19 @@ import { Router } from '@angular/router';
 export class AuthSignoutComponent implements OnInit {
 
     constructor(
-        private router: Router
+        private router: Router,
+        private purchaseService: PurchaseService,
+        private orderService: OrderService,
     ) { }
 
     public ngOnInit() {
+        this.orderService.delete();
+        this.purchaseService.delete();
         this.router.navigate(['/']);
+    }
+
+    public selectProject() {
+        
     }
 
 }

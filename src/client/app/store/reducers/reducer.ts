@@ -1,10 +1,9 @@
-import { environment } from '../../../environments/environment';
+import { getEnvironment } from '../../../environments/environment';
 import { Reservation } from '../../models';
 import {
     admissionAction,
     masterAction,
     orderAction,
-    personAction,
     purchaseAction,
     reservationAction,
     userAction,
@@ -13,7 +12,6 @@ import {
 import * as admissionReducer from './admission.reducer';
 import * as masterReducer from './master.reducer';
 import * as orderReducer from './order.reducer';
-import * as personReducer from './person.reducer';
 import * as purchaseReducer from './purchase.reducer';
 import * as reservationReducer from './reservation.reducer';
 import * as userReducer from './user.reducer';
@@ -31,7 +29,6 @@ export interface IState {
     masterData: masterReducer.IMasterState;
     admissionData: admissionReducer.IAdmissionState;
     orderData: orderReducer.IOrderState;
-    personData: personReducer.IPersonState;
     reservationData: reservationReducer.IReservationState;
 }
 
@@ -47,12 +44,11 @@ export const initialState: IState = {
     masterData: masterReducer.masterInitialState,
     admissionData: admissionReducer.admissionInitialState,
     orderData: orderReducer.orderInitialState,
-    personData: personReducer.personInitialState,
     reservationData: reservationReducer.reservationInitialState,
 };
 
 function getInitialState(): IState {
-    const json = (<Storage>(<any>window)[environment.STORAGE_TYPE]).getItem(environment.STORAGE_NAME);
+    const json = (<Storage>(<any>window)[getEnvironment().STORAGE_TYPE]).getItem(getEnvironment().STORAGE_NAME);
     if (json === undefined || json === null) {
         return initialState;
     }
@@ -74,7 +70,6 @@ type Actions =
     | masterAction.Actions
     | admissionAction.Actions
     | orderAction.Actions
-    | personAction.Actions
     | reservationAction.Actions
     | utilAction.Actions;
 
@@ -97,8 +92,6 @@ export function reducer(
         return admissionReducer.reducer(state, <admissionAction.Actions>action);
     } else if (/\[Order\]/.test(action.type)) {
         return orderReducer.reducer(state, <orderAction.Actions>action);
-    }  else if (/\[Person\]/.test(action.type)) {
-        return personReducer.reducer(state, <personAction.Actions>action);
     } else if (/\[Reservation\]/.test(action.type)) {
         return reservationReducer.reducer(state, <reservationAction.Actions>action);
     } else if (/\[Util\]/.test(action.type)) {
@@ -119,5 +112,4 @@ export const getUser = (state: IState) => state.userData;
 export const getMaster = (state: IState) => state.masterData;
 export const getAdmission = (state: IState) => state.admissionData;
 export const getOrder = (state: IState) => state.orderData;
-export const getPerson = (state: IState) => state.personData;
 export const getReservation = (state: IState) => state.reservationData;

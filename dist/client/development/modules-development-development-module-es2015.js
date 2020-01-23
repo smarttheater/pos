@@ -1,18 +1,5 @@
 (window["webpackJsonp"] = window["webpackJsonp"] || []).push([["modules-development-development-module"],{
 
-/***/ "../../node_modules/raw-loader/dist/cjs.js!./app/modules/development/components/pages/development-encryption/development-encryption.component.html":
-/*!*****************************************************************************************************************************************************************************************************!*\
-  !*** C:/Users/hataguchi/Desktop/workspace/Cinerino/pos/node_modules/raw-loader/dist/cjs.js!./app/modules/development/components/pages/development-encryption/development-encryption.component.html ***!
-  \*****************************************************************************************************************************************************************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("<div class=\"contents-width mx-auto px-3 py-5\">\n    <h2 class=\"text-large mb-4 text-center font-weight-bold\">{{ 'development.encryption.title' | translate }}</h2>\n    <p class=\"mb-4 text-md-center\" [innerHTML]=\"'development.encryption.read' | translate\"></p>\n\n    <div class=\"p-3 bg-white mb-4\">\n        <form>\n            <div class=\"form-group\">\n                <div class=\"row align-items-center\">\n                    <p class=\"col-md-4 py-2 text-md-right\">{{ 'development.encryption.encodeText' | translate }}</p>\n                    <div class=\"col-md-8\">\n                        <input type=\"text\" class=\"form-control\" name=\"encodeText\" [(ngModel)]=\"encodeText\"\n                            placeholder=\"\">\n                    </div>\n                </div>\n            </div>\n            <div *ngIf=\"encodeResult\" class=\"\">\n                <div class=\"form-group\">\n                    <div class=\"row align-items-center\">\n                        <p class=\"col-md-4 py-2 text-md-right\">{{ 'development.encryption.salt' | translate }}</p>\n                        <div class=\"col-md-8\"><code\n                                class=\"p-2 bg-white border border-gray d-block rounded\">{{ encodeResult.salt }}</code>\n                        </div>\n                    </div>\n                </div>\n                <div class=\"form-group\">\n                    <div class=\"row align-items-center\">\n                        <p class=\"col-md-4 py-2 text-md-right\">{{ 'development.encryption.iv' | translate }}</p>\n                        <div class=\"col-md-8\"><code\n                                class=\"p-2 bg-white border border-gray d-block rounded\">{{ encodeResult.iv }}</code>\n                        </div>\n                    </div>\n                </div>\n                <div class=\"form-group\">\n                    <div class=\"row align-items-center\">\n                        <p class=\"col-md-4 py-2 text-md-right\">{{ 'development.encryption.encrypted' | translate }}</p>\n                        <div class=\"col-md-8\"><code\n                                class=\"p-2 bg-white border border-gray d-block rounded\">{{ encodeResult.encrypted }}</code>\n                        </div>\n                    </div>\n                </div>\n                <div class=\"form-group\">\n                    <div class=\"row align-items-center\">\n                        <p class=\"col-md-4 py-2 text-md-right\">{{ 'development.encryption.qrcode' | translate }}</p>\n                        <div class=\"col-md-8 text-md-center\"><img [src]=\"qrcode\"></div>\n                    </div>\n                </div>\n            </div>\n            <div class=\"buttons mx-auto text-center\">\n                <button type=\"button\" class=\"btn btn-primary btn-block py-3\"\n                    (click)=\"encode()\">{{ 'development.encryption.encode' | translate }}</button>\n            </div>\n        </form>\n    </div>\n\n\n    <div class=\"p-3 bg-white mb-4\">\n        <form>\n            <div class=\"form-group\">\n                <div class=\"row align-items-center\">\n                    <p class=\"col-md-4 py-2 text-md-right\">{{ 'development.encryption.salt' | translate }}</p>\n                    <div class=\"col-md-8\">\n                        <input type=\"text\" class=\"form-control\" name=\"salt\" [(ngModel)]=\"salt\" placeholder=\"\">\n                    </div>\n                </div>\n            </div>\n            <div class=\"form-group\">\n                <div class=\"row align-items-center\">\n                    <p class=\"col-md-4 py-2 text-md-right\">{{ 'development.encryption.iv' | translate }}</p>\n                    <div class=\"col-md-8\">\n                        <input type=\"text\" class=\"form-control\" name=\"iv\" [(ngModel)]=\"iv\" placeholder=\"\">\n                    </div>\n                </div>\n            </div>\n            <div class=\"form-group\">\n                <div class=\"row align-items-center\">\n                    <p class=\"col-md-4 py-2 text-md-right\">{{ 'development.encryption.encrypted' | translate }}</p>\n                    <div class=\"col-md-8\">\n                        <input type=\"text\" class=\"form-control\" name=\"encrypted\" [(ngModel)]=\"encrypted\" placeholder=\"\">\n                    </div>\n                </div>\n            </div>\n            <div *ngIf=\"decodeResult\" class=\"\">\n                <div class=\"form-group\">\n                    <div class=\"row align-items-center\">\n                        <p class=\"col-md-4 py-2 text-md-right\">{{ 'development.encryption.decrypted' | translate }}</p>\n                        <div class=\"col-md-8\"><code\n                                class=\"p-2 bg-white border border-gray d-block rounded\">{{ decodeResult.decrypted }}</code>\n                        </div>\n                    </div>\n                </div>\n            </div>\n            <div class=\"buttons mx-auto text-center\">\n                <button type=\"button\" class=\"btn btn-primary btn-block py-3\"\n                    (click)=\"decode()\">{{ 'development.encryption.decode' | translate }}</button>\n            </div>\n        </form>\n    </div>\n\n\n    <div class=\"buttons mx-auto text-center\">\n        <button type=\"button\" class=\"btn btn-link\"\n            routerLink=\"/development\">{{ 'development.encryption.prev' | translate }}</button>\n    </div>\n\n</div>");
-
-/***/ }),
-
 /***/ "../../node_modules/raw-loader/dist/cjs.js!./app/modules/development/components/pages/development-index/development-index.component.html":
 /*!*******************************************************************************************************************************************************************************************!*\
   !*** C:/Users/hataguchi/Desktop/workspace/Cinerino/pos/node_modules/raw-loader/dist/cjs.js!./app/modules/development/components/pages/development-index/development-index.component.html ***!
@@ -36,109 +23,6 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ("<div class=\"contents-width mx-auto px-3 py-5\">\n    <h2 class=\"text-large mb-4 text-center font-weight-bold\">{{ 'development.screen.title' | translate }}</h2>\n    <p class=\"mb-4 text-md-center\" [innerHTML]=\"'development.screen.read' | translate\"></p>\n    <form>\n        <div class=\"mb-4 bg-white p-3\">\n            <div class=\"form-group\">\n                <div class=\"row align-items-center\">\n                    <p class=\"col-md-4 py-2 text-md-right\">{{ 'common.theater' | translate }}</p>\n                    <div class=\"col-md-8\">\n                        <select class=\"form-control\" [(ngModel)]=\"theaterCode\" (change)=\"changeTheaterCode()\">\n                            <option *ngFor=\"let data of table\" [value]=\"data.theaterCode\">{{ data.theaterCode }}\n                            </option>\n                        </select>\n                    </div>\n                </div>\n            </div>\n            <div class=\"form-group\">\n                <div class=\"row align-items-center\">\n                    <p class=\"col-md-4 py-2 text-md-right\">{{ 'common.screen' | translate }}</p>\n                    <div class=\"col-md-8\">\n                        <select class=\"form-control\" [(ngModel)]=\"screenCode\">\n                            <option *ngFor=\"let screen of getScreens(theaterCode).screens\" [value]=\"screen\">{{ screen }}\n                            </option>\n                        </select>\n                    </div>\n                </div>\n            </div>\n            <div class=\"buttons mx-auto text-center\">\n                <button type=\"submit\" [disabled]=\"isLoading | async\" class=\"btn btn-primary btn-block py-3\"\n                    (click)=\"getScreenData()\">{{ 'development.screen.next' | translate }}</button>\n            </div>\n        </div>\n    </form>\n    <app-screen *ngIf=\"(purchase | async).screenData\" class=\"mb-4\" [screenData]=\"(purchase | async).screenData\"\n        (select)=\"selectSeat($event)\">\n    </app-screen>\n\n    <div class=\"buttons mx-auto text-center\">\n        <button type=\"button\" class=\"btn btn-link\"\n            routerLink=\"/development\">{{ 'development.screen.prev' | translate }}</button>\n    </div>\n\n</div>");
-
-/***/ }),
-
-/***/ "./app/modules/development/components/pages/development-encryption/development-encryption.component.scss":
-/*!***************************************************************************************************************!*\
-  !*** ./app/modules/development/components/pages/development-encryption/development-encryption.component.scss ***!
-  \***************************************************************************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvY2xpZW50L2FwcC9tb2R1bGVzL2RldmVsb3BtZW50L2NvbXBvbmVudHMvcGFnZXMvZGV2ZWxvcG1lbnQtZW5jcnlwdGlvbi9kZXZlbG9wbWVudC1lbmNyeXB0aW9uLmNvbXBvbmVudC5zY3NzIn0= */");
-
-/***/ }),
-
-/***/ "./app/modules/development/components/pages/development-encryption/development-encryption.component.ts":
-/*!*************************************************************************************************************!*\
-  !*** ./app/modules/development/components/pages/development-encryption/development-encryption.component.ts ***!
-  \*************************************************************************************************************/
-/*! exports provided: DevelopmentEncryptionComponent */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "DevelopmentEncryptionComponent", function() { return DevelopmentEncryptionComponent; });
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "../../node_modules/@angular/core/fesm2015/core.js");
-/* harmony import */ var qrcode__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! qrcode */ "../../node_modules/qrcode/lib/browser.js");
-/* harmony import */ var qrcode__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(qrcode__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _services__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../../services */ "./app/services/index.ts");
-var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata = (undefined && undefined.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-var __awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : new P(function (resolve) { resolve(result.value); }).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-};
-var __importDefault = (undefined && undefined.__importDefault) || function (mod) {
-  return (mod && mod.__esModule) ? mod : { "default": mod };
-};
-
-
-
-let DevelopmentEncryptionComponent = class DevelopmentEncryptionComponent {
-    constructor(utilService) {
-        this.utilService = utilService;
-    }
-    ngOnInit() {
-        this.encodeText = '';
-        this.salt = '';
-        this.iv = '';
-        this.encrypted = '';
-    }
-    encode() {
-        return __awaiter(this, void 0, void 0, function* () {
-            if (this.encodeText === '') {
-                return;
-            }
-            this.encodeResult = undefined;
-            this.encodeResult = yield this.utilService.encryptionEncode(this.encodeText);
-            const canvas = document.createElement('canvas');
-            const qrcodeText = `${this.encodeResult.salt},${this.encodeResult.iv},${this.encodeResult.encrypted}`;
-            yield qrcode__WEBPACK_IMPORTED_MODULE_1__["toCanvas"](canvas, qrcodeText);
-            this.qrcode = canvas.toDataURL();
-        });
-    }
-    decode() {
-        return __awaiter(this, void 0, void 0, function* () {
-            if (this.salt === '' || this.iv === '' || this.encrypted === '') {
-                return;
-            }
-            this.decodeResult = undefined;
-            this.decodeResult = yield this.utilService.encryptionDecode({
-                salt: this.salt,
-                iv: this.iv,
-                encrypted: this.encrypted
-            });
-        });
-    }
-};
-DevelopmentEncryptionComponent.ctorParameters = () => [
-    { type: _services__WEBPACK_IMPORTED_MODULE_2__["UtilService"] }
-];
-DevelopmentEncryptionComponent = __decorate([
-    Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
-        selector: 'app-development-encryption',
-        template: __importDefault(__webpack_require__(/*! raw-loader!./development-encryption.component.html */ "../../node_modules/raw-loader/dist/cjs.js!./app/modules/development/components/pages/development-encryption/development-encryption.component.html")).default,
-        styles: [__importDefault(__webpack_require__(/*! ./development-encryption.component.scss */ "./app/modules/development/components/pages/development-encryption/development-encryption.component.scss")).default]
-    }),
-    __metadata("design:paramtypes", [_services__WEBPACK_IMPORTED_MODULE_2__["UtilService"]])
-], DevelopmentEncryptionComponent);
-
-
 
 /***/ }),
 
@@ -183,7 +67,7 @@ var __importDefault = (undefined && undefined.__importDefault) || function (mod)
 
 let DevelopmentIndexComponent = class DevelopmentIndexComponent {
     constructor() {
-        this.environment = _environments_environment__WEBPACK_IMPORTED_MODULE_1__["environment"];
+        this.environment = Object(_environments_environment__WEBPACK_IMPORTED_MODULE_1__["getEnvironment"])();
     }
     ngOnInit() {
     }
@@ -258,7 +142,7 @@ let DevelopmentScreenComponent = class DevelopmentScreenComponent {
     constructor(store, purchaseService) {
         this.store = store;
         this.purchaseService = purchaseService;
-        this.environment = _environments_environment__WEBPACK_IMPORTED_MODULE_2__["environment"];
+        this.environment = Object(_environments_environment__WEBPACK_IMPORTED_MODULE_2__["getEnvironment"])();
     }
     ngOnInit() {
         this.purchase = this.store.pipe(Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_1__["select"])(_store_reducers__WEBPACK_IMPORTED_MODULE_4__["getPurchase"]));
@@ -329,9 +213,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "../../node_modules/@angular/core/fesm2015/core.js");
 /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/router */ "../../node_modules/@angular/router/fesm2015/router.js");
 /* harmony import */ var _shared_components_pages_base_base_component__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../shared/components/pages/base/base.component */ "./app/modules/shared/components/pages/base/base.component.ts");
-/* harmony import */ var _components_pages_development_encryption_development_encryption_component__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./components/pages/development-encryption/development-encryption.component */ "./app/modules/development/components/pages/development-encryption/development-encryption.component.ts");
-/* harmony import */ var _components_pages_development_index_development_index_component__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./components/pages/development-index/development-index.component */ "./app/modules/development/components/pages/development-index/development-index.component.ts");
-/* harmony import */ var _components_pages_development_screen_development_screen_component__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./components/pages/development-screen/development-screen.component */ "./app/modules/development/components/pages/development-screen/development-screen.component.ts");
+/* harmony import */ var _components_pages_development_index_development_index_component__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./components/pages/development-index/development-index.component */ "./app/modules/development/components/pages/development-index/development-index.component.ts");
+/* harmony import */ var _components_pages_development_screen_development_screen_component__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./components/pages/development-screen/development-screen.component */ "./app/modules/development/components/pages/development-screen/development-screen.component.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -346,15 +229,13 @@ var __importDefault = (undefined && undefined.__importDefault) || function (mod)
 
 
 
-
 const routes = [
     {
         path: '',
         component: _shared_components_pages_base_base_component__WEBPACK_IMPORTED_MODULE_2__["BaseComponent"],
         children: [
-            { path: '', component: _components_pages_development_index_development_index_component__WEBPACK_IMPORTED_MODULE_4__["DevelopmentIndexComponent"] },
-            { path: 'screen', component: _components_pages_development_screen_development_screen_component__WEBPACK_IMPORTED_MODULE_5__["DevelopmentScreenComponent"] },
-            { path: 'encryption', component: _components_pages_development_encryption_development_encryption_component__WEBPACK_IMPORTED_MODULE_3__["DevelopmentEncryptionComponent"] }
+            { path: '', component: _components_pages_development_index_development_index_component__WEBPACK_IMPORTED_MODULE_3__["DevelopmentIndexComponent"] },
+            { path: 'screen', component: _components_pages_development_screen_development_screen_component__WEBPACK_IMPORTED_MODULE_4__["DevelopmentScreenComponent"] }
         ]
     }
 ];
@@ -384,10 +265,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/common */ "../../node_modules/@angular/common/fesm2015/common.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "../../node_modules/@angular/core/fesm2015/core.js");
 /* harmony import */ var _shared_shared_module__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../shared/shared.module */ "./app/modules/shared/shared.module.ts");
-/* harmony import */ var _components_pages_development_encryption_development_encryption_component__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./components/pages/development-encryption/development-encryption.component */ "./app/modules/development/components/pages/development-encryption/development-encryption.component.ts");
-/* harmony import */ var _components_pages_development_index_development_index_component__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./components/pages/development-index/development-index.component */ "./app/modules/development/components/pages/development-index/development-index.component.ts");
-/* harmony import */ var _components_pages_development_screen_development_screen_component__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./components/pages/development-screen/development-screen.component */ "./app/modules/development/components/pages/development-screen/development-screen.component.ts");
-/* harmony import */ var _development_routing_module__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./development-routing.module */ "./app/modules/development/development-routing.module.ts");
+/* harmony import */ var _components_pages_development_index_development_index_component__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./components/pages/development-index/development-index.component */ "./app/modules/development/components/pages/development-index/development-index.component.ts");
+/* harmony import */ var _components_pages_development_screen_development_screen_component__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./components/pages/development-screen/development-screen.component */ "./app/modules/development/components/pages/development-screen/development-screen.component.ts");
+/* harmony import */ var _development_routing_module__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./development-routing.module */ "./app/modules/development/development-routing.module.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -403,19 +283,17 @@ var __importDefault = (undefined && undefined.__importDefault) || function (mod)
 
 
 
-
 let DevelopmentModule = class DevelopmentModule {
 };
 DevelopmentModule = __decorate([
     Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["NgModule"])({
         declarations: [
-            _components_pages_development_index_development_index_component__WEBPACK_IMPORTED_MODULE_4__["DevelopmentIndexComponent"],
-            _components_pages_development_screen_development_screen_component__WEBPACK_IMPORTED_MODULE_5__["DevelopmentScreenComponent"],
-            _components_pages_development_encryption_development_encryption_component__WEBPACK_IMPORTED_MODULE_3__["DevelopmentEncryptionComponent"]
+            _components_pages_development_index_development_index_component__WEBPACK_IMPORTED_MODULE_3__["DevelopmentIndexComponent"],
+            _components_pages_development_screen_development_screen_component__WEBPACK_IMPORTED_MODULE_4__["DevelopmentScreenComponent"],
         ],
         imports: [
             _angular_common__WEBPACK_IMPORTED_MODULE_0__["CommonModule"],
-            _development_routing_module__WEBPACK_IMPORTED_MODULE_6__["DevelopmentRoutingModule"],
+            _development_routing_module__WEBPACK_IMPORTED_MODULE_5__["DevelopmentRoutingModule"],
             _shared_shared_module__WEBPACK_IMPORTED_MODULE_2__["SharedModule"],
         ]
     })

@@ -82,4 +82,22 @@ export class MasterService {
             race(success, fail).pipe(take(1)).subscribe();
         });
     }
+
+    /**
+     * プロジェクト一覧取得
+     */
+    public async getProjects() {
+        return new Promise<void>((resolve, reject) => {
+            this.store.dispatch(new masterAction.GetProjects());
+            const success = this.actions.pipe(
+                ofType(masterAction.ActionTypes.GetProjectsSuccess),
+                tap(() => { resolve(); })
+            );
+            const fail = this.actions.pipe(
+                ofType(masterAction.ActionTypes.GetScheduleFail),
+                tap(() => { this.error.subscribe((error) => { reject(error); }).unsubscribe(); })
+            );
+            race(success, fail).pipe(take(1)).subscribe();
+        });
+    }
 }

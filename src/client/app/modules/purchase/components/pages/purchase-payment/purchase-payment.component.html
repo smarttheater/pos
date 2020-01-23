@@ -42,13 +42,13 @@
     </div>
 
     <div class="buttons mx-auto text-center">
-        <div *ngIf="(user | async).viewType === viewType.Cinema">
-            <button *ngIf="(user | async).isPurchaseCart" type="button" class="btn btn-link"
+        <div *ngIf="environment.VIEW_TYPE === viewType.Cinema">
+            <button *ngIf="environment.PURCHASE_CART" type="button" class="btn btn-link"
                 routerLink="/purchase/cinema/cart">{{ 'purchase.payment.prev' | translate }}</button>
-            <button *ngIf="!(user | async).isPurchaseCart" type="button" class="btn btn-link"
+            <button *ngIf="!environment.PURCHASE_CART" type="button" class="btn btn-link"
                 routerLink="/purchase/cinema/ticket">{{ 'purchase.payment.prev' | translate }}</button>
         </div>
-        <div *ngIf="(user | async).viewType === viewType.Event">
+        <div *ngIf="environment.VIEW_TYPE === viewType.Event">
             <button type="button" class="btn btn-link"
                 routerLink="/purchase/event/ticket">{{ 'purchase.payment.prev' | translate }}</button>
         </div>

@@ -8,7 +8,7 @@ import * as moment from 'moment';
 import { BsDatepickerDirective, BsLocaleService, BsModalService } from 'ngx-bootstrap';
 import { BsDatepickerContainerComponent } from 'ngx-bootstrap/datepicker/themes/bs/bs-datepicker-container.component';
 import { Observable } from 'rxjs';
-import { environment } from '../../../../../../../environments/environment';
+import { getEnvironment } from '../../../../../../../environments/environment';
 import { iOSDatepickerTapBugFix, IScreeningEventWork, screeningEventsToWorkEvents } from '../../../../../../functions';
 import { MasterService, PurchaseService, UserService, UtilService } from '../../../../../../services';
 import * as reducers from '../../../../../../store/reducers';
@@ -27,8 +27,9 @@ export class PurchaseCinemaScheduleComponent implements OnInit, OnDestroy {
     public master: Observable<reducers.IMasterState>;
     public user: Observable<reducers.IUserState>;
     public screeningWorkEvents: IScreeningEventWork[];
-    public moment: typeof moment = moment;
+    public moment = moment;
     public scheduleDate: Date;
+    public environment = getEnvironment();
     private updateTimer: any;
     @ViewChild('datepicker', { static: true }) private datepicker: BsDatepickerDirective;
 
@@ -87,7 +88,7 @@ export class PurchaseCinemaScheduleComponent implements OnInit, OnDestroy {
         const seller = user.seller;
         if (this.scheduleDate === undefined) {
             this.scheduleDate = moment()
-                .add(environment.PURCHASE_SCHEDULE_DEFAULT_SELECTED_DATE, 'day')
+                .add(this.environment.PURCHASE_SCHEDULE_DEFAULT_SELECTED_DATE, 'day')
                 .toDate();
         }
         const scheduleDate = moment(this.scheduleDate).format('YYYY-MM-DD');
@@ -140,7 +141,7 @@ export class PurchaseCinemaScheduleComponent implements OnInit, OnDestroy {
             this.router.navigate(['/error']);
             return;
         }
-        if (user.isPurchaseCart
+        if (this.environment.PURCHASE_CART
             && purchase.transaction !== undefined
             && purchase.authorizeSeatReservations.length > 0) {
             this.openTransactionModal();

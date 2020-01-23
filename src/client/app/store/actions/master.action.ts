@@ -11,7 +11,10 @@ export enum ActionTypes {
     GetSellersFail = '[Master] Get Sellers Fail',
     GetSchedule = '[Master] Get Schedule',
     GetScheduleSuccess = '[Master] Get Schedule Success',
-    GetScheduleFail = '[Master] Get Schedule Fail'
+    GetScheduleFail = '[Master] Get Schedule Fail',
+    GetProjects = '[Master] Get Projects',
+    GetProjectsSuccess = '[Master] Get Projects Success',
+    GetProjectsFail = '[Master] Get Projects Fail'
 }
 
 /**
@@ -54,13 +57,7 @@ export class GetSchedule implements Action {
     constructor(public payload: {
         superEvent: {
             ids?: string[];
-            /**
-             * 親イベント(劇場の上映イベント)が実施される場所の識別子リスト
-             */
             locationBranchCodes?: string[];
-            /**
-             * イベントで上演される作品識別子リスト
-             */
             workPerformedIdentifiers?: string[];
         };
         startFrom: Date;
@@ -88,6 +85,32 @@ export class GetScheduleFail implements Action {
 }
 
 /**
+ * GetProjects
+ */
+export class GetProjects implements Action {
+    public readonly type = ActionTypes.GetProjects;
+    constructor(public payload?: {}) { }
+}
+
+/**
+ * GetProjectsSuccess
+ */
+export class GetProjectsSuccess implements Action {
+    public readonly type = ActionTypes.GetProjectsSuccess;
+    constructor(public payload: {
+        projects: factory.project.IProject[]
+    }) { }
+}
+
+/**
+ * GetProjectsFail
+ */
+export class GetProjectsFail implements Action {
+    public readonly type = ActionTypes.GetProjectsFail;
+    constructor(public payload: { error: Error }) { }
+}
+
+/**
  * Actions
  */
 export type Actions =
@@ -97,4 +120,7 @@ export type Actions =
     | GetSellersFail
     | GetSchedule
     | GetScheduleSuccess
-    | GetScheduleFail;
+    | GetScheduleFail
+    | GetProjects
+    | GetProjectsSuccess
+    | GetProjectsFail;

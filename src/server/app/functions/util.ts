@@ -6,6 +6,7 @@ import debug = require('debug');
 import * as request from 'request';
 const log = debug('application:util');
 
+
 export async function requestAsync<T>(url: string, options?: request.CoreOptions) {
     return new Promise<T>((resolve, reject) => {
         log(url, options);
@@ -17,18 +18,6 @@ export async function requestAsync<T>(url: string, options?: request.CoreOptions
             resolve(<any>{ body, response });
         });
     });
-}
-
-
-/**
- * @memberof services.util
- * @enum DIGITS
- * @type number
- */
-export enum DIGITS {
-    '02' = -2,
-    '03' = -3,
-    '08' = -8
 }
 
 /**
@@ -107,4 +96,16 @@ export function bace64Encode(str: string): string {
  */
 export function base64Decode(str: string): string {
     return new Buffer(str, 'base64').toString();
+}
+
+/**
+ * プロジェクト情報取得
+ */
+export function getProject(project: string) {
+    const projects: {
+        'PROJECT_NAME': string;
+        'PROJECT_ID': string;
+        'STORAGE_URL': string;
+    }[] = JSON.parse(<string>process.env.PROJECTS);
+    return projects.find(p => p.PROJECT_NAME === project);
 }

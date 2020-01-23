@@ -5,7 +5,7 @@ import { select, Store } from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
 import * as libphonenumber from 'libphonenumber-js';
 import { Observable } from 'rxjs';
-import { environment } from '../../../../../../environments/environment';
+import { getEnvironment } from '../../../../../../environments/environment';
 import { connectionType, printers, ViewType } from '../../../../../models';
 import { MasterService, OrderService, UserService, UtilService } from '../../../../../services';
 import * as reducers from '../../../../../store/reducers';
@@ -26,7 +26,7 @@ export class SettingComponent implements OnInit {
     public printers: typeof printers = printers;
     public connectionType: typeof connectionType = connectionType;
     public viewType: typeof ViewType = ViewType;
-    public environment = environment;
+    public environment = getEnvironment();
 
     constructor(
         private formBuilder: FormBuilder,
@@ -114,14 +114,7 @@ export class SettingComponent implements OnInit {
                 }
             ]],
             printerType: [''],
-            printerIpAddress: [''],
-            isPurchaseCart: ['0', [
-                Validators.required,
-                Validators.pattern(/^[0-9]+$/)
-            ]],
-            viewType: ['', [
-                Validators.required
-            ]]
+            printerIpAddress: ['']
         });
         const user = await this.userService.getData();
         if (user.seller !== undefined
@@ -146,8 +139,6 @@ export class SettingComponent implements OnInit {
             this.settingForm.controls.printerType.setValue(user.printer.connectionType);
             this.settingForm.controls.printerIpAddress.setValue(user.printer.ipAddress);
         }
-        this.settingForm.controls.isPurchaseCart.setValue((user.isPurchaseCart) ? '1' : '0');
-        this.settingForm.controls.viewType.setValue(user.viewType);
     }
 
     /**
@@ -212,9 +203,7 @@ export class SettingComponent implements OnInit {
                 printer: {
                     ipAddress: this.settingForm.controls.printerIpAddress.value,
                     connectionType: this.settingForm.controls.printerType.value
-                },
-                isPurchaseCart: (this.settingForm.controls.isPurchaseCart.value === '1') ? true : false,
-                viewType: this.settingForm.controls.viewType.value
+                }
             });
             this.utilService.openAlert({
                 title: this.translate.instant('common.complete'),

@@ -6,7 +6,7 @@ import * as moment from 'moment';
 import { BsDatepickerDirective, BsLocaleService } from 'ngx-bootstrap';
 import { BsDatepickerContainerComponent } from 'ngx-bootstrap/datepicker/themes/bs/bs-datepicker-container.component';
 import { Observable } from 'rxjs';
-import { environment } from '../../../../../../../environments/environment';
+import { getEnvironment } from '../../../../../../../environments/environment';
 import { iOSDatepickerTapBugFix, IScreeningEventWork, screeningEventsToWorkEvents } from '../../../../../../functions';
 import { MasterService, PurchaseService, UserService } from '../../../../../../services';
 import * as reducers from '../../../../../../store/reducers';
@@ -26,7 +26,7 @@ export class PurchaseEventScheduleComponent implements OnInit, OnDestroy {
     public moment: typeof moment = moment;
     private updateTimer: any;
     public scheduleDate: Date;
-    public environment = environment;
+    public environment = getEnvironment();
     @ViewChild('datepicker', { static: true }) private datepicker: BsDatepickerDirective;
 
     constructor(
@@ -50,7 +50,7 @@ export class PurchaseEventScheduleComponent implements OnInit, OnDestroy {
         this.screeningWorkEvents = [];
         if (this.scheduleDate === undefined) {
             this.scheduleDate = moment()
-                .add(environment.PURCHASE_SCHEDULE_DEFAULT_SELECTED_DATE, 'day')
+                .add(this.environment.PURCHASE_SCHEDULE_DEFAULT_SELECTED_DATE, 'day')
                 .toDate();
         }
         try {
@@ -98,7 +98,7 @@ export class PurchaseEventScheduleComponent implements OnInit, OnDestroy {
             }
             if (this.scheduleDate === undefined || this.scheduleDate === null) {
                 this.scheduleDate = moment()
-                    .add(environment.PURCHASE_SCHEDULE_DEFAULT_SELECTED_DATE, 'day')
+                    .add(this.environment.PURCHASE_SCHEDULE_DEFAULT_SELECTED_DATE, 'day')
                     .toDate();
             }
             const scheduleDate = moment(this.scheduleDate).format('YYYY-MM-DD');

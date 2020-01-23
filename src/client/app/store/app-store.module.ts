@@ -5,7 +5,6 @@ import {
     AdmissionEffects,
     MasterEffects,
     OrderEffects,
-    PersonEffects,
     PurchaseEffects,
     ReservationEffects,
     UserEffects
@@ -22,7 +21,6 @@ import { reducer } from './reducers';
             MasterEffects,
             ReservationEffects,
             OrderEffects,
-            PersonEffects
         ])
     ]
 })

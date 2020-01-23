@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import * as cinerino from '@cinerino/api-javascript-client';
+import { getProject } from '../functions';
 
 @Injectable({
     providedIn: 'root'
@@ -12,6 +13,7 @@ export class CinerinoService {
     public order: cinerino.service.Order;
     public seller: cinerino.service.Seller;
     public person: cinerino.service.Person;
+    public project: cinerino.service.Project;
     public ownershipInfo: cinerino.service.person.OwnershipInfo;
     public reservation: cinerino.service.Reservation;
     public task: cinerino.service.Task;
@@ -23,6 +25,7 @@ export class CinerinoService {
     public admin: {
         ownershipInfo: cinerino.service.OwnershipInfo
     };
+    public userName: string;
     private endpoint: string;
     private waiterServerUrl: string;
 
@@ -41,6 +44,7 @@ export class CinerinoService {
             this.order = new cinerino.service.Order(option);
             this.seller = new cinerino.service.Seller(option);
             this.person = new cinerino.service.Person(option);
+            this.project = new cinerino.service.Project({ ...option, project: undefined });
             this.ownershipInfo = new cinerino.service.person.OwnershipInfo(option);
             this.reservation = new cinerino.service.Reservation(option);
             this.task = new cinerino.service.Task(option);
@@ -59,35 +63,48 @@ export class CinerinoService {
     }
 
     /**
-     * @method createOption
+     * createOption
      */
     public async createOption() {
         await this.authorize();
         return {
             endpoint: this.endpoint,
-            auth: this.auth
+            auth: this.auth,
+            project: { id: getProject().projectId }
         };
     }
 
     /**
-     * @method authorize
+     * 認証情報取得
      */
     public async authorize() {
         const url = '/api/authorize/getCredentials';
-        const body = {
-            // member: '0'
-            member: '1'
-        };
+        const body = {};
         const result = await this.http.post<{
             accessToken: string;
-            userName: string;
+            expiryDate: number;
             clientId: string;
             endpoint: string;
             waiterServerUrl: string;
+            userName: string;
         }>(url, body).toPromise();
+        this.setCredentials(result);
+    }
+
+    /**
+     * 認証情報設定
+     */
+    public setCredentials(params: {
+        clientId: string;
+        accessToken: string;
+        expiryDate: number;
+        endpoint: string;
+        waiterServerUrl: string;
+        userName: string;
+    }) {
         const option = {
             domain: '',
-            clientId: result.clientId,
+            clientId: params.clientId,
             redirectUri: '',
             logoutUri: '',
             responseType: '',
@@ -97,9 +114,10 @@ export class CinerinoService {
             tokenIssuer: ''
         };
         this.auth = cinerino.createAuthInstance(option);
-        this.auth.setCredentials({ accessToken: result.accessToken });
-        this.endpoint = result.endpoint;
-        this.waiterServerUrl = result.waiterServerUrl;
+        this.auth.setCredentials({ accessToken: params.accessToken, expiryDate: params.expiryDate });
+        this.endpoint = params.endpoint;
+        this.waiterServerUrl = params.waiterServerUrl;
+        this.userName = params.userName;
     }
 
     /**
@@ -130,7 +148,7 @@ export class CinerinoService {
             || this.waiterServerUrl === '') {
             return { token: '' };
         }
-        const url = this.waiterServerUrl;
+        const url = `${this.waiterServerUrl}/projects/${getProject().projectId}/passports`;
         const body = { scope: `Transaction:PlaceOrder:${selleId}` };
         const result = await this.http.post<{ token: string; }>(url, body).toPromise();
 

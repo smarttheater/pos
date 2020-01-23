@@ -1,0 +1,32 @@
+@import "node_modules/bootstrap/scss/functions";
+@import "node_modules/bootstrap/scss/variables";
+@import "node_modules/bootstrap/scss/mixins";
+
+.logo {
+    width: 3rem;
+    @include media-breakpoint-down(sm) {
+        width: 2rem;
+    }
+}
+
+.text-overflow {
+    overflow: hidden;
+    white-space: nowrap;
+    width: 100%;
+    text-overflow: ellipsis;
+}
+
+
+li {
+    width: 33%;
+    @include media-breakpoint-down(sm) {
+        width: auto;
+    }
+}
+
+.btn-primary.disabled {
+    opacity: 1 !important;
+    background-color: #666 !important;
+    border-color: #666 !important;
+    color: #EEE !important;
+}

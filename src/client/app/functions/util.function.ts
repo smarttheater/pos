@@ -188,3 +188,41 @@ export function string2blob(value: string, options?: BlobPropertyBag) {
     const bom = new Uint8Array([0xEF, 0xBB, 0xBF]);
     return new Blob([bom, value], options);
 }
+
+/**
+ * パラメータ取得
+ */
+export function getParameter<T>() {
+    const result: any = {};
+    const params = location.search.replace('?', '').split('&');
+    for (let i = 0; i < params.length; i++) {
+        const param = params[i].split('=');
+        const key = param[0];
+        const value = param[1];
+        if (key && value) {
+            result[key] = value;
+        }
+    }
+    return <T>result;
+}
+
+/**
+ * プロジェクト情報取得
+ */
+export function getProject() {
+    const project = sessionStorage.getItem('PROJECT');
+    if (project === null || project === '') {
+        return {
+            projectId: '',
+            projectName: '',
+            storageUrl: ''
+        };
+    }
+    return <{
+        projectId: string;
+        projectName: string;
+        storageUrl: string;
+    }>JSON.parse(project);
+}
+
+

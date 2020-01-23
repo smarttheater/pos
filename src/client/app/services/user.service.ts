@@ -4,7 +4,7 @@ import { select, Store } from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
 import * as moment from 'moment';
 import { Observable } from 'rxjs';
-import { IPrinter, ViewType } from '../models';
+import { IPrinter } from '../models';
 import { userAction } from '../store/actions';
 import * as reducers from '../store/reducers';
 import { UtilService } from './util.service';
@@ -49,8 +49,6 @@ export class UserService {
         pos: factory.seller.IPOS;
         customerContact: factory.transaction.placeOrder.ICustomerProfile;
         printer: IPrinter;
-        isPurchaseCart: boolean;
-        viewType: ViewType;
     }) {
         this.store.dispatch(new userAction.UpdateAll(params));
     }
