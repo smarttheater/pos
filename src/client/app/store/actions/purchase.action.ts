@@ -372,7 +372,7 @@ export class RegisterContact implements Action {
     public readonly type = ActionTypes.RegisterContact;
     constructor(public payload: {
         transaction: factory.transaction.placeOrder.ITransaction;
-        contact: factory.transaction.placeOrder.ICustomerProfile;
+        contact: factory.person.IProfile;
     }) { }
 }
 
@@ -381,7 +381,7 @@ export class RegisterContact implements Action {
  */
 export class RegisterContactSuccess implements Action {
     public readonly type = ActionTypes.RegisterContactSuccess;
-    constructor(public payload: { customerContact: factory.transaction.placeOrder.ICustomerProfile }) { }
+    constructor(public payload: { profile: factory.person.IProfile }) { }
 }
 
 /**

@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { factory } from '@cinerino/api-javascript-client';
 import * as moment from 'moment';
-import { environment } from '../../../../../../environments/environment';
+import { getEnvironment } from '../../../../../../environments/environment';
 import { IScreeningEventWork } from '../../../../../functions';
 
 @Component({
@@ -14,7 +14,7 @@ export class AdmissionScheduleWorkComponent implements OnInit {
     @Input() public screeningWorkEvent: IScreeningEventWork;
     @Output() public select = new EventEmitter<factory.chevre.event.screeningEvent.IEvent>();
     public moment: typeof moment = moment;
-    public environment = environment;
+    public environment = getEnvironment();
 
     constructor() { }
 

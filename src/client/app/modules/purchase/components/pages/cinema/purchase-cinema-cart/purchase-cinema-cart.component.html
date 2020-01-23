@@ -55,7 +55,7 @@
             [disabled]="isLoading | async" routerLink="/purchase/payment">{{ 'purchase.cinema.cart.next' | translate }}</button>
         <button *ngIf="amount === 0" type="button" class="btn btn-primary btn-block py-3 mb-3"
             [disabled]="isLoading | async" routerLink="/purchase/confirm">{{ 'purchase.cinema.cart.next' | translate }}</button>
-        <button *ngIf="(user | async).isPurchaseCart" type="button" class="btn btn-outline-primary btn-block py-3"
+        <button *ngIf="environment.PURCHASE_CART" type="button" class="btn btn-outline-primary btn-block py-3"
             routerLink="/purchase/cinema/schedule">{{ 'purchase.cinema.cart.add' | translate }}</button>
     </div>
     <div *ngIf="(purchase | async).authorizeSeatReservations.length === 0" class="buttons mx-auto text-center">

@@ -43,10 +43,7 @@ Thumbs.db
 
 /bk/node_modules
 *.bat
-.env.bat
-.env2.bat
-.prod.bat
-public/
+public/projects
 private/
 old/
 dist/client/production/stats.json

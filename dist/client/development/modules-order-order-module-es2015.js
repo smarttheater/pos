@@ -22,7 +22,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("<div class=\"contents-width mx-auto px-3 py-5\">\n    <h2 class=\"text-large mb-4 text-center font-weight-bold\">{{ 'order.index.title' | translate }}</h2>\n    <p class=\"mb-4 text-md-center\" [innerHTML]=\"'order.index.read' | translate\"></p>\n\n    <ul class=\"d-md-flex\">\n        <li class=\"my-md-2 mb-3\">\n            <div class=\"card mx-md-2 h-100\">\n                <div class=\"card-body\">\n                    <h5 class=\"card-title font-weight-bold\">{{ 'order.index.list.search.title' | translate }}\n                    </h5>\n                    <p class=\"card-text mb-3\">{{ 'order.index.list.search.read' | translate }}</p>\n                    <button type=\"button\" routerLink=\"/order/search\"\n                        class=\"btn btn-primary\">{{ 'order.index.list.search.next' | translate }}</button>\n                </div>\n            </div>\n        </li>\n        <li class=\"my-md-2 mb-3\">\n            <div class=\"card mx-md-2 h-100\">\n                <div class=\"card-body\">\n                    <h5 class=\"card-title font-weight-bold\">{{ 'order.index.list.download.title' | translate }}\n                    </h5>\n                    <p class=\"card-text mb-3\">{{ 'order.index.list.download.read' | translate }}</p>\n                    <button type=\"button\" routerLink=\"/order/download\"\n                        class=\"btn btn-primary\">{{ 'order.index.list.download.next' | translate }}</button>\n                </div>\n            </div>\n        </li>\n    </ul>\n</div>");
+/* harmony default export */ __webpack_exports__["default"] = ("<div class=\"contents-width mx-auto px-3 py-5\">\n    <h2 class=\"text-large mb-4 text-center font-weight-bold\">{{ 'order.index.title' | translate }}</h2>\n    <p class=\"mb-4 text-md-center\" [innerHTML]=\"'order.index.read' | translate\"></p>\n\n    <ul class=\"d-md-flex\">\n        <li class=\"my-md-2 mb-3\">\n            <div class=\"card mx-md-2 h-100\">\n                <div class=\"card-body\">\n                    <h5 class=\"card-title font-weight-bold\">{{ 'order.index.list.search.title' | translate }}\n                    </h5>\n                    <p class=\"card-text mb-3\">{{ 'order.index.list.search.read' | translate }}</p>\n                    <button type=\"button\" routerLink=\"/order/search\"\n                        class=\"btn btn-primary btn-block\">{{ 'order.index.list.search.next' | translate }}</button>\n                </div>\n            </div>\n        </li>\n        <li class=\"my-md-2 mb-3\">\n            <div class=\"card mx-md-2 h-100\">\n                <div class=\"card-body\">\n                    <h5 class=\"card-title font-weight-bold\">{{ 'order.index.list.download.title' | translate }}\n                    </h5>\n                    <p class=\"card-text mb-3\">{{ 'order.index.list.download.read' | translate }}</p>\n                    <button type=\"button\" routerLink=\"/order/download\"\n                        class=\"btn btn-primary btn-block\">{{ 'order.index.list.download.next' | translate }}</button>\n                </div>\n            </div>\n        </li>\n    </ul>\n</div>");
 
 /***/ }),
 
@@ -118,7 +118,7 @@ let OrderDownloadComponent = class OrderDownloadComponent {
         this.orderStatus = _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_1__["factory"].orderStatus;
         this.paymentMethodType = _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_1__["factory"].paymentMethodType;
         this.buildQueryString = _functions__WEBPACK_IMPORTED_MODULE_7__["buildQueryString"];
-        this.environment = _environments_environment__WEBPACK_IMPORTED_MODULE_6__["environment"];
+        this.environment = Object(_environments_environment__WEBPACK_IMPORTED_MODULE_6__["getEnvironment"])();
         this.encodingFormat = _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_1__["factory"].encodingFormat;
         this.orderToEventOrders = _functions__WEBPACK_IMPORTED_MODULE_7__["orderToEventOrders"];
         this.csvFormat = _models__WEBPACK_IMPORTED_MODULE_8__["CsvFormat"];
@@ -528,7 +528,7 @@ let OrderSearchComponent = class OrderSearchComponent {
         this.paymentMethodType = _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_2__["factory"].paymentMethodType;
         this.OrderActions = _models__WEBPACK_IMPORTED_MODULE_9__["OrderActions"];
         this.buildQueryString = _functions__WEBPACK_IMPORTED_MODULE_8__["buildQueryString"];
-        this.environment = _environments_environment__WEBPACK_IMPORTED_MODULE_7__["environment"];
+        this.environment = Object(_environments_environment__WEBPACK_IMPORTED_MODULE_7__["getEnvironment"])();
         this.orderToEventOrders = _functions__WEBPACK_IMPORTED_MODULE_8__["orderToEventOrders"];
     }
     ngOnInit() {

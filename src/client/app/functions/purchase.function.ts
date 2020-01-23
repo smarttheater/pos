@@ -1,6 +1,6 @@
 import { factory } from '@cinerino/api-javascript-client';
 import * as moment from 'moment';
-import { environment } from '../../environments/environment';
+import { getEnvironment } from '../../environments/environment';
 import { IMovieTicket } from '../models';
 
 export interface IScreeningEventWork {
@@ -282,7 +282,7 @@ export function getTicketPrice(
 export function movieTicketAuthErroCodeToMessage(code?: string): { ja: string; en: string; } {
     const table = [
         { code: '01', ja: '存在無', en: 'no existence' },
-        { code: '02', ja: '存在無', en: 'no existence' },
+        { code: '02', ja: 'PINｺｰﾄﾞ必須', en: 'PIN code required' },
         { code: '03', ja: 'PINｺｰﾄﾞ認証ｴﾗｰ', en: 'PIN code authentication error' },
         { code: '04', ja: '作品不一致', en: 'Work disagreement' },
         { code: '05', ja: '未ｱｸﾃｨﾍﾞｰﾄ', en: 'unactivated' },
@@ -415,8 +415,8 @@ export function isScheduleStatusThreshold(
         maximumAttendeeCapacity = Number(limitSeatNumber.value);
     }
     let result = false;
-    const unit = environment.PURCHASE_SCHEDULE_STATUS_THRESHOLD_UNIT;
-    const value = Number(environment.PURCHASE_SCHEDULE_STATUS_THRESHOLD_VALUE);
+    const unit = getEnvironment().PURCHASE_SCHEDULE_STATUS_THRESHOLD_UNIT;
+    const value = Number(getEnvironment().PURCHASE_SCHEDULE_STATUS_THRESHOLD_VALUE);
     if (unit === '%') {
         switch (status) {
             case 'success':

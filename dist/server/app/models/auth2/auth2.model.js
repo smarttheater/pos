@@ -14,7 +14,6 @@ class Auth2Model {
         if (session === undefined) {
             session = {};
         }
-        // const resourceServerUrl  = <string>process.env.RESOURCE_SERVER_URL;
         this.scopes = [];
         this.credentials = session.credentials;
         this.state = Auth2Model.STATE;
@@ -23,16 +22,14 @@ class Auth2Model {
     /**
      * 認証クラス作成
      * @memberof Auth2Model
-     * @method create
-     * @returns {cinerino.auth.ClientCredentials}
      */
-    create() {
+    create(req) {
         const auth = new cinerino.auth.OAuth2({
             domain: process.env.OAUTH2_SERVER_DOMAIN,
             clientId: process.env.CLIENT_ID_OAUTH2,
             clientSecret: process.env.CLIENT_SECRET_OAUTH2,
-            redirectUri: process.env.AUTH_REDIRECT_URI,
-            logoutUri: process.env.AUTH_LOGUOT_URI,
+            redirectUri: `${req.protocol}://${req.hostname}/signIn`,
+            logoutUri: `${req.protocol}://${req.hostname}/signOut`,
             state: this.state,
             scopes: this.scopes.join(' ')
         });

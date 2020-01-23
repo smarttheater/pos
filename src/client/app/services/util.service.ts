@@ -83,7 +83,7 @@ export class UtilService {
     /**
      * json送信
      */
-    public async postJson<T>(url: string, body?: any, options?: {
+    public async postJson<T>(url: string, body: any, options?: {
         headers?: HttpHeaders | {
             [header: string]: string | string[];
         };

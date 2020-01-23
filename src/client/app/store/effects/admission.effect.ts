@@ -4,7 +4,7 @@ import { Actions, Effect, ofType } from '@ngrx/effects';
 import { INTERNAL_SERVER_ERROR, OK } from 'http-status';
 import * as decode from 'jwt-decode';
 import { map, mergeMap } from 'rxjs/operators';
-import { environment } from '../../../environments/environment';
+import { getEnvironment } from '../../../environments/environment';
 import { IDecodeResult } from '../../models';
 import { CinerinoService } from '../../services';
 import { admissionAction } from '../actions';
@@ -73,7 +73,7 @@ export class AdmissionEffects {
                             typeOf: factory.chevre.reservationType.EventReservation,
                             page,
                             limit,
-                            project: { ids: [environment.PROJECT_ID] },
+                            project: { ids: [getEnvironment().PROJECT_ID] },
                             reservationStatuses: [factory.chevre.reservationStatusType.ReservationConfirmed],
                             reservationFor: {
                                 typeOf: factory.chevre.eventType.ScreeningEvent,

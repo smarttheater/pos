@@ -117,7 +117,7 @@ let InquiryConfirmComponent = class InquiryConfirmComponent {
         this.getTicketPrice = _functions__WEBPACK_IMPORTED_MODULE_7__["getTicketPrice"];
         this.changeTicketCountByOrder = _functions__WEBPACK_IMPORTED_MODULE_7__["changeTicketCountByOrder"];
         this.orderStatus = _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_2__["factory"].orderStatus;
-        this.environment = _environments_environment__WEBPACK_IMPORTED_MODULE_6__["environment"];
+        this.environment = Object(_environments_environment__WEBPACK_IMPORTED_MODULE_6__["getEnvironment"])();
     }
     ngOnInit() {
         this.eventOrders = [];
@@ -134,8 +134,8 @@ let InquiryConfirmComponent = class InquiryConfirmComponent {
             const order = value.order;
             this.eventOrders = Object(_functions__WEBPACK_IMPORTED_MODULE_7__["orderToEventOrders"])({ order });
         }).unsubscribe();
-        if (_environments_environment__WEBPACK_IMPORTED_MODULE_6__["environment"].INQUIRY_PRINT_WAIT_TIME !== '') {
-            const time = Number(_environments_environment__WEBPACK_IMPORTED_MODULE_6__["environment"].INQUIRY_PRINT_WAIT_TIME);
+        if (this.environment.INQUIRY_PRINT_WAIT_TIME !== '') {
+            const time = Number(this.environment.INQUIRY_PRINT_WAIT_TIME);
             this.timer = setTimeout(() => {
                 this.router.navigate(['/inquiry/input']);
             }, time);
@@ -191,7 +191,7 @@ let InquiryConfirmComponent = class InquiryConfirmComponent {
         return __awaiter(this, void 0, void 0, function* () {
             const today = moment__WEBPACK_IMPORTED_MODULE_5__().format('YYYYMMDD');
             const limit = moment__WEBPACK_IMPORTED_MODULE_5__(today)
-                .add(_environments_environment__WEBPACK_IMPORTED_MODULE_6__["environment"].INQUIRY_PRINT_EXPIRED_VALUE, _environments_environment__WEBPACK_IMPORTED_MODULE_6__["environment"].INQUIRY_PRINT_EXPIRED_UNIT)
+                .add(this.environment.INQUIRY_PRINT_EXPIRED_VALUE, this.environment.INQUIRY_PRINT_EXPIRED_UNIT)
                 .format('YYYYMMDD');
             const findResult = this.eventOrders.find(o => moment__WEBPACK_IMPORTED_MODULE_5__(o.event.startDate).format('YYYYMMDD') < limit);
             if (findResult !== undefined) {
@@ -351,7 +351,7 @@ let InquiryInputComponent = class InquiryInputComponent {
         this.orderService = orderService;
         this.router = router;
         this.translate = translate;
-        this.environment = _environments_environment__WEBPACK_IMPORTED_MODULE_6__["environment"];
+        this.environment = Object(_environments_environment__WEBPACK_IMPORTED_MODULE_6__["getEnvironment"])();
     }
     ngOnInit() {
         this.isLoading = this.store.pipe(Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_3__["select"])(_store_reducers__WEBPACK_IMPORTED_MODULE_8__["getLoading"]));
@@ -507,15 +507,16 @@ var __importDefault = (undefined && undefined.__importDefault) || function (mod)
 let InquiryPrintComponent = class InquiryPrintComponent {
     constructor(router) {
         this.router = router;
+        this.environment = Object(_environments_environment__WEBPACK_IMPORTED_MODULE_2__["getEnvironment"])();
     }
     /**
      * 初期化
      */
     ngOnInit() {
-        if (_environments_environment__WEBPACK_IMPORTED_MODULE_2__["environment"].INQUIRY_PRINT_SUCCESS_WAIT_TIME === '') {
+        if (this.environment.INQUIRY_PRINT_SUCCESS_WAIT_TIME === '') {
             return;
         }
-        const time = Number(_environments_environment__WEBPACK_IMPORTED_MODULE_2__["environment"].INQUIRY_PRINT_SUCCESS_WAIT_TIME);
+        const time = Number(this.environment.INQUIRY_PRINT_SUCCESS_WAIT_TIME);
         this.timer = setTimeout(() => {
             this.router.navigate(['/inquiry/input']);
         }, time);

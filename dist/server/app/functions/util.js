@@ -31,17 +31,6 @@ function requestAsync(url, options) {
 }
 exports.requestAsync = requestAsync;
 /**
- * @memberof services.util
- * @enum DIGITS
- * @type number
- */
-var DIGITS;
-(function (DIGITS) {
-    DIGITS[DIGITS["02"] = -2] = "02";
-    DIGITS[DIGITS["03"] = -3] = "03";
-    DIGITS[DIGITS["08"] = -8] = "08";
-})(DIGITS = exports.DIGITS || (exports.DIGITS = {}));
-/**
  * 環境
  * @memberof services.util
  * @enum ENV
@@ -117,3 +106,11 @@ function base64Decode(str) {
     return new Buffer(str, 'base64').toString();
 }
 exports.base64Decode = base64Decode;
+/**
+ * プロジェクト情報取得
+ */
+function getProject(project) {
+    const projects = JSON.parse(process.env.PROJECTS);
+    return projects.find(p => p.PROJECT_NAME === project);
+}
+exports.getProject = getProject;

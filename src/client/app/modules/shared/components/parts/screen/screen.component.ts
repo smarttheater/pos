@@ -375,9 +375,6 @@ export class ScreenComponent implements OnInit, AfterViewInit, AfterViewChecked 
             || seat.status === SeatStatus.Disabled) {
             return;
         }
-        if (this.screenData.hc.indexOf(seat.code) !== -1) {
-            return;
-        }
         this.select.emit({
             seat: seat.ticketedSeat,
             status: seat.status

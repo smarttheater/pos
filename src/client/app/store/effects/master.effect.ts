@@ -52,7 +52,7 @@ export class MasterEffects {
                 let roop = true;
                 let screeningEvents: factory.chevre.event.screeningEvent.IEvent[] = [];
                 while (roop) {
-                    const screeningEventsResult = await this.cinerino.event.search({
+                    const searchResult = await this.cinerino.event.search({
                         page,
                         limit,
                         typeOf: factory.chevre.eventType.ScreeningEvent,
@@ -61,8 +61,8 @@ export class MasterEffects {
                         startFrom: payload.startFrom,
                         startThrough: payload.startThrough
                     });
-                    screeningEvents = screeningEvents.concat(screeningEventsResult.data);
-                    const lastPage = Math.ceil(screeningEventsResult.totalCount / limit);
+                    screeningEvents = screeningEvents.concat(searchResult.data);
+                    const lastPage = Math.ceil(searchResult.totalCount / limit);
                     page++;
                     roop = !(page > lastPage);
                 }
@@ -85,6 +85,38 @@ export class MasterEffects {
                 return new masterAction.GetScheduleSuccess({ screeningEvents, scheduleDate });
             } catch (error) {
                 return new masterAction.GetScheduleFail({ error: error });
+            }
+        })
+    );
+
+    /**
+     * GetProjects
+     */
+    @Effect()
+    public GetProjects = this.actions.pipe(
+        ofType<masterAction.GetProjects>(masterAction.ActionTypes.GetProjects),
+        map(action => action.payload),
+        mergeMap(async () => {
+            try {
+                await this.cinerino.getServices();
+                const limit = 100;
+                let page = 1;
+                let roop = true;
+                let projects: factory.project.IProject[] = [];
+                while (roop) {
+                    const searchResult = await this.cinerino.project.search({
+                        page,
+                        limit,
+                    });
+                    projects = projects.concat(searchResult.data);
+                    const lastPage = Math.ceil(searchResult.totalCount / limit);
+                    page++;
+                    roop = !(page > lastPage);
+                }
+
+                return new masterAction.GetProjectsSuccess({ projects });
+            } catch (error) {
+                return new masterAction.GetProjectsFail({ error: error });
             }
         })
     );

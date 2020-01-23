@@ -3,11 +3,11 @@
  */
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { environment } from '../environments/environment';
+import { getEnvironment } from '../environments/environment';
 import { ErrorModule } from './modules/error/error.module';
 
 const appRoutes: Routes = [
-    { path: '', redirectTo: 'auth', pathMatch: 'full' },
+    { path: '', redirectTo: '/auth', pathMatch: 'full' },
     {
         path: 'purchase',
         loadChildren: () => import('./modules/purchase/purchase.module').then(m => m.PurchaseModule)
@@ -33,10 +33,6 @@ const appRoutes: Routes = [
         loadChildren: () => import('./modules/reservation/reservation.module').then(m => m.ReservationModule)
     },
     {
-        path: 'person',
-        loadChildren: () => import('./modules/person/person.module').then(m => m.PersonModule)
-    },
-    {
         path: 'tasks',
         loadChildren: () => import('./modules/tasks/tasks.module').then(m => m.TasksModule)
     },
@@ -59,7 +55,7 @@ const appRoutes: Routes = [
     imports: [
         RouterModule.forRoot(
             appRoutes,
-            { useHash: true, enableTracing: !environment.production }
+            { useHash: true, enableTracing: !getEnvironment().production }
         )
     ],
     exports: [

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { environment } from '../../../../../../environments/environment';
+import { getEnvironment } from '../../../../../../environments/environment';
 import { CinerinoService } from '../../../../../services/cinerino.service';
 
 @Component({
@@ -9,6 +9,7 @@ import { CinerinoService } from '../../../../../services/cinerino.service';
     styleUrls: ['./auth-index.component.scss']
 })
 export class AuthIndexComponent implements OnInit {
+    public environment = getEnvironment();
 
     constructor(
         private cinerino: CinerinoService,
@@ -18,7 +19,7 @@ export class AuthIndexComponent implements OnInit {
     public async ngOnInit() {
         try {
             await this.cinerino.getServices();
-            this.router.navigate([environment.BASE_URL]);
+            this.router.navigate([this.environment.BASE_URL]);
         } catch (error) {
             await this.cinerino.signIn();
         }
