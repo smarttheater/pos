@@ -4,13 +4,17 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/).
 
 ## Unreleased
-###  Added
+### Added
 
 ### Changed
 
 ### Fixed
 
 ### Security
+
+## 3.0.0 - 2020-01-23
+### Added
+ - マルチプロジェクトへ対応
 
 ## 2.6.3 - 2020-01-22
 ### Changed
