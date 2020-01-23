@@ -21,7 +21,7 @@ export class OrderService {
     constructor(
         private store: Store<reducers.IState>,
         private actions: Actions,
-        private cinerino: CinerinoService,
+        private cinerinoService: CinerinoService,
         private utilService: UtilService
     ) {
         this.order = this.store.pipe(select(reducers.getOrder));
@@ -52,8 +52,8 @@ export class OrderService {
     public async search(params: factory.order.ISearchConditions) {
         try {
             this.utilService.loadStart({ process: 'orderAction.Search' });
-            await this.cinerino.getServices();
-            const searchResult = await this.cinerino.order.search(params);
+            await this.cinerinoService.getServices();
+            const searchResult = await this.cinerinoService.order.search(params);
             this.utilService.loadEnd();
             return searchResult;
         } catch (error) {
@@ -69,7 +69,7 @@ export class OrderService {
     public async splitSearch(params: factory.order.ISearchConditions) {
         try {
             this.utilService.loadStart({ process: 'orderAction.Search' });
-            await this.cinerino.getServices();
+            await this.cinerinoService.getServices();
             let orders: factory.order.IOrder[] = [];
             const splitDay = 1;
             const splitCount =
@@ -86,11 +86,10 @@ export class OrderService {
                 while (roop) {
                     params.limit = limit;
                     params.page = page;
-                    const searchResult = await this.cinerino.order.search({ ...params, orderDateThrough, orderDateFrom });
+                    const searchResult = await this.cinerinoService.order.search({ ...params, orderDateThrough, orderDateFrom });
                     orders = orders.concat(searchResult.data);
-                    const lastPage = Math.ceil(searchResult.totalCount / limit);
                     page++;
-                    roop = !(page > lastPage);
+                    roop = searchResult.data.length > 0;
                     await sleep(500);
                 }
             }
@@ -196,15 +195,6 @@ export class OrderService {
             );
             race(success, fail).pipe(take(1)).subscribe();
         });
-    }
-
-    /**
-     * ストリーミングダウンロード
-     */
-    public async streamingDownload(prams: factory.order.ISearchConditions & {
-        format: factory.encodingFormat.Application | factory.encodingFormat.Text;
-    }) {
-        await this.cinerino.order.download(prams);
     }
 
 }

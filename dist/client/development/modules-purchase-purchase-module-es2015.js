@@ -2023,7 +2023,7 @@ let PurchaseConfirmComponent = class PurchaseConfirmComponent {
             }
             try {
                 if (purchaseData.pendingMovieTickets.length > 0) {
-                    yield this.purchaseService.authorizeMovieTicket();
+                    yield this.purchaseService.authorizeMovieTicket({ seller });
                 }
                 yield this.purchaseService.authorizeAnyPayment({
                     amount: this.amount,

@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
 import { factory } from '@cinerino/api-javascript-client';
 import * as json2csv from 'json2csv';
-import * as moment from 'moment';
-import { getProject, getTicketPrice, order2report, streamingDownload, string2blob } from '../functions';
+import { getProject, order2report, reservation2report, streamingDownload, string2blob } from '../functions';
 import { CsvFormat } from '../models';
 import { CinerinoService } from './cinerino.service';
 import { OrderService } from './order.service';
+import { ReservationService } from './reservation.service';
 import { UtilService } from './util.service';
 
 @Injectable({
@@ -17,7 +17,8 @@ export class DownloadService {
     constructor(
         private cinerino: CinerinoService,
         private utilService: UtilService,
-        private orderService: OrderService
+        private orderService: OrderService,
+        private reservationService: ReservationService
     ) { }
 
     /**
@@ -51,46 +52,15 @@ export class DownloadService {
      * 予約情報CSVダウンロード
      */
     public async reservation(params: factory.chevre.reservation.ISearchConditions<factory.chevre.reservationType.EventReservation>) {
+        const searchResult = await this.reservationService.splitSearch(params);
         const url = `${getProject().storageUrl}/json/csv/reservation.json`;
         const fields = await this.utilService.getJson<{ label: string, value: string }[]>(url);
         const opts = { fields, unwind: [] };
-        await this.cinerino.getServices();
-        const limit = 100;
-        let page = 1;
-        let roop = true;
-        let reservations: factory.chevre.reservation.IReservation<factory.chevre.reservationType.EventReservation>[] = [];
-        while (roop) {
-            params.limit = limit;
-            params.page = page;
-            const searchResult = await this.cinerino.reservation.search<factory.chevre.reservationType.EventReservation>(params);
-            reservations = reservations.concat(searchResult.data);
-            const lastPage = Math.ceil(searchResult.totalCount / limit);
-            page++;
-            roop = !(page > lastPage);
-        }
-
-        const data: any[] = [];
-        reservations.forEach((reservation) => {
-            const customData = {
-                bookingTime: reservation.bookingTime,
-                bookingTimeJST: moment(reservation.bookingTime).format('YYYY/MM/DD/HH:mm'),
-                id: reservation.id,
-                reservationNumber: reservation.reservationNumber,
-                reservationStatus: reservation.reservationStatus,
-                price: (typeof reservation.price === 'number' || reservation.price === undefined)
-                    ? reservation.price
-                    : getTicketPrice(<any>{ priceSpecification: { priceComponent: reservation.price.priceComponent } }).total,
-                reservedTicket: reservation.reservedTicket,
-                reservationFor: {
-                    ...reservation.reservationFor,
-                    startDateJST: moment(reservation.reservationFor.startDate).format('YYYY/MM/DD/HH:mm')
-                },
-                checkedIn: reservation.checkedIn,
-                attended: reservation.attended
-            };
-            data.push(customData);
-        });
-        await this.splitDownload('reservation', data, opts, DownloadService.SPLIT_COUNT);
+        const data = reservation2report(searchResult.data);
+        const csv = await json2csv.parseAsync(data, opts);
+        const blob = string2blob(csv, { type: 'text/csv' });
+        const fileName = 'CustomReservationReport.csv';
+        this.download(blob, fileName);
     }
 
     /**

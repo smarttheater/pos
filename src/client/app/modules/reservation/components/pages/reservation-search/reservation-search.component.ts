@@ -9,7 +9,7 @@ import { Observable } from 'rxjs';
 import { getEnvironment } from '../../../../../../environments/environment';
 import { getTicketPrice, iOSDatepickerTapBugFix } from '../../../../../functions';
 import { IReservationSearchConditions } from '../../../../../models';
-import { DownloadService, ReservationService, UtilService } from '../../../../../services';
+import { ReservationService, UtilService } from '../../../../../services';
 import * as reducers from '../../../../../store/reducers';
 import {
     ReservationDetailModalComponent
@@ -21,19 +21,19 @@ import {
     styleUrls: ['./reservation-search.component.scss']
 })
 export class ReservationSearchComponent implements OnInit {
-
     public isLoading: Observable<boolean>;
-    public isDownload: boolean;
     public error: Observable<string | null>;
-    public reservation: Observable<reducers.IReservationState>;
     public user: Observable<reducers.IUserState>;
+    public reservations: factory.chevre.reservation.IReservation<factory.chevre.reservationType.EventReservation>[][];
+    public totalCount: number;
+    public currentPage: number;
     public moment: typeof moment = moment;
+    public reservationStatus = factory.chevre.reservationStatusType;
     public limit: number;
     public conditions: IReservationSearchConditions;
     public confirmedConditions: IReservationSearchConditions;
-    public reservationStatus = factory.chevre.reservationStatusType;
-    public getTicketPrice = getTicketPrice;
     public environment = getEnvironment();
+    public getTicketPrice = getTicketPrice;
     @ViewChild('reservationDateFrom', { static: true }) private reservationDateFrom: BsDatepickerDirective;
     @ViewChild('reservationDateThrough', { static: true }) private reservationDateThrough: BsDatepickerDirective;
     @ViewChild('eventStartDateFrom', { static: true }) private eventStartDateFrom: BsDatepickerDirective;
@@ -42,7 +42,6 @@ export class ReservationSearchComponent implements OnInit {
     constructor(
         private store: Store<reducers.IReservationState>,
         private modal: BsModalService,
-        private download: DownloadService,
         private localeService: BsLocaleService,
         private utilService: UtilService,
         private reservationService: ReservationService,
@@ -50,13 +49,18 @@ export class ReservationSearchComponent implements OnInit {
     ) { }
 
     public ngOnInit() {
-        this.isDownload = false;
         this.isLoading = this.store.pipe(select(reducers.getLoading));
         this.error = this.store.pipe(select(reducers.getError));
-        this.reservation = this.store.pipe(select(reducers.getReservation));
         this.user = this.store.pipe(select(reducers.getUser));
+        this.reservations = [];
+        this.totalCount = 0;
+        this.currentPage = 1;
         this.limit = 20;
+        const now = moment().toDate();
+        const today = moment(moment(now).format('YYYYMMDD'));
         this.conditions = {
+            reservationDateFrom: moment(today).add(-13, 'day').toDate(),
+            reservationDateThrough: moment(today).toDate(),
             id: '',
             reservationNumber: '',
             reservationStatus: '',
@@ -108,6 +112,7 @@ export class ReservationSearchComponent implements OnInit {
      * 検索
      */
     public async reservationSearch(changeConditions: boolean, event?: { page: number }) {
+        this.currentPage = 1;
         if (event !== undefined) {
             this.confirmedConditions.page = event.page;
         }
@@ -116,7 +121,6 @@ export class ReservationSearchComponent implements OnInit {
             = (<HTMLInputElement>document.getElementById('id')).value;
         this.conditions.reservationNumber
             = (<HTMLInputElement>document.getElementById('reservationNumber')).value;
-
         if (changeConditions) {
             this.confirmedConditions = {
                 reservationDateFrom: this.conditions.reservationDateFrom,
@@ -130,8 +134,23 @@ export class ReservationSearchComponent implements OnInit {
             };
         }
         try {
+            this.totalCount = 0;
+            this.reservations = [];
             const params = await this.convertToSearchParams();
-            this.reservationService.search(params);
+            if (params.bookingFrom !== null
+                && params.bookingThrough !== null
+                && moment(params.bookingThrough).diff(moment(params.bookingFrom), 'day') > 14) {
+                    // 予約日の範囲が14日以上
+                    throw new Error('reservation date wrong date range');
+                }
+            const searchResult = await this.reservationService.splitSearch(params);
+            this.totalCount = searchResult.totalCount;
+            for (let i = 0; i < Math.ceil(searchResult.data.length / this.limit); i++) {
+                this.reservations.push(searchResult.data.slice(
+                    i * this.limit,
+                    ((i + 1) * this.limit < searchResult.data.length) ? (i + 1) * this.limit : searchResult.data.length
+                ));
+            }
         } catch (error) {
             console.error(error);
             this.utilService.openAlert({
@@ -145,7 +164,11 @@ export class ReservationSearchComponent implements OnInit {
      * 検索条件クリア
      */
     public searchConditionClear() {
+        const now = moment().toDate();
+        const today = moment(moment(now).format('YYYYMMDD'));
         this.conditions = {
+            reservationDateFrom: moment(today).add(-13, 'day').toDate(),
+            reservationDateThrough: moment(today).toDate(),
             id: '',
             reservationNumber: '',
             reservationStatus: '',
@@ -164,20 +187,6 @@ export class ReservationSearchComponent implements OnInit {
             class: 'modal-dialog-centered modal-lg',
             initialState: { reservation }
         });
-    }
-
-    /**
-     * CSVダウンロード
-     */
-    public async downloadCsv() {
-        this.isDownload = true;
-        try {
-            const params = await this.convertToSearchParams();
-            await this.download.reservation(params);
-        } catch (error) {
-            console.error(error);
-        }
-        this.isDownload = false;
     }
 
     /**

@@ -9,7 +9,6 @@ import { IMovieTicket, IReservationSeat, IReservationTicket, IScreen, Reservatio
 export enum ActionTypes {
     Delete = '[Purchase] Delete',
     UnsettledDelete = '[Purchase] Unsettled Delete',
-    SelectSeller = '[Purchase] Select Seller',
     SelectScheduleDate = '[Purchase] Select Schedule Date',
     SelectSchedule = '[Purchase] Select Schedule',
     StartTransaction = '[Purchase] Start Transaction',
@@ -77,14 +76,6 @@ export class Delete implements Action {
 export class UnsettledDelete implements Action {
     public readonly type = ActionTypes.UnsettledDelete;
     constructor(public payload?: {}) { }
-}
-
-/**
- * SelectSeller
- */
-export class SelectSeller implements Action {
-    public readonly type = ActionTypes.SelectSeller;
-    constructor(public payload: { seller: factory.seller.IOrganization<factory.seller.IAttributes<factory.organizationType>> }) { }
 }
 
 /**
@@ -294,7 +285,8 @@ export class TemporaryReservation implements Action {
 export class TemporaryReservationSuccess implements Action {
     public readonly type = ActionTypes.TemporaryReservationSuccess;
     constructor(public payload: {
-        authorizeSeatReservation: factory.action.authorize.offer.seatReservation.IAction<factory.service.webAPI.Identifier>;
+        addAuthorizeSeatReservation: factory.action.authorize.offer.seatReservation.IAction<factory.service.webAPI.Identifier>;
+        removeAuthorizeSeatReservation?: factory.action.authorize.offer.seatReservation.IAction<factory.service.webAPI.Identifier>;
     }) { }
 }
 
@@ -601,7 +593,6 @@ export type Actions =
     | Delete
     | UnsettledDelete
     | SelectScheduleDate
-    | SelectSeller
     | SelectSchedule
     | StartTransaction
     | StartTransactionSuccess

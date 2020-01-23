@@ -75,7 +75,7 @@ export class PurchaseConfirmComponent implements OnInit {
         }
         try {
             if (purchaseData.pendingMovieTickets.length > 0) {
-                await this.purchaseService.authorizeMovieTicket();
+                await this.purchaseService.authorizeMovieTicket({ seller });
             }
             await this.purchaseService.authorizeAnyPayment({
                 amount: this.amount,

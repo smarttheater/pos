@@ -26,7 +26,7 @@ export class PurchaseEffects {
 
     constructor(
         private actions: Actions,
-        private cinerino: CinerinoService,
+        private cinerinoService: CinerinoService,
         private http: HttpClient,
         private utilService: UtilService,
         private translate: TranslateService
@@ -43,10 +43,10 @@ export class PurchaseEffects {
             try {
                 const params = payload;
                 const selleId = params.seller.id;
-                await this.cinerino.getServices();
-                const passport = await this.cinerino.getPassport(selleId);
+                await this.cinerinoService.getServices();
+                const passport = await this.cinerinoService.getPassport(selleId);
                 params.object = { passport };
-                const transaction = await this.cinerino.transaction.placeOrder.start(params);
+                const transaction = await this.cinerinoService.transaction.placeOrder.start(params);
                 return new purchaseAction.StartTransactionSuccess({ transaction });
             } catch (error) {
                 return new purchaseAction.StartTransactionFail({ error: error });
@@ -64,8 +64,8 @@ export class PurchaseEffects {
         mergeMap(async (payload) => {
             try {
                 const transaction = payload.transaction;
-                await this.cinerino.getServices();
-                await this.cinerino.transaction.placeOrder.cancel({ id: transaction.id });
+                await this.cinerinoService.getServices();
+                await this.cinerinoService.transaction.placeOrder.cancel({ id: transaction.id });
                 return new purchaseAction.CancelTransactionSuccess();
             } catch (error) {
                 return new purchaseAction.CancelTransactionFail({ error: error });
@@ -82,7 +82,7 @@ export class PurchaseEffects {
         map(action => action.payload),
         mergeMap(async (payload) => {
             try {
-                await this.cinerino.getServices();
+                await this.cinerinoService.getServices();
                 let theaterCode;
                 let screenCode;
                 let screeningEventOffers: factory.chevre.event.screeningEvent.IScreeningRoomSectionOffer[];
@@ -91,7 +91,7 @@ export class PurchaseEffects {
                     theaterCode = payload.theaterCode;
                     screenCode = `000${payload.screenCode}`.slice(-3);
                 } else {
-                    screeningEventOffers = await this.cinerino.event.searchOffers({
+                    screeningEventOffers = await this.cinerinoService.event.searchOffers({
                         event: { id: payload.screeningEvent.id }
                     });
                     theaterCode = payload.screeningEvent.superEvent.location.branchCode;
@@ -122,11 +122,11 @@ export class PurchaseEffects {
         map(action => action.payload),
         mergeMap(async (payload) => {
             try {
-                await this.cinerino.getServices();
+                await this.cinerinoService.getServices();
                 const screeningEvent = payload.screeningEvent;
                 let screeningEventOffers: factory.chevre.event.screeningEvent.IScreeningRoomSectionOffer[] = [];
                 if (isTicketedSeatScreeningEvent(screeningEvent)) {
-                    screeningEventOffers = await this.cinerino.event.searchOffers({
+                    screeningEventOffers = await this.cinerinoService.event.searchOffers({
                         event: { id: screeningEvent.id }
                     });
                 }
@@ -150,11 +150,21 @@ export class PurchaseEffects {
             const screeningEvent = payload.screeningEvent;
             const reservations = payload.reservations;
             try {
-                await this.cinerino.getServices();
+                await this.cinerinoService.getServices();
                 if (payload.authorizeSeatReservation !== undefined) {
-                    await this.cinerino.transaction.placeOrder.voidSeatReservation(payload.authorizeSeatReservation);
+                    await this.cinerinoService.transaction.placeOrder.voidSeatReservation(payload.authorizeSeatReservation);
                 }
-                const authorizeSeatReservation = await this.cinerino.transaction.placeOrder.authorizeSeatReservation({
+                // サーバータイムを使用して販売期間判定
+                const serverTime = await this.utilService.getServerTime();
+                const nowDate = moment(serverTime.date).toDate();
+                if (screeningEvent.offers === undefined) {
+                    throw new Error('screeningEvent.offers undefined');
+                }
+                if (screeningEvent.offers.validFrom > nowDate
+                    || screeningEvent.offers.validThrough < nowDate) {
+                    throw new Error('Outside sales period');
+                }
+                const authorizeSeatReservation = await this.cinerinoService.transaction.placeOrder.authorizeSeatReservation({
                     object: {
                         event: {
                             id: screeningEvent.id
@@ -172,7 +182,10 @@ export class PurchaseEffects {
                     },
                     purpose: transaction
                 });
-                return new purchaseAction.TemporaryReservationSuccess({ authorizeSeatReservation });
+                return new purchaseAction.TemporaryReservationSuccess({
+                    addAuthorizeSeatReservation: authorizeSeatReservation,
+                    removeAuthorizeSeatReservation: payload.authorizeSeatReservation
+                });
             } catch (error) {
                 return new purchaseAction.TemporaryReservationFail({ error: error });
             }
@@ -193,7 +206,7 @@ export class PurchaseEffects {
             const reservationTickets = payload.reservationTickets;
             const freeSeats: factory.chevre.reservation.ISeat<factory.chevre.reservationType.EventReservation>[] = [];
             try {
-                await this.cinerino.getServices();
+                await this.cinerinoService.getServices();
                 if (isTicketedSeatScreeningEvent(screeningEvent)) {
                     for (const screeningEventOffer of screeningEventOffers) {
                         const section = screeningEventOffer.branchCode;
@@ -211,7 +224,7 @@ export class PurchaseEffects {
                         }
                     }
                 }
-                const authorizeSeatReservation = await this.cinerino.transaction.placeOrder.authorizeSeatReservation({
+                const authorizeSeatReservation = await this.cinerinoService.transaction.placeOrder.authorizeSeatReservation({
                     object: {
                         event: {
                             id: screeningEvent.id
@@ -245,9 +258,9 @@ export class PurchaseEffects {
         mergeMap(async (payload) => {
             try {
                 const authorizeSeatReservations = payload.authorizeSeatReservations;
-                await this.cinerino.getServices();
+                await this.cinerinoService.getServices();
                 for (const authorizeSeatReservation of authorizeSeatReservations) {
-                    await this.cinerino.transaction.placeOrder.voidSeatReservation(authorizeSeatReservation);
+                    await this.cinerinoService.transaction.placeOrder.voidSeatReservation(authorizeSeatReservation);
                 }
 
                 return new purchaseAction.CancelTemporaryReservationsSuccess({ authorizeSeatReservations });
@@ -267,11 +280,11 @@ export class PurchaseEffects {
         map(action => action.payload),
         mergeMap(async (payload) => {
             try {
-                await this.cinerino.getServices();
-                const clientId = this.cinerino.auth.options.clientId;
+                await this.cinerinoService.getServices();
+                const clientId = this.cinerinoService.auth.options.clientId;
                 const screeningEvent = payload.screeningEvent;
                 const seller = payload.seller;
-                let screeningEventTicketOffers = await this.cinerino.event.searchTicketOffers({
+                let screeningEventTicketOffers = await this.cinerinoService.event.searchTicketOffers({
                     event: { id: screeningEvent.id },
                     seller: { typeOf: seller.typeOf, id: seller.id },
                     store: { id: clientId }
@@ -304,8 +317,8 @@ export class PurchaseEffects {
                 profile.telephone = formatTelephone(profile.telephone);
             }
             try {
-                await this.cinerino.getServices();
-                await this.cinerino.transaction.placeOrder.setProfile({
+                await this.cinerinoService.getServices();
+                await this.cinerinoService.transaction.placeOrder.setProfile({
                     id: transaction.id,
                     agent: profile
                 });
@@ -327,14 +340,14 @@ export class PurchaseEffects {
             try {
                 const gmoTokenObject = payload.gmoTokenObject;
                 const amount = payload.amount;
-                await this.cinerino.getServices();
+                await this.cinerinoService.getServices();
                 if (payload.authorizeCreditCardPayment !== undefined) {
-                    await this.cinerino.payment.voidTransaction(payload.authorizeCreditCardPayment);
+                    await this.cinerinoService.payment.voidTransaction(payload.authorizeCreditCardPayment);
                 }
                 const transaction = payload.transaction;
                 const creditCard = { token: gmoTokenObject.token };
                 const authorizeCreditCardPaymentResult =
-                    await this.cinerino.payment.authorizeCreditCard({
+                    await this.cinerinoService.payment.authorizeCreditCard({
                         object: {
                             typeOf: factory.paymentMethodType.CreditCard,
                             amount,
@@ -360,10 +373,10 @@ export class PurchaseEffects {
         map(action => action.payload),
         mergeMap(async (payload) => {
             try {
-                await this.cinerino.getServices();
+                await this.cinerinoService.getServices();
                 if (payload.authorizeMovieTicketPayments.length > 0) {
                     for (const authorizeMovieTicketPayment of payload.authorizeMovieTicketPayments) {
-                        await this.cinerino.payment.voidTransaction(authorizeMovieTicketPayment);
+                        await this.cinerinoService.payment.voidTransaction(authorizeMovieTicketPayment);
                     }
                 }
                 const transaction = payload.transaction;
@@ -393,7 +406,7 @@ export class PurchaseEffects {
                     });
                     for (const movieTicketIdentifier of movieTicketIdentifiers) {
                         const authorizeMovieTicketPaymentResult =
-                            await this.cinerino.payment.authorizeMovieTicket({
+                            await this.cinerinoService.payment.authorizeMovieTicket({
                                 object: {
                                     typeOf: factory.paymentMethodType.MovieTicket,
                                     amount: 0,
@@ -420,10 +433,10 @@ export class PurchaseEffects {
         map(action => action.payload),
         mergeMap(async (payload) => {
             try {
-                await this.cinerino.getServices();
+                await this.cinerinoService.getServices();
                 const screeningEvent = payload.screeningEvent;
                 const movieTickets = payload.movieTickets;
-                const checkMovieTicketAction = await this.cinerino.payment.checkMovieTicket({
+                const checkMovieTicketAction = await this.cinerinoService.payment.checkMovieTicket({
                     typeOf: factory.paymentMethodType.MovieTicket,
                     movieTickets: movieTickets.map((movieTicket) => {
                         return {
@@ -471,7 +484,7 @@ export class PurchaseEffects {
             const authorizeSeatReservations = payload.authorizeSeatReservations;
             const seller = payload.seller;
             try {
-                await this.cinerino.getServices();
+                await this.cinerinoService.getServices();
                 const params: factory.transaction.placeOrder.IConfirmParams & {
                     sendEmailMessage?: boolean;
                     email?: factory.creativeWork.message.email.ICustomization;
@@ -506,10 +519,10 @@ export class PurchaseEffects {
                     }, { async: true });
                 }
 
-                const result = await this.cinerino.transaction.placeOrder.confirm(params);
+                const result = await this.cinerinoService.transaction.placeOrder.confirm(params);
                 return new purchaseAction.EndTransactionSuccess({ order: result.order });
             } catch (error) {
-                await this.cinerino.transaction.placeOrder.cancel({
+                await this.cinerinoService.transaction.placeOrder.cancel({
                     id: transaction.id
                 });
                 return new purchaseAction.EndTransactionFail({ error: error });
@@ -531,9 +544,9 @@ export class PurchaseEffects {
             const name = payload.name;
             const additionalProperty = payload.additionalProperty;
             try {
-                await this.cinerino.getServices();
+                await this.cinerinoService.getServices();
                 const authorizeAnyPayment =
-                    await this.cinerino.payment.authorizeAnyPayment({
+                    await this.cinerinoService.payment.authorizeAnyPayment({
                         object: { typeOf, name, amount, additionalProperty },
                         purpose: transaction
                     });

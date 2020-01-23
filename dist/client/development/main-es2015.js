@@ -438,7 +438,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("<div class=\"cover\" [class.active]=\"isOpen\" (click)=\"close.emit()\"></div>\n\n<div class=\"menu text-white bg-dark\" [class.active]=\"isOpen\">\n    <ul>\n        <li *ngIf=\"isVisible('purchase')\" class=\"p-3 border-bottom pointer\" routerLink=\"/purchase/root\" (click)=\"close.emit()\"><i class=\"fas fa-shopping-cart mr-2\"></i>{{ 'menu.purchase' | translate }}</li>\n        <li *ngIf=\"isVisible('inquiry')\" class=\"p-3 border-bottom pointer\" routerLink=\"/inquiry/input\" (click)=\"close.emit()\"><i class=\"fas fa-search mr-2\"></i>{{ 'menu.inquiry' | translate }}</li>\n        <li *ngIf=\"isVisible('order')\" class=\"p-3 border-bottom pointer\" routerLink=\"/order\" (click)=\"close.emit()\"><i class=\"far fa-list-alt mr-2\"></i>{{ 'menu.order' | translate }}</li>\n        <li *ngIf=\"isVisible('reservation')\" class=\"p-3 border-bottom pointer\" routerLink=\"/reservation/search\" (click)=\"close.emit()\"><i class=\"far fa-list-alt mr-2\"></i>{{ 'menu.reservationSearch' | translate }}</li>\n        <li *ngIf=\"isVisible('person')\" class=\"p-3 border-bottom pointer\" routerLink=\"/person/search\" (click)=\"close.emit()\"><i class=\"far fa-list-alt mr-2\"></i>{{ 'menu.personSearch' | translate }}</li>\n        <li *ngIf=\"isVisible('admission')\" class=\"p-3 border-bottom pointer\" routerLink=\"/admission/schedule\" (click)=\"close.emit()\"><i class=\"far fa-check-circle mr-2\"></i>{{ 'menu.admission' | translate }}</li>\n        <li *ngIf=\"isVisible('setting')\" class=\"p-3 border-bottom pointer\" routerLink=\"/setting\" (click)=\"close.emit()\"><i class=\"fas fa-cog mr-2\"></i>{{ 'menu.settings' | translate }}</li>\n        <li *ngIf=\"isVisible('tasks')\" class=\"p-3 border-bottom pointer\" routerLink=\"/tasks\" (click)=\"close.emit()\"><i class=\"fas fa-flask mr-2\"></i>{{ 'menu.tasks' | translate }}</li>\n        <li *ngIf=\"isVisible('development')\" class=\"p-3 border-bottom pointer\" routerLink=\"/development\" (click)=\"close.emit()\"><i class=\"fas fa-flask mr-2\"></i>{{ 'menu.development' | translate }}</li>\n        <li *ngIf=\"isVisible('instruction')\" class=\"border-bottom pointer\" (click)=\"close.emit()\"><a [href]=\"environment.INSTRUCTION_URL\" target=\"_blank\" class=\"d-block p-3\"><i class=\"far fa-file mr-2\"></i>{{ 'menu.instruction' | translate }}</a></li>\n        <li *ngIf=\"isVisible('auth')\" class=\"p-3 border-bottom pointer\" (click)=\"signOut()\"><i class=\"fas fa-sign-out-alt mr-2\"></i>{{ 'menu.logout' | translate }}</li>\n    </ul>\n</div>");
+/* harmony default export */ __webpack_exports__["default"] = ("<div class=\"cover\" [class.active]=\"isOpen\" (click)=\"close.emit()\"></div>\n\n<div class=\"menu text-white bg-dark\" [class.active]=\"isOpen\">\n    <ul>\n        <li *ngIf=\"isVisible('purchase')\" class=\"p-3 border-bottom pointer\" routerLink=\"/purchase/root\" (click)=\"close.emit()\"><i class=\"fas fa-shopping-cart mr-2\"></i>{{ 'menu.purchase' | translate }}</li>\n        <li *ngIf=\"isVisible('inquiry')\" class=\"p-3 border-bottom pointer\" routerLink=\"/inquiry/input\" (click)=\"close.emit()\"><i class=\"fas fa-search mr-2\"></i>{{ 'menu.inquiry' | translate }}</li>\n        <li *ngIf=\"isVisible('order')\" class=\"p-3 border-bottom pointer\" routerLink=\"/order\" (click)=\"close.emit()\"><i class=\"far fa-list-alt mr-2\"></i>{{ 'menu.order' | translate }}</li>\n        <li *ngIf=\"isVisible('reservation')\" class=\"p-3 border-bottom pointer\" routerLink=\"/reservation\" (click)=\"close.emit()\"><i class=\"far fa-list-alt mr-2\"></i>{{ 'menu.reservation' | translate }}</li>\n        <li *ngIf=\"isVisible('admission')\" class=\"p-3 border-bottom pointer\" routerLink=\"/admission/schedule\" (click)=\"close.emit()\"><i class=\"far fa-check-circle mr-2\"></i>{{ 'menu.admission' | translate }}</li>\n        <li *ngIf=\"isVisible('setting')\" class=\"p-3 border-bottom pointer\" routerLink=\"/setting\" (click)=\"close.emit()\"><i class=\"fas fa-cog mr-2\"></i>{{ 'menu.settings' | translate }}</li>\n        <li *ngIf=\"isVisible('tasks')\" class=\"p-3 border-bottom pointer\" routerLink=\"/tasks\" (click)=\"close.emit()\"><i class=\"fas fa-flask mr-2\"></i>{{ 'menu.tasks' | translate }}</li>\n        <li *ngIf=\"isVisible('development')\" class=\"p-3 border-bottom pointer\" routerLink=\"/development\" (click)=\"close.emit()\"><i class=\"fas fa-flask mr-2\"></i>{{ 'menu.development' | translate }}</li>\n        <li *ngIf=\"isVisible('instruction')\" class=\"border-bottom pointer\" (click)=\"close.emit()\"><a [href]=\"environment.INSTRUCTION_URL\" target=\"_blank\" class=\"d-block p-3\"><i class=\"far fa-file mr-2\"></i>{{ 'menu.instruction' | translate }}</a></li>\n        <li *ngIf=\"isVisible('auth')\" class=\"p-3 border-bottom pointer\" (click)=\"signOut()\"><i class=\"fas fa-sign-out-alt mr-2\"></i>{{ 'menu.logout' | translate }}</li>\n    </ul>\n</div>");
 
 /***/ }),
 
@@ -883,7 +883,7 @@ AppComponent = __decorate([
 /*!********************************!*\
   !*** ./app/functions/index.ts ***!
   \********************************/
-/*! exports provided: screeningEventsToWorkEvents, createGmoTokenObject, sameMovieTicketFilter, isAvailabilityMovieTicket, createMovieTicketsFromAuthorizeSeatReservation, createPaymentMethodFromType, getTicketPrice, movieTicketAuthErroCodeToMessage, getAmount, orderToEventOrders, authorizeSeatReservationToEvent, isScheduleStatusThreshold, isSales, isTicketedSeatScreeningEvent, changeTicketCount, getRemainingSeatLength, formatTelephone, toFull, toHalf, retry, sleep, buildQueryString, iOSDatepickerTapBugFix, streamingDownload, string2blob, getParameter, getProject, createPrintCanvas, createTestPrintCanvas, createRegiGrowQrcode, changeTicketCountByOrder, getTransactionAgentIdentifier, order2report, getTranslateModuleConfig */
+/*! exports provided: screeningEventsToWorkEvents, createGmoTokenObject, sameMovieTicketFilter, isAvailabilityMovieTicket, createMovieTicketsFromAuthorizeSeatReservation, createPaymentMethodFromType, getTicketPrice, movieTicketAuthErroCodeToMessage, getAmount, orderToEventOrders, authorizeSeatReservationToEvent, isScheduleStatusThreshold, isSales, isTicketedSeatScreeningEvent, changeTicketCount, getRemainingSeatLength, formatTelephone, toFull, toHalf, retry, sleep, buildQueryString, iOSDatepickerTapBugFix, streamingDownload, string2blob, getParameter, getProject, createPrintCanvas, createTestPrintCanvas, createRegiGrowQrcode, changeTicketCountByOrder, getTransactionAgentIdentifier, order2report, getTranslateModuleConfig, reservation2report */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -960,9 +960,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _translate_function__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./translate.function */ "./app/functions/translate.function.ts");
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "getTranslateModuleConfig", function() { return _translate_function__WEBPACK_IMPORTED_MODULE_3__["getTranslateModuleConfig"]; });
 
+/* harmony import */ var _reservation_function__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./reservation.function */ "./app/functions/reservation.function.ts");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "reservation2report", function() { return _reservation_function__WEBPACK_IMPORTED_MODULE_4__["reservation2report"]; });
+
 var __importDefault = (undefined && undefined.__importDefault) || function (mod) {
   return (mod && mod.__esModule) ? mod : { "default": mod };
 };
+
 
 
 
@@ -1244,7 +1248,7 @@ function getTransactionAgentIdentifier(order, key) {
     return order.customer.identifier.find(i => i.name === key);
 }
 /**
- * CSV変換
+ * 注文データCSV変換
  */
 function order2report(orders) {
     const data = [];
@@ -1773,6 +1777,52 @@ function getRemainingSeatLength(screeningEventOffers, screeningEvent) {
         result += sectionResult.length;
     });
     return result;
+}
+
+
+/***/ }),
+
+/***/ "./app/functions/reservation.function.ts":
+/*!***********************************************!*\
+  !*** ./app/functions/reservation.function.ts ***!
+  \***********************************************/
+/*! exports provided: reservation2report */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "reservation2report", function() { return reservation2report; });
+/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! moment */ "../../node_modules/moment/moment.js");
+/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _purchase_function__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./purchase.function */ "./app/functions/purchase.function.ts");
+var __importDefault = (undefined && undefined.__importDefault) || function (mod) {
+  return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+
+
+/**
+ * 予約データCSV変換
+ */
+function reservation2report(reservations) {
+    const data = [];
+    reservations.forEach((reservation) => {
+        const customData = {
+            bookingTime: reservation.bookingTime,
+            bookingTimeJST: moment__WEBPACK_IMPORTED_MODULE_0__(reservation.bookingTime).format('YYYY/MM/DD/HH:mm'),
+            id: reservation.id,
+            reservationNumber: reservation.reservationNumber,
+            reservationStatus: reservation.reservationStatus,
+            price: (typeof reservation.price === 'number' || reservation.price === undefined)
+                ? reservation.price
+                : Object(_purchase_function__WEBPACK_IMPORTED_MODULE_1__["getTicketPrice"])({ priceSpecification: { priceComponent: reservation.price.priceComponent } }).total,
+            reservedTicket: reservation.reservedTicket,
+            reservationFor: Object.assign({}, reservation.reservationFor, { startDateJST: moment__WEBPACK_IMPORTED_MODULE_0__(reservation.reservationFor.startDate).format('YYYY/MM/DD/HH:mm') }),
+            checkedIn: reservation.checkedIn,
+            attended: reservation.attended
+        };
+        data.push(customData);
+    });
+    return data;
 }
 
 
@@ -5748,12 +5798,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var json2csv__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! json2csv */ "../../node_modules/json2csv/dist/json2csv.umd.js");
 /* harmony import */ var json2csv__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(json2csv__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! moment */ "../../node_modules/moment/moment.js");
-/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_3__);
-/* harmony import */ var _functions__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../functions */ "./app/functions/index.ts");
-/* harmony import */ var _models__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../models */ "./app/models/index.ts");
-/* harmony import */ var _cinerino_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./cinerino.service */ "./app/services/cinerino.service.ts");
-/* harmony import */ var _order_service__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./order.service */ "./app/services/order.service.ts");
+/* harmony import */ var _functions__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../functions */ "./app/functions/index.ts");
+/* harmony import */ var _models__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../models */ "./app/models/index.ts");
+/* harmony import */ var _cinerino_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./cinerino.service */ "./app/services/cinerino.service.ts");
+/* harmony import */ var _order_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./order.service */ "./app/services/order.service.ts");
+/* harmony import */ var _reservation_service__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./reservation.service */ "./app/services/reservation.service.ts");
 /* harmony import */ var _util_service__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./util.service */ "./app/services/util.service.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -5786,10 +5835,11 @@ var DownloadService_1;
 
 
 let DownloadService = DownloadService_1 = class DownloadService {
-    constructor(cinerino, utilService, orderService) {
+    constructor(cinerino, utilService, orderService, reservationService) {
         this.cinerino = cinerino;
         this.utilService = utilService;
         this.orderService = orderService;
+        this.reservationService = reservationService;
     }
     /**
      * 注文情報CSVダウンロード
@@ -5797,24 +5847,24 @@ let DownloadService = DownloadService_1 = class DownloadService {
     order(params, csvFormat) {
         return __awaiter(this, void 0, void 0, function* () {
             yield this.cinerino.getServices();
-            if (csvFormat === _models__WEBPACK_IMPORTED_MODULE_5__["CsvFormat"].Default) {
+            if (csvFormat === _models__WEBPACK_IMPORTED_MODULE_4__["CsvFormat"].Default) {
                 // デフォルト
                 const format = _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_1__["factory"].encodingFormat.Text.csv;
                 const stream = (yield this.cinerino.order.download(Object.assign({}, params, { format })));
-                const csv = yield Object(_functions__WEBPACK_IMPORTED_MODULE_4__["streamingDownload"])(stream);
-                const blob = Object(_functions__WEBPACK_IMPORTED_MODULE_4__["string2blob"])(csv, { type: 'text/csv' });
+                const csv = yield Object(_functions__WEBPACK_IMPORTED_MODULE_3__["streamingDownload"])(stream);
+                const blob = Object(_functions__WEBPACK_IMPORTED_MODULE_3__["string2blob"])(csv, { type: 'text/csv' });
                 const fileName = 'OrderReport.csv';
                 this.download(blob, fileName);
             }
             else {
                 // カスタム
                 const searchResult = yield this.orderService.splitSearch(params);
-                const url = `${Object(_functions__WEBPACK_IMPORTED_MODULE_4__["getProject"])().storageUrl}/json/csv/order.json`;
+                const url = `${Object(_functions__WEBPACK_IMPORTED_MODULE_3__["getProject"])().storageUrl}/json/csv/order.json`;
                 const fields = yield this.utilService.getJson(url);
                 const opts = { fields, unwind: [] };
-                const data = Object(_functions__WEBPACK_IMPORTED_MODULE_4__["order2report"])(searchResult.data);
+                const data = Object(_functions__WEBPACK_IMPORTED_MODULE_3__["order2report"])(searchResult.data);
                 const csv = yield json2csv__WEBPACK_IMPORTED_MODULE_2__["parseAsync"](data, opts);
-                const blob = Object(_functions__WEBPACK_IMPORTED_MODULE_4__["string2blob"])(csv, { type: 'text/csv' });
+                const blob = Object(_functions__WEBPACK_IMPORTED_MODULE_3__["string2blob"])(csv, { type: 'text/csv' });
                 const fileName = 'CustomOrderReport.csv';
                 this.download(blob, fileName);
             }
@@ -5825,42 +5875,15 @@ let DownloadService = DownloadService_1 = class DownloadService {
      */
     reservation(params) {
         return __awaiter(this, void 0, void 0, function* () {
-            const url = `${Object(_functions__WEBPACK_IMPORTED_MODULE_4__["getProject"])().storageUrl}/json/csv/reservation.json`;
+            const searchResult = yield this.reservationService.splitSearch(params);
+            const url = `${Object(_functions__WEBPACK_IMPORTED_MODULE_3__["getProject"])().storageUrl}/json/csv/reservation.json`;
             const fields = yield this.utilService.getJson(url);
             const opts = { fields, unwind: [] };
-            yield this.cinerino.getServices();
-            const limit = 100;
-            let page = 1;
-            let roop = true;
-            let reservations = [];
-            while (roop) {
-                params.limit = limit;
-                params.page = page;
-                const searchResult = yield this.cinerino.reservation.search(params);
-                reservations = reservations.concat(searchResult.data);
-                const lastPage = Math.ceil(searchResult.totalCount / limit);
-                page++;
-                roop = !(page > lastPage);
-            }
-            const data = [];
-            reservations.forEach((reservation) => {
-                const customData = {
-                    bookingTime: reservation.bookingTime,
-                    bookingTimeJST: moment__WEBPACK_IMPORTED_MODULE_3__(reservation.bookingTime).format('YYYY/MM/DD/HH:mm'),
-                    id: reservation.id,
-                    reservationNumber: reservation.reservationNumber,
-                    reservationStatus: reservation.reservationStatus,
-                    price: (typeof reservation.price === 'number' || reservation.price === undefined)
-                        ? reservation.price
-                        : Object(_functions__WEBPACK_IMPORTED_MODULE_4__["getTicketPrice"])({ priceSpecification: { priceComponent: reservation.price.priceComponent } }).total,
-                    reservedTicket: reservation.reservedTicket,
-                    reservationFor: Object.assign({}, reservation.reservationFor, { startDateJST: moment__WEBPACK_IMPORTED_MODULE_3__(reservation.reservationFor.startDate).format('YYYY/MM/DD/HH:mm') }),
-                    checkedIn: reservation.checkedIn,
-                    attended: reservation.attended
-                };
-                data.push(customData);
-            });
-            yield this.splitDownload('reservation', data, opts, DownloadService_1.SPLIT_COUNT);
+            const data = Object(_functions__WEBPACK_IMPORTED_MODULE_3__["reservation2report"])(searchResult.data);
+            const csv = yield json2csv__WEBPACK_IMPORTED_MODULE_2__["parseAsync"](data, opts);
+            const blob = Object(_functions__WEBPACK_IMPORTED_MODULE_3__["string2blob"])(csv, { type: 'text/csv' });
+            const fileName = 'CustomReservationReport.csv';
+            this.download(blob, fileName);
         });
     }
     /**
@@ -5868,7 +5891,7 @@ let DownloadService = DownloadService_1 = class DownloadService {
      */
     person(params) {
         return __awaiter(this, void 0, void 0, function* () {
-            const url = `${Object(_functions__WEBPACK_IMPORTED_MODULE_4__["getProject"])().storageUrl}/json/csv/person.json`;
+            const url = `${Object(_functions__WEBPACK_IMPORTED_MODULE_3__["getProject"])().storageUrl}/json/csv/person.json`;
             const fields = yield this.utilService.getJson(url);
             const opts = { fields, unwind: [] };
             yield this.cinerino.getServices();
@@ -5904,7 +5927,7 @@ let DownloadService = DownloadService_1 = class DownloadService {
             for (let i = 0; i < limit; i++) {
                 const splitData = data.slice(i * split, ((i + 1) * split > data.length) ? data.length : (i + 1) * split);
                 const csv = yield json2csv__WEBPACK_IMPORTED_MODULE_2__["parseAsync"](splitData, opts);
-                const blob = Object(_functions__WEBPACK_IMPORTED_MODULE_4__["string2blob"])(csv, { type: 'text/csv' });
+                const blob = Object(_functions__WEBPACK_IMPORTED_MODULE_3__["string2blob"])(csv, { type: 'text/csv' });
                 const fileName = `${filename}${(limit > 1) ? `_${(i + 1)}` : ''}.csv`;
                 this.download(blob, fileName);
             }
@@ -5928,17 +5951,19 @@ let DownloadService = DownloadService_1 = class DownloadService {
 };
 DownloadService.SPLIT_COUNT = 50000;
 DownloadService.ctorParameters = () => [
-    { type: _cinerino_service__WEBPACK_IMPORTED_MODULE_6__["CinerinoService"] },
+    { type: _cinerino_service__WEBPACK_IMPORTED_MODULE_5__["CinerinoService"] },
     { type: _util_service__WEBPACK_IMPORTED_MODULE_8__["UtilService"] },
-    { type: _order_service__WEBPACK_IMPORTED_MODULE_7__["OrderService"] }
+    { type: _order_service__WEBPACK_IMPORTED_MODULE_6__["OrderService"] },
+    { type: _reservation_service__WEBPACK_IMPORTED_MODULE_7__["ReservationService"] }
 ];
 DownloadService = DownloadService_1 = __decorate([
     Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"])({
         providedIn: 'root'
     }),
-    __metadata("design:paramtypes", [_cinerino_service__WEBPACK_IMPORTED_MODULE_6__["CinerinoService"],
+    __metadata("design:paramtypes", [_cinerino_service__WEBPACK_IMPORTED_MODULE_5__["CinerinoService"],
         _util_service__WEBPACK_IMPORTED_MODULE_8__["UtilService"],
-        _order_service__WEBPACK_IMPORTED_MODULE_7__["OrderService"]])
+        _order_service__WEBPACK_IMPORTED_MODULE_6__["OrderService"],
+        _reservation_service__WEBPACK_IMPORTED_MODULE_7__["ReservationService"]])
 ], DownloadService);
 
 
@@ -5949,7 +5974,7 @@ DownloadService = DownloadService_1 = __decorate([
 /*!*******************************!*\
   !*** ./app/services/index.ts ***!
   \*******************************/
-/*! exports provided: CinerinoService, AdmissionService, PurchaseService, UserService, MasterService, OrderService, ReservationService, UtilService, StarPrintService, DownloadService, QRCodeService */
+/*! exports provided: AdmissionService, CinerinoService, PurchaseService, UserService, MasterService, OrderService, ReservationService, UtilService, StarPrintService, DownloadService, QRCodeService */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -6181,10 +6206,10 @@ var __importDefault = (undefined && undefined.__importDefault) || function (mod)
 
 
 let OrderService = class OrderService {
-    constructor(store, actions, cinerino, utilService) {
+    constructor(store, actions, cinerinoService, utilService) {
         this.store = store;
         this.actions = actions;
-        this.cinerino = cinerino;
+        this.cinerinoService = cinerinoService;
         this.utilService = utilService;
         this.order = this.store.pipe(Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_2__["select"])(_store_reducers__WEBPACK_IMPORTED_MODULE_8__["getOrder"]));
         this.error = this.store.pipe(Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_2__["select"])(_store_reducers__WEBPACK_IMPORTED_MODULE_8__["getError"]));
@@ -6214,8 +6239,8 @@ let OrderService = class OrderService {
         return __awaiter(this, void 0, void 0, function* () {
             try {
                 this.utilService.loadStart({ process: 'orderAction.Search' });
-                yield this.cinerino.getServices();
-                const searchResult = yield this.cinerino.order.search(params);
+                yield this.cinerinoService.getServices();
+                const searchResult = yield this.cinerinoService.order.search(params);
                 this.utilService.loadEnd();
                 return searchResult;
             }
@@ -6233,7 +6258,7 @@ let OrderService = class OrderService {
         return __awaiter(this, void 0, void 0, function* () {
             try {
                 this.utilService.loadStart({ process: 'orderAction.Search' });
-                yield this.cinerino.getServices();
+                yield this.cinerinoService.getServices();
                 let orders = [];
                 const splitDay = 1;
                 const splitCount = Math.ceil(moment__WEBPACK_IMPORTED_MODULE_3__(params.orderDateThrough).diff(moment__WEBPACK_IMPORTED_MODULE_3__(params.orderDateFrom), 'days') / splitDay);
@@ -6248,11 +6273,10 @@ let OrderService = class OrderService {
                     while (roop) {
                         params.limit = limit;
                         params.page = page;
-                        const searchResult = yield this.cinerino.order.search(Object.assign({}, params, { orderDateThrough, orderDateFrom }));
+                        const searchResult = yield this.cinerinoService.order.search(Object.assign({}, params, { orderDateThrough, orderDateFrom }));
                         orders = orders.concat(searchResult.data);
-                        const lastPage = Math.ceil(searchResult.totalCount / limit);
                         page++;
-                        roop = !(page > lastPage);
+                        roop = searchResult.data.length > 0;
                         yield Object(_functions__WEBPACK_IMPORTED_MODULE_6__["sleep"])(500);
                     }
                 }
@@ -6324,14 +6348,6 @@ let OrderService = class OrderService {
                 const fail = this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_1__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_7__["orderAction"].ActionTypes.OrderAuthorizeFail), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["tap"])(() => { this.error.subscribe((error) => { reject(error); }).unsubscribe(); }));
                 Object(rxjs__WEBPACK_IMPORTED_MODULE_4__["race"])(success, fail).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["take"])(1)).subscribe();
             });
-        });
-    }
-    /**
-     * ストリーミングダウンロード
-     */
-    streamingDownload(prams) {
-        return __awaiter(this, void 0, void 0, function* () {
-            yield this.cinerino.order.download(prams);
         });
     }
 };
@@ -6672,12 +6688,11 @@ let PurchaseService = class PurchaseService {
     /**
      * ムビチケ承認
      */
-    authorizeMovieTicket() {
+    authorizeMovieTicket(params) {
         return __awaiter(this, void 0, void 0, function* () {
             const purchase = yield this.getData();
             return new Promise((resolve, reject) => {
-                if (purchase.transaction === undefined
-                    || purchase.seller === undefined) {
+                if (purchase.transaction === undefined) {
                     reject();
                     return;
                 }
@@ -6686,7 +6701,7 @@ let PurchaseService = class PurchaseService {
                     authorizeMovieTicketPayments: purchase.authorizeMovieTicketPayments,
                     authorizeSeatReservations: purchase.authorizeSeatReservations,
                     pendingMovieTickets: purchase.pendingMovieTickets,
-                    seller: purchase.seller
+                    seller: params.seller
                 }));
                 const success = this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_9__["purchaseAction"].ActionTypes.AuthorizeMovieTicketSuccess), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["tap"])(() => { resolve(); }));
                 const fail = this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_9__["purchaseAction"].ActionTypes.AuthorizeMovieTicketFail), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["tap"])(() => { this.error.subscribe((error) => { reject(error); }).unsubscribe(); }));
@@ -6893,12 +6908,14 @@ QRCodeService = __decorate([
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ReservationService", function() { return ReservationService; });
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "../../node_modules/@angular/core/fesm2015/core.js");
-/* harmony import */ var _ngrx_effects__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @ngrx/effects */ "../../node_modules/@ngrx/effects/fesm2015/effects.js");
-/* harmony import */ var _ngrx_store__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @ngrx/store */ "../../node_modules/@ngrx/store/fesm2015/store.js");
-/* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! rxjs */ "../../node_modules/rxjs/_esm2015/index.js");
-/* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! rxjs/operators */ "../../node_modules/rxjs/_esm2015/operators/index.js");
-/* harmony import */ var _store_actions__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../store/actions */ "./app/store/actions/index.ts");
-/* harmony import */ var _store_reducers__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../store/reducers */ "./app/store/reducers/index.ts");
+/* harmony import */ var _ngrx_store__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @ngrx/store */ "../../node_modules/@ngrx/store/fesm2015/store.js");
+/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! moment */ "../../node_modules/moment/moment.js");
+/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _functions__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../functions */ "./app/functions/index.ts");
+/* harmony import */ var _store_actions__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../store/actions */ "./app/store/actions/index.ts");
+/* harmony import */ var _store_reducers__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../store/reducers */ "./app/store/reducers/index.ts");
+/* harmony import */ var _cinerino_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./cinerino.service */ "./app/services/cinerino.service.ts");
+/* harmony import */ var _util_service__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./util.service */ "./app/services/util.service.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -6926,12 +6943,14 @@ var __importDefault = (undefined && undefined.__importDefault) || function (mod)
 
 
 
+
 let ReservationService = class ReservationService {
-    constructor(store, actions) {
+    constructor(store, cinerinoService, utilService) {
         this.store = store;
-        this.actions = actions;
-        this.reservation = this.store.pipe(Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_2__["select"])(_store_reducers__WEBPACK_IMPORTED_MODULE_6__["getReservation"]));
-        this.error = this.store.pipe(Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_2__["select"])(_store_reducers__WEBPACK_IMPORTED_MODULE_6__["getError"]));
+        this.cinerinoService = cinerinoService;
+        this.utilService = utilService;
+        this.reservation = this.store.pipe(Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_1__["select"])(_store_reducers__WEBPACK_IMPORTED_MODULE_5__["getReservation"]));
+        this.error = this.store.pipe(Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_1__["select"])(_store_reducers__WEBPACK_IMPORTED_MODULE_5__["getError"]));
     }
     /**
      * 予約データ取得
@@ -6949,30 +6968,80 @@ let ReservationService = class ReservationService {
      * 予約データ削除
      */
     delete() {
-        this.store.dispatch(new _store_actions__WEBPACK_IMPORTED_MODULE_5__["reservationAction"].Delete());
+        this.store.dispatch(new _store_actions__WEBPACK_IMPORTED_MODULE_4__["reservationAction"].Delete());
     }
     /**
-     * 予約検索
+     * 注文検索
      */
     search(params) {
-        return new Promise((resolve, reject) => {
-            this.store.dispatch(new _store_actions__WEBPACK_IMPORTED_MODULE_5__["reservationAction"].Search({ params }));
-            const success = this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_1__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_5__["reservationAction"].ActionTypes.SearchSuccess), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["tap"])(() => { resolve(); }));
-            const fail = this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_1__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_5__["reservationAction"].ActionTypes.SearchFail), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["tap"])(() => { this.error.subscribe((error) => { reject(error); }).unsubscribe(); }));
-            Object(rxjs__WEBPACK_IMPORTED_MODULE_3__["race"])(success, fail).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["take"])(1)).subscribe();
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                this.utilService.loadStart({ process: 'reservationAction.Search' });
+                yield this.cinerinoService.getServices();
+                const searchResult = yield this.cinerinoService.reservation.search(params);
+                this.utilService.loadEnd();
+                return searchResult;
+            }
+            catch (error) {
+                this.utilService.setError(error);
+                this.utilService.loadEnd();
+                throw error;
+            }
+        });
+    }
+    /**
+     * 分割検索
+     */
+    splitSearch(params) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                this.utilService.loadStart({ process: 'reservationAction.Search' });
+                yield this.cinerinoService.getServices();
+                let reservations = [];
+                const splitDay = 1;
+                const splitCount = Math.ceil(moment__WEBPACK_IMPORTED_MODULE_2__(params.bookingThrough).diff(moment__WEBPACK_IMPORTED_MODULE_2__(params.bookingFrom), 'days') / splitDay);
+                for (let i = 0; i < splitCount; i++) {
+                    const limit = 10;
+                    let page = 1;
+                    let roop = true;
+                    const bookingThrough = moment__WEBPACK_IMPORTED_MODULE_2__(params.bookingThrough).add(-1 * splitDay * i, 'days').toDate();
+                    const bookingFrom = (moment__WEBPACK_IMPORTED_MODULE_2__(params.bookingThrough).add(-1 * splitDay * (i + 1), 'days').toDate() > moment__WEBPACK_IMPORTED_MODULE_2__(params.bookingFrom).toDate())
+                        ? moment__WEBPACK_IMPORTED_MODULE_2__(params.bookingThrough).add(-1 * splitDay * (i + 1), 'days').toDate()
+                        : moment__WEBPACK_IMPORTED_MODULE_2__(params.bookingFrom).toDate();
+                    while (roop) {
+                        params.limit = limit;
+                        params.page = page;
+                        const searchResult = yield this.cinerinoService.reservation
+                            .search(Object.assign({}, params, { bookingThrough, bookingFrom }));
+                        reservations = reservations.concat(searchResult.data);
+                        page++;
+                        roop = searchResult.data.length > 0;
+                        yield Object(_functions__WEBPACK_IMPORTED_MODULE_3__["sleep"])(500);
+                    }
+                }
+                this.utilService.loadEnd();
+                return { data: reservations, totalCount: reservations.length };
+            }
+            catch (error) {
+                this.utilService.setError(error);
+                this.utilService.loadEnd();
+                throw error;
+            }
         });
     }
 };
 ReservationService.ctorParameters = () => [
-    { type: _ngrx_store__WEBPACK_IMPORTED_MODULE_2__["Store"] },
-    { type: _ngrx_effects__WEBPACK_IMPORTED_MODULE_1__["Actions"] }
+    { type: _ngrx_store__WEBPACK_IMPORTED_MODULE_1__["Store"] },
+    { type: _cinerino_service__WEBPACK_IMPORTED_MODULE_6__["CinerinoService"] },
+    { type: _util_service__WEBPACK_IMPORTED_MODULE_7__["UtilService"] }
 ];
 ReservationService = __decorate([
     Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"])({
         providedIn: 'root'
     }),
-    __metadata("design:paramtypes", [_ngrx_store__WEBPACK_IMPORTED_MODULE_2__["Store"],
-        _ngrx_effects__WEBPACK_IMPORTED_MODULE_1__["Actions"]])
+    __metadata("design:paramtypes", [_ngrx_store__WEBPACK_IMPORTED_MODULE_1__["Store"],
+        _cinerino_service__WEBPACK_IMPORTED_MODULE_6__["CinerinoService"],
+        _util_service__WEBPACK_IMPORTED_MODULE_7__["UtilService"]])
 ], ReservationService);
 
 
@@ -8059,7 +8128,7 @@ class OrderAuthorizeFail {
 /*!**********************************************!*\
   !*** ./app/store/actions/purchase.action.ts ***!
   \**********************************************/
-/*! exports provided: ActionTypes, Delete, UnsettledDelete, SelectSeller, SelectScheduleDate, SelectSchedule, StartTransaction, StartTransactionSuccess, StartTransactionFail, CancelTransaction, CancelTransactionSuccess, CancelTransactionFail, GetScreen, GetScreenSuccess, GetScreenFail, GetScreeningEventOffers, GetScreeningEventOffersSuccess, GetScreeningEventOffersFail, SelectSeats, CancelSeats, SelectTickets, GetTicketList, GetTicketListSuccess, GetTicketListFail, TemporaryReservation, TemporaryReservationSuccess, TemporaryReservationFreeSeat, TemporaryReservationFreeSeatSuccess, TemporaryReservationFreeSeatFail, TemporaryReservationFail, CancelTemporaryReservations, CancelTemporaryReservationsSuccess, CancelTemporaryReservationsFail, RegisterContact, RegisterContactSuccess, RegisterContactFail, AuthorizeCreditCard, AuthorizeCreditCardSuccess, AuthorizeCreditCardFail, AuthorizeMovieTicket, AuthorizeMovieTicketSuccess, AuthorizeMovieTicketFail, CheckMovieTicket, CheckMovieTicketSuccess, CheckMovieTicketFail, EndTransaction, EndTransactionSuccess, EndTransactionFail, CreateGmoTokenObject, CreateGmoTokenObjectSuccess, CreateGmoTokenObjectFail, AuthorizeAnyPayment, AuthorizeAnyPaymentSuccess, AuthorizeAnyPaymentFail, SelectPaymentMethodType */
+/*! exports provided: ActionTypes, Delete, UnsettledDelete, SelectScheduleDate, SelectSchedule, StartTransaction, StartTransactionSuccess, StartTransactionFail, CancelTransaction, CancelTransactionSuccess, CancelTransactionFail, GetScreen, GetScreenSuccess, GetScreenFail, GetScreeningEventOffers, GetScreeningEventOffersSuccess, GetScreeningEventOffersFail, SelectSeats, CancelSeats, SelectTickets, GetTicketList, GetTicketListSuccess, GetTicketListFail, TemporaryReservation, TemporaryReservationSuccess, TemporaryReservationFreeSeat, TemporaryReservationFreeSeatSuccess, TemporaryReservationFreeSeatFail, TemporaryReservationFail, CancelTemporaryReservations, CancelTemporaryReservationsSuccess, CancelTemporaryReservationsFail, RegisterContact, RegisterContactSuccess, RegisterContactFail, AuthorizeCreditCard, AuthorizeCreditCardSuccess, AuthorizeCreditCardFail, AuthorizeMovieTicket, AuthorizeMovieTicketSuccess, AuthorizeMovieTicketFail, CheckMovieTicket, CheckMovieTicketSuccess, CheckMovieTicketFail, EndTransaction, EndTransactionSuccess, EndTransactionFail, CreateGmoTokenObject, CreateGmoTokenObjectSuccess, CreateGmoTokenObjectFail, AuthorizeAnyPayment, AuthorizeAnyPaymentSuccess, AuthorizeAnyPaymentFail, SelectPaymentMethodType */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -8067,7 +8136,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ActionTypes", function() { return ActionTypes; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Delete", function() { return Delete; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "UnsettledDelete", function() { return UnsettledDelete; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SelectSeller", function() { return SelectSeller; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SelectScheduleDate", function() { return SelectScheduleDate; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SelectSchedule", function() { return SelectSchedule; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "StartTransaction", function() { return StartTransaction; });
@@ -8129,7 +8197,6 @@ var ActionTypes;
 (function (ActionTypes) {
     ActionTypes["Delete"] = "[Purchase] Delete";
     ActionTypes["UnsettledDelete"] = "[Purchase] Unsettled Delete";
-    ActionTypes["SelectSeller"] = "[Purchase] Select Seller";
     ActionTypes["SelectScheduleDate"] = "[Purchase] Select Schedule Date";
     ActionTypes["SelectSchedule"] = "[Purchase] Select Schedule";
     ActionTypes["StartTransaction"] = "[Purchase] Start Transaction";
@@ -8198,15 +8265,6 @@ class UnsettledDelete {
     constructor(payload) {
         this.payload = payload;
         this.type = ActionTypes.UnsettledDelete;
-    }
-}
-/**
- * SelectSeller
- */
-class SelectSeller {
-    constructor(payload) {
-        this.payload = payload;
-        this.type = ActionTypes.SelectSeller;
     }
 }
 /**
@@ -8676,16 +8734,13 @@ class SelectPaymentMethodType {
 /*!*************************************************!*\
   !*** ./app/store/actions/reservation.action.ts ***!
   \*************************************************/
-/*! exports provided: ActionTypes, Delete, Search, SearchSuccess, SearchFail */
+/*! exports provided: ActionTypes, Delete */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ActionTypes", function() { return ActionTypes; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Delete", function() { return Delete; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Search", function() { return Search; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SearchSuccess", function() { return SearchSuccess; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SearchFail", function() { return SearchFail; });
 var __importDefault = (undefined && undefined.__importDefault) || function (mod) {
   return (mod && mod.__esModule) ? mod : { "default": mod };
 };
@@ -8695,9 +8750,6 @@ var __importDefault = (undefined && undefined.__importDefault) || function (mod)
 var ActionTypes;
 (function (ActionTypes) {
     ActionTypes["Delete"] = "[Reservation] Delete";
-    ActionTypes["Search"] = "[Reservation] Search";
-    ActionTypes["SearchSuccess"] = "[Reservation] Search Success";
-    ActionTypes["SearchFail"] = "[Reservation] Search Fail";
 })(ActionTypes || (ActionTypes = {}));
 /**
  * Delete
@@ -8706,33 +8758,6 @@ class Delete {
     constructor(payload) {
         this.payload = payload;
         this.type = ActionTypes.Delete;
-    }
-}
-/**
- * Search
- */
-class Search {
-    constructor(payload) {
-        this.payload = payload;
-        this.type = ActionTypes.Search;
-    }
-}
-/**
- * SearchSuccess
- */
-class SearchSuccess {
-    constructor(payload) {
-        this.payload = payload;
-        this.type = ActionTypes.SearchSuccess;
-    }
-}
-/**
- * SearchFail
- */
-class SearchFail {
-    constructor(payload) {
-        this.payload = payload;
-        this.type = ActionTypes.SearchFail;
     }
 }
 
@@ -9129,7 +9154,7 @@ let AdmissionEffects = class AdmissionEffects {
                 let roop = true;
                 let screeningEventReservations = [];
                 while (roop) {
-                    const screeningEventReservationsResult = yield this.cinerino.reservation.search({
+                    const searchResult = yield this.cinerino.reservation.search({
                         typeOf: _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_1__["factory"].chevre.reservationType.EventReservation,
                         page,
                         limit,
@@ -9142,10 +9167,9 @@ let AdmissionEffects = class AdmissionEffects {
                         ids: [decodeResult.typeOfGood.id]
                     });
                     screeningEventReservations =
-                        screeningEventReservations.concat(screeningEventReservationsResult.data);
-                    const lastPage = Math.ceil(screeningEventReservationsResult.totalCount / limit);
+                        screeningEventReservations.concat(searchResult.data);
                     page++;
-                    roop = !(page > lastPage);
+                    roop = searchResult.data.length > 0;
                 }
                 // 利用可能判定
                 const availableReservation = screeningEventReservations
@@ -9829,9 +9853,9 @@ var __importDefault = (undefined && undefined.__importDefault) || function (mod)
  * Purchase Effects
  */
 let PurchaseEffects = class PurchaseEffects {
-    constructor(actions, cinerino, http, utilService, translate) {
+    constructor(actions, cinerinoService, http, utilService, translate) {
         this.actions = actions;
-        this.cinerino = cinerino;
+        this.cinerinoService = cinerinoService;
         this.http = http;
         this.utilService = utilService;
         this.translate = translate;
@@ -9842,10 +9866,10 @@ let PurchaseEffects = class PurchaseEffects {
             try {
                 const params = payload;
                 const selleId = params.seller.id;
-                yield this.cinerino.getServices();
-                const passport = yield this.cinerino.getPassport(selleId);
+                yield this.cinerinoService.getServices();
+                const passport = yield this.cinerinoService.getPassport(selleId);
                 params.object = { passport };
-                const transaction = yield this.cinerino.transaction.placeOrder.start(params);
+                const transaction = yield this.cinerinoService.transaction.placeOrder.start(params);
                 return new _actions__WEBPACK_IMPORTED_MODULE_10__["purchaseAction"].StartTransactionSuccess({ transaction });
             }
             catch (error) {
@@ -9858,8 +9882,8 @@ let PurchaseEffects = class PurchaseEffects {
         this.cancelTransaction = this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_3__["ofType"])(_actions__WEBPACK_IMPORTED_MODULE_10__["purchaseAction"].ActionTypes.CancelTransaction), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["map"])(action => action.payload), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["mergeMap"])((payload) => __awaiter(this, void 0, void 0, function* () {
             try {
                 const transaction = payload.transaction;
-                yield this.cinerino.getServices();
-                yield this.cinerino.transaction.placeOrder.cancel({ id: transaction.id });
+                yield this.cinerinoService.getServices();
+                yield this.cinerinoService.transaction.placeOrder.cancel({ id: transaction.id });
                 return new _actions__WEBPACK_IMPORTED_MODULE_10__["purchaseAction"].CancelTransactionSuccess();
             }
             catch (error) {
@@ -9871,7 +9895,7 @@ let PurchaseEffects = class PurchaseEffects {
          */
         this.getScreen = this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_3__["ofType"])(_actions__WEBPACK_IMPORTED_MODULE_10__["purchaseAction"].ActionTypes.GetScreen), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["map"])(action => action.payload), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["mergeMap"])((payload) => __awaiter(this, void 0, void 0, function* () {
             try {
-                yield this.cinerino.getServices();
+                yield this.cinerinoService.getServices();
                 let theaterCode;
                 let screenCode;
                 let screeningEventOffers;
@@ -9881,7 +9905,7 @@ let PurchaseEffects = class PurchaseEffects {
                     screenCode = `000${payload.screenCode}`.slice(-3);
                 }
                 else {
-                    screeningEventOffers = yield this.cinerino.event.searchOffers({
+                    screeningEventOffers = yield this.cinerinoService.event.searchOffers({
                         event: { id: payload.screeningEvent.id }
                     });
                     theaterCode = payload.screeningEvent.superEvent.location.branchCode;
@@ -9905,11 +9929,11 @@ let PurchaseEffects = class PurchaseEffects {
          */
         this.getScreeningEventOffers = this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_3__["ofType"])(_actions__WEBPACK_IMPORTED_MODULE_10__["purchaseAction"].ActionTypes.GetScreeningEventOffers), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["map"])(action => action.payload), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["mergeMap"])((payload) => __awaiter(this, void 0, void 0, function* () {
             try {
-                yield this.cinerino.getServices();
+                yield this.cinerinoService.getServices();
                 const screeningEvent = payload.screeningEvent;
                 let screeningEventOffers = [];
                 if (Object(_functions__WEBPACK_IMPORTED_MODULE_8__["isTicketedSeatScreeningEvent"])(screeningEvent)) {
-                    screeningEventOffers = yield this.cinerino.event.searchOffers({
+                    screeningEventOffers = yield this.cinerinoService.event.searchOffers({
                         event: { id: screeningEvent.id }
                     });
                 }
@@ -9927,11 +9951,21 @@ let PurchaseEffects = class PurchaseEffects {
             const screeningEvent = payload.screeningEvent;
             const reservations = payload.reservations;
             try {
-                yield this.cinerino.getServices();
+                yield this.cinerinoService.getServices();
                 if (payload.authorizeSeatReservation !== undefined) {
-                    yield this.cinerino.transaction.placeOrder.voidSeatReservation(payload.authorizeSeatReservation);
+                    yield this.cinerinoService.transaction.placeOrder.voidSeatReservation(payload.authorizeSeatReservation);
                 }
-                const authorizeSeatReservation = yield this.cinerino.transaction.placeOrder.authorizeSeatReservation({
+                // サーバータイムを使用して販売期間判定
+                const serverTime = yield this.utilService.getServerTime();
+                const nowDate = moment__WEBPACK_IMPORTED_MODULE_5__(serverTime.date).toDate();
+                if (screeningEvent.offers === undefined) {
+                    throw new Error('screeningEvent.offers undefined');
+                }
+                if (screeningEvent.offers.validFrom > nowDate
+                    || screeningEvent.offers.validThrough < nowDate) {
+                    throw new Error('Outside sales period');
+                }
+                const authorizeSeatReservation = yield this.cinerinoService.transaction.placeOrder.authorizeSeatReservation({
                     object: {
                         event: {
                             id: screeningEvent.id
@@ -9949,7 +9983,10 @@ let PurchaseEffects = class PurchaseEffects {
                     },
                     purpose: transaction
                 });
-                return new _actions__WEBPACK_IMPORTED_MODULE_10__["purchaseAction"].TemporaryReservationSuccess({ authorizeSeatReservation });
+                return new _actions__WEBPACK_IMPORTED_MODULE_10__["purchaseAction"].TemporaryReservationSuccess({
+                    addAuthorizeSeatReservation: authorizeSeatReservation,
+                    removeAuthorizeSeatReservation: payload.authorizeSeatReservation
+                });
             }
             catch (error) {
                 return new _actions__WEBPACK_IMPORTED_MODULE_10__["purchaseAction"].TemporaryReservationFail({ error: error });
@@ -9965,7 +10002,7 @@ let PurchaseEffects = class PurchaseEffects {
             const reservationTickets = payload.reservationTickets;
             const freeSeats = [];
             try {
-                yield this.cinerino.getServices();
+                yield this.cinerinoService.getServices();
                 if (Object(_functions__WEBPACK_IMPORTED_MODULE_8__["isTicketedSeatScreeningEvent"])(screeningEvent)) {
                     for (const screeningEventOffer of screeningEventOffers) {
                         const section = screeningEventOffer.branchCode;
@@ -9983,7 +10020,7 @@ let PurchaseEffects = class PurchaseEffects {
                         }
                     }
                 }
-                const authorizeSeatReservation = yield this.cinerino.transaction.placeOrder.authorizeSeatReservation({
+                const authorizeSeatReservation = yield this.cinerinoService.transaction.placeOrder.authorizeSeatReservation({
                     object: {
                         event: {
                             id: screeningEvent.id
@@ -10012,9 +10049,9 @@ let PurchaseEffects = class PurchaseEffects {
         this.cancelTemporaryReservations = this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_3__["ofType"])(_actions__WEBPACK_IMPORTED_MODULE_10__["purchaseAction"].ActionTypes.CancelTemporaryReservations), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["map"])(action => action.payload), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["mergeMap"])((payload) => __awaiter(this, void 0, void 0, function* () {
             try {
                 const authorizeSeatReservations = payload.authorizeSeatReservations;
-                yield this.cinerino.getServices();
+                yield this.cinerinoService.getServices();
                 for (const authorizeSeatReservation of authorizeSeatReservations) {
-                    yield this.cinerino.transaction.placeOrder.voidSeatReservation(authorizeSeatReservation);
+                    yield this.cinerinoService.transaction.placeOrder.voidSeatReservation(authorizeSeatReservation);
                 }
                 return new _actions__WEBPACK_IMPORTED_MODULE_10__["purchaseAction"].CancelTemporaryReservationsSuccess({ authorizeSeatReservations });
             }
@@ -10027,11 +10064,11 @@ let PurchaseEffects = class PurchaseEffects {
          */
         this.getTicketList = this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_3__["ofType"])(_actions__WEBPACK_IMPORTED_MODULE_10__["purchaseAction"].ActionTypes.GetTicketList), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["map"])(action => action.payload), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["mergeMap"])((payload) => __awaiter(this, void 0, void 0, function* () {
             try {
-                yield this.cinerino.getServices();
-                const clientId = this.cinerino.auth.options.clientId;
+                yield this.cinerinoService.getServices();
+                const clientId = this.cinerinoService.auth.options.clientId;
                 const screeningEvent = payload.screeningEvent;
                 const seller = payload.seller;
-                let screeningEventTicketOffers = yield this.cinerino.event.searchTicketOffers({
+                let screeningEventTicketOffers = yield this.cinerinoService.event.searchTicketOffers({
                     event: { id: screeningEvent.id },
                     seller: { typeOf: seller.typeOf, id: seller.id },
                     store: { id: clientId }
@@ -10062,8 +10099,8 @@ let PurchaseEffects = class PurchaseEffects {
                 profile.telephone = Object(_functions__WEBPACK_IMPORTED_MODULE_8__["formatTelephone"])(profile.telephone);
             }
             try {
-                yield this.cinerino.getServices();
-                yield this.cinerino.transaction.placeOrder.setProfile({
+                yield this.cinerinoService.getServices();
+                yield this.cinerinoService.transaction.placeOrder.setProfile({
                     id: transaction.id,
                     agent: profile
                 });
@@ -10080,13 +10117,13 @@ let PurchaseEffects = class PurchaseEffects {
             try {
                 const gmoTokenObject = payload.gmoTokenObject;
                 const amount = payload.amount;
-                yield this.cinerino.getServices();
+                yield this.cinerinoService.getServices();
                 if (payload.authorizeCreditCardPayment !== undefined) {
-                    yield this.cinerino.payment.voidTransaction(payload.authorizeCreditCardPayment);
+                    yield this.cinerinoService.payment.voidTransaction(payload.authorizeCreditCardPayment);
                 }
                 const transaction = payload.transaction;
                 const creditCard = { token: gmoTokenObject.token };
-                const authorizeCreditCardPaymentResult = yield this.cinerino.payment.authorizeCreditCard({
+                const authorizeCreditCardPaymentResult = yield this.cinerinoService.payment.authorizeCreditCard({
                     object: {
                         typeOf: _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_2__["factory"].paymentMethodType.CreditCard,
                         amount,
@@ -10106,10 +10143,10 @@ let PurchaseEffects = class PurchaseEffects {
          */
         this.authorizeMovieTicket = this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_3__["ofType"])(_actions__WEBPACK_IMPORTED_MODULE_10__["purchaseAction"].ActionTypes.AuthorizeMovieTicket), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["map"])(action => action.payload), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["mergeMap"])((payload) => __awaiter(this, void 0, void 0, function* () {
             try {
-                yield this.cinerino.getServices();
+                yield this.cinerinoService.getServices();
                 if (payload.authorizeMovieTicketPayments.length > 0) {
                     for (const authorizeMovieTicketPayment of payload.authorizeMovieTicketPayments) {
-                        yield this.cinerino.payment.voidTransaction(authorizeMovieTicketPayment);
+                        yield this.cinerinoService.payment.voidTransaction(authorizeMovieTicketPayment);
                     }
                 }
                 const transaction = payload.transaction;
@@ -10135,7 +10172,7 @@ let PurchaseEffects = class PurchaseEffects {
                         findResult.movieTickets.push(movieTicket);
                     });
                     for (const movieTicketIdentifier of movieTicketIdentifiers) {
-                        const authorizeMovieTicketPaymentResult = yield this.cinerino.payment.authorizeMovieTicket({
+                        const authorizeMovieTicketPaymentResult = yield this.cinerinoService.payment.authorizeMovieTicket({
                             object: {
                                 typeOf: _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_2__["factory"].paymentMethodType.MovieTicket,
                                 amount: 0,
@@ -10157,10 +10194,10 @@ let PurchaseEffects = class PurchaseEffects {
          */
         this.checkMovieTicket = this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_3__["ofType"])(_actions__WEBPACK_IMPORTED_MODULE_10__["purchaseAction"].ActionTypes.CheckMovieTicket), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["map"])(action => action.payload), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["mergeMap"])((payload) => __awaiter(this, void 0, void 0, function* () {
             try {
-                yield this.cinerino.getServices();
+                yield this.cinerinoService.getServices();
                 const screeningEvent = payload.screeningEvent;
                 const movieTickets = payload.movieTickets;
-                const checkMovieTicketAction = yield this.cinerino.payment.checkMovieTicket({
+                const checkMovieTicketAction = yield this.cinerinoService.payment.checkMovieTicket({
                     typeOf: _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_2__["factory"].paymentMethodType.MovieTicket,
                     movieTickets: movieTickets.map((movieTicket) => {
                         return Object.assign({}, movieTicket, { serviceType: '', serviceOutput: {
@@ -10198,7 +10235,7 @@ let PurchaseEffects = class PurchaseEffects {
             const authorizeSeatReservations = payload.authorizeSeatReservations;
             const seller = payload.seller;
             try {
-                yield this.cinerino.getServices();
+                yield this.cinerinoService.getServices();
                 const params = {
                     id: transaction.id,
                     sendEmailMessage: true,
@@ -10229,11 +10266,11 @@ let PurchaseEffects = class PurchaseEffects {
                         moment: moment__WEBPACK_IMPORTED_MODULE_5__, formatTelephone: _functions__WEBPACK_IMPORTED_MODULE_8__["formatTelephone"], getTicketPrice: _functions__WEBPACK_IMPORTED_MODULE_8__["getTicketPrice"]
                     }, { async: true });
                 }
-                const result = yield this.cinerino.transaction.placeOrder.confirm(params);
+                const result = yield this.cinerinoService.transaction.placeOrder.confirm(params);
                 return new _actions__WEBPACK_IMPORTED_MODULE_10__["purchaseAction"].EndTransactionSuccess({ order: result.order });
             }
             catch (error) {
-                yield this.cinerino.transaction.placeOrder.cancel({
+                yield this.cinerinoService.transaction.placeOrder.cancel({
                     id: transaction.id
                 });
                 return new _actions__WEBPACK_IMPORTED_MODULE_10__["purchaseAction"].EndTransactionFail({ error: error });
@@ -10249,8 +10286,8 @@ let PurchaseEffects = class PurchaseEffects {
             const name = payload.name;
             const additionalProperty = payload.additionalProperty;
             try {
-                yield this.cinerino.getServices();
-                const authorizeAnyPayment = yield this.cinerino.payment.authorizeAnyPayment({
+                yield this.cinerinoService.getServices();
+                const authorizeAnyPayment = yield this.cinerinoService.payment.authorizeAnyPayment({
                     object: { typeOf, name, amount, additionalProperty },
                     purpose: transaction
                 });
@@ -10349,10 +10386,6 @@ PurchaseEffects = __decorate([
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ReservationEffects", function() { return ReservationEffects; });
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "../../node_modules/@angular/core/fesm2015/core.js");
-/* harmony import */ var _ngrx_effects__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @ngrx/effects */ "../../node_modules/@ngrx/effects/fesm2015/effects.js");
-/* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! rxjs/operators */ "../../node_modules/rxjs/_esm2015/operators/index.js");
-/* harmony import */ var _services__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../services */ "./app/services/index.ts");
-/* harmony import */ var _actions__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../actions */ "./app/store/actions/index.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -10362,62 +10395,27 @@ var __decorate = (undefined && undefined.__decorate) || function (decorators, ta
 var __metadata = (undefined && undefined.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-var __awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : new P(function (resolve) { resolve(result.value); }).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-};
 var __importDefault = (undefined && undefined.__importDefault) || function (mod) {
   return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 
-
-
-
-
+// import { factory } from '@cinerino/api-javascript-client/lib/abstract';
+// import { Actions, Effect, ofType } from '@ngrx/effects';
+// import { map, mergeMap } from 'rxjs/operators';
+// import { CinerinoService } from '../../services';
+// import { reservationAction } from '../actions';
 /**
  * Reservation Effects
  */
 let ReservationEffects = class ReservationEffects {
-    constructor(actions, cinerino) {
-        this.actions = actions;
-        this.cinerino = cinerino;
-        /**
-         * Search
-         */
-        this.search = this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_1__["ofType"])(_actions__WEBPACK_IMPORTED_MODULE_4__["reservationAction"].ActionTypes.Search), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["map"])(action => action.payload), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["mergeMap"])((payload) => __awaiter(this, void 0, void 0, function* () {
-            try {
-                yield this.cinerino.getServices();
-                const params = payload.params;
-                // if (params.customer !== undefined
-                //     && params.customer.telephone !== undefined) {
-                //     params.customer.telephone = formatTelephone(params.customer.telephone)
-                // }
-                const searchResult = yield this.cinerino.reservation.search(params);
-                const limit = params.limit;
-                return new _actions__WEBPACK_IMPORTED_MODULE_4__["reservationAction"].SearchSuccess({ searchResult, limit });
-            }
-            catch (error) {
-                return new _actions__WEBPACK_IMPORTED_MODULE_4__["reservationAction"].SearchFail({ error: error });
-            }
-        })));
-    }
+    constructor(
+    // private actions: Actions,
+    // private cinerino: CinerinoService
+    ) { }
 };
-ReservationEffects.ctorParameters = () => [
-    { type: _ngrx_effects__WEBPACK_IMPORTED_MODULE_1__["Actions"] },
-    { type: _services__WEBPACK_IMPORTED_MODULE_3__["CinerinoService"] }
-];
-__decorate([
-    Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_1__["Effect"])(),
-    __metadata("design:type", Object)
-], ReservationEffects.prototype, "search", void 0);
 ReservationEffects = __decorate([
     Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"])(),
-    __metadata("design:paramtypes", [_ngrx_effects__WEBPACK_IMPORTED_MODULE_1__["Actions"],
-        _services__WEBPACK_IMPORTED_MODULE_3__["CinerinoService"]])
+    __metadata("design:paramtypes", [])
 ], ReservationEffects);
 
 
@@ -10874,11 +10872,6 @@ function reducer(state, action) {
             state.purchaseData.isUsedMovieTicket = false;
             return Object.assign({}, state);
         }
-        case _actions__WEBPACK_IMPORTED_MODULE_3__["purchaseAction"].ActionTypes.SelectSeller: {
-            const seller = action.payload.seller;
-            state.purchaseData.seller = seller;
-            return Object.assign({}, state, { loading: false, process: '', error: null });
-        }
         case _actions__WEBPACK_IMPORTED_MODULE_3__["purchaseAction"].ActionTypes.SelectScheduleDate: {
             const scheduleDate = action.payload.scheduleDate;
             state.purchaseData.scheduleDate = scheduleDate;
@@ -11017,48 +11010,50 @@ function reducer(state, action) {
             return Object.assign({}, state, { loading: true, process: 'purchaseAction.TemporaryReservation' });
         }
         case _actions__WEBPACK_IMPORTED_MODULE_3__["purchaseAction"].ActionTypes.TemporaryReservationSuccess: {
-            const authorizeSeatReservation = action.payload.authorizeSeatReservation;
+            const addAuthorizeSeatReservation = action.payload.addAuthorizeSeatReservation;
+            const removeAuthorizeSeatReservation = action.payload.removeAuthorizeSeatReservation;
             const reservations = state.purchaseData.reservations;
-            state.purchaseData.authorizeSeatReservation = authorizeSeatReservation;
+            state.purchaseData.authorizeSeatReservation = addAuthorizeSeatReservation;
             state.purchaseData.screeningEventOffers = [];
-            const filterResult = reservations.filter(reservation => reservation.ticket === undefined);
-            if (filterResult.length === 0) {
-                const findAuthorizeSeatReservation = state.purchaseData.authorizeSeatReservations.findIndex(target => target.id === authorizeSeatReservation.id);
+            if (removeAuthorizeSeatReservation !== undefined) {
+                // 削除
+                const findAuthorizeSeatReservation = state.purchaseData.authorizeSeatReservations.findIndex(target => target.id === removeAuthorizeSeatReservation.id);
                 if (findAuthorizeSeatReservation > -1) {
                     state.purchaseData.authorizeSeatReservations.splice(findAuthorizeSeatReservation, 1);
                 }
-                state.purchaseData.authorizeSeatReservations.push(authorizeSeatReservation);
-                const findPendingMovieTicket = state.purchaseData.pendingMovieTickets.findIndex(target => target.id === authorizeSeatReservation.id);
+                const findPendingMovieTicket = state.purchaseData.pendingMovieTickets.findIndex(target => target.id === removeAuthorizeSeatReservation.id);
                 if (findPendingMovieTicket > -1) {
                     state.purchaseData.pendingMovieTickets.splice(findPendingMovieTicket, 1);
                 }
-                const movieTicketReservations = reservations.filter(r => r.ticket !== undefined && r.ticket.movieTicket !== undefined);
-                if (movieTicketReservations.length > 0) {
-                    const pendingReservations = authorizeSeatReservation.result.responseBody.object.reservations;
-                    state.purchaseData.pendingMovieTickets.push({
-                        id: authorizeSeatReservation.id,
-                        movieTickets: movieTicketReservations.map((r) => {
-                            const pendingReservation = pendingReservations.find((p) => {
-                                return (p.reservedTicket.ticketedSeat !== undefined
-                                    && p.reservedTicket.ticketedSeat.seatNumber === r.seat.seatNumber
-                                    && p.reservedTicket.ticketedSeat.seatSection === r.seat.seatSection);
-                            });
-                            if (pendingReservation === undefined
-                                || pendingReservation.reservedTicket.ticketedSeat === undefined) {
-                                throw new Error('pendingReservation is undefined');
-                            }
-                            const movieTicket = r.ticket.movieTicket;
-                            movieTicket.serviceOutput = {
-                                reservationFor: {
-                                    typeOf: _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_0__["factory"].chevre.eventType.ScreeningEvent,
-                                    id: pendingReservation.reservationFor.id
-                                },
-                                reservedTicket: { ticketedSeat: pendingReservation.reservedTicket.ticketedSeat }
-                            };
-                            return movieTicket;
-                        })
-                    });
-                }
+            }
+            // 追加
+            state.purchaseData.authorizeSeatReservations.push(addAuthorizeSeatReservation);
+            const movieTicketReservations = reservations.filter(r => r.ticket !== undefined && r.ticket.movieTicket !== undefined);
+            if (movieTicketReservations.length > 0) {
+                const pendingReservations = addAuthorizeSeatReservation.result.responseBody.object.reservations;
+                state.purchaseData.pendingMovieTickets.push({
+                    id: addAuthorizeSeatReservation.id,
+                    movieTickets: movieTicketReservations.map((r) => {
+                        const pendingReservation = pendingReservations.find((p) => {
+                            return (p.reservedTicket.ticketedSeat !== undefined
+                                && p.reservedTicket.ticketedSeat.seatNumber === r.seat.seatNumber
+                                && p.reservedTicket.ticketedSeat.seatSection === r.seat.seatSection);
+                        });
+                        if (pendingReservation === undefined
+                            || pendingReservation.reservedTicket.ticketedSeat === undefined) {
+                            throw new Error('pendingReservation is undefined');
+                        }
+                        const movieTicket = r.ticket.movieTicket;
+                        movieTicket.serviceOutput = {
+                            reservationFor: {
+                                typeOf: _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_0__["factory"].chevre.eventType.ScreeningEvent,
+                                id: pendingReservation.reservationFor.id
+                            },
+                            reservedTicket: { ticketedSeat: pendingReservation.reservedTicket.ticketedSeat }
+                        };
+                        return movieTicket;
+                    })
+                });
             }
             return Object.assign({}, state, { loading: false, process: '', error: null });
         }
@@ -11368,21 +11363,6 @@ function reducer(state, action) {
             };
             return Object.assign({}, state);
         }
-        case _actions__WEBPACK_IMPORTED_MODULE_0__["reservationAction"].ActionTypes.Search: {
-            return Object.assign({}, state, { loading: true, process: 'reservationAction.Search' });
-        }
-        case _actions__WEBPACK_IMPORTED_MODULE_0__["reservationAction"].ActionTypes.SearchSuccess: {
-            const searchResult = action.payload.searchResult;
-            const limit = action.payload.limit;
-            state.reservationData.reservations = searchResult.data;
-            state.reservationData.totalCount = searchResult.totalCount;
-            state.reservationData.pageCount = Math.ceil(searchResult.totalCount / limit);
-            return Object.assign({}, state, { loading: false, process: '', error: null });
-        }
-        case _actions__WEBPACK_IMPORTED_MODULE_0__["reservationAction"].ActionTypes.SearchFail: {
-            const error = action.payload.error;
-            return Object.assign({}, state, { loading: false, process: '', error: JSON.stringify(error) });
-        }
         default: {
             return state;
         }
@@ -11607,6 +11587,11 @@ function main() {
         // 言語設定
         Object(ngx_bootstrap_chronos__WEBPACK_IMPORTED_MODULE_4__["defineLocale"])('ja', ngx_bootstrap_locale__WEBPACK_IMPORTED_MODULE_5__["jaLocale"]);
         // プロジェクト設定
+        const space = localStorage.getItem('');
+        if (space !== null) {
+            // 無効なストレージ削除
+            localStorage.removeItem('');
+        }
         if (location.hash === '#/auth/signin') {
             sessionStorage.removeItem('PROJECT');
         }

@@ -30,21 +30,6 @@ export function reducer(state: IState, action: reservationAction.Actions): IStat
             };
             return { ...state };
         }
-        case reservationAction.ActionTypes.Search: {
-            return { ...state, loading: true, process: 'reservationAction.Search' };
-        }
-        case reservationAction.ActionTypes.SearchSuccess: {
-            const searchResult = action.payload.searchResult;
-            const limit = action.payload.limit;
-            state.reservationData.reservations = searchResult.data;
-            state.reservationData.totalCount = searchResult.totalCount;
-            state.reservationData.pageCount = Math.ceil(searchResult.totalCount / limit);
-            return { ...state, loading: false, process: '', error: null };
-        }
-        case reservationAction.ActionTypes.SearchFail: {
-            const error = action.payload.error;
-            return { ...state, loading: false, process: '', error: JSON.stringify(error) };
-        }
         default: {
             return state;
         }

@@ -294,7 +294,7 @@ export function getTransactionAgentIdentifier(order: factory.order.IOrder, key: 
 }
 
 /**
- * CSV変換
+ * 注文データCSV変換
  */
 export function order2report(orders: factory.order.IOrder[]) {
     const data: any[] = [];

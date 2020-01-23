@@ -8,7 +8,7 @@ import { BsDatepickerDirective, BsLocaleService, BsModalService } from 'ngx-boot
 import { BsDatepickerContainerComponent } from 'ngx-bootstrap/datepicker/themes/bs/bs-datepicker-container.component';
 import { Observable } from 'rxjs';
 import { getEnvironment } from '../../../../../../environments/environment';
-import { buildQueryString, iOSDatepickerTapBugFix, orderToEventOrders } from '../../../../../functions';
+import { iOSDatepickerTapBugFix, orderToEventOrders } from '../../../../../functions';
 import { IOrderSearchConditions, OrderActions } from '../../../../../models';
 import { OrderService, UserService, UtilService } from '../../../../../services';
 import * as reducers from '../../../../../store/reducers';
@@ -21,7 +21,6 @@ import { OrderDetailModalComponent } from '../../../../shared/components/parts/o
 })
 export class OrderSearchComponent implements OnInit {
     public isLoading: Observable<boolean>;
-    public isDownload: boolean;
     public error: Observable<string | null>;
     public user: Observable<reducers.IUserState>;
     public orders: factory.order.IOrder[][];
@@ -36,7 +35,6 @@ export class OrderSearchComponent implements OnInit {
     public selectedOrders: factory.order.IOrder[];
     public OrderActions: typeof OrderActions = OrderActions;
     public actionSelect: OrderActions | '';
-    public buildQueryString = buildQueryString;
     public environment = getEnvironment();
     public orderToEventOrders = orderToEventOrders;
     @ViewChild('orderDateFrom', { static: true }) private orderDateFrom: BsDatepickerDirective;
@@ -56,7 +54,6 @@ export class OrderSearchComponent implements OnInit {
     ) { }
 
     public ngOnInit() {
-        this.isDownload = false;
         this.actionSelect = '';
         this.selectedOrders = [];
         this.isLoading = this.store.pipe(select(reducers.getLoading));

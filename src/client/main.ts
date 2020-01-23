@@ -20,6 +20,11 @@ async function main() {
     defineLocale('ja', jaLocale);
 
     // プロジェクト設定
+    const space = localStorage.getItem('');
+    if (space !== null) {
+        // 無効なストレージ削除
+        localStorage.removeItem('');
+    }
     if (location.hash === '#/auth/signin') {
         sessionStorage.removeItem('PROJECT');
     }
