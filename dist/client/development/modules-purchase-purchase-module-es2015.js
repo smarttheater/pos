@@ -305,7 +305,7 @@ let PurchaseCinemaCartComponent = class PurchaseCinemaCartComponent {
         this.translate = translate;
         this.moment = moment__WEBPACK_IMPORTED_MODULE_4__;
         this.getTicketPrice = _functions__WEBPACK_IMPORTED_MODULE_6__["getTicketPrice"];
-        this.environment = Object(_environments_environment__WEBPACK_IMPORTED_MODULE_5__["getEnvironment"])();
+        this.environment = _environments_environment__WEBPACK_IMPORTED_MODULE_5__["environment"];
     }
     ngOnInit() {
         return __awaiter(this, void 0, void 0, function* () {
@@ -444,7 +444,7 @@ let PurchaseCinemaScheduleComponent = class PurchaseCinemaScheduleComponent {
         this.purchaseService = purchaseService;
         this.localeService = localeService;
         this.moment = moment__WEBPACK_IMPORTED_MODULE_5__;
-        this.environment = Object(_environments_environment__WEBPACK_IMPORTED_MODULE_7__["getEnvironment"])();
+        this.environment = _environments_environment__WEBPACK_IMPORTED_MODULE_7__["environment"];
     }
     /**
      * 初期化
@@ -728,7 +728,7 @@ let PurchaseCinemaSeatComponent = class PurchaseCinemaSeatComponent {
         this.userService = userService;
         this.purchaseService = purchaseService;
         this.translate = translate;
-        this.environment = Object(_environments_environment__WEBPACK_IMPORTED_MODULE_5__["getEnvironment"])();
+        this.environment = _environments_environment__WEBPACK_IMPORTED_MODULE_5__["environment"];
     }
     ngOnInit() {
         return __awaiter(this, void 0, void 0, function* () {
@@ -948,7 +948,7 @@ let PurchaseCinemaTicketComponent = class PurchaseCinemaTicketComponent {
         this.purchaseService = purchaseService;
         this.utilService = utilService;
         this.translate = translate;
-        this.environment = Object(_environments_environment__WEBPACK_IMPORTED_MODULE_6__["getEnvironment"])();
+        this.environment = _environments_environment__WEBPACK_IMPORTED_MODULE_6__["environment"];
     }
     ngOnInit() {
         this.purchase = this.store.pipe(Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_3__["select"])(_store_reducers__WEBPACK_IMPORTED_MODULE_8__["getPurchase"]));
@@ -1150,7 +1150,7 @@ let PurchaseEventScheduleComponent = class PurchaseEventScheduleComponent {
         this.userService = userService;
         this.localeService = localeService;
         this.moment = moment__WEBPACK_IMPORTED_MODULE_4__;
-        this.environment = Object(_environments_environment__WEBPACK_IMPORTED_MODULE_6__["getEnvironment"])();
+        this.environment = _environments_environment__WEBPACK_IMPORTED_MODULE_6__["environment"];
     }
     /**
      * 初期化
@@ -1404,7 +1404,7 @@ let PurchaseEventTicketComponent = class PurchaseEventTicketComponent {
         this.moment = moment__WEBPACK_IMPORTED_MODULE_4__;
         this.getTicketPrice = _functions__WEBPACK_IMPORTED_MODULE_7__["getTicketPrice"];
         this.changeTicketCount = _functions__WEBPACK_IMPORTED_MODULE_7__["changeTicketCount"];
-        this.environment = Object(_environments_environment__WEBPACK_IMPORTED_MODULE_6__["getEnvironment"])();
+        this.environment = _environments_environment__WEBPACK_IMPORTED_MODULE_6__["environment"];
     }
     ngOnInit() {
         return __awaiter(this, void 0, void 0, function* () {
@@ -1811,7 +1811,7 @@ let PurchaseCompleteComponent = class PurchaseCompleteComponent {
         this.moment = moment__WEBPACK_IMPORTED_MODULE_5__;
         this.getTicketPrice = _functions__WEBPACK_IMPORTED_MODULE_7__["getTicketPrice"];
         this.changeTicketCountByOrder = _functions__WEBPACK_IMPORTED_MODULE_7__["changeTicketCountByOrder"];
-        this.environment = Object(_environments_environment__WEBPACK_IMPORTED_MODULE_6__["getEnvironment"])();
+        this.environment = _environments_environment__WEBPACK_IMPORTED_MODULE_6__["environment"];
         this.paymentMethodType = _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_2__["factory"].paymentMethodType;
     }
     ngOnInit() {
@@ -1984,7 +1984,7 @@ let PurchaseConfirmComponent = class PurchaseConfirmComponent {
         this.viewType = _models__WEBPACK_IMPORTED_MODULE_8__["ViewType"];
         this.getTicketPrice = _functions__WEBPACK_IMPORTED_MODULE_7__["getTicketPrice"];
         this.changeTicketCount = _functions__WEBPACK_IMPORTED_MODULE_7__["changeTicketCount"];
-        this.environment = Object(_environments_environment__WEBPACK_IMPORTED_MODULE_6__["getEnvironment"])();
+        this.environment = _environments_environment__WEBPACK_IMPORTED_MODULE_6__["environment"];
     }
     ngOnInit() {
         this.purchase = this.store.pipe(Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_3__["select"])(_store_reducers__WEBPACK_IMPORTED_MODULE_10__["getPurchase"]));
@@ -2136,7 +2136,7 @@ let PurchasePaymentComponent = class PurchasePaymentComponent {
         this.translate = translate;
         this.paymentMethodType = _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_2__["factory"].paymentMethodType;
         this.viewType = _models__WEBPACK_IMPORTED_MODULE_6__["ViewType"];
-        this.environment = Object(_environments_environment__WEBPACK_IMPORTED_MODULE_5__["getEnvironment"])();
+        this.environment = _environments_environment__WEBPACK_IMPORTED_MODULE_5__["environment"];
     }
     ngOnInit() {
         this.user = this.store.pipe(Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_3__["select"])(_store_reducers__WEBPACK_IMPORTED_MODULE_8__["getUser"]));
@@ -2259,7 +2259,7 @@ let PurchaseRootComponent = class PurchaseRootComponent {
         this.store = store;
         this.purchaseService = purchaseService;
         this.router = router;
-        this.environment = Object(_environments_environment__WEBPACK_IMPORTED_MODULE_3__["getEnvironment"])();
+        this.environment = _environments_environment__WEBPACK_IMPORTED_MODULE_3__["environment"];
     }
     ngOnInit() {
         return __awaiter(this, void 0, void 0, function* () {
@@ -2354,7 +2354,7 @@ let PurchaseCinemaPerformanceComponent = class PurchaseCinemaPerformanceComponen
         this.moment = moment__WEBPACK_IMPORTED_MODULE_1__;
         this.isScheduleStatusThreshold = _functions__WEBPACK_IMPORTED_MODULE_3__["isScheduleStatusThreshold"];
         this.isSales = _functions__WEBPACK_IMPORTED_MODULE_3__["isSales"];
-        this.environment = Object(_environments_environment__WEBPACK_IMPORTED_MODULE_2__["getEnvironment"])();
+        this.environment = _environments_environment__WEBPACK_IMPORTED_MODULE_2__["environment"];
     }
     ngOnInit() {
     }
@@ -2510,7 +2510,7 @@ let PurchaseEventPerformanceComponent = class PurchaseEventPerformanceComponent 
         this.isScheduleStatusThreshold = _functions__WEBPACK_IMPORTED_MODULE_4__["isScheduleStatusThreshold"];
         this.isSales = _functions__WEBPACK_IMPORTED_MODULE_4__["isSales"];
         this.isTicketedSeatScreeningEvent = _functions__WEBPACK_IMPORTED_MODULE_4__["isTicketedSeatScreeningEvent"];
-        this.environment = Object(_environments_environment__WEBPACK_IMPORTED_MODULE_3__["getEnvironment"])();
+        this.environment = _environments_environment__WEBPACK_IMPORTED_MODULE_3__["environment"];
     }
     ngOnInit() {
         this.swiperConfig = {
@@ -2707,7 +2707,7 @@ var __importDefault = (undefined && undefined.__importDefault) || function (mod)
 let PurchaseTermsComponent = class PurchaseTermsComponent {
     constructor(utilService) {
         this.utilService = utilService;
-        this.environment = Object(_environments_environment__WEBPACK_IMPORTED_MODULE_2__["getEnvironment"])();
+        this.environment = _environments_environment__WEBPACK_IMPORTED_MODULE_2__["environment"];
     }
     ngOnInit() {
     }
@@ -2805,7 +2805,7 @@ var __importDefault = (undefined && undefined.__importDefault) || function (mod)
 let PurchaseWarningComponent = class PurchaseWarningComponent {
     constructor(utilService) {
         this.utilService = utilService;
-        this.environment = Object(_environments_environment__WEBPACK_IMPORTED_MODULE_2__["getEnvironment"])();
+        this.environment = _environments_environment__WEBPACK_IMPORTED_MODULE_2__["environment"];
     }
     ngOnInit() {
     }
@@ -2896,7 +2896,7 @@ var __importDefault = (undefined && undefined.__importDefault) || function (mod)
 let TransactionRemainingTimeComponent = class TransactionRemainingTimeComponent {
     constructor(router) {
         this.router = router;
-        this.environment = Object(_environments_environment__WEBPACK_IMPORTED_MODULE_4__["getEnvironment"])();
+        this.environment = _environments_environment__WEBPACK_IMPORTED_MODULE_4__["environment"];
     }
     ngOnInit() {
         this.update();

@@ -5,7 +5,7 @@ import { Actions, Effect, ofType } from '@ngrx/effects';
 import { TranslateService } from '@ngx-translate/core';
 import * as moment from 'moment';
 import { map, mergeMap } from 'rxjs/operators';
-import { getEnvironment } from '../../../environments/environment';
+import { environment } from '../../../environments/environment';
 import {
     authorizeSeatReservationToEvent,
     createMovieTicketsFromAuthorizeSeatReservation,
@@ -509,7 +509,7 @@ export class PurchaseEffects {
                         template: undefined
                     }
                 };
-                if (getEnvironment().PURCHASE_COMPLETE_MAIL_CUSTOM && params.email !== undefined) {
+                if (environment.PURCHASE_COMPLETE_MAIL_CUSTOM && params.email !== undefined) {
                     // 完了メールをカスタマイズ
                     const view = await this.utilService.getText(`${getProject().storageUrl}/ejs/mail/complete/${payload.language}.ejs`);
                     params.email.template = await (<any>window).ejs.render(view, {

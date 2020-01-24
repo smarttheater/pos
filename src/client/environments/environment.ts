@@ -229,6 +229,4 @@ const defaultEnvironment: IEnvironment = {
     PRINT_LOADING: true
 };
 
-export function getEnvironment(): IEnvironment {
-    return { ...defaultEnvironment, ...(<any>window).environment, production: (document.querySelector('body.production') !== null) };
-}
+export const environment: IEnvironment = { ...defaultEnvironment, ...(<any>window).environment, production: (document.querySelector('body.production') !== null) };

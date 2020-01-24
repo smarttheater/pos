@@ -4,7 +4,7 @@ import { factory } from '@cinerino/api-javascript-client';
 import { select, Store } from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
-import { getEnvironment } from '../../../../../../../environments/environment';
+import { environment } from '../../../../../../../environments/environment';
 import { IReservationSeat, SeatStatus } from '../../../../../../models';
 import { PurchaseService, UserService, UtilService } from '../../../../../../services';
 import * as reducers from '../../../../../../store/reducers';
@@ -18,7 +18,7 @@ export class PurchaseCinemaSeatComponent implements OnInit {
     public purchase: Observable<reducers.IPurchaseState>;
     public user: Observable<reducers.IUserState>;
     public isLoading: Observable<boolean>;
-    public environment = getEnvironment();
+    public environment = environment;
 
     constructor(
         private store: Store<reducers.IState>,

@@ -4,7 +4,7 @@ import { Actions, Effect, ofType } from '@ngrx/effects';
 import { TranslateService } from '@ngx-translate/core';
 import * as moment from 'moment';
 import { map, mergeMap } from 'rxjs/operators';
-import { getEnvironment } from '../../../environments/environment';
+import { environment } from '../../../environments/environment';
 import { createPrintCanvas, createTestPrintCanvas, formatTelephone, getProject, getTicketPrice, retry, sleep } from '../../functions';
 import { connectionType, ITicketPrintData, PrintQrcodeType } from '../../models';
 import { CinerinoService, StarPrintService, UtilService } from '../../services';
@@ -66,7 +66,7 @@ export class OrderEffects {
                             ? undefined : this.translate.instant('email.order.return.about'),
                         template: undefined
                     };
-                    if (getEnvironment().PURCHASE_COMPLETE_MAIL_CUSTOM) {
+                    if (environment.PURCHASE_COMPLETE_MAIL_CUSTOM) {
                         // メールをカスタマイズ
                         const view = await this.utilService.getText(`${getProject().storageUrl}/ejs/mail/return/${payload.language}.ejs`);
                         const template = await (<any>window).ejs.render(view, { moment, formatTelephone, getTicketPrice }, { async: true });
@@ -147,8 +147,8 @@ export class OrderEffects {
                         ? '' : formatTelephone(payload.customer.telephone)
                 };
                 const orderDateFrom = {
-                    value: getEnvironment().INQUIRY_ORDER_DATE_FROM_VALUE,
-                    unit: getEnvironment().INQUIRY_ORDER_DATE_FROM_UNIT
+                    value: environment.INQUIRY_ORDER_DATE_FROM_VALUE,
+                    unit: environment.INQUIRY_ORDER_DATE_FROM_UNIT
                 };
                 const params = {
                     confirmationNumber,
@@ -226,7 +226,7 @@ export class OrderEffects {
                                 }
                             }
                             if (qrcode !== undefined
-                                && getEnvironment().PRINT_QRCODE_TYPE === PrintQrcodeType.Encryption) {
+                                && environment.PRINT_QRCODE_TYPE === PrintQrcodeType.Encryption) {
                                 // QRコード暗号化(id + startDate)
                                 const encyptText = `${itemOffered.reservationFor.id}=${itemOffered.reservationFor.startDate}`;
                                 const encryptionEncodeResult = await this.utilService.encryptionEncode(encyptText);
@@ -234,9 +234,9 @@ export class OrderEffects {
                                     `${encryptionEncodeResult.salt},${encryptionEncodeResult.iv},${encryptionEncodeResult.encrypted}`;
                             }
                             if (qrcode !== undefined
-                                && getEnvironment().PRINT_QRCODE_TYPE === PrintQrcodeType.Custom) {
+                                && environment.PRINT_QRCODE_TYPE === PrintQrcodeType.Custom) {
                                 // QRコードカスタム文字列
-                                qrcode = getEnvironment().PRINT_QRCODE_CUSTOM;
+                                qrcode = environment.PRINT_QRCODE_CUSTOM;
                                 qrcode = qrcode
                                     .replace(/\{\{ orderDate \| YYMMDD \}\}/g, moment(order.orderDate).format('YYMMDD'));
                                 qrcode = qrcode

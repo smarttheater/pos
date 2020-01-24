@@ -1,7 +1,7 @@
 import { factory } from '@cinerino/api-javascript-client';
 import * as moment from 'moment';
 import * as qrcode from 'qrcode';
-import { getEnvironment } from '../../environments/environment';
+import { environment } from '../../environments/environment';
 import { ITicketPrintData } from '../models';
 import { getTicketPrice } from './purchase.function';
 import { formatTelephone, getProject } from './util.function';
@@ -245,7 +245,7 @@ export async function createTestPrintCanvas(args: { printData: ITicketPrintData 
  */
 export async function createRegiGrowQrcode(order: factory.order.IOrder) {
     const canvas = document.createElement('canvas');
-    let qrcodeText = getEnvironment().REGIGROW_QRCODE;
+    let qrcodeText = environment.REGIGROW_QRCODE;
     qrcodeText = qrcodeText
         .replace(/\{\{ orderNumber \}\}/g, order.orderNumber);
     qrcodeText = qrcodeText

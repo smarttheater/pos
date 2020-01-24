@@ -1,4 +1,4 @@
-import { getEnvironment } from '../../../environments/environment';
+import { environment } from '../../../environments/environment';
 import { Reservation } from '../../models';
 import {
     admissionAction,
@@ -48,7 +48,7 @@ export const initialState: IState = {
 };
 
 function getInitialState(): IState {
-    const json = (<Storage>(<any>window)[getEnvironment().STORAGE_TYPE]).getItem(getEnvironment().STORAGE_NAME);
+    const json = (<Storage>(<any>window)[environment.STORAGE_TYPE]).getItem(environment.STORAGE_NAME);
     if (json === undefined || json === null) {
         return initialState;
     }

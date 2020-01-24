@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { getEnvironment } from '../../../../../../environments/environment';
+import { environment } from '../../../../../../environments/environment';
 
 @Component({
     selector: 'app-development-index',
@@ -7,7 +7,7 @@ import { getEnvironment } from '../../../../../../environments/environment';
     styleUrls: ['./development-index.component.scss']
 })
 export class DevelopmentIndexComponent implements OnInit {
-    public environment = getEnvironment();
+    public environment = environment;
 
     constructor() { }
 

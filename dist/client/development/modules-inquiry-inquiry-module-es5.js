@@ -242,7 +242,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
         this.getTicketPrice = _functions__WEBPACK_IMPORTED_MODULE_7__["getTicketPrice"];
         this.changeTicketCountByOrder = _functions__WEBPACK_IMPORTED_MODULE_7__["changeTicketCountByOrder"];
         this.orderStatus = _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_2__["factory"].orderStatus;
-        this.environment = Object(_environments_environment__WEBPACK_IMPORTED_MODULE_6__["getEnvironment"])();
+        this.environment = _environments_environment__WEBPACK_IMPORTED_MODULE_6__["environment"];
       }
 
       _createClass(InquiryConfirmComponent, [{
@@ -676,7 +676,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
         this.orderService = orderService;
         this.router = router;
         this.translate = translate;
-        this.environment = Object(_environments_environment__WEBPACK_IMPORTED_MODULE_6__["getEnvironment"])();
+        this.environment = _environments_environment__WEBPACK_IMPORTED_MODULE_6__["environment"];
       }
 
       _createClass(InquiryInputComponent, [{
@@ -924,7 +924,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
         _classCallCheck(this, InquiryPrintComponent);
 
         this.router = router;
-        this.environment = Object(_environments_environment__WEBPACK_IMPORTED_MODULE_2__["getEnvironment"])();
+        this.environment = _environments_environment__WEBPACK_IMPORTED_MODULE_2__["environment"];
       }
       /**
        * 初期化

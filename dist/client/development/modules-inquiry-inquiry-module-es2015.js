@@ -117,7 +117,7 @@ let InquiryConfirmComponent = class InquiryConfirmComponent {
         this.getTicketPrice = _functions__WEBPACK_IMPORTED_MODULE_7__["getTicketPrice"];
         this.changeTicketCountByOrder = _functions__WEBPACK_IMPORTED_MODULE_7__["changeTicketCountByOrder"];
         this.orderStatus = _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_2__["factory"].orderStatus;
-        this.environment = Object(_environments_environment__WEBPACK_IMPORTED_MODULE_6__["getEnvironment"])();
+        this.environment = _environments_environment__WEBPACK_IMPORTED_MODULE_6__["environment"];
     }
     ngOnInit() {
         this.eventOrders = [];
@@ -351,7 +351,7 @@ let InquiryInputComponent = class InquiryInputComponent {
         this.orderService = orderService;
         this.router = router;
         this.translate = translate;
-        this.environment = Object(_environments_environment__WEBPACK_IMPORTED_MODULE_6__["getEnvironment"])();
+        this.environment = _environments_environment__WEBPACK_IMPORTED_MODULE_6__["environment"];
     }
     ngOnInit() {
         this.isLoading = this.store.pipe(Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_3__["select"])(_store_reducers__WEBPACK_IMPORTED_MODULE_8__["getLoading"]));
@@ -507,7 +507,7 @@ var __importDefault = (undefined && undefined.__importDefault) || function (mod)
 let InquiryPrintComponent = class InquiryPrintComponent {
     constructor(router) {
         this.router = router;
-        this.environment = Object(_environments_environment__WEBPACK_IMPORTED_MODULE_2__["getEnvironment"])();
+        this.environment = _environments_environment__WEBPACK_IMPORTED_MODULE_2__["environment"];
     }
     /**
      * 初期化

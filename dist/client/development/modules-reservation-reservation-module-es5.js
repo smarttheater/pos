@@ -239,7 +239,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
         this.localeService = localeService;
         this.moment = moment__WEBPACK_IMPORTED_MODULE_4__;
         this.reservationStatus = _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_1__["factory"].chevre.reservationStatusType;
-        this.environment = Object(_environments_environment__WEBPACK_IMPORTED_MODULE_6__["getEnvironment"])();
+        this.environment = _environments_environment__WEBPACK_IMPORTED_MODULE_6__["environment"];
         this.getTicketPrice = _functions__WEBPACK_IMPORTED_MODULE_7__["getTicketPrice"];
       }
 
@@ -742,7 +742,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
         this.translate = translate;
         this.moment = moment__WEBPACK_IMPORTED_MODULE_4__;
         this.reservationStatus = _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_1__["factory"].chevre.reservationStatusType;
-        this.environment = Object(_environments_environment__WEBPACK_IMPORTED_MODULE_6__["getEnvironment"])();
+        this.environment = _environments_environment__WEBPACK_IMPORTED_MODULE_6__["environment"];
         this.getTicketPrice = _functions__WEBPACK_IMPORTED_MODULE_7__["getTicketPrice"];
       }
 

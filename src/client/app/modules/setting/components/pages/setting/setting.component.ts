@@ -5,7 +5,7 @@ import { select, Store } from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
 import * as libphonenumber from 'libphonenumber-js';
 import { Observable } from 'rxjs';
-import { getEnvironment } from '../../../../../../environments/environment';
+import { environment } from '../../../../../../environments/environment';
 import { connectionType, printers, ViewType } from '../../../../../models';
 import { MasterService, OrderService, UserService, UtilService } from '../../../../../services';
 import * as reducers from '../../../../../store/reducers';
@@ -26,7 +26,7 @@ export class SettingComponent implements OnInit {
     public printers: typeof printers = printers;
     public connectionType: typeof connectionType = connectionType;
     public viewType: typeof ViewType = ViewType;
-    public environment = getEnvironment();
+    public environment = environment;
 
     constructor(
         private formBuilder: FormBuilder,

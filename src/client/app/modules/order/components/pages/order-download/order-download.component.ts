@@ -6,7 +6,7 @@ import * as moment from 'moment';
 import { BsDatepickerDirective, BsLocaleService } from 'ngx-bootstrap';
 import { BsDatepickerContainerComponent } from 'ngx-bootstrap/datepicker/themes/bs/bs-datepicker-container.component';
 import { Observable } from 'rxjs';
-import { getEnvironment } from '../../../../../../environments/environment';
+import { environment } from '../../../../../../environments/environment';
 import { buildQueryString, iOSDatepickerTapBugFix, orderToEventOrders } from '../../../../../functions';
 import { CsvFormat, IOrderDownloadConditions, OrderActions } from '../../../../../models';
 import { DownloadService, OrderService, UtilService } from '../../../../../services';
@@ -30,7 +30,7 @@ export class OrderDownloadComponent implements OnInit {
     public selectedOrders: factory.order.IOrder[];
     public actionSelect: OrderActions | '';
     public buildQueryString = buildQueryString;
-    public environment = getEnvironment();
+    public environment = environment;
     public encodingFormat = factory.encodingFormat;
     public orderToEventOrders = orderToEventOrders;
     public csvFormat = CsvFormat;

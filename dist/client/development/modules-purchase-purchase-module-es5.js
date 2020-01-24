@@ -526,7 +526,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
         this.translate = translate;
         this.moment = moment__WEBPACK_IMPORTED_MODULE_4__;
         this.getTicketPrice = _functions__WEBPACK_IMPORTED_MODULE_6__["getTicketPrice"];
-        this.environment = Object(_environments_environment__WEBPACK_IMPORTED_MODULE_5__["getEnvironment"])();
+        this.environment = _environments_environment__WEBPACK_IMPORTED_MODULE_5__["environment"];
       }
 
       _createClass(PurchaseCinemaCartComponent, [{
@@ -835,7 +835,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
         this.purchaseService = purchaseService;
         this.localeService = localeService;
         this.moment = moment__WEBPACK_IMPORTED_MODULE_5__;
-        this.environment = Object(_environments_environment__WEBPACK_IMPORTED_MODULE_7__["getEnvironment"])();
+        this.environment = _environments_environment__WEBPACK_IMPORTED_MODULE_7__["environment"];
       }
       /**
        * 初期化
@@ -1365,7 +1365,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
         this.userService = userService;
         this.purchaseService = purchaseService;
         this.translate = translate;
-        this.environment = Object(_environments_environment__WEBPACK_IMPORTED_MODULE_5__["getEnvironment"])();
+        this.environment = _environments_environment__WEBPACK_IMPORTED_MODULE_5__["environment"];
       }
 
       _createClass(PurchaseCinemaSeatComponent, [{
@@ -1818,7 +1818,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
         this.purchaseService = purchaseService;
         this.utilService = utilService;
         this.translate = translate;
-        this.environment = Object(_environments_environment__WEBPACK_IMPORTED_MODULE_6__["getEnvironment"])();
+        this.environment = _environments_environment__WEBPACK_IMPORTED_MODULE_6__["environment"];
       }
 
       _createClass(PurchaseCinemaTicketComponent, [{
@@ -2188,7 +2188,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
         this.userService = userService;
         this.localeService = localeService;
         this.moment = moment__WEBPACK_IMPORTED_MODULE_4__;
-        this.environment = Object(_environments_environment__WEBPACK_IMPORTED_MODULE_6__["getEnvironment"])();
+        this.environment = _environments_environment__WEBPACK_IMPORTED_MODULE_6__["environment"];
       }
       /**
        * 初期化
@@ -2676,7 +2676,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
         this.moment = moment__WEBPACK_IMPORTED_MODULE_4__;
         this.getTicketPrice = _functions__WEBPACK_IMPORTED_MODULE_7__["getTicketPrice"];
         this.changeTicketCount = _functions__WEBPACK_IMPORTED_MODULE_7__["changeTicketCount"];
-        this.environment = Object(_environments_environment__WEBPACK_IMPORTED_MODULE_6__["getEnvironment"])();
+        this.environment = _environments_environment__WEBPACK_IMPORTED_MODULE_6__["environment"];
       }
 
       _createClass(PurchaseEventTicketComponent, [{
@@ -3490,7 +3490,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
         this.moment = moment__WEBPACK_IMPORTED_MODULE_5__;
         this.getTicketPrice = _functions__WEBPACK_IMPORTED_MODULE_7__["getTicketPrice"];
         this.changeTicketCountByOrder = _functions__WEBPACK_IMPORTED_MODULE_7__["changeTicketCountByOrder"];
-        this.environment = Object(_environments_environment__WEBPACK_IMPORTED_MODULE_6__["getEnvironment"])();
+        this.environment = _environments_environment__WEBPACK_IMPORTED_MODULE_6__["environment"];
         this.paymentMethodType = _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_2__["factory"].paymentMethodType;
       }
 
@@ -3815,7 +3815,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
         this.viewType = _models__WEBPACK_IMPORTED_MODULE_8__["ViewType"];
         this.getTicketPrice = _functions__WEBPACK_IMPORTED_MODULE_7__["getTicketPrice"];
         this.changeTicketCount = _functions__WEBPACK_IMPORTED_MODULE_7__["changeTicketCount"];
-        this.environment = Object(_environments_environment__WEBPACK_IMPORTED_MODULE_6__["getEnvironment"])();
+        this.environment = _environments_environment__WEBPACK_IMPORTED_MODULE_6__["environment"];
       }
 
       _createClass(PurchaseConfirmComponent, [{
@@ -4111,7 +4111,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
         this.translate = translate;
         this.paymentMethodType = _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_2__["factory"].paymentMethodType;
         this.viewType = _models__WEBPACK_IMPORTED_MODULE_6__["ViewType"];
-        this.environment = Object(_environments_environment__WEBPACK_IMPORTED_MODULE_5__["getEnvironment"])();
+        this.environment = _environments_environment__WEBPACK_IMPORTED_MODULE_5__["environment"];
       }
 
       _createClass(PurchasePaymentComponent, [{
@@ -4339,7 +4339,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
         this.store = store;
         this.purchaseService = purchaseService;
         this.router = router;
-        this.environment = Object(_environments_environment__WEBPACK_IMPORTED_MODULE_3__["getEnvironment"])();
+        this.environment = _environments_environment__WEBPACK_IMPORTED_MODULE_3__["environment"];
       }
 
       _createClass(PurchaseRootComponent, [{
@@ -4527,7 +4527,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
         this.moment = moment__WEBPACK_IMPORTED_MODULE_1__;
         this.isScheduleStatusThreshold = _functions__WEBPACK_IMPORTED_MODULE_3__["isScheduleStatusThreshold"];
         this.isSales = _functions__WEBPACK_IMPORTED_MODULE_3__["isSales"];
-        this.environment = Object(_environments_environment__WEBPACK_IMPORTED_MODULE_2__["getEnvironment"])();
+        this.environment = _environments_environment__WEBPACK_IMPORTED_MODULE_2__["environment"];
       }
 
       _createClass(PurchaseCinemaPerformanceComponent, [{
@@ -4784,7 +4784,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
         this.isScheduleStatusThreshold = _functions__WEBPACK_IMPORTED_MODULE_4__["isScheduleStatusThreshold"];
         this.isSales = _functions__WEBPACK_IMPORTED_MODULE_4__["isSales"];
         this.isTicketedSeatScreeningEvent = _functions__WEBPACK_IMPORTED_MODULE_4__["isTicketedSeatScreeningEvent"];
-        this.environment = Object(_environments_environment__WEBPACK_IMPORTED_MODULE_3__["getEnvironment"])();
+        this.environment = _environments_environment__WEBPACK_IMPORTED_MODULE_3__["environment"];
       }
 
       _createClass(PurchaseEventPerformanceComponent, [{
@@ -5118,7 +5118,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
         _classCallCheck(this, PurchaseTermsComponent);
 
         this.utilService = utilService;
-        this.environment = Object(_environments_environment__WEBPACK_IMPORTED_MODULE_2__["getEnvironment"])();
+        this.environment = _environments_environment__WEBPACK_IMPORTED_MODULE_2__["environment"];
       }
 
       _createClass(PurchaseTermsComponent, [{
@@ -5317,7 +5317,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
         _classCallCheck(this, PurchaseWarningComponent);
 
         this.utilService = utilService;
-        this.environment = Object(_environments_environment__WEBPACK_IMPORTED_MODULE_2__["getEnvironment"])();
+        this.environment = _environments_environment__WEBPACK_IMPORTED_MODULE_2__["environment"];
       }
 
       _createClass(PurchaseWarningComponent, [{
@@ -5494,7 +5494,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
         _classCallCheck(this, TransactionRemainingTimeComponent);
 
         this.router = router;
-        this.environment = Object(_environments_environment__WEBPACK_IMPORTED_MODULE_4__["getEnvironment"])();
+        this.environment = _environments_environment__WEBPACK_IMPORTED_MODULE_4__["environment"];
       }
 
       _createClass(TransactionRemainingTimeComponent, [{

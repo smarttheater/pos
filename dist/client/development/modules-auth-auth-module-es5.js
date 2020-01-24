@@ -372,7 +372,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
         this.cinerino = cinerino;
         this.router = router;
-        this.environment = Object(_environments_environment__WEBPACK_IMPORTED_MODULE_2__["getEnvironment"])();
+        this.environment = _environments_environment__WEBPACK_IMPORTED_MODULE_2__["environment"];
       }
 
       _createClass(AuthIndexComponent, [{
