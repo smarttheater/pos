@@ -19,7 +19,6 @@ import * as reducers from '../../../../../store/reducers';
 })
 export class OrderDownloadComponent implements OnInit {
     public isLoading: Observable<boolean>;
-    public isDownload: boolean;
     public error: Observable<string | null>;
     public order: Observable<reducers.IOrderState>;
     public user: Observable<reducers.IUserState>;
@@ -50,7 +49,6 @@ export class OrderDownloadComponent implements OnInit {
     ) { }
 
     public ngOnInit() {
-        this.isDownload = false;
         this.actionSelect = '';
         this.selectedOrders = [];
         this.isLoading = this.store.pipe(select(reducers.getLoading));
@@ -77,29 +75,6 @@ export class OrderDownloadComponent implements OnInit {
             csvFormat: CsvFormat.Custom
         };
         this.orderService.delete();
-    }
-
-    /**
-     * 選択判定
-     */
-    public isSelected(order: factory.order.IOrder) {
-        const findResult = this.selectedOrders.find(o => o.orderNumber === order.orderNumber);
-        return findResult !== undefined;
-    }
-
-    /**
-     * 選択中へ変更
-     */
-    public addOrder(order: factory.order.IOrder) {
-        this.selectedOrders.push(order);
-    }
-
-    /**
-     * 選択中解除
-     */
-    public removeOrder(order: factory.order.IOrder) {
-        const findIndex = this.selectedOrders.findIndex(o => o.orderNumber === order.orderNumber);
-        this.selectedOrders.splice(findIndex, 1);
     }
 
     /**

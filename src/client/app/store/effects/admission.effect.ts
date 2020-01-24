@@ -68,7 +68,7 @@ export class AdmissionEffects {
                 let screeningEventReservations:
                     factory.chevre.reservation.IReservation<factory.chevre.reservationType.EventReservation>[] = [];
                 while (roop) {
-                    const screeningEventReservationsResult =
+                    const searchResult =
                         await this.cinerino.reservation.search<factory.chevre.reservationType.EventReservation>({
                             typeOf: factory.chevre.reservationType.EventReservation,
                             page,
@@ -82,10 +82,9 @@ export class AdmissionEffects {
                             ids: [decodeResult.typeOfGood.id]
                         });
                     screeningEventReservations =
-                        screeningEventReservations.concat(screeningEventReservationsResult.data);
-                    const lastPage = Math.ceil(screeningEventReservationsResult.totalCount / limit);
+                        screeningEventReservations.concat(searchResult.data);
                     page++;
-                    roop = !(page > lastPage);
+                    roop = searchResult.data.length > 0;
                 }
 
                 // 利用可能判定

@@ -12,7 +12,6 @@ import { purchaseAction } from '../actions';
  * IPurchaseState
  */
 export interface IPurchaseState {
-    seller?: factory.seller.IOrganization<factory.seller.IAttributes<factory.organizationType>>;
     screeningEvent?: factory.chevre.event.screeningEvent.IEvent;
     scheduleDate?: string;
     transaction?: factory.transaction.placeOrder.ITransaction;
@@ -86,11 +85,6 @@ export function reducer(state: IState, action: purchaseAction.Actions): IState {
             state.purchaseData.checkMovieTicketAction = undefined;
             state.purchaseData.isUsedMovieTicket = false;
             return { ...state };
-        }
-        case purchaseAction.ActionTypes.SelectSeller: {
-            const seller = action.payload.seller;
-            state.purchaseData.seller = seller;
-            return { ...state, loading: false, process: '', error: null };
         }
         case purchaseAction.ActionTypes.SelectScheduleDate: {
             const scheduleDate = action.payload.scheduleDate;
@@ -230,55 +224,57 @@ export function reducer(state: IState, action: purchaseAction.Actions): IState {
             return { ...state, loading: true, process: 'purchaseAction.TemporaryReservation' };
         }
         case purchaseAction.ActionTypes.TemporaryReservationSuccess: {
-            const authorizeSeatReservation = action.payload.authorizeSeatReservation;
+            const addAuthorizeSeatReservation = action.payload.addAuthorizeSeatReservation;
+            const removeAuthorizeSeatReservation = action.payload.removeAuthorizeSeatReservation;
             const reservations = state.purchaseData.reservations;
-            state.purchaseData.authorizeSeatReservation = authorizeSeatReservation;
+            state.purchaseData.authorizeSeatReservation = addAuthorizeSeatReservation;
             state.purchaseData.screeningEventOffers = [];
-            const filterResult = reservations.filter(reservation => reservation.ticket === undefined);
-            if (filterResult.length === 0) {
+            if (removeAuthorizeSeatReservation !== undefined) {
+                // 削除
                 const findAuthorizeSeatReservation = state.purchaseData.authorizeSeatReservations.findIndex(
-                    target => target.id === authorizeSeatReservation.id
+                    target => target.id === removeAuthorizeSeatReservation.id
                 );
                 if (findAuthorizeSeatReservation > -1) {
                     state.purchaseData.authorizeSeatReservations.splice(findAuthorizeSeatReservation, 1);
                 }
-                state.purchaseData.authorizeSeatReservations.push(authorizeSeatReservation);
                 const findPendingMovieTicket = state.purchaseData.pendingMovieTickets.findIndex(
-                    target => target.id === authorizeSeatReservation.id
+                    target => target.id === removeAuthorizeSeatReservation.id
                 );
                 if (findPendingMovieTicket > -1) {
                     state.purchaseData.pendingMovieTickets.splice(findPendingMovieTicket, 1);
                 }
-                const movieTicketReservations = reservations.filter(r => r.ticket !== undefined && r.ticket.movieTicket !== undefined);
-                if (movieTicketReservations.length > 0) {
-                    const pendingReservations =
-                        (<factory.chevre.reservation.IReservation<factory.chevre.reservationType.EventReservation>[]>
-                            (<any>authorizeSeatReservation.result).responseBody.object.reservations);
-                    state.purchaseData.pendingMovieTickets.push({
-                        id: authorizeSeatReservation.id,
-                        movieTickets: movieTicketReservations.map((r) => {
-                            const pendingReservation = pendingReservations.find((p) => {
-                                return (p.reservedTicket.ticketedSeat !== undefined
-                                    && p.reservedTicket.ticketedSeat.seatNumber === r.seat.seatNumber
-                                    && p.reservedTicket.ticketedSeat.seatSection === r.seat.seatSection);
-                            });
-                            if (pendingReservation === undefined
-                                || pendingReservation.reservedTicket.ticketedSeat === undefined) {
-                                throw new Error('pendingReservation is undefined');
-                            }
-                            const movieTicket =
-                                (<factory.paymentMethod.paymentCard.movieTicket.IMovieTicket>(<IReservationTicket>r.ticket).movieTicket);
-                            movieTicket.serviceOutput = {
-                                reservationFor: {
-                                    typeOf: factory.chevre.eventType.ScreeningEvent,
-                                    id: pendingReservation.reservationFor.id
-                                },
-                                reservedTicket: { ticketedSeat: pendingReservation.reservedTicket.ticketedSeat }
-                            };
-                            return movieTicket;
-                        })
-                    });
-                }
+            }
+            // 追加
+            state.purchaseData.authorizeSeatReservations.push(addAuthorizeSeatReservation);
+            const movieTicketReservations = reservations.filter(r => r.ticket !== undefined && r.ticket.movieTicket !== undefined);
+            if (movieTicketReservations.length > 0) {
+                const pendingReservations =
+                    (<factory.chevre.reservation.IReservation<factory.chevre.reservationType.EventReservation>[]>
+                        (<any>addAuthorizeSeatReservation.result).responseBody.object.reservations);
+                state.purchaseData.pendingMovieTickets.push({
+                    id: addAuthorizeSeatReservation.id,
+                    movieTickets: movieTicketReservations.map((r) => {
+                        const pendingReservation = pendingReservations.find((p) => {
+                            return (p.reservedTicket.ticketedSeat !== undefined
+                                && p.reservedTicket.ticketedSeat.seatNumber === r.seat.seatNumber
+                                && p.reservedTicket.ticketedSeat.seatSection === r.seat.seatSection);
+                        });
+                        if (pendingReservation === undefined
+                            || pendingReservation.reservedTicket.ticketedSeat === undefined) {
+                            throw new Error('pendingReservation is undefined');
+                        }
+                        const movieTicket =
+                            (<factory.paymentMethod.paymentCard.movieTicket.IMovieTicket>(<IReservationTicket>r.ticket).movieTicket);
+                        movieTicket.serviceOutput = {
+                            reservationFor: {
+                                typeOf: factory.chevre.eventType.ScreeningEvent,
+                                id: pendingReservation.reservationFor.id
+                            },
+                            reservedTicket: { ticketedSeat: pendingReservation.reservedTicket.ticketedSeat }
+                        };
+                        return movieTicket;
+                    })
+                });
             }
             return { ...state, loading: false, process: '', error: null };
         }

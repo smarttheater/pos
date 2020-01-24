@@ -3895,7 +3895,9 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
                     }
 
                     _context22.next = 20;
-                    return this.purchaseService.authorizeMovieTicket();
+                    return this.purchaseService.authorizeMovieTicket({
+                      seller: seller
+                    });
 
                   case 20:
                     _context22.next = 22;

@@ -353,11 +353,12 @@ export class PurchaseService {
     /**
      * ムビチケ承認
      */
-    public async authorizeMovieTicket() {
+    public async authorizeMovieTicket(params: {
+        seller: factory.seller.IOrganization<factory.seller.IAttributes<factory.organizationType>>
+    }) {
         const purchase = await this.getData();
         return new Promise<void>((resolve, reject) => {
-            if (purchase.transaction === undefined
-                || purchase.seller === undefined) {
+            if (purchase.transaction === undefined) {
                 reject();
                 return;
             }
@@ -366,7 +367,7 @@ export class PurchaseService {
                 authorizeMovieTicketPayments: purchase.authorizeMovieTicketPayments,
                 authorizeSeatReservations: purchase.authorizeSeatReservations,
                 pendingMovieTickets: purchase.pendingMovieTickets,
-                seller: purchase.seller
+                seller: params.seller
             }));
             const success = this.actions.pipe(
                 ofType(purchaseAction.ActionTypes.AuthorizeMovieTicketSuccess),

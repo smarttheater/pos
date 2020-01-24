@@ -65,18 +65,6 @@ jobs:
           command: |
             git remote add development-staging ${DEPLOY_TARGET_REPOSITORY_DEVELOPMENT}
             git push development-staging $CIRCLE_BRANCH:master -f -v
-  deploy2development-oyatsu-pos:
-    docker:
-      - image: circleci/node:latest
-    steps:
-      - checkout
-      - restore_cache:
-          key: dependency-cache-{{ checksum "package.json" }}
-      - run:
-          name: deploy to azure webapps development-oyatsu-pos
-          command: |
-            git remote add development-oyatsu-pos ${DEPLOY_TARGET_REPOSITORY_DEVELOPMENT_OYATSU_POS}
-            git push development-oyatsu-pos $CIRCLE_BRANCH:master -f -v
   prerelease:
     docker:
       - image: circleci/node:latest
@@ -141,30 +129,24 @@ workflows:
           filters:
             branches:
               only: develop
-      - deploy2development-oyatsu-pos:
+      - prerelease:
           requires:
             - test
           filters:
             branches:
-              only: develop
-      # - prerelease:
-      #     requires:
-      #       - test
-      #     filters:
-      #       branches:
-      #         only: /feature\/.+-alpha.+/
+              only: /feature\/.+-alpha.+/
       - prerelease-oyatsu-pos:
           requires:
             - test
           filters:
             branches:
               only: /feature\/.+-alpha.+/
-      # - deploy:
-      #     requires:
-      #       - test
-      #     filters:
-      #       branches:
-      #         only: master
+      - deploy:
+          requires:
+            - test
+          filters:
+            branches:
+              only: master
       - deploy-oyatsu-pos:
           requires:
             - test

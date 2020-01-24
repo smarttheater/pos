@@ -3,6 +3,8 @@ import { RouterModule, Routes } from '@angular/router';
 import { AuthGuardService } from '../../canActivates';
 import { SettingGuardService } from '../../canActivates/setting-guard.service';
 import { BaseComponent } from '../shared/components/pages/base/base.component';
+import { ReservationDownloadComponent } from './components/pages/reservation-download/reservation-download.component';
+import { ReservationIndexComponent } from './components/pages/reservation-index/reservation-index.component';
 import { ReservationSearchComponent } from './components/pages/reservation-search/reservation-search.component';
 
 
@@ -11,7 +13,9 @@ const routes: Routes = [{
   component: BaseComponent,
   canActivate: [AuthGuardService, SettingGuardService],
   children: [
-    { path: 'search', component: ReservationSearchComponent }
+    { path: '', component: ReservationIndexComponent },
+    { path: 'search', component: ReservationSearchComponent },
+    { path: 'download', component: ReservationDownloadComponent }
   ]
 }];
 
