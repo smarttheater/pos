@@ -10,7 +10,7 @@
         <li *ngIf="isVisible('setting')" class="p-3 border-bottom pointer" routerLink="/setting" (click)="close.emit()"><i class="fas fa-cog mr-2"></i>{{ 'menu.settings' | translate }}</li>
         <li *ngIf="isVisible('tasks')" class="p-3 border-bottom pointer" routerLink="/tasks" (click)="close.emit()"><i class="fas fa-flask mr-2"></i>{{ 'menu.tasks' | translate }}</li>
         <li *ngIf="isVisible('development')" class="p-3 border-bottom pointer" routerLink="/development" (click)="close.emit()"><i class="fas fa-flask mr-2"></i>{{ 'menu.development' | translate }}</li>
-        <li *ngIf="isVisible('instruction')" class="border-bottom pointer" (click)="close.emit()"><a [href]="environment.INSTRUCTION_URL" target="_blank" class="d-block p-3"><i class="far fa-file mr-2"></i>{{ 'menu.instruction' | translate }}</a></li>
+        <li *ngIf="isVisible('instruction')" class="border-bottom pointer" (click)="close.emit()"><a [href]="instructionUrl" target="_blank" class="d-block p-3"><i class="far fa-file mr-2"></i>{{ 'menu.instruction' | translate }}</a></li>
         <li *ngIf="isVisible('auth')" class="p-3 border-bottom pointer" (click)="signOut()"><i class="fas fa-sign-out-alt mr-2"></i>{{ 'menu.logout' | translate }}</li>
     </ul>
 </div>

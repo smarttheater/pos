@@ -92071,7 +92071,7 @@ function _classCallCheck2(instance, Constructor) { if (!(instance instanceof Con
     /* harmony default export */
 
 
-    __webpack_exports__["default"] = "<div class=\"cover\" [class.active]=\"isOpen\" (click)=\"close.emit()\"></div>\n\n<div class=\"menu text-white bg-dark\" [class.active]=\"isOpen\">\n    <ul>\n        <li *ngIf=\"isVisible('purchase')\" class=\"p-3 border-bottom pointer\" routerLink=\"/purchase/root\" (click)=\"close.emit()\"><i class=\"fas fa-shopping-cart mr-2\"></i>{{ 'menu.purchase' | translate }}</li>\n        <li *ngIf=\"isVisible('inquiry')\" class=\"p-3 border-bottom pointer\" routerLink=\"/inquiry/input\" (click)=\"close.emit()\"><i class=\"fas fa-search mr-2\"></i>{{ 'menu.inquiry' | translate }}</li>\n        <li *ngIf=\"isVisible('order')\" class=\"p-3 border-bottom pointer\" routerLink=\"/order\" (click)=\"close.emit()\"><i class=\"far fa-list-alt mr-2\"></i>{{ 'menu.order' | translate }}</li>\n        <li *ngIf=\"isVisible('reservation')\" class=\"p-3 border-bottom pointer\" routerLink=\"/reservation\" (click)=\"close.emit()\"><i class=\"far fa-list-alt mr-2\"></i>{{ 'menu.reservation' | translate }}</li>\n        <li *ngIf=\"isVisible('admission')\" class=\"p-3 border-bottom pointer\" routerLink=\"/admission/schedule\" (click)=\"close.emit()\"><i class=\"far fa-check-circle mr-2\"></i>{{ 'menu.admission' | translate }}</li>\n        <li *ngIf=\"isVisible('setting')\" class=\"p-3 border-bottom pointer\" routerLink=\"/setting\" (click)=\"close.emit()\"><i class=\"fas fa-cog mr-2\"></i>{{ 'menu.settings' | translate }}</li>\n        <li *ngIf=\"isVisible('tasks')\" class=\"p-3 border-bottom pointer\" routerLink=\"/tasks\" (click)=\"close.emit()\"><i class=\"fas fa-flask mr-2\"></i>{{ 'menu.tasks' | translate }}</li>\n        <li *ngIf=\"isVisible('development')\" class=\"p-3 border-bottom pointer\" routerLink=\"/development\" (click)=\"close.emit()\"><i class=\"fas fa-flask mr-2\"></i>{{ 'menu.development' | translate }}</li>\n        <li *ngIf=\"isVisible('instruction')\" class=\"border-bottom pointer\" (click)=\"close.emit()\"><a [href]=\"environment.INSTRUCTION_URL\" target=\"_blank\" class=\"d-block p-3\"><i class=\"far fa-file mr-2\"></i>{{ 'menu.instruction' | translate }}</a></li>\n        <li *ngIf=\"isVisible('auth')\" class=\"p-3 border-bottom pointer\" (click)=\"signOut()\"><i class=\"fas fa-sign-out-alt mr-2\"></i>{{ 'menu.logout' | translate }}</li>\n    </ul>\n</div>";
+    __webpack_exports__["default"] = "<div class=\"cover\" [class.active]=\"isOpen\" (click)=\"close.emit()\"></div>\n\n<div class=\"menu text-white bg-dark\" [class.active]=\"isOpen\">\n    <ul>\n        <li *ngIf=\"isVisible('purchase')\" class=\"p-3 border-bottom pointer\" routerLink=\"/purchase/root\" (click)=\"close.emit()\"><i class=\"fas fa-shopping-cart mr-2\"></i>{{ 'menu.purchase' | translate }}</li>\n        <li *ngIf=\"isVisible('inquiry')\" class=\"p-3 border-bottom pointer\" routerLink=\"/inquiry/input\" (click)=\"close.emit()\"><i class=\"fas fa-search mr-2\"></i>{{ 'menu.inquiry' | translate }}</li>\n        <li *ngIf=\"isVisible('order')\" class=\"p-3 border-bottom pointer\" routerLink=\"/order\" (click)=\"close.emit()\"><i class=\"far fa-list-alt mr-2\"></i>{{ 'menu.order' | translate }}</li>\n        <li *ngIf=\"isVisible('reservation')\" class=\"p-3 border-bottom pointer\" routerLink=\"/reservation\" (click)=\"close.emit()\"><i class=\"far fa-list-alt mr-2\"></i>{{ 'menu.reservation' | translate }}</li>\n        <li *ngIf=\"isVisible('admission')\" class=\"p-3 border-bottom pointer\" routerLink=\"/admission/schedule\" (click)=\"close.emit()\"><i class=\"far fa-check-circle mr-2\"></i>{{ 'menu.admission' | translate }}</li>\n        <li *ngIf=\"isVisible('setting')\" class=\"p-3 border-bottom pointer\" routerLink=\"/setting\" (click)=\"close.emit()\"><i class=\"fas fa-cog mr-2\"></i>{{ 'menu.settings' | translate }}</li>\n        <li *ngIf=\"isVisible('tasks')\" class=\"p-3 border-bottom pointer\" routerLink=\"/tasks\" (click)=\"close.emit()\"><i class=\"fas fa-flask mr-2\"></i>{{ 'menu.tasks' | translate }}</li>\n        <li *ngIf=\"isVisible('development')\" class=\"p-3 border-bottom pointer\" routerLink=\"/development\" (click)=\"close.emit()\"><i class=\"fas fa-flask mr-2\"></i>{{ 'menu.development' | translate }}</li>\n        <li *ngIf=\"isVisible('instruction')\" class=\"border-bottom pointer\" (click)=\"close.emit()\"><a [href]=\"instructionUrl\" target=\"_blank\" class=\"d-block p-3\"><i class=\"far fa-file mr-2\"></i>{{ 'menu.instruction' | translate }}</a></li>\n        <li *ngIf=\"isVisible('auth')\" class=\"p-3 border-bottom pointer\" (click)=\"signOut()\"><i class=\"fas fa-sign-out-alt mr-2\"></i>{{ 'menu.logout' | translate }}</li>\n    </ul>\n</div>";
     /***/
   },
 
@@ -105182,13 +105182,19 @@ function _classCallCheck2(instance, Constructor) { if (!(instance instanceof Con
     /* harmony import */
 
 
-    var _services__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(
+    var _functions__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(
+    /*! ../../../../../functions */
+    "./app/functions/index.ts");
+    /* harmony import */
+
+
+    var _services__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(
     /*! ../../../../../services */
     "./app/services/index.ts");
     /* harmony import */
 
 
-    var _services_cinerino_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(
+    var _services_cinerino_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(
     /*! ../../../../../services/cinerino.service */
     "./app/services/cinerino.service.ts");
 
@@ -105255,6 +105261,7 @@ function _classCallCheck2(instance, Constructor) { if (!(instance instanceof Con
         this.translate = translate;
         this.close = new _angular_core__WEBPACK_IMPORTED_MODULE_0__["EventEmitter"]();
         this.environment = _environments_environment__WEBPACK_IMPORTED_MODULE_2__["environment"];
+        this.instructionUrl = _environments_environment__WEBPACK_IMPORTED_MODULE_2__["environment"].INSTRUCTION_URL.replace('/storage', Object(_functions__WEBPACK_IMPORTED_MODULE_3__["getProject"])().storageUrl);
       }
 
       _createClass2(HeaderMenuComponent, [{
@@ -105318,9 +105325,9 @@ function _classCallCheck2(instance, Constructor) { if (!(instance instanceof Con
 
     HeaderMenuComponent.ctorParameters = function () {
       return [{
-        type: _services_cinerino_service__WEBPACK_IMPORTED_MODULE_4__["CinerinoService"]
+        type: _services_cinerino_service__WEBPACK_IMPORTED_MODULE_5__["CinerinoService"]
       }, {
-        type: _services__WEBPACK_IMPORTED_MODULE_3__["UtilService"]
+        type: _services__WEBPACK_IMPORTED_MODULE_4__["UtilService"]
       }, {
         type: _ngx_translate_core__WEBPACK_IMPORTED_MODULE_1__["TranslateService"]
       }];
@@ -105338,7 +105345,7 @@ function _classCallCheck2(instance, Constructor) { if (!(instance instanceof Con
       styles: [__importDefault(__webpack_require__(
       /*! ./header-menu.component.scss */
       "./app/modules/shared/components/parts/header-menu/header-menu.component.scss"))["default"]]
-    }), __metadata("design:paramtypes", [_services_cinerino_service__WEBPACK_IMPORTED_MODULE_4__["CinerinoService"], _services__WEBPACK_IMPORTED_MODULE_3__["UtilService"], _ngx_translate_core__WEBPACK_IMPORTED_MODULE_1__["TranslateService"]])], HeaderMenuComponent);
+    }), __metadata("design:paramtypes", [_services_cinerino_service__WEBPACK_IMPORTED_MODULE_5__["CinerinoService"], _services__WEBPACK_IMPORTED_MODULE_4__["UtilService"], _ngx_translate_core__WEBPACK_IMPORTED_MODULE_1__["TranslateService"]])], HeaderMenuComponent);
     /***/
   },
 
@@ -109692,7 +109699,7 @@ function _classCallCheck2(instance, Constructor) { if (!(instance instanceof Con
     !*** ./app/services/index.ts ***!
     \*******************************/
 
-  /*! exports provided: CinerinoService, AdmissionService, PurchaseService, UserService, MasterService, OrderService, ReservationService, UtilService, StarPrintService, DownloadService, QRCodeService */
+  /*! exports provided: AdmissionService, CinerinoService, PurchaseService, UserService, MasterService, OrderService, ReservationService, UtilService, StarPrintService, DownloadService, QRCodeService */
 
   /***/
   function appServicesIndexTs(module, __webpack_exports__, __webpack_require__) {
