@@ -123,7 +123,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       function DevelopmentIndexComponent() {
         _classCallCheck(this, DevelopmentIndexComponent);
 
-        this.environment = _environments_environment__WEBPACK_IMPORTED_MODULE_1__["environment"];
+        this.environment = Object(_environments_environment__WEBPACK_IMPORTED_MODULE_1__["getEnvironment"])();
       }
 
       _createClass(DevelopmentIndexComponent, [{
@@ -272,7 +272,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
         this.store = store;
         this.purchaseService = purchaseService;
-        this.environment = _environments_environment__WEBPACK_IMPORTED_MODULE_2__["environment"];
+        this.environment = Object(_environments_environment__WEBPACK_IMPORTED_MODULE_2__["getEnvironment"])();
       }
 
       _createClass(DevelopmentScreenComponent, [{

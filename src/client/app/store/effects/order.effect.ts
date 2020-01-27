@@ -4,7 +4,7 @@ import { Actions, Effect, ofType } from '@ngrx/effects';
 import { TranslateService } from '@ngx-translate/core';
 import * as moment from 'moment';
 import { map, mergeMap } from 'rxjs/operators';
-import { environment } from '../../../environments/environment';
+import { getEnvironment } from '../../../environments/environment';
 import { createPrintCanvas, createTestPrintCanvas, formatTelephone, getProject, getTicketPrice, retry, sleep } from '../../functions';
 import { connectionType, ITicketPrintData, PrintQrcodeType } from '../../models';
 import { CinerinoService, StarPrintService, UtilService } from '../../services';
@@ -33,6 +33,7 @@ export class OrderEffects {
         map(action => action.payload),
         mergeMap(async (payload) => {
             const orders = payload.orders;
+            const environment = getEnvironment();
             try {
                 await this.cinerino.getServices();
                 for (const order of orders) {
@@ -137,6 +138,7 @@ export class OrderEffects {
         ofType<orderAction.Inquiry>(orderAction.ActionTypes.Inquiry),
         map(action => action.payload),
         mergeMap(async (payload) => {
+            const environment = getEnvironment();
             try {
                 await this.cinerino.getServices();
                 const now = (await this.utilService.getServerTime()).date;
@@ -177,6 +179,7 @@ export class OrderEffects {
                 const orders = payload.orders;
                 const printer = payload.printer;
                 const pos = payload.pos;
+                const environment = getEnvironment();
                 if (printer.connectionType === connectionType.None) {
                     return new orderAction.PrintSuccess();
                 }

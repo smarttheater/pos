@@ -5,7 +5,7 @@ import { Actions, Effect, ofType } from '@ngrx/effects';
 import { TranslateService } from '@ngx-translate/core';
 import * as moment from 'moment';
 import { map, mergeMap } from 'rxjs/operators';
-import { environment } from '../../../environments/environment';
+import { getEnvironment } from '../../../environments/environment';
 import {
     authorizeSeatReservationToEvent,
     createMovieTicketsFromAuthorizeSeatReservation,
@@ -485,6 +485,7 @@ export class PurchaseEffects {
             const seller = payload.seller;
             try {
                 await this.cinerinoService.getServices();
+                const environment = getEnvironment();
                 const params: factory.transaction.placeOrder.IConfirmParams & {
                     sendEmailMessage?: boolean;
                     email?: factory.creativeWork.message.email.ICustomization;

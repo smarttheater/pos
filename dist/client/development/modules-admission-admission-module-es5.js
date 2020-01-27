@@ -404,7 +404,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
         this.qrcodeService = qrcodeService;
         this.translate = translate;
         this.moment = moment__WEBPACK_IMPORTED_MODULE_3__;
-        this.environment = _environments_environment__WEBPACK_IMPORTED_MODULE_4__["environment"];
+        this.environment = Object(_environments_environment__WEBPACK_IMPORTED_MODULE_4__["getEnvironment"])();
       }
 
       _createClass(AdmissionCheckComponent, [{
@@ -1012,7 +1012,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
         this.select = new _angular_core__WEBPACK_IMPORTED_MODULE_0__["EventEmitter"]();
         this.moment = moment__WEBPACK_IMPORTED_MODULE_1__;
-        this.environment = _environments_environment__WEBPACK_IMPORTED_MODULE_2__["environment"];
+        this.environment = Object(_environments_environment__WEBPACK_IMPORTED_MODULE_2__["getEnvironment"])();
       }
 
       _createClass(AdmissionScheduleWorkComponent, [{

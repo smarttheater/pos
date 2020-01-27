@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { environment } from '../../../../../../environments/environment';
+import { getEnvironment } from '../../../../../../environments/environment';
 import { CinerinoService } from '../../../../../services/cinerino.service';
 
 @Component({
@@ -9,7 +9,7 @@ import { CinerinoService } from '../../../../../services/cinerino.service';
     styleUrls: ['./auth-index.component.scss']
 })
 export class AuthIndexComponent implements OnInit {
-    public environment = environment;
+    public environment = getEnvironment();
 
     constructor(
         private cinerino: CinerinoService,

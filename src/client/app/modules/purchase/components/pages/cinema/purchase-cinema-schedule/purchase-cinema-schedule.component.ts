@@ -8,7 +8,7 @@ import * as moment from 'moment';
 import { BsDatepickerDirective, BsLocaleService, BsModalService } from 'ngx-bootstrap';
 import { BsDatepickerContainerComponent } from 'ngx-bootstrap/datepicker/themes/bs/bs-datepicker-container.component';
 import { Observable } from 'rxjs';
-import { environment } from '../../../../../../../environments/environment';
+import { getEnvironment } from '../../../../../../../environments/environment';
 import { iOSDatepickerTapBugFix, IScreeningEventWork, screeningEventsToWorkEvents } from '../../../../../../functions';
 import { MasterService, PurchaseService, UserService, UtilService } from '../../../../../../services';
 import * as reducers from '../../../../../../store/reducers';
@@ -29,7 +29,7 @@ export class PurchaseCinemaScheduleComponent implements OnInit, OnDestroy {
     public screeningWorkEvents: IScreeningEventWork[];
     public moment = moment;
     public scheduleDate: Date;
-    public environment = environment;
+    public environment = getEnvironment();
     private updateTimer: any;
     @ViewChild('datepicker', { static: true }) private datepicker: BsDatepickerDirective;
 

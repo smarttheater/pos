@@ -4,7 +4,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
-import { environment } from '../../environments/environment';
+import { getEnvironment } from '../../environments/environment';
 
 declare const ga: Function;
 
@@ -13,7 +13,7 @@ declare const ga: Function;
     templateUrl: './app.component.html'
 })
 export class AppComponent implements OnInit {
-    public environment = environment;
+    public environment = getEnvironment();
 
     constructor(
         private router: Router,

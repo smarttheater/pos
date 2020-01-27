@@ -247,7 +247,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
         this.orderStatus = _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_1__["factory"].orderStatus;
         this.paymentMethodType = _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_1__["factory"].paymentMethodType;
         this.buildQueryString = _functions__WEBPACK_IMPORTED_MODULE_7__["buildQueryString"];
-        this.environment = _environments_environment__WEBPACK_IMPORTED_MODULE_6__["environment"];
+        this.environment = Object(_environments_environment__WEBPACK_IMPORTED_MODULE_6__["getEnvironment"])();
         this.encodingFormat = _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_1__["factory"].encodingFormat;
         this.orderToEventOrders = _functions__WEBPACK_IMPORTED_MODULE_7__["orderToEventOrders"];
         this.csvFormat = _models__WEBPACK_IMPORTED_MODULE_8__["CsvFormat"];
@@ -830,7 +830,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
         this.orderStatus = _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_2__["factory"].orderStatus;
         this.paymentMethodType = _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_2__["factory"].paymentMethodType;
         this.OrderActions = _models__WEBPACK_IMPORTED_MODULE_9__["OrderActions"];
-        this.environment = _environments_environment__WEBPACK_IMPORTED_MODULE_7__["environment"];
+        this.environment = Object(_environments_environment__WEBPACK_IMPORTED_MODULE_7__["getEnvironment"])();
         this.orderToEventOrders = _functions__WEBPACK_IMPORTED_MODULE_8__["orderToEventOrders"];
       }
 

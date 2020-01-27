@@ -7,7 +7,7 @@ import * as moment from 'moment';
 import { BsDatepickerDirective, BsLocaleService, BsModalService } from 'ngx-bootstrap';
 import { BsDatepickerContainerComponent } from 'ngx-bootstrap/datepicker/themes/bs/bs-datepicker-container.component';
 import { Observable } from 'rxjs';
-import { environment } from '../../../../../../environments/environment';
+import { getEnvironment } from '../../../../../../environments/environment';
 import { iOSDatepickerTapBugFix, orderToEventOrders } from '../../../../../functions';
 import { IOrderSearchConditions, OrderActions } from '../../../../../models';
 import { OrderService, UserService, UtilService } from '../../../../../services';
@@ -35,7 +35,7 @@ export class OrderSearchComponent implements OnInit {
     public selectedOrders: factory.order.IOrder[];
     public OrderActions: typeof OrderActions = OrderActions;
     public actionSelect: OrderActions | '';
-    public environment = environment;
+    public environment = getEnvironment();
     public orderToEventOrders = orderToEventOrders;
     @ViewChild('orderDateFrom', { static: true }) private orderDateFrom: BsDatepickerDirective;
     @ViewChild('orderDateThrough', { static: true }) private orderDateThrough: BsDatepickerDirective;

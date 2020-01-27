@@ -1,6 +1,6 @@
 import { factory } from '@cinerino/api-javascript-client';
 import * as moment from 'moment';
-import { environment } from '../../environments/environment';
+import { getEnvironment } from '../../environments/environment';
 import { IMovieTicket } from '../models';
 
 export interface IScreeningEventWork {
@@ -415,6 +415,7 @@ export function isScheduleStatusThreshold(
         maximumAttendeeCapacity = Number(limitSeatNumber.value);
     }
     let result = false;
+    const environment = getEnvironment();
     const unit = environment.PURCHASE_SCHEDULE_STATUS_THRESHOLD_UNIT;
     const value = Number(environment.PURCHASE_SCHEDULE_STATUS_THRESHOLD_VALUE);
     if (unit === '%') {

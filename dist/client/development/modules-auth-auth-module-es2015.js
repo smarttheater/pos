@@ -202,7 +202,7 @@ let AuthIndexComponent = class AuthIndexComponent {
     constructor(cinerino, router) {
         this.cinerino = cinerino;
         this.router = router;
-        this.environment = _environments_environment__WEBPACK_IMPORTED_MODULE_2__["environment"];
+        this.environment = Object(_environments_environment__WEBPACK_IMPORTED_MODULE_2__["getEnvironment"])();
     }
     ngOnInit() {
         return __awaiter(this, void 0, void 0, function* () {

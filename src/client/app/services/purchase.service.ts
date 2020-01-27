@@ -5,7 +5,7 @@ import { select, Store } from '@ngrx/store';
 import * as moment from 'moment';
 import { Observable, race } from 'rxjs';
 import { take, tap } from 'rxjs/operators';
-import { environment } from '../../environments/environment';
+import { getEnvironment } from '../../environments/environment';
 import { IReservationSeat, IReservationTicket, Reservation } from '../models';
 import { purchaseAction } from '../store/actions';
 import * as reducers from '../store/reducers';
@@ -81,6 +81,7 @@ export class PurchaseService {
         seller: factory.seller.IOrganization<factory.seller.IAttributes<factory.organizationType>>;
         pos?: factory.seller.IPOS;
     }) {
+        const environment = getEnvironment();
         const now = (await this.utilService.getServerTime()).date;
         return new Promise<void>((resolve, reject) => {
             this.store.dispatch(new purchaseAction.StartTransaction({

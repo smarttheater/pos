@@ -216,7 +216,7 @@ let AdmissionCheckComponent = class AdmissionCheckComponent {
         this.qrcodeService = qrcodeService;
         this.translate = translate;
         this.moment = moment__WEBPACK_IMPORTED_MODULE_3__;
-        this.environment = _environments_environment__WEBPACK_IMPORTED_MODULE_4__["environment"];
+        this.environment = Object(_environments_environment__WEBPACK_IMPORTED_MODULE_4__["getEnvironment"])();
     }
     ngOnInit() {
         this.inputCode = '';
@@ -538,7 +538,7 @@ let AdmissionScheduleWorkComponent = class AdmissionScheduleWorkComponent {
     constructor() {
         this.select = new _angular_core__WEBPACK_IMPORTED_MODULE_0__["EventEmitter"]();
         this.moment = moment__WEBPACK_IMPORTED_MODULE_1__;
-        this.environment = _environments_environment__WEBPACK_IMPORTED_MODULE_2__["environment"];
+        this.environment = Object(_environments_environment__WEBPACK_IMPORTED_MODULE_2__["getEnvironment"])();
     }
     ngOnInit() { }
 };
