@@ -12,6 +12,10 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/).
 
 ### Security
 
+## 3.0.2 - 2020-01-28
+### Fixed
+ - 初期ロード時の処理改修
+
 ## 3.0.1 - 2020-01-24
 ### Changed
  - 注文・予約検索をtotalCountに依存しないように変更
