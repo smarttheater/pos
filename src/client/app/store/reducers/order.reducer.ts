@@ -15,6 +15,7 @@ export const orderInitialState: IOrderState = {};
  * @param action
  */
 export function reducer(state: IState, action: orderAction.Actions): IState {
+    const environment = getEnvironment();
     switch (action.type) {
         case orderAction.ActionTypes.Delete: {
             state.orderData = {};
@@ -56,7 +57,7 @@ export function reducer(state: IState, action: orderAction.Actions): IState {
             return { ...state, loading: false, process: '', error: JSON.stringify(error) };
         }
         case orderAction.ActionTypes.Print: {
-            return { ...state, loading: getEnvironment().PRINT_LOADING, process: 'orderAction.Print' };
+            return { ...state, loading: environment.PRINT_LOADING, process: 'orderAction.Print' };
         }
         case orderAction.ActionTypes.PrintSuccess: {
             return { ...state, loading: false, process: '', error: null };

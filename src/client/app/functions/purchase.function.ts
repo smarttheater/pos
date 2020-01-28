@@ -415,8 +415,9 @@ export function isScheduleStatusThreshold(
         maximumAttendeeCapacity = Number(limitSeatNumber.value);
     }
     let result = false;
-    const unit = getEnvironment().PURCHASE_SCHEDULE_STATUS_THRESHOLD_UNIT;
-    const value = Number(getEnvironment().PURCHASE_SCHEDULE_STATUS_THRESHOLD_VALUE);
+    const environment = getEnvironment();
+    const unit = environment.PURCHASE_SCHEDULE_STATUS_THRESHOLD_UNIT;
+    const value = Number(environment.PURCHASE_SCHEDULE_STATUS_THRESHOLD_VALUE);
     if (unit === '%') {
         switch (status) {
             case 'success':

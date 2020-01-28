@@ -230,5 +230,10 @@ const defaultEnvironment: IEnvironment = {
 };
 
 export function getEnvironment(): IEnvironment {
-    return { ...defaultEnvironment, ...(<any>window).environment, production: (document.querySelector('body.production') !== null) };
+    const environment = {
+        ...defaultEnvironment,
+        ...(<any>window).environment,
+        production: (document.querySelector('body.production') !== null)
+    };
+    return environment;
 }

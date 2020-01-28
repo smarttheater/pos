@@ -50,6 +50,7 @@ export class AdmissionEffects {
             // console.log(payload);
             const code = payload.code;
             const screeningEvent = payload.screeningEvent;
+            const environment = getEnvironment();
             try {
                 await this.cinerino.getServices();
                 const getTokenResult = await this.cinerino.admin.ownershipInfo.getToken({ code })
@@ -73,7 +74,7 @@ export class AdmissionEffects {
                             typeOf: factory.chevre.reservationType.EventReservation,
                             page,
                             limit,
-                            project: { ids: [getEnvironment().PROJECT_ID] },
+                            project: { ids: [environment.PROJECT_ID] },
                             reservationStatuses: [factory.chevre.reservationStatusType.ReservationConfirmed],
                             reservationFor: {
                                 typeOf: factory.chevre.eventType.ScreeningEvent,

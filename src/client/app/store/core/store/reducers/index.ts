@@ -31,7 +31,8 @@ export function main(reducer: ActionReducer<IState>) {
  * Logger
  */
 export function logger(newState: any, action: any) {
-    if (!getEnvironment().production) {
+    const environment = getEnvironment();
+    if (!environment.production) {
         console.log('logger action', action);
         console.log('logger newState', newState);
     }
@@ -46,7 +47,8 @@ export function storageSync(state: any) {
         || Object.keys(state).length === 0) {
         return;
     }
-    (<Storage>(<any>window)[getEnvironment().STORAGE_TYPE]).setItem(getEnvironment().STORAGE_NAME, JSON.stringify(state));
+    const environment = getEnvironment();
+    (<Storage>(<any>window)[environment.STORAGE_TYPE]).setItem(environment.STORAGE_NAME, JSON.stringify(state));
 }
 
 /**

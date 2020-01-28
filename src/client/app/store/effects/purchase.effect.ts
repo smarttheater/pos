@@ -485,6 +485,7 @@ export class PurchaseEffects {
             const seller = payload.seller;
             try {
                 await this.cinerinoService.getServices();
+                const environment = getEnvironment();
                 const params: factory.transaction.placeOrder.IConfirmParams & {
                     sendEmailMessage?: boolean;
                     email?: factory.creativeWork.message.email.ICustomization;
@@ -509,7 +510,7 @@ export class PurchaseEffects {
                         template: undefined
                     }
                 };
-                if (getEnvironment().PURCHASE_COMPLETE_MAIL_CUSTOM && params.email !== undefined) {
+                if (environment.PURCHASE_COMPLETE_MAIL_CUSTOM && params.email !== undefined) {
                     // 完了メールをカスタマイズ
                     const view = await this.utilService.getText(`${getProject().storageUrl}/ejs/mail/complete/${payload.language}.ejs`);
                     params.email.template = await (<any>window).ejs.render(view, {

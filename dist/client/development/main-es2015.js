@@ -438,7 +438,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("<div class=\"cover\" [class.active]=\"isOpen\" (click)=\"close.emit()\"></div>\n\n<div class=\"menu text-white bg-dark\" [class.active]=\"isOpen\">\n    <ul>\n        <li *ngIf=\"isVisible('purchase')\" class=\"p-3 border-bottom pointer\" routerLink=\"/purchase/root\" (click)=\"close.emit()\"><i class=\"fas fa-shopping-cart mr-2\"></i>{{ 'menu.purchase' | translate }}</li>\n        <li *ngIf=\"isVisible('inquiry')\" class=\"p-3 border-bottom pointer\" routerLink=\"/inquiry/input\" (click)=\"close.emit()\"><i class=\"fas fa-search mr-2\"></i>{{ 'menu.inquiry' | translate }}</li>\n        <li *ngIf=\"isVisible('order')\" class=\"p-3 border-bottom pointer\" routerLink=\"/order\" (click)=\"close.emit()\"><i class=\"far fa-list-alt mr-2\"></i>{{ 'menu.order' | translate }}</li>\n        <li *ngIf=\"isVisible('reservation')\" class=\"p-3 border-bottom pointer\" routerLink=\"/reservation\" (click)=\"close.emit()\"><i class=\"far fa-list-alt mr-2\"></i>{{ 'menu.reservation' | translate }}</li>\n        <li *ngIf=\"isVisible('admission')\" class=\"p-3 border-bottom pointer\" routerLink=\"/admission/schedule\" (click)=\"close.emit()\"><i class=\"far fa-check-circle mr-2\"></i>{{ 'menu.admission' | translate }}</li>\n        <li *ngIf=\"isVisible('setting')\" class=\"p-3 border-bottom pointer\" routerLink=\"/setting\" (click)=\"close.emit()\"><i class=\"fas fa-cog mr-2\"></i>{{ 'menu.settings' | translate }}</li>\n        <li *ngIf=\"isVisible('tasks')\" class=\"p-3 border-bottom pointer\" routerLink=\"/tasks\" (click)=\"close.emit()\"><i class=\"fas fa-flask mr-2\"></i>{{ 'menu.tasks' | translate }}</li>\n        <li *ngIf=\"isVisible('development')\" class=\"p-3 border-bottom pointer\" routerLink=\"/development\" (click)=\"close.emit()\"><i class=\"fas fa-flask mr-2\"></i>{{ 'menu.development' | translate }}</li>\n        <li *ngIf=\"isVisible('instruction')\" class=\"border-bottom pointer\" (click)=\"close.emit()\"><a [href]=\"environment.INSTRUCTION_URL\" target=\"_blank\" class=\"d-block p-3\"><i class=\"far fa-file mr-2\"></i>{{ 'menu.instruction' | translate }}</a></li>\n        <li *ngIf=\"isVisible('auth')\" class=\"p-3 border-bottom pointer\" (click)=\"signOut()\"><i class=\"fas fa-sign-out-alt mr-2\"></i>{{ 'menu.logout' | translate }}</li>\n    </ul>\n</div>");
+/* harmony default export */ __webpack_exports__["default"] = ("<div class=\"cover\" [class.active]=\"isOpen\" (click)=\"close.emit()\"></div>\n\n<div class=\"menu text-white bg-dark\" [class.active]=\"isOpen\">\n    <ul>\n        <li *ngIf=\"isVisible('purchase')\" class=\"p-3 border-bottom pointer\" routerLink=\"/purchase/root\" (click)=\"close.emit()\"><i class=\"fas fa-shopping-cart mr-2\"></i>{{ 'menu.purchase' | translate }}</li>\n        <li *ngIf=\"isVisible('inquiry')\" class=\"p-3 border-bottom pointer\" routerLink=\"/inquiry/input\" (click)=\"close.emit()\"><i class=\"fas fa-search mr-2\"></i>{{ 'menu.inquiry' | translate }}</li>\n        <li *ngIf=\"isVisible('order')\" class=\"p-3 border-bottom pointer\" routerLink=\"/order\" (click)=\"close.emit()\"><i class=\"far fa-list-alt mr-2\"></i>{{ 'menu.order' | translate }}</li>\n        <li *ngIf=\"isVisible('reservation')\" class=\"p-3 border-bottom pointer\" routerLink=\"/reservation\" (click)=\"close.emit()\"><i class=\"far fa-list-alt mr-2\"></i>{{ 'menu.reservation' | translate }}</li>\n        <li *ngIf=\"isVisible('admission')\" class=\"p-3 border-bottom pointer\" routerLink=\"/admission/schedule\" (click)=\"close.emit()\"><i class=\"far fa-check-circle mr-2\"></i>{{ 'menu.admission' | translate }}</li>\n        <li *ngIf=\"isVisible('setting')\" class=\"p-3 border-bottom pointer\" routerLink=\"/setting\" (click)=\"close.emit()\"><i class=\"fas fa-cog mr-2\"></i>{{ 'menu.settings' | translate }}</li>\n        <li *ngIf=\"isVisible('tasks')\" class=\"p-3 border-bottom pointer\" routerLink=\"/tasks\" (click)=\"close.emit()\"><i class=\"fas fa-flask mr-2\"></i>{{ 'menu.tasks' | translate }}</li>\n        <li *ngIf=\"isVisible('development')\" class=\"p-3 border-bottom pointer\" routerLink=\"/development\" (click)=\"close.emit()\"><i class=\"fas fa-flask mr-2\"></i>{{ 'menu.development' | translate }}</li>\n        <li *ngIf=\"isVisible('instruction')\" class=\"border-bottom pointer\" (click)=\"close.emit()\"><a [href]=\"instructionUrl\" target=\"_blank\" class=\"d-block p-3\"><i class=\"far fa-file mr-2\"></i>{{ 'menu.instruction' | translate }}</a></li>\n        <li *ngIf=\"isVisible('auth')\" class=\"p-3 border-bottom pointer\" (click)=\"signOut()\"><i class=\"fas fa-sign-out-alt mr-2\"></i>{{ 'menu.logout' | translate }}</li>\n    </ul>\n</div>");
 
 /***/ }),
 
@@ -1207,7 +1207,8 @@ function createTestPrintCanvas(args) {
 function createRegiGrowQrcode(order) {
     return __awaiter(this, void 0, void 0, function* () {
         const canvas = document.createElement('canvas');
-        let qrcodeText = Object(_environments_environment__WEBPACK_IMPORTED_MODULE_3__["getEnvironment"])().REGIGROW_QRCODE;
+        const environment = Object(_environments_environment__WEBPACK_IMPORTED_MODULE_3__["getEnvironment"])();
+        let qrcodeText = environment.REGIGROW_QRCODE;
         qrcodeText = qrcodeText
             .replace(/\{\{ orderNumber \}\}/g, order.orderNumber);
         qrcodeText = qrcodeText
@@ -1660,8 +1661,9 @@ function isScheduleStatusThreshold(screeningEvent, status) {
         maximumAttendeeCapacity = Number(limitSeatNumber.value);
     }
     let result = false;
-    const unit = Object(_environments_environment__WEBPACK_IMPORTED_MODULE_2__["getEnvironment"])().PURCHASE_SCHEDULE_STATUS_THRESHOLD_UNIT;
-    const value = Number(Object(_environments_environment__WEBPACK_IMPORTED_MODULE_2__["getEnvironment"])().PURCHASE_SCHEDULE_STATUS_THRESHOLD_VALUE);
+    const environment = Object(_environments_environment__WEBPACK_IMPORTED_MODULE_2__["getEnvironment"])();
+    const unit = environment.PURCHASE_SCHEDULE_STATUS_THRESHOLD_UNIT;
+    const value = Number(environment.PURCHASE_SCHEDULE_STATUS_THRESHOLD_VALUE);
     if (unit === '%') {
         switch (status) {
             case 'success':
@@ -3400,8 +3402,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "../../node_modules/@angular/core/fesm2015/core.js");
 /* harmony import */ var _ngx_translate_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @ngx-translate/core */ "../../node_modules/@ngx-translate/core/fesm2015/ngx-translate-core.js");
 /* harmony import */ var _environments_environment__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../../../environments/environment */ "./environments/environment.ts");
-/* harmony import */ var _services__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../../../services */ "./app/services/index.ts");
-/* harmony import */ var _services_cinerino_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../../../services/cinerino.service */ "./app/services/cinerino.service.ts");
+/* harmony import */ var _functions__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../../../functions */ "./app/functions/index.ts");
+/* harmony import */ var _services__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../../../services */ "./app/services/index.ts");
+/* harmony import */ var _services_cinerino_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../../../../services/cinerino.service */ "./app/services/cinerino.service.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -3430,6 +3433,7 @@ var __importDefault = (undefined && undefined.__importDefault) || function (mod)
 
 
 
+
 let HeaderMenuComponent = class HeaderMenuComponent {
     constructor(cinerino, utilService, translate) {
         this.cinerino = cinerino;
@@ -3437,6 +3441,7 @@ let HeaderMenuComponent = class HeaderMenuComponent {
         this.translate = translate;
         this.close = new _angular_core__WEBPACK_IMPORTED_MODULE_0__["EventEmitter"]();
         this.environment = Object(_environments_environment__WEBPACK_IMPORTED_MODULE_2__["getEnvironment"])();
+        this.instructionUrl = Object(_environments_environment__WEBPACK_IMPORTED_MODULE_2__["getEnvironment"])().INSTRUCTION_URL.replace('/storage', Object(_functions__WEBPACK_IMPORTED_MODULE_3__["getProject"])().storageUrl);
     }
     ngOnInit() {
     }
@@ -3461,8 +3466,8 @@ let HeaderMenuComponent = class HeaderMenuComponent {
     }
 };
 HeaderMenuComponent.ctorParameters = () => [
-    { type: _services_cinerino_service__WEBPACK_IMPORTED_MODULE_4__["CinerinoService"] },
-    { type: _services__WEBPACK_IMPORTED_MODULE_3__["UtilService"] },
+    { type: _services_cinerino_service__WEBPACK_IMPORTED_MODULE_5__["CinerinoService"] },
+    { type: _services__WEBPACK_IMPORTED_MODULE_4__["UtilService"] },
     { type: _ngx_translate_core__WEBPACK_IMPORTED_MODULE_1__["TranslateService"] }
 ];
 __decorate([
@@ -3479,8 +3484,8 @@ HeaderMenuComponent = __decorate([
         template: __importDefault(__webpack_require__(/*! raw-loader!./header-menu.component.html */ "../../node_modules/raw-loader/dist/cjs.js!./app/modules/shared/components/parts/header-menu/header-menu.component.html")).default,
         styles: [__importDefault(__webpack_require__(/*! ./header-menu.component.scss */ "./app/modules/shared/components/parts/header-menu/header-menu.component.scss")).default]
     }),
-    __metadata("design:paramtypes", [_services_cinerino_service__WEBPACK_IMPORTED_MODULE_4__["CinerinoService"],
-        _services__WEBPACK_IMPORTED_MODULE_3__["UtilService"],
+    __metadata("design:paramtypes", [_services_cinerino_service__WEBPACK_IMPORTED_MODULE_5__["CinerinoService"],
+        _services__WEBPACK_IMPORTED_MODULE_4__["UtilService"],
         _ngx_translate_core__WEBPACK_IMPORTED_MODULE_1__["TranslateService"]])
 ], HeaderMenuComponent);
 
@@ -6481,10 +6486,11 @@ let PurchaseService = class PurchaseService {
      */
     startTransaction(params) {
         return __awaiter(this, void 0, void 0, function* () {
+            const environment = Object(_environments_environment__WEBPACK_IMPORTED_MODULE_7__["getEnvironment"])();
             const now = (yield this.utilService.getServerTime()).date;
             return new Promise((resolve, reject) => {
                 this.store.dispatch(new _store_actions__WEBPACK_IMPORTED_MODULE_9__["purchaseAction"].StartTransaction({
-                    expires: moment__WEBPACK_IMPORTED_MODULE_4__(now).add(Object(_environments_environment__WEBPACK_IMPORTED_MODULE_7__["getEnvironment"])().PURCHASE_TRANSACTION_TIME, 'minutes').toDate(),
+                    expires: moment__WEBPACK_IMPORTED_MODULE_4__(now).add(environment.PURCHASE_TRANSACTION_TIME, 'minutes').toDate(),
                     seller: { typeOf: params.seller.typeOf, id: params.seller.id },
                     object: {},
                     agent: (params.pos === undefined)
@@ -9035,7 +9041,8 @@ function main(reducer) {
  * Logger
  */
 function logger(newState, action) {
-    if (!Object(_environments_environment__WEBPACK_IMPORTED_MODULE_0__["getEnvironment"])().production) {
+    const environment = Object(_environments_environment__WEBPACK_IMPORTED_MODULE_0__["getEnvironment"])();
+    if (!environment.production) {
         console.log('logger action', action);
         console.log('logger newState', newState);
     }
@@ -9049,7 +9056,8 @@ function storageSync(state) {
         || Object.keys(state).length === 0) {
         return;
     }
-    window[Object(_environments_environment__WEBPACK_IMPORTED_MODULE_0__["getEnvironment"])().STORAGE_TYPE].setItem(Object(_environments_environment__WEBPACK_IMPORTED_MODULE_0__["getEnvironment"])().STORAGE_NAME, JSON.stringify(state));
+    const environment = Object(_environments_environment__WEBPACK_IMPORTED_MODULE_0__["getEnvironment"])();
+    window[environment.STORAGE_TYPE].setItem(environment.STORAGE_NAME, JSON.stringify(state));
 }
 /**
  * Meta reducer
@@ -9138,6 +9146,7 @@ let AdmissionEffects = class AdmissionEffects {
             // console.log(payload);
             const code = payload.code;
             const screeningEvent = payload.screeningEvent;
+            const environment = Object(_environments_environment__WEBPACK_IMPORTED_MODULE_6__["getEnvironment"])();
             try {
                 yield this.cinerino.getServices();
                 const getTokenResult = yield this.cinerino.admin.ownershipInfo.getToken({ code })
@@ -9158,7 +9167,7 @@ let AdmissionEffects = class AdmissionEffects {
                         typeOf: _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_1__["factory"].chevre.reservationType.EventReservation,
                         page,
                         limit,
-                        project: { ids: [Object(_environments_environment__WEBPACK_IMPORTED_MODULE_6__["getEnvironment"])().PROJECT_ID] },
+                        project: { ids: [environment.PROJECT_ID] },
                         reservationStatuses: [_cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_1__["factory"].chevre.reservationStatusType.ReservationConfirmed],
                         reservationFor: {
                             typeOf: _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_1__["factory"].chevre.eventType.ScreeningEvent,
@@ -9498,6 +9507,7 @@ let OrderEffects = class OrderEffects {
          */
         this.cancel = this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_actions__WEBPACK_IMPORTED_MODULE_10__["orderAction"].ActionTypes.Cancel), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["map"])(action => action.payload), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["mergeMap"])((payload) => __awaiter(this, void 0, void 0, function* () {
             const orders = payload.orders;
+            const environment = Object(_environments_environment__WEBPACK_IMPORTED_MODULE_6__["getEnvironment"])();
             try {
                 yield this.cinerino.getServices();
                 for (const order of orders) {
@@ -9530,7 +9540,7 @@ let OrderEffects = class OrderEffects {
                             ? undefined : this.translate.instant('email.order.return.about'),
                         template: undefined
                     };
-                    if (Object(_environments_environment__WEBPACK_IMPORTED_MODULE_6__["getEnvironment"])().PURCHASE_COMPLETE_MAIL_CUSTOM) {
+                    if (environment.PURCHASE_COMPLETE_MAIL_CUSTOM) {
                         // メールをカスタマイズ
                         const view = yield this.utilService.getText(`${Object(_functions__WEBPACK_IMPORTED_MODULE_7__["getProject"])().storageUrl}/ejs/mail/return/${payload.language}.ejs`);
                         const template = yield window.ejs.render(view, { moment: moment__WEBPACK_IMPORTED_MODULE_4__, formatTelephone: _functions__WEBPACK_IMPORTED_MODULE_7__["formatTelephone"], getTicketPrice: _functions__WEBPACK_IMPORTED_MODULE_7__["getTicketPrice"] }, { async: true });
@@ -9596,6 +9606,7 @@ let OrderEffects = class OrderEffects {
          * inquiry
          */
         this.inquiry = this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_actions__WEBPACK_IMPORTED_MODULE_10__["orderAction"].ActionTypes.Inquiry), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["map"])(action => action.payload), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["mergeMap"])((payload) => __awaiter(this, void 0, void 0, function* () {
+            const environment = Object(_environments_environment__WEBPACK_IMPORTED_MODULE_6__["getEnvironment"])();
             try {
                 yield this.cinerino.getServices();
                 const now = (yield this.utilService.getServerTime()).date;
@@ -9606,8 +9617,8 @@ let OrderEffects = class OrderEffects {
                         ? '' : Object(_functions__WEBPACK_IMPORTED_MODULE_7__["formatTelephone"])(payload.customer.telephone)
                 };
                 const orderDateFrom = {
-                    value: Object(_environments_environment__WEBPACK_IMPORTED_MODULE_6__["getEnvironment"])().INQUIRY_ORDER_DATE_FROM_VALUE,
-                    unit: Object(_environments_environment__WEBPACK_IMPORTED_MODULE_6__["getEnvironment"])().INQUIRY_ORDER_DATE_FROM_UNIT
+                    value: environment.INQUIRY_ORDER_DATE_FROM_VALUE,
+                    unit: environment.INQUIRY_ORDER_DATE_FROM_UNIT
                 };
                 const params = {
                     confirmationNumber,
@@ -9630,6 +9641,7 @@ let OrderEffects = class OrderEffects {
                 const orders = payload.orders;
                 const printer = payload.printer;
                 const pos = payload.pos;
+                const environment = Object(_environments_environment__WEBPACK_IMPORTED_MODULE_6__["getEnvironment"])();
                 if (printer.connectionType === _models__WEBPACK_IMPORTED_MODULE_8__["connectionType"].None) {
                     return new _actions__WEBPACK_IMPORTED_MODULE_10__["orderAction"].PrintSuccess();
                 }
@@ -9678,7 +9690,7 @@ let OrderEffects = class OrderEffects {
                                 }
                             }
                             if (qrcode !== undefined
-                                && Object(_environments_environment__WEBPACK_IMPORTED_MODULE_6__["getEnvironment"])().PRINT_QRCODE_TYPE === _models__WEBPACK_IMPORTED_MODULE_8__["PrintQrcodeType"].Encryption) {
+                                && environment.PRINT_QRCODE_TYPE === _models__WEBPACK_IMPORTED_MODULE_8__["PrintQrcodeType"].Encryption) {
                                 // QRコード暗号化(id + startDate)
                                 const encyptText = `${itemOffered.reservationFor.id}=${itemOffered.reservationFor.startDate}`;
                                 const encryptionEncodeResult = yield this.utilService.encryptionEncode(encyptText);
@@ -9686,9 +9698,9 @@ let OrderEffects = class OrderEffects {
                                     `${encryptionEncodeResult.salt},${encryptionEncodeResult.iv},${encryptionEncodeResult.encrypted}`;
                             }
                             if (qrcode !== undefined
-                                && Object(_environments_environment__WEBPACK_IMPORTED_MODULE_6__["getEnvironment"])().PRINT_QRCODE_TYPE === _models__WEBPACK_IMPORTED_MODULE_8__["PrintQrcodeType"].Custom) {
+                                && environment.PRINT_QRCODE_TYPE === _models__WEBPACK_IMPORTED_MODULE_8__["PrintQrcodeType"].Custom) {
                                 // QRコードカスタム文字列
-                                qrcode = Object(_environments_environment__WEBPACK_IMPORTED_MODULE_6__["getEnvironment"])().PRINT_QRCODE_CUSTOM;
+                                qrcode = environment.PRINT_QRCODE_CUSTOM;
                                 qrcode = qrcode
                                     .replace(/\{\{ orderDate \| YYMMDD \}\}/g, moment__WEBPACK_IMPORTED_MODULE_4__(order.orderDate).format('YYMMDD'));
                                 qrcode = qrcode
@@ -10236,6 +10248,7 @@ let PurchaseEffects = class PurchaseEffects {
             const seller = payload.seller;
             try {
                 yield this.cinerinoService.getServices();
+                const environment = Object(_environments_environment__WEBPACK_IMPORTED_MODULE_7__["getEnvironment"])();
                 const params = {
                     id: transaction.id,
                     sendEmailMessage: true,
@@ -10257,7 +10270,7 @@ let PurchaseEffects = class PurchaseEffects {
                         template: undefined
                     }
                 };
-                if (Object(_environments_environment__WEBPACK_IMPORTED_MODULE_7__["getEnvironment"])().PURCHASE_COMPLETE_MAIL_CUSTOM && params.email !== undefined) {
+                if (environment.PURCHASE_COMPLETE_MAIL_CUSTOM && params.email !== undefined) {
                     // 完了メールをカスタマイズ
                     const view = yield this.utilService.getText(`${Object(_functions__WEBPACK_IMPORTED_MODULE_8__["getProject"])().storageUrl}/ejs/mail/complete/${payload.language}.ejs`);
                     params.email.template = yield window.ejs.render(view, {
@@ -10745,6 +10758,7 @@ const orderInitialState = {};
  * @param action
  */
 function reducer(state, action) {
+    const environment = Object(_environments_environment__WEBPACK_IMPORTED_MODULE_0__["getEnvironment"])();
     switch (action.type) {
         case _actions__WEBPACK_IMPORTED_MODULE_1__["orderAction"].ActionTypes.Delete: {
             state.orderData = {};
@@ -10785,7 +10799,7 @@ function reducer(state, action) {
             return Object.assign({}, state, { loading: false, process: '', error: JSON.stringify(error) });
         }
         case _actions__WEBPACK_IMPORTED_MODULE_1__["orderAction"].ActionTypes.Print: {
-            return Object.assign({}, state, { loading: Object(_environments_environment__WEBPACK_IMPORTED_MODULE_0__["getEnvironment"])().PRINT_LOADING, process: 'orderAction.Print' });
+            return Object.assign({}, state, { loading: environment.PRINT_LOADING, process: 'orderAction.Print' });
         }
         case _actions__WEBPACK_IMPORTED_MODULE_1__["orderAction"].ActionTypes.PrintSuccess: {
             return Object.assign({}, state, { loading: false, process: '', error: null });
@@ -11266,7 +11280,8 @@ const initialState = {
     reservationData: _reservation_reducer__WEBPACK_IMPORTED_MODULE_6__["reservationInitialState"],
 };
 function getInitialState() {
-    const json = window[Object(_environments_environment__WEBPACK_IMPORTED_MODULE_0__["getEnvironment"])().STORAGE_TYPE].getItem(Object(_environments_environment__WEBPACK_IMPORTED_MODULE_0__["getEnvironment"])().STORAGE_NAME);
+    const environment = Object(_environments_environment__WEBPACK_IMPORTED_MODULE_0__["getEnvironment"])();
+    const json = window[environment.STORAGE_TYPE].getItem(environment.STORAGE_NAME);
     if (json === undefined || json === null) {
         return initialState;
     }
@@ -11530,7 +11545,8 @@ const defaultEnvironment = {
     PRINT_LOADING: true
 };
 function getEnvironment() {
-    return Object.assign({}, defaultEnvironment, window.environment, { production: (document.querySelector('body.production') !== null) });
+    const environment = Object.assign({}, defaultEnvironment, window.environment, { production: (document.querySelector('body.production') !== null) });
+    return environment;
 }
 
 
@@ -11647,7 +11663,7 @@ function setProjectConfig(storageUrl) {
         if (fetchResult.body === null) {
             throw new Error('fetchResult.body null');
         }
-        window.eval(yield Object(_app_functions__WEBPACK_IMPORTED_MODULE_7__["streamingDownload"])(fetchResult.body));
+        window.eval(yield fetchResult.text());
         const environment = Object(_environments_environment__WEBPACK_IMPORTED_MODULE_8__["getEnvironment"])();
         // スタイル設定
         const style = document.createElement('link');
@@ -11679,9 +11695,9 @@ function setProjectConfig(storageUrl) {
         }
     });
 }
-main().then(() => {
+main().then(() => __awaiter(undefined, void 0, void 0, function* () {
     Object(_angular_platform_browser_dynamic__WEBPACK_IMPORTED_MODULE_1__["platformBrowserDynamic"])().bootstrapModule(_app_app_module__WEBPACK_IMPORTED_MODULE_6__["AppModule"]);
-}).catch((error) => {
+})).catch((error) => {
     console.error(error);
 });
 
