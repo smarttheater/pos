@@ -81,10 +81,11 @@ export class PurchaseService {
         seller: factory.seller.IOrganization<factory.seller.IAttributes<factory.organizationType>>;
         pos?: factory.seller.IPOS;
     }) {
+        const environment = getEnvironment();
         const now = (await this.utilService.getServerTime()).date;
         return new Promise<void>((resolve, reject) => {
             this.store.dispatch(new purchaseAction.StartTransaction({
-                expires: moment(now).add(getEnvironment().PURCHASE_TRANSACTION_TIME, 'minutes').toDate(),
+                expires: moment(now).add(environment.PURCHASE_TRANSACTION_TIME, 'minutes').toDate(),
                 seller: { typeOf: params.seller.typeOf, id: params.seller.id },
                 object: {},
                 agent: (params.pos === undefined)

@@ -8,7 +8,7 @@ import * as momentTimezone from 'moment-timezone';
 import { defineLocale } from 'ngx-bootstrap/chronos';
 import { jaLocale } from 'ngx-bootstrap/locale';
 import { AppModule } from './app/app.module';
-import { getParameter, getProject, streamingDownload } from './app/functions';
+import { getParameter, getProject } from './app/functions';
 import { getEnvironment } from './environments/environment';
 
 async function main() {
@@ -84,7 +84,7 @@ async function setProjectConfig(storageUrl: string) {
     if (fetchResult.body === null) {
         throw new Error('fetchResult.body null');
     }
-    (<any>window).eval(await streamingDownload(fetchResult.body));
+    (<any>window).eval(await fetchResult.text());
     const environment = getEnvironment();
     // スタイル設定
     const style = document.createElement('link');
@@ -117,7 +117,7 @@ async function setProjectConfig(storageUrl: string) {
 }
 
 
-main().then(() => {
+main().then(async () => {
     platformBrowserDynamic().bootstrapModule(AppModule);
 }).catch((error) => {
     console.error(error);

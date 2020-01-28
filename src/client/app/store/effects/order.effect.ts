@@ -33,6 +33,7 @@ export class OrderEffects {
         map(action => action.payload),
         mergeMap(async (payload) => {
             const orders = payload.orders;
+            const environment = getEnvironment();
             try {
                 await this.cinerino.getServices();
                 for (const order of orders) {
@@ -66,7 +67,7 @@ export class OrderEffects {
                             ? undefined : this.translate.instant('email.order.return.about'),
                         template: undefined
                     };
-                    if (getEnvironment().PURCHASE_COMPLETE_MAIL_CUSTOM) {
+                    if (environment.PURCHASE_COMPLETE_MAIL_CUSTOM) {
                         // メールをカスタマイズ
                         const view = await this.utilService.getText(`${getProject().storageUrl}/ejs/mail/return/${payload.language}.ejs`);
                         const template = await (<any>window).ejs.render(view, { moment, formatTelephone, getTicketPrice }, { async: true });
@@ -137,6 +138,7 @@ export class OrderEffects {
         ofType<orderAction.Inquiry>(orderAction.ActionTypes.Inquiry),
         map(action => action.payload),
         mergeMap(async (payload) => {
+            const environment = getEnvironment();
             try {
                 await this.cinerino.getServices();
                 const now = (await this.utilService.getServerTime()).date;
@@ -147,8 +149,8 @@ export class OrderEffects {
                         ? '' : formatTelephone(payload.customer.telephone)
                 };
                 const orderDateFrom = {
-                    value: getEnvironment().INQUIRY_ORDER_DATE_FROM_VALUE,
-                    unit: getEnvironment().INQUIRY_ORDER_DATE_FROM_UNIT
+                    value: environment.INQUIRY_ORDER_DATE_FROM_VALUE,
+                    unit: environment.INQUIRY_ORDER_DATE_FROM_UNIT
                 };
                 const params = {
                     confirmationNumber,
@@ -177,6 +179,7 @@ export class OrderEffects {
                 const orders = payload.orders;
                 const printer = payload.printer;
                 const pos = payload.pos;
+                const environment = getEnvironment();
                 if (printer.connectionType === connectionType.None) {
                     return new orderAction.PrintSuccess();
                 }
@@ -226,7 +229,7 @@ export class OrderEffects {
                                 }
                             }
                             if (qrcode !== undefined
-                                && getEnvironment().PRINT_QRCODE_TYPE === PrintQrcodeType.Encryption) {
+                                && environment.PRINT_QRCODE_TYPE === PrintQrcodeType.Encryption) {
                                 // QRコード暗号化(id + startDate)
                                 const encyptText = `${itemOffered.reservationFor.id}=${itemOffered.reservationFor.startDate}`;
                                 const encryptionEncodeResult = await this.utilService.encryptionEncode(encyptText);
@@ -234,9 +237,9 @@ export class OrderEffects {
                                     `${encryptionEncodeResult.salt},${encryptionEncodeResult.iv},${encryptionEncodeResult.encrypted}`;
                             }
                             if (qrcode !== undefined
-                                && getEnvironment().PRINT_QRCODE_TYPE === PrintQrcodeType.Custom) {
+                                && environment.PRINT_QRCODE_TYPE === PrintQrcodeType.Custom) {
                                 // QRコードカスタム文字列
-                                qrcode = getEnvironment().PRINT_QRCODE_CUSTOM;
+                                qrcode = environment.PRINT_QRCODE_CUSTOM;
                                 qrcode = qrcode
                                     .replace(/\{\{ orderDate \| YYMMDD \}\}/g, moment(order.orderDate).format('YYMMDD'));
                                 qrcode = qrcode

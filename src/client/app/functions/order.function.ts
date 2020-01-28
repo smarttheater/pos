@@ -245,7 +245,8 @@ export async function createTestPrintCanvas(args: { printData: ITicketPrintData 
  */
 export async function createRegiGrowQrcode(order: factory.order.IOrder) {
     const canvas = document.createElement('canvas');
-    let qrcodeText = getEnvironment().REGIGROW_QRCODE;
+    const environment = getEnvironment();
+    let qrcodeText = environment.REGIGROW_QRCODE;
     qrcodeText = qrcodeText
         .replace(/\{\{ orderNumber \}\}/g, order.orderNumber);
     qrcodeText = qrcodeText
