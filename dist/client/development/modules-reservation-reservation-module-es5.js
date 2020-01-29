@@ -1225,22 +1225,18 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
                   case 19:
                     this.reservations = _context3.sent.data;
                     _context3.next = 22;
-                    return Object(_functions__WEBPACK_IMPORTED_MODULE_7__["sleep"])(500);
-
-                  case 22:
-                    _context3.next = 24;
                     return this.reservationService.search(Object.assign({}, params, {
                       page: this.currentPage + 1
                     }));
 
-                  case 24:
+                  case 22:
                     this.nextReservations = _context3.sent.data;
                     this.totalCount = this.nextReservations.length === 0 ? this.currentPage * this.limit : 100000;
-                    _context3.next = 32;
+                    _context3.next = 30;
                     break;
 
-                  case 28:
-                    _context3.prev = 28;
+                  case 26:
+                    _context3.prev = 26;
                     _context3.t6 = _context3["catch"](5);
                     console.error(_context3.t6);
                     this.utilService.openAlert({
@@ -1248,12 +1244,12 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
                       body: this.translate.instant('reservation.search.alert.search')
                     });
 
-                  case 32:
+                  case 30:
                   case "end":
                     return _context3.stop();
                 }
               }
-            }, _callee3, this, [[5, 28]]);
+            }, _callee3, this, [[5, 26]]);
           }));
         }
         /**

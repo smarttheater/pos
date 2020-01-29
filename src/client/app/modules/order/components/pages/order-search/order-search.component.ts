@@ -8,7 +8,7 @@ import { BsDatepickerDirective, BsLocaleService, BsModalService } from 'ngx-boot
 import { BsDatepickerContainerComponent } from 'ngx-bootstrap/datepicker/themes/bs/bs-datepicker-container.component';
 import { Observable } from 'rxjs';
 import { getEnvironment } from '../../../../../../environments/environment';
-import { input2OrderSearchCondition, iOSDatepickerTapBugFix, orderToEventOrders, sleep } from '../../../../../functions';
+import { input2OrderSearchCondition, iOSDatepickerTapBugFix, orderToEventOrders } from '../../../../../functions';
 import { IOrderSearchConditions, OrderActions } from '../../../../../models';
 import { OrderService, UserService, UtilService } from '../../../../../services';
 import * as reducers from '../../../../../store/reducers';
@@ -165,7 +165,6 @@ export class OrderSearchComponent implements OnInit {
                 throw new Error('order date wrong date range');
             }
             this.orders = (await this.orderService.search(params)).data;
-            await sleep(500);
             this.nextOrders = (await this.orderService.search({...params, page: (this.currentPage + 1)})).data;
             this.totalCount = (this.nextOrders.length === 0) ? this.currentPage * this.limit : 100000;
         } catch (error) {

@@ -7,7 +7,7 @@ import { BsDatepickerDirective, BsLocaleService, BsModalService } from 'ngx-boot
 import { BsDatepickerContainerComponent } from 'ngx-bootstrap/datepicker/themes/bs/bs-datepicker-container.component';
 import { Observable } from 'rxjs';
 import { getEnvironment } from '../../../../../../environments/environment';
-import { getTicketPrice, input2ReservationSearchCondition, iOSDatepickerTapBugFix, sleep } from '../../../../../functions';
+import { getTicketPrice, input2ReservationSearchCondition, iOSDatepickerTapBugFix } from '../../../../../functions';
 import { IReservationSearchConditions } from '../../../../../models';
 import { ReservationService, UserService, UtilService } from '../../../../../services';
 import * as reducers from '../../../../../store/reducers';
@@ -111,7 +111,6 @@ export class ReservationSearchComponent implements OnInit {
                     throw new Error('reservation date wrong date range');
                 }
             this.reservations = (await this.reservationService.search(params)).data;
-            await sleep(500);
             this.nextReservations = (await this.reservationService.search({...params, page: (this.currentPage + 1)})).data;
             this.totalCount = (this.nextReservations.length === 0) ? this.currentPage * this.limit : 100000;
         } catch (error) {

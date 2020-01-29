@@ -711,7 +711,6 @@ let ReservationSearchComponent = class ReservationSearchComponent {
                     throw new Error('reservation date wrong date range');
                 }
                 this.reservations = (yield this.reservationService.search(params)).data;
-                yield Object(_functions__WEBPACK_IMPORTED_MODULE_7__["sleep"])(500);
                 this.nextReservations = (yield this.reservationService.search(Object.assign({}, params, { page: (this.currentPage + 1) }))).data;
                 this.totalCount = (this.nextReservations.length === 0) ? this.currentPage * this.limit : 100000;
             }

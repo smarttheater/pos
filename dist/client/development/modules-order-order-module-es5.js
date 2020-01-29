@@ -1689,22 +1689,18 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
                   case 24:
                     this.orders = _context7.sent.data;
                     _context7.next = 27;
-                    return Object(_functions__WEBPACK_IMPORTED_MODULE_8__["sleep"])(500);
-
-                  case 27:
-                    _context7.next = 29;
                     return this.orderService.search(Object.assign({}, params, {
                       page: this.currentPage + 1
                     }));
 
-                  case 29:
+                  case 27:
                     this.nextOrders = _context7.sent.data;
                     this.totalCount = this.nextOrders.length === 0 ? this.currentPage * this.limit : 100000;
-                    _context7.next = 37;
+                    _context7.next = 35;
                     break;
 
-                  case 33:
-                    _context7.prev = 33;
+                  case 31:
+                    _context7.prev = 31;
                     _context7.t6 = _context7["catch"](10);
                     console.error(_context7.t6);
                     this.utilService.openAlert({
@@ -1712,12 +1708,12 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
                       body: this.translate.instant('order.search.alert.search')
                     });
 
-                  case 37:
+                  case 35:
                   case "end":
                     return _context7.stop();
                 }
               }
-            }, _callee7, this, [[10, 33]]);
+            }, _callee7, this, [[10, 31]]);
           }));
         }
         /**

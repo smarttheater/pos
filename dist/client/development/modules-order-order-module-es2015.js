@@ -1006,7 +1006,6 @@ let OrderSearchComponent = class OrderSearchComponent {
                     throw new Error('order date wrong date range');
                 }
                 this.orders = (yield this.orderService.search(params)).data;
-                yield Object(_functions__WEBPACK_IMPORTED_MODULE_8__["sleep"])(500);
                 this.nextOrders = (yield this.orderService.search(Object.assign({}, params, { page: (this.currentPage + 1) }))).data;
                 this.totalCount = (this.nextOrders.length === 0) ? this.currentPage * this.limit : 100000;
             }
