@@ -8,23 +8,22 @@ import { BsDatepickerDirective, BsLocaleService, BsModalService } from 'ngx-boot
 import { BsDatepickerContainerComponent } from 'ngx-bootstrap/datepicker/themes/bs/bs-datepicker-container.component';
 import { Observable } from 'rxjs';
 import { getEnvironment } from '../../../../../../environments/environment';
-import { input2OrderSearchCondition, iOSDatepickerTapBugFix, orderToEventOrders, sleep } from '../../../../../functions';
+import { input2OrderSearchCondition, iOSDatepickerTapBugFix, orderToEventOrders } from '../../../../../functions';
 import { IOrderSearchConditions, OrderActions } from '../../../../../models';
 import { OrderService, UserService, UtilService } from '../../../../../services';
 import * as reducers from '../../../../../store/reducers';
 import { OrderDetailModalComponent } from '../../../../shared/components/parts/order/detail-modal/detail-modal.component';
 
 @Component({
-    selector: 'app-order-search',
-    templateUrl: './order-search.component.html',
-    styleUrls: ['./order-search.component.scss']
+    selector: 'app-order-search-unlimited',
+    templateUrl: './order-search-unlimited.component.html',
+    styleUrls: ['./order-search-unlimited.component.scss']
 })
-export class OrderSearchComponent implements OnInit {
+export class OrderSearchUnlimitedComponent implements OnInit {
     public isLoading: Observable<boolean>;
     public error: Observable<string | null>;
     public user: Observable<reducers.IUserState>;
-    public orders: factory.order.IOrder[];
-    public nextOrders: factory.order.IOrder[];
+    public orders: factory.order.IOrder[][];
     public totalCount: number;
     public currentPage: number;
     public moment: typeof moment = moment;
@@ -61,7 +60,7 @@ export class OrderSearchComponent implements OnInit {
         this.error = this.store.pipe(select(reducers.getError));
         this.user = this.store.pipe(select(reducers.getUser));
         this.orders = [];
-        this.totalCount = 100000;
+        this.totalCount = 0;
         this.currentPage = 1;
         this.limit = 20;
         const now = moment().toDate();
@@ -109,13 +108,19 @@ export class OrderSearchComponent implements OnInit {
     }
 
     /**
+     * ページ変更
+     */
+    public changePage(event: { page: number }) {
+        this.currentPage = event.page;
+    }
+
+    /**
      * 検索
      */
     public async orderSearch(changeConditions: boolean, event?: { page: number }) {
         this.currentPage = 1;
         this.selectedOrders = [];
         if (event !== undefined) {
-            this.currentPage = event.page;
             this.confirmedConditions.page = event.page;
         }
         // iOS bugfix
@@ -152,22 +157,21 @@ export class OrderSearchComponent implements OnInit {
             };
         }
         try {
+            this.totalCount = 0;
+            this.orders = [];
             const params = input2OrderSearchCondition({
                 input: this.confirmedConditions,
                 seller: (await this.userService.getData()).seller,
-                page: this.currentPage,
                 limit: this.limit
             });
-            if (params.orderDateFrom !== null
-                && params.orderDateThrough !== null
-                && moment(params.orderDateThrough).diff(moment(params.orderDateFrom), 'day') > 14) {
-                // 購入日の範囲が14日以上
-                throw new Error('order date wrong date range');
+            const searchResult = await this.orderService.splitSearch(params);
+            this.totalCount = searchResult.totalCount;
+            for (let i = 0; i < Math.ceil(searchResult.data.length / this.limit); i++) {
+                this.orders.push(searchResult.data.slice(
+                    i * this.limit,
+                    ((i + 1) * this.limit < searchResult.data.length) ? (i + 1) * this.limit : searchResult.data.length
+                ));
             }
-            this.orders = (await this.orderService.search(params)).data;
-            await sleep(500);
-            this.nextOrders = (await this.orderService.search({...params, page: (this.currentPage + 1)})).data;
-            this.totalCount = (this.nextOrders.length === 0) ? this.currentPage * this.limit : 100000;
         } catch (error) {
             console.error(error);
             this.utilService.openAlert({

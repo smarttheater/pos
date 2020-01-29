@@ -349,10 +349,12 @@ export function order2report(orders: factory.order.IOrder[]) {
 export function input2OrderSearchCondition(params: {
     input: IOrderSearchConditions;
     seller?: factory.seller.IOrganization<factory.seller.IAttributes<factory.organizationType>>;
+    page?: number;
     limit?: number;
 }) {
     const input = params.input;
     const seller = params.seller;
+    const page = params.page;
     const limit = params.limit;
     const identifiers: factory.propertyValue.IPropertyValue<string>[] = [];
     if (input.posId !== '') {
@@ -407,7 +409,7 @@ export function input2OrderSearchCondition(params: {
             }
         },
         limit,
-        page: input.page,
+        page,
         sort: { orderDate: factory.sortType.Descending }
     };
     return result;

@@ -7,7 +7,7 @@ import { BsDatepickerDirective, BsLocaleService, BsModalService } from 'ngx-boot
 import { BsDatepickerContainerComponent } from 'ngx-bootstrap/datepicker/themes/bs/bs-datepicker-container.component';
 import { Observable } from 'rxjs';
 import { getEnvironment } from '../../../../../../environments/environment';
-import { getTicketPrice, input2ReservationSearchCondition, iOSDatepickerTapBugFix, sleep } from '../../../../../functions';
+import { getTicketPrice, input2ReservationSearchCondition, iOSDatepickerTapBugFix } from '../../../../../functions';
 import { IReservationSearchConditions } from '../../../../../models';
 import { ReservationService, UserService, UtilService } from '../../../../../services';
 import * as reducers from '../../../../../store/reducers';
@@ -16,16 +16,15 @@ import {
 } from '../../../../shared/components/parts/reservation/detail-modal/detail-modal.component';
 
 @Component({
-    selector: 'app-reservation-search',
-    templateUrl: './reservation-search.component.html',
-    styleUrls: ['./reservation-search.component.scss']
+    selector: 'app-reservation-search-unlimited',
+    templateUrl: './reservation-search-unlimited.component.html',
+    styleUrls: ['./reservation-search-unlimited.component.scss']
 })
-export class ReservationSearchComponent implements OnInit {
+export class ReservationSearchUnlimitedComponent implements OnInit {
     public isLoading: Observable<boolean>;
     public error: Observable<string | null>;
     public user: Observable<reducers.IUserState>;
-    public reservations: factory.chevre.reservation.IReservation<factory.chevre.reservationType.EventReservation>[];
-    public nextReservations: factory.chevre.reservation.IReservation<factory.chevre.reservationType.EventReservation>[];
+    public reservations: factory.chevre.reservation.IReservation<factory.chevre.reservationType.EventReservation>[][];
     public totalCount: number;
     public currentPage: number;
     public moment: typeof moment = moment;
@@ -55,7 +54,7 @@ export class ReservationSearchComponent implements OnInit {
         this.error = this.store.pipe(select(reducers.getError));
         this.user = this.store.pipe(select(reducers.getUser));
         this.reservations = [];
-        this.totalCount = 100000;
+        this.totalCount = 0;
         this.currentPage = 1;
         this.limit = 20;
         const now = moment().toDate();
@@ -77,7 +76,6 @@ export class ReservationSearchComponent implements OnInit {
     public async reservationSearch(changeConditions: boolean, event?: { page: number }) {
         this.currentPage = 1;
         if (event !== undefined) {
-            this.currentPage = event.page;
             this.confirmedConditions.page = event.page;
         }
         // iOS bugfix
@@ -98,22 +96,21 @@ export class ReservationSearchComponent implements OnInit {
             };
         }
         try {
+            this.totalCount = 0;
+            this.reservations = [];
             const params = input2ReservationSearchCondition({
                 input: this.confirmedConditions,
                 seller: (await this.userService.getData()).seller,
-                page: this.currentPage,
                 limit: this.limit
             });
-            if (params.bookingFrom !== null
-                && params.bookingThrough !== null
-                && moment(params.bookingThrough).diff(moment(params.bookingFrom), 'day') > 14) {
-                    // 予約日の範囲が14日以上
-                    throw new Error('reservation date wrong date range');
-                }
-            this.reservations = (await this.reservationService.search(params)).data;
-            await sleep(500);
-            this.nextReservations = (await this.reservationService.search({...params, page: (this.currentPage + 1)})).data;
-            this.totalCount = (this.nextReservations.length === 0) ? this.currentPage * this.limit : 100000;
+            const searchResult = await this.reservationService.splitSearch(params);
+            this.totalCount = searchResult.totalCount;
+            for (let i = 0; i < Math.ceil(searchResult.data.length / this.limit); i++) {
+                this.reservations.push(searchResult.data.slice(
+                    i * this.limit,
+                    ((i + 1) * this.limit < searchResult.data.length) ? (i + 1) * this.limit : searchResult.data.length
+                ));
+            }
         } catch (error) {
             console.error(error);
             this.utilService.openAlert({

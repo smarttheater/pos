@@ -38,10 +38,12 @@ export function reservation2report(
 export function input2ReservationSearchCondition(params: {
     input: IReservationSearchConditions;
     seller?: factory.seller.IOrganization<factory.seller.IAttributes<factory.organizationType>>;
+    page?: number;
     limit?: number;
 }) {
     const input = params.input;
     const seller = params.seller;
+    const page = params.page;
     const limit = params.limit;
     const result: factory.chevre.reservation.ISearchConditions<factory.chevre.reservationType.EventReservation> = {
         typeOf: factory.chevre.reservationType.EventReservation,
@@ -73,7 +75,7 @@ export function input2ReservationSearchCondition(params: {
         reservationNumbers: (input.reservationNumber === '')
             ? undefined : [input.reservationNumber],
         limit,
-        page: input.page,
+        page,
         sort: {
             // reservationDate: factory.sortType.Descending
         }

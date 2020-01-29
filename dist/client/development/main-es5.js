@@ -2272,6 +2272,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     function input2OrderSearchCondition(params) {
       var input = params.input;
       var seller = params.seller;
+      var page = params.page;
       var limit = params.limit;
       var identifiers = [];
 
@@ -2320,7 +2321,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
           }
         },
         limit: limit,
-        page: input.page,
+        page: page,
         sort: {
           orderDate: _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_0__["factory"].sortType.Descending
         }
@@ -3143,6 +3144,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     function input2ReservationSearchCondition(params) {
       var input = params.input;
       var seller = params.seller;
+      var page = params.page;
       var limit = params.limit;
       var result = {
         typeOf: _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_0__["factory"].chevre.reservationType.EventReservation,
@@ -3161,7 +3163,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
         reservationStatuses: input.reservationStatus === '' ? undefined : [input.reservationStatus],
         reservationNumbers: input.reservationNumber === '' ? undefined : [input.reservationNumber],
         limit: limit,
-        page: input.page,
+        page: page,
         sort: {// reservationDate: factory.sortType.Descending
         }
       };

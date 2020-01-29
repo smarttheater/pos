@@ -1299,6 +1299,7 @@ function order2report(orders) {
 function input2OrderSearchCondition(params) {
     const input = params.input;
     const seller = params.seller;
+    const page = params.page;
     const limit = params.limit;
     const identifiers = [];
     if (input.posId !== '') {
@@ -1353,7 +1354,7 @@ function input2OrderSearchCondition(params) {
             }
         },
         limit,
-        page: input.page,
+        page,
         sort: { orderDate: _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_0__["factory"].sortType.Descending }
     };
     return result;
@@ -1906,6 +1907,7 @@ function reservation2report(reservations) {
 function input2ReservationSearchCondition(params) {
     const input = params.input;
     const seller = params.seller;
+    const page = params.page;
     const limit = params.limit;
     const result = {
         typeOf: _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_0__["factory"].chevre.reservationType.EventReservation,
@@ -1937,7 +1939,7 @@ function input2ReservationSearchCondition(params) {
         reservationNumbers: (input.reservationNumber === '')
             ? undefined : [input.reservationNumber],
         limit,
-        page: input.page,
+        page,
         sort: {
         // reservationDate: factory.sortType.Descending
         }

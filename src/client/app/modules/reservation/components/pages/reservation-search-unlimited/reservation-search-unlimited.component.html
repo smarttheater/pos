@@ -80,15 +80,16 @@
         <div class="d-md-flex align-items-center justify-content-end mb-4">
             <div class="text-md-right text-center mb-3 mb-md-0 order-2">
                 <div class="d-inline-block">
-                    <pagination [(ngModel)]="currentPage" [totalItems]="totalCount" [itemsPerPage]="limit"
-                        [maxSize]="1" [boundaryLinks]="false" previousText="&lsaquo;" nextText="&rsaquo;"
-                        firstText="&laquo;" lastText="&raquo;" (pageChanged)="reservationSearch(false, $event)"></pagination>
+                    <p>{{ 'reservation.search.count' | translate: {value: totalCount} }}</p>
+                    <pagination [(ngModel)]="currentPage" [totalItems]="reservations.length * limit" [itemsPerPage]="limit" 
+                        [maxSize]="5" [boundaryLinks]="false" previousText="&lsaquo;" nextText="&rsaquo;"
+                        firstText="&laquo;" lastText="&raquo;" (pageChanged)="changePage(false, $event)"></pagination>
                 </div>
             </div>
         </div>
 
         <div class="scroll-horizontal">
-            <table class="table bg-white text-small mb-0 border border-gray">
+            <table class="table bg-white breservation text-small mb-0 border border-gray">
                 <thead>
                     <tr>
                         <th scope="col">{{ 'common.reservationNumber' | translate }}</th>
@@ -101,7 +102,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr *ngFor="let reservation of reservations let index = index"
+                    <tr *ngFor="let reservation of reservations[currentPage - 1] let index = index"
                         [class.bg-light-gray]="index % 2 === 0">
                         <td class="align-middle">{{ reservation.reservationNumber }}</td>
                         <td class="align-middle">{{ reservation.id }}</td>
