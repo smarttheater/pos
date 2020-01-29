@@ -107,13 +107,14 @@ var __importDefault = (undefined && undefined.__importDefault) || function (mod)
 
 
 let OrderDownloadComponent = class OrderDownloadComponent {
-    constructor(store, utilService, orderService, downloadService, translate, localeService) {
+    constructor(store, utilService, orderService, downloadService, translate, localeService, userService) {
         this.store = store;
         this.utilService = utilService;
         this.orderService = orderService;
         this.downloadService = downloadService;
         this.translate = translate;
         this.localeService = localeService;
+        this.userService = userService;
         this.moment = moment__WEBPACK_IMPORTED_MODULE_4__;
         this.orderStatus = _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_1__["factory"].orderStatus;
         this.paymentMethodType = _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_1__["factory"].paymentMethodType;
@@ -146,77 +147,9 @@ let OrderDownloadComponent = class OrderDownloadComponent {
             orderStatus: '',
             paymentMethodType: '',
             posId: '',
-            format: _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_1__["factory"].encodingFormat.Application.json,
-            csvFormat: _models__WEBPACK_IMPORTED_MODULE_8__["CsvFormat"].Custom
+            page: 1
         };
         this.orderService.delete();
-    }
-    /**
-     * 検索パラメータへ変換
-     */
-    convertToSearchParams() {
-        return __awaiter(this, void 0, void 0, function* () {
-            return new Promise((resolve) => {
-                this.user.subscribe((user) => {
-                    const identifiers = [];
-                    if (this.confirmedConditions.posId !== '') {
-                        identifiers.push({ name: 'posId', value: this.confirmedConditions.posId });
-                    }
-                    const params = {
-                        seller: {
-                            typeOf: (user.seller === undefined)
-                                ? undefined : user.seller.typeOf,
-                            ids: (user.seller === undefined)
-                                ? undefined : [user.seller.id]
-                        },
-                        customer: {
-                            email: (this.confirmedConditions.customer.email === '')
-                                ? undefined : this.confirmedConditions.customer.email,
-                            telephone: (this.confirmedConditions.customer.telephone === '')
-                                ? undefined : this.confirmedConditions.customer.telephone,
-                            familyName: (this.confirmedConditions.customer.familyName === '')
-                                ? undefined : this.confirmedConditions.customer.familyName,
-                            givenName: (this.confirmedConditions.customer.givenName === '')
-                                ? undefined : this.confirmedConditions.customer.givenName,
-                            identifiers
-                        },
-                        orderStatuses: (this.confirmedConditions.orderStatus === '')
-                            ? undefined : [this.confirmedConditions.orderStatus],
-                        orderDateFrom: (this.confirmedConditions.orderDateFrom === undefined)
-                            ? undefined
-                            : moment__WEBPACK_IMPORTED_MODULE_4__(moment__WEBPACK_IMPORTED_MODULE_4__(this.confirmedConditions.orderDateFrom).format('YYYYMMDD')).toISOString(),
-                        orderDateThrough: (this.confirmedConditions.orderDateThrough === undefined)
-                            ? undefined
-                            : moment__WEBPACK_IMPORTED_MODULE_4__(moment__WEBPACK_IMPORTED_MODULE_4__(this.confirmedConditions.orderDateThrough).format('YYYYMMDD')).add(1, 'day').toISOString(),
-                        confirmationNumbers: (this.confirmedConditions.confirmationNumber === '')
-                            ? undefined : [this.confirmedConditions.confirmationNumber],
-                        orderNumbers: (this.confirmedConditions.orderNumber === '')
-                            ? undefined : [this.confirmedConditions.orderNumber],
-                        paymentMethods: (this.confirmedConditions.paymentMethodType === '')
-                            ? undefined : { typeOfs: [this.confirmedConditions.paymentMethodType] },
-                        acceptedOffers: {
-                            itemOffered: {
-                                reservationFor: {
-                                    inSessionFrom: (this.confirmedConditions.eventStartDateFrom === undefined)
-                                        ? undefined
-                                        : moment__WEBPACK_IMPORTED_MODULE_4__(moment__WEBPACK_IMPORTED_MODULE_4__(this.confirmedConditions.eventStartDateFrom).format('YYYYMMDD')).toISOString(),
-                                    inSessionThrough: (this.confirmedConditions.eventStartDateThrough === undefined)
-                                        ? undefined
-                                        : moment__WEBPACK_IMPORTED_MODULE_4__(moment__WEBPACK_IMPORTED_MODULE_4__(this.confirmedConditions.eventStartDateThrough)
-                                            .format('YYYYMMDD')).add(1, 'day').toISOString(),
-                                }
-                            }
-                        },
-                        sort: {
-                            orderDate: _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_1__["factory"].sortType.Descending
-                        },
-                        format: this.confirmedConditions.format,
-                        csvFormat: _models__WEBPACK_IMPORTED_MODULE_8__["CsvFormat"].Custom
-                    };
-                    resolve(params);
-                }).unsubscribe();
-            });
-        });
     }
     /**
      * ダウンロード
@@ -254,14 +187,16 @@ let OrderDownloadComponent = class OrderDownloadComponent {
                     eventStartDateFrom: this.conditions.eventStartDateFrom,
                     eventStartDateThrough: this.conditions.eventStartDateThrough,
                     posId: this.conditions.posId,
-                    format: this.conditions.format,
-                    csvFormat: _models__WEBPACK_IMPORTED_MODULE_8__["CsvFormat"].Custom
+                    page: 1
                 };
             }
             this.utilService.loadStart();
             try {
-                const params = yield this.convertToSearchParams();
-                yield this.downloadService.order(params, params.csvFormat);
+                const params = Object(_functions__WEBPACK_IMPORTED_MODULE_7__["input2OrderSearchCondition"])({
+                    input: this.confirmedConditions,
+                    seller: (yield this.userService.getData()).seller,
+                });
+                yield this.downloadService.order(params, _models__WEBPACK_IMPORTED_MODULE_8__["CsvFormat"].Custom);
             }
             catch (error) {
                 console.error(error);
@@ -293,8 +228,7 @@ let OrderDownloadComponent = class OrderDownloadComponent {
             orderStatus: '',
             paymentMethodType: '',
             posId: '',
-            format: _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_1__["factory"].encodingFormat.Text.csv,
-            csvFormat: _models__WEBPACK_IMPORTED_MODULE_8__["CsvFormat"].Custom
+            page: 1
         };
         // iOS bugfix
         document.getElementById('confirmationNumber').value = '';
@@ -330,7 +264,8 @@ OrderDownloadComponent.ctorParameters = () => [
     { type: _services__WEBPACK_IMPORTED_MODULE_9__["OrderService"] },
     { type: _services__WEBPACK_IMPORTED_MODULE_9__["DownloadService"] },
     { type: _ngx_translate_core__WEBPACK_IMPORTED_MODULE_3__["TranslateService"] },
-    { type: ngx_bootstrap__WEBPACK_IMPORTED_MODULE_5__["BsLocaleService"] }
+    { type: ngx_bootstrap__WEBPACK_IMPORTED_MODULE_5__["BsLocaleService"] },
+    { type: _services__WEBPACK_IMPORTED_MODULE_9__["UserService"] }
 ];
 __decorate([
     Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ViewChild"])('orderDateFrom', { static: true }),
@@ -359,7 +294,8 @@ OrderDownloadComponent = __decorate([
         _services__WEBPACK_IMPORTED_MODULE_9__["OrderService"],
         _services__WEBPACK_IMPORTED_MODULE_9__["DownloadService"],
         _ngx_translate_core__WEBPACK_IMPORTED_MODULE_3__["TranslateService"],
-        ngx_bootstrap__WEBPACK_IMPORTED_MODULE_5__["BsLocaleService"]])
+        ngx_bootstrap__WEBPACK_IMPORTED_MODULE_5__["BsLocaleService"],
+        _services__WEBPACK_IMPORTED_MODULE_9__["UserService"]])
 ], OrderDownloadComponent);
 
 
@@ -560,73 +496,6 @@ let OrderSearchComponent = class OrderSearchComponent {
         this.selectedOrders.splice(findIndex, 1);
     }
     /**
-     * 検索パラメータへ変換
-     */
-    convertToSearchParams() {
-        return __awaiter(this, void 0, void 0, function* () {
-            return new Promise((resolve) => {
-                this.user.subscribe((user) => {
-                    const identifiers = [];
-                    if (this.confirmedConditions.posId !== '') {
-                        identifiers.push({ name: 'posId', value: this.confirmedConditions.posId });
-                    }
-                    const params = {
-                        seller: {
-                            typeOf: (user.seller === undefined)
-                                ? undefined : user.seller.typeOf,
-                            ids: (user.seller === undefined)
-                                ? undefined : [user.seller.id]
-                        },
-                        customer: {
-                            email: (this.confirmedConditions.customer.email === '')
-                                ? undefined : this.confirmedConditions.customer.email,
-                            telephone: (this.confirmedConditions.customer.telephone === '')
-                                ? undefined : this.confirmedConditions.customer.telephone,
-                            familyName: (this.confirmedConditions.customer.familyName === '')
-                                ? undefined : this.confirmedConditions.customer.familyName,
-                            givenName: (this.confirmedConditions.customer.givenName === '')
-                                ? undefined : this.confirmedConditions.customer.givenName,
-                            identifiers
-                        },
-                        orderStatuses: (this.confirmedConditions.orderStatus === '')
-                            ? undefined : [this.confirmedConditions.orderStatus],
-                        orderDateFrom: (this.confirmedConditions.orderDateFrom === undefined)
-                            ? undefined
-                            : moment__WEBPACK_IMPORTED_MODULE_5__(moment__WEBPACK_IMPORTED_MODULE_5__(this.confirmedConditions.orderDateFrom).format('YYYYMMDD')).toDate(),
-                        orderDateThrough: (this.confirmedConditions.orderDateThrough === undefined)
-                            ? undefined
-                            : moment__WEBPACK_IMPORTED_MODULE_5__(moment__WEBPACK_IMPORTED_MODULE_5__(this.confirmedConditions.orderDateThrough).format('YYYYMMDD')).add(1, 'day').toDate(),
-                        confirmationNumbers: (this.confirmedConditions.confirmationNumber === '')
-                            ? undefined : [this.confirmedConditions.confirmationNumber],
-                        orderNumbers: (this.confirmedConditions.orderNumber === '')
-                            ? undefined : [this.confirmedConditions.orderNumber],
-                        paymentMethods: (this.confirmedConditions.paymentMethodType === '')
-                            ? undefined : { typeOfs: [this.confirmedConditions.paymentMethodType] },
-                        acceptedOffers: {
-                            itemOffered: {
-                                reservationFor: {
-                                    inSessionFrom: (this.confirmedConditions.eventStartDateFrom === undefined)
-                                        ? undefined
-                                        : moment__WEBPACK_IMPORTED_MODULE_5__(moment__WEBPACK_IMPORTED_MODULE_5__(this.confirmedConditions.eventStartDateFrom).format('YYYYMMDD')).toDate(),
-                                    inSessionThrough: (this.confirmedConditions.eventStartDateThrough === undefined)
-                                        ? undefined
-                                        : moment__WEBPACK_IMPORTED_MODULE_5__(moment__WEBPACK_IMPORTED_MODULE_5__(this.confirmedConditions.eventStartDateThrough)
-                                            .format('YYYYMMDD')).add(1, 'day').toDate(),
-                                }
-                            }
-                        },
-                        limit: this.limit,
-                        page: this.confirmedConditions.page,
-                        sort: {
-                            orderDate: _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_2__["factory"].sortType.Descending
-                        }
-                    };
-                    resolve(params);
-                }).unsubscribe();
-            });
-        });
-    }
-    /**
      * ページ変更
      */
     changePage(event) {
@@ -678,7 +547,11 @@ let OrderSearchComponent = class OrderSearchComponent {
             try {
                 this.totalCount = 0;
                 this.orders = [];
-                const params = yield this.convertToSearchParams();
+                const params = Object(_functions__WEBPACK_IMPORTED_MODULE_8__["input2OrderSearchCondition"])({
+                    input: this.confirmedConditions,
+                    seller: (yield this.userService.getData()).seller,
+                    limit: this.limit
+                });
                 if (params.orderDateFrom !== null
                     && params.orderDateThrough !== null
                     && moment__WEBPACK_IMPORTED_MODULE_5__(params.orderDateThrough).diff(moment__WEBPACK_IMPORTED_MODULE_5__(params.orderDateFrom), 'day') > 14) {

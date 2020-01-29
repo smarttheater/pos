@@ -7801,7 +7801,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
                   case 13:
                     if (!(_i < _deduplication.length)) {
-                      _context5.next = 36;
+                      _context5.next = 38;
                       break;
                     }
 
@@ -7876,6 +7876,15 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
                     depositedCount = pointTransferActions.filter(function (p) {
                       return p.description === _this.message;
                     }).length;
+
+                    if (!(programMembership.totalCount === undefined)) {
+                      _context5.next = 31;
+                      break;
+                    }
+
+                    throw new Error('programMembership.totalCount undefined');
+
+                  case 31:
                     data.push({
                       id: person.data.length === 0 ? d.id : person.data[0].id,
                       userName: person.data.length === 0 || person.data[0].memberOf === undefined || person.data[0].memberOf.membershipNumber === undefined ? d.userName : person.data[0].memberOf.membershipNumber,
@@ -7888,20 +7897,20 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
                       depositCount: programMembership.totalCount - 1 - depositedCount > 0 ? programMembership.totalCount - 1 - depositedCount : 0,
                       pointTransferActions: pointTransferActions
                     });
-                    _context5.next = 32;
+                    _context5.next = 34;
                     return Object(_functions__WEBPACK_IMPORTED_MODULE_8__["sleep"])(1000);
 
-                  case 32:
+                  case 34:
                     loopCount++;
 
-                  case 33:
+                  case 35:
                     _i++;
                     _context5.next = 13;
                     break;
 
-                  case 36:
+                  case 38:
                     if (!(this.years === 0)) {
-                      _context5.next = 40;
+                      _context5.next = 42;
                       break;
                     }
 
@@ -7910,15 +7919,15 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
                     this.utilService.loadEnd();
                     return _context5.abrupt("return");
 
-                  case 40:
+                  case 42:
                     this.targetTable = data.filter(function (d) {
                       return d.programMembershipCount === _this.years;
                     });
-                    _context5.next = 47;
+                    _context5.next = 49;
                     break;
 
-                  case 43:
-                    _context5.prev = 43;
+                  case 45:
+                    _context5.prev = 45;
                     _context5.t0 = _context5["catch"](1);
                     console.error(_context5.t0);
                     this.utilService.openAlert({
@@ -7926,16 +7935,16 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
                       body: "\n                <p class=\"mb-4\">".concat(this.translate.instant('tasks.accountDepositCSV.alert.refine'), "</p>\n                    <div class=\"p-3 bg-light-gray select-text\">\n                    <code>").concat(_context5.t0.message, "</code>\n                </div>")
                     });
 
-                  case 47:
+                  case 49:
                     // console.log(this.targetTable);
                     this.utilService.loadEnd();
 
-                  case 48:
+                  case 50:
                   case "end":
                     return _context5.stop();
                 }
               }
-            }, _callee5, this, [[1, 43]]);
+            }, _callee5, this, [[1, 45]]);
           }));
         }
         /**

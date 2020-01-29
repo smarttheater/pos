@@ -35,7 +35,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("<div class=\"contents-width mx-auto px-3 py-5\">\n    <h2 class=\"text-large mb-4 text-center font-weight-bold\">{{ 'reservation.search.title' | translate }}</h2>\n    <p class=\"mb-4 text-md-center\" [innerHTML]=\"'reservation.search.read' | translate\"></p>\n    <div class=\"conditions p-3 bg-white mb-4\">\n        <form (submit)=\"reservationSearch(true)\">\n            <div class=\"form-row\">\n                <div class=\"form-group col-md-4 col-lg-3\">\n                    <label for=\"reservationDateFrom\"\n                        class=\"mb-2\">{{ 'reservation.search.conditions.reservationDateFrom' | translate }}</label>\n                    <input type=\"text\" name=\"reservationDateFrom\" id=\"reservationDateFrom\" placeholder=\"YYYY/MM/DD\"\n                        class=\"form-control\" #reservationDateFrom=\"bsDatepicker\" bsDatepicker\n                        [(ngModel)]=\"conditions.reservationDateFrom\"\n                        [bsConfig]=\"{ dateInputFormat: 'YYYY/MM/DD', adaptivePosition: true, showWeekNumbers: false }\"\n                        readonly (onShown)=\"onShowPicker($event)\" (click)=\"setDatePicker()\">\n                </div>\n                <div class=\"form-group col-md-4 col-lg-3\">\n                    <label for=\"reservationDateThrough\"\n                        class=\"mb-2\">{{ 'reservation.search.conditions.reservationDateThrough' | translate }}</label>\n                    <input type=\"text\" name=\"reservationDateThrough\" id=\"reservationDateThrough\"\n                        placeholder=\"YYYY/MM/DD\" class=\"form-control\" #reservationDateThrough=\"bsDatepicker\" bsDatepicker\n                        [(ngModel)]=\"conditions.reservationDateThrough\"\n                        [bsConfig]=\"{ dateInputFormat: 'YYYY/MM/DD', adaptivePosition: true, showWeekNumbers: false }\"\n                        readonly (onShown)=\"onShowPicker($event)\" (click)=\"setDatePicker()\">\n                </div>\n                <div class=\"form-group col-md-4 col-lg-3\">\n                    <label for=\"confirmationNumber\" class=\"mb-2\">{{ 'common.reservationId' | translate }}</label>\n                    <input type=\"text\" class=\"form-control\" name=\"id\" id=\"id\" [(ngModel)]=\"conditions.id\"\n                        placeholder=\"{{ 'common.reservationId' | translate }}\">\n                </div>\n                <div class=\"form-group col-md-4 col-lg-3\">\n                    <label for=\"reservationNumber\" class=\"mb-2\">{{ 'common.reservationNumber' | translate }}</label>\n                    <input type=\"text\" class=\"form-control\" name=\"reservationNumber\" id=\"reservationNumber\"\n                        [(ngModel)]=\"conditions.reservationNumber\"\n                        placeholder=\"{{ 'common.reservationNumber' | translate }}\">\n                </div>\n            \n                <div class=\"form-group col-md-4 col-lg-3\">\n                    <label for=\"reservationStatus\" class=\"mb-2\">{{ 'common.reservationStatus' | translate }}</label>\n                    <select class=\"form-control\" name=\"reservationStatus\" id=\"reservationStatus\"\n                        [(ngModel)]=\"conditions.reservationStatus\">\n                        <option value=\"\">{{ 'common.all' | translate }}</option>\n                        <option [value]=\"reservationStatus.ReservationConfirmed\">\n                            {{ 'reservation.search.reservationStatus.ReservationConfirmed' | translate }}</option>\n                        <option [value]=\"reservationStatus.ReservationHold\">\n                            {{ 'reservation.search.reservationStatus.ReservationHold' | translate }}</option>\n                        <option [value]=\"reservationStatus.ReservationPending\">\n                            {{ 'reservation.search.reservationStatus.ReservationPending' | translate }}</option>\n                    </select>\n                </div>\n                <div class=\"form-group col-md-4 col-lg-3\">\n                    <label for=\"eventStartDateFrom\"\n                        class=\"mb-2\">{{ 'reservation.search.conditions.eventStartDateFrom' | translate }}</label>\n                    <input type=\"text\" name=\"eventStartDateFrom\" id=\"eventStartDateFrom\" placeholder=\"YYYY/MM/DD\"\n                        class=\"form-control\" #eventStartDateFrom=\"bsDatepicker\" bsDatepicker\n                        [(ngModel)]=\"conditions.eventStartDateFrom\"\n                        [bsConfig]=\"{ dateInputFormat: 'YYYY/MM/DD', adaptivePosition: true, showWeekNumbers: false }\"\n                        readonly (onShown)=\"onShowPicker($event)\" (click)=\"setDatePicker()\">\n                </div>\n                <div class=\"form-group col-md-4 col-lg-3\">\n                    <label for=\"eventStartDateThrough\"\n                        class=\"mb-2\">{{ 'reservation.search.conditions.eventStartDateThrough' | translate }}</label>\n                    <input type=\"text\" name=\"eventStartDateThrough\" id=\"eventStartDateThrough\" placeholder=\"YYYY/MM/DD\"\n                        class=\"form-control\" #eventStartDateThrough=\"bsDatepicker\" bsDatepicker\n                        [(ngModel)]=\"conditions.eventStartDateThrough\"\n                        [bsConfig]=\"{ dateInputFormat: 'YYYY/MM/DD', adaptivePosition: true, showWeekNumbers: false }\"\n                        readonly (onShown)=\"onShowPicker($event)\" (click)=\"setDatePicker()\">\n                </div>\n            </div>\n            <div class=\"buttons mx-auto text-center\">\n                <button type=\"submit\" class=\"btn btn-primary btn-block py-3 mb-3\"\n                    [disabled]=\"isLoading | async\">{{ 'reservation.search.search' | translate }}</button>\n                <button type=\"button\" class=\"btn btn-outline-primary btn-block py-3\"\n                    (click)=\"searchConditionClear()\">{{ 'reservation.search.clear' | translate }}</button>\n            </div>\n        </form>\n    </div>\n    <p *ngIf=\"reservations.length === 0\">{{ 'reservation.search.notfound' | translate }}</p>\n\n    <div *ngIf=\"reservations.length > 0\">\n        <div class=\"d-md-flex align-items-center justify-content-end mb-4\">\n            <div class=\"text-md-right text-center mb-3 mb-md-0 order-2\">\n                <div class=\"d-inline-block\">\n                    <p>{{ 'reservation.search.count' | translate: {value: totalCount} }}</p>\n                    <pagination [(ngModel)]=\"currentPage\" [totalItems]=\"reservations.length * 10\"\n                        [maxSize]=\"5\" [boundaryLinks]=\"false\" previousText=\"&lsaquo;\" nextText=\"&rsaquo;\"\n                        firstText=\"&laquo;\" lastText=\"&raquo;\" (pageChanged)=\"changePage(false, $event)\"></pagination>\n                </div>\n            </div>\n        </div>\n\n        <div class=\"scroll-horizontal\">\n            <table class=\"table bg-white breservation text-small mb-0 border border-gray\">\n                <thead>\n                    <tr>\n                        <th scope=\"col\">{{ 'common.reservationNumber' | translate }}</th>\n                        <th scope=\"col\">{{ 'common.reservationId' | translate }}</th>\n                        <th scope=\"col\">{{ 'common.event' | translate }}</th>\n                        <th scope=\"col\">{{ 'common.ticket' | translate }}</th>\n                        <!-- <th scope=\"col\">決済方法</th> -->\n                        <!-- <th scope=\"col\">注文ステータス</th> -->\n                        <th scope=\"col\"></th>\n                    </tr>\n                </thead>\n                <tbody>\n                    <tr *ngFor=\"let reservation of reservations[currentPage - 1] let index = index\"\n                        [class.bg-light-gray]=\"index % 2 === 0\">\n                        <td class=\"align-middle\">{{ reservation.reservationNumber }}</td>\n                        <td class=\"align-middle\">{{ reservation.id }}</td>\n\n                        <td class=\"align-middle\">\n                            <p *ngIf=\"(reservation.reservationFor.name | changeLanguage).length > 0\">{{\n                                reservation.reservationFor.name | changeLanguage | slice:0:10 }}</p>\n                            <p *ngIf=\"!((reservation.reservationFor.name | changeLanguage).length > 0)\">{{\n                                reservation.reservationFor.name | changeLanguage }}</p>\n                            <p>\n                                <span class=\"theatre-name\">{{ reservation.reservationFor.superEvent.location.name | changeLanguage }}</span>\n                                <span class=\"screen-name\">&nbsp;/&nbsp;{{ reservation.reservationFor.location.name | changeLanguage }}</span>\n                            </p>\n                            <p>{{ reservation.reservationFor.startDate | formatDate: 'YYYY/MM/DD (ddd) HH:mm' }}\n                                -</p>\n                        </td>\n                        <td class=\"align-middle\">\n                            <p>{{ reservation.reservedTicket.ticketType.name | changeLanguage }}</p>\n                            <p *ngIf=\"reservation.reservedTicket.ticketedSeat && environment.DISPLAY_TICKETED_SEAT\">\n                                {{ reservation.reservedTicket.ticketedSeat.seatNumber }}</p>\n                            <p>{{ getTicketPrice({ priceSpecification : { priceComponent: reservation.price.priceComponent } }).single | currency : 'JPY' }}\n                            </p>\n                        </td>\n                        <!-- <td class=\"align-middle\">\n                          <div *ngFor=\"let paymentMethod of reservation.paymentMethods\">\n                              <p>{{ paymentMethod.name }}</p>\n                          </div>\n                      </td> -->\n                        <!-- <td class=\"align-middle\">\n                          {{ reservation.reservationStatus }}\n                      </td> -->\n                        <td class=\"align-middle\">\n                            <button class=\"btn btn-primary mr-2\" (onShown)=\"onShowPicker($event)\"\n                                (click)=\"openDetail(reservation)\"><i class=\"fas fa-search-plus\"></i></button>\n                        </td>\n                    </tr>\n                </tbody>\n            </table>\n        </div>\n\n\n    </div>\n</div>");
+/* harmony default export */ __webpack_exports__["default"] = ("<div class=\"contents-width mx-auto px-3 py-5\">\n    <h2 class=\"text-large mb-4 text-center font-weight-bold\">{{ 'reservation.search.title' | translate }}</h2>\n    <p class=\"mb-4 text-md-center\" [innerHTML]=\"'reservation.search.read' | translate\"></p>\n    <div class=\"conditions p-3 bg-white mb-4\">\n        <form (submit)=\"reservationSearch(true)\">\n            <div class=\"form-row\">\n                <div class=\"form-group col-md-4 col-lg-3\">\n                    <label for=\"reservationDateFrom\"\n                        class=\"mb-2\">{{ 'reservation.search.conditions.reservationDateFrom' | translate }}</label>\n                    <input type=\"text\" name=\"reservationDateFrom\" id=\"reservationDateFrom\" placeholder=\"YYYY/MM/DD\"\n                        class=\"form-control\" #reservationDateFrom=\"bsDatepicker\" bsDatepicker\n                        [(ngModel)]=\"conditions.reservationDateFrom\"\n                        [bsConfig]=\"{ dateInputFormat: 'YYYY/MM/DD', adaptivePosition: true, showWeekNumbers: false }\"\n                        readonly (onShown)=\"onShowPicker($event)\" (click)=\"setDatePicker()\">\n                </div>\n                <div class=\"form-group col-md-4 col-lg-3\">\n                    <label for=\"reservationDateThrough\"\n                        class=\"mb-2\">{{ 'reservation.search.conditions.reservationDateThrough' | translate }}</label>\n                    <input type=\"text\" name=\"reservationDateThrough\" id=\"reservationDateThrough\"\n                        placeholder=\"YYYY/MM/DD\" class=\"form-control\" #reservationDateThrough=\"bsDatepicker\" bsDatepicker\n                        [(ngModel)]=\"conditions.reservationDateThrough\"\n                        [bsConfig]=\"{ dateInputFormat: 'YYYY/MM/DD', adaptivePosition: true, showWeekNumbers: false }\"\n                        readonly (onShown)=\"onShowPicker($event)\" (click)=\"setDatePicker()\">\n                </div>\n                <div class=\"form-group col-md-4 col-lg-3\">\n                    <label for=\"confirmationNumber\" class=\"mb-2\">{{ 'common.reservationId' | translate }}</label>\n                    <input type=\"text\" class=\"form-control\" name=\"id\" id=\"id\" [(ngModel)]=\"conditions.id\"\n                        placeholder=\"{{ 'common.reservationId' | translate }}\">\n                </div>\n                <div class=\"form-group col-md-4 col-lg-3\">\n                    <label for=\"reservationNumber\" class=\"mb-2\">{{ 'common.reservationNumber' | translate }}</label>\n                    <input type=\"text\" class=\"form-control\" name=\"reservationNumber\" id=\"reservationNumber\"\n                        [(ngModel)]=\"conditions.reservationNumber\"\n                        placeholder=\"{{ 'common.reservationNumber' | translate }}\">\n                </div>\n            \n                <div class=\"form-group col-md-4 col-lg-3\">\n                    <label for=\"reservationStatus\" class=\"mb-2\">{{ 'common.reservationStatus' | translate }}</label>\n                    <select class=\"form-control\" name=\"reservationStatus\" id=\"reservationStatus\"\n                        [(ngModel)]=\"conditions.reservationStatus\">\n                        <option value=\"\">{{ 'common.all' | translate }}</option>\n                        <option [value]=\"reservationStatus.ReservationConfirmed\">\n                            {{ 'reservation.search.reservationStatus.ReservationConfirmed' | translate }}</option>\n                        <option [value]=\"reservationStatus.ReservationHold\">\n                            {{ 'reservation.search.reservationStatus.ReservationHold' | translate }}</option>\n                        <option [value]=\"reservationStatus.ReservationPending\">\n                            {{ 'reservation.search.reservationStatus.ReservationPending' | translate }}</option>\n                    </select>\n                </div>\n                <div class=\"form-group col-md-4 col-lg-3\">\n                    <label for=\"eventStartDateFrom\"\n                        class=\"mb-2\">{{ 'reservation.search.conditions.eventStartDateFrom' | translate }}</label>\n                    <input type=\"text\" name=\"eventStartDateFrom\" id=\"eventStartDateFrom\" placeholder=\"YYYY/MM/DD\"\n                        class=\"form-control\" #eventStartDateFrom=\"bsDatepicker\" bsDatepicker\n                        [(ngModel)]=\"conditions.eventStartDateFrom\"\n                        [bsConfig]=\"{ dateInputFormat: 'YYYY/MM/DD', adaptivePosition: true, showWeekNumbers: false }\"\n                        readonly (onShown)=\"onShowPicker($event)\" (click)=\"setDatePicker()\">\n                </div>\n                <div class=\"form-group col-md-4 col-lg-3\">\n                    <label for=\"eventStartDateThrough\"\n                        class=\"mb-2\">{{ 'reservation.search.conditions.eventStartDateThrough' | translate }}</label>\n                    <input type=\"text\" name=\"eventStartDateThrough\" id=\"eventStartDateThrough\" placeholder=\"YYYY/MM/DD\"\n                        class=\"form-control\" #eventStartDateThrough=\"bsDatepicker\" bsDatepicker\n                        [(ngModel)]=\"conditions.eventStartDateThrough\"\n                        [bsConfig]=\"{ dateInputFormat: 'YYYY/MM/DD', adaptivePosition: true, showWeekNumbers: false }\"\n                        readonly (onShown)=\"onShowPicker($event)\" (click)=\"setDatePicker()\">\n                </div>\n            </div>\n            <div class=\"buttons mx-auto text-center\">\n                <button type=\"submit\" class=\"btn btn-primary btn-block py-3 mb-3\"\n                    [disabled]=\"isLoading | async\">{{ 'reservation.search.search' | translate }}</button>\n                <button type=\"button\" class=\"btn btn-outline-primary btn-block py-3\"\n                    (click)=\"searchConditionClear()\">{{ 'reservation.search.clear' | translate }}</button>\n            </div>\n        </form>\n    </div>\n    <p *ngIf=\"reservations.length === 0\">{{ 'reservation.search.notfound' | translate }}</p>\n\n    <div *ngIf=\"reservations.length > 0\">\n        <div class=\"d-md-flex align-items-center justify-content-end mb-4\">\n            <div class=\"text-md-right text-center mb-3 mb-md-0 order-2\">\n                <div class=\"d-inline-block\">\n                    <p>{{ 'reservation.search.count' | translate: {value: totalCount} }}</p>\n                    <pagination [(ngModel)]=\"currentPage\" [totalItems]=\"reservations.length * 10\"\n                        [maxSize]=\"5\" [boundaryLinks]=\"false\" previousText=\"&lsaquo;\" nextText=\"&rsaquo;\"\n                        firstText=\"&laquo;\" lastText=\"&raquo;\" (pageChanged)=\"changePage(false, $event)\"></pagination>\n                </div>\n            </div>\n        </div>\n\n        <div class=\"scroll-horizontal\">\n            <table class=\"table bg-white breservation text-small mb-0 border border-gray\">\n                <thead>\n                    <tr>\n                        <th scope=\"col\">{{ 'common.reservationNumber' | translate }}</th>\n                        <th scope=\"col\">{{ 'common.reservationId' | translate }}</th>\n                        <th scope=\"col\">{{ 'common.event' | translate }}</th>\n                        <th scope=\"col\">{{ 'common.ticket' | translate }}</th>\n                        <!-- <th scope=\"col\">決済方法</th> -->\n                        <!-- <th scope=\"col\">注文ステータス</th> -->\n                        <th scope=\"col\"></th>\n                    </tr>\n                </thead>\n                <tbody>\n                    <tr *ngFor=\"let reservation of reservations[currentPage - 1] let index = index\"\n                        [class.bg-light-gray]=\"index % 2 === 0\">\n                        <td class=\"align-middle\">{{ reservation.reservationNumber }}</td>\n                        <td class=\"align-middle\">{{ reservation.id }}</td>\n\n                        <td class=\"align-middle\">\n                            <p *ngIf=\"(reservation.reservationFor.name | changeLanguage).length > 0\">{{\n                                reservation.reservationFor.name | changeLanguage | slice:0:10 }}</p>\n                            <p *ngIf=\"!((reservation.reservationFor.name | changeLanguage).length > 0)\">{{\n                                reservation.reservationFor.name | changeLanguage }}</p>\n                            <p>\n                                <span class=\"theatre-name\">{{ reservation.reservationFor.superEvent.location.name | changeLanguage }}</span>\n                                <span class=\"screen-name\">&nbsp;/&nbsp;{{ reservation.reservationFor.location.name | changeLanguage }}</span>\n                            </p>\n                            <p>{{ reservation.reservationFor.startDate | formatDate: 'YYYY/MM/DD (ddd) HH:mm' }}\n                                -</p>\n                        </td>\n                        <td class=\"align-middle\">\n                            <p>{{ reservation.reservedTicket.ticketType.name | changeLanguage }}</p>\n                            <p *ngIf=\"reservation.reservedTicket.ticketedSeat && environment.DISPLAY_TICKETED_SEAT\">\n                                {{ reservation.reservedTicket.ticketedSeat.seatNumber }}</p>\n                            <p>{{ getTicketPrice({ priceSpecification : { priceComponent: reservation.price.priceComponent } }).single | currency : 'JPY' }}\n                            </p>\n                        </td>\n                        <!-- <td class=\"align-middle\">\n                          <div *ngFor=\"let paymentMethod of reservation.paymentMethods\">\n                              <p>{{ paymentMethod.name }}</p>\n                          </div>\n                      </td> -->\n                        <!-- <td class=\"align-middle\">\n                          {{ reservation.reservationStatus }}\n                      </td> -->\n                        <td class=\"align-middle\">\n                            <button class=\"btn btn-primary mr-2\" (onShown)=\"onShowPicker($event)\"\n                                (click)=\"openDetail(reservation)\"><i class=\"fas fa-search-plus\"></i></button>\n                        </td>\n                    </tr>\n                </tbody>\n            </table>\n        </div>\n\n\n    </div>\n    <div class=\"buttons mx-auto text-center\">\n        <button type=\"button\" class=\"btn btn-link\"\n            routerLink=\"/reservation\">{{ 'reservation.search.prev' | translate }}</button>\n    </div>\n</div>");
 
 /***/ }),
 
@@ -105,13 +105,14 @@ var __importDefault = (undefined && undefined.__importDefault) || function (mod)
 
 
 let ReservationDownloadComponent = class ReservationDownloadComponent {
-    constructor(store, utilService, reservationService, downloadService, translate, localeService) {
+    constructor(store, utilService, reservationService, downloadService, translate, localeService, userService) {
         this.store = store;
         this.utilService = utilService;
         this.reservationService = reservationService;
         this.downloadService = downloadService;
         this.translate = translate;
         this.localeService = localeService;
+        this.userService = userService;
         this.moment = moment__WEBPACK_IMPORTED_MODULE_4__;
         this.reservationStatus = _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_1__["factory"].chevre.reservationStatusType;
         this.environment = Object(_environments_environment__WEBPACK_IMPORTED_MODULE_6__["getEnvironment"])();
@@ -138,46 +139,6 @@ let ReservationDownloadComponent = class ReservationDownloadComponent {
         this.reservationService.delete();
     }
     /**
-     * 検索パラメータへ変換
-     */
-    convertToSearchParams() {
-        return __awaiter(this, void 0, void 0, function* () {
-            return new Promise((resolve) => {
-                this.user.subscribe(() => {
-                    const params = {
-                        typeOf: _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_1__["factory"].chevre.reservationType.EventReservation,
-                        bookingFrom: (this.confirmedConditions.reservationDateFrom === undefined)
-                            ? undefined
-                            : moment__WEBPACK_IMPORTED_MODULE_4__(moment__WEBPACK_IMPORTED_MODULE_4__(this.confirmedConditions.reservationDateFrom).format('YYYYMMDD')).toDate(),
-                        bookingThrough: (this.confirmedConditions.reservationDateThrough === undefined)
-                            ? undefined
-                            : moment__WEBPACK_IMPORTED_MODULE_4__(moment__WEBPACK_IMPORTED_MODULE_4__(this.confirmedConditions.reservationDateThrough).format('YYYYMMDD')).add(1, 'day').toDate(),
-                        reservationFor: {
-                            startFrom: (this.confirmedConditions.eventStartDateFrom === undefined)
-                                ? undefined
-                                : moment__WEBPACK_IMPORTED_MODULE_4__(moment__WEBPACK_IMPORTED_MODULE_4__(this.confirmedConditions.eventStartDateFrom).format('YYYYMMDD')).toDate(),
-                            startThrough: (this.confirmedConditions.eventStartDateThrough === undefined)
-                                ? undefined
-                                : moment__WEBPACK_IMPORTED_MODULE_4__(moment__WEBPACK_IMPORTED_MODULE_4__(this.confirmedConditions.eventStartDateThrough).format('YYYYMMDD')).add(1, 'day').toDate(),
-                        },
-                        ids: (this.confirmedConditions.id === '')
-                            ? undefined : [this.confirmedConditions.id],
-                        reservationStatuses: (this.confirmedConditions.reservationStatus === '')
-                            ? undefined : [this.confirmedConditions.reservationStatus],
-                        reservationNumbers: (this.confirmedConditions.reservationNumber === '')
-                            ? undefined : [this.confirmedConditions.reservationNumber],
-                        limit: this.limit,
-                        page: this.confirmedConditions.page,
-                        sort: {
-                        // reservationDate: factory.sortType.Descending
-                        }
-                    };
-                    resolve(params);
-                }).unsubscribe();
-            });
-        });
-    }
-    /**
      * ダウンロード
      */
     reservationDownload(changeConditions) {
@@ -201,7 +162,10 @@ let ReservationDownloadComponent = class ReservationDownloadComponent {
             }
             this.utilService.loadStart();
             try {
-                const params = yield this.convertToSearchParams();
+                const params = Object(_functions__WEBPACK_IMPORTED_MODULE_7__["input2ReservationSearchCondition"])({
+                    input: this.confirmedConditions,
+                    seller: (yield this.userService.getData()).seller,
+                });
                 yield this.downloadService.reservation(params);
             }
             catch (error) {
@@ -258,7 +222,8 @@ ReservationDownloadComponent.ctorParameters = () => [
     { type: _services__WEBPACK_IMPORTED_MODULE_8__["ReservationService"] },
     { type: _services__WEBPACK_IMPORTED_MODULE_8__["DownloadService"] },
     { type: _ngx_translate_core__WEBPACK_IMPORTED_MODULE_3__["TranslateService"] },
-    { type: ngx_bootstrap__WEBPACK_IMPORTED_MODULE_5__["BsLocaleService"] }
+    { type: ngx_bootstrap__WEBPACK_IMPORTED_MODULE_5__["BsLocaleService"] },
+    { type: _services__WEBPACK_IMPORTED_MODULE_8__["UserService"] }
 ];
 __decorate([
     Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ViewChild"])('reservationDateFrom', { static: true }),
@@ -287,7 +252,8 @@ ReservationDownloadComponent = __decorate([
         _services__WEBPACK_IMPORTED_MODULE_8__["ReservationService"],
         _services__WEBPACK_IMPORTED_MODULE_8__["DownloadService"],
         _ngx_translate_core__WEBPACK_IMPORTED_MODULE_3__["TranslateService"],
-        ngx_bootstrap__WEBPACK_IMPORTED_MODULE_5__["BsLocaleService"]])
+        ngx_bootstrap__WEBPACK_IMPORTED_MODULE_5__["BsLocaleService"],
+        _services__WEBPACK_IMPORTED_MODULE_8__["UserService"]])
 ], ReservationDownloadComponent);
 
 
@@ -417,13 +383,14 @@ var __importDefault = (undefined && undefined.__importDefault) || function (mod)
 
 
 let ReservationSearchComponent = class ReservationSearchComponent {
-    constructor(store, modal, localeService, utilService, reservationService, translate) {
+    constructor(store, modal, localeService, utilService, reservationService, translate, userService) {
         this.store = store;
         this.modal = modal;
         this.localeService = localeService;
         this.utilService = utilService;
         this.reservationService = reservationService;
         this.translate = translate;
+        this.userService = userService;
         this.moment = moment__WEBPACK_IMPORTED_MODULE_4__;
         this.reservationStatus = _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_1__["factory"].chevre.reservationStatusType;
         this.environment = Object(_environments_environment__WEBPACK_IMPORTED_MODULE_6__["getEnvironment"])();
@@ -448,46 +415,6 @@ let ReservationSearchComponent = class ReservationSearchComponent {
             page: 1
         };
         this.reservationService.delete();
-    }
-    /**
-     * 検索パラメータへ変換
-     */
-    convertToSearchParams() {
-        return __awaiter(this, void 0, void 0, function* () {
-            return new Promise((resolve) => {
-                this.user.subscribe(() => {
-                    const params = {
-                        typeOf: _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_1__["factory"].chevre.reservationType.EventReservation,
-                        bookingFrom: (this.confirmedConditions.reservationDateFrom === undefined)
-                            ? undefined
-                            : moment__WEBPACK_IMPORTED_MODULE_4__(moment__WEBPACK_IMPORTED_MODULE_4__(this.confirmedConditions.reservationDateFrom).format('YYYYMMDD')).toDate(),
-                        bookingThrough: (this.confirmedConditions.reservationDateThrough === undefined)
-                            ? undefined
-                            : moment__WEBPACK_IMPORTED_MODULE_4__(moment__WEBPACK_IMPORTED_MODULE_4__(this.confirmedConditions.reservationDateThrough).format('YYYYMMDD')).add(1, 'day').toDate(),
-                        reservationFor: {
-                            startFrom: (this.confirmedConditions.eventStartDateFrom === undefined)
-                                ? undefined
-                                : moment__WEBPACK_IMPORTED_MODULE_4__(moment__WEBPACK_IMPORTED_MODULE_4__(this.confirmedConditions.eventStartDateFrom).format('YYYYMMDD')).toDate(),
-                            startThrough: (this.confirmedConditions.eventStartDateThrough === undefined)
-                                ? undefined
-                                : moment__WEBPACK_IMPORTED_MODULE_4__(moment__WEBPACK_IMPORTED_MODULE_4__(this.confirmedConditions.eventStartDateThrough).format('YYYYMMDD')).add(1, 'day').toDate(),
-                        },
-                        ids: (this.confirmedConditions.id === '')
-                            ? undefined : [this.confirmedConditions.id],
-                        reservationStatuses: (this.confirmedConditions.reservationStatus === '')
-                            ? undefined : [this.confirmedConditions.reservationStatus],
-                        reservationNumbers: (this.confirmedConditions.reservationNumber === '')
-                            ? undefined : [this.confirmedConditions.reservationNumber],
-                        limit: this.limit,
-                        page: this.confirmedConditions.page,
-                        sort: {
-                        // reservationDate: factory.sortType.Descending
-                        }
-                    };
-                    resolve(params);
-                }).unsubscribe();
-            });
-        });
     }
     /**
      * 検索
@@ -518,7 +445,10 @@ let ReservationSearchComponent = class ReservationSearchComponent {
             try {
                 this.totalCount = 0;
                 this.reservations = [];
-                const params = yield this.convertToSearchParams();
+                const params = Object(_functions__WEBPACK_IMPORTED_MODULE_7__["input2ReservationSearchCondition"])({
+                    input: this.confirmedConditions,
+                    seller: (yield this.userService.getData()).seller,
+                });
                 if (params.bookingFrom !== null
                     && params.bookingThrough !== null
                     && moment__WEBPACK_IMPORTED_MODULE_4__(params.bookingThrough).diff(moment__WEBPACK_IMPORTED_MODULE_4__(params.bookingFrom), 'day') > 14) {
@@ -593,7 +523,8 @@ ReservationSearchComponent.ctorParameters = () => [
     { type: ngx_bootstrap__WEBPACK_IMPORTED_MODULE_5__["BsLocaleService"] },
     { type: _services__WEBPACK_IMPORTED_MODULE_8__["UtilService"] },
     { type: _services__WEBPACK_IMPORTED_MODULE_8__["ReservationService"] },
-    { type: _ngx_translate_core__WEBPACK_IMPORTED_MODULE_3__["TranslateService"] }
+    { type: _ngx_translate_core__WEBPACK_IMPORTED_MODULE_3__["TranslateService"] },
+    { type: _services__WEBPACK_IMPORTED_MODULE_8__["UserService"] }
 ];
 __decorate([
     Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ViewChild"])('reservationDateFrom', { static: true }),
@@ -622,7 +553,8 @@ ReservationSearchComponent = __decorate([
         ngx_bootstrap__WEBPACK_IMPORTED_MODULE_5__["BsLocaleService"],
         _services__WEBPACK_IMPORTED_MODULE_8__["UtilService"],
         _services__WEBPACK_IMPORTED_MODULE_8__["ReservationService"],
-        _ngx_translate_core__WEBPACK_IMPORTED_MODULE_3__["TranslateService"]])
+        _ngx_translate_core__WEBPACK_IMPORTED_MODULE_3__["TranslateService"],
+        _services__WEBPACK_IMPORTED_MODULE_8__["UserService"]])
 ], ReservationSearchComponent);
 
 

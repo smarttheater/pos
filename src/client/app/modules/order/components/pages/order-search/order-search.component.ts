@@ -8,7 +8,7 @@ import { BsDatepickerDirective, BsLocaleService, BsModalService } from 'ngx-boot
 import { BsDatepickerContainerComponent } from 'ngx-bootstrap/datepicker/themes/bs/bs-datepicker-container.component';
 import { Observable } from 'rxjs';
 import { getEnvironment } from '../../../../../../environments/environment';
-import { iOSDatepickerTapBugFix, orderToEventOrders } from '../../../../../functions';
+import { input2OrderSearchCondition, iOSDatepickerTapBugFix, orderToEventOrders } from '../../../../../functions';
 import { IOrderSearchConditions, OrderActions } from '../../../../../models';
 import { OrderService, UserService, UtilService } from '../../../../../services';
 import * as reducers from '../../../../../store/reducers';
@@ -108,72 +108,6 @@ export class OrderSearchComponent implements OnInit {
     }
 
     /**
-     * 検索パラメータへ変換
-     */
-    public async convertToSearchParams() {
-        return new Promise<factory.order.ISearchConditions>((resolve) => {
-            this.user.subscribe((user) => {
-                const identifiers: factory.propertyValue.IPropertyValue<string>[] = [];
-                if (this.confirmedConditions.posId !== '') {
-                    identifiers.push({ name: 'posId', value: this.confirmedConditions.posId });
-                }
-                const params: factory.order.ISearchConditions = {
-                    seller: {
-                        typeOf: (user.seller === undefined)
-                            ? undefined : user.seller.typeOf,
-                        ids: (user.seller === undefined)
-                            ? undefined : [user.seller.id]
-                    },
-                    customer: {
-                        email: (this.confirmedConditions.customer.email === '')
-                            ? undefined : this.confirmedConditions.customer.email,
-                        telephone: (this.confirmedConditions.customer.telephone === '')
-                            ? undefined : this.confirmedConditions.customer.telephone,
-                        familyName: (this.confirmedConditions.customer.familyName === '')
-                            ? undefined : this.confirmedConditions.customer.familyName,
-                        givenName: (this.confirmedConditions.customer.givenName === '')
-                            ? undefined : this.confirmedConditions.customer.givenName,
-                        identifiers
-                    },
-                    orderStatuses: (this.confirmedConditions.orderStatus === '')
-                        ? undefined : [this.confirmedConditions.orderStatus],
-                    orderDateFrom: (this.confirmedConditions.orderDateFrom === undefined)
-                        ? undefined
-                        : moment(moment(this.confirmedConditions.orderDateFrom).format('YYYYMMDD')).toDate(),
-                    orderDateThrough: (this.confirmedConditions.orderDateThrough === undefined)
-                        ? undefined
-                        : moment(moment(this.confirmedConditions.orderDateThrough).format('YYYYMMDD')).add(1, 'day').toDate(),
-                    confirmationNumbers: (this.confirmedConditions.confirmationNumber === '')
-                        ? undefined : [this.confirmedConditions.confirmationNumber],
-                    orderNumbers: (this.confirmedConditions.orderNumber === '')
-                        ? undefined : [this.confirmedConditions.orderNumber],
-                    paymentMethods: (this.confirmedConditions.paymentMethodType === '')
-                        ? undefined : { typeOfs: [this.confirmedConditions.paymentMethodType] },
-                    acceptedOffers: {
-                        itemOffered: {
-                            reservationFor: {
-                                inSessionFrom: (this.confirmedConditions.eventStartDateFrom === undefined)
-                                    ? undefined
-                                    : moment(moment(this.confirmedConditions.eventStartDateFrom).format('YYYYMMDD')).toDate(),
-                                inSessionThrough: (this.confirmedConditions.eventStartDateThrough === undefined)
-                                    ? undefined
-                                    : moment(moment(this.confirmedConditions.eventStartDateThrough)
-                                        .format('YYYYMMDD')).add(1, 'day').toDate(),
-                            }
-                        }
-                    },
-                    limit: this.limit,
-                    page: this.confirmedConditions.page,
-                    sort: {
-                        orderDate: factory.sortType.Descending
-                    }
-                };
-                resolve(params);
-            }).unsubscribe();
-        });
-    }
-
-    /**
      * ページ変更
      */
     public changePage(event: { page: number }) {
@@ -225,13 +159,17 @@ export class OrderSearchComponent implements OnInit {
         try {
             this.totalCount = 0;
             this.orders = [];
-            const params = await this.convertToSearchParams();
+            const params = input2OrderSearchCondition({
+                input: this.confirmedConditions,
+                seller: (await this.userService.getData()).seller,
+                limit: this.limit
+            });
             if (params.orderDateFrom !== null
                 && params.orderDateThrough !== null
                 && moment(params.orderDateThrough).diff(moment(params.orderDateFrom), 'day') > 14) {
-                    // 購入日の範囲が14日以上
-                    throw new Error('order date wrong date range');
-                }
+                // 購入日の範囲が14日以上
+                throw new Error('order date wrong date range');
+            }
             const searchResult = await this.orderService.splitSearch(params);
             this.totalCount = searchResult.totalCount;
             for (let i = 0; i < Math.ceil(searchResult.data.length / this.limit); i++) {

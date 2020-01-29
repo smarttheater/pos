@@ -2,7 +2,7 @@ import { factory } from '@cinerino/api-javascript-client';
 import * as moment from 'moment';
 import * as qrcode from 'qrcode';
 import { getEnvironment } from '../../environments/environment';
-import { ITicketPrintData } from '../models';
+import { IOrderSearchConditions, ITicketPrintData } from '../models';
 import { getTicketPrice } from './purchase.function';
 import { formatTelephone, getProject } from './util.function';
 
@@ -341,4 +341,74 @@ export function order2report(orders: factory.order.IOrder[]) {
         });
     });
     return data;
+}
+
+/**
+ * 入力データを検索条件へ変換
+ */
+export function input2OrderSearchCondition(params: {
+    input: IOrderSearchConditions;
+    seller?: factory.seller.IOrganization<factory.seller.IAttributes<factory.organizationType>>;
+    limit?: number;
+}) {
+    const input = params.input;
+    const seller = params.seller;
+    const limit = params.limit;
+    const identifiers: factory.propertyValue.IPropertyValue<string>[] = [];
+    if (input.posId !== '') {
+        identifiers.push({ name: 'posId', value: input.posId });
+    }
+    const result: factory.order.ISearchConditions = {
+        seller: {
+            ids: (seller === undefined) ? undefined : [seller.id]
+        },
+        customer: {
+            // email: (input.customer.email === '') ? undefined : input.customer.email,
+            // telephone: (input.customer.telephone === '') ? undefined : input.customer.telephone,
+            // familyName: (input.customer.familyName === '') ? undefined : input.customer.familyName,
+            // givenName: (input.customer.givenName === '') ? undefined : input.customer.givenName,
+            email: {
+                $eq: (input.customer.email === '') ? undefined : input.customer.email,
+            },
+            telephone: (input.customer.telephone === '') ? undefined : input.customer.telephone,
+            familyName: {
+                $eq: (input.customer.familyName === '') ? undefined : input.customer.familyName,
+            },
+            givenName: {
+                $eq: (input.customer.givenName === '') ? undefined : input.customer.givenName,
+            },
+            identifiers
+        },
+        orderStatuses: (input.orderStatus === '')
+            ? undefined : [input.orderStatus],
+        orderDateFrom: (input.orderDateFrom === undefined)
+            ? undefined
+            : moment(moment(input.orderDateFrom).format('YYYYMMDD')).toDate(),
+        orderDateThrough: (input.orderDateThrough === undefined)
+            ? undefined
+            : moment(moment(input.orderDateThrough).format('YYYYMMDD')).add(1, 'day').toDate(),
+        confirmationNumbers: (input.confirmationNumber === '')
+            ? undefined : [input.confirmationNumber],
+        orderNumbers: (input.orderNumber === '')
+            ? undefined : [input.orderNumber],
+        paymentMethods: (input.paymentMethodType === '')
+            ? undefined : { typeOfs: [input.paymentMethodType] },
+        acceptedOffers: {
+            itemOffered: {
+                reservationFor: {
+                    inSessionFrom: (input.eventStartDateFrom === undefined)
+                        ? undefined
+                        : moment(moment(input.eventStartDateFrom).format('YYYYMMDD')).toDate(),
+                    inSessionThrough: (input.eventStartDateThrough === undefined)
+                        ? undefined
+                        : moment(moment(input.eventStartDateThrough)
+                            .format('YYYYMMDD')).add(1, 'day').toDate(),
+                }
+            }
+        },
+        limit,
+        page: input.page,
+        sort: { orderDate: factory.sortType.Descending }
+    };
+    return result;
 }

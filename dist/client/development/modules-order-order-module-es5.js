@@ -234,7 +234,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
     var OrderDownloadComponent =
     /*#__PURE__*/
     function () {
-      function OrderDownloadComponent(store, utilService, orderService, downloadService, translate, localeService) {
+      function OrderDownloadComponent(store, utilService, orderService, downloadService, translate, localeService, userService) {
         _classCallCheck(this, OrderDownloadComponent);
 
         this.store = store;
@@ -243,6 +243,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
         this.downloadService = downloadService;
         this.translate = translate;
         this.localeService = localeService;
+        this.userService = userService;
         this.moment = moment__WEBPACK_IMPORTED_MODULE_4__;
         this.orderStatus = _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_1__["factory"].orderStatus;
         this.paymentMethodType = _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_1__["factory"].paymentMethodType;
@@ -278,83 +279,9 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
             orderStatus: '',
             paymentMethodType: '',
             posId: '',
-            format: _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_1__["factory"].encodingFormat.Application.json,
-            csvFormat: _models__WEBPACK_IMPORTED_MODULE_8__["CsvFormat"].Custom
+            page: 1
           };
           this.orderService["delete"]();
-        }
-        /**
-         * 検索パラメータへ変換
-         */
-
-      }, {
-        key: "convertToSearchParams",
-        value: function convertToSearchParams() {
-          return __awaiter(this, void 0, void 0,
-          /*#__PURE__*/
-          regeneratorRuntime.mark(function _callee() {
-            var _this = this;
-
-            return regeneratorRuntime.wrap(function _callee$(_context) {
-              while (1) {
-                switch (_context.prev = _context.next) {
-                  case 0:
-                    return _context.abrupt("return", new Promise(function (resolve) {
-                      _this.user.subscribe(function (user) {
-                        var identifiers = [];
-
-                        if (_this.confirmedConditions.posId !== '') {
-                          identifiers.push({
-                            name: 'posId',
-                            value: _this.confirmedConditions.posId
-                          });
-                        }
-
-                        var params = {
-                          seller: {
-                            typeOf: user.seller === undefined ? undefined : user.seller.typeOf,
-                            ids: user.seller === undefined ? undefined : [user.seller.id]
-                          },
-                          customer: {
-                            email: _this.confirmedConditions.customer.email === '' ? undefined : _this.confirmedConditions.customer.email,
-                            telephone: _this.confirmedConditions.customer.telephone === '' ? undefined : _this.confirmedConditions.customer.telephone,
-                            familyName: _this.confirmedConditions.customer.familyName === '' ? undefined : _this.confirmedConditions.customer.familyName,
-                            givenName: _this.confirmedConditions.customer.givenName === '' ? undefined : _this.confirmedConditions.customer.givenName,
-                            identifiers: identifiers
-                          },
-                          orderStatuses: _this.confirmedConditions.orderStatus === '' ? undefined : [_this.confirmedConditions.orderStatus],
-                          orderDateFrom: _this.confirmedConditions.orderDateFrom === undefined ? undefined : moment__WEBPACK_IMPORTED_MODULE_4__(moment__WEBPACK_IMPORTED_MODULE_4__(_this.confirmedConditions.orderDateFrom).format('YYYYMMDD')).toISOString(),
-                          orderDateThrough: _this.confirmedConditions.orderDateThrough === undefined ? undefined : moment__WEBPACK_IMPORTED_MODULE_4__(moment__WEBPACK_IMPORTED_MODULE_4__(_this.confirmedConditions.orderDateThrough).format('YYYYMMDD')).add(1, 'day').toISOString(),
-                          confirmationNumbers: _this.confirmedConditions.confirmationNumber === '' ? undefined : [_this.confirmedConditions.confirmationNumber],
-                          orderNumbers: _this.confirmedConditions.orderNumber === '' ? undefined : [_this.confirmedConditions.orderNumber],
-                          paymentMethods: _this.confirmedConditions.paymentMethodType === '' ? undefined : {
-                            typeOfs: [_this.confirmedConditions.paymentMethodType]
-                          },
-                          acceptedOffers: {
-                            itemOffered: {
-                              reservationFor: {
-                                inSessionFrom: _this.confirmedConditions.eventStartDateFrom === undefined ? undefined : moment__WEBPACK_IMPORTED_MODULE_4__(moment__WEBPACK_IMPORTED_MODULE_4__(_this.confirmedConditions.eventStartDateFrom).format('YYYYMMDD')).toISOString(),
-                                inSessionThrough: _this.confirmedConditions.eventStartDateThrough === undefined ? undefined : moment__WEBPACK_IMPORTED_MODULE_4__(moment__WEBPACK_IMPORTED_MODULE_4__(_this.confirmedConditions.eventStartDateThrough).format('YYYYMMDD')).add(1, 'day').toISOString()
-                              }
-                            }
-                          },
-                          sort: {
-                            orderDate: _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_1__["factory"].sortType.Descending
-                          },
-                          format: _this.confirmedConditions.format,
-                          csvFormat: _models__WEBPACK_IMPORTED_MODULE_8__["CsvFormat"].Custom
-                        };
-                        resolve(params);
-                      }).unsubscribe();
-                    }));
-
-                  case 1:
-                  case "end":
-                    return _context.stop();
-                }
-              }
-            }, _callee);
-          }));
         }
         /**
          * ダウンロード
@@ -365,11 +292,11 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
         value: function orderDownload(changeConditions) {
           return __awaiter(this, void 0, void 0,
           /*#__PURE__*/
-          regeneratorRuntime.mark(function _callee2() {
+          regeneratorRuntime.mark(function _callee() {
             var params;
-            return regeneratorRuntime.wrap(function _callee2$(_context2) {
+            return regeneratorRuntime.wrap(function _callee$(_context) {
               while (1) {
-                switch (_context2.prev = _context2.next) {
+                switch (_context.prev = _context.next) {
                   case 0:
                     this.selectedOrders = []; // iOS bugfix
 
@@ -397,43 +324,49 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
                         eventStartDateFrom: this.conditions.eventStartDateFrom,
                         eventStartDateThrough: this.conditions.eventStartDateThrough,
                         posId: this.conditions.posId,
-                        format: this.conditions.format,
-                        csvFormat: _models__WEBPACK_IMPORTED_MODULE_8__["CsvFormat"].Custom
+                        page: 1
                       };
                     }
 
                     this.utilService.loadStart();
-                    _context2.prev = 9;
-                    _context2.next = 12;
-                    return this.convertToSearchParams();
+                    _context.prev = 9;
+                    _context.t0 = Object(_functions__WEBPACK_IMPORTED_MODULE_7__["input2OrderSearchCondition"]);
+                    _context.t1 = this.confirmedConditions;
+                    _context.next = 14;
+                    return this.userService.getData();
 
-                  case 12:
-                    params = _context2.sent;
-                    _context2.next = 15;
-                    return this.downloadService.order(params, params.csvFormat);
+                  case 14:
+                    _context.t2 = _context.sent.seller;
+                    _context.t3 = {
+                      input: _context.t1,
+                      seller: _context.t2
+                    };
+                    params = (0, _context.t0)(_context.t3);
+                    _context.next = 19;
+                    return this.downloadService.order(params, _models__WEBPACK_IMPORTED_MODULE_8__["CsvFormat"].Custom);
 
-                  case 15:
-                    _context2.next = 21;
+                  case 19:
+                    _context.next = 25;
                     break;
 
-                  case 17:
-                    _context2.prev = 17;
-                    _context2.t0 = _context2["catch"](9);
-                    console.error(_context2.t0);
+                  case 21:
+                    _context.prev = 21;
+                    _context.t4 = _context["catch"](9);
+                    console.error(_context.t4);
                     this.utilService.openAlert({
                       title: this.translate.instant('common.error'),
                       body: this.translate.instant('order.download.alert.download')
                     });
 
-                  case 21:
+                  case 25:
                     this.utilService.loadEnd();
 
-                  case 22:
+                  case 26:
                   case "end":
-                    return _context2.stop();
+                    return _context.stop();
                 }
               }
-            }, _callee2, this, [[9, 17]]);
+            }, _callee, this, [[9, 21]]);
           }));
         }
         /**
@@ -459,8 +392,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
             orderStatus: '',
             paymentMethodType: '',
             posId: '',
-            format: _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_1__["factory"].encodingFormat.Text.csv,
-            csvFormat: _models__WEBPACK_IMPORTED_MODULE_8__["CsvFormat"].Custom
+            page: 1
           }; // iOS bugfix
 
           document.getElementById('confirmationNumber').value = '';
@@ -477,10 +409,10 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "setDatePicker",
         value: function setDatePicker() {
-          var _this2 = this;
+          var _this = this;
 
           this.user.subscribe(function (user) {
-            _this2.localeService.use(user.language);
+            _this.localeService.use(user.language);
           }).unsubscribe();
         }
         /**
@@ -510,6 +442,8 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
         type: _ngx_translate_core__WEBPACK_IMPORTED_MODULE_3__["TranslateService"]
       }, {
         type: ngx_bootstrap__WEBPACK_IMPORTED_MODULE_5__["BsLocaleService"]
+      }, {
+        type: _services__WEBPACK_IMPORTED_MODULE_9__["UserService"]
       }];
     };
 
@@ -537,7 +471,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       styles: [__importDefault(__webpack_require__(
       /*! ./order-download.component.scss */
       "./app/modules/order/components/pages/order-download/order-download.component.scss"))["default"]]
-    }), __metadata("design:paramtypes", [_ngrx_store__WEBPACK_IMPORTED_MODULE_2__["Store"], _services__WEBPACK_IMPORTED_MODULE_9__["UtilService"], _services__WEBPACK_IMPORTED_MODULE_9__["OrderService"], _services__WEBPACK_IMPORTED_MODULE_9__["DownloadService"], _ngx_translate_core__WEBPACK_IMPORTED_MODULE_3__["TranslateService"], ngx_bootstrap__WEBPACK_IMPORTED_MODULE_5__["BsLocaleService"]])], OrderDownloadComponent);
+    }), __metadata("design:paramtypes", [_ngrx_store__WEBPACK_IMPORTED_MODULE_2__["Store"], _services__WEBPACK_IMPORTED_MODULE_9__["UtilService"], _services__WEBPACK_IMPORTED_MODULE_9__["OrderService"], _services__WEBPACK_IMPORTED_MODULE_9__["DownloadService"], _ngx_translate_core__WEBPACK_IMPORTED_MODULE_3__["TranslateService"], ngx_bootstrap__WEBPACK_IMPORTED_MODULE_5__["BsLocaleService"], _services__WEBPACK_IMPORTED_MODULE_9__["UserService"]])], OrderDownloadComponent);
     /***/
   },
 
@@ -900,79 +834,6 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
           this.selectedOrders.splice(findIndex, 1);
         }
         /**
-         * 検索パラメータへ変換
-         */
-
-      }, {
-        key: "convertToSearchParams",
-        value: function convertToSearchParams() {
-          return __awaiter(this, void 0, void 0,
-          /*#__PURE__*/
-          regeneratorRuntime.mark(function _callee3() {
-            var _this3 = this;
-
-            return regeneratorRuntime.wrap(function _callee3$(_context3) {
-              while (1) {
-                switch (_context3.prev = _context3.next) {
-                  case 0:
-                    return _context3.abrupt("return", new Promise(function (resolve) {
-                      _this3.user.subscribe(function (user) {
-                        var identifiers = [];
-
-                        if (_this3.confirmedConditions.posId !== '') {
-                          identifiers.push({
-                            name: 'posId',
-                            value: _this3.confirmedConditions.posId
-                          });
-                        }
-
-                        var params = {
-                          seller: {
-                            typeOf: user.seller === undefined ? undefined : user.seller.typeOf,
-                            ids: user.seller === undefined ? undefined : [user.seller.id]
-                          },
-                          customer: {
-                            email: _this3.confirmedConditions.customer.email === '' ? undefined : _this3.confirmedConditions.customer.email,
-                            telephone: _this3.confirmedConditions.customer.telephone === '' ? undefined : _this3.confirmedConditions.customer.telephone,
-                            familyName: _this3.confirmedConditions.customer.familyName === '' ? undefined : _this3.confirmedConditions.customer.familyName,
-                            givenName: _this3.confirmedConditions.customer.givenName === '' ? undefined : _this3.confirmedConditions.customer.givenName,
-                            identifiers: identifiers
-                          },
-                          orderStatuses: _this3.confirmedConditions.orderStatus === '' ? undefined : [_this3.confirmedConditions.orderStatus],
-                          orderDateFrom: _this3.confirmedConditions.orderDateFrom === undefined ? undefined : moment__WEBPACK_IMPORTED_MODULE_5__(moment__WEBPACK_IMPORTED_MODULE_5__(_this3.confirmedConditions.orderDateFrom).format('YYYYMMDD')).toDate(),
-                          orderDateThrough: _this3.confirmedConditions.orderDateThrough === undefined ? undefined : moment__WEBPACK_IMPORTED_MODULE_5__(moment__WEBPACK_IMPORTED_MODULE_5__(_this3.confirmedConditions.orderDateThrough).format('YYYYMMDD')).add(1, 'day').toDate(),
-                          confirmationNumbers: _this3.confirmedConditions.confirmationNumber === '' ? undefined : [_this3.confirmedConditions.confirmationNumber],
-                          orderNumbers: _this3.confirmedConditions.orderNumber === '' ? undefined : [_this3.confirmedConditions.orderNumber],
-                          paymentMethods: _this3.confirmedConditions.paymentMethodType === '' ? undefined : {
-                            typeOfs: [_this3.confirmedConditions.paymentMethodType]
-                          },
-                          acceptedOffers: {
-                            itemOffered: {
-                              reservationFor: {
-                                inSessionFrom: _this3.confirmedConditions.eventStartDateFrom === undefined ? undefined : moment__WEBPACK_IMPORTED_MODULE_5__(moment__WEBPACK_IMPORTED_MODULE_5__(_this3.confirmedConditions.eventStartDateFrom).format('YYYYMMDD')).toDate(),
-                                inSessionThrough: _this3.confirmedConditions.eventStartDateThrough === undefined ? undefined : moment__WEBPACK_IMPORTED_MODULE_5__(moment__WEBPACK_IMPORTED_MODULE_5__(_this3.confirmedConditions.eventStartDateThrough).format('YYYYMMDD')).add(1, 'day').toDate()
-                              }
-                            }
-                          },
-                          limit: _this3.limit,
-                          page: _this3.confirmedConditions.page,
-                          sort: {
-                            orderDate: _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_2__["factory"].sortType.Descending
-                          }
-                        };
-                        resolve(params);
-                      }).unsubscribe();
-                    }));
-
-                  case 1:
-                  case "end":
-                    return _context3.stop();
-                }
-              }
-            }, _callee3);
-          }));
-        }
-        /**
          * ページ変更
          */
 
@@ -990,11 +851,11 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
         value: function orderSearch(changeConditions, event) {
           return __awaiter(this, void 0, void 0,
           /*#__PURE__*/
-          regeneratorRuntime.mark(function _callee4() {
+          regeneratorRuntime.mark(function _callee2() {
             var params, searchResult, i;
-            return regeneratorRuntime.wrap(function _callee4$(_context4) {
+            return regeneratorRuntime.wrap(function _callee2$(_context2) {
               while (1) {
-                switch (_context4.prev = _context4.next) {
+                switch (_context2.prev = _context2.next) {
                   case 0:
                     this.currentPage = 1;
                     this.selectedOrders = [];
@@ -1032,52 +893,61 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
                       };
                     }
 
-                    _context4.prev = 10;
+                    _context2.prev = 10;
                     this.totalCount = 0;
                     this.orders = [];
-                    _context4.next = 15;
-                    return this.convertToSearchParams();
+                    _context2.t0 = Object(_functions__WEBPACK_IMPORTED_MODULE_8__["input2OrderSearchCondition"]);
+                    _context2.t1 = this.confirmedConditions;
+                    _context2.next = 17;
+                    return this.userService.getData();
 
-                  case 15:
-                    params = _context4.sent;
+                  case 17:
+                    _context2.t2 = _context2.sent.seller;
+                    _context2.t3 = this.limit;
+                    _context2.t4 = {
+                      input: _context2.t1,
+                      seller: _context2.t2,
+                      limit: _context2.t3
+                    };
+                    params = (0, _context2.t0)(_context2.t4);
 
                     if (!(params.orderDateFrom !== null && params.orderDateThrough !== null && moment__WEBPACK_IMPORTED_MODULE_5__(params.orderDateThrough).diff(moment__WEBPACK_IMPORTED_MODULE_5__(params.orderDateFrom), 'day') > 14)) {
-                      _context4.next = 18;
+                      _context2.next = 23;
                       break;
                     }
 
                     throw new Error('order date wrong date range');
 
-                  case 18:
-                    _context4.next = 20;
+                  case 23:
+                    _context2.next = 25;
                     return this.orderService.splitSearch(params);
 
-                  case 20:
-                    searchResult = _context4.sent;
+                  case 25:
+                    searchResult = _context2.sent;
                     this.totalCount = searchResult.totalCount;
 
                     for (i = 0; i < Math.ceil(searchResult.data.length / this.limit); i++) {
                       this.orders.push(searchResult.data.slice(i * this.limit, (i + 1) * this.limit < searchResult.data.length ? (i + 1) * this.limit : searchResult.data.length));
                     }
 
-                    _context4.next = 29;
+                    _context2.next = 34;
                     break;
 
-                  case 25:
-                    _context4.prev = 25;
-                    _context4.t0 = _context4["catch"](10);
-                    console.error(_context4.t0);
+                  case 30:
+                    _context2.prev = 30;
+                    _context2.t5 = _context2["catch"](10);
+                    console.error(_context2.t5);
                     this.utilService.openAlert({
                       title: this.translate.instant('common.error'),
                       body: this.translate.instant('order.search.alert.search')
                     });
 
-                  case 29:
+                  case 34:
                   case "end":
-                    return _context4.stop();
+                    return _context2.stop();
                 }
               }
-            }, _callee4, this, [[10, 25]]);
+            }, _callee2, this, [[10, 30]]);
           }));
         }
         /**
@@ -1120,39 +990,39 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "printConfirm",
         value: function printConfirm(orders) {
-          var _this4 = this;
+          var _this2 = this;
 
           this.utilService.openConfirm({
             title: this.translate.instant('common.confirm'),
             body: this.translate.instant('order.search.confirm.print'),
             cb: function cb() {
-              return __awaiter(_this4, void 0, void 0,
+              return __awaiter(_this2, void 0, void 0,
               /*#__PURE__*/
-              regeneratorRuntime.mark(function _callee5() {
+              regeneratorRuntime.mark(function _callee3() {
                 var user, pos, printer;
-                return regeneratorRuntime.wrap(function _callee5$(_context5) {
+                return regeneratorRuntime.wrap(function _callee3$(_context3) {
                   while (1) {
-                    switch (_context5.prev = _context5.next) {
+                    switch (_context3.prev = _context3.next) {
                       case 0:
-                        _context5.prev = 0;
-                        _context5.next = 3;
+                        _context3.prev = 0;
+                        _context3.next = 3;
                         return this.userService.getData();
 
                       case 3:
-                        user = _context5.sent;
+                        user = _context3.sent;
 
                         if (!(user.pos === undefined || user.printer === undefined)) {
-                          _context5.next = 7;
+                          _context3.next = 7;
                           break;
                         }
 
                         this.router.navigate(['/error']);
-                        return _context5.abrupt("return");
+                        return _context3.abrupt("return");
 
                       case 7:
                         pos = user.pos;
                         printer = user.printer;
-                        _context5.next = 11;
+                        _context3.next = 11;
                         return this.orderService.print({
                           orders: orders,
                           pos: pos,
@@ -1160,24 +1030,24 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
                         });
 
                       case 11:
-                        _context5.next = 17;
+                        _context3.next = 17;
                         break;
 
                       case 13:
-                        _context5.prev = 13;
-                        _context5.t0 = _context5["catch"](0);
-                        console.error(_context5.t0);
+                        _context3.prev = 13;
+                        _context3.t0 = _context3["catch"](0);
+                        console.error(_context3.t0);
                         this.utilService.openAlert({
                           title: this.translate.instant('common.error'),
-                          body: "<p class=\"mb-4\">".concat(this.translate.instant('order.search.alert.print'), "</p>\n                        <div class=\"p-3 bg-light-gray select-text\">\n                        <code>").concat(_context5.t0, "</code>\n                    </div>")
+                          body: "<p class=\"mb-4\">".concat(this.translate.instant('order.search.alert.print'), "</p>\n                        <div class=\"p-3 bg-light-gray select-text\">\n                        <code>").concat(_context3.t0, "</code>\n                    </div>")
                         });
 
                       case 17:
                       case "end":
-                        return _context5.stop();
+                        return _context3.stop();
                     }
                   }
-                }, _callee5, this, [[0, 13]]);
+                }, _callee3, this, [[0, 13]]);
               }));
             }
           });
@@ -1189,27 +1059,27 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "cancelConfirm",
         value: function cancelConfirm(orders) {
-          var _this5 = this;
+          var _this3 = this;
 
           this.utilService.openConfirm({
             title: this.translate.instant('common.confirm'),
             body: this.translate.instant('order.search.confirm.cancel'),
             cb: function cb() {
-              return __awaiter(_this5, void 0, void 0,
+              return __awaiter(_this3, void 0, void 0,
               /*#__PURE__*/
-              regeneratorRuntime.mark(function _callee6() {
+              regeneratorRuntime.mark(function _callee4() {
                 var userData;
-                return regeneratorRuntime.wrap(function _callee6$(_context6) {
+                return regeneratorRuntime.wrap(function _callee4$(_context4) {
                   while (1) {
-                    switch (_context6.prev = _context6.next) {
+                    switch (_context4.prev = _context4.next) {
                       case 0:
-                        _context6.prev = 0;
-                        _context6.next = 3;
+                        _context4.prev = 0;
+                        _context4.next = 3;
                         return this.userService.getData();
 
                       case 3:
-                        userData = _context6.sent;
-                        _context6.next = 6;
+                        userData = _context4.sent;
+                        _context4.next = 6;
                         return this.orderService.cancel({
                           orders: orders,
                           language: userData.language
@@ -1219,24 +1089,24 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
                         this.orderSearch(false, {
                           page: this.confirmedConditions.page
                         });
-                        _context6.next = 13;
+                        _context4.next = 13;
                         break;
 
                       case 9:
-                        _context6.prev = 9;
-                        _context6.t0 = _context6["catch"](0);
-                        console.error(_context6.t0);
+                        _context4.prev = 9;
+                        _context4.t0 = _context4["catch"](0);
+                        console.error(_context4.t0);
                         this.utilService.openAlert({
                           title: this.translate.instant('common.error'),
-                          body: "\n                        <p class=\"mb-4\">".concat(this.translate.instant('order.search.alert.cancel'), "</p>\n                            <div class=\"p-3 bg-light-gray select-text\">\n                            <code>").concat(_context6.t0, "</code>\n                        </div>")
+                          body: "\n                        <p class=\"mb-4\">".concat(this.translate.instant('order.search.alert.cancel'), "</p>\n                            <div class=\"p-3 bg-light-gray select-text\">\n                            <code>").concat(_context4.t0, "</code>\n                        </div>")
                         });
 
                       case 13:
                       case "end":
-                        return _context6.stop();
+                        return _context4.stop();
                     }
                   }
-                }, _callee6, this, [[0, 9]]);
+                }, _callee4, this, [[0, 9]]);
               }));
             }
           });
@@ -1262,7 +1132,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "selectedAction",
         value: function selectedAction() {
-          var _this6 = this;
+          var _this4 = this;
 
           if (this.selectedOrders.length === 0) {
             this.utilService.openAlert({
@@ -1276,21 +1146,21 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
               title: this.translate.instant('common.confirm'),
               body: this.translate.instant('order.search.confirm.cancel'),
               cb: function cb() {
-                return __awaiter(_this6, void 0, void 0,
+                return __awaiter(_this4, void 0, void 0,
                 /*#__PURE__*/
-                regeneratorRuntime.mark(function _callee7() {
+                regeneratorRuntime.mark(function _callee5() {
                   var userData;
-                  return regeneratorRuntime.wrap(function _callee7$(_context7) {
+                  return regeneratorRuntime.wrap(function _callee5$(_context5) {
                     while (1) {
-                      switch (_context7.prev = _context7.next) {
+                      switch (_context5.prev = _context5.next) {
                         case 0:
-                          _context7.prev = 0;
-                          _context7.next = 3;
+                          _context5.prev = 0;
+                          _context5.next = 3;
                           return this.userService.getData();
 
                         case 3:
-                          userData = _context7.sent;
-                          _context7.next = 6;
+                          userData = _context5.sent;
+                          _context5.next = 6;
                           return this.orderService.cancel({
                             orders: this.selectedOrders,
                             language: userData.language
@@ -1300,24 +1170,24 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
                           this.orderSearch(false, {
                             page: this.confirmedConditions.page
                           });
-                          _context7.next = 13;
+                          _context5.next = 13;
                           break;
 
                         case 9:
-                          _context7.prev = 9;
-                          _context7.t0 = _context7["catch"](0);
-                          console.error(_context7.t0);
+                          _context5.prev = 9;
+                          _context5.t0 = _context5["catch"](0);
+                          console.error(_context5.t0);
                           this.utilService.openAlert({
                             title: this.translate.instant('common.error'),
-                            body: "\n                            <p class=\"mb-4\">".concat(this.translate.instant('order.search.alert.cancel'), "</p>\n                                <div class=\"p-3 bg-light-gray select-text\">\n                                <code>").concat(_context7.t0, "</code>\n                            </div>")
+                            body: "\n                            <p class=\"mb-4\">".concat(this.translate.instant('order.search.alert.cancel'), "</p>\n                                <div class=\"p-3 bg-light-gray select-text\">\n                                <code>").concat(_context5.t0, "</code>\n                            </div>")
                           });
 
                         case 13:
                         case "end":
-                          return _context7.stop();
+                          return _context5.stop();
                       }
                     }
-                  }, _callee7, this, [[0, 9]]);
+                  }, _callee5, this, [[0, 9]]);
                 }));
               }
             });
@@ -1326,34 +1196,34 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
               title: this.translate.instant('common.confirm'),
               body: this.translate.instant('order.search.confirm.print'),
               cb: function cb() {
-                return __awaiter(_this6, void 0, void 0,
+                return __awaiter(_this4, void 0, void 0,
                 /*#__PURE__*/
-                regeneratorRuntime.mark(function _callee8() {
+                regeneratorRuntime.mark(function _callee6() {
                   var user, pos, printer, orders;
-                  return regeneratorRuntime.wrap(function _callee8$(_context8) {
+                  return regeneratorRuntime.wrap(function _callee6$(_context6) {
                     while (1) {
-                      switch (_context8.prev = _context8.next) {
+                      switch (_context6.prev = _context6.next) {
                         case 0:
-                          _context8.prev = 0;
-                          _context8.next = 3;
+                          _context6.prev = 0;
+                          _context6.next = 3;
                           return this.userService.getData();
 
                         case 3:
-                          user = _context8.sent;
+                          user = _context6.sent;
 
                           if (!(user.pos === undefined || user.printer === undefined)) {
-                            _context8.next = 7;
+                            _context6.next = 7;
                             break;
                           }
 
                           this.router.navigate(['/error']);
-                          return _context8.abrupt("return");
+                          return _context6.abrupt("return");
 
                         case 7:
                           pos = user.pos;
                           printer = user.printer;
                           orders = this.selectedOrders;
-                          _context8.next = 12;
+                          _context6.next = 12;
                           return this.orderService.print({
                             orders: orders,
                             pos: pos,
@@ -1361,24 +1231,24 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
                           });
 
                         case 12:
-                          _context8.next = 18;
+                          _context6.next = 18;
                           break;
 
                         case 14:
-                          _context8.prev = 14;
-                          _context8.t0 = _context8["catch"](0);
-                          console.error(_context8.t0);
+                          _context6.prev = 14;
+                          _context6.t0 = _context6["catch"](0);
+                          console.error(_context6.t0);
                           this.utilService.openAlert({
                             title: this.translate.instant('common.error'),
-                            body: "<p class=\"mb-4\">".concat(this.translate.instant('order.search.alert.print'), "</p>\n                            <div class=\"p-3 bg-light-gray select-text\">\n                            <code>").concat(_context8.t0, "</code>\n                        </div>")
+                            body: "<p class=\"mb-4\">".concat(this.translate.instant('order.search.alert.print'), "</p>\n                            <div class=\"p-3 bg-light-gray select-text\">\n                            <code>").concat(_context6.t0, "</code>\n                        </div>")
                           });
 
                         case 18:
                         case "end":
-                          return _context8.stop();
+                          return _context6.stop();
                       }
                     }
-                  }, _callee8, this, [[0, 14]]);
+                  }, _callee6, this, [[0, 14]]);
                 }));
               }
             });
@@ -1391,10 +1261,10 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "setDatePicker",
         value: function setDatePicker() {
-          var _this7 = this;
+          var _this5 = this;
 
           this.user.subscribe(function (user) {
-            _this7.localeService.use(user.language);
+            _this5.localeService.use(user.language);
           }).unsubscribe();
         }
         /**

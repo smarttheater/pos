@@ -3,6 +3,7 @@ import { factory } from '@cinerino/api-javascript-client';
 import { Actions, Effect, ofType } from '@ngrx/effects';
 import * as moment from 'moment';
 import { map, mergeMap } from 'rxjs/operators';
+import { sleep } from '../../functions';
 import { CinerinoService } from '../../services/cinerino.service';
 import { masterAction } from '../actions';
 
@@ -62,9 +63,9 @@ export class MasterEffects {
                         startThrough: payload.startThrough
                     });
                     screeningEvents = screeningEvents.concat(searchResult.data);
-                    const lastPage = Math.ceil(searchResult.totalCount / limit);
                     page++;
-                    roop = !(page > lastPage);
+                    roop = searchResult.data.length > 0;
+                    await sleep(500);
                 }
                 const scheduleDate = moment(payload.startFrom).format('YYYY-MM-DD');
                 // 公開日順（降順）へソート
@@ -109,9 +110,9 @@ export class MasterEffects {
                         limit,
                     });
                     projects = projects.concat(searchResult.data);
-                    const lastPage = Math.ceil(searchResult.totalCount / limit);
                     page++;
-                    roop = !(page > lastPage);
+                    roop = searchResult.data.length > 0;
+                    await sleep(500);
                 }
 
                 return new masterAction.GetProjectsSuccess({ projects });

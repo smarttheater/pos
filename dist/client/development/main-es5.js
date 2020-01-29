@@ -1273,7 +1273,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     !*** ./app/functions/index.ts ***!
     \********************************/
 
-  /*! exports provided: screeningEventsToWorkEvents, createGmoTokenObject, sameMovieTicketFilter, isAvailabilityMovieTicket, createMovieTicketsFromAuthorizeSeatReservation, createPaymentMethodFromType, getTicketPrice, movieTicketAuthErroCodeToMessage, getAmount, orderToEventOrders, authorizeSeatReservationToEvent, isScheduleStatusThreshold, isSales, isTicketedSeatScreeningEvent, changeTicketCount, getRemainingSeatLength, formatTelephone, toFull, toHalf, retry, sleep, buildQueryString, iOSDatepickerTapBugFix, streamingDownload, string2blob, getParameter, getProject, createPrintCanvas, createTestPrintCanvas, createRegiGrowQrcode, changeTicketCountByOrder, getTransactionAgentIdentifier, order2report, getTranslateModuleConfig, reservation2report */
+  /*! exports provided: screeningEventsToWorkEvents, createGmoTokenObject, sameMovieTicketFilter, isAvailabilityMovieTicket, createMovieTicketsFromAuthorizeSeatReservation, createPaymentMethodFromType, getTicketPrice, movieTicketAuthErroCodeToMessage, getAmount, orderToEventOrders, authorizeSeatReservationToEvent, isScheduleStatusThreshold, isSales, isTicketedSeatScreeningEvent, changeTicketCount, getRemainingSeatLength, formatTelephone, toFull, toHalf, retry, sleep, buildQueryString, iOSDatepickerTapBugFix, streamingDownload, string2blob, getParameter, getProject, createPrintCanvas, createTestPrintCanvas, createRegiGrowQrcode, changeTicketCountByOrder, getTransactionAgentIdentifier, order2report, input2OrderSearchCondition, getTranslateModuleConfig, reservation2report, input2ReservationSearchCondition */
 
   /***/
   function appFunctionsIndexTs(module, __webpack_exports__, __webpack_require__) {
@@ -1496,6 +1496,12 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     __webpack_require__.d(__webpack_exports__, "order2report", function () {
       return _order_function__WEBPACK_IMPORTED_MODULE_2__["order2report"];
     });
+    /* harmony reexport (safe) */
+
+
+    __webpack_require__.d(__webpack_exports__, "input2OrderSearchCondition", function () {
+      return _order_function__WEBPACK_IMPORTED_MODULE_2__["input2OrderSearchCondition"];
+    });
     /* harmony import */
 
 
@@ -1520,6 +1526,12 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     __webpack_require__.d(__webpack_exports__, "reservation2report", function () {
       return _reservation_function__WEBPACK_IMPORTED_MODULE_4__["reservation2report"];
     });
+    /* harmony reexport (safe) */
+
+
+    __webpack_require__.d(__webpack_exports__, "input2ReservationSearchCondition", function () {
+      return _reservation_function__WEBPACK_IMPORTED_MODULE_4__["input2ReservationSearchCondition"];
+    });
 
     var __importDefault = undefined && undefined.__importDefault || function (mod) {
       return mod && mod.__esModule ? mod : {
@@ -1536,7 +1548,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     !*** ./app/functions/order.function.ts ***!
     \*****************************************/
 
-  /*! exports provided: createPrintCanvas, createTestPrintCanvas, createRegiGrowQrcode, changeTicketCountByOrder, getTransactionAgentIdentifier, order2report */
+  /*! exports provided: createPrintCanvas, createTestPrintCanvas, createRegiGrowQrcode, changeTicketCountByOrder, getTransactionAgentIdentifier, order2report, input2OrderSearchCondition */
 
   /***/
   function appFunctionsOrderFunctionTs(module, __webpack_exports__, __webpack_require__) {
@@ -1578,6 +1590,12 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
     __webpack_require__.d(__webpack_exports__, "order2report", function () {
       return order2report;
+    });
+    /* harmony export (binding) */
+
+
+    __webpack_require__.d(__webpack_exports__, "input2OrderSearchCondition", function () {
+      return input2OrderSearchCondition;
     });
     /* harmony import */
 
@@ -2245,6 +2263,69 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
         });
       });
       return data;
+    }
+    /**
+     * 入力データを検索条件へ変換
+     */
+
+
+    function input2OrderSearchCondition(params) {
+      var input = params.input;
+      var seller = params.seller;
+      var limit = params.limit;
+      var identifiers = [];
+
+      if (input.posId !== '') {
+        identifiers.push({
+          name: 'posId',
+          value: input.posId
+        });
+      }
+
+      var result = {
+        seller: {
+          ids: seller === undefined ? undefined : [seller.id]
+        },
+        customer: {
+          // email: (input.customer.email === '') ? undefined : input.customer.email,
+          // telephone: (input.customer.telephone === '') ? undefined : input.customer.telephone,
+          // familyName: (input.customer.familyName === '') ? undefined : input.customer.familyName,
+          // givenName: (input.customer.givenName === '') ? undefined : input.customer.givenName,
+          email: {
+            $eq: input.customer.email === '' ? undefined : input.customer.email
+          },
+          telephone: input.customer.telephone === '' ? undefined : input.customer.telephone,
+          familyName: {
+            $eq: input.customer.familyName === '' ? undefined : input.customer.familyName
+          },
+          givenName: {
+            $eq: input.customer.givenName === '' ? undefined : input.customer.givenName
+          },
+          identifiers: identifiers
+        },
+        orderStatuses: input.orderStatus === '' ? undefined : [input.orderStatus],
+        orderDateFrom: input.orderDateFrom === undefined ? undefined : moment__WEBPACK_IMPORTED_MODULE_1__(moment__WEBPACK_IMPORTED_MODULE_1__(input.orderDateFrom).format('YYYYMMDD')).toDate(),
+        orderDateThrough: input.orderDateThrough === undefined ? undefined : moment__WEBPACK_IMPORTED_MODULE_1__(moment__WEBPACK_IMPORTED_MODULE_1__(input.orderDateThrough).format('YYYYMMDD')).add(1, 'day').toDate(),
+        confirmationNumbers: input.confirmationNumber === '' ? undefined : [input.confirmationNumber],
+        orderNumbers: input.orderNumber === '' ? undefined : [input.orderNumber],
+        paymentMethods: input.paymentMethodType === '' ? undefined : {
+          typeOfs: [input.paymentMethodType]
+        },
+        acceptedOffers: {
+          itemOffered: {
+            reservationFor: {
+              inSessionFrom: input.eventStartDateFrom === undefined ? undefined : moment__WEBPACK_IMPORTED_MODULE_1__(moment__WEBPACK_IMPORTED_MODULE_1__(input.eventStartDateFrom).format('YYYYMMDD')).toDate(),
+              inSessionThrough: input.eventStartDateThrough === undefined ? undefined : moment__WEBPACK_IMPORTED_MODULE_1__(moment__WEBPACK_IMPORTED_MODULE_1__(input.eventStartDateThrough).format('YYYYMMDD')).add(1, 'day').toDate()
+            }
+          }
+        },
+        limit: limit,
+        page: input.page,
+        sort: {
+          orderDate: _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_0__["factory"].sortType.Descending
+        }
+      };
+      return result;
     }
     /***/
 
@@ -2969,7 +3050,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     !*** ./app/functions/reservation.function.ts ***!
     \***********************************************/
 
-  /*! exports provided: reservation2report */
+  /*! exports provided: reservation2report, input2ReservationSearchCondition */
 
   /***/
   function appFunctionsReservationFunctionTs(module, __webpack_exports__, __webpack_require__) {
@@ -2982,22 +3063,40 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     __webpack_require__.d(__webpack_exports__, "reservation2report", function () {
       return reservation2report;
     });
+    /* harmony export (binding) */
+
+
+    __webpack_require__.d(__webpack_exports__, "input2ReservationSearchCondition", function () {
+      return input2ReservationSearchCondition;
+    });
     /* harmony import */
 
 
-    var moment__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(
+    var _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(
+    /*! @cinerino/api-javascript-client */
+    "../../node_modules/@cinerino/api-javascript-client/lib/index.js");
+    /* harmony import */
+
+
+    var _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_0___default =
+    /*#__PURE__*/
+    __webpack_require__.n(_cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_0__);
+    /* harmony import */
+
+
+    var moment__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(
     /*! moment */
     "../../node_modules/moment/moment.js");
     /* harmony import */
 
 
-    var moment__WEBPACK_IMPORTED_MODULE_0___default =
+    var moment__WEBPACK_IMPORTED_MODULE_1___default =
     /*#__PURE__*/
-    __webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_0__);
+    __webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_1__);
     /* harmony import */
 
 
-    var _purchase_function__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(
+    var _purchase_function__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
     /*! ./purchase.function */
     "./app/functions/purchase.function.ts");
 
@@ -3016,18 +3115,18 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       reservations.forEach(function (reservation) {
         var customData = {
           bookingTime: reservation.bookingTime,
-          bookingTimeJST: moment__WEBPACK_IMPORTED_MODULE_0__(reservation.bookingTime).format('YYYY/MM/DD/HH:mm'),
+          bookingTimeJST: moment__WEBPACK_IMPORTED_MODULE_1__(reservation.bookingTime).format('YYYY/MM/DD/HH:mm'),
           id: reservation.id,
           reservationNumber: reservation.reservationNumber,
           reservationStatus: reservation.reservationStatus,
-          price: typeof reservation.price === 'number' || reservation.price === undefined ? reservation.price : Object(_purchase_function__WEBPACK_IMPORTED_MODULE_1__["getTicketPrice"])({
+          price: typeof reservation.price === 'number' || reservation.price === undefined ? reservation.price : Object(_purchase_function__WEBPACK_IMPORTED_MODULE_2__["getTicketPrice"])({
             priceSpecification: {
               priceComponent: reservation.price.priceComponent
             }
           }).total,
           reservedTicket: reservation.reservedTicket,
           reservationFor: Object.assign({}, reservation.reservationFor, {
-            startDateJST: moment__WEBPACK_IMPORTED_MODULE_0__(reservation.reservationFor.startDate).format('YYYY/MM/DD/HH:mm')
+            startDateJST: moment__WEBPACK_IMPORTED_MODULE_1__(reservation.reservationFor.startDate).format('YYYY/MM/DD/HH:mm')
           }),
           checkedIn: reservation.checkedIn,
           attended: reservation.attended
@@ -3035,6 +3134,38 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
         data.push(customData);
       });
       return data;
+    }
+    /**
+     * 入力データを検索条件へ変換
+     */
+
+
+    function input2ReservationSearchCondition(params) {
+      var input = params.input;
+      var seller = params.seller;
+      var limit = params.limit;
+      var result = {
+        typeOf: _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_0__["factory"].chevre.reservationType.EventReservation,
+        bookingFrom: input.reservationDateFrom === undefined ? undefined : moment__WEBPACK_IMPORTED_MODULE_1__(moment__WEBPACK_IMPORTED_MODULE_1__(input.reservationDateFrom).format('YYYYMMDD')).toDate(),
+        bookingThrough: input.reservationDateThrough === undefined ? undefined : moment__WEBPACK_IMPORTED_MODULE_1__(moment__WEBPACK_IMPORTED_MODULE_1__(input.reservationDateThrough).format('YYYYMMDD')).add(1, 'day').toDate(),
+        reservationFor: {
+          startFrom: input.eventStartDateFrom === undefined ? undefined : moment__WEBPACK_IMPORTED_MODULE_1__(moment__WEBPACK_IMPORTED_MODULE_1__(input.eventStartDateFrom).format('YYYYMMDD')).toDate(),
+          startThrough: input.eventStartDateThrough === undefined ? undefined : moment__WEBPACK_IMPORTED_MODULE_1__(moment__WEBPACK_IMPORTED_MODULE_1__(input.eventStartDateThrough).format('YYYYMMDD')).add(1, 'day').toDate(),
+          superEvent: {
+            location: {
+              branchCodes: seller === undefined || seller.location === undefined || seller.location.branchCode === undefined ? [] : [seller.location.branchCode]
+            }
+          }
+        },
+        ids: input.id === '' ? undefined : [input.id],
+        reservationStatuses: input.reservationStatus === '' ? undefined : [input.reservationStatus],
+        reservationNumbers: input.reservationNumber === '' ? undefined : [input.reservationNumber],
+        limit: limit,
+        page: input.page,
+        sort: {// reservationDate: factory.sortType.Descending
+        }
+      };
+      return result;
     }
     /***/
 
@@ -10195,7 +10326,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
           return __awaiter(this, void 0, void 0,
           /*#__PURE__*/
           regeneratorRuntime.mark(function _callee29() {
-            var url, fields, opts, limit, page, roop, persons, searchResult, lastPage, data;
+            var url, fields, opts, limit, page, roop, persons, searchResult, data;
             return regeneratorRuntime.wrap(function _callee29$(_context29) {
               while (1) {
                 switch (_context29.prev = _context29.next) {
@@ -10221,7 +10352,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
                   case 11:
                     if (!roop) {
-                      _context29.next = 23;
+                      _context29.next = 22;
                       break;
                     }
 
@@ -10233,13 +10364,12 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                   case 16:
                     searchResult = _context29.sent;
                     persons = persons.concat(searchResult.data);
-                    lastPage = Math.ceil(searchResult.totalCount / limit);
                     page++;
-                    roop = !(page > lastPage);
+                    roop = searchResult.data.length > 0;
                     _context29.next = 11;
                     break;
 
-                  case 23:
+                  case 22:
                     data = [];
                     persons.forEach(function (person) {
                       var customData = {
@@ -10247,10 +10377,10 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                       };
                       data.push(customData);
                     });
-                    _context29.next = 27;
+                    _context29.next = 26;
                     return this.splitDownload('person', data, opts, DownloadService_1.SPLIT_COUNT);
 
-                  case 27:
+                  case 26:
                   case "end":
                     return _context29.stop();
                 }
@@ -13565,18 +13695,17 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
               while (1) {
                 switch (_context62.prev = _context62.next) {
                   case 0:
-                    this.utilService.loadStart();
                     query = "?date=".concat(moment__WEBPACK_IMPORTED_MODULE_3__().toISOString());
-                    _context62.next = 4;
+                    _context62.next = 3;
                     return this.utilService.getJson("/api/version".concat(query));
 
-                  case 4:
+                  case 3:
                     _ref3 = _context62.sent;
                     version = _ref3.version;
-                    _context62.next = 8;
+                    _context62.next = 7;
                     return this.getData();
 
-                  case 8:
+                  case 7:
                     data = _context62.sent;
 
                     if (data.version === undefined) {
@@ -13592,9 +13721,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                       location.reload();
                     }
 
-                    this.utilService.loadEnd();
-
-                  case 12:
+                  case 10:
                   case "end":
                     return _context62.stop();
                 }
@@ -16946,13 +17073,19 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     /* harmony import */
 
 
-    var _services_cinerino_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(
+    var _functions__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(
+    /*! ../../functions */
+    "./app/functions/index.ts");
+    /* harmony import */
+
+
+    var _services_cinerino_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(
     /*! ../../services/cinerino.service */
     "./app/services/cinerino.service.ts");
     /* harmony import */
 
 
-    var _actions__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(
+    var _actions__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(
     /*! ../actions */
     "./app/store/actions/index.ts");
 
@@ -17019,7 +17152,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
        * GetSellers
        */
 
-      this.getTheaters = this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_actions__WEBPACK_IMPORTED_MODULE_6__["masterAction"].ActionTypes.GetSellers), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["map"])(function (action) {
+      this.getTheaters = this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_actions__WEBPACK_IMPORTED_MODULE_7__["masterAction"].ActionTypes.GetSellers), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["map"])(function (action) {
         return action.payload;
       }), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["mergeMap"])(function (payload) {
         return __awaiter(_this52, void 0, void 0,
@@ -17043,14 +17176,14 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                   sellers = searchMovieTheatersResult.data.filter(function (s) {
                     return s.location !== undefined && s.location !== null && s.location.branchCode !== undefined;
                   });
-                  return _context71.abrupt("return", new _actions__WEBPACK_IMPORTED_MODULE_6__["masterAction"].GetSellersSuccess({
+                  return _context71.abrupt("return", new _actions__WEBPACK_IMPORTED_MODULE_7__["masterAction"].GetSellersSuccess({
                     sellers: sellers
                   }));
 
                 case 10:
                   _context71.prev = 10;
                   _context71.t0 = _context71["catch"](0);
-                  return _context71.abrupt("return", new _actions__WEBPACK_IMPORTED_MODULE_6__["masterAction"].GetSellersFail({
+                  return _context71.abrupt("return", new _actions__WEBPACK_IMPORTED_MODULE_7__["masterAction"].GetSellersFail({
                     error: _context71.t0
                   }));
 
@@ -17066,13 +17199,13 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
        * GetSchedule
        */
 
-      this.getSchedule = this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_actions__WEBPACK_IMPORTED_MODULE_6__["masterAction"].ActionTypes.GetSchedule), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["map"])(function (action) {
+      this.getSchedule = this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_actions__WEBPACK_IMPORTED_MODULE_7__["masterAction"].ActionTypes.GetSchedule), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["map"])(function (action) {
         return action.payload;
       }), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["mergeMap"])(function (payload) {
         return __awaiter(_this52, void 0, void 0,
         /*#__PURE__*/
         regeneratorRuntime.mark(function _callee72() {
-          var limit, page, roop, screeningEvents, searchResult, lastPage, scheduleDate;
+          var limit, page, roop, screeningEvents, searchResult, scheduleDate;
           return regeneratorRuntime.wrap(function _callee72$(_context72) {
             while (1) {
               switch (_context72.prev = _context72.next) {
@@ -17089,7 +17222,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
                 case 7:
                   if (!roop) {
-                    _context72.next = 17;
+                    _context72.next = 18;
                     break;
                   }
 
@@ -17107,13 +17240,16 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                 case 10:
                   searchResult = _context72.sent;
                   screeningEvents = screeningEvents.concat(searchResult.data);
-                  lastPage = Math.ceil(searchResult.totalCount / limit);
                   page++;
-                  roop = !(page > lastPage);
+                  roop = searchResult.data.length > 0;
+                  _context72.next = 16;
+                  return Object(_functions__WEBPACK_IMPORTED_MODULE_5__["sleep"])(500);
+
+                case 16:
                   _context72.next = 7;
                   break;
 
-                case 17:
+                case 18:
                   scheduleDate = moment__WEBPACK_IMPORTED_MODULE_3__(payload.startFrom).format('YYYY-MM-DD'); // 公開日順（降順）へソート
 
                   screeningEvents = screeningEvents.sort(function (a, b) {
@@ -17134,37 +17270,37 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
                     return 0;
                   });
-                  return _context72.abrupt("return", new _actions__WEBPACK_IMPORTED_MODULE_6__["masterAction"].GetScheduleSuccess({
+                  return _context72.abrupt("return", new _actions__WEBPACK_IMPORTED_MODULE_7__["masterAction"].GetScheduleSuccess({
                     screeningEvents: screeningEvents,
                     scheduleDate: scheduleDate
                   }));
 
-                case 22:
-                  _context72.prev = 22;
+                case 23:
+                  _context72.prev = 23;
                   _context72.t0 = _context72["catch"](0);
-                  return _context72.abrupt("return", new _actions__WEBPACK_IMPORTED_MODULE_6__["masterAction"].GetScheduleFail({
+                  return _context72.abrupt("return", new _actions__WEBPACK_IMPORTED_MODULE_7__["masterAction"].GetScheduleFail({
                     error: _context72.t0
                   }));
 
-                case 25:
+                case 26:
                 case "end":
                   return _context72.stop();
               }
             }
-          }, _callee72, this, [[0, 22]]);
+          }, _callee72, this, [[0, 23]]);
         }));
       }));
       /**
        * GetProjects
        */
 
-      this.GetProjects = this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_actions__WEBPACK_IMPORTED_MODULE_6__["masterAction"].ActionTypes.GetProjects), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["map"])(function (action) {
+      this.GetProjects = this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_actions__WEBPACK_IMPORTED_MODULE_7__["masterAction"].ActionTypes.GetProjects), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["map"])(function (action) {
         return action.payload;
       }), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["mergeMap"])(function () {
         return __awaiter(_this52, void 0, void 0,
         /*#__PURE__*/
         regeneratorRuntime.mark(function _callee73() {
-          var limit, page, roop, projects, searchResult, lastPage;
+          var limit, page, roop, projects, searchResult;
           return regeneratorRuntime.wrap(function _callee73$(_context73) {
             while (1) {
               switch (_context73.prev = _context73.next) {
@@ -17181,7 +17317,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
                 case 7:
                   if (!roop) {
-                    _context73.next = 17;
+                    _context73.next = 18;
                     break;
                   }
 
@@ -17194,30 +17330,33 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                 case 10:
                   searchResult = _context73.sent;
                   projects = projects.concat(searchResult.data);
-                  lastPage = Math.ceil(searchResult.totalCount / limit);
                   page++;
-                  roop = !(page > lastPage);
+                  roop = searchResult.data.length > 0;
+                  _context73.next = 16;
+                  return Object(_functions__WEBPACK_IMPORTED_MODULE_5__["sleep"])(500);
+
+                case 16:
                   _context73.next = 7;
                   break;
 
-                case 17:
-                  return _context73.abrupt("return", new _actions__WEBPACK_IMPORTED_MODULE_6__["masterAction"].GetProjectsSuccess({
+                case 18:
+                  return _context73.abrupt("return", new _actions__WEBPACK_IMPORTED_MODULE_7__["masterAction"].GetProjectsSuccess({
                     projects: projects
                   }));
 
-                case 20:
-                  _context73.prev = 20;
+                case 21:
+                  _context73.prev = 21;
                   _context73.t0 = _context73["catch"](0);
-                  return _context73.abrupt("return", new _actions__WEBPACK_IMPORTED_MODULE_6__["masterAction"].GetProjectsFail({
+                  return _context73.abrupt("return", new _actions__WEBPACK_IMPORTED_MODULE_7__["masterAction"].GetProjectsFail({
                     error: _context73.t0
                   }));
 
-                case 23:
+                case 24:
                 case "end":
                   return _context73.stop();
               }
             }
-          }, _callee73, this, [[0, 20]]);
+          }, _callee73, this, [[0, 21]]);
         }));
       }));
     };
@@ -17226,7 +17365,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       return [{
         type: _ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["Actions"]
       }, {
-        type: _services_cinerino_service__WEBPACK_IMPORTED_MODULE_5__["CinerinoService"]
+        type: _services_cinerino_service__WEBPACK_IMPORTED_MODULE_6__["CinerinoService"]
       }];
     };
 
@@ -17236,7 +17375,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
     __decorate([Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["Effect"])(), __metadata("design:type", Object)], MasterEffects.prototype, "GetProjects", void 0);
 
-    MasterEffects = __decorate([Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"])(), __metadata("design:paramtypes", [_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["Actions"], _services_cinerino_service__WEBPACK_IMPORTED_MODULE_5__["CinerinoService"]])], MasterEffects);
+    MasterEffects = __decorate([Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"])(), __metadata("design:paramtypes", [_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["Actions"], _services_cinerino_service__WEBPACK_IMPORTED_MODULE_6__["CinerinoService"]])], MasterEffects);
     /***/
   },
 
