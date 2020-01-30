@@ -8,7 +8,7 @@ import { BsDatepickerDirective, BsLocaleService, BsModalService } from 'ngx-boot
 import { BsDatepickerContainerComponent } from 'ngx-bootstrap/datepicker/themes/bs/bs-datepicker-container.component';
 import { Observable } from 'rxjs';
 import { getEnvironment } from '../../../../../../environments/environment';
-import { iOSDatepickerTapBugFix, orderToEventOrders } from '../../../../../functions';
+import { input2OrderSearchCondition, iOSDatepickerTapBugFix, orderToEventOrders } from '../../../../../functions';
 import { IOrderSearchConditions, OrderActions } from '../../../../../models';
 import { OrderService, UserService, UtilService } from '../../../../../services';
 import * as reducers from '../../../../../store/reducers';
@@ -23,7 +23,8 @@ export class OrderSearchComponent implements OnInit {
     public isLoading: Observable<boolean>;
     public error: Observable<string | null>;
     public user: Observable<reducers.IUserState>;
-    public orders: factory.order.IOrder[][];
+    public orders: factory.order.IOrder[];
+    public nextOrders: factory.order.IOrder[];
     public totalCount: number;
     public currentPage: number;
     public moment: typeof moment = moment;
@@ -60,7 +61,7 @@ export class OrderSearchComponent implements OnInit {
         this.error = this.store.pipe(select(reducers.getError));
         this.user = this.store.pipe(select(reducers.getUser));
         this.orders = [];
-        this.totalCount = 0;
+        this.totalCount = 100000;
         this.currentPage = 1;
         this.limit = 20;
         const now = moment().toDate();
@@ -108,85 +109,13 @@ export class OrderSearchComponent implements OnInit {
     }
 
     /**
-     * 検索パラメータへ変換
-     */
-    public async convertToSearchParams() {
-        return new Promise<factory.order.ISearchConditions>((resolve) => {
-            this.user.subscribe((user) => {
-                const identifiers: factory.propertyValue.IPropertyValue<string>[] = [];
-                if (this.confirmedConditions.posId !== '') {
-                    identifiers.push({ name: 'posId', value: this.confirmedConditions.posId });
-                }
-                const params: factory.order.ISearchConditions = {
-                    seller: {
-                        typeOf: (user.seller === undefined)
-                            ? undefined : user.seller.typeOf,
-                        ids: (user.seller === undefined)
-                            ? undefined : [user.seller.id]
-                    },
-                    customer: {
-                        email: (this.confirmedConditions.customer.email === '')
-                            ? undefined : this.confirmedConditions.customer.email,
-                        telephone: (this.confirmedConditions.customer.telephone === '')
-                            ? undefined : this.confirmedConditions.customer.telephone,
-                        familyName: (this.confirmedConditions.customer.familyName === '')
-                            ? undefined : this.confirmedConditions.customer.familyName,
-                        givenName: (this.confirmedConditions.customer.givenName === '')
-                            ? undefined : this.confirmedConditions.customer.givenName,
-                        identifiers
-                    },
-                    orderStatuses: (this.confirmedConditions.orderStatus === '')
-                        ? undefined : [this.confirmedConditions.orderStatus],
-                    orderDateFrom: (this.confirmedConditions.orderDateFrom === undefined)
-                        ? undefined
-                        : moment(moment(this.confirmedConditions.orderDateFrom).format('YYYYMMDD')).toDate(),
-                    orderDateThrough: (this.confirmedConditions.orderDateThrough === undefined)
-                        ? undefined
-                        : moment(moment(this.confirmedConditions.orderDateThrough).format('YYYYMMDD')).add(1, 'day').toDate(),
-                    confirmationNumbers: (this.confirmedConditions.confirmationNumber === '')
-                        ? undefined : [this.confirmedConditions.confirmationNumber],
-                    orderNumbers: (this.confirmedConditions.orderNumber === '')
-                        ? undefined : [this.confirmedConditions.orderNumber],
-                    paymentMethods: (this.confirmedConditions.paymentMethodType === '')
-                        ? undefined : { typeOfs: [this.confirmedConditions.paymentMethodType] },
-                    acceptedOffers: {
-                        itemOffered: {
-                            reservationFor: {
-                                inSessionFrom: (this.confirmedConditions.eventStartDateFrom === undefined)
-                                    ? undefined
-                                    : moment(moment(this.confirmedConditions.eventStartDateFrom).format('YYYYMMDD')).toDate(),
-                                inSessionThrough: (this.confirmedConditions.eventStartDateThrough === undefined)
-                                    ? undefined
-                                    : moment(moment(this.confirmedConditions.eventStartDateThrough)
-                                        .format('YYYYMMDD')).add(1, 'day').toDate(),
-                            }
-                        }
-                    },
-                    limit: this.limit,
-                    page: this.confirmedConditions.page,
-                    sort: {
-                        orderDate: factory.sortType.Descending
-                    }
-                };
-                resolve(params);
-            }).unsubscribe();
-        });
-    }
-
-    /**
-     * ページ変更
-     */
-    public changePage(event: { page: number }) {
-        this.currentPage = event.page;
-    }
-
-    /**
      * 検索
      */
     public async orderSearch(changeConditions: boolean, event?: { page: number }) {
         this.currentPage = 1;
         this.selectedOrders = [];
         if (event !== undefined) {
+            this.currentPage = event.page;
             this.confirmedConditions.page = event.page;
         }
         // iOS bugfix
@@ -223,23 +152,21 @@ export class OrderSearchComponent implements OnInit {
             };
         }
         try {
-            this.totalCount = 0;
-            this.orders = [];
-            const params = await this.convertToSearchParams();
+            const params = input2OrderSearchCondition({
+                input: this.confirmedConditions,
+                seller: (await this.userService.getData()).seller,
+                page: this.currentPage,
+                limit: this.limit
+            });
             if (params.orderDateFrom !== null
                 && params.orderDateThrough !== null
                 && moment(params.orderDateThrough).diff(moment(params.orderDateFrom), 'day') > 14) {
-                    // 購入日の範囲が14日以上
-                    throw new Error('order date wrong date range');
-                }
-            const searchResult = await this.orderService.splitSearch(params);
-            this.totalCount = searchResult.totalCount;
-            for (let i = 0; i < Math.ceil(searchResult.data.length / this.limit); i++) {
-                this.orders.push(searchResult.data.slice(
-                    i * this.limit,
-                    ((i + 1) * this.limit < searchResult.data.length) ? (i + 1) * this.limit : searchResult.data.length
-                ));
+                // 購入日の範囲が14日以上
+                throw new Error('order date wrong date range');
             }
+            this.orders = (await this.orderService.search(params)).data;
+            this.nextOrders = (await this.orderService.search({...params, page: (this.currentPage + 1)})).data;
+            this.totalCount = (this.nextOrders.length === 0) ? this.currentPage * this.limit : 100000;
         } catch (error) {
             console.error(error);
             this.utilService.openAlert({

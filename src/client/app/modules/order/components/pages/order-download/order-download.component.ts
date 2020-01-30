@@ -7,9 +7,9 @@ import { BsDatepickerDirective, BsLocaleService } from 'ngx-bootstrap';
 import { BsDatepickerContainerComponent } from 'ngx-bootstrap/datepicker/themes/bs/bs-datepicker-container.component';
 import { Observable } from 'rxjs';
 import { getEnvironment } from '../../../../../../environments/environment';
-import { buildQueryString, iOSDatepickerTapBugFix, orderToEventOrders } from '../../../../../functions';
-import { CsvFormat, IOrderDownloadConditions, OrderActions } from '../../../../../models';
-import { DownloadService, OrderService, UtilService } from '../../../../../services';
+import { buildQueryString, input2OrderSearchCondition, iOSDatepickerTapBugFix, orderToEventOrders } from '../../../../../functions';
+import { CsvFormat, IOrderSearchConditions, OrderActions } from '../../../../../models';
+import { DownloadService, OrderService, UserService, UtilService } from '../../../../../services';
 import * as reducers from '../../../../../store/reducers';
 
 @Component({
@@ -25,8 +25,8 @@ export class OrderDownloadComponent implements OnInit {
     public moment: typeof moment = moment;
     public orderStatus: typeof factory.orderStatus = factory.orderStatus;
     public paymentMethodType: typeof factory.paymentMethodType = factory.paymentMethodType;
-    public conditions: IOrderDownloadConditions;
-    public confirmedConditions: IOrderDownloadConditions;
+    public conditions: IOrderSearchConditions;
+    public confirmedConditions: IOrderSearchConditions;
     public selectedOrders: factory.order.IOrder[];
     public actionSelect: OrderActions | '';
     public buildQueryString = buildQueryString;
@@ -46,6 +46,7 @@ export class OrderDownloadComponent implements OnInit {
         private downloadService: DownloadService,
         private translate: TranslateService,
         private localeService: BsLocaleService,
+        private userService: UserService
     ) { }
 
     public ngOnInit() {
@@ -71,83 +72,9 @@ export class OrderDownloadComponent implements OnInit {
             orderStatus: '',
             paymentMethodType: '',
             posId: '',
-            format: factory.encodingFormat.Application.json,
-            csvFormat: CsvFormat.Custom
+            page: 1
         };
         this.orderService.delete();
-    }
-
-    /**
-     * 検索パラメータへ変換
-     */
-    public async convertToSearchParams() {
-        return new Promise<factory.order.ISearchConditions & {
-            format: factory.encodingFormat.Application | factory.encodingFormat.Text;
-            csvFormat: CsvFormat;
-        }>((resolve) => {
-            this.user.subscribe((user) => {
-                const identifiers: factory.propertyValue.IPropertyValue<string>[] = [];
-                if (this.confirmedConditions.posId !== '') {
-                    identifiers.push({ name: 'posId', value: this.confirmedConditions.posId });
-                }
-                const params: factory.order.ISearchConditions & {
-                    format: factory.encodingFormat.Application | factory.encodingFormat.Text;
-                    csvFormat: CsvFormat;
-                } = {
-                    seller: {
-                        typeOf: (user.seller === undefined)
-                            ? undefined : user.seller.typeOf,
-                        ids: (user.seller === undefined)
-                            ? undefined : [user.seller.id]
-                    },
-                    customer: {
-                        email: (this.confirmedConditions.customer.email === '')
-                            ? undefined : this.confirmedConditions.customer.email,
-                        telephone: (this.confirmedConditions.customer.telephone === '')
-                            ? undefined : this.confirmedConditions.customer.telephone,
-                        familyName: (this.confirmedConditions.customer.familyName === '')
-                            ? undefined : this.confirmedConditions.customer.familyName,
-                        givenName: (this.confirmedConditions.customer.givenName === '')
-                            ? undefined : this.confirmedConditions.customer.givenName,
-                        identifiers
-                    },
-                    orderStatuses: (this.confirmedConditions.orderStatus === '')
-                        ? undefined : [this.confirmedConditions.orderStatus],
-                    orderDateFrom: (this.confirmedConditions.orderDateFrom === undefined)
-                        ? undefined
-                        : <any>moment(moment(this.confirmedConditions.orderDateFrom).format('YYYYMMDD')).toISOString(),
-                    orderDateThrough: (this.confirmedConditions.orderDateThrough === undefined)
-                        ? undefined
-                        : <any>moment(moment(this.confirmedConditions.orderDateThrough).format('YYYYMMDD')).add(1, 'day').toISOString(),
-                    confirmationNumbers: (this.confirmedConditions.confirmationNumber === '')
-                        ? undefined : [this.confirmedConditions.confirmationNumber],
-                    orderNumbers: (this.confirmedConditions.orderNumber === '')
-                        ? undefined : [this.confirmedConditions.orderNumber],
-                    paymentMethods: (this.confirmedConditions.paymentMethodType === '')
-                        ? undefined : { typeOfs: [this.confirmedConditions.paymentMethodType] },
-                    acceptedOffers: {
-                        itemOffered: {
-                            reservationFor: {
-                                inSessionFrom: (this.confirmedConditions.eventStartDateFrom === undefined)
-                                    ? undefined
-                                    : <any>moment(moment(this.confirmedConditions.eventStartDateFrom).format('YYYYMMDD')).toISOString(),
-                                inSessionThrough: (this.confirmedConditions.eventStartDateThrough === undefined)
-                                    ? undefined
-                                    : <any>moment(moment(this.confirmedConditions.eventStartDateThrough)
-                                        .format('YYYYMMDD')).add(1, 'day').toISOString(),
-
-                            }
-                        }
-                    },
-                    sort: {
-                        orderDate: factory.sortType.Descending
-                    },
-                    format: this.confirmedConditions.format,
-                    csvFormat: CsvFormat.Custom
-                };
-                resolve(params);
-            }).unsubscribe();
-        });
     }
 
     /**
@@ -185,14 +112,16 @@ export class OrderDownloadComponent implements OnInit {
                 eventStartDateFrom: this.conditions.eventStartDateFrom,
                 eventStartDateThrough: this.conditions.eventStartDateThrough,
                 posId: this.conditions.posId,
-                format: this.conditions.format,
-                csvFormat: CsvFormat.Custom
+                page: 1
             };
         }
         this.utilService.loadStart();
         try {
-            const params = await this.convertToSearchParams();
-            await this.downloadService.order(params, params.csvFormat);
+            const params = input2OrderSearchCondition({
+                input: this.confirmedConditions,
+                seller: (await this.userService.getData()).seller,
+            });
+            await this.downloadService.order(params, CsvFormat.Custom);
         } catch (error) {
             console.error(error);
             this.utilService.openAlert({
@@ -223,8 +152,7 @@ export class OrderDownloadComponent implements OnInit {
             orderStatus: '',
             paymentMethodType: '',
             posId: '',
-            format: factory.encodingFormat.Text.csv,
-            csvFormat: CsvFormat.Custom
+            page: 1
         };
         // iOS bugfix
         (<HTMLInputElement>document.getElementById('confirmationNumber')).value = '';

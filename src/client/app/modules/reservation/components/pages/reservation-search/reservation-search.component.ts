@@ -7,9 +7,9 @@ import { BsDatepickerDirective, BsLocaleService, BsModalService } from 'ngx-boot
 import { BsDatepickerContainerComponent } from 'ngx-bootstrap/datepicker/themes/bs/bs-datepicker-container.component';
 import { Observable } from 'rxjs';
 import { getEnvironment } from '../../../../../../environments/environment';
-import { getTicketPrice, iOSDatepickerTapBugFix } from '../../../../../functions';
+import { getTicketPrice, input2ReservationSearchCondition, iOSDatepickerTapBugFix } from '../../../../../functions';
 import { IReservationSearchConditions } from '../../../../../models';
-import { ReservationService, UtilService } from '../../../../../services';
+import { ReservationService, UserService, UtilService } from '../../../../../services';
 import * as reducers from '../../../../../store/reducers';
 import {
     ReservationDetailModalComponent
@@ -24,7 +24,8 @@ export class ReservationSearchComponent implements OnInit {
     public isLoading: Observable<boolean>;
     public error: Observable<string | null>;
     public user: Observable<reducers.IUserState>;
-    public reservations: factory.chevre.reservation.IReservation<factory.chevre.reservationType.EventReservation>[][];
+    public reservations: factory.chevre.reservation.IReservation<factory.chevre.reservationType.EventReservation>[];
+    public nextReservations: factory.chevre.reservation.IReservation<factory.chevre.reservationType.EventReservation>[];
     public totalCount: number;
     public currentPage: number;
     public moment: typeof moment = moment;
@@ -45,7 +46,8 @@ export class ReservationSearchComponent implements OnInit {
         private localeService: BsLocaleService,
         private utilService: UtilService,
         private reservationService: ReservationService,
-        private translate: TranslateService
+        private translate: TranslateService,
+        private userService: UserService
     ) { }
 
     public ngOnInit() {
@@ -53,7 +55,7 @@ export class ReservationSearchComponent implements OnInit {
         this.error = this.store.pipe(select(reducers.getError));
         this.user = this.store.pipe(select(reducers.getUser));
         this.reservations = [];
-        this.totalCount = 0;
+        this.totalCount = 100000;
         this.currentPage = 1;
         this.limit = 20;
         const now = moment().toDate();
@@ -70,50 +72,12 @@ export class ReservationSearchComponent implements OnInit {
     }
 
     /**
-     * 検索パラメータへ変換
-     */
-    public async convertToSearchParams() {
-        return new Promise<factory.chevre.reservation.ISearchConditions<factory.chevre.reservationType.EventReservation>>((resolve) => {
-            this.user.subscribe(() => {
-                const params: factory.chevre.reservation.ISearchConditions<factory.chevre.reservationType.EventReservation> = {
-                    typeOf: factory.chevre.reservationType.EventReservation,
-                    bookingFrom: (this.confirmedConditions.reservationDateFrom === undefined)
-                        ? undefined
-                        : moment(moment(this.confirmedConditions.reservationDateFrom).format('YYYYMMDD')).toDate(),
-                    bookingThrough: (this.confirmedConditions.reservationDateThrough === undefined)
-                        ? undefined
-                        : moment(moment(this.confirmedConditions.reservationDateThrough).format('YYYYMMDD')).add(1, 'day').toDate(),
-                    reservationFor: {
-                        startFrom: (this.confirmedConditions.eventStartDateFrom === undefined)
-                            ? undefined
-                            : moment(moment(this.confirmedConditions.eventStartDateFrom).format('YYYYMMDD')).toDate(),
-                        startThrough: (this.confirmedConditions.eventStartDateThrough === undefined)
-                            ? undefined
-                            : moment(moment(this.confirmedConditions.eventStartDateThrough).format('YYYYMMDD')).add(1, 'day').toDate(),
-                    },
-                    ids: (this.confirmedConditions.id === '')
-                        ? undefined : [this.confirmedConditions.id],
-                    reservationStatuses: (this.confirmedConditions.reservationStatus === '')
-                        ? undefined : [this.confirmedConditions.reservationStatus],
-                    reservationNumbers: (this.confirmedConditions.reservationNumber === '')
-                        ? undefined : [this.confirmedConditions.reservationNumber],
-                    limit: this.limit,
-                    page: this.confirmedConditions.page,
-                    sort: {
-                        // reservationDate: factory.sortType.Descending
-                    }
-                };
-                resolve(params);
-            }).unsubscribe();
-        });
-    }
-
-    /**
      * 検索
      */
     public async reservationSearch(changeConditions: boolean, event?: { page: number }) {
         this.currentPage = 1;
         if (event !== undefined) {
+            this.currentPage = event.page;
             this.confirmedConditions.page = event.page;
         }
         // iOS bugfix
@@ -134,23 +98,21 @@ export class ReservationSearchComponent implements OnInit {
             };
         }
         try {
-            this.totalCount = 0;
-            this.reservations = [];
-            const params = await this.convertToSearchParams();
+            const params = input2ReservationSearchCondition({
+                input: this.confirmedConditions,
+                seller: (await this.userService.getData()).seller,
+                page: this.currentPage,
+                limit: this.limit
+            });
             if (params.bookingFrom !== null
                 && params.bookingThrough !== null
                 && moment(params.bookingThrough).diff(moment(params.bookingFrom), 'day') > 14) {
                     // 予約日の範囲が14日以上
                     throw new Error('reservation date wrong date range');
                 }
-            const searchResult = await this.reservationService.splitSearch(params);
-            this.totalCount = searchResult.totalCount;
-            for (let i = 0; i < Math.ceil(searchResult.data.length / this.limit); i++) {
-                this.reservations.push(searchResult.data.slice(
-                    i * this.limit,
-                    ((i + 1) * this.limit < searchResult.data.length) ? (i + 1) * this.limit : searchResult.data.length
-                ));
-            }
+            this.reservations = (await this.reservationService.search(params)).data;
+            this.nextReservations = (await this.reservationService.search({...params, page: (this.currentPage + 1)})).data;
+            this.totalCount = (this.nextReservations.length === 0) ? this.currentPage * this.limit : 100000;
         } catch (error) {
             console.error(error);
             this.utilService.openAlert({

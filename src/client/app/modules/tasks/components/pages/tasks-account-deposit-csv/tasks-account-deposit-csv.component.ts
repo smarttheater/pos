@@ -259,6 +259,9 @@ export class TasksAccountDepositCSVComponent implements OnInit {
                 // const pointTransferActions = await getPointTransferActions();
                 const pointTransferActions: any[] = [];
                 const depositedCount = pointTransferActions.filter(p => p.description === this.message).length;
+                if (programMembership.totalCount === undefined) {
+                    throw new Error('programMembership.totalCount undefined');
+                }
                 data.push({
                     id: (person.data.length === 0) ? d.id : person.data[0].id,
                     userName: (person.data.length === 0
