@@ -8,7 +8,7 @@ import { BsDatepickerDirective, BsLocaleService, BsModalService } from 'ngx-boot
 import { BsDatepickerContainerComponent } from 'ngx-bootstrap/datepicker/themes/bs/bs-datepicker-container.component';
 import { Observable } from 'rxjs';
 import { getEnvironment } from '../../../../../../environments/environment';
-import { input2OrderSearchCondition, iOSDatepickerTapBugFix, orderToEventOrders } from '../../../../../functions';
+import { input2OrderSearchCondition, iOSDatepickerTapBugFix, order2EventOrders } from '../../../../../functions';
 import { IOrderSearchConditions, OrderActions } from '../../../../../models';
 import { OrderService, UserService, UtilService } from '../../../../../services';
 import * as reducers from '../../../../../store/reducers';
@@ -37,7 +37,7 @@ export class OrderSearchComponent implements OnInit {
     public OrderActions: typeof OrderActions = OrderActions;
     public actionSelect: OrderActions | '';
     public environment = getEnvironment();
-    public orderToEventOrders = orderToEventOrders;
+    public order2EventOrders = order2EventOrders;
     @ViewChild('orderDateFrom', { static: true }) private orderDateFrom: BsDatepickerDirective;
     @ViewChild('orderDateThrough', { static: true }) private orderDateThrough: BsDatepickerDirective;
     @ViewChild('eventStartDateFrom', { static: true }) private eventStartDateFrom: BsDatepickerDirective;

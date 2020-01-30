@@ -264,7 +264,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
             }
 
             var order = value.order;
-            _this.eventOrders = Object(_functions__WEBPACK_IMPORTED_MODULE_7__["orderToEventOrders"])({
+            _this.eventOrders = Object(_functions__WEBPACK_IMPORTED_MODULE_7__["order2EventOrders"])({
               order: order
             });
           }).unsubscribe();

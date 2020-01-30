@@ -2,6 +2,7 @@ export * from './purchase/screen';
 export * from './purchase/reservation';
 export * from './purchase/payment';
 export * from './purchase/movieTicket';
+export * from './purchase/performance';
 export * from './admission/decodeResult';
 export * from './util/printer';
 export * from './order/action';

@@ -54,7 +54,6 @@ export class PurchaseCinemaScheduleComponent implements OnInit, OnDestroy {
         this.master = this.store.pipe(select(reducers.getMaster));
         this.user = this.store.pipe(select(reducers.getUser));
         this.screeningWorkEvents = [];
-        this.selectDate();
     }
 
     /**

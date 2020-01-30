@@ -241,7 +241,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
     /* harmony default export */
 
 
-    __webpack_exports__["default"] = "<div class=\"bg-white \">\n    <div class=\"p-3\">\n        <div class=\"mb-2\">\n            <p class=\"font-weight-bold text-large\">{{ screeningWorkEvent.info.name | changeLanguage }}</p>\n            <p\n                *ngIf=\"screeningWorkEvent.info.superEvent.headline && (screeningWorkEvent.info.superEvent.headline | changeLanguage)\">\n                {{ screeningWorkEvent.info.superEvent.headline | changeLanguage }}</p>\n            <p\n                *ngIf=\"screeningWorkEvent.info.superEvent.description && (screeningWorkEvent.info.superEvent.description | changeLanguage)\">{{\n                    screeningWorkEvent.info.superEvent.description | changeLanguage }}</p>\n        </div>\n        <div class=\"d-flex align-items-center\">\n            <div *ngIf=\"screeningWorkEvent.info.workPerformed?.contentRating\"\n                class=\"text-small bg-dark-gray text-white py-1 px-3 mr-2\">{{\n                    screeningWorkEvent.info.workPerformed.contentRating }}</div>\n            <div *ngIf=\"screeningWorkEvent.info.superEvent.dubLanguage\"\n                class=\"text-small bg-dark-gray text-white py-1 px-3 mr-2\">{{ 'common.dubbing' | translate }}</div>\n            <div *ngIf=\"screeningWorkEvent.info.superEvent.subtitleLanguage\"\n                class=\"text-small bg-dark-gray text-white py-1 px-3 mr-2\">{{ 'common.subtitles' | translate }}</div>\n            <div *ngIf=\"screeningWorkEvent.info.workPerformed?.duration && moment.duration(screeningWorkEvent.info.workPerformed.duration).asMinutes() > 0\"\n                class=\"text-small ml-auto\">\n                <span class=\"mr-1\">{{ 'common.duration' | translate }}</span>{{ moment.duration(screeningWorkEvent.info.workPerformed.duration).asMinutes() }}{{ 'common.date.minute' | translate }}\n            </div>\n        </div>\n    </div>\n    <ul class=\"py-2 px-3 px-md-2 d-flex flex-wrap\">\n        <li *ngFor=\"let screeningEvent of screeningWorkEvent.data\" class=\"px-md-2 my-2\">\n            <div class=\"border boder-gray rounded p-2 py-md-3 text-md-center d-md-block d-flex justify-content-between align-items-center pointer\"\n                [ngClass]=\"{ \n                'bg-white': isSales(screeningEvent) && screeningEvent.remainingAttendeeCapacity > 0, \n                'bg-dark-gray text-light-gray not-event': !isSales(screeningEvent) || screeningEvent.remainingAttendeeCapacity === 0\n                }\" (click)=\"select.emit(screeningEvent)\">\n                <div>\n                    <div class=\"mb-2 text-small screen-name\">\n                        {{ screeningEvent.location.name | changeLanguage }}\n                    </div>\n                    <div>\n                        <strong class=\"text-large\">{{ moment(screeningEvent.startDate).format('HH:mm') }}</strong>\n                        <span>-</span>\n                        <span>{{ moment(screeningEvent.endDate).format('HH:mm') }}</span>\n                    </div>\n                </div>\n                <hr class=\"border-0 bg-light-gray my-2\">\n                <div class=\"text-center\">\n                    <div class=\"status mb-2\" *ngIf=\"isSales(screeningEvent)\">\n                        <div *ngIf=\"isScheduleStatusThreshold(screeningEvent, 'success')\"\n                            class=\"d-flex justify-content-around align-items-center\">\n                            <div class=\"text-success mr-2 mr-md-0\">\n                                {{ 'purchase.cinema.schedule.status.success' | translate }}</div>\n                            <img src=\"/assets/images/icon/status_success.svg\">\n                        </div>\n                        <div *ngIf=\"isScheduleStatusThreshold(screeningEvent, 'warning')\"\n                            class=\"d-flex justify-content-around align-items-center\">\n                            <div class=\"text-warning mr-2 mr-md-0\">\n                                {{ 'purchase.cinema.schedule.status.warning' | translate }}</div>\n                            <img src=\"/assets/images/icon/status_warning.svg\">\n                        </div>\n                        <div *ngIf=\"isScheduleStatusThreshold(screeningEvent, 'danger')\"\n                            class=\"d-flex justify-content-around align-items-center\">\n                            <div class=\"text-danger mr-2 mr-md-0\">\n                                {{ 'purchase.cinema.schedule.status.danger' | translate }}</div>\n                            <img src=\"/assets/images/icon/status_danger.svg\">\n                        </div>\n                    </div>\n\n                    <div class=\"status mb-2\" *ngIf=\"isSales(screeningEvent, 'end')\">\n                        {{ 'purchase.cinema.schedule.status.endSale' | translate }}</div>\n                    <div class=\"status mb-2\" *ngIf=\"isSales(screeningEvent, 'start')\">\n                        {{ 'purchase.cinema.schedule.status.outsideSalesPeriod' | translate }}</div>\n                    <div *ngIf=\"screeningEvent.offers?.itemOffered.serviceOutput?.reservedTicket?.ticketedSeat && environment.DISPLAY_TICKETED_SEAT\"\n                        class=\"mb-2 text-small\">{{ 'common.seat' | translate }}\n                        {{ screeningEvent.remainingAttendeeCapacity }} / {{ screeningEvent.maximumAttendeeCapacity }}\n                    </div>\n                    <div *ngIf=\"!(screeningEvent.offers?.itemOffered.serviceOutput?.reservedTicket?.ticketedSeat)\"\n                        class=\"mb-2 text-small\">\n                        {{ 'purchase.cinema.schedule.infiniteStock' | translate }}</div>\n                    <div class=\"text-small mb-1\">{{ 'common.ticketing' | translate }} {{ screeningEvent.checkInCount }}\n                    </div>\n                    <div class=\"text-small\">{{ 'common.admission' | translate }} {{ screeningEvent.attendeeCount }}\n                    </div>\n                </div>\n            </div>\n        </li>\n    </ul>\n</div>";
+    __webpack_exports__["default"] = "<div class=\"bg-white \">\n    <div class=\"p-3\">\n        <div class=\"mb-2\">\n            <p class=\"font-weight-bold text-large\">{{ screeningWorkEvent.info.name | changeLanguage }}</p>\n            <p\n                *ngIf=\"screeningWorkEvent.info.superEvent.headline && (screeningWorkEvent.info.superEvent.headline | changeLanguage)\">\n                {{ screeningWorkEvent.info.superEvent.headline | changeLanguage }}</p>\n            <p\n                *ngIf=\"screeningWorkEvent.info.superEvent.description && (screeningWorkEvent.info.superEvent.description | changeLanguage)\">{{\n                    screeningWorkEvent.info.superEvent.description | changeLanguage }}</p>\n        </div>\n        <div class=\"d-flex align-items-center\">\n            <div *ngIf=\"screeningWorkEvent.info.workPerformed?.contentRating\"\n                class=\"text-small bg-dark-gray text-white py-1 px-3 mr-2\">{{\n                    screeningWorkEvent.info.workPerformed.contentRating }}</div>\n            <div *ngIf=\"screeningWorkEvent.info.superEvent.dubLanguage\"\n                class=\"text-small bg-dark-gray text-white py-1 px-3 mr-2\">{{ 'common.dubbing' | translate }}</div>\n            <div *ngIf=\"screeningWorkEvent.info.superEvent.subtitleLanguage\"\n                class=\"text-small bg-dark-gray text-white py-1 px-3 mr-2\">{{ 'common.subtitles' | translate }}</div>\n            <div *ngIf=\"screeningWorkEvent.info.workPerformed?.duration && moment.duration(screeningWorkEvent.info.workPerformed.duration).asMinutes() > 0\"\n                class=\"text-small ml-auto\">\n                <span class=\"mr-1\">{{ 'common.duration' | translate }}</span>{{ moment.duration(screeningWorkEvent.info.workPerformed.duration).asMinutes() }}{{ 'common.date.minute' | translate }}\n            </div>\n        </div>\n    </div>\n    <ul class=\"py-2 px-3 px-md-2 d-flex flex-wrap\">\n        <li *ngFor=\"let performance of screeningWorkEvent.data\" class=\"px-md-2 my-2\">\n            <div class=\"border boder-gray rounded p-2 py-md-3 text-md-center d-md-block d-flex justify-content-between align-items-center pointer\"\n                [ngClass]=\"{ \n                'bg-white': performance.isSales() && !performance.isSeatStatus('danger'), \n                'bg-dark-gray text-light-gray': !performance.isSales() || performance.isSeatStatus('danger')\n                }\" (click)=\"select.emit(performance.screeningEvent)\">\n                <div>\n                    <div class=\"mb-2 text-small screen-name\">\n                        {{ performance.screeningEvent.location.name | changeLanguage }}\n                    </div>\n                    <div>\n                        <strong class=\"text-large\">{{ moment(performance.screeningEvent.startDate).format('HH:mm') }}</strong>\n                        <span>-</span>\n                        <span>{{ moment(performance.screeningEvent.endDate).format('HH:mm') }}</span>\n                    </div>\n                </div>\n                <hr class=\"border-0 bg-light-gray my-2\">\n                <div class=\"text-center\">\n                    <div class=\"status mb-2\" *ngIf=\"performance.isSales()\">\n                        <div *ngIf=\"performance.isSeatStatus('success')\"\n                            class=\"d-flex justify-content-around align-items-center\">\n                            <div class=\"text-success mr-2 mr-md-0\">\n                                {{ 'purchase.cinema.schedule.status.success' | translate }}</div>\n                            <img src=\"/assets/images/icon/status_success.svg\">\n                        </div>\n                        <div *ngIf=\"performance.isSeatStatus('warning')\"\n                            class=\"d-flex justify-content-around align-items-center\">\n                            <div class=\"text-warning mr-2 mr-md-0\">\n                                {{ 'purchase.cinema.schedule.status.warning' | translate }}</div>\n                            <img src=\"/assets/images/icon/status_warning.svg\">\n                        </div>\n                        <div *ngIf=\"performance.isSeatStatus('danger')\"\n                            class=\"d-flex justify-content-around align-items-center\">\n                            <div class=\"text-danger mr-2 mr-md-0\">\n                                {{ 'purchase.cinema.schedule.status.danger' | translate }}</div>\n                            <img src=\"/assets/images/icon/status_danger.svg\">\n                        </div>\n                        <div *ngIf=\"performance.isSeatStatus()\"\n                            class=\"d-flex justify-content-around align-items-center\">\n                            <div class=\"mr-2 mr-md-0\">\n                                {{ 'purchase.cinema.schedule.status.success' | translate }}</div>\n                            <img src=\"/assets/images/icon/status_undefined.svg\">\n                        </div>\n                    </div>\n\n                    <div class=\"status mb-2\" *ngIf=\"performance.isSales('end')\">\n                        {{ 'purchase.cinema.schedule.status.endSale' | translate }}</div>\n                    <div class=\"status mb-2\" *ngIf=\"performance.isSales('start')\">\n                        {{ 'purchase.cinema.schedule.status.outsideSalesPeriod' | translate }}</div>\n                    <div *ngIf=\"performance.isTicketedSeat() && environment.DISPLAY_TICKETED_SEAT\"\n                        class=\"mb-2 text-small\">{{ 'common.seat' | translate }}\n                        {{ performance.screeningEvent.remainingAttendeeCapacity }} / {{ performance.screeningEvent.maximumAttendeeCapacity }}\n                    </div>\n                    <div *ngIf=\"!performance.isTicketedSeat()\"\n                        class=\"mb-2 text-small\">\n                        {{ 'purchase.cinema.schedule.infiniteStock' | translate }}</div>\n                    <div class=\"text-small mb-1\">{{ 'common.ticketing' | translate }} {{ performance.screeningEvent.checkInCount }}\n                    </div>\n                    <div class=\"text-small\">{{ 'common.admission' | translate }} {{ performance.screeningEvent.attendeeCount }}\n                    </div>\n                </div>\n            </div>\n        </li>\n    </ul>\n</div>";
     /***/
   },
 
@@ -261,7 +261,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
     /* harmony default export */
 
 
-    __webpack_exports__["default"] = "<div>\n    <div class=\"bg-gray p-3\">\n        <div class=\"mb-2\">\n            <p class=\"font-weight-bold text-large\">{{ screeningWorkEvent.info.name | changeLanguage }}</p>\n            <p class=\"text-small\"\n                *ngIf=\"screeningWorkEvent.info.superEvent.headline && (screeningWorkEvent.info.superEvent.headline | changeLanguage)\">\n                {{ screeningWorkEvent.info.superEvent.headline | changeLanguage }}</p>\n            <p class=\"text-small\"\n                *ngIf=\"screeningWorkEvent.info.superEvent.description && (screeningWorkEvent.info.superEvent.description | changeLanguage)\">{{\n                screeningWorkEvent.info.superEvent.description | changeLanguage }}</p>\n        </div>\n        <div class=\"d-flex align-items-center\">\n            <div *ngIf=\"screeningWorkEvent.info.workPerformed?.duration && moment.duration(screeningWorkEvent.info.workPerformed.duration).asMinutes() > 0\" class=\"text-small ml-auto\">\n                <span class=\"mr-1\">{{ 'common.duration' | translate }}</span>{{ moment.duration(screeningWorkEvent.info.workPerformed.duration).asMinutes() }}{{ 'common.date.minute' | translate }}</div>\n        </div>\n    </div>\n    <div class=\"p-3 bg-white d-flex flex-wrap\" [class.not-event]=\"readonly\">\n        <div *ngFor=\"let screeningEvent of screeningWorkEvent.data\"\n            class=\"performance my-2\"\n            [ngClass]=\"{ 'text-dark-gray': !isSales(screeningEvent) || screeningEvent.remainingAttendeeCapacity === 0 }\">\n            <div class=\"d-flex align-items-center\">\n                <div class=\"mr-2 font-weight-bold\">{{ moment(screeningEvent.startDate).format('HH:mm') }}-{{ moment(screeningEvent.endDate).format('HH:mm') }}</div>\n                <div class=\"status\"\n                    *ngIf=\"isSales(screeningEvent) && isTicketedSeatScreeningEvent(screeningEvent)\">\n                    <div *ngIf=\"isScheduleStatusThreshold(screeningEvent, 'success')\">\n                        <img src=\"/assets/images/icon/status_success.svg\">\n                    </div>\n                    <div *ngIf=\"isScheduleStatusThreshold(screeningEvent, 'warning')\"\n                        class=\"d-flex justify-content-around align-items-center\">\n                        <img src=\"/assets/images/icon/status_warning.svg\">\n                    </div>\n                    <div *ngIf=\"isScheduleStatusThreshold(screeningEvent, 'danger')\">\n                        <img src=\"/assets/images/icon/status_danger.svg\">\n                    </div>\n                </div>\n\n                <div class=\"status\" *ngIf=\"isSales(screeningEvent) && !isTicketedSeatScreeningEvent(screeningEvent)\">\n                    <div class=\"d-flex justify-content-around align-items-center\">\n                        <img src=\"/assets/images/icon/status_success.svg\">\n                    </div>\n                </div>\n\n                <div class=\"status text-x-small\" *ngIf=\"isSales(screeningEvent, 'end')\">\n                    {{ 'purchase.event.schedule.status.endSale' | translate }}</div>\n                <div class=\"status text-x-small\" *ngIf=\"isSales(screeningEvent, 'start')\">\n                    {{ 'purchase.event.schedule.status.outsideSalesPeriod' | translate }}</div>\n            </div>\n        </div>\n    </div>\n</div>";
+    __webpack_exports__["default"] = "<div>\n    <div class=\"bg-gray p-3\">\n        <div class=\"mb-2\">\n            <p class=\"font-weight-bold text-large\">{{ screeningWorkEvent.info.name | changeLanguage }}</p>\n            <p class=\"text-small\"\n                *ngIf=\"screeningWorkEvent.info.superEvent.headline && (screeningWorkEvent.info.superEvent.headline | changeLanguage)\">\n                {{ screeningWorkEvent.info.superEvent.headline | changeLanguage }}</p>\n            <p class=\"text-small\"\n                *ngIf=\"screeningWorkEvent.info.superEvent.description && (screeningWorkEvent.info.superEvent.description | changeLanguage)\">{{\n                screeningWorkEvent.info.superEvent.description | changeLanguage }}</p>\n        </div>\n        <div class=\"d-flex align-items-center\">\n            <div *ngIf=\"screeningWorkEvent.info.workPerformed?.duration && moment.duration(screeningWorkEvent.info.workPerformed.duration).asMinutes() > 0\" class=\"text-small ml-auto\">\n                <span class=\"mr-1\">{{ 'common.duration' | translate }}</span>{{ moment.duration(screeningWorkEvent.info.workPerformed.duration).asMinutes() }}{{ 'common.date.minute' | translate }}</div>\n        </div>\n    </div>\n    <div class=\"p-3 bg-white d-flex flex-wrap\" [class.not-event]=\"readonly\">\n        <div *ngFor=\"let performance of screeningWorkEvent.data\"\n            class=\"performance my-2\"\n            [ngClass]=\"{ 'text-dark-gray': !performance.isSales() || performance.isSeatStatus('danger') }\">\n            <div class=\"d-flex align-items-center\">\n                <div class=\"mr-2 font-weight-bold\">{{ moment(performance.screeningEvent.startDate).format('HH:mm') }}-{{ moment(performance.screeningEvent.endDate).format('HH:mm') }}</div>\n                <div class=\"status\"\n                    *ngIf=\"performance.isSales() && performance.isTicketedSeat()\">\n                    <div *ngIf=\"performance.isSeatStatus('success')\">\n                        <img src=\"/assets/images/icon/status_success.svg\">\n                    </div>\n                    <div *ngIf=\"performance.isSeatStatus('warning')\"\n                        class=\"d-flex justify-content-around align-items-center\">\n                        <img src=\"/assets/images/icon/status_warning.svg\">\n                    </div>\n                    <div *ngIf=\"performance.isSeatStatus('danger')\">\n                        <img src=\"/assets/images/icon/status_danger.svg\">\n                    </div>\n                    <div *ngIf=\"performance.isSeatStatus()\">\n                        <img src=\"/assets/images/icon/status_undefined.svg\">\n                    </div>\n                </div>\n\n                <div class=\"status\" *ngIf=\"performance.isSales() && !performance.isTicketedSeat()\">\n                    <div class=\"d-flex justify-content-around align-items-center\">\n                        <img src=\"/assets/images/icon/status_success.svg\">\n                    </div>\n                </div>\n\n                <div class=\"status text-x-small\" *ngIf=\"performance.isSales('end')\">\n                    {{ 'purchase.event.schedule.status.endSale' | translate }}</div>\n                <div class=\"status text-x-small\" *ngIf=\"performance.isSales('start')\">\n                    {{ 'purchase.event.schedule.status.outsideSalesPeriod' | translate }}</div>\n            </div>\n        </div>\n    </div>\n</div>";
     /***/
   },
 
@@ -281,7 +281,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
     /* harmony default export */
 
 
-    __webpack_exports__["default"] = "<div class=\"\">\n    <div class=\"bg-gray p-3\">\n        <div class=\"mb-2\">\n            <p class=\"font-weight-bold text-large\">{{ screeningWorkEvent.info.name | changeLanguage }}</p>\n            <p class=\"text-small\"\n                *ngIf=\"screeningWorkEvent.info.superEvent.headline && (screeningWorkEvent.info.superEvent.headline | changeLanguage)\">\n                {{ screeningWorkEvent.info.superEvent.headline | changeLanguage }}</p>\n            <p class=\"text-small\"\n                *ngIf=\"screeningWorkEvent.info.superEvent.description && (screeningWorkEvent.info.superEvent.description | changeLanguage)\">{{\n                screeningWorkEvent.info.superEvent.description | changeLanguage }}</p>\n        </div>\n        <div class=\"d-flex align-items-center\">\n            <div *ngIf=\"screeningWorkEvent.info.workPerformed?.duration && moment.duration(screeningWorkEvent.info.workPerformed?.duration).asMinutes() > 0\"\n                class=\"text-small ml-auto\">\n                <span class=\"mr-1\">{{ 'common.duration' | translate }}</span>{{ moment.duration(screeningWorkEvent.info.workPerformed?.duration).asMinutes() }}{{ 'common.date.minute' | translate }}\n            </div>\n        </div>\n    </div>\n    <div class=\"position-relative bg-white py-3\">\n        <div class=\"swiper-container px-1\" #swiper [swiper]=\"swiperConfig\" (resize)=\"resize()\">\n            <div class=\"swiper-wrapper\">\n                <div *ngFor=\"let screeningEvent of screeningWorkEvent.data\" class=\"px-1 swiper-slide\">\n                    <div class=\"border boder-gray rounded py-3 text-center pointer\" [ngClass]=\"{ \n                'bg-white': isSales(screeningEvent) && (screeningEvent.remainingAttendeeCapacity > 0 || !isTicketedSeatScreeningEvent(screeningEvent)), \n                'bg-dark-gray text-light-gray': !isSales(screeningEvent) || isScheduleStatusThreshold(screeningEvent, 'danger')\n                }\" (click)=\"select.emit(screeningEvent)\">\n                        <div class=\"mb-2 text-small screen-name\">\n                            {{ screeningEvent.location.name | changeLanguage }}\n                        </div>\n                        <div class=\"font-weight-bold mb-2\">\n                            {{ moment(screeningEvent.startDate).format('HH:mm') }}-{{ moment(screeningEvent.endDate).format('HH:mm') }}\n                        </div>\n                        <div class=\"text-center\">\n                            <div class=\"status mb-2\"\n                                *ngIf=\"isSales(screeningEvent) && isTicketedSeatScreeningEvent(screeningEvent)\">\n                                <div *ngIf=\"isScheduleStatusThreshold(screeningEvent, 'success')\"\n                                    class=\"d-flex justify-content-around align-items-center\">\n                                    <img src=\"/assets/images/icon/status_success.svg\">\n                                </div>\n                                <div *ngIf=\"isScheduleStatusThreshold(screeningEvent, 'warning')\"\n                                    class=\"d-flex justify-content-around align-items-center\">\n                                    <img src=\"/assets/images/icon/status_warning.svg\">\n                                </div>\n                                <div *ngIf=\"isScheduleStatusThreshold(screeningEvent, 'danger')\"\n                                    class=\"d-flex justify-content-around align-items-center\">\n                                    <img src=\"/assets/images/icon/status_danger.svg\">\n                                </div>\n                            </div>\n\n                            <div class=\"status mb-2\"\n                                *ngIf=\"isSales(screeningEvent) && !isTicketedSeatScreeningEvent(screeningEvent)\">\n                                <div class=\"d-flex justify-content-around align-items-center\">\n                                    <img src=\"/assets/images/icon/status_success.svg\">\n                                </div>\n                            </div>\n\n                            <div class=\"status mb-2\" *ngIf=\"isSales(screeningEvent, 'end')\">\n                                {{ 'purchase.event.schedule.status.endSale' | translate }}</div>\n                            <div class=\"status mb-2\" *ngIf=\"isSales(screeningEvent, 'start')\">\n                                {{ 'purchase.event.schedule.status.outsideSalesPeriod' | translate }}</div>\n                            <div *ngIf=\"screeningEvent.offers?.itemOffered.serviceOutput?.reservedTicket?.ticketedSeat\"\n                                class=\"mb-2 text-small\">{{ 'common.seat' | translate }}\n                                {{ getAttendeeCapacity('remaining', screeningEvent) }} /\n                                {{ getAttendeeCapacity('maximum', screeningEvent) }}\n                            </div>\n                            <div *ngIf=\"!(screeningEvent.offers?.itemOffered.serviceOutput?.reservedTicket?.ticketedSeat)\"\n                                class=\"mb-2 text-small\">\n                                {{ 'purchase.event.schedule.infiniteStock' | translate }}</div>\n                            <div class=\"text-small mb-1\">{{ 'common.ticketing' | translate }}\n                                {{ screeningEvent.checkInCount }}</div>\n                            <div class=\"text-small\">{{ 'common.admission' | translate }}\n                                {{ screeningEvent.attendeeCount }}</div>\n                        </div>\n                    </div>\n                </div>\n            </div>\n        </div>\n        <!-- <div class=\"swiper-button-next\"></div>\n        <div class=\"swiper-button-prev\"></div> -->\n    </div>\n</div>";
+    __webpack_exports__["default"] = "<div class=\"\">\n    <div class=\"bg-gray p-3\">\n        <div class=\"mb-2\">\n            <p class=\"font-weight-bold text-large\">{{ screeningWorkEvent.info.name | changeLanguage }}</p>\n            <p class=\"text-small\"\n                *ngIf=\"screeningWorkEvent.info.superEvent.headline && (screeningWorkEvent.info.superEvent.headline | changeLanguage)\">\n                {{ screeningWorkEvent.info.superEvent.headline | changeLanguage }}</p>\n            <p class=\"text-small\"\n                *ngIf=\"screeningWorkEvent.info.superEvent.description && (screeningWorkEvent.info.superEvent.description | changeLanguage)\">{{\n                screeningWorkEvent.info.superEvent.description | changeLanguage }}</p>\n        </div>\n        <div class=\"d-flex align-items-center\">\n            <div *ngIf=\"screeningWorkEvent.info.workPerformed?.duration && moment.duration(screeningWorkEvent.info.workPerformed?.duration).asMinutes() > 0\"\n                class=\"text-small ml-auto\">\n                <span class=\"mr-1\">{{ 'common.duration' | translate }}</span>{{ moment.duration(screeningWorkEvent.info.workPerformed?.duration).asMinutes() }}{{ 'common.date.minute' | translate }}\n            </div>\n        </div>\n    </div>\n    <div class=\"position-relative bg-white py-3\">\n        <div class=\"swiper-container px-1\" #swiper [swiper]=\"swiperConfig\" (resize)=\"resize()\">\n            <div class=\"swiper-wrapper\">\n                <div *ngFor=\"let performance of screeningWorkEvent.data\" class=\"px-1 swiper-slide\">\n                    <div class=\"border boder-gray rounded py-3 text-center pointer\" [ngClass]=\"{ \n                'bg-white': performance.isSales() && (!performance.isSeatStatus('danger') || !performance.isTicketedSeat()), \n                'bg-dark-gray text-light-gray': !performance.isSales() || performance.isSeatStatus('danger')\n                }\" (click)=\"select.emit(performance.screeningEvent)\">\n                        <div class=\"mb-2 text-small screen-name\">\n                            {{ performance.screeningEvent.location.name | changeLanguage }}\n                        </div>\n                        <div class=\"font-weight-bold mb-2\">\n                            {{ moment(performance.screeningEvent.startDate).format('HH:mm') }}-{{ moment(performance.screeningEvent.endDate).format('HH:mm') }}\n                        </div>\n                        <div class=\"text-center\">\n                            <div class=\"status mb-2\"\n                                *ngIf=\"performance.isSales() && performance.isTicketedSeat()\">\n                                <div *ngIf=\"performance.isSeatStatus('success')\"\n                                    class=\"d-flex justify-content-around align-items-center\">\n                                    <img src=\"/assets/images/icon/status_success.svg\">\n                                </div>\n                                <div *ngIf=\"performance.isSeatStatus('warning')\"\n                                    class=\"d-flex justify-content-around align-items-center\">\n                                    <img src=\"/assets/images/icon/status_warning.svg\">\n                                </div>\n                                <div *ngIf=\"performance.isSeatStatus('danger')\"\n                                    class=\"d-flex justify-content-around align-items-center\">\n                                    <img src=\"/assets/images/icon/status_danger.svg\">\n                                </div>\n                                <div *ngIf=\"performance.isSeatStatus()\"\n                                    class=\"d-flex justify-content-around align-items-center\">\n                                    <img src=\"/assets/images/icon/status_undefined.svg\">\n                                </div>\n                            </div>\n\n                            <div class=\"status mb-2\"\n                                *ngIf=\"performance.isSales() && !performance.isTicketedSeat()\">\n                                <div class=\"d-flex justify-content-around align-items-center\">\n                                    <img src=\"/assets/images/icon/status_success.svg\">\n                                </div>\n                            </div>\n\n                            <div class=\"status mb-2\" *ngIf=\"performance.isSales('end')\">\n                                {{ 'purchase.event.schedule.status.endSale' | translate }}</div>\n                            <div class=\"status mb-2\" *ngIf=\"performance.isSales('start')\">\n                                {{ 'purchase.event.schedule.status.outsideSalesPeriod' | translate }}</div>\n                            <div *ngIf=\"performance.isTicketedSeat()\"\n                                class=\"mb-2 text-small\">{{ 'common.seat' | translate }}\n                                {{ getAttendeeCapacity('remaining', performance.screeningEvent) }} /\n                                {{ getAttendeeCapacity('maximum', performance.screeningEvent) }}\n                            </div>\n                            <div *ngIf=\"!performance.isTicketedSeat()\"\n                                class=\"mb-2 text-small\">\n                                {{ 'purchase.event.schedule.infiniteStock' | translate }}</div>\n                            <div class=\"text-small mb-1\">{{ 'common.ticketing' | translate }}\n                                {{ performance.screeningEvent.checkInCount }}</div>\n                            <div class=\"text-small\">{{ 'common.admission' | translate }}\n                                {{ performance.screeningEvent.attendeeCount }}</div>\n                        </div>\n                    </div>\n                </div>\n            </div>\n        </div>\n        <!-- <div class=\"swiper-button-next\"></div>\n        <div class=\"swiper-button-prev\"></div> -->\n    </div>\n</div>";
     /***/
   },
 
@@ -857,9 +857,8 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
                     this.master = this.store.pipe(Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_2__["select"])(_store_reducers__WEBPACK_IMPORTED_MODULE_10__["getMaster"]));
                     this.user = this.store.pipe(Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_2__["select"])(_store_reducers__WEBPACK_IMPORTED_MODULE_10__["getUser"]));
                     this.screeningWorkEvents = [];
-                    this.selectDate();
 
-                  case 6:
+                  case 5:
                   case "end":
                     return _context3.stop();
                 }
@@ -2221,22 +2220,21 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
                     return this.purchaseService.cancelTransaction();
 
                   case 10:
-                    this.selectDate();
-                    _context11.next = 17;
+                    _context11.next = 16;
                     break;
 
-                  case 13:
-                    _context11.prev = 13;
+                  case 12:
+                    _context11.prev = 12;
                     _context11.t0 = _context11["catch"](7);
                     console.error(_context11.t0);
                     this.router.navigate(['/error']);
 
-                  case 17:
+                  case 16:
                   case "end":
                     return _context11.stop();
                 }
               }
-            }, _callee11, this, [[7, 13]]);
+            }, _callee11, this, [[7, 12]]);
           }));
         }
         /**
@@ -2595,19 +2593,25 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
     /* harmony import */
 
 
-    var _services__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(
+    var _models__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(
+    /*! ../../../../../../models */
+    "./app/models/index.ts");
+    /* harmony import */
+
+
+    var _services__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(
     /*! ../../../../../../services */
     "./app/services/index.ts");
     /* harmony import */
 
 
-    var _store_reducers__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(
+    var _store_reducers__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(
     /*! ../../../../../../store/reducers */
     "./app/store/reducers/index.ts");
     /* harmony import */
 
 
-    var _shared_components_parts_purchase_event_ticket_modal_ticket_modal_component__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(
+    var _shared_components_parts_purchase_event_ticket_modal_ticket_modal_component__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(
     /*! ../../../../../shared/components/parts/purchase/event/ticket-modal/ticket-modal.component */
     "./app/modules/shared/components/parts/purchase/event/ticket-modal/ticket-modal.component.ts");
 
@@ -2691,11 +2695,11 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
               while (1) {
                 switch (_context14.prev = _context14.next) {
                   case 0:
-                    this.purchase = this.store.pipe(Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_2__["select"])(_store_reducers__WEBPACK_IMPORTED_MODULE_9__["getPurchase"]));
-                    this.user = this.store.pipe(Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_2__["select"])(_store_reducers__WEBPACK_IMPORTED_MODULE_9__["getUser"]));
-                    this.master = this.store.pipe(Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_2__["select"])(_store_reducers__WEBPACK_IMPORTED_MODULE_9__["getMaster"]));
-                    this.error = this.store.pipe(Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_2__["select"])(_store_reducers__WEBPACK_IMPORTED_MODULE_9__["getError"]));
-                    this.isLoading = this.store.pipe(Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_2__["select"])(_store_reducers__WEBPACK_IMPORTED_MODULE_9__["getLoading"]));
+                    this.purchase = this.store.pipe(Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_2__["select"])(_store_reducers__WEBPACK_IMPORTED_MODULE_10__["getPurchase"]));
+                    this.user = this.store.pipe(Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_2__["select"])(_store_reducers__WEBPACK_IMPORTED_MODULE_10__["getUser"]));
+                    this.master = this.store.pipe(Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_2__["select"])(_store_reducers__WEBPACK_IMPORTED_MODULE_10__["getMaster"]));
+                    this.error = this.store.pipe(Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_2__["select"])(_store_reducers__WEBPACK_IMPORTED_MODULE_10__["getError"]));
+                    this.isLoading = this.store.pipe(Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_2__["select"])(_store_reducers__WEBPACK_IMPORTED_MODULE_10__["getLoading"]));
                     this.screeningWorkEvents = [];
                     this.purchase.subscribe(function (purchase) {
                       if (purchase.transaction === undefined) {
@@ -2913,7 +2917,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
                       var screeningEventTicketOffers = purchase.screeningEventTicketOffers;
                       var screeningEventOffers = purchase.screeningEventOffers;
 
-                      _this10.modal.show(_shared_components_parts_purchase_event_ticket_modal_ticket_modal_component__WEBPACK_IMPORTED_MODULE_10__["PurchaseEventTicketModalComponent"], {
+                      _this10.modal.show(_shared_components_parts_purchase_event_ticket_modal_ticket_modal_component__WEBPACK_IMPORTED_MODULE_11__["PurchaseEventTicketModalComponent"], {
                         "class": 'modal-dialog-centered',
                         initialState: {
                           screeningEventTicketOffers: screeningEventTicketOffers,
@@ -2974,7 +2978,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
                   case 8:
                     purchase = _context18.sent;
 
-                    if (!(purchase.screeningEvent !== undefined && Object(_functions__WEBPACK_IMPORTED_MODULE_7__["isTicketedSeatScreeningEvent"])(purchase.screeningEvent))) {
+                    if (!(purchase.screeningEvent !== undefined && new _models__WEBPACK_IMPORTED_MODULE_8__["Performance"](purchase.screeningEvent).isTicketedSeat())) {
                       _context18.next = 14;
                       break;
                     }
@@ -3156,15 +3160,15 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         type: _angular_router__WEBPACK_IMPORTED_MODULE_1__["Router"]
       }, {
-        type: _services__WEBPACK_IMPORTED_MODULE_8__["UtilService"]
+        type: _services__WEBPACK_IMPORTED_MODULE_9__["UtilService"]
       }, {
         type: _ngx_translate_core__WEBPACK_IMPORTED_MODULE_3__["TranslateService"]
       }, {
-        type: _services__WEBPACK_IMPORTED_MODULE_8__["PurchaseService"]
+        type: _services__WEBPACK_IMPORTED_MODULE_9__["PurchaseService"]
       }, {
-        type: _services__WEBPACK_IMPORTED_MODULE_8__["MasterService"]
+        type: _services__WEBPACK_IMPORTED_MODULE_9__["MasterService"]
       }, {
-        type: _services__WEBPACK_IMPORTED_MODULE_8__["UserService"]
+        type: _services__WEBPACK_IMPORTED_MODULE_9__["UserService"]
       }, {
         type: ngx_bootstrap__WEBPACK_IMPORTED_MODULE_5__["BsModalService"]
       }];
@@ -3178,7 +3182,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       styles: [__importDefault(__webpack_require__(
       /*! ./purchase-event-ticket.component.scss */
       "./app/modules/purchase/components/pages/event/purchase-event-ticket/purchase-event-ticket.component.scss"))["default"]]
-    }), __metadata("design:paramtypes", [_ngrx_store__WEBPACK_IMPORTED_MODULE_2__["Store"], _angular_router__WEBPACK_IMPORTED_MODULE_1__["Router"], _services__WEBPACK_IMPORTED_MODULE_8__["UtilService"], _ngx_translate_core__WEBPACK_IMPORTED_MODULE_3__["TranslateService"], _services__WEBPACK_IMPORTED_MODULE_8__["PurchaseService"], _services__WEBPACK_IMPORTED_MODULE_8__["MasterService"], _services__WEBPACK_IMPORTED_MODULE_8__["UserService"], ngx_bootstrap__WEBPACK_IMPORTED_MODULE_5__["BsModalService"]])], PurchaseEventTicketComponent);
+    }), __metadata("design:paramtypes", [_ngrx_store__WEBPACK_IMPORTED_MODULE_2__["Store"], _angular_router__WEBPACK_IMPORTED_MODULE_1__["Router"], _services__WEBPACK_IMPORTED_MODULE_9__["UtilService"], _ngx_translate_core__WEBPACK_IMPORTED_MODULE_3__["TranslateService"], _services__WEBPACK_IMPORTED_MODULE_9__["PurchaseService"], _services__WEBPACK_IMPORTED_MODULE_9__["MasterService"], _services__WEBPACK_IMPORTED_MODULE_9__["UserService"], ngx_bootstrap__WEBPACK_IMPORTED_MODULE_5__["BsModalService"]])], PurchaseEventTicketComponent);
     /***/
   },
 
@@ -3525,7 +3529,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
             }
 
             var order = purchase.order;
-            _this12.eventOrders = Object(_functions__WEBPACK_IMPORTED_MODULE_7__["orderToEventOrders"])({
+            _this12.eventOrders = Object(_functions__WEBPACK_IMPORTED_MODULE_7__["order2EventOrders"])({
               order: order
             });
           }).unsubscribe();
@@ -4490,12 +4494,6 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
     var _environments_environment__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
     /*! ../../../../../../../environments/environment */
     "./environments/environment.ts");
-    /* harmony import */
-
-
-    var _functions__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(
-    /*! ../../../../../../functions */
-    "./app/functions/index.ts");
 
     var __decorate = undefined && undefined.__decorate || function (decorators, target, key, desc) {
       var c = arguments.length,
@@ -4525,8 +4523,6 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
         this.select = new _angular_core__WEBPACK_IMPORTED_MODULE_0__["EventEmitter"]();
         this.moment = moment__WEBPACK_IMPORTED_MODULE_1__;
-        this.isScheduleStatusThreshold = _functions__WEBPACK_IMPORTED_MODULE_3__["isScheduleStatusThreshold"];
-        this.isSales = _functions__WEBPACK_IMPORTED_MODULE_3__["isSales"];
         this.environment = Object(_environments_environment__WEBPACK_IMPORTED_MODULE_2__["getEnvironment"])();
       }
 
@@ -4611,12 +4607,6 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
     var moment__WEBPACK_IMPORTED_MODULE_1___default =
     /*#__PURE__*/
     __webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_1__);
-    /* harmony import */
-
-
-    var _functions__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
-    /*! ../../../../../../functions */
-    "./app/functions/index.ts");
 
     var __decorate = undefined && undefined.__decorate || function (decorators, target, key, desc) {
       var c = arguments.length,
@@ -4646,9 +4636,6 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
         this.select = new _angular_core__WEBPACK_IMPORTED_MODULE_0__["EventEmitter"]();
         this.moment = moment__WEBPACK_IMPORTED_MODULE_1__;
-        this.isScheduleStatusThreshold = _functions__WEBPACK_IMPORTED_MODULE_2__["isScheduleStatusThreshold"];
-        this.isSales = _functions__WEBPACK_IMPORTED_MODULE_2__["isSales"];
-        this.isTicketedSeatScreeningEvent = _functions__WEBPACK_IMPORTED_MODULE_2__["isTicketedSeatScreeningEvent"];
       }
 
       _createClass(PurchaseEventPerformanceConfirmComponent, [{
@@ -4746,12 +4733,6 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
     var _environments_environment__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(
     /*! ../../../../../../../environments/environment */
     "./environments/environment.ts");
-    /* harmony import */
-
-
-    var _functions__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(
-    /*! ../../../../../../functions */
-    "./app/functions/index.ts");
 
     var __decorate = undefined && undefined.__decorate || function (decorators, target, key, desc) {
       var c = arguments.length,
@@ -4781,9 +4762,6 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
         this.select = new _angular_core__WEBPACK_IMPORTED_MODULE_0__["EventEmitter"]();
         this.moment = moment__WEBPACK_IMPORTED_MODULE_1__;
-        this.isScheduleStatusThreshold = _functions__WEBPACK_IMPORTED_MODULE_4__["isScheduleStatusThreshold"];
-        this.isSales = _functions__WEBPACK_IMPORTED_MODULE_4__["isSales"];
-        this.isTicketedSeatScreeningEvent = _functions__WEBPACK_IMPORTED_MODULE_4__["isTicketedSeatScreeningEvent"];
         this.environment = Object(_environments_environment__WEBPACK_IMPORTED_MODULE_3__["getEnvironment"])();
       }
 

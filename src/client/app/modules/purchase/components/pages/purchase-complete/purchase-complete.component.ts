@@ -6,7 +6,7 @@ import { TranslateService } from '@ngx-translate/core';
 import * as moment from 'moment';
 import { Observable } from 'rxjs';
 import { getEnvironment } from '../../../../../../environments/environment';
-import { changeTicketCountByOrder, createRegiGrowQrcode, getTicketPrice, IEventOrder, orderToEventOrders } from '../../../../../functions';
+import { changeTicketCountByOrder, createRegiGrowQrcode, getTicketPrice, IEventOrder, order2EventOrders } from '../../../../../functions';
 import { OrderService, PurchaseService, UserService, UtilService } from '../../../../../services';
 import * as reducers from '../../../../../store/reducers';
 
@@ -64,7 +64,7 @@ export class PurchaseCompleteComponent implements OnInit {
                 });
             }
             const order = purchase.order;
-            this.eventOrders = orderToEventOrders({ order });
+            this.eventOrders = order2EventOrders({ order });
         }).unsubscribe();
         this.print();
     }
