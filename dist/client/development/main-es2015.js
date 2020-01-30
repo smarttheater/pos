@@ -883,7 +883,7 @@ AppComponent = __decorate([
 /*!********************************!*\
   !*** ./app/functions/index.ts ***!
   \********************************/
-/*! exports provided: screeningEventsToWorkEvents, createGmoTokenObject, sameMovieTicketFilter, isAvailabilityMovieTicket, createMovieTicketsFromAuthorizeSeatReservation, createPaymentMethodFromType, getTicketPrice, movieTicketAuthErroCodeToMessage, getAmount, orderToEventOrders, authorizeSeatReservationToEvent, isScheduleStatusThreshold, isSales, isTicketedSeatScreeningEvent, changeTicketCount, getRemainingSeatLength, formatTelephone, toFull, toHalf, retry, sleep, buildQueryString, iOSDatepickerTapBugFix, streamingDownload, string2blob, getParameter, getProject, createPrintCanvas, createTestPrintCanvas, createRegiGrowQrcode, changeTicketCountByOrder, getTransactionAgentIdentifier, order2report, getTranslateModuleConfig, reservation2report */
+/*! exports provided: screeningEventsToWorkEvents, createGmoTokenObject, sameMovieTicketFilter, isAvailabilityMovieTicket, createMovieTicketsFromAuthorizeSeatReservation, createPaymentMethodFromType, getTicketPrice, movieTicketAuthErroCodeToMessage, getAmount, orderToEventOrders, authorizeSeatReservationToEvent, isScheduleStatusThreshold, isSales, isTicketedSeatScreeningEvent, changeTicketCount, getRemainingSeatLength, formatTelephone, toFull, toHalf, retry, sleep, buildQueryString, iOSDatepickerTapBugFix, streamingDownload, string2blob, getParameter, getProject, createPrintCanvas, createTestPrintCanvas, createRegiGrowQrcode, changeTicketCountByOrder, getTransactionAgentIdentifier, order2report, input2OrderSearchCondition, getTranslateModuleConfig, reservation2report, input2ReservationSearchCondition */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -957,11 +957,15 @@ __webpack_require__.r(__webpack_exports__);
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "order2report", function() { return _order_function__WEBPACK_IMPORTED_MODULE_2__["order2report"]; });
 
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "input2OrderSearchCondition", function() { return _order_function__WEBPACK_IMPORTED_MODULE_2__["input2OrderSearchCondition"]; });
+
 /* harmony import */ var _translate_function__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./translate.function */ "./app/functions/translate.function.ts");
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "getTranslateModuleConfig", function() { return _translate_function__WEBPACK_IMPORTED_MODULE_3__["getTranslateModuleConfig"]; });
 
 /* harmony import */ var _reservation_function__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./reservation.function */ "./app/functions/reservation.function.ts");
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "reservation2report", function() { return _reservation_function__WEBPACK_IMPORTED_MODULE_4__["reservation2report"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "input2ReservationSearchCondition", function() { return _reservation_function__WEBPACK_IMPORTED_MODULE_4__["input2ReservationSearchCondition"]; });
 
 var __importDefault = (undefined && undefined.__importDefault) || function (mod) {
   return (mod && mod.__esModule) ? mod : { "default": mod };
@@ -979,7 +983,7 @@ var __importDefault = (undefined && undefined.__importDefault) || function (mod)
 /*!*****************************************!*\
   !*** ./app/functions/order.function.ts ***!
   \*****************************************/
-/*! exports provided: createPrintCanvas, createTestPrintCanvas, createRegiGrowQrcode, changeTicketCountByOrder, getTransactionAgentIdentifier, order2report */
+/*! exports provided: createPrintCanvas, createTestPrintCanvas, createRegiGrowQrcode, changeTicketCountByOrder, getTransactionAgentIdentifier, order2report, input2OrderSearchCondition */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -990,6 +994,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "changeTicketCountByOrder", function() { return changeTicketCountByOrder; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getTransactionAgentIdentifier", function() { return getTransactionAgentIdentifier; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "order2report", function() { return order2report; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "input2OrderSearchCondition", function() { return input2OrderSearchCondition; });
 /* harmony import */ var _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @cinerino/api-javascript-client */ "../../node_modules/@cinerino/api-javascript-client/lib/index.js");
 /* harmony import */ var _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! moment */ "../../node_modules/moment/moment.js");
@@ -1287,6 +1292,72 @@ function order2report(orders) {
         });
     });
     return data;
+}
+/**
+ * 入力データを検索条件へ変換
+ */
+function input2OrderSearchCondition(params) {
+    const input = params.input;
+    const seller = params.seller;
+    const page = params.page;
+    const limit = params.limit;
+    const identifiers = [];
+    if (input.posId !== '') {
+        identifiers.push({ name: 'posId', value: input.posId });
+    }
+    const result = {
+        seller: {
+            ids: (seller === undefined) ? undefined : [seller.id]
+        },
+        customer: {
+            // email: (input.customer.email === '') ? undefined : input.customer.email,
+            // telephone: (input.customer.telephone === '') ? undefined : input.customer.telephone,
+            // familyName: (input.customer.familyName === '') ? undefined : input.customer.familyName,
+            // givenName: (input.customer.givenName === '') ? undefined : input.customer.givenName,
+            email: {
+                $eq: (input.customer.email === '') ? undefined : input.customer.email,
+            },
+            telephone: (input.customer.telephone === '') ? undefined : input.customer.telephone,
+            familyName: {
+                $eq: (input.customer.familyName === '') ? undefined : input.customer.familyName,
+            },
+            givenName: {
+                $eq: (input.customer.givenName === '') ? undefined : input.customer.givenName,
+            },
+            identifiers
+        },
+        orderStatuses: (input.orderStatus === '')
+            ? undefined : [input.orderStatus],
+        orderDateFrom: (input.orderDateFrom === undefined)
+            ? undefined
+            : moment__WEBPACK_IMPORTED_MODULE_1__(moment__WEBPACK_IMPORTED_MODULE_1__(input.orderDateFrom).format('YYYYMMDD')).toDate(),
+        orderDateThrough: (input.orderDateThrough === undefined)
+            ? undefined
+            : moment__WEBPACK_IMPORTED_MODULE_1__(moment__WEBPACK_IMPORTED_MODULE_1__(input.orderDateThrough).format('YYYYMMDD')).add(1, 'day').toDate(),
+        confirmationNumbers: (input.confirmationNumber === '')
+            ? undefined : [input.confirmationNumber],
+        orderNumbers: (input.orderNumber === '')
+            ? undefined : [input.orderNumber],
+        paymentMethods: (input.paymentMethodType === '')
+            ? undefined : { typeOfs: [input.paymentMethodType] },
+        acceptedOffers: {
+            itemOffered: {
+                reservationFor: {
+                    inSessionFrom: (input.eventStartDateFrom === undefined)
+                        ? undefined
+                        : moment__WEBPACK_IMPORTED_MODULE_1__(moment__WEBPACK_IMPORTED_MODULE_1__(input.eventStartDateFrom).format('YYYYMMDD')).toDate(),
+                    inSessionThrough: (input.eventStartDateThrough === undefined)
+                        ? undefined
+                        : moment__WEBPACK_IMPORTED_MODULE_1__(moment__WEBPACK_IMPORTED_MODULE_1__(input.eventStartDateThrough)
+                            .format('YYYYMMDD')).add(1, 'day').toDate(),
+                }
+            }
+        },
+        limit,
+        page,
+        sort: { orderDate: _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_0__["factory"].sortType.Descending }
+    };
+    return result;
 }
 
 
@@ -1788,18 +1859,22 @@ function getRemainingSeatLength(screeningEventOffers, screeningEvent) {
 /*!***********************************************!*\
   !*** ./app/functions/reservation.function.ts ***!
   \***********************************************/
-/*! exports provided: reservation2report */
+/*! exports provided: reservation2report, input2ReservationSearchCondition */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "reservation2report", function() { return reservation2report; });
-/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! moment */ "../../node_modules/moment/moment.js");
-/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _purchase_function__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./purchase.function */ "./app/functions/purchase.function.ts");
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "input2ReservationSearchCondition", function() { return input2ReservationSearchCondition; });
+/* harmony import */ var _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @cinerino/api-javascript-client */ "../../node_modules/@cinerino/api-javascript-client/lib/index.js");
+/* harmony import */ var _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! moment */ "../../node_modules/moment/moment.js");
+/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _purchase_function__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./purchase.function */ "./app/functions/purchase.function.ts");
 var __importDefault = (undefined && undefined.__importDefault) || function (mod) {
   return (mod && mod.__esModule) ? mod : { "default": mod };
 };
+
 
 
 /**
@@ -1810,21 +1885,66 @@ function reservation2report(reservations) {
     reservations.forEach((reservation) => {
         const customData = {
             bookingTime: reservation.bookingTime,
-            bookingTimeJST: moment__WEBPACK_IMPORTED_MODULE_0__(reservation.bookingTime).format('YYYY/MM/DD/HH:mm'),
+            bookingTimeJST: moment__WEBPACK_IMPORTED_MODULE_1__(reservation.bookingTime).format('YYYY/MM/DD/HH:mm'),
             id: reservation.id,
             reservationNumber: reservation.reservationNumber,
             reservationStatus: reservation.reservationStatus,
             price: (typeof reservation.price === 'number' || reservation.price === undefined)
                 ? reservation.price
-                : Object(_purchase_function__WEBPACK_IMPORTED_MODULE_1__["getTicketPrice"])({ priceSpecification: { priceComponent: reservation.price.priceComponent } }).total,
+                : Object(_purchase_function__WEBPACK_IMPORTED_MODULE_2__["getTicketPrice"])({ priceSpecification: { priceComponent: reservation.price.priceComponent } }).total,
             reservedTicket: reservation.reservedTicket,
-            reservationFor: Object.assign({}, reservation.reservationFor, { startDateJST: moment__WEBPACK_IMPORTED_MODULE_0__(reservation.reservationFor.startDate).format('YYYY/MM/DD/HH:mm') }),
+            reservationFor: Object.assign({}, reservation.reservationFor, { startDateJST: moment__WEBPACK_IMPORTED_MODULE_1__(reservation.reservationFor.startDate).format('YYYY/MM/DD/HH:mm') }),
             checkedIn: reservation.checkedIn,
             attended: reservation.attended
         };
         data.push(customData);
     });
     return data;
+}
+/**
+ * 入力データを検索条件へ変換
+ */
+function input2ReservationSearchCondition(params) {
+    const input = params.input;
+    const seller = params.seller;
+    const page = params.page;
+    const limit = params.limit;
+    const result = {
+        typeOf: _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_0__["factory"].chevre.reservationType.EventReservation,
+        bookingFrom: (input.reservationDateFrom === undefined)
+            ? undefined
+            : moment__WEBPACK_IMPORTED_MODULE_1__(moment__WEBPACK_IMPORTED_MODULE_1__(input.reservationDateFrom).format('YYYYMMDD')).toDate(),
+        bookingThrough: (input.reservationDateThrough === undefined)
+            ? undefined
+            : moment__WEBPACK_IMPORTED_MODULE_1__(moment__WEBPACK_IMPORTED_MODULE_1__(input.reservationDateThrough).format('YYYYMMDD')).add(1, 'day').toDate(),
+        reservationFor: {
+            startFrom: (input.eventStartDateFrom === undefined)
+                ? undefined
+                : moment__WEBPACK_IMPORTED_MODULE_1__(moment__WEBPACK_IMPORTED_MODULE_1__(input.eventStartDateFrom).format('YYYYMMDD')).toDate(),
+            startThrough: (input.eventStartDateThrough === undefined)
+                ? undefined
+                : moment__WEBPACK_IMPORTED_MODULE_1__(moment__WEBPACK_IMPORTED_MODULE_1__(input.eventStartDateThrough).format('YYYYMMDD')).add(1, 'day').toDate(),
+            superEvent: {
+                location: {
+                    branchCodes: (seller === undefined
+                        || seller.location === undefined
+                        || seller.location.branchCode === undefined) ? [] : [seller.location.branchCode]
+                }
+            }
+        },
+        ids: (input.id === '')
+            ? undefined : [input.id],
+        reservationStatuses: (input.reservationStatus === '')
+            ? undefined : [input.reservationStatus],
+        reservationNumbers: (input.reservationNumber === '')
+            ? undefined : [input.reservationNumber],
+        limit,
+        page,
+        sort: {
+        // reservationDate: factory.sortType.Descending
+        }
+    };
+    return result;
 }
 
 
@@ -5909,9 +6029,8 @@ let DownloadService = DownloadService_1 = class DownloadService {
                 params.page = page;
                 const searchResult = yield this.cinerino.person.search(params);
                 persons = persons.concat(searchResult.data);
-                const lastPage = Math.ceil(searchResult.totalCount / limit);
                 page++;
-                roop = !(page > lastPage);
+                roop = searchResult.data.length > 0;
             }
             const data = [];
             persons.forEach((person) => {
@@ -7403,7 +7522,6 @@ let UserService = class UserService {
      */
     checkVersion() {
         return __awaiter(this, void 0, void 0, function* () {
-            this.utilService.loadStart();
             const query = `?date=${moment__WEBPACK_IMPORTED_MODULE_3__().toISOString()}`;
             const { version } = yield this.utilService.getJson(`/api/version${query}`);
             const data = yield this.getData();
@@ -7415,7 +7533,6 @@ let UserService = class UserService {
                 this.store.dispatch(new _store_actions__WEBPACK_IMPORTED_MODULE_4__["userAction"].SetVersion({ version }));
                 location.reload();
             }
-            this.utilService.loadEnd();
         });
     }
 };
@@ -9283,8 +9400,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! moment */ "../../node_modules/moment/moment.js");
 /* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_3__);
 /* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! rxjs/operators */ "../../node_modules/rxjs/_esm2015/operators/index.js");
-/* harmony import */ var _services_cinerino_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../services/cinerino.service */ "./app/services/cinerino.service.ts");
-/* harmony import */ var _actions__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../actions */ "./app/store/actions/index.ts");
+/* harmony import */ var _functions__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../functions */ "./app/functions/index.ts");
+/* harmony import */ var _services_cinerino_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../services/cinerino.service */ "./app/services/cinerino.service.ts");
+/* harmony import */ var _actions__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../actions */ "./app/store/actions/index.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -9312,6 +9430,7 @@ var __importDefault = (undefined && undefined.__importDefault) || function (mod)
 
 
 
+
 /**
  * Master Effects
  */
@@ -9322,22 +9441,22 @@ let MasterEffects = class MasterEffects {
         /**
          * GetSellers
          */
-        this.getTheaters = this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_actions__WEBPACK_IMPORTED_MODULE_6__["masterAction"].ActionTypes.GetSellers), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["map"])(action => action.payload), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["mergeMap"])((payload) => __awaiter(this, void 0, void 0, function* () {
+        this.getTheaters = this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_actions__WEBPACK_IMPORTED_MODULE_7__["masterAction"].ActionTypes.GetSellers), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["map"])(action => action.payload), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["mergeMap"])((payload) => __awaiter(this, void 0, void 0, function* () {
             try {
                 yield this.cinerino.getServices();
                 const searchMovieTheatersResult = yield this.cinerino.seller.search((payload === undefined) ? {} : payload);
                 const sellers = searchMovieTheatersResult.data
                     .filter(s => (s.location !== undefined && s.location !== null && s.location.branchCode !== undefined));
-                return new _actions__WEBPACK_IMPORTED_MODULE_6__["masterAction"].GetSellersSuccess({ sellers });
+                return new _actions__WEBPACK_IMPORTED_MODULE_7__["masterAction"].GetSellersSuccess({ sellers });
             }
             catch (error) {
-                return new _actions__WEBPACK_IMPORTED_MODULE_6__["masterAction"].GetSellersFail({ error: error });
+                return new _actions__WEBPACK_IMPORTED_MODULE_7__["masterAction"].GetSellersFail({ error: error });
             }
         })));
         /**
          * GetSchedule
          */
-        this.getSchedule = this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_actions__WEBPACK_IMPORTED_MODULE_6__["masterAction"].ActionTypes.GetSchedule), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["map"])(action => action.payload), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["mergeMap"])((payload) => __awaiter(this, void 0, void 0, function* () {
+        this.getSchedule = this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_actions__WEBPACK_IMPORTED_MODULE_7__["masterAction"].ActionTypes.GetSchedule), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["map"])(action => action.payload), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["mergeMap"])((payload) => __awaiter(this, void 0, void 0, function* () {
             try {
                 yield this.cinerino.getServices();
                 const limit = 100;
@@ -9355,9 +9474,9 @@ let MasterEffects = class MasterEffects {
                         startThrough: payload.startThrough
                     });
                     screeningEvents = screeningEvents.concat(searchResult.data);
-                    const lastPage = Math.ceil(searchResult.totalCount / limit);
                     page++;
-                    roop = !(page > lastPage);
+                    roop = searchResult.data.length > 0;
+                    yield Object(_functions__WEBPACK_IMPORTED_MODULE_5__["sleep"])(500);
                 }
                 const scheduleDate = moment__WEBPACK_IMPORTED_MODULE_3__(payload.startFrom).format('YYYY-MM-DD');
                 // 公開日順（降順）へソート
@@ -9378,16 +9497,16 @@ let MasterEffects = class MasterEffects {
                     }
                     return 0;
                 });
-                return new _actions__WEBPACK_IMPORTED_MODULE_6__["masterAction"].GetScheduleSuccess({ screeningEvents, scheduleDate });
+                return new _actions__WEBPACK_IMPORTED_MODULE_7__["masterAction"].GetScheduleSuccess({ screeningEvents, scheduleDate });
             }
             catch (error) {
-                return new _actions__WEBPACK_IMPORTED_MODULE_6__["masterAction"].GetScheduleFail({ error: error });
+                return new _actions__WEBPACK_IMPORTED_MODULE_7__["masterAction"].GetScheduleFail({ error: error });
             }
         })));
         /**
          * GetProjects
          */
-        this.GetProjects = this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_actions__WEBPACK_IMPORTED_MODULE_6__["masterAction"].ActionTypes.GetProjects), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["map"])(action => action.payload), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["mergeMap"])(() => __awaiter(this, void 0, void 0, function* () {
+        this.GetProjects = this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_actions__WEBPACK_IMPORTED_MODULE_7__["masterAction"].ActionTypes.GetProjects), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["map"])(action => action.payload), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["mergeMap"])(() => __awaiter(this, void 0, void 0, function* () {
             try {
                 yield this.cinerino.getServices();
                 const limit = 100;
@@ -9400,21 +9519,21 @@ let MasterEffects = class MasterEffects {
                         limit,
                     });
                     projects = projects.concat(searchResult.data);
-                    const lastPage = Math.ceil(searchResult.totalCount / limit);
                     page++;
-                    roop = !(page > lastPage);
+                    roop = searchResult.data.length > 0;
+                    yield Object(_functions__WEBPACK_IMPORTED_MODULE_5__["sleep"])(500);
                 }
-                return new _actions__WEBPACK_IMPORTED_MODULE_6__["masterAction"].GetProjectsSuccess({ projects });
+                return new _actions__WEBPACK_IMPORTED_MODULE_7__["masterAction"].GetProjectsSuccess({ projects });
             }
             catch (error) {
-                return new _actions__WEBPACK_IMPORTED_MODULE_6__["masterAction"].GetProjectsFail({ error: error });
+                return new _actions__WEBPACK_IMPORTED_MODULE_7__["masterAction"].GetProjectsFail({ error: error });
             }
         })));
     }
 };
 MasterEffects.ctorParameters = () => [
     { type: _ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["Actions"] },
-    { type: _services_cinerino_service__WEBPACK_IMPORTED_MODULE_5__["CinerinoService"] }
+    { type: _services_cinerino_service__WEBPACK_IMPORTED_MODULE_6__["CinerinoService"] }
 ];
 __decorate([
     Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["Effect"])(),
@@ -9431,7 +9550,7 @@ __decorate([
 MasterEffects = __decorate([
     Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"])(),
     __metadata("design:paramtypes", [_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["Actions"],
-        _services_cinerino_service__WEBPACK_IMPORTED_MODULE_5__["CinerinoService"]])
+        _services_cinerino_service__WEBPACK_IMPORTED_MODULE_6__["CinerinoService"]])
 ], MasterEffects);
 
 

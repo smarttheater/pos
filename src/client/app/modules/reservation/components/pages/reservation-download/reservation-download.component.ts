@@ -7,9 +7,9 @@ import { BsDatepickerDirective, BsLocaleService } from 'ngx-bootstrap';
 import { BsDatepickerContainerComponent } from 'ngx-bootstrap/datepicker/themes/bs/bs-datepicker-container.component';
 import { Observable } from 'rxjs';
 import { getEnvironment } from '../../../../../../environments/environment';
-import { getTicketPrice, iOSDatepickerTapBugFix } from '../../../../../functions';
+import { getTicketPrice, input2ReservationSearchCondition, iOSDatepickerTapBugFix } from '../../../../../functions';
 import { IReservationSearchConditions } from '../../../../../models';
-import { DownloadService, ReservationService, UtilService } from '../../../../../services';
+import { DownloadService, ReservationService, UserService, UtilService } from '../../../../../services';
 import * as reducers from '../../../../../store/reducers';
 
 @Component({
@@ -43,6 +43,7 @@ export class ReservationDownloadComponent implements OnInit {
         private downloadService: DownloadService,
         private translate: TranslateService,
         private localeService: BsLocaleService,
+        private userService: UserService
     ) { }
 
     public ngOnInit() {
@@ -64,45 +65,6 @@ export class ReservationDownloadComponent implements OnInit {
             page: 1
         };
         this.reservationService.delete();
-    }
-
-    /**
-     * 検索パラメータへ変換
-     */
-    public async convertToSearchParams() {
-        return new Promise<factory.chevre.reservation.ISearchConditions<factory.chevre.reservationType.EventReservation>>((resolve) => {
-            this.user.subscribe(() => {
-                const params: factory.chevre.reservation.ISearchConditions<factory.chevre.reservationType.EventReservation> = {
-                    typeOf: factory.chevre.reservationType.EventReservation,
-                    bookingFrom: (this.confirmedConditions.reservationDateFrom === undefined)
-                        ? undefined
-                        : moment(moment(this.confirmedConditions.reservationDateFrom).format('YYYYMMDD')).toDate(),
-                    bookingThrough: (this.confirmedConditions.reservationDateThrough === undefined)
-                        ? undefined
-                        : moment(moment(this.confirmedConditions.reservationDateThrough).format('YYYYMMDD')).add(1, 'day').toDate(),
-                    reservationFor: {
-                        startFrom: (this.confirmedConditions.eventStartDateFrom === undefined)
-                            ? undefined
-                            : moment(moment(this.confirmedConditions.eventStartDateFrom).format('YYYYMMDD')).toDate(),
-                        startThrough: (this.confirmedConditions.eventStartDateThrough === undefined)
-                            ? undefined
-                            : moment(moment(this.confirmedConditions.eventStartDateThrough).format('YYYYMMDD')).add(1, 'day').toDate(),
-                    },
-                    ids: (this.confirmedConditions.id === '')
-                        ? undefined : [this.confirmedConditions.id],
-                    reservationStatuses: (this.confirmedConditions.reservationStatus === '')
-                        ? undefined : [this.confirmedConditions.reservationStatus],
-                    reservationNumbers: (this.confirmedConditions.reservationNumber === '')
-                        ? undefined : [this.confirmedConditions.reservationNumber],
-                    limit: this.limit,
-                    page: this.confirmedConditions.page,
-                    sort: {
-                        // reservationDate: factory.sortType.Descending
-                    }
-                };
-                resolve(params);
-            }).unsubscribe();
-        });
     }
 
     /**
@@ -128,7 +90,10 @@ export class ReservationDownloadComponent implements OnInit {
         }
         this.utilService.loadStart();
         try {
-            const params = await this.convertToSearchParams();
+            const params = input2ReservationSearchCondition({
+                input: this.confirmedConditions,
+                seller: (await this.userService.getData()).seller,
+            });
             await this.downloadService.reservation(params);
         } catch (error) {
             console.error(error);

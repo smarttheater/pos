@@ -5,6 +5,9 @@ import { SettingGuardService } from '../../canActivates/setting-guard.service';
 import { BaseComponent } from '../shared/components/pages/base/base.component';
 import { ReservationDownloadComponent } from './components/pages/reservation-download/reservation-download.component';
 import { ReservationIndexComponent } from './components/pages/reservation-index/reservation-index.component';
+import {
+  ReservationSearchUnlimitedComponent
+} from './components/pages/reservation-search-unlimited/reservation-search-unlimited.component';
 import { ReservationSearchComponent } from './components/pages/reservation-search/reservation-search.component';
 
 
@@ -15,6 +18,7 @@ const routes: Routes = [{
   children: [
     { path: '', component: ReservationIndexComponent },
     { path: 'search', component: ReservationSearchComponent },
+    { path: 'search/unlimited', component: ReservationSearchUnlimitedComponent },
     { path: 'download', component: ReservationDownloadComponent }
   ]
 }];
