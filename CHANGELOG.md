@@ -12,7 +12,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/).
 
 ### Security
 
-## 3.0.3 - 2020-01-30
+## 3.0.3 - 2020-01-31
 ### Changed
  - 注文・予約検索を分割検索から通常の検索へ変更
  - 注文検索の購入者情報を完全一致へ変更
