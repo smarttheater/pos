@@ -55,7 +55,6 @@ export class PurchaseEventScheduleComponent implements OnInit, OnDestroy {
         }
         try {
             await this.purchaseService.cancelTransaction();
-            this.selectDate();
         } catch (error) {
             console.error(error);
             this.router.navigate(['/error']);

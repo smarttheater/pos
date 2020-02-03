@@ -7,14 +7,13 @@ import * as moment from 'moment';
 import { map, mergeMap } from 'rxjs/operators';
 import { getEnvironment } from '../../../environments/environment';
 import {
-    authorizeSeatReservationToEvent,
+    authorizeSeatReservation2Event,
     createMovieTicketsFromAuthorizeSeatReservation,
     formatTelephone,
     getProject,
     getTicketPrice,
-    isTicketedSeatScreeningEvent
 } from '../../functions';
-import { IScreen } from '../../models';
+import { IScreen, Performance } from '../../models';
 import { CinerinoService, UtilService } from '../../services';
 import { purchaseAction } from '../actions';
 
@@ -125,7 +124,7 @@ export class PurchaseEffects {
                 await this.cinerinoService.getServices();
                 const screeningEvent = payload.screeningEvent;
                 let screeningEventOffers: factory.chevre.event.screeningEvent.IScreeningRoomSectionOffer[] = [];
-                if (isTicketedSeatScreeningEvent(screeningEvent)) {
+                if (new Performance(screeningEvent).isTicketedSeat()) {
                     screeningEventOffers = await this.cinerinoService.event.searchOffers({
                         event: { id: screeningEvent.id }
                     });
@@ -207,7 +206,7 @@ export class PurchaseEffects {
             const freeSeats: factory.chevre.reservation.ISeat<factory.chevre.reservationType.EventReservation>[] = [];
             try {
                 await this.cinerinoService.getServices();
-                if (isTicketedSeatScreeningEvent(screeningEvent)) {
+                if (new Performance(screeningEvent).isTicketedSeat()) {
                     for (const screeningEventOffer of screeningEventOffers) {
                         const section = screeningEventOffer.branchCode;
                         for (const containsPlace of screeningEventOffer.containsPlace) {
@@ -514,7 +513,7 @@ export class PurchaseEffects {
                     // 完了メールをカスタマイズ
                     const view = await this.utilService.getText(`${getProject().storageUrl}/ejs/mail/complete/${payload.language}.ejs`);
                     params.email.template = await (<any>window).ejs.render(view, {
-                        authorizeSeatReservations: authorizeSeatReservationToEvent({ authorizeSeatReservations }),
+                        authorizeSeatReservations: authorizeSeatReservation2Event({ authorizeSeatReservations }),
                         seller,
                         moment, formatTelephone, getTicketPrice
                     }, { async: true });
