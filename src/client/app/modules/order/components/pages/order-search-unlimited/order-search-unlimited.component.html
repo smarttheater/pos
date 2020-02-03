@@ -191,7 +191,7 @@
                         </td>
                         <td class="align-middle">{{ order.confirmationNumber }}</td>
                         <td class="align-middle">
-                            <div *ngFor="let eventOrder of orderToEventOrders({ order: order })">
+                            <div *ngFor="let eventOrder of order2EventOrders({ order: order })">
                                 <p *ngIf="(eventOrder.event.name | changeLanguage).length > 0">{{
                                     eventOrder.event.name | changeLanguage | slice:0:10 }}</p>
                                 <p *ngIf="!((eventOrder.event.name | changeLanguage).length > 0)">{{

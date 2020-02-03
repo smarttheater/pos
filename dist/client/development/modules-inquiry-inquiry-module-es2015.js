@@ -132,7 +132,7 @@ let InquiryConfirmComponent = class InquiryConfirmComponent {
                 return;
             }
             const order = value.order;
-            this.eventOrders = Object(_functions__WEBPACK_IMPORTED_MODULE_7__["orderToEventOrders"])({ order });
+            this.eventOrders = Object(_functions__WEBPACK_IMPORTED_MODULE_7__["order2EventOrders"])({ order });
         }).unsubscribe();
         if (this.environment.INQUIRY_PRINT_WAIT_TIME !== '') {
             const time = Number(this.environment.INQUIRY_PRINT_WAIT_TIME);

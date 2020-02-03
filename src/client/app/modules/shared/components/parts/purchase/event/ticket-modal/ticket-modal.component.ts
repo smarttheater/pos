@@ -3,8 +3,8 @@ import { factory } from '@cinerino/api-javascript-client';
 import * as moment from 'moment';
 import { BsModalRef } from 'ngx-bootstrap';
 import { getEnvironment } from '../../../../../../../../environments/environment';
-import { getRemainingSeatLength, getTicketPrice, isTicketedSeatScreeningEvent } from '../../../../../../../functions';
-import { IReservationTicket } from '../../../../../../../models';
+import { getRemainingSeatLength, getTicketPrice } from '../../../../../../../functions';
+import { IReservationTicket, Performance } from '../../../../../../../models';
 
 @Component({
     selector: 'app-purchase-event-ticket-modal',
@@ -23,7 +23,7 @@ export class PurchaseEventTicketModalComponent implements OnInit {
     public selectedTickets: { [key: string]: string; };
     public moment: typeof moment = moment;
     public getRemainingSeatLength = getRemainingSeatLength;
-    public isTicketedSeatScreeningEvent = isTicketedSeatScreeningEvent;
+    public performance: Performance;
     public environment = getEnvironment();
 
     constructor(
@@ -34,6 +34,7 @@ export class PurchaseEventTicketModalComponent implements OnInit {
      * 初期化
      */
     public ngOnInit() {
+        this.performance = new Performance(this.screeningEvent);
         this.tickets = [];
         this.tickets = this.screeningEventTicketOffers.filter((offer) => {
             const movieTicketTypeChargeSpecification = offer.priceSpecification.priceComponent.find(
@@ -43,7 +44,7 @@ export class PurchaseEventTicketModalComponent implements OnInit {
         });
         this.values = [];
         let limit = Number(this.environment.PURCHASE_ITEM_MAX_LENGTH);
-        if (isTicketedSeatScreeningEvent(this.screeningEvent)) {
+        if (new Performance(this.screeningEvent).isTicketedSeat()) {
             const remainingSeatLength = this.getRemainingSeatLength(this.screeningEventOffers, this.screeningEvent);
             limit = (limit > remainingSeatLength) ? remainingSeatLength : limit;
         }

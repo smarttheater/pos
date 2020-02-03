@@ -9,7 +9,7 @@ import {
     getTicketPrice,
     getTransactionAgentIdentifier,
     IEventOrder,
-    orderToEventOrders
+    order2EventOrders
 } from '../../../../../../functions';
 
 @Component({
@@ -34,7 +34,7 @@ export class OrderDetailModalComponent implements OnInit {
 
     public ngOnInit() {
         const order = this.order;
-        this.eventOrders = orderToEventOrders({ order: this.order });
+        this.eventOrders = order2EventOrders({ order: this.order });
         const element: HTMLElement = this.elementRef.nativeElement.querySelector('.scroll-vertical');
         setTimeout(() => {
             element.scrollTop = 0;

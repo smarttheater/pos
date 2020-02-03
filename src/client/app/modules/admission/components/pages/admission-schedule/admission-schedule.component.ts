@@ -37,7 +37,6 @@ export class AdmissionScheduleComponent implements OnInit, OnDestroy {
         this.admission = this.store.pipe(select(reducers.getAdmission));
         this.user = this.store.pipe(select(reducers.getUser));
         this.screeningWorkEvents = [];
-        this.selectDate();
     }
 
     public ngOnDestroy() {

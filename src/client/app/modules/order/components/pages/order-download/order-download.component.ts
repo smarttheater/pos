@@ -7,7 +7,7 @@ import { BsDatepickerDirective, BsLocaleService } from 'ngx-bootstrap';
 import { BsDatepickerContainerComponent } from 'ngx-bootstrap/datepicker/themes/bs/bs-datepicker-container.component';
 import { Observable } from 'rxjs';
 import { getEnvironment } from '../../../../../../environments/environment';
-import { buildQueryString, input2OrderSearchCondition, iOSDatepickerTapBugFix, orderToEventOrders } from '../../../../../functions';
+import { buildQueryString, input2OrderSearchCondition, iOSDatepickerTapBugFix, order2EventOrders } from '../../../../../functions';
 import { CsvFormat, IOrderSearchConditions, OrderActions } from '../../../../../models';
 import { DownloadService, OrderService, UserService, UtilService } from '../../../../../services';
 import * as reducers from '../../../../../store/reducers';
@@ -32,7 +32,7 @@ export class OrderDownloadComponent implements OnInit {
     public buildQueryString = buildQueryString;
     public environment = getEnvironment();
     public encodingFormat = factory.encodingFormat;
-    public orderToEventOrders = orderToEventOrders;
+    public order2EventOrders = order2EventOrders;
     public csvFormat = CsvFormat;
     @ViewChild('orderDateFrom', { static: true }) private orderDateFrom: BsDatepickerDirective;
     @ViewChild('orderDateThrough', { static: true }) private orderDateThrough: BsDatepickerDirective;
