@@ -209,7 +209,7 @@ let OrderDownloadComponent = class OrderDownloadComponent {
                     input: this.confirmedConditions,
                     seller: (yield this.userService.getData()).seller,
                 });
-                yield this.downloadService.order(params, _models__WEBPACK_IMPORTED_MODULE_8__["CsvFormat"].Custom);
+                yield this.downloadService.order(params);
             }
             catch (error) {
                 console.error(error);

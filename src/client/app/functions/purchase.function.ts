@@ -1,6 +1,6 @@
 import { factory } from '@cinerino/api-javascript-client';
 import * as moment from 'moment';
-import { IMovieTicket, Performance } from '../models';
+import { IMovieTicket, IReservationSeat, Performance } from '../models';
 
 export interface IScreeningEventWork {
     info: factory.chevre.event.screeningEvent.IEvent;
@@ -126,7 +126,7 @@ export function isAvailabilityMovieTicket(checkMovieTicketAction: factory.action
  *  予約情報からムビチケ情報作成
  */
 export function createMovieTicketsFromAuthorizeSeatReservation(args: {
-    authorizeSeatReservation: factory.action.authorize.offer.seatReservation.IAction<factory.service.webAPI.Identifier>;
+    authorizeSeatReservation: factory.action.authorize.offer.seatReservation.IAction<factory.service.webAPI.Identifier.Chevre>;
     pendingMovieTickets: IMovieTicket[];
     seller: factory.seller.IOrganization<factory.seller.IAttributes<factory.organizationType>>
 }) {
@@ -139,7 +139,7 @@ export function createMovieTicketsFromAuthorizeSeatReservation(args: {
     }
     const pendingReservations =
         (<factory.chevre.reservation.IReservation<factory.chevre.reservationType.EventReservation>[]>
-            (<any>authorizeSeatReservation.result.responseBody).object.reservations);
+            authorizeSeatReservation.result.responseBody.object.reservations);
 
     pendingReservations.forEach((pendingReservation) => {
         if (pendingReservation.price === undefined
@@ -229,6 +229,7 @@ export function createPaymentMethodFromType(params: {
 
 /**
  * 券種金額取得
+ * @deprecated 非推奨（廃止予定）
  */
 export function getTicketPrice(
     ticket: factory.chevre.event.screeningEvent.ITicketOffer
@@ -249,17 +250,9 @@ export function getTicketPrice(
     const priceComponent = (<factory.chevre.event.screeningEvent.ITicketPriceSpecification>ticket.priceSpecification).priceComponent;
     const priceSpecificationType = factory.chevre.priceSpecificationType;
     const unitPriceSpecifications = priceComponent.filter((s) => s.typeOf === priceSpecificationType.UnitPriceSpecification);
-    const videoFormatCharges = priceComponent.filter((s) => s.typeOf === priceSpecificationType.VideoFormatChargeSpecification);
-    const soundFormatCharges = priceComponent.filter((s) => s.typeOf === priceSpecificationType.SoundFormatChargeSpecification);
     const movieTicketTypeCharges = priceComponent.filter((s) => s.typeOf === priceSpecificationType.MovieTicketTypeChargeSpecification);
 
     result.unitPriceSpecification += unitPriceSpecifications[0].price;
-    videoFormatCharges.forEach((videoFormatCharge) => {
-        result.videoFormatCharge += videoFormatCharge.price;
-    });
-    soundFormatCharges.forEach((soundFormatCharge) => {
-        result.soundFormatCharge += soundFormatCharge.price;
-    });
     movieTicketTypeCharges.forEach((movieTicketTypeCharge) => {
         result.movieTicketTypeCharge += movieTicketTypeCharge.price;
     });
@@ -273,6 +266,61 @@ export function getTicketPrice(
     }
 
     return result;
+}
+
+/**
+ * アイテム金額取得
+ */
+export function getItemPrice(params: {
+    priceComponents?: factory.chevre.event.screeningEvent.ITicketPriceComponent[];
+    seat?: IReservationSeat;
+}) {
+    let price = 0;
+    // 券種価格
+    const priceComponents = params.priceComponents;
+    if (priceComponents === undefined) {
+        return price;
+    }
+    const priceSpecificationType = factory.chevre.priceSpecificationType;
+    priceComponents.forEach((p) => {
+        if (p.typeOf === priceSpecificationType.UnitPriceSpecification) {
+            const value = (p.referenceQuantity.value) ? p.referenceQuantity.value : 1;
+            price += p.price / value;
+            return;
+        }
+        price += p.price;
+    });
+    // 座席価格
+    const seat = params.seat;
+    if (seat === undefined || seat.offers === undefined) {
+        return price;
+    }
+    seat.offers.forEach((o) => {
+        if (o.priceSpecification === undefined) {
+            return;
+        }
+        o.priceSpecification.priceComponent.forEach(p => price += p.price);
+    });
+    return price;
+}
+
+/**
+ * アイテム金額取得
+ */
+export function getItemReferenceQuantityValue(
+    priceComponents?: factory.chevre.event.screeningEvent.ITicketPriceComponent[]
+) {
+    if (priceComponents === undefined) {
+        return 1;
+    }
+    const priceSpecificationType = factory.chevre.priceSpecificationType;
+    const unitPriceSpecification =
+        priceComponents.find(p => p.typeOf === priceSpecificationType.UnitPriceSpecification);
+    if (unitPriceSpecification === undefined) {
+        return 1;
+    }
+    return  (<any>unitPriceSpecification).referenceQuantity.value;
+
 }
 
 /**
@@ -301,7 +349,7 @@ export function movieTicketAuthErroCodeToMessage(code?: string): { ja: string; e
  * 予約金額取得
  */
 export function getAmount(
-    authorizeSeatReservations: factory.action.authorize.offer.seatReservation.IAction<factory.service.webAPI.Identifier>[]
+    authorizeSeatReservations: factory.action.authorize.offer.seatReservation.IAction<factory.service.webAPI.Identifier.Chevre>[]
 ) {
     const amounts = authorizeSeatReservations.map(
         reservations => (reservations.result === undefined)
@@ -361,7 +409,7 @@ export function order2EventOrders(params: {
  * 座席予約をイベントごとに変換
  */
 export function authorizeSeatReservation2Event(params: {
-    authorizeSeatReservations: factory.action.authorize.offer.seatReservation.IAction<factory.service.webAPI.Identifier>[]
+    authorizeSeatReservations: factory.action.authorize.offer.seatReservation.IAction<factory.service.webAPI.Identifier.Chevre>[]
 }) {
     const results: {
         event: factory.chevre.event.screeningEvent.IEvent;
@@ -372,8 +420,11 @@ export function authorizeSeatReservation2Event(params: {
         if (authorizeSeatReservation.result === undefined) {
             return;
         }
-        const reservations: factory.chevre.reservation.IReservation<factory.chevre.reservationType.EventReservation>[] =
-            (<any>authorizeSeatReservation.result.responseBody).object.reservations;
+        const reservations =
+            authorizeSeatReservation.result.responseBody.object.reservations;
+        if (reservations === undefined) {
+            return;
+        }
         reservations.forEach((reservation) => {
             const registered = results.find((result) => {
                 return (result.event.id === reservation.reservationFor.id);
@@ -397,15 +448,12 @@ export function authorizeSeatReservation2Event(params: {
  */
 export function changeTicketCount(
     acceptedOffer: factory.chevre.event.screeningEvent.ITicketOffer[]
-        | factory.action.authorize.offer.seatReservation.IAcceptedOffer4chevre[]
 ) {
     const result: {
-        acceptedOffer: factory.chevre.event.screeningEvent.ITicketOffer
-        | factory.action.authorize.offer.seatReservation.IAcceptedOffer4chevre;
-        count: number
+        acceptedOffer: factory.chevre.event.screeningEvent.ITicketOffer;
+        count: number;
     }[] = [];
-    acceptedOffer.forEach((a: factory.chevre.event.screeningEvent.ITicketOffer
-        | factory.action.authorize.offer.seatReservation.IAcceptedOffer4chevre) => {
+    acceptedOffer.forEach((a: factory.chevre.event.screeningEvent.ITicketOffer) => {
         const findResult = result.find(r => r.acceptedOffer.id === a.id);
         if (findResult === undefined) {
             result.push({ acceptedOffer: a, count: 1 });
@@ -420,7 +468,7 @@ export function changeTicketCount(
  * 残席数取得
  */
 export function getRemainingSeatLength(
-    screeningEventOffers: factory.chevre.event.screeningEvent.IScreeningRoomSectionOffer[],
+    screeningEventOffers: factory.chevre.place.movieTheater.IScreeningRoomSectionOffer[],
     screeningEvent: factory.chevre.event.screeningEvent.IEvent
 ) {
     let result = 0;

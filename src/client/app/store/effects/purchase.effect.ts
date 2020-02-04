@@ -10,8 +10,9 @@ import {
     authorizeSeatReservation2Event,
     createMovieTicketsFromAuthorizeSeatReservation,
     formatTelephone,
+    getItemPrice,
     getProject,
-    getTicketPrice,
+    getTicketPrice
 } from '../../functions';
 import { IScreen, Performance } from '../../models';
 import { CinerinoService, UtilService } from '../../services';
@@ -84,7 +85,7 @@ export class PurchaseEffects {
                 await this.cinerinoService.getServices();
                 let theaterCode;
                 let screenCode;
-                let screeningEventOffers: factory.chevre.event.screeningEvent.IScreeningRoomSectionOffer[];
+                let screeningEventOffers: factory.chevre.place.movieTheater.IScreeningRoomSectionOffer[];
                 if (payload.test) {
                     screeningEventOffers = [];
                     theaterCode = payload.theaterCode;
@@ -123,7 +124,7 @@ export class PurchaseEffects {
             try {
                 await this.cinerinoService.getServices();
                 const screeningEvent = payload.screeningEvent;
-                let screeningEventOffers: factory.chevre.event.screeningEvent.IScreeningRoomSectionOffer[] = [];
+                let screeningEventOffers: factory.chevre.place.movieTheater.IScreeningRoomSectionOffer[] = [];
                 if (new Performance(screeningEvent).isTicketedSeat()) {
                     screeningEventOffers = await this.cinerinoService.event.searchOffers({
                         event: { id: screeningEvent.id }
@@ -163,24 +164,26 @@ export class PurchaseEffects {
                     || screeningEvent.offers.validThrough < nowDate) {
                     throw new Error('Outside sales period');
                 }
-                const authorizeSeatReservation = await this.cinerinoService.transaction.placeOrder.authorizeSeatReservation({
-                    object: {
-                        event: {
-                            id: screeningEvent.id
+                const authorizeSeatReservation =
+                    <factory.action.authorize.offer.seatReservation.IAction<factory.service.webAPI.Identifier.Chevre>>
+                    await this.cinerinoService.transaction.placeOrder.authorizeSeatReservation({
+                        object: {
+                            event: {
+                                id: screeningEvent.id
+                            },
+                            acceptedOffer: reservations.map((reservation) => {
+                                if (reservation.ticket === undefined) {
+                                    throw new Error('ticket is undefined');
+                                }
+                                return {
+                                    id: reservation.ticket.ticketOffer.id,
+                                    ticketedSeat: reservation.seat,
+                                    additionalProperty: [] // ここにムビチケ情報を入れる
+                                };
+                            })
                         },
-                        acceptedOffer: reservations.map((reservation) => {
-                            if (reservation.ticket === undefined) {
-                                throw new Error('ticket is undefined');
-                            }
-                            return {
-                                id: reservation.ticket.ticketOffer.id,
-                                ticketedSeat: reservation.seat,
-                                additionalProperty: [] // ここにムビチケ情報を入れる
-                            };
-                        })
-                    },
-                    purpose: transaction
-                });
+                        purpose: transaction
+                    });
                 return new purchaseAction.TemporaryReservationSuccess({
                     addAuthorizeSeatReservation: authorizeSeatReservation,
                     removeAuthorizeSeatReservation: payload.authorizeSeatReservation
@@ -223,21 +226,23 @@ export class PurchaseEffects {
                         }
                     }
                 }
-                const authorizeSeatReservation = await this.cinerinoService.transaction.placeOrder.authorizeSeatReservation({
-                    object: {
-                        event: {
-                            id: screeningEvent.id
+                const authorizeSeatReservation =
+                    <factory.action.authorize.offer.seatReservation.IAction<factory.service.webAPI.Identifier.Chevre>>
+                    await this.cinerinoService.transaction.placeOrder.authorizeSeatReservation({
+                        object: {
+                            event: {
+                                id: screeningEvent.id
+                            },
+                            acceptedOffer: reservationTickets.map((ticket, index) => {
+                                return {
+                                    id: ticket.ticketOffer.id,
+                                    ticketedSeat: (freeSeats.length > 0) ? freeSeats[index] : undefined,
+                                    additionalProperty: [] // ここにムビチケ情報を入れる
+                                };
+                            })
                         },
-                        acceptedOffer: reservationTickets.map((ticket, index) => {
-                            return {
-                                id: ticket.ticketOffer.id,
-                                ticketedSeat: (freeSeats.length > 0) ? freeSeats[index] : undefined,
-                                additionalProperty: [] // ここにムビチケ情報を入れる
-                            };
-                        })
-                    },
-                    purpose: transaction
-                });
+                        purpose: transaction
+                    });
                 return new purchaseAction.TemporaryReservationFreeSeatSuccess({
                     addAuthorizeSeatReservation: authorizeSeatReservation
                 });
@@ -515,7 +520,7 @@ export class PurchaseEffects {
                     params.email.template = await (<any>window).ejs.render(view, {
                         authorizeSeatReservations: authorizeSeatReservation2Event({ authorizeSeatReservations }),
                         seller,
-                        moment, formatTelephone, getTicketPrice
+                        moment, formatTelephone, getItemPrice, getTicketPrice
                     }, { async: true });
                 }
 

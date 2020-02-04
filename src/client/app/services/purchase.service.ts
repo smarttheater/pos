@@ -6,7 +6,7 @@ import * as moment from 'moment';
 import { Observable, race } from 'rxjs';
 import { take, tap } from 'rxjs/operators';
 import { getEnvironment } from '../../environments/environment';
-import { IReservationSeat, IReservationTicket, Reservation } from '../models';
+import { IReservation, IReservationSeat, IReservationTicket } from '../models';
 import { purchaseAction } from '../store/actions';
 import * as reducers from '../store/reducers';
 import { UtilService } from './util.service';
@@ -225,7 +225,7 @@ export class PurchaseService {
     /**
      * チケット選択
     */
-    public selectTickets(reservations: Reservation[]) {
+    public selectTickets(reservations: IReservation[]) {
         this.store.dispatch(new purchaseAction.SelectTickets({ reservations }));
     }
 
@@ -242,12 +242,12 @@ export class PurchaseService {
                 return;
             }
             const reservations = purchase.reservations.map((reservation) => {
-                return new Reservation({
+                return {
                     seat: reservation.seat,
                     ticket: (reservation.ticket === undefined)
                         ? { ticketOffer: purchase.screeningEventTicketOffers[0] }
                         : reservation.ticket
-                });
+                };
             });
             const authorizeSeatReservation = purchase.authorizeSeatReservation;
             this.store.dispatch(new purchaseAction.TemporaryReservation({
@@ -304,7 +304,7 @@ export class PurchaseService {
      * 座席仮予約取り消し
      */
     public async cancelTemporaryReservations(
-        authorizeSeatReservations: factory.action.authorize.offer.seatReservation.IAction<factory.service.webAPI.Identifier>[]
+        authorizeSeatReservations: factory.action.authorize.offer.seatReservation.IAction<factory.service.webAPI.Identifier.Chevre>[]
     ) {
         return new Promise<void>((resolve, reject) => {
             this.store.dispatch(new purchaseAction.CancelTemporaryReservations({ authorizeSeatReservations }));

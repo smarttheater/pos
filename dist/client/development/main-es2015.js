@@ -503,7 +503,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("<div class=\"p-3 scroll-vertical text-small\">\n    <div class=\"mb-4\">\n        <div class=\"py-3 border-bottom border-gray\">\n            <div class=\"row align-items-center\">\n                <p class=\"mb-2 mb-md-0 col-md-4\">[{{ 'common.orderDate' | translate }}]</p>\n                <p class=\"col-md-8\">{{ moment(order.orderDate).format('YYYY/MM/DD (ddd) HH:mm') }}</p>\n            </div>\n        </div>\n        <div class=\"py-3 border-bottom border-gray\">\n            <div class=\"row align-items-center\">\n                <p class=\"mb-2 mb-md-0 col-md-4\">[{{ 'common.confirmationNumber' | translate }}]</p>\n                <p class=\"col-md-8\">{{ order.confirmationNumber }}</p>\n            </div>\n        </div>\n        <div class=\"py-3 border-bottom border-gray\">\n            <div class=\"row align-items-center\">\n                <p class=\"mb-2 mb-md-0 col-md-4\">[{{ 'common.orderNumber' | translate }}]</p>\n                <p class=\"col-md-8\">{{ order.orderNumber }}</p>\n            </div>\n        </div>\n        <div class=\"py-3 border-bottom border-gray\">\n            <div class=\"row align-items-center\">\n                <p class=\"mb-2 mb-md-0 col-md-4\">[{{ 'common.event' | translate }}]</p>\n                <div class=\"col-md-8\">\n                    <div *ngFor=\"let eventOrder of eventOrders\" class=\"mb-3\">\n                        <div class=\"mb-1\">\n                            <p class=\"font-weight-bold text-large\">{{ eventOrder.event.name | changeLanguage }}</p>\n                            <p class=\"text-small\"\n                                *ngIf=\"eventOrder.event.superEvent.headline && (eventOrder.event.superEvent.headline | changeLanguage)\">\n                                {{ eventOrder.event.superEvent.headline | changeLanguage }}</p>\n                            <!-- <p class=\"text-small\"\n                                    *ngIf=\"eventOrder.event.superEvent.description && (eventOrder.event.superEvent.description | changeLanguage)\">{{\n                                            eventOrder.event.superEvent.description | changeLanguage }}</p> -->\n                        </div>\n                        <p class=\"mb-1\">\n                            {{ eventOrder.event.startDate | formatDate: 'MM/DD(ddd) HH:mm' }}-{{ eventOrder.event.endDate | formatDate: 'HH:mm' }}\n                        </p>\n                        <p class=\"text-small mb-1\">\n                            <span\n                                class=\"theatre-name\">{{ eventOrder.event.superEvent.location.name | changeLanguage }}</span>\n                            <span\n                                class=\"screen-name\">&nbsp;/&nbsp;{{ eventOrder.event.location.name | changeLanguage }}</span>\n                            <span\n                                *ngIf=\"eventOrder.event.workPerformed?.duration && moment.duration(eventOrder.event.workPerformed?.duration).asMinutes() > 0\">\n                                &nbsp;/&nbsp;<span\n                                    class=\"mr-1\">{{ 'common.duration' | translate }}</span>{{ moment.duration(eventOrder.event.workPerformed?.duration).asMinutes() }}{{ 'common.date.minute' | translate }}\n                            </span>\n                        </p>\n                        <div *ngFor=\"let acceptedOffer of eventOrder.data\">\n                            <p>[{{ 'common.reservationNumber' | translate }}]\n                                {{ acceptedOffer.itemOffered.reservationNumber }}</p>\n                            <p>[{{ 'common.reservationId' | translate }}] {{ acceptedOffer.itemOffered.id }}</p>\n                            <p>\n                                <span\n                                    *ngIf=\"acceptedOffer.itemOffered.reservedTicket.ticketedSeat && environment.DISPLAY_TICKETED_SEAT\">\n                                    {{ acceptedOffer.itemOffered.reservedTicket.ticketedSeat.seatNumber }}&nbsp;/&nbsp;</span>{{ acceptedOffer.itemOffered.reservedTicket.ticketType.name | changeLanguage }}&nbsp;/&nbsp;{{\n                                            getTicketPrice(acceptedOffer).single | currency : 'JPY' }}\n                            </p>\n                        </div>\n                    </div>\n                </div>\n            </div>\n        </div>\n        <div class=\"py-3 border-bottom border-gray\">\n            <div class=\"row align-items-center\">\n                <p class=\"mb-2 mb-md-0 col-md-4\">[{{ 'common.customer' | translate }}]</p>\n                <div class=\"col-md-8\">\n                    <p>{{ order.customer.familyName }} {{ order.customer.givenName }}</p>\n                    <p>{{ order.customer.email }}</p>\n                    <p>{{ order.customer.telephone | libphonenumberFormat }}</p>\n                </div>\n            </div>\n        </div>\n        <div class=\"py-3 border-bottom border-gray\">\n            <div class=\"row align-items-center\">\n                <p class=\"mb-2 mb-md-0 col-md-4\">[{{ 'common.price' | translate }}]</p>\n                <p class=\"col-md-8\">\n                    {{ order.price | currency : 'JPY' }}\n                </p>\n            </div>\n        </div>\n        <div class=\"py-3 border-bottom border-gray\">\n            <div class=\"row align-items-center\">\n                <p class=\"mb-2 mb-md-0 col-md-4\">[{{ 'common.orderStatus' | translate }}]</p>\n                <p class=\"col-md-8\">{{ order.orderStatus }}</p>\n            </div>\n        </div>\n        <div class=\"py-3 border-bottom border-gray\">\n            <div class=\"row align-items-center\">\n                <p class=\"mb-2 mb-md-0 col-md-4\">[{{ 'common.paymentMethod' | translate }}]</p>\n                <div class=\"col-md-8\">\n                    <p *ngFor=\"let paymentMethod of order.paymentMethods\">\n                        {{ paymentMethod.name }}&nbsp;/&nbsp;{{ paymentMethod.totalPaymentDue.value | currency : 'JPY' }}\n                    </p>\n                    <div *ngIf=\"regiGrow\" class=\"mt-2\"><img class=\"border\" [src]=\"regiGrow\"></div>\n                </div>\n            </div>\n        </div>\n        <div class=\"py-3 border-bottom border-gray\">\n            <div class=\"row align-items-center\">\n                <p class=\"mb-2 mb-md-0 col-md-4\">[{{ 'common.etc' | translate }}]</p>\n                <div class=\"col-md-8\">\n                    <p *ngIf=\"getTransactionAgentIdentifier(order, 'linyId')\">\n                        [linyId]<br>\n                        {{ getTransactionAgentIdentifier(order, 'linyId').value }}\n                    </p>\n                    <p *ngIf=\"getTransactionAgentIdentifier(order, 'userAgent')\">\n                        [platform]<br>\n                        name: {{ platform.parse(getTransactionAgentIdentifier(order, 'userAgent').value).name }}<br>\n                        version:\n                        {{ platform.parse(getTransactionAgentIdentifier(order, 'userAgent').value).version }}<br>\n                        product: <span\n                            *ngIf=\"platform.parse(getTransactionAgentIdentifier(order, 'userAgent').value).product\">{{ platform.parse(getTransactionAgentIdentifier(order, 'userAgent').value).product }}</span><span\n                            *ngIf=\"!platform.parse(getTransactionAgentIdentifier(order, 'userAgent').value).product\">-</span><br>\n                        layout: {{ platform.parse(getTransactionAgentIdentifier(order, 'userAgent').value).layout }}<br>\n                        os: {{ platform.parse(getTransactionAgentIdentifier(order, 'userAgent').value).os }}<br>\n                        ({{ platform.parse(getTransactionAgentIdentifier(order, 'userAgent').value).description }})\n                    </p>\n                    <p\n                        *ngIf=\"getTransactionAgentIdentifier(order, 'posId') && getTransactionAgentIdentifier(order, 'posName')\">\n                        [POS]<br>\n                        id: {{ getTransactionAgentIdentifier(order, 'posId').value }}<br>\n                        name: {{ getTransactionAgentIdentifier(order, 'posName').value }}\n                    </p>\n                </div>\n            </div>\n        </div>\n\n    </div>\n\n    <div class=\"buttons mx-auto text-center\">\n        <button type=\"button\" class=\"btn btn-link btn-sm\"\n            (click)=\"modal.hide()\">{{ 'common.close' | translate }}</button>\n    </div>\n\n</div>");
+/* harmony default export */ __webpack_exports__["default"] = ("<div class=\"p-3 scroll-vertical text-small\">\n    <div class=\"mb-4\">\n        <div class=\"py-3 border-bottom border-gray\">\n            <div class=\"row align-items-center\">\n                <p class=\"mb-2 mb-md-0 col-md-4\">[{{ 'common.orderDate' | translate }}]</p>\n                <p class=\"col-md-8\">{{ moment(order.orderDate).format('YYYY/MM/DD (ddd) HH:mm') }}</p>\n            </div>\n        </div>\n        <div class=\"py-3 border-bottom border-gray\">\n            <div class=\"row align-items-center\">\n                <p class=\"mb-2 mb-md-0 col-md-4\">[{{ 'common.confirmationNumber' | translate }}]</p>\n                <p class=\"col-md-8\">{{ order.confirmationNumber }}</p>\n            </div>\n        </div>\n        <div class=\"py-3 border-bottom border-gray\">\n            <div class=\"row align-items-center\">\n                <p class=\"mb-2 mb-md-0 col-md-4\">[{{ 'common.orderNumber' | translate }}]</p>\n                <p class=\"col-md-8\">{{ order.orderNumber }}</p>\n            </div>\n        </div>\n        <div class=\"py-3 border-bottom border-gray\">\n            <div class=\"row align-items-center\">\n                <p class=\"mb-2 mb-md-0 col-md-4\">[{{ 'common.event' | translate }}]</p>\n                <div class=\"col-md-8\">\n                    <div *ngFor=\"let eventOrder of eventOrders\" class=\"mb-3\">\n                        <div class=\"mb-1\">\n                            <p class=\"font-weight-bold text-large\">{{ eventOrder.event.name | changeLanguage }}</p>\n                            <p class=\"text-small\"\n                                *ngIf=\"eventOrder.event.superEvent.headline && (eventOrder.event.superEvent.headline | changeLanguage)\">\n                                {{ eventOrder.event.superEvent.headline | changeLanguage }}</p>\n                            <!-- <p class=\"text-small\"\n                                    *ngIf=\"eventOrder.event.superEvent.description && (eventOrder.event.superEvent.description | changeLanguage)\">{{\n                                            eventOrder.event.superEvent.description | changeLanguage }}</p> -->\n                        </div>\n                        <p class=\"mb-1\">\n                            {{ eventOrder.event.startDate | formatDate: 'MM/DD(ddd) HH:mm' }}-{{ eventOrder.event.endDate | formatDate: 'HH:mm' }}\n                        </p>\n                        <p class=\"text-small mb-1\">\n                            <span\n                                class=\"theatre-name\">{{ eventOrder.event.superEvent.location.name | changeLanguage }}</span>\n                            <span\n                                class=\"screen-name\">&nbsp;/&nbsp;{{ eventOrder.event.location.name | changeLanguage }}</span>\n                            <span\n                                *ngIf=\"eventOrder.event.workPerformed?.duration && moment.duration(eventOrder.event.workPerformed?.duration).asMinutes() > 0\">\n                                &nbsp;/&nbsp;<span\n                                    class=\"mr-1\">{{ 'common.duration' | translate }}</span>{{ moment.duration(eventOrder.event.workPerformed?.duration).asMinutes() }}{{ 'common.date.minute' | translate }}\n                            </span>\n                        </p>\n                        <div *ngFor=\"let acceptedOffer of eventOrder.data\">\n                            <p>[{{ 'common.reservationNumber' | translate }}]\n                                {{ acceptedOffer.itemOffered.reservationNumber }}</p>\n                            <p>[{{ 'common.reservationId' | translate }}] {{ acceptedOffer.itemOffered.id }}</p>\n                            <p>\n                                <span\n                                    *ngIf=\"acceptedOffer.itemOffered.reservedTicket.ticketedSeat && environment.DISPLAY_TICKETED_SEAT\">\n                                    {{ acceptedOffer.itemOffered.reservedTicket.ticketedSeat.seatNumber }}&nbsp;/&nbsp;</span>{{ acceptedOffer.itemOffered.reservedTicket.ticketType.name | changeLanguage }}&nbsp;/&nbsp;{{\n                                        getItemPrice({ priceComponents: acceptedOffer.priceSpecification.priceComponent }) | currency : 'JPY' }}\n                            </p>\n                        </div>\n                    </div>\n                </div>\n            </div>\n        </div>\n        <div class=\"py-3 border-bottom border-gray\">\n            <div class=\"row align-items-center\">\n                <p class=\"mb-2 mb-md-0 col-md-4\">[{{ 'common.customer' | translate }}]</p>\n                <div class=\"col-md-8\">\n                    <p>{{ order.customer.familyName }} {{ order.customer.givenName }}</p>\n                    <p>{{ order.customer.email }}</p>\n                    <p>{{ order.customer.telephone | libphonenumberFormat }}</p>\n                </div>\n            </div>\n        </div>\n        <div class=\"py-3 border-bottom border-gray\">\n            <div class=\"row align-items-center\">\n                <p class=\"mb-2 mb-md-0 col-md-4\">[{{ 'common.price' | translate }}]</p>\n                <p class=\"col-md-8\">\n                    {{ order.price | currency : 'JPY' }}\n                </p>\n            </div>\n        </div>\n        <div class=\"py-3 border-bottom border-gray\">\n            <div class=\"row align-items-center\">\n                <p class=\"mb-2 mb-md-0 col-md-4\">[{{ 'common.orderStatus' | translate }}]</p>\n                <p class=\"col-md-8\">{{ order.orderStatus }}</p>\n            </div>\n        </div>\n        <div class=\"py-3 border-bottom border-gray\">\n            <div class=\"row align-items-center\">\n                <p class=\"mb-2 mb-md-0 col-md-4\">[{{ 'common.paymentMethod' | translate }}]</p>\n                <div class=\"col-md-8\">\n                    <p *ngFor=\"let paymentMethod of order.paymentMethods\">\n                        {{ paymentMethod.name }}&nbsp;/&nbsp;{{ paymentMethod.totalPaymentDue.value | currency : 'JPY' }}\n                    </p>\n                    <div *ngIf=\"regiGrow\" class=\"mt-2\"><img class=\"border\" [src]=\"regiGrow\"></div>\n                </div>\n            </div>\n        </div>\n        <div class=\"py-3 border-bottom border-gray\">\n            <div class=\"row align-items-center\">\n                <p class=\"mb-2 mb-md-0 col-md-4\">[{{ 'common.etc' | translate }}]</p>\n                <div class=\"col-md-8\">\n                    <p *ngIf=\"getTransactionAgentIdentifier(order, 'linyId')\">\n                        [linyId]<br>\n                        {{ getTransactionAgentIdentifier(order, 'linyId').value }}\n                    </p>\n                    <p *ngIf=\"getTransactionAgentIdentifier(order, 'userAgent')\">\n                        [platform]<br>\n                        name: {{ platform.parse(getTransactionAgentIdentifier(order, 'userAgent').value).name }}<br>\n                        version:\n                        {{ platform.parse(getTransactionAgentIdentifier(order, 'userAgent').value).version }}<br>\n                        product: <span\n                            *ngIf=\"platform.parse(getTransactionAgentIdentifier(order, 'userAgent').value).product\">{{ platform.parse(getTransactionAgentIdentifier(order, 'userAgent').value).product }}</span><span\n                            *ngIf=\"!platform.parse(getTransactionAgentIdentifier(order, 'userAgent').value).product\">-</span><br>\n                        layout: {{ platform.parse(getTransactionAgentIdentifier(order, 'userAgent').value).layout }}<br>\n                        os: {{ platform.parse(getTransactionAgentIdentifier(order, 'userAgent').value).os }}<br>\n                        ({{ platform.parse(getTransactionAgentIdentifier(order, 'userAgent').value).description }})\n                    </p>\n                    <p\n                        *ngIf=\"getTransactionAgentIdentifier(order, 'posId') && getTransactionAgentIdentifier(order, 'posName')\">\n                        [POS]<br>\n                        id: {{ getTransactionAgentIdentifier(order, 'posId').value }}<br>\n                        name: {{ getTransactionAgentIdentifier(order, 'posName').value }}\n                    </p>\n                </div>\n            </div>\n        </div>\n\n    </div>\n\n    <div class=\"buttons mx-auto text-center\">\n        <button type=\"button\" class=\"btn btn-link btn-sm\"\n            (click)=\"modal.hide()\">{{ 'common.close' | translate }}</button>\n    </div>\n\n</div>");
 
 /***/ }),
 
@@ -516,7 +516,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("<div class=\"p-3 scroll-vertical\">\n    <div *ngFor=\"let ticket of tickets\" class=\"ticket mb-2\">\n        <button type=\"button\" (click)=\"close(ticket)\" class=\"btn btn-block btn-outline-primary py-3\">\n            <div class=\"d-flex justify-content-between align-items-center\">\n                <div class=\"w-75 text-left\">\n                    <div>{{ ticket.ticketOffer.name | changeLanguage }}</div>\n                    <p *ngIf=\"ticket.movieTicket\" class=\"text-left text-small\">{{ ticket.movieTicket.identifier }}</p>\n                </div>\n                <div class=\"w-25 text-right\">{{ getTicketPrice(ticket.ticketOffer).single | currency : 'JPY' }}</div>\n            </div>\n        </button>\n    </div>\n</div>");
+/* harmony default export */ __webpack_exports__["default"] = ("<div class=\"p-3 scroll-vertical\">\n    <div *ngFor=\"let ticket of tickets\" class=\"ticket mb-2\">\n        <button type=\"button\" (click)=\"close(ticket)\" class=\"btn btn-block btn-outline-primary py-3\">\n            <div class=\"d-flex justify-content-between align-items-center\">\n                <div class=\"w-75 text-left\">\n                    <div>{{ ticket.ticketOffer.name | changeLanguage }}</div>\n                    <p *ngIf=\"ticket.movieTicket\" class=\"text-left text-small\">{{ ticket.movieTicket.identifier }}</p>\n                </div>\n                <div *ngIf=\"reservation\" class=\"w-25 text-right\">\n                    {{ getItemPrice({ priceComponents: ticket.ticketOffer.priceSpecification.priceComponent, seat: reservation.seat }) | currency : 'JPY' }}\n                </div>\n                <div *ngIf=\"!reservation\" class=\"w-25 text-right\">\n                    {{ getItemPrice({ priceComponents: ticket.ticketOffer.priceSpecification.priceComponent }) | currency : 'JPY' }}\n                </div>\n            </div>\n        </button>\n    </div>\n</div>");
 
 /***/ }),
 
@@ -529,7 +529,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("<div class=\"p-3 scroll-vertical\">\n    <div class=\"mb-3\">\n        <div class=\"mb-1\">\n            <p class=\"font-weight-bold text-large\">{{ screeningEvent.name | changeLanguage }}</p>\n            <p class=\"text-small\"\n                *ngIf=\"screeningEvent.superEvent.headline && (screeningEvent.superEvent.headline | changeLanguage)\">\n                {{ screeningEvent.superEvent.headline | changeLanguage }}</p>\n            <p class=\"text-small\"\n                *ngIf=\"screeningEvent.superEvent.description && (screeningEvent.superEvent.description | changeLanguage)\">{{\n                    screeningEvent.superEvent.description | changeLanguage }}</p>\n        </div>\n        <p class=\"mb-1\">\n            {{ moment(screeningEvent.startDate).format('MM/DD(ddd) HH:mm') }}-{{ moment(screeningEvent.endDate).format('HH:mm') }}\n        </p>\n        <p class=\"text-small mb-1\">\n            <span class=\"theatre-name\">\n                {{ screeningEvent.superEvent.location.name | changeLanguage }}\n            </span>\n            <span class=\"screen-name\">\n                &nbsp;/&nbsp;{{ screeningEvent.location.name | changeLanguage }}\n            </span>\n            <span *ngIf=\"screeningEvent.workPerformed?.duration && moment.duration(screeningEvent.workPerformed?.duration).asMinutes() > 0\">\n                &nbsp;/&nbsp;<span class=\"mr-1\">{{ 'common.duration' | translate }}</span>{{ moment.duration(screeningEvent.workPerformed?.duration).asMinutes() }}{{ 'common.date.minute' | translate }}\n            </span>\n        </p>\n        <p *ngIf=\"performance.isTicketedSeat()\" class=\"font-weight-bold\"><span class=\"mr-1\">{{ 'purchase.event.ticket.remainingSeat' | translate }}</span>{{ getRemainingSeatLength(screeningEventOffers, screeningEvent) }}</p>\n    </div>\n    <hr class=\"mb-3\">\n    <ul class=\"mb-4\">\n        <li *ngFor=\"let ticket of tickets\" class=\"ticket mb-2\">\n            <div class=\"d-flex justify-content-between align-items-center\">\n                <div class=\"w-75 text-left\">\n                    <p>{{ ticket.name | changeLanguage }} / {{ getTicketPrice(ticket).single | currency : 'JPY' }}</p>\n                </div>\n                <div class=\"w-25 text-right\">\n                    <select class=\"form-control\" [(ngModel)]=\"selectedTickets[ticket.id]\">\n                        <option value=\"0\">0</option>\n                        <option *ngFor=\"let value of values\" [value]=\"value\">{{ value }}</option>\n                    </select>\n                </div>\n            </div>\n        </li>\n    </ul>\n\n    <div class=\"buttons mx-auto text-center text-center\">\n        <button [disabled]=\"selectedTickets && createReservationTickets().length === 0\" type=\"button\"\n            class=\"btn btn-primary btn-block py-3 mb-3\"\n            (click)=\"close(createReservationTickets())\">{{ 'purchase.event.ticket.next' | translate }}</button>\n        <button type=\"button\" class=\"btn btn-link btn-sm\"\n            (click)=\"modal.hide()\">{{ 'common.close' | translate }}</button>\n    </div>\n</div>");
+/* harmony default export */ __webpack_exports__["default"] = ("<div class=\"p-3 scroll-vertical\">\n    <div class=\"mb-3\">\n        <div class=\"mb-1\">\n            <p class=\"font-weight-bold text-large\">{{ screeningEvent.name | changeLanguage }}</p>\n            <p class=\"text-small\"\n                *ngIf=\"screeningEvent.superEvent.headline && (screeningEvent.superEvent.headline | changeLanguage)\">\n                {{ screeningEvent.superEvent.headline | changeLanguage }}</p>\n            <p class=\"text-small\"\n                *ngIf=\"screeningEvent.superEvent.description && (screeningEvent.superEvent.description | changeLanguage)\">{{\n                    screeningEvent.superEvent.description | changeLanguage }}</p>\n        </div>\n        <p class=\"mb-1\">\n            {{ moment(screeningEvent.startDate).format('MM/DD(ddd) HH:mm') }}-{{ moment(screeningEvent.endDate).format('HH:mm') }}\n        </p>\n        <p class=\"text-small mb-1\">\n            <span class=\"theatre-name\">\n                {{ screeningEvent.superEvent.location.name | changeLanguage }}\n            </span>\n            <span class=\"screen-name\">\n                &nbsp;/&nbsp;{{ screeningEvent.location.name | changeLanguage }}\n            </span>\n            <span *ngIf=\"screeningEvent.workPerformed?.duration && moment.duration(screeningEvent.workPerformed?.duration).asMinutes() > 0\">\n                &nbsp;/&nbsp;<span class=\"mr-1\">{{ 'common.duration' | translate }}</span>{{ moment.duration(screeningEvent.workPerformed?.duration).asMinutes() }}{{ 'common.date.minute' | translate }}\n            </span>\n        </p>\n        <p *ngIf=\"performance.isTicketedSeat()\" class=\"font-weight-bold\"><span class=\"mr-1\">{{ 'purchase.event.ticket.remainingSeat' | translate }}</span>{{ getRemainingSeatLength(screeningEventOffers, screeningEvent) }}</p>\n    </div>\n    <hr class=\"mb-3\">\n    <ul class=\"mb-4\">\n        <li *ngFor=\"let ticket of tickets\" class=\"ticket mb-2\">\n            <div class=\"d-flex justify-content-between align-items-center\">\n                <div class=\"w-75 text-left\">\n                    <p>{{ ticket.name | changeLanguage }} / {{ getItemPrice({ priceComponents: ticket.priceSpecification.priceComponent }) | currency : 'JPY' }}</p>\n                </div>\n                <div class=\"w-25 text-right\">\n                    <select class=\"form-control\" [(ngModel)]=\"selectedTickets[ticket.id]\">\n                        <option value=\"0\">0</option>\n                        <option *ngFor=\"let value of values\" [value]=\"value\">{{ value }}</option>\n                    </select>\n                </div>\n            </div>\n        </li>\n    </ul>\n\n    <div class=\"buttons mx-auto text-center text-center\">\n        <button [disabled]=\"selectedTickets && createReservationTickets().length === 0\" type=\"button\"\n            class=\"btn btn-primary btn-block py-3 mb-3\"\n            (click)=\"close(createReservationTickets())\">{{ 'purchase.event.ticket.next' | translate }}</button>\n        <button type=\"button\" class=\"btn btn-link btn-sm\"\n            (click)=\"modal.hide()\">{{ 'common.close' | translate }}</button>\n    </div>\n</div>");
 
 /***/ }),
 
@@ -581,7 +581,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("<div class=\"p-3 scroll-vertical text-small\">\n    <div class=\"py-3 border-bottom border-gray\">\n        <div class=\"row align-items-center\">\n            <p class=\"mb-2 mb-md-0 col-md-4\">[{{ 'common.reservationNumber' | translate }}]</p>\n            <p class=\"col-md-8\">{{ reservation.reservationNumber }}</p>\n        </div>\n    </div>\n    <div class=\"py-3 border-bottom border-gray\">\n        <div class=\"row align-items-center\">\n            <p class=\"mb-2 mb-md-0 col-md-4\">[{{ 'common.reservationId' | translate }}]</p>\n            <p class=\"col-md-8\">{{ reservation.id }}</p>\n        </div>\n    </div>\n\n    <div class=\"py-3 border-bottom border-gray\">\n        <div class=\"row align-items-center\">\n            <p class=\"mb-2 mb-md-0 col-md-4\">[{{ 'common.event' | translate }}]</p>\n            <div class=\"col-md-8\">\n                <p *ngIf=\"(reservation.reservationFor.name | changeLanguage).length > 0\">{{\n                    reservation.reservationFor.name | changeLanguage | slice:0:10 }}</p>\n                <p *ngIf=\"!((reservation.reservationFor.name | changeLanguage).length > 0)\">{{\n                    reservation.reservationFor.name | changeLanguage }}</p>\n                <p>\n                    <span class=\"theatre-name\">{{ reservation.reservationFor.superEvent.location.name | changeLanguage }}</span>\n                    <span class=\"screen-name\">&nbsp;/&nbsp;{{ reservation.reservationFor.location.name | changeLanguage }}</span>\n                </p>\n                <p>{{ reservation.reservationFor.startDate | formatDate: 'YYYY/MM/DD (ddd) HH:mm' }}\n                    -</p>\n            </div>\n        </div>\n    </div>\n    <div class=\"py-3 border-bottom border-gray\">\n        <div class=\"row align-items-center\">\n            <p class=\"mb-2 mb-md-0 col-md-4\">[{{ 'common.ticket' | translate }}]</p>\n            <div class=\"col-md-8\">\n                <p>{{ reservation.reservedTicket.ticketType.name | changeLanguage }}</p>\n                <p *ngIf=\"reservation.reservedTicket.ticketedSeat && environment.DISPLAY_TICKETED_SEAT\">\n                    {{ reservation.reservedTicket.ticketedSeat.seatNumber }}</p>\n                <p>{{ getTicketPrice({ priceSpecification : { priceComponent: reservation.price.priceComponent } }).single | currency : 'JPY' }}\n                </p>\n            </div>\n        </div>\n    </div>\n    <div class=\"py-3 border-bottom border-gray\">\n        <div class=\"row align-items-center\">\n            <p class=\"mb-2 mb-md-0 col-md-4\">[{{ 'common.reservationStatus' | translate }}]</p>\n            <p class=\"col-md-8\">{{ reservation.reservationStatus }}</p>\n        </div>\n    </div>\n    <div class=\"py-3 border-bottom border-gray\">\n        <div class=\"row align-items-center\">\n            <p class=\"mb-2 mb-md-0 col-md-4\">[{{ 'common.ticketing' | translate }}]</p>\n            <p class=\"col-md-8\">{{ reservation.checkedIn }}</p>\n        </div>\n    </div>\n    <div class=\"py-3 border-bottom border-gray\">\n        <div class=\"row align-items-center\">\n            <p class=\"mb-2 mb-md-0 col-md-4\">[{{ 'common.admission' | translate }}]</p>\n            <p class=\"col-md-8\">{{ reservation.attended }}</p>\n        </div>\n    </div>\n\n</div>\n\n<div class=\"buttons mx-auto text-center btn-sm\">\n    <button type=\"button\" class=\"btn btn-link\" (click)=\"modal.hide()\">{{ 'common.close' | translate }}</button>\n</div>");
+/* harmony default export */ __webpack_exports__["default"] = ("<div class=\"p-3 scroll-vertical text-small\">\n    <div class=\"py-3 border-bottom border-gray\">\n        <div class=\"row align-items-center\">\n            <p class=\"mb-2 mb-md-0 col-md-4\">[{{ 'common.reservationNumber' | translate }}]</p>\n            <p class=\"col-md-8\">{{ reservation.reservationNumber }}</p>\n        </div>\n    </div>\n    <div class=\"py-3 border-bottom border-gray\">\n        <div class=\"row align-items-center\">\n            <p class=\"mb-2 mb-md-0 col-md-4\">[{{ 'common.reservationId' | translate }}]</p>\n            <p class=\"col-md-8\">{{ reservation.id }}</p>\n        </div>\n    </div>\n\n    <div class=\"py-3 border-bottom border-gray\">\n        <div class=\"row align-items-center\">\n            <p class=\"mb-2 mb-md-0 col-md-4\">[{{ 'common.event' | translate }}]</p>\n            <div class=\"col-md-8\">\n                <p *ngIf=\"(reservation.reservationFor.name | changeLanguage).length > 0\">{{\n                    reservation.reservationFor.name | changeLanguage | slice:0:10 }}</p>\n                <p *ngIf=\"!((reservation.reservationFor.name | changeLanguage).length > 0)\">{{\n                    reservation.reservationFor.name | changeLanguage }}</p>\n                <p>\n                    <span class=\"theatre-name\">{{ reservation.reservationFor.superEvent.location.name | changeLanguage }}</span>\n                    <span class=\"screen-name\">&nbsp;/&nbsp;{{ reservation.reservationFor.location.name | changeLanguage }}</span>\n                </p>\n                <p>{{ reservation.reservationFor.startDate | formatDate: 'YYYY/MM/DD (ddd) HH:mm' }}\n                    -</p>\n            </div>\n        </div>\n    </div>\n    <div class=\"py-3 border-bottom border-gray\">\n        <div class=\"row align-items-center\">\n            <p class=\"mb-2 mb-md-0 col-md-4\">[{{ 'common.ticket' | translate }}]</p>\n            <div class=\"col-md-8\">\n                <p>{{ reservation.reservedTicket.ticketType.name | changeLanguage }}</p>\n                <p *ngIf=\"reservation.reservedTicket.ticketedSeat && environment.DISPLAY_TICKETED_SEAT\">\n                    {{ reservation.reservedTicket.ticketedSeat.seatNumber }}</p>\n                <p>{{ getItemPrice({ priceComponents: reservation.price.priceComponent }) | currency : 'JPY' }}\n                </p>\n            </div>\n        </div>\n    </div>\n    <div class=\"py-3 border-bottom border-gray\">\n        <div class=\"row align-items-center\">\n            <p class=\"mb-2 mb-md-0 col-md-4\">[{{ 'common.reservationStatus' | translate }}]</p>\n            <p class=\"col-md-8\">{{ reservation.reservationStatus }}</p>\n        </div>\n    </div>\n    <div class=\"py-3 border-bottom border-gray\">\n        <div class=\"row align-items-center\">\n            <p class=\"mb-2 mb-md-0 col-md-4\">[{{ 'common.ticketing' | translate }}]</p>\n            <p class=\"col-md-8\">{{ reservation.checkedIn }}</p>\n        </div>\n    </div>\n    <div class=\"py-3 border-bottom border-gray\">\n        <div class=\"row align-items-center\">\n            <p class=\"mb-2 mb-md-0 col-md-4\">[{{ 'common.admission' | translate }}]</p>\n            <p class=\"col-md-8\">{{ reservation.attended }}</p>\n        </div>\n    </div>\n\n</div>\n\n<div class=\"buttons mx-auto text-center btn-sm\">\n    <button type=\"button\" class=\"btn btn-link\" (click)=\"modal.hide()\">{{ 'common.close' | translate }}</button>\n</div>");
 
 /***/ }),
 
@@ -883,7 +883,7 @@ AppComponent = __decorate([
 /*!********************************!*\
   !*** ./app/functions/index.ts ***!
   \********************************/
-/*! exports provided: screeningEventsToWorkEvents, createGmoTokenObject, sameMovieTicketFilter, isAvailabilityMovieTicket, createMovieTicketsFromAuthorizeSeatReservation, createPaymentMethodFromType, getTicketPrice, movieTicketAuthErroCodeToMessage, getAmount, order2EventOrders, authorizeSeatReservation2Event, changeTicketCount, getRemainingSeatLength, formatTelephone, toFull, toHalf, retry, sleep, buildQueryString, iOSDatepickerTapBugFix, streamingDownload, string2blob, getParameter, getProject, createPrintCanvas, createTestPrintCanvas, createRegiGrowQrcode, changeTicketCountByOrder, getTransactionAgentIdentifier, order2report, input2OrderSearchCondition, getTranslateModuleConfig, reservation2report, input2ReservationSearchCondition */
+/*! exports provided: screeningEventsToWorkEvents, createGmoTokenObject, sameMovieTicketFilter, isAvailabilityMovieTicket, createMovieTicketsFromAuthorizeSeatReservation, createPaymentMethodFromType, getTicketPrice, getItemPrice, getItemReferenceQuantityValue, movieTicketAuthErroCodeToMessage, getAmount, order2EventOrders, authorizeSeatReservation2Event, changeTicketCount, getRemainingSeatLength, formatTelephone, toFull, toHalf, retry, sleep, buildQueryString, iOSDatepickerTapBugFix, streamingDownload, string2blob, getParameter, getProject, createPrintCanvas, createTestPrintCanvas, createRegiGrowQrcode, changeTicketCountByOrder, getTransactionAgentIdentifier, order2report, input2OrderSearchCondition, getTranslateModuleConfig, reservation2report, input2ReservationSearchCondition */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -902,6 +902,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "createPaymentMethodFromType", function() { return _purchase_function__WEBPACK_IMPORTED_MODULE_0__["createPaymentMethodFromType"]; });
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "getTicketPrice", function() { return _purchase_function__WEBPACK_IMPORTED_MODULE_0__["getTicketPrice"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "getItemPrice", function() { return _purchase_function__WEBPACK_IMPORTED_MODULE_0__["getItemPrice"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "getItemReferenceQuantityValue", function() { return _purchase_function__WEBPACK_IMPORTED_MODULE_0__["getItemReferenceQuantityValue"]; });
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "movieTicketAuthErroCodeToMessage", function() { return _purchase_function__WEBPACK_IMPORTED_MODULE_0__["movieTicketAuthErroCodeToMessage"]; });
 
@@ -1133,35 +1137,37 @@ function drawCanvas(args) {
 /**
  * 印刷イメージ作成
  */
-function createPrintCanvas(args) {
+function createPrintCanvas(params) {
     return __awaiter(this, void 0, void 0, function* () {
-        const acceptedOffer = args.acceptedOffer;
-        if (acceptedOffer.itemOffered.typeOf !== _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_0__["factory"].chevre.reservationType.EventReservation) {
+        const acceptedOffer = params.acceptedOffer;
+        const itemOffered = acceptedOffer.itemOffered;
+        if (itemOffered.typeOf !== _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_0__["factory"].chevre.reservationType.EventReservation) {
             throw new Error('reservationType is not EventReservation');
         }
         const data = {
-            sellerNameJa: acceptedOffer.itemOffered.reservationFor.superEvent.location.name.ja,
-            sellerNameEn: acceptedOffer.itemOffered.reservationFor.superEvent.location.name.en,
-            eventNameJa: acceptedOffer.itemOffered.reservationFor.name.ja,
-            eventNameEn: acceptedOffer.itemOffered.reservationFor.name.en,
-            screenNameJa: acceptedOffer.itemOffered.reservationFor.location.name.ja,
-            screenNameEn: acceptedOffer.itemOffered.reservationFor.location.name.en,
-            startDate: moment__WEBPACK_IMPORTED_MODULE_1__(acceptedOffer.itemOffered.reservationFor.startDate).toISOString(),
-            endDate: moment__WEBPACK_IMPORTED_MODULE_1__(acceptedOffer.itemOffered.reservationFor.endDate).toISOString(),
-            seatNumber: (acceptedOffer.itemOffered.reservedTicket.ticketedSeat === undefined
-                || acceptedOffer.itemOffered.reservedTicket.ticketedSeat === null)
-                ? undefined : acceptedOffer.itemOffered.reservedTicket.ticketedSeat.seatNumber,
-            ticketNameJa: acceptedOffer.itemOffered.reservedTicket.ticketType.name.ja,
-            ticketNameEn: acceptedOffer.itemOffered.reservedTicket.ticketType.name.en,
-            price: Object(_purchase_function__WEBPACK_IMPORTED_MODULE_4__["getTicketPrice"])(acceptedOffer).single,
-            posName: (args.pos === undefined) ? '' : args.pos.name,
-            confirmationNumber: String(args.order.confirmationNumber),
-            orderNumber: args.order.orderNumber,
-            ticketNumber: acceptedOffer.itemOffered.id,
-            qrcode: args.qrcode,
-            index: args.index
+            sellerNameJa: itemOffered.reservationFor.superEvent.location.name.ja,
+            sellerNameEn: itemOffered.reservationFor.superEvent.location.name.en,
+            eventNameJa: itemOffered.reservationFor.name.ja,
+            eventNameEn: itemOffered.reservationFor.name.en,
+            screenNameJa: itemOffered.reservationFor.location.name.ja,
+            screenNameEn: itemOffered.reservationFor.location.name.en,
+            startDate: moment__WEBPACK_IMPORTED_MODULE_1__(itemOffered.reservationFor.startDate).toISOString(),
+            endDate: moment__WEBPACK_IMPORTED_MODULE_1__(itemOffered.reservationFor.endDate).toISOString(),
+            seatNumber: (itemOffered.reservedTicket.ticketedSeat === undefined
+                || itemOffered.reservedTicket.ticketedSeat === null)
+                ? undefined : itemOffered.reservedTicket.ticketedSeat.seatNumber,
+            ticketNameJa: itemOffered.reservedTicket.ticketType.name.ja,
+            ticketNameEn: itemOffered.reservedTicket.ticketType.name.en,
+            price: (acceptedOffer.priceSpecification === undefined)
+                ? 0 : Object(_purchase_function__WEBPACK_IMPORTED_MODULE_4__["getItemPrice"])({ priceComponents: acceptedOffer.priceSpecification.priceComponent }),
+            posName: (params.pos === undefined) ? '' : params.pos.name,
+            confirmationNumber: String(params.order.confirmationNumber),
+            orderNumber: params.order.orderNumber,
+            ticketNumber: itemOffered.id,
+            qrcode: params.qrcode,
+            index: params.index
         };
-        const printData = args.printData;
+        const printData = params.printData;
         const canvas = yield drawCanvas({ data, printData });
         return canvas;
     });
@@ -1254,7 +1260,8 @@ function order2report(orders) {
     const data = [];
     orders.forEach((order) => {
         order.acceptedOffers.forEach((acceptedOffer) => {
-            if (acceptedOffer.itemOffered.typeOf !== _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_0__["factory"].chevre.reservationType.EventReservation) {
+            const itemOffered = acceptedOffer.itemOffered;
+            if (itemOffered.typeOf !== _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_0__["factory"].chevre.reservationType.EventReservation) {
                 return;
             }
             const customData = {
@@ -1276,10 +1283,10 @@ function order2report(orders) {
                             : getTransactionAgentIdentifier(order, 'linyId')
                     } }),
                 itemOffered: {
-                    id: acceptedOffer.itemOffered.id,
-                    price: Object(_purchase_function__WEBPACK_IMPORTED_MODULE_4__["getTicketPrice"])(acceptedOffer).total,
-                    reservedTicket: acceptedOffer.itemOffered.reservedTicket,
-                    reservationFor: Object.assign({}, acceptedOffer.itemOffered.reservationFor, { startDateJST: moment__WEBPACK_IMPORTED_MODULE_1__(acceptedOffer.itemOffered.reservationFor.startDate).format('YYYY/MM/DD/HH:mm') })
+                    id: itemOffered.id,
+                    price: Object(_purchase_function__WEBPACK_IMPORTED_MODULE_4__["getItemPrice"])({ priceComponents: acceptedOffer.priceSpecification.priceComponent }),
+                    reservedTicket: itemOffered.reservedTicket,
+                    reservationFor: Object.assign({}, itemOffered.reservationFor, { startDateJST: moment__WEBPACK_IMPORTED_MODULE_1__(itemOffered.reservationFor.startDate).format('YYYY/MM/DD/HH:mm') })
                 }
             };
             data.push(customData);
@@ -1361,7 +1368,7 @@ function input2OrderSearchCondition(params) {
 /*!********************************************!*\
   !*** ./app/functions/purchase.function.ts ***!
   \********************************************/
-/*! exports provided: screeningEventsToWorkEvents, createGmoTokenObject, sameMovieTicketFilter, isAvailabilityMovieTicket, createMovieTicketsFromAuthorizeSeatReservation, createPaymentMethodFromType, getTicketPrice, movieTicketAuthErroCodeToMessage, getAmount, order2EventOrders, authorizeSeatReservation2Event, changeTicketCount, getRemainingSeatLength */
+/*! exports provided: screeningEventsToWorkEvents, createGmoTokenObject, sameMovieTicketFilter, isAvailabilityMovieTicket, createMovieTicketsFromAuthorizeSeatReservation, createPaymentMethodFromType, getTicketPrice, getItemPrice, getItemReferenceQuantityValue, movieTicketAuthErroCodeToMessage, getAmount, order2EventOrders, authorizeSeatReservation2Event, changeTicketCount, getRemainingSeatLength */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1373,6 +1380,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "createMovieTicketsFromAuthorizeSeatReservation", function() { return createMovieTicketsFromAuthorizeSeatReservation; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "createPaymentMethodFromType", function() { return createPaymentMethodFromType; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getTicketPrice", function() { return getTicketPrice; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getItemPrice", function() { return getItemPrice; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getItemReferenceQuantityValue", function() { return getItemReferenceQuantityValue; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "movieTicketAuthErroCodeToMessage", function() { return movieTicketAuthErroCodeToMessage; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getAmount", function() { return getAmount; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "order2EventOrders", function() { return order2EventOrders; });
@@ -1563,6 +1572,7 @@ function createPaymentMethodFromType(params) {
 }
 /**
  * 券種金額取得
+ * @deprecated 非推奨（廃止予定）
  */
 function getTicketPrice(ticket) {
     const result = {
@@ -1579,16 +1589,8 @@ function getTicketPrice(ticket) {
     const priceComponent = ticket.priceSpecification.priceComponent;
     const priceSpecificationType = _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_0__["factory"].chevre.priceSpecificationType;
     const unitPriceSpecifications = priceComponent.filter((s) => s.typeOf === priceSpecificationType.UnitPriceSpecification);
-    const videoFormatCharges = priceComponent.filter((s) => s.typeOf === priceSpecificationType.VideoFormatChargeSpecification);
-    const soundFormatCharges = priceComponent.filter((s) => s.typeOf === priceSpecificationType.SoundFormatChargeSpecification);
     const movieTicketTypeCharges = priceComponent.filter((s) => s.typeOf === priceSpecificationType.MovieTicketTypeChargeSpecification);
     result.unitPriceSpecification += unitPriceSpecifications[0].price;
-    videoFormatCharges.forEach((videoFormatCharge) => {
-        result.videoFormatCharge += videoFormatCharge.price;
-    });
-    soundFormatCharges.forEach((soundFormatCharge) => {
-        result.soundFormatCharge += soundFormatCharge.price;
-    });
     movieTicketTypeCharges.forEach((movieTicketTypeCharge) => {
         result.movieTicketTypeCharge += movieTicketTypeCharge.price;
     });
@@ -1601,6 +1603,52 @@ function getTicketPrice(ticket) {
         result.single = result.total / referenceQuantityValue;
     }
     return result;
+}
+/**
+ * アイテム金額取得
+ */
+function getItemPrice(params) {
+    let price = 0;
+    // 券種価格
+    const priceComponents = params.priceComponents;
+    if (priceComponents === undefined) {
+        return price;
+    }
+    const priceSpecificationType = _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_0__["factory"].chevre.priceSpecificationType;
+    priceComponents.forEach((p) => {
+        if (p.typeOf === priceSpecificationType.UnitPriceSpecification) {
+            const value = (p.referenceQuantity.value) ? p.referenceQuantity.value : 1;
+            price += p.price / value;
+            return;
+        }
+        price += p.price;
+    });
+    // 座席価格
+    const seat = params.seat;
+    if (seat === undefined || seat.offers === undefined) {
+        return price;
+    }
+    seat.offers.forEach((o) => {
+        if (o.priceSpecification === undefined) {
+            return;
+        }
+        o.priceSpecification.priceComponent.forEach(p => price += p.price);
+    });
+    return price;
+}
+/**
+ * アイテム金額取得
+ */
+function getItemReferenceQuantityValue(priceComponents) {
+    if (priceComponents === undefined) {
+        return 1;
+    }
+    const priceSpecificationType = _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_0__["factory"].chevre.priceSpecificationType;
+    const unitPriceSpecification = priceComponents.find(p => p.typeOf === priceSpecificationType.UnitPriceSpecification);
+    if (unitPriceSpecification === undefined) {
+        return 1;
+    }
+    return unitPriceSpecification.referenceQuantity.value;
 }
 /**
  * ムビチケ認証購入管理番号無効事由区分変換
@@ -1687,6 +1735,9 @@ function authorizeSeatReservation2Event(params) {
             return;
         }
         const reservations = authorizeSeatReservation.result.responseBody.object.reservations;
+        if (reservations === undefined) {
+            return;
+        }
         reservations.forEach((reservation) => {
             const registered = results.find((result) => {
                 return (result.event.id === reservation.reservationFor.id);
@@ -1783,7 +1834,7 @@ function reservation2report(reservations) {
             reservationStatus: reservation.reservationStatus,
             price: (typeof reservation.price === 'number' || reservation.price === undefined)
                 ? reservation.price
-                : Object(_purchase_function__WEBPACK_IMPORTED_MODULE_2__["getTicketPrice"])({ priceSpecification: { priceComponent: reservation.price.priceComponent } }).total,
+                : Object(_purchase_function__WEBPACK_IMPORTED_MODULE_2__["getItemPrice"])({ priceComponents: reservation.price.priceComponent }),
             reservedTicket: reservation.reservedTicket,
             reservationFor: Object.assign({}, reservation.reservationFor, { startDateJST: moment__WEBPACK_IMPORTED_MODULE_1__(reservation.reservationFor.startDate).format('YYYY/MM/DD/HH:mm') }),
             checkedIn: reservation.checkedIn,
@@ -2137,7 +2188,7 @@ function getProject() {
 /*!*****************************!*\
   !*** ./app/models/index.ts ***!
   \*****************************/
-/*! exports provided: SeatStatus, Reservation, PaymentMethodType, Performance, connectionType, printers, OrderActions, CsvFormat, PrintQrcodeType, Language, ViewType */
+/*! exports provided: SeatStatus, PaymentMethodType, Performance, connectionType, printers, OrderActions, CsvFormat, PrintQrcodeType, Language, ViewType */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -2145,39 +2196,35 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _purchase_screen__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./purchase/screen */ "./app/models/purchase/screen.ts");
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "SeatStatus", function() { return _purchase_screen__WEBPACK_IMPORTED_MODULE_0__["SeatStatus"]; });
 
-/* harmony import */ var _purchase_reservation__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./purchase/reservation */ "./app/models/purchase/reservation.ts");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "Reservation", function() { return _purchase_reservation__WEBPACK_IMPORTED_MODULE_1__["Reservation"]; });
+/* harmony import */ var _purchase_payment__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./purchase/payment */ "./app/models/purchase/payment.ts");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "PaymentMethodType", function() { return _purchase_payment__WEBPACK_IMPORTED_MODULE_1__["PaymentMethodType"]; });
 
-/* harmony import */ var _purchase_payment__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./purchase/payment */ "./app/models/purchase/payment.ts");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "PaymentMethodType", function() { return _purchase_payment__WEBPACK_IMPORTED_MODULE_2__["PaymentMethodType"]; });
+/* harmony import */ var _purchase_performance__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./purchase/performance */ "./app/models/purchase/performance.ts");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "Performance", function() { return _purchase_performance__WEBPACK_IMPORTED_MODULE_2__["Performance"]; });
 
-/* harmony import */ var _purchase_performance__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./purchase/performance */ "./app/models/purchase/performance.ts");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "Performance", function() { return _purchase_performance__WEBPACK_IMPORTED_MODULE_3__["Performance"]; });
+/* harmony import */ var _util_printer__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./util/printer */ "./app/models/util/printer.ts");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "connectionType", function() { return _util_printer__WEBPACK_IMPORTED_MODULE_3__["connectionType"]; });
 
-/* harmony import */ var _util_printer__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./util/printer */ "./app/models/util/printer.ts");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "connectionType", function() { return _util_printer__WEBPACK_IMPORTED_MODULE_4__["connectionType"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "printers", function() { return _util_printer__WEBPACK_IMPORTED_MODULE_3__["printers"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "printers", function() { return _util_printer__WEBPACK_IMPORTED_MODULE_4__["printers"]; });
+/* harmony import */ var _order_action__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./order/action */ "./app/models/order/action.ts");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "OrderActions", function() { return _order_action__WEBPACK_IMPORTED_MODULE_4__["OrderActions"]; });
 
-/* harmony import */ var _order_action__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./order/action */ "./app/models/order/action.ts");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "OrderActions", function() { return _order_action__WEBPACK_IMPORTED_MODULE_5__["OrderActions"]; });
+/* harmony import */ var _order_download__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./order/download */ "./app/models/order/download.ts");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "CsvFormat", function() { return _order_download__WEBPACK_IMPORTED_MODULE_5__["CsvFormat"]; });
 
-/* harmony import */ var _order_download__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./order/download */ "./app/models/order/download.ts");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "CsvFormat", function() { return _order_download__WEBPACK_IMPORTED_MODULE_6__["CsvFormat"]; });
+/* harmony import */ var _order_print__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./order/print */ "./app/models/order/print.ts");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "PrintQrcodeType", function() { return _order_print__WEBPACK_IMPORTED_MODULE_6__["PrintQrcodeType"]; });
 
-/* harmony import */ var _order_print__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./order/print */ "./app/models/order/print.ts");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "PrintQrcodeType", function() { return _order_print__WEBPACK_IMPORTED_MODULE_7__["PrintQrcodeType"]; });
+/* harmony import */ var _util_language__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./util/language */ "./app/models/util/language.ts");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "Language", function() { return _util_language__WEBPACK_IMPORTED_MODULE_7__["Language"]; });
 
-/* harmony import */ var _util_language__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./util/language */ "./app/models/util/language.ts");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "Language", function() { return _util_language__WEBPACK_IMPORTED_MODULE_8__["Language"]; });
-
-/* harmony import */ var _util_viewType__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./util/viewType */ "./app/models/util/viewType.ts");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "ViewType", function() { return _util_viewType__WEBPACK_IMPORTED_MODULE_9__["ViewType"]; });
+/* harmony import */ var _util_viewType__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./util/viewType */ "./app/models/util/viewType.ts");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "ViewType", function() { return _util_viewType__WEBPACK_IMPORTED_MODULE_8__["ViewType"]; });
 
 /* empty/unused harmony star reexport */var __importDefault = (undefined && undefined.__importDefault) || function (mod) {
   return (mod && mod.__esModule) ? mod : { "default": mod };
 };
-
 
 
 
@@ -2473,96 +2520,6 @@ class Performance {
                 break;
         }
         return result;
-    }
-}
-
-
-/***/ }),
-
-/***/ "./app/models/purchase/reservation.ts":
-/*!********************************************!*\
-  !*** ./app/models/purchase/reservation.ts ***!
-  \********************************************/
-/*! exports provided: Reservation */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Reservation", function() { return Reservation; });
-/* harmony import */ var _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @cinerino/api-javascript-client */ "../../node_modules/@cinerino/api-javascript-client/lib/index.js");
-/* harmony import */ var _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_0__);
-var __importDefault = (undefined && undefined.__importDefault) || function (mod) {
-  return (mod && mod.__esModule) ? mod : { "default": mod };
-};
-
-/**
- * Reservation
- */
-class Reservation {
-    constructor(args) {
-        this.seat = args.seat;
-        this.ticket = args.ticket;
-    }
-    /**
-     * ムビチケ判定
-     */
-    isMovieTicket() {
-        if (this.ticket === undefined) {
-            return false;
-        }
-        return (this.ticket.movieTicket !== undefined);
-    }
-    /**
-     * 券種金額取得
-     */
-    getTicketPrice() {
-        const result = {
-            unitPriceSpecification: 0,
-            videoFormatCharge: 0,
-            soundFormatCharge: 0,
-            movieTicketTypeCharge: 0,
-            total: 0,
-            single: 0
-        };
-        if (this.ticket === undefined) {
-            return result;
-        }
-        const priceComponent = this.ticket.ticketOffer.priceSpecification.priceComponent;
-        const priceSpecificationType = _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_0__["factory"].chevre.priceSpecificationType;
-        const unitPriceSpecifications = priceComponent.filter((s) => s.typeOf === priceSpecificationType.UnitPriceSpecification);
-        const videoFormatCharges = priceComponent.filter((s) => s.typeOf === priceSpecificationType.VideoFormatChargeSpecification);
-        const soundFormatCharges = priceComponent.filter((s) => s.typeOf === priceSpecificationType.SoundFormatChargeSpecification);
-        const movieTicketTypeCharges = priceComponent.filter((s) => s.typeOf === priceSpecificationType.MovieTicketTypeChargeSpecification);
-        result.unitPriceSpecification += unitPriceSpecifications[0].price;
-        videoFormatCharges.forEach((videoFormatCharge) => {
-            result.videoFormatCharge += videoFormatCharge.price;
-        });
-        soundFormatCharges.forEach((soundFormatCharge) => {
-            result.soundFormatCharge += soundFormatCharge.price;
-        });
-        movieTicketTypeCharges.forEach((movieTicketTypeCharge) => {
-            result.movieTicketTypeCharge += movieTicketTypeCharge.price;
-        });
-        result.total = result.unitPriceSpecification + result.videoFormatCharge + result.soundFormatCharge + result.movieTicketTypeCharge;
-        const unitPriceSpecification = unitPriceSpecifications[0];
-        if (unitPriceSpecification.typeOf === priceSpecificationType.UnitPriceSpecification) {
-            const referenceQuantityValue = (unitPriceSpecification.referenceQuantity.value === undefined)
-                ? 1
-                : unitPriceSpecification.referenceQuantity.value;
-            result.single = result.total / referenceQuantityValue;
-        }
-        return result;
-    }
-    /**
-     * 価格仕様取得
-     */
-    getUnitPriceSpecification() {
-        if (this.ticket === undefined) {
-            return;
-        }
-        const unitPriceSpecifications = this.ticket.ticketOffer.priceSpecification.priceComponent
-            .filter((s) => s.typeOf === _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_0__["factory"].chevre.priceSpecificationType.UnitPriceSpecification);
-        return unitPriceSpecifications[0];
     }
 }
 
@@ -4220,7 +4177,8 @@ let OrderDetailModalComponent = class OrderDetailModalComponent {
         this.modal = modal;
         this.elementRef = elementRef;
         this.moment = moment__WEBPACK_IMPORTED_MODULE_2__;
-        this.getTicketPrice = _functions__WEBPACK_IMPORTED_MODULE_6__["getTicketPrice"];
+        this.getItemPrice = _functions__WEBPACK_IMPORTED_MODULE_6__["getItemPrice"];
+        this.getItemReferenceQuantityValue = _functions__WEBPACK_IMPORTED_MODULE_6__["getItemReferenceQuantityValue"];
         this.environment = Object(_environments_environment__WEBPACK_IMPORTED_MODULE_5__["getEnvironment"])();
         this.getTransactionAgentIdentifier = _functions__WEBPACK_IMPORTED_MODULE_6__["getTransactionAgentIdentifier"];
         this.platform = platform__WEBPACK_IMPORTED_MODULE_4__;
@@ -4308,14 +4266,15 @@ var __importDefault = (undefined && undefined.__importDefault) || function (mod)
 let PurchaseCinemaTicketModalComponent = class PurchaseCinemaTicketModalComponent {
     constructor(modal) {
         this.modal = modal;
-        this.getTicketPrice = _functions__WEBPACK_IMPORTED_MODULE_3__["getTicketPrice"];
+        this.getItemPrice = _functions__WEBPACK_IMPORTED_MODULE_3__["getItemPrice"];
+        this.getItemReferenceQuantityValue = _functions__WEBPACK_IMPORTED_MODULE_3__["getItemReferenceQuantityValue"];
     }
     ngOnInit() {
         this.tickets = [];
         const movieTickets = [];
         this.screeningEventTicketOffers.forEach((ticketOffer) => {
             const movieTicketTypeChargeSpecification = ticketOffer.priceSpecification.priceComponent
-                .filter((s) => s.typeOf === _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_1__["factory"].chevre.priceSpecificationType.MovieTicketTypeChargeSpecification)
+                .filter((c) => c.typeOf === _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_1__["factory"].chevre.priceSpecificationType.MovieTicketTypeChargeSpecification)
                 .shift();
             if (movieTicketTypeChargeSpecification === undefined) {
                 // ムビチケ以外
@@ -4397,6 +4356,10 @@ __decorate([
 ], PurchaseCinemaTicketModalComponent.prototype, "reservations", void 0);
 __decorate([
     Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"])(),
+    __metadata("design:type", Object)
+], PurchaseCinemaTicketModalComponent.prototype, "reservation", void 0);
+__decorate([
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"])(),
     __metadata("design:type", Array)
 ], PurchaseCinemaTicketModalComponent.prototype, "pendingMovieTickets", void 0);
 __decorate([
@@ -4470,7 +4433,8 @@ var __importDefault = (undefined && undefined.__importDefault) || function (mod)
 let PurchaseEventTicketModalComponent = class PurchaseEventTicketModalComponent {
     constructor(modal) {
         this.modal = modal;
-        this.getTicketPrice = _functions__WEBPACK_IMPORTED_MODULE_5__["getTicketPrice"];
+        this.getItemPrice = _functions__WEBPACK_IMPORTED_MODULE_5__["getItemPrice"];
+        this.getItemReferenceQuantityValue = _functions__WEBPACK_IMPORTED_MODULE_5__["getItemReferenceQuantityValue"];
         this.moment = moment__WEBPACK_IMPORTED_MODULE_2__;
         this.getRemainingSeatLength = _functions__WEBPACK_IMPORTED_MODULE_5__["getRemainingSeatLength"];
         this.environment = Object(_environments_environment__WEBPACK_IMPORTED_MODULE_4__["getEnvironment"])();
@@ -4481,8 +4445,8 @@ let PurchaseEventTicketModalComponent = class PurchaseEventTicketModalComponent 
     ngOnInit() {
         this.performance = new _models__WEBPACK_IMPORTED_MODULE_6__["Performance"](this.screeningEvent);
         this.tickets = [];
-        this.tickets = this.screeningEventTicketOffers.filter((offer) => {
-            const movieTicketTypeChargeSpecification = offer.priceSpecification.priceComponent.find((component) => component.typeOf === _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_1__["factory"].chevre.priceSpecificationType.MovieTicketTypeChargeSpecification);
+        this.tickets = this.screeningEventTicketOffers.filter((ticketOffer) => {
+            const movieTicketTypeChargeSpecification = ticketOffer.priceSpecification.priceComponent.find((c) => c.typeOf === _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_1__["factory"].chevre.priceSpecificationType.MovieTicketTypeChargeSpecification);
             return movieTicketTypeChargeSpecification === undefined;
         });
         this.values = [];
@@ -4926,7 +4890,8 @@ let ReservationDetailModalComponent = class ReservationDetailModalComponent {
         this.modal = modal;
         this.elementRef = elementRef;
         this.moment = moment__WEBPACK_IMPORTED_MODULE_2__;
-        this.getTicketPrice = _functions__WEBPACK_IMPORTED_MODULE_5__["getTicketPrice"];
+        this.getItemPrice = _functions__WEBPACK_IMPORTED_MODULE_5__["getItemPrice"];
+        this.getItemReferenceQuantityValue = _functions__WEBPACK_IMPORTED_MODULE_5__["getItemReferenceQuantityValue"];
         this.environment = Object(_environments_environment__WEBPACK_IMPORTED_MODULE_4__["getEnvironment"])();
     }
     ngOnInit() {
@@ -5260,7 +5225,8 @@ let ScreenComponent = ScreenComponent_1 = class ScreenComponent {
                                         seatingType: findContainsPlaceResult.seatingType,
                                         seatNumber: findContainsPlaceResult.branchCode,
                                         seatRow: '',
-                                        seatSection: section
+                                        seatSection: section,
+                                        offers: findContainsPlaceResult.offers
                                     }
                                 };
                                 break;
@@ -5989,16 +5955,13 @@ CinerinoService = __decorate([
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "DownloadService", function() { return DownloadService; });
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "../../node_modules/@angular/core/fesm2015/core.js");
-/* harmony import */ var _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @cinerino/api-javascript-client */ "../../node_modules/@cinerino/api-javascript-client/lib/index.js");
-/* harmony import */ var _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var json2csv__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! json2csv */ "../../node_modules/json2csv/dist/json2csv.umd.js");
-/* harmony import */ var json2csv__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(json2csv__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var _functions__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../functions */ "./app/functions/index.ts");
-/* harmony import */ var _models__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../models */ "./app/models/index.ts");
-/* harmony import */ var _cinerino_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./cinerino.service */ "./app/services/cinerino.service.ts");
-/* harmony import */ var _order_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./order.service */ "./app/services/order.service.ts");
-/* harmony import */ var _reservation_service__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./reservation.service */ "./app/services/reservation.service.ts");
-/* harmony import */ var _util_service__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./util.service */ "./app/services/util.service.ts");
+/* harmony import */ var json2csv__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! json2csv */ "../../node_modules/json2csv/dist/json2csv.umd.js");
+/* harmony import */ var json2csv__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(json2csv__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _functions__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../functions */ "./app/functions/index.ts");
+/* harmony import */ var _cinerino_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./cinerino.service */ "./app/services/cinerino.service.ts");
+/* harmony import */ var _order_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./order.service */ "./app/services/order.service.ts");
+/* harmony import */ var _reservation_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./reservation.service */ "./app/services/reservation.service.ts");
+/* harmony import */ var _util_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./util.service */ "./app/services/util.service.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -6027,8 +5990,6 @@ var DownloadService_1;
 
 
 
-
-
 let DownloadService = DownloadService_1 = class DownloadService {
     constructor(cinerino, utilService, orderService, reservationService) {
         this.cinerino = cinerino;
@@ -6039,30 +6000,19 @@ let DownloadService = DownloadService_1 = class DownloadService {
     /**
      * 注文情報CSVダウンロード
      */
-    order(params, csvFormat) {
+    order(params) {
         return __awaiter(this, void 0, void 0, function* () {
             yield this.cinerino.getServices();
-            if (csvFormat === _models__WEBPACK_IMPORTED_MODULE_4__["CsvFormat"].Default) {
-                // デフォルト
-                const format = _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_1__["factory"].encodingFormat.Text.csv;
-                const stream = (yield this.cinerino.order.download(Object.assign({}, params, { format })));
-                const csv = yield Object(_functions__WEBPACK_IMPORTED_MODULE_3__["streamingDownload"])(stream);
-                const blob = Object(_functions__WEBPACK_IMPORTED_MODULE_3__["string2blob"])(csv, { type: 'text/csv' });
-                const fileName = 'OrderReport.csv';
-                this.download(blob, fileName);
-            }
-            else {
-                // カスタム
-                const searchResult = yield this.orderService.splitSearch(params);
-                const url = `${Object(_functions__WEBPACK_IMPORTED_MODULE_3__["getProject"])().storageUrl}/json/csv/order.json`;
-                const fields = yield this.utilService.getJson(url);
-                const opts = { fields, unwind: [] };
-                const data = Object(_functions__WEBPACK_IMPORTED_MODULE_3__["order2report"])(searchResult.data);
-                const csv = yield json2csv__WEBPACK_IMPORTED_MODULE_2__["parseAsync"](data, opts);
-                const blob = Object(_functions__WEBPACK_IMPORTED_MODULE_3__["string2blob"])(csv, { type: 'text/csv' });
-                const fileName = 'CustomOrderReport.csv';
-                this.download(blob, fileName);
-            }
+            // カスタム
+            const searchResult = yield this.orderService.splitSearch(params);
+            const url = `${Object(_functions__WEBPACK_IMPORTED_MODULE_2__["getProject"])().storageUrl}/json/csv/order.json`;
+            const fields = yield this.utilService.getJson(url);
+            const opts = { fields, unwind: [] };
+            const data = Object(_functions__WEBPACK_IMPORTED_MODULE_2__["order2report"])(searchResult.data);
+            const csv = yield json2csv__WEBPACK_IMPORTED_MODULE_1__["parseAsync"](data, opts);
+            const blob = Object(_functions__WEBPACK_IMPORTED_MODULE_2__["string2blob"])(csv, { type: 'text/csv' });
+            const fileName = 'CustomOrderReport.csv';
+            this.download(blob, fileName);
         });
     }
     /**
@@ -6071,12 +6021,12 @@ let DownloadService = DownloadService_1 = class DownloadService {
     reservation(params) {
         return __awaiter(this, void 0, void 0, function* () {
             const searchResult = yield this.reservationService.splitSearch(params);
-            const url = `${Object(_functions__WEBPACK_IMPORTED_MODULE_3__["getProject"])().storageUrl}/json/csv/reservation.json`;
+            const url = `${Object(_functions__WEBPACK_IMPORTED_MODULE_2__["getProject"])().storageUrl}/json/csv/reservation.json`;
             const fields = yield this.utilService.getJson(url);
             const opts = { fields, unwind: [] };
-            const data = Object(_functions__WEBPACK_IMPORTED_MODULE_3__["reservation2report"])(searchResult.data);
-            const csv = yield json2csv__WEBPACK_IMPORTED_MODULE_2__["parseAsync"](data, opts);
-            const blob = Object(_functions__WEBPACK_IMPORTED_MODULE_3__["string2blob"])(csv, { type: 'text/csv' });
+            const data = Object(_functions__WEBPACK_IMPORTED_MODULE_2__["reservation2report"])(searchResult.data);
+            const csv = yield json2csv__WEBPACK_IMPORTED_MODULE_1__["parseAsync"](data, opts);
+            const blob = Object(_functions__WEBPACK_IMPORTED_MODULE_2__["string2blob"])(csv, { type: 'text/csv' });
             const fileName = 'CustomReservationReport.csv';
             this.download(blob, fileName);
         });
@@ -6086,7 +6036,7 @@ let DownloadService = DownloadService_1 = class DownloadService {
      */
     person(params) {
         return __awaiter(this, void 0, void 0, function* () {
-            const url = `${Object(_functions__WEBPACK_IMPORTED_MODULE_3__["getProject"])().storageUrl}/json/csv/person.json`;
+            const url = `${Object(_functions__WEBPACK_IMPORTED_MODULE_2__["getProject"])().storageUrl}/json/csv/person.json`;
             const fields = yield this.utilService.getJson(url);
             const opts = { fields, unwind: [] };
             yield this.cinerino.getServices();
@@ -6120,8 +6070,8 @@ let DownloadService = DownloadService_1 = class DownloadService {
             const limit = Math.ceil(data.length / split);
             for (let i = 0; i < limit; i++) {
                 const splitData = data.slice(i * split, ((i + 1) * split > data.length) ? data.length : (i + 1) * split);
-                const csv = yield json2csv__WEBPACK_IMPORTED_MODULE_2__["parseAsync"](splitData, opts);
-                const blob = Object(_functions__WEBPACK_IMPORTED_MODULE_3__["string2blob"])(csv, { type: 'text/csv' });
+                const csv = yield json2csv__WEBPACK_IMPORTED_MODULE_1__["parseAsync"](splitData, opts);
+                const blob = Object(_functions__WEBPACK_IMPORTED_MODULE_2__["string2blob"])(csv, { type: 'text/csv' });
                 const fileName = `${filename}${(limit > 1) ? `_${(i + 1)}` : ''}.csv`;
                 this.download(blob, fileName);
             }
@@ -6145,19 +6095,19 @@ let DownloadService = DownloadService_1 = class DownloadService {
 };
 DownloadService.SPLIT_COUNT = 50000;
 DownloadService.ctorParameters = () => [
-    { type: _cinerino_service__WEBPACK_IMPORTED_MODULE_5__["CinerinoService"] },
-    { type: _util_service__WEBPACK_IMPORTED_MODULE_8__["UtilService"] },
-    { type: _order_service__WEBPACK_IMPORTED_MODULE_6__["OrderService"] },
-    { type: _reservation_service__WEBPACK_IMPORTED_MODULE_7__["ReservationService"] }
+    { type: _cinerino_service__WEBPACK_IMPORTED_MODULE_3__["CinerinoService"] },
+    { type: _util_service__WEBPACK_IMPORTED_MODULE_6__["UtilService"] },
+    { type: _order_service__WEBPACK_IMPORTED_MODULE_4__["OrderService"] },
+    { type: _reservation_service__WEBPACK_IMPORTED_MODULE_5__["ReservationService"] }
 ];
 DownloadService = DownloadService_1 = __decorate([
     Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"])({
         providedIn: 'root'
     }),
-    __metadata("design:paramtypes", [_cinerino_service__WEBPACK_IMPORTED_MODULE_5__["CinerinoService"],
-        _util_service__WEBPACK_IMPORTED_MODULE_8__["UtilService"],
-        _order_service__WEBPACK_IMPORTED_MODULE_6__["OrderService"],
-        _reservation_service__WEBPACK_IMPORTED_MODULE_7__["ReservationService"]])
+    __metadata("design:paramtypes", [_cinerino_service__WEBPACK_IMPORTED_MODULE_3__["CinerinoService"],
+        _util_service__WEBPACK_IMPORTED_MODULE_6__["UtilService"],
+        _order_service__WEBPACK_IMPORTED_MODULE_4__["OrderService"],
+        _reservation_service__WEBPACK_IMPORTED_MODULE_5__["ReservationService"]])
 ], DownloadService);
 
 
@@ -6585,10 +6535,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! rxjs */ "../../node_modules/rxjs/_esm2015/index.js");
 /* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! rxjs/operators */ "../../node_modules/rxjs/_esm2015/operators/index.js");
 /* harmony import */ var _environments_environment__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../../environments/environment */ "./environments/environment.ts");
-/* harmony import */ var _models__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../models */ "./app/models/index.ts");
-/* harmony import */ var _store_actions__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../store/actions */ "./app/store/actions/index.ts");
-/* harmony import */ var _store_reducers__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../store/reducers */ "./app/store/reducers/index.ts");
-/* harmony import */ var _util_service__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./util.service */ "./app/services/util.service.ts");
+/* harmony import */ var _store_actions__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../store/actions */ "./app/store/actions/index.ts");
+/* harmony import */ var _store_reducers__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../store/reducers */ "./app/store/reducers/index.ts");
+/* harmony import */ var _util_service__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./util.service */ "./app/services/util.service.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -6620,14 +6569,13 @@ var __importDefault = (undefined && undefined.__importDefault) || function (mod)
 
 
 
-
 let PurchaseService = class PurchaseService {
     constructor(actions, store, utilService) {
         this.actions = actions;
         this.store = store;
         this.utilService = utilService;
-        this.purchase = this.store.pipe(Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_3__["select"])(_store_reducers__WEBPACK_IMPORTED_MODULE_10__["getPurchase"]));
-        this.error = this.store.pipe(Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_3__["select"])(_store_reducers__WEBPACK_IMPORTED_MODULE_10__["getError"]));
+        this.purchase = this.store.pipe(Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_3__["select"])(_store_reducers__WEBPACK_IMPORTED_MODULE_9__["getPurchase"]));
+        this.error = this.store.pipe(Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_3__["select"])(_store_reducers__WEBPACK_IMPORTED_MODULE_9__["getError"]));
     }
     /**
      * 購入データ取得
@@ -6645,13 +6593,13 @@ let PurchaseService = class PurchaseService {
      * 購入データ削除
      */
     delete() {
-        this.store.dispatch(new _store_actions__WEBPACK_IMPORTED_MODULE_9__["purchaseAction"].Delete());
+        this.store.dispatch(new _store_actions__WEBPACK_IMPORTED_MODULE_8__["purchaseAction"].Delete());
     }
     /**
      * 購入一時データ削除
      */
     unsettledDelete() {
-        this.store.dispatch(new _store_actions__WEBPACK_IMPORTED_MODULE_9__["purchaseAction"].UnsettledDelete());
+        this.store.dispatch(new _store_actions__WEBPACK_IMPORTED_MODULE_8__["purchaseAction"].UnsettledDelete());
     }
     /**
      * 販売者選択
@@ -6662,13 +6610,13 @@ let PurchaseService = class PurchaseService {
      * スケジュール日選択
      */
     selectScheduleDate(scheduleDate) {
-        this.store.dispatch(new _store_actions__WEBPACK_IMPORTED_MODULE_9__["purchaseAction"].SelectScheduleDate({ scheduleDate }));
+        this.store.dispatch(new _store_actions__WEBPACK_IMPORTED_MODULE_8__["purchaseAction"].SelectScheduleDate({ scheduleDate }));
     }
     /**
      * スケジュール選択
      */
     selectSchedule(screeningEvent) {
-        this.store.dispatch(new _store_actions__WEBPACK_IMPORTED_MODULE_9__["purchaseAction"].SelectSchedule({ screeningEvent }));
+        this.store.dispatch(new _store_actions__WEBPACK_IMPORTED_MODULE_8__["purchaseAction"].SelectSchedule({ screeningEvent }));
     }
     /**
      * 取引開始
@@ -6678,7 +6626,7 @@ let PurchaseService = class PurchaseService {
             const environment = Object(_environments_environment__WEBPACK_IMPORTED_MODULE_7__["getEnvironment"])();
             const now = (yield this.utilService.getServerTime()).date;
             return new Promise((resolve, reject) => {
-                this.store.dispatch(new _store_actions__WEBPACK_IMPORTED_MODULE_9__["purchaseAction"].StartTransaction({
+                this.store.dispatch(new _store_actions__WEBPACK_IMPORTED_MODULE_8__["purchaseAction"].StartTransaction({
                     expires: moment__WEBPACK_IMPORTED_MODULE_4__(now).add(environment.PURCHASE_TRANSACTION_TIME, 'minutes').toDate(),
                     seller: { typeOf: params.seller.typeOf, id: params.seller.id },
                     object: {},
@@ -6691,8 +6639,8 @@ let PurchaseService = class PurchaseService {
                             ]
                         }
                 }));
-                const success = this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_9__["purchaseAction"].ActionTypes.StartTransactionSuccess), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["tap"])(() => { resolve(); }));
-                const fail = this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_9__["purchaseAction"].ActionTypes.StartTransactionFail), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["tap"])(() => { this.error.subscribe((error) => { reject(error); }).unsubscribe(); }));
+                const success = this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_8__["purchaseAction"].ActionTypes.StartTransactionSuccess), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["tap"])(() => { resolve(); }));
+                const fail = this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_8__["purchaseAction"].ActionTypes.StartTransactionFail), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["tap"])(() => { this.error.subscribe((error) => { reject(error); }).unsubscribe(); }));
                 Object(rxjs__WEBPACK_IMPORTED_MODULE_5__["race"])(success, fail).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["take"])(1)).subscribe();
             });
         });
@@ -6709,9 +6657,9 @@ let PurchaseService = class PurchaseService {
                     resolve();
                     return;
                 }
-                this.store.dispatch(new _store_actions__WEBPACK_IMPORTED_MODULE_9__["purchaseAction"].CancelTransaction({ transaction }));
-                const success = this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_9__["purchaseAction"].ActionTypes.CancelTransactionSuccess), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["tap"])(() => { resolve(); }));
-                const fail = this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_9__["purchaseAction"].ActionTypes.CancelTransactionFail), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["tap"])(() => { resolve(); }));
+                this.store.dispatch(new _store_actions__WEBPACK_IMPORTED_MODULE_8__["purchaseAction"].CancelTransaction({ transaction }));
+                const success = this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_8__["purchaseAction"].ActionTypes.CancelTransactionSuccess), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["tap"])(() => { resolve(); }));
+                const fail = this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_8__["purchaseAction"].ActionTypes.CancelTransactionFail), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["tap"])(() => { resolve(); }));
                 Object(rxjs__WEBPACK_IMPORTED_MODULE_5__["race"])(success, fail).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["take"])(1)).subscribe();
             });
         });
@@ -6721,9 +6669,9 @@ let PurchaseService = class PurchaseService {
      */
     getScreen(params) {
         return new Promise((resolve, reject) => {
-            this.store.dispatch(new _store_actions__WEBPACK_IMPORTED_MODULE_9__["purchaseAction"].GetScreen(params));
-            const success = this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_9__["purchaseAction"].ActionTypes.GetScreenSuccess), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["tap"])(() => { resolve(); }));
-            const fail = this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_9__["purchaseAction"].ActionTypes.GetScreenFail), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["tap"])(() => { this.error.subscribe((error) => { reject(error); }).unsubscribe(); }));
+            this.store.dispatch(new _store_actions__WEBPACK_IMPORTED_MODULE_8__["purchaseAction"].GetScreen(params));
+            const success = this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_8__["purchaseAction"].ActionTypes.GetScreenSuccess), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["tap"])(() => { resolve(); }));
+            const fail = this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_8__["purchaseAction"].ActionTypes.GetScreenFail), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["tap"])(() => { this.error.subscribe((error) => { reject(error); }).unsubscribe(); }));
             Object(rxjs__WEBPACK_IMPORTED_MODULE_5__["race"])(success, fail).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["take"])(1)).subscribe();
         });
     }
@@ -6739,9 +6687,9 @@ let PurchaseService = class PurchaseService {
                     return;
                 }
                 const screeningEvent = purchase.screeningEvent;
-                this.store.dispatch(new _store_actions__WEBPACK_IMPORTED_MODULE_9__["purchaseAction"].GetScreeningEventOffers({ screeningEvent }));
-                const success = this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_9__["purchaseAction"].ActionTypes.GetScreeningEventOffersSuccess), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["tap"])(() => { resolve(); }));
-                const fail = this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_9__["purchaseAction"].ActionTypes.GetScreeningEventOffersFail), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["tap"])(() => { this.error.subscribe((error) => { reject(error); }).unsubscribe(); }));
+                this.store.dispatch(new _store_actions__WEBPACK_IMPORTED_MODULE_8__["purchaseAction"].GetScreeningEventOffers({ screeningEvent }));
+                const success = this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_8__["purchaseAction"].ActionTypes.GetScreeningEventOffersSuccess), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["tap"])(() => { resolve(); }));
+                const fail = this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_8__["purchaseAction"].ActionTypes.GetScreeningEventOffersFail), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["tap"])(() => { this.error.subscribe((error) => { reject(error); }).unsubscribe(); }));
                 Object(rxjs__WEBPACK_IMPORTED_MODULE_5__["race"])(success, fail).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["take"])(1)).subscribe();
             });
         });
@@ -6750,13 +6698,13 @@ let PurchaseService = class PurchaseService {
      * 座席選択
      */
     selectSeats(seats) {
-        this.store.dispatch(new _store_actions__WEBPACK_IMPORTED_MODULE_9__["purchaseAction"].SelectSeats({ seats }));
+        this.store.dispatch(new _store_actions__WEBPACK_IMPORTED_MODULE_8__["purchaseAction"].SelectSeats({ seats }));
     }
     /**
      * 座席選択解除
      */
     cancelSeats(seats) {
-        this.store.dispatch(new _store_actions__WEBPACK_IMPORTED_MODULE_9__["purchaseAction"].CancelSeats({ seats }));
+        this.store.dispatch(new _store_actions__WEBPACK_IMPORTED_MODULE_8__["purchaseAction"].CancelSeats({ seats }));
     }
     /**
      * 券種一覧取得
@@ -6770,9 +6718,9 @@ let PurchaseService = class PurchaseService {
                     reject();
                     return;
                 }
-                this.store.dispatch(new _store_actions__WEBPACK_IMPORTED_MODULE_9__["purchaseAction"].GetTicketList({ screeningEvent, seller }));
-                const success = this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_9__["purchaseAction"].ActionTypes.GetTicketListSuccess), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["tap"])(() => { resolve(); }));
-                const fail = this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_9__["purchaseAction"].ActionTypes.GetTicketListFail), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["tap"])(() => { this.error.subscribe((error) => { reject(error); }).unsubscribe(); }));
+                this.store.dispatch(new _store_actions__WEBPACK_IMPORTED_MODULE_8__["purchaseAction"].GetTicketList({ screeningEvent, seller }));
+                const success = this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_8__["purchaseAction"].ActionTypes.GetTicketListSuccess), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["tap"])(() => { resolve(); }));
+                const fail = this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_8__["purchaseAction"].ActionTypes.GetTicketListFail), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["tap"])(() => { this.error.subscribe((error) => { reject(error); }).unsubscribe(); }));
                 Object(rxjs__WEBPACK_IMPORTED_MODULE_5__["race"])(success, fail).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["take"])(1)).subscribe();
             });
         });
@@ -6781,7 +6729,7 @@ let PurchaseService = class PurchaseService {
      * チケット選択
     */
     selectTickets(reservations) {
-        this.store.dispatch(new _store_actions__WEBPACK_IMPORTED_MODULE_9__["purchaseAction"].SelectTickets({ reservations }));
+        this.store.dispatch(new _store_actions__WEBPACK_IMPORTED_MODULE_8__["purchaseAction"].SelectTickets({ reservations }));
     }
     /**
      * 座席仮予約
@@ -6797,22 +6745,22 @@ let PurchaseService = class PurchaseService {
                     return;
                 }
                 const reservations = purchase.reservations.map((reservation) => {
-                    return new _models__WEBPACK_IMPORTED_MODULE_8__["Reservation"]({
+                    return {
                         seat: reservation.seat,
                         ticket: (reservation.ticket === undefined)
                             ? { ticketOffer: purchase.screeningEventTicketOffers[0] }
                             : reservation.ticket
-                    });
+                    };
                 });
                 const authorizeSeatReservation = purchase.authorizeSeatReservation;
-                this.store.dispatch(new _store_actions__WEBPACK_IMPORTED_MODULE_9__["purchaseAction"].TemporaryReservation({
+                this.store.dispatch(new _store_actions__WEBPACK_IMPORTED_MODULE_8__["purchaseAction"].TemporaryReservation({
                     transaction,
                     screeningEvent,
                     reservations,
                     authorizeSeatReservation
                 }));
-                const success = this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_9__["purchaseAction"].ActionTypes.TemporaryReservationSuccess), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["tap"])(() => { resolve(); }));
-                const fail = this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_9__["purchaseAction"].ActionTypes.TemporaryReservationFail), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["tap"])(() => { this.error.subscribe((error) => { reject(error); }).unsubscribe(); }));
+                const success = this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_8__["purchaseAction"].ActionTypes.TemporaryReservationSuccess), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["tap"])(() => { resolve(); }));
+                const fail = this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_8__["purchaseAction"].ActionTypes.TemporaryReservationFail), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["tap"])(() => { this.error.subscribe((error) => { reject(error); }).unsubscribe(); }));
                 Object(rxjs__WEBPACK_IMPORTED_MODULE_5__["race"])(success, fail).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["take"])(1)).subscribe();
             });
         });
@@ -6831,14 +6779,14 @@ let PurchaseService = class PurchaseService {
                 const transaction = purchase.transaction;
                 const screeningEvent = purchase.screeningEvent;
                 const screeningEventOffers = purchase.screeningEventOffers;
-                this.store.dispatch(new _store_actions__WEBPACK_IMPORTED_MODULE_9__["purchaseAction"].TemporaryReservationFreeSeat({
+                this.store.dispatch(new _store_actions__WEBPACK_IMPORTED_MODULE_8__["purchaseAction"].TemporaryReservationFreeSeat({
                     transaction,
                     screeningEvent,
                     screeningEventOffers,
                     reservationTickets
                 }));
-                const success = this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_9__["purchaseAction"].ActionTypes.TemporaryReservationFreeSeatSuccess), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["tap"])(() => { resolve(); }));
-                const fail = this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_9__["purchaseAction"].ActionTypes.TemporaryReservationFreeSeatFail), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["tap"])(() => { this.error.subscribe((error) => { reject(error); }).unsubscribe(); }));
+                const success = this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_8__["purchaseAction"].ActionTypes.TemporaryReservationFreeSeatSuccess), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["tap"])(() => { resolve(); }));
+                const fail = this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_8__["purchaseAction"].ActionTypes.TemporaryReservationFreeSeatFail), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["tap"])(() => { this.error.subscribe((error) => { reject(error); }).unsubscribe(); }));
                 Object(rxjs__WEBPACK_IMPORTED_MODULE_5__["race"])(success, fail).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["take"])(1)).subscribe();
             });
         });
@@ -6849,9 +6797,9 @@ let PurchaseService = class PurchaseService {
     cancelTemporaryReservations(authorizeSeatReservations) {
         return __awaiter(this, void 0, void 0, function* () {
             return new Promise((resolve, reject) => {
-                this.store.dispatch(new _store_actions__WEBPACK_IMPORTED_MODULE_9__["purchaseAction"].CancelTemporaryReservations({ authorizeSeatReservations }));
-                const success = this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_9__["purchaseAction"].ActionTypes.CancelTemporaryReservationsSuccess), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["tap"])(() => { resolve(); }));
-                const fail = this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_9__["purchaseAction"].ActionTypes.CancelTemporaryReservationsFail), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["tap"])(() => { this.error.subscribe((error) => { reject(error); }).unsubscribe(); }));
+                this.store.dispatch(new _store_actions__WEBPACK_IMPORTED_MODULE_8__["purchaseAction"].CancelTemporaryReservations({ authorizeSeatReservations }));
+                const success = this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_8__["purchaseAction"].ActionTypes.CancelTemporaryReservationsSuccess), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["tap"])(() => { resolve(); }));
+                const fail = this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_8__["purchaseAction"].ActionTypes.CancelTemporaryReservationsFail), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["tap"])(() => { this.error.subscribe((error) => { reject(error); }).unsubscribe(); }));
                 Object(rxjs__WEBPACK_IMPORTED_MODULE_5__["race"])(success, fail).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["take"])(1)).subscribe();
             });
         });
@@ -6868,9 +6816,9 @@ let PurchaseService = class PurchaseService {
                     reject();
                     return;
                 }
-                this.store.dispatch(new _store_actions__WEBPACK_IMPORTED_MODULE_9__["purchaseAction"].RegisterContact({ transaction, contact }));
-                const success = this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_9__["purchaseAction"].ActionTypes.RegisterContactSuccess), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["tap"])(() => { resolve(); }));
-                const fail = this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_9__["purchaseAction"].ActionTypes.RegisterContactFail), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["tap"])(() => { this.error.subscribe((error) => { reject(error); }).unsubscribe(); }));
+                this.store.dispatch(new _store_actions__WEBPACK_IMPORTED_MODULE_8__["purchaseAction"].RegisterContact({ transaction, contact }));
+                const success = this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_8__["purchaseAction"].ActionTypes.RegisterContactSuccess), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["tap"])(() => { resolve(); }));
+                const fail = this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_8__["purchaseAction"].ActionTypes.RegisterContactFail), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["tap"])(() => { this.error.subscribe((error) => { reject(error); }).unsubscribe(); }));
                 Object(rxjs__WEBPACK_IMPORTED_MODULE_5__["race"])(success, fail).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["take"])(1)).subscribe();
             });
         });
@@ -6891,15 +6839,15 @@ let PurchaseService = class PurchaseService {
                     reject();
                     return;
                 }
-                this.store.dispatch(new _store_actions__WEBPACK_IMPORTED_MODULE_9__["purchaseAction"].AuthorizeMovieTicket({
+                this.store.dispatch(new _store_actions__WEBPACK_IMPORTED_MODULE_8__["purchaseAction"].AuthorizeMovieTicket({
                     transaction: purchase.transaction,
                     authorizeMovieTicketPayments: purchase.authorizeMovieTicketPayments,
                     authorizeSeatReservations: purchase.authorizeSeatReservations,
                     pendingMovieTickets: purchase.pendingMovieTickets,
                     seller: params.seller
                 }));
-                const success = this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_9__["purchaseAction"].ActionTypes.AuthorizeMovieTicketSuccess), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["tap"])(() => { resolve(); }));
-                const fail = this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_9__["purchaseAction"].ActionTypes.AuthorizeMovieTicketFail), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["tap"])(() => { this.error.subscribe((error) => { reject(error); }).unsubscribe(); }));
+                const success = this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_8__["purchaseAction"].ActionTypes.AuthorizeMovieTicketSuccess), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["tap"])(() => { resolve(); }));
+                const fail = this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_8__["purchaseAction"].ActionTypes.AuthorizeMovieTicketFail), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["tap"])(() => { this.error.subscribe((error) => { reject(error); }).unsubscribe(); }));
                 Object(rxjs__WEBPACK_IMPORTED_MODULE_5__["race"])(success, fail).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["take"])(1)).subscribe();
             });
         });
@@ -6917,7 +6865,7 @@ let PurchaseService = class PurchaseService {
                     reject();
                     return;
                 }
-                this.store.dispatch(new _store_actions__WEBPACK_IMPORTED_MODULE_9__["purchaseAction"].CheckMovieTicket({
+                this.store.dispatch(new _store_actions__WEBPACK_IMPORTED_MODULE_8__["purchaseAction"].CheckMovieTicket({
                     transaction: purchase.transaction,
                     movieTickets: [{
                             typeOf: _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_1__["factory"].paymentMethodType.MovieTicket,
@@ -6927,8 +6875,8 @@ let PurchaseService = class PurchaseService {
                         }],
                     screeningEvent: purchase.screeningEvent
                 }));
-                const success = this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_9__["purchaseAction"].ActionTypes.CheckMovieTicketSuccess), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["tap"])(() => { resolve(); }));
-                const fail = this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_9__["purchaseAction"].ActionTypes.CheckMovieTicketFail), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["tap"])(() => { this.error.subscribe((error) => { reject(error); }).unsubscribe(); }));
+                const success = this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_8__["purchaseAction"].ActionTypes.CheckMovieTicketSuccess), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["tap"])(() => { resolve(); }));
+                const fail = this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_8__["purchaseAction"].ActionTypes.CheckMovieTicketFail), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["tap"])(() => { this.error.subscribe((error) => { reject(error); }).unsubscribe(); }));
                 Object(rxjs__WEBPACK_IMPORTED_MODULE_5__["race"])(success, fail).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["take"])(1)).subscribe();
             });
         });
@@ -6948,11 +6896,11 @@ let PurchaseService = class PurchaseService {
                 }
                 const transaction = purchase.transaction;
                 const authorizeSeatReservations = purchase.authorizeSeatReservations;
-                this.store.dispatch(new _store_actions__WEBPACK_IMPORTED_MODULE_9__["purchaseAction"].EndTransaction({
+                this.store.dispatch(new _store_actions__WEBPACK_IMPORTED_MODULE_8__["purchaseAction"].EndTransaction({
                     transaction, authorizeSeatReservations, seller, language
                 }));
-                const success = this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_9__["purchaseAction"].ActionTypes.EndTransactionSuccess), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["tap"])(() => { resolve(); }));
-                const fail = this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_9__["purchaseAction"].ActionTypes.EndTransactionFail), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["tap"])(() => { this.error.subscribe((error) => { reject(error); }).unsubscribe(); }));
+                const success = this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_8__["purchaseAction"].ActionTypes.EndTransactionSuccess), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["tap"])(() => { resolve(); }));
+                const fail = this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_8__["purchaseAction"].ActionTypes.EndTransactionFail), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["tap"])(() => { this.error.subscribe((error) => { reject(error); }).unsubscribe(); }));
                 Object(rxjs__WEBPACK_IMPORTED_MODULE_5__["race"])(success, fail).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["take"])(1)).subscribe();
             });
         });
@@ -6983,15 +6931,15 @@ let PurchaseService = class PurchaseService {
                     additionalProperty.push({ name: 'depositAmount', value: String(depositAmount) });
                     additionalProperty.push({ name: 'change', value: String(depositAmount - amount) });
                 }
-                this.store.dispatch(new _store_actions__WEBPACK_IMPORTED_MODULE_9__["purchaseAction"].AuthorizeAnyPayment({
+                this.store.dispatch(new _store_actions__WEBPACK_IMPORTED_MODULE_8__["purchaseAction"].AuthorizeAnyPayment({
                     transaction: transaction,
                     typeOf: purchase.paymentMethod.paymentMethodType,
                     name: purchase.paymentMethod.paymentMethodName,
                     amount,
                     additionalProperty
                 }));
-                const success = this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_9__["purchaseAction"].ActionTypes.AuthorizeAnyPaymentSuccess), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["tap"])(() => { resolve(); }));
-                const fail = this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_9__["purchaseAction"].ActionTypes.AuthorizeAnyPaymentFail), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["tap"])(() => { this.error.subscribe((error) => { reject(error); }).unsubscribe(); }));
+                const success = this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_8__["purchaseAction"].ActionTypes.AuthorizeAnyPaymentSuccess), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["tap"])(() => { resolve(); }));
+                const fail = this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_8__["purchaseAction"].ActionTypes.AuthorizeAnyPaymentFail), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["tap"])(() => { this.error.subscribe((error) => { reject(error); }).unsubscribe(); }));
                 Object(rxjs__WEBPACK_IMPORTED_MODULE_5__["race"])(success, fail).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["take"])(1)).subscribe();
             });
         });
@@ -7000,13 +6948,13 @@ let PurchaseService = class PurchaseService {
      * 決済方法取得
      */
     selectPaymentMethodType(params) {
-        this.store.dispatch(new _store_actions__WEBPACK_IMPORTED_MODULE_9__["purchaseAction"].SelectPaymentMethodType(params));
+        this.store.dispatch(new _store_actions__WEBPACK_IMPORTED_MODULE_8__["purchaseAction"].SelectPaymentMethodType(params));
     }
 };
 PurchaseService.ctorParameters = () => [
     { type: _ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["Actions"] },
     { type: _ngrx_store__WEBPACK_IMPORTED_MODULE_3__["Store"] },
-    { type: _util_service__WEBPACK_IMPORTED_MODULE_11__["UtilService"] }
+    { type: _util_service__WEBPACK_IMPORTED_MODULE_10__["UtilService"] }
 ];
 PurchaseService = __decorate([
     Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"])({
@@ -7014,7 +6962,7 @@ PurchaseService = __decorate([
     }),
     __metadata("design:paramtypes", [_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["Actions"],
         _ngrx_store__WEBPACK_IMPORTED_MODULE_3__["Store"],
-        _util_service__WEBPACK_IMPORTED_MODULE_11__["UtilService"]])
+        _util_service__WEBPACK_IMPORTED_MODULE_10__["UtilService"]])
 ], PurchaseService);
 
 
@@ -9732,7 +9680,7 @@ let OrderEffects = class OrderEffects {
                     if (environment.PURCHASE_COMPLETE_MAIL_CUSTOM) {
                         // メールをカスタマイズ
                         const view = yield this.utilService.getText(`${Object(_functions__WEBPACK_IMPORTED_MODULE_7__["getProject"])().storageUrl}/ejs/mail/return/${payload.language}.ejs`);
-                        const template = yield window.ejs.render(view, { moment: moment__WEBPACK_IMPORTED_MODULE_4__, formatTelephone: _functions__WEBPACK_IMPORTED_MODULE_7__["formatTelephone"], getTicketPrice: _functions__WEBPACK_IMPORTED_MODULE_7__["getTicketPrice"] }, { async: true });
+                        const template = yield window.ejs.render(view, { moment: moment__WEBPACK_IMPORTED_MODULE_4__, formatTelephone: _functions__WEBPACK_IMPORTED_MODULE_7__["formatTelephone"], getItemPrice: _functions__WEBPACK_IMPORTED_MODULE_7__["getItemPrice"] }, { async: true });
                         email.template = template;
                     }
                     yield this.cinerino.transaction.returnOrder.confirm({
@@ -10467,7 +10415,7 @@ let PurchaseEffects = class PurchaseEffects {
                     params.email.template = yield window.ejs.render(view, {
                         authorizeSeatReservations: Object(_functions__WEBPACK_IMPORTED_MODULE_8__["authorizeSeatReservation2Event"])({ authorizeSeatReservations }),
                         seller,
-                        moment: moment__WEBPACK_IMPORTED_MODULE_5__, formatTelephone: _functions__WEBPACK_IMPORTED_MODULE_8__["formatTelephone"], getTicketPrice: _functions__WEBPACK_IMPORTED_MODULE_8__["getTicketPrice"]
+                        moment: moment__WEBPACK_IMPORTED_MODULE_5__, formatTelephone: _functions__WEBPACK_IMPORTED_MODULE_8__["formatTelephone"], getItemPrice: _functions__WEBPACK_IMPORTED_MODULE_8__["getItemPrice"], getTicketPrice: _functions__WEBPACK_IMPORTED_MODULE_8__["getTicketPrice"]
                     }, { async: true });
                 }
                 const result = yield this.cinerinoService.transaction.placeOrder.confirm(params);
@@ -11022,12 +10970,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @cinerino/api-javascript-client */ "../../node_modules/@cinerino/api-javascript-client/lib/index.js");
 /* harmony import */ var _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _functions__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../functions */ "./app/functions/index.ts");
-/* harmony import */ var _models__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../models */ "./app/models/index.ts");
-/* harmony import */ var _actions__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../actions */ "./app/store/actions/index.ts");
+/* harmony import */ var _actions__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../actions */ "./app/store/actions/index.ts");
 var __importDefault = (undefined && undefined.__importDefault) || function (mod) {
   return (mod && mod.__esModule) ? mod : { "default": mod };
 };
-
 
 
 
@@ -11051,7 +10997,7 @@ const purchaseInitialState = {
  */
 function reducer(state, action) {
     switch (action.type) {
-        case _actions__WEBPACK_IMPORTED_MODULE_3__["purchaseAction"].ActionTypes.Delete: {
+        case _actions__WEBPACK_IMPORTED_MODULE_2__["purchaseAction"].ActionTypes.Delete: {
             state.purchaseData.reservations = [];
             state.purchaseData.screeningEvent = undefined;
             state.purchaseData.screeningEventTicketOffers = [];
@@ -11068,7 +11014,7 @@ function reducer(state, action) {
             state.purchaseData.authorizeAnyPayments = [];
             return Object.assign({}, state);
         }
-        case _actions__WEBPACK_IMPORTED_MODULE_3__["purchaseAction"].ActionTypes.UnsettledDelete: {
+        case _actions__WEBPACK_IMPORTED_MODULE_2__["purchaseAction"].ActionTypes.UnsettledDelete: {
             state.purchaseData.reservations = [];
             state.purchaseData.screeningEvent = undefined;
             state.purchaseData.screeningEventTicketOffers = [];
@@ -11077,20 +11023,20 @@ function reducer(state, action) {
             state.purchaseData.isUsedMovieTicket = false;
             return Object.assign({}, state);
         }
-        case _actions__WEBPACK_IMPORTED_MODULE_3__["purchaseAction"].ActionTypes.SelectScheduleDate: {
+        case _actions__WEBPACK_IMPORTED_MODULE_2__["purchaseAction"].ActionTypes.SelectScheduleDate: {
             const scheduleDate = action.payload.scheduleDate;
             state.purchaseData.scheduleDate = scheduleDate;
             return Object.assign({}, state, { loading: true, process: '', error: null });
         }
-        case _actions__WEBPACK_IMPORTED_MODULE_3__["purchaseAction"].ActionTypes.SelectSchedule: {
+        case _actions__WEBPACK_IMPORTED_MODULE_2__["purchaseAction"].ActionTypes.SelectSchedule: {
             const screeningEvent = action.payload.screeningEvent;
             state.purchaseData.screeningEvent = screeningEvent;
             return Object.assign({}, state, { loading: false, process: '' });
         }
-        case _actions__WEBPACK_IMPORTED_MODULE_3__["purchaseAction"].ActionTypes.StartTransaction: {
+        case _actions__WEBPACK_IMPORTED_MODULE_2__["purchaseAction"].ActionTypes.StartTransaction: {
             return Object.assign({}, state, { loading: true, process: 'purchaseAction.StartTransaction' });
         }
-        case _actions__WEBPACK_IMPORTED_MODULE_3__["purchaseAction"].ActionTypes.StartTransactionSuccess: {
+        case _actions__WEBPACK_IMPORTED_MODULE_2__["purchaseAction"].ActionTypes.StartTransactionSuccess: {
             state.purchaseData.transaction = action.payload.transaction;
             state.purchaseData.authorizeAnyPayments = [];
             state.purchaseData.authorizeMovieTicketPayments = [];
@@ -11099,14 +11045,14 @@ function reducer(state, action) {
             state.purchaseData.checkMovieTicketActions = [];
             return Object.assign({}, state, { loading: false, process: '', error: null });
         }
-        case _actions__WEBPACK_IMPORTED_MODULE_3__["purchaseAction"].ActionTypes.StartTransactionFail: {
+        case _actions__WEBPACK_IMPORTED_MODULE_2__["purchaseAction"].ActionTypes.StartTransactionFail: {
             const error = action.payload.error;
             return Object.assign({}, state, { loading: false, process: '', error: JSON.stringify(error) });
         }
-        case _actions__WEBPACK_IMPORTED_MODULE_3__["purchaseAction"].ActionTypes.CancelTransaction: {
+        case _actions__WEBPACK_IMPORTED_MODULE_2__["purchaseAction"].ActionTypes.CancelTransaction: {
             return Object.assign({}, state, { loading: true, process: 'purchaseAction.CancelTransaction' });
         }
-        case _actions__WEBPACK_IMPORTED_MODULE_3__["purchaseAction"].ActionTypes.CancelTransactionSuccess: {
+        case _actions__WEBPACK_IMPORTED_MODULE_2__["purchaseAction"].ActionTypes.CancelTransactionSuccess: {
             state.purchaseData.transaction = undefined;
             state.purchaseData.authorizeAnyPayments = [];
             state.purchaseData.authorizeMovieTicketPayments = [];
@@ -11115,7 +11061,7 @@ function reducer(state, action) {
             state.purchaseData.checkMovieTicketActions = [];
             return Object.assign({}, state, { loading: false, process: '', error: null });
         }
-        case _actions__WEBPACK_IMPORTED_MODULE_3__["purchaseAction"].ActionTypes.CancelTransactionFail: {
+        case _actions__WEBPACK_IMPORTED_MODULE_2__["purchaseAction"].ActionTypes.CancelTransactionFail: {
             const error = action.payload.error;
             state.purchaseData.transaction = undefined;
             state.purchaseData.authorizeAnyPayments = [];
@@ -11125,44 +11071,44 @@ function reducer(state, action) {
             state.purchaseData.checkMovieTicketActions = [];
             return Object.assign({}, state, { loading: false, process: '', error: JSON.stringify(error) });
         }
-        case _actions__WEBPACK_IMPORTED_MODULE_3__["purchaseAction"].ActionTypes.GetScreen: {
+        case _actions__WEBPACK_IMPORTED_MODULE_2__["purchaseAction"].ActionTypes.GetScreen: {
             state.purchaseData.screeningEventOffers = [];
             state.purchaseData.screenData = undefined;
             return Object.assign({}, state, { loading: true, process: 'purchaseAction.GetScreen' });
         }
-        case _actions__WEBPACK_IMPORTED_MODULE_3__["purchaseAction"].ActionTypes.GetScreenSuccess: {
+        case _actions__WEBPACK_IMPORTED_MODULE_2__["purchaseAction"].ActionTypes.GetScreenSuccess: {
             const screeningEventOffers = action.payload.screeningEventOffers;
             const screenData = action.payload.screenData;
             state.purchaseData.screeningEventOffers = screeningEventOffers;
             state.purchaseData.screenData = screenData;
             return Object.assign({}, state, { loading: false, process: '', error: null });
         }
-        case _actions__WEBPACK_IMPORTED_MODULE_3__["purchaseAction"].ActionTypes.GetScreenFail: {
+        case _actions__WEBPACK_IMPORTED_MODULE_2__["purchaseAction"].ActionTypes.GetScreenFail: {
             const error = action.payload.error;
             return Object.assign({}, state, { loading: false, process: '', error: JSON.stringify(error) });
         }
-        case _actions__WEBPACK_IMPORTED_MODULE_3__["purchaseAction"].ActionTypes.GetScreeningEventOffers: {
+        case _actions__WEBPACK_IMPORTED_MODULE_2__["purchaseAction"].ActionTypes.GetScreeningEventOffers: {
             state.purchaseData.screeningEventOffers = [];
             return Object.assign({}, state, { loading: true, process: 'purchaseAction.GetScreeningEventOffers' });
         }
-        case _actions__WEBPACK_IMPORTED_MODULE_3__["purchaseAction"].ActionTypes.GetScreeningEventOffersSuccess: {
+        case _actions__WEBPACK_IMPORTED_MODULE_2__["purchaseAction"].ActionTypes.GetScreeningEventOffersSuccess: {
             const screeningEventOffers = action.payload.screeningEventOffers;
             state.purchaseData.screeningEventOffers = screeningEventOffers;
             return Object.assign({}, state, { loading: false, process: '', error: null });
         }
-        case _actions__WEBPACK_IMPORTED_MODULE_3__["purchaseAction"].ActionTypes.GetScreeningEventOffersFail: {
+        case _actions__WEBPACK_IMPORTED_MODULE_2__["purchaseAction"].ActionTypes.GetScreeningEventOffersFail: {
             const error = action.payload.error;
             return Object.assign({}, state, { loading: false, process: '', error: JSON.stringify(error) });
         }
-        case _actions__WEBPACK_IMPORTED_MODULE_3__["purchaseAction"].ActionTypes.SelectSeats: {
+        case _actions__WEBPACK_IMPORTED_MODULE_2__["purchaseAction"].ActionTypes.SelectSeats: {
             const reservations = state.purchaseData.reservations;
             action.payload.seats.forEach((seat) => {
-                reservations.push(new _models__WEBPACK_IMPORTED_MODULE_2__["Reservation"]({ seat }));
+                reservations.push({ seat });
             });
             state.purchaseData.reservations = reservations;
             return Object.assign({}, state, { loading: false, process: '', error: null });
         }
-        case _actions__WEBPACK_IMPORTED_MODULE_3__["purchaseAction"].ActionTypes.CancelSeats: {
+        case _actions__WEBPACK_IMPORTED_MODULE_2__["purchaseAction"].ActionTypes.CancelSeats: {
             const reservations = [];
             const seats = action.payload.seats;
             state.purchaseData.reservations.forEach((reservation) => {
@@ -11177,10 +11123,10 @@ function reducer(state, action) {
             state.purchaseData.reservations = reservations;
             return Object.assign({}, state, { loading: false, process: '', error: null });
         }
-        case _actions__WEBPACK_IMPORTED_MODULE_3__["purchaseAction"].ActionTypes.GetTicketList: {
+        case _actions__WEBPACK_IMPORTED_MODULE_2__["purchaseAction"].ActionTypes.GetTicketList: {
             return Object.assign({}, state, { loading: true, process: 'purchaseAction.GetTicketList' });
         }
-        case _actions__WEBPACK_IMPORTED_MODULE_3__["purchaseAction"].ActionTypes.GetTicketListSuccess: {
+        case _actions__WEBPACK_IMPORTED_MODULE_2__["purchaseAction"].ActionTypes.GetTicketListSuccess: {
             const screeningEventTicketOffers = action.payload.screeningEventTicketOffers;
             const movieTicketTypeOffers = screeningEventTicketOffers.filter((offer) => {
                 const movieTicketTypeChargeSpecifications = offer.priceSpecification.priceComponent.filter((priceComponent) => {
@@ -11192,11 +11138,11 @@ function reducer(state, action) {
             state.purchaseData.isUsedMovieTicket = (movieTicketTypeOffers.length > 0);
             return Object.assign({}, state, { loading: false, process: '', error: null });
         }
-        case _actions__WEBPACK_IMPORTED_MODULE_3__["purchaseAction"].ActionTypes.GetTicketListFail: {
+        case _actions__WEBPACK_IMPORTED_MODULE_2__["purchaseAction"].ActionTypes.GetTicketListFail: {
             const error = action.payload.error;
             return Object.assign({}, state, { loading: false, process: '', error: JSON.stringify(error) });
         }
-        case _actions__WEBPACK_IMPORTED_MODULE_3__["purchaseAction"].ActionTypes.SelectTickets: {
+        case _actions__WEBPACK_IMPORTED_MODULE_2__["purchaseAction"].ActionTypes.SelectTickets: {
             const reservations = [];
             const selectedReservations = action.payload.reservations;
             state.purchaseData.reservations.forEach((reservation) => {
@@ -11211,10 +11157,10 @@ function reducer(state, action) {
             state.purchaseData.reservations = reservations;
             return Object.assign({}, state);
         }
-        case _actions__WEBPACK_IMPORTED_MODULE_3__["purchaseAction"].ActionTypes.TemporaryReservation: {
+        case _actions__WEBPACK_IMPORTED_MODULE_2__["purchaseAction"].ActionTypes.TemporaryReservation: {
             return Object.assign({}, state, { loading: true, process: 'purchaseAction.TemporaryReservation' });
         }
-        case _actions__WEBPACK_IMPORTED_MODULE_3__["purchaseAction"].ActionTypes.TemporaryReservationSuccess: {
+        case _actions__WEBPACK_IMPORTED_MODULE_2__["purchaseAction"].ActionTypes.TemporaryReservationSuccess: {
             const addAuthorizeSeatReservation = action.payload.addAuthorizeSeatReservation;
             const removeAuthorizeSeatReservation = action.payload.removeAuthorizeSeatReservation;
             const reservations = state.purchaseData.reservations;
@@ -11234,7 +11180,9 @@ function reducer(state, action) {
             // 追加
             state.purchaseData.authorizeSeatReservations.push(addAuthorizeSeatReservation);
             const movieTicketReservations = reservations.filter(r => r.ticket !== undefined && r.ticket.movieTicket !== undefined);
-            if (movieTicketReservations.length > 0) {
+            if (movieTicketReservations.length > 0
+                && addAuthorizeSeatReservation.result !== undefined
+                && addAuthorizeSeatReservation.result.responseBody.object.reservations !== undefined) {
                 const pendingReservations = addAuthorizeSeatReservation.result.responseBody.object.reservations;
                 state.purchaseData.pendingMovieTickets.push({
                     id: addAuthorizeSeatReservation.id,
@@ -11262,14 +11210,14 @@ function reducer(state, action) {
             }
             return Object.assign({}, state, { loading: false, process: '', error: null });
         }
-        case _actions__WEBPACK_IMPORTED_MODULE_3__["purchaseAction"].ActionTypes.TemporaryReservationFail: {
+        case _actions__WEBPACK_IMPORTED_MODULE_2__["purchaseAction"].ActionTypes.TemporaryReservationFail: {
             const error = action.payload.error;
             return Object.assign({}, state, { loading: false, process: '', error: JSON.stringify(error) });
         }
-        case _actions__WEBPACK_IMPORTED_MODULE_3__["purchaseAction"].ActionTypes.TemporaryReservationFreeSeat: {
+        case _actions__WEBPACK_IMPORTED_MODULE_2__["purchaseAction"].ActionTypes.TemporaryReservationFreeSeat: {
             return Object.assign({}, state, { loading: true, process: 'purchaseAction.TemporaryReservationFreeSeat' });
         }
-        case _actions__WEBPACK_IMPORTED_MODULE_3__["purchaseAction"].ActionTypes.TemporaryReservationFreeSeatSuccess: {
+        case _actions__WEBPACK_IMPORTED_MODULE_2__["purchaseAction"].ActionTypes.TemporaryReservationFreeSeatSuccess: {
             const addAuthorizeSeatReservation = action.payload.addAuthorizeSeatReservation;
             state.purchaseData.authorizeSeatReservation = addAuthorizeSeatReservation;
             state.purchaseData.screeningEventOffers = [];
@@ -11277,14 +11225,14 @@ function reducer(state, action) {
             state.purchaseData.authorizeSeatReservations.push(addAuthorizeSeatReservation);
             return Object.assign({}, state, { loading: false, process: '', error: null });
         }
-        case _actions__WEBPACK_IMPORTED_MODULE_3__["purchaseAction"].ActionTypes.TemporaryReservationFreeSeatFail: {
+        case _actions__WEBPACK_IMPORTED_MODULE_2__["purchaseAction"].ActionTypes.TemporaryReservationFreeSeatFail: {
             const error = action.payload.error;
             return Object.assign({}, state, { loading: false, process: '', error: JSON.stringify(error) });
         }
-        case _actions__WEBPACK_IMPORTED_MODULE_3__["purchaseAction"].ActionTypes.CancelTemporaryReservations: {
+        case _actions__WEBPACK_IMPORTED_MODULE_2__["purchaseAction"].ActionTypes.CancelTemporaryReservations: {
             return Object.assign({}, state, { loading: true, process: 'purchaseAction.CancelTemporaryReservations' });
         }
-        case _actions__WEBPACK_IMPORTED_MODULE_3__["purchaseAction"].ActionTypes.CancelTemporaryReservationsSuccess: {
+        case _actions__WEBPACK_IMPORTED_MODULE_2__["purchaseAction"].ActionTypes.CancelTemporaryReservationsSuccess: {
             const authorizeSeatReservations = action.payload.authorizeSeatReservations;
             authorizeSeatReservations.forEach((authorizeSeatReservation) => {
                 const findAuthorizeSeatReservation = state.purchaseData.authorizeSeatReservations.findIndex(target => target.id === authorizeSeatReservation.id);
@@ -11298,53 +11246,53 @@ function reducer(state, action) {
             });
             return Object.assign({}, state, { loading: false, process: '', error: null });
         }
-        case _actions__WEBPACK_IMPORTED_MODULE_3__["purchaseAction"].ActionTypes.CancelTemporaryReservationsFail: {
+        case _actions__WEBPACK_IMPORTED_MODULE_2__["purchaseAction"].ActionTypes.CancelTemporaryReservationsFail: {
             const error = action.payload.error;
             return Object.assign({}, state, { loading: false, process: '', error: JSON.stringify(error) });
         }
-        case _actions__WEBPACK_IMPORTED_MODULE_3__["purchaseAction"].ActionTypes.RegisterContact: {
+        case _actions__WEBPACK_IMPORTED_MODULE_2__["purchaseAction"].ActionTypes.RegisterContact: {
             return Object.assign({}, state, { loading: true, process: 'purchaseAction.RegisterContact' });
         }
-        case _actions__WEBPACK_IMPORTED_MODULE_3__["purchaseAction"].ActionTypes.RegisterContactSuccess: {
+        case _actions__WEBPACK_IMPORTED_MODULE_2__["purchaseAction"].ActionTypes.RegisterContactSuccess: {
             const profile = action.payload.profile;
             state.purchaseData.profile = profile;
             return Object.assign({}, state, { loading: false, process: '', error: null });
         }
-        case _actions__WEBPACK_IMPORTED_MODULE_3__["purchaseAction"].ActionTypes.RegisterContactFail: {
+        case _actions__WEBPACK_IMPORTED_MODULE_2__["purchaseAction"].ActionTypes.RegisterContactFail: {
             const error = action.payload.error;
             return Object.assign({}, state, { loading: false, process: '', error: JSON.stringify(error) });
         }
-        case _actions__WEBPACK_IMPORTED_MODULE_3__["purchaseAction"].ActionTypes.AuthorizeCreditCard: {
+        case _actions__WEBPACK_IMPORTED_MODULE_2__["purchaseAction"].ActionTypes.AuthorizeCreditCard: {
             return Object.assign({}, state, { loading: true, process: 'purchaseAction.AuthorizeCreditCard' });
         }
-        case _actions__WEBPACK_IMPORTED_MODULE_3__["purchaseAction"].ActionTypes.AuthorizeCreditCardSuccess: {
+        case _actions__WEBPACK_IMPORTED_MODULE_2__["purchaseAction"].ActionTypes.AuthorizeCreditCardSuccess: {
             const authorizeCreditCardPayment = action.payload.authorizeCreditCardPayment;
             const orderCount = state.purchaseData.orderCount + 1;
             state.purchaseData.orderCount = orderCount;
             state.purchaseData.authorizeCreditCardPayments.push(authorizeCreditCardPayment);
             return Object.assign({}, state, { loading: false, process: '', error: null });
         }
-        case _actions__WEBPACK_IMPORTED_MODULE_3__["purchaseAction"].ActionTypes.AuthorizeCreditCardFail: {
+        case _actions__WEBPACK_IMPORTED_MODULE_2__["purchaseAction"].ActionTypes.AuthorizeCreditCardFail: {
             const error = action.payload.error;
             const orderCount = state.purchaseData.orderCount + 1;
             state.purchaseData.orderCount = orderCount;
             return Object.assign({}, state, { loading: false, process: '', error: JSON.stringify(error) });
         }
-        case _actions__WEBPACK_IMPORTED_MODULE_3__["purchaseAction"].ActionTypes.AuthorizeMovieTicket: {
+        case _actions__WEBPACK_IMPORTED_MODULE_2__["purchaseAction"].ActionTypes.AuthorizeMovieTicket: {
             return Object.assign({}, state, { loading: true, process: 'purchaseAction.AuthorizeMovieTicket' });
         }
-        case _actions__WEBPACK_IMPORTED_MODULE_3__["purchaseAction"].ActionTypes.AuthorizeMovieTicketSuccess: {
+        case _actions__WEBPACK_IMPORTED_MODULE_2__["purchaseAction"].ActionTypes.AuthorizeMovieTicketSuccess: {
             state.purchaseData.authorizeMovieTicketPayments = action.payload.authorizeMovieTicketPayments;
             return Object.assign({}, state, { loading: false, process: '', error: null });
         }
-        case _actions__WEBPACK_IMPORTED_MODULE_3__["purchaseAction"].ActionTypes.AuthorizeMovieTicketFail: {
+        case _actions__WEBPACK_IMPORTED_MODULE_2__["purchaseAction"].ActionTypes.AuthorizeMovieTicketFail: {
             const error = action.payload.error;
             return Object.assign({}, state, { loading: false, process: '', error: JSON.stringify(error) });
         }
-        case _actions__WEBPACK_IMPORTED_MODULE_3__["purchaseAction"].ActionTypes.CheckMovieTicket: {
+        case _actions__WEBPACK_IMPORTED_MODULE_2__["purchaseAction"].ActionTypes.CheckMovieTicket: {
             return Object.assign({}, state, { loading: true, process: 'purchaseAction.CheckMovieTicket' });
         }
-        case _actions__WEBPACK_IMPORTED_MODULE_3__["purchaseAction"].ActionTypes.CheckMovieTicketSuccess: {
+        case _actions__WEBPACK_IMPORTED_MODULE_2__["purchaseAction"].ActionTypes.CheckMovieTicketSuccess: {
             const checkMovieTicketAction = action.payload.checkMovieTicketAction;
             const checkMovieTicketActions = state.purchaseData.checkMovieTicketActions;
             const sameMovieTicketFilterResults = Object(_functions__WEBPACK_IMPORTED_MODULE_1__["sameMovieTicketFilter"])({
@@ -11357,14 +11305,14 @@ function reducer(state, action) {
             state.purchaseData.checkMovieTicketAction = checkMovieTicketAction;
             return Object.assign({}, state, { loading: false, process: '', error: null });
         }
-        case _actions__WEBPACK_IMPORTED_MODULE_3__["purchaseAction"].ActionTypes.CheckMovieTicketFail: {
+        case _actions__WEBPACK_IMPORTED_MODULE_2__["purchaseAction"].ActionTypes.CheckMovieTicketFail: {
             const error = action.payload.error;
             return Object.assign({}, state, { loading: false, process: '', error: JSON.stringify(error) });
         }
-        case _actions__WEBPACK_IMPORTED_MODULE_3__["purchaseAction"].ActionTypes.EndTransaction: {
+        case _actions__WEBPACK_IMPORTED_MODULE_2__["purchaseAction"].ActionTypes.EndTransaction: {
             return Object.assign({}, state, { loading: true, process: 'purchaseAction.EndTransaction' });
         }
-        case _actions__WEBPACK_IMPORTED_MODULE_3__["purchaseAction"].ActionTypes.EndTransactionSuccess: {
+        case _actions__WEBPACK_IMPORTED_MODULE_2__["purchaseAction"].ActionTypes.EndTransactionSuccess: {
             const order = action.payload.order;
             state.purchaseData = {
                 screeningEventOffers: [],
@@ -11382,23 +11330,23 @@ function reducer(state, action) {
             state.purchaseData.order = order;
             return Object.assign({}, state, { loading: false, process: '', error: null });
         }
-        case _actions__WEBPACK_IMPORTED_MODULE_3__["purchaseAction"].ActionTypes.EndTransactionFail: {
+        case _actions__WEBPACK_IMPORTED_MODULE_2__["purchaseAction"].ActionTypes.EndTransactionFail: {
             const error = action.payload.error;
             return Object.assign({}, state, { loading: false, process: '', error: JSON.stringify(error) });
         }
-        case _actions__WEBPACK_IMPORTED_MODULE_3__["purchaseAction"].ActionTypes.AuthorizeAnyPayment: {
+        case _actions__WEBPACK_IMPORTED_MODULE_2__["purchaseAction"].ActionTypes.AuthorizeAnyPayment: {
             return Object.assign({}, state, { loading: true, process: 'purchaseAction.AuthorizeAnyPayment' });
         }
-        case _actions__WEBPACK_IMPORTED_MODULE_3__["purchaseAction"].ActionTypes.AuthorizeAnyPaymentSuccess: {
+        case _actions__WEBPACK_IMPORTED_MODULE_2__["purchaseAction"].ActionTypes.AuthorizeAnyPaymentSuccess: {
             const authorizeAnyPayment = action.payload.authorizeAnyPayment;
             state.purchaseData.authorizeAnyPayments.push(authorizeAnyPayment);
             return Object.assign({}, state, { loading: false, process: '', error: null });
         }
-        case _actions__WEBPACK_IMPORTED_MODULE_3__["purchaseAction"].ActionTypes.AuthorizeAnyPaymentFail: {
+        case _actions__WEBPACK_IMPORTED_MODULE_2__["purchaseAction"].ActionTypes.AuthorizeAnyPaymentFail: {
             const error = action.payload.error;
             return Object.assign({}, state, { loading: false, process: '', error: JSON.stringify(error) });
         }
-        case _actions__WEBPACK_IMPORTED_MODULE_3__["purchaseAction"].ActionTypes.SelectPaymentMethodType: {
+        case _actions__WEBPACK_IMPORTED_MODULE_2__["purchaseAction"].ActionTypes.SelectPaymentMethodType: {
             const paymentMethod = Object(_functions__WEBPACK_IMPORTED_MODULE_1__["createPaymentMethodFromType"])({
                 paymentMethodType: action.payload.paymentMethodType,
                 paymentMethodName: action.payload.paymentMethodName
@@ -11436,18 +11384,16 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getOrder", function() { return getOrder; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getReservation", function() { return getReservation; });
 /* harmony import */ var _environments_environment__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../environments/environment */ "./environments/environment.ts");
-/* harmony import */ var _models__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../models */ "./app/models/index.ts");
-/* harmony import */ var _admission_reducer__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./admission.reducer */ "./app/store/reducers/admission.reducer.ts");
-/* harmony import */ var _master_reducer__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./master.reducer */ "./app/store/reducers/master.reducer.ts");
-/* harmony import */ var _order_reducer__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./order.reducer */ "./app/store/reducers/order.reducer.ts");
-/* harmony import */ var _purchase_reducer__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./purchase.reducer */ "./app/store/reducers/purchase.reducer.ts");
-/* harmony import */ var _reservation_reducer__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./reservation.reducer */ "./app/store/reducers/reservation.reducer.ts");
-/* harmony import */ var _user_reducer__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./user.reducer */ "./app/store/reducers/user.reducer.ts");
-/* harmony import */ var _util_reducer__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./util.reducer */ "./app/store/reducers/util.reducer.ts");
+/* harmony import */ var _admission_reducer__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./admission.reducer */ "./app/store/reducers/admission.reducer.ts");
+/* harmony import */ var _master_reducer__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./master.reducer */ "./app/store/reducers/master.reducer.ts");
+/* harmony import */ var _order_reducer__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./order.reducer */ "./app/store/reducers/order.reducer.ts");
+/* harmony import */ var _purchase_reducer__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./purchase.reducer */ "./app/store/reducers/purchase.reducer.ts");
+/* harmony import */ var _reservation_reducer__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./reservation.reducer */ "./app/store/reducers/reservation.reducer.ts");
+/* harmony import */ var _user_reducer__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./user.reducer */ "./app/store/reducers/user.reducer.ts");
+/* harmony import */ var _util_reducer__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./util.reducer */ "./app/store/reducers/util.reducer.ts");
 var __importDefault = (undefined && undefined.__importDefault) || function (mod) {
   return (mod && mod.__esModule) ? mod : { "default": mod };
 };
-
 
 
 
@@ -11463,12 +11409,12 @@ const initialState = {
     loading: false,
     process: '',
     error: null,
-    purchaseData: _purchase_reducer__WEBPACK_IMPORTED_MODULE_5__["purchaseInitialState"],
-    userData: _user_reducer__WEBPACK_IMPORTED_MODULE_7__["userInitialState"],
-    masterData: _master_reducer__WEBPACK_IMPORTED_MODULE_3__["masterInitialState"],
-    admissionData: _admission_reducer__WEBPACK_IMPORTED_MODULE_2__["admissionInitialState"],
-    orderData: _order_reducer__WEBPACK_IMPORTED_MODULE_4__["orderInitialState"],
-    reservationData: _reservation_reducer__WEBPACK_IMPORTED_MODULE_6__["reservationInitialState"],
+    purchaseData: _purchase_reducer__WEBPACK_IMPORTED_MODULE_4__["purchaseInitialState"],
+    userData: _user_reducer__WEBPACK_IMPORTED_MODULE_6__["userInitialState"],
+    masterData: _master_reducer__WEBPACK_IMPORTED_MODULE_2__["masterInitialState"],
+    admissionData: _admission_reducer__WEBPACK_IMPORTED_MODULE_1__["admissionInitialState"],
+    orderData: _order_reducer__WEBPACK_IMPORTED_MODULE_3__["orderInitialState"],
+    reservationData: _reservation_reducer__WEBPACK_IMPORTED_MODULE_5__["reservationInitialState"],
 };
 function getInitialState() {
     const environment = Object(_environments_environment__WEBPACK_IMPORTED_MODULE_0__["getEnvironment"])();
@@ -11479,9 +11425,9 @@ function getInitialState() {
     const tmpData = JSON.parse(json);
     const data = Object.assign({}, initialState, tmpData.App);
     data.userData.language = (data.userData.language === undefined)
-        ? _user_reducer__WEBPACK_IMPORTED_MODULE_7__["userInitialState"].language
+        ? _user_reducer__WEBPACK_IMPORTED_MODULE_6__["userInitialState"].language
         : data.userData.language;
-    const reservations = data.purchaseData.reservations.map((reservation) => new _models__WEBPACK_IMPORTED_MODULE_1__["Reservation"](reservation));
+    const reservations = data.purchaseData.reservations.map((reservation) => reservation);
     data.purchaseData.reservations = reservations;
     data.loading = false;
     return data;
@@ -11493,25 +11439,25 @@ function getInitialState() {
  */
 function reducer(state = getInitialState(), action) {
     if (/\[Purchase\]/.test(action.type)) {
-        return _purchase_reducer__WEBPACK_IMPORTED_MODULE_5__["reducer"](state, action);
+        return _purchase_reducer__WEBPACK_IMPORTED_MODULE_4__["reducer"](state, action);
     }
     else if (/\[User\]/.test(action.type)) {
-        return _user_reducer__WEBPACK_IMPORTED_MODULE_7__["reducer"](state, action);
+        return _user_reducer__WEBPACK_IMPORTED_MODULE_6__["reducer"](state, action);
     }
     else if (/\[Master\]/.test(action.type)) {
-        return _master_reducer__WEBPACK_IMPORTED_MODULE_3__["reducer"](state, action);
+        return _master_reducer__WEBPACK_IMPORTED_MODULE_2__["reducer"](state, action);
     }
     else if (/\[Admission\]/.test(action.type)) {
-        return _admission_reducer__WEBPACK_IMPORTED_MODULE_2__["reducer"](state, action);
+        return _admission_reducer__WEBPACK_IMPORTED_MODULE_1__["reducer"](state, action);
     }
     else if (/\[Order\]/.test(action.type)) {
-        return _order_reducer__WEBPACK_IMPORTED_MODULE_4__["reducer"](state, action);
+        return _order_reducer__WEBPACK_IMPORTED_MODULE_3__["reducer"](state, action);
     }
     else if (/\[Reservation\]/.test(action.type)) {
-        return _reservation_reducer__WEBPACK_IMPORTED_MODULE_6__["reducer"](state, action);
+        return _reservation_reducer__WEBPACK_IMPORTED_MODULE_5__["reducer"](state, action);
     }
     else if (/\[Util\]/.test(action.type)) {
-        return _util_reducer__WEBPACK_IMPORTED_MODULE_8__["reducer"](state, action);
+        return _util_reducer__WEBPACK_IMPORTED_MODULE_7__["reducer"](state, action);
     }
     else {
         return state;

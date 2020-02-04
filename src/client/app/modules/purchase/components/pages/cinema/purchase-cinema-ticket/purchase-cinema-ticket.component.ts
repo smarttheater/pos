@@ -6,7 +6,8 @@ import { TranslateService } from '@ngx-translate/core';
 import { BsModalService } from 'ngx-bootstrap';
 import { Observable } from 'rxjs';
 import { getEnvironment } from '../../../../../../../environments/environment';
-import { IReservationTicket, Reservation } from '../../../../../../models/purchase/reservation';
+import { getItemPrice, getItemReferenceQuantityValue } from '../../../../../../functions';
+import { IReservation, IReservationTicket } from '../../../../../../models/purchase/reservation';
 import { PurchaseService, UtilService } from '../../../../../../services';
 import * as reducers from '../../../../../../store/reducers';
 import { MvtkCheckModalComponent } from '../../../../../shared/components/parts/mvtk/check-modal/check-modal.component';
@@ -24,6 +25,8 @@ export class PurchaseCinemaTicketComponent implements OnInit {
     public user: Observable<reducers.IUserState>;
     public isLoading: Observable<boolean>;
     public environment = getEnvironment();
+    public getItemPrice = getItemPrice;
+    public getItemReferenceQuantityValue = getItemReferenceQuantityValue;
 
     constructor(
         private store: Store<reducers.IState>,
@@ -64,21 +67,26 @@ export class PurchaseCinemaTicketComponent implements OnInit {
             return;
         }
         const validResult = reservations.filter((reservation) => {
-            const unitPriceSpecification = reservation.getUnitPriceSpecification();
-            if (unitPriceSpecification === undefined
-                || unitPriceSpecification.typeOf !== factory.chevre.priceSpecificationType.UnitPriceSpecification) {
+            if (reservation.ticket === undefined) {
                 return false;
             }
+            const priceComponent = reservation.ticket.ticketOffer.priceSpecification.priceComponent;
+            const UnitPriceSpecification = factory.chevre.priceSpecificationType.UnitPriceSpecification;
+            const unitPriceSpecifications = priceComponent.filter(p => p.typeOf === UnitPriceSpecification);
             const filterResult = reservations.filter((targetReservation) => {
                 return (reservation.ticket !== undefined
                     && targetReservation.ticket !== undefined
                     && reservation.ticket.ticketOffer.id === targetReservation.ticket.ticketOffer.id);
             });
-            const value = (unitPriceSpecification.referenceQuantity.value === undefined)
-                ? 1
-                : unitPriceSpecification.referenceQuantity.value;
+            const findResult = unitPriceSpecifications.find((unitPriceSpecification) => {
+                const value = (unitPriceSpecification.typeOf === UnitPriceSpecification
+                    && unitPriceSpecification.referenceQuantity.value !== undefined)
+                    ? unitPriceSpecification.referenceQuantity.value : 1;
 
-            return (filterResult.length % value !== 0);
+                return (filterResult.length % value !== 0);
+            });
+
+            return (findResult !== undefined);
         });
         if (validResult.length > 0) {
             this.utilService.openAlert({
@@ -103,7 +111,7 @@ export class PurchaseCinemaTicketComponent implements OnInit {
     /**
      * 券種一覧表示
      */
-    public openTicketList(reservation?: Reservation) {
+    public openTicketList(reservation?: IReservation) {
         this.purchase.subscribe((purchase) => {
             this.modal.show(PurchaseCinemaTicketModalComponent, {
                 class: 'modal-dialog-centered',
@@ -111,6 +119,7 @@ export class PurchaseCinemaTicketComponent implements OnInit {
                     screeningEventTicketOffers: purchase.screeningEventTicketOffers,
                     checkMovieTicketActions: purchase.checkMovieTicketActions,
                     reservations: purchase.reservations,
+                    reservation: reservation,
                     pendingMovieTickets: purchase.pendingMovieTickets,
                     cb: (ticket: IReservationTicket) => {
                         if (reservation === undefined) {

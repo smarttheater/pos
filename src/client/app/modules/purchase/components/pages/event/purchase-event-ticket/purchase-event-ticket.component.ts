@@ -9,8 +9,9 @@ import { Observable } from 'rxjs';
 import { getEnvironment } from '../../../../../../../environments/environment';
 import {
     changeTicketCount,
+    getItemPrice,
+    getItemReferenceQuantityValue,
     getRemainingSeatLength,
-    getTicketPrice,
     IScreeningEventWork,
     screeningEventsToWorkEvents
 } from '../../../../../../functions';
@@ -34,7 +35,8 @@ export class PurchaseEventTicketComponent implements OnInit, OnDestroy {
     public isLoading: Observable<boolean>;
     public screeningWorkEvents: IScreeningEventWork[];
     public moment: typeof moment = moment;
-    public getTicketPrice = getTicketPrice;
+    public getItemPrice = getItemPrice;
+    public getItemReferenceQuantityValue = getItemReferenceQuantityValue;
     public changeTicketCount = changeTicketCount;
     public environment = getEnvironment();
     private updateTimer: any;
@@ -255,7 +257,9 @@ export class PurchaseEventTicketComponent implements OnInit, OnDestroy {
     /**
      * カート削除確認
      */
-    public removeItem(authorizeSeatReservation: factory.action.authorize.offer.seatReservation.IAction<factory.service.webAPI.Identifier>) {
+    public removeItem(
+        authorizeSeatReservation: factory.action.authorize.offer.seatReservation.IAction<factory.service.webAPI.Identifier.Chevre>
+    ) {
         this.utilService.openConfirm({
             title: this.translate.instant('common.confirm'),
             body: this.translate.instant('purchase.event.cart.confirm.cancel'),

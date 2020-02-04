@@ -8,7 +8,6 @@ import * as moment from 'moment';
 import { BsDatepickerContainerComponent, BsDatepickerDirective, BsLocaleService } from 'ngx-bootstrap';
 import { Observable } from 'rxjs';
 import { iOSDatepickerTapBugFix, sleep } from '../../../../../functions';
-import { CsvFormat } from '../../../../../models';
 import { CinerinoService, DownloadService, UtilService } from '../../../../../services';
 import * as reducers from '../../../../../store/reducers';
 
@@ -98,10 +97,10 @@ export class TasksAccountDepositCSVComponent implements OnInit {
             } = {
                 orderDateFrom: (this.conditions.orderDateFrom === undefined)
                     ? undefined
-                    : <any>moment(moment(this.conditions.orderDateFrom).format('YYYYMMDD')).toISOString(),
+                    : moment(moment(this.conditions.orderDateFrom).format('YYYYMMDD')).toDate(),
                 orderDateThrough: (this.conditions.orderDateThrough === undefined)
                     ? undefined
-                    : <any>moment(moment(this.conditions.orderDateThrough).format('YYYYMMDD')).add(1, 'day').toISOString(),
+                    : moment(moment(this.conditions.orderDateThrough).format('YYYYMMDD')).add(1, 'day').toDate(),
                 acceptedOffers: {
                     itemOffered: {
                         ids: [this.conditions.itemId]
@@ -112,8 +111,7 @@ export class TasksAccountDepositCSVComponent implements OnInit {
                 },
                 format: factory.encodingFormat.Text.csv
             };
-            console.log(params);
-            this.downloadService.order(params, CsvFormat.Default);
+            this.downloadService.order(params);
         } catch (error) {
             console.error(error);
             this.utilService.openAlert({

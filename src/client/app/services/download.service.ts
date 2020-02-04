@@ -1,8 +1,7 @@
 import { Injectable } from '@angular/core';
 import { factory } from '@cinerino/api-javascript-client';
 import * as json2csv from 'json2csv';
-import { getProject, order2report, reservation2report, streamingDownload, string2blob } from '../functions';
-import { CsvFormat } from '../models';
+import { getProject, order2report, reservation2report, string2blob } from '../functions';
 import { CinerinoService } from './cinerino.service';
 import { OrderService } from './order.service';
 import { ReservationService } from './reservation.service';
@@ -24,28 +23,18 @@ export class DownloadService {
     /**
      * 注文情報CSVダウンロード
      */
-    public async order(params: factory.order.ISearchConditions, csvFormat: CsvFormat) {
+    public async order(params: factory.order.ISearchConditions) {
         await this.cinerino.getServices();
-        if (csvFormat === CsvFormat.Default) {
-            // デフォルト
-            const format = factory.encodingFormat.Text.csv;
-            const stream = <ReadableStream<any>>(await this.cinerino.order.download({ ...params, format }));
-            const csv = await streamingDownload<any>(stream);
-            const blob = string2blob(csv, { type: 'text/csv' });
-            const fileName = 'OrderReport.csv';
-            this.download(blob, fileName);
-        } else {
-            // カスタム
-            const searchResult = await this.orderService.splitSearch(params);
-            const url = `${getProject().storageUrl}/json/csv/order.json`;
-            const fields = await this.utilService.getJson<{ label: string, value: string }[]>(url);
-            const opts = { fields, unwind: [] };
-            const data = order2report(searchResult.data);
-            const csv = await json2csv.parseAsync(data, opts);
-            const blob = string2blob(csv, { type: 'text/csv' });
-            const fileName = 'CustomOrderReport.csv';
-            this.download(blob, fileName);
-        }
+        // カスタム
+        const searchResult = await this.orderService.splitSearch(params);
+        const url = `${getProject().storageUrl}/json/csv/order.json`;
+        const fields = await this.utilService.getJson<{ label: string, value: string }[]>(url);
+        const opts = { fields, unwind: [] };
+        const data = order2report(searchResult.data);
+        const csv = await json2csv.parseAsync(data, opts);
+        const blob = string2blob(csv, { type: 'text/csv' });
+        const fileName = 'CustomOrderReport.csv';
+        this.download(blob, fileName);
     }
 
     /**

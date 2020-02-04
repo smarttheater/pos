@@ -6,7 +6,7 @@ import { TranslateService } from '@ngx-translate/core';
 import * as moment from 'moment';
 import { Observable } from 'rxjs';
 import { getEnvironment } from '../../../../../../environments/environment';
-import { changeTicketCount, getAmount, getTicketPrice } from '../../../../../functions';
+import { changeTicketCount, getAmount, getItemPrice, getItemReferenceQuantityValue } from '../../../../../functions';
 import { ViewType } from '../../../../../models';
 import { PurchaseService, UserService, UtilService } from '../../../../../services';
 import * as reducers from '../../../../../store/reducers';
@@ -25,7 +25,8 @@ export class PurchaseConfirmComponent implements OnInit {
     public viewType: typeof ViewType = ViewType;
     public depositAmount: string;
     public amount: number;
-    public getTicketPrice = getTicketPrice;
+    public getItemPrice = getItemPrice;
+    public getItemReferenceQuantityValue = getItemReferenceQuantityValue;
     public changeTicketCount = changeTicketCount;
     public environment = getEnvironment();
 
