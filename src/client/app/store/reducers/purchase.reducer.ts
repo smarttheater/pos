@@ -5,7 +5,7 @@ import {
     isAvailabilityMovieTicket,
     sameMovieTicketFilter
 } from '../../functions';
-import { IMovieTicket, IReservationTicket, IScreen, Reservation } from '../../models';
+import { IMovieTicket, IReservation, IReservationTicket, IScreen } from '../../models';
 import { purchaseAction } from '../actions';
 
 /**
@@ -15,12 +15,12 @@ export interface IPurchaseState {
     screeningEvent?: factory.chevre.event.screeningEvent.IEvent;
     scheduleDate?: string;
     transaction?: factory.transaction.placeOrder.ITransaction;
-    screeningEventOffers: factory.chevre.event.screeningEvent.IScreeningRoomSectionOffer[];
+    screeningEventOffers: factory.chevre.place.movieTheater.IScreeningRoomSectionOffer[];
     screenData?: IScreen;
-    reservations: Reservation[];
+    reservations: IReservation[];
     screeningEventTicketOffers: factory.chevre.event.screeningEvent.ITicketOffer[];
-    authorizeSeatReservation?: factory.action.authorize.offer.seatReservation.IAction<factory.service.webAPI.Identifier>;
-    authorizeSeatReservations: factory.action.authorize.offer.seatReservation.IAction<factory.service.webAPI.Identifier>[];
+    authorizeSeatReservation?: factory.action.authorize.offer.seatReservation.IAction<factory.service.webAPI.Identifier.Chevre>;
+    authorizeSeatReservations: factory.action.authorize.offer.seatReservation.IAction<factory.service.webAPI.Identifier.Chevre>[];
     profile?: factory.person.IProfile;
     authorizeCreditCardPayments: factory.action.authorize.paymentMethod.creditCard.IAction[];
     authorizeMovieTicketPayments: factory.action.authorize.paymentMethod.movieTicket.IAction[];
@@ -166,13 +166,13 @@ export function reducer(state: IState, action: purchaseAction.Actions): IState {
         case purchaseAction.ActionTypes.SelectSeats: {
             const reservations = state.purchaseData.reservations;
             action.payload.seats.forEach((seat) => {
-                reservations.push(new Reservation({ seat }));
+                reservations.push({ seat });
             });
             state.purchaseData.reservations = reservations;
             return { ...state, loading: false, process: '', error: null };
         }
         case purchaseAction.ActionTypes.CancelSeats: {
-            const reservations: Reservation[] = [];
+            const reservations: IReservation[] = [];
             const seats = action.payload.seats;
             state.purchaseData.reservations.forEach((reservation) => {
                 const findResult = seats.find((seat) => {
@@ -206,7 +206,7 @@ export function reducer(state: IState, action: purchaseAction.Actions): IState {
             return { ...state, loading: false, process: '', error: JSON.stringify(error) };
         }
         case purchaseAction.ActionTypes.SelectTickets: {
-            const reservations: Reservation[] = [];
+            const reservations: IReservation[] = [];
             const selectedReservations = action.payload.reservations;
             state.purchaseData.reservations.forEach((reservation) => {
                 const findResult =
@@ -247,10 +247,10 @@ export function reducer(state: IState, action: purchaseAction.Actions): IState {
             // 追加
             state.purchaseData.authorizeSeatReservations.push(addAuthorizeSeatReservation);
             const movieTicketReservations = reservations.filter(r => r.ticket !== undefined && r.ticket.movieTicket !== undefined);
-            if (movieTicketReservations.length > 0) {
-                const pendingReservations =
-                    (<factory.chevre.reservation.IReservation<factory.chevre.reservationType.EventReservation>[]>
-                        (<any>addAuthorizeSeatReservation.result).responseBody.object.reservations);
+            if (movieTicketReservations.length > 0
+                && addAuthorizeSeatReservation.result !== undefined
+                && addAuthorizeSeatReservation.result.responseBody.object.reservations !== undefined) {
+                const pendingReservations = addAuthorizeSeatReservation.result.responseBody.object.reservations;
                 state.purchaseData.pendingMovieTickets.push({
                     id: addAuthorizeSeatReservation.id,
                     movieTickets: movieTicketReservations.map((r) => {

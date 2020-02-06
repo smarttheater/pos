@@ -3,8 +3,11 @@ import { factory } from '@cinerino/api-javascript-client';
 import * as moment from 'moment';
 import { BsModalRef } from 'ngx-bootstrap';
 import { getEnvironment } from '../../../../../../../../environments/environment';
-import { getRemainingSeatLength, getTicketPrice } from '../../../../../../../functions';
+import { getItemPrice, getItemReferenceQuantityValue, getRemainingSeatLength } from '../../../../../../../functions';
 import { IReservationTicket, Performance } from '../../../../../../../models';
+
+type IMovieTicketTypeChargeSpecification =
+    factory.chevre.priceSpecification.IPriceSpecification<factory.chevre.priceSpecificationType.MovieTicketTypeChargeSpecification>;
 
 @Component({
     selector: 'app-purchase-event-ticket-modal',
@@ -14,11 +17,12 @@ import { IReservationTicket, Performance } from '../../../../../../../models';
 export class PurchaseEventTicketModalComponent implements OnInit {
 
     @Input() public screeningEventTicketOffers: factory.chevre.event.screeningEvent.ITicketOffer[];
-    @Input() public screeningEventOffers: factory.chevre.event.screeningEvent.IScreeningRoomSectionOffer[];
+    @Input() public screeningEventOffers: factory.chevre.place.movieTheater.IScreeningRoomSectionOffer[];
     @Input() public screeningEvent: factory.event.screeningEvent.IEvent;
     @Input() public cb: (reservationTickets: IReservationTicket[]) => void;
     public tickets: factory.chevre.event.screeningEvent.ITicketOffer[];
-    public getTicketPrice = getTicketPrice;
+    public getItemPrice = getItemPrice;
+    public getItemReferenceQuantityValue = getItemReferenceQuantityValue;
     public values: Number[];
     public selectedTickets: { [key: string]: string; };
     public moment: typeof moment = moment;
@@ -36,10 +40,11 @@ export class PurchaseEventTicketModalComponent implements OnInit {
     public ngOnInit() {
         this.performance = new Performance(this.screeningEvent);
         this.tickets = [];
-        this.tickets = this.screeningEventTicketOffers.filter((offer) => {
-            const movieTicketTypeChargeSpecification = offer.priceSpecification.priceComponent.find(
-                (component) => component.typeOf === factory.chevre.priceSpecificationType.MovieTicketTypeChargeSpecification
-            );
+        this.tickets = this.screeningEventTicketOffers.filter((ticketOffer) => {
+            const movieTicketTypeChargeSpecification =
+                <IMovieTicketTypeChargeSpecification>ticketOffer.priceSpecification.priceComponent.find(
+                    (c) => c.typeOf === factory.chevre.priceSpecificationType.MovieTicketTypeChargeSpecification
+                );
             return movieTicketTypeChargeSpecification === undefined;
         });
         this.values = [];

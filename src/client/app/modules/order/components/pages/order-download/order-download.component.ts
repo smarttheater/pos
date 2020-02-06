@@ -121,7 +121,7 @@ export class OrderDownloadComponent implements OnInit {
                 input: this.confirmedConditions,
                 seller: (await this.userService.getData()).seller,
             });
-            await this.downloadService.order(params, CsvFormat.Custom);
+            await this.downloadService.order(params);
         } catch (error) {
             console.error(error);
             this.utilService.openAlert({

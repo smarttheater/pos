@@ -1,8 +1,8 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { factory } from '@cinerino/api-javascript-client';
 import { BsModalRef } from 'ngx-bootstrap';
-import { getTicketPrice } from '../../../../../../../functions';
-import { IMovieTicket, IReservationTicket, Reservation } from '../../../../../../../models';
+import { getItemPrice, getItemReferenceQuantityValue } from '../../../../../../../functions';
+import { IMovieTicket, IReservation, IReservationTicket } from '../../../../../../../models';
 
 type IMovieTicketTypeChargeSpecification =
     factory.chevre.priceSpecification.IPriceSpecification<factory.chevre.priceSpecificationType.MovieTicketTypeChargeSpecification>;
@@ -16,11 +16,13 @@ export class PurchaseCinemaTicketModalComponent implements OnInit {
 
     @Input() public screeningEventTicketOffers: factory.chevre.event.screeningEvent.ITicketOffer[];
     @Input() public checkMovieTicketActions: factory.action.check.paymentMethod.movieTicket.IAction[];
-    @Input() public reservations: Reservation[];
+    @Input() public reservations: IReservation[];
+    @Input() public reservation?: IReservation;
     @Input() public pendingMovieTickets: IMovieTicket[];
     @Input() public cb: (ticket: IReservationTicket) => void;
     public tickets: IReservationTicket[];
-    public getTicketPrice = getTicketPrice;
+    public getItemPrice = getItemPrice;
+    public getItemReferenceQuantityValue = getItemReferenceQuantityValue;
 
     constructor(
         public modal: BsModalRef
@@ -30,9 +32,10 @@ export class PurchaseCinemaTicketModalComponent implements OnInit {
         this.tickets = [];
         const movieTickets: IReservationTicket[] = [];
         this.screeningEventTicketOffers.forEach((ticketOffer) => {
-            const movieTicketTypeChargeSpecification = <IMovieTicketTypeChargeSpecification>ticketOffer.priceSpecification.priceComponent
-                .filter((s) => s.typeOf === factory.chevre.priceSpecificationType.MovieTicketTypeChargeSpecification)
-                .shift();
+            const movieTicketTypeChargeSpecification =
+                <IMovieTicketTypeChargeSpecification>ticketOffer.priceSpecification.priceComponent
+                    .filter((c) => c.typeOf === factory.chevre.priceSpecificationType.MovieTicketTypeChargeSpecification)
+                    .shift();
             if (movieTicketTypeChargeSpecification === undefined) {
                 // ムビチケ以外
                 this.tickets.push({ ticketOffer });

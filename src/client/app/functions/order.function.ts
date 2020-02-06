@@ -3,7 +3,7 @@ import * as moment from 'moment';
 import * as qrcode from 'qrcode';
 import { getEnvironment } from '../../environments/environment';
 import { IOrderSearchConditions, ITicketPrintData } from '../models';
-import { getTicketPrice } from './purchase.function';
+import { getItemPrice } from './purchase.function';
 import { formatTelephone, getProject } from './util.function';
 
 /**
@@ -166,7 +166,7 @@ async function drawCanvas(args: {
 /**
  * 印刷イメージ作成
  */
-export async function createPrintCanvas(args: {
+export async function createPrintCanvas(params: {
     printData: ITicketPrintData;
     acceptedOffer: factory.order.IAcceptedOffer<factory.order.IItemOffered>;
     order: factory.order.IOrder;
@@ -174,33 +174,35 @@ export async function createPrintCanvas(args: {
     qrcode?: string;
     index: number;
 }) {
-    const acceptedOffer = args.acceptedOffer;
-    if (acceptedOffer.itemOffered.typeOf !== factory.chevre.reservationType.EventReservation) {
+    const acceptedOffer = params.acceptedOffer;
+    const itemOffered = acceptedOffer.itemOffered;
+    if (itemOffered.typeOf !== factory.chevre.reservationType.EventReservation) {
         throw new Error('reservationType is not EventReservation');
     }
     const data = {
-        sellerNameJa: acceptedOffer.itemOffered.reservationFor.superEvent.location.name.ja,
-        sellerNameEn: acceptedOffer.itemOffered.reservationFor.superEvent.location.name.en,
-        eventNameJa: acceptedOffer.itemOffered.reservationFor.name.ja,
-        eventNameEn: acceptedOffer.itemOffered.reservationFor.name.en,
-        screenNameJa: acceptedOffer.itemOffered.reservationFor.location.name.ja,
-        screenNameEn: acceptedOffer.itemOffered.reservationFor.location.name.en,
-        startDate: moment(acceptedOffer.itemOffered.reservationFor.startDate).toISOString(),
-        endDate: moment(acceptedOffer.itemOffered.reservationFor.endDate).toISOString(),
-        seatNumber: (acceptedOffer.itemOffered.reservedTicket.ticketedSeat === undefined
-            || acceptedOffer.itemOffered.reservedTicket.ticketedSeat === null)
-            ? undefined : acceptedOffer.itemOffered.reservedTicket.ticketedSeat.seatNumber,
-        ticketNameJa: acceptedOffer.itemOffered.reservedTicket.ticketType.name.ja,
-        ticketNameEn: acceptedOffer.itemOffered.reservedTicket.ticketType.name.en,
-        price: getTicketPrice(acceptedOffer).single,
-        posName: (args.pos === undefined) ? '' : args.pos.name,
-        confirmationNumber: String(args.order.confirmationNumber),
-        orderNumber: args.order.orderNumber,
-        ticketNumber: acceptedOffer.itemOffered.id,
-        qrcode: args.qrcode,
-        index: args.index
+        sellerNameJa: itemOffered.reservationFor.superEvent.location.name.ja,
+        sellerNameEn: itemOffered.reservationFor.superEvent.location.name.en,
+        eventNameJa: itemOffered.reservationFor.name.ja,
+        eventNameEn: itemOffered.reservationFor.name.en,
+        screenNameJa: itemOffered.reservationFor.location.name.ja,
+        screenNameEn: itemOffered.reservationFor.location.name.en,
+        startDate: moment(itemOffered.reservationFor.startDate).toISOString(),
+        endDate: moment(itemOffered.reservationFor.endDate).toISOString(),
+        seatNumber: (itemOffered.reservedTicket.ticketedSeat === undefined
+            || itemOffered.reservedTicket.ticketedSeat === null)
+            ? undefined : itemOffered.reservedTicket.ticketedSeat.seatNumber,
+        ticketNameJa: itemOffered.reservedTicket.ticketType.name.ja,
+        ticketNameEn: itemOffered.reservedTicket.ticketType.name.en,
+        price: (acceptedOffer.priceSpecification === undefined)
+            ? 0 : getItemPrice({ priceComponents: (<any>acceptedOffer.priceSpecification).priceComponent }),
+        posName: (params.pos === undefined) ? '' : params.pos.name,
+        confirmationNumber: String(params.order.confirmationNumber),
+        orderNumber: params.order.orderNumber,
+        ticketNumber: itemOffered.id,
+        qrcode: params.qrcode,
+        index: params.index
     };
-    const printData = args.printData;
+    const printData = params.printData;
     const canvas = await drawCanvas({ data, printData });
 
     return canvas;
@@ -301,7 +303,8 @@ export function order2report(orders: factory.order.IOrder[]) {
     const data: any[] = [];
     orders.forEach((order) => {
         order.acceptedOffers.forEach((acceptedOffer) => {
-            if (acceptedOffer.itemOffered.typeOf !== factory.chevre.reservationType.EventReservation) {
+            const itemOffered = acceptedOffer.itemOffered;
+            if (itemOffered.typeOf !== factory.chevre.reservationType.EventReservation) {
                 return;
             }
             const customData = {
@@ -328,12 +331,12 @@ export function order2report(orders: factory.order.IOrder[]) {
                     }
                 },
                 itemOffered: {
-                    id: acceptedOffer.itemOffered.id,
-                    price: getTicketPrice(acceptedOffer).total,
-                    reservedTicket: acceptedOffer.itemOffered.reservedTicket,
+                    id: itemOffered.id,
+                    price: getItemPrice({ priceComponents: (<any>acceptedOffer.priceSpecification).priceComponent }),
+                    reservedTicket: itemOffered.reservedTicket,
                     reservationFor: {
-                        ...acceptedOffer.itemOffered.reservationFor,
-                        startDateJST: moment(acceptedOffer.itemOffered.reservationFor.startDate).format('YYYY/MM/DD/HH:mm')
+                        ...itemOffered.reservationFor,
+                        startDateJST: moment(itemOffered.reservationFor.startDate).format('YYYY/MM/DD/HH:mm')
                     }
                 }
             };

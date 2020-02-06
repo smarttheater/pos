@@ -1,7 +1,7 @@
 import { factory } from '@cinerino/api-javascript-client';
 import { Action } from '@ngrx/store';
 import { IGmoTokenObject } from '../../functions';
-import { IMovieTicket, IReservationSeat, IReservationTicket, IScreen, Reservation } from '../../models';
+import { IMovieTicket, IReservation, IReservationSeat, IReservationTicket, IScreen } from '../../models';
 
 /**
  * Action types
@@ -174,7 +174,7 @@ export class GetScreen implements Action {
 export class GetScreenSuccess implements Action {
     public readonly type = ActionTypes.GetScreenSuccess;
     constructor(public payload: {
-        screeningEventOffers: factory.chevre.event.screeningEvent.IScreeningRoomSectionOffer[];
+        screeningEventOffers: factory.chevre.place.movieTheater.IScreeningRoomSectionOffer[];
         screenData: IScreen;
     }) { }
 }
@@ -201,7 +201,7 @@ export class GetScreeningEventOffers implements Action {
 export class GetScreeningEventOffersSuccess implements Action {
     public readonly type = ActionTypes.GetScreeningEventOffersSuccess;
     constructor(public payload: {
-        screeningEventOffers: factory.chevre.event.screeningEvent.IScreeningRoomSectionOffer[];
+        screeningEventOffers: factory.chevre.place.movieTheater.IScreeningRoomSectionOffer[];
     }) { }
 }
 
@@ -235,7 +235,7 @@ export class CancelSeats implements Action {
  */
 export class SelectTickets implements Action {
     public readonly type = ActionTypes.SelectTickets;
-    constructor(public payload: { reservations: Reservation[] }) { }
+    constructor(public payload: { reservations: IReservation[] }) { }
 }
 
 /**
@@ -274,8 +274,8 @@ export class TemporaryReservation implements Action {
     constructor(public payload: {
         transaction: factory.transaction.placeOrder.ITransaction;
         screeningEvent: factory.chevre.event.screeningEvent.IEvent;
-        authorizeSeatReservation?: factory.action.authorize.offer.seatReservation.IAction<factory.service.webAPI.Identifier>;
-        reservations: Reservation[];
+        authorizeSeatReservation?: factory.action.authorize.offer.seatReservation.IAction<factory.service.webAPI.Identifier.Chevre>;
+        reservations: IReservation[];
     }) { }
 }
 
@@ -285,8 +285,8 @@ export class TemporaryReservation implements Action {
 export class TemporaryReservationSuccess implements Action {
     public readonly type = ActionTypes.TemporaryReservationSuccess;
     constructor(public payload: {
-        addAuthorizeSeatReservation: factory.action.authorize.offer.seatReservation.IAction<factory.service.webAPI.Identifier>;
-        removeAuthorizeSeatReservation?: factory.action.authorize.offer.seatReservation.IAction<factory.service.webAPI.Identifier>;
+        addAuthorizeSeatReservation: factory.action.authorize.offer.seatReservation.IAction<factory.service.webAPI.Identifier.Chevre>;
+        removeAuthorizeSeatReservation?: factory.action.authorize.offer.seatReservation.IAction<factory.service.webAPI.Identifier.Chevre>;
     }) { }
 }
 
@@ -298,7 +298,7 @@ export class TemporaryReservationFreeSeat implements Action {
     constructor(public payload: {
         transaction: factory.transaction.placeOrder.ITransaction;
         screeningEvent: factory.chevre.event.screeningEvent.IEvent;
-        screeningEventOffers: factory.chevre.event.screeningEvent.IScreeningRoomSectionOffer[];
+        screeningEventOffers: factory.chevre.place.movieTheater.IScreeningRoomSectionOffer[];
         reservationTickets: IReservationTicket[]
     }) { }
 }
@@ -309,7 +309,7 @@ export class TemporaryReservationFreeSeat implements Action {
 export class TemporaryReservationFreeSeatSuccess implements Action {
     public readonly type = ActionTypes.TemporaryReservationFreeSeatSuccess;
     constructor(public payload: {
-        addAuthorizeSeatReservation: factory.action.authorize.offer.seatReservation.IAction<factory.service.webAPI.Identifier>;
+        addAuthorizeSeatReservation: factory.action.authorize.offer.seatReservation.IAction<factory.service.webAPI.Identifier.Chevre>;
     }) { }
 }
 
@@ -335,7 +335,7 @@ export class TemporaryReservationFail implements Action {
 export class CancelTemporaryReservations implements Action {
     public readonly type = ActionTypes.CancelTemporaryReservations;
     constructor(public payload: {
-        authorizeSeatReservations: factory.action.authorize.offer.seatReservation.IAction<factory.service.webAPI.Identifier>[];
+        authorizeSeatReservations: factory.action.authorize.offer.seatReservation.IAction<factory.service.webAPI.Identifier.Chevre>[];
     }) { }
 }
 
@@ -345,7 +345,7 @@ export class CancelTemporaryReservations implements Action {
 export class CancelTemporaryReservationsSuccess implements Action {
     public readonly type = ActionTypes.CancelTemporaryReservationsSuccess;
     constructor(public payload: {
-        authorizeSeatReservations: factory.action.authorize.offer.seatReservation.IAction<factory.service.webAPI.Identifier>[];
+        authorizeSeatReservations: factory.action.authorize.offer.seatReservation.IAction<factory.service.webAPI.Identifier.Chevre>[];
     }) { }
 }
 
@@ -425,7 +425,7 @@ export class AuthorizeMovieTicket implements Action {
     constructor(public payload: {
         transaction: factory.transaction.placeOrder.ITransaction;
         authorizeMovieTicketPayments: factory.action.authorize.paymentMethod.movieTicket.IAction[];
-        authorizeSeatReservations: factory.action.authorize.offer.seatReservation.IAction<factory.service.webAPI.Identifier>[];
+        authorizeSeatReservations: factory.action.authorize.offer.seatReservation.IAction<factory.service.webAPI.Identifier.Chevre>[];
         pendingMovieTickets: IMovieTicket[];
         seller: factory.seller.IOrganization<factory.seller.IAttributes<factory.organizationType>>
     }) { }
@@ -490,7 +490,7 @@ export class EndTransaction implements Action {
     constructor(public payload: {
         transaction: factory.transaction.placeOrder.ITransaction;
         seller: factory.seller.IOrganization<factory.seller.IAttributes<factory.organizationType>>;
-        authorizeSeatReservations: factory.action.authorize.offer.seatReservation.IAction<factory.service.webAPI.Identifier>[];
+        authorizeSeatReservations: factory.action.authorize.offer.seatReservation.IAction<factory.service.webAPI.Identifier.Chevre>[];
         language: string;
     }) { }
 }

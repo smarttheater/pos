@@ -81,10 +81,11 @@ export class PurchaseCinemaSeatComponent implements OnInit {
                 seats.push({
                     typeOf: containsPlace.typeOf,
                     seatingType: (containsPlace.seatingType === undefined)
-                        ? <any>'' : containsPlace.seatingType,
+                        ? '' : containsPlace.seatingType,
                     seatNumber: containsPlace.branchCode,
                     seatRow: '',
-                    seatSection: screeningEventOffer.branchCode
+                    seatSection: screeningEventOffer.branchCode,
+                    offers: containsPlace.offers
                 });
             });
         });

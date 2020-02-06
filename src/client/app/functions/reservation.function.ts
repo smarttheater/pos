@@ -1,7 +1,7 @@
 import { factory } from '@cinerino/api-javascript-client';
 import * as moment from 'moment';
 import { IReservationSearchConditions } from '../models';
-import { getTicketPrice } from './purchase.function';
+import { getItemPrice } from './purchase.function';
 
 /**
  * 予約データCSV変換
@@ -18,7 +18,7 @@ export function reservation2report(
             reservationStatus: reservation.reservationStatus,
             price: (typeof reservation.price === 'number' || reservation.price === undefined)
                 ? reservation.price
-                : getTicketPrice(<any>{ priceSpecification: { priceComponent: reservation.price.priceComponent } }).total,
+                : getItemPrice({ priceComponents: reservation.price.priceComponent }),
             reservedTicket: reservation.reservedTicket,
             reservationFor: {
                 ...reservation.reservationFor,

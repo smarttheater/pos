@@ -5,7 +5,7 @@ import { TranslateService } from '@ngx-translate/core';
 import * as moment from 'moment';
 import { map, mergeMap } from 'rxjs/operators';
 import { getEnvironment } from '../../../environments/environment';
-import { createPrintCanvas, createTestPrintCanvas, formatTelephone, getProject, getTicketPrice, retry, sleep } from '../../functions';
+import { createPrintCanvas, createTestPrintCanvas, formatTelephone, getItemPrice, getProject, retry, sleep } from '../../functions';
 import { connectionType, ITicketPrintData, PrintQrcodeType } from '../../models';
 import { CinerinoService, StarPrintService, UtilService } from '../../services';
 import { orderAction } from '../actions';
@@ -70,7 +70,7 @@ export class OrderEffects {
                     if (environment.PURCHASE_COMPLETE_MAIL_CUSTOM) {
                         // メールをカスタマイズ
                         const view = await this.utilService.getText(`${getProject().storageUrl}/ejs/mail/return/${payload.language}.ejs`);
-                        const template = await (<any>window).ejs.render(view, { moment, formatTelephone, getTicketPrice }, { async: true });
+                        const template = await (<any>window).ejs.render(view, { moment, formatTelephone, getItemPrice }, { async: true });
                         email.template = template;
                     }
                     await this.cinerino.transaction.returnOrder.confirm({

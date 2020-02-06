@@ -1,5 +1,5 @@
 import { getEnvironment } from '../../../environments/environment';
-import { Reservation } from '../../models';
+import { IReservation } from '../../models';
 import {
     admissionAction,
     masterAction,
@@ -58,7 +58,7 @@ function getInitialState(): IState {
     data.userData.language = (data.userData.language === undefined)
         ? userReducer.userInitialState.language
         : data.userData.language;
-    const reservations = data.purchaseData.reservations.map((reservation: Reservation) => new Reservation(reservation));
+    const reservations = data.purchaseData.reservations.map((reservation: IReservation) => reservation);
     data.purchaseData.reservations = reservations;
     data.loading = false;
 

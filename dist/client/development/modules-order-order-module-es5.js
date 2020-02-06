@@ -363,7 +363,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
                     };
                     params = (0, _context.t0)(_context.t3);
                     _context.next = 19;
-                    return this.downloadService.order(params, _models__WEBPACK_IMPORTED_MODULE_8__["CsvFormat"].Custom);
+                    return this.downloadService.order(params);
 
                   case 19:
                     _context.next = 25;

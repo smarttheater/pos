@@ -6,7 +6,7 @@ import { TranslateService } from '@ngx-translate/core';
 import * as moment from 'moment';
 import { Observable } from 'rxjs';
 import { getEnvironment } from '../../../../../../../environments/environment';
-import { getAmount, getTicketPrice } from '../../../../../../functions';
+import { getAmount, getItemPrice, getItemReferenceQuantityValue } from '../../../../../../functions';
 import { PurchaseService, UtilService } from '../../../../../../services';
 import * as reducers from '../../../../../../store/reducers';
 
@@ -20,7 +20,8 @@ export class PurchaseCinemaCartComponent implements OnInit {
     public user: Observable<reducers.IUserState>;
     public isLoading: Observable<boolean>;
     public moment: typeof moment = moment;
-    public getTicketPrice = getTicketPrice;
+    public getItemPrice = getItemPrice;
+    public getItemReferenceQuantityValue = getItemReferenceQuantityValue;
     public amount: number;
     public environment = getEnvironment();
 
@@ -42,7 +43,9 @@ export class PurchaseCinemaCartComponent implements OnInit {
         this.amount = getAmount(purchase.authorizeSeatReservations);
     }
 
-    public removeItem(authorizeSeatReservation: factory.action.authorize.offer.seatReservation.IAction<factory.service.webAPI.Identifier>) {
+    public removeItem(
+        authorizeSeatReservation: factory.action.authorize.offer.seatReservation.IAction<factory.service.webAPI.Identifier.Chevre>
+    ) {
         this.utilService.openConfirm({
             title: this.translate.instant('common.confirm'),
             body: '削除してよろしいですか。',

@@ -24,8 +24,8 @@ export class ScreenComponent implements OnInit, AfterViewInit, AfterViewChecked 
     public static ZOOM_SCALE = 1;
     @Input() public screenData: IScreen;
     @Output() public select = new EventEmitter<{ seat: IReservationSeat; status: SeatStatus; }>();
-    public screeningEventOffers: factory.chevre.event.screeningEvent.IScreeningRoomSectionOffer[];
-    public authorizeSeatReservation?: factory.action.authorize.offer.seatReservation.IAction<factory.service.webAPI.Identifier>;
+    public screeningEventOffers: factory.chevre.place.movieTheater.IScreeningRoomSectionOffer[];
+    public authorizeSeatReservation?: factory.action.authorize.offer.seatReservation.IAction<factory.service.webAPI.Identifier.Chevre>;
     public purchase: Observable<reducers.IPurchaseState>;
     public seats: IRow[];
     public lineLabels: ILabel[];
@@ -295,12 +295,13 @@ export class ScreenComponent implements OnInit, AfterViewInit, AfterViewChecked 
                                     status = SeatStatus.Default;
                                 }
                                 acceptedOffer = {
-                                    ticketedSeat: <factory.chevre.reservation.ISeat<factory.chevre.reservationType.EventReservation>>{
+                                    ticketedSeat: <IReservationSeat>{
                                         typeOf: findContainsPlaceResult.typeOf,
                                         seatingType: findContainsPlaceResult.seatingType,
                                         seatNumber: findContainsPlaceResult.branchCode,
                                         seatRow: '',
-                                        seatSection: section
+                                        seatSection: section,
+                                        offers: findContainsPlaceResult.offers
                                     }
                                 };
                                 break;

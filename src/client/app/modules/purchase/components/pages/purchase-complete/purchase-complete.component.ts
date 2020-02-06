@@ -6,7 +6,7 @@ import { TranslateService } from '@ngx-translate/core';
 import * as moment from 'moment';
 import { Observable } from 'rxjs';
 import { getEnvironment } from '../../../../../../environments/environment';
-import { changeTicketCountByOrder, createRegiGrowQrcode, getTicketPrice, IEventOrder, order2EventOrders } from '../../../../../functions';
+import { changeTicketCountByOrder, createRegiGrowQrcode, getItemPrice, getItemReferenceQuantityValue, IEventOrder, order2EventOrders } from '../../../../../functions';
 import { OrderService, PurchaseService, UserService, UtilService } from '../../../../../services';
 import * as reducers from '../../../../../store/reducers';
 
@@ -21,7 +21,8 @@ export class PurchaseCompleteComponent implements OnInit {
     public isLoading: Observable<boolean>;
     public error: Observable<string | null>;
     public moment: typeof moment = moment;
-    public getTicketPrice = getTicketPrice;
+    public getItemPrice = getItemPrice;
+    public getItemReferenceQuantityValue = getItemReferenceQuantityValue;
     public changeTicketCountByOrder = changeTicketCountByOrder;
     public eventOrders: IEventOrder[];
     public environment = getEnvironment();
