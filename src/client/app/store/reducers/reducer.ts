@@ -1,5 +1,4 @@
 import { getEnvironment } from '../../../environments/environment';
-import { IReservation } from '../../models';
 import {
     admissionAction,
     masterAction,
@@ -49,17 +48,17 @@ export const initialState: IState = {
 
 function getInitialState(): IState {
     const environment = getEnvironment();
-    const json = (<Storage>(<any>window)[environment.STORAGE_TYPE]).getItem(environment.STORAGE_NAME);
-    if (json === undefined || json === null) {
+    const saveJson = (<Storage>(<any>window)[environment.STORAGE_TYPE]).getItem(environment.STORAGE_NAME);
+    if (saveJson === undefined || saveJson === null) {
         return initialState;
     }
-    const tmpData: { App: IState } = JSON.parse(json);
-    const data = { ...initialState, ...tmpData.App };
+    const saveData: { App: IState } = JSON.parse(saveJson);
+    const sessonJson = sessionStorage.getItem('SESSION_STATE');
+    const sessionData = (sessonJson === undefined || sessonJson === null) ? {App: {}} : JSON.parse(sessonJson);
+    const data = { ...initialState, ...saveData.App, ...sessionData.App };
     data.userData.language = (data.userData.language === undefined)
         ? userReducer.userInitialState.language
         : data.userData.language;
-    const reservations = data.purchaseData.reservations.map((reservation: IReservation) => reservation);
-    data.purchaseData.reservations = reservations;
     data.loading = false;
 
     return data;

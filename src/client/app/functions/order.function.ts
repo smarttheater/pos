@@ -32,7 +32,6 @@ async function drawCanvas(args: {
         index: number
     }
 }) {
-    console.log('printData', args.printData);
     const printData = args.printData;
     const data = args.data;
     const canvas = document.createElement('canvas');
@@ -184,8 +183,12 @@ export async function createPrintCanvas(params: {
         sellerNameEn: itemOffered.reservationFor.superEvent.location.name.en,
         eventNameJa: itemOffered.reservationFor.name.ja,
         eventNameEn: itemOffered.reservationFor.name.en,
-        screenNameJa: itemOffered.reservationFor.location.name.ja,
-        screenNameEn: itemOffered.reservationFor.location.name.en,
+        screenNameJa: (itemOffered.reservationFor.location.address === undefined)
+            ? itemOffered.reservationFor.location.name.ja
+            : `${itemOffered.reservationFor.location.address.ja} ${itemOffered.reservationFor.location.name.ja}`,
+        screenNameEn: (itemOffered.reservationFor.location.address === undefined)
+            ? itemOffered.reservationFor.location.name.en
+            : `${itemOffered.reservationFor.location.address.en} ${itemOffered.reservationFor.location.name.en}`,
         startDate: moment(itemOffered.reservationFor.startDate).toISOString(),
         endDate: moment(itemOffered.reservationFor.endDate).toISOString(),
         seatNumber: (itemOffered.reservedTicket.ticketedSeat === undefined

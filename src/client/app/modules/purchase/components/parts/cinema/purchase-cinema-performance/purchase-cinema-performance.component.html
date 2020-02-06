@@ -32,7 +32,7 @@
                 }" (click)="select.emit(performance.screeningEvent)">
                 <div>
                     <div class="mb-2 text-small screen-name">
-                        {{ performance.screeningEvent.location.name | changeLanguage }}
+                        <span *ngIf="performance.screeningEvent.location.address" class="mr-2">{{ performance.screeningEvent.location.address | changeLanguage }}</span>{{ performance.screeningEvent.location.name | changeLanguage }}
                     </div>
                     <div>
                         <strong class="text-large">{{ moment(performance.screeningEvent.startDate).format('HH:mm') }}</strong>
