@@ -3,7 +3,7 @@ import { factory } from '@cinerino/api-javascript-client';
 import * as moment from 'moment';
 import { BsModalRef } from 'ngx-bootstrap';
 import { getEnvironment } from '../../../../../../../../environments/environment';
-import { getItemPrice, getItemReferenceQuantityValue, getRemainingSeatLength } from '../../../../../../../functions';
+import { getRemainingSeatLength } from '../../../../../../../functions';
 import { IReservationTicket, Performance } from '../../../../../../../models';
 
 type IMovieTicketTypeChargeSpecification =
@@ -21,8 +21,6 @@ export class PurchaseEventTicketModalComponent implements OnInit {
     @Input() public screeningEvent: factory.event.screeningEvent.IEvent;
     @Input() public cb: (reservationTickets: IReservationTicket[]) => void;
     public tickets: factory.chevre.event.screeningEvent.ITicketOffer[];
-    public getItemPrice = getItemPrice;
-    public getItemReferenceQuantityValue = getItemReferenceQuantityValue;
     public values: Number[];
     public selectedTickets: { [key: string]: string; };
     public moment: typeof moment = moment;

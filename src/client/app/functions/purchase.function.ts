@@ -305,25 +305,6 @@ export function getItemPrice(params: {
 }
 
 /**
- * アイテム金額取得
- */
-export function getItemReferenceQuantityValue(
-    priceComponents?: factory.chevre.event.screeningEvent.ITicketPriceComponent[]
-) {
-    if (priceComponents === undefined) {
-        return 1;
-    }
-    const priceSpecificationType = factory.chevre.priceSpecificationType;
-    const unitPriceSpecification =
-        priceComponents.find(p => p.typeOf === priceSpecificationType.UnitPriceSpecification);
-    if (unitPriceSpecification === undefined) {
-        return 1;
-    }
-    return  (<any>unitPriceSpecification).referenceQuantity.value;
-
-}
-
-/**
  * ムビチケ認証購入管理番号無効事由区分変換
  */
 export function movieTicketAuthErroCodeToMessage(code?: string): { ja: string; en: string; } {
