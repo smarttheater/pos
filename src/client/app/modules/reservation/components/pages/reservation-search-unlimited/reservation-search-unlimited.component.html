@@ -114,7 +114,7 @@
                                 reservation.reservationFor.name | changeLanguage }}</p>
                             <p>
                                 <span class="theatre-name">{{ reservation.reservationFor.superEvent.location.name | changeLanguage }}</span>
-                                <span class="screen-name">&nbsp;/&nbsp;{{ reservation.reservationFor.location.name | changeLanguage }}</span>
+                                <span class="screen-name">&nbsp;/&nbsp;<span *ngIf="reservation.reservationFor.location.address" class="mr-2">{{ reservation.reservationFor.location.address | changeLanguage }}</span>{{ reservation.reservationFor.location.name | changeLanguage }}</span>
                             </p>
                             <p>{{ reservation.reservationFor.startDate | formatDate: 'YYYY/MM/DD (ddd) HH:mm' }}
                                 -</p>
