@@ -2688,7 +2688,6 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
         this.userService = userService;
         this.modal = modal;
         this.moment = moment__WEBPACK_IMPORTED_MODULE_4__;
-        this.changeTicketCount = _functions__WEBPACK_IMPORTED_MODULE_7__["changeTicketCount"];
         this.environment = Object(_environments_environment__WEBPACK_IMPORTED_MODULE_6__["getEnvironment"])();
       }
 
@@ -3501,7 +3500,6 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
         this.utilService = utilService;
         this.translate = translate;
         this.moment = moment__WEBPACK_IMPORTED_MODULE_5__;
-        this.changeTicketCountByOrder = _functions__WEBPACK_IMPORTED_MODULE_7__["changeTicketCountByOrder"];
         this.environment = Object(_environments_environment__WEBPACK_IMPORTED_MODULE_6__["getEnvironment"])();
         this.paymentMethodType = _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_2__["factory"].paymentMethodType;
       }
@@ -3825,7 +3823,6 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
         this.moment = moment__WEBPACK_IMPORTED_MODULE_5__;
         this.paymentMethodType = _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_2__["factory"].paymentMethodType;
         this.viewType = _models__WEBPACK_IMPORTED_MODULE_8__["ViewType"];
-        this.changeTicketCount = _functions__WEBPACK_IMPORTED_MODULE_7__["changeTicketCount"];
         this.environment = Object(_environments_environment__WEBPACK_IMPORTED_MODULE_6__["getEnvironment"])();
       }
 

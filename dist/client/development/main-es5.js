@@ -1293,7 +1293,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     !*** ./app/functions/index.ts ***!
     \********************************/
 
-  /*! exports provided: screeningEventsToWorkEvents, createGmoTokenObject, sameMovieTicketFilter, isAvailabilityMovieTicket, createMovieTicketsFromAuthorizeSeatReservation, createPaymentMethodFromType, getTicketPrice, getItemPrice, movieTicketAuthErroCodeToMessage, getAmount, order2EventOrders, authorizeSeatReservation2Event, changeTicketCount, getRemainingSeatLength, formatTelephone, toFull, toHalf, retry, sleep, buildQueryString, iOSDatepickerTapBugFix, streamingDownload, string2blob, getParameter, getProject, createPrintCanvas, createTestPrintCanvas, createRegiGrowQrcode, changeTicketCountByOrder, getTransactionAgentIdentifier, order2report, input2OrderSearchCondition, getTranslateModuleConfig, reservation2report, input2ReservationSearchCondition */
+  /*! exports provided: screeningEventsToWorkEvents, createGmoTokenObject, sameMovieTicketFilter, isAvailabilityMovieTicket, createMovieTicketsFromAuthorizeSeatReservation, createPaymentMethodFromType, getTicketPrice, getItemPrice, movieTicketAuthErroCodeToMessage, getAmount, order2EventOrders, authorizeSeatReservation2Event, getRemainingSeatLength, formatTelephone, toFull, toHalf, retry, sleep, buildQueryString, iOSDatepickerTapBugFix, streamingDownload, string2blob, getParameter, getProject, createPrintCanvas, createTestPrintCanvas, createRegiGrowQrcode, getTransactionAgentIdentifier, order2report, input2OrderSearchCondition, getTranslateModuleConfig, reservation2report, input2ReservationSearchCondition */
 
   /***/
   function appFunctionsIndexTs(module, __webpack_exports__, __webpack_require__) {
@@ -1377,12 +1377,6 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
     __webpack_require__.d(__webpack_exports__, "authorizeSeatReservation2Event", function () {
       return _purchase_function__WEBPACK_IMPORTED_MODULE_0__["authorizeSeatReservation2Event"];
-    });
-    /* harmony reexport (safe) */
-
-
-    __webpack_require__.d(__webpack_exports__, "changeTicketCount", function () {
-      return _purchase_function__WEBPACK_IMPORTED_MODULE_0__["changeTicketCount"];
     });
     /* harmony reexport (safe) */
 
@@ -1489,12 +1483,6 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     /* harmony reexport (safe) */
 
 
-    __webpack_require__.d(__webpack_exports__, "changeTicketCountByOrder", function () {
-      return _order_function__WEBPACK_IMPORTED_MODULE_2__["changeTicketCountByOrder"];
-    });
-    /* harmony reexport (safe) */
-
-
     __webpack_require__.d(__webpack_exports__, "getTransactionAgentIdentifier", function () {
       return _order_function__WEBPACK_IMPORTED_MODULE_2__["getTransactionAgentIdentifier"];
     });
@@ -1556,7 +1544,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     !*** ./app/functions/order.function.ts ***!
     \*****************************************/
 
-  /*! exports provided: createPrintCanvas, createTestPrintCanvas, createRegiGrowQrcode, changeTicketCountByOrder, getTransactionAgentIdentifier, order2report, input2OrderSearchCondition */
+  /*! exports provided: createPrintCanvas, createTestPrintCanvas, createRegiGrowQrcode, getTransactionAgentIdentifier, order2report, input2OrderSearchCondition */
 
   /***/
   function appFunctionsOrderFunctionTs(module, __webpack_exports__, __webpack_require__) {
@@ -1580,12 +1568,6 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
     __webpack_require__.d(__webpack_exports__, "createRegiGrowQrcode", function () {
       return createRegiGrowQrcode;
-    });
-    /* harmony export (binding) */
-
-
-    __webpack_require__.d(__webpack_exports__, "changeTicketCountByOrder", function () {
-      return changeTicketCountByOrder;
     });
     /* harmony export (binding) */
 
@@ -2185,29 +2167,6 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       }));
     }
     /**
-     * 券種情報を枚数別へ変換
-     */
-
-
-    function changeTicketCountByOrder(acceptedOffer) {
-      var result = [];
-      acceptedOffer.forEach(function (a) {
-        var findResult = result.find(function (r) {
-          return r.acceptedOffer.itemOffered.reservedTicket.ticketType.id === a.itemOffered.reservedTicket.ticketType.id;
-        });
-
-        if (findResult === undefined) {
-          result.push({
-            acceptedOffer: a,
-            count: 1
-          });
-        } else {
-          findResult.count += 1;
-        }
-      });
-      return result;
-    }
-    /**
      * 取引追加情報取得
      */
 
@@ -2352,7 +2311,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     !*** ./app/functions/purchase.function.ts ***!
     \********************************************/
 
-  /*! exports provided: screeningEventsToWorkEvents, createGmoTokenObject, sameMovieTicketFilter, isAvailabilityMovieTicket, createMovieTicketsFromAuthorizeSeatReservation, createPaymentMethodFromType, getTicketPrice, getItemPrice, movieTicketAuthErroCodeToMessage, getAmount, order2EventOrders, authorizeSeatReservation2Event, changeTicketCount, getRemainingSeatLength */
+  /*! exports provided: screeningEventsToWorkEvents, createGmoTokenObject, sameMovieTicketFilter, isAvailabilityMovieTicket, createMovieTicketsFromAuthorizeSeatReservation, createPaymentMethodFromType, getTicketPrice, getItemPrice, movieTicketAuthErroCodeToMessage, getAmount, order2EventOrders, authorizeSeatReservation2Event, getRemainingSeatLength */
 
   /***/
   function appFunctionsPurchaseFunctionTs(module, __webpack_exports__, __webpack_require__) {
@@ -2430,12 +2389,6 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
     __webpack_require__.d(__webpack_exports__, "authorizeSeatReservation2Event", function () {
       return authorizeSeatReservation2Event;
-    });
-    /* harmony export (binding) */
-
-
-    __webpack_require__.d(__webpack_exports__, "changeTicketCount", function () {
-      return changeTicketCount;
     });
     /* harmony export (binding) */
 
@@ -2921,29 +2874,6 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
         });
       });
       return results;
-    }
-    /**
-     * 券種情報を枚数別へ変換
-     */
-
-
-    function changeTicketCount(acceptedOffer) {
-      var result = [];
-      acceptedOffer.forEach(function (a) {
-        var findResult = result.find(function (r) {
-          return r.acceptedOffer.id === a.id;
-        });
-
-        if (findResult === undefined) {
-          result.push({
-            acceptedOffer: a,
-            count: 1
-          });
-        } else {
-          findResult.count += 1;
-        }
-      });
-      return result;
     }
     /**
      * 残席数取得
@@ -6423,13 +6353,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
       _createClass(ItemListComponent, [{
         key: "ngOnInit",
-        value: function ngOnInit() {
-          console.log('ItemListComponent', {
-            reservations: this.reservations,
-            authorizeSeatReservations: this.authorizeSeatReservations,
-            acceptedOffers: this.acceptedOffers
-          });
-        }
+        value: function ngOnInit() {}
         /**
          * 一時予約から価格取得
          */

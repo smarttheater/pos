@@ -239,7 +239,6 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
         this.reservationService = reservationService;
         this.translate = translate;
         this.moment = moment__WEBPACK_IMPORTED_MODULE_5__;
-        this.changeTicketCountByOrder = _functions__WEBPACK_IMPORTED_MODULE_7__["changeTicketCountByOrder"];
         this.orderStatus = _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_2__["factory"].orderStatus;
         this.environment = Object(_environments_environment__WEBPACK_IMPORTED_MODULE_6__["getEnvironment"])();
       }

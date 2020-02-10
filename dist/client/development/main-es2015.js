@@ -896,7 +896,7 @@ AppComponent = __decorate([
 /*!********************************!*\
   !*** ./app/functions/index.ts ***!
   \********************************/
-/*! exports provided: screeningEventsToWorkEvents, createGmoTokenObject, sameMovieTicketFilter, isAvailabilityMovieTicket, createMovieTicketsFromAuthorizeSeatReservation, createPaymentMethodFromType, getTicketPrice, getItemPrice, movieTicketAuthErroCodeToMessage, getAmount, order2EventOrders, authorizeSeatReservation2Event, changeTicketCount, getRemainingSeatLength, formatTelephone, toFull, toHalf, retry, sleep, buildQueryString, iOSDatepickerTapBugFix, streamingDownload, string2blob, getParameter, getProject, createPrintCanvas, createTestPrintCanvas, createRegiGrowQrcode, changeTicketCountByOrder, getTransactionAgentIdentifier, order2report, input2OrderSearchCondition, getTranslateModuleConfig, reservation2report, input2ReservationSearchCondition */
+/*! exports provided: screeningEventsToWorkEvents, createGmoTokenObject, sameMovieTicketFilter, isAvailabilityMovieTicket, createMovieTicketsFromAuthorizeSeatReservation, createPaymentMethodFromType, getTicketPrice, getItemPrice, movieTicketAuthErroCodeToMessage, getAmount, order2EventOrders, authorizeSeatReservation2Event, getRemainingSeatLength, formatTelephone, toFull, toHalf, retry, sleep, buildQueryString, iOSDatepickerTapBugFix, streamingDownload, string2blob, getParameter, getProject, createPrintCanvas, createTestPrintCanvas, createRegiGrowQrcode, getTransactionAgentIdentifier, order2report, input2OrderSearchCondition, getTranslateModuleConfig, reservation2report, input2ReservationSearchCondition */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -925,8 +925,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "order2EventOrders", function() { return _purchase_function__WEBPACK_IMPORTED_MODULE_0__["order2EventOrders"]; });
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "authorizeSeatReservation2Event", function() { return _purchase_function__WEBPACK_IMPORTED_MODULE_0__["authorizeSeatReservation2Event"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "changeTicketCount", function() { return _purchase_function__WEBPACK_IMPORTED_MODULE_0__["changeTicketCount"]; });
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "getRemainingSeatLength", function() { return _purchase_function__WEBPACK_IMPORTED_MODULE_0__["getRemainingSeatLength"]; });
 
@@ -960,8 +958,6 @@ __webpack_require__.r(__webpack_exports__);
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "createRegiGrowQrcode", function() { return _order_function__WEBPACK_IMPORTED_MODULE_2__["createRegiGrowQrcode"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "changeTicketCountByOrder", function() { return _order_function__WEBPACK_IMPORTED_MODULE_2__["changeTicketCountByOrder"]; });
-
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "getTransactionAgentIdentifier", function() { return _order_function__WEBPACK_IMPORTED_MODULE_2__["getTransactionAgentIdentifier"]; });
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "order2report", function() { return _order_function__WEBPACK_IMPORTED_MODULE_2__["order2report"]; });
@@ -992,7 +988,7 @@ var __importDefault = (undefined && undefined.__importDefault) || function (mod)
 /*!*****************************************!*\
   !*** ./app/functions/order.function.ts ***!
   \*****************************************/
-/*! exports provided: createPrintCanvas, createTestPrintCanvas, createRegiGrowQrcode, changeTicketCountByOrder, getTransactionAgentIdentifier, order2report, input2OrderSearchCondition */
+/*! exports provided: createPrintCanvas, createTestPrintCanvas, createRegiGrowQrcode, getTransactionAgentIdentifier, order2report, input2OrderSearchCondition */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1000,7 +996,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "createPrintCanvas", function() { return createPrintCanvas; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "createTestPrintCanvas", function() { return createTestPrintCanvas; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "createRegiGrowQrcode", function() { return createRegiGrowQrcode; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "changeTicketCountByOrder", function() { return changeTicketCountByOrder; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getTransactionAgentIdentifier", function() { return getTransactionAgentIdentifier; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "order2report", function() { return order2report; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "input2OrderSearchCondition", function() { return input2OrderSearchCondition; });
@@ -1243,22 +1238,6 @@ function createRegiGrowQrcode(order) {
     });
 }
 /**
- * 券種情報を枚数別へ変換
- */
-function changeTicketCountByOrder(acceptedOffer) {
-    const result = [];
-    acceptedOffer.forEach((a) => {
-        const findResult = result.find(r => r.acceptedOffer.itemOffered.reservedTicket.ticketType.id === a.itemOffered.reservedTicket.ticketType.id);
-        if (findResult === undefined) {
-            result.push({ acceptedOffer: a, count: 1 });
-        }
-        else {
-            findResult.count += 1;
-        }
-    });
-    return result;
-}
-/**
  * 取引追加情報取得
  */
 function getTransactionAgentIdentifier(order, key) {
@@ -1382,7 +1361,7 @@ function input2OrderSearchCondition(params) {
 /*!********************************************!*\
   !*** ./app/functions/purchase.function.ts ***!
   \********************************************/
-/*! exports provided: screeningEventsToWorkEvents, createGmoTokenObject, sameMovieTicketFilter, isAvailabilityMovieTicket, createMovieTicketsFromAuthorizeSeatReservation, createPaymentMethodFromType, getTicketPrice, getItemPrice, movieTicketAuthErroCodeToMessage, getAmount, order2EventOrders, authorizeSeatReservation2Event, changeTicketCount, getRemainingSeatLength */
+/*! exports provided: screeningEventsToWorkEvents, createGmoTokenObject, sameMovieTicketFilter, isAvailabilityMovieTicket, createMovieTicketsFromAuthorizeSeatReservation, createPaymentMethodFromType, getTicketPrice, getItemPrice, movieTicketAuthErroCodeToMessage, getAmount, order2EventOrders, authorizeSeatReservation2Event, getRemainingSeatLength */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1399,7 +1378,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getAmount", function() { return getAmount; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "order2EventOrders", function() { return order2EventOrders; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "authorizeSeatReservation2Event", function() { return authorizeSeatReservation2Event; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "changeTicketCount", function() { return changeTicketCount; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getRemainingSeatLength", function() { return getRemainingSeatLength; });
 /* harmony import */ var _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @cinerino/api-javascript-client */ "../../node_modules/@cinerino/api-javascript-client/lib/index.js");
 /* harmony import */ var _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_0__);
@@ -1753,22 +1731,6 @@ function authorizeSeatReservation2Event(params) {
         });
     });
     return results;
-}
-/**
- * 券種情報を枚数別へ変換
- */
-function changeTicketCount(acceptedOffer) {
-    const result = [];
-    acceptedOffer.forEach((a) => {
-        const findResult = result.find(r => r.acceptedOffer.id === a.id);
-        if (findResult === undefined) {
-            result.push({ acceptedOffer: a, count: 1 });
-        }
-        else {
-            findResult.count += 1;
-        }
-    });
-    return result;
 }
 /**
  * 残席数取得
@@ -3785,11 +3747,6 @@ let ItemListComponent = class ItemListComponent {
         this.environment = Object(_environments_environment__WEBPACK_IMPORTED_MODULE_1__["getEnvironment"])();
     }
     ngOnInit() {
-        console.log('ItemListComponent', {
-            reservations: this.reservations,
-            authorizeSeatReservations: this.authorizeSeatReservations,
-            acceptedOffers: this.acceptedOffers
-        });
     }
     /**
      * 一時予約から価格取得

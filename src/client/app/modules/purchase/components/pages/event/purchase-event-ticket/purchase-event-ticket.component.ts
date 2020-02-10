@@ -8,7 +8,6 @@ import { BsModalService } from 'ngx-bootstrap';
 import { Observable } from 'rxjs';
 import { getEnvironment } from '../../../../../../../environments/environment';
 import {
-    changeTicketCount,
     getRemainingSeatLength,
     IScreeningEventWork,
     screeningEventsToWorkEvents
@@ -33,7 +32,6 @@ export class PurchaseEventTicketComponent implements OnInit, OnDestroy {
     public isLoading: Observable<boolean>;
     public screeningWorkEvents: IScreeningEventWork[];
     public moment: typeof moment = moment;
-    public changeTicketCount = changeTicketCount;
     public environment = getEnvironment();
     private updateTimer: any;
 

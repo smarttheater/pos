@@ -425,27 +425,6 @@ export function authorizeSeatReservation2Event(params: {
 }
 
 /**
- * 券種情報を枚数別へ変換
- */
-export function changeTicketCount(
-    acceptedOffer: factory.chevre.event.screeningEvent.ITicketOffer[]
-) {
-    const result: {
-        acceptedOffer: factory.chevre.event.screeningEvent.ITicketOffer;
-        count: number;
-    }[] = [];
-    acceptedOffer.forEach((a: factory.chevre.event.screeningEvent.ITicketOffer) => {
-        const findResult = result.find(r => r.acceptedOffer.id === a.id);
-        if (findResult === undefined) {
-            result.push({ acceptedOffer: a, count: 1 });
-        } else {
-            findResult.count += 1;
-        }
-    });
-    return result;
-}
-
-/**
  * 残席数取得
  */
 export function getRemainingSeatLength(

@@ -18,11 +18,6 @@ export class ItemListComponent implements OnInit {
     constructor() { }
 
     public ngOnInit() {
-        console.log('ItemListComponent', {
-            reservations: this.reservations,
-            authorizeSeatReservations: this.authorizeSeatReservations,
-            acceptedOffers: this.acceptedOffers
-        });
     }
 
     /**
