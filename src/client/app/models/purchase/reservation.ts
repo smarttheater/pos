@@ -18,4 +18,5 @@ export interface IReservationSeat extends factory.chevre.reservation.ISeat<facto
 export interface IReservationTicket {
     ticketOffer: factory.chevre.event.screeningEvent.ITicketOffer;
     movieTicket?: factory.paymentMethod.paymentCard.movieTicket.IMovieTicket;
+    addOn?: factory.chevre.offer.IOffer[];
 }
