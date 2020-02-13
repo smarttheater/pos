@@ -12,6 +12,7 @@ import { ContentsComponent } from './components/parts/contents/contents.componen
 import { FooterComponent } from './components/parts/footer/footer.component';
 import { HeaderMenuComponent } from './components/parts/header-menu/header-menu.component';
 import { HeaderComponent } from './components/parts/header/header.component';
+import { ItemListComponent } from './components/parts/item-list/item-list.component';
 import { LoadingComponent } from './components/parts/loading/loading.component';
 import { MvtkCheckModalComponent } from './components/parts/mvtk/check-modal/check-modal.component';
 import { NumericKeypadComponent } from './components/parts/numeric-keypad/numeric-keypad.component';
@@ -35,6 +36,7 @@ const components = [
   HeaderMenuComponent,
   LoadingComponent,
   ScreenComponent,
+  ItemListComponent
 ];
 
 const entryComponents = [

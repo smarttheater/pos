@@ -3,7 +3,6 @@ import { factory } from '@cinerino/api-javascript-client';
 import * as moment from 'moment';
 import { BsModalRef } from 'ngx-bootstrap';
 import { getEnvironment } from '../../../../../../../environments/environment';
-import { getItemPrice, getItemReferenceQuantityValue } from '../../../../../../functions';
 
 @Component({
     selector: 'app-reservation-detail-modal',
@@ -13,8 +12,6 @@ import { getItemPrice, getItemReferenceQuantityValue } from '../../../../../../f
 export class ReservationDetailModalComponent implements OnInit {
     @Input() public reservation: factory.chevre.reservation.IReservation<factory.chevre.reservationType.EventReservation>;
     public moment: typeof moment = moment;
-    public getItemPrice = getItemPrice;
-    public getItemReferenceQuantityValue = getItemReferenceQuantityValue;
     public environment = getEnvironment();
 
     constructor(

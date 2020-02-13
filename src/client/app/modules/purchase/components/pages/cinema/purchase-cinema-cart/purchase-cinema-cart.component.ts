@@ -6,7 +6,7 @@ import { TranslateService } from '@ngx-translate/core';
 import * as moment from 'moment';
 import { Observable } from 'rxjs';
 import { getEnvironment } from '../../../../../../../environments/environment';
-import { getAmount, getItemPrice, getItemReferenceQuantityValue } from '../../../../../../functions';
+import { getAmount } from '../../../../../../functions';
 import { PurchaseService, UtilService } from '../../../../../../services';
 import * as reducers from '../../../../../../store/reducers';
 
@@ -20,8 +20,6 @@ export class PurchaseCinemaCartComponent implements OnInit {
     public user: Observable<reducers.IUserState>;
     public isLoading: Observable<boolean>;
     public moment: typeof moment = moment;
-    public getItemPrice = getItemPrice;
-    public getItemReferenceQuantityValue = getItemReferenceQuantityValue;
     public amount: number;
     public environment = getEnvironment();
 
