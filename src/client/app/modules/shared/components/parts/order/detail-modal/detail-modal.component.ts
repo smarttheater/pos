@@ -6,8 +6,6 @@ import * as platform from 'platform';
 import { getEnvironment } from '../../../../../../../environments/environment';
 import {
     createRegiGrowQrcode,
-    getItemPrice,
-    getItemReferenceQuantityValue,
     getTransactionAgentIdentifier,
     IEventOrder,
     order2EventOrders
@@ -21,8 +19,6 @@ import {
 export class OrderDetailModalComponent implements OnInit {
     @Input() public order: factory.order.IOrder;
     public moment: typeof moment = moment;
-    public getItemPrice = getItemPrice;
-    public getItemReferenceQuantityValue = getItemReferenceQuantityValue;
     public eventOrders: IEventOrder[];
     public environment = getEnvironment();
     public regiGrow?: string;

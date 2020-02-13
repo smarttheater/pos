@@ -120,11 +120,7 @@
                                 -</p>
                         </td>
                         <td class="align-middle">
-                            <p>{{ reservation.reservedTicket.ticketType.name | changeLanguage }}</p>
-                            <p *ngIf="reservation.reservedTicket.ticketedSeat && environment.DISPLAY_TICKETED_SEAT">
-                                {{ reservation.reservedTicket.ticketedSeat.seatNumber }}</p>
-                            <p>{{ getItemPrice({ priceComponents: reservation.price.priceComponent }) | currency : 'JPY' }}
-                            </p>
+                            <app-item-list [authorizeSeatReservations]="[reservation]"></app-item-list>
                         </td>
                         <!-- <td class="align-middle">
                           <div *ngFor="let paymentMethod of reservation.paymentMethods">

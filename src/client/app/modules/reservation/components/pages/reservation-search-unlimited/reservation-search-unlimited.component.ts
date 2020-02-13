@@ -7,7 +7,7 @@ import { BsDatepickerDirective, BsLocaleService, BsModalService } from 'ngx-boot
 import { BsDatepickerContainerComponent } from 'ngx-bootstrap/datepicker/themes/bs/bs-datepicker-container.component';
 import { Observable } from 'rxjs';
 import { getEnvironment } from '../../../../../../environments/environment';
-import { getItemPrice, getItemReferenceQuantityValue, input2ReservationSearchCondition, iOSDatepickerTapBugFix } from '../../../../../functions';
+import { input2ReservationSearchCondition, iOSDatepickerTapBugFix } from '../../../../../functions';
 import { IReservationSearchConditions } from '../../../../../models';
 import { ReservationService, UserService, UtilService } from '../../../../../services';
 import * as reducers from '../../../../../store/reducers';
@@ -33,8 +33,6 @@ export class ReservationSearchUnlimitedComponent implements OnInit {
     public conditions: IReservationSearchConditions;
     public confirmedConditions: IReservationSearchConditions;
     public environment = getEnvironment();
-    public getItemPrice = getItemPrice;
-    public getItemReferenceQuantityValue = getItemReferenceQuantityValue;
     @ViewChild('reservationDateFrom', { static: true }) private reservationDateFrom: BsDatepickerDirective;
     @ViewChild('reservationDateThrough', { static: true }) private reservationDateThrough: BsDatepickerDirective;
     @ViewChild('eventStartDateFrom', { static: true }) private eventStartDateFrom: BsDatepickerDirective;
