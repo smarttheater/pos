@@ -1,7 +1,7 @@
 import { factory } from '@cinerino/api-javascript-client';
 
 export interface IReservation {
-    seat: IReservationSeat;
+    seat?: IReservationSeat;
     ticket?: IReservationTicket;
 }
 

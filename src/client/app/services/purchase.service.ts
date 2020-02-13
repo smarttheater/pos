@@ -6,7 +6,7 @@ import * as moment from 'moment';
 import { Observable, race } from 'rxjs';
 import { take, tap } from 'rxjs/operators';
 import { getEnvironment } from '../../environments/environment';
-import { IReservation, IReservationSeat, IReservationTicket } from '../models';
+import { IReservation, IReservationSeat } from '../models';
 import { purchaseAction } from '../store/actions';
 import * as reducers from '../store/reducers';
 import { UtilService } from './util.service';
@@ -272,7 +272,7 @@ export class PurchaseService {
     /**
      * 座席仮予約（座席選択なし）
      */
-    public async temporaryReservationFreeSeat(reservationTickets: IReservationTicket[]) {
+    public async temporaryReservationFreeSeat(reservations: IReservation[]) {
         const purchase = await this.getData();
         return new Promise<void>((resolve, reject) => {
             if (purchase.transaction === undefined || purchase.screeningEvent === undefined) {
@@ -286,7 +286,7 @@ export class PurchaseService {
                 transaction,
                 screeningEvent,
                 screeningEventOffers,
-                reservationTickets
+                reservations
             }));
             const success = this.actions.pipe(
                 ofType(purchaseAction.ActionTypes.TemporaryReservationFreeSeatSuccess),

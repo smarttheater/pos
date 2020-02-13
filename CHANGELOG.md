@@ -12,6 +12,10 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/).
 
 ### Security
 
+## 3.0.7 - 2020-02-13
+### Added
+ - 価格表記コンポーネント追加
+
 ## 3.0.6 - 2020-02-07
 ### Changed
  - 状態管理保存用ストレージを分離

@@ -8,12 +8,13 @@
                     --><span class="text-small" *ngIf="priceComponent?.referenceQuantity?.value">{{ 'common.referenceQuantityValue' | translate: { value: priceComponent?.referenceQuantity?.value } }}</span>
                 </p>
             </div>
+            <p *ngIf="ticket.ticketOffer.description" class="text-x-small text-left">{{ ticket.ticketOffer.description | changeLanguage }}</p>
         </button>
     </div>
 </div>
 
 <div *ngIf="selectedTicket" class="p-3 scroll-vertical">
-    <div class="mb-3 text-large text-center">オプション選択</div>
+    <div class="mb-3 text-large text-center">{{ 'purchase.cinema.ticket.addOn' | translate }}</div>
     <ul class="mb-4">
         <li class="mb-3" *ngFor="let addOn of selectedTicket.ticketOffer.addOn; let index = index">
             <app-checkbox class="pointer" (change)="changeAddOnList(addOn.id)">
