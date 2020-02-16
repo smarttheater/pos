@@ -20,7 +20,8 @@
     <div *ngFor="let acceptedOffer of acceptedOffers">
         <p *ngIf="acceptedOffer.itemOffered.reservedTicket.ticketedSeat">{{ acceptedOffer.itemOffered.reservedTicket.ticketedSeat.seatNumber }}</p>
         <p *ngFor="let priceComponent of acceptedOffer.priceSpecification.priceComponent">
-            <span>{{ priceComponent.name | changeLanguage }}</span><!--
+            <span *ngIf="priceComponent.name">{{ priceComponent.name | changeLanguage }}</span><!--
+            --><span *ngIf="!priceComponent.name">{{ acceptedOffer.name | changeLanguage }}</span><!--
             --><span>&nbsp;/&nbsp;{{ priceComponent.price | currency : priceComponent.priceCurrency }}</span><!--
             --><span class="text-small" *ngIf="priceComponent?.referenceQuantity?.value">{{ 'common.referenceQuantityValue' | translate: { value: priceComponent?.referenceQuantity?.value } }}</span>
         </p>
