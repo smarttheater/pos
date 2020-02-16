@@ -112,6 +112,9 @@ export class PurchaseCinemaSeatComponent implements OnInit {
         const seats: IReservationSeat[] = [];
         const purchase = await this.purchaseService.getData();
         purchase.reservations.forEach((reservation) => {
+            if (reservation.seat === undefined) {
+                return;
+            }
             seats.push(reservation.seat);
         });
         this.purchaseService.cancelSeats(seats);

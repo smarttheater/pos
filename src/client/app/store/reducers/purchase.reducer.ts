@@ -176,7 +176,8 @@ export function reducer(state: IState, action: purchaseAction.Actions): IState {
             const seats = action.payload.seats;
             state.purchaseData.reservations.forEach((reservation) => {
                 const findResult = seats.find((seat) => {
-                    return (reservation.seat.seatNumber === seat.seatNumber
+                    return (reservation.seat !== undefined
+                        && reservation.seat.seatNumber === seat.seatNumber
                         && reservation.seat.seatSection === seat.seatSection);
                 });
                 if (findResult === undefined) {
@@ -256,6 +257,7 @@ export function reducer(state: IState, action: purchaseAction.Actions): IState {
                     movieTickets: movieTicketReservations.map((r) => {
                         const pendingReservation = pendingReservations.find((p) => {
                             return (p.reservedTicket.ticketedSeat !== undefined
+                                && r.seat !== undefined
                                 && p.reservedTicket.ticketedSeat.seatNumber === r.seat.seatNumber
                                 && p.reservedTicket.ticketedSeat.seatSection === r.seat.seatSection);
                         });
