@@ -477,7 +477,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("<div class=\"mb-2\" *ngIf=\"environment.DISPLAY_TICKETED_SEAT\">\n    <div *ngFor=\"let reservation of reservations\">\n        <p>{{ reservation.seat.seatNumber }}</p>\n        <p *ngFor=\"let priceComponent of getReservationPriceComponents(reservation)\">\n            <span>{{ priceComponent.name | changeLanguage }}</span><!--\n            --><span>&nbsp;/&nbsp;{{ priceComponent.price | currency : priceComponent.priceCurrency }}</span><!--\n            --><span class=\"text-small\" *ngIf=\"priceComponent?.referenceQuantity?.value\">{{ 'common.referenceQuantityValue' | translate: { value: priceComponent?.referenceQuantity?.value } }}</span>\n        </p>\n    </div>\n    \n    <div *ngFor=\"let reservation of authorizeSeatReservations\">\n        <p *ngIf=\"reservation.reservedTicket.ticketedSeat\">{{ reservation.reservedTicket.ticketedSeat.seatNumber }}</p>\n        <p *ngFor=\"let priceComponent of reservation.price.priceComponent\">\n            <span>{{ priceComponent.name | changeLanguage }}</span><!--\n            --><span>&nbsp;/&nbsp;{{ priceComponent.price | currency : priceComponent.priceCurrency }}</span><!--\n            --><span class=\"text-small\" *ngIf=\"priceComponent?.referenceQuantity?.value\">{{ 'common.referenceQuantityValue' | translate: { value: priceComponent?.referenceQuantity?.value } }}</span>\n        </p>\n    </div>\n    \n    <div *ngFor=\"let acceptedOffer of acceptedOffers\">\n        <p *ngIf=\"acceptedOffer.itemOffered.reservedTicket.ticketedSeat\">{{ acceptedOffer.itemOffered.reservedTicket.ticketedSeat.seatNumber }}</p>\n        <p *ngFor=\"let priceComponent of acceptedOffer.priceSpecification.priceComponent\">\n            <span>{{ priceComponent.name | changeLanguage }}</span><!--\n            --><span>&nbsp;/&nbsp;{{ priceComponent.price | currency : priceComponent.priceCurrency }}</span><!--\n            --><span class=\"text-small\" *ngIf=\"priceComponent?.referenceQuantity?.value\">{{ 'common.referenceQuantityValue' | translate: { value: priceComponent?.referenceQuantity?.value } }}</span>\n        </p>\n    </div>\n</div>\n\n<div class=\"mb-2\" *ngIf=\"!environment.DISPLAY_TICKETED_SEAT\">\n    <div *ngFor=\"let ticket of changeTicketCount()\">\n        <p *ngFor=\"let priceComponent of ticket.priceComponents\">\n            <span>{{ priceComponent.name | changeLanguage }}</span><!--\n            --><span>&nbsp;/&nbsp;{{ priceComponent.price | currency : priceComponent.priceCurrency }}</span><!--\n            --><span class=\"text-small\" *ngIf=\"priceComponent?.referenceQuantity?.value\">{{ 'common.referenceQuantityValue' | translate: { value: priceComponent?.referenceQuantity?.value } }}</span><!--\n            --><span>&nbsp;×&nbsp;{{ ticket.count }}</span>\n        </p>\n    </div>\n</div>\n\n");
+/* harmony default export */ __webpack_exports__["default"] = ("<div class=\"mb-2\" *ngIf=\"environment.DISPLAY_TICKETED_SEAT\">\n    <div *ngFor=\"let reservation of reservations\">\n        <p>{{ reservation.seat.seatNumber }}</p>\n        <p *ngFor=\"let priceComponent of getReservationPriceComponents(reservation)\">\n            <span>{{ priceComponent.name | changeLanguage }}</span><!--\n            --><span *ngIf=\"priceComponent?.referenceQuantity?.value && priceComponent?.appliesToAddOn\">&nbsp;×&nbsp;{{ priceComponent.referenceQuantity.value }}</span><!--\n            --><span>&nbsp;/&nbsp;{{ priceComponent.price | currency : priceComponent.priceCurrency }}</span><!--\n            --><span class=\"text-small\" *ngIf=\"priceComponent?.referenceQuantity?.value && !priceComponent?.appliesToAddOn\">{{ 'common.referenceQuantityValue' | translate: { value: priceComponent?.referenceQuantity?.value } }}</span>\n        </p>\n    </div>\n    \n    <div *ngFor=\"let reservation of authorizeSeatReservations\">\n        <p *ngIf=\"reservation.reservedTicket.ticketedSeat\">{{ reservation.reservedTicket.ticketedSeat.seatNumber }}</p>\n        <p *ngFor=\"let priceComponent of reservation.price.priceComponent\">\n            <span>{{ priceComponent.name | changeLanguage }}</span><!--\n            --><span *ngIf=\"priceComponent?.referenceQuantity?.value && priceComponent?.appliesToAddOn\">&nbsp;×&nbsp;{{ priceComponent.referenceQuantity.value }}</span><!--\n            --><span>&nbsp;/&nbsp;{{ priceComponent.price | currency : priceComponent.priceCurrency }}</span><!--\n            --><span class=\"text-small\" *ngIf=\"priceComponent?.referenceQuantity?.value && !priceComponent?.appliesToAddOn\">{{ 'common.referenceQuantityValue' | translate: { value: priceComponent?.referenceQuantity?.value } }}</span>\n        </p>\n    </div>\n    \n    <div *ngFor=\"let acceptedOffer of acceptedOffers\">\n        <p *ngIf=\"acceptedOffer.itemOffered.reservedTicket.ticketedSeat\">{{ acceptedOffer.itemOffered.reservedTicket.ticketedSeat.seatNumber }}</p>\n        <p *ngFor=\"let priceComponent of acceptedOffer.priceSpecification.priceComponent\">\n            <span *ngIf=\"priceComponent.name\">{{ priceComponent.name | changeLanguage }}</span><!--\n            --><span *ngIf=\"!priceComponent.name\">{{ acceptedOffer.name | changeLanguage }}</span><!--\n            --><span *ngIf=\"priceComponent?.referenceQuantity?.value && priceComponent?.appliesToAddOn\">&nbsp;×&nbsp;{{ priceComponent.referenceQuantity.value }}</span><!--\n            --><span>&nbsp;/&nbsp;{{ priceComponent.price | currency : priceComponent.priceCurrency }}</span><!--\n            --><span class=\"text-small\" *ngIf=\"priceComponent?.referenceQuantity?.value && !priceComponent?.appliesToAddOn\">{{ 'common.referenceQuantityValue' | translate: { value: priceComponent?.referenceQuantity?.value } }}</span>\n        </p>\n    </div>\n</div>\n\n<div class=\"mb-2\" *ngIf=\"!environment.DISPLAY_TICKETED_SEAT\">\n    <div *ngFor=\"let ticket of changeTicketCount()\">\n        <p *ngFor=\"let priceComponent of ticket.priceComponents\">\n            <span>{{ priceComponent.name | changeLanguage }}</span><!--\n            --><span>&nbsp;/&nbsp;{{ priceComponent.price | currency : priceComponent.priceCurrency }}</span><!--\n            --><span class=\"text-small\" *ngIf=\"priceComponent?.referenceQuantity?.value\">{{ 'common.referenceQuantityValue' | translate: { value: priceComponent?.referenceQuantity?.value } }}</span><!--\n            --><span>&nbsp;×&nbsp;{{ ticket.count }}</span>\n        </p>\n    </div>\n</div>\n\n");
 
 /***/ }),
 
@@ -3858,7 +3858,7 @@ let ItemListComponent = class ItemListComponent {
                     if (a.priceSpecification === undefined) {
                         return;
                     }
-                    priceComponents.push(a.priceSpecification);
+                    priceComponents.push(Object.assign({}, a.priceSpecification, { appliesToAddOn: [] }));
                 });
             }
         }
@@ -3885,16 +3885,26 @@ let ItemListComponent = class ItemListComponent {
                 if (o.priceSpecification === undefined) {
                     return;
                 }
-                priceComponentsList.push(o.priceSpecification.priceComponent);
+                const priceComponents = [];
+                o.priceSpecification.priceComponent
+                    .forEach((p) => {
+                    if (p.name === undefined) {
+                        p.name = o.name;
+                    }
+                    priceComponents.push(p);
+                });
+                priceComponentsList.push(priceComponents);
             });
         }
         const result = [];
         const sortPriceComponent = (p) => {
             return p.sort((a, b) => {
-                if (a.price < b.price) {
+                const priceA = (a.price === undefined) ? 0 : a.price;
+                const priceB = (b.price === undefined) ? 0 : b.price;
+                if (priceA < priceB) {
                     return -1;
                 }
-                if (a.price > b.price) {
+                if (priceA > priceB) {
                     return 1;
                 }
                 return 0;
