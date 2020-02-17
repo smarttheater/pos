@@ -3885,16 +3885,26 @@ let ItemListComponent = class ItemListComponent {
                 if (o.priceSpecification === undefined) {
                     return;
                 }
-                priceComponentsList.push(o.priceSpecification.priceComponent);
+                const priceComponents = [];
+                o.priceSpecification.priceComponent
+                    .forEach((p) => {
+                    if (p.name === undefined) {
+                        p.name = o.name;
+                    }
+                    priceComponents.push(p);
+                });
+                priceComponentsList.push(priceComponents);
             });
         }
         const result = [];
         const sortPriceComponent = (p) => {
             return p.sort((a, b) => {
-                if (a.price < b.price) {
+                const priceA = (a.price === undefined) ? 0 : a.price;
+                const priceB = (b.price === undefined) ? 0 : b.price;
+                if (priceA < priceB) {
                     return -1;
                 }
-                if (a.price > b.price) {
+                if (priceA > priceB) {
                     return 1;
                 }
                 return 0;
@@ -6405,7 +6415,7 @@ DownloadService = DownloadService_1 = __decorate([
 /*!*******************************!*\
   !*** ./app/services/index.ts ***!
   \*******************************/
-/*! exports provided: CinerinoService, AdmissionService, PurchaseService, UserService, MasterService, OrderService, ReservationService, UtilService, StarPrintService, DownloadService, QRCodeService */
+/*! exports provided: AdmissionService, CinerinoService, PurchaseService, UserService, MasterService, OrderService, ReservationService, UtilService, StarPrintService, DownloadService, QRCodeService */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";

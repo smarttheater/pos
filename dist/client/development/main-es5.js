@@ -6554,7 +6554,15 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                 return;
               }
 
-              priceComponentsList.push(o.priceSpecification.priceComponent);
+              var priceComponents = [];
+              o.priceSpecification.priceComponent.forEach(function (p) {
+                if (p.name === undefined) {
+                  p.name = o.name;
+                }
+
+                priceComponents.push(p);
+              });
+              priceComponentsList.push(priceComponents);
             });
           }
 
@@ -6562,11 +6570,14 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
           var sortPriceComponent = function sortPriceComponent(p) {
             return p.sort(function (a, b) {
-              if (a.price < b.price) {
+              var priceA = a.price === undefined ? 0 : a.price;
+              var priceB = b.price === undefined ? 0 : b.price;
+
+              if (priceA < priceB) {
                 return -1;
               }
 
-              if (a.price > b.price) {
+              if (priceA > priceB) {
                 return 1;
               }
 
@@ -10886,7 +10897,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     !*** ./app/services/index.ts ***!
     \*******************************/
 
-  /*! exports provided: CinerinoService, AdmissionService, PurchaseService, UserService, MasterService, OrderService, ReservationService, UtilService, StarPrintService, DownloadService, QRCodeService */
+  /*! exports provided: AdmissionService, CinerinoService, PurchaseService, UserService, MasterService, OrderService, ReservationService, UtilService, StarPrintService, DownloadService, QRCodeService */
 
   /***/
   function appServicesIndexTs(module, __webpack_exports__, __webpack_require__) {
