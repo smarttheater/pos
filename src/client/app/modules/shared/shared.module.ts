@@ -10,6 +10,7 @@ import { AlertModalComponent } from './components/parts/alert-modal/alert-modal.
 import { ConfirmModalComponent } from './components/parts/confirm-modal/confirm-modal.component';
 import { ContentsComponent } from './components/parts/contents/contents.component';
 import { FooterComponent } from './components/parts/footer/footer.component';
+import { CheckboxComponent } from './components/parts/form/checkbox/checkbox.component';
 import { HeaderMenuComponent } from './components/parts/header-menu/header-menu.component';
 import { HeaderComponent } from './components/parts/header/header.component';
 import { ItemListComponent } from './components/parts/item-list/item-list.component';
@@ -36,7 +37,8 @@ const components = [
   HeaderMenuComponent,
   LoadingComponent,
   ScreenComponent,
-  ItemListComponent
+  ItemListComponent,
+  CheckboxComponent
 ];
 
 const entryComponents = [

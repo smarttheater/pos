@@ -152,7 +152,8 @@ export class PurchaseEffects {
             try {
                 await this.cinerinoService.getServices();
                 if (payload.authorizeSeatReservation !== undefined) {
-                    await this.cinerinoService.transaction.placeOrder.voidSeatReservation(payload.authorizeSeatReservation);
+                    await this.cinerinoService.transaction.placeOrder
+                        .voidSeatReservation(payload.authorizeSeatReservation);
                 }
                 // サーバータイムを使用して販売期間判定
                 const serverTime = await this.utilService.getServerTime();
@@ -168,9 +169,7 @@ export class PurchaseEffects {
                     <factory.action.authorize.offer.seatReservation.IAction<factory.service.webAPI.Identifier.Chevre>>
                     await this.cinerinoService.transaction.placeOrder.authorizeSeatReservation({
                         object: {
-                            event: {
-                                id: screeningEvent.id
-                            },
+                            event: { id: screeningEvent.id },
                             acceptedOffer: reservations.map((reservation) => {
                                 if (reservation.ticket === undefined) {
                                     throw new Error('ticket is undefined');
@@ -178,6 +177,9 @@ export class PurchaseEffects {
                                 return {
                                     id: reservation.ticket.ticketOffer.id,
                                     ticketedSeat: reservation.seat,
+                                    addOn: (reservation.ticket.addOn === undefined)
+                                        ? undefined
+                                        : reservation.ticket.addOn.map(a => ({ id: a.id })),
                                     additionalProperty: [] // ここにムビチケ情報を入れる
                                 };
                             })
@@ -205,8 +207,9 @@ export class PurchaseEffects {
             const transaction = payload.transaction;
             const screeningEvent = payload.screeningEvent;
             const screeningEventOffers = payload.screeningEventOffers;
-            const reservationTickets = payload.reservationTickets;
-            const freeSeats: factory.chevre.reservation.ISeat<factory.chevre.reservationType.EventReservation>[] = [];
+            const reservations = payload.reservations;
+            const freeSeats:
+                factory.chevre.reservation.ISeat<factory.chevre.reservationType.EventReservation>[] = [];
             try {
                 await this.cinerinoService.getServices();
                 if (new Performance(screeningEvent).isTicketedSeat()) {
@@ -233,10 +236,16 @@ export class PurchaseEffects {
                             event: {
                                 id: screeningEvent.id
                             },
-                            acceptedOffer: reservationTickets.map((ticket, index) => {
+                            acceptedOffer: reservations.map((reservation, index) => {
+                                if (reservation.ticket === undefined) {
+                                    throw new Error('ticket is undefined');
+                                }
                                 return {
-                                    id: ticket.ticketOffer.id,
+                                    id: reservation.ticket.ticketOffer.id,
                                     ticketedSeat: (freeSeats.length > 0) ? freeSeats[index] : undefined,
+                                    addOn: (reservation.ticket.addOn === undefined)
+                                        ? undefined
+                                        : reservation.ticket.addOn.map(a => ({ id: a.id })),
                                     additionalProperty: [] // ここにムビチケ情報を入れる
                                 };
                             })
