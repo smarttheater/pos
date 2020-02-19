@@ -1,3 +1,11 @@
+function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _nonIterableSpread(); }
+
+function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance"); }
+
+function _iterableToArray(iter) { if (Symbol.iterator in Object(iter) || Object.prototype.toString.call(iter) === "[object Arguments]") return Array.from(iter); }
+
+function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = new Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } }
+
 function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
 
 function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
@@ -693,7 +701,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     /* harmony default export */
 
 
-    __webpack_exports__["default"] = "<div *ngIf=\"!selectedTicket\" class=\"p-3 scroll-vertical\">\n    <div *ngFor=\"let ticket of tickets\" class=\"ticket mb-2\">\n        <button type=\"button\" (click)=\"selsctTicket(ticket)\" class=\"btn btn-block btn-outline-primary py-3\">\n            <div class=\"d-flex justify-content-between align-items-center\" *ngFor=\"let priceComponent of ticket.ticketOffer.priceSpecification.priceComponent\">\n                <p class=\"w-50 text-left\">{{ priceComponent.name | changeLanguage }}</p>\n                <p class=\"w-50 text-right\">\n                    <span>{{ priceComponent.price | currency : priceComponent.priceCurrency }}</span><!--\n                    --><span class=\"text-small\" *ngIf=\"priceComponent?.referenceQuantity?.value\">{{ 'common.referenceQuantityValue' | translate: { value: priceComponent?.referenceQuantity?.value } }}</span>\n                </p>\n            </div>\n            <p *ngIf=\"ticket.ticketOffer.description\" class=\"text-x-small text-left\">{{ ticket.ticketOffer.description | changeLanguage }}</p>\n        </button>\n    </div>\n</div>\n\n<div *ngIf=\"selectedTicket\" class=\"p-3 scroll-vertical\">\n    <div class=\"mb-3 text-large text-center\">{{ 'purchase.cinema.ticket.addOn' | translate }}</div>\n    <ul class=\"mb-4\">\n        <li class=\"mb-3\" *ngFor=\"let addOn of selectedTicket.ticketOffer.addOn; let index = index\">\n            <app-checkbox class=\"pointer\" (change)=\"changeAddOnList(addOn.id)\">\n                <div class=\"d-flex w-100\">\n                <div class=\"w-50\">{{ addOn.priceSpecification?.name | changeLanguage }}<span *ngIf=\"addOn.priceSpecification?.referenceQuantity?.value\">{{ 'common.referenceQuantityValue' | translate: { value: addOn.priceSpecification?.referenceQuantity?.value } }}</span></div>\n                <div class=\"w-50 text-right\">{{ addOn.priceSpecification?.price | currency : addOn.priceSpecification?.priceCurrency }}</div>\n                </div>\n            </app-checkbox>\n        </li>\n    </ul>\n    <div class=\"buttons mx-auto text-center\">\n        <button type=\"button\" class=\"btn btn-primary btn-block py-3 mb-3\"\n            (click)=\"selsctOption()\">{{ 'common.done' | translate }}</button>\n        <button type=\"button\" class=\"btn btn-link btn-sm\"\n            (click)=\"modal.hide()\">{{ 'common.close' | translate }}</button>\n    </div>\n</div>";
+    __webpack_exports__["default"] = "<div *ngIf=\"!selectedTicket\" class=\"p-3 scroll-vertical\">\n    <div *ngFor=\"let ticket of tickets\" class=\"ticket mb-2\">\n        <button type=\"button\" (click)=\"selsctTicket(ticket)\" class=\"btn btn-block btn-outline-primary py-3\">\n            <div class=\"d-flex justify-content-between align-items-center\" *ngFor=\"let priceComponent of ticket.ticketOffer.priceSpecification.priceComponent\">\n                <p class=\"w-50 text-left\">{{ priceComponent.name | changeLanguage }}</p>\n                <p class=\"w-50 text-right\">\n                    <span>{{ priceComponent.price | currency : priceComponent.priceCurrency }}</span><!--\n                    --><span class=\"text-small\" *ngIf=\"priceComponent?.referenceQuantity?.value\">{{ 'common.referenceQuantityValue' | translate: { value: priceComponent?.referenceQuantity?.value } }}</span>\n                </p>\n            </div>\n            <p *ngIf=\"ticket.ticketOffer.description\" class=\"text-x-small text-left\">{{ ticket.ticketOffer.description | changeLanguage }}</p>\n        </button>\n    </div>\n</div>\n\n<div *ngIf=\"selectedTicket\" class=\"p-3 scroll-vertical\">\n    <div class=\"mb-3 text-large text-center\">{{ 'purchase.cinema.ticket.addOn' | translate }}</div>\n    <ul class=\"mb-4\">\n        <li class=\"mb-3\" *ngFor=\"let addOn of selectedTicket.ticketOffer.addOn; let index = index\">\n            <app-checkbox class=\"pointer\" (change)=\"changeAddOnList(addOn.id)\">\n                <div class=\"d-flex w-100\">\n                    <div class=\"w-50\">{{ addOn.priceSpecification?.name | changeLanguage }}<span *ngIf=\"addOn.priceSpecification?.referenceQuantity?.value\">{{ 'common.referenceQuantityValue' | translate: { value: addOn.priceSpecification?.referenceQuantity?.value } }}</span></div>\n                    <div class=\"w-50 text-right\">{{ addOn.priceSpecification?.price | currency : addOn.priceSpecification?.priceCurrency }}</div>\n                </div>\n            </app-checkbox>\n        </li>\n    </ul>\n    <div class=\"buttons mx-auto text-center\">\n        <button type=\"button\" class=\"btn btn-primary btn-block py-3 mb-3\"\n            (click)=\"selsctOption()\">{{ 'common.done' | translate }}</button>\n        <button type=\"button\" class=\"btn btn-link btn-sm\"\n            (click)=\"modal.hide()\">{{ 'common.close' | translate }}</button>\n    </div>\n</div>";
     /***/
   },
 
@@ -1313,7 +1321,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     !*** ./app/functions/index.ts ***!
     \********************************/
 
-  /*! exports provided: screeningEventsToWorkEvents, createGmoTokenObject, sameMovieTicketFilter, isAvailabilityMovieTicket, createMovieTicketsFromAuthorizeSeatReservation, createPaymentMethodFromType, getTicketPrice, getItemPrice, movieTicketAuthErroCodeToMessage, getAmount, order2EventOrders, authorizeSeatReservation2Event, getRemainingSeatLength, formatTelephone, toFull, toHalf, retry, sleep, buildQueryString, iOSDatepickerTapBugFix, streamingDownload, string2blob, getParameter, getProject, createPrintCanvas, createTestPrintCanvas, createRegiGrowQrcode, getTransactionAgentIdentifier, order2report, input2OrderSearchCondition, getTranslateModuleConfig, reservation2report, input2ReservationSearchCondition */
+  /*! exports provided: screeningEventsToWorkEvents, createGmoTokenObject, sameMovieTicketFilter, isAvailabilityMovieTicket, createMovieTicketsFromAuthorizeSeatReservation, createPaymentMethodFromType, getTicketPrice, getItemPrice, movieTicketAuthErroCodeToMessage, getAmount, order2EventOrders, authorizeSeatReservation2Event, getRemainingSeatLength, isEligibleSeatingType, autoSelectAvailableSeat, formatTelephone, toFull, toHalf, retry, sleep, buildQueryString, iOSDatepickerTapBugFix, streamingDownload, string2blob, getParameter, getProject, createPrintCanvas, createTestPrintCanvas, createRegiGrowQrcode, getTransactionAgentIdentifier, order2report, input2OrderSearchCondition, getTranslateModuleConfig, reservation2report, input2ReservationSearchCondition */
 
   /***/
   function appFunctionsIndexTs(module, __webpack_exports__, __webpack_require__) {
@@ -1403,6 +1411,18 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
     __webpack_require__.d(__webpack_exports__, "getRemainingSeatLength", function () {
       return _purchase_function__WEBPACK_IMPORTED_MODULE_0__["getRemainingSeatLength"];
+    });
+    /* harmony reexport (safe) */
+
+
+    __webpack_require__.d(__webpack_exports__, "isEligibleSeatingType", function () {
+      return _purchase_function__WEBPACK_IMPORTED_MODULE_0__["isEligibleSeatingType"];
+    });
+    /* harmony reexport (safe) */
+
+
+    __webpack_require__.d(__webpack_exports__, "autoSelectAvailableSeat", function () {
+      return _purchase_function__WEBPACK_IMPORTED_MODULE_0__["autoSelectAvailableSeat"];
     });
     /* harmony import */
 
@@ -2331,7 +2351,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     !*** ./app/functions/purchase.function.ts ***!
     \********************************************/
 
-  /*! exports provided: screeningEventsToWorkEvents, createGmoTokenObject, sameMovieTicketFilter, isAvailabilityMovieTicket, createMovieTicketsFromAuthorizeSeatReservation, createPaymentMethodFromType, getTicketPrice, getItemPrice, movieTicketAuthErroCodeToMessage, getAmount, order2EventOrders, authorizeSeatReservation2Event, getRemainingSeatLength */
+  /*! exports provided: screeningEventsToWorkEvents, createGmoTokenObject, sameMovieTicketFilter, isAvailabilityMovieTicket, createMovieTicketsFromAuthorizeSeatReservation, createPaymentMethodFromType, getTicketPrice, getItemPrice, movieTicketAuthErroCodeToMessage, getAmount, order2EventOrders, authorizeSeatReservation2Event, getRemainingSeatLength, isEligibleSeatingType, autoSelectAvailableSeat */
 
   /***/
   function appFunctionsPurchaseFunctionTs(module, __webpack_exports__, __webpack_require__) {
@@ -2415,6 +2435,18 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
     __webpack_require__.d(__webpack_exports__, "getRemainingSeatLength", function () {
       return getRemainingSeatLength;
+    });
+    /* harmony export (binding) */
+
+
+    __webpack_require__.d(__webpack_exports__, "isEligibleSeatingType", function () {
+      return isEligibleSeatingType;
+    });
+    /* harmony export (binding) */
+
+
+    __webpack_require__.d(__webpack_exports__, "autoSelectAvailableSeat", function () {
+      return autoSelectAvailableSeat;
     });
     /* harmony import */
 
@@ -2917,6 +2949,83 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
         result += sectionResult.length;
       });
       return result;
+    }
+    /**
+     * 適用座席タイプ判定
+     */
+
+
+    function isEligibleSeatingType(params) {
+      var seat = params.seat;
+      var eligibleSeatingType = params.eligibleSeatingType;
+      var SeatingTypeFilterResult = eligibleSeatingType.filter(function (e) {
+        return e.inCodeSet.identifier === _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_0__["factory"].chevre.categoryCode.CategorySetIdentifier.SeatingType;
+      });
+      var filterResult = SeatingTypeFilterResult.filter(function (e) {
+        if (Array.isArray(seat.seatingType)) {
+          return seat.seatingType.find(function (s) {
+            return e.codeValue === s;
+          }) !== undefined;
+        }
+
+        return e.codeValue === seat.seatingType;
+      });
+      return filterResult.length === SeatingTypeFilterResult.length;
+    }
+    /**
+     * 販売可能席自動取得
+     */
+
+
+    function autoSelectAvailableSeat(params) {
+      var reservations = params.reservations;
+      var screeningEventOffers = params.screeningEventOffers;
+      var seats = [];
+      screeningEventOffers.forEach(function (s) {
+        var section = s.branchCode;
+        s.containsPlace.forEach(function (c) {
+          if (c.offers === undefined || c.offers[0].availability !== _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_0__["factory"].chevre.itemAvailability.InStock) {
+            // 在庫なし
+            return;
+          }
+
+          seats.push({
+            typeOf: c.typeOf,
+            seatingType: c.seatingType,
+            seatNumber: c.branchCode,
+            seatRow: '',
+            seatSection: section
+          });
+        });
+      });
+      var availableSeats = [];
+      reservations.forEach(function (r) {
+        var findResult = seats.find(function (s) {
+          if (availableSeats.find(function (a) {
+            return a.seatNumber === s.seatNumber && a.seatSection === s.seatSection;
+          }) !== undefined) {
+            // 予約内同一座席判定
+            return false;
+          }
+
+          if (r.ticket !== undefined && r.ticket.ticketOffer.eligibleSeatingType !== undefined && !isEligibleSeatingType({
+            seat: s,
+            eligibleSeatingType: r.ticket.ticketOffer.eligibleSeatingType
+          })) {
+            // 適用座席タイプ判定
+            return false;
+          }
+
+          return true;
+        });
+
+        if (findResult === undefined) {
+          return;
+        }
+
+        availableSeats.push(findResult);
+      });
+      return availableSeats;
     }
     /***/
 
@@ -7477,6 +7586,12 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     var ngx_bootstrap__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
     /*! ngx-bootstrap */
     "../../node_modules/ngx-bootstrap/esm5/ngx-bootstrap.js");
+    /* harmony import */
+
+
+    var _functions__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(
+    /*! ../../../../../../../functions */
+    "./app/functions/index.ts");
 
     var __decorate = undefined && undefined.__decorate || function (decorators, target, key, desc) {
       var c = arguments.length,
@@ -7520,8 +7635,22 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
               return c.typeOf === _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_1__["factory"].chevre.priceSpecificationType.MovieTicketTypeChargeSpecification;
             }).shift();
 
+            if (movieTicketTypeChargeSpecification === undefined && ticketOffer.eligibleSeatingType !== undefined) {
+              // 券種の適用座席タイプ条件あり（ムビチケ以外）
+              if (_this14.reservation !== undefined && _this14.reservation.seat !== undefined && Object(_functions__WEBPACK_IMPORTED_MODULE_3__["isEligibleSeatingType"])({
+                seat: _this14.reservation.seat,
+                eligibleSeatingType: ticketOffer.eligibleSeatingType
+              })) {
+                _this14.tickets.push({
+                  ticketOffer: ticketOffer
+                });
+              }
+
+              return;
+            }
+
             if (movieTicketTypeChargeSpecification === undefined) {
-              // ムビチケ以外
+              // 通常券種（ムビチケ以外）
               _this14.tickets.push({
                 ticketOffer: ticketOffer
               });
@@ -7590,7 +7719,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
               });
             });
           });
-          this.tickets = movieTickets.concat(this.tickets);
+          this.tickets = [].concat(movieTickets, _toConsumableArray(this.tickets));
         }
       }, {
         key: "close",
@@ -7643,7 +7772,6 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
             addOn.push(findResult);
           });
           this.selectedTicket.addOn = addOn;
-          console.log(this.selectedTicket);
           this.close(this.selectedTicket);
         }
         /**
@@ -10895,7 +11023,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     !*** ./app/services/index.ts ***!
     \*******************************/
 
-  /*! exports provided: AdmissionService, CinerinoService, PurchaseService, UserService, MasterService, OrderService, ReservationService, UtilService, StarPrintService, DownloadService, QRCodeService */
+  /*! exports provided: CinerinoService, AdmissionService, PurchaseService, UserService, MasterService, OrderService, ReservationService, UtilService, StarPrintService, DownloadService, QRCodeService */
 
   /***/
   function appServicesIndexTs(module, __webpack_exports__, __webpack_require__) {
@@ -19357,8 +19485,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
         return __awaiter(_this58, void 0, void 0,
         /*#__PURE__*/
         regeneratorRuntime.mark(function _callee85() {
-          var transaction, screeningEvent, screeningEventOffers, reservations, freeSeats, _iteratorNormalCompletion10, _didIteratorError10, _iteratorError10, _iterator10, _step10, screeningEventOffer, section, _iteratorNormalCompletion11, _didIteratorError11, _iteratorError11, _iterator11, _step11, containsPlace, authorizeSeatReservation;
-
+          var transaction, screeningEvent, screeningEventOffers, reservations, availableSeats, authorizeSeatReservation;
           return regeneratorRuntime.wrap(function _callee85$(_context89) {
             while (1) {
               switch (_context89.prev = _context89.next) {
@@ -19367,124 +19494,26 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                   screeningEvent = payload.screeningEvent;
                   screeningEventOffers = payload.screeningEventOffers;
                   reservations = payload.reservations;
-                  freeSeats = [];
-                  _context89.prev = 5;
-                  _context89.next = 8;
+                  _context89.prev = 4;
+                  _context89.next = 7;
                   return this.cinerinoService.getServices();
 
-                case 8:
-                  if (!new _models__WEBPACK_IMPORTED_MODULE_9__["Performance"](screeningEvent).isTicketedSeat()) {
-                    _context89.next = 53;
+                case 7:
+                  availableSeats = Object(_functions__WEBPACK_IMPORTED_MODULE_8__["autoSelectAvailableSeat"])({
+                    reservations: reservations,
+                    screeningEventOffers: screeningEventOffers
+                  });
+                  console.log('availableSeats', availableSeats);
+
+                  if (!(availableSeats.length !== reservations.length)) {
+                    _context89.next = 11;
                     break;
                   }
 
-                  _iteratorNormalCompletion10 = true;
-                  _didIteratorError10 = false;
-                  _iteratorError10 = undefined;
-                  _context89.prev = 12;
-                  _iterator10 = screeningEventOffers[Symbol.iterator]();
+                  throw new Error('Out of stock').message;
 
-                case 14:
-                  if (_iteratorNormalCompletion10 = (_step10 = _iterator10.next()).done) {
-                    _context89.next = 39;
-                    break;
-                  }
-
-                  screeningEventOffer = _step10.value;
-                  section = screeningEventOffer.branchCode;
-                  _iteratorNormalCompletion11 = true;
-                  _didIteratorError11 = false;
-                  _iteratorError11 = undefined;
-                  _context89.prev = 20;
-
-                  for (_iterator11 = screeningEventOffer.containsPlace[Symbol.iterator](); !(_iteratorNormalCompletion11 = (_step11 = _iterator11.next()).done); _iteratorNormalCompletion11 = true) {
-                    containsPlace = _step11.value;
-
-                    if (containsPlace.offers !== undefined && containsPlace.offers[0].availability === _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_2__["factory"].chevre.itemAvailability.InStock) {
-                      freeSeats.push({
-                        typeOf: containsPlace.typeOf,
-                        seatingType: containsPlace.seatingType,
-                        seatNumber: containsPlace.branchCode,
-                        seatRow: '',
-                        seatSection: section
-                      });
-                    }
-                  }
-
-                  _context89.next = 28;
-                  break;
-
-                case 24:
-                  _context89.prev = 24;
-                  _context89.t0 = _context89["catch"](20);
-                  _didIteratorError11 = true;
-                  _iteratorError11 = _context89.t0;
-
-                case 28:
-                  _context89.prev = 28;
-                  _context89.prev = 29;
-
-                  if (!_iteratorNormalCompletion11 && _iterator11["return"] != null) {
-                    _iterator11["return"]();
-                  }
-
-                case 31:
-                  _context89.prev = 31;
-
-                  if (!_didIteratorError11) {
-                    _context89.next = 34;
-                    break;
-                  }
-
-                  throw _iteratorError11;
-
-                case 34:
-                  return _context89.finish(31);
-
-                case 35:
-                  return _context89.finish(28);
-
-                case 36:
-                  _iteratorNormalCompletion10 = true;
-                  _context89.next = 14;
-                  break;
-
-                case 39:
-                  _context89.next = 45;
-                  break;
-
-                case 41:
-                  _context89.prev = 41;
-                  _context89.t1 = _context89["catch"](12);
-                  _didIteratorError10 = true;
-                  _iteratorError10 = _context89.t1;
-
-                case 45:
-                  _context89.prev = 45;
-                  _context89.prev = 46;
-
-                  if (!_iteratorNormalCompletion10 && _iterator10["return"] != null) {
-                    _iterator10["return"]();
-                  }
-
-                case 48:
-                  _context89.prev = 48;
-
-                  if (!_didIteratorError10) {
-                    _context89.next = 51;
-                    break;
-                  }
-
-                  throw _iteratorError10;
-
-                case 51:
-                  return _context89.finish(48);
-
-                case 52:
-                  return _context89.finish(45);
-
-                case 53:
-                  _context89.next = 55;
+                case 11:
+                  _context89.next = 13;
                   return this.cinerinoService.transaction.placeOrder.authorizeSeatReservation({
                     object: {
                       event: {
@@ -19492,12 +19521,12 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                       },
                       acceptedOffer: reservations.map(function (reservation, index) {
                         if (reservation.ticket === undefined) {
-                          throw new Error('ticket is undefined');
+                          throw new Error('ticket is undefined').message;
                         }
 
                         return {
                           id: reservation.ticket.ticketOffer.id,
-                          ticketedSeat: freeSeats.length > 0 ? freeSeats[index] : undefined,
+                          ticketedSeat: new _models__WEBPACK_IMPORTED_MODULE_9__["Performance"](screeningEvent).isTicketedSeat() ? availableSeats[index] : undefined,
                           addOn: reservation.ticket.addOn === undefined ? undefined : reservation.ticket.addOn.map(function (a) {
                             return {
                               id: a.id
@@ -19511,25 +19540,25 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                     purpose: transaction
                   });
 
-                case 55:
+                case 13:
                   authorizeSeatReservation = _context89.sent;
                   return _context89.abrupt("return", new _actions__WEBPACK_IMPORTED_MODULE_11__["purchaseAction"].TemporaryReservationFreeSeatSuccess({
                     addAuthorizeSeatReservation: authorizeSeatReservation
                   }));
 
-                case 59:
-                  _context89.prev = 59;
-                  _context89.t2 = _context89["catch"](5);
+                case 17:
+                  _context89.prev = 17;
+                  _context89.t0 = _context89["catch"](4);
                   return _context89.abrupt("return", new _actions__WEBPACK_IMPORTED_MODULE_11__["purchaseAction"].TemporaryReservationFreeSeatFail({
-                    error: _context89.t2
+                    error: _context89.t0
                   }));
 
-                case 62:
+                case 20:
                 case "end":
                   return _context89.stop();
               }
             }
-          }, _callee85, this, [[5, 59], [12, 41, 45, 53], [20, 24, 28, 36], [29,, 31, 35], [46,, 48, 52]]);
+          }, _callee85, this, [[4, 17]]);
         }));
       }));
       /**
@@ -19542,7 +19571,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
         return __awaiter(_this58, void 0, void 0,
         /*#__PURE__*/
         regeneratorRuntime.mark(function _callee86() {
-          var authorizeSeatReservations, _iteratorNormalCompletion12, _didIteratorError12, _iteratorError12, _iterator12, _step12, authorizeSeatReservation;
+          var authorizeSeatReservations, _iteratorNormalCompletion10, _didIteratorError10, _iteratorError10, _iterator10, _step10, authorizeSeatReservation;
 
           return regeneratorRuntime.wrap(function _callee86$(_context90) {
             while (1) {
@@ -19554,24 +19583,24 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                   return this.cinerinoService.getServices();
 
                 case 4:
-                  _iteratorNormalCompletion12 = true;
-                  _didIteratorError12 = false;
-                  _iteratorError12 = undefined;
+                  _iteratorNormalCompletion10 = true;
+                  _didIteratorError10 = false;
+                  _iteratorError10 = undefined;
                   _context90.prev = 7;
-                  _iterator12 = authorizeSeatReservations[Symbol.iterator]();
+                  _iterator10 = authorizeSeatReservations[Symbol.iterator]();
 
                 case 9:
-                  if (_iteratorNormalCompletion12 = (_step12 = _iterator12.next()).done) {
+                  if (_iteratorNormalCompletion10 = (_step10 = _iterator10.next()).done) {
                     _context90.next = 16;
                     break;
                   }
 
-                  authorizeSeatReservation = _step12.value;
+                  authorizeSeatReservation = _step10.value;
                   _context90.next = 13;
                   return this.cinerinoService.transaction.placeOrder.voidSeatReservation(authorizeSeatReservation);
 
                 case 13:
-                  _iteratorNormalCompletion12 = true;
+                  _iteratorNormalCompletion10 = true;
                   _context90.next = 9;
                   break;
 
@@ -19582,26 +19611,26 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                 case 18:
                   _context90.prev = 18;
                   _context90.t0 = _context90["catch"](7);
-                  _didIteratorError12 = true;
-                  _iteratorError12 = _context90.t0;
+                  _didIteratorError10 = true;
+                  _iteratorError10 = _context90.t0;
 
                 case 22:
                   _context90.prev = 22;
                   _context90.prev = 23;
 
-                  if (!_iteratorNormalCompletion12 && _iterator12["return"] != null) {
-                    _iterator12["return"]();
+                  if (!_iteratorNormalCompletion10 && _iterator10["return"] != null) {
+                    _iterator10["return"]();
                   }
 
                 case 25:
                   _context90.prev = 25;
 
-                  if (!_didIteratorError12) {
+                  if (!_didIteratorError10) {
                     _context90.next = 28;
                     break;
                   }
 
-                  throw _iteratorError12;
+                  throw _iteratorError10;
 
                 case 28:
                   return _context90.finish(25);
@@ -19831,7 +19860,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
         regeneratorRuntime.mark(function _callee90() {
           var _this59 = this;
 
-          var _iteratorNormalCompletion13, _didIteratorError13, _iteratorError13, _iterator13, _step13, authorizeMovieTicketPayment, transaction, pendingMovieTickets, authorizeSeatReservations, authorizeMovieTicketPayments, seller, _iteratorNormalCompletion14, _didIteratorError14, _iteratorError14, _loop8, _iterator14, _step14;
+          var _iteratorNormalCompletion11, _didIteratorError11, _iteratorError11, _iterator11, _step11, authorizeMovieTicketPayment, transaction, pendingMovieTickets, authorizeSeatReservations, authorizeMovieTicketPayments, seller, _iteratorNormalCompletion12, _didIteratorError12, _iteratorError12, _loop8, _iterator12, _step12;
 
           return regeneratorRuntime.wrap(function _callee90$(_context95) {
             while (1) {
@@ -19847,24 +19876,24 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                     break;
                   }
 
-                  _iteratorNormalCompletion13 = true;
-                  _didIteratorError13 = false;
-                  _iteratorError13 = undefined;
+                  _iteratorNormalCompletion11 = true;
+                  _didIteratorError11 = false;
+                  _iteratorError11 = undefined;
                   _context95.prev = 7;
-                  _iterator13 = payload.authorizeMovieTicketPayments[Symbol.iterator]();
+                  _iterator11 = payload.authorizeMovieTicketPayments[Symbol.iterator]();
 
                 case 9:
-                  if (_iteratorNormalCompletion13 = (_step13 = _iterator13.next()).done) {
+                  if (_iteratorNormalCompletion11 = (_step11 = _iterator11.next()).done) {
                     _context95.next = 16;
                     break;
                   }
 
-                  authorizeMovieTicketPayment = _step13.value;
+                  authorizeMovieTicketPayment = _step11.value;
                   _context95.next = 13;
                   return this.cinerinoService.payment.voidTransaction(authorizeMovieTicketPayment);
 
                 case 13:
-                  _iteratorNormalCompletion13 = true;
+                  _iteratorNormalCompletion11 = true;
                   _context95.next = 9;
                   break;
 
@@ -19875,26 +19904,26 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                 case 18:
                   _context95.prev = 18;
                   _context95.t0 = _context95["catch"](7);
-                  _didIteratorError13 = true;
-                  _iteratorError13 = _context95.t0;
+                  _didIteratorError11 = true;
+                  _iteratorError11 = _context95.t0;
 
                 case 22:
                   _context95.prev = 22;
                   _context95.prev = 23;
 
-                  if (!_iteratorNormalCompletion13 && _iterator13["return"] != null) {
-                    _iterator13["return"]();
+                  if (!_iteratorNormalCompletion11 && _iterator11["return"] != null) {
+                    _iterator11["return"]();
                   }
 
                 case 25:
                   _context95.prev = 25;
 
-                  if (!_didIteratorError13) {
+                  if (!_didIteratorError11) {
                     _context95.next = 28;
                     break;
                   }
 
-                  throw _iteratorError13;
+                  throw _iteratorError11;
 
                 case 28:
                   return _context95.finish(25);
@@ -19908,9 +19937,9 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                   authorizeSeatReservations = payload.authorizeSeatReservations;
                   authorizeMovieTicketPayments = [];
                   seller = payload.seller;
-                  _iteratorNormalCompletion14 = true;
-                  _didIteratorError14 = false;
-                  _iteratorError14 = undefined;
+                  _iteratorNormalCompletion12 = true;
+                  _didIteratorError12 = false;
+                  _iteratorError12 = undefined;
                   _context95.prev = 38;
                   _loop8 =
                   /*#__PURE__*/
@@ -19921,7 +19950,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                       while (1) {
                         switch (_context94.prev = _context94.next) {
                           case 0:
-                            authorizeSeatReservation = _step14.value;
+                            authorizeSeatReservation = _step12.value;
                             movieTickets = Object(_functions__WEBPACK_IMPORTED_MODULE_8__["createMovieTicketsFromAuthorizeSeatReservation"])({
                               authorizeSeatReservation: authorizeSeatReservation,
                               pendingMovieTickets: pendingMovieTickets,
@@ -19978,10 +20007,10 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                       }
                     }, _loop8);
                   });
-                  _iterator14 = authorizeSeatReservations[Symbol.iterator]();
+                  _iterator12 = authorizeSeatReservations[Symbol.iterator]();
 
                 case 41:
-                  if (_iteratorNormalCompletion14 = (_step14 = _iterator14.next()).done) {
+                  if (_iteratorNormalCompletion12 = (_step12 = _iterator12.next()).done) {
                     _context95.next = 46;
                     break;
                   }
@@ -19989,7 +20018,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                   return _context95.delegateYield(_loop8(), "t1", 43);
 
                 case 43:
-                  _iteratorNormalCompletion14 = true;
+                  _iteratorNormalCompletion12 = true;
                   _context95.next = 41;
                   break;
 
@@ -20000,26 +20029,26 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                 case 48:
                   _context95.prev = 48;
                   _context95.t2 = _context95["catch"](38);
-                  _didIteratorError14 = true;
-                  _iteratorError14 = _context95.t2;
+                  _didIteratorError12 = true;
+                  _iteratorError12 = _context95.t2;
 
                 case 52:
                   _context95.prev = 52;
                   _context95.prev = 53;
 
-                  if (!_iteratorNormalCompletion14 && _iterator14["return"] != null) {
-                    _iterator14["return"]();
+                  if (!_iteratorNormalCompletion12 && _iterator12["return"] != null) {
+                    _iterator12["return"]();
                   }
 
                 case 55:
                   _context95.prev = 55;
 
-                  if (!_didIteratorError14) {
+                  if (!_didIteratorError12) {
                     _context95.next = 58;
                     break;
                   }
 
-                  throw _iteratorError14;
+                  throw _iteratorError12;
 
                 case 58:
                   return _context95.finish(55);

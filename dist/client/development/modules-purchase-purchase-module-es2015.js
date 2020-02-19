@@ -1021,7 +1021,14 @@ let PurchaseCinemaTicketComponent = class PurchaseCinemaTicketComponent {
             }
             catch (error) {
                 console.error(error);
-                this.router.navigate(['/error']);
+                this.utilService.openAlert({
+                    title: this.translate.instant('common.error'),
+                    body: `
+                <p class="mb-4">${this.translate.instant('purchase.cinema.ticket.alert.temporaryReservation')}</p>
+                <div class="p-3 bg-light-gray select-text text-left">
+                    <code>${JSON.stringify(error)}</code>
+                </div>`
+                });
             }
         });
     }
@@ -1582,7 +1589,11 @@ let PurchaseEventTicketComponent = class PurchaseEventTicketComponent {
                 console.error(error);
                 this.utilService.openAlert({
                     title: this.translate.instant('common.error'),
-                    body: this.translate.instant('purchase.event.ticket.alert.temporaryReservation')
+                    body: `
+                <p class="mb-4">${this.translate.instant('purchase.event.ticket.alert.temporaryReservation')}</p>
+                <div class="p-3 bg-light-gray select-text text-left">
+                    <code>${JSON.stringify(error)}</code>
+                </div>`
                 });
             }
         });

@@ -1937,7 +1937,10 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
                     _context10.prev = 26;
                     _context10.t0 = _context10["catch"](17);
                     console.error(_context10.t0);
-                    this.router.navigate(['/error']);
+                    this.utilService.openAlert({
+                      title: this.translate.instant('common.error'),
+                      body: "\n                <p class=\"mb-4\">".concat(this.translate.instant('purchase.cinema.ticket.alert.temporaryReservation'), "</p>\n                <div class=\"p-3 bg-light-gray select-text text-left\">\n                    <code>").concat(JSON.stringify(_context10.t0), "</code>\n                </div>")
+                    });
 
                   case 30:
                   case "end":
@@ -3040,7 +3043,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
                     console.error(_context18.t1);
                     this.utilService.openAlert({
                       title: this.translate.instant('common.error'),
-                      body: this.translate.instant('purchase.event.ticket.alert.temporaryReservation')
+                      body: "\n                <p class=\"mb-4\">".concat(this.translate.instant('purchase.event.ticket.alert.temporaryReservation'), "</p>\n                <div class=\"p-3 bg-light-gray select-text text-left\">\n                    <code>").concat(JSON.stringify(_context18.t1), "</code>\n                </div>")
                     });
 
                   case 30:

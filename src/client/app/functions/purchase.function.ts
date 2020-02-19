@@ -1,6 +1,6 @@
 import { factory } from '@cinerino/api-javascript-client';
 import * as moment from 'moment';
-import { IMovieTicket, IReservationSeat, Performance } from '../models';
+import { IMovieTicket, IReservation, IReservationSeat, Performance } from '../models';
 
 export interface IScreeningEventWork {
     info: factory.chevre.event.screeningEvent.IEvent;
@@ -450,4 +450,74 @@ export function getRemainingSeatLength(
     });
 
     return result;
+}
+
+/**
+ * 適用座席タイプ判定
+ */
+export function isEligibleSeatingType(params: {
+    seat: IReservationSeat;
+    eligibleSeatingType: factory.chevre.categoryCode.ICategoryCode[]
+}) {
+    const seat = params.seat;
+    const eligibleSeatingType = params.eligibleSeatingType;
+    const SeatingTypeFilterResult = eligibleSeatingType
+        .filter(e => e.inCodeSet.identifier === factory.chevre.categoryCode.CategorySetIdentifier.SeatingType);
+    const filterResult = SeatingTypeFilterResult.filter(e => {
+        if (Array.isArray(seat.seatingType)) {
+            return (seat.seatingType.find(s => e.codeValue === s) !== undefined);
+        }
+        return (e.codeValue === seat.seatingType);
+    });
+    return filterResult.length === SeatingTypeFilterResult.length;
+}
+
+/**
+ * 販売可能席自動取得
+ */
+export function autoSelectAvailableSeat(params: {
+    reservations: IReservation[];
+    screeningEventOffers: factory.chevre.place.movieTheater.IScreeningRoomSectionOffer[];
+}) {
+    const reservations = params.reservations;
+    const screeningEventOffers = params.screeningEventOffers;
+    const seats: factory.chevre.reservation.ISeat<factory.chevre.reservationType.EventReservation>[] = [];
+    screeningEventOffers.forEach(s => {
+        const section = s.branchCode;
+        s.containsPlace.forEach(c => {
+            if (c.offers === undefined
+                || c.offers[0].availability !== factory.chevre.itemAvailability.InStock) {
+                // 在庫なし
+                return;
+            }
+            seats.push({
+                typeOf: c.typeOf,
+                seatingType: c.seatingType,
+                seatNumber: c.branchCode,
+                seatRow: '',
+                seatSection: section
+            });
+        });
+    });
+    const availableSeats: factory.chevre.reservation.ISeat<factory.chevre.reservationType.EventReservation>[] = [];
+    reservations.forEach(r => {
+        const findResult = seats.find(s => {
+            if (availableSeats.find(a => a.seatNumber === s.seatNumber && a.seatSection === s.seatSection) !== undefined) {
+                // 予約内同一座席判定
+                return false;
+            }
+            if (r.ticket !== undefined
+                && r.ticket.ticketOffer.eligibleSeatingType !== undefined
+                && !isEligibleSeatingType({ seat: s, eligibleSeatingType: r.ticket.ticketOffer.eligibleSeatingType })) {
+                // 適用座席タイプ判定
+                return false;
+            }
+            return true;
+        });
+        if (findResult === undefined) {
+            return;
+        }
+        availableSeats.push(findResult);
+    });
+    return availableSeats;
 }
