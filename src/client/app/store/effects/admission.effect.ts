@@ -31,7 +31,9 @@ export class AdmissionEffects {
             // console.log(payload);
             try {
                 await this.cinerino.getServices();
-                const screeningEvent = await this.cinerino.event.findById<factory.chevre.eventType.ScreeningEvent>(payload.params);
+                const screeningEvent = await this.cinerino.event.findById<factory.chevre.eventType.ScreeningEvent>({
+                    id: payload.screeningEvent.id
+                });
                 return new admissionAction.GetScreeningEventSuccess({ screeningEvent });
             } catch (error) {
                 return new admissionAction.GetScreeningEventFail({ error: error });

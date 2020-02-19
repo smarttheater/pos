@@ -10,10 +10,9 @@ export enum ActionTypes {
     Delete = '[Admission] Delete',
     SelectSchedule = '[Admission] Select Schedule',
     SelectScheduleDate = '[Admission] Select Schedule Date',
-    SelectScreeningEvent = '[Admission] Select Screening Event',
-    GetScreeningEvent = '[User] Get Screening Event',
-    GetScreeningEventSuccess = '[User] Get Screening Event Success',
-    GetScreeningEventFail = '[User] Get Screening Event Fail',
+    GetScreeningEvent = '[Admission] Get Screening Event',
+    GetScreeningEventSuccess = '[Admission] Get Screening Event Success',
+    GetScreeningEventFail = '[Admission] Get Screening Event Fail',
     InitializeQrcodeToken = '[Admission] Initialize Qrcode Token',
     Check = '[Admission] Check',
     CheckSuccess = '[Admission] Check Success',
@@ -45,19 +44,11 @@ export class SelectScheduleDate implements Action {
 }
 
 /**
- * SelectScreeningEvent
- */
-export class SelectScreeningEvent implements Action {
-    public readonly type = ActionTypes.SelectScreeningEvent;
-    constructor(public payload: { screeningEvent: factory.chevre.event.screeningEvent.IEvent }) { }
-}
-
-/**
  * GetScreeningEvent
  */
 export class GetScreeningEvent implements Action {
     public readonly type = ActionTypes.GetScreeningEvent;
-    constructor(public payload: { params: { id: string; } }) { }
+    constructor(public payload: { screeningEvent: factory.chevre.event.screeningEvent.IEvent }) { }
 }
 
 /**
@@ -124,7 +115,6 @@ export type Actions =
     | Delete
     | SelectSchedule
     | SelectScheduleDate
-    | SelectScreeningEvent
     | GetScreeningEvent
     | GetScreeningEventSuccess
     | GetScreeningEventFail

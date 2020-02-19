@@ -86,7 +86,7 @@ export class PurchaseEffects {
                 await this.cinerinoService.getServices();
                 let theaterCode;
                 let screenCode;
-                let screeningEventOffers: factory.chevre.place.movieTheater.IScreeningRoomSectionOffer[];
+                let screeningEventOffers: factory.chevre.place.screeningRoomSection.IPlaceWithOffer[];
                 if (payload.test) {
                     screeningEventOffers = [];
                     theaterCode = payload.theaterCode;
@@ -115,6 +115,25 @@ export class PurchaseEffects {
     );
 
     /**
+     * GetScreeningEvent
+     */
+    @Effect()
+    public getScreeningEvent = this.actions.pipe(
+        ofType<purchaseAction.GetScreeningEvent>(purchaseAction.ActionTypes.GetScreeningEvent),
+        map(action => action.payload),
+        mergeMap(async (payload) => {
+            try {
+                await this.cinerinoService.getServices();
+                const screeningEvent =
+                    await this.cinerinoService.event.findById<factory.chevre.eventType.ScreeningEvent>({ id: payload.screeningEvent.id });
+                return new purchaseAction.GetScreeningEventSuccess({ screeningEvent });
+            } catch (error) {
+                return new purchaseAction.GetScreeningEventFail({ error: error });
+            }
+        })
+    );
+
+    /**
      * GetScreeningEventOffers
      */
     @Effect()
@@ -125,7 +144,7 @@ export class PurchaseEffects {
             try {
                 await this.cinerinoService.getServices();
                 const screeningEvent = payload.screeningEvent;
-                let screeningEventOffers: factory.chevre.place.movieTheater.IScreeningRoomSectionOffer[] = [];
+                let screeningEventOffers: factory.chevre.place.screeningRoomSection.IPlaceWithOffer[] = [];
                 if (new Performance(screeningEvent).isTicketedSeat()) {
                     screeningEventOffers = await this.cinerinoService.event.searchOffers({
                         event: { id: screeningEvent.id }

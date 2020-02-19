@@ -506,21 +506,38 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
         value: function update() {
           var _this2 = this;
 
-          var loopTime = 60000; // 1分に一回
+          var loopTime = 600000; // 10分に一回
 
           clearInterval(this.updateLoop);
           this.updateLoop = setInterval(function () {
             return __awaiter(_this2, void 0, void 0,
             /*#__PURE__*/
             regeneratorRuntime.mark(function _callee3() {
+              var _ref, screeningEvent;
+
               return regeneratorRuntime.wrap(function _callee3$(_context3) {
                 while (1) {
                   switch (_context3.prev = _context3.next) {
                     case 0:
                       _context3.next = 2;
-                      return this.admissionService.getScreeningEvent();
+                      return this.admissionService.getData();
 
                     case 2:
+                      _ref = _context3.sent;
+                      screeningEvent = _ref.screeningEvent;
+
+                      if (!(screeningEvent === undefined)) {
+                        _context3.next = 6;
+                        break;
+                      }
+
+                      return _context3.abrupt("return");
+
+                    case 6:
+                      _context3.next = 8;
+                      return this.admissionService.getScreeningEvent(screeningEvent);
+
+                    case 8:
                     case "end":
                       return _context3.stop();
                   }
@@ -847,8 +864,35 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       }, {
         key: "selectSchedule",
         value: function selectSchedule(screeningEvent) {
-          this.admissionService.selectScreeningEvent(screeningEvent);
-          this.router.navigate(['/admission/check']);
+          return __awaiter(this, void 0, void 0,
+          /*#__PURE__*/
+          regeneratorRuntime.mark(function _callee6() {
+            return regeneratorRuntime.wrap(function _callee6$(_context6) {
+              while (1) {
+                switch (_context6.prev = _context6.next) {
+                  case 0:
+                    _context6.prev = 0;
+                    _context6.next = 3;
+                    return this.admissionService.getScreeningEvent(screeningEvent);
+
+                  case 3:
+                    this.router.navigate(['/admission/check']);
+                    _context6.next = 10;
+                    break;
+
+                  case 6:
+                    _context6.prev = 6;
+                    _context6.t0 = _context6["catch"](0);
+                    console.error(_context6.t0);
+                    this.router.navigate(['/error']);
+
+                  case 10:
+                  case "end":
+                    return _context6.stop();
+                }
+              }
+            }, _callee6, this, [[0, 6]]);
+          }));
         }
         /**
          * Datepicker言語設定

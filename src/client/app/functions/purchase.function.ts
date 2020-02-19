@@ -428,7 +428,7 @@ export function authorizeSeatReservation2Event(params: {
  * 残席数取得
  */
 export function getRemainingSeatLength(
-    screeningEventOffers: factory.chevre.place.movieTheater.IScreeningRoomSectionOffer[],
+    screeningEventOffers: factory.chevre.place.screeningRoomSection.IPlaceWithOffer[],
     screeningEvent: factory.chevre.event.screeningEvent.IEvent
 ) {
     let result = 0;
@@ -477,7 +477,7 @@ export function isEligibleSeatingType(params: {
  */
 export function autoSelectAvailableSeat(params: {
     reservations: IReservation[];
-    screeningEventOffers: factory.chevre.place.movieTheater.IScreeningRoomSectionOffer[];
+    screeningEventOffers: factory.chevre.place.screeningRoomSection.IPlaceWithOffer[];
 }) {
     const reservations = params.reservations;
     const screeningEventOffers = params.screeningEventOffers;

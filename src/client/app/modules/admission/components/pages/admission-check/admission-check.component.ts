@@ -77,10 +77,14 @@ export class AdmissionCheckComponent implements OnInit, OnDestroy {
     }
 
     public update() {
-        const loopTime = 60000; // 1分に一回
+        const loopTime = 600000; // 10分に一回
         clearInterval(this.updateLoop);
         this.updateLoop = setInterval(async () => {
-            await this.admissionService.getScreeningEvent();
+            const { screeningEvent } = await this.admissionService.getData();
+            if (screeningEvent === undefined) {
+                return;
+            }
+            await this.admissionService.getScreeningEvent(screeningEvent);
         }, loopTime);
     }
 

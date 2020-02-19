@@ -40,7 +40,7 @@
                 <div class="w-25 text-right">
                     <select class="form-control" (change)="changeSelect(ticket.id, $event)">
                         <option value="0">0</option>
-                        <option *ngFor="let value of values" [value]="value">{{ value }}</option>
+                        <option *ngFor="let value of remainingAttendeeCapacityValue(ticket)" [value]="value">{{ value }}</option>
                     </select>
                 </div>
             </div>

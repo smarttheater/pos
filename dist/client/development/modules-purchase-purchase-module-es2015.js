@@ -534,7 +534,14 @@ let PurchaseCinemaScheduleComponent = class PurchaseCinemaScheduleComponent {
                 return;
             }
             this.purchaseService.unsettledDelete();
-            this.purchaseService.selectSchedule(screeningEvent);
+            try {
+                yield this.purchaseService.getScreeningEvent(screeningEvent);
+            }
+            catch (error) {
+                console.error(error);
+                this.router.navigate(['/error']);
+                return;
+            }
             const purchase = yield this.purchaseService.getData();
             const user = yield this.userService.getData();
             if (user.seller === undefined) {
@@ -554,6 +561,7 @@ let PurchaseCinemaScheduleComponent = class PurchaseCinemaScheduleComponent {
                 catch (error) {
                     console.error(error);
                     this.router.navigate(['/error']);
+                    return;
                 }
             }
             try {
@@ -1506,8 +1514,8 @@ let PurchaseEventTicketComponent = class PurchaseEventTicketComponent {
                 });
                 return;
             }
-            this.purchaseService.selectSchedule(screeningEvent);
             try {
+                yield this.purchaseService.getScreeningEvent(screeningEvent);
                 yield this.purchaseService.getScreeningEventOffers();
                 yield this.purchaseService.getTicketList(user.seller);
                 this.openTicketList();
