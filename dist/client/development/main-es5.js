@@ -11035,7 +11035,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     !*** ./app/services/index.ts ***!
     \*******************************/
 
-  /*! exports provided: CinerinoService, AdmissionService, PurchaseService, UserService, MasterService, OrderService, ReservationService, UtilService, StarPrintService, DownloadService, QRCodeService */
+  /*! exports provided: AdmissionService, CinerinoService, PurchaseService, UserService, MasterService, OrderService, ReservationService, UtilService, StarPrintService, DownloadService, QRCodeService */
 
   /***/
   function appServicesIndexTs(module, __webpack_exports__, __webpack_require__) {
@@ -19612,17 +19612,16 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                     reservations: reservations,
                     screeningEventOffers: screeningEventOffers
                   });
-                  console.log('availableSeats', availableSeats);
 
-                  if (!(availableSeats.length !== reservations.length)) {
-                    _context91.next = 11;
+                  if (!(new _models__WEBPACK_IMPORTED_MODULE_9__["Performance"](screeningEvent).isTicketedSeat() && availableSeats.length !== reservations.length)) {
+                    _context91.next = 10;
                     break;
                   }
 
                   throw new Error('Out of stock').message;
 
-                case 11:
-                  _context91.next = 13;
+                case 10:
+                  _context91.next = 12;
                   return this.cinerinoService.transaction.placeOrder.authorizeSeatReservation({
                     object: {
                       event: {
@@ -19649,25 +19648,25 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                     purpose: transaction
                   });
 
-                case 13:
+                case 12:
                   authorizeSeatReservation = _context91.sent;
                   return _context91.abrupt("return", new _actions__WEBPACK_IMPORTED_MODULE_11__["purchaseAction"].TemporaryReservationFreeSeatSuccess({
                     addAuthorizeSeatReservation: authorizeSeatReservation
                   }));
 
-                case 17:
-                  _context91.prev = 17;
+                case 16:
+                  _context91.prev = 16;
                   _context91.t0 = _context91["catch"](4);
                   return _context91.abrupt("return", new _actions__WEBPACK_IMPORTED_MODULE_11__["purchaseAction"].TemporaryReservationFreeSeatFail({
                     error: _context91.t0
                   }));
 
-                case 20:
+                case 19:
                 case "end":
                   return _context91.stop();
               }
             }
-          }, _callee87, this, [[4, 17]]);
+          }, _callee87, this, [[4, 16]]);
         }));
       }));
       /**

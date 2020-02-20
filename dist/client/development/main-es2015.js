@@ -6513,7 +6513,7 @@ DownloadService = DownloadService_1 = __decorate([
 /*!*******************************!*\
   !*** ./app/services/index.ts ***!
   \*******************************/
-/*! exports provided: CinerinoService, AdmissionService, PurchaseService, UserService, MasterService, OrderService, ReservationService, UtilService, StarPrintService, DownloadService, QRCodeService */
+/*! exports provided: AdmissionService, CinerinoService, PurchaseService, UserService, MasterService, OrderService, ReservationService, UtilService, StarPrintService, DownloadService, QRCodeService */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -10598,8 +10598,8 @@ let PurchaseEffects = class PurchaseEffects {
             try {
                 yield this.cinerinoService.getServices();
                 const availableSeats = Object(_functions__WEBPACK_IMPORTED_MODULE_8__["autoSelectAvailableSeat"])({ reservations, screeningEventOffers });
-                console.log('availableSeats', availableSeats);
-                if (availableSeats.length !== reservations.length) {
+                if (new _models__WEBPACK_IMPORTED_MODULE_9__["Performance"](screeningEvent).isTicketedSeat()
+                    && availableSeats.length !== reservations.length) {
                     throw new Error('Out of stock').message;
                 }
                 const authorizeSeatReservation = yield this.cinerinoService.transaction.placeOrder.authorizeSeatReservation({
@@ -10613,7 +10613,7 @@ let PurchaseEffects = class PurchaseEffects {
                             }
                             return {
                                 id: reservation.ticket.ticketOffer.id,
-                                ticketedSeat: ((new _models__WEBPACK_IMPORTED_MODULE_9__["Performance"](screeningEvent).isTicketedSeat()))
+                                ticketedSeat: (new _models__WEBPACK_IMPORTED_MODULE_9__["Performance"](screeningEvent).isTicketedSeat())
                                     ? availableSeats[index] : undefined,
                                 addOn: (reservation.ticket.addOn === undefined)
                                     ? undefined

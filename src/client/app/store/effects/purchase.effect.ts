@@ -232,8 +232,8 @@ export class PurchaseEffects {
             try {
                 await this.cinerinoService.getServices();
                 const availableSeats = autoSelectAvailableSeat({ reservations, screeningEventOffers });
-                console.log('availableSeats', availableSeats);
-                if (availableSeats.length !== reservations.length) {
+                if (new Performance(screeningEvent).isTicketedSeat()
+                    && availableSeats.length !== reservations.length) {
                     throw new Error('Out of stock').message;
                 }
                 const authorizeSeatReservation =
@@ -249,7 +249,7 @@ export class PurchaseEffects {
                                 }
                                 return {
                                     id: reservation.ticket.ticketOffer.id,
-                                    ticketedSeat: ((new Performance(screeningEvent).isTicketedSeat()))
+                                    ticketedSeat: (new Performance(screeningEvent).isTicketedSeat())
                                         ? availableSeats[index] : undefined,
                                     addOn: (reservation.ticket.addOn === undefined)
                                         ? undefined
