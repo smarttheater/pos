@@ -6447,7 +6447,19 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     /* harmony import */
 
 
-    var _environments_environment__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(
+    var _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(
+    /*! @cinerino/api-javascript-client */
+    "../../node_modules/@cinerino/api-javascript-client/lib/index.js");
+    /* harmony import */
+
+
+    var _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_1___default =
+    /*#__PURE__*/
+    __webpack_require__.n(_cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_1__);
+    /* harmony import */
+
+
+    var _environments_environment__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
     /*! ../../../../../../environments/environment */
     "./environments/environment.ts");
 
@@ -6477,7 +6489,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       function ItemListComponent() {
         _classCallCheck(this, ItemListComponent);
 
-        this.environment = Object(_environments_environment__WEBPACK_IMPORTED_MODULE_1__["getEnvironment"])();
+        this.environment = Object(_environments_environment__WEBPACK_IMPORTED_MODULE_2__["getEnvironment"])();
       }
 
       _createClass(ItemListComponent, [{
@@ -6558,6 +6570,10 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
               o.priceSpecification.priceComponent.forEach(function (p) {
                 if (p.name === undefined) {
                   p.name = o.name;
+                }
+
+                if (p.name === undefined && o.itemOffered.typeOf === _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_1__["factory"].chevre.reservationType.EventReservation) {
+                  p.name = o.itemOffered.reservedTicket.ticketType.name;
                 }
 
                 priceComponents.push(p);
