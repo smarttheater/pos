@@ -12,6 +12,10 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/).
 
 ### Security
 
+## 3.0.10 - 2020-02-20
+### Fixed
+ - 過去注文データに対しての価格表記対応
+
 ## 3.0.9 - 2020-02-19
 ### Changed
  - StarWebPRNTSDK更新
