@@ -334,16 +334,10 @@ export class PurchaseEffects {
                 const clientId = this.cinerinoService.auth.options.clientId;
                 const screeningEvent = payload.screeningEvent;
                 const seller = payload.seller;
-                let screeningEventTicketOffers = await this.cinerinoService.event.searchTicketOffers({
+                const screeningEventTicketOffers = await this.cinerinoService.event.searchTicketOffers({
                     event: { id: screeningEvent.id },
                     seller: { typeOf: seller.typeOf, id: seller.id },
                     store: { id: clientId }
-                });
-                // 券種コード順（昇順）へソート
-                screeningEventTicketOffers = screeningEventTicketOffers.sort((a, b) => {
-                    if (a.identifier > b.identifier) { return 1; }
-                    if (a.identifier < b.identifier) { return -1; }
-                    return 0;
                 });
 
                 return new purchaseAction.GetTicketListSuccess({ screeningEventTicketOffers });
