@@ -8,6 +8,7 @@ import { map, mergeMap } from 'rxjs/operators';
 import { getEnvironment } from '../../../environments/environment';
 import {
     authorizeSeatReservation2Event,
+    autoSelectAvailableSeat,
     createMovieTicketsFromAuthorizeSeatReservation,
     formatTelephone,
     getItemPrice,
@@ -85,7 +86,7 @@ export class PurchaseEffects {
                 await this.cinerinoService.getServices();
                 let theaterCode;
                 let screenCode;
-                let screeningEventOffers: factory.chevre.place.movieTheater.IScreeningRoomSectionOffer[];
+                let screeningEventOffers: factory.chevre.place.screeningRoomSection.IPlaceWithOffer[];
                 if (payload.test) {
                     screeningEventOffers = [];
                     theaterCode = payload.theaterCode;
@@ -114,6 +115,25 @@ export class PurchaseEffects {
     );
 
     /**
+     * GetScreeningEvent
+     */
+    @Effect()
+    public getScreeningEvent = this.actions.pipe(
+        ofType<purchaseAction.GetScreeningEvent>(purchaseAction.ActionTypes.GetScreeningEvent),
+        map(action => action.payload),
+        mergeMap(async (payload) => {
+            try {
+                await this.cinerinoService.getServices();
+                const screeningEvent =
+                    await this.cinerinoService.event.findById<factory.chevre.eventType.ScreeningEvent>({ id: payload.screeningEvent.id });
+                return new purchaseAction.GetScreeningEventSuccess({ screeningEvent });
+            } catch (error) {
+                return new purchaseAction.GetScreeningEventFail({ error: error });
+            }
+        })
+    );
+
+    /**
      * GetScreeningEventOffers
      */
     @Effect()
@@ -124,7 +144,7 @@ export class PurchaseEffects {
             try {
                 await this.cinerinoService.getServices();
                 const screeningEvent = payload.screeningEvent;
-                let screeningEventOffers: factory.chevre.place.movieTheater.IScreeningRoomSectionOffer[] = [];
+                let screeningEventOffers: factory.chevre.place.screeningRoomSection.IPlaceWithOffer[] = [];
                 if (new Performance(screeningEvent).isTicketedSeat()) {
                     screeningEventOffers = await this.cinerinoService.event.searchOffers({
                         event: { id: screeningEvent.id }
@@ -208,26 +228,13 @@ export class PurchaseEffects {
             const screeningEvent = payload.screeningEvent;
             const screeningEventOffers = payload.screeningEventOffers;
             const reservations = payload.reservations;
-            const freeSeats:
-                factory.chevre.reservation.ISeat<factory.chevre.reservationType.EventReservation>[] = [];
+
             try {
                 await this.cinerinoService.getServices();
-                if (new Performance(screeningEvent).isTicketedSeat()) {
-                    for (const screeningEventOffer of screeningEventOffers) {
-                        const section = screeningEventOffer.branchCode;
-                        for (const containsPlace of screeningEventOffer.containsPlace) {
-                            if (containsPlace.offers !== undefined
-                                && containsPlace.offers[0].availability === factory.chevre.itemAvailability.InStock) {
-                                freeSeats.push({
-                                    typeOf: containsPlace.typeOf,
-                                    seatingType: <any>containsPlace.seatingType,
-                                    seatNumber: containsPlace.branchCode,
-                                    seatRow: '',
-                                    seatSection: section
-                                });
-                            }
-                        }
-                    }
+                const availableSeats = autoSelectAvailableSeat({ reservations, screeningEventOffers });
+                if (new Performance(screeningEvent).isTicketedSeat()
+                    && availableSeats.length !== reservations.length) {
+                    throw new Error('Out of stock').message;
                 }
                 const authorizeSeatReservation =
                     <factory.action.authorize.offer.seatReservation.IAction<factory.service.webAPI.Identifier.Chevre>>
@@ -238,11 +245,12 @@ export class PurchaseEffects {
                             },
                             acceptedOffer: reservations.map((reservation, index) => {
                                 if (reservation.ticket === undefined) {
-                                    throw new Error('ticket is undefined');
+                                    throw new Error('ticket is undefined').message;
                                 }
                                 return {
                                     id: reservation.ticket.ticketOffer.id,
-                                    ticketedSeat: (freeSeats.length > 0) ? freeSeats[index] : undefined,
+                                    ticketedSeat: (new Performance(screeningEvent).isTicketedSeat())
+                                        ? availableSeats[index] : undefined,
                                     addOn: (reservation.ticket.addOn === undefined)
                                         ? undefined
                                         : reservation.ticket.addOn.map(a => ({ id: a.id })),

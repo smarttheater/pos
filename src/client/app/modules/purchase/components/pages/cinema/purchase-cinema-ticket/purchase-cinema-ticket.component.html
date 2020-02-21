@@ -42,9 +42,10 @@
                                     </p>
                                 </div>
                                 <div class="d-flex justify-content-between align-items-center" *ngFor="let addOn of reservation.ticket?.addOn;">
-                                    <p class="w-50 text-left">{{ addOn.priceSpecification.name | changeLanguage }}<span *ngIf="addOn.priceSpecification?.referenceQuantity?.value">&nbsp;×&nbsp;{{ addOn.priceSpecification.referenceQuantity.value }}</span></p>
+                                    <p class="w-50 text-left">{{ addOn.priceSpecification.name | changeLanguage }}</p>
                                     <p class="w-50 text-right">
-                                        {{ addOn.priceSpecification.price | currency : addOn.priceSpecification.priceCurrency }}
+                                        <span>{{ addOn.priceSpecification.price | currency : addOn.priceSpecification.priceCurrency }}</span><!--
+                                        --><span class="text-small" *ngIf="addOn.priceSpecification?.referenceQuantity?.value">{{ 'common.referenceQuantityValue' | translate: { value: addOn.priceSpecification?.referenceQuantity?.value } }}</span>
                                     </p>
                                 </div>
                             </button>

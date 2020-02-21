@@ -133,7 +133,13 @@ export class PurchaseCinemaScheduleComponent implements OnInit, OnDestroy {
             return;
         }
         this.purchaseService.unsettledDelete();
-        this.purchaseService.selectSchedule(screeningEvent);
+        try {
+            await this.purchaseService.getScreeningEvent(screeningEvent);
+        } catch (error) {
+            console.error(error);
+            this.router.navigate(['/error']);
+            return;
+        }
         const purchase = await this.purchaseService.getData();
         const user = await this.userService.getData();
         if (user.seller === undefined) {
@@ -152,6 +158,7 @@ export class PurchaseCinemaScheduleComponent implements OnInit, OnDestroy {
             } catch (error) {
                 console.error(error);
                 this.router.navigate(['/error']);
+                return;
             }
         }
         try {

@@ -101,7 +101,14 @@ export class PurchaseCinemaTicketComponent implements OnInit {
             this.router.navigate(['/purchase/cinema/cart']);
         } catch (error) {
             console.error(error);
-            this.router.navigate(['/error']);
+            this.utilService.openAlert({
+                title: this.translate.instant('common.error'),
+                body: `
+                <p class="mb-4">${this.translate.instant('purchase.cinema.ticket.alert.temporaryReservation')}</p>
+                <div class="p-3 bg-light-gray select-text text-left">
+                    <code>${JSON.stringify(error)}</code>
+                </div>`
+            });
         }
     }
 

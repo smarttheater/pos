@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "frontend": {
+    "pos": {
       "root": "src/client",
       "sourceRoot": "src/client",
       "projectType": "application",
@@ -58,7 +58,7 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "frontend:build",
+            "browserTarget": "pos:build",
             "port": 3333,
             "ssl": true,
             "sslKey": "ssl/server.key",
@@ -66,20 +66,20 @@
           },
           "configurations": {
             "dev": {
-              "browserTarget": "frontend:build:dev"
+              "browserTarget": "pos:build:dev"
             },
             "test": {
-              "browserTarget": "frontend:build:test"
+              "browserTarget": "pos:build:test"
             },
             "production": {
-              "browserTarget": "frontend:build:production"
+              "browserTarget": "pos:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "frontend:build"
+            "browserTarget": "pos:build"
           }
         },
         "test": {
@@ -116,7 +116,7 @@
         }
       }
     },
-    "frontend-e2e": {
+    "pos-e2e": {
       "root": "src/client",
       "sourceRoot": "src/client/e2e",
       "projectType": "application",
@@ -125,7 +125,7 @@
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {
             "protractorConfig": "./protractor.conf.js",
-            "devServerTarget": "frontend:serve"
+            "devServerTarget": "pos:serve"
           }
         },
         "lint": {
@@ -142,7 +142,7 @@
       }
     }
   },
-  "defaultProject": "frontend",
+  "defaultProject": "pos",
   "schematics": {
     "@schematics/angular:component": {
       "prefix": "app",
@@ -155,7 +155,6 @@
   },
   "cli": {
     "warnings": {
-      "typescriptMismatch": false
     }
   }
 }
