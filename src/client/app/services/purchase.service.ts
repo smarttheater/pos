@@ -248,6 +248,7 @@ export class PurchaseService {
         return new Promise<void>((resolve, reject) => {
             const transaction = purchase.transaction;
             const screeningEvent = purchase.screeningEvent;
+            const screeningEventOffers = purchase.screeningEventOffers;
             if (transaction === undefined || screeningEvent === undefined) {
                 reject();
                 return;
@@ -265,7 +266,8 @@ export class PurchaseService {
                 transaction,
                 screeningEvent,
                 reservations,
-                authorizeSeatReservation
+                authorizeSeatReservation,
+                screeningEventOffers
             }));
             const success = this.actions.pipe(
                 ofType(purchaseAction.ActionTypes.TemporaryReservationSuccess),

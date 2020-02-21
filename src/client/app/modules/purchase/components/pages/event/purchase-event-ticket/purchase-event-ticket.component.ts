@@ -152,7 +152,7 @@ export class PurchaseEventTicketComponent implements OnInit, OnDestroy {
             const screeningEventTicketOffers = purchase.screeningEventTicketOffers;
             const screeningEventOffers = purchase.screeningEventOffers;
             this.modal.show(PurchaseEventTicketModalComponent, {
-                class: 'modal-dialog-centered',
+                class: 'modal-dialog-centered modal-lg',
                 initialState: {
                     screeningEventTicketOffers,
                     screeningEventOffers,

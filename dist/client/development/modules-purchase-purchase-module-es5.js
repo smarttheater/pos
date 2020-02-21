@@ -1977,7 +1977,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
           this.purchase.subscribe(function (purchase) {
             _this5.modal.show(_shared_components_parts_purchase_cinema_ticket_modal_ticket_modal_component__WEBPACK_IMPORTED_MODULE_10__["PurchaseCinemaTicketModalComponent"], {
-              "class": 'modal-dialog-centered',
+              "class": 'modal-dialog-centered modal-lg',
               initialState: {
                 screeningEventTicketOffers: purchase.screeningEventTicketOffers,
                 checkMovieTicketActions: purchase.checkMovieTicketActions,
@@ -2952,7 +2952,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
                       var screeningEventOffers = purchase.screeningEventOffers;
 
                       _this10.modal.show(_shared_components_parts_purchase_event_ticket_modal_ticket_modal_component__WEBPACK_IMPORTED_MODULE_11__["PurchaseEventTicketModalComponent"], {
-                        "class": 'modal-dialog-centered',
+                        "class": 'modal-dialog-centered modal-lg',
                         initialState: {
                           screeningEventTicketOffers: screeningEventTicketOffers,
                           screeningEventOffers: screeningEventOffers,

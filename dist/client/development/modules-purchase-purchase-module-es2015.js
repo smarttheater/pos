@@ -1046,7 +1046,7 @@ let PurchaseCinemaTicketComponent = class PurchaseCinemaTicketComponent {
     openTicketList(reservation) {
         this.purchase.subscribe((purchase) => {
             this.modal.show(_shared_components_parts_purchase_cinema_ticket_modal_ticket_modal_component__WEBPACK_IMPORTED_MODULE_10__["PurchaseCinemaTicketModalComponent"], {
-                class: 'modal-dialog-centered',
+                class: 'modal-dialog-centered modal-lg',
                 initialState: {
                     screeningEventTicketOffers: purchase.screeningEventTicketOffers,
                     checkMovieTicketActions: purchase.checkMovieTicketActions,
@@ -1539,7 +1539,7 @@ let PurchaseEventTicketComponent = class PurchaseEventTicketComponent {
                 const screeningEventTicketOffers = purchase.screeningEventTicketOffers;
                 const screeningEventOffers = purchase.screeningEventOffers;
                 this.modal.show(_shared_components_parts_purchase_event_ticket_modal_ticket_modal_component__WEBPACK_IMPORTED_MODULE_11__["PurchaseEventTicketModalComponent"], {
-                    class: 'modal-dialog-centered',
+                    class: 'modal-dialog-centered modal-lg',
                     initialState: {
                         screeningEventTicketOffers,
                         screeningEventOffers,
