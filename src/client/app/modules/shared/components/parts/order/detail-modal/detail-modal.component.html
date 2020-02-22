@@ -52,6 +52,10 @@
                             <p>[{{ 'common.reservationId' | translate }}] {{ acceptedOffer.itemOffered.id }}</p>
                             <app-item-list [acceptedOffers]="[acceptedOffer]"></app-item-list>
                         </div>
+                        <div *ngIf="eventOrder.data[0].itemOffered.additionalTicketText">
+                            <p>[{{ 'common.additionalTicketText' | translate }}]</p>
+                            <textarea readonly [innerHtml]="eventOrder.data[0].itemOffered.additionalTicketText"></textarea>
+                        </div>
                     </div>
                 </div>
             </div>
