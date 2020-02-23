@@ -1,7 +1,6 @@
 import { factory } from '@cinerino/api-javascript-client';
 import { IState } from '.';
 import {
-    createPaymentMethodFromType,
     isAvailabilityMovieTicket,
     sameMovieTicketFilter
 } from '../../functions';
@@ -31,9 +30,8 @@ export interface IPurchaseState {
     checkMovieTicketAction?: factory.action.check.paymentMethod.movieTicket.IAction;
     authorizeAnyPayments: factory.action.authorize.paymentMethod.any.IAction<any>[];
     paymentMethod?: {
-        name: string;
-        paymentMethodType: factory.paymentMethodType;
-        paymentMethodName?: 'RegiGrow';
+        typeOf: factory.paymentMethodType;
+        category?: string;
     };
     isUsedMovieTicket: boolean;
     pendingMovieTickets: IMovieTicket[];
@@ -411,10 +409,10 @@ export function reducer(state: IState, action: purchaseAction.Actions): IState {
             return { ...state, loading: false, process: '', error: JSON.stringify(error) };
         }
         case purchaseAction.ActionTypes.SelectPaymentMethodType: {
-            const paymentMethod = createPaymentMethodFromType({
-                paymentMethodType: action.payload.paymentMethodType,
-                paymentMethodName: action.payload.paymentMethodName
-            });
+            const paymentMethod = {
+                typeOf: action.payload.typeOf,
+                category: action.payload.category
+            };
             state.purchaseData.paymentMethod = paymentMethod;
 
             return { ...state, loading: false, process: '', error: null };

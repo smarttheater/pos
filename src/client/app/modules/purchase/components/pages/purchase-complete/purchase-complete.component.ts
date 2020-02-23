@@ -6,7 +6,7 @@ import { TranslateService } from '@ngx-translate/core';
 import * as moment from 'moment';
 import { Observable } from 'rxjs';
 import { getEnvironment } from '../../../../../../environments/environment';
-import { createRegiGrowQrcode, IEventOrder, order2EventOrders } from '../../../../../functions';
+import { createCooperationQRCode, getCustomPaymentMethodTypeName, IEventOrder, order2EventOrders } from '../../../../../functions';
 import { OrderService, PurchaseService, UserService, UtilService } from '../../../../../services';
 import * as reducers from '../../../../../store/reducers';
 
@@ -23,8 +23,9 @@ export class PurchaseCompleteComponent implements OnInit {
     public moment: typeof moment = moment;
     public eventOrders: IEventOrder[];
     public environment = getEnvironment();
-    public regiGrow?: string;
+    public qrcode?: string;
     public paymentMethodType = factory.paymentMethodType;
+    public getCustomPaymentMethodTypeName = getCustomPaymentMethodTypeName;
 
     constructor(
         private store: Store<reducers.IState>,
@@ -36,35 +37,52 @@ export class PurchaseCompleteComponent implements OnInit {
         private translate: TranslateService
     ) { }
 
-    public ngOnInit() {
+    public async ngOnInit() {
         this.eventOrders = [];
         this.purchase = this.store.pipe(select(reducers.getPurchase));
         this.user = this.store.pipe(select(reducers.getUser));
         this.isLoading = this.store.pipe(select(reducers.getLoading));
         this.error = this.store.pipe(select(reducers.getError));
-        this.purchase.subscribe((purchase) => {
-            if (purchase.order === undefined) {
-                this.router.navigate(['/error']);
-                return;
+        let order: factory.order.IOrder;
+        try {
+            const purchaseData = await this.purchaseService.getData();
+            if (purchaseData.order === undefined) {
+                throw new Error('order not found').message;
             }
-            if (purchase.order.paymentMethods.find(p => p.name === 'RegiGrow') !== undefined) {
-                createRegiGrowQrcode(purchase.order).then((code) => {
-                    this.regiGrow = code;
-                }).catch((error) => {
-                    this.utilService.openAlert({
-                        title: this.translate.instant('common.error'),
-                        body: `
-                        <p class="mb-4">${this.translate.instant('purchase.complete.alert.regiGrow')}</p>
-                            <div class="p-3 bg-light-gray select-text">
-                            <code>${error}</code>
-                        </div>`
-                    });
-                });
-            }
-            const order = purchase.order;
+            order = purchaseData.order;
             this.eventOrders = order2EventOrders({ order });
-        }).unsubscribe();
-        this.print();
+            this.print();
+        } catch (error) {
+            this.router.navigate(['/error']);
+            return;
+        }
+
+        try {
+            const isRegiGrow = order.paymentMethods.find(p => p.name === 'RegiGrow') !== undefined;
+            const findResult = this.environment.PAYMENT_METHOD_CUSTOM.find(c => {
+                return order.paymentMethods.find(p => {
+                    return (p.typeOf === factory.paymentMethodType.Others
+                        && p.name === c.category
+                        && c.qrcode !== undefined);
+                });
+            });
+            if (isRegiGrow
+                || (findResult !== undefined && findResult.qrcode !== undefined)) {
+                const qrcodeText = (isRegiGrow) ? this.environment.REGIGROW_QRCODE
+                    : (findResult !== undefined && findResult.qrcode !== undefined) ? findResult.qrcode : '';
+                this.qrcode = await createCooperationQRCode({ order, qrcodeText });
+            }
+        } catch (error) {
+            this.utilService.openAlert({
+                title: this.translate.instant('common.error'),
+                body: `
+                <p class="mb-4">${this.translate.instant('purchase.complete.alert.regiGrow')}</p>
+                    <div class="p-3 bg-light-gray select-text">
+                    <code>${error}</code>
+                </div>`
+            });
+        }
+
     }
 
     /**

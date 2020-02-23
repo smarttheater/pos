@@ -462,7 +462,7 @@ export class PurchaseService {
             const amount = params.amount;
             const depositAmount = params.depositAmount;
             const additionalProperty = [];
-            if (purchase.paymentMethod.paymentMethodType === factory.paymentMethodType.Cash
+            if (purchase.paymentMethod.typeOf === factory.paymentMethodType.Cash
                 && depositAmount !== undefined) {
                 // 現金
                 additionalProperty.push({ name: 'depositAmount', value: String(depositAmount) });
@@ -470,8 +470,8 @@ export class PurchaseService {
             }
             this.store.dispatch(new purchaseAction.AuthorizeAnyPayment({
                 transaction: transaction,
-                typeOf: purchase.paymentMethod.paymentMethodType,
-                name: purchase.paymentMethod.paymentMethodName,
+                typeOf: purchase.paymentMethod.typeOf,
+                name: purchase.paymentMethod.category,
                 amount,
                 additionalProperty
             }));
@@ -491,8 +491,8 @@ export class PurchaseService {
      * 決済方法取得
      */
     public selectPaymentMethodType(params: {
-        paymentMethodType: factory.paymentMethodType;
-        paymentMethodName?: 'RegiGrow'
+        typeOf: factory.paymentMethodType;
+        category?: string;
     }) {
         this.store.dispatch(new purchaseAction.SelectPaymentMethodType(params));
     }

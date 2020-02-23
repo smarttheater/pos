@@ -1,5 +1,6 @@
 import { factory } from '@cinerino/api-javascript-client';
 import * as moment from 'moment';
+import { getEnvironment } from '../../environments/environment';
 import { IMovieTicket, IReservation, IReservationSeat, Performance } from '../models';
 
 /**
@@ -185,47 +186,21 @@ export function createMovieTicketsFromAuthorizeSeatReservation(args: {
 }
 
 /**
- * 支払い方法作成
+ * カスタム支払い方法名称取得
  */
-export function createPaymentMethodFromType(params: {
-    paymentMethodType: factory.paymentMethodType;
-    paymentMethodName?: 'RegiGrow';
+export function getCustomPaymentMethodTypeName(params: {
+    typeOf: factory.chevre.paymentMethodType;
+    category: string | undefined;
 }) {
-    switch (params.paymentMethodType) {
-        case factory.paymentMethodType.Cash: {
-            return {
-                paymentMethodType: params.paymentMethodType,
-                name: 'common.paymentMethodType.cash'
-            };
-        }
-        case factory.paymentMethodType.CreditCard: {
-            return {
-                paymentMethodType: params.paymentMethodType,
-                name: 'common.paymentMethodType.creditCard'
-            };
-        }
-        case factory.paymentMethodType.EMoney: {
-            return {
-                paymentMethodType: params.paymentMethodType,
-                name: 'common.paymentMethodType.eMoney'
-            };
-        }
-        case factory.paymentMethodType.Others: {
-            return {
-                paymentMethodType: params.paymentMethodType,
-                paymentMethodName: params.paymentMethodName,
-                name: (params.paymentMethodName === 'RegiGrow')
-                    ? 'common.paymentMethodType.regiGrow'
-                    : 'common.paymentMethodType.others'
-            };
-        }
-        default: {
-            return {
-                paymentMethodType: params.paymentMethodType,
-                name: 'common.paymentMethodType.others'
-            };
-        }
+    const paymentMethodType = params.typeOf;
+    const category = params.category;
+    const environment = getEnvironment();
+    const findResult = environment.PAYMENT_METHOD_CUSTOM.find(p => p.category === category);
+    if (paymentMethodType !== factory.paymentMethodType.Others
+        || findResult === undefined) {
+        return { ja: '', en: '' };
     }
+    return findResult.name;
 }
 
 /**

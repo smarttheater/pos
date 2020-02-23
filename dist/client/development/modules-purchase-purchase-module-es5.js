@@ -161,7 +161,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
     /* harmony default export */
 
 
-    __webpack_exports__["default"] = "<div class=\"contents-width mx-auto px-3 py-5\">\n    <div class=\"mb-4\">\n        <h2 class=\"text-large mb-4 text-center font-weight-bold\">{{ 'purchase.complete.title' | translate }}</h2>\n        <p class=\"mb-4 text-md-center\" [innerHTML]=\"'purchase.complete.read' | translate\"></p>\n\n        <div class=\"mb-4 px-3 py-2 bg-white\">\n            <div class=\"row align-items-center\">\n                <p class=\"col-4\">\n                    {{ 'common.confirmationNumber' | translate }}</p>\n                <p class=\"col-8 text-large text-info font-weight-bold\">\n                    {{ (purchase | async).order.confirmationNumber }}\n                </p>\n            </div>\n        </div>\n\n        <div *ngIf=\"regiGrow\" class=\"mb-4 px-3 py-2 bg-white\">\n            <div class=\"row align-items-center\">\n                <p class=\"col-md-4 mb-2 mb-md-0\">{{ 'purchase.complete.regiGrow' | translate }}</p>\n                <p class=\"col-md-8 text-large text-center text-md-left\">\n                    <img class=\"border\" [src]=\"regiGrow\">\n                </p>\n            </div>\n        </div>\n\n        <div *ngFor=\"let eventOrder of eventOrders\" class=\"mb-4 bg-white p-3\">\n            <div class=\"mb-3\">\n                <div class=\"mb-1\">\n                    <p class=\"font-weight-bold text-large\">{{ eventOrder.event.name | changeLanguage }}</p>\n                    <p class=\"text-small\"\n                        *ngIf=\"eventOrder.event.superEvent.headline && (eventOrder.event.superEvent.headline | changeLanguage)\">\n                        {{ eventOrder.event.superEvent.headline | changeLanguage }}</p>\n                    <p class=\"text-small\"\n                        *ngIf=\"eventOrder.event.superEvent.description && (eventOrder.event.superEvent.description | changeLanguage)\">{{\n                        eventOrder.event.superEvent.description | changeLanguage }}</p>\n                </div>\n                <p class=\"mb-1\">\n                    {{ eventOrder.event.startDate | formatDate: 'MM/DD(ddd) HH:mm' }}-{{ eventOrder.event.endDate | formatDate: 'HH:mm' }}\n                </p>\n                <p class=\"text-small mb-1\">\n                    <span class=\"theatre-name\">{{ eventOrder.event.superEvent.location.name | changeLanguage }}</span>\n                    <span class=\"screen-name\">&nbsp;/&nbsp;<span *ngIf=\"eventOrder.event.location.address\" class=\"mr-2\">{{ eventOrder.event.location.address | changeLanguage }}</span>{{ eventOrder.event.location.name | changeLanguage }}</span>\n                    <span\n                        *ngIf=\"eventOrder.event.workPerformed?.duration && moment.duration(eventOrder.event.workPerformed?.duration).asMinutes() > 0\">\n                        &nbsp;/&nbsp;<span\n                            class=\"mr-1\">{{ 'common.duration' | translate }}</span>{{ moment.duration(eventOrder.event.workPerformed?.duration).asMinutes() }}{{ 'common.date.minute' | translate }}\n                    </span>\n                </p>\n            </div>\n            <hr class=\"mb-3\">\n            <app-item-list [acceptedOffers]=\"eventOrder.data\"></app-item-list>\n            \n        </div>\n\n        <div class=\"mb-4 px-3 bg-white\">\n            <!-- <div class=\"py-3 border-bottom border-gray\">\n                <div class=\"row align-items-center\">\n                    <p class=\"mb-2 mb-md-0 col-md-4\">{{ 'common.customerName' | translate }}</p>\n                    <p class=\"col-md-8\">{{ (purchase | async).order.customer.familyName }} {{ (purchase |\n                                async).order.customer.givenName }}</p>\n                </div>\n            </div>\n            <div class=\"py-3 border-bottom border-gray\">\n                <div class=\"row align-items-center\">\n                    <p class=\"mb-2 mb-md-0 col-md-4\">{{ 'common.email' | translate }}</p>\n                    <p class=\"col-md-8\">{{ (purchase | async).order.customer.email }}</p>\n                </div>\n            </div>\n            <div class=\"py-3 border-bottom border-gray\">\n                <div class=\"row align-items-center\">\n                    <p class=\"mb-2 mb-md-0 col-md-4\">{{ 'common.telephone' | translate }}</p>\n                    <p class=\"col-md-8\">{{ (purchase | async).order.customer.telephone | libphonenumberFormat }}</p>\n                </div>\n            </div> -->\n\n            <div class=\"py-3 border-bottom border-gray\">\n                <div class=\"row align-items-center\">\n                    <p class=\"mb-2 mb-md-0 col-md-4\">{{ 'common.paymentMethod' | translate }}</p>\n                    <div class=\"col-md-8\">\n                        <p *ngFor=\"let paymentMethod of (purchase | async).order.paymentMethods\">\n                            <span\n                                *ngIf=\"paymentMethod.typeOf === paymentMethodType.Cash\">{{ 'common.paymentMethodType.cash' | translate }}</span>\n                            <span\n                                *ngIf=\"paymentMethod.typeOf === paymentMethodType.Account\">{{ 'common.paymentMethodType.account' | translate }}</span>\n                            <span\n                                *ngIf=\"paymentMethod.typeOf === paymentMethodType.CreditCard\">{{ 'common.paymentMethodType.creditCard' | translate }}</span>\n                            <span\n                                *ngIf=\"paymentMethod.typeOf === paymentMethodType.EMoney\">{{ 'common.paymentMethodType.eMoney' | translate }}</span>\n                            <span\n                                *ngIf=\"paymentMethod.typeOf === paymentMethodType.MovieTicket\">{{ 'common.paymentMethodType.movieTicket' | translate }}</span>\n                            <span\n                                *ngIf=\"paymentMethod.typeOf === paymentMethodType.Others && paymentMethod.name === 'Others'\">{{ 'common.paymentMethodType.others' | translate }}</span>\n                            <span\n                                *ngIf=\"paymentMethod.typeOf === paymentMethodType.Others && paymentMethod.name === 'RegiGrow'\">{{ 'common.paymentMethodType.regiGrow' | translate }}</span>\n                        </p>\n                    </div>\n                </div>\n            </div>\n            <div class=\"py-3\">\n                <div class=\"row align-items-center\">\n                    <p class=\"mb-2 mb-md-0 col-md-4\">{{ 'common.amount' | translate }}</p>\n                    <p class=\"col-md-8 font-weight-bold text-large text-info\">\n                        {{ (purchase | async).order.price | currency : 'JPY' }}</p>\n                </div>\n            </div>\n        </div>\n    </div>\n\n    <div class=\"buttons mx-auto text-center\">\n        <button type=\"submit\" class=\"btn btn-primary btn-block py-3 mb-3\" [disabled]=\"isLoading | async\"\n            (click)=\"print()\">{{ 'purchase.complete.next' | translate }}</button>\n        <button type=\"button\" class=\"btn btn-link\"\n            routerLink=\"/purchase/root\">{{ 'purchase.complete.prev' | translate }}</button>\n    </div>\n\n</div>";
+    __webpack_exports__["default"] = "<div class=\"contents-width mx-auto px-3 py-5\">\n    <div class=\"mb-4\">\n        <h2 class=\"text-large mb-4 text-center font-weight-bold\">{{ 'purchase.complete.title' | translate }}</h2>\n        <p class=\"mb-4 text-md-center\" [innerHTML]=\"'purchase.complete.read' | translate\"></p>\n\n        <div class=\"mb-4 px-3 py-2 bg-white\">\n            <div class=\"row align-items-center\">\n                <p class=\"col-4\">\n                    {{ 'common.confirmationNumber' | translate }}</p>\n                <p class=\"col-8 text-large text-info font-weight-bold\">\n                    {{ (purchase | async).order.confirmationNumber }}\n                </p>\n            </div>\n        </div>\n\n        <div *ngIf=\"qrcode\" class=\"mb-4 px-3 py-2 bg-white\">\n            <div class=\"row align-items-center\">\n                <p class=\"col-md-4 mb-2 mb-md-0\">{{ 'purchase.complete.cooperationQRCode' | translate }}</p>\n                <p class=\"col-md-8 text-large text-center text-md-left\">\n                    <img class=\"border\" [src]=\"qrcode\">\n                </p>\n            </div>\n        </div>\n\n        <div *ngFor=\"let eventOrder of eventOrders\" class=\"mb-4 bg-white p-3\">\n            <div class=\"mb-3\">\n                <div class=\"mb-1\">\n                    <p class=\"font-weight-bold text-large\">{{ eventOrder.event.name | changeLanguage }}</p>\n                    <p class=\"text-small\"\n                        *ngIf=\"eventOrder.event.superEvent.headline && (eventOrder.event.superEvent.headline | changeLanguage)\">\n                        {{ eventOrder.event.superEvent.headline | changeLanguage }}</p>\n                    <p class=\"text-small\"\n                        *ngIf=\"eventOrder.event.superEvent.description && (eventOrder.event.superEvent.description | changeLanguage)\">{{\n                        eventOrder.event.superEvent.description | changeLanguage }}</p>\n                </div>\n                <p class=\"mb-1\">\n                    {{ eventOrder.event.startDate | formatDate: 'MM/DD(ddd) HH:mm' }}-{{ eventOrder.event.endDate | formatDate: 'HH:mm' }}\n                </p>\n                <p class=\"text-small mb-1\">\n                    <span class=\"theatre-name\">{{ eventOrder.event.superEvent.location.name | changeLanguage }}</span>\n                    <span class=\"screen-name\">&nbsp;/&nbsp;<span *ngIf=\"eventOrder.event.location.address\"\n                            class=\"mr-2\">{{ eventOrder.event.location.address | changeLanguage }}</span>{{ eventOrder.event.location.name | changeLanguage }}</span>\n                    <span\n                        *ngIf=\"eventOrder.event.workPerformed?.duration && moment.duration(eventOrder.event.workPerformed?.duration).asMinutes() > 0\">\n                        &nbsp;/&nbsp;<span\n                            class=\"mr-1\">{{ 'common.duration' | translate }}</span>{{ moment.duration(eventOrder.event.workPerformed?.duration).asMinutes() }}{{ 'common.date.minute' | translate }}\n                    </span>\n                </p>\n            </div>\n            <hr class=\"mb-3\">\n            <app-item-list [acceptedOffers]=\"eventOrder.data\"></app-item-list>\n\n        </div>\n\n        <div class=\"mb-4 px-3 bg-white\">\n            <!-- <div class=\"py-3 border-bottom border-gray\">\n                <div class=\"row align-items-center\">\n                    <p class=\"mb-2 mb-md-0 col-md-4\">{{ 'common.customerName' | translate }}</p>\n                    <p class=\"col-md-8\">{{ (purchase | async).order.customer.familyName }} {{ (purchase |\n                                async).order.customer.givenName }}</p>\n                </div>\n            </div>\n            <div class=\"py-3 border-bottom border-gray\">\n                <div class=\"row align-items-center\">\n                    <p class=\"mb-2 mb-md-0 col-md-4\">{{ 'common.email' | translate }}</p>\n                    <p class=\"col-md-8\">{{ (purchase | async).order.customer.email }}</p>\n                </div>\n            </div>\n            <div class=\"py-3 border-bottom border-gray\">\n                <div class=\"row align-items-center\">\n                    <p class=\"mb-2 mb-md-0 col-md-4\">{{ 'common.telephone' | translate }}</p>\n                    <p class=\"col-md-8\">{{ (purchase | async).order.customer.telephone | libphonenumberFormat }}</p>\n                </div>\n            </div> -->\n\n            <div class=\"py-3 border-bottom border-gray\">\n                <div class=\"row align-items-center\">\n                    <p class=\"mb-2 mb-md-0 col-md-4\">{{ 'common.paymentMethod' | translate }}</p>\n                    <div class=\"col-md-8\">\n                        <p *ngFor=\"let paymentMethod of (purchase | async).order.paymentMethods\">\n                            <span\n                                *ngIf=\"paymentMethod.typeOf === paymentMethodType.Cash\">{{ 'common.paymentMethodType.cash' | translate }}</span>\n                            <span\n                                *ngIf=\"paymentMethod.typeOf === paymentMethodType.Account\">{{ 'common.paymentMethodType.account' | translate }}</span>\n                            <span\n                                *ngIf=\"paymentMethod.typeOf === paymentMethodType.CreditCard\">{{ 'common.paymentMethodType.creditCard' | translate }}</span>\n                            <span\n                                *ngIf=\"paymentMethod.typeOf === paymentMethodType.EMoney\">{{ 'common.paymentMethodType.eMoney' | translate }}</span>\n                            <span\n                                *ngIf=\"paymentMethod.typeOf === paymentMethodType.MovieTicket\">{{ 'common.paymentMethodType.movieTicket' | translate }}</span>\n                            <span\n                                *ngIf=\"paymentMethod.typeOf === paymentMethodType.Others \n                                && paymentMethod.name === 'Others'\">{{ 'common.paymentMethodType.others' | translate }}</span>\n                            <span\n                                *ngIf=\"paymentMethod.typeOf === paymentMethodType.Others \n                                && paymentMethod.name === 'RegiGrow'\">{{ 'common.paymentMethodType.regiGrow' | translate }}</span>\n                            <span\n                                *ngIf=\"paymentMethod.typeOf === paymentMethodType.Others \n                                && paymentMethod.name !== 'Others' \n                                && paymentMethod.name !== 'RegiGrow'\">{{ getCustomPaymentMethodTypeName({ typeOf: paymentMethod.typeOf, category: paymentMethod.name}) | changeLanguage }}</span>\n                        </p>\n                    </div>\n                </div>\n            </div>\n            <div class=\"py-3\">\n                <div class=\"row align-items-center\">\n                    <p class=\"mb-2 mb-md-0 col-md-4\">{{ 'common.amount' | translate }}</p>\n                    <p class=\"col-md-8 font-weight-bold text-large text-info\">\n                        {{ (purchase | async).order.price | currency : 'JPY' }}</p>\n                </div>\n            </div>\n        </div>\n    </div>\n\n    <div class=\"buttons mx-auto text-center\">\n        <button type=\"submit\" class=\"btn btn-primary btn-block py-3 mb-3\" [disabled]=\"isLoading | async\"\n            (click)=\"print()\">{{ 'purchase.complete.next' | translate }}</button>\n        <button type=\"button\" class=\"btn btn-link\"\n            routerLink=\"/purchase/root\">{{ 'purchase.complete.prev' | translate }}</button>\n    </div>\n\n</div>";
     /***/
   },
 
@@ -181,7 +181,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
     /* harmony default export */
 
 
-    __webpack_exports__["default"] = "<div class=\"contents-width mx-auto px-3 py-5\">\n\n    <div class=\"mb-4\">\n        <h2 class=\"text-large mb-4 text-center font-weight-bold\">{{ 'purchase.confirm.title' | translate }}</h2>\n        <p class=\"mb-4 text-md-center\" [innerHTML]=\"'purchase.confirm.read' | translate\"></p>\n\n        <div *ngFor=\"let authorizeSeatReservation of (purchase | async).authorizeSeatReservations\"\n            class=\"mb-4 bg-white p-3\">\n            <div class=\"mb-3\">\n                <div class=\"mb-1\">\n                    <p class=\"font-weight-bold text-large\">\n                        {{ authorizeSeatReservation.object.event.name | changeLanguage }}</p>\n                    <p class=\"text-small\"\n                        *ngIf=\"authorizeSeatReservation.object.event.superEvent.headline && (authorizeSeatReservation.object.event.superEvent.headline | changeLanguage)\">\n                        {{ authorizeSeatReservation.object.event.superEvent.headline | changeLanguage }}</p>\n                    <p class=\"text-small\"\n                        *ngIf=\"authorizeSeatReservation.object.event.superEvent.description && (authorizeSeatReservation.object.event.superEvent.description | changeLanguage)\">{{\n                        authorizeSeatReservation.object.event.superEvent.description | changeLanguage }}</p>\n                </div>\n                <p class=\"mb-1\">\n                    {{ authorizeSeatReservation.object.event.startDate | formatDate: 'MM/DD(ddd) HH:mm' }}-{{ authorizeSeatReservation.object.event.endDate | formatDate: 'HH:mm' }}\n                </p>\n                <p class=\"text-small mb-1\">\n                    <span class=\"theatre-name\">\n                        {{ authorizeSeatReservation.object.event.superEvent.location.name | changeLanguage }}\n                    </span>\n                    <span class=\"screen-name\">\n                        &nbsp;/&nbsp;<span *ngIf=\"authorizeSeatReservation.object.event.location.address\" class=\"mr-2\">{{ authorizeSeatReservation.object.event.location.address | changeLanguage }}</span>{{ authorizeSeatReservation.object.event.location.name | changeLanguage }}\n                    </span>\n                    <span\n                        *ngIf=\"authorizeSeatReservation.object.event.workPerformed?.duration && moment.duration(authorizeSeatReservation.object.event.workPerformed?.duration).asMinutes() > 0\">\n                        &nbsp;/&nbsp;<span class=\"mr-1\">{{ 'common.duration' | translate }}</span>{{ moment.duration(authorizeSeatReservation.object.event.workPerformed?.duration).asMinutes() }}{{ 'common.date.minute' | translate }}\n                    </span>\n                </p>\n            </div>\n            <hr class=\"mb-3\">\n\n            <app-item-list [authorizeSeatReservations]=\"authorizeSeatReservation?.result?.responseBody.object.reservations\"></app-item-list>\n            \n        </div>\n\n        <div class=\"mb-4 px-3 bg-white\"\n            *ngIf=\"(purchase | async).paymentMethod && (purchase | async).paymentMethod.paymentMethodType === paymentMethodType.Cash\">\n            <div class=\"py-3 border-bottom border-gray\">\n                <div class=\"row align-items-center\">\n                    <p class=\"mb-2 mb-md-0 col-md-4\">\n                        <i class=\"fas fa-arrow-right mr-2\"></i>{{ 'purchase.confirm.custody' | translate }}</p>\n                    <p class=\"col-md-8 d-flex align-items-center position-static\">\n                        <span class=\"mr-2\">￥</span>\n                        <app-numeric-keypad inputType=\"number\" [inputValue]=\"depositAmount\" viewPosition=\"Top\" [maxlength]=\"10\"\n                            (change)=\"changeDepositAmount($event)\"\n                            (hidden)=\"depositAmount = ($event.length > 0) ? $event : 0\">\n                            <input type=\"text\" class=\"form-control text-large py-2 h-auto\" id=\"depositAmount\"\n                                [(ngModel)]=\"depositAmount\" readonly>\n                        </app-numeric-keypad>\n                    </p>\n                </div>\n            </div>\n            <div class=\"py-3\">\n                <div class=\"row align-items-center\">\n                    <p class=\"mb-2 mb-md-0 col-md-4\">\n                        <i class=\"fas fa-arrow-left mr-2\"></i>{{ 'purchase.confirm.change' | translate }}</p>\n                    <p class=\"col-md-8\">{{ (depositAmount - amount) | currency : 'JPY' }}</p>\n                </div>\n            </div>\n        </div>\n\n        <div class=\"bg-white px-3 mb-4\">\n            <div class=\"overflow-hidden\">\n                <div class=\"py-3 row align-items-center border-bottom border-gray\">\n                    <p class=\"mb-2 mb-md-0 col-md-4\">{{ 'common.paymentMethod' | translate }}</p>\n                    <p class=\"col-md-8\">{{ (purchase | async).paymentMethod.name | translate }}</p>\n                </div>\n            </div>\n            <div class=\"overflow-hidden\">\n                <div class=\"py-3 row align-items-center\">\n                    <p class=\"mb-2 mb-md-0 col-md-4\">{{ 'common.amount' | translate }}</p>\n                    <p class=\"col-md-8 font-weight-bold text-large text-info\">{{ amount | currency : 'JPY' }}</p>\n                </div>\n            </div>\n        </div>\n\n        <div *ngIf=\"environment.PURCHASE_WARNING\">\n            <h2 class=\"text-large mb-4 text-center font-weight-bold\">{{ 'purchase.confirm.warning' | translate }}</h2>\n            <div class=\"mb-4\">\n                <app-purchase-warning [language]=\"(user | async).language\"\n                    [screeningEvent]=\"(purchase | async).screeningEvent\"></app-purchase-warning>\n            </div>\n        </div>\n\n        <div class=\"buttons mx-auto text-center\">\n            <button type=\"submit\" class=\"btn btn-primary btn-block py-3 mb-3\" [disabled]=\"isLoading | async\"\n                (click)=\"onSubmit()\">{{ 'purchase.confirm.next' | translate }}</button>\n            <button *ngIf=\"amount > 0\" type=\"button\" class=\"btn btn-link\"\n                routerLink=\"/purchase/payment\">{{ 'purchase.confirm.prev' | translate }}</button>\n            <div *ngIf=\"amount === 0 && environment.VIEW_TYPE === viewType.Cinema\">\n                <button *ngIf=\"environment.PURCHASE_CART\" type=\"button\" class=\"btn btn-link\"\n                    routerLink=\"/purchase/cinema/cart\">{{ 'purchase.confirm.prev' | translate }}</button>\n                <button *ngIf=\"!environment.PURCHASE_CART\" type=\"button\" class=\"btn btn-link\"\n                    routerLink=\"/purchase/cinema/ticket\">{{ 'purchase.confirm.prev' | translate }}</button>\n            </div>\n            <div *ngIf=\"amount === 0 && environment.VIEW_TYPE === viewType.Event\">\n                <button type=\"button\" class=\"btn btn-link\"\n                    routerLink=\"/purchase/event/ticket\">{{ 'purchase.confirm.prev' | translate }}</button>\n            </div>\n        </div>\n    </div>";
+    __webpack_exports__["default"] = "<div class=\"contents-width mx-auto px-3 py-5\">\n\n    <div class=\"mb-4\">\n        <h2 class=\"text-large mb-4 text-center font-weight-bold\">{{ 'purchase.confirm.title' | translate }}</h2>\n        <p class=\"mb-4 text-md-center\" [innerHTML]=\"'purchase.confirm.read' | translate\"></p>\n\n        <div *ngFor=\"let authorizeSeatReservation of (purchase | async).authorizeSeatReservations\"\n            class=\"mb-4 bg-white p-3\">\n            <div class=\"mb-3\">\n                <div class=\"mb-1\">\n                    <p class=\"font-weight-bold text-large\">\n                        {{ authorizeSeatReservation.object.event.name | changeLanguage }}</p>\n                    <p class=\"text-small\"\n                        *ngIf=\"authorizeSeatReservation.object.event.superEvent.headline && (authorizeSeatReservation.object.event.superEvent.headline | changeLanguage)\">\n                        {{ authorizeSeatReservation.object.event.superEvent.headline | changeLanguage }}</p>\n                    <p class=\"text-small\"\n                        *ngIf=\"authorizeSeatReservation.object.event.superEvent.description && (authorizeSeatReservation.object.event.superEvent.description | changeLanguage)\">{{\n                        authorizeSeatReservation.object.event.superEvent.description | changeLanguage }}</p>\n                </div>\n                <p class=\"mb-1\">\n                    {{ authorizeSeatReservation.object.event.startDate | formatDate: 'MM/DD(ddd) HH:mm' }}-{{ authorizeSeatReservation.object.event.endDate | formatDate: 'HH:mm' }}\n                </p>\n                <p class=\"text-small mb-1\">\n                    <span class=\"theatre-name\">\n                        {{ authorizeSeatReservation.object.event.superEvent.location.name | changeLanguage }}\n                    </span>\n                    <span class=\"screen-name\">\n                        &nbsp;/&nbsp;<span *ngIf=\"authorizeSeatReservation.object.event.location.address\" class=\"mr-2\">{{ authorizeSeatReservation.object.event.location.address | changeLanguage }}</span>{{ authorizeSeatReservation.object.event.location.name | changeLanguage }}\n                    </span>\n                    <span\n                        *ngIf=\"authorizeSeatReservation.object.event.workPerformed?.duration && moment.duration(authorizeSeatReservation.object.event.workPerformed?.duration).asMinutes() > 0\">\n                        &nbsp;/&nbsp;<span class=\"mr-1\">{{ 'common.duration' | translate }}</span>{{ moment.duration(authorizeSeatReservation.object.event.workPerformed?.duration).asMinutes() }}{{ 'common.date.minute' | translate }}\n                    </span>\n                </p>\n            </div>\n            <hr class=\"mb-3\">\n\n            <app-item-list [authorizeSeatReservations]=\"authorizeSeatReservation?.result?.responseBody.object.reservations\"></app-item-list>\n            \n        </div>\n\n        <div class=\"mb-4 px-3 bg-white\"\n            *ngIf=\"(purchase | async).paymentMethod && (purchase | async).paymentMethod.paymentMethodType === paymentMethodType.Cash\">\n            <div class=\"py-3 border-bottom border-gray\">\n                <div class=\"row align-items-center\">\n                    <p class=\"mb-2 mb-md-0 col-md-4\">\n                        <i class=\"fas fa-arrow-right mr-2\"></i>{{ 'purchase.confirm.custody' | translate }}</p>\n                    <p class=\"col-md-8 d-flex align-items-center position-static\">\n                        <span class=\"mr-2\">￥</span>\n                        <app-numeric-keypad inputType=\"number\" [inputValue]=\"depositAmount\" viewPosition=\"Top\" [maxlength]=\"10\"\n                            (change)=\"changeDepositAmount($event)\"\n                            (hidden)=\"depositAmount = ($event.length > 0) ? $event : 0\">\n                            <input type=\"text\" class=\"form-control text-large py-2 h-auto\" id=\"depositAmount\"\n                                [(ngModel)]=\"depositAmount\" readonly>\n                        </app-numeric-keypad>\n                    </p>\n                </div>\n            </div>\n            <div class=\"py-3\">\n                <div class=\"row align-items-center\">\n                    <p class=\"mb-2 mb-md-0 col-md-4\">\n                        <i class=\"fas fa-arrow-left mr-2\"></i>{{ 'purchase.confirm.change' | translate }}</p>\n                    <p class=\"col-md-8\">{{ (depositAmount - amount) | currency : 'JPY' }}</p>\n                </div>\n            </div>\n        </div>\n\n        <div class=\"bg-white px-3 mb-4\">\n            <div class=\"overflow-hidden\">\n                <div class=\"py-3 row align-items-center border-bottom border-gray\">\n                    <p class=\"mb-2 mb-md-0 col-md-4\">{{ 'common.paymentMethod' | translate }}</p>\n                    <p class=\"col-md-8\">\n                        <span\n                                *ngIf=\"(purchase | async).paymentMethod.typeOf === paymentMethodType.Cash\">{{ 'common.paymentMethodType.cash' | translate }}</span>\n                            <span\n                                *ngIf=\"(purchase | async).paymentMethod.typeOf === paymentMethodType.Account\">{{ 'common.paymentMethodType.account' | translate }}</span>\n                            <span\n                                *ngIf=\"(purchase | async).paymentMethod.typeOf === paymentMethodType.CreditCard\">{{ 'common.paymentMethodType.creditCard' | translate }}</span>\n                            <span\n                                *ngIf=\"(purchase | async).paymentMethod.typeOf === paymentMethodType.EMoney\">{{ 'common.paymentMethodType.eMoney' | translate }}</span>\n                            <span\n                                *ngIf=\"(purchase | async).paymentMethod.typeOf === paymentMethodType.MovieTicket\">{{ 'common.paymentMethodType.movieTicket' | translate }}</span>\n                            <span\n                                *ngIf=\"(purchase | async).paymentMethod.typeOf === paymentMethodType.Others \n                                && !(purchase | async).paymentMethod.category\">{{ 'common.paymentMethodType.others' | translate }}</span>\n                            <span\n                                *ngIf=\"(purchase | async).paymentMethod.typeOf === paymentMethodType.Others \n                                && (purchase | async).paymentMethod.category === 'RegiGrow'\">{{ 'common.paymentMethodType.regiGrow' | translate }}</span>\n                            <span\n                                *ngIf=\"(purchase | async).paymentMethod.typeOf === paymentMethodType.Others \n                                && (purchase | async).paymentMethod.category !== 'RegiGrow' \n                                && (purchase | async).paymentMethod.category\">{{ getCustomPaymentMethodTypeName((purchase | async).paymentMethod) | changeLanguage }}</span>\n                    </p>\n                </div>\n            </div>\n            <div class=\"overflow-hidden\">\n                <div class=\"py-3 row align-items-center\">\n                    <p class=\"mb-2 mb-md-0 col-md-4\">{{ 'common.amount' | translate }}</p>\n                    <p class=\"col-md-8 font-weight-bold text-large text-info\">{{ amount | currency : 'JPY' }}</p>\n                </div>\n            </div>\n        </div>\n\n        <div *ngIf=\"environment.PURCHASE_WARNING\">\n            <h2 class=\"text-large mb-4 text-center font-weight-bold\">{{ 'purchase.confirm.warning' | translate }}</h2>\n            <div class=\"mb-4\">\n                <app-purchase-warning [language]=\"(user | async).language\"\n                    [screeningEvent]=\"(purchase | async).screeningEvent\"></app-purchase-warning>\n            </div>\n        </div>\n\n        <div class=\"buttons mx-auto text-center\">\n            <button type=\"submit\" class=\"btn btn-primary btn-block py-3 mb-3\" [disabled]=\"isLoading | async\"\n                (click)=\"onSubmit()\">{{ 'purchase.confirm.next' | translate }}</button>\n            <button *ngIf=\"amount > 0\" type=\"button\" class=\"btn btn-link\"\n                routerLink=\"/purchase/payment\">{{ 'purchase.confirm.prev' | translate }}</button>\n            <div *ngIf=\"amount === 0 && environment.VIEW_TYPE === viewType.Cinema\">\n                <button *ngIf=\"environment.PURCHASE_CART\" type=\"button\" class=\"btn btn-link\"\n                    routerLink=\"/purchase/cinema/cart\">{{ 'purchase.confirm.prev' | translate }}</button>\n                <button *ngIf=\"!environment.PURCHASE_CART\" type=\"button\" class=\"btn btn-link\"\n                    routerLink=\"/purchase/cinema/ticket\">{{ 'purchase.confirm.prev' | translate }}</button>\n            </div>\n            <div *ngIf=\"amount === 0 && environment.VIEW_TYPE === viewType.Event\">\n                <button type=\"button\" class=\"btn btn-link\"\n                    routerLink=\"/purchase/event/ticket\">{{ 'purchase.confirm.prev' | translate }}</button>\n            </div>\n        </div>\n    </div>";
     /***/
   },
 
@@ -201,7 +201,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
     /* harmony default export */
 
 
-    __webpack_exports__["default"] = "<div class=\"contents-width mx-auto px-3 py-5\">\n\n    <h2 class=\"text-large mb-4 text-center font-weight-bold\">{{ 'purchase.payment.title' | translate }}</h2>\n    <p class=\"mb-4 text-md-center\" [innerHTML]=\"'purchase.payment.read' | translate\"></p>\n\n    <div class=\"payment-select d-grid mb-4\">\n        <button *ngIf=\"isDisplay(paymentMethodType.Cash)\" type=\"button\" class=\"btn btn-primary btn-block py-3 m-0\"\n            (click)=\"selectPaymentMethodType(paymentMethodType.Cash)\">\n            <div class=\"mb-md-3\">\n                <i class=\"fas fa-yen-sign mr-2 d-md-none\"></i>{{ 'common.paymentMethodType.cash' | translate }}\n            </div>\n            <div class=\"image d-none d-md-block\"><i class=\"fas fa-yen-sign\"></i></div>\n        </button>\n        <button *ngIf=\"isDisplay(paymentMethodType.CreditCard)\" type=\"button\" class=\"btn btn-primary btn-block py-3 m-0\"\n            (click)=\"selectPaymentMethodType(paymentMethodType.CreditCard)\">\n            <div class=\"mb-md-3\">\n                <i class=\"fas fa-credit-card mr-2 d-md-none\"></i>{{ 'common.paymentMethodType.creditCard' | translate }}\n            </div>\n            <div class=\"image d-none d-md-block\"><i class=\"fas fa-credit-card\"></i></div>\n        </button>\n        <button *ngIf=\"isDisplay(paymentMethodType.EMoney)\" type=\"button\" class=\"btn btn-primary btn-block py-3 m-0\"\n            (click)=\"selectPaymentMethodType(paymentMethodType.EMoney)\">\n            <div class=\"mb-md-3\">\n                <i class=\"fas fa-mobile-alt mr-2 d-md-none\"></i>{{ 'common.paymentMethodType.eMoney' | translate }}\n            </div>\n            <div class=\"image d-none d-md-block\"><i class=\"fas fa-mobile-alt\"></i></div>\n        </button>\n        <button *ngIf=\"isDisplay('RegiGrow')\" type=\"button\" class=\"btn btn-primary btn-block py-3 m-0\"\n            (click)=\"selectPaymentMethodType(paymentMethodType.Others, 'RegiGrow')\">\n            <div class=\"mb-md-3\">\n                <i class=\"fas fa-cash-register mr-2 d-md-none\"></i>{{ 'common.paymentMethodType.regiGrow' | translate }}\n            </div>\n            <div class=\"image d-none d-md-block\"><i class=\"fas fa-cash-register\"></i></div>\n        </button>\n        <button *ngIf=\"isDisplay(paymentMethodType.Others)\" type=\"button\" class=\"btn btn-primary btn-block py-3 m-0\"\n            (click)=\"selectPaymentMethodType(paymentMethodType.Others)\">\n            <div class=\"mb-md-3\">\n                <i class=\"far fa-question-circle mr-2 d-md-none\"></i>{{ 'common.paymentMethodType.others' | translate }}\n            </div>\n            <div class=\"image d-none d-md-block\"><i class=\"far fa-question-circle\"></i></div>\n        </button>\n    </div>\n\n    <div class=\"buttons mx-auto text-center\">\n        <div *ngIf=\"environment.VIEW_TYPE === viewType.Cinema\">\n            <button *ngIf=\"environment.PURCHASE_CART\" type=\"button\" class=\"btn btn-link\"\n                routerLink=\"/purchase/cinema/cart\">{{ 'purchase.payment.prev' | translate }}</button>\n            <button *ngIf=\"!environment.PURCHASE_CART\" type=\"button\" class=\"btn btn-link\"\n                routerLink=\"/purchase/cinema/ticket\">{{ 'purchase.payment.prev' | translate }}</button>\n        </div>\n        <div *ngIf=\"environment.VIEW_TYPE === viewType.Event\">\n            <button type=\"button\" class=\"btn btn-link\"\n                routerLink=\"/purchase/event/ticket\">{{ 'purchase.payment.prev' | translate }}</button>\n        </div>\n\n    </div>\n</div>";
+    __webpack_exports__["default"] = "<div class=\"contents-width mx-auto px-3 py-5\">\n\n    <h2 class=\"text-large mb-4 text-center font-weight-bold\">{{ 'purchase.payment.title' | translate }}</h2>\n    <p class=\"mb-4 text-md-center\" [innerHTML]=\"'purchase.payment.read' | translate\"></p>\n\n    <div class=\"payment-select d-grid mb-4\">\n        <button *ngIf=\"isDisplay(paymentMethodType.Cash)\" type=\"button\" class=\"btn btn-primary btn-block py-3 m-0\"\n            (click)=\"selectPaymentMethodType(paymentMethodType.Cash)\">\n            <div class=\"mb-md-3\">\n                <i class=\"fas fa-yen-sign mr-2 d-md-none\"></i>{{ 'common.paymentMethodType.cash' | translate }}\n            </div>\n            <div class=\"image d-none d-md-block\"><i class=\"fas fa-yen-sign\"></i></div>\n        </button>\n        <button *ngIf=\"isDisplay(paymentMethodType.CreditCard)\" type=\"button\" class=\"btn btn-primary btn-block py-3 m-0\"\n            (click)=\"selectPaymentMethodType(paymentMethodType.CreditCard)\">\n            <div class=\"mb-md-3\">\n                <i class=\"fas fa-credit-card mr-2 d-md-none\"></i>{{ 'common.paymentMethodType.creditCard' | translate }}\n            </div>\n            <div class=\"image d-none d-md-block\"><i class=\"fas fa-credit-card\"></i></div>\n        </button>\n        <button *ngIf=\"isDisplay(paymentMethodType.EMoney)\" type=\"button\" class=\"btn btn-primary btn-block py-3 m-0\"\n            (click)=\"selectPaymentMethodType(paymentMethodType.EMoney)\">\n            <div class=\"mb-md-3\">\n                <i class=\"fas fa-mobile-alt mr-2 d-md-none\"></i>{{ 'common.paymentMethodType.eMoney' | translate }}\n            </div>\n            <div class=\"image d-none d-md-block\"><i class=\"fas fa-mobile-alt\"></i></div>\n        </button>\n        <button *ngIf=\"isDisplay('RegiGrow')\" type=\"button\" class=\"btn btn-primary btn-block py-3 m-0\"\n            (click)=\"selectPaymentMethodType(paymentMethodType.Others, 'RegiGrow')\">\n            <div class=\"mb-md-3\">\n                <i class=\"fas fa-cash-register mr-2 d-md-none\"></i>{{ 'common.paymentMethodType.regiGrow' | translate }}\n            </div>\n            <div class=\"image d-none d-md-block\"><i class=\"fas fa-cash-register\"></i></div>\n        </button>\n        <button *ngIf=\"isDisplay(paymentMethodType.Others)\" type=\"button\" class=\"btn btn-primary btn-block py-3 m-0\"\n            (click)=\"selectPaymentMethodType(paymentMethodType.Others)\">\n            <div class=\"mb-md-3\">\n                <i class=\"far fa-question-circle mr-2 d-md-none\"></i>{{ 'common.paymentMethodType.others' | translate }}\n            </div>\n            <div class=\"image d-none d-md-block\"><i class=\"far fa-question-circle\"></i></div>\n        </button>\n        <button *ngFor=\"let custom of environment.PAYMENT_METHOD_CUSTOM\" type=\"button\" class=\"btn btn-primary btn-block py-3 m-0\"\n            (click)=\"selectPaymentMethodType(paymentMethodType.Others, custom.category)\">\n            <div>{{ custom.name | changeLanguage }}</div>\n        </button>\n    </div>\n\n    <div class=\"buttons mx-auto text-center\">\n        <div *ngIf=\"environment.VIEW_TYPE === viewType.Cinema\">\n            <button *ngIf=\"environment.PURCHASE_CART\" type=\"button\" class=\"btn btn-link\"\n                routerLink=\"/purchase/cinema/cart\">{{ 'purchase.payment.prev' | translate }}</button>\n            <button *ngIf=\"!environment.PURCHASE_CART\" type=\"button\" class=\"btn btn-link\"\n                routerLink=\"/purchase/cinema/ticket\">{{ 'purchase.payment.prev' | translate }}</button>\n        </div>\n        <div *ngIf=\"environment.VIEW_TYPE === viewType.Event\">\n            <button type=\"button\" class=\"btn btn-link\"\n                routerLink=\"/purchase/event/ticket\">{{ 'purchase.payment.prev' | translate }}</button>\n        </div>\n\n    </div>\n</div>";
     /***/
   },
 
@@ -3542,44 +3542,99 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
         this.moment = moment__WEBPACK_IMPORTED_MODULE_5__;
         this.environment = Object(_environments_environment__WEBPACK_IMPORTED_MODULE_6__["getEnvironment"])();
         this.paymentMethodType = _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_2__["factory"].paymentMethodType;
+        this.getCustomPaymentMethodTypeName = _functions__WEBPACK_IMPORTED_MODULE_7__["getCustomPaymentMethodTypeName"];
       }
 
       _createClass(PurchaseCompleteComponent, [{
         key: "ngOnInit",
         value: function ngOnInit() {
-          var _this12 = this;
+          return __awaiter(this, void 0, void 0,
+          /*#__PURE__*/
+          regeneratorRuntime.mark(function _callee21() {
+            var order, purchaseData, isRegiGrow, findResult, qrcodeText;
+            return regeneratorRuntime.wrap(function _callee21$(_context21) {
+              while (1) {
+                switch (_context21.prev = _context21.next) {
+                  case 0:
+                    this.eventOrders = [];
+                    this.purchase = this.store.pipe(Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_3__["select"])(_store_reducers__WEBPACK_IMPORTED_MODULE_9__["getPurchase"]));
+                    this.user = this.store.pipe(Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_3__["select"])(_store_reducers__WEBPACK_IMPORTED_MODULE_9__["getUser"]));
+                    this.isLoading = this.store.pipe(Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_3__["select"])(_store_reducers__WEBPACK_IMPORTED_MODULE_9__["getLoading"]));
+                    this.error = this.store.pipe(Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_3__["select"])(_store_reducers__WEBPACK_IMPORTED_MODULE_9__["getError"]));
+                    _context21.prev = 5;
+                    _context21.next = 8;
+                    return this.purchaseService.getData();
 
-          this.eventOrders = [];
-          this.purchase = this.store.pipe(Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_3__["select"])(_store_reducers__WEBPACK_IMPORTED_MODULE_9__["getPurchase"]));
-          this.user = this.store.pipe(Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_3__["select"])(_store_reducers__WEBPACK_IMPORTED_MODULE_9__["getUser"]));
-          this.isLoading = this.store.pipe(Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_3__["select"])(_store_reducers__WEBPACK_IMPORTED_MODULE_9__["getLoading"]));
-          this.error = this.store.pipe(Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_3__["select"])(_store_reducers__WEBPACK_IMPORTED_MODULE_9__["getError"]));
-          this.purchase.subscribe(function (purchase) {
-            if (purchase.order === undefined) {
-              _this12.router.navigate(['/error']);
+                  case 8:
+                    purchaseData = _context21.sent;
 
-              return;
-            }
+                    if (!(purchaseData.order === undefined)) {
+                      _context21.next = 11;
+                      break;
+                    }
 
-            if (purchase.order.paymentMethods.find(function (p) {
-              return p.name === 'RegiGrow';
-            }) !== undefined) {
-              Object(_functions__WEBPACK_IMPORTED_MODULE_7__["createRegiGrowQrcode"])(purchase.order).then(function (code) {
-                _this12.regiGrow = code;
-              })["catch"](function (error) {
-                _this12.utilService.openAlert({
-                  title: _this12.translate.instant('common.error'),
-                  body: "\n                        <p class=\"mb-4\">".concat(_this12.translate.instant('purchase.complete.alert.regiGrow'), "</p>\n                            <div class=\"p-3 bg-light-gray select-text\">\n                            <code>").concat(error, "</code>\n                        </div>")
-                });
-              });
-            }
+                    throw new Error('order not found').message;
 
-            var order = purchase.order;
-            _this12.eventOrders = Object(_functions__WEBPACK_IMPORTED_MODULE_7__["order2EventOrders"])({
-              order: order
-            });
-          }).unsubscribe();
-          this.print();
+                  case 11:
+                    order = purchaseData.order;
+                    this.eventOrders = Object(_functions__WEBPACK_IMPORTED_MODULE_7__["order2EventOrders"])({
+                      order: order
+                    });
+                    this.print();
+                    _context21.next = 20;
+                    break;
+
+                  case 16:
+                    _context21.prev = 16;
+                    _context21.t0 = _context21["catch"](5);
+                    this.router.navigate(['/error']);
+                    return _context21.abrupt("return");
+
+                  case 20:
+                    _context21.prev = 20;
+                    isRegiGrow = order.paymentMethods.find(function (p) {
+                      return p.name === 'RegiGrow';
+                    }) !== undefined;
+                    findResult = this.environment.PAYMENT_METHOD_CUSTOM.find(function (c) {
+                      return order.paymentMethods.find(function (p) {
+                        return p.typeOf === _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_2__["factory"].paymentMethodType.Others && p.name === c.category && c.qrcode !== undefined;
+                      });
+                    });
+
+                    if (!(isRegiGrow || findResult !== undefined && findResult.qrcode !== undefined)) {
+                      _context21.next = 28;
+                      break;
+                    }
+
+                    qrcodeText = isRegiGrow ? this.environment.REGIGROW_QRCODE : findResult !== undefined && findResult.qrcode !== undefined ? findResult.qrcode : '';
+                    _context21.next = 27;
+                    return Object(_functions__WEBPACK_IMPORTED_MODULE_7__["createCooperationQRCode"])({
+                      order: order,
+                      qrcodeText: qrcodeText
+                    });
+
+                  case 27:
+                    this.qrcode = _context21.sent;
+
+                  case 28:
+                    _context21.next = 33;
+                    break;
+
+                  case 30:
+                    _context21.prev = 30;
+                    _context21.t1 = _context21["catch"](20);
+                    this.utilService.openAlert({
+                      title: this.translate.instant('common.error'),
+                      body: "\n                <p class=\"mb-4\">".concat(this.translate.instant('purchase.complete.alert.regiGrow'), "</p>\n                    <div class=\"p-3 bg-light-gray select-text\">\n                    <code>").concat(_context21.t1, "</code>\n                </div>")
+                    });
+
+                  case 33:
+                  case "end":
+                    return _context21.stop();
+                }
+              }
+            }, _callee21, this, [[5, 16], [20, 30]]);
+          }));
         }
         /**
          * 印刷
@@ -3590,37 +3645,37 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
         value: function print() {
           return __awaiter(this, void 0, void 0,
           /*#__PURE__*/
-          regeneratorRuntime.mark(function _callee21() {
+          regeneratorRuntime.mark(function _callee22() {
             var purchase, user, orders, pos, printer;
-            return regeneratorRuntime.wrap(function _callee21$(_context21) {
+            return regeneratorRuntime.wrap(function _callee22$(_context22) {
               while (1) {
-                switch (_context21.prev = _context21.next) {
+                switch (_context22.prev = _context22.next) {
                   case 0:
-                    _context21.prev = 0;
-                    _context21.next = 3;
+                    _context22.prev = 0;
+                    _context22.next = 3;
                     return this.purchaseService.getData();
 
                   case 3:
-                    purchase = _context21.sent;
-                    _context21.next = 6;
+                    purchase = _context22.sent;
+                    _context22.next = 6;
                     return this.userService.getData();
 
                   case 6:
-                    user = _context21.sent;
+                    user = _context22.sent;
 
                     if (!(purchase.order === undefined || user.pos === undefined || user.printer === undefined)) {
-                      _context21.next = 10;
+                      _context22.next = 10;
                       break;
                     }
 
                     this.router.navigate(['/error']);
-                    return _context21.abrupt("return");
+                    return _context22.abrupt("return");
 
                   case 10:
                     orders = [purchase.order];
                     pos = user.pos;
                     printer = user.printer;
-                    _context21.next = 15;
+                    _context22.next = 15;
                     return this.orderService.print({
                       orders: orders,
                       pos: pos,
@@ -3628,23 +3683,23 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
                     });
 
                   case 15:
-                    _context21.next = 20;
+                    _context22.next = 20;
                     break;
 
                   case 17:
-                    _context21.prev = 17;
-                    _context21.t0 = _context21["catch"](0);
+                    _context22.prev = 17;
+                    _context22.t0 = _context22["catch"](0);
                     this.utilService.openAlert({
                       title: this.translate.instant('common.error'),
-                      body: "\n                <p class=\"mb-4\">".concat(this.translate.instant('purchase.complete.alert.print'), "</p>\n                    <div class=\"p-3 bg-light-gray select-text\">\n                    <code>").concat(_context21.t0, "</code>\n                </div>")
+                      body: "\n                <p class=\"mb-4\">".concat(this.translate.instant('purchase.complete.alert.print'), "</p>\n                    <div class=\"p-3 bg-light-gray select-text\">\n                    <code>").concat(_context22.t0, "</code>\n                </div>")
                     });
 
                   case 20:
                   case "end":
-                    return _context21.stop();
+                    return _context22.stop();
                 }
               }
-            }, _callee21, this, [[0, 17]]);
+            }, _callee22, this, [[0, 17]]);
           }));
         }
       }]);
@@ -3864,12 +3919,13 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
         this.paymentMethodType = _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_2__["factory"].paymentMethodType;
         this.viewType = _models__WEBPACK_IMPORTED_MODULE_8__["ViewType"];
         this.environment = Object(_environments_environment__WEBPACK_IMPORTED_MODULE_6__["getEnvironment"])();
+        this.getCustomPaymentMethodTypeName = _functions__WEBPACK_IMPORTED_MODULE_7__["getCustomPaymentMethodTypeName"];
       }
 
       _createClass(PurchaseConfirmComponent, [{
         key: "ngOnInit",
         value: function ngOnInit() {
-          var _this13 = this;
+          var _this12 = this;
 
           this.purchase = this.store.pipe(Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_3__["select"])(_store_reducers__WEBPACK_IMPORTED_MODULE_10__["getPurchase"]));
           this.isLoading = this.store.pipe(Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_3__["select"])(_store_reducers__WEBPACK_IMPORTED_MODULE_10__["getLoading"]));
@@ -3877,7 +3933,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
           this.amount = 0;
           this.depositAmount = '0';
           this.purchase.subscribe(function (purchase) {
-            _this13.amount = Object(_functions__WEBPACK_IMPORTED_MODULE_7__["getAmount"])(purchase.authorizeSeatReservations);
+            _this12.amount = Object(_functions__WEBPACK_IMPORTED_MODULE_7__["getAmount"])(purchase.authorizeSeatReservations);
           }).unsubscribe();
         }
         /**
@@ -3889,42 +3945,42 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
         value: function onSubmit() {
           return __awaiter(this, void 0, void 0,
           /*#__PURE__*/
-          regeneratorRuntime.mark(function _callee22() {
+          regeneratorRuntime.mark(function _callee23() {
             var purchaseData, userData, contact, seller, paymentMethod;
-            return regeneratorRuntime.wrap(function _callee22$(_context22) {
+            return regeneratorRuntime.wrap(function _callee23$(_context23) {
               while (1) {
-                switch (_context22.prev = _context22.next) {
+                switch (_context23.prev = _context23.next) {
                   case 0:
-                    _context22.next = 2;
+                    _context23.next = 2;
                     return this.purchaseService.getData();
 
                   case 2:
-                    purchaseData = _context22.sent;
-                    _context22.next = 5;
+                    purchaseData = _context23.sent;
+                    _context23.next = 5;
                     return this.userService.getData();
 
                   case 5:
-                    userData = _context22.sent;
+                    userData = _context23.sent;
                     contact = userData.customerContact;
                     seller = userData.seller;
                     paymentMethod = purchaseData.paymentMethod;
 
                     if (!(paymentMethod === undefined || contact === undefined || seller === undefined)) {
-                      _context22.next = 12;
+                      _context23.next = 12;
                       break;
                     }
 
                     this.router.navigate(['/error']);
-                    return _context22.abrupt("return");
+                    return _context23.abrupt("return");
 
                   case 12:
-                    if (!(paymentMethod.paymentMethodType === _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_2__["factory"].paymentMethodType.Cash)) {
-                      _context22.next = 16;
+                    if (!(paymentMethod.typeOf === _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_2__["factory"].paymentMethodType.Cash)) {
+                      _context23.next = 16;
                       break;
                     }
 
                     if (!(Number(this.depositAmount) < this.amount)) {
-                      _context22.next = 16;
+                      _context23.next = 16;
                       break;
                     }
 
@@ -3932,34 +3988,34 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
                       title: this.translate.instant('common.error'),
                       body: this.translate.instant('purchase.confirm.alert.custody')
                     });
-                    return _context22.abrupt("return");
+                    return _context23.abrupt("return");
 
                   case 16:
-                    _context22.prev = 16;
+                    _context23.prev = 16;
 
                     if (!(purchaseData.pendingMovieTickets.length > 0)) {
-                      _context22.next = 20;
+                      _context23.next = 20;
                       break;
                     }
 
-                    _context22.next = 20;
+                    _context23.next = 20;
                     return this.purchaseService.authorizeMovieTicket({
                       seller: seller
                     });
 
                   case 20:
-                    _context22.next = 22;
+                    _context23.next = 22;
                     return this.purchaseService.authorizeAnyPayment({
                       amount: this.amount,
-                      depositAmount: paymentMethod.paymentMethodType === _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_2__["factory"].paymentMethodType.Cash ? Number(this.depositAmount) : undefined
+                      depositAmount: paymentMethod.typeOf === _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_2__["factory"].paymentMethodType.Cash ? Number(this.depositAmount) : undefined
                     });
 
                   case 22:
-                    _context22.next = 24;
+                    _context23.next = 24;
                     return this.purchaseService.registerContact(contact);
 
                   case 24:
-                    _context22.next = 26;
+                    _context23.next = 26;
                     return this.purchaseService.endTransaction({
                       seller: seller,
                       language: userData.language
@@ -3967,21 +4023,21 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
                   case 26:
                     this.router.navigate(['/purchase/complete']);
-                    _context22.next = 33;
+                    _context23.next = 33;
                     break;
 
                   case 29:
-                    _context22.prev = 29;
-                    _context22.t0 = _context22["catch"](16);
-                    console.error(_context22.t0);
+                    _context23.prev = 29;
+                    _context23.t0 = _context23["catch"](16);
+                    console.error(_context23.t0);
                     this.router.navigate(['/error']);
 
                   case 33:
                   case "end":
-                    return _context22.stop();
+                    return _context23.stop();
                 }
               }
-            }, _callee22, this, [[16, 29]]);
+            }, _callee23, this, [[16, 29]]);
           }));
         }
         /**
@@ -4042,7 +4098,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
     /* harmony default export */
 
 
-    __webpack_exports__["default"] = ".payment-select {\n  grid-template-columns: 1fr 1fr 1fr;\n  grid-gap: 1rem;\n}\n@media (max-width: 767.98px) {\n  .payment-select {\n    grid-template-columns: 1fr;\n  }\n}\n.payment-select button .image {\n  font-size: 30px;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9jbGllbnQvYXBwL21vZHVsZXMvcHVyY2hhc2UvY29tcG9uZW50cy9wYWdlcy9wdXJjaGFzZS1wYXltZW50L0M6XFxVc2Vyc1xcaGF0YWd1Y2hpXFxEZXNrdG9wXFx3b3Jrc3BhY2VcXENpbmVyaW5vXFxwb3Mvc3JjXFxjbGllbnRcXGFwcFxcbW9kdWxlc1xccHVyY2hhc2VcXGNvbXBvbmVudHNcXHBhZ2VzXFxwdXJjaGFzZS1wYXltZW50XFxwdXJjaGFzZS1wYXltZW50LmNvbXBvbmVudC5zY3NzIiwic3JjL2NsaWVudC9hcHAvbW9kdWxlcy9wdXJjaGFzZS9jb21wb25lbnRzL3BhZ2VzL3B1cmNoYXNlLXBheW1lbnQvcHVyY2hhc2UtcGF5bWVudC5jb21wb25lbnQuc2NzcyIsInNyYy9jbGllbnQvYXBwL21vZHVsZXMvcHVyY2hhc2UvY29tcG9uZW50cy9wYWdlcy9wdXJjaGFzZS1wYXltZW50L0M6XFxVc2Vyc1xcaGF0YWd1Y2hpXFxEZXNrdG9wXFx3b3Jrc3BhY2VcXENpbmVyaW5vXFxwb3Mvbm9kZV9tb2R1bGVzXFxib290c3RyYXBcXHNjc3NcXG1peGluc1xcX2JyZWFrcG9pbnRzLnNjc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBR0E7RUFDSSxrQ0FBQTtFQUNBLGNBQUE7QUNGSjtBQ3NFSTtFRnRFSjtJQUlRLDBCQUFBO0VDQU47QUFDRjtBREVRO0VBQ0ksZUFBQTtBQ0FaIiwiZmlsZSI6InNyYy9jbGllbnQvYXBwL21vZHVsZXMvcHVyY2hhc2UvY29tcG9uZW50cy9wYWdlcy9wdXJjaGFzZS1wYXltZW50L3B1cmNoYXNlLXBheW1lbnQuY29tcG9uZW50LnNjc3MiLCJzb3VyY2VzQ29udGVudCI6WyJAaW1wb3J0IFwibm9kZV9tb2R1bGVzL2Jvb3RzdHJhcC9zY3NzL2Z1bmN0aW9uc1wiO1xuQGltcG9ydCBcIm5vZGVfbW9kdWxlcy9ib290c3RyYXAvc2Nzcy92YXJpYWJsZXNcIjtcbkBpbXBvcnQgXCJub2RlX21vZHVsZXMvYm9vdHN0cmFwL3Njc3MvbWl4aW5zXCI7XG4ucGF5bWVudC1zZWxlY3Qge1xuICAgIGdyaWQtdGVtcGxhdGUtY29sdW1uczogMWZyIDFmciAxZnI7XG4gICAgZ3JpZC1nYXA6IDFyZW07XG4gICAgQGluY2x1ZGUgbWVkaWEtYnJlYWtwb2ludC1kb3duKHNtKSB7XG4gICAgICAgIGdyaWQtdGVtcGxhdGUtY29sdW1uczogMWZyO1xuICAgIH1cbiAgICBidXR0b24ge1xuICAgICAgICAuaW1hZ2Uge1xuICAgICAgICAgICAgZm9udC1zaXplOiAzMHB4O1xuICAgICAgICB9XG4gICAgfVxufSIsIi5wYXltZW50LXNlbGVjdCB7XG4gIGdyaWQtdGVtcGxhdGUtY29sdW1uczogMWZyIDFmciAxZnI7XG4gIGdyaWQtZ2FwOiAxcmVtO1xufVxuQG1lZGlhIChtYXgtd2lkdGg6IDc2Ny45OHB4KSB7XG4gIC5wYXltZW50LXNlbGVjdCB7XG4gICAgZ3JpZC10ZW1wbGF0ZS1jb2x1bW5zOiAxZnI7XG4gIH1cbn1cbi5wYXltZW50LXNlbGVjdCBidXR0b24gLmltYWdlIHtcbiAgZm9udC1zaXplOiAzMHB4O1xufSIsIi8vIEJyZWFrcG9pbnQgdmlld3BvcnQgc2l6ZXMgYW5kIG1lZGlhIHF1ZXJpZXMuXG4vL1xuLy8gQnJlYWtwb2ludHMgYXJlIGRlZmluZWQgYXMgYSBtYXAgb2YgKG5hbWU6IG1pbmltdW0gd2lkdGgpLCBvcmRlciBmcm9tIHNtYWxsIHRvIGxhcmdlOlxuLy9cbi8vICAgICh4czogMCwgc206IDU3NnB4LCBtZDogNzY4cHgsIGxnOiA5OTJweCwgeGw6IDEyMDBweClcbi8vXG4vLyBUaGUgbWFwIGRlZmluZWQgaW4gdGhlIGAkZ3JpZC1icmVha3BvaW50c2AgZ2xvYmFsIHZhcmlhYmxlIGlzIHVzZWQgYXMgdGhlIGAkYnJlYWtwb2ludHNgIGFyZ3VtZW50IGJ5IGRlZmF1bHQuXG5cbi8vIE5hbWUgb2YgdGhlIG5leHQgYnJlYWtwb2ludCwgb3IgbnVsbCBmb3IgdGhlIGxhc3QgYnJlYWtwb2ludC5cbi8vXG4vLyAgICA+PiBicmVha3BvaW50LW5leHQoc20pXG4vLyAgICBtZFxuLy8gICAgPj4gYnJlYWtwb2ludC1uZXh0KHNtLCAoeHM6IDAsIHNtOiA1NzZweCwgbWQ6IDc2OHB4LCBsZzogOTkycHgsIHhsOiAxMjAwcHgpKVxuLy8gICAgbWRcbi8vICAgID4+IGJyZWFrcG9pbnQtbmV4dChzbSwgJGJyZWFrcG9pbnQtbmFtZXM6ICh4cyBzbSBtZCBsZyB4bCkpXG4vLyAgICBtZFxuQGZ1bmN0aW9uIGJyZWFrcG9pbnQtbmV4dCgkbmFtZSwgJGJyZWFrcG9pbnRzOiAkZ3JpZC1icmVha3BvaW50cywgJGJyZWFrcG9pbnQtbmFtZXM6IG1hcC1rZXlzKCRicmVha3BvaW50cykpIHtcbiAgJG46IGluZGV4KCRicmVha3BvaW50LW5hbWVzLCAkbmFtZSk7XG4gIEByZXR1cm4gaWYoJG4gIT0gbnVsbCBhbmQgJG4gPCBsZW5ndGgoJGJyZWFrcG9pbnQtbmFtZXMpLCBudGgoJGJyZWFrcG9pbnQtbmFtZXMsICRuICsgMSksIG51bGwpO1xufVxuXG4vLyBNaW5pbXVtIGJyZWFrcG9pbnQgd2lkdGguIE51bGwgZm9yIHRoZSBzbWFsbGVzdCAoZmlyc3QpIGJyZWFrcG9pbnQuXG4vL1xuLy8gICAgPj4gYnJlYWtwb2ludC1taW4oc20sICh4czogMCwgc206IDU3NnB4LCBtZDogNzY4cHgsIGxnOiA5OTJweCwgeGw6IDEyMDBweCkpXG4vLyAgICA1NzZweFxuQGZ1bmN0aW9uIGJyZWFrcG9pbnQtbWluKCRuYW1lLCAkYnJlYWtwb2ludHM6ICRncmlkLWJyZWFrcG9pbnRzKSB7XG4gICRtaW46IG1hcC1nZXQoJGJyZWFrcG9pbnRzLCAkbmFtZSk7XG4gIEByZXR1cm4gaWYoJG1pbiAhPSAwLCAkbWluLCBudWxsKTtcbn1cblxuLy8gTWF4aW11bSBicmVha3BvaW50IHdpZHRoLiBOdWxsIGZvciB0aGUgbGFyZ2VzdCAobGFzdCkgYnJlYWtwb2ludC5cbi8vIFRoZSBtYXhpbXVtIHZhbHVlIGlzIGNhbGN1bGF0ZWQgYXMgdGhlIG1pbmltdW0gb2YgdGhlIG5leHQgb25lIGxlc3MgMC4wMnB4XG4vLyB0byB3b3JrIGFyb3VuZCB0aGUgbGltaXRhdGlvbnMgb2YgYG1pbi1gIGFuZCBgbWF4LWAgcHJlZml4ZXMgYW5kIHZpZXdwb3J0cyB3aXRoIGZyYWN0aW9uYWwgd2lkdGhzLlxuLy8gU2VlIGh0dHBzOi8vd3d3LnczLm9yZy9UUi9tZWRpYXF1ZXJpZXMtNC8jbXEtbWluLW1heFxuLy8gVXNlcyAwLjAycHggcmF0aGVyIHRoYW4gMC4wMXB4IHRvIHdvcmsgYXJvdW5kIGEgY3VycmVudCByb3VuZGluZyBidWcgaW4gU2FmYXJpLlxuLy8gU2VlIGh0dHBzOi8vYnVncy53ZWJraXQub3JnL3Nob3dfYnVnLmNnaT9pZD0xNzgyNjFcbi8vXG4vLyAgICA+PiBicmVha3BvaW50LW1heChzbSwgKHhzOiAwLCBzbTogNTc2cHgsIG1kOiA3NjhweCwgbGc6IDk5MnB4LCB4bDogMTIwMHB4KSlcbi8vICAgIDc2Ny45OHB4XG5AZnVuY3Rpb24gYnJlYWtwb2ludC1tYXgoJG5hbWUsICRicmVha3BvaW50czogJGdyaWQtYnJlYWtwb2ludHMpIHtcbiAgJG5leHQ6IGJyZWFrcG9pbnQtbmV4dCgkbmFtZSwgJGJyZWFrcG9pbnRzKTtcbiAgQHJldHVybiBpZigkbmV4dCwgYnJlYWtwb2ludC1taW4oJG5leHQsICRicmVha3BvaW50cykgLSAuMDIsIG51bGwpO1xufVxuXG4vLyBSZXR1cm5zIGEgYmxhbmsgc3RyaW5nIGlmIHNtYWxsZXN0IGJyZWFrcG9pbnQsIG90aGVyd2lzZSByZXR1cm5zIHRoZSBuYW1lIHdpdGggYSBkYXNoIGluIGZyb250LlxuLy8gVXNlZnVsIGZvciBtYWtpbmcgcmVzcG9uc2l2ZSB1dGlsaXRpZXMuXG4vL1xuLy8gICAgPj4gYnJlYWtwb2ludC1pbmZpeCh4cywgKHhzOiAwLCBzbTogNTc2cHgsIG1kOiA3NjhweCwgbGc6IDk5MnB4LCB4bDogMTIwMHB4KSlcbi8vICAgIFwiXCIgIChSZXR1cm5zIGEgYmxhbmsgc3RyaW5nKVxuLy8gICAgPj4gYnJlYWtwb2ludC1pbmZpeChzbSwgKHhzOiAwLCBzbTogNTc2cHgsIG1kOiA3NjhweCwgbGc6IDk5MnB4LCB4bDogMTIwMHB4KSlcbi8vICAgIFwiLXNtXCJcbkBmdW5jdGlvbiBicmVha3BvaW50LWluZml4KCRuYW1lLCAkYnJlYWtwb2ludHM6ICRncmlkLWJyZWFrcG9pbnRzKSB7XG4gIEByZXR1cm4gaWYoYnJlYWtwb2ludC1taW4oJG5hbWUsICRicmVha3BvaW50cykgPT0gbnVsbCwgXCJcIiwgXCItI3skbmFtZX1cIik7XG59XG5cbi8vIE1lZGlhIG9mIGF0IGxlYXN0IHRoZSBtaW5pbXVtIGJyZWFrcG9pbnQgd2lkdGguIE5vIHF1ZXJ5IGZvciB0aGUgc21hbGxlc3QgYnJlYWtwb2ludC5cbi8vIE1ha2VzIHRoZSBAY29udGVudCBhcHBseSB0byB0aGUgZ2l2ZW4gYnJlYWtwb2ludCBhbmQgd2lkZXIuXG5AbWl4aW4gbWVkaWEtYnJlYWtwb2ludC11cCgkbmFtZSwgJGJyZWFrcG9pbnRzOiAkZ3JpZC1icmVha3BvaW50cykge1xuICAkbWluOiBicmVha3BvaW50LW1pbigkbmFtZSwgJGJyZWFrcG9pbnRzKTtcbiAgQGlmICRtaW4ge1xuICAgIEBtZWRpYSAobWluLXdpZHRoOiAkbWluKSB7XG4gICAgICBAY29udGVudDtcbiAgICB9XG4gIH0gQGVsc2Uge1xuICAgIEBjb250ZW50O1xuICB9XG59XG5cbi8vIE1lZGlhIG9mIGF0IG1vc3QgdGhlIG1heGltdW0gYnJlYWtwb2ludCB3aWR0aC4gTm8gcXVlcnkgZm9yIHRoZSBsYXJnZXN0IGJyZWFrcG9pbnQuXG4vLyBNYWtlcyB0aGUgQGNvbnRlbnQgYXBwbHkgdG8gdGhlIGdpdmVuIGJyZWFrcG9pbnQgYW5kIG5hcnJvd2VyLlxuQG1peGluIG1lZGlhLWJyZWFrcG9pbnQtZG93bigkbmFtZSwgJGJyZWFrcG9pbnRzOiAkZ3JpZC1icmVha3BvaW50cykge1xuICAkbWF4OiBicmVha3BvaW50LW1heCgkbmFtZSwgJGJyZWFrcG9pbnRzKTtcbiAgQGlmICRtYXgge1xuICAgIEBtZWRpYSAobWF4LXdpZHRoOiAkbWF4KSB7XG4gICAgICBAY29udGVudDtcbiAgICB9XG4gIH0gQGVsc2Uge1xuICAgIEBjb250ZW50O1xuICB9XG59XG5cbi8vIE1lZGlhIHRoYXQgc3BhbnMgbXVsdGlwbGUgYnJlYWtwb2ludCB3aWR0aHMuXG4vLyBNYWtlcyB0aGUgQGNvbnRlbnQgYXBwbHkgYmV0d2VlbiB0aGUgbWluIGFuZCBtYXggYnJlYWtwb2ludHNcbkBtaXhpbiBtZWRpYS1icmVha3BvaW50LWJldHdlZW4oJGxvd2VyLCAkdXBwZXIsICRicmVha3BvaW50czogJGdyaWQtYnJlYWtwb2ludHMpIHtcbiAgJG1pbjogYnJlYWtwb2ludC1taW4oJGxvd2VyLCAkYnJlYWtwb2ludHMpO1xuICAkbWF4OiBicmVha3BvaW50LW1heCgkdXBwZXIsICRicmVha3BvaW50cyk7XG5cbiAgQGlmICRtaW4gIT0gbnVsbCBhbmQgJG1heCAhPSBudWxsIHtcbiAgICBAbWVkaWEgKG1pbi13aWR0aDogJG1pbikgYW5kIChtYXgtd2lkdGg6ICRtYXgpIHtcbiAgICAgIEBjb250ZW50O1xuICAgIH1cbiAgfSBAZWxzZSBpZiAkbWF4ID09IG51bGwge1xuICAgIEBpbmNsdWRlIG1lZGlhLWJyZWFrcG9pbnQtdXAoJGxvd2VyLCAkYnJlYWtwb2ludHMpIHtcbiAgICAgIEBjb250ZW50O1xuICAgIH1cbiAgfSBAZWxzZSBpZiAkbWluID09IG51bGwge1xuICAgIEBpbmNsdWRlIG1lZGlhLWJyZWFrcG9pbnQtZG93bigkdXBwZXIsICRicmVha3BvaW50cykge1xuICAgICAgQGNvbnRlbnQ7XG4gICAgfVxuICB9XG59XG5cbi8vIE1lZGlhIGJldHdlZW4gdGhlIGJyZWFrcG9pbnQncyBtaW5pbXVtIGFuZCBtYXhpbXVtIHdpZHRocy5cbi8vIE5vIG1pbmltdW0gZm9yIHRoZSBzbWFsbGVzdCBicmVha3BvaW50LCBhbmQgbm8gbWF4aW11bSBmb3IgdGhlIGxhcmdlc3Qgb25lLlxuLy8gTWFrZXMgdGhlIEBjb250ZW50IGFwcGx5IG9ubHkgdG8gdGhlIGdpdmVuIGJyZWFrcG9pbnQsIG5vdCB2aWV3cG9ydHMgYW55IHdpZGVyIG9yIG5hcnJvd2VyLlxuQG1peGluIG1lZGlhLWJyZWFrcG9pbnQtb25seSgkbmFtZSwgJGJyZWFrcG9pbnRzOiAkZ3JpZC1icmVha3BvaW50cykge1xuICAkbWluOiBicmVha3BvaW50LW1pbigkbmFtZSwgJGJyZWFrcG9pbnRzKTtcbiAgJG1heDogYnJlYWtwb2ludC1tYXgoJG5hbWUsICRicmVha3BvaW50cyk7XG5cbiAgQGlmICRtaW4gIT0gbnVsbCBhbmQgJG1heCAhPSBudWxsIHtcbiAgICBAbWVkaWEgKG1pbi13aWR0aDogJG1pbikgYW5kIChtYXgtd2lkdGg6ICRtYXgpIHtcbiAgICAgIEBjb250ZW50O1xuICAgIH1cbiAgfSBAZWxzZSBpZiAkbWF4ID09IG51bGwge1xuICAgIEBpbmNsdWRlIG1lZGlhLWJyZWFrcG9pbnQtdXAoJG5hbWUsICRicmVha3BvaW50cykge1xuICAgICAgQGNvbnRlbnQ7XG4gICAgfVxuICB9IEBlbHNlIGlmICRtaW4gPT0gbnVsbCB7XG4gICAgQGluY2x1ZGUgbWVkaWEtYnJlYWtwb2ludC1kb3duKCRuYW1lLCAkYnJlYWtwb2ludHMpIHtcbiAgICAgIEBjb250ZW50O1xuICAgIH1cbiAgfVxufVxuIl19 */";
+    __webpack_exports__["default"] = ".payment-select {\n  grid-template-columns: 1fr 1fr 1fr;\n  grid-gap: 1rem;\n}\n@media (max-width: 767.98px) {\n  .payment-select {\n    grid-template-columns: 1fr;\n  }\n}\n.payment-select button {\n  min-height: 100px;\n}\n@media (max-width: 767.98px) {\n  .payment-select button {\n    min-height: auto;\n  }\n}\n.payment-select button .image {\n  font-size: 30px;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9jbGllbnQvYXBwL21vZHVsZXMvcHVyY2hhc2UvY29tcG9uZW50cy9wYWdlcy9wdXJjaGFzZS1wYXltZW50L0M6XFxVc2Vyc1xcaGF0YWd1Y2hpXFxEZXNrdG9wXFx3b3Jrc3BhY2VcXENpbmVyaW5vXFxwb3Mvc3JjXFxjbGllbnRcXGFwcFxcbW9kdWxlc1xccHVyY2hhc2VcXGNvbXBvbmVudHNcXHBhZ2VzXFxwdXJjaGFzZS1wYXltZW50XFxwdXJjaGFzZS1wYXltZW50LmNvbXBvbmVudC5zY3NzIiwic3JjL2NsaWVudC9hcHAvbW9kdWxlcy9wdXJjaGFzZS9jb21wb25lbnRzL3BhZ2VzL3B1cmNoYXNlLXBheW1lbnQvcHVyY2hhc2UtcGF5bWVudC5jb21wb25lbnQuc2NzcyIsInNyYy9jbGllbnQvYXBwL21vZHVsZXMvcHVyY2hhc2UvY29tcG9uZW50cy9wYWdlcy9wdXJjaGFzZS1wYXltZW50L0M6XFxVc2Vyc1xcaGF0YWd1Y2hpXFxEZXNrdG9wXFx3b3Jrc3BhY2VcXENpbmVyaW5vXFxwb3Mvbm9kZV9tb2R1bGVzXFxib290c3RyYXBcXHNjc3NcXG1peGluc1xcX2JyZWFrcG9pbnRzLnNjc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBR0E7RUFDSSxrQ0FBQTtFQUNBLGNBQUE7QUNGSjtBQ3NFSTtFRnRFSjtJQUlRLDBCQUFBO0VDQU47QUFDRjtBRENJO0VBQ0ksaUJBQUE7QUNDUjtBQzhESTtFRmhFQTtJQUdRLGdCQUFBO0VDR1Y7QUFDRjtBREZRO0VBQ0ksZUFBQTtBQ0laIiwiZmlsZSI6InNyYy9jbGllbnQvYXBwL21vZHVsZXMvcHVyY2hhc2UvY29tcG9uZW50cy9wYWdlcy9wdXJjaGFzZS1wYXltZW50L3B1cmNoYXNlLXBheW1lbnQuY29tcG9uZW50LnNjc3MiLCJzb3VyY2VzQ29udGVudCI6WyJAaW1wb3J0IFwibm9kZV9tb2R1bGVzL2Jvb3RzdHJhcC9zY3NzL2Z1bmN0aW9uc1wiO1xuQGltcG9ydCBcIm5vZGVfbW9kdWxlcy9ib290c3RyYXAvc2Nzcy92YXJpYWJsZXNcIjtcbkBpbXBvcnQgXCJub2RlX21vZHVsZXMvYm9vdHN0cmFwL3Njc3MvbWl4aW5zXCI7XG4ucGF5bWVudC1zZWxlY3Qge1xuICAgIGdyaWQtdGVtcGxhdGUtY29sdW1uczogMWZyIDFmciAxZnI7XG4gICAgZ3JpZC1nYXA6IDFyZW07XG4gICAgQGluY2x1ZGUgbWVkaWEtYnJlYWtwb2ludC1kb3duKHNtKSB7XG4gICAgICAgIGdyaWQtdGVtcGxhdGUtY29sdW1uczogMWZyO1xuICAgIH1cbiAgICBidXR0b24ge1xuICAgICAgICBtaW4taGVpZ2h0OiAxMDBweDtcbiAgICAgICAgQGluY2x1ZGUgbWVkaWEtYnJlYWtwb2ludC1kb3duKHNtKSB7XG4gICAgICAgICAgICBtaW4taGVpZ2h0OiBhdXRvO1xuICAgICAgICB9XG4gICAgICAgIC5pbWFnZSB7XG4gICAgICAgICAgICBmb250LXNpemU6IDMwcHg7XG4gICAgICAgIH1cbiAgICB9XG59IiwiLnBheW1lbnQtc2VsZWN0IHtcbiAgZ3JpZC10ZW1wbGF0ZS1jb2x1bW5zOiAxZnIgMWZyIDFmcjtcbiAgZ3JpZC1nYXA6IDFyZW07XG59XG5AbWVkaWEgKG1heC13aWR0aDogNzY3Ljk4cHgpIHtcbiAgLnBheW1lbnQtc2VsZWN0IHtcbiAgICBncmlkLXRlbXBsYXRlLWNvbHVtbnM6IDFmcjtcbiAgfVxufVxuLnBheW1lbnQtc2VsZWN0IGJ1dHRvbiB7XG4gIG1pbi1oZWlnaHQ6IDEwMHB4O1xufVxuQG1lZGlhIChtYXgtd2lkdGg6IDc2Ny45OHB4KSB7XG4gIC5wYXltZW50LXNlbGVjdCBidXR0b24ge1xuICAgIG1pbi1oZWlnaHQ6IGF1dG87XG4gIH1cbn1cbi5wYXltZW50LXNlbGVjdCBidXR0b24gLmltYWdlIHtcbiAgZm9udC1zaXplOiAzMHB4O1xufSIsIi8vIEJyZWFrcG9pbnQgdmlld3BvcnQgc2l6ZXMgYW5kIG1lZGlhIHF1ZXJpZXMuXG4vL1xuLy8gQnJlYWtwb2ludHMgYXJlIGRlZmluZWQgYXMgYSBtYXAgb2YgKG5hbWU6IG1pbmltdW0gd2lkdGgpLCBvcmRlciBmcm9tIHNtYWxsIHRvIGxhcmdlOlxuLy9cbi8vICAgICh4czogMCwgc206IDU3NnB4LCBtZDogNzY4cHgsIGxnOiA5OTJweCwgeGw6IDEyMDBweClcbi8vXG4vLyBUaGUgbWFwIGRlZmluZWQgaW4gdGhlIGAkZ3JpZC1icmVha3BvaW50c2AgZ2xvYmFsIHZhcmlhYmxlIGlzIHVzZWQgYXMgdGhlIGAkYnJlYWtwb2ludHNgIGFyZ3VtZW50IGJ5IGRlZmF1bHQuXG5cbi8vIE5hbWUgb2YgdGhlIG5leHQgYnJlYWtwb2ludCwgb3IgbnVsbCBmb3IgdGhlIGxhc3QgYnJlYWtwb2ludC5cbi8vXG4vLyAgICA+PiBicmVha3BvaW50LW5leHQoc20pXG4vLyAgICBtZFxuLy8gICAgPj4gYnJlYWtwb2ludC1uZXh0KHNtLCAoeHM6IDAsIHNtOiA1NzZweCwgbWQ6IDc2OHB4LCBsZzogOTkycHgsIHhsOiAxMjAwcHgpKVxuLy8gICAgbWRcbi8vICAgID4+IGJyZWFrcG9pbnQtbmV4dChzbSwgJGJyZWFrcG9pbnQtbmFtZXM6ICh4cyBzbSBtZCBsZyB4bCkpXG4vLyAgICBtZFxuQGZ1bmN0aW9uIGJyZWFrcG9pbnQtbmV4dCgkbmFtZSwgJGJyZWFrcG9pbnRzOiAkZ3JpZC1icmVha3BvaW50cywgJGJyZWFrcG9pbnQtbmFtZXM6IG1hcC1rZXlzKCRicmVha3BvaW50cykpIHtcbiAgJG46IGluZGV4KCRicmVha3BvaW50LW5hbWVzLCAkbmFtZSk7XG4gIEByZXR1cm4gaWYoJG4gIT0gbnVsbCBhbmQgJG4gPCBsZW5ndGgoJGJyZWFrcG9pbnQtbmFtZXMpLCBudGgoJGJyZWFrcG9pbnQtbmFtZXMsICRuICsgMSksIG51bGwpO1xufVxuXG4vLyBNaW5pbXVtIGJyZWFrcG9pbnQgd2lkdGguIE51bGwgZm9yIHRoZSBzbWFsbGVzdCAoZmlyc3QpIGJyZWFrcG9pbnQuXG4vL1xuLy8gICAgPj4gYnJlYWtwb2ludC1taW4oc20sICh4czogMCwgc206IDU3NnB4LCBtZDogNzY4cHgsIGxnOiA5OTJweCwgeGw6IDEyMDBweCkpXG4vLyAgICA1NzZweFxuQGZ1bmN0aW9uIGJyZWFrcG9pbnQtbWluKCRuYW1lLCAkYnJlYWtwb2ludHM6ICRncmlkLWJyZWFrcG9pbnRzKSB7XG4gICRtaW46IG1hcC1nZXQoJGJyZWFrcG9pbnRzLCAkbmFtZSk7XG4gIEByZXR1cm4gaWYoJG1pbiAhPSAwLCAkbWluLCBudWxsKTtcbn1cblxuLy8gTWF4aW11bSBicmVha3BvaW50IHdpZHRoLiBOdWxsIGZvciB0aGUgbGFyZ2VzdCAobGFzdCkgYnJlYWtwb2ludC5cbi8vIFRoZSBtYXhpbXVtIHZhbHVlIGlzIGNhbGN1bGF0ZWQgYXMgdGhlIG1pbmltdW0gb2YgdGhlIG5leHQgb25lIGxlc3MgMC4wMnB4XG4vLyB0byB3b3JrIGFyb3VuZCB0aGUgbGltaXRhdGlvbnMgb2YgYG1pbi1gIGFuZCBgbWF4LWAgcHJlZml4ZXMgYW5kIHZpZXdwb3J0cyB3aXRoIGZyYWN0aW9uYWwgd2lkdGhzLlxuLy8gU2VlIGh0dHBzOi8vd3d3LnczLm9yZy9UUi9tZWRpYXF1ZXJpZXMtNC8jbXEtbWluLW1heFxuLy8gVXNlcyAwLjAycHggcmF0aGVyIHRoYW4gMC4wMXB4IHRvIHdvcmsgYXJvdW5kIGEgY3VycmVudCByb3VuZGluZyBidWcgaW4gU2FmYXJpLlxuLy8gU2VlIGh0dHBzOi8vYnVncy53ZWJraXQub3JnL3Nob3dfYnVnLmNnaT9pZD0xNzgyNjFcbi8vXG4vLyAgICA+PiBicmVha3BvaW50LW1heChzbSwgKHhzOiAwLCBzbTogNTc2cHgsIG1kOiA3NjhweCwgbGc6IDk5MnB4LCB4bDogMTIwMHB4KSlcbi8vICAgIDc2Ny45OHB4XG5AZnVuY3Rpb24gYnJlYWtwb2ludC1tYXgoJG5hbWUsICRicmVha3BvaW50czogJGdyaWQtYnJlYWtwb2ludHMpIHtcbiAgJG5leHQ6IGJyZWFrcG9pbnQtbmV4dCgkbmFtZSwgJGJyZWFrcG9pbnRzKTtcbiAgQHJldHVybiBpZigkbmV4dCwgYnJlYWtwb2ludC1taW4oJG5leHQsICRicmVha3BvaW50cykgLSAuMDIsIG51bGwpO1xufVxuXG4vLyBSZXR1cm5zIGEgYmxhbmsgc3RyaW5nIGlmIHNtYWxsZXN0IGJyZWFrcG9pbnQsIG90aGVyd2lzZSByZXR1cm5zIHRoZSBuYW1lIHdpdGggYSBkYXNoIGluIGZyb250LlxuLy8gVXNlZnVsIGZvciBtYWtpbmcgcmVzcG9uc2l2ZSB1dGlsaXRpZXMuXG4vL1xuLy8gICAgPj4gYnJlYWtwb2ludC1pbmZpeCh4cywgKHhzOiAwLCBzbTogNTc2cHgsIG1kOiA3NjhweCwgbGc6IDk5MnB4LCB4bDogMTIwMHB4KSlcbi8vICAgIFwiXCIgIChSZXR1cm5zIGEgYmxhbmsgc3RyaW5nKVxuLy8gICAgPj4gYnJlYWtwb2ludC1pbmZpeChzbSwgKHhzOiAwLCBzbTogNTc2cHgsIG1kOiA3NjhweCwgbGc6IDk5MnB4LCB4bDogMTIwMHB4KSlcbi8vICAgIFwiLXNtXCJcbkBmdW5jdGlvbiBicmVha3BvaW50LWluZml4KCRuYW1lLCAkYnJlYWtwb2ludHM6ICRncmlkLWJyZWFrcG9pbnRzKSB7XG4gIEByZXR1cm4gaWYoYnJlYWtwb2ludC1taW4oJG5hbWUsICRicmVha3BvaW50cykgPT0gbnVsbCwgXCJcIiwgXCItI3skbmFtZX1cIik7XG59XG5cbi8vIE1lZGlhIG9mIGF0IGxlYXN0IHRoZSBtaW5pbXVtIGJyZWFrcG9pbnQgd2lkdGguIE5vIHF1ZXJ5IGZvciB0aGUgc21hbGxlc3QgYnJlYWtwb2ludC5cbi8vIE1ha2VzIHRoZSBAY29udGVudCBhcHBseSB0byB0aGUgZ2l2ZW4gYnJlYWtwb2ludCBhbmQgd2lkZXIuXG5AbWl4aW4gbWVkaWEtYnJlYWtwb2ludC11cCgkbmFtZSwgJGJyZWFrcG9pbnRzOiAkZ3JpZC1icmVha3BvaW50cykge1xuICAkbWluOiBicmVha3BvaW50LW1pbigkbmFtZSwgJGJyZWFrcG9pbnRzKTtcbiAgQGlmICRtaW4ge1xuICAgIEBtZWRpYSAobWluLXdpZHRoOiAkbWluKSB7XG4gICAgICBAY29udGVudDtcbiAgICB9XG4gIH0gQGVsc2Uge1xuICAgIEBjb250ZW50O1xuICB9XG59XG5cbi8vIE1lZGlhIG9mIGF0IG1vc3QgdGhlIG1heGltdW0gYnJlYWtwb2ludCB3aWR0aC4gTm8gcXVlcnkgZm9yIHRoZSBsYXJnZXN0IGJyZWFrcG9pbnQuXG4vLyBNYWtlcyB0aGUgQGNvbnRlbnQgYXBwbHkgdG8gdGhlIGdpdmVuIGJyZWFrcG9pbnQgYW5kIG5hcnJvd2VyLlxuQG1peGluIG1lZGlhLWJyZWFrcG9pbnQtZG93bigkbmFtZSwgJGJyZWFrcG9pbnRzOiAkZ3JpZC1icmVha3BvaW50cykge1xuICAkbWF4OiBicmVha3BvaW50LW1heCgkbmFtZSwgJGJyZWFrcG9pbnRzKTtcbiAgQGlmICRtYXgge1xuICAgIEBtZWRpYSAobWF4LXdpZHRoOiAkbWF4KSB7XG4gICAgICBAY29udGVudDtcbiAgICB9XG4gIH0gQGVsc2Uge1xuICAgIEBjb250ZW50O1xuICB9XG59XG5cbi8vIE1lZGlhIHRoYXQgc3BhbnMgbXVsdGlwbGUgYnJlYWtwb2ludCB3aWR0aHMuXG4vLyBNYWtlcyB0aGUgQGNvbnRlbnQgYXBwbHkgYmV0d2VlbiB0aGUgbWluIGFuZCBtYXggYnJlYWtwb2ludHNcbkBtaXhpbiBtZWRpYS1icmVha3BvaW50LWJldHdlZW4oJGxvd2VyLCAkdXBwZXIsICRicmVha3BvaW50czogJGdyaWQtYnJlYWtwb2ludHMpIHtcbiAgJG1pbjogYnJlYWtwb2ludC1taW4oJGxvd2VyLCAkYnJlYWtwb2ludHMpO1xuICAkbWF4OiBicmVha3BvaW50LW1heCgkdXBwZXIsICRicmVha3BvaW50cyk7XG5cbiAgQGlmICRtaW4gIT0gbnVsbCBhbmQgJG1heCAhPSBudWxsIHtcbiAgICBAbWVkaWEgKG1pbi13aWR0aDogJG1pbikgYW5kIChtYXgtd2lkdGg6ICRtYXgpIHtcbiAgICAgIEBjb250ZW50O1xuICAgIH1cbiAgfSBAZWxzZSBpZiAkbWF4ID09IG51bGwge1xuICAgIEBpbmNsdWRlIG1lZGlhLWJyZWFrcG9pbnQtdXAoJGxvd2VyLCAkYnJlYWtwb2ludHMpIHtcbiAgICAgIEBjb250ZW50O1xuICAgIH1cbiAgfSBAZWxzZSBpZiAkbWluID09IG51bGwge1xuICAgIEBpbmNsdWRlIG1lZGlhLWJyZWFrcG9pbnQtZG93bigkdXBwZXIsICRicmVha3BvaW50cykge1xuICAgICAgQGNvbnRlbnQ7XG4gICAgfVxuICB9XG59XG5cbi8vIE1lZGlhIGJldHdlZW4gdGhlIGJyZWFrcG9pbnQncyBtaW5pbXVtIGFuZCBtYXhpbXVtIHdpZHRocy5cbi8vIE5vIG1pbmltdW0gZm9yIHRoZSBzbWFsbGVzdCBicmVha3BvaW50LCBhbmQgbm8gbWF4aW11bSBmb3IgdGhlIGxhcmdlc3Qgb25lLlxuLy8gTWFrZXMgdGhlIEBjb250ZW50IGFwcGx5IG9ubHkgdG8gdGhlIGdpdmVuIGJyZWFrcG9pbnQsIG5vdCB2aWV3cG9ydHMgYW55IHdpZGVyIG9yIG5hcnJvd2VyLlxuQG1peGluIG1lZGlhLWJyZWFrcG9pbnQtb25seSgkbmFtZSwgJGJyZWFrcG9pbnRzOiAkZ3JpZC1icmVha3BvaW50cykge1xuICAkbWluOiBicmVha3BvaW50LW1pbigkbmFtZSwgJGJyZWFrcG9pbnRzKTtcbiAgJG1heDogYnJlYWtwb2ludC1tYXgoJG5hbWUsICRicmVha3BvaW50cyk7XG5cbiAgQGlmICRtaW4gIT0gbnVsbCBhbmQgJG1heCAhPSBudWxsIHtcbiAgICBAbWVkaWEgKG1pbi13aWR0aDogJG1pbikgYW5kIChtYXgtd2lkdGg6ICRtYXgpIHtcbiAgICAgIEBjb250ZW50O1xuICAgIH1cbiAgfSBAZWxzZSBpZiAkbWF4ID09IG51bGwge1xuICAgIEBpbmNsdWRlIG1lZGlhLWJyZWFrcG9pbnQtdXAoJG5hbWUsICRicmVha3BvaW50cykge1xuICAgICAgQGNvbnRlbnQ7XG4gICAgfVxuICB9IEBlbHNlIGlmICRtaW4gPT0gbnVsbCB7XG4gICAgQGluY2x1ZGUgbWVkaWEtYnJlYWtwb2ludC1kb3duKCRuYW1lLCAkYnJlYWtwb2ludHMpIHtcbiAgICAgIEBjb250ZW50O1xuICAgIH1cbiAgfVxufVxuIl19 */";
     /***/
   },
 
@@ -4173,36 +4229,36 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
       }, {
         key: "selectPaymentMethodType",
-        value: function selectPaymentMethodType(paymentMethodType, paymentMethodName) {
-          var _this14 = this;
+        value: function selectPaymentMethodType(typeOf, category) {
+          var _this13 = this;
 
           this.user.subscribe(function (user) {
             if (user.seller === undefined || user.seller.paymentAccepted === undefined) {
-              _this14.router.navigate(['/error']);
+              _this13.router.navigate(['/error']);
 
               console.error('seller is undefined or paymentAccepted is undefined');
               return;
             }
 
             var findResult = user.seller.paymentAccepted.find(function (paymentAccepted) {
-              return paymentAccepted.paymentMethodType === paymentMethodType;
+              return paymentAccepted.paymentMethodType === typeOf;
             });
 
             if (findResult === undefined) {
-              _this14.utilService.openAlert({
-                title: _this14.translate.instant('common.error'),
-                body: _this14.translate.instant('purchase.payment.alert.notCompatible')
+              _this13.utilService.openAlert({
+                title: _this13.translate.instant('common.error'),
+                body: _this13.translate.instant('purchase.payment.alert.notCompatible')
               });
 
               return;
             }
 
-            _this14.purchaseService.selectPaymentMethodType({
-              paymentMethodType: paymentMethodType,
-              paymentMethodName: paymentMethodName
+            _this13.purchaseService.selectPaymentMethodType({
+              typeOf: typeOf,
+              category: category
             });
 
-            _this14.router.navigate(['/purchase/confirm']);
+            _this13.router.navigate(['/purchase/confirm']);
           }).unsubscribe();
         }
         /**
@@ -4395,57 +4451,57 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
         value: function ngOnInit() {
           return __awaiter(this, void 0, void 0,
           /*#__PURE__*/
-          regeneratorRuntime.mark(function _callee23() {
+          regeneratorRuntime.mark(function _callee24() {
             var purchase;
-            return regeneratorRuntime.wrap(function _callee23$(_context23) {
+            return regeneratorRuntime.wrap(function _callee24$(_context24) {
               while (1) {
-                switch (_context23.prev = _context23.next) {
+                switch (_context24.prev = _context24.next) {
                   case 0:
                     this.user = this.store.pipe(Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_2__["select"])(_store_reducers__WEBPACK_IMPORTED_MODULE_6__["getUser"]));
                     this.purchase = this.store.pipe(Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_2__["select"])(_store_reducers__WEBPACK_IMPORTED_MODULE_6__["getPurchase"]));
-                    _context23.prev = 2;
-                    _context23.next = 5;
+                    _context24.prev = 2;
+                    _context24.next = 5;
                     return this.purchaseService.getData();
 
                   case 5:
-                    purchase = _context23.sent;
+                    purchase = _context24.sent;
 
                     if (!(purchase.transaction !== undefined)) {
-                      _context23.next = 9;
+                      _context24.next = 9;
                       break;
                     }
 
-                    _context23.next = 9;
+                    _context24.next = 9;
                     return this.purchaseService.cancelTransaction();
 
                   case 9:
                     this.purchaseService["delete"]();
 
                     if (!(this.environment.VIEW_TYPE === _models__WEBPACK_IMPORTED_MODULE_4__["ViewType"].Cinema)) {
-                      _context23.next = 13;
+                      _context24.next = 13;
                       break;
                     }
 
                     this.router.navigate(['/purchase/cinema/schedule']);
-                    return _context23.abrupt("return");
+                    return _context24.abrupt("return");
 
                   case 13:
                     this.router.navigate(['/purchase/event/schedule']);
-                    _context23.next = 20;
+                    _context24.next = 20;
                     break;
 
                   case 16:
-                    _context23.prev = 16;
-                    _context23.t0 = _context23["catch"](2);
-                    console.error(_context23.t0);
+                    _context24.prev = 16;
+                    _context24.t0 = _context24["catch"](2);
+                    console.error(_context24.t0);
                     this.router.navigate(['/error']);
 
                   case 20:
                   case "end":
-                    return _context23.stop();
+                    return _context24.stop();
                 }
               }
-            }, _callee23, this, [[2, 16]]);
+            }, _callee24, this, [[2, 16]]);
           }));
         }
       }]);
@@ -5151,34 +5207,34 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
         value: function ngOnChanges() {
           return __awaiter(this, void 0, void 0,
           /*#__PURE__*/
-          regeneratorRuntime.mark(function _callee24() {
+          regeneratorRuntime.mark(function _callee25() {
             var url, result;
-            return regeneratorRuntime.wrap(function _callee24$(_context24) {
+            return regeneratorRuntime.wrap(function _callee25$(_context25) {
               while (1) {
-                switch (_context24.prev = _context24.next) {
+                switch (_context25.prev = _context25.next) {
                   case 0:
-                    _context24.prev = 0;
+                    _context25.prev = 0;
                     url = "".concat(Object(_functions__WEBPACK_IMPORTED_MODULE_3__["getProject"])().storageUrl, "/text/purchase/terms/").concat(this.language, ".txt");
-                    _context24.next = 4;
+                    _context25.next = 4;
                     return this.utilService.getText(url);
 
                   case 4:
-                    result = _context24.sent;
+                    result = _context25.sent;
                     this.terms = result.replace(/\n/g, '<br>');
-                    _context24.next = 11;
+                    _context25.next = 11;
                     break;
 
                   case 8:
-                    _context24.prev = 8;
-                    _context24.t0 = _context24["catch"](0);
-                    console.error(_context24.t0);
+                    _context25.prev = 8;
+                    _context25.t0 = _context25["catch"](0);
+                    console.error(_context25.t0);
 
                   case 11:
                   case "end":
-                    return _context24.stop();
+                    return _context25.stop();
                 }
               }
-            }, _callee24, this, [[0, 8]]);
+            }, _callee25, this, [[0, 8]]);
           }));
         }
       }]);
@@ -5350,34 +5406,34 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
         value: function ngOnChanges() {
           return __awaiter(this, void 0, void 0,
           /*#__PURE__*/
-          regeneratorRuntime.mark(function _callee25() {
+          regeneratorRuntime.mark(function _callee26() {
             var url, result;
-            return regeneratorRuntime.wrap(function _callee25$(_context25) {
+            return regeneratorRuntime.wrap(function _callee26$(_context26) {
               while (1) {
-                switch (_context25.prev = _context25.next) {
+                switch (_context26.prev = _context26.next) {
                   case 0:
-                    _context25.prev = 0;
+                    _context26.prev = 0;
                     url = "".concat(Object(_functions__WEBPACK_IMPORTED_MODULE_3__["getProject"])().storageUrl, "/text/purchase/warning/").concat(this.language, ".txt");
-                    _context25.next = 4;
+                    _context26.next = 4;
                     return this.utilService.getText(url);
 
                   case 4:
-                    result = _context25.sent;
+                    result = _context26.sent;
                     this.warning = result.replace(/\n/g, '<br>');
-                    _context25.next = 11;
+                    _context26.next = 11;
                     break;
 
                   case 8:
-                    _context25.prev = 8;
-                    _context25.t0 = _context25["catch"](0);
-                    console.error(_context25.t0);
+                    _context26.prev = 8;
+                    _context26.t0 = _context26["catch"](0);
+                    console.error(_context26.t0);
 
                   case 11:
                   case "end":
-                    return _context25.stop();
+                    return _context26.stop();
                 }
               }
-            }, _callee25, this, [[0, 8]]);
+            }, _callee26, this, [[0, 8]]);
           }));
         }
       }]);
@@ -5532,12 +5588,12 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "update",
         value: function update() {
-          var _this15 = this;
+          var _this14 = this;
 
           this.updateProcess();
           var time = 1000;
           this.timer = setTimeout(function () {
-            _this15.update();
+            _this14.update();
           }, time);
         }
       }, {

@@ -1,7 +1,6 @@
 import { factory } from '@cinerino/api-javascript-client';
 import * as moment from 'moment';
 import * as qrcode from 'qrcode';
-import { getEnvironment } from '../../environments/environment';
 import { IOrderSearchConditions, ITicketPrintData } from '../models';
 import { getItemPrice } from './purchase.function';
 import { formatTelephone, getProject } from './util.function';
@@ -246,19 +245,21 @@ export async function createTestPrintCanvas(args: { printData: ITicketPrintData 
 }
 
 /**
- * RegiGrow連携用QRコード作成
+ * 連携用QR作成
  */
-export async function createRegiGrowQrcode(order: factory.order.IOrder) {
+export async function createCooperationQRCode(params: {
+    order: factory.order.IOrder;
+    qrcodeText: string;
+}) {
+    const order = params.order;
+    const qrcodeText = params.qrcodeText;
     const canvas = document.createElement('canvas');
-    const environment = getEnvironment();
-    let qrcodeText = environment.REGIGROW_QRCODE;
-    qrcodeText = qrcodeText
-        .replace(/\{\{ orderNumber \}\}/g, order.orderNumber);
-    qrcodeText = qrcodeText
+    const text = qrcodeText
+        .replace(/\{\{ orderNumber \}\}/g, order.orderNumber)
         .replace(/\{\{ price \}\}/g, String(order.price));
 
     return new Promise<string>((resolve, reject) => {
-        qrcode.toCanvas(canvas, qrcodeText).then(() => {
+        qrcode.toCanvas(canvas, text).then(() => {
             resolve(canvas.toDataURL());
         }).catch((error) => {
             console.error(error);
