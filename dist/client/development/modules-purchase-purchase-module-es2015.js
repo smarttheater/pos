@@ -1597,6 +1597,7 @@ let PurchaseEventTicketComponent = class PurchaseEventTicketComponent {
                     title: this.translate.instant('common.complete'),
                     body: this.translate.instant('purchase.event.ticket.success.temporaryReservation')
                 });
+                this.purchaseService.unsettledDelete();
             }
             catch (error) {
                 console.error(error);

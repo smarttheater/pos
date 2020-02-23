@@ -3067,11 +3067,12 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
                       title: this.translate.instant('common.complete'),
                       body: this.translate.instant('purchase.event.ticket.success.temporaryReservation')
                     });
-                    _context18.next = 32;
+                    this.purchaseService.unsettledDelete();
+                    _context18.next = 33;
                     break;
 
-                  case 28:
-                    _context18.prev = 28;
+                  case 29:
+                    _context18.prev = 29;
                     _context18.t1 = _context18["catch"](22);
                     console.error(_context18.t1);
                     this.utilService.openAlert({
@@ -3079,12 +3080,12 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
                       body: "\n                <p class=\"mb-4\">".concat(this.translate.instant('purchase.event.ticket.alert.temporaryReservation'), "</p>\n                <div class=\"p-3 bg-light-gray select-text text-left\">\n                    <code>").concat(JSON.stringify(_context18.t1), "</code>\n                </div>")
                     });
 
-                  case 32:
+                  case 33:
                   case "end":
                     return _context18.stop();
                 }
               }
-            }, _callee18, this, [[5, 18], [22, 28]]);
+            }, _callee18, this, [[5, 18], [22, 29]]);
           }));
         }
         /**
