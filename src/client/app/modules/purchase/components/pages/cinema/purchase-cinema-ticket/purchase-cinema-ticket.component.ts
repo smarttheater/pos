@@ -118,7 +118,7 @@ export class PurchaseCinemaTicketComponent implements OnInit {
     public openTicketList(reservation?: IReservation) {
         this.purchase.subscribe((purchase) => {
             this.modal.show(PurchaseCinemaTicketModalComponent, {
-                class: 'modal-dialog-centered',
+                class: 'modal-dialog-centered modal-lg',
                 initialState: {
                     screeningEventTicketOffers: purchase.screeningEventTicketOffers,
                     checkMovieTicketActions: purchase.checkMovieTicketActions,
