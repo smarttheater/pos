@@ -265,10 +265,14 @@ let AdmissionCheckComponent = class AdmissionCheckComponent {
         });
     }
     update() {
-        const loopTime = 60000; // 1分に一回
+        const loopTime = 600000; // 10分に一回
         clearInterval(this.updateLoop);
         this.updateLoop = setInterval(() => __awaiter(this, void 0, void 0, function* () {
-            yield this.admissionService.getScreeningEvent();
+            const { screeningEvent } = yield this.admissionService.getData();
+            if (screeningEvent === undefined) {
+                return;
+            }
+            yield this.admissionService.getScreeningEvent(screeningEvent);
         }), loopTime);
     }
 };
@@ -434,8 +438,16 @@ let AdmissionScheduleComponent = class AdmissionScheduleComponent {
      * スケジュール選択
      */
     selectSchedule(screeningEvent) {
-        this.admissionService.selectScreeningEvent(screeningEvent);
-        this.router.navigate(['/admission/check']);
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                yield this.admissionService.getScreeningEvent(screeningEvent);
+                this.router.navigate(['/admission/check']);
+            }
+            catch (error) {
+                console.error(error);
+                this.router.navigate(['/error']);
+            }
+        });
     }
     /**
      * Datepicker言語設定

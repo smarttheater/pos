@@ -47,13 +47,6 @@ export class AdmissionService {
     }
 
     /**
-     * イベント選択
-     */
-    public selectScreeningEvent(screeningEvent: factory.chevre.event.screeningEvent.IEvent) {
-        this.store.dispatch(new admissionAction.SelectScreeningEvent({ screeningEvent }));
-    }
-
-    /**
      * QRコード初期化
      */
     public initializeQrcodeToken() {
@@ -84,19 +77,14 @@ export class AdmissionService {
     }
 
     /**
-     * イベント情報取得
+     * イベント取得
      */
-    public getScreeningEvent() {
-        return new Promise<void>(async (resolve, reject) => {
-            const { screeningEvent } = await this.getData();
-            if (screeningEvent === undefined) {
-                reject(new Error('screeningEvent === undefined'));
-                return;
-            }
-            this.store.dispatch(new admissionAction.GetScreeningEvent({ params: { id: screeningEvent.id } }));
+    public async getScreeningEvent(screeningEvent: factory.chevre.event.screeningEvent.IEvent) {
+        return new Promise<void>((resolve, reject) => {
+            this.store.dispatch(new admissionAction.GetScreeningEvent({ screeningEvent }));
             const success = this.actions.pipe(
                 ofType(admissionAction.ActionTypes.GetScreeningEventSuccess),
-                tap(() => resolve())
+                tap(() => { resolve(); })
             );
             const fail = this.actions.pipe(
                 ofType(admissionAction.ActionTypes.GetScreeningEventFail),

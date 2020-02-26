@@ -94,9 +94,14 @@ export class AdmissionScheduleComponent implements OnInit, OnDestroy {
     /**
      * スケジュール選択
      */
-    public selectSchedule(screeningEvent: factory.chevre.event.screeningEvent.IEvent) {
-        this.admissionService.selectScreeningEvent(screeningEvent);
-        this.router.navigate(['/admission/check']);
+    public async selectSchedule(screeningEvent: factory.chevre.event.screeningEvent.IEvent) {
+        try {
+            await this.admissionService.getScreeningEvent(screeningEvent);
+            this.router.navigate(['/admission/check']);
+        } catch (error) {
+            console.error(error);
+            this.router.navigate(['/error']);
+        }
     }
 
     /**

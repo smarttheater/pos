@@ -477,7 +477,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("<div class=\"mb-2\" *ngIf=\"environment.DISPLAY_TICKETED_SEAT\">\n    <div *ngFor=\"let reservation of reservations\">\n        <p>{{ reservation.seat.seatNumber }}</p>\n        <p *ngFor=\"let priceComponent of getReservationPriceComponents(reservation)\">\n            <span>{{ priceComponent.name | changeLanguage }}</span><!--\n            --><span *ngIf=\"priceComponent?.referenceQuantity?.value && priceComponent?.appliesToAddOn\">&nbsp;×&nbsp;{{ priceComponent.referenceQuantity.value }}</span><!--\n            --><span>&nbsp;/&nbsp;{{ priceComponent.price | currency : priceComponent.priceCurrency }}</span><!--\n            --><span class=\"text-small\" *ngIf=\"priceComponent?.referenceQuantity?.value && !priceComponent?.appliesToAddOn\">{{ 'common.referenceQuantityValue' | translate: { value: priceComponent?.referenceQuantity?.value } }}</span>\n        </p>\n    </div>\n    \n    <div *ngFor=\"let reservation of authorizeSeatReservations\">\n        <p *ngIf=\"reservation.reservedTicket.ticketedSeat\">{{ reservation.reservedTicket.ticketedSeat.seatNumber }}</p>\n        <p *ngFor=\"let priceComponent of reservation.price.priceComponent\">\n            <span>{{ priceComponent.name | changeLanguage }}</span><!--\n            --><span *ngIf=\"priceComponent?.referenceQuantity?.value && priceComponent?.appliesToAddOn\">&nbsp;×&nbsp;{{ priceComponent.referenceQuantity.value }}</span><!--\n            --><span>&nbsp;/&nbsp;{{ priceComponent.price | currency : priceComponent.priceCurrency }}</span><!--\n            --><span class=\"text-small\" *ngIf=\"priceComponent?.referenceQuantity?.value && !priceComponent?.appliesToAddOn\">{{ 'common.referenceQuantityValue' | translate: { value: priceComponent?.referenceQuantity?.value } }}</span>\n        </p>\n    </div>\n    \n    <div *ngFor=\"let acceptedOffer of acceptedOffers\">\n        <p *ngIf=\"acceptedOffer.itemOffered.reservedTicket.ticketedSeat\">{{ acceptedOffer.itemOffered.reservedTicket.ticketedSeat.seatNumber }}</p>\n        <p *ngFor=\"let priceComponent of acceptedOffer.priceSpecification.priceComponent\">\n            <span *ngIf=\"priceComponent.name\">{{ priceComponent.name | changeLanguage }}</span><!--\n            --><span *ngIf=\"!priceComponent.name\">{{ acceptedOffer.name | changeLanguage }}</span><!--\n            --><span *ngIf=\"priceComponent?.referenceQuantity?.value && priceComponent?.appliesToAddOn\">&nbsp;×&nbsp;{{ priceComponent.referenceQuantity.value }}</span><!--\n            --><span>&nbsp;/&nbsp;{{ priceComponent.price | currency : priceComponent.priceCurrency }}</span><!--\n            --><span class=\"text-small\" *ngIf=\"priceComponent?.referenceQuantity?.value && !priceComponent?.appliesToAddOn\">{{ 'common.referenceQuantityValue' | translate: { value: priceComponent?.referenceQuantity?.value } }}</span>\n        </p>\n    </div>\n</div>\n\n<div class=\"mb-2\" *ngIf=\"!environment.DISPLAY_TICKETED_SEAT\">\n    <div *ngFor=\"let ticket of changeTicketCount()\">\n        <p *ngFor=\"let priceComponent of ticket.priceComponents\">\n            <span>{{ priceComponent.name | changeLanguage }}</span><!--\n            --><span>&nbsp;/&nbsp;{{ priceComponent.price | currency : priceComponent.priceCurrency }}</span><!--\n            --><span class=\"text-small\" *ngIf=\"priceComponent?.referenceQuantity?.value\">{{ 'common.referenceQuantityValue' | translate: { value: priceComponent?.referenceQuantity?.value } }}</span><!--\n            --><span>&nbsp;×&nbsp;{{ ticket.count }}</span>\n        </p>\n    </div>\n</div>\n\n");
+/* harmony default export */ __webpack_exports__["default"] = ("<div class=\"mb-2\" *ngIf=\"environment.DISPLAY_TICKETED_SEAT\">\n    <div *ngFor=\"let reservation of reservations\">\n        <p>{{ reservation.seat.seatNumber }}</p>\n        <p *ngFor=\"let priceComponent of getReservationPriceComponents(reservation)\">\n            <span>{{ priceComponent.name | changeLanguage }}</span><!--\n            --><span>&nbsp;/&nbsp;{{ priceComponent.price | currency : priceComponent.priceCurrency }}</span><!--\n            --><span class=\"text-small\" *ngIf=\"priceComponent?.referenceQuantity?.value\">{{ 'common.referenceQuantityValue' | translate: { value: priceComponent?.referenceQuantity?.value } }}</span>\n        </p>\n    </div>\n    \n    <div *ngFor=\"let reservation of authorizeSeatReservations\">\n        <p *ngIf=\"reservation.reservedTicket.ticketedSeat\">{{ reservation.reservedTicket.ticketedSeat.seatNumber }}</p>\n        <p *ngFor=\"let priceComponent of reservation.price.priceComponent\">\n            <span>{{ priceComponent.name | changeLanguage }}</span><!--\n            --><span>&nbsp;/&nbsp;{{ priceComponent.price | currency : priceComponent.priceCurrency }}</span><!--\n            --><span class=\"text-small\" *ngIf=\"priceComponent?.referenceQuantity?.value\">{{ 'common.referenceQuantityValue' | translate: { value: priceComponent?.referenceQuantity?.value } }}</span>\n        </p>\n    </div>\n    \n    <div *ngFor=\"let acceptedOffer of acceptedOffers\">\n        <p *ngIf=\"acceptedOffer.itemOffered.reservedTicket.ticketedSeat\">{{ acceptedOffer.itemOffered.reservedTicket.ticketedSeat.seatNumber }}</p>\n        <p *ngFor=\"let priceComponent of acceptedOffer.priceSpecification.priceComponent\">\n            <span *ngIf=\"priceComponent.name\">{{ priceComponent.name | changeLanguage }}</span><!--\n            --><span *ngIf=\"!priceComponent.name\">{{ acceptedOffer.name | changeLanguage }}</span><!--\n            --><span>&nbsp;/&nbsp;{{ priceComponent.price | currency : priceComponent.priceCurrency }}</span><!--\n            --><span class=\"text-small\" *ngIf=\"priceComponent?.referenceQuantity?.value\">{{ 'common.referenceQuantityValue' | translate: { value: priceComponent?.referenceQuantity?.value } }}</span>\n        </p>\n    </div>\n</div>\n\n<div class=\"mb-2\" *ngIf=\"!environment.DISPLAY_TICKETED_SEAT\">\n    <div *ngFor=\"let ticket of changeTicketCount()\">\n        <p *ngFor=\"let priceComponent of ticket.priceComponents\">\n            <span>{{ priceComponent.name | changeLanguage }}</span><!--\n            --><span>&nbsp;/&nbsp;{{ priceComponent.price | currency : priceComponent.priceCurrency }}</span><!--\n            --><span class=\"text-small\" *ngIf=\"priceComponent?.referenceQuantity?.value\">{{ 'common.referenceQuantityValue' | translate: { value: priceComponent?.referenceQuantity?.value } }}</span><!--\n            --><span>&nbsp;×&nbsp;{{ ticket.count }}</span>\n        </p>\n    </div>\n</div>\n\n");
 
 /***/ }),
 
@@ -542,7 +542,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("<div *ngIf=\"!selectedTicket\" class=\"p-3 scroll-vertical\">\n    <div *ngFor=\"let ticket of tickets\" class=\"ticket mb-2\">\n        <button type=\"button\" (click)=\"selsctTicket(ticket)\" class=\"btn btn-block btn-outline-primary py-3\">\n            <div class=\"d-flex justify-content-between align-items-center\" *ngFor=\"let priceComponent of ticket.ticketOffer.priceSpecification.priceComponent\">\n                <p class=\"w-50 text-left\">{{ priceComponent.name | changeLanguage }}</p>\n                <p class=\"w-50 text-right\">\n                    <span>{{ priceComponent.price | currency : priceComponent.priceCurrency }}</span><!--\n                    --><span class=\"text-small\" *ngIf=\"priceComponent?.referenceQuantity?.value\">{{ 'common.referenceQuantityValue' | translate: { value: priceComponent?.referenceQuantity?.value } }}</span>\n                </p>\n            </div>\n            <p *ngIf=\"ticket.ticketOffer.description\" class=\"text-x-small text-left\">{{ ticket.ticketOffer.description | changeLanguage }}</p>\n        </button>\n    </div>\n</div>\n\n<div *ngIf=\"selectedTicket\" class=\"p-3 scroll-vertical\">\n    <div class=\"mb-3 text-large text-center\">{{ 'purchase.cinema.ticket.addOn' | translate }}</div>\n    <ul class=\"mb-4\">\n        <li class=\"mb-3\" *ngFor=\"let addOn of selectedTicket.ticketOffer.addOn; let index = index\">\n            <app-checkbox class=\"pointer\" (change)=\"changeAddOnList(addOn.id)\">\n                <div class=\"d-flex w-100\">\n                <div class=\"w-50\">{{ addOn.priceSpecification?.name | changeLanguage }}<span *ngIf=\"addOn.priceSpecification?.referenceQuantity?.value\">&nbsp;×&nbsp;{{ addOn.priceSpecification.referenceQuantity.value }}</span></div>\n                <div class=\"w-50 text-right\">{{ addOn.priceSpecification?.price | currency : addOn.priceSpecification?.priceCurrency }}</div>\n                </div>\n            </app-checkbox>\n        </li>\n    </ul>\n    <div class=\"buttons mx-auto text-center\">\n        <button type=\"button\" class=\"btn btn-primary btn-block py-3 mb-3\"\n            (click)=\"selsctOption()\">{{ 'common.done' | translate }}</button>\n        <button type=\"button\" class=\"btn btn-link btn-sm\"\n            (click)=\"modal.hide()\">{{ 'common.close' | translate }}</button>\n    </div>\n</div>");
+/* harmony default export */ __webpack_exports__["default"] = ("<div *ngIf=\"!selectedTicket\" class=\"p-3 scroll-vertical\">\n    <div *ngFor=\"let ticket of tickets\" class=\"ticket mb-2\">\n        <button type=\"button\" (click)=\"selsctTicket(ticket)\" class=\"btn btn-block btn-outline-primary py-3\">\n            <div class=\"d-flex justify-content-between align-items-center\" *ngFor=\"let priceComponent of ticket.ticketOffer.priceSpecification.priceComponent\">\n                <p class=\"w-50 text-left\">{{ priceComponent.name | changeLanguage }}</p>\n                <p class=\"w-50 text-right\">\n                    <span>{{ priceComponent.price | currency : priceComponent.priceCurrency }}</span><!--\n                    --><span class=\"text-small\" *ngIf=\"priceComponent?.referenceQuantity?.value\">{{ 'common.referenceQuantityValue' | translate: { value: priceComponent?.referenceQuantity?.value } }}</span>\n                </p>\n            </div>\n            <p *ngIf=\"ticket.ticketOffer.description\" class=\"text-x-small text-left\">{{ ticket.ticketOffer.description | changeLanguage }}</p>\n        </button>\n    </div>\n</div>\n\n<div *ngIf=\"selectedTicket\" class=\"p-3 scroll-vertical\">\n    <div class=\"mb-3 text-large text-center\">{{ 'purchase.cinema.ticket.addOn' | translate }}</div>\n    <ul class=\"mb-4\">\n        <li class=\"mb-3\" *ngFor=\"let addOn of selectedTicket.ticketOffer.addOn; let index = index\">\n            <app-checkbox class=\"pointer\" (change)=\"changeAddOnList(addOn.id)\">\n                <div class=\"d-flex w-100\">\n                    <div class=\"w-50\">{{ addOn.priceSpecification?.name | changeLanguage }}<span *ngIf=\"addOn.priceSpecification?.referenceQuantity?.value\">{{ 'common.referenceQuantityValue' | translate: { value: addOn.priceSpecification?.referenceQuantity?.value } }}</span></div>\n                    <div class=\"w-50 text-right\">{{ addOn.priceSpecification?.price | currency : addOn.priceSpecification?.priceCurrency }}</div>\n                </div>\n            </app-checkbox>\n        </li>\n    </ul>\n    <div class=\"buttons mx-auto text-center\">\n        <button type=\"button\" class=\"btn btn-primary btn-block py-3 mb-3\"\n            (click)=\"selsctOption()\">{{ 'common.done' | translate }}</button>\n        <button type=\"button\" class=\"btn btn-link btn-sm\"\n            (click)=\"modal.hide()\">{{ 'common.close' | translate }}</button>\n    </div>\n</div>");
 
 /***/ }),
 
@@ -555,7 +555,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("<div class=\"p-3 scroll-vertical\">\n    <div class=\"mb-3\">\n        <div class=\"mb-1\">\n            <p class=\"font-weight-bold text-large\">{{ screeningEvent.name | changeLanguage }}</p>\n            <p class=\"text-small\"\n                *ngIf=\"screeningEvent.superEvent.headline && (screeningEvent.superEvent.headline | changeLanguage)\">\n                {{ screeningEvent.superEvent.headline | changeLanguage }}</p>\n            <p class=\"text-small\"\n                *ngIf=\"screeningEvent.superEvent.description && (screeningEvent.superEvent.description | changeLanguage)\">{{\n                    screeningEvent.superEvent.description | changeLanguage }}</p>\n        </div>\n        <p class=\"mb-1\">\n            {{ moment(screeningEvent.startDate).format('MM/DD(ddd) HH:mm') }}-{{ moment(screeningEvent.endDate).format('HH:mm') }}\n        </p>\n        <p class=\"text-small mb-1\">\n            <span class=\"theatre-name\">\n                {{ screeningEvent.superEvent.location.name | changeLanguage }}\n            </span>\n            <span class=\"screen-name\">\n                &nbsp;/&nbsp;<span *ngIf=\"screeningEvent.location.address\" class=\"mr-2\">{{ screeningEvent.location.address | changeLanguage }}</span>{{ screeningEvent.location.name | changeLanguage }}\n            </span>\n            <span *ngIf=\"screeningEvent.workPerformed?.duration && moment.duration(screeningEvent.workPerformed?.duration).asMinutes() > 0\">\n                &nbsp;/&nbsp;<span class=\"mr-1\">{{ 'common.duration' | translate }}</span>{{ moment.duration(screeningEvent.workPerformed?.duration).asMinutes() }}{{ 'common.date.minute' | translate }}\n            </span>\n        </p>\n        <p *ngIf=\"performance.isTicketedSeat()\" class=\"font-weight-bold\"><span class=\"mr-1\">{{ 'purchase.event.ticket.remainingSeat' | translate }}</span>{{ getRemainingSeatLength(screeningEventOffers, screeningEvent) }}</p>\n    </div>\n    <hr class=\"mb-3\">\n    <ul class=\"mb-4\">\n        <li *ngFor=\"let ticket of tickets\" class=\"ticket mb-3 pb-3 border-bottom border-gray\">\n            <div class=\"d-flex justify-content-between align-items-center\">\n                <div class=\"w-75 text-left\">\n                    <p *ngFor=\"let priceComponent of ticket.priceSpecification.priceComponent\">\n                        <span>{{ priceComponent.name | changeLanguage }}</span><!--\n                        --><span>&nbsp;/&nbsp;{{ priceComponent.price | currency : priceComponent.priceCurrency }}</span><!--\n                        --><span class=\"text-small\" *ngIf=\"priceComponent?.referenceQuantity?.value\">{{ 'common.referenceQuantityValue' | translate: { value: priceComponent?.referenceQuantity?.value } }}</span>\n                    </p>\n                    <p *ngIf=\"ticket.description\" class=\"text-x-small text-left\">{{ ticket.description | changeLanguage }}</p>\n                </div>\n                <div class=\"w-25 text-right\">\n                    <select class=\"form-control\" (change)=\"changeSelect(ticket.id, $event)\">\n                        <option value=\"0\">0</option>\n                        <option *ngFor=\"let value of values\" [value]=\"value\">{{ value }}</option>\n                    </select>\n                </div>\n            </div>\n            <ul *ngIf=\"ticket.addOn && ticket.addOn.length > 0\" class=\"mt-2 bg-light-gray py-2 px-3\">\n                <li class=\"my-1\" *ngFor=\"let addOn of ticket.addOn; let index = index\">\n                    <app-checkbox class=\"pointer\" (change)=\"changeAddOn(ticket.id, addOn.id)\">\n                        {{ addOn.priceSpecification?.name | changeLanguage }}<span *ngIf=\"addOn.priceSpecification?.referenceQuantity?.value\">&nbsp;×&nbsp;{{ addOn.priceSpecification.referenceQuantity.value }}</span><!--\n                        -->&nbsp;/&nbsp;<!--\n                        -->{{ addOn.priceSpecification?.price | currency : addOn.priceSpecification?.priceCurrency }}\n                    </app-checkbox>\n                </li>\n            </ul>\n        </li>\n    </ul>\n\n    <div class=\"buttons mx-auto text-center text-center\">\n        <button [disabled]=\"selectedTickets && createReservations().length === 0\" type=\"button\"\n            class=\"btn btn-primary btn-block py-3 mb-3\"\n            (click)=\"close(createReservations())\">{{ 'purchase.event.ticket.next' | translate }}</button>\n        <button type=\"button\" class=\"btn btn-link btn-sm\"\n            (click)=\"modal.hide()\">{{ 'common.close' | translate }}</button>\n    </div>\n</div>");
+/* harmony default export */ __webpack_exports__["default"] = ("<div class=\"p-3 scroll-vertical\">\n    <div class=\"mb-3\">\n        <div class=\"mb-1\">\n            <p class=\"font-weight-bold text-large\">{{ screeningEvent.name | changeLanguage }}</p>\n            <p class=\"text-small\"\n                *ngIf=\"screeningEvent.superEvent.headline && (screeningEvent.superEvent.headline | changeLanguage)\">\n                {{ screeningEvent.superEvent.headline | changeLanguage }}</p>\n            <p class=\"text-small\"\n                *ngIf=\"screeningEvent.superEvent.description && (screeningEvent.superEvent.description | changeLanguage)\">{{\n                    screeningEvent.superEvent.description | changeLanguage }}</p>\n        </div>\n        <p class=\"mb-1\">\n            {{ moment(screeningEvent.startDate).format('MM/DD(ddd) HH:mm') }}-{{ moment(screeningEvent.endDate).format('HH:mm') }}\n        </p>\n        <p class=\"text-small mb-1\">\n            <span class=\"theatre-name\">\n                {{ screeningEvent.superEvent.location.name | changeLanguage }}\n            </span>\n            <span class=\"screen-name\">\n                &nbsp;/&nbsp;<span *ngIf=\"screeningEvent.location.address\" class=\"mr-2\">{{ screeningEvent.location.address | changeLanguage }}</span>{{ screeningEvent.location.name | changeLanguage }}\n            </span>\n            <span *ngIf=\"screeningEvent.workPerformed?.duration && moment.duration(screeningEvent.workPerformed?.duration).asMinutes() > 0\">\n                &nbsp;/&nbsp;<span class=\"mr-1\">{{ 'common.duration' | translate }}</span>{{ moment.duration(screeningEvent.workPerformed?.duration).asMinutes() }}{{ 'common.date.minute' | translate }}\n            </span>\n        </p>\n        <p *ngIf=\"performance.isTicketedSeat()\" class=\"font-weight-bold\"><span class=\"mr-1\">{{ 'purchase.event.ticket.remainingSeat' | translate }}</span>{{ getRemainingSeatLength(screeningEventOffers, screeningEvent) }}</p>\n    </div>\n    <hr class=\"mb-3\">\n    <ul class=\"mb-4\">\n        <li *ngFor=\"let ticket of tickets\" class=\"ticket mb-3 pb-3 border-bottom border-gray\">\n            <div class=\"d-flex justify-content-between align-items-center\">\n                <div class=\"w-75 text-left\">\n                    <p *ngFor=\"let priceComponent of ticket.priceSpecification.priceComponent\">\n                        <span>{{ priceComponent.name | changeLanguage }}</span><!--\n                        --><span>&nbsp;/&nbsp;{{ priceComponent.price | currency : priceComponent.priceCurrency }}</span><!--\n                        --><span class=\"text-small\" *ngIf=\"priceComponent?.referenceQuantity?.value\">{{ 'common.referenceQuantityValue' | translate: { value: priceComponent?.referenceQuantity?.value } }}</span>\n                    </p>\n                    <p *ngIf=\"ticket.description\" class=\"text-x-small text-left\">{{ ticket.description | changeLanguage }}</p>\n                </div>\n                <div class=\"w-25 text-right\">\n                    <select class=\"form-control\" (change)=\"changeSelect(ticket.id, $event)\">\n                        <option value=\"0\">0</option>\n                        <option *ngFor=\"let value of remainingAttendeeCapacityValue(ticket)\" [value]=\"value\">{{ value }}</option>\n                    </select>\n                </div>\n            </div>\n            <ul *ngIf=\"ticket.addOn && ticket.addOn.length > 0\" class=\"mt-2 bg-light-gray py-2 px-3\">\n                <li class=\"my-1\" *ngFor=\"let addOn of ticket.addOn; let index = index\">\n                    <app-checkbox class=\"pointer\" (change)=\"changeAddOn(ticket.id, addOn.id)\">\n                        {{ addOn.priceSpecification?.name | changeLanguage }}<span *ngIf=\"addOn.priceSpecification?.referenceQuantity?.value\">{{ 'common.referenceQuantityValue' | translate: { value: addOn.priceSpecification?.referenceQuantity?.value } }}</span><!--\n                        -->&nbsp;/&nbsp;<!--\n                        -->{{ addOn.priceSpecification?.price | currency : addOn.priceSpecification?.priceCurrency }}\n                    </app-checkbox>\n                </li>\n            </ul>\n        </li>\n    </ul>\n\n    <div class=\"buttons mx-auto text-center text-center\">\n        <button [disabled]=\"selectedTickets && createReservations().length === 0\" type=\"button\"\n            class=\"btn btn-primary btn-block py-3 mb-3\"\n            (click)=\"close(createReservations())\">{{ 'purchase.event.ticket.next' | translate }}</button>\n        <button type=\"button\" class=\"btn btn-link btn-sm\"\n            (click)=\"modal.hide()\">{{ 'common.close' | translate }}</button>\n    </div>\n</div>");
 
 /***/ }),
 
@@ -909,7 +909,7 @@ AppComponent = __decorate([
 /*!********************************!*\
   !*** ./app/functions/index.ts ***!
   \********************************/
-/*! exports provided: screeningEventsToWorkEvents, createGmoTokenObject, sameMovieTicketFilter, isAvailabilityMovieTicket, createMovieTicketsFromAuthorizeSeatReservation, createPaymentMethodFromType, getTicketPrice, getItemPrice, movieTicketAuthErroCodeToMessage, getAmount, order2EventOrders, authorizeSeatReservation2Event, getRemainingSeatLength, formatTelephone, toFull, toHalf, retry, sleep, buildQueryString, iOSDatepickerTapBugFix, streamingDownload, string2blob, getParameter, getProject, createPrintCanvas, createTestPrintCanvas, createRegiGrowQrcode, getTransactionAgentIdentifier, order2report, input2OrderSearchCondition, getTranslateModuleConfig, reservation2report, input2ReservationSearchCondition */
+/*! exports provided: screeningEventsToWorkEvents, createGmoTokenObject, sameMovieTicketFilter, isAvailabilityMovieTicket, createMovieTicketsFromAuthorizeSeatReservation, createPaymentMethodFromType, getTicketPrice, getItemPrice, movieTicketAuthErroCodeToMessage, getAmount, order2EventOrders, authorizeSeatReservation2Event, getRemainingSeatLength, isEligibleSeatingType, autoSelectAvailableSeat, formatTelephone, toFull, toHalf, retry, sleep, buildQueryString, iOSDatepickerTapBugFix, streamingDownload, string2blob, getParameter, getProject, createPrintCanvas, createTestPrintCanvas, createRegiGrowQrcode, getTransactionAgentIdentifier, order2report, input2OrderSearchCondition, getTranslateModuleConfig, reservation2report, input2ReservationSearchCondition */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -940,6 +940,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "authorizeSeatReservation2Event", function() { return _purchase_function__WEBPACK_IMPORTED_MODULE_0__["authorizeSeatReservation2Event"]; });
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "getRemainingSeatLength", function() { return _purchase_function__WEBPACK_IMPORTED_MODULE_0__["getRemainingSeatLength"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "isEligibleSeatingType", function() { return _purchase_function__WEBPACK_IMPORTED_MODULE_0__["isEligibleSeatingType"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "autoSelectAvailableSeat", function() { return _purchase_function__WEBPACK_IMPORTED_MODULE_0__["autoSelectAvailableSeat"]; });
 
 /* harmony import */ var _util_function__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./util.function */ "./app/functions/util.function.ts");
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "formatTelephone", function() { return _util_function__WEBPACK_IMPORTED_MODULE_1__["formatTelephone"]; });
@@ -1374,7 +1378,7 @@ function input2OrderSearchCondition(params) {
 /*!********************************************!*\
   !*** ./app/functions/purchase.function.ts ***!
   \********************************************/
-/*! exports provided: screeningEventsToWorkEvents, createGmoTokenObject, sameMovieTicketFilter, isAvailabilityMovieTicket, createMovieTicketsFromAuthorizeSeatReservation, createPaymentMethodFromType, getTicketPrice, getItemPrice, movieTicketAuthErroCodeToMessage, getAmount, order2EventOrders, authorizeSeatReservation2Event, getRemainingSeatLength */
+/*! exports provided: screeningEventsToWorkEvents, createGmoTokenObject, sameMovieTicketFilter, isAvailabilityMovieTicket, createMovieTicketsFromAuthorizeSeatReservation, createPaymentMethodFromType, getTicketPrice, getItemPrice, movieTicketAuthErroCodeToMessage, getAmount, order2EventOrders, authorizeSeatReservation2Event, getRemainingSeatLength, isEligibleSeatingType, autoSelectAvailableSeat */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1392,6 +1396,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "order2EventOrders", function() { return order2EventOrders; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "authorizeSeatReservation2Event", function() { return authorizeSeatReservation2Event; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getRemainingSeatLength", function() { return getRemainingSeatLength; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "isEligibleSeatingType", function() { return isEligibleSeatingType; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "autoSelectAvailableSeat", function() { return autoSelectAvailableSeat; });
 /* harmony import */ var _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @cinerino/api-javascript-client */ "../../node_modules/@cinerino/api-javascript-client/lib/index.js");
 /* harmony import */ var _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! moment */ "../../node_modules/moment/moment.js");
@@ -1767,6 +1773,68 @@ function getRemainingSeatLength(screeningEventOffers, screeningEvent) {
         result += sectionResult.length;
     });
     return result;
+}
+/**
+ * 適用座席タイプ判定
+ */
+function isEligibleSeatingType(params) {
+    const seat = params.seat;
+    const eligibleSeatingType = params.eligibleSeatingType;
+    const SeatingTypeFilterResult = eligibleSeatingType
+        .filter(e => e.inCodeSet.identifier === _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_0__["factory"].chevre.categoryCode.CategorySetIdentifier.SeatingType);
+    const filterResult = SeatingTypeFilterResult.filter(e => {
+        if (Array.isArray(seat.seatingType)) {
+            return (seat.seatingType.find(s => e.codeValue === s) !== undefined);
+        }
+        return (e.codeValue === seat.seatingType);
+    });
+    return filterResult.length === SeatingTypeFilterResult.length;
+}
+/**
+ * 販売可能席自動取得
+ */
+function autoSelectAvailableSeat(params) {
+    const reservations = params.reservations;
+    const screeningEventOffers = params.screeningEventOffers;
+    const seats = [];
+    screeningEventOffers.forEach(s => {
+        const section = s.branchCode;
+        s.containsPlace.forEach(c => {
+            if (c.offers === undefined
+                || c.offers[0].availability !== _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_0__["factory"].chevre.itemAvailability.InStock) {
+                // 在庫なし
+                return;
+            }
+            seats.push({
+                typeOf: c.typeOf,
+                seatingType: c.seatingType,
+                seatNumber: c.branchCode,
+                seatRow: '',
+                seatSection: section
+            });
+        });
+    });
+    const availableSeats = [];
+    reservations.forEach(r => {
+        const findResult = seats.find(s => {
+            if (availableSeats.find(a => a.seatNumber === s.seatNumber && a.seatSection === s.seatSection) !== undefined) {
+                // 予約内同一座席判定
+                return false;
+            }
+            if (r.ticket !== undefined
+                && r.ticket.ticketOffer.eligibleSeatingType !== undefined
+                && !isEligibleSeatingType({ seat: s, eligibleSeatingType: r.ticket.ticketOffer.eligibleSeatingType })) {
+                // 適用座席タイプ判定
+                return false;
+            }
+            return true;
+        });
+        if (findResult === undefined) {
+            return;
+        }
+        availableSeats.push(findResult);
+    });
+    return availableSeats;
 }
 
 
@@ -3861,7 +3929,7 @@ let ItemListComponent = class ItemListComponent {
                     if (a.priceSpecification === undefined) {
                         return;
                     }
-                    priceComponents.push(Object.assign({}, a.priceSpecification, { appliesToAddOn: [] }));
+                    priceComponents.push(a.priceSpecification);
                 });
             }
         }
@@ -4459,6 +4527,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @cinerino/api-javascript-client */ "../../node_modules/@cinerino/api-javascript-client/lib/index.js");
 /* harmony import */ var _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var ngx_bootstrap__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ngx-bootstrap */ "../../node_modules/ngx-bootstrap/esm5/ngx-bootstrap.js");
+/* harmony import */ var _functions__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../../../../../functions */ "./app/functions/index.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -4474,6 +4543,7 @@ var __importDefault = (undefined && undefined.__importDefault) || function (mod)
 
 
 
+
 let PurchaseCinemaTicketModalComponent = class PurchaseCinemaTicketModalComponent {
     constructor(modal) {
         this.modal = modal;
@@ -4486,8 +4556,18 @@ let PurchaseCinemaTicketModalComponent = class PurchaseCinemaTicketModalComponen
             const movieTicketTypeChargeSpecification = ticketOffer.priceSpecification.priceComponent
                 .filter((c) => c.typeOf === _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_1__["factory"].chevre.priceSpecificationType.MovieTicketTypeChargeSpecification)
                 .shift();
+            if (movieTicketTypeChargeSpecification === undefined
+                && ticketOffer.eligibleSeatingType !== undefined) {
+                // 券種の適用座席タイプ条件あり（ムビチケ以外）
+                if (this.reservation !== undefined
+                    && this.reservation.seat !== undefined
+                    && Object(_functions__WEBPACK_IMPORTED_MODULE_3__["isEligibleSeatingType"])({ seat: this.reservation.seat, eligibleSeatingType: ticketOffer.eligibleSeatingType })) {
+                    this.tickets.push({ ticketOffer });
+                }
+                return;
+            }
             if (movieTicketTypeChargeSpecification === undefined) {
-                // ムビチケ以外
+                // 通常券種（ムビチケ以外）
                 this.tickets.push({ ticketOffer });
                 return;
             }
@@ -4542,7 +4622,7 @@ let PurchaseCinemaTicketModalComponent = class PurchaseCinemaTicketModalComponen
                 movieTickets.push({ ticketOffer, movieTicket });
             });
         });
-        this.tickets = movieTickets.concat(this.tickets);
+        this.tickets = [...movieTickets, ...this.tickets];
     }
     close(ticket) {
         this.modal.hide();
@@ -4580,7 +4660,6 @@ let PurchaseCinemaTicketModalComponent = class PurchaseCinemaTicketModalComponen
             addOn.push(findResult);
         });
         this.selectedTicket.addOn = addOn;
-        console.log(this.selectedTicket);
         this.close(this.selectedTicket);
     }
     /**
@@ -4703,15 +4782,6 @@ let PurchaseEventTicketModalComponent = class PurchaseEventTicketModalComponent 
             const movieTicketTypeChargeSpecification = ticketOffer.priceSpecification.priceComponent.find((c) => c.typeOf === _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_1__["factory"].chevre.priceSpecificationType.MovieTicketTypeChargeSpecification);
             return movieTicketTypeChargeSpecification === undefined;
         });
-        this.values = [];
-        let limit = Number(this.environment.PURCHASE_ITEM_MAX_LENGTH);
-        if (new _models__WEBPACK_IMPORTED_MODULE_6__["Performance"](this.screeningEvent).isTicketedSeat()) {
-            const remainingSeatLength = this.getRemainingSeatLength(this.screeningEventOffers, this.screeningEvent);
-            limit = (limit > remainingSeatLength) ? remainingSeatLength : limit;
-        }
-        for (let i = 0; i < limit; i++) {
-            this.values.push(i + 1);
-        }
         const selectedTickets = [];
         this.tickets.forEach((ticket) => {
             selectedTickets.push({
@@ -4721,6 +4791,36 @@ let PurchaseEventTicketModalComponent = class PurchaseEventTicketModalComponent 
             });
         });
         this.selectedTickets = selectedTickets;
+    }
+    /**
+     * 予約可能数計算
+     */
+    remainingAttendeeCapacityValue(screeningEventTicketOffer) {
+        const values = [];
+        const screeningEvent = this.screeningEvent;
+        const screeningEventOffers = this.screeningEventOffers;
+        let limit = Number(this.environment.PURCHASE_ITEM_MAX_LENGTH);
+        if (new _models__WEBPACK_IMPORTED_MODULE_6__["Performance"](this.screeningEvent).isTicketedSeat()) {
+            // イベント全体の残席数計算
+            const screeningEventLimit = Object(_functions__WEBPACK_IMPORTED_MODULE_5__["getRemainingSeatLength"])(screeningEventOffers, screeningEvent);
+            if (limit > screeningEventLimit) {
+                limit = screeningEventLimit;
+            }
+            // 券種ごとの残席数で計算
+            if (screeningEvent.aggregateOffer !== undefined
+                && screeningEvent.aggregateOffer.offers !== undefined) {
+                const findResult = screeningEvent.aggregateOffer.offers.find(o => o.id === screeningEventTicketOffer.id);
+                if (findResult !== undefined
+                    && findResult.remainingAttendeeCapacity !== undefined
+                    && limit > findResult.remainingAttendeeCapacity) {
+                    limit = findResult.remainingAttendeeCapacity;
+                }
+            }
+        }
+        for (let i = 0; i < limit; i++) {
+            values.push(i + 1);
+        }
+        return values;
     }
     /**
      * 閉じる
@@ -6015,12 +6115,6 @@ let AdmissionService = class AdmissionService {
         this.store.dispatch(new _store_actions__WEBPACK_IMPORTED_MODULE_5__["admissionAction"].SelectScheduleDate({ scheduleDate }));
     }
     /**
-     * イベント選択
-     */
-    selectScreeningEvent(screeningEvent) {
-        this.store.dispatch(new _store_actions__WEBPACK_IMPORTED_MODULE_5__["admissionAction"].SelectScreeningEvent({ screeningEvent }));
-    }
-    /**
      * QRコード初期化
      */
     initializeQrcodeToken() {
@@ -6045,20 +6139,17 @@ let AdmissionService = class AdmissionService {
         });
     }
     /**
-     * イベント情報取得
+     * イベント取得
      */
-    getScreeningEvent() {
-        return new Promise((resolve, reject) => __awaiter(this, void 0, void 0, function* () {
-            const { screeningEvent } = yield this.getData();
-            if (screeningEvent === undefined) {
-                reject(new Error('screeningEvent === undefined'));
-                return;
-            }
-            this.store.dispatch(new _store_actions__WEBPACK_IMPORTED_MODULE_5__["admissionAction"].GetScreeningEvent({ params: { id: screeningEvent.id } }));
-            const success = this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_1__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_5__["admissionAction"].ActionTypes.GetScreeningEventSuccess), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["tap"])(() => resolve()));
-            const fail = this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_1__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_5__["admissionAction"].ActionTypes.GetScreeningEventFail), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["tap"])(() => { this.error.subscribe((error) => { reject(error); }).unsubscribe(); }));
-            Object(rxjs__WEBPACK_IMPORTED_MODULE_3__["race"])(success, fail).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["take"])(1)).subscribe();
-        }));
+    getScreeningEvent(screeningEvent) {
+        return __awaiter(this, void 0, void 0, function* () {
+            return new Promise((resolve, reject) => {
+                this.store.dispatch(new _store_actions__WEBPACK_IMPORTED_MODULE_5__["admissionAction"].GetScreeningEvent({ screeningEvent }));
+                const success = this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_1__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_5__["admissionAction"].ActionTypes.GetScreeningEventSuccess), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["tap"])(() => { resolve(); }));
+                const fail = this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_1__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_5__["admissionAction"].ActionTypes.GetScreeningEventFail), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["tap"])(() => { this.error.subscribe((error) => { reject(error); }).unsubscribe(); }));
+                Object(rxjs__WEBPACK_IMPORTED_MODULE_3__["race"])(success, fail).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["take"])(1)).subscribe();
+            });
+        });
     }
 };
 AdmissionService.ctorParameters = () => [
@@ -6917,10 +7008,17 @@ let PurchaseService = class PurchaseService {
         this.store.dispatch(new _store_actions__WEBPACK_IMPORTED_MODULE_8__["purchaseAction"].SelectScheduleDate({ scheduleDate }));
     }
     /**
-     * スケジュール選択
+     * イベント取得
      */
-    selectSchedule(screeningEvent) {
-        this.store.dispatch(new _store_actions__WEBPACK_IMPORTED_MODULE_8__["purchaseAction"].SelectSchedule({ screeningEvent }));
+    getScreeningEvent(screeningEvent) {
+        return __awaiter(this, void 0, void 0, function* () {
+            return new Promise((resolve, reject) => {
+                this.store.dispatch(new _store_actions__WEBPACK_IMPORTED_MODULE_8__["purchaseAction"].GetScreeningEvent({ screeningEvent }));
+                const success = this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_8__["purchaseAction"].ActionTypes.GetScreeningEventSuccess), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["tap"])(() => { resolve(); }));
+                const fail = this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_8__["purchaseAction"].ActionTypes.GetScreeningEventFail), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["tap"])(() => { this.error.subscribe((error) => { reject(error); }).unsubscribe(); }));
+                Object(rxjs__WEBPACK_IMPORTED_MODULE_5__["race"])(success, fail).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["take"])(1)).subscribe();
+            });
+        });
     }
     /**
      * 取引開始
@@ -8086,7 +8184,7 @@ StoreModule = __decorate([
 /*!***********************************************!*\
   !*** ./app/store/actions/admission.action.ts ***!
   \***********************************************/
-/*! exports provided: ActionTypes, Delete, SelectSchedule, SelectScheduleDate, SelectScreeningEvent, GetScreeningEvent, GetScreeningEventSuccess, GetScreeningEventFail, InitializeQrcodeToken, Check, CheckSuccess, CheckFail */
+/*! exports provided: ActionTypes, Delete, SelectSchedule, SelectScheduleDate, GetScreeningEvent, GetScreeningEventSuccess, GetScreeningEventFail, InitializeQrcodeToken, Check, CheckSuccess, CheckFail */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -8095,7 +8193,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Delete", function() { return Delete; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SelectSchedule", function() { return SelectSchedule; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SelectScheduleDate", function() { return SelectScheduleDate; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SelectScreeningEvent", function() { return SelectScreeningEvent; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "GetScreeningEvent", function() { return GetScreeningEvent; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "GetScreeningEventSuccess", function() { return GetScreeningEventSuccess; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "GetScreeningEventFail", function() { return GetScreeningEventFail; });
@@ -8114,10 +8211,9 @@ var ActionTypes;
     ActionTypes["Delete"] = "[Admission] Delete";
     ActionTypes["SelectSchedule"] = "[Admission] Select Schedule";
     ActionTypes["SelectScheduleDate"] = "[Admission] Select Schedule Date";
-    ActionTypes["SelectScreeningEvent"] = "[Admission] Select Screening Event";
-    ActionTypes["GetScreeningEvent"] = "[User] Get Screening Event";
-    ActionTypes["GetScreeningEventSuccess"] = "[User] Get Screening Event Success";
-    ActionTypes["GetScreeningEventFail"] = "[User] Get Screening Event Fail";
+    ActionTypes["GetScreeningEvent"] = "[Admission] Get Screening Event";
+    ActionTypes["GetScreeningEventSuccess"] = "[Admission] Get Screening Event Success";
+    ActionTypes["GetScreeningEventFail"] = "[Admission] Get Screening Event Fail";
     ActionTypes["InitializeQrcodeToken"] = "[Admission] Initialize Qrcode Token";
     ActionTypes["Check"] = "[Admission] Check";
     ActionTypes["CheckSuccess"] = "[Admission] Check Success";
@@ -8148,15 +8244,6 @@ class SelectScheduleDate {
     constructor(payload) {
         this.payload = payload;
         this.type = ActionTypes.SelectScheduleDate;
-    }
-}
-/**
- * SelectScreeningEvent
- */
-class SelectScreeningEvent {
-    constructor(payload) {
-        this.payload = payload;
-        this.type = ActionTypes.SelectScreeningEvent;
     }
 }
 /**
@@ -8573,7 +8660,7 @@ class OrderAuthorizeFail {
 /*!**********************************************!*\
   !*** ./app/store/actions/purchase.action.ts ***!
   \**********************************************/
-/*! exports provided: ActionTypes, Delete, UnsettledDelete, SelectScheduleDate, SelectSchedule, StartTransaction, StartTransactionSuccess, StartTransactionFail, CancelTransaction, CancelTransactionSuccess, CancelTransactionFail, GetScreen, GetScreenSuccess, GetScreenFail, GetScreeningEventOffers, GetScreeningEventOffersSuccess, GetScreeningEventOffersFail, SelectSeats, CancelSeats, SelectTickets, GetTicketList, GetTicketListSuccess, GetTicketListFail, TemporaryReservation, TemporaryReservationSuccess, TemporaryReservationFreeSeat, TemporaryReservationFreeSeatSuccess, TemporaryReservationFreeSeatFail, TemporaryReservationFail, CancelTemporaryReservations, CancelTemporaryReservationsSuccess, CancelTemporaryReservationsFail, RegisterContact, RegisterContactSuccess, RegisterContactFail, AuthorizeCreditCard, AuthorizeCreditCardSuccess, AuthorizeCreditCardFail, AuthorizeMovieTicket, AuthorizeMovieTicketSuccess, AuthorizeMovieTicketFail, CheckMovieTicket, CheckMovieTicketSuccess, CheckMovieTicketFail, EndTransaction, EndTransactionSuccess, EndTransactionFail, CreateGmoTokenObject, CreateGmoTokenObjectSuccess, CreateGmoTokenObjectFail, AuthorizeAnyPayment, AuthorizeAnyPaymentSuccess, AuthorizeAnyPaymentFail, SelectPaymentMethodType */
+/*! exports provided: ActionTypes, Delete, UnsettledDelete, SelectScheduleDate, GetScreeningEvent, GetScreeningEventSuccess, GetScreeningEventFail, StartTransaction, StartTransactionSuccess, StartTransactionFail, CancelTransaction, CancelTransactionSuccess, CancelTransactionFail, GetScreen, GetScreenSuccess, GetScreenFail, GetScreeningEventOffers, GetScreeningEventOffersSuccess, GetScreeningEventOffersFail, SelectSeats, CancelSeats, SelectTickets, GetTicketList, GetTicketListSuccess, GetTicketListFail, TemporaryReservation, TemporaryReservationSuccess, TemporaryReservationFreeSeat, TemporaryReservationFreeSeatSuccess, TemporaryReservationFreeSeatFail, TemporaryReservationFail, CancelTemporaryReservations, CancelTemporaryReservationsSuccess, CancelTemporaryReservationsFail, RegisterContact, RegisterContactSuccess, RegisterContactFail, AuthorizeCreditCard, AuthorizeCreditCardSuccess, AuthorizeCreditCardFail, AuthorizeMovieTicket, AuthorizeMovieTicketSuccess, AuthorizeMovieTicketFail, CheckMovieTicket, CheckMovieTicketSuccess, CheckMovieTicketFail, EndTransaction, EndTransactionSuccess, EndTransactionFail, CreateGmoTokenObject, CreateGmoTokenObjectSuccess, CreateGmoTokenObjectFail, AuthorizeAnyPayment, AuthorizeAnyPaymentSuccess, AuthorizeAnyPaymentFail, SelectPaymentMethodType */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -8582,7 +8669,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Delete", function() { return Delete; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "UnsettledDelete", function() { return UnsettledDelete; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SelectScheduleDate", function() { return SelectScheduleDate; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SelectSchedule", function() { return SelectSchedule; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "GetScreeningEvent", function() { return GetScreeningEvent; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "GetScreeningEventSuccess", function() { return GetScreeningEventSuccess; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "GetScreeningEventFail", function() { return GetScreeningEventFail; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "StartTransaction", function() { return StartTransaction; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "StartTransactionSuccess", function() { return StartTransactionSuccess; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "StartTransactionFail", function() { return StartTransactionFail; });
@@ -8643,7 +8732,9 @@ var ActionTypes;
     ActionTypes["Delete"] = "[Purchase] Delete";
     ActionTypes["UnsettledDelete"] = "[Purchase] Unsettled Delete";
     ActionTypes["SelectScheduleDate"] = "[Purchase] Select Schedule Date";
-    ActionTypes["SelectSchedule"] = "[Purchase] Select Schedule";
+    ActionTypes["GetScreeningEvent"] = "[Purchase] Get Screening Event";
+    ActionTypes["GetScreeningEventSuccess"] = "[Purchase] Get Screening Event Success";
+    ActionTypes["GetScreeningEventFail"] = "[Purchase] Get Screening Event Fail";
     ActionTypes["StartTransaction"] = "[Purchase] Start Transaction";
     ActionTypes["StartTransactionSuccess"] = "[Purchase] Start Transaction Success";
     ActionTypes["StartTransactionFail"] = "[Purchase] Start Transaction Fail";
@@ -8722,12 +8813,30 @@ class SelectScheduleDate {
     }
 }
 /**
- * SelectSchedule
+ * GetScreeningEvent
  */
-class SelectSchedule {
+class GetScreeningEvent {
     constructor(payload) {
         this.payload = payload;
-        this.type = ActionTypes.SelectSchedule;
+        this.type = ActionTypes.GetScreeningEvent;
+    }
+}
+/**
+ * GetScreeningEventSuccess
+ */
+class GetScreeningEventSuccess {
+    constructor(payload) {
+        this.payload = payload;
+        this.type = ActionTypes.GetScreeningEventSuccess;
+    }
+}
+/**
+ * GetScreeningEventFail
+ */
+class GetScreeningEventFail {
+    constructor(payload) {
+        this.payload = payload;
+        this.type = ActionTypes.GetScreeningEventFail;
     }
 }
 /**
@@ -9585,7 +9694,9 @@ let AdmissionEffects = class AdmissionEffects {
             // console.log(payload);
             try {
                 yield this.cinerino.getServices();
-                const screeningEvent = yield this.cinerino.event.findById(payload.params);
+                const screeningEvent = yield this.cinerino.event.findById({
+                    id: payload.screeningEvent.id
+                });
                 return new _actions__WEBPACK_IMPORTED_MODULE_8__["admissionAction"].GetScreeningEventSuccess({ screeningEvent });
             }
             catch (error) {
@@ -10394,6 +10505,19 @@ let PurchaseEffects = class PurchaseEffects {
             }
         })));
         /**
+         * GetScreeningEvent
+         */
+        this.getScreeningEvent = this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_3__["ofType"])(_actions__WEBPACK_IMPORTED_MODULE_11__["purchaseAction"].ActionTypes.GetScreeningEvent), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["map"])(action => action.payload), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["mergeMap"])((payload) => __awaiter(this, void 0, void 0, function* () {
+            try {
+                yield this.cinerinoService.getServices();
+                const screeningEvent = yield this.cinerinoService.event.findById({ id: payload.screeningEvent.id });
+                return new _actions__WEBPACK_IMPORTED_MODULE_11__["purchaseAction"].GetScreeningEventSuccess({ screeningEvent });
+            }
+            catch (error) {
+                return new _actions__WEBPACK_IMPORTED_MODULE_11__["purchaseAction"].GetScreeningEventFail({ error: error });
+            }
+        })));
+        /**
          * GetScreeningEventOffers
          */
         this.getScreeningEventOffers = this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_3__["ofType"])(_actions__WEBPACK_IMPORTED_MODULE_11__["purchaseAction"].ActionTypes.GetScreeningEventOffers), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["map"])(action => action.payload), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["mergeMap"])((payload) => __awaiter(this, void 0, void 0, function* () {
@@ -10471,25 +10595,12 @@ let PurchaseEffects = class PurchaseEffects {
             const screeningEvent = payload.screeningEvent;
             const screeningEventOffers = payload.screeningEventOffers;
             const reservations = payload.reservations;
-            const freeSeats = [];
             try {
                 yield this.cinerinoService.getServices();
-                if (new _models__WEBPACK_IMPORTED_MODULE_9__["Performance"](screeningEvent).isTicketedSeat()) {
-                    for (const screeningEventOffer of screeningEventOffers) {
-                        const section = screeningEventOffer.branchCode;
-                        for (const containsPlace of screeningEventOffer.containsPlace) {
-                            if (containsPlace.offers !== undefined
-                                && containsPlace.offers[0].availability === _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_2__["factory"].chevre.itemAvailability.InStock) {
-                                freeSeats.push({
-                                    typeOf: containsPlace.typeOf,
-                                    seatingType: containsPlace.seatingType,
-                                    seatNumber: containsPlace.branchCode,
-                                    seatRow: '',
-                                    seatSection: section
-                                });
-                            }
-                        }
-                    }
+                const availableSeats = Object(_functions__WEBPACK_IMPORTED_MODULE_8__["autoSelectAvailableSeat"])({ reservations, screeningEventOffers });
+                if (new _models__WEBPACK_IMPORTED_MODULE_9__["Performance"](screeningEvent).isTicketedSeat()
+                    && availableSeats.length !== reservations.length) {
+                    throw new Error('Out of stock').message;
                 }
                 const authorizeSeatReservation = yield this.cinerinoService.transaction.placeOrder.authorizeSeatReservation({
                     object: {
@@ -10498,11 +10609,12 @@ let PurchaseEffects = class PurchaseEffects {
                         },
                         acceptedOffer: reservations.map((reservation, index) => {
                             if (reservation.ticket === undefined) {
-                                throw new Error('ticket is undefined');
+                                throw new Error('ticket is undefined').message;
                             }
                             return {
                                 id: reservation.ticket.ticketOffer.id,
-                                ticketedSeat: (freeSeats.length > 0) ? freeSeats[index] : undefined,
+                                ticketedSeat: (new _models__WEBPACK_IMPORTED_MODULE_9__["Performance"](screeningEvent).isTicketedSeat())
+                                    ? availableSeats[index] : undefined,
                                 addOn: (reservation.ticket.addOn === undefined)
                                     ? undefined
                                     : reservation.ticket.addOn.map(a => ({ id: a.id })),
@@ -10799,6 +10911,10 @@ __decorate([
 __decorate([
     Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_3__["Effect"])(),
     __metadata("design:type", Object)
+], PurchaseEffects.prototype, "getScreeningEvent", void 0);
+__decorate([
+    Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_3__["Effect"])(),
+    __metadata("design:type", Object)
 ], PurchaseEffects.prototype, "getScreeningEventOffers", void 0);
 __decorate([
     Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_3__["Effect"])(),
@@ -11000,11 +11116,6 @@ function reducer(state, action) {
             const screeningEvent = action.payload.screeningEvent;
             state.admissionData.screeningEvent = screeningEvent;
             return Object.assign({}, state, { loading: false, process: '' });
-        }
-        case _actions__WEBPACK_IMPORTED_MODULE_0__["admissionAction"].ActionTypes.SelectScreeningEvent: {
-            const screeningEvent = action.payload.screeningEvent;
-            state.admissionData.screeningEvent = screeningEvent;
-            return Object.assign({}, state, { loading: false, process: '', error: null });
         }
         case _actions__WEBPACK_IMPORTED_MODULE_0__["admissionAction"].ActionTypes.GetScreeningEvent: {
             return Object.assign({}, state);
@@ -11354,10 +11465,16 @@ function reducer(state, action) {
             state.purchaseData.scheduleDate = scheduleDate;
             return Object.assign({}, state, { loading: true, process: '', error: null });
         }
-        case _actions__WEBPACK_IMPORTED_MODULE_2__["purchaseAction"].ActionTypes.SelectSchedule: {
-            const screeningEvent = action.payload.screeningEvent;
-            state.purchaseData.screeningEvent = screeningEvent;
-            return Object.assign({}, state, { loading: false, process: '' });
+        case _actions__WEBPACK_IMPORTED_MODULE_2__["purchaseAction"].ActionTypes.GetScreeningEvent: {
+            return Object.assign({}, state, { loading: true, process: 'purchaseAction.GetScreeningEvent' });
+        }
+        case _actions__WEBPACK_IMPORTED_MODULE_2__["purchaseAction"].ActionTypes.GetScreeningEventSuccess: {
+            state.purchaseData.screeningEvent = action.payload.screeningEvent;
+            return Object.assign({}, state, { loading: false, process: '', error: null });
+        }
+        case _actions__WEBPACK_IMPORTED_MODULE_2__["purchaseAction"].ActionTypes.GetScreeningEventFail: {
+            const error = action.payload.error;
+            return Object.assign({}, state, { loading: false, process: '', error: JSON.stringify(error) });
         }
         case _actions__WEBPACK_IMPORTED_MODULE_2__["purchaseAction"].ActionTypes.StartTransaction: {
             return Object.assign({}, state, { loading: true, process: 'purchaseAction.StartTransaction' });

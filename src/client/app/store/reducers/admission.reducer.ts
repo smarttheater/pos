@@ -43,11 +43,6 @@ export function reducer(state: IState, action: admissionAction.Actions): IState 
             state.admissionData.screeningEvent = screeningEvent;
             return { ...state, loading: false, process: '' };
         }
-        case admissionAction.ActionTypes.SelectScreeningEvent: {
-            const screeningEvent = action.payload.screeningEvent;
-            state.admissionData.screeningEvent = screeningEvent;
-            return { ...state, loading: false,  process: '', error: null };
-        }
         case admissionAction.ActionTypes.GetScreeningEvent: {
             return { ...state };
         }

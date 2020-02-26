@@ -129,8 +129,8 @@ export class PurchaseEventTicketComponent implements OnInit, OnDestroy {
             });
             return;
         }
-        this.purchaseService.selectSchedule(screeningEvent);
         try {
+            await this.purchaseService.getScreeningEvent(screeningEvent);
             await this.purchaseService.getScreeningEventOffers();
             await this.purchaseService.getTicketList(user.seller);
             this.openTicketList();
@@ -211,7 +211,11 @@ export class PurchaseEventTicketComponent implements OnInit, OnDestroy {
             console.error(error);
             this.utilService.openAlert({
                 title: this.translate.instant('common.error'),
-                body: this.translate.instant('purchase.event.ticket.alert.temporaryReservation')
+                body: `
+                <p class="mb-4">${this.translate.instant('purchase.event.ticket.alert.temporaryReservation')}</p>
+                <div class="p-3 bg-light-gray select-text text-left">
+                    <code>${JSON.stringify(error)}</code>
+                </div>`
             });
         }
     }
