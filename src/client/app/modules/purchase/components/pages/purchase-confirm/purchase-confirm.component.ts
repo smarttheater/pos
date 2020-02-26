@@ -6,7 +6,7 @@ import { TranslateService } from '@ngx-translate/core';
 import * as moment from 'moment';
 import { Observable } from 'rxjs';
 import { getEnvironment } from '../../../../../../environments/environment';
-import { getAmount } from '../../../../../functions';
+import { getAmount, getCustomPaymentMethodTypeName } from '../../../../../functions';
 import { ViewType } from '../../../../../models';
 import { PurchaseService, UserService, UtilService } from '../../../../../services';
 import * as reducers from '../../../../../store/reducers';
@@ -26,6 +26,7 @@ export class PurchaseConfirmComponent implements OnInit {
     public depositAmount: string;
     public amount: number;
     public environment = getEnvironment();
+    public getCustomPaymentMethodTypeName = getCustomPaymentMethodTypeName;
 
     constructor(
         private store: Store<reducers.IState>,
@@ -62,7 +63,7 @@ export class PurchaseConfirmComponent implements OnInit {
             this.router.navigate(['/error']);
             return;
         }
-        if (paymentMethod.paymentMethodType === factory.paymentMethodType.Cash) {
+        if (paymentMethod.typeOf === factory.paymentMethodType.Cash) {
             if (Number(this.depositAmount) < this.amount) {
                 this.utilService.openAlert({
                     title: this.translate.instant('common.error'),
@@ -77,7 +78,7 @@ export class PurchaseConfirmComponent implements OnInit {
             }
             await this.purchaseService.authorizeAnyPayment({
                 amount: this.amount,
-                depositAmount: (paymentMethod.paymentMethodType === factory.paymentMethodType.Cash)
+                depositAmount: (paymentMethod.typeOf === factory.paymentMethodType.Cash)
                     ? Number(this.depositAmount) : undefined
             });
             await this.purchaseService.registerContact(contact);

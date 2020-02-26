@@ -36,8 +36,8 @@ export class PurchasePaymentComponent implements OnInit {
      * 決済方法選択
      */
     public selectPaymentMethodType(
-        paymentMethodType: factory.paymentMethodType,
-        paymentMethodName?: 'RegiGrow'
+        typeOf: factory.paymentMethodType,
+        category?: string
     ) {
         this.user.subscribe((user) => {
             if (user.seller === undefined
@@ -47,7 +47,7 @@ export class PurchasePaymentComponent implements OnInit {
                 return;
             }
             const findResult = user.seller.paymentAccepted
-                .find(paymentAccepted => paymentAccepted.paymentMethodType === paymentMethodType);
+                .find(paymentAccepted => paymentAccepted.paymentMethodType === typeOf);
             if (findResult === undefined) {
                 this.utilService.openAlert({
                     title: this.translate.instant('common.error'),
@@ -55,7 +55,7 @@ export class PurchasePaymentComponent implements OnInit {
                 });
                 return;
             }
-            this.purchaseService.selectPaymentMethodType({ paymentMethodType, paymentMethodName });
+            this.purchaseService.selectPaymentMethodType({ typeOf, category });
             this.router.navigate(['/purchase/confirm']);
         }).unsubscribe();
     }
