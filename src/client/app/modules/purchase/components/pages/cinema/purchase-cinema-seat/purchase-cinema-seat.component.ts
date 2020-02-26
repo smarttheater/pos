@@ -125,14 +125,15 @@ export class PurchaseCinemaSeatComponent implements OnInit {
      */
     public async onSubmit() {
         const purchase = await this.purchaseService.getData();
-        if (purchase.reservations.length === 0) {
+        const reservations = purchase.reservations;
+        if (reservations.length === 0) {
             this.utilService.openAlert({
                 title: this.translate.instant('common.error'),
                 body: this.translate.instant('purchase.cinema.seat.alert.unselected')
             });
             return;
         }
-        if (purchase.reservations.length > Number(this.environment.PURCHASE_ITEM_MAX_LENGTH)) {
+        if (reservations.length > Number(this.environment.PURCHASE_ITEM_MAX_LENGTH)) {
             this.utilService.openAlert({
                 title: this.translate.instant('common.error'),
                 body: this.translate.instant(
@@ -143,7 +144,7 @@ export class PurchaseCinemaSeatComponent implements OnInit {
             return;
         }
         try {
-            await this.purchaseService.temporaryReservation();
+            await this.purchaseService.temporaryReservation({ reservations });
             this.router.navigate(['/purchase/cinema/ticket']);
         } catch (error) {
             console.error(error);

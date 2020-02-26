@@ -35,7 +35,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("<div class=\"contents-width mx-auto px-3 py-5\">\n    <h2 class=\"text-large mb-4 text-center font-weight-bold\">{{ 'purchase.cinema.seat.title' | translate }}</h2>\n    <p class=\"mb-4 text-md-center\" [innerHTML]=\"'purchase.cinema.seat.read' | translate\"></p>\n    <div class=\"d-flex mb-3\">\n        <button type=\"button\" class=\"btn btn-primary mr-2\" [disabled]=\"isLoading | async\"\n            (click)=\"allSelectSeats()\">{{ 'purchase.cinema.seat.allSelect' | translate }}</button>\n        <button type=\"button\" class=\"btn btn-outline-primary m-0\"\n            (click)=\"resetSeats()\">{{ 'purchase.cinema.seat.reset' | translate }}</button>\n    </div>\n    <app-screen *ngIf=\"(purchase | async).screenData && (purchase | async).screeningEventOffers.length > 0\" class=\"mb-4\"\n        [screenData]=\"(purchase | async).screenData\" (select)=\"selectSeat($event)\">\n    </app-screen>\n\n    <app-purchase-info class=\"mb-4\" [purchase]=\"purchase | async\"></app-purchase-info>\n\n    <div *ngIf=\"environment.PURCHASE_TERMS\">\n        <h2 class=\"text-large mb-4 text-center font-weight-bold\">{{ 'purchase.cinema.seat.terms' | translate }}</h2>\n        <div class=\"mb-4\">\n            <app-purchase-terms [language]=\"(user | async).language\"\n                [screeningEvent]=\"(purchase | async).screeningEvent\"></app-purchase-terms>\n        </div>\n    </div>\n\n    <div class=\"buttons mx-auto text-center\">\n        <button type=\"submit\" class=\"btn btn-primary btn-block py-3 mb-3\" [disabled]=\"isLoading | async\"\n            (click)=\"onSubmit()\">{{ 'purchase.cinema.seat.next' | translate }}</button>\n        <button type=\"button\" class=\"btn btn-link\"\n            routerLink=\"/purchase/cinema/schedule\">{{ 'purchase.cinema.seat.prev' | translate }}</button>\n    </div>\n\n</div>");
+/* harmony default export */ __webpack_exports__["default"] = ("<div class=\"contents-width mx-auto px-3 py-5\">\n    <h2 class=\"text-large mb-4 text-center font-weight-bold\">{{ 'purchase.cinema.seat.title' | translate }}</h2>\n    <p class=\"mb-4 text-md-center\" [innerHTML]=\"'purchase.cinema.seat.read' | translate\"></p>\n    <div class=\"d-flex mb-3\">\n        <button type=\"button\" class=\"btn btn-primary mr-2\" [disabled]=\"isLoading | async\"\n            (click)=\"allSelectSeats()\">{{ 'purchase.cinema.seat.allSelect' | translate }}</button>\n        <button type=\"button\" class=\"btn btn-outline-primary m-0\"\n            (click)=\"resetSeats()\">{{ 'purchase.cinema.seat.reset' | translate }}</button>\n    </div>\n    <!-- <app-screen *ngIf=\"(purchase | async).screenData && (purchase | async).screeningEventOffers.length > 0\" class=\"mb-4\"\n        [screenData]=\"(purchase | async).screenData\" (select)=\"selectSeat($event)\">\n    </app-screen>\n\n    <app-purchase-info class=\"mb-4\" [purchase]=\"purchase | async\"></app-purchase-info> -->\n\n    <div class=\"row\">\n        <div class=\"col-lg-9\">\n            <app-screen *ngIf=\"(purchase | async).screenData && (purchase | async).screeningEventOffers.length > 0\"\n                class=\"mb-4\" [screenData]=\"(purchase | async).screenData\" (select)=\"selectSeat($event)\">\n            </app-screen>\n        </div>\n        <div class=\"col-lg-3\">\n            <app-purchase-info class=\"mb-4\" [purchase]=\"purchase | async\"></app-purchase-info>\n        </div>\n    </div>\n\n    <div *ngIf=\"environment.PURCHASE_TERMS\">\n        <h2 class=\"text-large mb-4 text-center font-weight-bold\">{{ 'purchase.cinema.seat.terms' | translate }}</h2>\n        <div class=\"mb-4\">\n            <app-purchase-terms [language]=\"(user | async).language\"\n                [screeningEvent]=\"(purchase | async).screeningEvent\"></app-purchase-terms>\n        </div>\n    </div>\n\n    <div class=\"buttons mx-auto text-center\">\n        <button type=\"submit\" class=\"btn btn-primary btn-block py-3 mb-3\" [disabled]=\"isLoading | async\"\n            (click)=\"onSubmit()\">{{ 'purchase.cinema.seat.next' | translate }}</button>\n        <button type=\"button\" class=\"btn btn-link\"\n            routerLink=\"/purchase/cinema/schedule\">{{ 'purchase.cinema.seat.prev' | translate }}</button>\n    </div>\n\n</div>");
 
 /***/ }),
 
@@ -48,7 +48,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("<div class=\"contents-width mx-auto px-3 py-5\">\n\n    <h2 class=\"text-large mb-4 text-center font-weight-bold\">{{ 'purchase.cinema.ticket.title' | translate }}</h2>\n    <p class=\"mb-4 text-md-center\" [innerHTML]=\"'purchase.cinema.ticket.read' | translate\"></p>\n\n    <div class=\"mb-4\">\n        <button type=\"button\" class=\"btn btn-primary\" [disabled]=\"isLoading | async\"\n            (click)=\"openTicketList()\">{{ 'purchase.cinema.ticket.allSelect' | translate }}</button>\n    </div>\n\n    <div *ngIf=\"(purchase | async).isUsedMovieTicket\" class=\"mb-4\">\n        <div class=\"bg-white p-3 d-md-flex align-items-center movieticket\">\n            <p class=\"mb-2 mb-md-0\">{{ 'purchase.cinema.ticket.mvtk' | translate }}</p>\n            <div>\n                <button type=\"button\" (click)=\"openMovieTicket()\"\n                    class=\"btn btn-block bg-white border border-gray py-3\">\n                    <img src=\"/assets/images/mvtk.svg\" height=\"24\">\n                </button>\n            </div>\n        </div>\n    </div>\n\n    \n\n    <div class=\"mb-4\">\n        <ul class=\"d-flex flex-wrap\">\n            <li *ngFor=\"let reservation of (purchase | async).reservations\">\n                <div class=\"bg-white p-3 m-2\">\n                    <p class=\"mb-2 font-weight-bold text-large\">\n                        <span class=\"mr-2\">{{ 'common.seat' | translate }}</span>{{ reservation.seat.seatNumber }}\n                    </p>\n                    <div>\n                        <button *ngIf=\"reservation.ticket === undefined\" type=\"button\" (click)=\"openTicketList(reservation)\"\n                            class=\"btn btn-primary btn-block py-3\">{{ 'purchase.cinema.ticket.unselected' | translate }}</button>\n                        <button *ngIf=\"reservation.ticket !== undefined\" type=\"button\" (click)=\"openTicketList(reservation)\"\n                            class=\"btn btn-block border border-primary text-primary bg-white py-3\">\n                                <div class=\"d-flex justify-content-between align-items-center\" *ngFor=\"let priceComponent of reservation.ticket?.ticketOffer.priceSpecification.priceComponent\">\n                                    <p class=\"w-50 text-left\">{{ priceComponent.name | changeLanguage }}</p>\n                                    <p class=\"w-50 text-right\">\n                                        <span>{{ priceComponent.price | currency : priceComponent.priceCurrency }}</span><!--\n                                        --><span class=\"text-small\" *ngIf=\"priceComponent?.referenceQuantity?.value\">{{ 'common.referenceQuantityValue' | translate: { value: priceComponent?.referenceQuantity?.value } }}</span>\n                                    </p>\n                                </div>\n                                <div class=\"d-flex justify-content-between align-items-center\" *ngFor=\"let addOn of reservation.ticket?.addOn;\">\n                                    <p class=\"w-50 text-left\">{{ addOn.priceSpecification.name | changeLanguage }}</p>\n                                    <p class=\"w-50 text-right\">\n                                        <span>{{ addOn.priceSpecification.price | currency : addOn.priceSpecification.priceCurrency }}</span><!--\n                                        --><span class=\"text-small\" *ngIf=\"addOn.priceSpecification?.referenceQuantity?.value\">{{ 'common.referenceQuantityValue' | translate: { value: addOn.priceSpecification?.referenceQuantity?.value } }}</span>\n                                    </p>\n                                </div>\n                            </button>\n                    </div>\n                </div>\n            </li>\n        </ul>\n    </div>\n\n    <app-purchase-info class=\"mb-4\" [purchase]=\"purchase | async\"></app-purchase-info>\n\n    <div class=\"buttons mx-auto text-center\">\n        <button type=\"submit\" class=\"btn btn-primary btn-block py-3 mb-3\" [disabled]=\"isLoading | async\"\n            (click)=\"onSubmit()\">{{ 'purchase.cinema.ticket.next' | translate }}</button>\n        <button type=\"button\" class=\"btn btn-link\"\n            routerLink=\"/purchase/cinema/seat\">{{ 'purchase.cinema.ticket.prev' | translate }}</button>\n    </div>\n\n\n</div>");
+/* harmony default export */ __webpack_exports__["default"] = ("<div class=\"contents-width mx-auto px-3 py-5\">\n\n    <h2 class=\"text-large mb-4 text-center font-weight-bold\">{{ 'purchase.cinema.ticket.title' | translate }}</h2>\n    <p class=\"mb-4 text-md-center\" [innerHTML]=\"'purchase.cinema.ticket.read' | translate\"></p>\n\n    <div class=\"mb-4\">\n        <button type=\"button\" class=\"btn btn-primary\" [disabled]=\"isLoading | async\"\n            (click)=\"openTicketList()\">{{ 'purchase.cinema.ticket.allSelect' | translate }}</button>\n    </div>\n\n    <div *ngIf=\"(purchase | async).isUsedMovieTicket\" class=\"mb-4\">\n        <div class=\"bg-white p-3 d-md-flex align-items-center movieticket\">\n            <p class=\"mb-2 mb-md-0\">{{ 'purchase.cinema.ticket.mvtk' | translate }}</p>\n            <div>\n                <button type=\"button\" (click)=\"openMovieTicket()\"\n                    class=\"btn btn-block bg-white border border-gray py-3\">\n                    <img src=\"/assets/images/mvtk.svg\" height=\"24\">\n                </button>\n            </div>\n        </div>\n    </div>\n\n    \n\n    <div class=\"mb-4\">\n        <ul class=\"d-flex flex-wrap\">\n            <li *ngFor=\"let reservation of (purchase | async).reservations\">\n                <div class=\"bg-white p-3 m-2\">\n                    <p class=\"mb-2 font-weight-bold text-large\">\n                        <span class=\"mr-2\">{{ 'common.seat' | translate }}</span>{{ reservation.seat.seatNumber }}\n                    </p>\n                    <div>\n                        <button *ngIf=\"reservation.ticket === undefined\" type=\"button\" (click)=\"openTicketList(reservation)\"\n                            class=\"btn btn-primary btn-block py-3\">{{ 'purchase.cinema.ticket.unselected' | translate }}</button>\n                        <button *ngIf=\"reservation.ticket !== undefined\" type=\"button\" (click)=\"openTicketList(reservation)\"\n                            class=\"btn btn-block border border-primary text-primary bg-white py-3\">\n                            <div class=\"d-flex justify-content-between align-items-center\" *ngFor=\"let priceComponent of reservation.ticket?.ticketOffer.priceSpecification.priceComponent\">\n                                <p class=\"w-50 text-left\">{{ priceComponent.name | changeLanguage }}</p>\n                                <p class=\"w-50 text-right\">\n                                    <span>{{ priceComponent.price | currency : priceComponent.priceCurrency }}</span><!--\n                                    --><span class=\"text-small\" *ngIf=\"priceComponent?.referenceQuantity?.value\">{{ 'common.referenceQuantityValue' | translate: { value: priceComponent?.referenceQuantity?.value } }}</span>\n                                </p>\n                            </div>\n                            <div class=\"d-flex justify-content-between align-items-center\" *ngFor=\"let addOn of reservation.ticket?.addOn;\">\n                                <p class=\"w-50 text-left\">{{ addOn.priceSpecification.name | changeLanguage }}</p>\n                                <p class=\"w-50 text-right\">\n                                    <span>{{ addOn.priceSpecification.price | currency : addOn.priceSpecification.priceCurrency }}</span><!--\n                                    --><span class=\"text-small\" *ngIf=\"addOn.priceSpecification?.referenceQuantity?.value\">{{ 'common.referenceQuantityValue' | translate: { value: addOn.priceSpecification?.referenceQuantity?.value } }}</span>\n                                </p>\n                            </div>\n                        </button>\n                    </div>\n                </div>\n            </li>\n        </ul>\n    </div>\n\n    <div class=\"mb-4 additional-ticket-text\">\n        <p>{{ 'common.additionalTicketText' | translate }}</p>\n        <textarea [(ngModel)]=\"additionalTicketText\" class=\"py-1 px-2\"></textarea>\n    </div>\n\n    <app-purchase-info class=\"mb-4\" [purchase]=\"purchase | async\"></app-purchase-info>\n\n    <div class=\"buttons mx-auto text-center\">\n        <button type=\"submit\" class=\"btn btn-primary btn-block py-3 mb-3\" [disabled]=\"isLoading | async\"\n            (click)=\"onSubmit()\">{{ 'purchase.cinema.ticket.next' | translate }}</button>\n        <button type=\"button\" class=\"btn btn-link\"\n            routerLink=\"/purchase/cinema/seat\">{{ 'purchase.cinema.ticket.prev' | translate }}</button>\n    </div>\n\n\n</div>");
 
 /***/ }),
 
@@ -833,14 +833,15 @@ let PurchaseCinemaSeatComponent = class PurchaseCinemaSeatComponent {
     onSubmit() {
         return __awaiter(this, void 0, void 0, function* () {
             const purchase = yield this.purchaseService.getData();
-            if (purchase.reservations.length === 0) {
+            const reservations = purchase.reservations;
+            if (reservations.length === 0) {
                 this.utilService.openAlert({
                     title: this.translate.instant('common.error'),
                     body: this.translate.instant('purchase.cinema.seat.alert.unselected')
                 });
                 return;
             }
-            if (purchase.reservations.length > Number(this.environment.PURCHASE_ITEM_MAX_LENGTH)) {
+            if (reservations.length > Number(this.environment.PURCHASE_ITEM_MAX_LENGTH)) {
                 this.utilService.openAlert({
                     title: this.translate.instant('common.error'),
                     body: this.translate.instant('purchase.cinema.seat.alert.limit', { value: this.environment.PURCHASE_ITEM_MAX_LENGTH })
@@ -848,7 +849,7 @@ let PurchaseCinemaSeatComponent = class PurchaseCinemaSeatComponent {
                 return;
             }
             try {
-                yield this.purchaseService.temporaryReservation();
+                yield this.purchaseService.temporaryReservation({ reservations });
                 this.router.navigate(['/purchase/cinema/ticket']);
             }
             catch (error) {
@@ -967,6 +968,7 @@ let PurchaseCinemaTicketComponent = class PurchaseCinemaTicketComponent {
         this.purchase = this.store.pipe(Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_3__["select"])(_store_reducers__WEBPACK_IMPORTED_MODULE_8__["getPurchase"]));
         this.user = this.store.pipe(Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_3__["select"])(_store_reducers__WEBPACK_IMPORTED_MODULE_8__["getUser"]));
         this.isLoading = this.store.pipe(Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_3__["select"])(_store_reducers__WEBPACK_IMPORTED_MODULE_8__["getLoading"]));
+        this.additionalTicketText = '';
     }
     /**
      * 確定
@@ -1020,7 +1022,8 @@ let PurchaseCinemaTicketComponent = class PurchaseCinemaTicketComponent {
                 return;
             }
             try {
-                yield this.purchaseService.temporaryReservation();
+                const additionalTicketText = this.additionalTicketText;
+                yield this.purchaseService.temporaryReservation({ reservations, additionalTicketText });
                 if (!this.environment.PURCHASE_CART) {
                     this.router.navigate(['/purchase/payment']);
                     return;
@@ -1544,8 +1547,8 @@ let PurchaseEventTicketComponent = class PurchaseEventTicketComponent {
                         screeningEventTicketOffers,
                         screeningEventOffers,
                         screeningEvent,
-                        cb: (reservations) => {
-                            this.selectTicket(reservations);
+                        cb: (params) => {
+                            this.selectTicket(params);
                         }
                     }
                 });
@@ -1555,8 +1558,10 @@ let PurchaseEventTicketComponent = class PurchaseEventTicketComponent {
     /**
      * 券種選択
      */
-    selectTicket(reservations) {
+    selectTicket(params) {
         return __awaiter(this, void 0, void 0, function* () {
+            const reservations = params.reservations;
+            const additionalTicketText = params.additionalTicketText;
             if (reservations.length > Number(this.environment.PURCHASE_ITEM_MAX_LENGTH)) {
                 this.utilService.openAlert({
                     title: this.translate.instant('common.error'),
@@ -1587,7 +1592,7 @@ let PurchaseEventTicketComponent = class PurchaseEventTicketComponent {
                 });
             }
             try {
-                yield this.purchaseService.temporaryReservationFreeSeat(reservations);
+                yield this.purchaseService.temporaryReservation({ reservations, additionalTicketText });
                 this.utilService.openAlert({
                     title: this.translate.instant('common.complete'),
                     body: this.translate.instant('purchase.event.ticket.success.temporaryReservation')

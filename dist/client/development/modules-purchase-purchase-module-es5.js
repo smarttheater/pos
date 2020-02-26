@@ -61,7 +61,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
     /* harmony default export */
 
 
-    __webpack_exports__["default"] = "<div class=\"contents-width mx-auto px-3 py-5\">\n    <h2 class=\"text-large mb-4 text-center font-weight-bold\">{{ 'purchase.cinema.seat.title' | translate }}</h2>\n    <p class=\"mb-4 text-md-center\" [innerHTML]=\"'purchase.cinema.seat.read' | translate\"></p>\n    <div class=\"d-flex mb-3\">\n        <button type=\"button\" class=\"btn btn-primary mr-2\" [disabled]=\"isLoading | async\"\n            (click)=\"allSelectSeats()\">{{ 'purchase.cinema.seat.allSelect' | translate }}</button>\n        <button type=\"button\" class=\"btn btn-outline-primary m-0\"\n            (click)=\"resetSeats()\">{{ 'purchase.cinema.seat.reset' | translate }}</button>\n    </div>\n    <app-screen *ngIf=\"(purchase | async).screenData && (purchase | async).screeningEventOffers.length > 0\" class=\"mb-4\"\n        [screenData]=\"(purchase | async).screenData\" (select)=\"selectSeat($event)\">\n    </app-screen>\n\n    <app-purchase-info class=\"mb-4\" [purchase]=\"purchase | async\"></app-purchase-info>\n\n    <div *ngIf=\"environment.PURCHASE_TERMS\">\n        <h2 class=\"text-large mb-4 text-center font-weight-bold\">{{ 'purchase.cinema.seat.terms' | translate }}</h2>\n        <div class=\"mb-4\">\n            <app-purchase-terms [language]=\"(user | async).language\"\n                [screeningEvent]=\"(purchase | async).screeningEvent\"></app-purchase-terms>\n        </div>\n    </div>\n\n    <div class=\"buttons mx-auto text-center\">\n        <button type=\"submit\" class=\"btn btn-primary btn-block py-3 mb-3\" [disabled]=\"isLoading | async\"\n            (click)=\"onSubmit()\">{{ 'purchase.cinema.seat.next' | translate }}</button>\n        <button type=\"button\" class=\"btn btn-link\"\n            routerLink=\"/purchase/cinema/schedule\">{{ 'purchase.cinema.seat.prev' | translate }}</button>\n    </div>\n\n</div>";
+    __webpack_exports__["default"] = "<div class=\"contents-width mx-auto px-3 py-5\">\n    <h2 class=\"text-large mb-4 text-center font-weight-bold\">{{ 'purchase.cinema.seat.title' | translate }}</h2>\n    <p class=\"mb-4 text-md-center\" [innerHTML]=\"'purchase.cinema.seat.read' | translate\"></p>\n    <div class=\"d-flex mb-3\">\n        <button type=\"button\" class=\"btn btn-primary mr-2\" [disabled]=\"isLoading | async\"\n            (click)=\"allSelectSeats()\">{{ 'purchase.cinema.seat.allSelect' | translate }}</button>\n        <button type=\"button\" class=\"btn btn-outline-primary m-0\"\n            (click)=\"resetSeats()\">{{ 'purchase.cinema.seat.reset' | translate }}</button>\n    </div>\n    <!-- <app-screen *ngIf=\"(purchase | async).screenData && (purchase | async).screeningEventOffers.length > 0\" class=\"mb-4\"\n        [screenData]=\"(purchase | async).screenData\" (select)=\"selectSeat($event)\">\n    </app-screen>\n\n    <app-purchase-info class=\"mb-4\" [purchase]=\"purchase | async\"></app-purchase-info> -->\n\n    <div class=\"row\">\n        <div class=\"col-lg-9\">\n            <app-screen *ngIf=\"(purchase | async).screenData && (purchase | async).screeningEventOffers.length > 0\"\n                class=\"mb-4\" [screenData]=\"(purchase | async).screenData\" (select)=\"selectSeat($event)\">\n            </app-screen>\n        </div>\n        <div class=\"col-lg-3\">\n            <app-purchase-info class=\"mb-4\" [purchase]=\"purchase | async\"></app-purchase-info>\n        </div>\n    </div>\n\n    <div *ngIf=\"environment.PURCHASE_TERMS\">\n        <h2 class=\"text-large mb-4 text-center font-weight-bold\">{{ 'purchase.cinema.seat.terms' | translate }}</h2>\n        <div class=\"mb-4\">\n            <app-purchase-terms [language]=\"(user | async).language\"\n                [screeningEvent]=\"(purchase | async).screeningEvent\"></app-purchase-terms>\n        </div>\n    </div>\n\n    <div class=\"buttons mx-auto text-center\">\n        <button type=\"submit\" class=\"btn btn-primary btn-block py-3 mb-3\" [disabled]=\"isLoading | async\"\n            (click)=\"onSubmit()\">{{ 'purchase.cinema.seat.next' | translate }}</button>\n        <button type=\"button\" class=\"btn btn-link\"\n            routerLink=\"/purchase/cinema/schedule\">{{ 'purchase.cinema.seat.prev' | translate }}</button>\n    </div>\n\n</div>";
     /***/
   },
 
@@ -81,7 +81,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
     /* harmony default export */
 
 
-    __webpack_exports__["default"] = "<div class=\"contents-width mx-auto px-3 py-5\">\n\n    <h2 class=\"text-large mb-4 text-center font-weight-bold\">{{ 'purchase.cinema.ticket.title' | translate }}</h2>\n    <p class=\"mb-4 text-md-center\" [innerHTML]=\"'purchase.cinema.ticket.read' | translate\"></p>\n\n    <div class=\"mb-4\">\n        <button type=\"button\" class=\"btn btn-primary\" [disabled]=\"isLoading | async\"\n            (click)=\"openTicketList()\">{{ 'purchase.cinema.ticket.allSelect' | translate }}</button>\n    </div>\n\n    <div *ngIf=\"(purchase | async).isUsedMovieTicket\" class=\"mb-4\">\n        <div class=\"bg-white p-3 d-md-flex align-items-center movieticket\">\n            <p class=\"mb-2 mb-md-0\">{{ 'purchase.cinema.ticket.mvtk' | translate }}</p>\n            <div>\n                <button type=\"button\" (click)=\"openMovieTicket()\"\n                    class=\"btn btn-block bg-white border border-gray py-3\">\n                    <img src=\"/assets/images/mvtk.svg\" height=\"24\">\n                </button>\n            </div>\n        </div>\n    </div>\n\n    \n\n    <div class=\"mb-4\">\n        <ul class=\"d-flex flex-wrap\">\n            <li *ngFor=\"let reservation of (purchase | async).reservations\">\n                <div class=\"bg-white p-3 m-2\">\n                    <p class=\"mb-2 font-weight-bold text-large\">\n                        <span class=\"mr-2\">{{ 'common.seat' | translate }}</span>{{ reservation.seat.seatNumber }}\n                    </p>\n                    <div>\n                        <button *ngIf=\"reservation.ticket === undefined\" type=\"button\" (click)=\"openTicketList(reservation)\"\n                            class=\"btn btn-primary btn-block py-3\">{{ 'purchase.cinema.ticket.unselected' | translate }}</button>\n                        <button *ngIf=\"reservation.ticket !== undefined\" type=\"button\" (click)=\"openTicketList(reservation)\"\n                            class=\"btn btn-block border border-primary text-primary bg-white py-3\">\n                                <div class=\"d-flex justify-content-between align-items-center\" *ngFor=\"let priceComponent of reservation.ticket?.ticketOffer.priceSpecification.priceComponent\">\n                                    <p class=\"w-50 text-left\">{{ priceComponent.name | changeLanguage }}</p>\n                                    <p class=\"w-50 text-right\">\n                                        <span>{{ priceComponent.price | currency : priceComponent.priceCurrency }}</span><!--\n                                        --><span class=\"text-small\" *ngIf=\"priceComponent?.referenceQuantity?.value\">{{ 'common.referenceQuantityValue' | translate: { value: priceComponent?.referenceQuantity?.value } }}</span>\n                                    </p>\n                                </div>\n                                <div class=\"d-flex justify-content-between align-items-center\" *ngFor=\"let addOn of reservation.ticket?.addOn;\">\n                                    <p class=\"w-50 text-left\">{{ addOn.priceSpecification.name | changeLanguage }}</p>\n                                    <p class=\"w-50 text-right\">\n                                        <span>{{ addOn.priceSpecification.price | currency : addOn.priceSpecification.priceCurrency }}</span><!--\n                                        --><span class=\"text-small\" *ngIf=\"addOn.priceSpecification?.referenceQuantity?.value\">{{ 'common.referenceQuantityValue' | translate: { value: addOn.priceSpecification?.referenceQuantity?.value } }}</span>\n                                    </p>\n                                </div>\n                            </button>\n                    </div>\n                </div>\n            </li>\n        </ul>\n    </div>\n\n    <app-purchase-info class=\"mb-4\" [purchase]=\"purchase | async\"></app-purchase-info>\n\n    <div class=\"buttons mx-auto text-center\">\n        <button type=\"submit\" class=\"btn btn-primary btn-block py-3 mb-3\" [disabled]=\"isLoading | async\"\n            (click)=\"onSubmit()\">{{ 'purchase.cinema.ticket.next' | translate }}</button>\n        <button type=\"button\" class=\"btn btn-link\"\n            routerLink=\"/purchase/cinema/seat\">{{ 'purchase.cinema.ticket.prev' | translate }}</button>\n    </div>\n\n\n</div>";
+    __webpack_exports__["default"] = "<div class=\"contents-width mx-auto px-3 py-5\">\n\n    <h2 class=\"text-large mb-4 text-center font-weight-bold\">{{ 'purchase.cinema.ticket.title' | translate }}</h2>\n    <p class=\"mb-4 text-md-center\" [innerHTML]=\"'purchase.cinema.ticket.read' | translate\"></p>\n\n    <div class=\"mb-4\">\n        <button type=\"button\" class=\"btn btn-primary\" [disabled]=\"isLoading | async\"\n            (click)=\"openTicketList()\">{{ 'purchase.cinema.ticket.allSelect' | translate }}</button>\n    </div>\n\n    <div *ngIf=\"(purchase | async).isUsedMovieTicket\" class=\"mb-4\">\n        <div class=\"bg-white p-3 d-md-flex align-items-center movieticket\">\n            <p class=\"mb-2 mb-md-0\">{{ 'purchase.cinema.ticket.mvtk' | translate }}</p>\n            <div>\n                <button type=\"button\" (click)=\"openMovieTicket()\"\n                    class=\"btn btn-block bg-white border border-gray py-3\">\n                    <img src=\"/assets/images/mvtk.svg\" height=\"24\">\n                </button>\n            </div>\n        </div>\n    </div>\n\n    \n\n    <div class=\"mb-4\">\n        <ul class=\"d-flex flex-wrap\">\n            <li *ngFor=\"let reservation of (purchase | async).reservations\">\n                <div class=\"bg-white p-3 m-2\">\n                    <p class=\"mb-2 font-weight-bold text-large\">\n                        <span class=\"mr-2\">{{ 'common.seat' | translate }}</span>{{ reservation.seat.seatNumber }}\n                    </p>\n                    <div>\n                        <button *ngIf=\"reservation.ticket === undefined\" type=\"button\" (click)=\"openTicketList(reservation)\"\n                            class=\"btn btn-primary btn-block py-3\">{{ 'purchase.cinema.ticket.unselected' | translate }}</button>\n                        <button *ngIf=\"reservation.ticket !== undefined\" type=\"button\" (click)=\"openTicketList(reservation)\"\n                            class=\"btn btn-block border border-primary text-primary bg-white py-3\">\n                            <div class=\"d-flex justify-content-between align-items-center\" *ngFor=\"let priceComponent of reservation.ticket?.ticketOffer.priceSpecification.priceComponent\">\n                                <p class=\"w-50 text-left\">{{ priceComponent.name | changeLanguage }}</p>\n                                <p class=\"w-50 text-right\">\n                                    <span>{{ priceComponent.price | currency : priceComponent.priceCurrency }}</span><!--\n                                    --><span class=\"text-small\" *ngIf=\"priceComponent?.referenceQuantity?.value\">{{ 'common.referenceQuantityValue' | translate: { value: priceComponent?.referenceQuantity?.value } }}</span>\n                                </p>\n                            </div>\n                            <div class=\"d-flex justify-content-between align-items-center\" *ngFor=\"let addOn of reservation.ticket?.addOn;\">\n                                <p class=\"w-50 text-left\">{{ addOn.priceSpecification.name | changeLanguage }}</p>\n                                <p class=\"w-50 text-right\">\n                                    <span>{{ addOn.priceSpecification.price | currency : addOn.priceSpecification.priceCurrency }}</span><!--\n                                    --><span class=\"text-small\" *ngIf=\"addOn.priceSpecification?.referenceQuantity?.value\">{{ 'common.referenceQuantityValue' | translate: { value: addOn.priceSpecification?.referenceQuantity?.value } }}</span>\n                                </p>\n                            </div>\n                        </button>\n                    </div>\n                </div>\n            </li>\n        </ul>\n    </div>\n\n    <div class=\"mb-4 additional-ticket-text\">\n        <p>{{ 'common.additionalTicketText' | translate }}</p>\n        <textarea [(ngModel)]=\"additionalTicketText\" class=\"py-1 px-2\"></textarea>\n    </div>\n\n    <app-purchase-info class=\"mb-4\" [purchase]=\"purchase | async\"></app-purchase-info>\n\n    <div class=\"buttons mx-auto text-center\">\n        <button type=\"submit\" class=\"btn btn-primary btn-block py-3 mb-3\" [disabled]=\"isLoading | async\"\n            (click)=\"onSubmit()\">{{ 'purchase.cinema.ticket.next' | translate }}</button>\n        <button type=\"button\" class=\"btn btn-link\"\n            routerLink=\"/purchase/cinema/seat\">{{ 'purchase.cinema.ticket.prev' | translate }}</button>\n    </div>\n\n\n</div>";
     /***/
   },
 
@@ -1572,7 +1572,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
           return __awaiter(this, void 0, void 0,
           /*#__PURE__*/
           regeneratorRuntime.mark(function _callee9() {
-            var purchase;
+            var purchase, reservations;
             return regeneratorRuntime.wrap(function _callee9$(_context9) {
               while (1) {
                 switch (_context9.prev = _context9.next) {
@@ -1582,9 +1582,10 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
                   case 2:
                     purchase = _context9.sent;
+                    reservations = purchase.reservations;
 
-                    if (!(purchase.reservations.length === 0)) {
-                      _context9.next = 6;
+                    if (!(reservations.length === 0)) {
+                      _context9.next = 7;
                       break;
                     }
 
@@ -1594,9 +1595,9 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
                     });
                     return _context9.abrupt("return");
 
-                  case 6:
-                    if (!(purchase.reservations.length > Number(this.environment.PURCHASE_ITEM_MAX_LENGTH))) {
-                      _context9.next = 9;
+                  case 7:
+                    if (!(reservations.length > Number(this.environment.PURCHASE_ITEM_MAX_LENGTH))) {
+                      _context9.next = 10;
                       break;
                     }
 
@@ -1608,31 +1609,33 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
                     });
                     return _context9.abrupt("return");
 
-                  case 9:
-                    _context9.prev = 9;
-                    _context9.next = 12;
-                    return this.purchaseService.temporaryReservation();
+                  case 10:
+                    _context9.prev = 10;
+                    _context9.next = 13;
+                    return this.purchaseService.temporaryReservation({
+                      reservations: reservations
+                    });
 
-                  case 12:
+                  case 13:
                     this.router.navigate(['/purchase/cinema/ticket']);
-                    _context9.next = 19;
+                    _context9.next = 20;
                     break;
 
-                  case 15:
-                    _context9.prev = 15;
-                    _context9.t0 = _context9["catch"](9);
+                  case 16:
+                    _context9.prev = 16;
+                    _context9.t0 = _context9["catch"](10);
                     console.error(_context9.t0);
                     this.utilService.openAlert({
                       title: this.translate.instant('common.error'),
                       body: this.translate.instant('purchase.cinema.seat.alert.temporaryReservation')
                     });
 
-                  case 19:
+                  case 20:
                   case "end":
                     return _context9.stop();
                 }
               }
-            }, _callee9, this, [[9, 15]]);
+            }, _callee9, this, [[10, 16]]);
           }));
         }
       }]);
@@ -1849,6 +1852,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
           this.purchase = this.store.pipe(Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_3__["select"])(_store_reducers__WEBPACK_IMPORTED_MODULE_8__["getPurchase"]));
           this.user = this.store.pipe(Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_3__["select"])(_store_reducers__WEBPACK_IMPORTED_MODULE_8__["getUser"]));
           this.isLoading = this.store.pipe(Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_3__["select"])(_store_reducers__WEBPACK_IMPORTED_MODULE_8__["getLoading"]));
+          this.additionalTicketText = '';
         }
         /**
          * 確定
@@ -1860,7 +1864,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
           return __awaiter(this, void 0, void 0,
           /*#__PURE__*/
           regeneratorRuntime.mark(function _callee10() {
-            var purchase, transaction, screeningEvent, reservations, unselectedReservations, validResult;
+            var purchase, transaction, screeningEvent, reservations, unselectedReservations, validResult, additionalTicketText;
             return regeneratorRuntime.wrap(function _callee10$(_context10) {
               while (1) {
                 switch (_context10.prev = _context10.next) {
@@ -1932,25 +1936,29 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
                   case 17:
                     _context10.prev = 17;
-                    _context10.next = 20;
-                    return this.purchaseService.temporaryReservation();
+                    additionalTicketText = this.additionalTicketText;
+                    _context10.next = 21;
+                    return this.purchaseService.temporaryReservation({
+                      reservations: reservations,
+                      additionalTicketText: additionalTicketText
+                    });
 
-                  case 20:
+                  case 21:
                     if (this.environment.PURCHASE_CART) {
-                      _context10.next = 23;
+                      _context10.next = 24;
                       break;
                     }
 
                     this.router.navigate(['/purchase/payment']);
                     return _context10.abrupt("return");
 
-                  case 23:
+                  case 24:
                     this.router.navigate(['/purchase/cinema/cart']);
-                    _context10.next = 30;
+                    _context10.next = 31;
                     break;
 
-                  case 26:
-                    _context10.prev = 26;
+                  case 27:
+                    _context10.prev = 27;
                     _context10.t0 = _context10["catch"](17);
                     console.error(_context10.t0);
                     this.utilService.openAlert({
@@ -1958,12 +1966,12 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
                       body: "\n                <p class=\"mb-4\">".concat(this.translate.instant('purchase.cinema.ticket.alert.temporaryReservation'), "</p>\n                <div class=\"p-3 bg-light-gray select-text text-left\">\n                    <code>").concat(JSON.stringify(_context10.t0), "</code>\n                </div>")
                     });
 
-                  case 30:
+                  case 31:
                   case "end":
                     return _context10.stop();
                 }
               }
-            }, _callee10, this, [[17, 26]]);
+            }, _callee10, this, [[17, 27]]);
           }));
         }
         /**
@@ -2957,8 +2965,8 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
                           screeningEventTicketOffers: screeningEventTicketOffers,
                           screeningEventOffers: screeningEventOffers,
                           screeningEvent: screeningEvent,
-                          cb: function cb(reservations) {
-                            _this10.selectTicket(reservations);
+                          cb: function cb(params) {
+                            _this10.selectTicket(params);
                           }
                         }
                       });
@@ -2978,17 +2986,20 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
       }, {
         key: "selectTicket",
-        value: function selectTicket(reservations) {
+        value: function selectTicket(params) {
           return __awaiter(this, void 0, void 0,
           /*#__PURE__*/
           regeneratorRuntime.mark(function _callee18() {
-            var purchase, remainingSeatLength;
+            var reservations, additionalTicketText, purchase, remainingSeatLength;
             return regeneratorRuntime.wrap(function _callee18$(_context18) {
               while (1) {
                 switch (_context18.prev = _context18.next) {
                   case 0:
+                    reservations = params.reservations;
+                    additionalTicketText = params.additionalTicketText;
+
                     if (!(reservations.length > Number(this.environment.PURCHASE_ITEM_MAX_LENGTH))) {
-                      _context18.next = 3;
+                      _context18.next = 5;
                       break;
                     }
 
@@ -3000,27 +3011,27 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
                     });
                     return _context18.abrupt("return");
 
-                  case 3:
-                    _context18.prev = 3;
-                    _context18.next = 6;
+                  case 5:
+                    _context18.prev = 5;
+                    _context18.next = 8;
                     return this.purchaseService.getScreeningEventOffers();
 
-                  case 6:
-                    _context18.next = 8;
+                  case 8:
+                    _context18.next = 10;
                     return this.purchaseService.getData();
 
-                  case 8:
+                  case 10:
                     purchase = _context18.sent;
 
                     if (!(purchase.screeningEvent !== undefined && new _models__WEBPACK_IMPORTED_MODULE_8__["Performance"](purchase.screeningEvent).isTicketedSeat())) {
-                      _context18.next = 14;
+                      _context18.next = 16;
                       break;
                     }
 
                     remainingSeatLength = Object(_functions__WEBPACK_IMPORTED_MODULE_7__["getRemainingSeatLength"])(purchase.screeningEventOffers, purchase.screeningEvent);
 
                     if (!(remainingSeatLength < reservations.length)) {
-                      _context18.next = 14;
+                      _context18.next = 16;
                       break;
                     }
 
@@ -3030,47 +3041,50 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
                     });
                     return _context18.abrupt("return");
 
-                  case 14:
-                    _context18.next = 20;
+                  case 16:
+                    _context18.next = 22;
                     break;
 
-                  case 16:
-                    _context18.prev = 16;
-                    _context18.t0 = _context18["catch"](3);
+                  case 18:
+                    _context18.prev = 18;
+                    _context18.t0 = _context18["catch"](5);
                     console.error(_context18.t0);
                     this.utilService.openAlert({
                       title: this.translate.instant('common.error'),
                       body: ''
                     });
 
-                  case 20:
-                    _context18.prev = 20;
-                    _context18.next = 23;
-                    return this.purchaseService.temporaryReservationFreeSeat(reservations);
+                  case 22:
+                    _context18.prev = 22;
+                    _context18.next = 25;
+                    return this.purchaseService.temporaryReservation({
+                      reservations: reservations,
+                      additionalTicketText: additionalTicketText
+                    });
 
-                  case 23:
+                  case 25:
                     this.utilService.openAlert({
                       title: this.translate.instant('common.complete'),
                       body: this.translate.instant('purchase.event.ticket.success.temporaryReservation')
                     });
-                    _context18.next = 30;
+                    _context18.next = 32;
                     break;
 
-                  case 26:
-                    _context18.prev = 26;
-                    _context18.t1 = _context18["catch"](20);
+                  case 28:
+                    _context18.prev = 28;
+                    _context18.t1 = _context18["catch"](22);
                     console.error(_context18.t1);
                     this.utilService.openAlert({
                       title: this.translate.instant('common.error'),
                       body: "\n                <p class=\"mb-4\">".concat(this.translate.instant('purchase.event.ticket.alert.temporaryReservation'), "</p>\n                <div class=\"p-3 bg-light-gray select-text text-left\">\n                    <code>").concat(JSON.stringify(_context18.t1), "</code>\n                </div>")
                     });
 
-                  case 30:
+                  case 32:
                   case "end":
                     return _context18.stop();
                 }
               }
-            }, _callee18, this, [[3, 16], [20, 26]]);
+            }, _callee18, this, [[5, 18], [22, 28]]);
           }));
         }
         /**
