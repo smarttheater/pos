@@ -681,7 +681,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     /* harmony default export */
 
 
-    __webpack_exports__["default"] = "<div class=\"p-3 scroll-vertical text-small\">\n    <div class=\"mb-4\">\n        <div class=\"py-3 border-bottom border-gray\">\n            <div class=\"row align-items-center\">\n                <p class=\"mb-2 mb-md-0 col-md-4\">[{{ 'common.orderDate' | translate }}]</p>\n                <p class=\"col-md-8\">{{ moment(order.orderDate).format('YYYY/MM/DD (ddd) HH:mm') }}</p>\n            </div>\n        </div>\n        <div class=\"py-3 border-bottom border-gray\">\n            <div class=\"row align-items-center\">\n                <p class=\"mb-2 mb-md-0 col-md-4\">[{{ 'common.confirmationNumber' | translate }}]</p>\n                <p class=\"col-md-8\">{{ order.confirmationNumber }}</p>\n            </div>\n        </div>\n        <div class=\"py-3 border-bottom border-gray\">\n            <div class=\"row align-items-center\">\n                <p class=\"mb-2 mb-md-0 col-md-4\">[{{ 'common.orderNumber' | translate }}]</p>\n                <p class=\"col-md-8\">{{ order.orderNumber }}</p>\n            </div>\n        </div>\n        <div class=\"py-3 border-bottom border-gray\">\n            <div class=\"row align-items-center\">\n                <p class=\"mb-2 mb-md-0 col-md-4\">[{{ 'common.event' | translate }}]</p>\n                <div class=\"col-md-8\">\n                    <div *ngFor=\"let eventOrder of eventOrders\" class=\"mb-3\">\n                        <div class=\"mb-1\">\n                            <p class=\"font-weight-bold text-large\">{{ eventOrder.event.name | changeLanguage }}</p>\n                            <p class=\"text-small\"\n                                *ngIf=\"eventOrder.event.superEvent.headline && (eventOrder.event.superEvent.headline | changeLanguage)\">\n                                {{ eventOrder.event.superEvent.headline | changeLanguage }}</p>\n                            <!-- <p class=\"text-small\"\n                                    *ngIf=\"eventOrder.event.superEvent.description && (eventOrder.event.superEvent.description | changeLanguage)\">{{\n                                            eventOrder.event.superEvent.description | changeLanguage }}</p> -->\n                        </div>\n                        <p class=\"mb-1\">\n                            {{ eventOrder.event.startDate | formatDate: 'MM/DD(ddd) HH:mm' }}-{{ eventOrder.event.endDate | formatDate: 'HH:mm' }}\n                        </p>\n                        <p class=\"text-small mb-1\">\n                            <span\n                                class=\"theatre-name\">{{ eventOrder.event.superEvent.location.name | changeLanguage }}</span>\n                            <span\n                                class=\"screen-name\">&nbsp;/&nbsp;<span *ngIf=\"eventOrder.event.location.address\" class=\"mr-2\">{{ eventOrder.event.location.address | changeLanguage }}</span>{{ eventOrder.event.location.name | changeLanguage }}</span>\n                            <span\n                                *ngIf=\"eventOrder.event.workPerformed?.duration && moment.duration(eventOrder.event.workPerformed?.duration).asMinutes() > 0\">\n                                &nbsp;/&nbsp;<span\n                                    class=\"mr-1\">{{ 'common.duration' | translate }}</span>{{ moment.duration(eventOrder.event.workPerformed?.duration).asMinutes() }}{{ 'common.date.minute' | translate }}\n                            </span>\n                        </p>\n                        <div *ngFor=\"let acceptedOffer of eventOrder.data\">\n                            <p>[{{ 'common.reservationNumber' | translate }}]\n                                {{ acceptedOffer.itemOffered.reservationNumber }}</p>\n                            <p>[{{ 'common.reservationId' | translate }}] {{ acceptedOffer.itemOffered.id }}</p>\n                            <app-item-list [acceptedOffers]=\"[acceptedOffer]\"></app-item-list>\n                        </div>\n                    </div>\n                </div>\n            </div>\n        </div>\n        <div class=\"py-3 border-bottom border-gray\">\n            <div class=\"row align-items-center\">\n                <p class=\"mb-2 mb-md-0 col-md-4\">[{{ 'common.customer' | translate }}]</p>\n                <div class=\"col-md-8\">\n                    <p>{{ order.customer.familyName }} {{ order.customer.givenName }}</p>\n                    <p>{{ order.customer.email }}</p>\n                    <p>{{ order.customer.telephone | libphonenumberFormat }}</p>\n                </div>\n            </div>\n        </div>\n        <div class=\"py-3 border-bottom border-gray\">\n            <div class=\"row align-items-center\">\n                <p class=\"mb-2 mb-md-0 col-md-4\">[{{ 'common.price' | translate }}]</p>\n                <p class=\"col-md-8\">\n                    {{ order.price | currency : 'JPY' }}\n                </p>\n            </div>\n        </div>\n        <div class=\"py-3 border-bottom border-gray\">\n            <div class=\"row align-items-center\">\n                <p class=\"mb-2 mb-md-0 col-md-4\">[{{ 'common.orderStatus' | translate }}]</p>\n                <p class=\"col-md-8\">{{ order.orderStatus }}</p>\n            </div>\n        </div>\n        <div class=\"py-3 border-bottom border-gray\">\n            <div class=\"row align-items-center\">\n                <p class=\"mb-2 mb-md-0 col-md-4\">[{{ 'common.paymentMethod' | translate }}]</p>\n                <div class=\"col-md-8\">\n                    <p *ngFor=\"let paymentMethod of order.paymentMethods\">\n                        {{ paymentMethod.name }}&nbsp;/&nbsp;{{ paymentMethod.totalPaymentDue.value | currency : 'JPY' }}\n                    </p>\n                    <div *ngIf=\"regiGrow\" class=\"mt-2\"><img class=\"border\" [src]=\"regiGrow\"></div>\n                </div>\n            </div>\n        </div>\n        <div class=\"py-3 border-bottom border-gray\">\n            <div class=\"row align-items-center\">\n                <p class=\"mb-2 mb-md-0 col-md-4\">[{{ 'common.etc' | translate }}]</p>\n                <div class=\"col-md-8\">\n                    <p *ngIf=\"getTransactionAgentIdentifier(order, 'linyId')\">\n                        [linyId]<br>\n                        {{ getTransactionAgentIdentifier(order, 'linyId').value }}\n                    </p>\n                    <p *ngIf=\"getTransactionAgentIdentifier(order, 'userAgent')\">\n                        [platform]<br>\n                        name: {{ platform.parse(getTransactionAgentIdentifier(order, 'userAgent').value).name }}<br>\n                        version:\n                        {{ platform.parse(getTransactionAgentIdentifier(order, 'userAgent').value).version }}<br>\n                        product: <span\n                            *ngIf=\"platform.parse(getTransactionAgentIdentifier(order, 'userAgent').value).product\">{{ platform.parse(getTransactionAgentIdentifier(order, 'userAgent').value).product }}</span><span\n                            *ngIf=\"!platform.parse(getTransactionAgentIdentifier(order, 'userAgent').value).product\">-</span><br>\n                        layout: {{ platform.parse(getTransactionAgentIdentifier(order, 'userAgent').value).layout }}<br>\n                        os: {{ platform.parse(getTransactionAgentIdentifier(order, 'userAgent').value).os }}<br>\n                        ({{ platform.parse(getTransactionAgentIdentifier(order, 'userAgent').value).description }})\n                    </p>\n                    <p\n                        *ngIf=\"getTransactionAgentIdentifier(order, 'posId') && getTransactionAgentIdentifier(order, 'posName')\">\n                        [POS]<br>\n                        id: {{ getTransactionAgentIdentifier(order, 'posId').value }}<br>\n                        name: {{ getTransactionAgentIdentifier(order, 'posName').value }}\n                    </p>\n                </div>\n            </div>\n        </div>\n\n    </div>\n\n    <div class=\"buttons mx-auto text-center\">\n        <button type=\"button\" class=\"btn btn-link btn-sm\"\n            (click)=\"modal.hide()\">{{ 'common.close' | translate }}</button>\n    </div>\n\n</div>";
+    __webpack_exports__["default"] = "<div class=\"p-3 scroll-vertical text-small\">\n    <div class=\"mb-4\">\n        <div class=\"py-3 border-bottom border-gray\">\n            <div class=\"row align-items-center\">\n                <p class=\"mb-2 mb-md-0 col-md-4\">[{{ 'common.orderDate' | translate }}]</p>\n                <p class=\"col-md-8\">{{ moment(order.orderDate).format('YYYY/MM/DD (ddd) HH:mm') }}</p>\n            </div>\n        </div>\n        <div class=\"py-3 border-bottom border-gray\">\n            <div class=\"row align-items-center\">\n                <p class=\"mb-2 mb-md-0 col-md-4\">[{{ 'common.confirmationNumber' | translate }}]</p>\n                <p class=\"col-md-8\">{{ order.confirmationNumber }}</p>\n            </div>\n        </div>\n        <div class=\"py-3 border-bottom border-gray\">\n            <div class=\"row align-items-center\">\n                <p class=\"mb-2 mb-md-0 col-md-4\">[{{ 'common.orderNumber' | translate }}]</p>\n                <p class=\"col-md-8\">{{ order.orderNumber }}</p>\n            </div>\n        </div>\n        <div class=\"py-3 border-bottom border-gray\">\n            <div class=\"row align-items-center\">\n                <p class=\"mb-2 mb-md-0 col-md-4\">[{{ 'common.event' | translate }}]</p>\n                <div class=\"col-md-8\">\n                    <div *ngFor=\"let eventOrder of eventOrders\" class=\"mb-3\">\n                        <div class=\"mb-1\">\n                            <p class=\"font-weight-bold text-large\">{{ eventOrder.event.name | changeLanguage }}</p>\n                            <p class=\"text-small\"\n                                *ngIf=\"eventOrder.event.superEvent.headline && (eventOrder.event.superEvent.headline | changeLanguage)\">\n                                {{ eventOrder.event.superEvent.headline | changeLanguage }}</p>\n                            <!-- <p class=\"text-small\"\n                                    *ngIf=\"eventOrder.event.superEvent.description && (eventOrder.event.superEvent.description | changeLanguage)\">{{\n                                            eventOrder.event.superEvent.description | changeLanguage }}</p> -->\n                        </div>\n                        <p class=\"mb-1\">\n                            {{ eventOrder.event.startDate | formatDate: 'MM/DD(ddd) HH:mm' }}-{{ eventOrder.event.endDate | formatDate: 'HH:mm' }}\n                        </p>\n                        <p class=\"text-small mb-1\">\n                            <span\n                                class=\"theatre-name\">{{ eventOrder.event.superEvent.location.name | changeLanguage }}</span>\n                            <span\n                                class=\"screen-name\">&nbsp;/&nbsp;<span *ngIf=\"eventOrder.event.location.address\" class=\"mr-2\">{{ eventOrder.event.location.address | changeLanguage }}</span>{{ eventOrder.event.location.name | changeLanguage }}</span>\n                            <span\n                                *ngIf=\"eventOrder.event.workPerformed?.duration && moment.duration(eventOrder.event.workPerformed?.duration).asMinutes() > 0\">\n                                &nbsp;/&nbsp;<span\n                                    class=\"mr-1\">{{ 'common.duration' | translate }}</span>{{ moment.duration(eventOrder.event.workPerformed?.duration).asMinutes() }}{{ 'common.date.minute' | translate }}\n                            </span>\n                        </p>\n                        <div *ngFor=\"let acceptedOffer of eventOrder.data\">\n                            <p>[{{ 'common.reservationNumber' | translate }}]\n                                {{ acceptedOffer.itemOffered.reservationNumber }}</p>\n                            <p>[{{ 'common.reservationId' | translate }}] {{ acceptedOffer.itemOffered.id }}</p>\n                            <app-item-list [acceptedOffers]=\"[acceptedOffer]\"></app-item-list>\n                        </div>\n                        <div *ngIf=\"eventOrder.data[0].itemOffered.additionalTicketText\" class=\"additional-ticket-text\">\n                            <p>[{{ 'common.additionalTicketText' | translate }}]</p>\n                            <p>{{ eventOrder.data[0].itemOffered.additionalTicketText }}</p>\n                        </div>\n                    </div>\n                </div>\n            </div>\n        </div>\n        <div class=\"py-3 border-bottom border-gray\">\n            <div class=\"row align-items-center\">\n                <p class=\"mb-2 mb-md-0 col-md-4\">[{{ 'common.customer' | translate }}]</p>\n                <div class=\"col-md-8\">\n                    <p>{{ order.customer.familyName }} {{ order.customer.givenName }}</p>\n                    <p>{{ order.customer.email }}</p>\n                    <p>{{ order.customer.telephone | libphonenumberFormat }}</p>\n                </div>\n            </div>\n        </div>\n        <div class=\"py-3 border-bottom border-gray\">\n            <div class=\"row align-items-center\">\n                <p class=\"mb-2 mb-md-0 col-md-4\">[{{ 'common.price' | translate }}]</p>\n                <p class=\"col-md-8\">\n                    {{ order.price | currency : 'JPY' }}\n                </p>\n            </div>\n        </div>\n        <div class=\"py-3 border-bottom border-gray\">\n            <div class=\"row align-items-center\">\n                <p class=\"mb-2 mb-md-0 col-md-4\">[{{ 'common.orderStatus' | translate }}]</p>\n                <p class=\"col-md-8\">{{ order.orderStatus }}</p>\n            </div>\n        </div>\n        <div class=\"py-3 border-bottom border-gray\">\n            <div class=\"row align-items-center\">\n                <p class=\"mb-2 mb-md-0 col-md-4\">[{{ 'common.paymentMethod' | translate }}]</p>\n                <div class=\"col-md-8\">\n                    <p *ngFor=\"let paymentMethod of order.paymentMethods\">\n                        <span *ngIf=\"!(paymentMethod.typeOf === paymentMethodType.Others && paymentMethod.name !== paymentMethodType.Others)\">\n                            {{ paymentMethod.name }}&nbsp;/&nbsp;{{ paymentMethod.totalPaymentDue.value | currency : paymentMethod.totalPaymentDue.currency }}\n                        </span>\n                        <span *ngIf=\"paymentMethod.typeOf === paymentMethodType.Others && paymentMethod.name !== paymentMethodType.Others\">\n                            {{ paymentMethod.typeOf }}[{{ paymentMethod.name }}]&nbsp;/&nbsp;{{ paymentMethod.totalPaymentDue.value | currency : paymentMethod.totalPaymentDue.currency }}\n                        </span>\n                        \n                    </p>\n                    <div *ngIf=\"qrcode\" class=\"mt-2\"><img class=\"border\" [src]=\"qrcode\"></div>\n                </div>\n            </div>\n        </div>\n        <div class=\"py-3 border-bottom border-gray\">\n            <div class=\"row align-items-center\">\n                <p class=\"mb-2 mb-md-0 col-md-4\">[{{ 'common.etc' | translate }}]</p>\n                <div class=\"col-md-8\">\n                    <p *ngIf=\"getTransactionAgentIdentifier(order, 'linyId')\">\n                        [linyId]<br>\n                        {{ getTransactionAgentIdentifier(order, 'linyId').value }}\n                    </p>\n                    <p *ngIf=\"getTransactionAgentIdentifier(order, 'userAgent')\">\n                        [platform]<br>\n                        name: {{ platform.parse(getTransactionAgentIdentifier(order, 'userAgent').value).name }}<br>\n                        version:\n                        {{ platform.parse(getTransactionAgentIdentifier(order, 'userAgent').value).version }}<br>\n                        product: <span\n                            *ngIf=\"platform.parse(getTransactionAgentIdentifier(order, 'userAgent').value).product\">{{ platform.parse(getTransactionAgentIdentifier(order, 'userAgent').value).product }}</span><span\n                            *ngIf=\"!platform.parse(getTransactionAgentIdentifier(order, 'userAgent').value).product\">-</span><br>\n                        layout: {{ platform.parse(getTransactionAgentIdentifier(order, 'userAgent').value).layout }}<br>\n                        os: {{ platform.parse(getTransactionAgentIdentifier(order, 'userAgent').value).os }}<br>\n                        ({{ platform.parse(getTransactionAgentIdentifier(order, 'userAgent').value).description }})\n                    </p>\n                    <p\n                        *ngIf=\"getTransactionAgentIdentifier(order, 'posId') && getTransactionAgentIdentifier(order, 'posName')\">\n                        [POS]<br>\n                        id: {{ getTransactionAgentIdentifier(order, 'posId').value }}<br>\n                        name: {{ getTransactionAgentIdentifier(order, 'posName').value }}\n                    </p>\n                </div>\n            </div>\n        </div>\n\n    </div>\n\n    <div class=\"buttons mx-auto text-center\">\n        <button type=\"button\" class=\"btn btn-link btn-sm\"\n            (click)=\"modal.hide()\">{{ 'common.close' | translate }}</button>\n    </div>\n\n</div>";
     /***/
   },
 
@@ -701,7 +701,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     /* harmony default export */
 
 
-    __webpack_exports__["default"] = "<div *ngIf=\"!selectedTicket\" class=\"p-3 scroll-vertical\">\n    <div *ngFor=\"let ticket of tickets\" class=\"ticket mb-2\">\n        <button type=\"button\" (click)=\"selsctTicket(ticket)\" class=\"btn btn-block btn-outline-primary py-3\">\n            <div class=\"d-flex justify-content-between align-items-center\" *ngFor=\"let priceComponent of ticket.ticketOffer.priceSpecification.priceComponent\">\n                <p class=\"w-50 text-left\">{{ priceComponent.name | changeLanguage }}</p>\n                <p class=\"w-50 text-right\">\n                    <span>{{ priceComponent.price | currency : priceComponent.priceCurrency }}</span><!--\n                    --><span class=\"text-small\" *ngIf=\"priceComponent?.referenceQuantity?.value\">{{ 'common.referenceQuantityValue' | translate: { value: priceComponent?.referenceQuantity?.value } }}</span>\n                </p>\n            </div>\n            <p *ngIf=\"ticket.ticketOffer.description\" class=\"text-x-small text-left\">{{ ticket.ticketOffer.description | changeLanguage }}</p>\n        </button>\n    </div>\n</div>\n\n<div *ngIf=\"selectedTicket\" class=\"p-3 scroll-vertical\">\n    <div class=\"mb-3 text-large text-center\">{{ 'purchase.cinema.ticket.addOn' | translate }}</div>\n    <ul class=\"mb-4\">\n        <li class=\"mb-3\" *ngFor=\"let addOn of selectedTicket.ticketOffer.addOn; let index = index\">\n            <app-checkbox class=\"pointer\" (change)=\"changeAddOnList(addOn.id)\">\n                <div class=\"d-flex w-100\">\n                    <div class=\"w-50\">{{ addOn.priceSpecification?.name | changeLanguage }}<span *ngIf=\"addOn.priceSpecification?.referenceQuantity?.value\">{{ 'common.referenceQuantityValue' | translate: { value: addOn.priceSpecification?.referenceQuantity?.value } }}</span></div>\n                    <div class=\"w-50 text-right\">{{ addOn.priceSpecification?.price | currency : addOn.priceSpecification?.priceCurrency }}</div>\n                </div>\n            </app-checkbox>\n        </li>\n    </ul>\n    <div class=\"buttons mx-auto text-center\">\n        <button type=\"button\" class=\"btn btn-primary btn-block py-3 mb-3\"\n            (click)=\"selsctOption()\">{{ 'common.done' | translate }}</button>\n        <button type=\"button\" class=\"btn btn-link btn-sm\"\n            (click)=\"modal.hide()\">{{ 'common.close' | translate }}</button>\n    </div>\n</div>";
+    __webpack_exports__["default"] = "<div *ngIf=\"!selectedTicket\" class=\"p-3 scroll-vertical\">\n    <div *ngFor=\"let ticket of tickets\" class=\"ticket mb-2\">\n        <button type=\"button\" (click)=\"selsctTicket(ticket)\" class=\"btn btn-block btn-outline-primary py-3\">\n            <div class=\"d-flex justify-content-between align-items-center\" *ngFor=\"let priceComponent of ticket.ticketOffer.priceSpecification.priceComponent\">\n                <p class=\"w-50 text-left\">{{ priceComponent.name | changeLanguage }}</p>\n                <p class=\"w-50 text-right\">\n                    <span>{{ priceComponent.price | currency : priceComponent.priceCurrency }}</span><!--\n                    --><span class=\"text-small\" *ngIf=\"priceComponent?.referenceQuantity?.value\">{{ 'common.referenceQuantityValue' | translate: { value: priceComponent?.referenceQuantity?.value } }}</span>\n                </p>\n            </div>\n            <p *ngIf=\"ticket.ticketOffer.description\" class=\"text-x-small text-left\">{{ ticket.ticketOffer.description | changeLanguage }}</p>\n        </button>\n    </div>\n    <p *ngIf=\"tickets.length === 0\">{{ 'modal.ticket.notfound' | translate }}</p>\n</div>\n\n<div *ngIf=\"selectedTicket\" class=\"p-3 scroll-vertical\">\n    <div class=\"mb-3 text-large text-center\">{{ 'purchase.cinema.ticket.addOn' | translate }}</div>\n    <ul class=\"mb-4\">\n        <li class=\"mb-3\" *ngFor=\"let addOn of selectedTicket.ticketOffer.addOn; let index = index\">\n            <app-checkbox class=\"pointer\" (change)=\"changeAddOnList(addOn.id)\">\n                <div class=\"d-flex w-100\">\n                    <div class=\"w-50\">{{ addOn.priceSpecification?.name | changeLanguage }}<span *ngIf=\"addOn.priceSpecification?.referenceQuantity?.value\">{{ 'common.referenceQuantityValue' | translate: { value: addOn.priceSpecification?.referenceQuantity?.value } }}</span></div>\n                    <div class=\"w-50 text-right\">{{ addOn.priceSpecification?.price | currency : addOn.priceSpecification?.priceCurrency }}</div>\n                </div>\n            </app-checkbox>\n        </li>\n    </ul>\n    <div class=\"buttons mx-auto text-center\">\n        <button type=\"button\" class=\"btn btn-primary btn-block py-3 mb-3\"\n            (click)=\"selsctOption()\">{{ 'common.done' | translate }}</button>\n        <button type=\"button\" class=\"btn btn-link btn-sm\"\n            (click)=\"modal.hide()\">{{ 'common.close' | translate }}</button>\n    </div>\n</div>";
     /***/
   },
 
@@ -721,7 +721,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     /* harmony default export */
 
 
-    __webpack_exports__["default"] = "<div class=\"p-3 scroll-vertical\">\n    <div class=\"mb-3\">\n        <div class=\"mb-1\">\n            <p class=\"font-weight-bold text-large\">{{ screeningEvent.name | changeLanguage }}</p>\n            <p class=\"text-small\"\n                *ngIf=\"screeningEvent.superEvent.headline && (screeningEvent.superEvent.headline | changeLanguage)\">\n                {{ screeningEvent.superEvent.headline | changeLanguage }}</p>\n            <p class=\"text-small\"\n                *ngIf=\"screeningEvent.superEvent.description && (screeningEvent.superEvent.description | changeLanguage)\">{{\n                    screeningEvent.superEvent.description | changeLanguage }}</p>\n        </div>\n        <p class=\"mb-1\">\n            {{ moment(screeningEvent.startDate).format('MM/DD(ddd) HH:mm') }}-{{ moment(screeningEvent.endDate).format('HH:mm') }}\n        </p>\n        <p class=\"text-small mb-1\">\n            <span class=\"theatre-name\">\n                {{ screeningEvent.superEvent.location.name | changeLanguage }}\n            </span>\n            <span class=\"screen-name\">\n                &nbsp;/&nbsp;<span *ngIf=\"screeningEvent.location.address\" class=\"mr-2\">{{ screeningEvent.location.address | changeLanguage }}</span>{{ screeningEvent.location.name | changeLanguage }}\n            </span>\n            <span *ngIf=\"screeningEvent.workPerformed?.duration && moment.duration(screeningEvent.workPerformed?.duration).asMinutes() > 0\">\n                &nbsp;/&nbsp;<span class=\"mr-1\">{{ 'common.duration' | translate }}</span>{{ moment.duration(screeningEvent.workPerformed?.duration).asMinutes() }}{{ 'common.date.minute' | translate }}\n            </span>\n        </p>\n        <p *ngIf=\"performance.isTicketedSeat()\" class=\"font-weight-bold\"><span class=\"mr-1\">{{ 'purchase.event.ticket.remainingSeat' | translate }}</span>{{ getRemainingSeatLength(screeningEventOffers, screeningEvent) }}</p>\n    </div>\n    <hr class=\"mb-3\">\n    <ul class=\"mb-4\">\n        <li *ngFor=\"let ticket of tickets\" class=\"ticket mb-3 pb-3 border-bottom border-gray\">\n            <div class=\"d-flex justify-content-between align-items-center\">\n                <div class=\"w-75 text-left\">\n                    <p *ngFor=\"let priceComponent of ticket.priceSpecification.priceComponent\">\n                        <span>{{ priceComponent.name | changeLanguage }}</span><!--\n                        --><span>&nbsp;/&nbsp;{{ priceComponent.price | currency : priceComponent.priceCurrency }}</span><!--\n                        --><span class=\"text-small\" *ngIf=\"priceComponent?.referenceQuantity?.value\">{{ 'common.referenceQuantityValue' | translate: { value: priceComponent?.referenceQuantity?.value } }}</span>\n                    </p>\n                    <p *ngIf=\"ticket.description\" class=\"text-x-small text-left\">{{ ticket.description | changeLanguage }}</p>\n                </div>\n                <div class=\"w-25 text-right\">\n                    <select class=\"form-control\" (change)=\"changeSelect(ticket.id, $event)\">\n                        <option value=\"0\">0</option>\n                        <option *ngFor=\"let value of remainingAttendeeCapacityValue(ticket)\" [value]=\"value\">{{ value }}</option>\n                    </select>\n                </div>\n            </div>\n            <ul *ngIf=\"ticket.addOn && ticket.addOn.length > 0\" class=\"mt-2 bg-light-gray py-2 px-3\">\n                <li class=\"my-1\" *ngFor=\"let addOn of ticket.addOn; let index = index\">\n                    <app-checkbox class=\"pointer\" (change)=\"changeAddOn(ticket.id, addOn.id)\">\n                        {{ addOn.priceSpecification?.name | changeLanguage }}<span *ngIf=\"addOn.priceSpecification?.referenceQuantity?.value\">{{ 'common.referenceQuantityValue' | translate: { value: addOn.priceSpecification?.referenceQuantity?.value } }}</span><!--\n                        -->&nbsp;/&nbsp;<!--\n                        -->{{ addOn.priceSpecification?.price | currency : addOn.priceSpecification?.priceCurrency }}\n                    </app-checkbox>\n                </li>\n            </ul>\n        </li>\n    </ul>\n\n    <div class=\"buttons mx-auto text-center text-center\">\n        <button [disabled]=\"selectedTickets && createReservations().length === 0\" type=\"button\"\n            class=\"btn btn-primary btn-block py-3 mb-3\"\n            (click)=\"close(createReservations())\">{{ 'purchase.event.ticket.next' | translate }}</button>\n        <button type=\"button\" class=\"btn btn-link btn-sm\"\n            (click)=\"modal.hide()\">{{ 'common.close' | translate }}</button>\n    </div>\n</div>";
+    __webpack_exports__["default"] = "<div class=\"p-3 scroll-vertical\">\n    <div class=\"mb-3\">\n        <div class=\"mb-1\">\n            <p class=\"font-weight-bold text-large\">{{ screeningEvent.name | changeLanguage }}</p>\n            <p class=\"text-small\"\n                *ngIf=\"screeningEvent.superEvent.headline && (screeningEvent.superEvent.headline | changeLanguage)\">\n                {{ screeningEvent.superEvent.headline | changeLanguage }}</p>\n            <p class=\"text-small\"\n                *ngIf=\"screeningEvent.superEvent.description && (screeningEvent.superEvent.description | changeLanguage)\">{{\n                    screeningEvent.superEvent.description | changeLanguage }}</p>\n        </div>\n        <p class=\"mb-1\">\n            {{ moment(screeningEvent.startDate).format('MM/DD(ddd) HH:mm') }}-{{ moment(screeningEvent.endDate).format('HH:mm') }}\n        </p>\n        <p class=\"text-small mb-1\">\n            <span class=\"theatre-name\">\n                {{ screeningEvent.superEvent.location.name | changeLanguage }}\n            </span>\n            <span class=\"screen-name\">\n                &nbsp;/&nbsp;<span *ngIf=\"screeningEvent.location.address\" class=\"mr-2\">{{ screeningEvent.location.address | changeLanguage }}</span>{{ screeningEvent.location.name | changeLanguage }}\n            </span>\n            <span *ngIf=\"screeningEvent.workPerformed?.duration && moment.duration(screeningEvent.workPerformed?.duration).asMinutes() > 0\">\n                &nbsp;/&nbsp;<span class=\"mr-1\">{{ 'common.duration' | translate }}</span>{{ moment.duration(screeningEvent.workPerformed?.duration).asMinutes() }}{{ 'common.date.minute' | translate }}\n            </span>\n        </p>\n        <p *ngIf=\"performance.isTicketedSeat()\" class=\"font-weight-bold\"><span class=\"mr-1\">{{ 'purchase.event.ticket.remainingSeat' | translate }}</span>{{ getRemainingSeatLength(screeningEventOffers, screeningEvent) }}</p>\n    </div>\n    <hr class=\"mb-3\">\n    <ul *ngIf=\"tickets.length > 0\" class=\"mb-4\">\n        <li *ngFor=\"let ticket of tickets\" class=\"ticket mb-3 pb-3 border-bottom border-gray\" [class.text-gray]=\"remainingAttendeeCapacityValue(ticket).length === 0\">\n            <div class=\"d-flex justify-content-between align-items-center\">\n                <div class=\"w-75 text-left\">\n                    <p *ngFor=\"let priceComponent of ticket.priceSpecification.priceComponent\">\n                        <span>{{ priceComponent.name | changeLanguage }}</span><!--\n                        --><span>&nbsp;/&nbsp;{{ priceComponent.price | currency : priceComponent.priceCurrency }}</span><!--\n                        --><span class=\"text-small\" *ngIf=\"priceComponent?.referenceQuantity?.value\">{{ 'common.referenceQuantityValue' | translate: { value: priceComponent?.referenceQuantity?.value } }}</span>\n                    </p>\n                    <p *ngIf=\"ticket.description\" class=\"text-x-small text-left\">{{ ticket.description | changeLanguage }}</p>\n                </div>\n                <div class=\"w-25 text-right\">\n                    <select class=\"form-control\" (change)=\"changeSelect(ticket.id, $event)\">\n                        <option value=\"0\">0</option>\n                        <option *ngFor=\"let value of remainingAttendeeCapacityValue(ticket)\" [value]=\"value\">{{ value }}</option>\n                    </select>\n                </div>\n            </div>\n            <ul *ngIf=\"ticket.addOn && ticket.addOn.length > 0\" class=\"mt-2 bg-light-gray py-2 px-3\">\n                <li class=\"my-1\" *ngFor=\"let addOn of ticket.addOn; let index = index\">\n                    <app-checkbox class=\"pointer\" (change)=\"changeAddOn(ticket.id, addOn.id)\">\n                        {{ addOn.priceSpecification?.name | changeLanguage }}<span *ngIf=\"addOn.priceSpecification?.referenceQuantity?.value\">{{ 'common.referenceQuantityValue' | translate: { value: addOn.priceSpecification?.referenceQuantity?.value } }}</span><!--\n                        -->&nbsp;/&nbsp;<!--\n                        -->{{ addOn.priceSpecification?.price | currency : addOn.priceSpecification?.priceCurrency }}\n                    </app-checkbox>\n                </li>\n            </ul>\n        </li>\n    </ul>\n    <p *ngIf=\"tickets.length === 0\" class=\"mb-4\">{{ 'modal.ticket.notfound' | translate }}</p>\n\n    <div class=\"mb-4 additional-ticket-text\">\n        <p>{{ 'common.additionalTicketText' | translate }}</p>\n        <textarea [(ngModel)]=\"additionalTicketText\" class=\"py-1 px-2\"></textarea>\n    </div>\n\n    <div class=\"buttons mx-auto text-center text-center\">\n        <button [disabled]=\"selectedTickets && createReservations().length === 0\" type=\"button\"\n            class=\"btn btn-primary btn-block py-3 mb-3\"\n            (click)=\"close(createReservations())\">{{ 'purchase.event.ticket.next' | translate }}</button>\n        <button type=\"button\" class=\"btn btn-link btn-sm\"\n            (click)=\"modal.hide()\">{{ 'common.close' | translate }}</button>\n    </div>\n</div>";
     /***/
   },
 
@@ -1321,7 +1321,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     !*** ./app/functions/index.ts ***!
     \********************************/
 
-  /*! exports provided: screeningEventsToWorkEvents, createGmoTokenObject, sameMovieTicketFilter, isAvailabilityMovieTicket, createMovieTicketsFromAuthorizeSeatReservation, createPaymentMethodFromType, getTicketPrice, getItemPrice, movieTicketAuthErroCodeToMessage, getAmount, order2EventOrders, authorizeSeatReservation2Event, getRemainingSeatLength, isEligibleSeatingType, autoSelectAvailableSeat, formatTelephone, toFull, toHalf, retry, sleep, buildQueryString, iOSDatepickerTapBugFix, streamingDownload, string2blob, getParameter, getProject, createPrintCanvas, createTestPrintCanvas, createRegiGrowQrcode, getTransactionAgentIdentifier, order2report, input2OrderSearchCondition, getTranslateModuleConfig, reservation2report, input2ReservationSearchCondition */
+  /*! exports provided: screeningEventsToWorkEvents, createGmoTokenObject, sameMovieTicketFilter, isAvailabilityMovieTicket, createMovieTicketsFromAuthorizeSeatReservation, getCustomPaymentMethodTypeName, getTicketPrice, getItemPrice, movieTicketAuthErroCodeToMessage, getAmount, order2EventOrders, authorizeSeatReservation2Event, getRemainingSeatLength, isEligibleSeatingType, selectAvailableSeat, formatTelephone, toFull, toHalf, retry, sleep, buildQueryString, iOSDatepickerTapBugFix, streamingDownload, string2blob, getParameter, getProject, createPrintCanvas, createTestPrintCanvas, createCooperationQRCode, getTransactionAgentIdentifier, order2report, input2OrderSearchCondition, getTranslateModuleConfig, reservation2report, input2ReservationSearchCondition */
 
   /***/
   function appFunctionsIndexTs(module, __webpack_exports__, __webpack_require__) {
@@ -1367,8 +1367,8 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     /* harmony reexport (safe) */
 
 
-    __webpack_require__.d(__webpack_exports__, "createPaymentMethodFromType", function () {
-      return _purchase_function__WEBPACK_IMPORTED_MODULE_0__["createPaymentMethodFromType"];
+    __webpack_require__.d(__webpack_exports__, "getCustomPaymentMethodTypeName", function () {
+      return _purchase_function__WEBPACK_IMPORTED_MODULE_0__["getCustomPaymentMethodTypeName"];
     });
     /* harmony reexport (safe) */
 
@@ -1421,8 +1421,8 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     /* harmony reexport (safe) */
 
 
-    __webpack_require__.d(__webpack_exports__, "autoSelectAvailableSeat", function () {
-      return _purchase_function__WEBPACK_IMPORTED_MODULE_0__["autoSelectAvailableSeat"];
+    __webpack_require__.d(__webpack_exports__, "selectAvailableSeat", function () {
+      return _purchase_function__WEBPACK_IMPORTED_MODULE_0__["selectAvailableSeat"];
     });
     /* harmony import */
 
@@ -1517,8 +1517,8 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     /* harmony reexport (safe) */
 
 
-    __webpack_require__.d(__webpack_exports__, "createRegiGrowQrcode", function () {
-      return _order_function__WEBPACK_IMPORTED_MODULE_2__["createRegiGrowQrcode"];
+    __webpack_require__.d(__webpack_exports__, "createCooperationQRCode", function () {
+      return _order_function__WEBPACK_IMPORTED_MODULE_2__["createCooperationQRCode"];
     });
     /* harmony reexport (safe) */
 
@@ -1584,7 +1584,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     !*** ./app/functions/order.function.ts ***!
     \*****************************************/
 
-  /*! exports provided: createPrintCanvas, createTestPrintCanvas, createRegiGrowQrcode, getTransactionAgentIdentifier, order2report, input2OrderSearchCondition */
+  /*! exports provided: createPrintCanvas, createTestPrintCanvas, createCooperationQRCode, getTransactionAgentIdentifier, order2report, input2OrderSearchCondition */
 
   /***/
   function appFunctionsOrderFunctionTs(module, __webpack_exports__, __webpack_require__) {
@@ -1606,8 +1606,8 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     /* harmony export (binding) */
 
 
-    __webpack_require__.d(__webpack_exports__, "createRegiGrowQrcode", function () {
-      return createRegiGrowQrcode;
+    __webpack_require__.d(__webpack_exports__, "createCooperationQRCode", function () {
+      return createCooperationQRCode;
     });
     /* harmony export (binding) */
 
@@ -1666,19 +1666,13 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     /* harmony import */
 
 
-    var _environments_environment__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(
-    /*! ../../environments/environment */
-    "./environments/environment.ts");
-    /* harmony import */
-
-
-    var _purchase_function__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(
+    var _purchase_function__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(
     /*! ./purchase.function */
     "./app/functions/purchase.function.ts");
     /* harmony import */
 
 
-    var _util_function__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(
+    var _util_function__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(
     /*! ./util.function */
     "./app/functions/util.function.ts");
 
@@ -1805,7 +1799,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                 image = _step.value;
                 imageInstance = new Image();
                 imageInstance.crossOrigin = 'anonymous';
-                imageInstance.src = image.src.replace('/storage', Object(_util_function__WEBPACK_IMPORTED_MODULE_5__["getProject"])().storageUrl);
+                imageInstance.src = image.src.replace('/storage', Object(_util_function__WEBPACK_IMPORTED_MODULE_4__["getProject"])().storageUrl);
                 _context.next = 24;
                 return drawImage({
                   image: imageInstance,
@@ -2088,7 +2082,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                   seatNumber: itemOffered.reservedTicket.ticketedSeat === undefined || itemOffered.reservedTicket.ticketedSeat === null ? undefined : itemOffered.reservedTicket.ticketedSeat.seatNumber,
                   ticketNameJa: itemOffered.reservedTicket.ticketType.name.ja,
                   ticketNameEn: itemOffered.reservedTicket.ticketType.name.en,
-                  price: acceptedOffer.priceSpecification === undefined ? 0 : Object(_purchase_function__WEBPACK_IMPORTED_MODULE_4__["getItemPrice"])({
+                  price: acceptedOffer.priceSpecification === undefined ? 0 : Object(_purchase_function__WEBPACK_IMPORTED_MODULE_3__["getItemPrice"])({
                     priceComponents: acceptedOffer.priceSpecification.priceComponent
                   }),
                   posName: params.pos === undefined ? '' : params.pos.name,
@@ -2171,26 +2165,25 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       }));
     }
     /**
-     * RegiGrow連携用QRコード作成
+     * 連携用QR作成
      */
 
 
-    function createRegiGrowQrcode(order) {
+    function createCooperationQRCode(params) {
       return __awaiter(this, void 0, void 0,
       /*#__PURE__*/
       regeneratorRuntime.mark(function _callee4() {
-        var canvas, environment, qrcodeText;
+        var order, qrcodeText, canvas, text;
         return regeneratorRuntime.wrap(function _callee4$(_context4) {
           while (1) {
             switch (_context4.prev = _context4.next) {
               case 0:
+                order = params.order;
+                qrcodeText = params.qrcodeText;
                 canvas = document.createElement('canvas');
-                environment = Object(_environments_environment__WEBPACK_IMPORTED_MODULE_3__["getEnvironment"])();
-                qrcodeText = environment.REGIGROW_QRCODE;
-                qrcodeText = qrcodeText.replace(/\{\{ orderNumber \}\}/g, order.orderNumber);
-                qrcodeText = qrcodeText.replace(/\{\{ price \}\}/g, String(order.price));
+                text = qrcodeText.replace(/\{\{ orderNumber \}\}/g, order.orderNumber).replace(/\{\{ price \}\}/g, String(order.price));
                 return _context4.abrupt("return", new Promise(function (resolve, reject) {
-                  qrcode__WEBPACK_IMPORTED_MODULE_2__["toCanvas"](canvas, qrcodeText).then(function () {
+                  qrcode__WEBPACK_IMPORTED_MODULE_2__["toCanvas"](canvas, text).then(function () {
                     resolve(canvas.toDataURL());
                   })["catch"](function (error) {
                     console.error(error);
@@ -2198,7 +2191,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                   });
                 }));
 
-              case 6:
+              case 5:
               case "end":
                 return _context4.stop();
             }
@@ -2247,7 +2240,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
               return m.name;
             }).join(','),
             customer: Object.assign({}, order.customer, {
-              formatTelephone: Object(_util_function__WEBPACK_IMPORTED_MODULE_5__["formatTelephone"])(order.customer.telephone),
+              formatTelephone: Object(_util_function__WEBPACK_IMPORTED_MODULE_4__["formatTelephone"])(order.customer.telephone),
               pos: {
                 name: getTransactionAgentIdentifier(order, 'posName') === undefined ? {
                   name: '',
@@ -2263,7 +2256,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
             }),
             itemOffered: {
               id: itemOffered.id,
-              price: Object(_purchase_function__WEBPACK_IMPORTED_MODULE_4__["getItemPrice"])({
+              price: Object(_purchase_function__WEBPACK_IMPORTED_MODULE_3__["getItemPrice"])({
                 priceComponents: acceptedOffer.priceSpecification.priceComponent
               }),
               reservedTicket: itemOffered.reservedTicket,
@@ -2351,7 +2344,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     !*** ./app/functions/purchase.function.ts ***!
     \********************************************/
 
-  /*! exports provided: screeningEventsToWorkEvents, createGmoTokenObject, sameMovieTicketFilter, isAvailabilityMovieTicket, createMovieTicketsFromAuthorizeSeatReservation, createPaymentMethodFromType, getTicketPrice, getItemPrice, movieTicketAuthErroCodeToMessage, getAmount, order2EventOrders, authorizeSeatReservation2Event, getRemainingSeatLength, isEligibleSeatingType, autoSelectAvailableSeat */
+  /*! exports provided: screeningEventsToWorkEvents, createGmoTokenObject, sameMovieTicketFilter, isAvailabilityMovieTicket, createMovieTicketsFromAuthorizeSeatReservation, getCustomPaymentMethodTypeName, getTicketPrice, getItemPrice, movieTicketAuthErroCodeToMessage, getAmount, order2EventOrders, authorizeSeatReservation2Event, getRemainingSeatLength, isEligibleSeatingType, selectAvailableSeat */
 
   /***/
   function appFunctionsPurchaseFunctionTs(module, __webpack_exports__, __webpack_require__) {
@@ -2391,8 +2384,8 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     /* harmony export (binding) */
 
 
-    __webpack_require__.d(__webpack_exports__, "createPaymentMethodFromType", function () {
-      return createPaymentMethodFromType;
+    __webpack_require__.d(__webpack_exports__, "getCustomPaymentMethodTypeName", function () {
+      return getCustomPaymentMethodTypeName;
     });
     /* harmony export (binding) */
 
@@ -2445,8 +2438,8 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     /* harmony export (binding) */
 
 
-    __webpack_require__.d(__webpack_exports__, "autoSelectAvailableSeat", function () {
-      return autoSelectAvailableSeat;
+    __webpack_require__.d(__webpack_exports__, "selectAvailableSeat", function () {
+      return selectAvailableSeat;
     });
     /* harmony import */
 
@@ -2475,7 +2468,13 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     /* harmony import */
 
 
-    var _models__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
+    var _environments_environment__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
+    /*! ../../environments/environment */
+    "./environments/environment.ts");
+    /* harmony import */
+
+
+    var _models__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(
     /*! ../models */
     "./app/models/index.ts");
 
@@ -2500,10 +2499,10 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
         if (registered === undefined) {
           films.push({
             info: screeningEvent,
-            data: [new _models__WEBPACK_IMPORTED_MODULE_2__["Performance"](screeningEvent)]
+            data: [new _models__WEBPACK_IMPORTED_MODULE_3__["Performance"](screeningEvent)]
           });
         } else {
-          registered.data.push(new _models__WEBPACK_IMPORTED_MODULE_2__["Performance"](screeningEvent));
+          registered.data.push(new _models__WEBPACK_IMPORTED_MODULE_3__["Performance"](screeningEvent));
         }
       });
       return films;
@@ -2634,53 +2633,26 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       return results;
     }
     /**
-     * 支払い方法作成
+     * カスタム支払い方法名称取得
      */
 
 
-    function createPaymentMethodFromType(params) {
-      switch (params.paymentMethodType) {
-        case _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_0__["factory"].paymentMethodType.Cash:
-          {
-            return {
-              paymentMethodType: params.paymentMethodType,
-              name: 'common.paymentMethodType.cash'
-            };
-          }
+    function getCustomPaymentMethodTypeName(params) {
+      var paymentMethodType = params.typeOf;
+      var category = params.category;
+      var environment = Object(_environments_environment__WEBPACK_IMPORTED_MODULE_2__["getEnvironment"])();
+      var findResult = environment.PAYMENT_METHOD_CUSTOM.find(function (p) {
+        return p.category === category;
+      });
 
-        case _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_0__["factory"].paymentMethodType.CreditCard:
-          {
-            return {
-              paymentMethodType: params.paymentMethodType,
-              name: 'common.paymentMethodType.creditCard'
-            };
-          }
-
-        case _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_0__["factory"].paymentMethodType.EMoney:
-          {
-            return {
-              paymentMethodType: params.paymentMethodType,
-              name: 'common.paymentMethodType.eMoney'
-            };
-          }
-
-        case _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_0__["factory"].paymentMethodType.Others:
-          {
-            return {
-              paymentMethodType: params.paymentMethodType,
-              paymentMethodName: params.paymentMethodName,
-              name: params.paymentMethodName === 'RegiGrow' ? 'common.paymentMethodType.regiGrow' : 'common.paymentMethodType.others'
-            };
-          }
-
-        default:
-          {
-            return {
-              paymentMethodType: params.paymentMethodType,
-              name: 'common.paymentMethodType.others'
-            };
-          }
+      if (paymentMethodType !== _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_0__["factory"].paymentMethodType.Others || findResult === undefined) {
+        return {
+          ja: '',
+          en: ''
+        };
       }
+
+      return findResult.name;
     }
     /**
      * 券種金額取得
@@ -2958,10 +2930,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     function isEligibleSeatingType(params) {
       var seat = params.seat;
       var eligibleSeatingType = params.eligibleSeatingType;
-      var SeatingTypeFilterResult = eligibleSeatingType.filter(function (e) {
-        return e.inCodeSet.identifier === _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_0__["factory"].chevre.categoryCode.CategorySetIdentifier.SeatingType;
-      });
-      var filterResult = SeatingTypeFilterResult.filter(function (e) {
+      var filterResult = eligibleSeatingType.filter(function (e) {
         if (Array.isArray(seat.seatingType)) {
           return seat.seatingType.find(function (s) {
             return e.codeValue === s;
@@ -2970,21 +2939,25 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
         return e.codeValue === seat.seatingType;
       });
-      return filterResult.length === SeatingTypeFilterResult.length;
+      return filterResult.length === eligibleSeatingType.length;
     }
     /**
-     * 販売可能席自動取得
+     * 予約可能席取得
      */
 
 
-    function autoSelectAvailableSeat(params) {
+    function selectAvailableSeat(params) {
       var reservations = params.reservations;
       var screeningEventOffers = params.screeningEventOffers;
       var seats = [];
       screeningEventOffers.forEach(function (s) {
         var section = s.branchCode;
         s.containsPlace.forEach(function (c) {
-          if (c.offers === undefined || c.offers[0].availability !== _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_0__["factory"].chevre.itemAvailability.InStock) {
+          var selectedSeat = reservations.find(function (r) {
+            return r.seat !== undefined && r.seat.seatNumber === c.branchCode && r.seat.seatSection === section;
+          });
+
+          if ((c.offers === undefined || c.offers[0].availability !== _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_0__["factory"].chevre.itemAvailability.InStock) && selectedSeat === undefined) {
             // 在庫なし
             return;
           }
@@ -3000,11 +2973,22 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       });
       var availableSeats = [];
       reservations.forEach(function (r) {
-        var findResult = seats.find(function (s) {
-          if (availableSeats.find(function (a) {
+        var findReservationSeat = seats.find(function (s) {
+          var findReservedSeat = availableSeats.find(function (a) {
+            var findSubReservedSeat = a.subReservations.find(function (sub) {
+              return sub.seatNumber === s.seatNumber && sub.seatSection === s.seatSection;
+            });
+
+            if (findSubReservedSeat !== undefined) {
+              // サブ予約済み座席
+              return true;
+            }
+
             return a.seatNumber === s.seatNumber && a.seatSection === s.seatSection;
-          }) !== undefined) {
-            // 予約内同一座席判定
+          });
+
+          if (findReservedSeat !== undefined) {
+            // 予約済み座席
             return false;
           }
 
@@ -3012,18 +2996,98 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
             seat: s,
             eligibleSeatingType: r.ticket.ticketOffer.eligibleSeatingType
           })) {
-            // 適用座席タイプ判定
+            // 適用座席タイプ違い
             return false;
+          }
+
+          if (r.seat !== undefined) {
+            // 座席選択済みの場合予約中の座席を選択
+            return r.seat.seatNumber === s.seatNumber && r.seat.seatSection === s.seatSection;
           }
 
           return true;
         });
 
-        if (findResult === undefined) {
+        if (findReservationSeat === undefined) {
+          // 予約可能席なし
           return;
         }
 
-        availableSeats.push(findResult);
+        if (r.ticket === undefined || r.ticket.ticketOffer.eligibleSubReservation === undefined) {
+          // サブ予約なし
+          availableSeats.push(Object.assign({}, findReservationSeat, {
+            subReservations: []
+          }));
+          return;
+        } // サブ予約分取得
+
+
+        var subReservations = [];
+        r.ticket.ticketOffer.eligibleSubReservation.forEach(function (e) {
+          for (var i = 0; i < e.amountOfThisGood; i++) {
+            var subReservation = seats.find(function (s) {
+              var findReservedSeat = availableSeats.find(function (a) {
+                var findSubReservedSeat = a.subReservations.find(function (sub) {
+                  return sub.seatNumber === s.seatNumber && sub.seatSection === s.seatSection;
+                });
+
+                if (findSubReservedSeat !== undefined) {
+                  // サブ予約済み座席
+                  return true;
+                }
+
+                return a.seatNumber === s.seatNumber && a.seatSection === s.seatSection;
+              });
+
+              if (findReservedSeat !== undefined) {
+                // 予約済み座席
+                return false;
+              }
+
+              var findSubReservationSeat = subReservations.find(function (sub) {
+                return sub.seatNumber === s.seatNumber && sub.seatSection === s.seatSection;
+              });
+
+              if (findSubReservationSeat !== undefined) {
+                // サブ予約中座席
+                return false;
+              }
+
+              if (findReservationSeat.seatNumber === s.seatNumber && findReservationSeat.seatSection === s.seatSection) {
+                // 予約中座席
+                return false;
+              }
+
+              if (Array.isArray(s.seatingType) && s.seatingType.find(function (t) {
+                return t === e.typeOfGood.seatingType;
+              }) === undefined) {
+                // 適用座席タイプ違い
+                return false;
+              }
+
+              if (!Array.isArray(s.seatingType) && s.seatingType !== e.typeOfGood.seatingType) {
+                // 適用座席タイプ違い
+                return false;
+              }
+
+              if (r.seat !== undefined) {
+                // 座席選択済みの場合予約中の座席以外を選択
+                return !(r.seat.seatNumber === s.seatNumber && r.seat.seatSection === s.seatSection);
+              }
+
+              return true;
+            });
+
+            if (subReservation === undefined) {
+              return;
+            }
+
+            subReservations.push(subReservation);
+          }
+        });
+        availableSeats.push(Object.assign({}, findReservationSeat, {
+          subReservations: subReservations
+        }));
       });
       return availableSeats;
     }
@@ -7372,7 +7436,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     /* harmony default export */
 
 
-    __webpack_exports__["default"] = ".scroll-vertical {\n  max-height: 75vh;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9jbGllbnQvYXBwL21vZHVsZXMvc2hhcmVkL2NvbXBvbmVudHMvcGFydHMvb3JkZXIvZGV0YWlsLW1vZGFsL0M6XFxVc2Vyc1xcaGF0YWd1Y2hpXFxEZXNrdG9wXFx3b3Jrc3BhY2VcXENpbmVyaW5vXFxwb3Mvc3JjXFxjbGllbnRcXGFwcFxcbW9kdWxlc1xcc2hhcmVkXFxjb21wb25lbnRzXFxwYXJ0c1xcb3JkZXJcXGRldGFpbC1tb2RhbFxcZGV0YWlsLW1vZGFsLmNvbXBvbmVudC5zY3NzIiwic3JjL2NsaWVudC9hcHAvbW9kdWxlcy9zaGFyZWQvY29tcG9uZW50cy9wYXJ0cy9vcmRlci9kZXRhaWwtbW9kYWwvZGV0YWlsLW1vZGFsLmNvbXBvbmVudC5zY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0VBQ0ksZ0JBQUE7QUNDSiIsImZpbGUiOiJzcmMvY2xpZW50L2FwcC9tb2R1bGVzL3NoYXJlZC9jb21wb25lbnRzL3BhcnRzL29yZGVyL2RldGFpbC1tb2RhbC9kZXRhaWwtbW9kYWwuY29tcG9uZW50LnNjc3MiLCJzb3VyY2VzQ29udGVudCI6WyIuc2Nyb2xsLXZlcnRpY2FsIHtcbiAgICBtYXgtaGVpZ2h0OiA3NXZoO1xufSIsIi5zY3JvbGwtdmVydGljYWwge1xuICBtYXgtaGVpZ2h0OiA3NXZoO1xufSJdfQ== */";
+    __webpack_exports__["default"] = ".scroll-vertical {\n  max-height: 75vh;\n}\n\n.additional-ticket-text {\n  white-space: pre-wrap;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9jbGllbnQvYXBwL21vZHVsZXMvc2hhcmVkL2NvbXBvbmVudHMvcGFydHMvb3JkZXIvZGV0YWlsLW1vZGFsL0M6XFxVc2Vyc1xcaGF0YWd1Y2hpXFxEZXNrdG9wXFx3b3Jrc3BhY2VcXENpbmVyaW5vXFxwb3Mvc3JjXFxjbGllbnRcXGFwcFxcbW9kdWxlc1xcc2hhcmVkXFxjb21wb25lbnRzXFxwYXJ0c1xcb3JkZXJcXGRldGFpbC1tb2RhbFxcZGV0YWlsLW1vZGFsLmNvbXBvbmVudC5zY3NzIiwic3JjL2NsaWVudC9hcHAvbW9kdWxlcy9zaGFyZWQvY29tcG9uZW50cy9wYXJ0cy9vcmRlci9kZXRhaWwtbW9kYWwvZGV0YWlsLW1vZGFsLmNvbXBvbmVudC5zY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0VBQ0ksZ0JBQUE7QUNDSjs7QURFQTtFQUNJLHFCQUFBO0FDQ0oiLCJmaWxlIjoic3JjL2NsaWVudC9hcHAvbW9kdWxlcy9zaGFyZWQvY29tcG9uZW50cy9wYXJ0cy9vcmRlci9kZXRhaWwtbW9kYWwvZGV0YWlsLW1vZGFsLmNvbXBvbmVudC5zY3NzIiwic291cmNlc0NvbnRlbnQiOlsiLnNjcm9sbC12ZXJ0aWNhbCB7XG4gICAgbWF4LWhlaWdodDogNzV2aDtcbn1cblxuLmFkZGl0aW9uYWwtdGlja2V0LXRleHQge1xuICAgIHdoaXRlLXNwYWNlOiBwcmUtd3JhcDtcbn0iLCIuc2Nyb2xsLXZlcnRpY2FsIHtcbiAgbWF4LWhlaWdodDogNzV2aDtcbn1cblxuLmFkZGl0aW9uYWwtdGlja2V0LXRleHQge1xuICB3aGl0ZS1zcGFjZTogcHJlLXdyYXA7XG59Il19 */";
     /***/
   },
 
@@ -7470,6 +7534,34 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
 
+    var __awaiter = undefined && undefined.__awaiter || function (thisArg, _arguments, P, generator) {
+      return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) {
+          try {
+            step(generator.next(value));
+          } catch (e) {
+            reject(e);
+          }
+        }
+
+        function rejected(value) {
+          try {
+            step(generator["throw"](value));
+          } catch (e) {
+            reject(e);
+          }
+        }
+
+        function step(result) {
+          result.done ? resolve(result.value) : new P(function (resolve) {
+            resolve(result.value);
+          }).then(fulfilled, rejected);
+        }
+
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+      });
+    };
+
     var __importDefault = undefined && undefined.__importDefault || function (mod) {
       return mod && mod.__esModule ? mod : {
         "default": mod
@@ -7488,29 +7580,69 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
         this.environment = Object(_environments_environment__WEBPACK_IMPORTED_MODULE_5__["getEnvironment"])();
         this.getTransactionAgentIdentifier = _functions__WEBPACK_IMPORTED_MODULE_6__["getTransactionAgentIdentifier"];
         this.platform = platform__WEBPACK_IMPORTED_MODULE_4__;
+        this.paymentMethodType = _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_1__["factory"].paymentMethodType;
       }
 
       _createClass(OrderDetailModalComponent, [{
         key: "ngOnInit",
         value: function ngOnInit() {
-          var _this13 = this;
+          return __awaiter(this, void 0, void 0,
+          /*#__PURE__*/
+          regeneratorRuntime.mark(function _callee15() {
+            var order, element, isRegiGrow, findResult, qrcodeText;
+            return regeneratorRuntime.wrap(function _callee15$(_context15) {
+              while (1) {
+                switch (_context15.prev = _context15.next) {
+                  case 0:
+                    order = this.order;
+                    this.eventOrders = Object(_functions__WEBPACK_IMPORTED_MODULE_6__["order2EventOrders"])({
+                      order: this.order
+                    });
+                    element = this.elementRef.nativeElement.querySelector('.scroll-vertical');
+                    setTimeout(function () {
+                      element.scrollTop = 0;
+                    }, 0);
+                    _context15.prev = 4;
+                    isRegiGrow = order.paymentMethods.find(function (p) {
+                      return p.name === 'RegiGrow';
+                    }) !== undefined;
+                    findResult = this.environment.PAYMENT_METHOD_CUSTOM.find(function (c) {
+                      return order.paymentMethods.find(function (p) {
+                        return p.typeOf === _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_1__["factory"].paymentMethodType.Others && p.name === c.category && c.qrcode !== undefined;
+                      });
+                    });
 
-          var order = this.order;
-          this.eventOrders = Object(_functions__WEBPACK_IMPORTED_MODULE_6__["order2EventOrders"])({
-            order: this.order
-          });
-          var element = this.elementRef.nativeElement.querySelector('.scroll-vertical');
-          setTimeout(function () {
-            element.scrollTop = 0;
-          }, 0);
+                    if (!(isRegiGrow || findResult !== undefined && findResult.qrcode !== undefined)) {
+                      _context15.next = 12;
+                      break;
+                    }
 
-          if (order.paymentMethods.find(function (p) {
-            return p.name === 'RegiGrow';
-          }) !== undefined) {
-            Object(_functions__WEBPACK_IMPORTED_MODULE_6__["createRegiGrowQrcode"])(order).then(function (code) {
-              _this13.regiGrow = code;
-            })["catch"](function () {});
-          }
+                    qrcodeText = isRegiGrow ? this.environment.REGIGROW_QRCODE : findResult !== undefined && findResult.qrcode !== undefined ? findResult.qrcode : '';
+                    _context15.next = 11;
+                    return Object(_functions__WEBPACK_IMPORTED_MODULE_6__["createCooperationQRCode"])({
+                      order: order,
+                      qrcodeText: qrcodeText
+                    });
+
+                  case 11:
+                    this.qrcode = _context15.sent;
+
+                  case 12:
+                    _context15.next = 17;
+                    break;
+
+                  case 14:
+                    _context15.prev = 14;
+                    _context15.t0 = _context15["catch"](4);
+                    console.error(_context15.t0);
+
+                  case 17:
+                  case "end":
+                    return _context15.stop();
+                }
+              }
+            }, _callee15, this, [[4, 14]]);
+          }));
         }
       }]);
 
@@ -7641,7 +7773,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       _createClass(PurchaseCinemaTicketModalComponent, [{
         key: "ngOnInit",
         value: function ngOnInit() {
-          var _this14 = this;
+          var _this13 = this;
 
           this.tickets = [];
           this.addOnList = [];
@@ -7653,11 +7785,11 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
             if (movieTicketTypeChargeSpecification === undefined && ticketOffer.eligibleSeatingType !== undefined) {
               // 券種の適用座席タイプ条件あり（ムビチケ以外）
-              if (_this14.reservation !== undefined && _this14.reservation.seat !== undefined && Object(_functions__WEBPACK_IMPORTED_MODULE_3__["isEligibleSeatingType"])({
-                seat: _this14.reservation.seat,
+              if (_this13.reservation !== undefined && _this13.reservation.seat !== undefined && Object(_functions__WEBPACK_IMPORTED_MODULE_3__["isEligibleSeatingType"])({
+                seat: _this13.reservation.seat,
                 eligibleSeatingType: ticketOffer.eligibleSeatingType
               })) {
-                _this14.tickets.push({
+                _this13.tickets.push({
                   ticketOffer: ticketOffer
                 });
               }
@@ -7667,7 +7799,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
             if (movieTicketTypeChargeSpecification === undefined) {
               // 通常券種（ムビチケ以外）
-              _this14.tickets.push({
+              _this13.tickets.push({
                 ticketOffer: ticketOffer
               });
 
@@ -7677,7 +7809,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
             var targetMovieTickets = [];
 
-            _this14.checkMovieTicketActions.forEach(function (checkMovieTicketAction) {
+            _this13.checkMovieTicketActions.forEach(function (checkMovieTicketAction) {
               if (checkMovieTicketAction.result === undefined) {
                 return;
               }
@@ -7693,7 +7825,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
             }); // 選択中の対象ムビチケ券
 
 
-            var reservations = _this14.reservations.filter(function (reservation) {
+            var reservations = _this13.reservations.filter(function (reservation) {
               if (reservation.ticket === undefined || reservation.ticket.movieTicket === undefined) {
                 return false;
               }
@@ -7704,7 +7836,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
             var pendingMovieTickets = [];
 
-            _this14.pendingMovieTickets.forEach(function (pendingMovieTicket) {
+            _this13.pendingMovieTickets.forEach(function (pendingMovieTicket) {
               pendingMovieTicket.movieTickets.forEach(function (movieTicket) {
                 pendingMovieTickets.push(movieTicket);
               });
@@ -7764,7 +7896,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       }, {
         key: "selsctOption",
         value: function selsctOption() {
-          var _this15 = this;
+          var _this14 = this;
 
           if (this.selectedTicket === undefined) {
             this.modal.hide();
@@ -7773,11 +7905,11 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
           var addOn = [];
           this.addOnList.forEach(function (id) {
-            if (_this15.selectedTicket === undefined || _this15.selectedTicket.ticketOffer.addOn === undefined) {
+            if (_this14.selectedTicket === undefined || _this14.selectedTicket.ticketOffer.addOn === undefined) {
               return;
             }
 
-            var findResult = _this15.selectedTicket.ticketOffer.addOn.find(function (a) {
+            var findResult = _this14.selectedTicket.ticketOffer.addOn.find(function (a) {
               return a.id === id;
             });
 
@@ -7995,6 +8127,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
             });
           });
           this.selectedTickets = selectedTickets;
+          this.additionalTicketText = '';
         }
         /**
          * 予約可能数計算
@@ -8043,7 +8176,11 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
         value: function close() {
           this.modal.hide();
           var reservations = this.createReservations();
-          this.cb(reservations);
+          var additionalTicketText = this.additionalTicketText;
+          this.cb({
+            reservations: reservations,
+            additionalTicketText: additionalTicketText
+          });
         }
         /**
          * 予約チケット作成
@@ -8052,14 +8189,14 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       }, {
         key: "createReservations",
         value: function createReservations() {
-          var _this16 = this;
+          var _this15 = this;
 
           var reservations = [];
           this.selectedTickets.forEach(function (t) {
             var count = t.count;
 
             var _loop = function _loop(i) {
-              var findResult = _this16.screeningEventTicketOffers.find(function (s) {
+              var findResult = _this15.screeningEventTicketOffers.find(function (s) {
                 return s.id === t.id;
               });
 
@@ -8435,11 +8572,11 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
         value: function ngOnInit() {
           return __awaiter(this, void 0, void 0,
           /*#__PURE__*/
-          regeneratorRuntime.mark(function _callee15() {
+          regeneratorRuntime.mark(function _callee16() {
             var constraints;
-            return regeneratorRuntime.wrap(function _callee15$(_context15) {
+            return regeneratorRuntime.wrap(function _callee16$(_context16) {
               while (1) {
-                switch (_context15.prev = _context15.next) {
+                switch (_context16.prev = _context16.next) {
                   case 0:
                     this.running = false;
                     this.video = document.getElementById('video');
@@ -8470,10 +8607,10 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
                   case 5:
                   case "end":
-                    return _context15.stop();
+                    return _context16.stop();
                 }
               }
-            }, _callee15, this);
+            }, _callee16, this);
           }));
         }
       }, {
@@ -8490,46 +8627,46 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
         value: function start(constraints) {
           return __awaiter(this, void 0, void 0,
           /*#__PURE__*/
-          regeneratorRuntime.mark(function _callee16() {
-            var _this17 = this;
+          regeneratorRuntime.mark(function _callee17() {
+            var _this16 = this;
 
             var stream, scanLoopTime;
-            return regeneratorRuntime.wrap(function _callee16$(_context16) {
+            return regeneratorRuntime.wrap(function _callee17$(_context17) {
               while (1) {
-                switch (_context16.prev = _context16.next) {
+                switch (_context17.prev = _context17.next) {
                   case 0:
-                    _context16.prev = 0;
-                    _context16.next = 3;
+                    _context17.prev = 0;
+                    _context17.next = 3;
                     return navigator.mediaDevices.getUserMedia(constraints);
 
                   case 3:
-                    stream = _context16.sent;
+                    stream = _context17.sent;
                     this.stream = stream;
                     this.video.srcObject = this.stream;
                     scanLoopTime = 500;
                     this.running = true;
                     this.scanLoop = setInterval(function () {
-                      if (_this17.scan()) {
-                        _this17.modal.hide();
+                      if (_this16.scan()) {
+                        _this16.modal.hide();
 
-                        _this17.cb(_this17.readerResult);
+                        _this16.cb(_this16.readerResult);
                       }
                     }, scanLoopTime);
-                    _context16.next = 15;
+                    _context17.next = 15;
                     break;
 
                   case 11:
-                    _context16.prev = 11;
-                    _context16.t0 = _context16["catch"](0);
-                    console.error(_context16.t0);
+                    _context17.prev = 11;
+                    _context17.t0 = _context17["catch"](0);
+                    console.error(_context17.t0);
                     this.modal.hide();
 
                   case 15:
                   case "end":
-                    return _context16.stop();
+                    return _context17.stop();
                 }
               }
-            }, _callee16, this, [[0, 11]]);
+            }, _callee17, this, [[0, 11]]);
           }));
         }
         /**
@@ -9002,20 +9139,20 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       _createClass(ScreenComponent, [{
         key: "ngOnInit",
         value: function ngOnInit() {
-          var _this18 = this;
+          var _this17 = this;
 
           this.purchase = this.store.pipe(Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_2__["select"])(_store_reducers__WEBPACK_IMPORTED_MODULE_5__["getPurchase"]));
           this.purchase.subscribe(function (purchase) {
-            _this18.screeningEventOffers = purchase.screeningEventOffers;
-            _this18.authorizeSeatReservation = purchase.authorizeSeatReservation;
-            _this18.zoomState = false;
-            _this18.scale = 1;
-            _this18.height = 0;
-            _this18.origin = '0 0';
+            _this17.screeningEventOffers = purchase.screeningEventOffers;
+            _this17.authorizeSeatReservation = purchase.authorizeSeatReservation;
+            _this17.zoomState = false;
+            _this17.scale = 1;
+            _this17.height = 0;
+            _this17.origin = '0 0';
 
-            _this18.createScreen();
+            _this17.createScreen();
 
-            _this18.scaleDown();
+            _this17.scaleDown();
           }).unsubscribe();
         }
         /**
@@ -9025,16 +9162,16 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       }, {
         key: "ngAfterViewInit",
         value: function ngAfterViewInit() {
-          var _this19 = this;
+          var _this18 = this;
 
           var time = 300;
           var timer = setInterval(function () {
-            if (_this19.screenData !== undefined) {
+            if (_this18.screenData !== undefined) {
               clearInterval(timer);
               var screenElement = document.querySelector('.screen-style');
 
-              if (screenElement !== null && _this19.screenData.style !== undefined) {
-                screenElement.innerHTML = _this19.screenData.style;
+              if (screenElement !== null && _this18.screenData.style !== undefined) {
+                screenElement.innerHTML = _this18.screenData.style;
               }
             }
           }, time);
@@ -9053,7 +9190,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       }, {
         key: "isMobile",
         value: function isMobile() {
-          if (window.innerWidth > 768) {
+          if (window.innerWidth > 1024) {
             return false;
           }
 
@@ -9066,12 +9203,12 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       }, {
         key: "changeStatus",
         value: function changeStatus() {
-          var _this20 = this;
+          var _this19 = this;
 
           this.purchase.subscribe(function (purchase) {
             var reservations = purchase.reservations;
 
-            _this20.seats.forEach(function (row) {
+            _this19.seats.forEach(function (row) {
               row.data.forEach(function (seat) {
                 if (seat.status === _models__WEBPACK_IMPORTED_MODULE_4__["SeatStatus"].Active) {
                   seat.status = _models__WEBPACK_IMPORTED_MODULE_4__["SeatStatus"].Default;
@@ -9166,7 +9303,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       }, {
         key: "createScreen",
         value: function createScreen() {
-          var _this21 = this;
+          var _this20 = this;
 
           // y軸ラベル
           var labels = [];
@@ -9196,15 +9333,15 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
 
             if (y === 0) {
-              pos.y += _this21.screenData.seatStart.y;
-            } else if (_this21.screenData.map[y].length === 0) {
-              pos.y += _this21.screenData.aisle.middle.h - _this21.screenData.seatMargin.h;
+              pos.y += _this20.screenData.seatStart.y;
+            } else if (_this20.screenData.map[y].length === 0) {
+              pos.y += _this20.screenData.aisle.middle.h - _this20.screenData.seatMargin.h;
             } else {
               labelCount++;
-              pos.y += _this21.screenData.seatSize.h + _this21.screenData.seatMargin.h;
+              pos.y += _this20.screenData.seatSize.h + _this20.screenData.seatMargin.h;
             }
 
-            if (_this21.screenData.map[y].length > 0) {
+            if (_this20.screenData.map[y].length > 0) {
               seats.push({
                 className: "seat-".concat(labels[labelCount]),
                 code: labels[labelCount],
@@ -9215,54 +9352,54 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
               var _loop3 = function _loop3(x) {
                 if (x === 0) {
-                  pos.x = _this21.screenData.seatStart.x;
+                  pos.x = _this20.screenData.seatStart.x;
                 } // 座席ラベルHTML生成
 
 
-                if (x === 0 && _this21.screenData.lineLabel) {
-                  _this21.lineLabels.push({
+                if (x === 0 && _this20.screenData.lineLabel) {
+                  _this20.lineLabels.push({
                     id: labelCount,
-                    w: _this21.screenData.seatSize.w,
-                    h: _this21.screenData.seatSize.h,
+                    w: _this20.screenData.seatSize.w,
+                    h: _this20.screenData.seatSize.h,
                     y: pos.y,
-                    x: pos.x - _this21.screenData.seatLabelPos,
+                    x: pos.x - _this20.screenData.seatLabelPos,
                     label: labels[labelCount]
                   });
                 }
 
-                if (_this21.screenData.map[y][x] === 8) {
-                  pos.x += _this21.screenData.aisle.middle.w;
-                } else if (_this21.screenData.map[y][x] === 9) {
-                  pos.x += _this21.screenData.aisle.middle.w;
-                } else if (_this21.screenData.map[y][x] === 10) {
-                  pos.x += _this21.screenData.seatSize.w / 2 + _this21.screenData.seatMargin.w;
-                } else if (_this21.screenData.map[y][x] === 11) {
-                  pos.x += _this21.screenData.seatSize.w / 2 + _this21.screenData.seatMargin.w;
+                if (_this20.screenData.map[y][x] === 8) {
+                  pos.x += _this20.screenData.aisle.middle.w;
+                } else if (_this20.screenData.map[y][x] === 9) {
+                  pos.x += _this20.screenData.aisle.middle.w;
+                } else if (_this20.screenData.map[y][x] === 10) {
+                  pos.x += _this20.screenData.seatSize.w / 2 + _this20.screenData.seatMargin.w;
+                } else if (_this20.screenData.map[y][x] === 11) {
+                  pos.x += _this20.screenData.seatSize.w / 2 + _this20.screenData.seatMargin.w;
                 } // 座席番号HTML生成
 
 
-                if (y === 0 && _this21.screenData.columnLabel) {
-                  var label = _this21.screenData.seatNumberAlign === 'left' ? String(x + 1) : String(_this21.screenData.map[0].length - x);
+                if (y === 0 && _this20.screenData.columnLabel) {
+                  var label = _this20.screenData.seatNumberAlign === 'left' ? String(x + 1) : String(_this20.screenData.map[0].length - x);
 
-                  _this21.columnLabels.push({
+                  _this20.columnLabels.push({
                     id: x,
-                    w: _this21.screenData.seatSize.w,
-                    h: _this21.screenData.seatSize.h,
-                    y: pos.y - _this21.screenData.seatNumberPos,
+                    w: _this20.screenData.seatSize.w,
+                    h: _this20.screenData.seatSize.h,
+                    y: pos.y - _this20.screenData.seatNumberPos,
                     x: pos.x,
                     label: label
                   });
                 }
 
-                if (_this21.screenData.map[y][x] === 1 || _this21.screenData.map[y][x] === 4 || _this21.screenData.map[y][x] === 5 || _this21.screenData.map[y][x] === 8 || _this21.screenData.map[y][x] === 10) {
+                if (_this20.screenData.map[y][x] === 1 || _this20.screenData.map[y][x] === 4 || _this20.screenData.map[y][x] === 5 || _this20.screenData.map[y][x] === 8 || _this20.screenData.map[y][x] === 10) {
                   (function () {
                     // 座席HTML生成
                     var code = function () {
-                      if (_this21.screenData.codeType === 'coa') {
-                        return _this21.screenData.seatNumberAlign === 'left' ? "".concat(Object(_functions__WEBPACK_IMPORTED_MODULE_3__["toFull"])(labels[labelCount]), "\uFF0D").concat(Object(_functions__WEBPACK_IMPORTED_MODULE_3__["toFull"])(String(x + 1))) : "".concat(Object(_functions__WEBPACK_IMPORTED_MODULE_3__["toFull"])(labels[labelCount]), "\uFF0D").concat(Object(_functions__WEBPACK_IMPORTED_MODULE_3__["toFull"])(String(_this21.screenData.map[y].length - x)));
+                      if (_this20.screenData.codeType === 'coa') {
+                        return _this20.screenData.seatNumberAlign === 'left' ? "".concat(Object(_functions__WEBPACK_IMPORTED_MODULE_3__["toFull"])(labels[labelCount]), "\uFF0D").concat(Object(_functions__WEBPACK_IMPORTED_MODULE_3__["toFull"])(String(x + 1))) : "".concat(Object(_functions__WEBPACK_IMPORTED_MODULE_3__["toFull"])(labels[labelCount]), "\uFF0D").concat(Object(_functions__WEBPACK_IMPORTED_MODULE_3__["toFull"])(String(_this20.screenData.map[y].length - x)));
                       }
 
-                      return _this21.screenData.seatNumberAlign === 'left' ? "".concat(labels[labelCount], "-").concat(String(x + 1)) : "".concat(labels[labelCount], "-").concat(String(_this21.screenData.map[y].length - x));
+                      return _this20.screenData.seatNumberAlign === 'left' ? "".concat(labels[labelCount], "-").concat(String(x + 1)) : "".concat(labels[labelCount], "-").concat(String(_this20.screenData.map[y].length - x));
                     }();
 
                     var className = ["seat-".concat(code)];
@@ -9275,7 +9412,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                     var _iteratorError4 = undefined;
 
                     try {
-                      for (var _iterator4 = _this21.screeningEventOffers[Symbol.iterator](), _step4; !(_iteratorNormalCompletion4 = (_step4 = _iterator4.next()).done); _iteratorNormalCompletion4 = true) {
+                      for (var _iterator4 = _this20.screeningEventOffers[Symbol.iterator](), _step4; !(_iteratorNormalCompletion4 = (_step4 = _iterator4.next()).done); _iteratorNormalCompletion4 = true) {
                         var screeningEventOffer = _step4.value;
                         section = screeningEventOffer.branchCode;
                         var findContainsPlaceResult = screeningEventOffer.containsPlace.find(function (containsPlace) {
@@ -9315,10 +9452,10 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                       }
                     }
 
-                    if (_this21.authorizeSeatReservation !== undefined && _this21.authorizeSeatReservation.instrument !== undefined) {
-                      if (_this21.authorizeSeatReservation.instrument.identifier === _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_1__["factory"].service.webAPI.Identifier.Chevre) {
+                    if (_this20.authorizeSeatReservation !== undefined && _this20.authorizeSeatReservation.instrument !== undefined) {
+                      if (_this20.authorizeSeatReservation.instrument.identifier === _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_1__["factory"].service.webAPI.Identifier.Chevre) {
                         // chevre
-                        var findResult = _this21.authorizeSeatReservation.object.acceptedOffer.find(function (offer) {
+                        var findResult = _this20.authorizeSeatReservation.object.acceptedOffer.find(function (offer) {
                           var chevreOffer = offer;
                           return chevreOffer.ticketedSeat !== undefined && chevreOffer.ticketedSeat.seatNumber === code && chevreOffer.ticketedSeat.seatSection === section;
                         });
@@ -9329,14 +9466,14 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                       }
                     }
 
-                    if (_this21.screenData.hc.indexOf(code) !== -1) {
+                    if (_this20.screenData.hc.indexOf(code) !== -1) {
                       className.push('seat-hc');
                     }
 
                     var seat = {
                       className: className.join(' '),
-                      w: _this21.screenData.seatSize.w,
-                      h: _this21.screenData.seatSize.h,
+                      w: _this20.screenData.seatSize.w,
+                      h: _this20.screenData.seatSize.h,
                       y: 0,
                       x: pos.x,
                       code: code,
@@ -9349,24 +9486,24 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                 } // ポジション設定
 
 
-                if (_this21.screenData.map[y][x] === 2) {
-                  pos.x += _this21.screenData.aisle.middle.w + _this21.screenData.seatMargin.w;
-                } else if (_this21.screenData.map[y][x] === 3) {
-                  pos.x += _this21.screenData.aisle.small.w + _this21.screenData.seatMargin.w;
-                } else if (_this21.screenData.map[y][x] === 4) {
-                  pos.x += _this21.screenData.aisle.middle.w + _this21.screenData.seatSize.w + _this21.screenData.seatMargin.w;
-                } else if (_this21.screenData.map[y][x] === 5) {
-                  pos.x += _this21.screenData.aisle.small.w + _this21.screenData.seatSize.w + _this21.screenData.seatMargin.w;
-                } else if (_this21.screenData.map[y][x] === 6) {
-                  pos.x += _this21.screenData.aisle.middle.w + _this21.screenData.seatSize.w + _this21.screenData.seatMargin.w;
-                } else if (_this21.screenData.map[y][x] === 7) {
-                  pos.x += _this21.screenData.aisle.small.w + _this21.screenData.seatSize.w + _this21.screenData.seatMargin.w;
+                if (_this20.screenData.map[y][x] === 2) {
+                  pos.x += _this20.screenData.aisle.middle.w + _this20.screenData.seatMargin.w;
+                } else if (_this20.screenData.map[y][x] === 3) {
+                  pos.x += _this20.screenData.aisle.small.w + _this20.screenData.seatMargin.w;
+                } else if (_this20.screenData.map[y][x] === 4) {
+                  pos.x += _this20.screenData.aisle.middle.w + _this20.screenData.seatSize.w + _this20.screenData.seatMargin.w;
+                } else if (_this20.screenData.map[y][x] === 5) {
+                  pos.x += _this20.screenData.aisle.small.w + _this20.screenData.seatSize.w + _this20.screenData.seatMargin.w;
+                } else if (_this20.screenData.map[y][x] === 6) {
+                  pos.x += _this20.screenData.aisle.middle.w + _this20.screenData.seatSize.w + _this20.screenData.seatMargin.w;
+                } else if (_this20.screenData.map[y][x] === 7) {
+                  pos.x += _this20.screenData.aisle.small.w + _this20.screenData.seatSize.w + _this20.screenData.seatMargin.w;
                 } else {
-                  pos.x += _this21.screenData.seatSize.w + _this21.screenData.seatMargin.w;
+                  pos.x += _this20.screenData.seatSize.w + _this20.screenData.seatMargin.w;
                 }
               };
 
-              for (var x = 0; x < _this21.screenData.map[y].length; x++) {
+              for (var x = 0; x < _this20.screenData.map[y].length; x++) {
                 _loop3(x);
               }
             }
@@ -10064,25 +10201,25 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
         value: function getData() {
           return __awaiter(this, void 0, void 0,
           /*#__PURE__*/
-          regeneratorRuntime.mark(function _callee17() {
-            var _this22 = this;
+          regeneratorRuntime.mark(function _callee18() {
+            var _this21 = this;
 
-            return regeneratorRuntime.wrap(function _callee17$(_context17) {
+            return regeneratorRuntime.wrap(function _callee18$(_context18) {
               while (1) {
-                switch (_context17.prev = _context17.next) {
+                switch (_context18.prev = _context18.next) {
                   case 0:
-                    return _context17.abrupt("return", new Promise(function (resolve) {
-                      _this22.admission.subscribe(function (admission) {
+                    return _context18.abrupt("return", new Promise(function (resolve) {
+                      _this21.admission.subscribe(function (admission) {
                         resolve(admission);
                       }).unsubscribe();
                     }));
 
                   case 1:
                   case "end":
-                    return _context17.stop();
+                    return _context18.stop();
                 }
               }
-            }, _callee17);
+            }, _callee18);
           }));
         }
         /**
@@ -10121,39 +10258,39 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
         value: function checkQrcodeToken(code) {
           return __awaiter(this, void 0, void 0,
           /*#__PURE__*/
-          regeneratorRuntime.mark(function _callee19() {
-            var _this23 = this;
+          regeneratorRuntime.mark(function _callee20() {
+            var _this22 = this;
 
-            return regeneratorRuntime.wrap(function _callee19$(_context19) {
+            return regeneratorRuntime.wrap(function _callee20$(_context20) {
               while (1) {
-                switch (_context19.prev = _context19.next) {
+                switch (_context20.prev = _context20.next) {
                   case 0:
-                    return _context19.abrupt("return", new Promise(function (resolve, reject) {
-                      return __awaiter(_this23, void 0, void 0,
+                    return _context20.abrupt("return", new Promise(function (resolve, reject) {
+                      return __awaiter(_this22, void 0, void 0,
                       /*#__PURE__*/
-                      regeneratorRuntime.mark(function _callee18() {
-                        var _this24 = this;
+                      regeneratorRuntime.mark(function _callee19() {
+                        var _this23 = this;
 
                         var _ref, screeningEvent, success, fail;
 
-                        return regeneratorRuntime.wrap(function _callee18$(_context18) {
+                        return regeneratorRuntime.wrap(function _callee19$(_context19) {
                           while (1) {
-                            switch (_context18.prev = _context18.next) {
+                            switch (_context19.prev = _context19.next) {
                               case 0:
-                                _context18.next = 2;
+                                _context19.next = 2;
                                 return this.getData();
 
                               case 2:
-                                _ref = _context18.sent;
+                                _ref = _context19.sent;
                                 screeningEvent = _ref.screeningEvent;
 
                                 if (!(screeningEvent === undefined)) {
-                                  _context18.next = 7;
+                                  _context19.next = 7;
                                   break;
                                 }
 
                                 reject(new Error('screeningEvent === undefined'));
-                                return _context18.abrupt("return");
+                                return _context19.abrupt("return");
 
                               case 7:
                                 this.store.dispatch(new _store_actions__WEBPACK_IMPORTED_MODULE_5__["admissionAction"].Check({
@@ -10164,7 +10301,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                                   return resolve();
                                 }));
                                 fail = this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_1__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_5__["admissionAction"].ActionTypes.CheckFail), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["tap"])(function () {
-                                  _this24.error.subscribe(function (error) {
+                                  _this23.error.subscribe(function (error) {
                                     reject(error);
                                   }).unsubscribe();
                                 }));
@@ -10172,19 +10309,19 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
                               case 11:
                               case "end":
-                                return _context18.stop();
+                                return _context19.stop();
                             }
                           }
-                        }, _callee18, this);
+                        }, _callee19, this);
                       }));
                     }));
 
                   case 1:
                   case "end":
-                    return _context19.stop();
+                    return _context20.stop();
                 }
               }
-            }, _callee19);
+            }, _callee20);
           }));
         }
         /**
@@ -10196,24 +10333,24 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
         value: function getScreeningEvent(screeningEvent) {
           return __awaiter(this, void 0, void 0,
           /*#__PURE__*/
-          regeneratorRuntime.mark(function _callee20() {
-            var _this25 = this;
+          regeneratorRuntime.mark(function _callee21() {
+            var _this24 = this;
 
-            return regeneratorRuntime.wrap(function _callee20$(_context20) {
+            return regeneratorRuntime.wrap(function _callee21$(_context21) {
               while (1) {
-                switch (_context20.prev = _context20.next) {
+                switch (_context21.prev = _context21.next) {
                   case 0:
-                    return _context20.abrupt("return", new Promise(function (resolve, reject) {
-                      _this25.store.dispatch(new _store_actions__WEBPACK_IMPORTED_MODULE_5__["admissionAction"].GetScreeningEvent({
+                    return _context21.abrupt("return", new Promise(function (resolve, reject) {
+                      _this24.store.dispatch(new _store_actions__WEBPACK_IMPORTED_MODULE_5__["admissionAction"].GetScreeningEvent({
                         screeningEvent: screeningEvent
                       }));
 
-                      var success = _this25.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_1__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_5__["admissionAction"].ActionTypes.GetScreeningEventSuccess), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["tap"])(function () {
+                      var success = _this24.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_1__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_5__["admissionAction"].ActionTypes.GetScreeningEventSuccess), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["tap"])(function () {
                         resolve();
                       }));
 
-                      var fail = _this25.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_1__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_5__["admissionAction"].ActionTypes.GetScreeningEventFail), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["tap"])(function () {
-                        _this25.error.subscribe(function (error) {
+                      var fail = _this24.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_1__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_5__["admissionAction"].ActionTypes.GetScreeningEventFail), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["tap"])(function () {
+                        _this24.error.subscribe(function (error) {
                           reject(error);
                         }).unsubscribe();
                       }));
@@ -10223,10 +10360,10 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
                   case 1:
                   case "end":
-                    return _context20.stop();
+                    return _context21.stop();
                 }
               }
-            }, _callee20);
+            }, _callee21);
           }));
         }
       }]);
@@ -10364,18 +10501,18 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
         value: function getServices() {
           return __awaiter(this, void 0, void 0,
           /*#__PURE__*/
-          regeneratorRuntime.mark(function _callee21() {
+          regeneratorRuntime.mark(function _callee22() {
             var option;
-            return regeneratorRuntime.wrap(function _callee21$(_context21) {
+            return regeneratorRuntime.wrap(function _callee22$(_context22) {
               while (1) {
-                switch (_context21.prev = _context21.next) {
+                switch (_context22.prev = _context22.next) {
                   case 0:
-                    _context21.prev = 0;
-                    _context21.next = 3;
+                    _context22.prev = 0;
+                    _context22.next = 3;
                     return this.createOption();
 
                   case 3:
-                    option = _context21.sent;
+                    option = _context22.sent;
                     this.account = new _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_2__["service"].Account(option);
                     this.event = new _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_2__["service"].Event(option);
                     this.order = new _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_2__["service"].Order(option);
@@ -10395,23 +10532,23 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                     this.admin = {
                       ownershipInfo: new _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_2__["service"].OwnershipInfo(option)
                     };
-                    _context21.next = 22;
+                    _context22.next = 22;
                     break;
 
                   case 18:
-                    _context21.prev = 18;
-                    _context21.t0 = _context21["catch"](0);
-                    console.error(_context21.t0);
+                    _context22.prev = 18;
+                    _context22.t0 = _context22["catch"](0);
+                    console.error(_context22.t0);
                     throw {
                       error: 'アクセストークンの取得に失敗しました。'
                     };
 
                   case 22:
                   case "end":
-                    return _context21.stop();
+                    return _context22.stop();
                 }
               }
-            }, _callee21, this, [[0, 18]]);
+            }, _callee22, this, [[0, 18]]);
           }));
         }
         /**
@@ -10423,16 +10560,16 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
         value: function createOption() {
           return __awaiter(this, void 0, void 0,
           /*#__PURE__*/
-          regeneratorRuntime.mark(function _callee22() {
-            return regeneratorRuntime.wrap(function _callee22$(_context22) {
+          regeneratorRuntime.mark(function _callee23() {
+            return regeneratorRuntime.wrap(function _callee23$(_context23) {
               while (1) {
-                switch (_context22.prev = _context22.next) {
+                switch (_context23.prev = _context23.next) {
                   case 0:
-                    _context22.next = 2;
+                    _context23.next = 2;
                     return this.authorize();
 
                   case 2:
-                    return _context22.abrupt("return", {
+                    return _context23.abrupt("return", {
                       endpoint: this.endpoint,
                       auth: this.auth,
                       project: {
@@ -10442,10 +10579,10 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
                   case 3:
                   case "end":
-                    return _context22.stop();
+                    return _context23.stop();
                 }
               }
-            }, _callee22, this);
+            }, _callee23, this);
           }));
         }
         /**
@@ -10457,27 +10594,27 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
         value: function authorize() {
           return __awaiter(this, void 0, void 0,
           /*#__PURE__*/
-          regeneratorRuntime.mark(function _callee23() {
+          regeneratorRuntime.mark(function _callee24() {
             var url, body, result;
-            return regeneratorRuntime.wrap(function _callee23$(_context23) {
+            return regeneratorRuntime.wrap(function _callee24$(_context24) {
               while (1) {
-                switch (_context23.prev = _context23.next) {
+                switch (_context24.prev = _context24.next) {
                   case 0:
                     url = '/api/authorize/getCredentials';
                     body = {};
-                    _context23.next = 4;
+                    _context24.next = 4;
                     return this.http.post(url, body).toPromise();
 
                   case 4:
-                    result = _context23.sent;
+                    result = _context24.sent;
                     this.setCredentials(result);
 
                   case 6:
                   case "end":
-                    return _context23.stop();
+                    return _context24.stop();
                 }
               }
-            }, _callee23, this);
+            }, _callee24, this);
           }));
         }
         /**
@@ -10516,45 +10653,13 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
         value: function signIn() {
           return __awaiter(this, void 0, void 0,
           /*#__PURE__*/
-          regeneratorRuntime.mark(function _callee24() {
-            var url, result;
-            return regeneratorRuntime.wrap(function _callee24$(_context24) {
-              while (1) {
-                switch (_context24.prev = _context24.next) {
-                  case 0:
-                    url = '/api/authorize/signIn';
-                    _context24.next = 3;
-                    return this.http.get(url, {}).toPromise();
-
-                  case 3:
-                    result = _context24.sent;
-                    // console.log(result.url);
-                    location.href = result.url;
-
-                  case 5:
-                  case "end":
-                    return _context24.stop();
-                }
-              }
-            }, _callee24, this);
-          }));
-        }
-        /**
-         * サインアウト
-         */
-
-      }, {
-        key: "signOut",
-        value: function signOut() {
-          return __awaiter(this, void 0, void 0,
-          /*#__PURE__*/
           regeneratorRuntime.mark(function _callee25() {
             var url, result;
             return regeneratorRuntime.wrap(function _callee25$(_context25) {
               while (1) {
                 switch (_context25.prev = _context25.next) {
                   case 0:
-                    url = '/api/authorize/signOut';
+                    url = '/api/authorize/signIn';
                     _context25.next = 3;
                     return this.http.get(url, {}).toPromise();
 
@@ -10572,6 +10677,38 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
           }));
         }
         /**
+         * サインアウト
+         */
+
+      }, {
+        key: "signOut",
+        value: function signOut() {
+          return __awaiter(this, void 0, void 0,
+          /*#__PURE__*/
+          regeneratorRuntime.mark(function _callee26() {
+            var url, result;
+            return regeneratorRuntime.wrap(function _callee26$(_context26) {
+              while (1) {
+                switch (_context26.prev = _context26.next) {
+                  case 0:
+                    url = '/api/authorize/signOut';
+                    _context26.next = 3;
+                    return this.http.get(url, {}).toPromise();
+
+                  case 3:
+                    result = _context26.sent;
+                    // console.log(result.url);
+                    location.href = result.url;
+
+                  case 5:
+                  case "end":
+                    return _context26.stop();
+                }
+              }
+            }, _callee26, this);
+          }));
+        }
+        /**
          * パスポート取得
          */
 
@@ -10580,18 +10717,18 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
         value: function getPassport(selleId) {
           return __awaiter(this, void 0, void 0,
           /*#__PURE__*/
-          regeneratorRuntime.mark(function _callee26() {
+          regeneratorRuntime.mark(function _callee27() {
             var url, body, result;
-            return regeneratorRuntime.wrap(function _callee26$(_context26) {
+            return regeneratorRuntime.wrap(function _callee27$(_context27) {
               while (1) {
-                switch (_context26.prev = _context26.next) {
+                switch (_context27.prev = _context27.next) {
                   case 0:
                     if (!(this.waiterServerUrl === undefined || this.waiterServerUrl === '')) {
-                      _context26.next = 2;
+                      _context27.next = 2;
                       break;
                     }
 
-                    return _context26.abrupt("return", {
+                    return _context27.abrupt("return", {
                       token: ''
                     });
 
@@ -10600,19 +10737,19 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                     body = {
                       scope: "Transaction:PlaceOrder:".concat(selleId)
                     };
-                    _context26.next = 6;
+                    _context27.next = 6;
                     return this.http.post(url, body).toPromise();
 
                   case 6:
-                    result = _context26.sent;
-                    return _context26.abrupt("return", result);
+                    result = _context27.sent;
+                    return _context27.abrupt("return", result);
 
                   case 8:
                   case "end":
-                    return _context26.stop();
+                    return _context27.stop();
                 }
               }
-            }, _callee26, this);
+            }, _callee27, this);
           }));
         }
       }]);
@@ -10771,37 +10908,37 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
         value: function order(params) {
           return __awaiter(this, void 0, void 0,
           /*#__PURE__*/
-          regeneratorRuntime.mark(function _callee27() {
+          regeneratorRuntime.mark(function _callee28() {
             var searchResult, url, fields, opts, data, csv, blob, fileName;
-            return regeneratorRuntime.wrap(function _callee27$(_context27) {
+            return regeneratorRuntime.wrap(function _callee28$(_context28) {
               while (1) {
-                switch (_context27.prev = _context27.next) {
+                switch (_context28.prev = _context28.next) {
                   case 0:
-                    _context27.next = 2;
+                    _context28.next = 2;
                     return this.cinerino.getServices();
 
                   case 2:
-                    _context27.next = 4;
+                    _context28.next = 4;
                     return this.orderService.splitSearch(params);
 
                   case 4:
-                    searchResult = _context27.sent;
+                    searchResult = _context28.sent;
                     url = "".concat(Object(_functions__WEBPACK_IMPORTED_MODULE_2__["getProject"])().storageUrl, "/json/csv/order.json");
-                    _context27.next = 8;
+                    _context28.next = 8;
                     return this.utilService.getJson(url);
 
                   case 8:
-                    fields = _context27.sent;
+                    fields = _context28.sent;
                     opts = {
                       fields: fields,
                       unwind: []
                     };
                     data = Object(_functions__WEBPACK_IMPORTED_MODULE_2__["order2report"])(searchResult.data);
-                    _context27.next = 13;
+                    _context28.next = 13;
                     return json2csv__WEBPACK_IMPORTED_MODULE_1__["parseAsync"](data, opts);
 
                   case 13:
-                    csv = _context27.sent;
+                    csv = _context28.sent;
                     blob = Object(_functions__WEBPACK_IMPORTED_MODULE_2__["string2blob"])(csv, {
                       type: 'text/csv'
                     });
@@ -10810,10 +10947,10 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
                   case 17:
                   case "end":
-                    return _context27.stop();
+                    return _context28.stop();
                 }
               }
-            }, _callee27, this);
+            }, _callee28, this);
           }));
         }
         /**
@@ -10825,33 +10962,33 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
         value: function reservation(params) {
           return __awaiter(this, void 0, void 0,
           /*#__PURE__*/
-          regeneratorRuntime.mark(function _callee28() {
+          regeneratorRuntime.mark(function _callee29() {
             var searchResult, url, fields, opts, data, csv, blob, fileName;
-            return regeneratorRuntime.wrap(function _callee28$(_context28) {
+            return regeneratorRuntime.wrap(function _callee29$(_context29) {
               while (1) {
-                switch (_context28.prev = _context28.next) {
+                switch (_context29.prev = _context29.next) {
                   case 0:
-                    _context28.next = 2;
+                    _context29.next = 2;
                     return this.reservationService.splitSearch(params);
 
                   case 2:
-                    searchResult = _context28.sent;
+                    searchResult = _context29.sent;
                     url = "".concat(Object(_functions__WEBPACK_IMPORTED_MODULE_2__["getProject"])().storageUrl, "/json/csv/reservation.json");
-                    _context28.next = 6;
+                    _context29.next = 6;
                     return this.utilService.getJson(url);
 
                   case 6:
-                    fields = _context28.sent;
+                    fields = _context29.sent;
                     opts = {
                       fields: fields,
                       unwind: []
                     };
                     data = Object(_functions__WEBPACK_IMPORTED_MODULE_2__["reservation2report"])(searchResult.data);
-                    _context28.next = 11;
+                    _context29.next = 11;
                     return json2csv__WEBPACK_IMPORTED_MODULE_1__["parseAsync"](data, opts);
 
                   case 11:
-                    csv = _context28.sent;
+                    csv = _context29.sent;
                     blob = Object(_functions__WEBPACK_IMPORTED_MODULE_2__["string2blob"])(csv, {
                       type: 'text/csv'
                     });
@@ -10860,10 +10997,10 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
                   case 15:
                   case "end":
-                    return _context28.stop();
+                    return _context29.stop();
                 }
               }
-            }, _callee28, this);
+            }, _callee29, this);
           }));
         }
         /**
@@ -10875,23 +11012,23 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
         value: function person(params) {
           return __awaiter(this, void 0, void 0,
           /*#__PURE__*/
-          regeneratorRuntime.mark(function _callee29() {
+          regeneratorRuntime.mark(function _callee30() {
             var url, fields, opts, limit, page, roop, persons, searchResult, data;
-            return regeneratorRuntime.wrap(function _callee29$(_context29) {
+            return regeneratorRuntime.wrap(function _callee30$(_context30) {
               while (1) {
-                switch (_context29.prev = _context29.next) {
+                switch (_context30.prev = _context30.next) {
                   case 0:
                     url = "".concat(Object(_functions__WEBPACK_IMPORTED_MODULE_2__["getProject"])().storageUrl, "/json/csv/person.json");
-                    _context29.next = 3;
+                    _context30.next = 3;
                     return this.utilService.getJson(url);
 
                   case 3:
-                    fields = _context29.sent;
+                    fields = _context30.sent;
                     opts = {
                       fields: fields,
                       unwind: []
                     };
-                    _context29.next = 7;
+                    _context30.next = 7;
                     return this.cinerino.getServices();
 
                   case 7:
@@ -10902,21 +11039,21 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
                   case 11:
                     if (!roop) {
-                      _context29.next = 22;
+                      _context30.next = 22;
                       break;
                     }
 
                     params.limit = limit;
                     params.page = page;
-                    _context29.next = 16;
+                    _context30.next = 16;
                     return this.cinerino.person.search(params);
 
                   case 16:
-                    searchResult = _context29.sent;
+                    searchResult = _context30.sent;
                     persons = persons.concat(searchResult.data);
                     page++;
                     roop = searchResult.data.length > 0;
-                    _context29.next = 11;
+                    _context30.next = 11;
                     break;
 
                   case 22:
@@ -10927,15 +11064,15 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                       };
                       data.push(customData);
                     });
-                    _context29.next = 26;
+                    _context30.next = 26;
                     return this.splitDownload('person', data, opts, DownloadService_1.SPLIT_COUNT);
 
                   case 26:
                   case "end":
-                    return _context29.stop();
+                    return _context30.stop();
                 }
               }
-            }, _callee29, this);
+            }, _callee30, this);
           }));
         }
         /**
@@ -10947,27 +11084,27 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
         value: function splitDownload(filename, data, opts, split) {
           return __awaiter(this, void 0, void 0,
           /*#__PURE__*/
-          regeneratorRuntime.mark(function _callee30() {
+          regeneratorRuntime.mark(function _callee31() {
             var limit, i, splitData, csv, blob, fileName;
-            return regeneratorRuntime.wrap(function _callee30$(_context30) {
+            return regeneratorRuntime.wrap(function _callee31$(_context31) {
               while (1) {
-                switch (_context30.prev = _context30.next) {
+                switch (_context31.prev = _context31.next) {
                   case 0:
                     limit = Math.ceil(data.length / split);
                     i = 0;
 
                   case 2:
                     if (!(i < limit)) {
-                      _context30.next = 13;
+                      _context31.next = 13;
                       break;
                     }
 
                     splitData = data.slice(i * split, (i + 1) * split > data.length ? data.length : (i + 1) * split);
-                    _context30.next = 6;
+                    _context31.next = 6;
                     return json2csv__WEBPACK_IMPORTED_MODULE_1__["parseAsync"](splitData, opts);
 
                   case 6:
-                    csv = _context30.sent;
+                    csv = _context31.sent;
                     blob = Object(_functions__WEBPACK_IMPORTED_MODULE_2__["string2blob"])(csv, {
                       type: 'text/csv'
                     });
@@ -10976,15 +11113,15 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
                   case 10:
                     i++;
-                    _context30.next = 2;
+                    _context31.next = 2;
                     break;
 
                   case 13:
                   case "end":
-                    return _context30.stop();
+                    return _context31.stop();
                 }
               }
-            }, _callee30, this);
+            }, _callee31, this);
           }));
         }
         /**
@@ -11315,25 +11452,25 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
         value: function getData() {
           return __awaiter(this, void 0, void 0,
           /*#__PURE__*/
-          regeneratorRuntime.mark(function _callee31() {
-            var _this26 = this;
+          regeneratorRuntime.mark(function _callee32() {
+            var _this25 = this;
 
-            return regeneratorRuntime.wrap(function _callee31$(_context31) {
+            return regeneratorRuntime.wrap(function _callee32$(_context32) {
               while (1) {
-                switch (_context31.prev = _context31.next) {
+                switch (_context32.prev = _context32.next) {
                   case 0:
-                    return _context31.abrupt("return", new Promise(function (resolve) {
-                      _this26.master.subscribe(function (master) {
+                    return _context32.abrupt("return", new Promise(function (resolve) {
+                      _this25.master.subscribe(function (master) {
                         resolve(master);
                       }).unsubscribe();
                     }));
 
                   case 1:
                   case "end":
-                    return _context31.stop();
+                    return _context32.stop();
                 }
               }
-            }, _callee31);
+            }, _callee32);
           }));
         }
         /**
@@ -11350,17 +11487,17 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       }, {
         key: "getSellers",
         value: function getSellers(params) {
-          var _this27 = this;
+          var _this26 = this;
 
           return new Promise(function (resolve, reject) {
-            _this27.store.dispatch(new _store_actions__WEBPACK_IMPORTED_MODULE_5__["masterAction"].GetSellers(params));
+            _this26.store.dispatch(new _store_actions__WEBPACK_IMPORTED_MODULE_5__["masterAction"].GetSellers(params));
 
-            var success = _this27.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_1__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_5__["masterAction"].ActionTypes.GetSellersSuccess), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["tap"])(function () {
+            var success = _this26.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_1__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_5__["masterAction"].ActionTypes.GetSellersSuccess), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["tap"])(function () {
               resolve();
             }));
 
-            var fail = _this27.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_1__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_5__["masterAction"].ActionTypes.GetSellersFail), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["tap"])(function () {
-              _this27.error.subscribe(function (error) {
+            var fail = _this26.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_1__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_5__["masterAction"].ActionTypes.GetSellersFail), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["tap"])(function () {
+              _this26.error.subscribe(function (error) {
                 reject(error);
               }).unsubscribe();
             }));
@@ -11377,17 +11514,57 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
         value: function getSchedule(params) {
           return __awaiter(this, void 0, void 0,
           /*#__PURE__*/
-          regeneratorRuntime.mark(function _callee32() {
+          regeneratorRuntime.mark(function _callee33() {
+            var _this27 = this;
+
+            return regeneratorRuntime.wrap(function _callee33$(_context33) {
+              while (1) {
+                switch (_context33.prev = _context33.next) {
+                  case 0:
+                    return _context33.abrupt("return", new Promise(function (resolve, reject) {
+                      _this27.store.dispatch(new _store_actions__WEBPACK_IMPORTED_MODULE_5__["masterAction"].GetSchedule(params));
+
+                      var success = _this27.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_1__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_5__["masterAction"].ActionTypes.GetScheduleSuccess), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["tap"])(function () {
+                        resolve();
+                      }));
+
+                      var fail = _this27.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_1__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_5__["masterAction"].ActionTypes.GetScheduleFail), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["tap"])(function () {
+                        _this27.error.subscribe(function (error) {
+                          reject(error);
+                        }).unsubscribe();
+                      }));
+
+                      Object(rxjs__WEBPACK_IMPORTED_MODULE_3__["race"])(success, fail).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["take"])(1)).subscribe();
+                    }));
+
+                  case 1:
+                  case "end":
+                    return _context33.stop();
+                }
+              }
+            }, _callee33);
+          }));
+        }
+        /**
+         * プロジェクト一覧取得
+         */
+
+      }, {
+        key: "getProjects",
+        value: function getProjects() {
+          return __awaiter(this, void 0, void 0,
+          /*#__PURE__*/
+          regeneratorRuntime.mark(function _callee34() {
             var _this28 = this;
 
-            return regeneratorRuntime.wrap(function _callee32$(_context32) {
+            return regeneratorRuntime.wrap(function _callee34$(_context34) {
               while (1) {
-                switch (_context32.prev = _context32.next) {
+                switch (_context34.prev = _context34.next) {
                   case 0:
-                    return _context32.abrupt("return", new Promise(function (resolve, reject) {
-                      _this28.store.dispatch(new _store_actions__WEBPACK_IMPORTED_MODULE_5__["masterAction"].GetSchedule(params));
+                    return _context34.abrupt("return", new Promise(function (resolve, reject) {
+                      _this28.store.dispatch(new _store_actions__WEBPACK_IMPORTED_MODULE_5__["masterAction"].GetProjects());
 
-                      var success = _this28.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_1__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_5__["masterAction"].ActionTypes.GetScheduleSuccess), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["tap"])(function () {
+                      var success = _this28.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_1__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_5__["masterAction"].ActionTypes.GetProjectsSuccess), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["tap"])(function () {
                         resolve();
                       }));
 
@@ -11402,50 +11579,10 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
                   case 1:
                   case "end":
-                    return _context32.stop();
+                    return _context34.stop();
                 }
               }
-            }, _callee32);
-          }));
-        }
-        /**
-         * プロジェクト一覧取得
-         */
-
-      }, {
-        key: "getProjects",
-        value: function getProjects() {
-          return __awaiter(this, void 0, void 0,
-          /*#__PURE__*/
-          regeneratorRuntime.mark(function _callee33() {
-            var _this29 = this;
-
-            return regeneratorRuntime.wrap(function _callee33$(_context33) {
-              while (1) {
-                switch (_context33.prev = _context33.next) {
-                  case 0:
-                    return _context33.abrupt("return", new Promise(function (resolve, reject) {
-                      _this29.store.dispatch(new _store_actions__WEBPACK_IMPORTED_MODULE_5__["masterAction"].GetProjects());
-
-                      var success = _this29.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_1__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_5__["masterAction"].ActionTypes.GetProjectsSuccess), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["tap"])(function () {
-                        resolve();
-                      }));
-
-                      var fail = _this29.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_1__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_5__["masterAction"].ActionTypes.GetScheduleFail), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["tap"])(function () {
-                        _this29.error.subscribe(function (error) {
-                          reject(error);
-                        }).unsubscribe();
-                      }));
-
-                      Object(rxjs__WEBPACK_IMPORTED_MODULE_3__["race"])(success, fail).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["take"])(1)).subscribe();
-                    }));
-
-                  case 1:
-                  case "end":
-                    return _context33.stop();
-                }
-              }
-            }, _callee33);
+            }, _callee34);
           }));
         }
       }]);
@@ -11630,25 +11767,25 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
         value: function getData() {
           return __awaiter(this, void 0, void 0,
           /*#__PURE__*/
-          regeneratorRuntime.mark(function _callee34() {
-            var _this30 = this;
+          regeneratorRuntime.mark(function _callee35() {
+            var _this29 = this;
 
-            return regeneratorRuntime.wrap(function _callee34$(_context34) {
+            return regeneratorRuntime.wrap(function _callee35$(_context35) {
               while (1) {
-                switch (_context34.prev = _context34.next) {
+                switch (_context35.prev = _context35.next) {
                   case 0:
-                    return _context34.abrupt("return", new Promise(function (resolve) {
-                      _this30.order.subscribe(function (order) {
+                    return _context35.abrupt("return", new Promise(function (resolve) {
+                      _this29.order.subscribe(function (order) {
                         resolve(order);
                       }).unsubscribe();
                     }));
 
                   case 1:
                   case "end":
-                    return _context34.stop();
+                    return _context35.stop();
                 }
               }
-            }, _callee34);
+            }, _callee35);
           }));
         }
         /**
@@ -11669,54 +11806,8 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
         value: function search(params) {
           return __awaiter(this, void 0, void 0,
           /*#__PURE__*/
-          regeneratorRuntime.mark(function _callee35() {
-            var searchResult;
-            return regeneratorRuntime.wrap(function _callee35$(_context35) {
-              while (1) {
-                switch (_context35.prev = _context35.next) {
-                  case 0:
-                    _context35.prev = 0;
-                    this.utilService.loadStart({
-                      process: 'orderAction.Search'
-                    });
-                    _context35.next = 4;
-                    return this.cinerinoService.getServices();
-
-                  case 4:
-                    _context35.next = 6;
-                    return this.cinerinoService.order.search(params);
-
-                  case 6:
-                    searchResult = _context35.sent;
-                    this.utilService.loadEnd();
-                    return _context35.abrupt("return", searchResult);
-
-                  case 11:
-                    _context35.prev = 11;
-                    _context35.t0 = _context35["catch"](0);
-                    this.utilService.setError(_context35.t0);
-                    this.utilService.loadEnd();
-                    throw _context35.t0;
-
-                  case 16:
-                  case "end":
-                    return _context35.stop();
-                }
-              }
-            }, _callee35, this, [[0, 11]]);
-          }));
-        }
-        /**
-         * 分割検索
-         */
-
-      }, {
-        key: "splitSearch",
-        value: function splitSearch(params) {
-          return __awaiter(this, void 0, void 0,
-          /*#__PURE__*/
           regeneratorRuntime.mark(function _callee36() {
-            var orders, splitDay, splitCount, i, limit, page, roop, orderDateThrough, orderDateFrom, searchResult;
+            var searchResult;
             return regeneratorRuntime.wrap(function _callee36$(_context36) {
               while (1) {
                 switch (_context36.prev = _context36.next) {
@@ -11729,6 +11820,52 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                     return this.cinerinoService.getServices();
 
                   case 4:
+                    _context36.next = 6;
+                    return this.cinerinoService.order.search(params);
+
+                  case 6:
+                    searchResult = _context36.sent;
+                    this.utilService.loadEnd();
+                    return _context36.abrupt("return", searchResult);
+
+                  case 11:
+                    _context36.prev = 11;
+                    _context36.t0 = _context36["catch"](0);
+                    this.utilService.setError(_context36.t0);
+                    this.utilService.loadEnd();
+                    throw _context36.t0;
+
+                  case 16:
+                  case "end":
+                    return _context36.stop();
+                }
+              }
+            }, _callee36, this, [[0, 11]]);
+          }));
+        }
+        /**
+         * 分割検索
+         */
+
+      }, {
+        key: "splitSearch",
+        value: function splitSearch(params) {
+          return __awaiter(this, void 0, void 0,
+          /*#__PURE__*/
+          regeneratorRuntime.mark(function _callee37() {
+            var orders, splitDay, splitCount, i, limit, page, roop, orderDateThrough, orderDateFrom, searchResult;
+            return regeneratorRuntime.wrap(function _callee37$(_context37) {
+              while (1) {
+                switch (_context37.prev = _context37.next) {
+                  case 0:
+                    _context37.prev = 0;
+                    this.utilService.loadStart({
+                      process: 'orderAction.Search'
+                    });
+                    _context37.next = 4;
+                    return this.cinerinoService.getServices();
+
+                  case 4:
                     orders = [];
                     splitDay = 1;
                     splitCount = Math.ceil(moment__WEBPACK_IMPORTED_MODULE_3__(params.orderDateThrough).diff(moment__WEBPACK_IMPORTED_MODULE_3__(params.orderDateFrom), 'days') / splitDay);
@@ -11736,7 +11873,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
                   case 8:
                     if (!(i < splitCount)) {
-                      _context36.next = 30;
+                      _context37.next = 30;
                       break;
                     }
 
@@ -11748,55 +11885,55 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
                   case 14:
                     if (!roop) {
-                      _context36.next = 27;
+                      _context37.next = 27;
                       break;
                     }
 
                     params.limit = limit;
                     params.page = page;
-                    _context36.next = 19;
+                    _context37.next = 19;
                     return this.cinerinoService.order.search(Object.assign({}, params, {
                       orderDateThrough: orderDateThrough,
                       orderDateFrom: orderDateFrom
                     }));
 
                   case 19:
-                    searchResult = _context36.sent;
+                    searchResult = _context37.sent;
                     orders = orders.concat(searchResult.data);
                     page++;
                     roop = searchResult.data.length > 0;
-                    _context36.next = 25;
+                    _context37.next = 25;
                     return Object(_functions__WEBPACK_IMPORTED_MODULE_6__["sleep"])(500);
 
                   case 25:
-                    _context36.next = 14;
+                    _context37.next = 14;
                     break;
 
                   case 27:
                     i++;
-                    _context36.next = 8;
+                    _context37.next = 8;
                     break;
 
                   case 30:
                     this.utilService.loadEnd();
-                    return _context36.abrupt("return", {
+                    return _context37.abrupt("return", {
                       data: orders,
                       totalCount: orders.length
                     });
 
                   case 34:
-                    _context36.prev = 34;
-                    _context36.t0 = _context36["catch"](0);
-                    this.utilService.setError(_context36.t0);
+                    _context37.prev = 34;
+                    _context37.t0 = _context37["catch"](0);
+                    this.utilService.setError(_context37.t0);
                     this.utilService.loadEnd();
-                    throw _context36.t0;
+                    throw _context37.t0;
 
                   case 39:
                   case "end":
-                    return _context36.stop();
+                    return _context37.stop();
                 }
               }
-            }, _callee36, this, [[0, 34]]);
+            }, _callee37, this, [[0, 34]]);
           }));
         }
         /**
@@ -11808,62 +11945,22 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
         value: function cancel(params) {
           return __awaiter(this, void 0, void 0,
           /*#__PURE__*/
-          regeneratorRuntime.mark(function _callee37() {
-            var _this31 = this;
-
-            return regeneratorRuntime.wrap(function _callee37$(_context37) {
-              while (1) {
-                switch (_context37.prev = _context37.next) {
-                  case 0:
-                    return _context37.abrupt("return", new Promise(function (resolve, reject) {
-                      _this31.store.dispatch(new _store_actions__WEBPACK_IMPORTED_MODULE_7__["orderAction"].Cancel(params));
-
-                      var success = _this31.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_1__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_7__["orderAction"].ActionTypes.CancelSuccess), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["tap"])(function () {
-                        resolve();
-                      }));
-
-                      var fail = _this31.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_1__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_7__["orderAction"].ActionTypes.CancelFail), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["tap"])(function () {
-                        _this31.error.subscribe(function (error) {
-                          reject(error);
-                        }).unsubscribe();
-                      }));
-
-                      Object(rxjs__WEBPACK_IMPORTED_MODULE_4__["race"])(success, fail).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["take"])(1)).subscribe();
-                    }));
-
-                  case 1:
-                  case "end":
-                    return _context37.stop();
-                }
-              }
-            }, _callee37);
-          }));
-        }
-        /**
-         * 注文照会
-         */
-
-      }, {
-        key: "inquiry",
-        value: function inquiry(params) {
-          return __awaiter(this, void 0, void 0,
-          /*#__PURE__*/
           regeneratorRuntime.mark(function _callee38() {
-            var _this32 = this;
+            var _this30 = this;
 
             return regeneratorRuntime.wrap(function _callee38$(_context38) {
               while (1) {
                 switch (_context38.prev = _context38.next) {
                   case 0:
                     return _context38.abrupt("return", new Promise(function (resolve, reject) {
-                      _this32.store.dispatch(new _store_actions__WEBPACK_IMPORTED_MODULE_7__["orderAction"].Inquiry(params));
+                      _this30.store.dispatch(new _store_actions__WEBPACK_IMPORTED_MODULE_7__["orderAction"].Cancel(params));
 
-                      var success = _this32.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_1__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_7__["orderAction"].ActionTypes.InquirySuccess), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["tap"])(function () {
+                      var success = _this30.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_1__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_7__["orderAction"].ActionTypes.CancelSuccess), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["tap"])(function () {
                         resolve();
                       }));
 
-                      var fail = _this32.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_1__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_7__["orderAction"].ActionTypes.InquiryFail), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["tap"])(function () {
-                        _this32.error.subscribe(function (error) {
+                      var fail = _this30.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_1__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_7__["orderAction"].ActionTypes.CancelFail), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["tap"])(function () {
+                        _this30.error.subscribe(function (error) {
                           reject(error);
                         }).unsubscribe();
                       }));
@@ -11880,38 +11977,30 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
           }));
         }
         /**
-         * 注文印刷
+         * 注文照会
          */
 
       }, {
-        key: "print",
-        value: function print(prams) {
+        key: "inquiry",
+        value: function inquiry(params) {
           return __awaiter(this, void 0, void 0,
           /*#__PURE__*/
           regeneratorRuntime.mark(function _callee39() {
-            var _this33 = this;
+            var _this31 = this;
 
             return regeneratorRuntime.wrap(function _callee39$(_context39) {
               while (1) {
                 switch (_context39.prev = _context39.next) {
                   case 0:
                     return _context39.abrupt("return", new Promise(function (resolve, reject) {
-                      var orders = prams.orders;
-                      var pos = prams.pos;
-                      var printer = prams.printer;
+                      _this31.store.dispatch(new _store_actions__WEBPACK_IMPORTED_MODULE_7__["orderAction"].Inquiry(params));
 
-                      _this33.store.dispatch(new _store_actions__WEBPACK_IMPORTED_MODULE_7__["orderAction"].Print({
-                        orders: orders,
-                        pos: pos,
-                        printer: printer
-                      }));
-
-                      var success = _this33.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_1__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_7__["orderAction"].ActionTypes.PrintSuccess), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["tap"])(function () {
+                      var success = _this31.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_1__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_7__["orderAction"].ActionTypes.InquirySuccess), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["tap"])(function () {
                         resolve();
                       }));
 
-                      var fail = _this33.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_1__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_7__["orderAction"].ActionTypes.PrintFail), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["tap"])(function () {
-                        _this33.error.subscribe(function (error) {
+                      var fail = _this31.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_1__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_7__["orderAction"].ActionTypes.InquiryFail), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["tap"])(function () {
+                        _this31.error.subscribe(function (error) {
                           reject(error);
                         }).unsubscribe();
                       }));
@@ -11928,35 +12017,38 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
           }));
         }
         /**
-         * 注文承認
+         * 注文印刷
          */
 
       }, {
-        key: "authorize",
-        value: function authorize(order) {
+        key: "print",
+        value: function print(prams) {
           return __awaiter(this, void 0, void 0,
           /*#__PURE__*/
           regeneratorRuntime.mark(function _callee40() {
-            var _this34 = this;
+            var _this32 = this;
 
             return regeneratorRuntime.wrap(function _callee40$(_context40) {
               while (1) {
                 switch (_context40.prev = _context40.next) {
                   case 0:
                     return _context40.abrupt("return", new Promise(function (resolve, reject) {
-                      _this34.store.dispatch(new _store_actions__WEBPACK_IMPORTED_MODULE_7__["orderAction"].OrderAuthorize({
-                        orderNumber: order.orderNumber,
-                        customer: {
-                          telephone: order.customer.telephone
-                        }
+                      var orders = prams.orders;
+                      var pos = prams.pos;
+                      var printer = prams.printer;
+
+                      _this32.store.dispatch(new _store_actions__WEBPACK_IMPORTED_MODULE_7__["orderAction"].Print({
+                        orders: orders,
+                        pos: pos,
+                        printer: printer
                       }));
 
-                      var success = _this34.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_1__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_7__["orderAction"].ActionTypes.OrderAuthorizeSuccess), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["tap"])(function () {
+                      var success = _this32.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_1__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_7__["orderAction"].ActionTypes.PrintSuccess), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["tap"])(function () {
                         resolve();
                       }));
 
-                      var fail = _this34.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_1__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_7__["orderAction"].ActionTypes.OrderAuthorizeFail), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["tap"])(function () {
-                        _this34.error.subscribe(function (error) {
+                      var fail = _this32.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_1__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_7__["orderAction"].ActionTypes.PrintFail), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["tap"])(function () {
+                        _this32.error.subscribe(function (error) {
                           reject(error);
                         }).unsubscribe();
                       }));
@@ -11970,6 +12062,51 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                 }
               }
             }, _callee40);
+          }));
+        }
+        /**
+         * 注文承認
+         */
+
+      }, {
+        key: "authorize",
+        value: function authorize(order) {
+          return __awaiter(this, void 0, void 0,
+          /*#__PURE__*/
+          regeneratorRuntime.mark(function _callee41() {
+            var _this33 = this;
+
+            return regeneratorRuntime.wrap(function _callee41$(_context41) {
+              while (1) {
+                switch (_context41.prev = _context41.next) {
+                  case 0:
+                    return _context41.abrupt("return", new Promise(function (resolve, reject) {
+                      _this33.store.dispatch(new _store_actions__WEBPACK_IMPORTED_MODULE_7__["orderAction"].OrderAuthorize({
+                        orderNumber: order.orderNumber,
+                        customer: {
+                          telephone: order.customer.telephone
+                        }
+                      }));
+
+                      var success = _this33.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_1__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_7__["orderAction"].ActionTypes.OrderAuthorizeSuccess), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["tap"])(function () {
+                        resolve();
+                      }));
+
+                      var fail = _this33.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_1__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_7__["orderAction"].ActionTypes.OrderAuthorizeFail), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["tap"])(function () {
+                        _this33.error.subscribe(function (error) {
+                          reject(error);
+                        }).unsubscribe();
+                      }));
+
+                      Object(rxjs__WEBPACK_IMPORTED_MODULE_4__["race"])(success, fail).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["take"])(1)).subscribe();
+                    }));
+
+                  case 1:
+                  case "end":
+                    return _context41.stop();
+                }
+              }
+            }, _callee41);
           }));
         }
       }]);
@@ -12163,25 +12300,25 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
         value: function getData() {
           return __awaiter(this, void 0, void 0,
           /*#__PURE__*/
-          regeneratorRuntime.mark(function _callee41() {
-            var _this35 = this;
+          regeneratorRuntime.mark(function _callee42() {
+            var _this34 = this;
 
-            return regeneratorRuntime.wrap(function _callee41$(_context41) {
+            return regeneratorRuntime.wrap(function _callee42$(_context42) {
               while (1) {
-                switch (_context41.prev = _context41.next) {
+                switch (_context42.prev = _context42.next) {
                   case 0:
-                    return _context41.abrupt("return", new Promise(function (resolve) {
-                      _this35.purchase.subscribe(function (purchase) {
+                    return _context42.abrupt("return", new Promise(function (resolve) {
+                      _this34.purchase.subscribe(function (purchase) {
                         resolve(purchase);
                       }).unsubscribe();
                     }));
 
                   case 1:
                   case "end":
-                    return _context41.stop();
+                    return _context42.stop();
                 }
               }
-            }, _callee41);
+            }, _callee42);
           }));
         }
         /**
@@ -12229,24 +12366,24 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
         value: function getScreeningEvent(screeningEvent) {
           return __awaiter(this, void 0, void 0,
           /*#__PURE__*/
-          regeneratorRuntime.mark(function _callee42() {
-            var _this36 = this;
+          regeneratorRuntime.mark(function _callee43() {
+            var _this35 = this;
 
-            return regeneratorRuntime.wrap(function _callee42$(_context42) {
+            return regeneratorRuntime.wrap(function _callee43$(_context43) {
               while (1) {
-                switch (_context42.prev = _context42.next) {
+                switch (_context43.prev = _context43.next) {
                   case 0:
-                    return _context42.abrupt("return", new Promise(function (resolve, reject) {
-                      _this36.store.dispatch(new _store_actions__WEBPACK_IMPORTED_MODULE_8__["purchaseAction"].GetScreeningEvent({
+                    return _context43.abrupt("return", new Promise(function (resolve, reject) {
+                      _this35.store.dispatch(new _store_actions__WEBPACK_IMPORTED_MODULE_8__["purchaseAction"].GetScreeningEvent({
                         screeningEvent: screeningEvent
                       }));
 
-                      var success = _this36.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_8__["purchaseAction"].ActionTypes.GetScreeningEventSuccess), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["tap"])(function () {
+                      var success = _this35.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_8__["purchaseAction"].ActionTypes.GetScreeningEventSuccess), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["tap"])(function () {
                         resolve();
                       }));
 
-                      var fail = _this36.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_8__["purchaseAction"].ActionTypes.GetScreeningEventFail), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["tap"])(function () {
-                        _this36.error.subscribe(function (error) {
+                      var fail = _this35.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_8__["purchaseAction"].ActionTypes.GetScreeningEventFail), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["tap"])(function () {
+                        _this35.error.subscribe(function (error) {
                           reject(error);
                         }).unsubscribe();
                       }));
@@ -12256,10 +12393,10 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
                   case 1:
                   case "end":
-                    return _context42.stop();
+                    return _context43.stop();
                 }
               }
-            }, _callee42);
+            }, _callee43);
           }));
         }
         /**
@@ -12271,22 +12408,22 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
         value: function startTransaction(params) {
           return __awaiter(this, void 0, void 0,
           /*#__PURE__*/
-          regeneratorRuntime.mark(function _callee43() {
-            var _this37 = this;
+          regeneratorRuntime.mark(function _callee44() {
+            var _this36 = this;
 
             var environment, now;
-            return regeneratorRuntime.wrap(function _callee43$(_context43) {
+            return regeneratorRuntime.wrap(function _callee44$(_context44) {
               while (1) {
-                switch (_context43.prev = _context43.next) {
+                switch (_context44.prev = _context44.next) {
                   case 0:
                     environment = Object(_environments_environment__WEBPACK_IMPORTED_MODULE_7__["getEnvironment"])();
-                    _context43.next = 3;
+                    _context44.next = 3;
                     return this.utilService.getServerTime();
 
                   case 3:
-                    now = _context43.sent.date;
-                    return _context43.abrupt("return", new Promise(function (resolve, reject) {
-                      _this37.store.dispatch(new _store_actions__WEBPACK_IMPORTED_MODULE_8__["purchaseAction"].StartTransaction({
+                    now = _context44.sent.date;
+                    return _context44.abrupt("return", new Promise(function (resolve, reject) {
+                      _this36.store.dispatch(new _store_actions__WEBPACK_IMPORTED_MODULE_8__["purchaseAction"].StartTransaction({
                         expires: moment__WEBPACK_IMPORTED_MODULE_4__(now).add(environment.PURCHASE_TRANSACTION_TIME, 'minutes').toDate(),
                         seller: {
                           typeOf: params.seller.typeOf,
@@ -12304,12 +12441,12 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                         }
                       }));
 
-                      var success = _this37.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_8__["purchaseAction"].ActionTypes.StartTransactionSuccess), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["tap"])(function () {
+                      var success = _this36.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_8__["purchaseAction"].ActionTypes.StartTransactionSuccess), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["tap"])(function () {
                         resolve();
                       }));
 
-                      var fail = _this37.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_8__["purchaseAction"].ActionTypes.StartTransactionFail), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["tap"])(function () {
-                        _this37.error.subscribe(function (error) {
+                      var fail = _this36.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_8__["purchaseAction"].ActionTypes.StartTransactionFail), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["tap"])(function () {
+                        _this36.error.subscribe(function (error) {
                           reject(error);
                         }).unsubscribe();
                       }));
@@ -12319,10 +12456,10 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
                   case 5:
                   case "end":
-                    return _context43.stop();
+                    return _context44.stop();
                 }
               }
-            }, _callee43, this);
+            }, _callee44, this);
           }));
         }
         /**
@@ -12334,20 +12471,20 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
         value: function cancelTransaction() {
           return __awaiter(this, void 0, void 0,
           /*#__PURE__*/
-          regeneratorRuntime.mark(function _callee44() {
-            var _this38 = this;
+          regeneratorRuntime.mark(function _callee45() {
+            var _this37 = this;
 
             var purchase;
-            return regeneratorRuntime.wrap(function _callee44$(_context44) {
+            return regeneratorRuntime.wrap(function _callee45$(_context45) {
               while (1) {
-                switch (_context44.prev = _context44.next) {
+                switch (_context45.prev = _context45.next) {
                   case 0:
-                    _context44.next = 2;
+                    _context45.next = 2;
                     return this.getData();
 
                   case 2:
-                    purchase = _context44.sent;
-                    return _context44.abrupt("return", new Promise(function (resolve) {
+                    purchase = _context45.sent;
+                    return _context45.abrupt("return", new Promise(function (resolve) {
                       var transaction = purchase.transaction;
 
                       if (transaction === undefined) {
@@ -12355,15 +12492,15 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                         return;
                       }
 
-                      _this38.store.dispatch(new _store_actions__WEBPACK_IMPORTED_MODULE_8__["purchaseAction"].CancelTransaction({
+                      _this37.store.dispatch(new _store_actions__WEBPACK_IMPORTED_MODULE_8__["purchaseAction"].CancelTransaction({
                         transaction: transaction
                       }));
 
-                      var success = _this38.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_8__["purchaseAction"].ActionTypes.CancelTransactionSuccess), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["tap"])(function () {
+                      var success = _this37.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_8__["purchaseAction"].ActionTypes.CancelTransactionSuccess), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["tap"])(function () {
                         resolve();
                       }));
 
-                      var fail = _this38.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_8__["purchaseAction"].ActionTypes.CancelTransactionFail), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["tap"])(function () {
+                      var fail = _this37.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_8__["purchaseAction"].ActionTypes.CancelTransactionFail), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["tap"])(function () {
                         resolve();
                       }));
 
@@ -12372,10 +12509,10 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
                   case 4:
                   case "end":
-                    return _context44.stop();
+                    return _context45.stop();
                 }
               }
-            }, _callee44, this);
+            }, _callee45, this);
           }));
         }
         /**
@@ -12385,17 +12522,17 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       }, {
         key: "getScreen",
         value: function getScreen(params) {
-          var _this39 = this;
+          var _this38 = this;
 
           return new Promise(function (resolve, reject) {
-            _this39.store.dispatch(new _store_actions__WEBPACK_IMPORTED_MODULE_8__["purchaseAction"].GetScreen(params));
+            _this38.store.dispatch(new _store_actions__WEBPACK_IMPORTED_MODULE_8__["purchaseAction"].GetScreen(params));
 
-            var success = _this39.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_8__["purchaseAction"].ActionTypes.GetScreenSuccess), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["tap"])(function () {
+            var success = _this38.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_8__["purchaseAction"].ActionTypes.GetScreenSuccess), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["tap"])(function () {
               resolve();
             }));
 
-            var fail = _this39.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_8__["purchaseAction"].ActionTypes.GetScreenFail), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["tap"])(function () {
-              _this39.error.subscribe(function (error) {
+            var fail = _this38.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_8__["purchaseAction"].ActionTypes.GetScreenFail), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["tap"])(function () {
+              _this38.error.subscribe(function (error) {
                 reject(error);
               }).unsubscribe();
             }));
@@ -12412,20 +12549,20 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
         value: function getScreeningEventOffers() {
           return __awaiter(this, void 0, void 0,
           /*#__PURE__*/
-          regeneratorRuntime.mark(function _callee45() {
-            var _this40 = this;
+          regeneratorRuntime.mark(function _callee46() {
+            var _this39 = this;
 
             var purchase;
-            return regeneratorRuntime.wrap(function _callee45$(_context45) {
+            return regeneratorRuntime.wrap(function _callee46$(_context46) {
               while (1) {
-                switch (_context45.prev = _context45.next) {
+                switch (_context46.prev = _context46.next) {
                   case 0:
-                    _context45.next = 2;
+                    _context46.next = 2;
                     return this.getData();
 
                   case 2:
-                    purchase = _context45.sent;
-                    return _context45.abrupt("return", new Promise(function (resolve, reject) {
+                    purchase = _context46.sent;
+                    return _context46.abrupt("return", new Promise(function (resolve, reject) {
                       if (purchase.screeningEvent === undefined) {
                         reject();
                         return;
@@ -12433,16 +12570,16 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
                       var screeningEvent = purchase.screeningEvent;
 
-                      _this40.store.dispatch(new _store_actions__WEBPACK_IMPORTED_MODULE_8__["purchaseAction"].GetScreeningEventOffers({
+                      _this39.store.dispatch(new _store_actions__WEBPACK_IMPORTED_MODULE_8__["purchaseAction"].GetScreeningEventOffers({
                         screeningEvent: screeningEvent
                       }));
 
-                      var success = _this40.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_8__["purchaseAction"].ActionTypes.GetScreeningEventOffersSuccess), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["tap"])(function () {
+                      var success = _this39.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_8__["purchaseAction"].ActionTypes.GetScreeningEventOffersSuccess), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["tap"])(function () {
                         resolve();
                       }));
 
-                      var fail = _this40.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_8__["purchaseAction"].ActionTypes.GetScreeningEventOffersFail), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["tap"])(function () {
-                        _this40.error.subscribe(function (error) {
+                      var fail = _this39.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_8__["purchaseAction"].ActionTypes.GetScreeningEventOffersFail), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["tap"])(function () {
+                        _this39.error.subscribe(function (error) {
                           reject(error);
                         }).unsubscribe();
                       }));
@@ -12452,10 +12589,10 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
                   case 4:
                   case "end":
-                    return _context45.stop();
+                    return _context46.stop();
                 }
               }
-            }, _callee45, this);
+            }, _callee46, this);
           }));
         }
         /**
@@ -12489,20 +12626,20 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
         value: function getTicketList(seller) {
           return __awaiter(this, void 0, void 0,
           /*#__PURE__*/
-          regeneratorRuntime.mark(function _callee46() {
-            var _this41 = this;
+          regeneratorRuntime.mark(function _callee47() {
+            var _this40 = this;
 
             var purchase;
-            return regeneratorRuntime.wrap(function _callee46$(_context46) {
+            return regeneratorRuntime.wrap(function _callee47$(_context47) {
               while (1) {
-                switch (_context46.prev = _context46.next) {
+                switch (_context47.prev = _context47.next) {
                   case 0:
-                    _context46.next = 2;
+                    _context47.next = 2;
                     return this.getData();
 
                   case 2:
-                    purchase = _context46.sent;
-                    return _context46.abrupt("return", new Promise(function (resolve, reject) {
+                    purchase = _context47.sent;
+                    return _context47.abrupt("return", new Promise(function (resolve, reject) {
                       var screeningEvent = purchase.screeningEvent;
 
                       if (screeningEvent === undefined) {
@@ -12510,17 +12647,17 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                         return;
                       }
 
-                      _this41.store.dispatch(new _store_actions__WEBPACK_IMPORTED_MODULE_8__["purchaseAction"].GetTicketList({
+                      _this40.store.dispatch(new _store_actions__WEBPACK_IMPORTED_MODULE_8__["purchaseAction"].GetTicketList({
                         screeningEvent: screeningEvent,
                         seller: seller
                       }));
 
-                      var success = _this41.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_8__["purchaseAction"].ActionTypes.GetTicketListSuccess), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["tap"])(function () {
+                      var success = _this40.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_8__["purchaseAction"].ActionTypes.GetTicketListSuccess), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["tap"])(function () {
                         resolve();
                       }));
 
-                      var fail = _this41.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_8__["purchaseAction"].ActionTypes.GetTicketListFail), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["tap"])(function () {
-                        _this41.error.subscribe(function (error) {
+                      var fail = _this40.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_8__["purchaseAction"].ActionTypes.GetTicketListFail), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["tap"])(function () {
+                        _this40.error.subscribe(function (error) {
                           reject(error);
                         }).unsubscribe();
                       }));
@@ -12530,10 +12667,10 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
                   case 4:
                   case "end":
-                    return _context46.stop();
+                    return _context47.stop();
                 }
               }
-            }, _callee46, this);
+            }, _callee47, this);
           }));
         }
         /**
@@ -12553,114 +12690,58 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
       }, {
         key: "temporaryReservation",
-        value: function temporaryReservation() {
+        value: function temporaryReservation(params) {
           return __awaiter(this, void 0, void 0,
           /*#__PURE__*/
-          regeneratorRuntime.mark(function _callee47() {
-            var _this42 = this;
+          regeneratorRuntime.mark(function _callee48() {
+            var _this41 = this;
 
-            var purchase;
-            return regeneratorRuntime.wrap(function _callee47$(_context47) {
+            var additionalTicketText, reservations, purchase;
+            return regeneratorRuntime.wrap(function _callee48$(_context48) {
               while (1) {
-                switch (_context47.prev = _context47.next) {
+                switch (_context48.prev = _context48.next) {
                   case 0:
-                    _context47.next = 2;
+                    additionalTicketText = params.additionalTicketText;
+                    reservations = params.reservations;
+                    _context48.next = 4;
                     return this.getData();
 
-                  case 2:
-                    purchase = _context47.sent;
-                    return _context47.abrupt("return", new Promise(function (resolve, reject) {
+                  case 4:
+                    purchase = _context48.sent;
+                    return _context48.abrupt("return", new Promise(function (resolve, reject) {
                       var transaction = purchase.transaction;
                       var screeningEvent = purchase.screeningEvent;
+                      var screeningEventOffers = purchase.screeningEventOffers;
 
                       if (transaction === undefined || screeningEvent === undefined) {
                         reject();
                         return;
                       }
 
-                      var reservations = purchase.reservations.map(function (reservation) {
-                        return {
-                          seat: reservation.seat,
-                          ticket: reservation.ticket === undefined ? {
-                            ticketOffer: purchase.screeningEventTicketOffers[0]
-                          } : reservation.ticket
-                        };
-                      });
                       var authorizeSeatReservation = purchase.authorizeSeatReservation;
 
-                      _this42.store.dispatch(new _store_actions__WEBPACK_IMPORTED_MODULE_8__["purchaseAction"].TemporaryReservation({
+                      _this41.store.dispatch(new _store_actions__WEBPACK_IMPORTED_MODULE_8__["purchaseAction"].TemporaryReservation({
+                        reservations: reservations.map(function (reservation) {
+                          return {
+                            seat: reservation.seat,
+                            ticket: reservation.ticket === undefined ? {
+                              ticketOffer: purchase.screeningEventTicketOffers[0]
+                            } : reservation.ticket
+                          };
+                        }),
                         transaction: transaction,
                         screeningEvent: screeningEvent,
-                        reservations: reservations,
-                        authorizeSeatReservation: authorizeSeatReservation
-                      }));
-
-                      var success = _this42.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_8__["purchaseAction"].ActionTypes.TemporaryReservationSuccess), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["tap"])(function () {
-                        resolve();
-                      }));
-
-                      var fail = _this42.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_8__["purchaseAction"].ActionTypes.TemporaryReservationFail), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["tap"])(function () {
-                        _this42.error.subscribe(function (error) {
-                          reject(error);
-                        }).unsubscribe();
-                      }));
-
-                      Object(rxjs__WEBPACK_IMPORTED_MODULE_5__["race"])(success, fail).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["take"])(1)).subscribe();
-                    }));
-
-                  case 4:
-                  case "end":
-                    return _context47.stop();
-                }
-              }
-            }, _callee47, this);
-          }));
-        }
-        /**
-         * 座席仮予約（座席選択なし）
-         */
-
-      }, {
-        key: "temporaryReservationFreeSeat",
-        value: function temporaryReservationFreeSeat(reservations) {
-          return __awaiter(this, void 0, void 0,
-          /*#__PURE__*/
-          regeneratorRuntime.mark(function _callee48() {
-            var _this43 = this;
-
-            var purchase;
-            return regeneratorRuntime.wrap(function _callee48$(_context48) {
-              while (1) {
-                switch (_context48.prev = _context48.next) {
-                  case 0:
-                    _context48.next = 2;
-                    return this.getData();
-
-                  case 2:
-                    purchase = _context48.sent;
-                    return _context48.abrupt("return", new Promise(function (resolve, reject) {
-                      if (purchase.transaction === undefined || purchase.screeningEvent === undefined) {
-                        reject();
-                        return;
-                      }
-
-                      var transaction = purchase.transaction;
-                      var screeningEvent = purchase.screeningEvent;
-                      var screeningEventOffers = purchase.screeningEventOffers;
-
-                      _this43.store.dispatch(new _store_actions__WEBPACK_IMPORTED_MODULE_8__["purchaseAction"].TemporaryReservationFreeSeat({
-                        transaction: transaction,
-                        screeningEvent: screeningEvent,
+                        authorizeSeatReservation: authorizeSeatReservation,
                         screeningEventOffers: screeningEventOffers,
-                        reservations: reservations
+                        additionalTicketText: additionalTicketText
                       }));
 
-                      var success = _this43.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_8__["purchaseAction"].ActionTypes.TemporaryReservationFreeSeatSuccess), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["tap"])(function () {
+                      var success = _this41.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_8__["purchaseAction"].ActionTypes.TemporaryReservationSuccess), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["tap"])(function () {
                         resolve();
                       }));
 
-                      var fail = _this43.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_8__["purchaseAction"].ActionTypes.TemporaryReservationFreeSeatFail), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["tap"])(function () {
-                        _this43.error.subscribe(function (error) {
+                      var fail = _this41.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_8__["purchaseAction"].ActionTypes.TemporaryReservationFail), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["tap"])(function () {
+                        _this41.error.subscribe(function (error) {
                           reject(error);
                         }).unsubscribe();
                       }));
@@ -12668,7 +12749,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                       Object(rxjs__WEBPACK_IMPORTED_MODULE_5__["race"])(success, fail).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["take"])(1)).subscribe();
                     }));
 
-                  case 4:
+                  case 6:
                   case "end":
                     return _context48.stop();
                 }
@@ -12686,23 +12767,23 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
           return __awaiter(this, void 0, void 0,
           /*#__PURE__*/
           regeneratorRuntime.mark(function _callee49() {
-            var _this44 = this;
+            var _this42 = this;
 
             return regeneratorRuntime.wrap(function _callee49$(_context49) {
               while (1) {
                 switch (_context49.prev = _context49.next) {
                   case 0:
                     return _context49.abrupt("return", new Promise(function (resolve, reject) {
-                      _this44.store.dispatch(new _store_actions__WEBPACK_IMPORTED_MODULE_8__["purchaseAction"].CancelTemporaryReservations({
+                      _this42.store.dispatch(new _store_actions__WEBPACK_IMPORTED_MODULE_8__["purchaseAction"].CancelTemporaryReservations({
                         authorizeSeatReservations: authorizeSeatReservations
                       }));
 
-                      var success = _this44.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_8__["purchaseAction"].ActionTypes.CancelTemporaryReservationsSuccess), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["tap"])(function () {
+                      var success = _this42.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_8__["purchaseAction"].ActionTypes.CancelTemporaryReservationsSuccess), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["tap"])(function () {
                         resolve();
                       }));
 
-                      var fail = _this44.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_8__["purchaseAction"].ActionTypes.CancelTemporaryReservationsFail), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["tap"])(function () {
-                        _this44.error.subscribe(function (error) {
+                      var fail = _this42.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_8__["purchaseAction"].ActionTypes.CancelTemporaryReservationsFail), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["tap"])(function () {
+                        _this42.error.subscribe(function (error) {
                           reject(error);
                         }).unsubscribe();
                       }));
@@ -12728,7 +12809,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
           return __awaiter(this, void 0, void 0,
           /*#__PURE__*/
           regeneratorRuntime.mark(function _callee50() {
-            var _this45 = this;
+            var _this43 = this;
 
             var purchase, transaction;
             return regeneratorRuntime.wrap(function _callee50$(_context50) {
@@ -12747,17 +12828,17 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                         return;
                       }
 
-                      _this45.store.dispatch(new _store_actions__WEBPACK_IMPORTED_MODULE_8__["purchaseAction"].RegisterContact({
+                      _this43.store.dispatch(new _store_actions__WEBPACK_IMPORTED_MODULE_8__["purchaseAction"].RegisterContact({
                         transaction: transaction,
                         contact: contact
                       }));
 
-                      var success = _this45.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_8__["purchaseAction"].ActionTypes.RegisterContactSuccess), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["tap"])(function () {
+                      var success = _this43.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_8__["purchaseAction"].ActionTypes.RegisterContactSuccess), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["tap"])(function () {
                         resolve();
                       }));
 
-                      var fail = _this45.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_8__["purchaseAction"].ActionTypes.RegisterContactFail), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["tap"])(function () {
-                        _this45.error.subscribe(function (error) {
+                      var fail = _this43.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_8__["purchaseAction"].ActionTypes.RegisterContactFail), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["tap"])(function () {
+                        _this43.error.subscribe(function (error) {
                           reject(error);
                         }).unsubscribe();
                       }));
@@ -12790,7 +12871,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
           return __awaiter(this, void 0, void 0,
           /*#__PURE__*/
           regeneratorRuntime.mark(function _callee51() {
-            var _this46 = this;
+            var _this44 = this;
 
             var purchase;
             return regeneratorRuntime.wrap(function _callee51$(_context51) {
@@ -12808,7 +12889,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                         return;
                       }
 
-                      _this46.store.dispatch(new _store_actions__WEBPACK_IMPORTED_MODULE_8__["purchaseAction"].AuthorizeMovieTicket({
+                      _this44.store.dispatch(new _store_actions__WEBPACK_IMPORTED_MODULE_8__["purchaseAction"].AuthorizeMovieTicket({
                         transaction: purchase.transaction,
                         authorizeMovieTicketPayments: purchase.authorizeMovieTicketPayments,
                         authorizeSeatReservations: purchase.authorizeSeatReservations,
@@ -12816,12 +12897,12 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                         seller: params.seller
                       }));
 
-                      var success = _this46.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_8__["purchaseAction"].ActionTypes.AuthorizeMovieTicketSuccess), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["tap"])(function () {
+                      var success = _this44.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_8__["purchaseAction"].ActionTypes.AuthorizeMovieTicketSuccess), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["tap"])(function () {
                         resolve();
                       }));
 
-                      var fail = _this46.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_8__["purchaseAction"].ActionTypes.AuthorizeMovieTicketFail), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["tap"])(function () {
-                        _this46.error.subscribe(function (error) {
+                      var fail = _this44.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_8__["purchaseAction"].ActionTypes.AuthorizeMovieTicketFail), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["tap"])(function () {
+                        _this44.error.subscribe(function (error) {
                           reject(error);
                         }).unsubscribe();
                       }));
@@ -12847,7 +12928,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
           return __awaiter(this, void 0, void 0,
           /*#__PURE__*/
           regeneratorRuntime.mark(function _callee52() {
-            var _this47 = this;
+            var _this45 = this;
 
             var movieTicket, seller, purchase;
             return regeneratorRuntime.wrap(function _callee52$(_context52) {
@@ -12867,7 +12948,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                         return;
                       }
 
-                      _this47.store.dispatch(new _store_actions__WEBPACK_IMPORTED_MODULE_8__["purchaseAction"].CheckMovieTicket({
+                      _this45.store.dispatch(new _store_actions__WEBPACK_IMPORTED_MODULE_8__["purchaseAction"].CheckMovieTicket({
                         transaction: purchase.transaction,
                         movieTickets: [{
                           typeOf: _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_1__["factory"].paymentMethodType.MovieTicket,
@@ -12879,12 +12960,12 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                         screeningEvent: purchase.screeningEvent
                       }));
 
-                      var success = _this47.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_8__["purchaseAction"].ActionTypes.CheckMovieTicketSuccess), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["tap"])(function () {
+                      var success = _this45.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_8__["purchaseAction"].ActionTypes.CheckMovieTicketSuccess), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["tap"])(function () {
                         resolve();
                       }));
 
-                      var fail = _this47.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_8__["purchaseAction"].ActionTypes.CheckMovieTicketFail), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["tap"])(function () {
-                        _this47.error.subscribe(function (error) {
+                      var fail = _this45.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_8__["purchaseAction"].ActionTypes.CheckMovieTicketFail), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["tap"])(function () {
+                        _this45.error.subscribe(function (error) {
                           reject(error);
                         }).unsubscribe();
                       }));
@@ -12910,7 +12991,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
           return __awaiter(this, void 0, void 0,
           /*#__PURE__*/
           regeneratorRuntime.mark(function _callee53() {
-            var _this48 = this;
+            var _this46 = this;
 
             var purchase, seller, language;
             return regeneratorRuntime.wrap(function _callee53$(_context53) {
@@ -12933,19 +13014,19 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                       var transaction = purchase.transaction;
                       var authorizeSeatReservations = purchase.authorizeSeatReservations;
 
-                      _this48.store.dispatch(new _store_actions__WEBPACK_IMPORTED_MODULE_8__["purchaseAction"].EndTransaction({
+                      _this46.store.dispatch(new _store_actions__WEBPACK_IMPORTED_MODULE_8__["purchaseAction"].EndTransaction({
                         transaction: transaction,
                         authorizeSeatReservations: authorizeSeatReservations,
                         seller: seller,
                         language: language
                       }));
 
-                      var success = _this48.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_8__["purchaseAction"].ActionTypes.EndTransactionSuccess), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["tap"])(function () {
+                      var success = _this46.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_8__["purchaseAction"].ActionTypes.EndTransactionSuccess), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["tap"])(function () {
                         resolve();
                       }));
 
-                      var fail = _this48.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_8__["purchaseAction"].ActionTypes.EndTransactionFail), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["tap"])(function () {
-                        _this48.error.subscribe(function (error) {
+                      var fail = _this46.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_8__["purchaseAction"].ActionTypes.EndTransactionFail), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["tap"])(function () {
+                        _this46.error.subscribe(function (error) {
                           reject(error);
                         }).unsubscribe();
                       }));
@@ -12978,7 +13059,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
           return __awaiter(this, void 0, void 0,
           /*#__PURE__*/
           regeneratorRuntime.mark(function _callee54() {
-            var _this49 = this;
+            var _this47 = this;
 
             var purchase;
             return regeneratorRuntime.wrap(function _callee54$(_context54) {
@@ -13001,7 +13082,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                       var depositAmount = params.depositAmount;
                       var additionalProperty = [];
 
-                      if (purchase.paymentMethod.paymentMethodType === _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_1__["factory"].paymentMethodType.Cash && depositAmount !== undefined) {
+                      if (purchase.paymentMethod.typeOf === _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_1__["factory"].paymentMethodType.Cash && depositAmount !== undefined) {
                         // 現金
                         additionalProperty.push({
                           name: 'depositAmount',
@@ -13013,20 +13094,20 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                         });
                       }
 
-                      _this49.store.dispatch(new _store_actions__WEBPACK_IMPORTED_MODULE_8__["purchaseAction"].AuthorizeAnyPayment({
+                      _this47.store.dispatch(new _store_actions__WEBPACK_IMPORTED_MODULE_8__["purchaseAction"].AuthorizeAnyPayment({
                         transaction: transaction,
-                        typeOf: purchase.paymentMethod.paymentMethodType,
-                        name: purchase.paymentMethod.paymentMethodName,
+                        typeOf: purchase.paymentMethod.typeOf,
+                        name: purchase.paymentMethod.category,
                         amount: amount,
                         additionalProperty: additionalProperty
                       }));
 
-                      var success = _this49.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_8__["purchaseAction"].ActionTypes.AuthorizeAnyPaymentSuccess), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["tap"])(function () {
+                      var success = _this47.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_8__["purchaseAction"].ActionTypes.AuthorizeAnyPaymentSuccess), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["tap"])(function () {
                         resolve();
                       }));
 
-                      var fail = _this49.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_8__["purchaseAction"].ActionTypes.AuthorizeAnyPaymentFail), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["tap"])(function () {
-                        _this49.error.subscribe(function (error) {
+                      var fail = _this47.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_8__["purchaseAction"].ActionTypes.AuthorizeAnyPaymentFail), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["tap"])(function () {
+                        _this47.error.subscribe(function (error) {
                           reject(error);
                         }).unsubscribe();
                       }));
@@ -13341,14 +13422,14 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
           return __awaiter(this, void 0, void 0,
           /*#__PURE__*/
           regeneratorRuntime.mark(function _callee55() {
-            var _this50 = this;
+            var _this48 = this;
 
             return regeneratorRuntime.wrap(function _callee55$(_context55) {
               while (1) {
                 switch (_context55.prev = _context55.next) {
                   case 0:
                     return _context55.abrupt("return", new Promise(function (resolve) {
-                      _this50.reservation.subscribe(function (reservation) {
+                      _this48.reservation.subscribe(function (reservation) {
                         resolve(reservation);
                       }).unsubscribe();
                     }));
@@ -13996,14 +14077,14 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
           return __awaiter(this, void 0, void 0,
           /*#__PURE__*/
           regeneratorRuntime.mark(function _callee61() {
-            var _this51 = this;
+            var _this49 = this;
 
             return regeneratorRuntime.wrap(function _callee61$(_context61) {
               while (1) {
                 switch (_context61.prev = _context61.next) {
                   case 0:
                     return _context61.abrupt("return", new Promise(function (resolve, reject) {
-                      if (!_this51.isReady) {
+                      if (!_this49.isReady) {
                         reject({
                           isSuccess: false,
                           message: 'プリンターが初期化されていません',
@@ -14013,8 +14094,8 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                       } // 印刷命令送信後処理
 
 
-                      _this51.trader.onReceive = function (response) {
-                        var result = _this51.getStatusByReceivedResponse(response);
+                      _this49.trader.onReceive = function (response) {
+                        var result = _this49.getStatusByReceivedResponse(response);
 
                         if (!result.isSuccess) {
                           reject(result);
@@ -14025,7 +14106,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                       }; // 印刷命令失敗処理
 
 
-                      _this51.trader.onError = function (response) {
+                      _this49.trader.onError = function (response) {
                         reject({
                           isSuccess: false,
                           message: 'プリンターとの通信に失敗しました',
@@ -14034,7 +14115,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                       }; // プリンターに送信
 
 
-                      _this51.trader.sendMessage({
+                      _this49.trader.sendMessage({
                         request: args.printerRequest
                       });
                     }));
@@ -14196,14 +14277,14 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
           return __awaiter(this, void 0, void 0,
           /*#__PURE__*/
           regeneratorRuntime.mark(function _callee62() {
-            var _this52 = this;
+            var _this50 = this;
 
             return regeneratorRuntime.wrap(function _callee62$(_context62) {
               while (1) {
                 switch (_context62.prev = _context62.next) {
                   case 0:
                     return _context62.abrupt("return", new Promise(function (resolve) {
-                      _this52.user.subscribe(function (user) {
+                      _this50.user.subscribe(function (user) {
                         resolve(user);
                       }).unsubscribe();
                     }));
@@ -15605,7 +15686,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     !*** ./app/store/actions/purchase.action.ts ***!
     \**********************************************/
 
-  /*! exports provided: ActionTypes, Delete, UnsettledDelete, SelectScheduleDate, GetScreeningEvent, GetScreeningEventSuccess, GetScreeningEventFail, StartTransaction, StartTransactionSuccess, StartTransactionFail, CancelTransaction, CancelTransactionSuccess, CancelTransactionFail, GetScreen, GetScreenSuccess, GetScreenFail, GetScreeningEventOffers, GetScreeningEventOffersSuccess, GetScreeningEventOffersFail, SelectSeats, CancelSeats, SelectTickets, GetTicketList, GetTicketListSuccess, GetTicketListFail, TemporaryReservation, TemporaryReservationSuccess, TemporaryReservationFreeSeat, TemporaryReservationFreeSeatSuccess, TemporaryReservationFreeSeatFail, TemporaryReservationFail, CancelTemporaryReservations, CancelTemporaryReservationsSuccess, CancelTemporaryReservationsFail, RegisterContact, RegisterContactSuccess, RegisterContactFail, AuthorizeCreditCard, AuthorizeCreditCardSuccess, AuthorizeCreditCardFail, AuthorizeMovieTicket, AuthorizeMovieTicketSuccess, AuthorizeMovieTicketFail, CheckMovieTicket, CheckMovieTicketSuccess, CheckMovieTicketFail, EndTransaction, EndTransactionSuccess, EndTransactionFail, CreateGmoTokenObject, CreateGmoTokenObjectSuccess, CreateGmoTokenObjectFail, AuthorizeAnyPayment, AuthorizeAnyPaymentSuccess, AuthorizeAnyPaymentFail, SelectPaymentMethodType */
+  /*! exports provided: ActionTypes, Delete, UnsettledDelete, SelectScheduleDate, GetScreeningEvent, GetScreeningEventSuccess, GetScreeningEventFail, StartTransaction, StartTransactionSuccess, StartTransactionFail, CancelTransaction, CancelTransactionSuccess, CancelTransactionFail, GetScreen, GetScreenSuccess, GetScreenFail, GetScreeningEventOffers, GetScreeningEventOffersSuccess, GetScreeningEventOffersFail, SelectSeats, CancelSeats, SelectTickets, GetTicketList, GetTicketListSuccess, GetTicketListFail, TemporaryReservation, TemporaryReservationSuccess, TemporaryReservationFail, CancelTemporaryReservations, CancelTemporaryReservationsSuccess, CancelTemporaryReservationsFail, RegisterContact, RegisterContactSuccess, RegisterContactFail, AuthorizeCreditCard, AuthorizeCreditCardSuccess, AuthorizeCreditCardFail, AuthorizeMovieTicket, AuthorizeMovieTicketSuccess, AuthorizeMovieTicketFail, CheckMovieTicket, CheckMovieTicketSuccess, CheckMovieTicketFail, EndTransaction, EndTransactionSuccess, EndTransactionFail, CreateGmoTokenObject, CreateGmoTokenObjectSuccess, CreateGmoTokenObjectFail, AuthorizeAnyPayment, AuthorizeAnyPaymentSuccess, AuthorizeAnyPaymentFail, SelectPaymentMethodType */
 
   /***/
   function appStoreActionsPurchaseActionTs(module, __webpack_exports__, __webpack_require__) {
@@ -15773,24 +15854,6 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
     __webpack_require__.d(__webpack_exports__, "TemporaryReservationSuccess", function () {
       return TemporaryReservationSuccess;
-    });
-    /* harmony export (binding) */
-
-
-    __webpack_require__.d(__webpack_exports__, "TemporaryReservationFreeSeat", function () {
-      return TemporaryReservationFreeSeat;
-    });
-    /* harmony export (binding) */
-
-
-    __webpack_require__.d(__webpack_exports__, "TemporaryReservationFreeSeatSuccess", function () {
-      return TemporaryReservationFreeSeatSuccess;
-    });
-    /* harmony export (binding) */
-
-
-    __webpack_require__.d(__webpack_exports__, "TemporaryReservationFreeSeatFail", function () {
-      return TemporaryReservationFreeSeatFail;
     });
     /* harmony export (binding) */
 
@@ -15989,9 +16052,6 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       ActionTypes["TemporaryReservation"] = "[Purchase] Temporary Reservation";
       ActionTypes["TemporaryReservationSuccess"] = "[Purchase] Temporary Reservation Success";
       ActionTypes["TemporaryReservationFail"] = "[Purchase] Temporary Reservation Fail";
-      ActionTypes["TemporaryReservationFreeSeat"] = "[Purchase] Temporary Reservation Free Seat";
-      ActionTypes["TemporaryReservationFreeSeatSuccess"] = "[Purchase] Temporary Reservation Free Seat Success";
-      ActionTypes["TemporaryReservationFreeSeatFail"] = "[Purchase] Temporary Reservation Free Seat Fail";
       ActionTypes["CancelTemporaryReservations"] = "[Purchase] Cancel Temporary Reservation";
       ActionTypes["CancelTemporaryReservationsSuccess"] = "[Purchase] Cancel Temporary Reservation Success";
       ActionTypes["CancelTemporaryReservationsFail"] = "[Purchase] Cancel Temporary Reservation Fail";
@@ -16303,39 +16363,6 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
       this.payload = payload;
       this.type = ActionTypes.TemporaryReservationSuccess;
-    };
-    /**
-     * TemporaryReservationFreeSeat
-     */
-
-
-    var TemporaryReservationFreeSeat = function TemporaryReservationFreeSeat(payload) {
-      _classCallCheck(this, TemporaryReservationFreeSeat);
-
-      this.payload = payload;
-      this.type = ActionTypes.TemporaryReservationFreeSeat;
-    };
-    /**
-     * TemporaryReservationFreeSeatSuccess
-     */
-
-
-    var TemporaryReservationFreeSeatSuccess = function TemporaryReservationFreeSeatSuccess(payload) {
-      _classCallCheck(this, TemporaryReservationFreeSeatSuccess);
-
-      this.payload = payload;
-      this.type = ActionTypes.TemporaryReservationFreeSeatSuccess;
-    };
-    /**
-     * TemporaryReservationFreeSeatFail
-     */
-
-
-    var TemporaryReservationFreeSeatFail = function TemporaryReservationFreeSeatFail(payload) {
-      _classCallCheck(this, TemporaryReservationFreeSeatFail);
-
-      this.payload = payload;
-      this.type = ActionTypes.TemporaryReservationFreeSeatFail;
     };
     /**
      * TemporaryReservationFail
@@ -17268,9 +17295,9 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     /* harmony import */
 
 
-    var _environments_environment__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(
-    /*! ../../../environments/environment */
-    "./environments/environment.ts");
+    var _functions__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(
+    /*! ../../functions */
+    "./app/functions/index.ts");
     /* harmony import */
 
 
@@ -17337,7 +17364,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
 
     var AdmissionEffects = function AdmissionEffects(actions, cinerino) {
-      var _this53 = this;
+      var _this51 = this;
 
       _classCallCheck(this, AdmissionEffects);
 
@@ -17350,7 +17377,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       this.getScreeningEvent = this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_actions__WEBPACK_IMPORTED_MODULE_8__["admissionAction"].ActionTypes.GetScreeningEvent), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["map"])(function (action) {
         return action.payload;
       }), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["mergeMap"])(function (payload) {
-        return __awaiter(_this53, void 0, void 0,
+        return __awaiter(_this51, void 0, void 0,
         /*#__PURE__*/
         regeneratorRuntime.mark(function _callee70() {
           var screeningEvent;
@@ -17396,10 +17423,10 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       this.check = this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_actions__WEBPACK_IMPORTED_MODULE_8__["admissionAction"].ActionTypes.Check), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["map"])(function (action) {
         return action.payload;
       }), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["mergeMap"])(function (payload) {
-        return __awaiter(_this53, void 0, void 0,
+        return __awaiter(_this51, void 0, void 0,
         /*#__PURE__*/
         regeneratorRuntime.mark(function _callee71() {
-          var code, screeningEvent, environment, getTokenResult, token, decodeResult, checkTokenActionsResult, checkTokenActions, limit, page, roop, screeningEventReservations, searchResult, availableReservation, statusCode;
+          var code, screeningEvent, getTokenResult, token, decodeResult, checkTokenActionsResult, checkTokenActions, limit, page, roop, screeningEventReservations, searchResult, availableReservation, statusCode;
           return regeneratorRuntime.wrap(function _callee71$(_context71) {
             while (1) {
               switch (_context71.prev = _context71.next) {
@@ -17407,13 +17434,12 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                   // console.log(payload);
                   code = payload.code;
                   screeningEvent = payload.screeningEvent;
-                  environment = Object(_environments_environment__WEBPACK_IMPORTED_MODULE_6__["getEnvironment"])();
-                  _context71.prev = 3;
-                  _context71.next = 6;
+                  _context71.prev = 2;
+                  _context71.next = 5;
                   return this.cinerino.getServices();
 
-                case 6:
-                  _context71.next = 8;
+                case 5:
+                  _context71.next = 7;
                   return this.cinerino.admin.ownershipInfo.getToken({
                     code: code
                   })["catch"](function (error) {
@@ -17421,16 +17447,16 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                     throw error;
                   });
 
-                case 8:
+                case 7:
                   getTokenResult = _context71.sent;
                   token = getTokenResult.token;
                   decodeResult = jwt_decode__WEBPACK_IMPORTED_MODULE_4__(token);
-                  _context71.next = 13;
+                  _context71.next = 12;
                   return this.cinerino.admin.ownershipInfo.searchCheckTokenActions({
                     id: decodeResult.id
                   });
 
-                case 13:
+                case 12:
                   checkTokenActionsResult = _context71.sent;
                   checkTokenActions = checkTokenActionsResult.data;
                   limit = 100;
@@ -17438,19 +17464,19 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                   roop = true;
                   screeningEventReservations = [];
 
-                case 19:
+                case 18:
                   if (!roop) {
-                    _context71.next = 28;
+                    _context71.next = 27;
                     break;
                   }
 
-                  _context71.next = 22;
+                  _context71.next = 21;
                   return this.cinerino.reservation.search({
                     typeOf: _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_1__["factory"].chevre.reservationType.EventReservation,
                     page: page,
                     limit: limit,
                     project: {
-                      ids: [environment.PROJECT_ID]
+                      ids: [Object(_functions__WEBPACK_IMPORTED_MODULE_6__["getProject"])().projectId]
                     },
                     reservationStatuses: [_cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_1__["factory"].chevre.reservationStatusType.ReservationConfirmed],
                     reservationFor: {
@@ -17460,15 +17486,15 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                     ids: [decodeResult.typeOfGood.id]
                   });
 
-                case 22:
+                case 21:
                   searchResult = _context71.sent;
                   screeningEventReservations = screeningEventReservations.concat(searchResult.data);
                   page++;
                   roop = searchResult.data.length > 0;
-                  _context71.next = 19;
+                  _context71.next = 18;
                   break;
 
-                case 28:
+                case 27:
                   // 利用可能判定
                   availableReservation = screeningEventReservations.find(function (r) {
                     return r.id === decodeResult.typeOfGood.id;
@@ -17476,16 +17502,16 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                   statusCode = http_status__WEBPACK_IMPORTED_MODULE_3__["OK"];
 
                   if (!(availableReservation !== undefined)) {
-                    _context71.next = 33;
+                    _context71.next = 32;
                     break;
                   }
 
-                  _context71.next = 33;
+                  _context71.next = 32;
                   return this.cinerino.reservation.findScreeningEventReservationByToken({
                     token: token
                   });
 
-                case 33:
+                case 32:
                   return _context71.abrupt("return", new _actions__WEBPACK_IMPORTED_MODULE_8__["admissionAction"].CheckSuccess({
                     token: token,
                     decodeResult: decodeResult,
@@ -17494,20 +17520,20 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                     statusCode: statusCode
                   }));
 
-                case 36:
-                  _context71.prev = 36;
-                  _context71.t0 = _context71["catch"](3);
+                case 35:
+                  _context71.prev = 35;
+                  _context71.t0 = _context71["catch"](2);
                   return _context71.abrupt("return", new _actions__WEBPACK_IMPORTED_MODULE_8__["admissionAction"].CheckSuccess({
                     checkTokenActions: [],
                     statusCode: _context71.t0.code === undefined ? http_status__WEBPACK_IMPORTED_MODULE_3__["INTERNAL_SERVER_ERROR"] : _context71.t0.code
                   }));
 
-                case 39:
+                case 38:
                 case "end":
                   return _context71.stop();
               }
             }
-          }, _callee71, this, [[3, 36]]);
+          }, _callee71, this, [[2, 35]]);
         }));
       }));
     };
@@ -17756,7 +17782,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
 
     var MasterEffects = function MasterEffects(actions, cinerino) {
-      var _this54 = this;
+      var _this52 = this;
 
       _classCallCheck(this, MasterEffects);
 
@@ -17769,7 +17795,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       this.getTheaters = this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_actions__WEBPACK_IMPORTED_MODULE_7__["masterAction"].ActionTypes.GetSellers), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["map"])(function (action) {
         return action.payload;
       }), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["mergeMap"])(function (payload) {
-        return __awaiter(_this54, void 0, void 0,
+        return __awaiter(_this52, void 0, void 0,
         /*#__PURE__*/
         regeneratorRuntime.mark(function _callee72() {
           var searchMovieTheatersResult, sellers;
@@ -17816,7 +17842,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       this.getSchedule = this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_actions__WEBPACK_IMPORTED_MODULE_7__["masterAction"].ActionTypes.GetSchedule), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["map"])(function (action) {
         return action.payload;
       }), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["mergeMap"])(function (payload) {
-        return __awaiter(_this54, void 0, void 0,
+        return __awaiter(_this52, void 0, void 0,
         /*#__PURE__*/
         regeneratorRuntime.mark(function _callee73() {
           var limit, page, roop, screeningEvents, searchResult, scheduleDate;
@@ -17911,7 +17937,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       this.GetProjects = this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_actions__WEBPACK_IMPORTED_MODULE_7__["masterAction"].ActionTypes.GetProjects), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["map"])(function (action) {
         return action.payload;
       }), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["mergeMap"])(function () {
-        return __awaiter(_this54, void 0, void 0,
+        return __awaiter(_this52, void 0, void 0,
         /*#__PURE__*/
         regeneratorRuntime.mark(function _callee74() {
           var limit, page, roop, projects, searchResult;
@@ -18144,7 +18170,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
 
     var OrderEffects = function OrderEffects(actions, cinerino, starPrint, utilService, translate) {
-      var _this55 = this;
+      var _this53 = this;
 
       _classCallCheck(this, OrderEffects);
 
@@ -18160,10 +18186,10 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       this.cancel = this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_actions__WEBPACK_IMPORTED_MODULE_10__["orderAction"].ActionTypes.Cancel), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["map"])(function (action) {
         return action.payload;
       }), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["mergeMap"])(function (payload) {
-        return __awaiter(_this55, void 0, void 0,
+        return __awaiter(_this53, void 0, void 0,
         /*#__PURE__*/
         regeneratorRuntime.mark(function _callee76() {
-          var _this56 = this;
+          var _this54 = this;
 
           var orders, environment, _iteratorNormalCompletion6, _didIteratorError6, _iteratorError6, _loop4, _iterator6, _step6, orderStatusWatch;
 
@@ -18192,7 +18218,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                           case 0:
                             order = _step6.value;
                             _context76.next = 3;
-                            return _this56.cinerino.transaction.returnOrder.start({
+                            return _this54.cinerino.transaction.returnOrder.start({
                               expires: moment__WEBPACK_IMPORTED_MODULE_4__().add(1, 'day').toDate(),
                               object: {
                                 order: {
@@ -18211,14 +18237,14 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                             });
                             email = {
                               sender: {
-                                name: _this56.translate.instant('email.order.return.sender.name') === '' ? undefined : _this56.translate.instant('email.order.return.sender.name'),
-                                email: _this56.translate.instant('email.order.return.sender.email') === '' ? undefined : _this56.translate.instant('email.order.return.sender.email')
+                                name: _this54.translate.instant('email.order.return.sender.name') === '' ? undefined : _this54.translate.instant('email.order.return.sender.name'),
+                                email: _this54.translate.instant('email.order.return.sender.email') === '' ? undefined : _this54.translate.instant('email.order.return.sender.email')
                               },
                               toRecipient: {
-                                name: _this56.translate.instant('email.order.return.toRecipient.name') === '' ? undefined : _this56.translate.instant('email.order.return.toRecipient.name'),
-                                email: _this56.translate.instant('email.order.return.toRecipient.email') === '' ? undefined : _this56.translate.instant('email.order.return.toRecipient.email')
+                                name: _this54.translate.instant('email.order.return.toRecipient.name') === '' ? undefined : _this54.translate.instant('email.order.return.toRecipient.name'),
+                                email: _this54.translate.instant('email.order.return.toRecipient.email') === '' ? undefined : _this54.translate.instant('email.order.return.toRecipient.email')
                               },
-                              about: _this56.translate.instant('email.order.return.about') === '' ? undefined : _this56.translate.instant('email.order.return.about'),
+                              about: _this54.translate.instant('email.order.return.about') === '' ? undefined : _this54.translate.instant('email.order.return.about'),
                               template: undefined
                             };
 
@@ -18228,7 +18254,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                             }
 
                             _context76.next = 9;
-                            return _this56.utilService.getText("".concat(Object(_functions__WEBPACK_IMPORTED_MODULE_7__["getProject"])().storageUrl, "/ejs/mail/return/").concat(payload.language, ".ejs"));
+                            return _this54.utilService.getText("".concat(Object(_functions__WEBPACK_IMPORTED_MODULE_7__["getProject"])().storageUrl, "/ejs/mail/return/").concat(payload.language, ".ejs"));
 
                           case 9:
                             view = _context76.sent;
@@ -18247,7 +18273,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
                           case 14:
                             _context76.next = 16;
-                            return _this56.cinerino.transaction.returnOrder.confirm({
+                            return _this54.cinerino.transaction.returnOrder.confirm({
                               id: startResult.id,
                               potentialActions: {
                                 returnOrder: {
@@ -18332,7 +18358,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                 case 30:
                   orderStatusWatch = function orderStatusWatch() {
                     return new Promise(function (resolve, reject) {
-                      return __awaiter(_this56, void 0, void 0,
+                      return __awaiter(_this54, void 0, void 0,
                       /*#__PURE__*/
                       regeneratorRuntime.mark(function _callee75() {
                         var limit, i, searchResult, filterResult;
@@ -18436,7 +18462,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       this.inquiry = this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_actions__WEBPACK_IMPORTED_MODULE_10__["orderAction"].ActionTypes.Inquiry), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["map"])(function (action) {
         return action.payload;
       }), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["mergeMap"])(function (payload) {
-        return __awaiter(_this55, void 0, void 0,
+        return __awaiter(_this53, void 0, void 0,
         /*#__PURE__*/
         regeneratorRuntime.mark(function _callee77() {
           var environment, now, today, confirmationNumber, customer, orderDateFrom, params, order;
@@ -18501,10 +18527,10 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       this.print = this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_actions__WEBPACK_IMPORTED_MODULE_10__["orderAction"].ActionTypes.Print), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["map"])(function (action) {
         return action.payload;
       }), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["mergeMap"])(function (payload) {
-        return __awaiter(_this55, void 0, void 0,
+        return __awaiter(_this53, void 0, void 0,
         /*#__PURE__*/
         regeneratorRuntime.mark(function _callee79() {
-          var _this57 = this;
+          var _this55 = this;
 
           var _orders, printer, pos, environment, authorizeOrders, _iteratorNormalCompletion7, _didIteratorError7, _iteratorError7, _loop7, _iterator7, _step7, printData, testFlg, canvasList, _canvas2, _iteratorNormalCompletion8, _didIteratorError8, _iteratorError8, _loop5, _iterator8, _step8, domList;
 
@@ -18547,7 +18573,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                             _context82.next = 3;
                             return Object(_functions__WEBPACK_IMPORTED_MODULE_7__["retry"])({
                               process: function process() {
-                                return __awaiter(_this57, void 0, void 0,
+                                return __awaiter(_this55, void 0, void 0,
                                 /*#__PURE__*/
                                 regeneratorRuntime.mark(function _callee78() {
                                   var orderNumber, customer, authorizeOrder;
@@ -18729,7 +18755,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                                       // QRコード暗号化(id + startDate)
                                       encyptText = "".concat(itemOffered.reservationFor.id, "=").concat(itemOffered.reservationFor.startDate);
                                       _context79.next = 12;
-                                      return _this57.utilService.encryptionEncode(encyptText);
+                                      return _this55.utilService.encryptionEncode(encyptText);
 
                                     case 12:
                                       encryptionEncodeResult = _context79.sent;
@@ -18962,7 +18988,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       this.orderAuthorize = this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_actions__WEBPACK_IMPORTED_MODULE_10__["orderAction"].ActionTypes.OrderAuthorize), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["map"])(function (action) {
         return action.payload;
       }), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["mergeMap"])(function (payload) {
-        return __awaiter(_this55, void 0, void 0,
+        return __awaiter(_this53, void 0, void 0,
         /*#__PURE__*/
         regeneratorRuntime.mark(function _callee80() {
           var params, order;
@@ -19187,7 +19213,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
 
     var PurchaseEffects = function PurchaseEffects(actions, cinerinoService, http, utilService, translate) {
-      var _this58 = this;
+      var _this56 = this;
 
       _classCallCheck(this, PurchaseEffects);
 
@@ -19203,7 +19229,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       this.startTransaction = this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_3__["ofType"])(_actions__WEBPACK_IMPORTED_MODULE_11__["purchaseAction"].ActionTypes.StartTransaction), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["map"])(function (action) {
         return action.payload;
       }), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["mergeMap"])(function (payload) {
-        return __awaiter(_this58, void 0, void 0,
+        return __awaiter(_this56, void 0, void 0,
         /*#__PURE__*/
         regeneratorRuntime.mark(function _callee81() {
           var params, selleId, passport, transaction;
@@ -19257,7 +19283,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       this.cancelTransaction = this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_3__["ofType"])(_actions__WEBPACK_IMPORTED_MODULE_11__["purchaseAction"].ActionTypes.CancelTransaction), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["map"])(function (action) {
         return action.payload;
       }), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["mergeMap"])(function (payload) {
-        return __awaiter(_this58, void 0, void 0,
+        return __awaiter(_this56, void 0, void 0,
         /*#__PURE__*/
         regeneratorRuntime.mark(function _callee82() {
           var transaction;
@@ -19301,7 +19327,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       this.getScreen = this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_3__["ofType"])(_actions__WEBPACK_IMPORTED_MODULE_11__["purchaseAction"].ActionTypes.GetScreen), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["map"])(function (action) {
         return action.payload;
       }), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["mergeMap"])(function (payload) {
-        return __awaiter(_this58, void 0, void 0,
+        return __awaiter(_this56, void 0, void 0,
         /*#__PURE__*/
         regeneratorRuntime.mark(function _callee83() {
           var theaterCode, screenCode, screeningEventOffers, screen, objects, setting, screenData;
@@ -19383,7 +19409,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       this.getScreeningEvent = this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_3__["ofType"])(_actions__WEBPACK_IMPORTED_MODULE_11__["purchaseAction"].ActionTypes.GetScreeningEvent), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["map"])(function (action) {
         return action.payload;
       }), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["mergeMap"])(function (payload) {
-        return __awaiter(_this58, void 0, void 0,
+        return __awaiter(_this56, void 0, void 0,
         /*#__PURE__*/
         regeneratorRuntime.mark(function _callee84() {
           var screeningEvent;
@@ -19429,7 +19455,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       this.getScreeningEventOffers = this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_3__["ofType"])(_actions__WEBPACK_IMPORTED_MODULE_11__["purchaseAction"].ActionTypes.GetScreeningEventOffers), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["map"])(function (action) {
         return action.payload;
       }), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["mergeMap"])(function (payload) {
-        return __awaiter(_this58, void 0, void 0,
+        return __awaiter(_this56, void 0, void 0,
         /*#__PURE__*/
         regeneratorRuntime.mark(function _callee85() {
           var screeningEvent, screeningEventOffers;
@@ -19487,10 +19513,10 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       this.temporaryReservation = this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_3__["ofType"])(_actions__WEBPACK_IMPORTED_MODULE_11__["purchaseAction"].ActionTypes.TemporaryReservation), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["map"])(function (action) {
         return action.payload;
       }), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["mergeMap"])(function (payload) {
-        return __awaiter(_this58, void 0, void 0,
+        return __awaiter(_this56, void 0, void 0,
         /*#__PURE__*/
         regeneratorRuntime.mark(function _callee86() {
-          var transaction, screeningEvent, reservations, serverTime, nowDate, authorizeSeatReservation;
+          var transaction, screeningEvent, reservations, screeningEventOffers, additionalTicketText, availableSeats, authorizeSeatReservation;
           return regeneratorRuntime.wrap(function _callee86$(_context90) {
             while (1) {
               switch (_context90.prev = _context90.next) {
@@ -19498,130 +19524,36 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                   transaction = payload.transaction;
                   screeningEvent = payload.screeningEvent;
                   reservations = payload.reservations;
-                  _context90.prev = 3;
-                  _context90.next = 6;
+                  screeningEventOffers = payload.screeningEventOffers;
+                  additionalTicketText = payload.additionalTicketText;
+                  _context90.prev = 5;
+                  _context90.next = 8;
                   return this.cinerinoService.getServices();
 
-                case 6:
+                case 8:
                   if (!(payload.authorizeSeatReservation !== undefined)) {
-                    _context90.next = 9;
+                    _context90.next = 11;
                     break;
                   }
 
-                  _context90.next = 9;
+                  _context90.next = 11;
                   return this.cinerinoService.transaction.placeOrder.voidSeatReservation(payload.authorizeSeatReservation);
 
-                case 9:
-                  _context90.next = 11;
-                  return this.utilService.getServerTime();
-
                 case 11:
-                  serverTime = _context90.sent;
-                  nowDate = moment__WEBPACK_IMPORTED_MODULE_5__(serverTime.date).toDate();
-
-                  if (!(screeningEvent.offers === undefined)) {
-                    _context90.next = 15;
-                    break;
-                  }
-
-                  throw new Error('screeningEvent.offers undefined');
-
-                case 15:
-                  if (!(screeningEvent.offers.validFrom > nowDate || screeningEvent.offers.validThrough < nowDate)) {
-                    _context90.next = 17;
-                    break;
-                  }
-
-                  throw new Error('Outside sales period');
-
-                case 17:
-                  _context90.next = 19;
-                  return this.cinerinoService.transaction.placeOrder.authorizeSeatReservation({
-                    object: {
-                      event: {
-                        id: screeningEvent.id
-                      },
-                      acceptedOffer: reservations.map(function (reservation) {
-                        if (reservation.ticket === undefined) {
-                          throw new Error('ticket is undefined');
-                        }
-
-                        return {
-                          id: reservation.ticket.ticketOffer.id,
-                          ticketedSeat: reservation.seat,
-                          addOn: reservation.ticket.addOn === undefined ? undefined : reservation.ticket.addOn.map(function (a) {
-                            return {
-                              id: a.id
-                            };
-                          }),
-                          additionalProperty: [] // ここにムビチケ情報を入れる
-
-                        };
-                      })
-                    },
-                    purpose: transaction
-                  });
-
-                case 19:
-                  authorizeSeatReservation = _context90.sent;
-                  return _context90.abrupt("return", new _actions__WEBPACK_IMPORTED_MODULE_11__["purchaseAction"].TemporaryReservationSuccess({
-                    addAuthorizeSeatReservation: authorizeSeatReservation,
-                    removeAuthorizeSeatReservation: payload.authorizeSeatReservation
-                  }));
-
-                case 23:
-                  _context90.prev = 23;
-                  _context90.t0 = _context90["catch"](3);
-                  return _context90.abrupt("return", new _actions__WEBPACK_IMPORTED_MODULE_11__["purchaseAction"].TemporaryReservationFail({
-                    error: _context90.t0
-                  }));
-
-                case 26:
-                case "end":
-                  return _context90.stop();
-              }
-            }
-          }, _callee86, this, [[3, 23]]);
-        }));
-      }));
-      /**
-       * temporaryReservationFreeSeat
-       */
-
-      this.temporaryReservationFreeSeat = this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_3__["ofType"])(_actions__WEBPACK_IMPORTED_MODULE_11__["purchaseAction"].ActionTypes.TemporaryReservationFreeSeat), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["map"])(function (action) {
-        return action.payload;
-      }), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["mergeMap"])(function (payload) {
-        return __awaiter(_this58, void 0, void 0,
-        /*#__PURE__*/
-        regeneratorRuntime.mark(function _callee87() {
-          var transaction, screeningEvent, screeningEventOffers, reservations, availableSeats, authorizeSeatReservation;
-          return regeneratorRuntime.wrap(function _callee87$(_context91) {
-            while (1) {
-              switch (_context91.prev = _context91.next) {
-                case 0:
-                  transaction = payload.transaction;
-                  screeningEvent = payload.screeningEvent;
-                  screeningEventOffers = payload.screeningEventOffers;
-                  reservations = payload.reservations;
-                  _context91.prev = 4;
-                  _context91.next = 7;
-                  return this.cinerinoService.getServices();
-
-                case 7:
-                  availableSeats = Object(_functions__WEBPACK_IMPORTED_MODULE_8__["autoSelectAvailableSeat"])({
+                  availableSeats = Object(_functions__WEBPACK_IMPORTED_MODULE_8__["selectAvailableSeat"])({
                     reservations: reservations,
                     screeningEventOffers: screeningEventOffers
                   });
 
                   if (!(new _models__WEBPACK_IMPORTED_MODULE_9__["Performance"](screeningEvent).isTicketedSeat() && availableSeats.length !== reservations.length)) {
-                    _context91.next = 10;
+                    _context90.next = 14;
                     break;
                   }
 
                   throw new Error('Out of stock').message;
 
-                case 10:
-                  _context91.next = 12;
+                case 14:
+                  _context90.next = 16;
                   return this.cinerinoService.transaction.placeOrder.authorizeSeatReservation({
                     object: {
                       event: {
@@ -19634,39 +19566,57 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
                         return {
                           id: reservation.ticket.ticketOffer.id,
-                          ticketedSeat: new _models__WEBPACK_IMPORTED_MODULE_9__["Performance"](screeningEvent).isTicketedSeat() ? availableSeats[index] : undefined,
                           addOn: reservation.ticket.addOn === undefined ? undefined : reservation.ticket.addOn.map(function (a) {
                             return {
                               id: a.id
                             };
                           }),
-                          additionalProperty: [] // ここにムビチケ情報を入れる
-
+                          additionalProperty: [],
+                          itemOffered: {
+                            serviceOutput: {
+                              typeOf: _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_2__["factory"].chevre.reservationType.EventReservation,
+                              additionalProperty: [],
+                              additionalTicketText: additionalTicketText,
+                              reservedTicket: {
+                                typeOf: 'Ticket',
+                                ticketedSeat: new _models__WEBPACK_IMPORTED_MODULE_9__["Performance"](screeningEvent).isTicketedSeat() ? availableSeats[index] : undefined
+                              },
+                              subReservation: new _models__WEBPACK_IMPORTED_MODULE_9__["Performance"](screeningEvent).isTicketedSeat() ? availableSeats[index].subReservations.map(function (s) {
+                                return {
+                                  reservedTicket: {
+                                    typeOf: 'Ticket',
+                                    ticketedSeat: s
+                                  }
+                                };
+                              }) : undefined
+                            }
+                          }
                         };
                       })
                     },
                     purpose: transaction
                   });
 
-                case 12:
-                  authorizeSeatReservation = _context91.sent;
-                  return _context91.abrupt("return", new _actions__WEBPACK_IMPORTED_MODULE_11__["purchaseAction"].TemporaryReservationFreeSeatSuccess({
-                    addAuthorizeSeatReservation: authorizeSeatReservation
-                  }));
-
                 case 16:
-                  _context91.prev = 16;
-                  _context91.t0 = _context91["catch"](4);
-                  return _context91.abrupt("return", new _actions__WEBPACK_IMPORTED_MODULE_11__["purchaseAction"].TemporaryReservationFreeSeatFail({
-                    error: _context91.t0
+                  authorizeSeatReservation = _context90.sent;
+                  return _context90.abrupt("return", new _actions__WEBPACK_IMPORTED_MODULE_11__["purchaseAction"].TemporaryReservationSuccess({
+                    addAuthorizeSeatReservation: authorizeSeatReservation,
+                    removeAuthorizeSeatReservation: payload.authorizeSeatReservation
                   }));
 
-                case 19:
+                case 20:
+                  _context90.prev = 20;
+                  _context90.t0 = _context90["catch"](5);
+                  return _context90.abrupt("return", new _actions__WEBPACK_IMPORTED_MODULE_11__["purchaseAction"].TemporaryReservationFail({
+                    error: _context90.t0
+                  }));
+
+                case 23:
                 case "end":
-                  return _context91.stop();
+                  return _context90.stop();
               }
             }
-          }, _callee87, this, [[4, 16]]);
+          }, _callee86, this, [[5, 20]]);
         }));
       }));
       /**
@@ -19676,94 +19626,94 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       this.cancelTemporaryReservations = this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_3__["ofType"])(_actions__WEBPACK_IMPORTED_MODULE_11__["purchaseAction"].ActionTypes.CancelTemporaryReservations), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["map"])(function (action) {
         return action.payload;
       }), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["mergeMap"])(function (payload) {
-        return __awaiter(_this58, void 0, void 0,
+        return __awaiter(_this56, void 0, void 0,
         /*#__PURE__*/
-        regeneratorRuntime.mark(function _callee88() {
+        regeneratorRuntime.mark(function _callee87() {
           var authorizeSeatReservations, _iteratorNormalCompletion10, _didIteratorError10, _iteratorError10, _iterator10, _step10, authorizeSeatReservation;
 
-          return regeneratorRuntime.wrap(function _callee88$(_context92) {
+          return regeneratorRuntime.wrap(function _callee87$(_context91) {
             while (1) {
-              switch (_context92.prev = _context92.next) {
+              switch (_context91.prev = _context91.next) {
                 case 0:
-                  _context92.prev = 0;
+                  _context91.prev = 0;
                   authorizeSeatReservations = payload.authorizeSeatReservations;
-                  _context92.next = 4;
+                  _context91.next = 4;
                   return this.cinerinoService.getServices();
 
                 case 4:
                   _iteratorNormalCompletion10 = true;
                   _didIteratorError10 = false;
                   _iteratorError10 = undefined;
-                  _context92.prev = 7;
+                  _context91.prev = 7;
                   _iterator10 = authorizeSeatReservations[Symbol.iterator]();
 
                 case 9:
                   if (_iteratorNormalCompletion10 = (_step10 = _iterator10.next()).done) {
-                    _context92.next = 16;
+                    _context91.next = 16;
                     break;
                   }
 
                   authorizeSeatReservation = _step10.value;
-                  _context92.next = 13;
+                  _context91.next = 13;
                   return this.cinerinoService.transaction.placeOrder.voidSeatReservation(authorizeSeatReservation);
 
                 case 13:
                   _iteratorNormalCompletion10 = true;
-                  _context92.next = 9;
+                  _context91.next = 9;
                   break;
 
                 case 16:
-                  _context92.next = 22;
+                  _context91.next = 22;
                   break;
 
                 case 18:
-                  _context92.prev = 18;
-                  _context92.t0 = _context92["catch"](7);
+                  _context91.prev = 18;
+                  _context91.t0 = _context91["catch"](7);
                   _didIteratorError10 = true;
-                  _iteratorError10 = _context92.t0;
+                  _iteratorError10 = _context91.t0;
 
                 case 22:
-                  _context92.prev = 22;
-                  _context92.prev = 23;
+                  _context91.prev = 22;
+                  _context91.prev = 23;
 
                   if (!_iteratorNormalCompletion10 && _iterator10["return"] != null) {
                     _iterator10["return"]();
                   }
 
                 case 25:
-                  _context92.prev = 25;
+                  _context91.prev = 25;
 
                   if (!_didIteratorError10) {
-                    _context92.next = 28;
+                    _context91.next = 28;
                     break;
                   }
 
                   throw _iteratorError10;
 
                 case 28:
-                  return _context92.finish(25);
+                  return _context91.finish(25);
 
                 case 29:
-                  return _context92.finish(22);
+                  return _context91.finish(22);
 
                 case 30:
-                  return _context92.abrupt("return", new _actions__WEBPACK_IMPORTED_MODULE_11__["purchaseAction"].CancelTemporaryReservationsSuccess({
+                  return _context91.abrupt("return", new _actions__WEBPACK_IMPORTED_MODULE_11__["purchaseAction"].CancelTemporaryReservationsSuccess({
                     authorizeSeatReservations: authorizeSeatReservations
                   }));
 
                 case 33:
-                  _context92.prev = 33;
-                  _context92.t1 = _context92["catch"](0);
-                  return _context92.abrupt("return", new _actions__WEBPACK_IMPORTED_MODULE_11__["purchaseAction"].CancelTemporaryReservationsFail({
-                    error: _context92.t1
+                  _context91.prev = 33;
+                  _context91.t1 = _context91["catch"](0);
+                  return _context91.abrupt("return", new _actions__WEBPACK_IMPORTED_MODULE_11__["purchaseAction"].CancelTemporaryReservationsFail({
+                    error: _context91.t1
                   }));
 
                 case 36:
                 case "end":
-                  return _context92.stop();
+                  return _context91.stop();
               }
             }
-          }, _callee88, this, [[0, 33], [7, 18, 22, 30], [23,, 25, 29]]);
+          }, _callee87, this, [[0, 33], [7, 18, 22, 30], [23,, 25, 29]]);
         }));
       }));
       /**
@@ -19773,23 +19723,23 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       this.getTicketList = this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_3__["ofType"])(_actions__WEBPACK_IMPORTED_MODULE_11__["purchaseAction"].ActionTypes.GetTicketList), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["map"])(function (action) {
         return action.payload;
       }), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["mergeMap"])(function (payload) {
-        return __awaiter(_this58, void 0, void 0,
+        return __awaiter(_this56, void 0, void 0,
         /*#__PURE__*/
-        regeneratorRuntime.mark(function _callee89() {
+        regeneratorRuntime.mark(function _callee88() {
           var clientId, screeningEvent, seller, screeningEventTicketOffers;
-          return regeneratorRuntime.wrap(function _callee89$(_context93) {
+          return regeneratorRuntime.wrap(function _callee88$(_context92) {
             while (1) {
-              switch (_context93.prev = _context93.next) {
+              switch (_context92.prev = _context92.next) {
                 case 0:
-                  _context93.prev = 0;
-                  _context93.next = 3;
+                  _context92.prev = 0;
+                  _context92.next = 3;
                   return this.cinerinoService.getServices();
 
                 case 3:
                   clientId = this.cinerinoService.auth.options.clientId;
                   screeningEvent = payload.screeningEvent;
                   seller = payload.seller;
-                  _context93.next = 8;
+                  _context92.next = 8;
                   return this.cinerinoService.event.searchTicketOffers({
                     event: {
                       id: screeningEvent.id
@@ -19804,36 +19754,24 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                   });
 
                 case 8:
-                  screeningEventTicketOffers = _context93.sent;
-                  // 券種コード順（昇順）へソート
-                  screeningEventTicketOffers = screeningEventTicketOffers.sort(function (a, b) {
-                    if (a.identifier > b.identifier) {
-                      return 1;
-                    }
-
-                    if (a.identifier < b.identifier) {
-                      return -1;
-                    }
-
-                    return 0;
-                  });
-                  return _context93.abrupt("return", new _actions__WEBPACK_IMPORTED_MODULE_11__["purchaseAction"].GetTicketListSuccess({
+                  screeningEventTicketOffers = _context92.sent;
+                  return _context92.abrupt("return", new _actions__WEBPACK_IMPORTED_MODULE_11__["purchaseAction"].GetTicketListSuccess({
                     screeningEventTicketOffers: screeningEventTicketOffers
                   }));
 
-                case 13:
-                  _context93.prev = 13;
-                  _context93.t0 = _context93["catch"](0);
-                  return _context93.abrupt("return", new _actions__WEBPACK_IMPORTED_MODULE_11__["purchaseAction"].GetTicketListFail({
-                    error: _context93.t0
+                case 12:
+                  _context92.prev = 12;
+                  _context92.t0 = _context92["catch"](0);
+                  return _context92.abrupt("return", new _actions__WEBPACK_IMPORTED_MODULE_11__["purchaseAction"].GetTicketListFail({
+                    error: _context92.t0
                   }));
 
-                case 16:
+                case 15:
                 case "end":
-                  return _context93.stop();
+                  return _context92.stop();
               }
             }
-          }, _callee89, this, [[0, 13]]);
+          }, _callee88, this, [[0, 12]]);
         }));
       }));
       /**
@@ -19843,13 +19781,13 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       this.registerContact = this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_3__["ofType"])(_actions__WEBPACK_IMPORTED_MODULE_11__["purchaseAction"].ActionTypes.RegisterContact), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["map"])(function (action) {
         return action.payload;
       }), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["mergeMap"])(function (payload) {
-        return __awaiter(_this58, void 0, void 0,
+        return __awaiter(_this56, void 0, void 0,
         /*#__PURE__*/
-        regeneratorRuntime.mark(function _callee90() {
+        regeneratorRuntime.mark(function _callee89() {
           var transaction, profile;
-          return regeneratorRuntime.wrap(function _callee90$(_context94) {
+          return regeneratorRuntime.wrap(function _callee89$(_context93) {
             while (1) {
-              switch (_context94.prev = _context94.next) {
+              switch (_context93.prev = _context93.next) {
                 case 0:
                   transaction = payload.transaction;
                   profile = payload.contact;
@@ -19858,35 +19796,35 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                     profile.telephone = Object(_functions__WEBPACK_IMPORTED_MODULE_8__["formatTelephone"])(profile.telephone);
                   }
 
-                  _context94.prev = 3;
-                  _context94.next = 6;
+                  _context93.prev = 3;
+                  _context93.next = 6;
                   return this.cinerinoService.getServices();
 
                 case 6:
-                  _context94.next = 8;
+                  _context93.next = 8;
                   return this.cinerinoService.transaction.placeOrder.setProfile({
                     id: transaction.id,
                     agent: profile
                   });
 
                 case 8:
-                  return _context94.abrupt("return", new _actions__WEBPACK_IMPORTED_MODULE_11__["purchaseAction"].RegisterContactSuccess({
+                  return _context93.abrupt("return", new _actions__WEBPACK_IMPORTED_MODULE_11__["purchaseAction"].RegisterContactSuccess({
                     profile: profile
                   }));
 
                 case 11:
-                  _context94.prev = 11;
-                  _context94.t0 = _context94["catch"](3);
-                  return _context94.abrupt("return", new _actions__WEBPACK_IMPORTED_MODULE_11__["purchaseAction"].RegisterContactFail({
-                    error: _context94.t0
+                  _context93.prev = 11;
+                  _context93.t0 = _context93["catch"](3);
+                  return _context93.abrupt("return", new _actions__WEBPACK_IMPORTED_MODULE_11__["purchaseAction"].RegisterContactFail({
+                    error: _context93.t0
                   }));
 
                 case 14:
                 case "end":
-                  return _context94.stop();
+                  return _context93.stop();
               }
             }
-          }, _callee90, this, [[3, 11]]);
+          }, _callee89, this, [[3, 11]]);
         }));
       }));
       /**
@@ -19896,27 +19834,27 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       this.authorizeCreditCard = this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_3__["ofType"])(_actions__WEBPACK_IMPORTED_MODULE_11__["purchaseAction"].ActionTypes.AuthorizeCreditCard), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["map"])(function (action) {
         return action.payload;
       }), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["mergeMap"])(function (payload) {
-        return __awaiter(_this58, void 0, void 0,
+        return __awaiter(_this56, void 0, void 0,
         /*#__PURE__*/
-        regeneratorRuntime.mark(function _callee91() {
+        regeneratorRuntime.mark(function _callee90() {
           var gmoTokenObject, amount, transaction, creditCard, authorizeCreditCardPaymentResult;
-          return regeneratorRuntime.wrap(function _callee91$(_context95) {
+          return regeneratorRuntime.wrap(function _callee90$(_context94) {
             while (1) {
-              switch (_context95.prev = _context95.next) {
+              switch (_context94.prev = _context94.next) {
                 case 0:
-                  _context95.prev = 0;
+                  _context94.prev = 0;
                   gmoTokenObject = payload.gmoTokenObject;
                   amount = payload.amount;
-                  _context95.next = 5;
+                  _context94.next = 5;
                   return this.cinerinoService.getServices();
 
                 case 5:
                   if (!(payload.authorizeCreditCardPayment !== undefined)) {
-                    _context95.next = 8;
+                    _context94.next = 8;
                     break;
                   }
 
-                  _context95.next = 8;
+                  _context94.next = 8;
                   return this.cinerinoService.payment.voidTransaction(payload.authorizeCreditCardPayment);
 
                 case 8:
@@ -19924,7 +19862,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                   creditCard = {
                     token: gmoTokenObject.token
                   };
-                  _context95.next = 12;
+                  _context94.next = 12;
                   return this.cinerinoService.payment.authorizeCreditCard({
                     object: {
                       typeOf: _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_2__["factory"].paymentMethodType.CreditCard,
@@ -19936,24 +19874,24 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                   });
 
                 case 12:
-                  authorizeCreditCardPaymentResult = _context95.sent;
-                  return _context95.abrupt("return", new _actions__WEBPACK_IMPORTED_MODULE_11__["purchaseAction"].AuthorizeCreditCardSuccess({
+                  authorizeCreditCardPaymentResult = _context94.sent;
+                  return _context94.abrupt("return", new _actions__WEBPACK_IMPORTED_MODULE_11__["purchaseAction"].AuthorizeCreditCardSuccess({
                     authorizeCreditCardPayment: authorizeCreditCardPaymentResult
                   }));
 
                 case 16:
-                  _context95.prev = 16;
-                  _context95.t0 = _context95["catch"](0);
-                  return _context95.abrupt("return", new _actions__WEBPACK_IMPORTED_MODULE_11__["purchaseAction"].AuthorizeCreditCardFail({
-                    error: _context95.t0
+                  _context94.prev = 16;
+                  _context94.t0 = _context94["catch"](0);
+                  return _context94.abrupt("return", new _actions__WEBPACK_IMPORTED_MODULE_11__["purchaseAction"].AuthorizeCreditCardFail({
+                    error: _context94.t0
                   }));
 
                 case 19:
                 case "end":
-                  return _context95.stop();
+                  return _context94.stop();
               }
             }
-          }, _callee91, this, [[0, 16]]);
+          }, _callee90, this, [[0, 16]]);
         }));
       }));
       /**
@@ -19963,81 +19901,81 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       this.authorizeMovieTicket = this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_3__["ofType"])(_actions__WEBPACK_IMPORTED_MODULE_11__["purchaseAction"].ActionTypes.AuthorizeMovieTicket), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["map"])(function (action) {
         return action.payload;
       }), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["mergeMap"])(function (payload) {
-        return __awaiter(_this58, void 0, void 0,
+        return __awaiter(_this56, void 0, void 0,
         /*#__PURE__*/
-        regeneratorRuntime.mark(function _callee92() {
-          var _this59 = this;
+        regeneratorRuntime.mark(function _callee91() {
+          var _this57 = this;
 
           var _iteratorNormalCompletion11, _didIteratorError11, _iteratorError11, _iterator11, _step11, authorizeMovieTicketPayment, transaction, pendingMovieTickets, authorizeSeatReservations, authorizeMovieTicketPayments, seller, _iteratorNormalCompletion12, _didIteratorError12, _iteratorError12, _loop8, _iterator12, _step12;
 
-          return regeneratorRuntime.wrap(function _callee92$(_context97) {
+          return regeneratorRuntime.wrap(function _callee91$(_context96) {
             while (1) {
-              switch (_context97.prev = _context97.next) {
+              switch (_context96.prev = _context96.next) {
                 case 0:
-                  _context97.prev = 0;
-                  _context97.next = 3;
+                  _context96.prev = 0;
+                  _context96.next = 3;
                   return this.cinerinoService.getServices();
 
                 case 3:
                   if (!(payload.authorizeMovieTicketPayments.length > 0)) {
-                    _context97.next = 30;
+                    _context96.next = 30;
                     break;
                   }
 
                   _iteratorNormalCompletion11 = true;
                   _didIteratorError11 = false;
                   _iteratorError11 = undefined;
-                  _context97.prev = 7;
+                  _context96.prev = 7;
                   _iterator11 = payload.authorizeMovieTicketPayments[Symbol.iterator]();
 
                 case 9:
                   if (_iteratorNormalCompletion11 = (_step11 = _iterator11.next()).done) {
-                    _context97.next = 16;
+                    _context96.next = 16;
                     break;
                   }
 
                   authorizeMovieTicketPayment = _step11.value;
-                  _context97.next = 13;
+                  _context96.next = 13;
                   return this.cinerinoService.payment.voidTransaction(authorizeMovieTicketPayment);
 
                 case 13:
                   _iteratorNormalCompletion11 = true;
-                  _context97.next = 9;
+                  _context96.next = 9;
                   break;
 
                 case 16:
-                  _context97.next = 22;
+                  _context96.next = 22;
                   break;
 
                 case 18:
-                  _context97.prev = 18;
-                  _context97.t0 = _context97["catch"](7);
+                  _context96.prev = 18;
+                  _context96.t0 = _context96["catch"](7);
                   _didIteratorError11 = true;
-                  _iteratorError11 = _context97.t0;
+                  _iteratorError11 = _context96.t0;
 
                 case 22:
-                  _context97.prev = 22;
-                  _context97.prev = 23;
+                  _context96.prev = 22;
+                  _context96.prev = 23;
 
                   if (!_iteratorNormalCompletion11 && _iterator11["return"] != null) {
                     _iterator11["return"]();
                   }
 
                 case 25:
-                  _context97.prev = 25;
+                  _context96.prev = 25;
 
                   if (!_didIteratorError11) {
-                    _context97.next = 28;
+                    _context96.next = 28;
                     break;
                   }
 
                   throw _iteratorError11;
 
                 case 28:
-                  return _context97.finish(25);
+                  return _context96.finish(25);
 
                 case 29:
-                  return _context97.finish(22);
+                  return _context96.finish(22);
 
                 case 30:
                   transaction = payload.transaction;
@@ -20048,15 +19986,15 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                   _iteratorNormalCompletion12 = true;
                   _didIteratorError12 = false;
                   _iteratorError12 = undefined;
-                  _context97.prev = 38;
+                  _context96.prev = 38;
                   _loop8 =
                   /*#__PURE__*/
                   regeneratorRuntime.mark(function _loop8() {
                     var authorizeSeatReservation, movieTickets, movieTicketIdentifiers, _i4, _movieTicketIdentifie, movieTicketIdentifier, authorizeMovieTicketPaymentResult;
 
-                    return regeneratorRuntime.wrap(function _loop8$(_context96) {
+                    return regeneratorRuntime.wrap(function _loop8$(_context95) {
                       while (1) {
-                        switch (_context96.prev = _context96.next) {
+                        switch (_context95.prev = _context95.next) {
                           case 0:
                             authorizeSeatReservation = _step12.value;
                             movieTickets = Object(_functions__WEBPACK_IMPORTED_MODULE_8__["createMovieTicketsFromAuthorizeSeatReservation"])({
@@ -20084,13 +20022,13 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
                           case 5:
                             if (!(_i4 < _movieTicketIdentifie.length)) {
-                              _context96.next = 14;
+                              _context95.next = 14;
                               break;
                             }
 
                             movieTicketIdentifier = _movieTicketIdentifie[_i4];
-                            _context96.next = 9;
-                            return _this59.cinerinoService.payment.authorizeMovieTicket({
+                            _context95.next = 9;
+                            return _this57.cinerinoService.payment.authorizeMovieTicket({
                               object: {
                                 typeOf: _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_2__["factory"].paymentMethodType.MovieTicket,
                                 amount: 0,
@@ -20100,17 +20038,17 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                             });
 
                           case 9:
-                            authorizeMovieTicketPaymentResult = _context96.sent;
+                            authorizeMovieTicketPaymentResult = _context95.sent;
                             authorizeMovieTicketPayments.push(authorizeMovieTicketPaymentResult);
 
                           case 11:
                             _i4++;
-                            _context96.next = 5;
+                            _context95.next = 5;
                             break;
 
                           case 14:
                           case "end":
-                            return _context96.stop();
+                            return _context95.stop();
                         }
                       }
                     }, _loop8);
@@ -20119,69 +20057,69 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
                 case 41:
                   if (_iteratorNormalCompletion12 = (_step12 = _iterator12.next()).done) {
-                    _context97.next = 46;
+                    _context96.next = 46;
                     break;
                   }
 
-                  return _context97.delegateYield(_loop8(), "t1", 43);
+                  return _context96.delegateYield(_loop8(), "t1", 43);
 
                 case 43:
                   _iteratorNormalCompletion12 = true;
-                  _context97.next = 41;
+                  _context96.next = 41;
                   break;
 
                 case 46:
-                  _context97.next = 52;
+                  _context96.next = 52;
                   break;
 
                 case 48:
-                  _context97.prev = 48;
-                  _context97.t2 = _context97["catch"](38);
+                  _context96.prev = 48;
+                  _context96.t2 = _context96["catch"](38);
                   _didIteratorError12 = true;
-                  _iteratorError12 = _context97.t2;
+                  _iteratorError12 = _context96.t2;
 
                 case 52:
-                  _context97.prev = 52;
-                  _context97.prev = 53;
+                  _context96.prev = 52;
+                  _context96.prev = 53;
 
                   if (!_iteratorNormalCompletion12 && _iterator12["return"] != null) {
                     _iterator12["return"]();
                   }
 
                 case 55:
-                  _context97.prev = 55;
+                  _context96.prev = 55;
 
                   if (!_didIteratorError12) {
-                    _context97.next = 58;
+                    _context96.next = 58;
                     break;
                   }
 
                   throw _iteratorError12;
 
                 case 58:
-                  return _context97.finish(55);
+                  return _context96.finish(55);
 
                 case 59:
-                  return _context97.finish(52);
+                  return _context96.finish(52);
 
                 case 60:
-                  return _context97.abrupt("return", new _actions__WEBPACK_IMPORTED_MODULE_11__["purchaseAction"].AuthorizeMovieTicketSuccess({
+                  return _context96.abrupt("return", new _actions__WEBPACK_IMPORTED_MODULE_11__["purchaseAction"].AuthorizeMovieTicketSuccess({
                     authorizeMovieTicketPayments: authorizeMovieTicketPayments
                   }));
 
                 case 63:
-                  _context97.prev = 63;
-                  _context97.t3 = _context97["catch"](0);
-                  return _context97.abrupt("return", new _actions__WEBPACK_IMPORTED_MODULE_11__["purchaseAction"].AuthorizeMovieTicketFail({
-                    error: _context97.t3
+                  _context96.prev = 63;
+                  _context96.t3 = _context96["catch"](0);
+                  return _context96.abrupt("return", new _actions__WEBPACK_IMPORTED_MODULE_11__["purchaseAction"].AuthorizeMovieTicketFail({
+                    error: _context96.t3
                   }));
 
                 case 66:
                 case "end":
-                  return _context97.stop();
+                  return _context96.stop();
               }
             }
-          }, _callee92, this, [[0, 63], [7, 18, 22, 30], [23,, 25, 29], [38, 48, 52, 60], [53,, 55, 59]]);
+          }, _callee91, this, [[0, 63], [7, 18, 22, 30], [23,, 25, 29], [38, 48, 52, 60], [53,, 55, 59]]);
         }));
       }));
       /**
@@ -20191,22 +20129,22 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       this.checkMovieTicket = this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_3__["ofType"])(_actions__WEBPACK_IMPORTED_MODULE_11__["purchaseAction"].ActionTypes.CheckMovieTicket), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["map"])(function (action) {
         return action.payload;
       }), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["mergeMap"])(function (payload) {
-        return __awaiter(_this58, void 0, void 0,
+        return __awaiter(_this56, void 0, void 0,
         /*#__PURE__*/
-        regeneratorRuntime.mark(function _callee93() {
+        regeneratorRuntime.mark(function _callee92() {
           var screeningEvent, movieTickets, checkMovieTicketAction;
-          return regeneratorRuntime.wrap(function _callee93$(_context98) {
+          return regeneratorRuntime.wrap(function _callee92$(_context97) {
             while (1) {
-              switch (_context98.prev = _context98.next) {
+              switch (_context97.prev = _context97.next) {
                 case 0:
-                  _context98.prev = 0;
-                  _context98.next = 3;
+                  _context97.prev = 0;
+                  _context97.next = 3;
                   return this.cinerinoService.getServices();
 
                 case 3:
                   screeningEvent = payload.screeningEvent;
                   movieTickets = payload.movieTickets;
-                  _context98.next = 7;
+                  _context97.next = 7;
                   return this.cinerinoService.payment.checkMovieTicket({
                     typeOf: _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_2__["factory"].paymentMethodType.MovieTicket,
                     movieTickets: movieTickets.map(function (movieTicket) {
@@ -20237,24 +20175,24 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                   });
 
                 case 7:
-                  checkMovieTicketAction = _context98.sent;
-                  return _context98.abrupt("return", new _actions__WEBPACK_IMPORTED_MODULE_11__["purchaseAction"].CheckMovieTicketSuccess({
+                  checkMovieTicketAction = _context97.sent;
+                  return _context97.abrupt("return", new _actions__WEBPACK_IMPORTED_MODULE_11__["purchaseAction"].CheckMovieTicketSuccess({
                     checkMovieTicketAction: checkMovieTicketAction
                   }));
 
                 case 11:
-                  _context98.prev = 11;
-                  _context98.t0 = _context98["catch"](0);
-                  return _context98.abrupt("return", new _actions__WEBPACK_IMPORTED_MODULE_11__["purchaseAction"].CheckMovieTicketFail({
-                    error: _context98.t0
+                  _context97.prev = 11;
+                  _context97.t0 = _context97["catch"](0);
+                  return _context97.abrupt("return", new _actions__WEBPACK_IMPORTED_MODULE_11__["purchaseAction"].CheckMovieTicketFail({
+                    error: _context97.t0
                   }));
 
                 case 14:
                 case "end":
-                  return _context98.stop();
+                  return _context97.stop();
               }
             }
-          }, _callee93, this, [[0, 11]]);
+          }, _callee92, this, [[0, 11]]);
         }));
       }));
       /**
@@ -20264,19 +20202,19 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       this.endTransaction = this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_3__["ofType"])(_actions__WEBPACK_IMPORTED_MODULE_11__["purchaseAction"].ActionTypes.EndTransaction), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["map"])(function (action) {
         return action.payload;
       }), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["mergeMap"])(function (payload) {
-        return __awaiter(_this58, void 0, void 0,
+        return __awaiter(_this56, void 0, void 0,
         /*#__PURE__*/
-        regeneratorRuntime.mark(function _callee94() {
+        regeneratorRuntime.mark(function _callee93() {
           var transaction, authorizeSeatReservations, seller, environment, params, view, result;
-          return regeneratorRuntime.wrap(function _callee94$(_context99) {
+          return regeneratorRuntime.wrap(function _callee93$(_context98) {
             while (1) {
-              switch (_context99.prev = _context99.next) {
+              switch (_context98.prev = _context98.next) {
                 case 0:
                   transaction = payload.transaction;
                   authorizeSeatReservations = payload.authorizeSeatReservations;
                   seller = payload.seller;
-                  _context99.prev = 3;
-                  _context99.next = 6;
+                  _context98.prev = 3;
+                  _context98.next = 6;
                   return this.cinerinoService.getServices();
 
                 case 6:
@@ -20299,16 +20237,16 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                   };
 
                   if (!(environment.PURCHASE_COMPLETE_MAIL_CUSTOM && params.email !== undefined)) {
-                    _context99.next = 15;
+                    _context98.next = 15;
                     break;
                   }
 
-                  _context99.next = 11;
+                  _context98.next = 11;
                   return this.utilService.getText("".concat(Object(_functions__WEBPACK_IMPORTED_MODULE_8__["getProject"])().storageUrl, "/ejs/mail/complete/").concat(payload.language, ".ejs"));
 
                 case 11:
-                  view = _context99.sent;
-                  _context99.next = 14;
+                  view = _context98.sent;
+                  _context98.next = 14;
                   return window.ejs.render(view, {
                     authorizeSeatReservations: Object(_functions__WEBPACK_IMPORTED_MODULE_8__["authorizeSeatReservation2Event"])({
                       authorizeSeatReservations: authorizeSeatReservations
@@ -20323,37 +20261,37 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                   });
 
                 case 14:
-                  params.email.template = _context99.sent;
+                  params.email.template = _context98.sent;
 
                 case 15:
-                  _context99.next = 17;
+                  _context98.next = 17;
                   return this.cinerinoService.transaction.placeOrder.confirm(params);
 
                 case 17:
-                  result = _context99.sent;
-                  return _context99.abrupt("return", new _actions__WEBPACK_IMPORTED_MODULE_11__["purchaseAction"].EndTransactionSuccess({
+                  result = _context98.sent;
+                  return _context98.abrupt("return", new _actions__WEBPACK_IMPORTED_MODULE_11__["purchaseAction"].EndTransactionSuccess({
                     order: result.order
                   }));
 
                 case 21:
-                  _context99.prev = 21;
-                  _context99.t0 = _context99["catch"](3);
-                  _context99.next = 25;
+                  _context98.prev = 21;
+                  _context98.t0 = _context98["catch"](3);
+                  _context98.next = 25;
                   return this.cinerinoService.transaction.placeOrder.cancel({
                     id: transaction.id
                   });
 
                 case 25:
-                  return _context99.abrupt("return", new _actions__WEBPACK_IMPORTED_MODULE_11__["purchaseAction"].EndTransactionFail({
-                    error: _context99.t0
+                  return _context98.abrupt("return", new _actions__WEBPACK_IMPORTED_MODULE_11__["purchaseAction"].EndTransactionFail({
+                    error: _context98.t0
                   }));
 
                 case 26:
                 case "end":
-                  return _context99.stop();
+                  return _context98.stop();
               }
             }
-          }, _callee94, this, [[3, 21]]);
+          }, _callee93, this, [[3, 21]]);
         }));
       }));
       /**
@@ -20363,25 +20301,25 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       this.authorizeAnyPayment = this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_3__["ofType"])(_actions__WEBPACK_IMPORTED_MODULE_11__["purchaseAction"].ActionTypes.AuthorizeAnyPayment), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["map"])(function (action) {
         return action.payload;
       }), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["mergeMap"])(function (payload) {
-        return __awaiter(_this58, void 0, void 0,
+        return __awaiter(_this56, void 0, void 0,
         /*#__PURE__*/
-        regeneratorRuntime.mark(function _callee95() {
+        regeneratorRuntime.mark(function _callee94() {
           var transaction, typeOf, amount, name, additionalProperty, authorizeAnyPayment;
-          return regeneratorRuntime.wrap(function _callee95$(_context100) {
+          return regeneratorRuntime.wrap(function _callee94$(_context99) {
             while (1) {
-              switch (_context100.prev = _context100.next) {
+              switch (_context99.prev = _context99.next) {
                 case 0:
                   transaction = payload.transaction;
                   typeOf = payload.typeOf;
                   amount = payload.amount;
                   name = payload.name;
                   additionalProperty = payload.additionalProperty;
-                  _context100.prev = 5;
-                  _context100.next = 8;
+                  _context99.prev = 5;
+                  _context99.next = 8;
                   return this.cinerinoService.getServices();
 
                 case 8:
-                  _context100.next = 10;
+                  _context99.next = 10;
                   return this.cinerinoService.payment.authorizeAnyPayment({
                     object: {
                       typeOf: typeOf,
@@ -20393,24 +20331,24 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                   });
 
                 case 10:
-                  authorizeAnyPayment = _context100.sent;
-                  return _context100.abrupt("return", new _actions__WEBPACK_IMPORTED_MODULE_11__["purchaseAction"].AuthorizeAnyPaymentSuccess({
+                  authorizeAnyPayment = _context99.sent;
+                  return _context99.abrupt("return", new _actions__WEBPACK_IMPORTED_MODULE_11__["purchaseAction"].AuthorizeAnyPaymentSuccess({
                     authorizeAnyPayment: authorizeAnyPayment
                   }));
 
                 case 14:
-                  _context100.prev = 14;
-                  _context100.t0 = _context100["catch"](5);
-                  return _context100.abrupt("return", new _actions__WEBPACK_IMPORTED_MODULE_11__["purchaseAction"].AuthorizeAnyPaymentFail({
-                    error: _context100.t0
+                  _context99.prev = 14;
+                  _context99.t0 = _context99["catch"](5);
+                  return _context99.abrupt("return", new _actions__WEBPACK_IMPORTED_MODULE_11__["purchaseAction"].AuthorizeAnyPaymentFail({
+                    error: _context99.t0
                   }));
 
                 case 17:
                 case "end":
-                  return _context100.stop();
+                  return _context99.stop();
               }
             }
-          }, _callee95, this, [[5, 14]]);
+          }, _callee94, this, [[5, 14]]);
         }));
       }));
     };
@@ -20440,8 +20378,6 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     __decorate([Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_3__["Effect"])(), __metadata("design:type", Object)], PurchaseEffects.prototype, "getScreeningEventOffers", void 0);
 
     __decorate([Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_3__["Effect"])(), __metadata("design:type", Object)], PurchaseEffects.prototype, "temporaryReservation", void 0);
-
-    __decorate([Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_3__["Effect"])(), __metadata("design:type", Object)], PurchaseEffects.prototype, "temporaryReservationFreeSeat", void 0);
 
     __decorate([Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_3__["Effect"])(), __metadata("design:type", Object)], PurchaseEffects.prototype, "cancelTemporaryReservations", void 0);
 
@@ -21687,7 +21623,6 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
             var removeAuthorizeSeatReservation = action.payload.removeAuthorizeSeatReservation;
             var _reservations3 = state.purchaseData.reservations;
             state.purchaseData.authorizeSeatReservation = addAuthorizeSeatReservation;
-            state.purchaseData.screeningEventOffers = [];
 
             if (removeAuthorizeSeatReservation !== undefined) {
               // 削除
@@ -21760,38 +21695,6 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
             });
           }
 
-        case _actions__WEBPACK_IMPORTED_MODULE_2__["purchaseAction"].ActionTypes.TemporaryReservationFreeSeat:
-          {
-            return Object.assign({}, state, {
-              loading: true,
-              process: 'purchaseAction.TemporaryReservationFreeSeat'
-            });
-          }
-
-        case _actions__WEBPACK_IMPORTED_MODULE_2__["purchaseAction"].ActionTypes.TemporaryReservationFreeSeatSuccess:
-          {
-            var _addAuthorizeSeatReservation = action.payload.addAuthorizeSeatReservation;
-            state.purchaseData.authorizeSeatReservation = _addAuthorizeSeatReservation;
-            state.purchaseData.screeningEventOffers = [];
-            state.purchaseData.authorizeSeatReservation = undefined;
-            state.purchaseData.authorizeSeatReservations.push(_addAuthorizeSeatReservation);
-            return Object.assign({}, state, {
-              loading: false,
-              process: '',
-              error: null
-            });
-          }
-
-        case _actions__WEBPACK_IMPORTED_MODULE_2__["purchaseAction"].ActionTypes.TemporaryReservationFreeSeatFail:
-          {
-            var _error13 = action.payload.error;
-            return Object.assign({}, state, {
-              loading: false,
-              process: '',
-              error: JSON.stringify(_error13)
-            });
-          }
-
         case _actions__WEBPACK_IMPORTED_MODULE_2__["purchaseAction"].ActionTypes.CancelTemporaryReservations:
           {
             return Object.assign({}, state, {
@@ -21829,11 +21732,11 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
         case _actions__WEBPACK_IMPORTED_MODULE_2__["purchaseAction"].ActionTypes.CancelTemporaryReservationsFail:
           {
-            var _error14 = action.payload.error;
+            var _error13 = action.payload.error;
             return Object.assign({}, state, {
               loading: false,
               process: '',
-              error: JSON.stringify(_error14)
+              error: JSON.stringify(_error13)
             });
           }
 
@@ -21858,11 +21761,11 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
         case _actions__WEBPACK_IMPORTED_MODULE_2__["purchaseAction"].ActionTypes.RegisterContactFail:
           {
-            var _error15 = action.payload.error;
+            var _error14 = action.payload.error;
             return Object.assign({}, state, {
               loading: false,
               process: '',
-              error: JSON.stringify(_error15)
+              error: JSON.stringify(_error14)
             });
           }
 
@@ -21889,7 +21792,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
         case _actions__WEBPACK_IMPORTED_MODULE_2__["purchaseAction"].ActionTypes.AuthorizeCreditCardFail:
           {
-            var _error16 = action.payload.error;
+            var _error15 = action.payload.error;
 
             var _orderCount = state.purchaseData.orderCount + 1;
 
@@ -21897,7 +21800,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
             return Object.assign({}, state, {
               loading: false,
               process: '',
-              error: JSON.stringify(_error16)
+              error: JSON.stringify(_error15)
             });
           }
 
@@ -21921,11 +21824,11 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
         case _actions__WEBPACK_IMPORTED_MODULE_2__["purchaseAction"].ActionTypes.AuthorizeMovieTicketFail:
           {
-            var _error17 = action.payload.error;
+            var _error16 = action.payload.error;
             return Object.assign({}, state, {
               loading: false,
               process: '',
-              error: JSON.stringify(_error17)
+              error: JSON.stringify(_error16)
             });
           }
 
@@ -21960,11 +21863,11 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
         case _actions__WEBPACK_IMPORTED_MODULE_2__["purchaseAction"].ActionTypes.CheckMovieTicketFail:
           {
-            var _error18 = action.payload.error;
+            var _error17 = action.payload.error;
             return Object.assign({}, state, {
               loading: false,
               process: '',
-              error: JSON.stringify(_error18)
+              error: JSON.stringify(_error17)
             });
           }
 
@@ -22002,11 +21905,11 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
         case _actions__WEBPACK_IMPORTED_MODULE_2__["purchaseAction"].ActionTypes.EndTransactionFail:
           {
-            var _error19 = action.payload.error;
+            var _error18 = action.payload.error;
             return Object.assign({}, state, {
               loading: false,
               process: '',
-              error: JSON.stringify(_error19)
+              error: JSON.stringify(_error18)
             });
           }
 
@@ -22031,20 +21934,20 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
         case _actions__WEBPACK_IMPORTED_MODULE_2__["purchaseAction"].ActionTypes.AuthorizeAnyPaymentFail:
           {
-            var _error20 = action.payload.error;
+            var _error19 = action.payload.error;
             return Object.assign({}, state, {
               loading: false,
               process: '',
-              error: JSON.stringify(_error20)
+              error: JSON.stringify(_error19)
             });
           }
 
         case _actions__WEBPACK_IMPORTED_MODULE_2__["purchaseAction"].ActionTypes.SelectPaymentMethodType:
           {
-            var paymentMethod = Object(_functions__WEBPACK_IMPORTED_MODULE_1__["createPaymentMethodFromType"])({
-              paymentMethodType: action.payload.paymentMethodType,
-              paymentMethodName: action.payload.paymentMethodName
-            });
+            var paymentMethod = {
+              typeOf: action.payload.typeOf,
+              category: action.payload.category
+            };
             state.purchaseData.paymentMethod = paymentMethod;
             return Object.assign({}, state, {
               loading: false,
@@ -22573,8 +22476,6 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     var defaultEnvironment = {
       production: false,
       APP_TITLE: '',
-      APP_PREFIX: '',
-      PROJECT_ID: '',
       ENTRANCE_SERVER_URL: '',
       INSTRUCTION_URL: '',
       ANALYTICS_ID: '',
@@ -22585,6 +22486,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       BASE_URL: '/purchase/root',
       LANGUAGE: ['ja'],
       PAYMENT_METHOD_TO_USE: [],
+      PAYMENT_METHOD_CUSTOM: [],
       REGIGROW_QRCODE: '',
       DISPLAY_TICKETED_SEAT: false,
       HEADER_MENU: false,
@@ -22748,11 +22650,11 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     function main() {
       return __awaiter(this, void 0, void 0,
       /*#__PURE__*/
-      regeneratorRuntime.mark(function _callee96() {
+      regeneratorRuntime.mark(function _callee95() {
         var space, project;
-        return regeneratorRuntime.wrap(function _callee96$(_context101) {
+        return regeneratorRuntime.wrap(function _callee95$(_context100) {
           while (1) {
-            switch (_context101.prev = _context101.next) {
+            switch (_context100.prev = _context100.next) {
               case 0:
                 // タイムゾーン設定
                 moment_timezone__WEBPACK_IMPORTED_MODULE_3__["tz"].setDefault('Asia/Tokyo');
@@ -22774,38 +22676,38 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                 project = Object(_app_functions__WEBPACK_IMPORTED_MODULE_7__["getParameter"])().project === undefined ? Object(_app_functions__WEBPACK_IMPORTED_MODULE_7__["getProject"])().projectName === '' ? undefined : Object(_app_functions__WEBPACK_IMPORTED_MODULE_7__["getProject"])().projectName : Object(_app_functions__WEBPACK_IMPORTED_MODULE_7__["getParameter"])().project;
 
                 if (!(project === undefined && location.hash !== '#/auth/signin')) {
-                  _context101.next = 11;
+                  _context100.next = 11;
                   break;
                 }
 
                 location.href = '/#/auth/signin';
                 location.reload();
-                return _context101.abrupt("return");
+                return _context100.abrupt("return");
 
               case 11:
-                _context101.next = 13;
+                _context100.next = 13;
                 return setProject({
                   project: project
                 });
 
               case 13:
                 if (!(Object(_app_functions__WEBPACK_IMPORTED_MODULE_7__["getProject"])().storageUrl === undefined)) {
-                  _context101.next = 15;
+                  _context100.next = 15;
                   break;
                 }
 
-                return _context101.abrupt("return");
+                return _context100.abrupt("return");
 
               case 15:
-                _context101.next = 17;
+                _context100.next = 17;
                 return setProjectConfig(Object(_app_functions__WEBPACK_IMPORTED_MODULE_7__["getProject"])().storageUrl);
 
               case 17:
               case "end":
-                return _context101.stop();
+                return _context100.stop();
             }
           }
-        }, _callee96);
+        }, _callee95);
       }));
     }
     /**
@@ -22816,13 +22718,13 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     function setProject(params) {
       return __awaiter(this, void 0, void 0,
       /*#__PURE__*/
-      regeneratorRuntime.mark(function _callee97() {
+      regeneratorRuntime.mark(function _callee96() {
         var fetchResult, json;
-        return regeneratorRuntime.wrap(function _callee97$(_context102) {
+        return regeneratorRuntime.wrap(function _callee96$(_context101) {
           while (1) {
-            switch (_context102.prev = _context102.next) {
+            switch (_context101.prev = _context101.next) {
               case 0:
-                _context102.next = 2;
+                _context101.next = 2;
                 return fetch('/api/project', {
                   method: 'POST',
                   cache: 'no-cache',
@@ -22830,6 +22732,58 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                     'Content-Type': 'application/json; charset=utf-8'
                   },
                   body: JSON.stringify(params)
+                });
+
+              case 2:
+                fetchResult = _context101.sent;
+
+                if (fetchResult.ok) {
+                  _context101.next = 5;
+                  break;
+                }
+
+                throw new Error(JSON.stringify({
+                  status: fetchResult.status,
+                  statusText: fetchResult.statusText
+                }));
+
+              case 5:
+                _context101.next = 7;
+                return fetchResult.json();
+
+              case 7:
+                json = _context101.sent;
+                sessionStorage.setItem('PROJECT', JSON.stringify(json));
+
+              case 9:
+              case "end":
+                return _context101.stop();
+            }
+          }
+        }, _callee96);
+      }));
+    }
+    /**
+     * プロジェクトごとのアプリケーション設定
+     */
+
+
+    function setProjectConfig(storageUrl) {
+      return __awaiter(this, void 0, void 0,
+      /*#__PURE__*/
+      regeneratorRuntime.mark(function _callee97() {
+        var fetchResult, environment, style, favicon;
+        return regeneratorRuntime.wrap(function _callee97$(_context102) {
+          while (1) {
+            switch (_context102.prev = _context102.next) {
+              case 0:
+                _context102.next = 2;
+                return fetch("".concat(storageUrl, "/js/environment.js?=date").concat(moment_timezone__WEBPACK_IMPORTED_MODULE_3__().toISOString()), {
+                  method: 'GET',
+                  cache: 'no-cache',
+                  headers: {
+                    'Content-Type': 'application/json; charset=utf-8'
+                  }
                 });
 
               case 2:
@@ -22846,74 +22800,22 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                 }));
 
               case 5:
-                _context102.next = 7;
-                return fetchResult.json();
-
-              case 7:
-                json = _context102.sent;
-                sessionStorage.setItem('PROJECT', JSON.stringify(json));
-
-              case 9:
-              case "end":
-                return _context102.stop();
-            }
-          }
-        }, _callee97);
-      }));
-    }
-    /**
-     * プロジェクトごとのアプリケーション設定
-     */
-
-
-    function setProjectConfig(storageUrl) {
-      return __awaiter(this, void 0, void 0,
-      /*#__PURE__*/
-      regeneratorRuntime.mark(function _callee98() {
-        var fetchResult, environment, style, favicon;
-        return regeneratorRuntime.wrap(function _callee98$(_context103) {
-          while (1) {
-            switch (_context103.prev = _context103.next) {
-              case 0:
-                _context103.next = 2;
-                return fetch("".concat(storageUrl, "/js/environment.js?=date").concat(moment_timezone__WEBPACK_IMPORTED_MODULE_3__().toISOString()), {
-                  method: 'GET',
-                  cache: 'no-cache',
-                  headers: {
-                    'Content-Type': 'application/json; charset=utf-8'
-                  }
-                });
-
-              case 2:
-                fetchResult = _context103.sent;
-
-                if (fetchResult.ok) {
-                  _context103.next = 5;
-                  break;
-                }
-
-                throw new Error(JSON.stringify({
-                  status: fetchResult.status,
-                  statusText: fetchResult.statusText
-                }));
-
-              case 5:
                 if (!(fetchResult.body === null)) {
-                  _context103.next = 7;
+                  _context102.next = 7;
                   break;
                 }
 
                 throw new Error('fetchResult.body null');
 
               case 7:
-                _context103.t0 = window;
-                _context103.next = 10;
+                _context102.t0 = window;
+                _context102.next = 10;
                 return fetchResult.text();
 
               case 10:
-                _context103.t1 = _context103.sent;
+                _context102.t1 = _context102.sent;
 
-                _context103.t0.eval.call(_context103.t0, _context103.t1);
+                _context102.t0.eval.call(_context102.t0, _context102.t1);
 
                 environment = Object(_environments_environment__WEBPACK_IMPORTED_MODULE_8__["getEnvironment"])(); // スタイル設定
 
@@ -22952,29 +22854,29 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
               case 25:
               case "end":
-                return _context103.stop();
+                return _context102.stop();
             }
           }
-        }, _callee98);
+        }, _callee97);
       }));
     }
 
     main().then(function () {
       return __awaiter(undefined, void 0, void 0,
       /*#__PURE__*/
-      regeneratorRuntime.mark(function _callee99() {
-        return regeneratorRuntime.wrap(function _callee99$(_context104) {
+      regeneratorRuntime.mark(function _callee98() {
+        return regeneratorRuntime.wrap(function _callee98$(_context103) {
           while (1) {
-            switch (_context104.prev = _context104.next) {
+            switch (_context103.prev = _context103.next) {
               case 0:
                 Object(_angular_platform_browser_dynamic__WEBPACK_IMPORTED_MODULE_1__["platformBrowserDynamic"])().bootstrapModule(_app_app_module__WEBPACK_IMPORTED_MODULE_6__["AppModule"]);
 
               case 1:
               case "end":
-                return _context104.stop();
+                return _context103.stop();
             }
           }
-        }, _callee99);
+        }, _callee98);
       }));
     })["catch"](function (error) {
       console.error(error);

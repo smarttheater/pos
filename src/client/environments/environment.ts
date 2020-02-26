@@ -13,14 +13,6 @@ interface IEnvironment {
      */
     APP_TITLE: string;
     /**
-     * アプリケーションプレフィックス
-     */
-    APP_PREFIX: string;
-    /**
-     * プロジェクトID
-     */
-    PROJECT_ID: string;
-    /**
      * 入り口URL（非推奨）
      */
     ENTRANCE_SERVER_URL: string;
@@ -60,6 +52,10 @@ interface IEnvironment {
      * 使用可能決済手段
      */
     PAYMENT_METHOD_TO_USE: string[];
+    /**
+     * カスタム決済手段
+     */
+    PAYMENT_METHOD_CUSTOM: { category: string; name: { ja: string; en: string; }, qrcode?: string; }[];
     /**
      * REGIGROW QRコード
      */
@@ -185,8 +181,6 @@ interface IEnvironment {
 const defaultEnvironment: IEnvironment = {
     production: false,
     APP_TITLE: '',
-    APP_PREFIX: '',
-    PROJECT_ID: '',
     ENTRANCE_SERVER_URL: '',
     INSTRUCTION_URL: '',
     ANALYTICS_ID: '',
@@ -197,6 +191,7 @@ const defaultEnvironment: IEnvironment = {
     BASE_URL: '/purchase/root',
     LANGUAGE: ['ja'],
     PAYMENT_METHOD_TO_USE: [],
+    PAYMENT_METHOD_CUSTOM: [],
     REGIGROW_QRCODE: '',
     DISPLAY_TICKETED_SEAT: false,
     HEADER_MENU: false,

@@ -243,29 +243,36 @@ export class PurchaseService {
     /**
      * 座席仮予約
      */
-    public async temporaryReservation() {
+    public async temporaryReservation(params: {
+        reservations: IReservation[];
+        additionalTicketText?: string;
+    }) {
+        const additionalTicketText = params.additionalTicketText;
+        const reservations = params.reservations;
         const purchase = await this.getData();
         return new Promise<void>((resolve, reject) => {
             const transaction = purchase.transaction;
             const screeningEvent = purchase.screeningEvent;
+            const screeningEventOffers = purchase.screeningEventOffers;
             if (transaction === undefined || screeningEvent === undefined) {
                 reject();
                 return;
             }
-            const reservations = purchase.reservations.map((reservation) => {
-                return {
-                    seat: reservation.seat,
-                    ticket: (reservation.ticket === undefined)
-                        ? { ticketOffer: purchase.screeningEventTicketOffers[0] }
-                        : reservation.ticket
-                };
-            });
             const authorizeSeatReservation = purchase.authorizeSeatReservation;
             this.store.dispatch(new purchaseAction.TemporaryReservation({
+                reservations: reservations.map((reservation) => {
+                    return {
+                        seat: reservation.seat,
+                        ticket: (reservation.ticket === undefined)
+                            ? { ticketOffer: purchase.screeningEventTicketOffers[0] }
+                            : reservation.ticket
+                    };
+                }),
                 transaction,
                 screeningEvent,
-                reservations,
-                authorizeSeatReservation
+                authorizeSeatReservation,
+                screeningEventOffers,
+                additionalTicketText
             }));
             const success = this.actions.pipe(
                 ofType(purchaseAction.ActionTypes.TemporaryReservationSuccess),
@@ -274,37 +281,6 @@ export class PurchaseService {
 
             const fail = this.actions.pipe(
                 ofType(purchaseAction.ActionTypes.TemporaryReservationFail),
-                tap(() => { this.error.subscribe((error) => { reject(error); }).unsubscribe(); })
-            );
-            race(success, fail).pipe(take(1)).subscribe();
-        });
-    }
-
-    /**
-     * 座席仮予約（座席選択なし）
-     */
-    public async temporaryReservationFreeSeat(reservations: IReservation[]) {
-        const purchase = await this.getData();
-        return new Promise<void>((resolve, reject) => {
-            if (purchase.transaction === undefined || purchase.screeningEvent === undefined) {
-                reject();
-                return;
-            }
-            const transaction = purchase.transaction;
-            const screeningEvent = purchase.screeningEvent;
-            const screeningEventOffers = purchase.screeningEventOffers;
-            this.store.dispatch(new purchaseAction.TemporaryReservationFreeSeat({
-                transaction,
-                screeningEvent,
-                screeningEventOffers,
-                reservations
-            }));
-            const success = this.actions.pipe(
-                ofType(purchaseAction.ActionTypes.TemporaryReservationFreeSeatSuccess),
-                tap(() => { resolve(); })
-            );
-            const fail = this.actions.pipe(
-                ofType(purchaseAction.ActionTypes.TemporaryReservationFreeSeatFail),
                 tap(() => { this.error.subscribe((error) => { reject(error); }).unsubscribe(); })
             );
             race(success, fail).pipe(take(1)).subscribe();
@@ -486,7 +462,7 @@ export class PurchaseService {
             const amount = params.amount;
             const depositAmount = params.depositAmount;
             const additionalProperty = [];
-            if (purchase.paymentMethod.paymentMethodType === factory.paymentMethodType.Cash
+            if (purchase.paymentMethod.typeOf === factory.paymentMethodType.Cash
                 && depositAmount !== undefined) {
                 // 現金
                 additionalProperty.push({ name: 'depositAmount', value: String(depositAmount) });
@@ -494,8 +470,8 @@ export class PurchaseService {
             }
             this.store.dispatch(new purchaseAction.AuthorizeAnyPayment({
                 transaction: transaction,
-                typeOf: purchase.paymentMethod.paymentMethodType,
-                name: purchase.paymentMethod.paymentMethodName,
+                typeOf: purchase.paymentMethod.typeOf,
+                name: purchase.paymentMethod.category,
                 amount,
                 additionalProperty
             }));
@@ -515,8 +491,8 @@ export class PurchaseService {
      * 決済方法取得
      */
     public selectPaymentMethodType(params: {
-        paymentMethodType: factory.paymentMethodType;
-        paymentMethodName?: 'RegiGrow'
+        typeOf: factory.paymentMethodType;
+        category?: string;
     }) {
         this.store.dispatch(new purchaseAction.SelectPaymentMethodType(params));
     }

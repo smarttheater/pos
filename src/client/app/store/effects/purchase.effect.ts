@@ -8,12 +8,12 @@ import { map, mergeMap } from 'rxjs/operators';
 import { getEnvironment } from '../../../environments/environment';
 import {
     authorizeSeatReservation2Event,
-    autoSelectAvailableSeat,
     createMovieTicketsFromAuthorizeSeatReservation,
     formatTelephone,
     getItemPrice,
     getProject,
-    getTicketPrice
+    getTicketPrice,
+    selectAvailableSeat
 } from '../../functions';
 import { IScreen, Performance } from '../../models';
 import { CinerinoService, UtilService } from '../../services';
@@ -169,38 +169,53 @@ export class PurchaseEffects {
             const transaction = payload.transaction;
             const screeningEvent = payload.screeningEvent;
             const reservations = payload.reservations;
+            const screeningEventOffers = payload.screeningEventOffers;
+            const additionalTicketText = payload.additionalTicketText;
             try {
                 await this.cinerinoService.getServices();
                 if (payload.authorizeSeatReservation !== undefined) {
                     await this.cinerinoService.transaction.placeOrder
                         .voidSeatReservation(payload.authorizeSeatReservation);
                 }
-                // サーバータイムを使用して販売期間判定
-                const serverTime = await this.utilService.getServerTime();
-                const nowDate = moment(serverTime.date).toDate();
-                if (screeningEvent.offers === undefined) {
-                    throw new Error('screeningEvent.offers undefined');
-                }
-                if (screeningEvent.offers.validFrom > nowDate
-                    || screeningEvent.offers.validThrough < nowDate) {
-                    throw new Error('Outside sales period');
+                const availableSeats = selectAvailableSeat({ reservations, screeningEventOffers });
+                if (new Performance(screeningEvent).isTicketedSeat()
+                    && availableSeats.length !== reservations.length) {
+                    throw new Error('Out of stock').message;
                 }
                 const authorizeSeatReservation =
                     <factory.action.authorize.offer.seatReservation.IAction<factory.service.webAPI.Identifier.Chevre>>
                     await this.cinerinoService.transaction.placeOrder.authorizeSeatReservation({
                         object: {
                             event: { id: screeningEvent.id },
-                            acceptedOffer: reservations.map((reservation) => {
+                            acceptedOffer: reservations.map((reservation, index) => {
                                 if (reservation.ticket === undefined) {
-                                    throw new Error('ticket is undefined');
+                                    throw new Error('ticket is undefined').message;
                                 }
                                 return {
                                     id: reservation.ticket.ticketOffer.id,
-                                    ticketedSeat: reservation.seat,
                                     addOn: (reservation.ticket.addOn === undefined)
                                         ? undefined
                                         : reservation.ticket.addOn.map(a => ({ id: a.id })),
-                                    additionalProperty: [] // ここにムビチケ情報を入れる
+                                    additionalProperty: [], // ここにムビチケ情報を入れる
+                                    itemOffered: {
+                                        serviceOutput: {
+                                            typeOf: factory.chevre.reservationType.EventReservation,
+                                            additionalProperty: [],
+                                            additionalTicketText: additionalTicketText,
+                                            reservedTicket: {
+                                                typeOf: 'Ticket',
+                                                ticketedSeat: (new Performance(screeningEvent).isTicketedSeat())
+                                                    ? availableSeats[index] : undefined,
+                                            },
+                                            subReservation: (new Performance(screeningEvent).isTicketedSeat())
+                                                ? availableSeats[index].subReservations.map(s => {
+                                                    return {
+                                                        reservedTicket: { typeOf: 'Ticket', ticketedSeat: s }
+                                                    };
+                                                })
+                                                : undefined
+                                        }
+                                    }
                                 };
                             })
                         },
@@ -212,59 +227,6 @@ export class PurchaseEffects {
                 });
             } catch (error) {
                 return new purchaseAction.TemporaryReservationFail({ error: error });
-            }
-        })
-    );
-
-    /**
-     * temporaryReservationFreeSeat
-     */
-    @Effect()
-    public temporaryReservationFreeSeat = this.actions.pipe(
-        ofType<purchaseAction.TemporaryReservationFreeSeat>(purchaseAction.ActionTypes.TemporaryReservationFreeSeat),
-        map(action => action.payload),
-        mergeMap(async (payload) => {
-            const transaction = payload.transaction;
-            const screeningEvent = payload.screeningEvent;
-            const screeningEventOffers = payload.screeningEventOffers;
-            const reservations = payload.reservations;
-
-            try {
-                await this.cinerinoService.getServices();
-                const availableSeats = autoSelectAvailableSeat({ reservations, screeningEventOffers });
-                if (new Performance(screeningEvent).isTicketedSeat()
-                    && availableSeats.length !== reservations.length) {
-                    throw new Error('Out of stock').message;
-                }
-                const authorizeSeatReservation =
-                    <factory.action.authorize.offer.seatReservation.IAction<factory.service.webAPI.Identifier.Chevre>>
-                    await this.cinerinoService.transaction.placeOrder.authorizeSeatReservation({
-                        object: {
-                            event: {
-                                id: screeningEvent.id
-                            },
-                            acceptedOffer: reservations.map((reservation, index) => {
-                                if (reservation.ticket === undefined) {
-                                    throw new Error('ticket is undefined').message;
-                                }
-                                return {
-                                    id: reservation.ticket.ticketOffer.id,
-                                    ticketedSeat: (new Performance(screeningEvent).isTicketedSeat())
-                                        ? availableSeats[index] : undefined,
-                                    addOn: (reservation.ticket.addOn === undefined)
-                                        ? undefined
-                                        : reservation.ticket.addOn.map(a => ({ id: a.id })),
-                                    additionalProperty: [] // ここにムビチケ情報を入れる
-                                };
-                            })
-                        },
-                        purpose: transaction
-                    });
-                return new purchaseAction.TemporaryReservationFreeSeatSuccess({
-                    addAuthorizeSeatReservation: authorizeSeatReservation
-                });
-            } catch (error) {
-                return new purchaseAction.TemporaryReservationFreeSeatFail({ error: error });
             }
         })
     );
@@ -305,16 +267,10 @@ export class PurchaseEffects {
                 const clientId = this.cinerinoService.auth.options.clientId;
                 const screeningEvent = payload.screeningEvent;
                 const seller = payload.seller;
-                let screeningEventTicketOffers = await this.cinerinoService.event.searchTicketOffers({
+                const screeningEventTicketOffers = await this.cinerinoService.event.searchTicketOffers({
                     event: { id: screeningEvent.id },
                     seller: { typeOf: seller.typeOf, id: seller.id },
                     store: { id: clientId }
-                });
-                // 券種コード順（昇順）へソート
-                screeningEventTicketOffers = screeningEventTicketOffers.sort((a, b) => {
-                    if (a.identifier > b.identifier) { return 1; }
-                    if (a.identifier < b.identifier) { return -1; }
-                    return 0;
                 });
 
                 return new purchaseAction.GetTicketListSuccess({ screeningEventTicketOffers });

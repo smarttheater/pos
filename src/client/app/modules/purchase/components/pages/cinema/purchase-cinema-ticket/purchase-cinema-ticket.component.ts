@@ -23,6 +23,7 @@ export class PurchaseCinemaTicketComponent implements OnInit {
     public purchase: Observable<reducers.IPurchaseState>;
     public user: Observable<reducers.IUserState>;
     public isLoading: Observable<boolean>;
+    public additionalTicketText: string;
     public environment = getEnvironment();
 
     constructor(
@@ -38,6 +39,7 @@ export class PurchaseCinemaTicketComponent implements OnInit {
         this.purchase = this.store.pipe(select(reducers.getPurchase));
         this.user = this.store.pipe(select(reducers.getUser));
         this.isLoading = this.store.pipe(select(reducers.getLoading));
+        this.additionalTicketText = '';
     }
 
     /**
@@ -93,7 +95,8 @@ export class PurchaseCinemaTicketComponent implements OnInit {
             return;
         }
         try {
-            await this.purchaseService.temporaryReservation();
+            const additionalTicketText = this.additionalTicketText;
+            await this.purchaseService.temporaryReservation({ reservations, additionalTicketText });
             if (!this.environment.PURCHASE_CART) {
                 this.router.navigate(['/purchase/payment']);
                 return;
@@ -118,7 +121,7 @@ export class PurchaseCinemaTicketComponent implements OnInit {
     public openTicketList(reservation?: IReservation) {
         this.purchase.subscribe((purchase) => {
             this.modal.show(PurchaseCinemaTicketModalComponent, {
-                class: 'modal-dialog-centered',
+                class: 'modal-dialog-centered modal-lg',
                 initialState: {
                     screeningEventTicketOffers: purchase.screeningEventTicketOffers,
                     checkMovieTicketActions: purchase.checkMovieTicketActions,

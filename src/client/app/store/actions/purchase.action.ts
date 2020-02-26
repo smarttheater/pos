@@ -34,9 +34,6 @@ export enum ActionTypes {
     TemporaryReservation = '[Purchase] Temporary Reservation',
     TemporaryReservationSuccess = '[Purchase] Temporary Reservation Success',
     TemporaryReservationFail = '[Purchase] Temporary Reservation Fail',
-    TemporaryReservationFreeSeat = '[Purchase] Temporary Reservation Free Seat',
-    TemporaryReservationFreeSeatSuccess = '[Purchase] Temporary Reservation Free Seat Success',
-    TemporaryReservationFreeSeatFail = '[Purchase] Temporary Reservation Free Seat Fail',
     CancelTemporaryReservations = '[Purchase] Cancel Temporary Reservation',
     CancelTemporaryReservationsSuccess = '[Purchase] Cancel Temporary Reservation Success',
     CancelTemporaryReservationsFail = '[Purchase] Cancel Temporary Reservation Fail',
@@ -298,6 +295,8 @@ export class TemporaryReservation implements Action {
         screeningEvent: factory.chevre.event.screeningEvent.IEvent;
         authorizeSeatReservation?: factory.action.authorize.offer.seatReservation.IAction<factory.service.webAPI.Identifier.Chevre>;
         reservations: IReservation[];
+        screeningEventOffers: factory.chevre.place.screeningRoomSection.IPlaceWithOffer[];
+        additionalTicketText?: string;
     }) { }
 }
 
@@ -310,37 +309,6 @@ export class TemporaryReservationSuccess implements Action {
         addAuthorizeSeatReservation: factory.action.authorize.offer.seatReservation.IAction<factory.service.webAPI.Identifier.Chevre>;
         removeAuthorizeSeatReservation?: factory.action.authorize.offer.seatReservation.IAction<factory.service.webAPI.Identifier.Chevre>;
     }) { }
-}
-
-/**
- * TemporaryReservationFreeSeat
- */
-export class TemporaryReservationFreeSeat implements Action {
-    public readonly type = ActionTypes.TemporaryReservationFreeSeat;
-    constructor(public payload: {
-        transaction: factory.transaction.placeOrder.ITransaction;
-        screeningEvent: factory.chevre.event.screeningEvent.IEvent;
-        screeningEventOffers: factory.chevre.place.screeningRoomSection.IPlaceWithOffer[];
-        reservations: IReservation[]
-    }) { }
-}
-
-/**
- * TemporaryReservationFreeSeatSuccess
- */
-export class TemporaryReservationFreeSeatSuccess implements Action {
-    public readonly type = ActionTypes.TemporaryReservationFreeSeatSuccess;
-    constructor(public payload: {
-        addAuthorizeSeatReservation: factory.action.authorize.offer.seatReservation.IAction<factory.service.webAPI.Identifier.Chevre>;
-    }) { }
-}
-
-/**
- * TemporaryReservationFreeSeatFail
- */
-export class TemporaryReservationFreeSeatFail implements Action {
-    public readonly type = ActionTypes.TemporaryReservationFreeSeatFail;
-    constructor(public payload: { error: Error }) { }
 }
 
 /**
@@ -603,8 +571,8 @@ export class AuthorizeAnyPaymentFail implements Action {
 export class SelectPaymentMethodType implements Action {
     public readonly type = ActionTypes.SelectPaymentMethodType;
     constructor(public payload: {
-        paymentMethodType: factory.paymentMethodType;
-        paymentMethodName?: 'RegiGrow'
+        typeOf: factory.paymentMethodType;
+        category?: string;
     }) { }
 }
 
@@ -639,9 +607,6 @@ export type Actions =
     | TemporaryReservation
     | TemporaryReservationSuccess
     | TemporaryReservationFail
-    | TemporaryReservationFreeSeat
-    | TemporaryReservationFreeSeatSuccess
-    | TemporaryReservationFreeSeatFail
     | CancelTemporaryReservations
     | CancelTemporaryReservationsSuccess
     | CancelTemporaryReservationsFail

@@ -152,13 +152,16 @@ export class PurchaseEventTicketComponent implements OnInit, OnDestroy {
             const screeningEventTicketOffers = purchase.screeningEventTicketOffers;
             const screeningEventOffers = purchase.screeningEventOffers;
             this.modal.show(PurchaseEventTicketModalComponent, {
-                class: 'modal-dialog-centered',
+                class: 'modal-dialog-centered modal-lg',
                 initialState: {
                     screeningEventTicketOffers,
                     screeningEventOffers,
                     screeningEvent,
-                    cb: (reservations: IReservation[]) => {
-                        this.selectTicket(reservations);
+                    cb: (params: {
+                        reservations: IReservation[];
+                        additionalTicketText?: string;
+                    }) => {
+                        this.selectTicket(params);
                     }
                 }
             });
@@ -168,7 +171,12 @@ export class PurchaseEventTicketComponent implements OnInit, OnDestroy {
     /**
      * 券種選択
      */
-    private async selectTicket(reservations: IReservation[]) {
+    private async selectTicket(params: {
+        reservations: IReservation[];
+        additionalTicketText?: string;
+    }) {
+        const reservations = params.reservations;
+        const additionalTicketText = params.additionalTicketText;
         if (reservations.length > Number(this.environment.PURCHASE_ITEM_MAX_LENGTH)) {
             this.utilService.openAlert({
                 title: this.translate.instant('common.error'),
@@ -202,11 +210,12 @@ export class PurchaseEventTicketComponent implements OnInit, OnDestroy {
         }
 
         try {
-            await this.purchaseService.temporaryReservationFreeSeat(reservations);
+            await this.purchaseService.temporaryReservation({ reservations, additionalTicketText });
             this.utilService.openAlert({
                 title: this.translate.instant('common.complete'),
                 body: this.translate.instant('purchase.event.ticket.success.temporaryReservation')
             });
+            this.purchaseService.unsettledDelete();
         } catch (error) {
             console.error(error);
             this.utilService.openAlert({
