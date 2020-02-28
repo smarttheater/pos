@@ -145,15 +145,19 @@ export class PurchaseService {
     }
 
     /**
-     * スクリーン情報取得
+     * スクリーン取得
      */
     public getScreen(params: {
-        test: false;
-        screeningEvent: factory.chevre.event.screeningEvent.IEvent;
-    } | {
-        test: true;
-        theaterCode: string;
-        screenCode: string;
+        limit?: number;
+        page?: number;
+        branchCode?: {
+            $eq?: string;
+        };
+        containedInPlace?: {
+            branchCode?: {
+                $eq?: string;
+            };
+        };
     }) {
         return new Promise<void>((resolve, reject) => {
             this.store.dispatch(new purchaseAction.GetScreen(params));
@@ -163,6 +167,26 @@ export class PurchaseService {
             );
             const fail = this.actions.pipe(
                 ofType(purchaseAction.ActionTypes.GetScreenFail),
+                tap(() => { this.error.subscribe((error) => { reject(error); }).unsubscribe(); })
+            );
+            race(success, fail).pipe(take(1)).subscribe();
+        });
+    }
+
+    /**
+     * スクリーン情報取得
+     */
+    public getScreenData(params: {
+        screeningEvent: factory.chevre.event.screeningEvent.IEvent;
+    }) {
+        return new Promise<void>((resolve, reject) => {
+            this.store.dispatch(new purchaseAction.GetScreenData(params));
+            const success = this.actions.pipe(
+                ofType(purchaseAction.ActionTypes.GetScreenDataSuccess),
+                tap(() => { resolve(); })
+            );
+            const fail = this.actions.pipe(
+                ofType(purchaseAction.ActionTypes.GetScreenDataFail),
                 tap(() => { this.error.subscribe((error) => { reject(error); }).unsubscribe(); })
             );
             race(success, fail).pipe(take(1)).subscribe();
@@ -210,9 +234,9 @@ export class PurchaseService {
     /**
      * 券種一覧取得
      */
-    public async getTicketList(
+    public async getTicketList(params: {
         seller: factory.seller.IOrganization<factory.seller.IAttributes<factory.organizationType>>
-    ) {
+    }) {
         const purchase = await this.getData();
         return new Promise<void>((resolve, reject) => {
             const screeningEvent = purchase.screeningEvent;
@@ -220,7 +244,7 @@ export class PurchaseService {
                 reject();
                 return;
             }
-            this.store.dispatch(new purchaseAction.GetTicketList({ screeningEvent, seller }));
+            this.store.dispatch(new purchaseAction.GetTicketList({ screeningEvent, seller: params.seller }));
             const success = this.actions.pipe(
                 ofType(purchaseAction.ActionTypes.GetTicketListSuccess),
                 tap(() => { resolve(); })

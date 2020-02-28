@@ -42,8 +42,15 @@ export class PurchaseCinemaSeatComponent implements OnInit {
                 this.router.navigate(['/error']);
                 return;
             }
-            await this.purchaseService.getScreen({ screeningEvent, test: false });
-            await this.purchaseService.getTicketList(seller);
+            // await this.purchaseService.getScreen({
+            //     branchCode: { $eq: screeningEvent.location.branchCode },
+            //     containedInPlace: {
+            //         branchCode: { $eq: screeningEvent.superEvent.location.branchCode }
+            //     }
+            // });
+            await this.purchaseService.getScreeningEventOffers();
+            await this.purchaseService.getScreenData({ screeningEvent });
+            await this.purchaseService.getTicketList({ seller });
         } catch (error) {
             console.error(error);
             this.router.navigate(['/error']);

@@ -333,24 +333,40 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
                       break;
                     }
 
-                    throw new Error('user.seller is undefined');
+                    throw new Error('seller not found').message;
 
                   case 7:
+                    if (!(user.theater === undefined)) {
+                      _context2.next = 9;
+                      break;
+                    }
+
+                    throw new Error('theater not found').message;
+
+                  case 9:
+                    if (!(user.pos === undefined)) {
+                      _context2.next = 11;
+                      break;
+                    }
+
+                    throw new Error('pos not found').message;
+
+                  case 11:
                     return _context2.abrupt("return", true);
 
-                  case 10:
-                    _context2.prev = 10;
+                  case 14:
+                    _context2.prev = 14;
                     _context2.t0 = _context2["catch"](0);
                     console.log('canActivate', _context2.t0);
                     this.router.navigate(['/setting']);
                     return _context2.abrupt("return", false);
 
-                  case 15:
+                  case 19:
                   case "end":
                     return _context2.stop();
                 }
               }
-            }, _callee2, this, [[0, 10]]);
+            }, _callee2, this, [[0, 14]]);
           }));
         }
       }, {
