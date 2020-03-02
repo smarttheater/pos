@@ -5,7 +5,8 @@ import { select, Store } from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 import { getEnvironment } from '../../../../../../../environments/environment';
-import { IReservationSeat, SeatStatus } from '../../../../../../models';
+import { getEmptySeat, getRemainingSeatLength } from '../../../../../../functions';
+import { IReservationSeat, Performance, SeatStatus } from '../../../../../../models';
 import { PurchaseService, UserService, UtilService } from '../../../../../../services';
 import * as reducers from '../../../../../../store/reducers';
 
@@ -42,12 +43,12 @@ export class PurchaseCinemaSeatComponent implements OnInit {
                 this.router.navigate(['/error']);
                 return;
             }
-            // await this.purchaseService.getScreen({
-            //     branchCode: { $eq: screeningEvent.location.branchCode },
-            //     containedInPlace: {
-            //         branchCode: { $eq: screeningEvent.superEvent.location.branchCode }
-            //     }
-            // });
+            await this.purchaseService.getScreen({
+                branchCode: { $eq: screeningEvent.location.branchCode },
+                containedInPlace: {
+                    branchCode: { $eq: screeningEvent.superEvent.location.branchCode }
+                }
+            });
             await this.purchaseService.getScreeningEventOffers();
             await this.purchaseService.getScreenData({ screeningEvent });
             await this.purchaseService.getTicketList({ seller });
@@ -59,7 +60,7 @@ export class PurchaseCinemaSeatComponent implements OnInit {
 
 
     /**
-     * selectSeat
+     * 座席選択
      */
     public selectSeat(data: {
         seat: IReservationSeat,
@@ -125,6 +126,51 @@ export class PurchaseCinemaSeatComponent implements OnInit {
             seats.push(reservation.seat);
         });
         this.purchaseService.cancelSeats(seats);
+    }
+
+    /**
+     * 自由席予約可能数計算
+     */
+    public remainingAttendeeCapacityValue(
+        screeningEvent: factory.chevre.event.screeningEvent.IEvent,
+        screeningEventOffers: factory.chevre.place.screeningRoomSection.IPlaceWithOffer[]
+    ) {
+        const values: number[] = [];
+        if (screeningEvent === undefined) {
+            return values;
+        }
+        let limit = Number(this.environment.PURCHASE_ITEM_MAX_LENGTH);
+        if (new Performance(screeningEvent).isTicketedSeat()) {
+            // イベント全体の残席数計算
+            const screeningEventLimit = getRemainingSeatLength(screeningEventOffers, screeningEvent);
+            if (limit > screeningEventLimit) {
+                limit = screeningEventLimit;
+            }
+        }
+        for (let i = 0; i < limit; i++) {
+            values.push(i + 1);
+        }
+        return values;
+    }
+
+    /**
+     * 自由席選択
+     */
+    public async selectOpenSeating(event: Event) {
+        if (event.target === null) {
+            return;
+        }
+        const purchaseData = await this.purchaseService.getData();
+        const value = Number((<HTMLSelectElement>event.target).value);
+        const reservations = purchaseData.reservations;
+        const screeningEventOffers = purchaseData.screeningEventOffers;
+        const seats = getEmptySeat({ reservations, screeningEventOffers });
+        await this.resetSeats();
+        const selectSeats: IReservationSeat[] = [];
+        for (let i = 0; i < value; i++) {
+            selectSeats.push(seats[i]);
+        }
+        this.purchaseService.selectSeats(selectSeats);
     }
 
     /**
