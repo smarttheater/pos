@@ -384,16 +384,16 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
           }
 
           this.master.subscribe(function (master) {
-            var findTheater = master.sellers.find(function (s) {
+            var findResult = master.sellers.find(function (s) {
               return s.location !== undefined && s.location.branchCode === theaterBranchCode;
             });
 
-            if (findTheater === undefined) {
+            if (findResult === undefined) {
               _this.posList = [];
               return;
             }
 
-            _this.posList = findTheater.hasPOS === undefined ? [] : findTheater.hasPOS;
+            _this.posList = findResult.hasPOS === undefined ? [] : findResult.hasPOS;
           }).unsubscribe();
         }
         /**

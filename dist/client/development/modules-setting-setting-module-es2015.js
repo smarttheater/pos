@@ -229,12 +229,12 @@ let SettingComponent = class SettingComponent {
             return;
         }
         this.master.subscribe((master) => {
-            const findTheater = master.sellers.find(s => (s.location !== undefined && s.location.branchCode === theaterBranchCode));
-            if (findTheater === undefined) {
+            const findResult = master.sellers.find(s => (s.location !== undefined && s.location.branchCode === theaterBranchCode));
+            if (findResult === undefined) {
                 this.posList = [];
                 return;
             }
-            this.posList = (findTheater.hasPOS === undefined) ? [] : findTheater.hasPOS;
+            this.posList = (findResult.hasPOS === undefined) ? [] : findResult.hasPOS;
         }).unsubscribe();
     }
     /**
