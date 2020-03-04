@@ -7,12 +7,14 @@ import { masterAction } from '../actions';
  */
 export interface IMasterState {
     sellers: factory.seller.IOrganization<factory.seller.IAttributes<factory.organizationType>>[];
+    theaters: factory.chevre.place.movieTheater.IPlaceWithoutScreeningRoom[];
     screeningEvents: factory.chevre.event.screeningEvent.IEvent[];
     projects: factory.project.IProject[];
 }
 
 export const masterInitialState: IMasterState = {
     sellers: [],
+    theaters: [],
     screeningEvents: [],
     projects: []
 };
@@ -27,13 +29,14 @@ export function reducer(state: IState, action: masterAction.Actions): IState {
         case masterAction.ActionTypes.Delete: {
             state.masterData = {
                 sellers: [],
+                theaters: [],
                 screeningEvents: [],
                 projects: []
             };
             return { ...state };
         }
         case masterAction.ActionTypes.GetSellers: {
-            return { ...state, loading: true, process: 'masterAction.GetSellers'};
+            return { ...state, loading: true, process: 'masterAction.GetSellers' };
         }
         case masterAction.ActionTypes.GetSellersSuccess: {
             const sellers = action.payload.sellers;
@@ -41,6 +44,18 @@ export function reducer(state: IState, action: masterAction.Actions): IState {
             return { ...state, loading: false, process: '', error: null };
         }
         case masterAction.ActionTypes.GetSellersFail: {
+            const error = action.payload.error;
+            return { ...state, loading: false, process: '', error: JSON.stringify(error) };
+        }
+        case masterAction.ActionTypes.GetTheaters: {
+            return { ...state, loading: true, process: 'masterAction.GetTheaters' };
+        }
+        case masterAction.ActionTypes.GetTheatersSuccess: {
+            const theaters = action.payload.theaters;
+            state.masterData.theaters = theaters;
+            return { ...state, loading: false, process: '', error: null };
+        }
+        case masterAction.ActionTypes.GetTheatersFail: {
             const error = action.payload.error;
             return { ...state, loading: false, process: '', error: JSON.stringify(error) };
         }

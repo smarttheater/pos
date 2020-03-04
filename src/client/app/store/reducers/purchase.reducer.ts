@@ -15,6 +15,7 @@ export interface IPurchaseState {
     scheduleDate?: string;
     transaction?: factory.transaction.placeOrder.ITransaction;
     screeningEventOffers: factory.chevre.place.screeningRoomSection.IPlaceWithOffer[];
+    screen?: factory.chevre.place.screeningRoom.IPlace;
     screenData?: IScreen;
     reservations: IReservation[];
     screeningEventTicketOffers: factory.chevre.event.screeningEvent.ITicketOffer[];
@@ -59,20 +60,7 @@ export const purchaseInitialState: IPurchaseState = {
 export function reducer(state: IState, action: purchaseAction.Actions): IState {
     switch (action.type) {
         case purchaseAction.ActionTypes.Delete: {
-            state.purchaseData.reservations = [];
-            state.purchaseData.screeningEvent = undefined;
-            state.purchaseData.screeningEventTicketOffers = [];
-            state.purchaseData.authorizeSeatReservation = undefined;
-            state.purchaseData.checkMovieTicketAction = undefined;
-            state.purchaseData.isUsedMovieTicket = false;
-            state.purchaseData.pendingMovieTickets = [];
-            state.purchaseData.orderCount = 0;
-            state.purchaseData.authorizeCreditCardPayments = [];
-            state.purchaseData.authorizeMovieTicketPayments = [];
-            state.purchaseData.checkMovieTicketActions = [];
-            state.purchaseData.authorizeSeatReservations = [];
-            state.purchaseData.screeningEventOffers = [];
-            state.purchaseData.authorizeAnyPayments = [];
+            state.purchaseData = purchaseInitialState;
             return { ...state };
         }
         case purchaseAction.ActionTypes.UnsettledDelete: {
@@ -139,18 +127,28 @@ export function reducer(state: IState, action: purchaseAction.Actions): IState {
             return { ...state, loading: false, process: '', error: JSON.stringify(error) };
         }
         case purchaseAction.ActionTypes.GetScreen: {
-            state.purchaseData.screeningEventOffers = [];
-            state.purchaseData.screenData = undefined;
+            state.purchaseData.screen = undefined;
             return { ...state, loading: true, process: 'purchaseAction.GetScreen' };
         }
         case purchaseAction.ActionTypes.GetScreenSuccess: {
-            const screeningEventOffers = action.payload.screeningEventOffers;
-            const screenData = action.payload.screenData;
-            state.purchaseData.screeningEventOffers = screeningEventOffers;
-            state.purchaseData.screenData = screenData;
+            const screen = action.payload.screen;
+            state.purchaseData.screen = screen;
             return { ...state, loading: false, process: '', error: null };
         }
         case purchaseAction.ActionTypes.GetScreenFail: {
+            const error = action.payload.error;
+            return { ...state, loading: false, process: '', error: JSON.stringify(error) };
+        }
+        case purchaseAction.ActionTypes.GetScreenData: {
+            state.purchaseData.screenData = undefined;
+            return { ...state, loading: true, process: 'purchaseAction.GetScreenData' };
+        }
+        case purchaseAction.ActionTypes.GetScreenDataSuccess: {
+            const screenData = action.payload.screenData;
+            state.purchaseData.screenData = screenData;
+            return { ...state, loading: false, process: '', error: null };
+        }
+        case purchaseAction.ActionTypes.GetScreenDataFail: {
             const error = action.payload.error;
             return { ...state, loading: false, process: '', error: JSON.stringify(error) };
         }

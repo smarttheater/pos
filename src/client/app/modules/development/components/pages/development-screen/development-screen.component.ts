@@ -1,8 +1,12 @@
 import { Component, OnInit } from '@angular/core';
+import { factory } from '@cinerino/api-javascript-client';
 import { select, Store } from '@ngrx/store';
+import * as moment from 'moment';
 import { Observable } from 'rxjs';
 import { getEnvironment } from '../../../../../../environments/environment';
-import { PurchaseService } from '../../../../../services';
+import { getProject } from '../../../../../functions';
+import { IScreen } from '../../../../../models';
+import { CinerinoService, UtilService } from '../../../../../services';
 import * as reducers from '../../../../../store/reducers';
 
 @Component({
@@ -11,56 +15,51 @@ import * as reducers from '../../../../../store/reducers';
     styleUrls: ['./development-screen.component.scss']
 })
 export class DevelopmentScreenComponent implements OnInit {
-    public purchase: Observable<reducers.IPurchaseState>;
-    public table: { theaterCode: string; screens: string[]; }[];
     public environment = getEnvironment();
     public theaterCode: string;
     public screenCode: string;
     public isLoading: Observable<boolean>;
+    public screenData?: IScreen;
+    public theaters: factory.chevre.place.movieTheater.IPlaceWithoutScreeningRoom[];
+    public screens: factory.chevre.place.screeningRoom.IPlace[];
 
     constructor(
         private store: Store<reducers.IState>,
-        private purchaseService: PurchaseService
+        private cinerinoService: CinerinoService,
+        private utilService: UtilService
     ) { }
 
-    public ngOnInit() {
-        this.purchase = this.store.pipe(select(reducers.getPurchase));
+    public async ngOnInit() {
         this.isLoading = this.store.pipe(select(reducers.getLoading));
-        this.table = this.createTable();
-        this.theaterCode = this.table[0].theaterCode;
-        this.screenCode = this.table[0].screens[0];
-        this.getScreenData();
-    }
-
-    public async getScreenData() {
-        const theaterCode = this.theaterCode;
-        const screenCode = this.screenCode;
+        this.theaters = [];
+        this.screens = [];
         try {
-            await this.purchaseService.getScreen({
-                test: true,
-                theaterCode,
-                screenCode
-            });
+            await this.cinerinoService.getServices();
+            this.theaters = (await this.cinerinoService.place.searchMovieTheaters({})).data;
+            this.theaterCode = this.theaters[0].branchCode;
+            await this.changeTheater();
         } catch (error) {
             console.error(error);
         }
     }
 
-
-    private createTable() {
-        return [
-            { theaterCode: '118', screens: ['010', '020', '030', '040', '050', '060', '070', '080', '090'] },
-            { theaterCode: '002', screens: ['010', '020', '030', '040', '050', '060', '070', '080', '090'] }
-        ];
+    public async createScreenData() {
+        this.screenData = undefined;
+        const theaterCode = this.theaterCode;
+        const screenCode = `000${this.screenCode}`.slice(-3);
+        const setting = await this.utilService.getJson<IScreen>(`${getProject().storageUrl}/json/theater/setting.json`);
+        const screen = await this.utilService.getJson<IScreen>(
+            `${getProject().storageUrl}/json/theater/${theaterCode}/${screenCode}.json?${moment().format('YYYYMMDDHHmm')}`
+        );
+        this.screenData = { ...setting, ...screen };
     }
 
-    public getScreens(theaterCode: string) {
-        const findResult = this.table.find(t => t.theaterCode === theaterCode);
-        return (findResult === undefined) ? this.table[0] : findResult;
-    }
-
-    public changeTheaterCode() {
-        this.screenCode = this.getScreens(this.theaterCode).screens[0];
+    public async changeTheater() {
+        this.screens = [];
+        this.screens = (await this.cinerinoService.place.searchScreeningRooms({
+            containedInPlace: { branchCode: { $eq: this.theaterCode } }
+        })).data;
+        this.screenCode = this.screens[0].branchCode;
     }
 
 }

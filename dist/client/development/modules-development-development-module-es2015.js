@@ -9,7 +9,7 @@
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("<div class=\"contents-width mx-auto px-3 py-5\">\n    <h2 class=\"text-large mb-4 text-center font-weight-bold\">{{ 'development.index.title' | translate }}</h2>\n    <p class=\"mb-4 text-md-center\" [innerHTML]=\"'development.index.read' | translate\"></p>\n\n    <div class=\"mb-4 d-grid\">\n        <button type=\"button\" class=\"btn btn-primary btn-block py-3 m-0\"\n            routerLink=\"/development/screen\">{{ 'development.index.screen' | translate }}</button>\n        <button type=\"button\" class=\"btn btn-primary btn-block py-3 m-0\"\n            routerLink=\"/development/encryption\">{{ 'development.index.encryption' | translate }}</button>\n    </div>\n\n    <div class=\"buttons mx-auto text-center\">\n        <button type=\"button\" class=\"btn btn-link\"\n            [routerLink]=\"environment.BASE_URL\">{{ 'development.index.prev' | translate }}</button>\n    </div>\n\n</div>");
+/* harmony default export */ __webpack_exports__["default"] = ("<div class=\"contents-width mx-auto px-3 py-5\">\n    <h2 class=\"text-large mb-4 text-center font-weight-bold\">{{ 'development.index.title' | translate }}</h2>\n    <p class=\"mb-4 text-md-center\" [innerHTML]=\"'development.index.read' | translate\"></p>\n\n    <div class=\"mb-4 d-grid\">\n        <button type=\"button\" class=\"btn btn-primary btn-block py-3 m-0\"\n            routerLink=\"/development/screen\">{{ 'development.index.screen' | translate }}</button>\n    </div>\n\n    <div class=\"buttons mx-auto text-center\">\n        <button type=\"button\" class=\"btn btn-link\"\n            [routerLink]=\"environment.BASE_URL\">{{ 'development.index.prev' | translate }}</button>\n    </div>\n\n</div>");
 
 /***/ }),
 
@@ -22,7 +22,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("<div class=\"contents-width mx-auto px-3 py-5\">\n    <h2 class=\"text-large mb-4 text-center font-weight-bold\">{{ 'development.screen.title' | translate }}</h2>\n    <p class=\"mb-4 text-md-center\" [innerHTML]=\"'development.screen.read' | translate\"></p>\n    <form>\n        <div class=\"mb-4 bg-white p-3\">\n            <div class=\"form-group\">\n                <div class=\"row align-items-center\">\n                    <p class=\"col-md-4 py-2 text-md-right\">{{ 'common.theater' | translate }}</p>\n                    <div class=\"col-md-8\">\n                        <select class=\"form-control\" [(ngModel)]=\"theaterCode\" (change)=\"changeTheaterCode()\">\n                            <option *ngFor=\"let data of table\" [value]=\"data.theaterCode\">{{ data.theaterCode }}\n                            </option>\n                        </select>\n                    </div>\n                </div>\n            </div>\n            <div class=\"form-group\">\n                <div class=\"row align-items-center\">\n                    <p class=\"col-md-4 py-2 text-md-right\">{{ 'common.screen' | translate }}</p>\n                    <div class=\"col-md-8\">\n                        <select class=\"form-control\" [(ngModel)]=\"screenCode\">\n                            <option *ngFor=\"let screen of getScreens(theaterCode).screens\" [value]=\"screen\">{{ screen }}\n                            </option>\n                        </select>\n                    </div>\n                </div>\n            </div>\n            <div class=\"buttons mx-auto text-center\">\n                <button type=\"submit\" [disabled]=\"isLoading | async\" class=\"btn btn-primary btn-block py-3\"\n                    (click)=\"getScreenData()\">{{ 'development.screen.next' | translate }}</button>\n            </div>\n        </div>\n    </form>\n    <app-screen *ngIf=\"(purchase | async).screenData\" class=\"mb-4\" [screenData]=\"(purchase | async).screenData\"\n        (select)=\"selectSeat($event)\">\n    </app-screen>\n\n    <div class=\"buttons mx-auto text-center\">\n        <button type=\"button\" class=\"btn btn-link\"\n            routerLink=\"/development\">{{ 'development.screen.prev' | translate }}</button>\n    </div>\n\n</div>");
+/* harmony default export */ __webpack_exports__["default"] = ("<div class=\"contents-width mx-auto px-3 py-5\">\n    <h2 class=\"text-large mb-4 text-center font-weight-bold\">{{ 'development.screen.title' | translate }}</h2>\n    <p class=\"mb-4 text-md-center\" [innerHTML]=\"'development.screen.read' | translate\"></p>\n    <form>\n        <div class=\"mb-4 bg-white p-3\">\n            <div class=\"form-group\">\n                <div class=\"row align-items-center\">\n                    <p class=\"col-md-4 py-2 text-md-right\">{{ 'common.theater' | translate }}</p>\n                    <div class=\"col-md-8\">\n                        <select class=\"form-control\" [(ngModel)]=\"theaterCode\" name=\"theaterCode\" (change)=\"changeTheater()\">\n                            <option *ngFor=\"let theater of theaters\" [value]=\"theater.branchCode\">{{ theater.name | changeLanguage }} [{{ theater.branchCode }}]\n                            </option>\n                        </select>\n                    </div>\n                </div>\n            </div>\n            <div class=\"form-group\">\n                <div class=\"row align-items-center\">\n                    <p class=\"col-md-4 py-2 text-md-right\">{{ 'common.screen' | translate }}</p>\n                    <div class=\"col-md-8\">\n                        <select class=\"form-control\" [(ngModel)]=\"screenCode\" name=\"screenCode\">\n                            <option *ngFor=\"let screen of screens\" [value]=\"screen.branchCode\">{{ screen.name | changeLanguage }} [{{ screen.branchCode }}]\n                            </option>\n                        </select>\n                    </div>\n                </div>\n            </div>\n            <div class=\"buttons mx-auto text-center\">\n                <button type=\"submit\" [disabled]=\"isLoading | async\" class=\"btn btn-primary btn-block py-3\"\n                    (click)=\"createScreenData()\">{{ 'development.screen.next' | translate }}</button>\n            </div>\n        </div>\n    </form>\n    <app-screen *ngIf=\"screenData\" class=\"mb-4\" [screenData]=\"screenData\">\n    </app-screen>\n\n    <div class=\"buttons mx-auto text-center\">\n        <button type=\"button\" class=\"btn btn-link\"\n            routerLink=\"/development\">{{ 'development.screen.prev' | translate }}</button>\n    </div>\n\n</div>");
 
 /***/ }),
 
@@ -110,9 +110,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "DevelopmentScreenComponent", function() { return DevelopmentScreenComponent; });
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "../../node_modules/@angular/core/fesm2015/core.js");
 /* harmony import */ var _ngrx_store__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @ngrx/store */ "../../node_modules/@ngrx/store/fesm2015/store.js");
-/* harmony import */ var _environments_environment__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../../../environments/environment */ "./environments/environment.ts");
-/* harmony import */ var _services__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../../../services */ "./app/services/index.ts");
-/* harmony import */ var _store_reducers__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../../../store/reducers */ "./app/store/reducers/index.ts");
+/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! moment */ "../../node_modules/moment/moment.js");
+/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _environments_environment__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../../../../environments/environment */ "./environments/environment.ts");
+/* harmony import */ var _functions__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../../../functions */ "./app/functions/index.ts");
+/* harmony import */ var _services__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../../../../services */ "./app/services/index.ts");
+/* harmony import */ var _store_reducers__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../../../../store/reducers */ "./app/store/reducers/index.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -138,53 +141,55 @@ var __importDefault = (undefined && undefined.__importDefault) || function (mod)
 
 
 
+
+
 let DevelopmentScreenComponent = class DevelopmentScreenComponent {
-    constructor(store, purchaseService) {
+    constructor(store, cinerinoService, utilService) {
         this.store = store;
-        this.purchaseService = purchaseService;
-        this.environment = Object(_environments_environment__WEBPACK_IMPORTED_MODULE_2__["getEnvironment"])();
+        this.cinerinoService = cinerinoService;
+        this.utilService = utilService;
+        this.environment = Object(_environments_environment__WEBPACK_IMPORTED_MODULE_3__["getEnvironment"])();
     }
     ngOnInit() {
-        this.purchase = this.store.pipe(Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_1__["select"])(_store_reducers__WEBPACK_IMPORTED_MODULE_4__["getPurchase"]));
-        this.isLoading = this.store.pipe(Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_1__["select"])(_store_reducers__WEBPACK_IMPORTED_MODULE_4__["getLoading"]));
-        this.table = this.createTable();
-        this.theaterCode = this.table[0].theaterCode;
-        this.screenCode = this.table[0].screens[0];
-        this.getScreenData();
-    }
-    getScreenData() {
         return __awaiter(this, void 0, void 0, function* () {
-            const theaterCode = this.theaterCode;
-            const screenCode = this.screenCode;
+            this.isLoading = this.store.pipe(Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_1__["select"])(_store_reducers__WEBPACK_IMPORTED_MODULE_6__["getLoading"]));
+            this.theaters = [];
+            this.screens = [];
             try {
-                yield this.purchaseService.getScreen({
-                    test: true,
-                    theaterCode,
-                    screenCode
-                });
+                yield this.cinerinoService.getServices();
+                this.theaters = (yield this.cinerinoService.place.searchMovieTheaters({})).data;
+                this.theaterCode = this.theaters[0].branchCode;
+                yield this.changeTheater();
             }
             catch (error) {
                 console.error(error);
             }
         });
     }
-    createTable() {
-        return [
-            { theaterCode: '118', screens: ['010', '020', '030', '040', '050', '060', '070', '080', '090'] },
-            { theaterCode: '002', screens: ['010', '020', '030', '040', '050', '060', '070', '080', '090'] }
-        ];
+    createScreenData() {
+        return __awaiter(this, void 0, void 0, function* () {
+            this.screenData = undefined;
+            const theaterCode = this.theaterCode;
+            const screenCode = `000${this.screenCode}`.slice(-3);
+            const setting = yield this.utilService.getJson(`${Object(_functions__WEBPACK_IMPORTED_MODULE_4__["getProject"])().storageUrl}/json/theater/setting.json`);
+            const screen = yield this.utilService.getJson(`${Object(_functions__WEBPACK_IMPORTED_MODULE_4__["getProject"])().storageUrl}/json/theater/${theaterCode}/${screenCode}.json?${moment__WEBPACK_IMPORTED_MODULE_2__().format('YYYYMMDDHHmm')}`);
+            this.screenData = Object.assign({}, setting, screen);
+        });
     }
-    getScreens(theaterCode) {
-        const findResult = this.table.find(t => t.theaterCode === theaterCode);
-        return (findResult === undefined) ? this.table[0] : findResult;
-    }
-    changeTheaterCode() {
-        this.screenCode = this.getScreens(this.theaterCode).screens[0];
+    changeTheater() {
+        return __awaiter(this, void 0, void 0, function* () {
+            this.screens = [];
+            this.screens = (yield this.cinerinoService.place.searchScreeningRooms({
+                containedInPlace: { branchCode: { $eq: this.theaterCode } }
+            })).data;
+            this.screenCode = this.screens[0].branchCode;
+        });
     }
 };
 DevelopmentScreenComponent.ctorParameters = () => [
     { type: _ngrx_store__WEBPACK_IMPORTED_MODULE_1__["Store"] },
-    { type: _services__WEBPACK_IMPORTED_MODULE_3__["PurchaseService"] }
+    { type: _services__WEBPACK_IMPORTED_MODULE_5__["CinerinoService"] },
+    { type: _services__WEBPACK_IMPORTED_MODULE_5__["UtilService"] }
 ];
 DevelopmentScreenComponent = __decorate([
     Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
@@ -193,7 +198,8 @@ DevelopmentScreenComponent = __decorate([
         styles: [__importDefault(__webpack_require__(/*! ./development-screen.component.scss */ "./app/modules/development/components/pages/development-screen/development-screen.component.scss")).default]
     }),
     __metadata("design:paramtypes", [_ngrx_store__WEBPACK_IMPORTED_MODULE_1__["Store"],
-        _services__WEBPACK_IMPORTED_MODULE_3__["PurchaseService"]])
+        _services__WEBPACK_IMPORTED_MODULE_5__["CinerinoService"],
+        _services__WEBPACK_IMPORTED_MODULE_5__["UtilService"]])
 ], DevelopmentScreenComponent);
 
 

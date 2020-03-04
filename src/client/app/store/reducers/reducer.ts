@@ -54,11 +54,8 @@ function getInitialState(): IState {
     }
     const saveData: { App: IState } = JSON.parse(saveJson);
     const sessonJson = sessionStorage.getItem('SESSION_STATE');
-    const sessionData = (sessonJson === undefined || sessonJson === null) ? {App: {}} : JSON.parse(sessonJson);
-    const data = { ...initialState, ...saveData.App, ...sessionData.App };
-    data.userData.language = (data.userData.language === undefined)
-        ? userReducer.userInitialState.language
-        : data.userData.language;
+    const sessionData = (sessonJson === undefined || sessonJson === null) ? { App: {} } : JSON.parse(sessonJson);
+    const data: IState = { ...initialState, ...saveData.App, ...sessionData.App };
     data.loading = false;
 
     return data;
