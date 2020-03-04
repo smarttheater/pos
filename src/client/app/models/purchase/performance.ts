@@ -21,20 +21,22 @@ export class Performance {
         if (offers === undefined) {
             return false;
         }
+        const now = moment().unix();
+        const validFrom = moment(offers.validFrom).unix();
+        const validThrough = moment(offers.validThrough).unix();
         let result = false;
         switch (status) {
             case 'window':
                 result = false;
                 break;
             case 'start':
-                result = !(moment(offers.validFrom).unix() < moment().unix());
+                result = now < validFrom;
                 break;
             case 'end':
-                result = !(moment(offers.validThrough).unix() > moment().unix());
+                result = validThrough < now;
                 break;
             default:
-                result = (moment(offers.validFrom).unix() < moment().unix()
-                    && moment(offers.validThrough).unix() > moment().unix());
+                result = (validFrom < now && now < validThrough);
                 break;
         }
         return result;

@@ -1,49 +1,21 @@
-import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { factory } from '@cinerino/api-javascript-client';
 import * as moment from 'moment';
-import { SwiperComponent, SwiperConfigInterface, SwiperDirective } from 'ngx-swiper-wrapper';
-import { getEnvironment } from '../../../../../../../environments/environment';
-import { IScreeningEventWork } from '../../../../../../functions';
+import { Performance } from '../../../../../../models';
 
 @Component({
     selector: 'app-purchase-event-performance',
-    templateUrl: './purchase-event-performance.component.html',
-    styleUrls: ['./purchase-event-performance.component.scss']
+    templateUrl: './performance.component.html',
+    styleUrls: ['./performance.component.scss']
 })
 export class PurchaseEventPerformanceComponent implements OnInit {
-    @ViewChild(SwiperComponent, { static: false }) public componentRef: SwiperComponent;
-    @ViewChild(SwiperDirective, { static: true }) public directiveRef: SwiperDirective;
-    @Input() public screeningWorkEvent: IScreeningEventWork;
-    @Input() public readonly: boolean;
+    @Input() public performance: Performance;
     @Output() public select = new EventEmitter<factory.chevre.event.screeningEvent.IEvent>();
-    public moment: typeof moment = moment;
-    public swiperConfig: SwiperConfigInterface;
-    public environment = getEnvironment();
+    public moment = moment;
 
     constructor() { }
 
     public ngOnInit() {
-        this.swiperConfig = {
-            spaceBetween: 0,
-            slidesPerView: 7.5,
-            // freeMode: true,
-            breakpoints: {
-                320: { slidesPerView: 2.5 },
-                767: { slidesPerView: 2.5 },
-                1024: { slidesPerView: 5.5 }
-            },
-            // navigation: {
-            //     nextEl: '.swiper-button-next',
-            //     prevEl: '.swiper-button-prev',
-            // }
-        };
-    }
-
-    /**
-     * リサイズ
-     */
-    public resize() {
-        this.directiveRef.update();
     }
 
     /**
