@@ -22,18 +22,34 @@ export class MasterEffects {
      * GetSellers
      */
     @Effect()
-    public getTheaters = this.actions.pipe(
+    public getSellers = this.actions.pipe(
         ofType<masterAction.GetSellers>(masterAction.ActionTypes.GetSellers),
         map(action => action.payload),
         mergeMap(async (payload) => {
             try {
                 await this.cinerino.getServices();
-                const searchMovieTheatersResult = await this.cinerino.seller.search((payload === undefined) ? {} : payload);
-                const sellers = searchMovieTheatersResult.data
-                    .filter(s => (s.location !== undefined && s.location !== null && s.location.branchCode !== undefined));
-                return new masterAction.GetSellersSuccess({ sellers });
+                const searchResult = await this.cinerino.seller.search((payload === undefined) ? {} : payload);
+                return new masterAction.GetSellersSuccess({ sellers: searchResult.data });
             } catch (error) {
                 return new masterAction.GetSellersFail({ error: error });
+            }
+        })
+    );
+
+    /**
+     * getTheaters
+     */
+    @Effect()
+    public getTheaters = this.actions.pipe(
+        ofType<masterAction.GetTheaters>(masterAction.ActionTypes.GetTheaters),
+        map(action => action.payload),
+        mergeMap(async (payload) => {
+            try {
+                await this.cinerino.getServices();
+                const searchResult = await this.cinerino.place.searchMovieTheaters((payload === undefined) ? {} : payload);
+                return new masterAction.GetTheatersSuccess({ theaters: searchResult.data });
+            } catch (error) {
+                return new masterAction.GetTheatersFail({ error: error });
             }
         })
     );

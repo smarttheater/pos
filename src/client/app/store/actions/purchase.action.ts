@@ -22,6 +22,9 @@ export enum ActionTypes {
     GetScreen = '[Purchase] Get Screen',
     GetScreenSuccess = '[Purchase] Get Screen Success',
     GetScreenFail = '[Purchase] Get Screen Fail',
+    GetScreenData = '[Purchase] Get Screen Data',
+    GetScreenDataSuccess = '[Purchase] Get Screen Data Success',
+    GetScreenDataFail = '[Purchase] Get Screen Data Fail',
     GetScreeningEventOffers = '[Purchase] Get ScreeningEvent Offers',
     GetScreeningEventOffersSuccess = '[Purchase] Get ScreeningEvent Offers Success',
     GetScreeningEventOffersFail = '[Purchase] Get ScreeningEvent Offers Fail',
@@ -178,12 +181,16 @@ export class CancelTransactionFail implements Action {
 export class GetScreen implements Action {
     public readonly type = ActionTypes.GetScreen;
     constructor(public payload: {
-        test: false;
-        screeningEvent: factory.chevre.event.screeningEvent.IEvent;
-    } | {
-        test: true;
-        theaterCode: string;
-        screenCode: string;
+        limit?: number;
+        page?: number;
+        branchCode?: {
+            $eq?: string;
+        };
+        containedInPlace?: {
+            branchCode?: {
+                $eq?: string;
+            };
+        };
     }) { }
 }
 
@@ -193,8 +200,7 @@ export class GetScreen implements Action {
 export class GetScreenSuccess implements Action {
     public readonly type = ActionTypes.GetScreenSuccess;
     constructor(public payload: {
-        screeningEventOffers: factory.chevre.place.screeningRoomSection.IPlaceWithOffer[];
-        screenData: IScreen;
+        screen: factory.chevre.place.screeningRoom.IPlace;
     }) { }
 }
 
@@ -203,6 +209,32 @@ export class GetScreenSuccess implements Action {
  */
 export class GetScreenFail implements Action {
     public readonly type = ActionTypes.GetScreenFail;
+    constructor(public payload: { error: Error }) { }
+}
+
+/**
+ * GetScreenData
+ */
+export class GetScreenData implements Action {
+    public readonly type = ActionTypes.GetScreenData;
+    constructor(public payload: {
+        screeningEvent: factory.chevre.event.screeningEvent.IEvent;
+    }) { }
+}
+
+/**
+ * GetScreenDataSuccess
+ */
+export class GetScreenDataSuccess implements Action {
+    public readonly type = ActionTypes.GetScreenDataSuccess;
+    constructor(public payload: { screenData: IScreen; }) { }
+}
+
+/**
+ * GetScreenDataFail
+ */
+export class GetScreenDataFail implements Action {
+    public readonly type = ActionTypes.GetScreenDataFail;
     constructor(public payload: { error: Error }) { }
 }
 
@@ -595,6 +627,9 @@ export type Actions =
     | GetScreen
     | GetScreenSuccess
     | GetScreenFail
+    | GetScreenData
+    | GetScreenDataSuccess
+    | GetScreenDataFail
     | GetScreeningEventOffers
     | GetScreeningEventOffersSuccess
     | GetScreeningEventOffersFail
