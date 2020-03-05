@@ -705,7 +705,7 @@ let ReservationSearchComponent = class ReservationSearchComponent {
                     && params.bookingThrough !== null
                     && moment__WEBPACK_IMPORTED_MODULE_4__(params.bookingThrough).diff(moment__WEBPACK_IMPORTED_MODULE_4__(params.bookingFrom), 'day') > 14) {
                     // 予約日の範囲が14日以上
-                    throw new Error('reservation date wrong date range');
+                    throw new Error('reservation date wrong date range').message;
                 }
                 this.reservations = (yield this.reservationService.search(params)).data;
                 this.nextReservations = (yield this.reservationService.search(Object.assign({}, params, { page: (this.currentPage + 1) }))).data;
@@ -824,12 +824,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "../../node_modules/@angular/core/fesm2015/core.js");
 /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/router */ "../../node_modules/@angular/router/fesm2015/router.js");
 /* harmony import */ var _canActivates__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../canActivates */ "./app/canActivates/index.ts");
-/* harmony import */ var _canActivates_setting_guard_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../canActivates/setting-guard.service */ "./app/canActivates/setting-guard.service.ts");
-/* harmony import */ var _shared_components_pages_base_base_component__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../shared/components/pages/base/base.component */ "./app/modules/shared/components/pages/base/base.component.ts");
-/* harmony import */ var _components_pages_reservation_download_reservation_download_component__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./components/pages/reservation-download/reservation-download.component */ "./app/modules/reservation/components/pages/reservation-download/reservation-download.component.ts");
-/* harmony import */ var _components_pages_reservation_index_reservation_index_component__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./components/pages/reservation-index/reservation-index.component */ "./app/modules/reservation/components/pages/reservation-index/reservation-index.component.ts");
-/* harmony import */ var _components_pages_reservation_search_unlimited_reservation_search_unlimited_component__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./components/pages/reservation-search-unlimited/reservation-search-unlimited.component */ "./app/modules/reservation/components/pages/reservation-search-unlimited/reservation-search-unlimited.component.ts");
-/* harmony import */ var _components_pages_reservation_search_reservation_search_component__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./components/pages/reservation-search/reservation-search.component */ "./app/modules/reservation/components/pages/reservation-search/reservation-search.component.ts");
+/* harmony import */ var _shared_components_pages_base_base_component__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../shared/components/pages/base/base.component */ "./app/modules/shared/components/pages/base/base.component.ts");
+/* harmony import */ var _components_pages_reservation_download_reservation_download_component__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./components/pages/reservation-download/reservation-download.component */ "./app/modules/reservation/components/pages/reservation-download/reservation-download.component.ts");
+/* harmony import */ var _components_pages_reservation_index_reservation_index_component__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./components/pages/reservation-index/reservation-index.component */ "./app/modules/reservation/components/pages/reservation-index/reservation-index.component.ts");
+/* harmony import */ var _components_pages_reservation_search_unlimited_reservation_search_unlimited_component__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./components/pages/reservation-search-unlimited/reservation-search-unlimited.component */ "./app/modules/reservation/components/pages/reservation-search-unlimited/reservation-search-unlimited.component.ts");
+/* harmony import */ var _components_pages_reservation_search_reservation_search_component__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./components/pages/reservation-search/reservation-search.component */ "./app/modules/reservation/components/pages/reservation-search/reservation-search.component.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -847,16 +846,15 @@ var __importDefault = (undefined && undefined.__importDefault) || function (mod)
 
 
 
-
 const routes = [{
         path: '',
-        component: _shared_components_pages_base_base_component__WEBPACK_IMPORTED_MODULE_4__["BaseComponent"],
-        canActivate: [_canActivates__WEBPACK_IMPORTED_MODULE_2__["AuthGuardService"], _canActivates_setting_guard_service__WEBPACK_IMPORTED_MODULE_3__["SettingGuardService"]],
+        component: _shared_components_pages_base_base_component__WEBPACK_IMPORTED_MODULE_3__["BaseComponent"],
+        canActivate: [_canActivates__WEBPACK_IMPORTED_MODULE_2__["AuthGuardService"], _canActivates__WEBPACK_IMPORTED_MODULE_2__["SettingGuardService"]],
         children: [
-            { path: '', component: _components_pages_reservation_index_reservation_index_component__WEBPACK_IMPORTED_MODULE_6__["ReservationIndexComponent"] },
-            { path: 'search', component: _components_pages_reservation_search_reservation_search_component__WEBPACK_IMPORTED_MODULE_8__["ReservationSearchComponent"] },
-            { path: 'search/unlimited', component: _components_pages_reservation_search_unlimited_reservation_search_unlimited_component__WEBPACK_IMPORTED_MODULE_7__["ReservationSearchUnlimitedComponent"] },
-            { path: 'download', component: _components_pages_reservation_download_reservation_download_component__WEBPACK_IMPORTED_MODULE_5__["ReservationDownloadComponent"] }
+            { path: '', component: _components_pages_reservation_index_reservation_index_component__WEBPACK_IMPORTED_MODULE_5__["ReservationIndexComponent"] },
+            { path: 'search', component: _components_pages_reservation_search_reservation_search_component__WEBPACK_IMPORTED_MODULE_7__["ReservationSearchComponent"] },
+            { path: 'search/unlimited', component: _components_pages_reservation_search_unlimited_reservation_search_unlimited_component__WEBPACK_IMPORTED_MODULE_6__["ReservationSearchUnlimitedComponent"] },
+            { path: 'download', component: _components_pages_reservation_download_reservation_download_component__WEBPACK_IMPORTED_MODULE_4__["ReservationDownloadComponent"] }
         ]
     }];
 let ReservationRoutingModule = class ReservationRoutingModule {

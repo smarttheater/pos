@@ -1055,7 +1055,7 @@ function drawCanvas(args) {
         canvas.height = size.height;
         const context = canvas.getContext('2d');
         if (context === null) {
-            throw new Error('context is null');
+            throw new Error('context is null').message;
         }
         const drawImage = (drawImageArgs) => {
             return new Promise((resolve, reject) => {
@@ -1164,7 +1164,7 @@ function createPrintCanvas(params) {
         const acceptedOffer = params.acceptedOffer;
         const itemOffered = acceptedOffer.itemOffered;
         if (itemOffered.typeOf !== _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_0__["factory"].chevre.reservationType.EventReservation) {
-            throw new Error('reservationType is not EventReservation');
+            throw new Error('reservationType is not EventReservation').message;
         }
         const data = {
             sellerNameJa: itemOffered.reservationFor.superEvent.location.name.ja,
@@ -1439,14 +1439,14 @@ function screeningEventsToWorkEvents(params) {
 function createGmoTokenObject(params) {
     return new Promise((resolve, reject) => {
         if (params.seller.paymentAccepted === undefined) {
-            throw new Error('seller.paymentAccepted is undefined');
+            throw new Error('seller.paymentAccepted is undefined').message;
         }
         const findPaymentAcceptedResult = params.seller.paymentAccepted.find((paymentAccepted) => {
             return (paymentAccepted.paymentMethodType === _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_0__["factory"].paymentMethodType.CreditCard);
         });
         if (findPaymentAcceptedResult === undefined
             || findPaymentAcceptedResult.paymentMethodType !== _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_0__["factory"].paymentMethodType.CreditCard) {
-            throw new Error('paymentMethodType CreditCard not found');
+            throw new Error('paymentMethodType CreditCard not found').message;
         }
         window.someCallbackFunction = function someCallbackFunction(response) {
             if (response.resultCode === '000') {
@@ -7768,14 +7768,14 @@ let StarPrintService = class StarPrintService {
         const printer = args.printer;
         try {
             if (printer.ipAddress === '') {
-                throw new Error('プリンターのIPアドレスが正しく指定されていません');
+                throw new Error('プリンターのIPアドレスが正しく指定されていません').message;
             }
             const port = /https/.test(window.location.protocol) ? 443 : 80;
             const findResult = _models__WEBPACK_IMPORTED_MODULE_2__["printers"].find(p => p.connectionType === printer.connectionType);
             if (findResult === undefined
                 || (findResult.connectionType !== _models__WEBPACK_IMPORTED_MODULE_2__["connectionType"].StarBluetooth
                     && findResult.connectionType !== _models__WEBPACK_IMPORTED_MODULE_2__["connectionType"].StarLAN)) {
-                throw new Error('選択しているプリンターに対応していません');
+                throw new Error('選択しているプリンターに対応していません').message;
             }
             const url = (findResult.connectionType === _models__WEBPACK_IMPORTED_MODULE_2__["connectionType"].StarLAN)
                 ? `https://${printer.ipAddress}:${port}/StarWebPRNT/SendMessage`

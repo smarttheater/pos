@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { AuthGuardService } from '../../canActivates';
-import { SettingGuardService } from '../../canActivates/setting-guard.service';
+import { AuthGuardService, SettingGuardService } from '../../canActivates';
 import { BaseComponent } from '../shared/components/pages/base/base.component';
 import { TasksAccountDepositCSVComponent } from './components/pages/tasks-account-deposit-csv/tasks-account-deposit-csv.component';
 import { TasksAccountDepositComponent } from './components/pages/tasks-account-deposit/tasks-account-deposit.component';

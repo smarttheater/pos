@@ -1743,7 +1743,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                   break;
                 }
 
-                throw new Error('context is null');
+                throw new Error('context is null').message;
 
               case 9:
                 drawImage = function drawImage(drawImageArgs) {
@@ -2073,7 +2073,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                   break;
                 }
 
-                throw new Error('reservationType is not EventReservation');
+                throw new Error('reservationType is not EventReservation').message;
 
               case 4:
                 data = {
@@ -2527,7 +2527,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     function createGmoTokenObject(params) {
       return new Promise(function (resolve, reject) {
         if (params.seller.paymentAccepted === undefined) {
-          throw new Error('seller.paymentAccepted is undefined');
+          throw new Error('seller.paymentAccepted is undefined').message;
         }
 
         var findPaymentAcceptedResult = params.seller.paymentAccepted.find(function (paymentAccepted) {
@@ -2535,7 +2535,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
         });
 
         if (findPaymentAcceptedResult === undefined || findPaymentAcceptedResult.paymentMethodType !== _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_0__["factory"].paymentMethodType.CreditCard) {
-          throw new Error('paymentMethodType CreditCard not found');
+          throw new Error('paymentMethodType CreditCard not found').message;
         }
 
         window.someCallbackFunction = function someCallbackFunction(response) {
@@ -13891,7 +13891,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
           try {
             if (printer.ipAddress === '') {
-              throw new Error('プリンターのIPアドレスが正しく指定されていません');
+              throw new Error('プリンターのIPアドレスが正しく指定されていません').message;
             }
 
             var port = /https/.test(window.location.protocol) ? 443 : 80;
@@ -13901,7 +13901,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
             });
 
             if (findResult === undefined || findResult.connectionType !== _models__WEBPACK_IMPORTED_MODULE_2__["connectionType"].StarBluetooth && findResult.connectionType !== _models__WEBPACK_IMPORTED_MODULE_2__["connectionType"].StarLAN) {
-              throw new Error('選択しているプリンターに対応していません');
+              throw new Error('選択しているプリンターに対応していません').message;
             }
 
             var url = findResult.connectionType === _models__WEBPACK_IMPORTED_MODULE_2__["connectionType"].StarLAN ? "https://".concat(printer.ipAddress, ":").concat(port, "/StarWebPRNT/SendMessage") : "https://".concat(printer.ipAddress, "/StarWebPRNT/SendMessage");
