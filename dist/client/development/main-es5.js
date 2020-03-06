@@ -21594,7 +21594,19 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       switch (action.type) {
         case _actions__WEBPACK_IMPORTED_MODULE_2__["purchaseAction"].ActionTypes.Delete:
           {
-            state.purchaseData = purchaseInitialState;
+            state.purchaseData = {
+              screeningEventOffers: [],
+              reservations: [],
+              screeningEventTicketOffers: [],
+              orderCount: 0,
+              checkMovieTicketActions: [],
+              authorizeSeatReservations: [],
+              authorizeMovieTicketPayments: [],
+              authorizeCreditCardPayments: [],
+              authorizeAnyPayments: [],
+              isUsedMovieTicket: false,
+              pendingMovieTickets: []
+            };
             return Object.assign({}, state);
           }
 
@@ -22621,7 +22633,9 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       switch (action.type) {
         case _actions__WEBPACK_IMPORTED_MODULE_0__["userAction"].ActionTypes.Delete:
           {
-            state.userData = userInitialState;
+            state.userData = {
+              language: 'ja'
+            };
             return Object.assign({}, state, {
               loading: false,
               process: ''

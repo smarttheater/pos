@@ -60,7 +60,19 @@ export const purchaseInitialState: IPurchaseState = {
 export function reducer(state: IState, action: purchaseAction.Actions): IState {
     switch (action.type) {
         case purchaseAction.ActionTypes.Delete: {
-            state.purchaseData = purchaseInitialState;
+            state.purchaseData = {
+                screeningEventOffers: [],
+                reservations: [],
+                screeningEventTicketOffers: [],
+                orderCount: 0,
+                checkMovieTicketActions: [],
+                authorizeSeatReservations: [],
+                authorizeMovieTicketPayments: [],
+                authorizeCreditCardPayments: [],
+                authorizeAnyPayments: [],
+                isUsedMovieTicket: false,
+                pendingMovieTickets: []
+            };
             return { ...state };
         }
         case purchaseAction.ActionTypes.UnsettledDelete: {
