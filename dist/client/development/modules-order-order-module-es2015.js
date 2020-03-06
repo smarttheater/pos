@@ -1003,7 +1003,7 @@ let OrderSearchComponent = class OrderSearchComponent {
                     && params.orderDateThrough !== null
                     && moment__WEBPACK_IMPORTED_MODULE_5__(params.orderDateThrough).diff(moment__WEBPACK_IMPORTED_MODULE_5__(params.orderDateFrom), 'day') > 14) {
                     // 購入日の範囲が14日以上
-                    throw new Error('order date wrong date range');
+                    throw new Error('order date wrong date range').message;
                 }
                 this.orders = (yield this.orderService.search(params)).data;
                 this.nextOrders = (yield this.orderService.search(Object.assign({}, params, { page: (this.currentPage + 1) }))).data;
@@ -1261,12 +1261,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "../../node_modules/@angular/core/fesm2015/core.js");
 /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/router */ "../../node_modules/@angular/router/fesm2015/router.js");
 /* harmony import */ var _canActivates__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../canActivates */ "./app/canActivates/index.ts");
-/* harmony import */ var _canActivates_setting_guard_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../canActivates/setting-guard.service */ "./app/canActivates/setting-guard.service.ts");
-/* harmony import */ var _shared_components_pages_base_base_component__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../shared/components/pages/base/base.component */ "./app/modules/shared/components/pages/base/base.component.ts");
-/* harmony import */ var _components_pages_order_download_order_download_component__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./components/pages/order-download/order-download.component */ "./app/modules/order/components/pages/order-download/order-download.component.ts");
-/* harmony import */ var _components_pages_order_index_order_index_component__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./components/pages/order-index/order-index.component */ "./app/modules/order/components/pages/order-index/order-index.component.ts");
-/* harmony import */ var _components_pages_order_search_unlimited_order_search_unlimited_component__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./components/pages/order-search-unlimited/order-search-unlimited.component */ "./app/modules/order/components/pages/order-search-unlimited/order-search-unlimited.component.ts");
-/* harmony import */ var _components_pages_order_search_order_search_component__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./components/pages/order-search/order-search.component */ "./app/modules/order/components/pages/order-search/order-search.component.ts");
+/* harmony import */ var _shared_components_pages_base_base_component__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../shared/components/pages/base/base.component */ "./app/modules/shared/components/pages/base/base.component.ts");
+/* harmony import */ var _components_pages_order_download_order_download_component__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./components/pages/order-download/order-download.component */ "./app/modules/order/components/pages/order-download/order-download.component.ts");
+/* harmony import */ var _components_pages_order_index_order_index_component__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./components/pages/order-index/order-index.component */ "./app/modules/order/components/pages/order-index/order-index.component.ts");
+/* harmony import */ var _components_pages_order_search_unlimited_order_search_unlimited_component__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./components/pages/order-search-unlimited/order-search-unlimited.component */ "./app/modules/order/components/pages/order-search-unlimited/order-search-unlimited.component.ts");
+/* harmony import */ var _components_pages_order_search_order_search_component__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./components/pages/order-search/order-search.component */ "./app/modules/order/components/pages/order-search/order-search.component.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -1284,16 +1283,15 @@ var __importDefault = (undefined && undefined.__importDefault) || function (mod)
 
 
 
-
 const routes = [{
         path: '',
-        component: _shared_components_pages_base_base_component__WEBPACK_IMPORTED_MODULE_4__["BaseComponent"],
-        canActivate: [_canActivates__WEBPACK_IMPORTED_MODULE_2__["AuthGuardService"], _canActivates_setting_guard_service__WEBPACK_IMPORTED_MODULE_3__["SettingGuardService"]],
+        component: _shared_components_pages_base_base_component__WEBPACK_IMPORTED_MODULE_3__["BaseComponent"],
+        canActivate: [_canActivates__WEBPACK_IMPORTED_MODULE_2__["AuthGuardService"], _canActivates__WEBPACK_IMPORTED_MODULE_2__["SettingGuardService"]],
         children: [
-            { path: '', component: _components_pages_order_index_order_index_component__WEBPACK_IMPORTED_MODULE_6__["OrderIndexComponent"] },
-            { path: 'search', component: _components_pages_order_search_order_search_component__WEBPACK_IMPORTED_MODULE_8__["OrderSearchComponent"] },
-            { path: 'search/unlimited', component: _components_pages_order_search_unlimited_order_search_unlimited_component__WEBPACK_IMPORTED_MODULE_7__["OrderSearchUnlimitedComponent"] },
-            { path: 'download', component: _components_pages_order_download_order_download_component__WEBPACK_IMPORTED_MODULE_5__["OrderDownloadComponent"] }
+            { path: '', component: _components_pages_order_index_order_index_component__WEBPACK_IMPORTED_MODULE_5__["OrderIndexComponent"] },
+            { path: 'search', component: _components_pages_order_search_order_search_component__WEBPACK_IMPORTED_MODULE_7__["OrderSearchComponent"] },
+            { path: 'search/unlimited', component: _components_pages_order_search_unlimited_order_search_unlimited_component__WEBPACK_IMPORTED_MODULE_6__["OrderSearchUnlimitedComponent"] },
+            { path: 'download', component: _components_pages_order_download_order_download_component__WEBPACK_IMPORTED_MODULE_4__["OrderDownloadComponent"] }
         ]
     }];
 let OrderRoutingModule = class OrderRoutingModule {

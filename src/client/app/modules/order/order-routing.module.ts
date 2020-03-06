@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { AuthGuardService } from '../../canActivates';
-import { SettingGuardService } from '../../canActivates/setting-guard.service';
+import { AuthGuardService, SettingGuardService } from '../../canActivates';
 import { BaseComponent } from '../shared/components/pages/base/base.component';
 import { OrderDownloadComponent } from './components/pages/order-download/order-download.component';
 import { OrderIndexComponent } from './components/pages/order-index/order-index.component';

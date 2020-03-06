@@ -162,7 +162,7 @@ export class OrderSearchComponent implements OnInit {
                 && params.orderDateThrough !== null
                 && moment(params.orderDateThrough).diff(moment(params.orderDateFrom), 'day') > 14) {
                 // 購入日の範囲が14日以上
-                throw new Error('order date wrong date range');
+                throw new Error('order date wrong date range').message;
             }
             this.orders = (await this.orderService.search(params)).data;
             this.nextOrders = (await this.orderService.search({...params, page: (this.currentPage + 1)})).data;

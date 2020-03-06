@@ -79,7 +79,7 @@ export class StarPrintService {
 
         try {
             if (printer.ipAddress === '') {
-                throw new Error('プリンターのIPアドレスが正しく指定されていません');
+                throw new Error('プリンターのIPアドレスが正しく指定されていません').message;
             }
             const port = /https/.test(window.location.protocol) ? 443 : 80;
             const findResult = printers.find(p => p.connectionType === printer.connectionType);
@@ -87,7 +87,7 @@ export class StarPrintService {
                 || (findResult.connectionType !== connectionType.StarBluetooth
                     && findResult.connectionType !== connectionType.StarLAN)
             ) {
-                throw new Error('選択しているプリンターに対応していません');
+                throw new Error('選択しているプリンターに対応していません').message;
             }
             const url = (findResult.connectionType === connectionType.StarLAN)
                 ? `https://${printer.ipAddress}:${port}/StarWebPRNT/SendMessage`

@@ -105,25 +105,19 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     /* harmony import */
 
 
-    var _canActivates_setting_guard_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(
-    /*! ../../canActivates/setting-guard.service */
-    "./app/canActivates/setting-guard.service.ts");
-    /* harmony import */
-
-
-    var _shared_components_pages_base_base_component__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(
+    var _shared_components_pages_base_base_component__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(
     /*! ../shared/components/pages/base/base.component */
     "./app/modules/shared/components/pages/base/base.component.ts");
     /* harmony import */
 
 
-    var _components_pages_admission_check_admission_check_component__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(
+    var _components_pages_admission_check_admission_check_component__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(
     /*! ./components/pages/admission-check/admission-check.component */
     "./app/modules/admission/components/pages/admission-check/admission-check.component.ts");
     /* harmony import */
 
 
-    var _components_pages_admission_schedule_admission_schedule_component__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(
+    var _components_pages_admission_schedule_admission_schedule_component__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(
     /*! ./components/pages/admission-schedule/admission-schedule.component */
     "./app/modules/admission/components/pages/admission-schedule/admission-schedule.component.ts");
 
@@ -145,14 +139,14 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
     var routes = [{
       path: '',
-      component: _shared_components_pages_base_base_component__WEBPACK_IMPORTED_MODULE_4__["BaseComponent"],
-      canActivate: [_canActivates__WEBPACK_IMPORTED_MODULE_2__["AuthGuardService"], _canActivates_setting_guard_service__WEBPACK_IMPORTED_MODULE_3__["SettingGuardService"]],
+      component: _shared_components_pages_base_base_component__WEBPACK_IMPORTED_MODULE_3__["BaseComponent"],
+      canActivate: [_canActivates__WEBPACK_IMPORTED_MODULE_2__["AuthGuardService"], _canActivates__WEBPACK_IMPORTED_MODULE_2__["SettingGuardService"]],
       children: [{
         path: 'schedule',
-        component: _components_pages_admission_schedule_admission_schedule_component__WEBPACK_IMPORTED_MODULE_6__["AdmissionScheduleComponent"]
+        component: _components_pages_admission_schedule_admission_schedule_component__WEBPACK_IMPORTED_MODULE_5__["AdmissionScheduleComponent"]
       }, {
         path: 'check',
-        component: _components_pages_admission_check_admission_check_component__WEBPACK_IMPORTED_MODULE_5__["AdmissionCheckComponent"]
+        component: _components_pages_admission_check_admission_check_component__WEBPACK_IMPORTED_MODULE_4__["AdmissionCheckComponent"]
       }]
     }];
 

@@ -555,7 +555,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("<div class=\"p-3 scroll-vertical\">\n    <div class=\"mb-3\">\n        <div class=\"mb-1\">\n            <p class=\"font-weight-bold text-large\">{{ screeningEvent.name | changeLanguage }}</p>\n            <p class=\"text-small\"\n                *ngIf=\"screeningEvent.superEvent.headline && (screeningEvent.superEvent.headline | changeLanguage)\">\n                {{ screeningEvent.superEvent.headline | changeLanguage }}</p>\n            <p class=\"text-small\"\n                *ngIf=\"screeningEvent.superEvent.description && (screeningEvent.superEvent.description | changeLanguage)\">{{\n                    screeningEvent.superEvent.description | changeLanguage }}</p>\n        </div>\n        <p class=\"mb-1\">\n            {{ moment(screeningEvent.startDate).format('MM/DD(ddd) HH:mm') }}-{{ moment(screeningEvent.endDate).format('HH:mm') }}\n        </p>\n        <p class=\"text-small mb-1\">\n            <span class=\"theater-name\">\n                {{ screeningEvent.superEvent.location.name | changeLanguage }}\n            </span>\n            <span class=\"screen-name\">\n                &nbsp;/&nbsp;<span *ngIf=\"screeningEvent.location.address\" class=\"mr-2\">{{ screeningEvent.location.address | changeLanguage }}</span>{{ screeningEvent.location.name | changeLanguage }}\n            </span>\n            <span *ngIf=\"screeningEvent.workPerformed?.duration && moment.duration(screeningEvent.workPerformed?.duration).asMinutes() > 0\">\n                &nbsp;/&nbsp;<span class=\"mr-1\">{{ 'common.duration' | translate }}</span>{{ moment.duration(screeningEvent.workPerformed?.duration).asMinutes() }}{{ 'common.date.minute' | translate }}\n            </span>\n        </p>\n        <p *ngIf=\"performance.isTicketedSeat()\" class=\"font-weight-bold\"><span class=\"mr-1\">{{ 'purchase.event.ticket.remainingSeat' | translate }}</span>{{ getRemainingSeatLength(screeningEventOffers, screeningEvent) }}</p>\n    </div>\n    <hr class=\"mb-3\">\n    <ul *ngIf=\"tickets.length > 0\" class=\"mb-4\">\n        <li *ngFor=\"let ticket of tickets\" class=\"ticket mb-3 pb-3 border-bottom border-gray\" [class.text-gray]=\"remainingAttendeeCapacityValue(ticket).length === 0\">\n            <div class=\"d-flex justify-content-between align-items-center\">\n                <div class=\"w-75 text-left\">\n                    <p *ngFor=\"let priceComponent of ticket.priceSpecification.priceComponent\">\n                        <span>{{ priceComponent.name | changeLanguage }}</span><!--\n                        --><span>&nbsp;/&nbsp;{{ priceComponent.price | currency : priceComponent.priceCurrency }}</span><!--\n                        --><span class=\"text-small\" *ngIf=\"priceComponent?.referenceQuantity?.value\">{{ 'common.referenceQuantityValue' | translate: { value: priceComponent?.referenceQuantity?.value } }}</span>\n                    </p>\n                    <p *ngIf=\"ticket.description\" class=\"text-x-small text-left\">{{ ticket.description | changeLanguage }}</p>\n                </div>\n                <div class=\"w-25 text-right\">\n                    <select class=\"form-control\" (change)=\"changeSelect(ticket.id, $event)\">\n                        <option value=\"0\">0</option>\n                        <option *ngFor=\"let value of remainingAttendeeCapacityValue(ticket)\" [value]=\"value\">{{ value }}</option>\n                    </select>\n                </div>\n            </div>\n            <ul *ngIf=\"ticket.addOn && ticket.addOn.length > 0\" class=\"mt-2 bg-light-gray py-2 px-3\">\n                <li class=\"my-1\" *ngFor=\"let addOn of ticket.addOn; let index = index\">\n                    <app-checkbox class=\"pointer\" (change)=\"changeAddOn(ticket.id, addOn.id)\">\n                        {{ addOn.priceSpecification?.name | changeLanguage }}<span *ngIf=\"addOn.priceSpecification?.referenceQuantity?.value\">{{ 'common.referenceQuantityValue' | translate: { value: addOn.priceSpecification?.referenceQuantity?.value } }}</span><!--\n                        -->&nbsp;/&nbsp;<!--\n                        -->{{ addOn.priceSpecification?.price | currency : addOn.priceSpecification?.priceCurrency }}\n                    </app-checkbox>\n                </li>\n            </ul>\n        </li>\n    </ul>\n    <p *ngIf=\"tickets.length === 0\" class=\"mb-4\">{{ 'modal.ticket.notfound' | translate }}</p>\n\n    <div class=\"mb-4 additional-ticket-text\">\n        <p>{{ 'common.additionalTicketText' | translate }}</p>\n        <textarea [(ngModel)]=\"additionalTicketText\" class=\"py-1 px-2\"></textarea>\n    </div>\n\n    <div class=\"buttons mx-auto text-center text-center\">\n        <button [disabled]=\"selectedTickets && createReservations().length === 0\" type=\"button\"\n            class=\"btn btn-primary btn-block py-3 mb-3\"\n            (click)=\"close(createReservations())\">{{ 'purchase.event.ticket.next' | translate }}</button>\n        <button type=\"button\" class=\"btn btn-link btn-sm\"\n            (click)=\"modal.hide()\">{{ 'common.close' | translate }}</button>\n    </div>\n</div>");
+/* harmony default export */ __webpack_exports__["default"] = ("<div class=\"p-3 scroll-vertical\">\n    <div class=\"mb-3\">\n        <div class=\"mb-1\">\n            <p class=\"font-weight-bold text-large\">{{ screeningEvent.name | changeLanguage }}</p>\n            <p class=\"text-small\"\n                *ngIf=\"screeningEvent.superEvent.headline && (screeningEvent.superEvent.headline | changeLanguage)\">\n                {{ screeningEvent.superEvent.headline | changeLanguage }}</p>\n            <p class=\"text-small\"\n                *ngIf=\"screeningEvent.superEvent.description && (screeningEvent.superEvent.description | changeLanguage)\">{{\n                    screeningEvent.superEvent.description | changeLanguage }}</p>\n        </div>\n        <p class=\"mb-1\">\n            {{ moment(screeningEvent.startDate).format('MM/DD(ddd) HH:mm') }}-{{ moment(screeningEvent.endDate).format('HH:mm') }}\n        </p>\n        <p class=\"text-small mb-1\">\n            <span class=\"theater-name\">\n                {{ screeningEvent.superEvent.location.name | changeLanguage }}\n            </span>\n            <span class=\"screen-name\">\n                &nbsp;/&nbsp;<span *ngIf=\"screeningEvent.location.address\" class=\"mr-2\">{{ screeningEvent.location.address | changeLanguage }}</span>{{ screeningEvent.location.name | changeLanguage }}\n            </span>\n            <span *ngIf=\"screeningEvent.workPerformed?.duration && moment.duration(screeningEvent.workPerformed?.duration).asMinutes() > 0\">\n                &nbsp;/&nbsp;<span class=\"mr-1\">{{ 'common.duration' | translate }}</span>{{ moment.duration(screeningEvent.workPerformed?.duration).asMinutes() }}{{ 'common.date.minute' | translate }}\n            </span>\n        </p>\n        <p *ngIf=\"performance.isTicketedSeat()\" class=\"font-weight-bold\"><span class=\"mr-1\">{{ 'purchase.event.ticket.remainingSeat' | translate }}</span>{{ getRemainingSeatLength(screeningEventOffers, screeningEvent) }}</p>\n    </div>\n    <hr class=\"mb-3\">\n    <ul *ngIf=\"tickets.length > 0\" class=\"mb-4\">\n        <li *ngFor=\"let ticket of tickets\" class=\"ticket mb-3 pb-3 border-bottom border-gray\" [class.text-danger]=\"remainingAttendeeCapacityValue(ticket).length === 0\">\n            <div class=\"d-flex justify-content-between align-items-center\">\n                <div class=\"w-75 text-left\">\n                    <p *ngFor=\"let priceComponent of ticket.priceSpecification.priceComponent\">\n                        <span>{{ priceComponent.name | changeLanguage }}</span><!--\n                        --><span>&nbsp;/&nbsp;{{ priceComponent.price | currency : priceComponent.priceCurrency }}</span><!--\n                        --><span class=\"text-small\" *ngIf=\"priceComponent?.referenceQuantity?.value\">{{ 'common.referenceQuantityValue' | translate: { value: priceComponent?.referenceQuantity?.value } }}</span>\n                    </p>\n                    <p *ngIf=\"ticket.description\" class=\"text-x-small text-left\">{{ ticket.description | changeLanguage }}</p>\n                </div>\n                <div class=\"w-25 text-right\">\n                    <select class=\"form-control\" (change)=\"changeSelect(ticket.id, $event)\">\n                        <option value=\"0\">0</option>\n                        <option *ngFor=\"let value of remainingAttendeeCapacityValue(ticket)\" [value]=\"value\">{{ value }}</option>\n                    </select>\n                </div>\n            </div>\n            <ul *ngIf=\"ticket.addOn && ticket.addOn.length > 0\" class=\"mt-2 bg-light-gray py-2 px-3\">\n                <li class=\"my-1\" *ngFor=\"let addOn of ticket.addOn; let index = index\">\n                    <app-checkbox class=\"pointer\" (change)=\"changeAddOn(ticket.id, addOn.id)\">\n                        {{ addOn.priceSpecification?.name | changeLanguage }}<span *ngIf=\"addOn.priceSpecification?.referenceQuantity?.value\">{{ 'common.referenceQuantityValue' | translate: { value: addOn.priceSpecification?.referenceQuantity?.value } }}</span><!--\n                        -->&nbsp;/&nbsp;<!--\n                        -->{{ addOn.priceSpecification?.price | currency : addOn.priceSpecification?.priceCurrency }}\n                    </app-checkbox>\n                </li>\n            </ul>\n        </li>\n    </ul>\n    <p *ngIf=\"tickets.length === 0\" class=\"mb-4\">{{ 'modal.ticket.notfound' | translate }}</p>\n\n    <div class=\"mb-4 additional-ticket-text\">\n        <p>{{ 'common.additionalTicketText' | translate }}</p>\n        <textarea [(ngModel)]=\"additionalTicketText\" class=\"py-1 px-2\"></textarea>\n    </div>\n\n    <div class=\"buttons mx-auto text-center text-center\">\n        <button [disabled]=\"selectedTickets && createReservations().length === 0\" type=\"button\"\n            class=\"btn btn-primary btn-block py-3 mb-3\"\n            (click)=\"close(createReservations())\">{{ 'purchase.event.ticket.next' | translate }}</button>\n        <button type=\"button\" class=\"btn btn-link btn-sm\"\n            (click)=\"modal.hide()\">{{ 'common.close' | translate }}</button>\n    </div>\n</div>");
 
 /***/ }),
 
@@ -1055,7 +1055,7 @@ function drawCanvas(args) {
         canvas.height = size.height;
         const context = canvas.getContext('2d');
         if (context === null) {
-            throw new Error('context is null');
+            throw new Error('context is null').message;
         }
         const drawImage = (drawImageArgs) => {
             return new Promise((resolve, reject) => {
@@ -1164,7 +1164,7 @@ function createPrintCanvas(params) {
         const acceptedOffer = params.acceptedOffer;
         const itemOffered = acceptedOffer.itemOffered;
         if (itemOffered.typeOf !== _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_0__["factory"].chevre.reservationType.EventReservation) {
-            throw new Error('reservationType is not EventReservation');
+            throw new Error('reservationType is not EventReservation').message;
         }
         const data = {
             sellerNameJa: itemOffered.reservationFor.superEvent.location.name.ja,
@@ -1439,14 +1439,14 @@ function screeningEventsToWorkEvents(params) {
 function createGmoTokenObject(params) {
     return new Promise((resolve, reject) => {
         if (params.seller.paymentAccepted === undefined) {
-            throw new Error('seller.paymentAccepted is undefined');
+            throw new Error('seller.paymentAccepted is undefined').message;
         }
         const findPaymentAcceptedResult = params.seller.paymentAccepted.find((paymentAccepted) => {
             return (paymentAccepted.paymentMethodType === _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_0__["factory"].paymentMethodType.CreditCard);
         });
         if (findPaymentAcceptedResult === undefined
             || findPaymentAcceptedResult.paymentMethodType !== _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_0__["factory"].paymentMethodType.CreditCard) {
-            throw new Error('paymentMethodType CreditCard not found');
+            throw new Error('paymentMethodType CreditCard not found').message;
         }
         window.someCallbackFunction = function someCallbackFunction(response) {
             if (response.resultCode === '000') {
@@ -2486,20 +2486,22 @@ class Performance {
         if (offers === undefined) {
             return false;
         }
+        const now = moment__WEBPACK_IMPORTED_MODULE_0__().unix();
+        const validFrom = moment__WEBPACK_IMPORTED_MODULE_0__(offers.validFrom).unix();
+        const validThrough = moment__WEBPACK_IMPORTED_MODULE_0__(offers.validThrough).unix();
         let result = false;
         switch (status) {
             case 'window':
                 result = false;
                 break;
             case 'start':
-                result = !(moment__WEBPACK_IMPORTED_MODULE_0__(offers.validFrom).unix() < moment__WEBPACK_IMPORTED_MODULE_0__().unix());
+                result = now < validFrom;
                 break;
             case 'end':
-                result = !(moment__WEBPACK_IMPORTED_MODULE_0__(offers.validThrough).unix() > moment__WEBPACK_IMPORTED_MODULE_0__().unix());
+                result = validThrough < now;
                 break;
             default:
-                result = (moment__WEBPACK_IMPORTED_MODULE_0__(offers.validFrom).unix() < moment__WEBPACK_IMPORTED_MODULE_0__().unix()
-                    && moment__WEBPACK_IMPORTED_MODULE_0__(offers.validThrough).unix() > moment__WEBPACK_IMPORTED_MODULE_0__().unix());
+                result = (validFrom < now && now < validThrough);
                 break;
         }
         return result;
@@ -6602,7 +6604,7 @@ DownloadService = DownloadService_1 = __decorate([
 /*!*******************************!*\
   !*** ./app/services/index.ts ***!
   \*******************************/
-/*! exports provided: AdmissionService, CinerinoService, PurchaseService, UserService, MasterService, OrderService, ReservationService, UtilService, StarPrintService, DownloadService, QRCodeService */
+/*! exports provided: CinerinoService, AdmissionService, PurchaseService, UserService, MasterService, OrderService, ReservationService, UtilService, StarPrintService, DownloadService, QRCodeService */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -7766,14 +7768,14 @@ let StarPrintService = class StarPrintService {
         const printer = args.printer;
         try {
             if (printer.ipAddress === '') {
-                throw new Error('プリンターのIPアドレスが正しく指定されていません');
+                throw new Error('プリンターのIPアドレスが正しく指定されていません').message;
             }
             const port = /https/.test(window.location.protocol) ? 443 : 80;
             const findResult = _models__WEBPACK_IMPORTED_MODULE_2__["printers"].find(p => p.connectionType === printer.connectionType);
             if (findResult === undefined
                 || (findResult.connectionType !== _models__WEBPACK_IMPORTED_MODULE_2__["connectionType"].StarBluetooth
                     && findResult.connectionType !== _models__WEBPACK_IMPORTED_MODULE_2__["connectionType"].StarLAN)) {
-                throw new Error('選択しているプリンターに対応していません');
+                throw new Error('選択しているプリンターに対応していません').message;
             }
             const url = (findResult.connectionType === _models__WEBPACK_IMPORTED_MODULE_2__["connectionType"].StarLAN)
                 ? `https://${printer.ipAddress}:${port}/StarWebPRNT/SendMessage`
@@ -11541,7 +11543,19 @@ const purchaseInitialState = {
 function reducer(state, action) {
     switch (action.type) {
         case _actions__WEBPACK_IMPORTED_MODULE_2__["purchaseAction"].ActionTypes.Delete: {
-            state.purchaseData = purchaseInitialState;
+            state.purchaseData = {
+                screeningEventOffers: [],
+                reservations: [],
+                screeningEventTicketOffers: [],
+                orderCount: 0,
+                checkMovieTicketActions: [],
+                authorizeSeatReservations: [],
+                authorizeMovieTicketPayments: [],
+                authorizeCreditCardPayments: [],
+                authorizeAnyPayments: [],
+                isUsedMovieTicket: false,
+                pendingMovieTickets: []
+            };
             return Object.assign({}, state);
         }
         case _actions__WEBPACK_IMPORTED_MODULE_2__["purchaseAction"].ActionTypes.UnsettledDelete: {
@@ -12080,7 +12094,9 @@ const userInitialState = {
 function reducer(state, action) {
     switch (action.type) {
         case _actions__WEBPACK_IMPORTED_MODULE_0__["userAction"].ActionTypes.Delete: {
-            state.userData = userInitialState;
+            state.userData = {
+                language: 'ja'
+            };
             return Object.assign({}, state, { loading: false, process: '' });
         }
         case _actions__WEBPACK_IMPORTED_MODULE_0__["userAction"].ActionTypes.UpdateAll: {

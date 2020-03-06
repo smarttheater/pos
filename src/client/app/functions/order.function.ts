@@ -39,7 +39,7 @@ async function drawCanvas(args: {
     canvas.height = size.height;
     const context = canvas.getContext('2d');
     if (context === null) {
-        throw new Error('context is null');
+        throw new Error('context is null').message;
     }
     const drawImage = (drawImageArgs: {
         image: HTMLImageElement;
@@ -175,7 +175,7 @@ export async function createPrintCanvas(params: {
     const acceptedOffer = params.acceptedOffer;
     const itemOffered = acceptedOffer.itemOffered;
     if (itemOffered.typeOf !== factory.chevre.reservationType.EventReservation) {
-        throw new Error('reservationType is not EventReservation');
+        throw new Error('reservationType is not EventReservation').message;
     }
     const data = {
         sellerNameJa: itemOffered.reservationFor.superEvent.location.name.ja,
