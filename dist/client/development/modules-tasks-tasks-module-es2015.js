@@ -975,12 +975,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "../../node_modules/@angular/core/fesm2015/core.js");
 /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/router */ "../../node_modules/@angular/router/fesm2015/router.js");
 /* harmony import */ var _canActivates__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../canActivates */ "./app/canActivates/index.ts");
-/* harmony import */ var _canActivates_setting_guard_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../canActivates/setting-guard.service */ "./app/canActivates/setting-guard.service.ts");
-/* harmony import */ var _shared_components_pages_base_base_component__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../shared/components/pages/base/base.component */ "./app/modules/shared/components/pages/base/base.component.ts");
-/* harmony import */ var _components_pages_tasks_account_deposit_csv_tasks_account_deposit_csv_component__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./components/pages/tasks-account-deposit-csv/tasks-account-deposit-csv.component */ "./app/modules/tasks/components/pages/tasks-account-deposit-csv/tasks-account-deposit-csv.component.ts");
-/* harmony import */ var _components_pages_tasks_account_deposit_tasks_account_deposit_component__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./components/pages/tasks-account-deposit/tasks-account-deposit.component */ "./app/modules/tasks/components/pages/tasks-account-deposit/tasks-account-deposit.component.ts");
-/* harmony import */ var _components_pages_tasks_index_tasks_index_component__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./components/pages/tasks-index/tasks-index.component */ "./app/modules/tasks/components/pages/tasks-index/tasks-index.component.ts");
-/* harmony import */ var _components_pages_tasks_ownershipinfo_search_tasks_ownershipinfo_search_component__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./components/pages/tasks-ownershipinfo-search/tasks-ownershipinfo-search.component */ "./app/modules/tasks/components/pages/tasks-ownershipinfo-search/tasks-ownershipinfo-search.component.ts");
+/* harmony import */ var _shared_components_pages_base_base_component__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../shared/components/pages/base/base.component */ "./app/modules/shared/components/pages/base/base.component.ts");
+/* harmony import */ var _components_pages_tasks_account_deposit_csv_tasks_account_deposit_csv_component__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./components/pages/tasks-account-deposit-csv/tasks-account-deposit-csv.component */ "./app/modules/tasks/components/pages/tasks-account-deposit-csv/tasks-account-deposit-csv.component.ts");
+/* harmony import */ var _components_pages_tasks_account_deposit_tasks_account_deposit_component__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./components/pages/tasks-account-deposit/tasks-account-deposit.component */ "./app/modules/tasks/components/pages/tasks-account-deposit/tasks-account-deposit.component.ts");
+/* harmony import */ var _components_pages_tasks_index_tasks_index_component__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./components/pages/tasks-index/tasks-index.component */ "./app/modules/tasks/components/pages/tasks-index/tasks-index.component.ts");
+/* harmony import */ var _components_pages_tasks_ownershipinfo_search_tasks_ownershipinfo_search_component__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./components/pages/tasks-ownershipinfo-search/tasks-ownershipinfo-search.component */ "./app/modules/tasks/components/pages/tasks-ownershipinfo-search/tasks-ownershipinfo-search.component.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -998,16 +997,15 @@ var __importDefault = (undefined && undefined.__importDefault) || function (mod)
 
 
 
-
 const routes = [{
         path: '',
-        component: _shared_components_pages_base_base_component__WEBPACK_IMPORTED_MODULE_4__["BaseComponent"],
-        canActivate: [_canActivates__WEBPACK_IMPORTED_MODULE_2__["AuthGuardService"], _canActivates_setting_guard_service__WEBPACK_IMPORTED_MODULE_3__["SettingGuardService"]],
+        component: _shared_components_pages_base_base_component__WEBPACK_IMPORTED_MODULE_3__["BaseComponent"],
+        canActivate: [_canActivates__WEBPACK_IMPORTED_MODULE_2__["AuthGuardService"], _canActivates__WEBPACK_IMPORTED_MODULE_2__["SettingGuardService"]],
         children: [
-            { path: '', component: _components_pages_tasks_index_tasks_index_component__WEBPACK_IMPORTED_MODULE_7__["TasksIndexComponent"] },
-            { path: 'account/deposit/csv', component: _components_pages_tasks_account_deposit_csv_tasks_account_deposit_csv_component__WEBPACK_IMPORTED_MODULE_5__["TasksAccountDepositCSVComponent"] },
-            { path: 'account/deposit', component: _components_pages_tasks_account_deposit_tasks_account_deposit_component__WEBPACK_IMPORTED_MODULE_6__["TasksAccountDepositComponent"] },
-            { path: 'ownershipinfo/search', component: _components_pages_tasks_ownershipinfo_search_tasks_ownershipinfo_search_component__WEBPACK_IMPORTED_MODULE_8__["TasksOwnershipinfoSearchComponent"] }
+            { path: '', component: _components_pages_tasks_index_tasks_index_component__WEBPACK_IMPORTED_MODULE_6__["TasksIndexComponent"] },
+            { path: 'account/deposit/csv', component: _components_pages_tasks_account_deposit_csv_tasks_account_deposit_csv_component__WEBPACK_IMPORTED_MODULE_4__["TasksAccountDepositCSVComponent"] },
+            { path: 'account/deposit', component: _components_pages_tasks_account_deposit_tasks_account_deposit_component__WEBPACK_IMPORTED_MODULE_5__["TasksAccountDepositComponent"] },
+            { path: 'ownershipinfo/search', component: _components_pages_tasks_ownershipinfo_search_tasks_ownershipinfo_search_component__WEBPACK_IMPORTED_MODULE_7__["TasksOwnershipinfoSearchComponent"] }
         ]
     }];
 let TasksRoutingModule = class TasksRoutingModule {

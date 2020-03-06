@@ -46,7 +46,9 @@ export const userInitialState: IUserState = {
 export function reducer(state: IState, action: userAction.Actions): IState {
     switch (action.type) {
         case userAction.ActionTypes.Delete: {
-            state.userData = userInitialState;
+            state.userData = {
+                language: 'ja'
+            };
             return { ...state, loading: false, process: '' };
         }
         case userAction.ActionTypes.UpdateAll: {

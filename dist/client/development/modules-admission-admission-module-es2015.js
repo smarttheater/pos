@@ -52,10 +52,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "../../node_modules/@angular/core/fesm2015/core.js");
 /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/router */ "../../node_modules/@angular/router/fesm2015/router.js");
 /* harmony import */ var _canActivates__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../canActivates */ "./app/canActivates/index.ts");
-/* harmony import */ var _canActivates_setting_guard_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../canActivates/setting-guard.service */ "./app/canActivates/setting-guard.service.ts");
-/* harmony import */ var _shared_components_pages_base_base_component__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../shared/components/pages/base/base.component */ "./app/modules/shared/components/pages/base/base.component.ts");
-/* harmony import */ var _components_pages_admission_check_admission_check_component__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./components/pages/admission-check/admission-check.component */ "./app/modules/admission/components/pages/admission-check/admission-check.component.ts");
-/* harmony import */ var _components_pages_admission_schedule_admission_schedule_component__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./components/pages/admission-schedule/admission-schedule.component */ "./app/modules/admission/components/pages/admission-schedule/admission-schedule.component.ts");
+/* harmony import */ var _shared_components_pages_base_base_component__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../shared/components/pages/base/base.component */ "./app/modules/shared/components/pages/base/base.component.ts");
+/* harmony import */ var _components_pages_admission_check_admission_check_component__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./components/pages/admission-check/admission-check.component */ "./app/modules/admission/components/pages/admission-check/admission-check.component.ts");
+/* harmony import */ var _components_pages_admission_schedule_admission_schedule_component__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./components/pages/admission-schedule/admission-schedule.component */ "./app/modules/admission/components/pages/admission-schedule/admission-schedule.component.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -71,15 +70,14 @@ var __importDefault = (undefined && undefined.__importDefault) || function (mod)
 
 
 
-
 const routes = [
     {
         path: '',
-        component: _shared_components_pages_base_base_component__WEBPACK_IMPORTED_MODULE_4__["BaseComponent"],
-        canActivate: [_canActivates__WEBPACK_IMPORTED_MODULE_2__["AuthGuardService"], _canActivates_setting_guard_service__WEBPACK_IMPORTED_MODULE_3__["SettingGuardService"]],
+        component: _shared_components_pages_base_base_component__WEBPACK_IMPORTED_MODULE_3__["BaseComponent"],
+        canActivate: [_canActivates__WEBPACK_IMPORTED_MODULE_2__["AuthGuardService"], _canActivates__WEBPACK_IMPORTED_MODULE_2__["SettingGuardService"]],
         children: [
-            { path: 'schedule', component: _components_pages_admission_schedule_admission_schedule_component__WEBPACK_IMPORTED_MODULE_6__["AdmissionScheduleComponent"] },
-            { path: 'check', component: _components_pages_admission_check_admission_check_component__WEBPACK_IMPORTED_MODULE_5__["AdmissionCheckComponent"] }
+            { path: 'schedule', component: _components_pages_admission_schedule_admission_schedule_component__WEBPACK_IMPORTED_MODULE_5__["AdmissionScheduleComponent"] },
+            { path: 'check', component: _components_pages_admission_check_admission_check_component__WEBPACK_IMPORTED_MODULE_4__["AdmissionCheckComponent"] }
         ]
     }
 ];
