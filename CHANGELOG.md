@@ -12,6 +12,10 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/).
 
 ### Security
 
+## 3.0.13 - 2020-03-05
+### Fixed
+ - ブラウザバック不具合修正
+
 ## 3.0.13 - 2020-03-04
 ### Added
  - 自由席UIを追加
