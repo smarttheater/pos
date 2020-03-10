@@ -38,7 +38,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="form-group">
+                <div *ngIf="settingForm.controls.familyName" class="form-group">
                     <div class="row align-items-center">
                         <p class="col-md-4 py-2 text-md-right">{{ 'common.familyName' | translate }}</p>
                         <div class="col-md-8">
@@ -56,7 +56,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="form-group">
+                <div *ngIf="settingForm.controls.givenName" class="form-group">
                     <div class="row align-items-center">
                         <p class="col-md-4 py-2 text-md-right">{{ 'common.givenName' | translate }}</p>
                         <div class="col-md-8">
@@ -75,7 +75,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="form-group">
+                <div *ngIf="settingForm.controls.email" class="form-group">
                     <div class="row align-items-center">
                         <p class="col-md-4 py-2 text-md-right">{{ 'common.email' | translate }}</p>
                         <div class="col-md-8">
@@ -94,7 +94,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="form-group">
+                <div *ngIf="settingForm.controls.telephone" class="form-group">
                     <div class="row align-items-center">
                         <p class="col-md-4 py-2 text-md-right">{{ 'common.telephone' | translate }}</p>
                         <div class="col-md-8">
@@ -164,7 +164,7 @@
                         <p class="col-md-4 py-2 text-md-right">{{ 'common.gender.label' | translate }}</p>
                         <div class="col-md-8">
                             <select class="form-control" formControlName="gender">
-                                <option value="other">{{ 'common.gender.other' | translate }}</option>
+                                <option value="">{{ 'common.gender.unselected' | translate }}</option>
                                 <option value="man">{{ 'common.gender.man' | translate }}</option>
                                 <option value="woman">{{ 'common.gender.woman' | translate }}</option>
                             </select>

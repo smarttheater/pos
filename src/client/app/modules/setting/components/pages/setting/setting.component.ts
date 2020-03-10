@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AbstractControl, FormBuilder, FormControl, FormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormControl, FormGroup, ValidatorFn, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { select, Store } from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
@@ -113,7 +113,7 @@ export class SettingComponent implements OnInit {
                 validators.push(Validators.email);
             }
             if (p.key === 'telephone') {
-                validators.push((control: AbstractControl): ValidationErrors | null => {
+                validators.push((control: AbstractControl) => {
                     const field = control.root.get('telephone');
                     if (field !== null) {
                         if (field.value === '') {
@@ -144,21 +144,11 @@ export class SettingComponent implements OnInit {
             this.changePosList();
             this.settingForm.controls.posId.setValue(user.pos.id);
         }
-        if (user.customerContact !== undefined
-            && user.customerContact.familyName !== undefined
-            && user.customerContact.givenName !== undefined
-            && user.customerContact.email !== undefined
-            && user.customerContact.telephone !== undefined) {
-            this.settingForm.controls.familyName.setValue(user.customerContact.familyName);
-            this.settingForm.controls.givenName.setValue(user.customerContact.givenName);
-            this.settingForm.controls.email.setValue(user.customerContact.email);
-            this.settingForm.controls.telephone.setValue(new LibphonenumberFormatPipe().transform(user.customerContact.telephone));
-        }
         const customerContact = user.customerContact;
         if (customerContact !== undefined) {
             Object.keys(customerContact).forEach(key => {
                 const value = (<any>customerContact)[key];
-                if (value === undefined) {
+                if (value === undefined || this.settingForm.controls[key] === undefined) {
                     return;
                 }
                 if (key === 'telephone') {
@@ -168,9 +158,6 @@ export class SettingComponent implements OnInit {
                 }
                 this.settingForm.controls[key].setValue(value);
             });
-        }
-        if (user.customerContact !== undefined && user.customerContact.telephone !== undefined) {
-            this.settingForm.controls.telephone.setValue(new LibphonenumberFormatPipe().transform(user.customerContact.telephone));
         }
         if (user.printer !== undefined) {
             this.settingForm.controls.printerType.setValue(user.printer.connectionType);
