@@ -6936,8 +6936,18 @@ let OrderService = class OrderService {
      */
     cancel(params) {
         return __awaiter(this, void 0, void 0, function* () {
+            const identifier = (params.pos === undefined)
+                ? []
+                : [
+                    { name: 'posId', value: params.pos.id },
+                    { name: 'posName', value: params.pos.name }
+                ];
             return new Promise((resolve, reject) => {
-                this.store.dispatch(new _store_actions__WEBPACK_IMPORTED_MODULE_7__["orderAction"].Cancel(params));
+                this.store.dispatch(new _store_actions__WEBPACK_IMPORTED_MODULE_7__["orderAction"].Cancel({
+                    orders: params.orders,
+                    language: params.language,
+                    agent: { identifier }
+                }));
                 const success = this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_1__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_7__["orderAction"].ActionTypes.CancelSuccess), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["tap"])(() => { resolve(); }));
                 const fail = this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_1__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_7__["orderAction"].ActionTypes.CancelFail), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["tap"])(() => { this.error.subscribe((error) => { reject(error); }).unsubscribe(); }));
                 Object(rxjs__WEBPACK_IMPORTED_MODULE_4__["race"])(success, fail).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["take"])(1)).subscribe();
@@ -7129,19 +7139,21 @@ let PurchaseService = class PurchaseService {
         return __awaiter(this, void 0, void 0, function* () {
             const environment = Object(_environments_environment__WEBPACK_IMPORTED_MODULE_7__["getEnvironment"])();
             const now = (yield this.utilService.getServerTime()).date;
+            const identifier = (params.pos === undefined)
+                ? [...environment.PURCHASE_TRANSACTION_IDENTIFIER]
+                : [
+                    ...environment.PURCHASE_TRANSACTION_IDENTIFIER,
+                    { name: 'posId', value: params.pos.id },
+                    { name: 'posName', value: params.pos.name }
+                ];
             return new Promise((resolve, reject) => {
                 this.store.dispatch(new _store_actions__WEBPACK_IMPORTED_MODULE_8__["purchaseAction"].StartTransaction({
                     expires: moment__WEBPACK_IMPORTED_MODULE_4__(now).add(environment.PURCHASE_TRANSACTION_TIME, 'minutes').toDate(),
                     seller: { typeOf: params.seller.typeOf, id: params.seller.id },
                     object: {},
-                    agent: (params.pos === undefined)
-                        ? undefined
-                        : {
-                            identifier: [
-                                { name: 'posId', value: params.pos.id },
-                                { name: 'posName', value: params.pos.name }
-                            ]
-                        }
+                    agent: {
+                        identifier
+                    }
                 }));
                 const success = this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_8__["purchaseAction"].ActionTypes.StartTransactionSuccess), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["tap"])(() => { resolve(); }));
                 const fail = this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_8__["purchaseAction"].ActionTypes.StartTransactionFail), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["tap"])(() => { this.error.subscribe((error) => { reject(error); }).unsubscribe(); }));
@@ -10212,6 +10224,7 @@ let OrderEffects = class OrderEffects {
         this.cancel = this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_actions__WEBPACK_IMPORTED_MODULE_10__["orderAction"].ActionTypes.Cancel), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["map"])(action => action.payload), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["mergeMap"])((payload) => __awaiter(this, void 0, void 0, function* () {
             const orders = payload.orders;
             const environment = Object(_environments_environment__WEBPACK_IMPORTED_MODULE_6__["getEnvironment"])();
+            const agent = payload.agent;
             try {
                 yield this.cinerino.getServices();
                 for (const order of orders) {
@@ -10224,7 +10237,8 @@ let OrderEffects = class OrderEffects {
                                     telephone: order.customer.telephone,
                                 }
                             }
-                        }
+                        },
+                        agent
                     });
                     const creditCards = order.paymentMethods.filter(p => p.typeOf === _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_1__["factory"].paymentMethodType.CreditCard);
                     const email = {
@@ -12195,6 +12209,12 @@ const defaultEnvironment = {
     STORAGE_TYPE: 'localStorage',
     BASE_URL: '/purchase/root',
     LANGUAGE: ['ja'],
+    PROFILE: [
+        { key: 'email', value: '', required: true, maxLength: 50 },
+        { key: 'givenName', value: '', required: true, pattern: /^[ァ-ヶー]+$/, maxLength: 12 },
+        { key: 'familyName', value: '', required: true, pattern: /^[ァ-ヶー]+$/, maxLength: 12 },
+        { key: 'telephone', value: '', required: true, maxLength: 15, minLength: 9 }
+    ],
     PAYMENT_METHOD_TO_USE: [],
     PAYMENT_METHOD_CUSTOM: [],
     REGIGROW_QRCODE: '',
@@ -12205,6 +12225,7 @@ const defaultEnvironment = {
     PURCHASE_ITEM_MAX_LENGTH: '50',
     PURCHASE_TRANSACTION_TIME: '15',
     PURCHASE_TRANSACTION_TIME_DISPLAY: false,
+    PURCHASE_TRANSACTION_IDENTIFIER: [],
     PURCHASE_PRE_SCHEDULE_DATE: '3',
     PURCHASE_SCHEDULE_DEFAULT_SELECTED_DATE: '0',
     PURCHASE_SCHEDULE_STATUS_THRESHOLD_VALUE: '30',

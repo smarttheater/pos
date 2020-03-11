@@ -34,6 +34,7 @@ export class OrderEffects {
         mergeMap(async (payload) => {
             const orders = payload.orders;
             const environment = getEnvironment();
+            const agent = payload.agent;
             try {
                 await this.cinerino.getServices();
                 for (const order of orders) {
@@ -44,10 +45,10 @@ export class OrderEffects {
                                 orderNumber: order.orderNumber,
                                 customer: {
                                     telephone: order.customer.telephone,
-                                    // email: order.customer.email
                                 }
                             }
-                        }
+                        },
+                        agent
                     });
                     const creditCards = order.paymentMethods.filter(p => p.typeOf === factory.paymentMethodType.CreditCard);
                     const email: factory.creativeWork.message.email.ICustomization = {

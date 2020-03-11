@@ -108,9 +108,20 @@ export class OrderService {
     public async cancel(params: {
         orders: factory.order.IOrder[];
         language: string;
+        pos?: factory.seller.IPOS;
     }) {
+        const identifier = (params.pos === undefined)
+            ? []
+            : [
+                { name: 'posId', value: params.pos.id },
+                { name: 'posName', value: params.pos.name }
+            ];
         return new Promise<void>((resolve, reject) => {
-            this.store.dispatch(new orderAction.Cancel(params));
+            this.store.dispatch(new orderAction.Cancel({
+                orders: params.orders,
+                language: params.language,
+                agent: { identifier }
+            }));
             const success = this.actions.pipe(
                 ofType(orderAction.ActionTypes.CancelSuccess),
                 tap(() => { resolve(); })
