@@ -2419,8 +2419,8 @@ var __importDefault = (undefined && undefined.__importDefault) || function (mod)
  */
 var PrintQrcodeType;
 (function (PrintQrcodeType) {
+    PrintQrcodeType["None"] = "None";
     PrintQrcodeType["Token"] = "token";
-    PrintQrcodeType["Encryption"] = "encryption";
     PrintQrcodeType["Custom"] = "Custom";
 })(PrintQrcodeType || (PrintQrcodeType = {}));
 
@@ -10379,22 +10379,24 @@ let OrderEffects = class OrderEffects {
                     return new _actions__WEBPACK_IMPORTED_MODULE_10__["orderAction"].PrintSuccess();
                 }
                 yield this.cinerino.getServices();
-                const authorizeOrders = [];
-                for (const order of orders) {
-                    const result = yield Object(_functions__WEBPACK_IMPORTED_MODULE_7__["retry"])({
-                        process: (() => __awaiter(this, void 0, void 0, function* () {
-                            const orderNumber = order.orderNumber;
-                            const customer = {
-                                // email: args.order.customer.email,
-                                telephone: order.customer.telephone
-                            };
-                            const authorizeOrder = yield this.cinerino.order.authorizeOwnershipInfos({ orderNumber, customer });
-                            return authorizeOrder;
-                        })),
-                        interval: 5000,
-                        limit: 5
-                    });
-                    authorizeOrders.push(result);
+                let authorizeOrders = [];
+                if (environment.PRINT_QRCODE_TYPE === _models__WEBPACK_IMPORTED_MODULE_8__["PrintQrcodeType"].None) {
+                    authorizeOrders = orders;
+                }
+                else {
+                    for (const order of orders) {
+                        const result = yield Object(_functions__WEBPACK_IMPORTED_MODULE_7__["retry"])({
+                            process: (() => __awaiter(this, void 0, void 0, function* () {
+                                const orderNumber = order.orderNumber;
+                                const customer = { telephone: order.customer.telephone };
+                                const authorizeOrder = yield this.cinerino.order.authorizeOwnershipInfos({ orderNumber, customer });
+                                return authorizeOrder;
+                            })),
+                            interval: 5000,
+                            limit: 5
+                        });
+                        authorizeOrders.push(result);
+                    }
                 }
                 const printData = yield this.utilService.getJson(`${Object(_functions__WEBPACK_IMPORTED_MODULE_7__["getProject"])().storageUrl}/json/print/ticket.json`);
                 const testFlg = authorizeOrders.length === 0;
@@ -10412,7 +10414,8 @@ let OrderEffects = class OrderEffects {
                                 continue;
                             }
                             const order = authorizeOrder;
-                            let qrcode = itemOffered.reservedTicket.ticketToken;
+                            let qrcode = (environment.PRINT_QRCODE_TYPE === _models__WEBPACK_IMPORTED_MODULE_8__["PrintQrcodeType"].None)
+                                ? undefined : itemOffered.reservedTicket.ticketToken;
                             const additionalProperty = (itemOffered.reservationFor.workPerformed === undefined)
                                 ? undefined : itemOffered.reservationFor.workPerformed.additionalProperty;
                             if (additionalProperty !== undefined) {
@@ -10421,14 +10424,6 @@ let OrderEffects = class OrderEffects {
                                 if (isDisplayQrcode !== undefined && isDisplayQrcode.value === 'false') {
                                     qrcode = undefined;
                                 }
-                            }
-                            if (qrcode !== undefined
-                                && environment.PRINT_QRCODE_TYPE === _models__WEBPACK_IMPORTED_MODULE_8__["PrintQrcodeType"].Encryption) {
-                                // QRコード暗号化(id + startDate)
-                                const encyptText = `${itemOffered.reservationFor.id}=${itemOffered.reservationFor.startDate}`;
-                                const encryptionEncodeResult = yield this.utilService.encryptionEncode(encyptText);
-                                qrcode =
-                                    `${encryptionEncodeResult.salt},${encryptionEncodeResult.iv},${encryptionEncodeResult.encrypted}`;
                             }
                             if (qrcode !== undefined
                                 && environment.PRINT_QRCODE_TYPE === _models__WEBPACK_IMPORTED_MODULE_8__["PrintQrcodeType"].Custom) {
