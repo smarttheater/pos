@@ -6,7 +6,7 @@ import * as moment from 'moment';
 import { map, mergeMap } from 'rxjs/operators';
 import { getEnvironment } from '../../../environments/environment';
 import { createPrintCanvas, createTestPrintCanvas, formatTelephone, getItemPrice, getProject, retry, sleep } from '../../functions';
-import { connectionType, ITicketPrintData, PrintQrcodeType } from '../../models';
+import { ConnectionType, ITicketPrintData, PrintQrcodeType } from '../../models';
 import { CinerinoService, StarPrintService, UtilService } from '../../services';
 import { orderAction } from '../actions';
 
@@ -181,7 +181,7 @@ export class OrderEffects {
                 const printer = payload.printer;
                 const pos = payload.pos;
                 const environment = getEnvironment();
-                if (printer.connectionType === connectionType.None) {
+                if (printer.connectionType === ConnectionType.None) {
                     return new orderAction.PrintSuccess();
                 }
                 await this.cinerino.getServices();
@@ -272,15 +272,15 @@ export class OrderEffects {
                     }
                 }
                 switch (printer.connectionType) {
-                    case connectionType.StarBluetooth:
+                    case ConnectionType.StarBluetooth:
                         this.starPrint.initialize({ printer, pos });
                         await this.starPrint.printProcess({ canvasList, testFlg });
                         break;
-                    case connectionType.StarLAN:
+                    case ConnectionType.StarLAN:
                         this.starPrint.initialize({ printer, pos });
                         await this.starPrint.printProcess({ canvasList, testFlg });
                         break;
-                    case connectionType.Image:
+                    case ConnectionType.Image:
                         const domList = canvasList.map(canvas => `<div class="mb-3 p-4 border border-light-gray shadow-sm">
                         <img class="w-100" src="${canvas.toDataURL()}">
                         </div>`);

@@ -53,25 +53,6 @@
         </div>
 
         <div class="mb-4 px-3 bg-white">
-            <!-- <div class="py-3 border-bottom border-gray">
-                <div class="row align-items-center">
-                    <p class="mb-2 mb-md-0 col-md-4">{{ 'common.customerName' | translate }}</p>
-                    <p class="col-md-8">{{ (purchase | async).order.customer.familyName }} {{ (purchase |
-                                async).order.customer.givenName }}</p>
-                </div>
-            </div>
-            <div class="py-3 border-bottom border-gray">
-                <div class="row align-items-center">
-                    <p class="mb-2 mb-md-0 col-md-4">{{ 'common.email' | translate }}</p>
-                    <p class="col-md-8">{{ (purchase | async).order.customer.email }}</p>
-                </div>
-            </div>
-            <div class="py-3 border-bottom border-gray">
-                <div class="row align-items-center">
-                    <p class="mb-2 mb-md-0 col-md-4">{{ 'common.telephone' | translate }}</p>
-                    <p class="col-md-8">{{ (purchase | async).order.customer.telephone | libphonenumberFormat }}</p>
-                </div>
-            </div> -->
 
             <div class="py-3 border-bottom border-gray">
                 <div class="row align-items-center">
@@ -113,8 +94,12 @@
     </div>
 
     <div class="buttons mx-auto text-center">
-        <button type="submit" class="btn btn-primary btn-block py-3 mb-3" [disabled]="isLoading | async"
+        <button *ngIf="(user | async).printer.connectionType !== connectionType.None" type="submit"
+            class="btn btn-primary btn-block py-3 mb-3" [disabled]="isLoading | async"
             (click)="print()">{{ 'purchase.complete.next' | translate }}</button>
+        <a *ngFor="let link of environment.ORDER_LINK" class="btn btn-primary btn-block py-3 mb-3"
+            target="_blank" 
+            [href]="createOrderLink((purchase | async).order, link)">{{ link.name | changeLanguage }}</a>
         <button type="button" class="btn btn-link"
             routerLink="/purchase/root">{{ 'purchase.complete.prev' | translate }}</button>
     </div>

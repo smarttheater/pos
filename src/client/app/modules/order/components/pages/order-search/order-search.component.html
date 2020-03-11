@@ -216,7 +216,7 @@
                             <button class="btn btn-primary mr-2" (click)="openDetail(order)"><i
                                     class="fas fa-search-plus"></i></button>
                             <button *ngIf="environment.ORDER_PRINT"
-                                [disabled]="order.orderStatus !== orderStatus.OrderDelivered"
+                                [disabled]="(user | async).printer.connectionType === connectionType.None || order.orderStatus !== orderStatus.OrderDelivered"
                                 class="btn btn-primary mr-2" (click)="printConfirm([order])"><i
                                     class="fas fa-print"></i></button>
                             <button *ngIf="environment.ORDER_CANCEL"
