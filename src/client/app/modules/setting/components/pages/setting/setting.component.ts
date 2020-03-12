@@ -6,7 +6,7 @@ import { TranslateService } from '@ngx-translate/core';
 import * as libphonenumber from 'libphonenumber-js';
 import { Observable } from 'rxjs';
 import { getEnvironment } from '../../../../../../environments/environment';
-import { connectionType, printers, ViewType } from '../../../../../models';
+import { ConnectionType, printers, ViewType } from '../../../../../models';
 import { MasterService, OrderService, UserService, UtilService } from '../../../../../services';
 import * as reducers from '../../../../../store/reducers';
 import { LibphonenumberFormatPipe } from '../../../../shared/pipes/libphonenumber-format.pipe';
@@ -23,9 +23,9 @@ export class SettingComponent implements OnInit {
     public error: Observable<string | null>;
     public isLoading: Observable<boolean>;
     public posList: { id: string; name: string; typeOf: string; }[];
-    public printers: typeof printers = printers;
-    public connectionType: typeof connectionType = connectionType;
-    public viewType: typeof ViewType = ViewType;
+    public printers = printers;
+    public connectionType = ConnectionType;
+    public viewType = ViewType;
     public environment = getEnvironment();
 
     constructor(
@@ -279,7 +279,7 @@ export class SettingComponent implements OnInit {
      * プリンター変更
      */
     public changePrinterType() {
-        if (this.settingForm.controls.printerType.value === connectionType.StarBluetooth) {
+        if (this.settingForm.controls.printerType.value === ConnectionType.StarBluetooth) {
             this.settingForm.controls.printerIpAddress.setValue(this.translate.instant('setting.starBluetoothAddress'));
         }
     }

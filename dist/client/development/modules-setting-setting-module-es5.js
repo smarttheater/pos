@@ -194,7 +194,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
         this.translate = translate;
         this.router = router;
         this.printers = _models__WEBPACK_IMPORTED_MODULE_7__["printers"];
-        this.connectionType = _models__WEBPACK_IMPORTED_MODULE_7__["connectionType"];
+        this.connectionType = _models__WEBPACK_IMPORTED_MODULE_7__["ConnectionType"];
         this.viewType = _models__WEBPACK_IMPORTED_MODULE_7__["ViewType"];
         this.environment = Object(_environments_environment__WEBPACK_IMPORTED_MODULE_6__["getEnvironment"])();
       }
@@ -604,7 +604,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "changePrinterType",
         value: function changePrinterType() {
-          if (this.settingForm.controls.printerType.value === _models__WEBPACK_IMPORTED_MODULE_7__["connectionType"].StarBluetooth) {
+          if (this.settingForm.controls.printerType.value === _models__WEBPACK_IMPORTED_MODULE_7__["ConnectionType"].StarBluetooth) {
             this.settingForm.controls.printerIpAddress.setValue(this.translate.instant('setting.starBluetoothAddress'));
           }
         }

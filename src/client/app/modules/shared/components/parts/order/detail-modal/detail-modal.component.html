@@ -38,8 +38,8 @@
                         <p class="text-small mb-1">
                             <span
                                 class="theater-name">{{ eventOrder.event.superEvent.location.name | changeLanguage }}</span>
-                            <span
-                                class="screen-name">&nbsp;/&nbsp;<span *ngIf="eventOrder.event.location.address" class="mr-2">{{ eventOrder.event.location.address | changeLanguage }}</span>{{ eventOrder.event.location.name | changeLanguage }}</span>
+                            <span class="screen-name">&nbsp;/&nbsp;<span *ngIf="eventOrder.event.location.address"
+                                    class="mr-2">{{ eventOrder.event.location.address | changeLanguage }}</span>{{ eventOrder.event.location.name | changeLanguage }}</span>
                             <span
                                 *ngIf="eventOrder.event.workPerformed?.duration && moment.duration(eventOrder.event.workPerformed?.duration).asMinutes() > 0">
                                 &nbsp;/&nbsp;<span
@@ -89,13 +89,15 @@
                 <p class="mb-2 mb-md-0 col-md-4">[{{ 'common.paymentMethod' | translate }}]</p>
                 <div class="col-md-8">
                     <p *ngFor="let paymentMethod of order.paymentMethods">
-                        <span *ngIf="!(paymentMethod.typeOf === paymentMethodType.Others && paymentMethod.name !== paymentMethodType.Others)">
+                        <span
+                            *ngIf="!(paymentMethod.typeOf === paymentMethodType.Others && paymentMethod.name !== paymentMethodType.Others)">
                             {{ paymentMethod.name }}&nbsp;/&nbsp;{{ paymentMethod.totalPaymentDue.value | currency : paymentMethod.totalPaymentDue.currency }}
                         </span>
-                        <span *ngIf="paymentMethod.typeOf === paymentMethodType.Others && paymentMethod.name !== paymentMethodType.Others">
+                        <span
+                            *ngIf="paymentMethod.typeOf === paymentMethodType.Others && paymentMethod.name !== paymentMethodType.Others">
                             {{ paymentMethod.typeOf }}[{{ paymentMethod.name }}]&nbsp;/&nbsp;{{ paymentMethod.totalPaymentDue.value | currency : paymentMethod.totalPaymentDue.currency }}
                         </span>
-                        
+
                     </p>
                     <div *ngIf="qrcode" class="mt-2"><img class="border" [src]="qrcode"></div>
                 </div>
@@ -134,6 +136,8 @@
     </div>
 
     <div class="buttons mx-auto text-center">
+        <a *ngFor="let link of environment.ORDER_LINK" class="btn btn-primary btn-block py-3 mb-3" target="_blank"
+            [href]="createOrderLink(order, link)">{{ link.name | changeLanguage }}</a>
         <button type="button" class="btn btn-link btn-sm"
             (click)="modal.hide()">{{ 'common.close' | translate }}</button>
     </div>

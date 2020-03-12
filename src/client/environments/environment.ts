@@ -182,6 +182,10 @@ interface IEnvironment {
      */
     ORDER_PRINT: boolean;
     /**
+     * 注文関連リンク
+     */
+    ORDER_LINK: { name: { ja: string; en: string; }; url: string; params: { key: string; value?: string; }[] }[];
+    /**
      * 印刷QRコードタイプ
      */
     PRINT_QRCODE_TYPE: string;
@@ -243,6 +247,7 @@ const defaultEnvironment: IEnvironment = {
     INQUIRY_ORDER_DATE_FROM_UNIT: 'month',
     ORDER_CANCEL: false,
     ORDER_PRINT: false,
+    ORDER_LINK: [],
     PRINT_QRCODE_TYPE: 'token',
     PRINT_QRCODE_CUSTOM: '',
     PRINT_LOADING: true

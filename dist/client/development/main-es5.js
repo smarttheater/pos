@@ -681,7 +681,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     /* harmony default export */
 
 
-    __webpack_exports__["default"] = "<div class=\"p-3 scroll-vertical text-small\">\n    <div class=\"mb-4\">\n        <div class=\"py-3 border-bottom border-gray\">\n            <div class=\"row align-items-center\">\n                <p class=\"mb-2 mb-md-0 col-md-4\">[{{ 'common.orderDate' | translate }}]</p>\n                <p class=\"col-md-8\">{{ moment(order.orderDate).format('YYYY/MM/DD (ddd) HH:mm') }}</p>\n            </div>\n        </div>\n        <div class=\"py-3 border-bottom border-gray\">\n            <div class=\"row align-items-center\">\n                <p class=\"mb-2 mb-md-0 col-md-4\">[{{ 'common.confirmationNumber' | translate }}]</p>\n                <p class=\"col-md-8\">{{ order.confirmationNumber }}</p>\n            </div>\n        </div>\n        <div class=\"py-3 border-bottom border-gray\">\n            <div class=\"row align-items-center\">\n                <p class=\"mb-2 mb-md-0 col-md-4\">[{{ 'common.orderNumber' | translate }}]</p>\n                <p class=\"col-md-8\">{{ order.orderNumber }}</p>\n            </div>\n        </div>\n        <div class=\"py-3 border-bottom border-gray\">\n            <div class=\"row align-items-center\">\n                <p class=\"mb-2 mb-md-0 col-md-4\">[{{ 'common.event' | translate }}]</p>\n                <div class=\"col-md-8\">\n                    <div *ngFor=\"let eventOrder of eventOrders\" class=\"mb-3\">\n                        <div class=\"mb-1\">\n                            <p class=\"font-weight-bold text-large\">{{ eventOrder.event.name | changeLanguage }}</p>\n                            <p class=\"text-small\"\n                                *ngIf=\"eventOrder.event.superEvent.headline && (eventOrder.event.superEvent.headline | changeLanguage)\">\n                                {{ eventOrder.event.superEvent.headline | changeLanguage }}</p>\n                            <!-- <p class=\"text-small\"\n                                    *ngIf=\"eventOrder.event.superEvent.description && (eventOrder.event.superEvent.description | changeLanguage)\">{{\n                                            eventOrder.event.superEvent.description | changeLanguage }}</p> -->\n                        </div>\n                        <p class=\"mb-1\">\n                            {{ eventOrder.event.startDate | formatDate: 'MM/DD(ddd) HH:mm' }}-{{ eventOrder.event.endDate | formatDate: 'HH:mm' }}\n                        </p>\n                        <p class=\"text-small mb-1\">\n                            <span\n                                class=\"theater-name\">{{ eventOrder.event.superEvent.location.name | changeLanguage }}</span>\n                            <span\n                                class=\"screen-name\">&nbsp;/&nbsp;<span *ngIf=\"eventOrder.event.location.address\" class=\"mr-2\">{{ eventOrder.event.location.address | changeLanguage }}</span>{{ eventOrder.event.location.name | changeLanguage }}</span>\n                            <span\n                                *ngIf=\"eventOrder.event.workPerformed?.duration && moment.duration(eventOrder.event.workPerformed?.duration).asMinutes() > 0\">\n                                &nbsp;/&nbsp;<span\n                                    class=\"mr-1\">{{ 'common.duration' | translate }}</span>{{ moment.duration(eventOrder.event.workPerformed?.duration).asMinutes() }}{{ 'common.date.minute' | translate }}\n                            </span>\n                        </p>\n                        <div *ngFor=\"let acceptedOffer of eventOrder.data\">\n                            <p>[{{ 'common.reservationNumber' | translate }}]\n                                {{ acceptedOffer.itemOffered.reservationNumber }}</p>\n                            <p>[{{ 'common.reservationId' | translate }}] {{ acceptedOffer.itemOffered.id }}</p>\n                            <app-item-list [acceptedOffers]=\"[acceptedOffer]\"></app-item-list>\n                        </div>\n                        <div *ngIf=\"eventOrder.data[0].itemOffered.additionalTicketText\" class=\"additional-ticket-text\">\n                            <p>[{{ 'common.additionalTicketText' | translate }}]</p>\n                            <p>{{ eventOrder.data[0].itemOffered.additionalTicketText }}</p>\n                        </div>\n                    </div>\n                </div>\n            </div>\n        </div>\n        <div class=\"py-3 border-bottom border-gray\">\n            <div class=\"row align-items-center\">\n                <p class=\"mb-2 mb-md-0 col-md-4\">[{{ 'common.customer' | translate }}]</p>\n                <div class=\"col-md-8\">\n                    <p>{{ order.customer.familyName }} {{ order.customer.givenName }}</p>\n                    <p>{{ order.customer.email }}</p>\n                    <p>{{ order.customer.telephone | libphonenumberFormat }}</p>\n                </div>\n            </div>\n        </div>\n        <div class=\"py-3 border-bottom border-gray\">\n            <div class=\"row align-items-center\">\n                <p class=\"mb-2 mb-md-0 col-md-4\">[{{ 'common.price' | translate }}]</p>\n                <p class=\"col-md-8\">\n                    {{ order.price | currency : 'JPY' }}\n                </p>\n            </div>\n        </div>\n        <div class=\"py-3 border-bottom border-gray\">\n            <div class=\"row align-items-center\">\n                <p class=\"mb-2 mb-md-0 col-md-4\">[{{ 'common.orderStatus' | translate }}]</p>\n                <p class=\"col-md-8\">{{ order.orderStatus }}</p>\n            </div>\n        </div>\n        <div class=\"py-3 border-bottom border-gray\">\n            <div class=\"row align-items-center\">\n                <p class=\"mb-2 mb-md-0 col-md-4\">[{{ 'common.paymentMethod' | translate }}]</p>\n                <div class=\"col-md-8\">\n                    <p *ngFor=\"let paymentMethod of order.paymentMethods\">\n                        <span *ngIf=\"!(paymentMethod.typeOf === paymentMethodType.Others && paymentMethod.name !== paymentMethodType.Others)\">\n                            {{ paymentMethod.name }}&nbsp;/&nbsp;{{ paymentMethod.totalPaymentDue.value | currency : paymentMethod.totalPaymentDue.currency }}\n                        </span>\n                        <span *ngIf=\"paymentMethod.typeOf === paymentMethodType.Others && paymentMethod.name !== paymentMethodType.Others\">\n                            {{ paymentMethod.typeOf }}[{{ paymentMethod.name }}]&nbsp;/&nbsp;{{ paymentMethod.totalPaymentDue.value | currency : paymentMethod.totalPaymentDue.currency }}\n                        </span>\n                        \n                    </p>\n                    <div *ngIf=\"qrcode\" class=\"mt-2\"><img class=\"border\" [src]=\"qrcode\"></div>\n                </div>\n            </div>\n        </div>\n        <div class=\"py-3 border-bottom border-gray\">\n            <div class=\"row align-items-center\">\n                <p class=\"mb-2 mb-md-0 col-md-4\">[{{ 'common.etc' | translate }}]</p>\n                <div class=\"col-md-8\">\n                    <p *ngIf=\"getTransactionAgentIdentifier(order, 'linyId')\">\n                        [linyId]<br>\n                        {{ getTransactionAgentIdentifier(order, 'linyId').value }}\n                    </p>\n                    <p *ngIf=\"getTransactionAgentIdentifier(order, 'userAgent')\">\n                        [platform]<br>\n                        name: {{ platform.parse(getTransactionAgentIdentifier(order, 'userAgent').value).name }}<br>\n                        version:\n                        {{ platform.parse(getTransactionAgentIdentifier(order, 'userAgent').value).version }}<br>\n                        product: <span\n                            *ngIf=\"platform.parse(getTransactionAgentIdentifier(order, 'userAgent').value).product\">{{ platform.parse(getTransactionAgentIdentifier(order, 'userAgent').value).product }}</span><span\n                            *ngIf=\"!platform.parse(getTransactionAgentIdentifier(order, 'userAgent').value).product\">-</span><br>\n                        layout: {{ platform.parse(getTransactionAgentIdentifier(order, 'userAgent').value).layout }}<br>\n                        os: {{ platform.parse(getTransactionAgentIdentifier(order, 'userAgent').value).os }}<br>\n                        ({{ platform.parse(getTransactionAgentIdentifier(order, 'userAgent').value).description }})\n                    </p>\n                    <p\n                        *ngIf=\"getTransactionAgentIdentifier(order, 'posId') && getTransactionAgentIdentifier(order, 'posName')\">\n                        [POS]<br>\n                        id: {{ getTransactionAgentIdentifier(order, 'posId').value }}<br>\n                        name: {{ getTransactionAgentIdentifier(order, 'posName').value }}\n                    </p>\n                </div>\n            </div>\n        </div>\n\n    </div>\n\n    <div class=\"buttons mx-auto text-center\">\n        <button type=\"button\" class=\"btn btn-link btn-sm\"\n            (click)=\"modal.hide()\">{{ 'common.close' | translate }}</button>\n    </div>\n\n</div>";
+    __webpack_exports__["default"] = "<div class=\"p-3 scroll-vertical text-small\">\n    <div class=\"mb-4\">\n        <div class=\"py-3 border-bottom border-gray\">\n            <div class=\"row align-items-center\">\n                <p class=\"mb-2 mb-md-0 col-md-4\">[{{ 'common.orderDate' | translate }}]</p>\n                <p class=\"col-md-8\">{{ moment(order.orderDate).format('YYYY/MM/DD (ddd) HH:mm') }}</p>\n            </div>\n        </div>\n        <div class=\"py-3 border-bottom border-gray\">\n            <div class=\"row align-items-center\">\n                <p class=\"mb-2 mb-md-0 col-md-4\">[{{ 'common.confirmationNumber' | translate }}]</p>\n                <p class=\"col-md-8\">{{ order.confirmationNumber }}</p>\n            </div>\n        </div>\n        <div class=\"py-3 border-bottom border-gray\">\n            <div class=\"row align-items-center\">\n                <p class=\"mb-2 mb-md-0 col-md-4\">[{{ 'common.orderNumber' | translate }}]</p>\n                <p class=\"col-md-8\">{{ order.orderNumber }}</p>\n            </div>\n        </div>\n        <div class=\"py-3 border-bottom border-gray\">\n            <div class=\"row align-items-center\">\n                <p class=\"mb-2 mb-md-0 col-md-4\">[{{ 'common.event' | translate }}]</p>\n                <div class=\"col-md-8\">\n                    <div *ngFor=\"let eventOrder of eventOrders\" class=\"mb-3\">\n                        <div class=\"mb-1\">\n                            <p class=\"font-weight-bold text-large\">{{ eventOrder.event.name | changeLanguage }}</p>\n                            <p class=\"text-small\"\n                                *ngIf=\"eventOrder.event.superEvent.headline && (eventOrder.event.superEvent.headline | changeLanguage)\">\n                                {{ eventOrder.event.superEvent.headline | changeLanguage }}</p>\n                            <!-- <p class=\"text-small\"\n                                    *ngIf=\"eventOrder.event.superEvent.description && (eventOrder.event.superEvent.description | changeLanguage)\">{{\n                                            eventOrder.event.superEvent.description | changeLanguage }}</p> -->\n                        </div>\n                        <p class=\"mb-1\">\n                            {{ eventOrder.event.startDate | formatDate: 'MM/DD(ddd) HH:mm' }}-{{ eventOrder.event.endDate | formatDate: 'HH:mm' }}\n                        </p>\n                        <p class=\"text-small mb-1\">\n                            <span\n                                class=\"theater-name\">{{ eventOrder.event.superEvent.location.name | changeLanguage }}</span>\n                            <span class=\"screen-name\">&nbsp;/&nbsp;<span *ngIf=\"eventOrder.event.location.address\"\n                                    class=\"mr-2\">{{ eventOrder.event.location.address | changeLanguage }}</span>{{ eventOrder.event.location.name | changeLanguage }}</span>\n                            <span\n                                *ngIf=\"eventOrder.event.workPerformed?.duration && moment.duration(eventOrder.event.workPerformed?.duration).asMinutes() > 0\">\n                                &nbsp;/&nbsp;<span\n                                    class=\"mr-1\">{{ 'common.duration' | translate }}</span>{{ moment.duration(eventOrder.event.workPerformed?.duration).asMinutes() }}{{ 'common.date.minute' | translate }}\n                            </span>\n                        </p>\n                        <div *ngFor=\"let acceptedOffer of eventOrder.data\">\n                            <p>[{{ 'common.reservationNumber' | translate }}]\n                                {{ acceptedOffer.itemOffered.reservationNumber }}</p>\n                            <p>[{{ 'common.reservationId' | translate }}] {{ acceptedOffer.itemOffered.id }}</p>\n                            <app-item-list [acceptedOffers]=\"[acceptedOffer]\"></app-item-list>\n                        </div>\n                        <div *ngIf=\"eventOrder.data[0].itemOffered.additionalTicketText\" class=\"additional-ticket-text\">\n                            <p>[{{ 'common.additionalTicketText' | translate }}]</p>\n                            <p>{{ eventOrder.data[0].itemOffered.additionalTicketText }}</p>\n                        </div>\n                    </div>\n                </div>\n            </div>\n        </div>\n        <div class=\"py-3 border-bottom border-gray\">\n            <div class=\"row align-items-center\">\n                <p class=\"mb-2 mb-md-0 col-md-4\">[{{ 'common.customer' | translate }}]</p>\n                <div class=\"col-md-8\">\n                    <p>{{ order.customer.familyName }} {{ order.customer.givenName }}</p>\n                    <p>{{ order.customer.email }}</p>\n                    <p>{{ order.customer.telephone | libphonenumberFormat }}</p>\n                </div>\n            </div>\n        </div>\n        <div class=\"py-3 border-bottom border-gray\">\n            <div class=\"row align-items-center\">\n                <p class=\"mb-2 mb-md-0 col-md-4\">[{{ 'common.price' | translate }}]</p>\n                <p class=\"col-md-8\">\n                    {{ order.price | currency : 'JPY' }}\n                </p>\n            </div>\n        </div>\n        <div class=\"py-3 border-bottom border-gray\">\n            <div class=\"row align-items-center\">\n                <p class=\"mb-2 mb-md-0 col-md-4\">[{{ 'common.orderStatus' | translate }}]</p>\n                <p class=\"col-md-8\">{{ order.orderStatus }}</p>\n            </div>\n        </div>\n        <div class=\"py-3 border-bottom border-gray\">\n            <div class=\"row align-items-center\">\n                <p class=\"mb-2 mb-md-0 col-md-4\">[{{ 'common.paymentMethod' | translate }}]</p>\n                <div class=\"col-md-8\">\n                    <p *ngFor=\"let paymentMethod of order.paymentMethods\">\n                        <span\n                            *ngIf=\"!(paymentMethod.typeOf === paymentMethodType.Others && paymentMethod.name !== paymentMethodType.Others)\">\n                            {{ paymentMethod.name }}&nbsp;/&nbsp;{{ paymentMethod.totalPaymentDue.value | currency : paymentMethod.totalPaymentDue.currency }}\n                        </span>\n                        <span\n                            *ngIf=\"paymentMethod.typeOf === paymentMethodType.Others && paymentMethod.name !== paymentMethodType.Others\">\n                            {{ paymentMethod.typeOf }}[{{ paymentMethod.name }}]&nbsp;/&nbsp;{{ paymentMethod.totalPaymentDue.value | currency : paymentMethod.totalPaymentDue.currency }}\n                        </span>\n\n                    </p>\n                    <div *ngIf=\"qrcode\" class=\"mt-2\"><img class=\"border\" [src]=\"qrcode\"></div>\n                </div>\n            </div>\n        </div>\n        <div class=\"py-3 border-bottom border-gray\">\n            <div class=\"row align-items-center\">\n                <p class=\"mb-2 mb-md-0 col-md-4\">[{{ 'common.etc' | translate }}]</p>\n                <div class=\"col-md-8\">\n                    <p *ngIf=\"getTransactionAgentIdentifier(order, 'linyId')\">\n                        [linyId]<br>\n                        {{ getTransactionAgentIdentifier(order, 'linyId').value }}\n                    </p>\n                    <p *ngIf=\"getTransactionAgentIdentifier(order, 'userAgent')\">\n                        [platform]<br>\n                        name: {{ platform.parse(getTransactionAgentIdentifier(order, 'userAgent').value).name }}<br>\n                        version:\n                        {{ platform.parse(getTransactionAgentIdentifier(order, 'userAgent').value).version }}<br>\n                        product: <span\n                            *ngIf=\"platform.parse(getTransactionAgentIdentifier(order, 'userAgent').value).product\">{{ platform.parse(getTransactionAgentIdentifier(order, 'userAgent').value).product }}</span><span\n                            *ngIf=\"!platform.parse(getTransactionAgentIdentifier(order, 'userAgent').value).product\">-</span><br>\n                        layout: {{ platform.parse(getTransactionAgentIdentifier(order, 'userAgent').value).layout }}<br>\n                        os: {{ platform.parse(getTransactionAgentIdentifier(order, 'userAgent').value).os }}<br>\n                        ({{ platform.parse(getTransactionAgentIdentifier(order, 'userAgent').value).description }})\n                    </p>\n                    <p\n                        *ngIf=\"getTransactionAgentIdentifier(order, 'posId') && getTransactionAgentIdentifier(order, 'posName')\">\n                        [POS]<br>\n                        id: {{ getTransactionAgentIdentifier(order, 'posId').value }}<br>\n                        name: {{ getTransactionAgentIdentifier(order, 'posName').value }}\n                    </p>\n                </div>\n            </div>\n        </div>\n\n    </div>\n\n    <div class=\"buttons mx-auto text-center\">\n        <a *ngFor=\"let link of environment.ORDER_LINK\" class=\"btn btn-primary btn-block py-3 mb-3\" target=\"_blank\"\n            [href]=\"createOrderLink(order, link)\">{{ link.name | changeLanguage }}</a>\n        <button type=\"button\" class=\"btn btn-link btn-sm\"\n            (click)=\"modal.hide()\">{{ 'common.close' | translate }}</button>\n    </div>\n\n</div>";
     /***/
   },
 
@@ -1321,7 +1321,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     !*** ./app/functions/index.ts ***!
     \********************************/
 
-  /*! exports provided: screeningEventsToWorkEvents, createGmoTokenObject, sameMovieTicketFilter, isAvailabilityMovieTicket, createMovieTicketsFromAuthorizeSeatReservation, getCustomPaymentMethodTypeName, getTicketPrice, getItemPrice, movieTicketAuthErroCodeToMessage, getAmount, order2EventOrders, authorizeSeatReservation2Event, getRemainingSeatLength, isEligibleSeatingType, getEmptySeat, selectAvailableSeat, formatTelephone, toFull, toHalf, retry, sleep, buildQueryString, iOSDatepickerTapBugFix, streamingDownload, string2blob, getParameter, getProject, createPrintCanvas, createTestPrintCanvas, createCooperationQRCode, getTransactionAgentIdentifier, order2report, input2OrderSearchCondition, getTranslateModuleConfig, reservation2report, input2ReservationSearchCondition */
+  /*! exports provided: screeningEventsToWorkEvents, createGmoTokenObject, sameMovieTicketFilter, isAvailabilityMovieTicket, createMovieTicketsFromAuthorizeSeatReservation, getCustomPaymentMethodTypeName, getTicketPrice, getItemPrice, movieTicketAuthErroCodeToMessage, getAmount, order2EventOrders, authorizeSeatReservation2Event, getRemainingSeatLength, isEligibleSeatingType, getEmptySeat, selectAvailableSeat, formatTelephone, toFull, toHalf, retry, sleep, buildQueryString, iOSDatepickerTapBugFix, streamingDownload, string2blob, getParameter, getProject, createPrintCanvas, createTestPrintCanvas, createCooperationQRCode, getTransactionAgentIdentifier, order2report, input2OrderSearchCondition, createOrderLink, getTranslateModuleConfig, reservation2report, input2ReservationSearchCondition */
 
   /***/
   function appFunctionsIndexTs(module, __webpack_exports__, __webpack_require__) {
@@ -1544,6 +1544,12 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     __webpack_require__.d(__webpack_exports__, "input2OrderSearchCondition", function () {
       return _order_function__WEBPACK_IMPORTED_MODULE_2__["input2OrderSearchCondition"];
     });
+    /* harmony reexport (safe) */
+
+
+    __webpack_require__.d(__webpack_exports__, "createOrderLink", function () {
+      return _order_function__WEBPACK_IMPORTED_MODULE_2__["createOrderLink"];
+    });
     /* harmony import */
 
 
@@ -1590,7 +1596,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     !*** ./app/functions/order.function.ts ***!
     \*****************************************/
 
-  /*! exports provided: createPrintCanvas, createTestPrintCanvas, createCooperationQRCode, getTransactionAgentIdentifier, order2report, input2OrderSearchCondition */
+  /*! exports provided: createPrintCanvas, createTestPrintCanvas, createCooperationQRCode, getTransactionAgentIdentifier, order2report, input2OrderSearchCondition, createOrderLink */
 
   /***/
   function appFunctionsOrderFunctionTs(module, __webpack_exports__, __webpack_require__) {
@@ -1632,6 +1638,12 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
     __webpack_require__.d(__webpack_exports__, "input2OrderSearchCondition", function () {
       return input2OrderSearchCondition;
+    });
+    /* harmony export (binding) */
+
+
+    __webpack_require__.d(__webpack_exports__, "createOrderLink", function () {
+      return createOrderLink;
     });
     /* harmony import */
 
@@ -2339,6 +2351,19 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
         }
       };
       return result;
+    }
+    /**
+     * 注文連携リンク作成
+     */
+
+
+    function createOrderLink(order, link) {
+      var params = [];
+      link.params.forEach(function (p) {
+        var value = p.value === undefined ? order[p.key] : p.value;
+        params.push("".concat(p.key, "=").concat(value));
+      });
+      return params.length > 0 ? "".concat(link.url, "?").concat(params.join('&')) : link.url;
     }
     /***/
 
@@ -3874,7 +3899,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     !*** ./app/models/index.ts ***!
     \*****************************/
 
-  /*! exports provided: SeatStatus, PaymentMethodType, Performance, connectionType, printers, OrderActions, CsvFormat, PrintQrcodeType, Language, ViewType */
+  /*! exports provided: SeatStatus, PaymentMethodType, Performance, ConnectionType, printers, OrderActions, CsvFormat, PrintQrcodeType, Language, ViewType */
 
   /***/
   function appModelsIndexTs(module, __webpack_exports__, __webpack_require__) {
@@ -3926,8 +3951,8 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     /* harmony reexport (safe) */
 
 
-    __webpack_require__.d(__webpack_exports__, "connectionType", function () {
-      return _util_printer__WEBPACK_IMPORTED_MODULE_3__["connectionType"];
+    __webpack_require__.d(__webpack_exports__, "ConnectionType", function () {
+      return _util_printer__WEBPACK_IMPORTED_MODULE_3__["ConnectionType"];
     });
     /* harmony reexport (safe) */
 
@@ -4514,7 +4539,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     !*** ./app/models/util/printer.ts ***!
     \************************************/
 
-  /*! exports provided: connectionType, printers */
+  /*! exports provided: ConnectionType, printers */
 
   /***/
   function appModelsUtilPrinterTs(module, __webpack_exports__, __webpack_require__) {
@@ -4524,8 +4549,8 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     /* harmony export (binding) */
 
 
-    __webpack_require__.d(__webpack_exports__, "connectionType", function () {
-      return connectionType;
+    __webpack_require__.d(__webpack_exports__, "ConnectionType", function () {
+      return ConnectionType;
     });
     /* harmony export (binding) */
 
@@ -4544,45 +4569,45 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
      */
 
 
-    var connectionType;
+    var ConnectionType;
 
-    (function (connectionType) {
+    (function (ConnectionType) {
       /**
        * なし
        */
-      connectionType["None"] = "None";
+      ConnectionType["None"] = "None";
       /**
        * 画像
        */
 
-      connectionType["Image"] = "Image";
+      ConnectionType["Image"] = "Image";
       /**
        * スター精密 LAN接続
        */
 
-      connectionType["StarLAN"] = "StarLAN";
+      ConnectionType["StarLAN"] = "StarLAN";
       /**
        * スター精密 Bluetooth接続
        */
 
-      connectionType["StarBluetooth"] = "StarBluetooth";
-    })(connectionType || (connectionType = {}));
+      ConnectionType["StarBluetooth"] = "StarBluetooth";
+    })(ConnectionType || (ConnectionType = {}));
     /**
      * プリンター一覧
      */
 
 
     var printers = [{
-      connectionType: connectionType.None,
+      connectionType: ConnectionType.None,
       name: 'setting.printType.none'
     }, {
-      connectionType: connectionType.Image,
+      connectionType: ConnectionType.Image,
       name: 'setting.printType.image'
     }, {
-      connectionType: connectionType.StarLAN,
+      connectionType: ConnectionType.StarLAN,
       name: 'setting.printType.starLAN'
     }, {
-      connectionType: connectionType.StarBluetooth,
+      connectionType: ConnectionType.StarBluetooth,
       name: 'setting.printType.starBluetooth'
     }];
     /***/
@@ -7610,6 +7635,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
         this.getTransactionAgentIdentifier = _functions__WEBPACK_IMPORTED_MODULE_6__["getTransactionAgentIdentifier"];
         this.platform = platform__WEBPACK_IMPORTED_MODULE_4__;
         this.paymentMethodType = _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_1__["factory"].paymentMethodType;
+        this.createOrderLink = _functions__WEBPACK_IMPORTED_MODULE_6__["createOrderLink"];
       }
 
       _createClass(OrderDetailModalComponent, [{
@@ -13915,11 +13941,11 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
               return p.connectionType === printer.connectionType;
             });
 
-            if (findResult === undefined || findResult.connectionType !== _models__WEBPACK_IMPORTED_MODULE_2__["connectionType"].StarBluetooth && findResult.connectionType !== _models__WEBPACK_IMPORTED_MODULE_2__["connectionType"].StarLAN) {
+            if (findResult === undefined || findResult.connectionType !== _models__WEBPACK_IMPORTED_MODULE_2__["ConnectionType"].StarBluetooth && findResult.connectionType !== _models__WEBPACK_IMPORTED_MODULE_2__["ConnectionType"].StarLAN) {
               throw new Error('選択しているプリンターに対応していません').message;
             }
 
-            var url = findResult.connectionType === _models__WEBPACK_IMPORTED_MODULE_2__["connectionType"].StarLAN ? "https://".concat(printer.ipAddress, ":").concat(port, "/StarWebPRNT/SendMessage") : "https://".concat(printer.ipAddress, "/StarWebPRNT/SendMessage");
+            var url = findResult.connectionType === _models__WEBPACK_IMPORTED_MODULE_2__["ConnectionType"].StarLAN ? "https://".concat(printer.ipAddress, ":").concat(port, "/StarWebPRNT/SendMessage") : "https://".concat(printer.ipAddress, "/StarWebPRNT/SendMessage");
             var papertype = 'normal';
             var blackmark_sensor = 'front_side'; // trader設定
 
@@ -18795,7 +18821,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                   pos = payload.pos;
                   environment = Object(_environments_environment__WEBPACK_IMPORTED_MODULE_6__["getEnvironment"])();
 
-                  if (!(printer.connectionType === _models__WEBPACK_IMPORTED_MODULE_8__["connectionType"].None)) {
+                  if (!(printer.connectionType === _models__WEBPACK_IMPORTED_MODULE_8__["ConnectionType"].None)) {
                     _context84.next = 7;
                     break;
                   }
@@ -19170,7 +19196,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
                 case 72:
                   _context84.t4 = printer.connectionType;
-                  _context84.next = _context84.t4 === _models__WEBPACK_IMPORTED_MODULE_8__["connectionType"].StarBluetooth ? 75 : _context84.t4 === _models__WEBPACK_IMPORTED_MODULE_8__["connectionType"].StarLAN ? 79 : _context84.t4 === _models__WEBPACK_IMPORTED_MODULE_8__["connectionType"].Image ? 83 : 86;
+                  _context84.next = _context84.t4 === _models__WEBPACK_IMPORTED_MODULE_8__["ConnectionType"].StarBluetooth ? 75 : _context84.t4 === _models__WEBPACK_IMPORTED_MODULE_8__["ConnectionType"].StarLAN ? 79 : _context84.t4 === _models__WEBPACK_IMPORTED_MODULE_8__["ConnectionType"].Image ? 83 : 86;
                   break;
 
                 case 75:
@@ -22865,6 +22891,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       INQUIRY_ORDER_DATE_FROM_UNIT: 'month',
       ORDER_CANCEL: false,
       ORDER_PRINT: false,
+      ORDER_LINK: [],
       PRINT_QRCODE_TYPE: 'token',
       PRINT_QRCODE_CUSTOM: '',
       PRINT_LOADING: true
