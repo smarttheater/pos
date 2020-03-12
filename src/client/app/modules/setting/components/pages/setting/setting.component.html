@@ -38,7 +38,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="form-group">
+                <div *ngIf="settingForm.controls.familyName" class="form-group">
                     <div class="row align-items-center">
                         <p class="col-md-4 py-2 text-md-right">{{ 'common.familyName' | translate }}</p>
                         <div class="col-md-8">
@@ -56,7 +56,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="form-group">
+                <div *ngIf="settingForm.controls.givenName" class="form-group">
                     <div class="row align-items-center">
                         <p class="col-md-4 py-2 text-md-right">{{ 'common.givenName' | translate }}</p>
                         <div class="col-md-8">
@@ -75,7 +75,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="form-group">
+                <div *ngIf="settingForm.controls.email" class="form-group">
                     <div class="row align-items-center">
                         <p class="col-md-4 py-2 text-md-right">{{ 'common.email' | translate }}</p>
                         <div class="col-md-8">
@@ -94,7 +94,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="form-group">
+                <div *ngIf="settingForm.controls.telephone" class="form-group">
                     <div class="row align-items-center">
                         <p class="col-md-4 py-2 text-md-right">{{ 'common.telephone' | translate }}</p>
                         <div class="col-md-8">
@@ -111,6 +111,76 @@
                                 </p>
                                 <p *ngIf="settingForm.controls.telephone.errors.telephone" class="text-danger">
                                     {{ 'form.validation.telephone' | translate }}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div *ngIf="settingForm.controls.age" class="form-group">
+                    <div class="row align-items-center">
+                        <p class="col-md-4 py-2 text-md-right">{{ 'common.age' | translate }}</p>
+                        <div class="col-md-8">
+                            <input type="tel" class="form-control" formControlName="age" placeholder="">
+                            <div *ngIf="settingForm.controls.age.invalid && settingForm.controls.age.touched"
+                                class="mt-2">
+                                <p *ngIf="settingForm.controls.age.errors.required" class="text-danger">
+                                    {{ 'form.validation.required' | translate }}</p>
+                                <p *ngIf="settingForm.controls.age.errors.minlength" class="text-danger">
+                                    {{ 'form.validation.minlength' | translate: { value: settingForm.controls.age.errors.minlength.requiredLength } }}
+                                </p>
+                                <p *ngIf="settingForm.controls.age.errors.maxlength" class="text-danger">
+                                    {{ 'form.validation.minlength' | translate: { value: settingForm.controls.age.errors.maxlength.requiredLength } }}
+                                </p>
+                                <p *ngIf="settingForm.controls.age.errors.pattern" class="text-danger">
+                                    {{ 'form.validation.pattern' | translate }}
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div *ngIf="settingForm.controls.address" class="form-group">
+                    <div class="row align-items-center">
+                        <p class="col-md-4 py-2 text-md-right">{{ 'common.address' | translate }}</p>
+                        <div class="col-md-8">
+                            <input type="tel" class="form-control" formControlName="address" placeholder="">
+                            <div *ngIf="settingForm.controls.address.invalid && settingForm.controls.address.touched"
+                                class="mt-2">
+                                <p *ngIf="settingForm.controls.address.errors.required" class="text-danger">
+                                    {{ 'form.validation.required' | translate }}</p>
+                                <p *ngIf="settingForm.controls.address.errors.minlength" class="text-danger">
+                                    {{ 'form.validation.minlength' | translate: { value: settingForm.controls.age.errors.minlength.requiredLength } }}
+                                </p>
+                                <p *ngIf="settingForm.controls.address.errors.maxlength" class="text-danger">
+                                    {{ 'form.validation.minlength' | translate: { value: settingForm.controls.age.errors.maxlength.requiredLength } }}
+                                </p>
+                                <p *ngIf="settingForm.controls.address.errors.pattern" class="text-danger">
+                                    {{ 'form.validation.pattern' | translate }}
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div *ngIf="settingForm.controls.gender" class="form-group">
+                    <div class="row align-items-center">
+                        <p class="col-md-4 py-2 text-md-right">{{ 'common.gender.label' | translate }}</p>
+                        <div class="col-md-8">
+                            <select class="form-control" formControlName="gender">
+                                <option value="">{{ 'common.gender.unselected' | translate }}</option>
+                                <option value="man">{{ 'common.gender.man' | translate }}</option>
+                                <option value="woman">{{ 'common.gender.woman' | translate }}</option>
+                            </select>
+                            <div *ngIf="settingForm.controls.gender.invalid && settingForm.controls.gender.touched"
+                                class="mt-2">
+                                <p *ngIf="settingForm.controls.gender.errors.required" class="text-danger">
+                                    {{ 'form.validation.required' | translate }}</p>
+                                <p *ngIf="settingForm.controls.gender.errors.minlength" class="text-danger">
+                                    {{ 'form.validation.minlength' | translate: { value: settingForm.controls.age.errors.minlength.requiredLength } }}
+                                </p>
+                                <p *ngIf="settingForm.controls.gender.errors.maxlength" class="text-danger">
+                                    {{ 'form.validation.minlength' | translate: { value: settingForm.controls.age.errors.maxlength.requiredLength } }}
+                                </p>
+                                <p *ngIf="settingForm.controls.gender.errors.pattern" class="text-danger">
+                                    {{ 'form.validation.pattern' | translate }}
+                                </p>
                             </div>
                         </div>
                     </div>

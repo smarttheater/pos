@@ -2131,11 +2131,11 @@ let PurchaseConfirmComponent = class PurchaseConfirmComponent {
         return __awaiter(this, void 0, void 0, function* () {
             const purchaseData = yield this.purchaseService.getData();
             const userData = yield this.userService.getData();
-            const contact = userData.customerContact;
+            const profile = userData.customerContact;
             const seller = userData.seller;
             const paymentMethod = purchaseData.paymentMethod;
             if (paymentMethod === undefined
-                || contact === undefined
+                || profile === undefined
                 || seller === undefined) {
                 this.router.navigate(['/error']);
                 return;
@@ -2158,7 +2158,7 @@ let PurchaseConfirmComponent = class PurchaseConfirmComponent {
                     depositAmount: (paymentMethod.typeOf === _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_2__["factory"].paymentMethodType.Cash)
                         ? Number(this.depositAmount) : undefined
                 });
-                yield this.purchaseService.registerContact(contact);
+                yield this.purchaseService.registerContact(profile);
                 yield this.purchaseService.endTransaction({ seller, language: userData.language });
                 this.router.navigate(['/purchase/complete']);
             }

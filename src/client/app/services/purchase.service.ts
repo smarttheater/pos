@@ -94,19 +94,21 @@ export class PurchaseService {
     }) {
         const environment = getEnvironment();
         const now = (await this.utilService.getServerTime()).date;
+        const identifier = (params.pos === undefined)
+            ? [...environment.PURCHASE_TRANSACTION_IDENTIFIER]
+            : [
+                ...environment.PURCHASE_TRANSACTION_IDENTIFIER,
+                { name: 'posId', value: params.pos.id },
+                { name: 'posName', value: params.pos.name }
+            ];
         return new Promise<void>((resolve, reject) => {
             this.store.dispatch(new purchaseAction.StartTransaction({
                 expires: moment(now).add(environment.PURCHASE_TRANSACTION_TIME, 'minutes').toDate(),
                 seller: { typeOf: params.seller.typeOf, id: params.seller.id },
                 object: {},
-                agent: (params.pos === undefined)
-                    ? undefined
-                    : {
-                        identifier: [
-                            { name: 'posId', value: params.pos.id },
-                            { name: 'posName', value: params.pos.name }
-                        ]
-                    }
+                agent: {
+                    identifier
+                }
             }));
             const success = this.actions.pipe(
                 ofType(purchaseAction.ActionTypes.StartTransactionSuccess),

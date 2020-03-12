@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AbstractControl, FormBuilder, FormGroup, ValidationErrors, Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormControl, FormGroup, ValidatorFn, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { select, Store } from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
@@ -84,11 +84,7 @@ export class SettingComponent implements OnInit {
      * フォーム作成
      */
     private async createSettlingForm() {
-        const NAME_MAX_LENGTH = 12;
-        const MAIL_MAX_LENGTH = 50;
-        const TEL_MAX_LENGTH = 15;
-        const TEL_MIN_LENGTH = 9;
-
+        const profile = this.environment.PROFILE;
         this.settingForm = this.formBuilder.group({
             theaterBranchCode: ['', [
                 Validators.required
@@ -96,26 +92,28 @@ export class SettingComponent implements OnInit {
             posId: ['', [
                 Validators.required
             ]],
-            familyName: ['', [
-                Validators.required,
-                Validators.maxLength(NAME_MAX_LENGTH),
-                Validators.pattern(/^[ァ-ヶー]+$/)
-            ]],
-            givenName: ['', [
-                Validators.required,
-                Validators.maxLength(NAME_MAX_LENGTH),
-                Validators.pattern(/^[ァ-ヶー]+$/)
-            ]],
-            email: ['', [
-                Validators.required,
-                Validators.maxLength(MAIL_MAX_LENGTH),
-                Validators.email
-            ]],
-            telephone: ['', [
-                Validators.required,
-                Validators.maxLength(TEL_MAX_LENGTH),
-                Validators.minLength(TEL_MIN_LENGTH),
-                (control: AbstractControl): ValidationErrors | null => {
+            printerType: [''],
+            printerIpAddress: ['']
+        });
+        profile.forEach(p => {
+            const validators: ValidatorFn[] = [];
+            if (p.required !== undefined && p.required) {
+                validators.push(Validators.required);
+            }
+            if (p.maxLength !== undefined) {
+                validators.push(Validators.maxLength(p.maxLength));
+            }
+            if (p.minLength !== undefined) {
+                validators.push(Validators.minLength(p.minLength));
+            }
+            if (p.pattern !== undefined) {
+                validators.push(Validators.pattern(p.pattern));
+            }
+            if (p.key === 'email') {
+                validators.push(Validators.email);
+            }
+            if (p.key === 'telephone') {
+                validators.push((control: AbstractControl) => {
                     const field = control.root.get('telephone');
                     if (field !== null) {
                         if (field.value === '') {
@@ -134,10 +132,9 @@ export class SettingComponent implements OnInit {
                     }
 
                     return null;
-                }
-            ]],
-            printerType: [''],
-            printerIpAddress: ['']
+                });
+            }
+            this.settingForm.addControl(p.key, new FormControl(p.value, validators));
         });
         const user = await this.userService.getData();
         if (user.theater !== undefined) {
@@ -147,20 +144,26 @@ export class SettingComponent implements OnInit {
             this.changePosList();
             this.settingForm.controls.posId.setValue(user.pos.id);
         }
-        if (user.customerContact !== undefined
-            && user.customerContact.familyName !== undefined
-            && user.customerContact.givenName !== undefined
-            && user.customerContact.email !== undefined
-            && user.customerContact.telephone !== undefined) {
-            this.settingForm.controls.familyName.setValue(user.customerContact.familyName);
-            this.settingForm.controls.givenName.setValue(user.customerContact.givenName);
-            this.settingForm.controls.email.setValue(user.customerContact.email);
-            this.settingForm.controls.telephone.setValue(new LibphonenumberFormatPipe().transform(user.customerContact.telephone));
+        const customerContact = user.customerContact;
+        if (customerContact !== undefined) {
+            Object.keys(customerContact).forEach(key => {
+                const value = (<any>customerContact)[key];
+                if (value === undefined || this.settingForm.controls[key] === undefined) {
+                    return;
+                }
+                if (key === 'telephone') {
+                    this.settingForm.controls.telephone
+                        .setValue(new LibphonenumberFormatPipe().transform(value));
+                    return;
+                }
+                this.settingForm.controls[key].setValue(value);
+            });
         }
         if (user.printer !== undefined) {
             this.settingForm.controls.printerType.setValue(user.printer.connectionType);
             this.settingForm.controls.printerIpAddress.setValue(user.printer.ipAddress);
         }
+        console.log(this.settingForm);
     }
 
     /**
@@ -220,10 +223,20 @@ export class SettingComponent implements OnInit {
                 pos,
                 theater,
                 customerContact: {
-                    familyName: this.settingForm.controls.familyName.value,
-                    givenName: this.settingForm.controls.givenName.value,
-                    email: this.settingForm.controls.email.value,
-                    telephone: this.settingForm.controls.telephone.value
+                    familyName: (this.settingForm.controls.familyName === undefined)
+                        ? undefined : this.settingForm.controls.familyName.value,
+                    givenName: (this.settingForm.controls.givenName === undefined)
+                        ? undefined : this.settingForm.controls.givenName.value,
+                    email: (this.settingForm.controls.email === undefined)
+                        ? undefined : this.settingForm.controls.email.value,
+                    telephone: (this.settingForm.controls.telephone === undefined)
+                        ? undefined : this.settingForm.controls.telephone.value,
+                    age: (this.settingForm.controls.age === undefined)
+                        ? undefined : this.settingForm.controls.age.value,
+                    address: (this.settingForm.controls.address === undefined)
+                        ? undefined : this.settingForm.controls.address.value,
+                    gender: (this.settingForm.controls.gender === undefined)
+                        ? undefined : this.settingForm.controls.gender.value
                 },
                 printer: {
                     ipAddress: this.settingForm.controls.printerIpAddress.value,

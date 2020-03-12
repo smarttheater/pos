@@ -4098,7 +4098,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
           return __awaiter(this, void 0, void 0,
           /*#__PURE__*/
           regeneratorRuntime.mark(function _callee24() {
-            var purchaseData, userData, contact, seller, paymentMethod;
+            var purchaseData, userData, profile, seller, paymentMethod;
             return regeneratorRuntime.wrap(function _callee24$(_context24) {
               while (1) {
                 switch (_context24.prev = _context24.next) {
@@ -4113,11 +4113,11 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
                   case 5:
                     userData = _context24.sent;
-                    contact = userData.customerContact;
+                    profile = userData.customerContact;
                     seller = userData.seller;
                     paymentMethod = purchaseData.paymentMethod;
 
-                    if (!(paymentMethod === undefined || contact === undefined || seller === undefined)) {
+                    if (!(paymentMethod === undefined || profile === undefined || seller === undefined)) {
                       _context24.next = 12;
                       break;
                     }
@@ -4164,7 +4164,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
                   case 22:
                     _context24.next = 24;
-                    return this.purchaseService.registerContact(contact);
+                    return this.purchaseService.registerContact(profile);
 
                   case 24:
                     _context24.next = 26;

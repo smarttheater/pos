@@ -11205,7 +11205,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     !*** ./app/services/index.ts ***!
     \*******************************/
 
-  /*! exports provided: CinerinoService, AdmissionService, PurchaseService, UserService, MasterService, OrderService, ReservationService, UtilService, StarPrintService, DownloadService, QRCodeService */
+  /*! exports provided: AdmissionService, CinerinoService, PurchaseService, UserService, MasterService, OrderService, ReservationService, UtilService, StarPrintService, DownloadService, QRCodeService */
 
   /***/
   function appServicesIndexTs(module, __webpack_exports__, __webpack_require__) {
@@ -12006,12 +12006,26 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
           regeneratorRuntime.mark(function _callee38() {
             var _this31 = this;
 
+            var identifier;
             return regeneratorRuntime.wrap(function _callee38$(_context38) {
               while (1) {
                 switch (_context38.prev = _context38.next) {
                   case 0:
+                    identifier = params.pos === undefined ? [] : [{
+                      name: 'posId',
+                      value: params.pos.id
+                    }, {
+                      name: 'posName',
+                      value: params.pos.name
+                    }];
                     return _context38.abrupt("return", new Promise(function (resolve, reject) {
-                      _this31.store.dispatch(new _store_actions__WEBPACK_IMPORTED_MODULE_7__["orderAction"].Cancel(params));
+                      _this31.store.dispatch(new _store_actions__WEBPACK_IMPORTED_MODULE_7__["orderAction"].Cancel({
+                        orders: params.orders,
+                        language: params.language,
+                        agent: {
+                          identifier: identifier
+                        }
+                      }));
 
                       var success = _this31.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_1__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_7__["orderAction"].ActionTypes.CancelSuccess), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["tap"])(function () {
                         resolve();
@@ -12026,7 +12040,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                       Object(rxjs__WEBPACK_IMPORTED_MODULE_4__["race"])(success, fail).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["take"])(1)).subscribe();
                     }));
 
-                  case 1:
+                  case 2:
                   case "end":
                     return _context38.stop();
                 }
@@ -12469,7 +12483,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
           regeneratorRuntime.mark(function _callee44() {
             var _this37 = this;
 
-            var environment, now;
+            var environment, now, identifier;
             return regeneratorRuntime.wrap(function _callee44$(_context44) {
               while (1) {
                 switch (_context44.prev = _context44.next) {
@@ -12480,6 +12494,13 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
                   case 3:
                     now = _context44.sent.date;
+                    identifier = params.pos === undefined ? _toConsumableArray(environment.PURCHASE_TRANSACTION_IDENTIFIER) : [].concat(_toConsumableArray(environment.PURCHASE_TRANSACTION_IDENTIFIER), [{
+                      name: 'posId',
+                      value: params.pos.id
+                    }, {
+                      name: 'posName',
+                      value: params.pos.name
+                    }]);
                     return _context44.abrupt("return", new Promise(function (resolve, reject) {
                       _this37.store.dispatch(new _store_actions__WEBPACK_IMPORTED_MODULE_8__["purchaseAction"].StartTransaction({
                         expires: moment__WEBPACK_IMPORTED_MODULE_4__(now).add(environment.PURCHASE_TRANSACTION_TIME, 'minutes').toDate(),
@@ -12488,14 +12509,8 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                           id: params.seller.id
                         },
                         object: {},
-                        agent: params.pos === undefined ? undefined : {
-                          identifier: [{
-                            name: 'posId',
-                            value: params.pos.id
-                          }, {
-                            name: 'posName',
-                            value: params.pos.name
-                          }]
+                        agent: {
+                          identifier: identifier
                         }
                       }));
 
@@ -12512,7 +12527,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                       Object(rxjs__WEBPACK_IMPORTED_MODULE_5__["race"])(success, fail).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["take"])(1)).subscribe();
                     }));
 
-                  case 5:
+                  case 6:
                   case "end":
                     return _context44.stop();
                 }
@@ -18425,7 +18440,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
         regeneratorRuntime.mark(function _callee77() {
           var _this56 = this;
 
-          var orders, environment, _iteratorNormalCompletion6, _didIteratorError6, _iteratorError6, _loop4, _iterator6, _step6, orderStatusWatch;
+          var orders, environment, agent, _iteratorNormalCompletion6, _didIteratorError6, _iteratorError6, _loop4, _iterator6, _step6, orderStatusWatch;
 
           return regeneratorRuntime.wrap(function _callee77$(_context78) {
             while (1) {
@@ -18433,15 +18448,16 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                 case 0:
                   orders = payload.orders;
                   environment = Object(_environments_environment__WEBPACK_IMPORTED_MODULE_6__["getEnvironment"])();
-                  _context78.prev = 2;
-                  _context78.next = 5;
+                  agent = payload.agent;
+                  _context78.prev = 3;
+                  _context78.next = 6;
                   return this.cinerino.getServices();
 
-                case 5:
+                case 6:
                   _iteratorNormalCompletion6 = true;
                   _didIteratorError6 = false;
                   _iteratorError6 = undefined;
-                  _context78.prev = 8;
+                  _context78.prev = 9;
                   _loop4 =
                   /*#__PURE__*/
                   regeneratorRuntime.mark(function _loop4() {
@@ -18461,7 +18477,8 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                                     telephone: order.customer.telephone
                                   }
                                 }
-                              }
+                              },
+                              agent: agent
                             });
 
                           case 3:
@@ -18542,54 +18559,54 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                   });
                   _iterator6 = orders[Symbol.iterator]();
 
-                case 11:
+                case 12:
                   if (_iteratorNormalCompletion6 = (_step6 = _iterator6.next()).done) {
-                    _context78.next = 16;
+                    _context78.next = 17;
                     break;
                   }
 
-                  return _context78.delegateYield(_loop4(), "t0", 13);
+                  return _context78.delegateYield(_loop4(), "t0", 14);
 
-                case 13:
+                case 14:
                   _iteratorNormalCompletion6 = true;
-                  _context78.next = 11;
+                  _context78.next = 12;
                   break;
 
-                case 16:
-                  _context78.next = 22;
+                case 17:
+                  _context78.next = 23;
                   break;
 
-                case 18:
-                  _context78.prev = 18;
-                  _context78.t1 = _context78["catch"](8);
+                case 19:
+                  _context78.prev = 19;
+                  _context78.t1 = _context78["catch"](9);
                   _didIteratorError6 = true;
                   _iteratorError6 = _context78.t1;
 
-                case 22:
-                  _context78.prev = 22;
+                case 23:
                   _context78.prev = 23;
+                  _context78.prev = 24;
 
                   if (!_iteratorNormalCompletion6 && _iterator6["return"] != null) {
                     _iterator6["return"]();
                   }
 
-                case 25:
-                  _context78.prev = 25;
+                case 26:
+                  _context78.prev = 26;
 
                   if (!_didIteratorError6) {
-                    _context78.next = 28;
+                    _context78.next = 29;
                     break;
                   }
 
                   throw _iteratorError6;
 
-                case 28:
-                  return _context78.finish(25);
-
                 case 29:
-                  return _context78.finish(22);
+                  return _context78.finish(26);
 
                 case 30:
+                  return _context78.finish(23);
+
+                case 31:
                   orderStatusWatch = function orderStatusWatch() {
                     return new Promise(function (resolve, reject) {
                       return __awaiter(_this56, void 0, void 0,
@@ -18668,25 +18685,25 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                     });
                   };
 
-                  _context78.next = 33;
+                  _context78.next = 34;
                   return orderStatusWatch();
 
-                case 33:
+                case 34:
                   return _context78.abrupt("return", new _actions__WEBPACK_IMPORTED_MODULE_10__["orderAction"].CancelSuccess());
 
-                case 36:
-                  _context78.prev = 36;
-                  _context78.t2 = _context78["catch"](2);
+                case 37:
+                  _context78.prev = 37;
+                  _context78.t2 = _context78["catch"](3);
                   return _context78.abrupt("return", new _actions__WEBPACK_IMPORTED_MODULE_10__["orderAction"].CancelFail({
                     error: _context78.t2
                   }));
 
-                case 39:
+                case 40:
                 case "end":
                   return _context78.stop();
               }
             }
-          }, _callee77, this, [[2, 36], [8, 18, 22, 30], [23,, 25, 29]]);
+          }, _callee77, this, [[3, 37], [9, 19, 23, 31], [24,, 26, 30]]);
         }));
       }));
       /**
@@ -22794,6 +22811,30 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       STORAGE_TYPE: 'localStorage',
       BASE_URL: '/purchase/root',
       LANGUAGE: ['ja'],
+      PROFILE: [{
+        key: 'email',
+        value: '',
+        required: true,
+        maxLength: 50
+      }, {
+        key: 'givenName',
+        value: '',
+        required: true,
+        pattern: /^[ァ-ヶー]+$/,
+        maxLength: 12
+      }, {
+        key: 'familyName',
+        value: '',
+        required: true,
+        pattern: /^[ァ-ヶー]+$/,
+        maxLength: 12
+      }, {
+        key: 'telephone',
+        value: '',
+        required: true,
+        maxLength: 15,
+        minLength: 9
+      }],
       PAYMENT_METHOD_TO_USE: [],
       PAYMENT_METHOD_CUSTOM: [],
       REGIGROW_QRCODE: '',
@@ -22804,6 +22845,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       PURCHASE_ITEM_MAX_LENGTH: '50',
       PURCHASE_TRANSACTION_TIME: '15',
       PURCHASE_TRANSACTION_TIME_DISPLAY: false,
+      PURCHASE_TRANSACTION_IDENTIFIER: [],
       PURCHASE_PRE_SCHEDULE_DATE: '3',
       PURCHASE_SCHEDULE_DEFAULT_SELECTED_DATE: '0',
       PURCHASE_SCHEDULE_STATUS_THRESHOLD_VALUE: '30',
