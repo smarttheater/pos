@@ -12,6 +12,11 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/).
 
 ### Security
 
+## 3.0.16 - 2020-03-12
+### Added
+ - チケット印刷QRコード非表示設定追加
+ - 注文取引確定後の印刷アクション汎用性拡張
+
 ## 3.0.15 - 2020-03-11
 ### Changed
  - 注文取引agentのプロフィール属性拡張
