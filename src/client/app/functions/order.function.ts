@@ -399,3 +399,21 @@ export function input2OrderSearchCondition(params: {
     };
     return result;
 }
+
+/**
+ * 注文連携リンク作成
+ */
+export function createOrderLink(
+    order: factory.order.IOrder,
+    link: {
+        name: { ja: string; en: string; };
+        url: string; params: { key: string; value?: string; }[];
+    }
+) {
+    const params: string[] = [];
+    link.params.forEach(p => {
+        const value = (p.value === undefined) ? (<any>order)[p.key] : p.value;
+        params.push(`${p.key}=${value}`);
+    });
+    return (params.length > 0) ? `${link.url}?${params.join('&')}` : link.url;
+}

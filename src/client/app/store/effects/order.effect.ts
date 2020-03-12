@@ -6,7 +6,7 @@ import * as moment from 'moment';
 import { map, mergeMap } from 'rxjs/operators';
 import { getEnvironment } from '../../../environments/environment';
 import { createPrintCanvas, createTestPrintCanvas, formatTelephone, getItemPrice, getProject, retry, sleep } from '../../functions';
-import { connectionType, ITicketPrintData, PrintQrcodeType } from '../../models';
+import { ConnectionType, ITicketPrintData, PrintQrcodeType } from '../../models';
 import { CinerinoService, StarPrintService, UtilService } from '../../services';
 import { orderAction } from '../actions';
 
@@ -181,28 +181,27 @@ export class OrderEffects {
                 const printer = payload.printer;
                 const pos = payload.pos;
                 const environment = getEnvironment();
-                if (printer.connectionType === connectionType.None) {
+                if (printer.connectionType === ConnectionType.None) {
                     return new orderAction.PrintSuccess();
                 }
                 await this.cinerino.getServices();
-                const authorizeOrders: factory.order.IOrder[] = [];
-                for (const order of orders) {
-                    const result = await retry<factory.order.IOrder>({
-                        process: (async () => {
-                            const orderNumber = order.orderNumber;
-                            const customer = {
-                                // email: args.order.customer.email,
-                                telephone: order.customer.telephone
-                            };
-                            const authorizeOrder = await this.cinerino.order.authorizeOwnershipInfos({ orderNumber, customer });
-
-                            return authorizeOrder;
-                        }),
-                        interval: 5000,
-                        limit: 5
-                    });
-
-                    authorizeOrders.push(result);
+                let authorizeOrders: factory.order.IOrder[] = [];
+                if (environment.PRINT_QRCODE_TYPE === PrintQrcodeType.None) {
+                    authorizeOrders = orders;
+                } else {
+                    for (const order of orders) {
+                        const result = await retry<factory.order.IOrder>({
+                            process: (async () => {
+                                const orderNumber = order.orderNumber;
+                                const customer = { telephone: order.customer.telephone };
+                                const authorizeOrder = await this.cinerino.order.authorizeOwnershipInfos({ orderNumber, customer });
+                                return authorizeOrder;
+                            }),
+                            interval: 5000,
+                            limit: 5
+                        });
+                        authorizeOrders.push(result);
+                    }
                 }
                 const printData = await this.utilService.getJson<ITicketPrintData>(`${getProject().storageUrl}/json/print/ticket.json`);
                 const testFlg = authorizeOrders.length === 0;
@@ -219,7 +218,8 @@ export class OrderEffects {
                                 continue;
                             }
                             const order = authorizeOrder;
-                            let qrcode = itemOffered.reservedTicket.ticketToken;
+                            let qrcode = (environment.PRINT_QRCODE_TYPE === PrintQrcodeType.None)
+                                ? undefined : itemOffered.reservedTicket.ticketToken;
                             const additionalProperty = (itemOffered.reservationFor.workPerformed === undefined)
                                 ? undefined : itemOffered.reservationFor.workPerformed.additionalProperty;
                             if (additionalProperty !== undefined) {
@@ -228,14 +228,6 @@ export class OrderEffects {
                                 if (isDisplayQrcode !== undefined && isDisplayQrcode.value === 'false') {
                                     qrcode = undefined;
                                 }
-                            }
-                            if (qrcode !== undefined
-                                && environment.PRINT_QRCODE_TYPE === PrintQrcodeType.Encryption) {
-                                // QRコード暗号化(id + startDate)
-                                const encyptText = `${itemOffered.reservationFor.id}=${itemOffered.reservationFor.startDate}`;
-                                const encryptionEncodeResult = await this.utilService.encryptionEncode(encyptText);
-                                qrcode =
-                                    `${encryptionEncodeResult.salt},${encryptionEncodeResult.iv},${encryptionEncodeResult.encrypted}`;
                             }
                             if (qrcode !== undefined
                                 && environment.PRINT_QRCODE_TYPE === PrintQrcodeType.Custom) {
@@ -272,15 +264,15 @@ export class OrderEffects {
                     }
                 }
                 switch (printer.connectionType) {
-                    case connectionType.StarBluetooth:
+                    case ConnectionType.StarBluetooth:
                         this.starPrint.initialize({ printer, pos });
                         await this.starPrint.printProcess({ canvasList, testFlg });
                         break;
-                    case connectionType.StarLAN:
+                    case ConnectionType.StarLAN:
                         this.starPrint.initialize({ printer, pos });
                         await this.starPrint.printProcess({ canvasList, testFlg });
                         break;
-                    case connectionType.Image:
+                    case ConnectionType.Image:
                         const domList = canvasList.map(canvas => `<div class="mb-3 p-4 border border-light-gray shadow-sm">
                         <img class="w-100" src="${canvas.toDataURL()}">
                         </div>`);

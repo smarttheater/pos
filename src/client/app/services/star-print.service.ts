@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { factory } from '@cinerino/api-javascript-client';
 import { sleep } from '../functions';
-import { connectionType, IPrinter, printers } from '../models';
+import { ConnectionType, IPrinter, printers } from '../models';
 
 @Injectable({
     providedIn: 'root'
@@ -84,12 +84,12 @@ export class StarPrintService {
             const port = /https/.test(window.location.protocol) ? 443 : 80;
             const findResult = printers.find(p => p.connectionType === printer.connectionType);
             if (findResult === undefined
-                || (findResult.connectionType !== connectionType.StarBluetooth
-                    && findResult.connectionType !== connectionType.StarLAN)
+                || (findResult.connectionType !== ConnectionType.StarBluetooth
+                    && findResult.connectionType !== ConnectionType.StarLAN)
             ) {
                 throw new Error('選択しているプリンターに対応していません').message;
             }
-            const url = (findResult.connectionType === connectionType.StarLAN)
+            const url = (findResult.connectionType === ConnectionType.StarLAN)
                 ? `https://${printer.ipAddress}:${port}/StarWebPRNT/SendMessage`
                 : `https://${printer.ipAddress}/StarWebPRNT/SendMessage`;
             const papertype = 'normal';

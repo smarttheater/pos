@@ -6,7 +6,8 @@ import { TranslateService } from '@ngx-translate/core';
 import * as moment from 'moment';
 import { Observable } from 'rxjs';
 import { getEnvironment } from '../../../../../../environments/environment';
-import { createCooperationQRCode, getCustomPaymentMethodTypeName, IEventOrder, order2EventOrders } from '../../../../../functions';
+import { createCooperationQRCode, createOrderLink, getCustomPaymentMethodTypeName, IEventOrder, order2EventOrders } from '../../../../../functions';
+import { ConnectionType } from '../../../../../models';
 import { OrderService, PurchaseService, UserService, UtilService } from '../../../../../services';
 import * as reducers from '../../../../../store/reducers';
 
@@ -26,6 +27,8 @@ export class PurchaseCompleteComponent implements OnInit {
     public qrcode?: string;
     public paymentMethodType = factory.paymentMethodType;
     public getCustomPaymentMethodTypeName = getCustomPaymentMethodTypeName;
+    public connectionType = ConnectionType;
+    public createOrderLink = createOrderLink;
 
     constructor(
         private store: Store<reducers.IState>,

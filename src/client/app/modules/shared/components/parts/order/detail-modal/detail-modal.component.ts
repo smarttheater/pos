@@ -6,6 +6,7 @@ import * as platform from 'platform';
 import { getEnvironment } from '../../../../../../../environments/environment';
 import {
     createCooperationQRCode,
+    createOrderLink,
     getTransactionAgentIdentifier,
     IEventOrder,
     order2EventOrders
@@ -25,6 +26,7 @@ export class OrderDetailModalComponent implements OnInit {
     public getTransactionAgentIdentifier = getTransactionAgentIdentifier;
     public platform = platform;
     public paymentMethodType = factory.paymentMethodType;
+    public createOrderLink = createOrderLink;
 
     constructor(
         public modal: BsModalRef,

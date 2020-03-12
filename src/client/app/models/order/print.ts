@@ -2,8 +2,8 @@
  * QRコード文字列
  */
 export enum PrintQrcodeType {
+    None = 'None',
     Token = 'token',
-    Encryption = 'encryption',
     Custom = 'Custom'
 }
 

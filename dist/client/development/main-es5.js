@@ -681,7 +681,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     /* harmony default export */
 
 
-    __webpack_exports__["default"] = "<div class=\"p-3 scroll-vertical text-small\">\n    <div class=\"mb-4\">\n        <div class=\"py-3 border-bottom border-gray\">\n            <div class=\"row align-items-center\">\n                <p class=\"mb-2 mb-md-0 col-md-4\">[{{ 'common.orderDate' | translate }}]</p>\n                <p class=\"col-md-8\">{{ moment(order.orderDate).format('YYYY/MM/DD (ddd) HH:mm') }}</p>\n            </div>\n        </div>\n        <div class=\"py-3 border-bottom border-gray\">\n            <div class=\"row align-items-center\">\n                <p class=\"mb-2 mb-md-0 col-md-4\">[{{ 'common.confirmationNumber' | translate }}]</p>\n                <p class=\"col-md-8\">{{ order.confirmationNumber }}</p>\n            </div>\n        </div>\n        <div class=\"py-3 border-bottom border-gray\">\n            <div class=\"row align-items-center\">\n                <p class=\"mb-2 mb-md-0 col-md-4\">[{{ 'common.orderNumber' | translate }}]</p>\n                <p class=\"col-md-8\">{{ order.orderNumber }}</p>\n            </div>\n        </div>\n        <div class=\"py-3 border-bottom border-gray\">\n            <div class=\"row align-items-center\">\n                <p class=\"mb-2 mb-md-0 col-md-4\">[{{ 'common.event' | translate }}]</p>\n                <div class=\"col-md-8\">\n                    <div *ngFor=\"let eventOrder of eventOrders\" class=\"mb-3\">\n                        <div class=\"mb-1\">\n                            <p class=\"font-weight-bold text-large\">{{ eventOrder.event.name | changeLanguage }}</p>\n                            <p class=\"text-small\"\n                                *ngIf=\"eventOrder.event.superEvent.headline && (eventOrder.event.superEvent.headline | changeLanguage)\">\n                                {{ eventOrder.event.superEvent.headline | changeLanguage }}</p>\n                            <!-- <p class=\"text-small\"\n                                    *ngIf=\"eventOrder.event.superEvent.description && (eventOrder.event.superEvent.description | changeLanguage)\">{{\n                                            eventOrder.event.superEvent.description | changeLanguage }}</p> -->\n                        </div>\n                        <p class=\"mb-1\">\n                            {{ eventOrder.event.startDate | formatDate: 'MM/DD(ddd) HH:mm' }}-{{ eventOrder.event.endDate | formatDate: 'HH:mm' }}\n                        </p>\n                        <p class=\"text-small mb-1\">\n                            <span\n                                class=\"theater-name\">{{ eventOrder.event.superEvent.location.name | changeLanguage }}</span>\n                            <span\n                                class=\"screen-name\">&nbsp;/&nbsp;<span *ngIf=\"eventOrder.event.location.address\" class=\"mr-2\">{{ eventOrder.event.location.address | changeLanguage }}</span>{{ eventOrder.event.location.name | changeLanguage }}</span>\n                            <span\n                                *ngIf=\"eventOrder.event.workPerformed?.duration && moment.duration(eventOrder.event.workPerformed?.duration).asMinutes() > 0\">\n                                &nbsp;/&nbsp;<span\n                                    class=\"mr-1\">{{ 'common.duration' | translate }}</span>{{ moment.duration(eventOrder.event.workPerformed?.duration).asMinutes() }}{{ 'common.date.minute' | translate }}\n                            </span>\n                        </p>\n                        <div *ngFor=\"let acceptedOffer of eventOrder.data\">\n                            <p>[{{ 'common.reservationNumber' | translate }}]\n                                {{ acceptedOffer.itemOffered.reservationNumber }}</p>\n                            <p>[{{ 'common.reservationId' | translate }}] {{ acceptedOffer.itemOffered.id }}</p>\n                            <app-item-list [acceptedOffers]=\"[acceptedOffer]\"></app-item-list>\n                        </div>\n                        <div *ngIf=\"eventOrder.data[0].itemOffered.additionalTicketText\" class=\"additional-ticket-text\">\n                            <p>[{{ 'common.additionalTicketText' | translate }}]</p>\n                            <p>{{ eventOrder.data[0].itemOffered.additionalTicketText }}</p>\n                        </div>\n                    </div>\n                </div>\n            </div>\n        </div>\n        <div class=\"py-3 border-bottom border-gray\">\n            <div class=\"row align-items-center\">\n                <p class=\"mb-2 mb-md-0 col-md-4\">[{{ 'common.customer' | translate }}]</p>\n                <div class=\"col-md-8\">\n                    <p>{{ order.customer.familyName }} {{ order.customer.givenName }}</p>\n                    <p>{{ order.customer.email }}</p>\n                    <p>{{ order.customer.telephone | libphonenumberFormat }}</p>\n                </div>\n            </div>\n        </div>\n        <div class=\"py-3 border-bottom border-gray\">\n            <div class=\"row align-items-center\">\n                <p class=\"mb-2 mb-md-0 col-md-4\">[{{ 'common.price' | translate }}]</p>\n                <p class=\"col-md-8\">\n                    {{ order.price | currency : 'JPY' }}\n                </p>\n            </div>\n        </div>\n        <div class=\"py-3 border-bottom border-gray\">\n            <div class=\"row align-items-center\">\n                <p class=\"mb-2 mb-md-0 col-md-4\">[{{ 'common.orderStatus' | translate }}]</p>\n                <p class=\"col-md-8\">{{ order.orderStatus }}</p>\n            </div>\n        </div>\n        <div class=\"py-3 border-bottom border-gray\">\n            <div class=\"row align-items-center\">\n                <p class=\"mb-2 mb-md-0 col-md-4\">[{{ 'common.paymentMethod' | translate }}]</p>\n                <div class=\"col-md-8\">\n                    <p *ngFor=\"let paymentMethod of order.paymentMethods\">\n                        <span *ngIf=\"!(paymentMethod.typeOf === paymentMethodType.Others && paymentMethod.name !== paymentMethodType.Others)\">\n                            {{ paymentMethod.name }}&nbsp;/&nbsp;{{ paymentMethod.totalPaymentDue.value | currency : paymentMethod.totalPaymentDue.currency }}\n                        </span>\n                        <span *ngIf=\"paymentMethod.typeOf === paymentMethodType.Others && paymentMethod.name !== paymentMethodType.Others\">\n                            {{ paymentMethod.typeOf }}[{{ paymentMethod.name }}]&nbsp;/&nbsp;{{ paymentMethod.totalPaymentDue.value | currency : paymentMethod.totalPaymentDue.currency }}\n                        </span>\n                        \n                    </p>\n                    <div *ngIf=\"qrcode\" class=\"mt-2\"><img class=\"border\" [src]=\"qrcode\"></div>\n                </div>\n            </div>\n        </div>\n        <div class=\"py-3 border-bottom border-gray\">\n            <div class=\"row align-items-center\">\n                <p class=\"mb-2 mb-md-0 col-md-4\">[{{ 'common.etc' | translate }}]</p>\n                <div class=\"col-md-8\">\n                    <p *ngIf=\"getTransactionAgentIdentifier(order, 'linyId')\">\n                        [linyId]<br>\n                        {{ getTransactionAgentIdentifier(order, 'linyId').value }}\n                    </p>\n                    <p *ngIf=\"getTransactionAgentIdentifier(order, 'userAgent')\">\n                        [platform]<br>\n                        name: {{ platform.parse(getTransactionAgentIdentifier(order, 'userAgent').value).name }}<br>\n                        version:\n                        {{ platform.parse(getTransactionAgentIdentifier(order, 'userAgent').value).version }}<br>\n                        product: <span\n                            *ngIf=\"platform.parse(getTransactionAgentIdentifier(order, 'userAgent').value).product\">{{ platform.parse(getTransactionAgentIdentifier(order, 'userAgent').value).product }}</span><span\n                            *ngIf=\"!platform.parse(getTransactionAgentIdentifier(order, 'userAgent').value).product\">-</span><br>\n                        layout: {{ platform.parse(getTransactionAgentIdentifier(order, 'userAgent').value).layout }}<br>\n                        os: {{ platform.parse(getTransactionAgentIdentifier(order, 'userAgent').value).os }}<br>\n                        ({{ platform.parse(getTransactionAgentIdentifier(order, 'userAgent').value).description }})\n                    </p>\n                    <p\n                        *ngIf=\"getTransactionAgentIdentifier(order, 'posId') && getTransactionAgentIdentifier(order, 'posName')\">\n                        [POS]<br>\n                        id: {{ getTransactionAgentIdentifier(order, 'posId').value }}<br>\n                        name: {{ getTransactionAgentIdentifier(order, 'posName').value }}\n                    </p>\n                </div>\n            </div>\n        </div>\n\n    </div>\n\n    <div class=\"buttons mx-auto text-center\">\n        <button type=\"button\" class=\"btn btn-link btn-sm\"\n            (click)=\"modal.hide()\">{{ 'common.close' | translate }}</button>\n    </div>\n\n</div>";
+    __webpack_exports__["default"] = "<div class=\"p-3 scroll-vertical text-small\">\n    <div class=\"mb-4\">\n        <div class=\"py-3 border-bottom border-gray\">\n            <div class=\"row align-items-center\">\n                <p class=\"mb-2 mb-md-0 col-md-4\">[{{ 'common.orderDate' | translate }}]</p>\n                <p class=\"col-md-8\">{{ moment(order.orderDate).format('YYYY/MM/DD (ddd) HH:mm') }}</p>\n            </div>\n        </div>\n        <div class=\"py-3 border-bottom border-gray\">\n            <div class=\"row align-items-center\">\n                <p class=\"mb-2 mb-md-0 col-md-4\">[{{ 'common.confirmationNumber' | translate }}]</p>\n                <p class=\"col-md-8\">{{ order.confirmationNumber }}</p>\n            </div>\n        </div>\n        <div class=\"py-3 border-bottom border-gray\">\n            <div class=\"row align-items-center\">\n                <p class=\"mb-2 mb-md-0 col-md-4\">[{{ 'common.orderNumber' | translate }}]</p>\n                <p class=\"col-md-8\">{{ order.orderNumber }}</p>\n            </div>\n        </div>\n        <div class=\"py-3 border-bottom border-gray\">\n            <div class=\"row align-items-center\">\n                <p class=\"mb-2 mb-md-0 col-md-4\">[{{ 'common.event' | translate }}]</p>\n                <div class=\"col-md-8\">\n                    <div *ngFor=\"let eventOrder of eventOrders\" class=\"mb-3\">\n                        <div class=\"mb-1\">\n                            <p class=\"font-weight-bold text-large\">{{ eventOrder.event.name | changeLanguage }}</p>\n                            <p class=\"text-small\"\n                                *ngIf=\"eventOrder.event.superEvent.headline && (eventOrder.event.superEvent.headline | changeLanguage)\">\n                                {{ eventOrder.event.superEvent.headline | changeLanguage }}</p>\n                            <!-- <p class=\"text-small\"\n                                    *ngIf=\"eventOrder.event.superEvent.description && (eventOrder.event.superEvent.description | changeLanguage)\">{{\n                                            eventOrder.event.superEvent.description | changeLanguage }}</p> -->\n                        </div>\n                        <p class=\"mb-1\">\n                            {{ eventOrder.event.startDate | formatDate: 'MM/DD(ddd) HH:mm' }}-{{ eventOrder.event.endDate | formatDate: 'HH:mm' }}\n                        </p>\n                        <p class=\"text-small mb-1\">\n                            <span\n                                class=\"theater-name\">{{ eventOrder.event.superEvent.location.name | changeLanguage }}</span>\n                            <span class=\"screen-name\">&nbsp;/&nbsp;<span *ngIf=\"eventOrder.event.location.address\"\n                                    class=\"mr-2\">{{ eventOrder.event.location.address | changeLanguage }}</span>{{ eventOrder.event.location.name | changeLanguage }}</span>\n                            <span\n                                *ngIf=\"eventOrder.event.workPerformed?.duration && moment.duration(eventOrder.event.workPerformed?.duration).asMinutes() > 0\">\n                                &nbsp;/&nbsp;<span\n                                    class=\"mr-1\">{{ 'common.duration' | translate }}</span>{{ moment.duration(eventOrder.event.workPerformed?.duration).asMinutes() }}{{ 'common.date.minute' | translate }}\n                            </span>\n                        </p>\n                        <div *ngFor=\"let acceptedOffer of eventOrder.data\">\n                            <p>[{{ 'common.reservationNumber' | translate }}]\n                                {{ acceptedOffer.itemOffered.reservationNumber }}</p>\n                            <p>[{{ 'common.reservationId' | translate }}] {{ acceptedOffer.itemOffered.id }}</p>\n                            <app-item-list [acceptedOffers]=\"[acceptedOffer]\"></app-item-list>\n                        </div>\n                        <div *ngIf=\"eventOrder.data[0].itemOffered.additionalTicketText\" class=\"additional-ticket-text\">\n                            <p>[{{ 'common.additionalTicketText' | translate }}]</p>\n                            <p>{{ eventOrder.data[0].itemOffered.additionalTicketText }}</p>\n                        </div>\n                    </div>\n                </div>\n            </div>\n        </div>\n        <div class=\"py-3 border-bottom border-gray\">\n            <div class=\"row align-items-center\">\n                <p class=\"mb-2 mb-md-0 col-md-4\">[{{ 'common.customer' | translate }}]</p>\n                <div class=\"col-md-8\">\n                    <p>{{ order.customer.familyName }} {{ order.customer.givenName }}</p>\n                    <p>{{ order.customer.email }}</p>\n                    <p>{{ order.customer.telephone | libphonenumberFormat }}</p>\n                </div>\n            </div>\n        </div>\n        <div class=\"py-3 border-bottom border-gray\">\n            <div class=\"row align-items-center\">\n                <p class=\"mb-2 mb-md-0 col-md-4\">[{{ 'common.price' | translate }}]</p>\n                <p class=\"col-md-8\">\n                    {{ order.price | currency : 'JPY' }}\n                </p>\n            </div>\n        </div>\n        <div class=\"py-3 border-bottom border-gray\">\n            <div class=\"row align-items-center\">\n                <p class=\"mb-2 mb-md-0 col-md-4\">[{{ 'common.orderStatus' | translate }}]</p>\n                <p class=\"col-md-8\">{{ order.orderStatus }}</p>\n            </div>\n        </div>\n        <div class=\"py-3 border-bottom border-gray\">\n            <div class=\"row align-items-center\">\n                <p class=\"mb-2 mb-md-0 col-md-4\">[{{ 'common.paymentMethod' | translate }}]</p>\n                <div class=\"col-md-8\">\n                    <p *ngFor=\"let paymentMethod of order.paymentMethods\">\n                        <span\n                            *ngIf=\"!(paymentMethod.typeOf === paymentMethodType.Others && paymentMethod.name !== paymentMethodType.Others)\">\n                            {{ paymentMethod.name }}&nbsp;/&nbsp;{{ paymentMethod.totalPaymentDue.value | currency : paymentMethod.totalPaymentDue.currency }}\n                        </span>\n                        <span\n                            *ngIf=\"paymentMethod.typeOf === paymentMethodType.Others && paymentMethod.name !== paymentMethodType.Others\">\n                            {{ paymentMethod.typeOf }}[{{ paymentMethod.name }}]&nbsp;/&nbsp;{{ paymentMethod.totalPaymentDue.value | currency : paymentMethod.totalPaymentDue.currency }}\n                        </span>\n\n                    </p>\n                    <div *ngIf=\"qrcode\" class=\"mt-2\"><img class=\"border\" [src]=\"qrcode\"></div>\n                </div>\n            </div>\n        </div>\n        <div class=\"py-3 border-bottom border-gray\">\n            <div class=\"row align-items-center\">\n                <p class=\"mb-2 mb-md-0 col-md-4\">[{{ 'common.etc' | translate }}]</p>\n                <div class=\"col-md-8\">\n                    <p *ngIf=\"getTransactionAgentIdentifier(order, 'linyId')\">\n                        [linyId]<br>\n                        {{ getTransactionAgentIdentifier(order, 'linyId').value }}\n                    </p>\n                    <p *ngIf=\"getTransactionAgentIdentifier(order, 'userAgent')\">\n                        [platform]<br>\n                        name: {{ platform.parse(getTransactionAgentIdentifier(order, 'userAgent').value).name }}<br>\n                        version:\n                        {{ platform.parse(getTransactionAgentIdentifier(order, 'userAgent').value).version }}<br>\n                        product: <span\n                            *ngIf=\"platform.parse(getTransactionAgentIdentifier(order, 'userAgent').value).product\">{{ platform.parse(getTransactionAgentIdentifier(order, 'userAgent').value).product }}</span><span\n                            *ngIf=\"!platform.parse(getTransactionAgentIdentifier(order, 'userAgent').value).product\">-</span><br>\n                        layout: {{ platform.parse(getTransactionAgentIdentifier(order, 'userAgent').value).layout }}<br>\n                        os: {{ platform.parse(getTransactionAgentIdentifier(order, 'userAgent').value).os }}<br>\n                        ({{ platform.parse(getTransactionAgentIdentifier(order, 'userAgent').value).description }})\n                    </p>\n                    <p\n                        *ngIf=\"getTransactionAgentIdentifier(order, 'posId') && getTransactionAgentIdentifier(order, 'posName')\">\n                        [POS]<br>\n                        id: {{ getTransactionAgentIdentifier(order, 'posId').value }}<br>\n                        name: {{ getTransactionAgentIdentifier(order, 'posName').value }}\n                    </p>\n                </div>\n            </div>\n        </div>\n\n    </div>\n\n    <div class=\"buttons mx-auto text-center\">\n        <a *ngFor=\"let link of environment.ORDER_LINK\" class=\"btn btn-primary btn-block py-3 mb-3\" target=\"_blank\"\n            [href]=\"createOrderLink(order, link)\">{{ link.name | changeLanguage }}</a>\n        <button type=\"button\" class=\"btn btn-link btn-sm\"\n            (click)=\"modal.hide()\">{{ 'common.close' | translate }}</button>\n    </div>\n\n</div>";
     /***/
   },
 
@@ -1321,7 +1321,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     !*** ./app/functions/index.ts ***!
     \********************************/
 
-  /*! exports provided: screeningEventsToWorkEvents, createGmoTokenObject, sameMovieTicketFilter, isAvailabilityMovieTicket, createMovieTicketsFromAuthorizeSeatReservation, getCustomPaymentMethodTypeName, getTicketPrice, getItemPrice, movieTicketAuthErroCodeToMessage, getAmount, order2EventOrders, authorizeSeatReservation2Event, getRemainingSeatLength, isEligibleSeatingType, getEmptySeat, selectAvailableSeat, formatTelephone, toFull, toHalf, retry, sleep, buildQueryString, iOSDatepickerTapBugFix, streamingDownload, string2blob, getParameter, getProject, createPrintCanvas, createTestPrintCanvas, createCooperationQRCode, getTransactionAgentIdentifier, order2report, input2OrderSearchCondition, getTranslateModuleConfig, reservation2report, input2ReservationSearchCondition */
+  /*! exports provided: screeningEventsToWorkEvents, createGmoTokenObject, sameMovieTicketFilter, isAvailabilityMovieTicket, createMovieTicketsFromAuthorizeSeatReservation, getCustomPaymentMethodTypeName, getTicketPrice, getItemPrice, movieTicketAuthErroCodeToMessage, getAmount, order2EventOrders, authorizeSeatReservation2Event, getRemainingSeatLength, isEligibleSeatingType, getEmptySeat, selectAvailableSeat, formatTelephone, toFull, toHalf, retry, sleep, buildQueryString, iOSDatepickerTapBugFix, streamingDownload, string2blob, getParameter, getProject, createPrintCanvas, createTestPrintCanvas, createCooperationQRCode, getTransactionAgentIdentifier, order2report, input2OrderSearchCondition, createOrderLink, getTranslateModuleConfig, reservation2report, input2ReservationSearchCondition */
 
   /***/
   function appFunctionsIndexTs(module, __webpack_exports__, __webpack_require__) {
@@ -1544,6 +1544,12 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     __webpack_require__.d(__webpack_exports__, "input2OrderSearchCondition", function () {
       return _order_function__WEBPACK_IMPORTED_MODULE_2__["input2OrderSearchCondition"];
     });
+    /* harmony reexport (safe) */
+
+
+    __webpack_require__.d(__webpack_exports__, "createOrderLink", function () {
+      return _order_function__WEBPACK_IMPORTED_MODULE_2__["createOrderLink"];
+    });
     /* harmony import */
 
 
@@ -1590,7 +1596,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     !*** ./app/functions/order.function.ts ***!
     \*****************************************/
 
-  /*! exports provided: createPrintCanvas, createTestPrintCanvas, createCooperationQRCode, getTransactionAgentIdentifier, order2report, input2OrderSearchCondition */
+  /*! exports provided: createPrintCanvas, createTestPrintCanvas, createCooperationQRCode, getTransactionAgentIdentifier, order2report, input2OrderSearchCondition, createOrderLink */
 
   /***/
   function appFunctionsOrderFunctionTs(module, __webpack_exports__, __webpack_require__) {
@@ -1632,6 +1638,12 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
     __webpack_require__.d(__webpack_exports__, "input2OrderSearchCondition", function () {
       return input2OrderSearchCondition;
+    });
+    /* harmony export (binding) */
+
+
+    __webpack_require__.d(__webpack_exports__, "createOrderLink", function () {
+      return createOrderLink;
     });
     /* harmony import */
 
@@ -2339,6 +2351,19 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
         }
       };
       return result;
+    }
+    /**
+     * 注文連携リンク作成
+     */
+
+
+    function createOrderLink(order, link) {
+      var params = [];
+      link.params.forEach(function (p) {
+        var value = p.value === undefined ? order[p.key] : p.value;
+        params.push("".concat(p.key, "=").concat(value));
+      });
+      return params.length > 0 ? "".concat(link.url, "?").concat(params.join('&')) : link.url;
     }
     /***/
 
@@ -3874,7 +3899,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     !*** ./app/models/index.ts ***!
     \*****************************/
 
-  /*! exports provided: SeatStatus, PaymentMethodType, Performance, connectionType, printers, OrderActions, CsvFormat, PrintQrcodeType, Language, ViewType */
+  /*! exports provided: SeatStatus, PaymentMethodType, Performance, ConnectionType, printers, OrderActions, CsvFormat, PrintQrcodeType, Language, ViewType */
 
   /***/
   function appModelsIndexTs(module, __webpack_exports__, __webpack_require__) {
@@ -3926,8 +3951,8 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     /* harmony reexport (safe) */
 
 
-    __webpack_require__.d(__webpack_exports__, "connectionType", function () {
-      return _util_printer__WEBPACK_IMPORTED_MODULE_3__["connectionType"];
+    __webpack_require__.d(__webpack_exports__, "ConnectionType", function () {
+      return _util_printer__WEBPACK_IMPORTED_MODULE_3__["ConnectionType"];
     });
     /* harmony reexport (safe) */
 
@@ -4119,8 +4144,8 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     var PrintQrcodeType;
 
     (function (PrintQrcodeType) {
+      PrintQrcodeType["None"] = "None";
       PrintQrcodeType["Token"] = "token";
-      PrintQrcodeType["Encryption"] = "encryption";
       PrintQrcodeType["Custom"] = "Custom";
     })(PrintQrcodeType || (PrintQrcodeType = {}));
     /***/
@@ -4514,7 +4539,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     !*** ./app/models/util/printer.ts ***!
     \************************************/
 
-  /*! exports provided: connectionType, printers */
+  /*! exports provided: ConnectionType, printers */
 
   /***/
   function appModelsUtilPrinterTs(module, __webpack_exports__, __webpack_require__) {
@@ -4524,8 +4549,8 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     /* harmony export (binding) */
 
 
-    __webpack_require__.d(__webpack_exports__, "connectionType", function () {
-      return connectionType;
+    __webpack_require__.d(__webpack_exports__, "ConnectionType", function () {
+      return ConnectionType;
     });
     /* harmony export (binding) */
 
@@ -4544,45 +4569,45 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
      */
 
 
-    var connectionType;
+    var ConnectionType;
 
-    (function (connectionType) {
+    (function (ConnectionType) {
       /**
        * なし
        */
-      connectionType["None"] = "None";
+      ConnectionType["None"] = "None";
       /**
        * 画像
        */
 
-      connectionType["Image"] = "Image";
+      ConnectionType["Image"] = "Image";
       /**
        * スター精密 LAN接続
        */
 
-      connectionType["StarLAN"] = "StarLAN";
+      ConnectionType["StarLAN"] = "StarLAN";
       /**
        * スター精密 Bluetooth接続
        */
 
-      connectionType["StarBluetooth"] = "StarBluetooth";
-    })(connectionType || (connectionType = {}));
+      ConnectionType["StarBluetooth"] = "StarBluetooth";
+    })(ConnectionType || (ConnectionType = {}));
     /**
      * プリンター一覧
      */
 
 
     var printers = [{
-      connectionType: connectionType.None,
+      connectionType: ConnectionType.None,
       name: 'setting.printType.none'
     }, {
-      connectionType: connectionType.Image,
+      connectionType: ConnectionType.Image,
       name: 'setting.printType.image'
     }, {
-      connectionType: connectionType.StarLAN,
+      connectionType: ConnectionType.StarLAN,
       name: 'setting.printType.starLAN'
     }, {
-      connectionType: connectionType.StarBluetooth,
+      connectionType: ConnectionType.StarBluetooth,
       name: 'setting.printType.starBluetooth'
     }];
     /***/
@@ -7610,6 +7635,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
         this.getTransactionAgentIdentifier = _functions__WEBPACK_IMPORTED_MODULE_6__["getTransactionAgentIdentifier"];
         this.platform = platform__WEBPACK_IMPORTED_MODULE_4__;
         this.paymentMethodType = _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_1__["factory"].paymentMethodType;
+        this.createOrderLink = _functions__WEBPACK_IMPORTED_MODULE_6__["createOrderLink"];
       }
 
       _createClass(OrderDetailModalComponent, [{
@@ -11205,7 +11231,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     !*** ./app/services/index.ts ***!
     \*******************************/
 
-  /*! exports provided: AdmissionService, CinerinoService, PurchaseService, UserService, MasterService, OrderService, ReservationService, UtilService, StarPrintService, DownloadService, QRCodeService */
+  /*! exports provided: CinerinoService, AdmissionService, PurchaseService, UserService, MasterService, OrderService, ReservationService, UtilService, StarPrintService, DownloadService, QRCodeService */
 
   /***/
   function appServicesIndexTs(module, __webpack_exports__, __webpack_require__) {
@@ -13915,11 +13941,11 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
               return p.connectionType === printer.connectionType;
             });
 
-            if (findResult === undefined || findResult.connectionType !== _models__WEBPACK_IMPORTED_MODULE_2__["connectionType"].StarBluetooth && findResult.connectionType !== _models__WEBPACK_IMPORTED_MODULE_2__["connectionType"].StarLAN) {
+            if (findResult === undefined || findResult.connectionType !== _models__WEBPACK_IMPORTED_MODULE_2__["ConnectionType"].StarBluetooth && findResult.connectionType !== _models__WEBPACK_IMPORTED_MODULE_2__["ConnectionType"].StarLAN) {
               throw new Error('選択しているプリンターに対応していません').message;
             }
 
-            var url = findResult.connectionType === _models__WEBPACK_IMPORTED_MODULE_2__["connectionType"].StarLAN ? "https://".concat(printer.ipAddress, ":").concat(port, "/StarWebPRNT/SendMessage") : "https://".concat(printer.ipAddress, "/StarWebPRNT/SendMessage");
+            var url = findResult.connectionType === _models__WEBPACK_IMPORTED_MODULE_2__["ConnectionType"].StarLAN ? "https://".concat(printer.ipAddress, ":").concat(port, "/StarWebPRNT/SendMessage") : "https://".concat(printer.ipAddress, "/StarWebPRNT/SendMessage");
             var papertype = 'normal';
             var blackmark_sensor = 'front_side'; // trader設定
 
@@ -18783,7 +18809,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
         regeneratorRuntime.mark(function _callee80() {
           var _this57 = this;
 
-          var _orders, printer, pos, environment, authorizeOrders, _iteratorNormalCompletion7, _didIteratorError7, _iteratorError7, _loop7, _iterator7, _step7, printData, testFlg, canvasList, _canvas2, _iteratorNormalCompletion8, _didIteratorError8, _iteratorError8, _loop5, _iterator8, _step8, domList;
+          var _orders, printer, pos, environment, authorizeOrders, _iteratorNormalCompletion7, _didIteratorError7, _iteratorError7, _loop5, _iterator7, _step7, printData, testFlg, canvasList, _canvas2, _iteratorNormalCompletion8, _didIteratorError8, _iteratorError8, _loop6, _iterator8, _step8, domList;
 
           return regeneratorRuntime.wrap(function _callee80$(_context84) {
             while (1) {
@@ -18795,7 +18821,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                   pos = payload.pos;
                   environment = Object(_environments_environment__WEBPACK_IMPORTED_MODULE_6__["getEnvironment"])();
 
-                  if (!(printer.connectionType === _models__WEBPACK_IMPORTED_MODULE_8__["connectionType"].None)) {
+                  if (!(printer.connectionType === _models__WEBPACK_IMPORTED_MODULE_8__["ConnectionType"].None)) {
                     _context84.next = 7;
                     break;
                   }
@@ -18808,48 +18834,58 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
                 case 9:
                   authorizeOrders = [];
+
+                  if (!(environment.PRINT_QRCODE_TYPE === _models__WEBPACK_IMPORTED_MODULE_8__["PrintQrcodeType"].None)) {
+                    _context84.next = 14;
+                    break;
+                  }
+
+                  authorizeOrders = _orders;
+                  _context84.next = 39;
+                  break;
+
+                case 14:
                   _iteratorNormalCompletion7 = true;
                   _didIteratorError7 = false;
                   _iteratorError7 = undefined;
-                  _context84.prev = 13;
-                  _loop7 =
+                  _context84.prev = 17;
+                  _loop5 =
                   /*#__PURE__*/
-                  regeneratorRuntime.mark(function _loop7() {
+                  regeneratorRuntime.mark(function _loop5() {
                     var order, result;
-                    return regeneratorRuntime.wrap(function _loop7$(_context83) {
+                    return regeneratorRuntime.wrap(function _loop5$(_context81) {
                       while (1) {
-                        switch (_context83.prev = _context83.next) {
+                        switch (_context81.prev = _context81.next) {
                           case 0:
                             order = _step7.value;
-                            _context83.next = 3;
+                            _context81.next = 3;
                             return Object(_functions__WEBPACK_IMPORTED_MODULE_7__["retry"])({
                               process: function process() {
                                 return __awaiter(_this57, void 0, void 0,
                                 /*#__PURE__*/
                                 regeneratorRuntime.mark(function _callee79() {
                                   var orderNumber, customer, authorizeOrder;
-                                  return regeneratorRuntime.wrap(function _callee79$(_context82) {
+                                  return regeneratorRuntime.wrap(function _callee79$(_context80) {
                                     while (1) {
-                                      switch (_context82.prev = _context82.next) {
+                                      switch (_context80.prev = _context80.next) {
                                         case 0:
                                           orderNumber = order.orderNumber;
                                           customer = {
-                                            // email: args.order.customer.email,
                                             telephone: order.customer.telephone
                                           };
-                                          _context82.next = 4;
+                                          _context80.next = 4;
                                           return this.cinerino.order.authorizeOwnershipInfos({
                                             orderNumber: orderNumber,
                                             customer: customer
                                           });
 
                                         case 4:
-                                          authorizeOrder = _context82.sent;
-                                          return _context82.abrupt("return", authorizeOrder);
+                                          authorizeOrder = _context80.sent;
+                                          return _context80.abrupt("return", authorizeOrder);
 
                                         case 6:
                                         case "end":
-                                          return _context82.stop();
+                                          return _context80.stop();
                                       }
                                     }
                                   }, _callee79, this);
@@ -18860,131 +18896,131 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                             });
 
                           case 3:
-                            result = _context83.sent;
+                            result = _context81.sent;
                             authorizeOrders.push(result);
 
                           case 5:
                           case "end":
-                            return _context83.stop();
+                            return _context81.stop();
                         }
                       }
-                    }, _loop7);
+                    }, _loop5);
                   });
                   _iterator7 = _orders[Symbol.iterator]();
 
-                case 16:
+                case 20:
                   if (_iteratorNormalCompletion7 = (_step7 = _iterator7.next()).done) {
-                    _context84.next = 21;
+                    _context84.next = 25;
                     break;
                   }
 
-                  return _context84.delegateYield(_loop7(), "t0", 18);
+                  return _context84.delegateYield(_loop5(), "t0", 22);
 
-                case 18:
+                case 22:
                   _iteratorNormalCompletion7 = true;
-                  _context84.next = 16;
+                  _context84.next = 20;
                   break;
 
-                case 21:
-                  _context84.next = 27;
+                case 25:
+                  _context84.next = 31;
                   break;
-
-                case 23:
-                  _context84.prev = 23;
-                  _context84.t1 = _context84["catch"](13);
-                  _didIteratorError7 = true;
-                  _iteratorError7 = _context84.t1;
 
                 case 27:
                   _context84.prev = 27;
-                  _context84.prev = 28;
+                  _context84.t1 = _context84["catch"](17);
+                  _didIteratorError7 = true;
+                  _iteratorError7 = _context84.t1;
+
+                case 31:
+                  _context84.prev = 31;
+                  _context84.prev = 32;
 
                   if (!_iteratorNormalCompletion7 && _iterator7["return"] != null) {
                     _iterator7["return"]();
                   }
 
-                case 30:
-                  _context84.prev = 30;
+                case 34:
+                  _context84.prev = 34;
 
                   if (!_didIteratorError7) {
-                    _context84.next = 33;
+                    _context84.next = 37;
                     break;
                   }
 
                   throw _iteratorError7;
 
-                case 33:
-                  return _context84.finish(30);
+                case 37:
+                  return _context84.finish(34);
 
-                case 34:
-                  return _context84.finish(27);
+                case 38:
+                  return _context84.finish(31);
 
-                case 35:
-                  _context84.next = 37;
+                case 39:
+                  _context84.next = 41;
                   return this.utilService.getJson("".concat(Object(_functions__WEBPACK_IMPORTED_MODULE_7__["getProject"])().storageUrl, "/json/print/ticket.json"));
 
-                case 37:
+                case 41:
                   printData = _context84.sent;
                   testFlg = authorizeOrders.length === 0;
                   canvasList = [];
 
                   if (!testFlg) {
-                    _context84.next = 47;
+                    _context84.next = 51;
                     break;
                   }
 
-                  _context84.next = 43;
+                  _context84.next = 47;
                   return Object(_functions__WEBPACK_IMPORTED_MODULE_7__["createTestPrintCanvas"])({
                     printData: printData
                   });
 
-                case 43:
+                case 47:
                   _canvas2 = _context84.sent;
                   canvasList.push(_canvas2);
-                  _context84.next = 72;
+                  _context84.next = 76;
                   break;
 
-                case 47:
+                case 51:
                   _iteratorNormalCompletion8 = true;
                   _didIteratorError8 = false;
                   _iteratorError8 = undefined;
-                  _context84.prev = 50;
-                  _loop5 =
+                  _context84.prev = 54;
+                  _loop6 =
                   /*#__PURE__*/
-                  regeneratorRuntime.mark(function _loop5() {
-                    var authorizeOrder, index, _iteratorNormalCompletion9, _didIteratorError9, _iteratorError9, _loop6, _iterator9, _step9, _ret2;
+                  regeneratorRuntime.mark(function _loop6() {
+                    var authorizeOrder, index, _iteratorNormalCompletion9, _didIteratorError9, _iteratorError9, _loop7, _iterator9, _step9, _ret2;
 
-                    return regeneratorRuntime.wrap(function _loop5$(_context81) {
+                    return regeneratorRuntime.wrap(function _loop6$(_context83) {
                       while (1) {
-                        switch (_context81.prev = _context81.next) {
+                        switch (_context83.prev = _context83.next) {
                           case 0:
                             authorizeOrder = _step8.value;
                             index = 0;
                             _iteratorNormalCompletion9 = true;
                             _didIteratorError9 = false;
                             _iteratorError9 = undefined;
-                            _context81.prev = 5;
-                            _loop6 =
+                            _context83.prev = 5;
+                            _loop7 =
                             /*#__PURE__*/
-                            regeneratorRuntime.mark(function _loop6() {
-                              var acceptedOffer, itemOffered, order, qrcode, additionalProperty, isDisplayQrcode, encyptText, encryptionEncodeResult, canvas;
-                              return regeneratorRuntime.wrap(function _loop6$(_context80) {
+                            regeneratorRuntime.mark(function _loop7() {
+                              var acceptedOffer, itemOffered, order, qrcode, additionalProperty, isDisplayQrcode, canvas;
+                              return regeneratorRuntime.wrap(function _loop7$(_context82) {
                                 while (1) {
-                                  switch (_context80.prev = _context80.next) {
+                                  switch (_context82.prev = _context82.next) {
                                     case 0:
                                       acceptedOffer = _step9.value;
                                       itemOffered = acceptedOffer.itemOffered;
 
                                       if (!(itemOffered.typeOf !== _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_1__["factory"].chevre.reservationType.EventReservation)) {
-                                        _context80.next = 4;
+                                        _context82.next = 4;
                                         break;
                                       }
 
-                                      return _context80.abrupt("return", "continue");
+                                      return _context82.abrupt("return", "continue");
 
                                     case 4:
                                       order = authorizeOrder;
-                                      qrcode = itemOffered.reservedTicket.ticketToken;
+                                      qrcode = environment.PRINT_QRCODE_TYPE === _models__WEBPACK_IMPORTED_MODULE_8__["PrintQrcodeType"].None ? undefined : itemOffered.reservedTicket.ticketToken;
                                       additionalProperty = itemOffered.reservationFor.workPerformed === undefined ? undefined : itemOffered.reservationFor.workPerformed.additionalProperty;
 
                                       if (additionalProperty !== undefined) {
@@ -18998,21 +19034,6 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                                         }
                                       }
 
-                                      if (!(qrcode !== undefined && environment.PRINT_QRCODE_TYPE === _models__WEBPACK_IMPORTED_MODULE_8__["PrintQrcodeType"].Encryption)) {
-                                        _context80.next = 14;
-                                        break;
-                                      }
-
-                                      // QRコード暗号化(id + startDate)
-                                      encyptText = "".concat(itemOffered.reservationFor.id, "=").concat(itemOffered.reservationFor.startDate);
-                                      _context80.next = 12;
-                                      return _this57.utilService.encryptionEncode(encyptText);
-
-                                    case 12:
-                                      encryptionEncodeResult = _context80.sent;
-                                      qrcode = "".concat(encryptionEncodeResult.salt, ",").concat(encryptionEncodeResult.iv, ",").concat(encryptionEncodeResult.encrypted);
-
-                                    case 14:
                                       if (qrcode !== undefined && environment.PRINT_QRCODE_TYPE === _models__WEBPACK_IMPORTED_MODULE_8__["PrintQrcodeType"].Custom) {
                                         // QRコードカスタム文字列
                                         qrcode = environment.PRINT_QRCODE_CUSTOM;
@@ -19031,7 +19052,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                                         qrcode = qrcode.replace(/\{\{ startDate \| YYMMDD \}\}/g, moment__WEBPACK_IMPORTED_MODULE_4__(itemOffered.reservationFor.startDate).format('YYMMDD'));
                                       }
 
-                                      _context80.next = 17;
+                                      _context82.next = 11;
                                       return Object(_functions__WEBPACK_IMPORTED_MODULE_7__["createPrintCanvas"])({
                                         printData: printData,
                                         order: order,
@@ -19041,151 +19062,137 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                                         index: index
                                       });
 
-                                    case 17:
-                                      canvas = _context80.sent;
+                                    case 11:
+                                      canvas = _context82.sent;
                                       canvasList.push(canvas);
                                       index++;
 
-                                    case 20:
+                                    case 14:
                                     case "end":
-                                      return _context80.stop();
+                                      return _context82.stop();
                                   }
                                 }
-                              }, _loop6);
+                              }, _loop7);
                             });
                             _iterator9 = authorizeOrder.acceptedOffers[Symbol.iterator]();
 
                           case 8:
                             if (_iteratorNormalCompletion9 = (_step9 = _iterator9.next()).done) {
-                              _context81.next = 16;
+                              _context83.next = 16;
                               break;
                             }
 
-                            return _context81.delegateYield(_loop6(), "t0", 10);
+                            return _context83.delegateYield(_loop7(), "t0", 10);
 
                           case 10:
-                            _ret2 = _context81.t0;
+                            _ret2 = _context83.t0;
 
                             if (!(_ret2 === "continue")) {
-                              _context81.next = 13;
+                              _context83.next = 13;
                               break;
                             }
 
-                            return _context81.abrupt("continue", 13);
+                            return _context83.abrupt("continue", 13);
 
                           case 13:
                             _iteratorNormalCompletion9 = true;
-                            _context81.next = 8;
+                            _context83.next = 8;
                             break;
 
                           case 16:
-                            _context81.next = 22;
+                            _context83.next = 22;
                             break;
 
                           case 18:
-                            _context81.prev = 18;
-                            _context81.t1 = _context81["catch"](5);
+                            _context83.prev = 18;
+                            _context83.t1 = _context83["catch"](5);
                             _didIteratorError9 = true;
-                            _iteratorError9 = _context81.t1;
+                            _iteratorError9 = _context83.t1;
 
                           case 22:
-                            _context81.prev = 22;
-                            _context81.prev = 23;
+                            _context83.prev = 22;
+                            _context83.prev = 23;
 
                             if (!_iteratorNormalCompletion9 && _iterator9["return"] != null) {
                               _iterator9["return"]();
                             }
 
                           case 25:
-                            _context81.prev = 25;
+                            _context83.prev = 25;
 
                             if (!_didIteratorError9) {
-                              _context81.next = 28;
+                              _context83.next = 28;
                               break;
                             }
 
                             throw _iteratorError9;
 
                           case 28:
-                            return _context81.finish(25);
+                            return _context83.finish(25);
 
                           case 29:
-                            return _context81.finish(22);
+                            return _context83.finish(22);
 
                           case 30:
                           case "end":
-                            return _context81.stop();
+                            return _context83.stop();
                         }
                       }
-                    }, _loop5, null, [[5, 18, 22, 30], [23,, 25, 29]]);
+                    }, _loop6, null, [[5, 18, 22, 30], [23,, 25, 29]]);
                   });
                   _iterator8 = authorizeOrders[Symbol.iterator]();
 
-                case 53:
+                case 57:
                   if (_iteratorNormalCompletion8 = (_step8 = _iterator8.next()).done) {
-                    _context84.next = 58;
+                    _context84.next = 62;
                     break;
                   }
 
-                  return _context84.delegateYield(_loop5(), "t2", 55);
+                  return _context84.delegateYield(_loop6(), "t2", 59);
 
-                case 55:
+                case 59:
                   _iteratorNormalCompletion8 = true;
-                  _context84.next = 53;
+                  _context84.next = 57;
                   break;
 
-                case 58:
-                  _context84.next = 64;
+                case 62:
+                  _context84.next = 68;
                   break;
-
-                case 60:
-                  _context84.prev = 60;
-                  _context84.t3 = _context84["catch"](50);
-                  _didIteratorError8 = true;
-                  _iteratorError8 = _context84.t3;
 
                 case 64:
                   _context84.prev = 64;
-                  _context84.prev = 65;
+                  _context84.t3 = _context84["catch"](54);
+                  _didIteratorError8 = true;
+                  _iteratorError8 = _context84.t3;
+
+                case 68:
+                  _context84.prev = 68;
+                  _context84.prev = 69;
 
                   if (!_iteratorNormalCompletion8 && _iterator8["return"] != null) {
                     _iterator8["return"]();
                   }
 
-                case 67:
-                  _context84.prev = 67;
+                case 71:
+                  _context84.prev = 71;
 
                   if (!_didIteratorError8) {
-                    _context84.next = 70;
+                    _context84.next = 74;
                     break;
                   }
 
                   throw _iteratorError8;
 
-                case 70:
-                  return _context84.finish(67);
-
-                case 71:
-                  return _context84.finish(64);
-
-                case 72:
-                  _context84.t4 = printer.connectionType;
-                  _context84.next = _context84.t4 === _models__WEBPACK_IMPORTED_MODULE_8__["connectionType"].StarBluetooth ? 75 : _context84.t4 === _models__WEBPACK_IMPORTED_MODULE_8__["connectionType"].StarLAN ? 79 : _context84.t4 === _models__WEBPACK_IMPORTED_MODULE_8__["connectionType"].Image ? 83 : 86;
-                  break;
+                case 74:
+                  return _context84.finish(71);
 
                 case 75:
-                  this.starPrint.initialize({
-                    printer: printer,
-                    pos: pos
-                  });
-                  _context84.next = 78;
-                  return this.starPrint.printProcess({
-                    canvasList: canvasList,
-                    testFlg: testFlg
-                  });
+                  return _context84.finish(68);
 
-                case 78:
-                  return _context84.abrupt("break", 87);
+                case 76:
+                  _context84.t4 = printer.connectionType;
+                  _context84.next = _context84.t4 === _models__WEBPACK_IMPORTED_MODULE_8__["ConnectionType"].StarBluetooth ? 79 : _context84.t4 === _models__WEBPACK_IMPORTED_MODULE_8__["ConnectionType"].StarLAN ? 83 : _context84.t4 === _models__WEBPACK_IMPORTED_MODULE_8__["ConnectionType"].Image ? 87 : 90;
+                  break;
 
                 case 79:
                   this.starPrint.initialize({
@@ -19199,9 +19206,23 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                   });
 
                 case 82:
-                  return _context84.abrupt("break", 87);
+                  return _context84.abrupt("break", 91);
 
                 case 83:
+                  this.starPrint.initialize({
+                    printer: printer,
+                    pos: pos
+                  });
+                  _context84.next = 86;
+                  return this.starPrint.printProcess({
+                    canvasList: canvasList,
+                    testFlg: testFlg
+                  });
+
+                case 86:
+                  return _context84.abrupt("break", 91);
+
+                case 87:
                   domList = canvasList.map(function (canvas) {
                     return "<div class=\"mb-3 p-4 border border-light-gray shadow-sm\">\n                        <img class=\"w-100\" src=\"".concat(canvas.toDataURL(), "\">\n                        </div>");
                   });
@@ -19209,27 +19230,27 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                     title: '',
                     body: "<div class=\"px-5\">".concat(domList.join('\n'), "</div>")
                   });
-                  return _context84.abrupt("break", 87);
-
-                case 86:
-                  return _context84.abrupt("break", 87);
-
-                case 87:
-                  return _context84.abrupt("return", new _actions__WEBPACK_IMPORTED_MODULE_10__["orderAction"].PrintSuccess());
+                  return _context84.abrupt("break", 91);
 
                 case 90:
-                  _context84.prev = 90;
+                  return _context84.abrupt("break", 91);
+
+                case 91:
+                  return _context84.abrupt("return", new _actions__WEBPACK_IMPORTED_MODULE_10__["orderAction"].PrintSuccess());
+
+                case 94:
+                  _context84.prev = 94;
                   _context84.t5 = _context84["catch"](0);
                   return _context84.abrupt("return", new _actions__WEBPACK_IMPORTED_MODULE_10__["orderAction"].PrintFail({
                     error: _context84.t5
                   }));
 
-                case 93:
+                case 97:
                 case "end":
                   return _context84.stop();
               }
             }
-          }, _callee80, this, [[0, 90], [13, 23, 27, 35], [28,, 30, 34], [50, 60, 64, 72], [65,, 67, 71]]);
+          }, _callee80, this, [[0, 94], [17, 27, 31, 39], [32,, 34, 38], [54, 64, 68, 76], [69,, 71, 75]]);
         }));
       }));
       /**
@@ -22865,6 +22886,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       INQUIRY_ORDER_DATE_FROM_UNIT: 'month',
       ORDER_CANCEL: false,
       ORDER_PRINT: false,
+      ORDER_LINK: [],
       PRINT_QRCODE_TYPE: 'token',
       PRINT_QRCODE_CUSTOM: '',
       PRINT_LOADING: true
