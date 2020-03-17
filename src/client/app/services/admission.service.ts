@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { factory } from '@cinerino/api-javascript-client';
 import { Actions, ofType } from '@ngrx/effects';
 import { select, Store } from '@ngrx/store';
+import * as moment from 'moment';
 import { Observable, race } from 'rxjs';
 import { take, tap } from 'rxjs/operators';
 import { admissionAction } from '../store/actions';
@@ -36,7 +37,7 @@ export class AdmissionService {
      * データ削除
      */
     public delete() {
-
+        this.store.dispatch(new admissionAction.Delete());
     }
 
     /**
@@ -58,12 +59,13 @@ export class AdmissionService {
      */
     public async checkQrcodeToken(code: string) {
         return new Promise<void>(async (resolve, reject) => {
-            const { screeningEvent } = await this.getData();
-            if (screeningEvent === undefined) {
-                reject(new Error('screeningEvent === undefined'));
-                return;
-            }
-            this.store.dispatch(new admissionAction.Check({ code, screeningEvent }));
+            const { screeningEvent, specified, scheduleDate } = await this.getData();
+            this.store.dispatch(new admissionAction.Check({
+                code,
+                screeningEvent,
+                scheduleDate: moment(scheduleDate, 'YYYY-MM-DD').toDate(),
+                specified
+            }));
             const success = this.actions.pipe(
                 ofType(admissionAction.ActionTypes.CheckSuccess),
                 tap(() => resolve())

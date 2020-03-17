@@ -14,10 +14,12 @@ export interface IAdmissionState {
         checkTokenActions: factory.action.check.token.IAction[];
         statusCode: number;
     };
+    specified: boolean;
 }
 
 export const admissionInitialState: IAdmissionState = {
-    screeningEventReservations: []
+    screeningEventReservations: [],
+    specified: false
 };
 
 /**
@@ -28,9 +30,8 @@ export const admissionInitialState: IAdmissionState = {
 export function reducer(state: IState, action: admissionAction.Actions): IState {
     switch (action.type) {
         case admissionAction.ActionTypes.Delete: {
-            state.admissionData = {
-                screeningEventReservations: []
-            };
+            state.admissionData.screeningEventReservations = [];
+            state.admissionData.specified = false;
             return { ...state };
         }
         case admissionAction.ActionTypes.SelectScheduleDate: {
@@ -49,6 +50,7 @@ export function reducer(state: IState, action: admissionAction.Actions): IState 
         case admissionAction.ActionTypes.GetScreeningEventSuccess: {
             const screeningEvent = action.payload.screeningEvent;
             state.admissionData.screeningEvent = screeningEvent;
+            state.admissionData.specified = true;
             return { ...state, error: null };
         }
         case admissionAction.ActionTypes.GetScreeningEventFail: {
@@ -64,8 +66,12 @@ export function reducer(state: IState, action: admissionAction.Actions): IState 
             return { ...state, error: null, loading: true, process: 'admissionAction.Check' };
         }
         case admissionAction.ActionTypes.CheckSuccess: {
-            const qrcodeToken = action.payload;
+            const qrcodeToken = action.payload.qrcodeToken;
+            const screeningEvent = action.payload.screeningEvent;
             state.admissionData.qrcodeToken = qrcodeToken;
+            if (screeningEvent !== undefined) {
+                state.admissionData.screeningEvent = screeningEvent;
+            }
             return { ...state, loading: false, process: '', error: null };
         }
         case admissionAction.ActionTypes.CheckFail: {

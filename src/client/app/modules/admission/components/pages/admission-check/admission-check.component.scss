@@ -9,6 +9,14 @@
     animation-name: flash-text;
 }
 
+.color {
+    position: absolute;
+    top: 0.5rem;
+    left: 0.5rem;
+    width: 1.5rem;
+    height: 1.5rem;
+}
+
 @keyframes flash-text {
     from, 20%, 40%, 60%, 80%, to { color: #FFF; }
     10%, 30%, 50%, 70%, 90% { color: transparent; }

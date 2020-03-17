@@ -6158,10 +6158,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "../../node_modules/@angular/core/fesm2015/core.js");
 /* harmony import */ var _ngrx_effects__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @ngrx/effects */ "../../node_modules/@ngrx/effects/fesm2015/effects.js");
 /* harmony import */ var _ngrx_store__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @ngrx/store */ "../../node_modules/@ngrx/store/fesm2015/store.js");
-/* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! rxjs */ "../../node_modules/rxjs/_esm2015/index.js");
-/* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! rxjs/operators */ "../../node_modules/rxjs/_esm2015/operators/index.js");
-/* harmony import */ var _store_actions__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../store/actions */ "./app/store/actions/index.ts");
-/* harmony import */ var _store_reducers__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../store/reducers */ "./app/store/reducers/index.ts");
+/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! moment */ "../../node_modules/moment/moment.js");
+/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! rxjs */ "../../node_modules/rxjs/_esm2015/index.js");
+/* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! rxjs/operators */ "../../node_modules/rxjs/_esm2015/operators/index.js");
+/* harmony import */ var _store_actions__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../store/actions */ "./app/store/actions/index.ts");
+/* harmony import */ var _store_reducers__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../store/reducers */ "./app/store/reducers/index.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -6189,12 +6191,13 @@ var __importDefault = (undefined && undefined.__importDefault) || function (mod)
 
 
 
+
 let AdmissionService = class AdmissionService {
     constructor(actions, store) {
         this.actions = actions;
         this.store = store;
-        this.admission = this.store.pipe(Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_2__["select"])(_store_reducers__WEBPACK_IMPORTED_MODULE_6__["getAdmission"]));
-        this.error = this.store.pipe(Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_2__["select"])(_store_reducers__WEBPACK_IMPORTED_MODULE_6__["getError"]));
+        this.admission = this.store.pipe(Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_2__["select"])(_store_reducers__WEBPACK_IMPORTED_MODULE_7__["getAdmission"]));
+        this.error = this.store.pipe(Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_2__["select"])(_store_reducers__WEBPACK_IMPORTED_MODULE_7__["getError"]));
     }
     /**
      * データ取得
@@ -6212,18 +6215,19 @@ let AdmissionService = class AdmissionService {
      * データ削除
      */
     delete() {
+        this.store.dispatch(new _store_actions__WEBPACK_IMPORTED_MODULE_6__["admissionAction"].Delete());
     }
     /**
      * スケジュール選択
      */
     selectScheduleDate(scheduleDate) {
-        this.store.dispatch(new _store_actions__WEBPACK_IMPORTED_MODULE_5__["admissionAction"].SelectScheduleDate({ scheduleDate }));
+        this.store.dispatch(new _store_actions__WEBPACK_IMPORTED_MODULE_6__["admissionAction"].SelectScheduleDate({ scheduleDate }));
     }
     /**
      * QRコード初期化
      */
     initializeQrcodeToken() {
-        this.store.dispatch(new _store_actions__WEBPACK_IMPORTED_MODULE_5__["admissionAction"].InitializeQrcodeToken());
+        this.store.dispatch(new _store_actions__WEBPACK_IMPORTED_MODULE_6__["admissionAction"].InitializeQrcodeToken());
     }
     /**
      * QRコード確認
@@ -6231,15 +6235,16 @@ let AdmissionService = class AdmissionService {
     checkQrcodeToken(code) {
         return __awaiter(this, void 0, void 0, function* () {
             return new Promise((resolve, reject) => __awaiter(this, void 0, void 0, function* () {
-                const { screeningEvent } = yield this.getData();
-                if (screeningEvent === undefined) {
-                    reject(new Error('screeningEvent === undefined'));
-                    return;
-                }
-                this.store.dispatch(new _store_actions__WEBPACK_IMPORTED_MODULE_5__["admissionAction"].Check({ code, screeningEvent }));
-                const success = this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_1__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_5__["admissionAction"].ActionTypes.CheckSuccess), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["tap"])(() => resolve()));
-                const fail = this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_1__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_5__["admissionAction"].ActionTypes.CheckFail), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["tap"])(() => { this.error.subscribe((error) => { reject(error); }).unsubscribe(); }));
-                Object(rxjs__WEBPACK_IMPORTED_MODULE_3__["race"])(success, fail).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["take"])(1)).subscribe();
+                const { screeningEvent, specified, scheduleDate } = yield this.getData();
+                this.store.dispatch(new _store_actions__WEBPACK_IMPORTED_MODULE_6__["admissionAction"].Check({
+                    code,
+                    screeningEvent,
+                    scheduleDate: moment__WEBPACK_IMPORTED_MODULE_3__(scheduleDate, 'YYYY-MM-DD').toDate(),
+                    specified
+                }));
+                const success = this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_1__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_6__["admissionAction"].ActionTypes.CheckSuccess), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["tap"])(() => resolve()));
+                const fail = this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_1__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_6__["admissionAction"].ActionTypes.CheckFail), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["tap"])(() => { this.error.subscribe((error) => { reject(error); }).unsubscribe(); }));
+                Object(rxjs__WEBPACK_IMPORTED_MODULE_4__["race"])(success, fail).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["take"])(1)).subscribe();
             }));
         });
     }
@@ -6249,10 +6254,10 @@ let AdmissionService = class AdmissionService {
     getScreeningEvent(screeningEvent) {
         return __awaiter(this, void 0, void 0, function* () {
             return new Promise((resolve, reject) => {
-                this.store.dispatch(new _store_actions__WEBPACK_IMPORTED_MODULE_5__["admissionAction"].GetScreeningEvent({ screeningEvent }));
-                const success = this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_1__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_5__["admissionAction"].ActionTypes.GetScreeningEventSuccess), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["tap"])(() => { resolve(); }));
-                const fail = this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_1__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_5__["admissionAction"].ActionTypes.GetScreeningEventFail), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["tap"])(() => { this.error.subscribe((error) => { reject(error); }).unsubscribe(); }));
-                Object(rxjs__WEBPACK_IMPORTED_MODULE_3__["race"])(success, fail).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["take"])(1)).subscribe();
+                this.store.dispatch(new _store_actions__WEBPACK_IMPORTED_MODULE_6__["admissionAction"].GetScreeningEvent({ screeningEvent }));
+                const success = this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_1__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_6__["admissionAction"].ActionTypes.GetScreeningEventSuccess), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["tap"])(() => { resolve(); }));
+                const fail = this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_1__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_6__["admissionAction"].ActionTypes.GetScreeningEventFail), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["tap"])(() => { this.error.subscribe((error) => { reject(error); }).unsubscribe(); }));
+                Object(rxjs__WEBPACK_IMPORTED_MODULE_4__["race"])(success, fail).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["take"])(1)).subscribe();
             });
         });
     }
@@ -9798,10 +9803,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var http_status__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(http_status__WEBPACK_IMPORTED_MODULE_3__);
 /* harmony import */ var jwt_decode__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! jwt-decode */ "../../node_modules/jwt-decode/lib/index.js");
 /* harmony import */ var jwt_decode__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(jwt_decode__WEBPACK_IMPORTED_MODULE_4__);
-/* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! rxjs/operators */ "../../node_modules/rxjs/_esm2015/operators/index.js");
-/* harmony import */ var _functions__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../functions */ "./app/functions/index.ts");
-/* harmony import */ var _services__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../../services */ "./app/services/index.ts");
-/* harmony import */ var _actions__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../actions */ "./app/store/actions/index.ts");
+/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! moment */ "../../node_modules/moment/moment.js");
+/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_5__);
+/* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! rxjs/operators */ "../../node_modules/rxjs/_esm2015/operators/index.js");
+/* harmony import */ var _functions__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../../functions */ "./app/functions/index.ts");
+/* harmony import */ var _services__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../../services */ "./app/services/index.ts");
+/* harmony import */ var _actions__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../actions */ "./app/store/actions/index.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -9831,6 +9838,7 @@ var __importDefault = (undefined && undefined.__importDefault) || function (mod)
 
 
 
+
 /**
  * AdmissionEffects
  */
@@ -9841,78 +9849,72 @@ let AdmissionEffects = class AdmissionEffects {
         /**
          * getScreeningEvent
          */
-        this.getScreeningEvent = this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_actions__WEBPACK_IMPORTED_MODULE_8__["admissionAction"].ActionTypes.GetScreeningEvent), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["map"])(action => action.payload), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["mergeMap"])((payload) => __awaiter(this, void 0, void 0, function* () {
+        this.getScreeningEvent = this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_actions__WEBPACK_IMPORTED_MODULE_9__["admissionAction"].ActionTypes.GetScreeningEvent), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["map"])(action => action.payload), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["mergeMap"])((payload) => __awaiter(this, void 0, void 0, function* () {
             // console.log(payload);
             try {
                 yield this.cinerino.getServices();
                 const screeningEvent = yield this.cinerino.event.findById({
                     id: payload.screeningEvent.id
                 });
-                return new _actions__WEBPACK_IMPORTED_MODULE_8__["admissionAction"].GetScreeningEventSuccess({ screeningEvent });
+                return new _actions__WEBPACK_IMPORTED_MODULE_9__["admissionAction"].GetScreeningEventSuccess({ screeningEvent });
             }
             catch (error) {
-                return new _actions__WEBPACK_IMPORTED_MODULE_8__["admissionAction"].GetScreeningEventFail({ error: error });
+                return new _actions__WEBPACK_IMPORTED_MODULE_9__["admissionAction"].GetScreeningEventFail({ error: error });
             }
         })));
         /**
          * check
          */
-        this.check = this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_actions__WEBPACK_IMPORTED_MODULE_8__["admissionAction"].ActionTypes.Check), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["map"])(action => action.payload), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["mergeMap"])((payload) => __awaiter(this, void 0, void 0, function* () {
+        this.check = this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_actions__WEBPACK_IMPORTED_MODULE_9__["admissionAction"].ActionTypes.Check), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["map"])(action => action.payload), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["mergeMap"])((payload) => __awaiter(this, void 0, void 0, function* () {
             // console.log(payload);
             const code = payload.code;
             const screeningEvent = payload.screeningEvent;
+            const scheduleDate = payload.scheduleDate;
+            const specified = payload.specified;
             try {
                 yield this.cinerino.getServices();
-                const getTokenResult = yield this.cinerino.admin.ownershipInfo.getToken({ code })
-                    .catch((error) => {
-                    console.error('getToken error');
-                    throw error;
-                });
-                const token = getTokenResult.token;
+                const { token } = yield this.cinerino.admin.ownershipInfo.getToken({ code });
                 const decodeResult = jwt_decode__WEBPACK_IMPORTED_MODULE_4__(token);
-                const checkTokenActionsResult = yield this.cinerino.admin.ownershipInfo.searchCheckTokenActions({ id: decodeResult.id });
-                const checkTokenActions = checkTokenActionsResult.data;
-                const limit = 100;
-                let page = 1;
-                let roop = true;
-                let screeningEventReservations = [];
-                while (roop) {
-                    const searchResult = yield this.cinerino.reservation.search({
-                        typeOf: _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_1__["factory"].chevre.reservationType.EventReservation,
-                        page,
-                        limit,
-                        project: { ids: [Object(_functions__WEBPACK_IMPORTED_MODULE_6__["getProject"])().projectId] },
-                        reservationStatuses: [_cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_1__["factory"].chevre.reservationStatusType.ReservationConfirmed],
-                        reservationFor: {
-                            typeOf: _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_1__["factory"].chevre.eventType.ScreeningEvent,
-                            id: screeningEvent.id
-                        },
-                        ids: [decodeResult.typeOfGood.id]
-                    });
-                    screeningEventReservations =
-                        screeningEventReservations.concat(searchResult.data);
-                    page++;
-                    roop = searchResult.data.length > 0;
-                }
+                const checkTokenActions = (yield this.cinerino.admin.ownershipInfo.searchCheckTokenActions({ id: decodeResult.id })).data;
+                const searchResult = yield this.cinerino.reservation.search({
+                    typeOf: _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_1__["factory"].chevre.reservationType.EventReservation,
+                    project: { ids: [Object(_functions__WEBPACK_IMPORTED_MODULE_7__["getProject"])().projectId] },
+                    reservationStatuses: [_cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_1__["factory"].chevre.reservationStatusType.ReservationConfirmed],
+                    reservationFor: {
+                        typeOf: _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_1__["factory"].chevre.eventType.ScreeningEvent,
+                        id: (screeningEvent === undefined) ? undefined : screeningEvent.id,
+                        startFrom: scheduleDate,
+                        startThrough: moment__WEBPACK_IMPORTED_MODULE_5__(scheduleDate).add(1, 'day').toDate()
+                    },
+                    ids: [decodeResult.typeOfGood.id]
+                });
                 // 利用可能判定
-                const availableReservation = screeningEventReservations
-                    .find((r) => r.id === decodeResult.typeOfGood.id);
                 const statusCode = http_status__WEBPACK_IMPORTED_MODULE_3__["OK"];
-                if (availableReservation !== undefined) {
+                if (searchResult.data.length > 0) {
                     yield this.cinerino.reservation.findScreeningEventReservationByToken({ token });
                 }
-                return new _actions__WEBPACK_IMPORTED_MODULE_8__["admissionAction"].CheckSuccess({
-                    token,
-                    decodeResult,
-                    availableReservation,
-                    checkTokenActions,
-                    statusCode
+                let findScreeningEventResult;
+                if (searchResult.data.length > 0 && !specified) {
+                    const id = searchResult.data[0].reservationFor.id;
+                    findScreeningEventResult = yield this.cinerino.event.findById({ id });
+                }
+                return new _actions__WEBPACK_IMPORTED_MODULE_9__["admissionAction"].CheckSuccess({
+                    qrcodeToken: {
+                        token,
+                        decodeResult,
+                        availableReservation: searchResult.data[0],
+                        checkTokenActions,
+                        statusCode,
+                    },
+                    screeningEvent: findScreeningEventResult
                 });
             }
             catch (error) {
-                return new _actions__WEBPACK_IMPORTED_MODULE_8__["admissionAction"].CheckSuccess({
-                    checkTokenActions: [],
-                    statusCode: (error.code === undefined) ? http_status__WEBPACK_IMPORTED_MODULE_3__["INTERNAL_SERVER_ERROR"] : error.code
+                return new _actions__WEBPACK_IMPORTED_MODULE_9__["admissionAction"].CheckSuccess({
+                    qrcodeToken: {
+                        checkTokenActions: [],
+                        statusCode: (error.code === undefined) ? http_status__WEBPACK_IMPORTED_MODULE_3__["INTERNAL_SERVER_ERROR"] : error.code
+                    }
                 });
             }
         })));
@@ -9920,7 +9922,7 @@ let AdmissionEffects = class AdmissionEffects {
 };
 AdmissionEffects.ctorParameters = () => [
     { type: _ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["Actions"] },
-    { type: _services__WEBPACK_IMPORTED_MODULE_7__["CinerinoService"] }
+    { type: _services__WEBPACK_IMPORTED_MODULE_8__["CinerinoService"] }
 ];
 __decorate([
     Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["Effect"])(),
@@ -9933,7 +9935,7 @@ __decorate([
 AdmissionEffects = __decorate([
     Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"])(),
     __metadata("design:paramtypes", [_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["Actions"],
-        _services__WEBPACK_IMPORTED_MODULE_7__["CinerinoService"]])
+        _services__WEBPACK_IMPORTED_MODULE_8__["CinerinoService"]])
 ], AdmissionEffects);
 
 
@@ -11210,7 +11212,8 @@ var __importDefault = (undefined && undefined.__importDefault) || function (mod)
 };
 
 const admissionInitialState = {
-    screeningEventReservations: []
+    screeningEventReservations: [],
+    specified: false
 };
 /**
  * Reducer
@@ -11220,9 +11223,8 @@ const admissionInitialState = {
 function reducer(state, action) {
     switch (action.type) {
         case _actions__WEBPACK_IMPORTED_MODULE_0__["admissionAction"].ActionTypes.Delete: {
-            state.admissionData = {
-                screeningEventReservations: []
-            };
+            state.admissionData.screeningEventReservations = [];
+            state.admissionData.specified = false;
             return Object.assign({}, state);
         }
         case _actions__WEBPACK_IMPORTED_MODULE_0__["admissionAction"].ActionTypes.SelectScheduleDate: {
@@ -11241,6 +11243,7 @@ function reducer(state, action) {
         case _actions__WEBPACK_IMPORTED_MODULE_0__["admissionAction"].ActionTypes.GetScreeningEventSuccess: {
             const screeningEvent = action.payload.screeningEvent;
             state.admissionData.screeningEvent = screeningEvent;
+            state.admissionData.specified = true;
             return Object.assign({}, state, { error: null });
         }
         case _actions__WEBPACK_IMPORTED_MODULE_0__["admissionAction"].ActionTypes.GetScreeningEventFail: {
@@ -11256,8 +11259,12 @@ function reducer(state, action) {
             return Object.assign({}, state, { error: null, loading: true, process: 'admissionAction.Check' });
         }
         case _actions__WEBPACK_IMPORTED_MODULE_0__["admissionAction"].ActionTypes.CheckSuccess: {
-            const qrcodeToken = action.payload;
+            const qrcodeToken = action.payload.qrcodeToken;
+            const screeningEvent = action.payload.screeningEvent;
             state.admissionData.qrcodeToken = qrcodeToken;
+            if (screeningEvent !== undefined) {
+                state.admissionData.screeningEvent = screeningEvent;
+            }
             return Object.assign({}, state, { loading: false, process: '', error: null });
         }
         case _actions__WEBPACK_IMPORTED_MODULE_0__["admissionAction"].ActionTypes.CheckFail: {

@@ -1,9 +1,9 @@
-<div class="contents-width mx-auto px-3 pt-5">
+<!-- <div class="contents-width mx-auto px-3 pt-5">
     <h2 class="text-large mb-4 text-center font-weight-bold">{{ 'admission.check.title' | translate }}</h2>
     <p class="mb-4 text-md-center" [innerHTML]="'admission.check.read' | translate"></p>
-</div>
+</div> -->
 
-<div class="contents-width mx-auto px-3">
+<div class="contents-width mx-auto px-3 pt-4">
     <div class="buttons mx-auto text-center mb-4">
         <button type="button" class="btn btn-success btn-block py-3"
             (click)="openQRCodeReader()">{{ 'admission.check.camera.start' | translate }}</button>
@@ -13,12 +13,13 @@
 
 <div *ngIf="!(isLoading | async)" class="mb-4">
     <div *ngIf="(admission | async).qrcodeToken">
-        <div *ngIf="(admission | async).qrcodeToken.availableReservation" class="p-4 bg-success text-white text-center">
+        <div *ngIf="(admission | async).qrcodeToken.availableReservation" class="position-relative p-4 bg-success text-white text-center">
+            <div class="color rounded border border-white" [ngStyle]="{'background-color': (admission | async).qrcodeToken.availableReservation.reservedTicket.ticketType.color}"></div>
             <div *ngIf="(admission | async).qrcodeToken.checkTokenActions.length === 0"
                 class="flash-text text-xx-large font-weight-bold mb-2">{{ 'admission.check.success' | translate }}</div>
             <div *ngIf="(admission | async).qrcodeToken.checkTokenActions.length > 0"
                 class="flash-text text-xx-large font-weight-bold mb-2">{{ 'admission.check.reEntry' | translate }}</div>
-            <p *ngIf="(admission | async).qrcodeToken.availableReservation.reservedTicket.ticketedSeat && environment.DISPLAY_TICKETED_SEAT">
+            <p *ngIf="(admission | async).qrcodeToken.availableReservation.reservedTicket.ticketedSeat">
                 <strong class="mr-2">{{ 'common.seat' | translate }}</strong>
                 {{ (admission | async).qrcodeToken.availableReservation.reservedTicket.ticketedSeat.seatNumber }}
             </p>
@@ -52,7 +53,7 @@
 
 
 <div class="contents-width mx-auto px-3 pb-5">
-    <div class="mb-4 bg-white">
+    <div *ngIf="(admission | async).screeningEvent" class="mb-4 bg-white">
         <div class="p-3">
             <div class="mb-2">
                 <p class="font-weight-bold text-large">{{ (admission | async).screeningEvent.name | changeLanguage }}</p>
