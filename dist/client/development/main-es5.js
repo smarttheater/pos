@@ -20915,6 +20915,8 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
           {
             state.admissionData.screeningEventReservations = [];
             state.admissionData.specified = false;
+            state.admissionData.qrcodeToken = undefined;
+            state.admissionData.screeningEvent = undefined;
             return Object.assign({}, state);
           }
 

@@ -11225,6 +11225,8 @@ function reducer(state, action) {
         case _actions__WEBPACK_IMPORTED_MODULE_0__["admissionAction"].ActionTypes.Delete: {
             state.admissionData.screeningEventReservations = [];
             state.admissionData.specified = false;
+            state.admissionData.qrcodeToken = undefined;
+            state.admissionData.screeningEvent = undefined;
             return Object.assign({}, state);
         }
         case _actions__WEBPACK_IMPORTED_MODULE_0__["admissionAction"].ActionTypes.SelectScheduleDate: {

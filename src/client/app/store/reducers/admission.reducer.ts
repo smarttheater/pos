@@ -32,6 +32,8 @@ export function reducer(state: IState, action: admissionAction.Actions): IState 
         case admissionAction.ActionTypes.Delete: {
             state.admissionData.screeningEventReservations = [];
             state.admissionData.specified = false;
+            state.admissionData.qrcodeToken = undefined;
+            state.admissionData.screeningEvent = undefined;
             return { ...state };
         }
         case admissionAction.ActionTypes.SelectScheduleDate: {
