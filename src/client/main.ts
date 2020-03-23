@@ -78,25 +78,22 @@ async function setProjectConfig(storageUrl: string) {
         cache: 'no-cache',
         headers: { 'Content-Type': 'application/json; charset=utf-8' }
     });
-    if (!fetchResult.ok) {
-        throw new Error(JSON.stringify({ status: fetchResult.status, statusText: fetchResult.statusText }));
+    if (fetchResult.ok) {
+        (<any>window).eval(await fetchResult.text());
     }
-    if (fetchResult.body === null) {
-        throw new Error('fetchResult.body null');
-    }
-    (<any>window).eval(await fetchResult.text());
     const environment = getEnvironment();
     // スタイル設定
     const style = document.createElement('link');
     style.rel = 'stylesheet';
     style.href = `${storageUrl}/css/style.css?=date${momentTimezone().toISOString()}`;
     document.head.appendChild(style);
-    // ファビコン設定
+    // ファビコン設
     const favicon = document.createElement('link');
     favicon.rel = 'icon';
     favicon.type = 'image/x-icon"';
     favicon.href = `${storageUrl}/favicon.ico`;
     document.head.appendChild(favicon);
+
     // タイトル設定
     document.title = environment.APP_TITLE;
     // GTM設定

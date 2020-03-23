@@ -1,4 +1,5 @@
 import * as moment from 'moment';
+import { getProject } from '../app/functions/util.function';
 
 interface IProfile {
     key: string;
@@ -207,7 +208,7 @@ const defaultEnvironment: IEnvironment = {
     ANALYTICS_ID: '',
     GTM_ID: '',
     VIEW_TYPE: 'cinema',
-    STORAGE_NAME: '',
+    STORAGE_NAME: `${getProject().projectName}-POS-STATE`,
     STORAGE_TYPE: 'localStorage',
     BASE_URL: '/purchase/root',
     LANGUAGE: ['ja'],
