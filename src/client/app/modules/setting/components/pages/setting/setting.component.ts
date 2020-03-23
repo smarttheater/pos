@@ -86,13 +86,9 @@ export class SettingComponent implements OnInit {
     private async createSettlingForm() {
         const profile = this.environment.PROFILE;
         this.settingForm = this.formBuilder.group({
-            theaterBranchCode: ['', [
-                Validators.required
-            ]],
-            posId: ['', [
-                Validators.required
-            ]],
-            printerType: [''],
+            theaterBranchCode: ['', [Validators.required]],
+            posId: [''],
+            printerType: [ConnectionType.None],
             printerIpAddress: ['']
         });
         profile.forEach(p => {
@@ -211,9 +207,6 @@ export class SettingComponent implements OnInit {
                 throw new Error('seller not found').message;
             }
             const pos = seller.hasPOS.find(p => p.id === posId);
-            if (pos === undefined) {
-                throw new Error('pos not found').message;
-            }
             const theater = masterData.theaters.find(t => (t.branchCode === theaterBranchCode));
             if (theater === undefined) {
                 throw new Error('theater not found').message;

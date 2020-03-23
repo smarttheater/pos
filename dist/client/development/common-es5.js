@@ -536,12 +536,12 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
                     throw new Error('theater not found').message;
 
                   case 9:
-                    if (!(user.pos === undefined)) {
+                    if (!(user.customerContact === undefined)) {
                       _context3.next = 11;
                       break;
                     }
 
-                    throw new Error('pos not found').message;
+                    throw new Error('customerContact not found').message;
 
                   case 11:
                     return _context3.abrupt("return", true);

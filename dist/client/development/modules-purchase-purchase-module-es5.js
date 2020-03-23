@@ -3823,7 +3823,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
                   case 6:
                     user = _context23.sent;
 
-                    if (!(purchase.order === undefined || user.pos === undefined || user.printer === undefined)) {
+                    if (!(purchase.order === undefined || user.printer === undefined)) {
                       _context23.next = 10;
                       break;
                     }
