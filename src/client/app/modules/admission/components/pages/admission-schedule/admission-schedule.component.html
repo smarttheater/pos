@@ -18,7 +18,13 @@
         async).scheduleDate | formatDate: 'YYYY/MM/DD (ddd)' }}</p>
     <p *ngIf="screeningWorkEvents.length === 0" class="mb-3" [innerHTML]="'admission.schedule.notfound' | translate">
     </p>
-    <app-admission-schedule-work *ngFor="let screeningWorkEvent of screeningWorkEvents"
-        [screeningWorkEvent]="screeningWorkEvent" (select)="selectSchedule($event)" class="mb-3">
-    </app-admission-schedule-work>
+    <div class="mb-4">
+        <app-admission-schedule-work *ngFor="let screeningWorkEvent of screeningWorkEvents"
+            [screeningWorkEvent]="screeningWorkEvent" (select)="selectSchedule($event)" class="mb-3">
+        </app-admission-schedule-work>
+    </div>
+    <div class="buttons mx-auto text-center">
+        <button type="button" class="btn btn-primary btn-block py-3 mb-3"
+            (click)="notSpecified()">{{ 'admission.schedule.next' | translate }}</button>
+    </div>
 </div>
