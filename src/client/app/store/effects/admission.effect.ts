@@ -3,6 +3,7 @@ import { factory } from '@cinerino/api-javascript-client';
 import { Actions, Effect, ofType } from '@ngrx/effects';
 import { INTERNAL_SERVER_ERROR, OK } from 'http-status';
 import * as decode from 'jwt-decode';
+import * as moment from 'moment';
 import { map, mergeMap } from 'rxjs/operators';
 import { getProject } from '../../functions';
 import { IDecodeResult } from '../../models';
@@ -52,62 +53,55 @@ export class AdmissionEffects {
             // console.log(payload);
             const code = payload.code;
             const screeningEvent = payload.screeningEvent;
+            const scheduleDate = payload.scheduleDate;
+            const specified = payload.specified;
             try {
                 await this.cinerino.getServices();
-                const getTokenResult = await this.cinerino.admin.ownershipInfo.getToken({ code })
-                    .catch((error) => {
-                        console.error('getToken error');
-                        throw error;
-                    });
-                const token = getTokenResult.token;
+                const { token } = await this.cinerino.admin.ownershipInfo.getToken({ code });
                 const decodeResult = decode<IDecodeResult>(token);
-                const checkTokenActionsResult =
-                    await this.cinerino.admin.ownershipInfo.searchCheckTokenActions({ id: decodeResult.id });
-                const checkTokenActions = checkTokenActionsResult.data;
-                const limit = 100;
-                let page = 1;
-                let roop = true;
-                let screeningEventReservations:
-                    factory.chevre.reservation.IReservation<factory.chevre.reservationType.EventReservation>[] = [];
-                while (roop) {
-                    const searchResult =
-                        await this.cinerino.reservation.search<factory.chevre.reservationType.EventReservation>({
-                            typeOf: factory.chevre.reservationType.EventReservation,
-                            page,
-                            limit,
-                            project: { ids: [getProject().projectId] },
-                            reservationStatuses: [factory.chevre.reservationStatusType.ReservationConfirmed],
-                            reservationFor: {
-                                typeOf: factory.chevre.eventType.ScreeningEvent,
-                                id: screeningEvent.id
-                            },
-                            ids: [decodeResult.typeOfGood.id]
-                        });
-                    screeningEventReservations =
-                        screeningEventReservations.concat(searchResult.data);
-                    page++;
-                    roop = searchResult.data.length > 0;
-                }
+                const checkTokenActions =
+                    (await this.cinerino.admin.ownershipInfo.searchCheckTokenActions({ id: decodeResult.id })).data;
+                const searchResult =
+                    await this.cinerino.reservation.search<factory.chevre.reservationType.EventReservation>({
+                        typeOf: factory.chevre.reservationType.EventReservation,
+                        project: { ids: [getProject().projectId] },
+                        reservationStatuses: [factory.chevre.reservationStatusType.ReservationConfirmed],
+                        reservationFor: {
+                            typeOf: factory.chevre.eventType.ScreeningEvent,
+                            id: (screeningEvent === undefined) ? undefined : screeningEvent.id,
+                            startFrom: scheduleDate,
+                            startThrough: moment(scheduleDate).add(1, 'day').toDate()
+                        },
+                        ids: [decodeResult.typeOfGood.id]
+                    });
 
                 // 利用可能判定
-                const availableReservation = screeningEventReservations
-                    .find((r) => r.id === decodeResult.typeOfGood.id);
                 const statusCode = OK;
-                if (availableReservation !== undefined) {
+                if (searchResult.data.length > 0) {
                     await this.cinerino.reservation.findScreeningEventReservationByToken({ token });
+                }
+                let findScreeningEventResult;
+                if (searchResult.data.length > 0 && !specified) {
+                    const id = searchResult.data[0].reservationFor.id;
+                    findScreeningEventResult = await this.cinerino.event.findById<factory.chevre.eventType.ScreeningEvent>({ id });
                 }
 
                 return new admissionAction.CheckSuccess({
-                    token,
-                    decodeResult,
-                    availableReservation,
-                    checkTokenActions,
-                    statusCode
+                    qrcodeToken: {
+                        token,
+                        decodeResult,
+                        availableReservation: searchResult.data[0],
+                        checkTokenActions,
+                        statusCode,
+                    },
+                    screeningEvent: findScreeningEventResult
                 });
             } catch (error) {
                 return new admissionAction.CheckSuccess({
-                    checkTokenActions: [],
-                    statusCode: (error.code === undefined) ? INTERNAL_SERVER_ERROR : error.code
+                    qrcodeToken: {
+                        checkTokenActions: [],
+                        statusCode: (error.code === undefined) ? INTERNAL_SERVER_ERROR : error.code
+                    }
                 });
             }
         })

@@ -12,6 +12,11 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/).
 
 ### Security
 
+## 3.0.17 - 2020-03-24
+### Added
+ - 入場へ券種の色を追加
+ - 入場へ作品指定なしでの確認を追加
+
 ## 3.0.16 - 2020-03-12
 ### Added
  - チケット印刷QRコード非表示設定追加

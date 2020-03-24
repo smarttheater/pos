@@ -24,7 +24,7 @@ export enum ActionTypes {
  */
 export class Delete implements Action {
     public readonly type = ActionTypes.Delete;
-    constructor(public payload: {}) { }
+    constructor(public payload?: {}) { }
 }
 
 /**
@@ -82,7 +82,9 @@ export class Check implements Action {
     public readonly type = ActionTypes.Check;
     constructor(public payload: {
         code: string;
-        screeningEvent: factory.chevre.event.screeningEvent.IEvent
+        screeningEvent?: factory.chevre.event.screeningEvent.IEvent;
+        scheduleDate: Date;
+        specified: boolean;
     }) { }
 }
 
@@ -92,11 +94,14 @@ export class Check implements Action {
 export class CheckSuccess implements Action {
     public readonly type = ActionTypes.CheckSuccess;
     constructor(public payload: {
-        token?: string;
-        decodeResult?: IDecodeResult;
-        availableReservation?: factory.chevre.reservation.IReservation<factory.chevre.reservationType.EventReservation>;
-        checkTokenActions: factory.action.check.token.IAction[];
-        statusCode: number;
+        qrcodeToken: {
+            token?: string;
+            decodeResult?: IDecodeResult;
+            availableReservation?: factory.chevre.reservation.IReservation<factory.chevre.reservationType.EventReservation>;
+            checkTokenActions: factory.action.check.token.IAction[];
+            statusCode: number;
+        };
+        screeningEvent?: factory.chevre.event.screeningEvent.IEvent;
     }) { }
 }
 

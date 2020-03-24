@@ -105,6 +105,14 @@ export class AdmissionScheduleComponent implements OnInit, OnDestroy {
     }
 
     /**
+     * 指定なしで確認
+     */
+    public notSpecified() {
+        this.admissionService.delete();
+        this.router.navigate(['/admission/check']);
+    }
+
+    /**
      * Datepicker言語設定
      */
     public setDatePicker() {
