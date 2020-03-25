@@ -190,7 +190,6 @@
                         <p class="col-md-4 py-2 text-md-right">{{ 'setting.printer' | translate }}</p>
                         <div class="col-md-8">
                             <select class="form-control" formControlName="printerType" (change)="changePrinterType()">
-                                <option value="">{{ 'setting.unselected' | translate }}</option>
                                 <option *ngFor="let printer of printers" [value]="printer.connectionType">
                                     {{ printer.name | translate }}</option>
                             </select>

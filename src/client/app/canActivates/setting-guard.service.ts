@@ -32,8 +32,8 @@ export class SettingGuardService implements CanActivate {
             if (user.theater === undefined) {
                 throw new Error('theater not found').message;
             }
-            if (user.pos === undefined) {
-                throw new Error('pos not found').message;
+            if (user.customerContact === undefined) {
+                throw new Error('customerContact not found').message;
             }
 
             return true;
