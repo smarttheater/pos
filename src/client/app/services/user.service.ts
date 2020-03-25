@@ -46,7 +46,7 @@ export class UserService {
      */
     public updateAll(params: {
         seller: factory.seller.IOrganization<factory.seller.IAttributes<factory.organizationType>>;
-        pos: factory.seller.IPOS;
+        pos?: factory.seller.IPOS;
         theater: factory.chevre.place.movieTheater.IPlaceWithoutScreeningRoom;
         customerContact: factory.transaction.placeOrder.ICustomerProfile;
         printer: IPrinter;
