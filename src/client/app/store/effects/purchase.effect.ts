@@ -131,6 +131,13 @@ export class PurchaseEffects {
                 await this.cinerinoService.getServices();
                 const screeningEvent =
                     await this.cinerinoService.event.findById<factory.chevre.eventType.ScreeningEvent>({ id: payload.screeningEvent.id });
+                const searchMovie = (await this.cinerinoService.creativeWork.searchMovies({
+                    identifier: (screeningEvent.workPerformed === undefined)
+                        ? undefined : screeningEvent.workPerformed.identifier
+                })).data[0];
+                if (screeningEvent.workPerformed !== undefined) {
+                    screeningEvent.workPerformed.additionalProperty = searchMovie.additionalProperty;
+                }
                 return new purchaseAction.GetScreeningEventSuccess({ screeningEvent });
             } catch (error) {
                 return new purchaseAction.GetScreeningEventFail({ error: error });
@@ -178,6 +185,10 @@ export class PurchaseEffects {
             const additionalTicketText = payload.additionalTicketText;
             try {
                 await this.cinerinoService.getServices();
+                const searchMovie = (await this.cinerinoService.creativeWork.searchMovies({
+                    identifier: (screeningEvent.workPerformed === undefined)
+                        ? undefined : screeningEvent.workPerformed.identifier
+                })).data[0];
                 if (payload.authorizeSeatReservation !== undefined) {
                     await this.cinerinoService.transaction.placeOrder
                         .voidSeatReservation(payload.authorizeSeatReservation);
@@ -201,11 +212,12 @@ export class PurchaseEffects {
                                     addOn: (reservation.ticket.addOn === undefined)
                                         ? undefined
                                         : reservation.ticket.addOn.map(a => ({ id: a.id })),
-                                    additionalProperty: [], // ここにムビチケ情報を入れる
+                                    additionalProperty: [],
                                     itemOffered: {
                                         serviceOutput: {
                                             typeOf: factory.chevre.reservationType.EventReservation,
-                                            additionalProperty: [],
+                                            additionalProperty: (searchMovie === undefined || searchMovie.additionalProperty === undefined)
+                                                ? [] : [...searchMovie.additionalProperty],
                                             additionalTicketText: additionalTicketText,
                                             reservedTicket: {
                                                 typeOf: 'Ticket',
