@@ -12,6 +12,10 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/).
 
 ### Security
 
+## 3.0.18 - 2020-03-25
+### Changed
+ - posIdの設定を任意へ変更
+
 ## 3.0.17 - 2020-03-24
 ### Added
  - 入場へ券種の色を追加
