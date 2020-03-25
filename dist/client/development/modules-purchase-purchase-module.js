@@ -1986,7 +1986,6 @@ let PurchaseCompleteComponent = class PurchaseCompleteComponent {
                 const purchase = yield this.purchaseService.getData();
                 const user = yield this.userService.getData();
                 if (purchase.order === undefined
-                    || user.pos === undefined
                     || user.printer === undefined) {
                     this.router.navigate(['/error']);
                     return;
