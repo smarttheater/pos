@@ -19833,7 +19833,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
         return __awaiter(_this58, void 0, void 0,
         /*#__PURE__*/
         regeneratorRuntime.mark(function _callee88() {
-          var transaction, screeningEvent, reservations, screeningEventOffers, additionalTicketText, searchMovie, availableSeats, authorizeSeatReservation;
+          var transaction, screeningEvent, reservations, screeningEventOffers, additionalTicketText, availableSeats, authorizeSeatReservation;
           return regeneratorRuntime.wrap(function _callee88$(_context92) {
             while (1) {
               switch (_context92.prev = _context92.next) {
@@ -19848,37 +19848,29 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                   return this.cinerinoService.getServices();
 
                 case 8:
-                  _context92.next = 10;
-                  return this.cinerinoService.creativeWork.searchMovies({
-                    identifier: screeningEvent.workPerformed === undefined ? undefined : screeningEvent.workPerformed.identifier
-                  });
-
-                case 10:
-                  searchMovie = _context92.sent.data[0];
-
                   if (!(payload.authorizeSeatReservation !== undefined)) {
-                    _context92.next = 14;
+                    _context92.next = 11;
                     break;
                   }
 
-                  _context92.next = 14;
+                  _context92.next = 11;
                   return this.cinerinoService.transaction.placeOrder.voidSeatReservation(payload.authorizeSeatReservation);
 
-                case 14:
+                case 11:
                   availableSeats = Object(_functions__WEBPACK_IMPORTED_MODULE_7__["selectAvailableSeat"])({
                     reservations: reservations,
                     screeningEventOffers: screeningEventOffers
                   });
 
                   if (!(new _models__WEBPACK_IMPORTED_MODULE_8__["Performance"](screeningEvent).isTicketedSeat() && availableSeats.length !== reservations.length)) {
-                    _context92.next = 17;
+                    _context92.next = 14;
                     break;
                   }
 
                   throw new Error('Out of stock').message;
 
-                case 17:
-                  _context92.next = 19;
+                case 14:
+                  _context92.next = 16;
                   return this.cinerinoService.transaction.placeOrder.authorizeSeatReservation({
                     object: {
                       event: {
@@ -19900,7 +19892,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                           itemOffered: {
                             serviceOutput: {
                               typeOf: _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_1__["factory"].chevre.reservationType.EventReservation,
-                              additionalProperty: searchMovie === undefined || searchMovie.additionalProperty === undefined ? [] : _toConsumableArray(searchMovie.additionalProperty),
+                              additionalProperty: screeningEvent.workPerformed === undefined || screeningEvent.workPerformed.additionalProperty === undefined ? [] : _toConsumableArray(screeningEvent.workPerformed.additionalProperty),
                               additionalTicketText: additionalTicketText,
                               reservedTicket: {
                                 typeOf: 'Ticket',
@@ -19922,26 +19914,26 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                     purpose: transaction
                   });
 
-                case 19:
+                case 16:
                   authorizeSeatReservation = _context92.sent;
                   return _context92.abrupt("return", new _actions__WEBPACK_IMPORTED_MODULE_10__["purchaseAction"].TemporaryReservationSuccess({
                     addAuthorizeSeatReservation: authorizeSeatReservation,
                     removeAuthorizeSeatReservation: payload.authorizeSeatReservation
                   }));
 
-                case 23:
-                  _context92.prev = 23;
+                case 20:
+                  _context92.prev = 20;
                   _context92.t0 = _context92["catch"](5);
                   return _context92.abrupt("return", new _actions__WEBPACK_IMPORTED_MODULE_10__["purchaseAction"].TemporaryReservationFail({
                     error: _context92.t0
                   }));
 
-                case 26:
+                case 23:
                 case "end":
                   return _context92.stop();
               }
             }
-          }, _callee88, this, [[5, 23]]);
+          }, _callee88, this, [[5, 20]]);
         }));
       }));
       /**

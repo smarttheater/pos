@@ -10723,10 +10723,6 @@ let PurchaseEffects = class PurchaseEffects {
             const additionalTicketText = payload.additionalTicketText;
             try {
                 yield this.cinerinoService.getServices();
-                const searchMovie = (yield this.cinerinoService.creativeWork.searchMovies({
-                    identifier: (screeningEvent.workPerformed === undefined)
-                        ? undefined : screeningEvent.workPerformed.identifier
-                })).data[0];
                 if (payload.authorizeSeatReservation !== undefined) {
                     yield this.cinerinoService.transaction.placeOrder
                         .voidSeatReservation(payload.authorizeSeatReservation);
@@ -10752,8 +10748,9 @@ let PurchaseEffects = class PurchaseEffects {
                                 itemOffered: {
                                     serviceOutput: {
                                         typeOf: _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_1__["factory"].chevre.reservationType.EventReservation,
-                                        additionalProperty: (searchMovie === undefined || searchMovie.additionalProperty === undefined)
-                                            ? [] : [...searchMovie.additionalProperty],
+                                        additionalProperty: (screeningEvent.workPerformed === undefined
+                                            || screeningEvent.workPerformed.additionalProperty === undefined)
+                                            ? [] : [...screeningEvent.workPerformed.additionalProperty],
                                         additionalTicketText: additionalTicketText,
                                         reservedTicket: {
                                             typeOf: 'Ticket',

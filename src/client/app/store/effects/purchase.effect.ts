@@ -185,10 +185,6 @@ export class PurchaseEffects {
             const additionalTicketText = payload.additionalTicketText;
             try {
                 await this.cinerinoService.getServices();
-                const searchMovie = (await this.cinerinoService.creativeWork.searchMovies({
-                    identifier: (screeningEvent.workPerformed === undefined)
-                        ? undefined : screeningEvent.workPerformed.identifier
-                })).data[0];
                 if (payload.authorizeSeatReservation !== undefined) {
                     await this.cinerinoService.transaction.placeOrder
                         .voidSeatReservation(payload.authorizeSeatReservation);
@@ -216,8 +212,9 @@ export class PurchaseEffects {
                                     itemOffered: {
                                         serviceOutput: {
                                             typeOf: factory.chevre.reservationType.EventReservation,
-                                            additionalProperty: (searchMovie === undefined || searchMovie.additionalProperty === undefined)
-                                                ? [] : [...searchMovie.additionalProperty],
+                                            additionalProperty: (screeningEvent.workPerformed === undefined
+                                                || screeningEvent.workPerformed.additionalProperty === undefined)
+                                                ? [] : [...screeningEvent.workPerformed.additionalProperty],
                                             additionalTicketText: additionalTicketText,
                                             reservedTicket: {
                                                 typeOf: 'Ticket',
