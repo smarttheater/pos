@@ -12,6 +12,10 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/).
 
 ### Security
 
+## 3.0.19 - 2020-03-27
+### Changed
+ - 作品追加特性の取得方法を変更
+
 ## 3.0.18 - 2020-03-25
 ### Changed
  - posIdの設定を任意へ変更
