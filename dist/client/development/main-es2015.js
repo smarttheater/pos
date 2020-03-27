@@ -6329,6 +6329,7 @@ let CinerinoService = class CinerinoService {
             try {
                 const option = yield this.createOption();
                 this.account = new _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_2__["service"].Account(option);
+                this.creativeWork = new _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_2__["service"].CreativeWork(option);
                 this.event = new _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_2__["service"].Event(option);
                 this.order = new _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_2__["service"].Order(option);
                 this.seller = new _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_2__["service"].Seller(option);
@@ -10418,8 +10419,14 @@ let OrderEffects = class OrderEffects {
                             const order = authorizeOrder;
                             let qrcode = (environment.PRINT_QRCODE_TYPE === _models__WEBPACK_IMPORTED_MODULE_8__["PrintQrcodeType"].None)
                                 ? undefined : itemOffered.reservedTicket.ticketToken;
-                            const additionalProperty = (itemOffered.reservationFor.workPerformed === undefined)
-                                ? undefined : itemOffered.reservationFor.workPerformed.additionalProperty;
+                            const additionalProperty = (itemOffered.reservationFor.workPerformed !== undefined
+                                && itemOffered.reservationFor.workPerformed.additionalProperty !== undefined
+                                && itemOffered.reservationFor.workPerformed.additionalProperty.length > 0)
+                                ? itemOffered.reservationFor.workPerformed.additionalProperty :
+                                (itemOffered.additionalProperty !== undefined
+                                    && itemOffered.additionalProperty.length > 0) ?
+                                    itemOffered.additionalProperty
+                                    : undefined;
                             if (additionalProperty !== undefined) {
                                 // 追加特性のqrcodeがfalseの場合QR非表示
                                 const isDisplayQrcode = additionalProperty.find(a => a.name === 'qrcode');
@@ -10673,6 +10680,13 @@ let PurchaseEffects = class PurchaseEffects {
             try {
                 yield this.cinerinoService.getServices();
                 const screeningEvent = yield this.cinerinoService.event.findById({ id: payload.screeningEvent.id });
+                const searchMovie = (yield this.cinerinoService.creativeWork.searchMovies({
+                    identifier: (screeningEvent.workPerformed === undefined)
+                        ? undefined : screeningEvent.workPerformed.identifier
+                })).data[0];
+                if (screeningEvent.workPerformed !== undefined) {
+                    screeningEvent.workPerformed.additionalProperty = searchMovie.additionalProperty;
+                }
                 return new _actions__WEBPACK_IMPORTED_MODULE_10__["purchaseAction"].GetScreeningEventSuccess({ screeningEvent });
             }
             catch (error) {
@@ -10734,7 +10748,9 @@ let PurchaseEffects = class PurchaseEffects {
                                 itemOffered: {
                                     serviceOutput: {
                                         typeOf: _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_1__["factory"].chevre.reservationType.EventReservation,
-                                        additionalProperty: [],
+                                        additionalProperty: (screeningEvent.workPerformed === undefined
+                                            || screeningEvent.workPerformed.additionalProperty === undefined)
+                                            ? [] : [...screeningEvent.workPerformed.additionalProperty],
                                         additionalTicketText: additionalTicketText,
                                         reservedTicket: {
                                             typeOf: 'Ticket',

@@ -10580,6 +10580,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                   case 3:
                     option = _context22.sent;
                     this.account = new _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_2__["service"].Account(option);
+                    this.creativeWork = new _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_2__["service"].CreativeWork(option);
                     this.event = new _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_2__["service"].Event(option);
                     this.order = new _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_2__["service"].Order(option);
                     this.seller = new _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_2__["service"].Seller(option);
@@ -10599,23 +10600,23 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                     this.admin = {
                       ownershipInfo: new _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_2__["service"].OwnershipInfo(option)
                     };
-                    _context22.next = 23;
+                    _context22.next = 24;
                     break;
 
-                  case 19:
-                    _context22.prev = 19;
+                  case 20:
+                    _context22.prev = 20;
                     _context22.t0 = _context22["catch"](0);
                     console.error(_context22.t0);
                     throw {
                       error: 'アクセストークンの取得に失敗しました。'
                     };
 
-                  case 23:
+                  case 24:
                   case "end":
                     return _context22.stop();
                 }
               }
-            }, _callee22, this, [[0, 19]]);
+            }, _callee22, this, [[0, 20]]);
           }));
         }
         /**
@@ -19039,7 +19040,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                                     case 4:
                                       order = authorizeOrder;
                                       qrcode = environment.PRINT_QRCODE_TYPE === _models__WEBPACK_IMPORTED_MODULE_8__["PrintQrcodeType"].None ? undefined : itemOffered.reservedTicket.ticketToken;
-                                      additionalProperty = itemOffered.reservationFor.workPerformed === undefined ? undefined : itemOffered.reservationFor.workPerformed.additionalProperty;
+                                      additionalProperty = itemOffered.reservationFor.workPerformed !== undefined && itemOffered.reservationFor.workPerformed.additionalProperty !== undefined && itemOffered.reservationFor.workPerformed.additionalProperty.length > 0 ? itemOffered.reservationFor.workPerformed.additionalProperty : itemOffered.additionalProperty !== undefined && itemOffered.additionalProperty.length > 0 ? itemOffered.additionalProperty : undefined;
 
                                       if (additionalProperty !== undefined) {
                                         // 追加特性のqrcodeがfalseの場合QR非表示
@@ -19716,7 +19717,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
         return __awaiter(_this58, void 0, void 0,
         /*#__PURE__*/
         regeneratorRuntime.mark(function _callee86() {
-          var screeningEvent;
+          var screeningEvent, searchMovie;
           return regeneratorRuntime.wrap(function _callee86$(_context90) {
             while (1) {
               switch (_context90.prev = _context90.next) {
@@ -19733,23 +19734,35 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
                 case 5:
                   screeningEvent = _context90.sent;
+                  _context90.next = 8;
+                  return this.cinerinoService.creativeWork.searchMovies({
+                    identifier: screeningEvent.workPerformed === undefined ? undefined : screeningEvent.workPerformed.identifier
+                  });
+
+                case 8:
+                  searchMovie = _context90.sent.data[0];
+
+                  if (screeningEvent.workPerformed !== undefined) {
+                    screeningEvent.workPerformed.additionalProperty = searchMovie.additionalProperty;
+                  }
+
                   return _context90.abrupt("return", new _actions__WEBPACK_IMPORTED_MODULE_10__["purchaseAction"].GetScreeningEventSuccess({
                     screeningEvent: screeningEvent
                   }));
 
-                case 9:
-                  _context90.prev = 9;
+                case 13:
+                  _context90.prev = 13;
                   _context90.t0 = _context90["catch"](0);
                   return _context90.abrupt("return", new _actions__WEBPACK_IMPORTED_MODULE_10__["purchaseAction"].GetScreeningEventFail({
                     error: _context90.t0
                   }));
 
-                case 12:
+                case 16:
                 case "end":
                   return _context90.stop();
               }
             }
-          }, _callee86, this, [[0, 9]]);
+          }, _callee86, this, [[0, 13]]);
         }));
       }));
       /**
@@ -19879,7 +19892,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                           itemOffered: {
                             serviceOutput: {
                               typeOf: _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_1__["factory"].chevre.reservationType.EventReservation,
-                              additionalProperty: [],
+                              additionalProperty: screeningEvent.workPerformed === undefined || screeningEvent.workPerformed.additionalProperty === undefined ? [] : _toConsumableArray(screeningEvent.workPerformed.additionalProperty),
                               additionalTicketText: additionalTicketText,
                               reservedTicket: {
                                 typeOf: 'Ticket',
