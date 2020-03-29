@@ -225,4 +225,15 @@ export function getProject() {
     }>JSON.parse(project);
 }
 
+/**
+ * ランダム英数字生成
+ */
+export function createRandomString(length: number, regExp: RegExp) {
+    const str = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'.replace(regExp, '');
+    let result = '';
+    for (let i = 0; i < length; i++) {
+        result += str[Math.floor(Math.random() * str.length)];
+    }
+    return result;
+}
 

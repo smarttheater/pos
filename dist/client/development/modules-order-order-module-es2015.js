@@ -1084,9 +1084,11 @@ let OrderSearchComponent = class OrderSearchComponent {
      * キャンセル確認
      */
     cancelConfirm(orders) {
+        const code = Object(_functions__WEBPACK_IMPORTED_MODULE_8__["createRandomString"])(6, /[^0-9]/g);
         this.utilService.openConfirm({
             title: this.translate.instant('common.confirm'),
-            body: this.translate.instant('order.search.confirm.cancel'),
+            body: this.translate.instant('order.search.confirm.cancel', { value: code }),
+            code,
             cb: () => __awaiter(this, void 0, void 0, function* () {
                 try {
                     const userData = yield this.userService.getData();
@@ -1125,11 +1127,14 @@ let OrderSearchComponent = class OrderSearchComponent {
                 title: this.translate.instant('common.error'),
                 body: this.translate.instant('order.search.alert.unselected')
             });
+            return;
         }
         if (this.actionSelect === _models__WEBPACK_IMPORTED_MODULE_9__["OrderActions"].Cancel) {
+            const code = Object(_functions__WEBPACK_IMPORTED_MODULE_8__["createRandomString"])(6, /[^0-9]/g);
             this.utilService.openConfirm({
                 title: this.translate.instant('common.confirm'),
-                body: this.translate.instant('order.search.confirm.cancel'),
+                body: this.translate.instant('order.search.confirm.cancel', { value: code }),
+                code,
                 cb: () => __awaiter(this, void 0, void 0, function* () {
                     try {
                         const userData = yield this.userService.getData();

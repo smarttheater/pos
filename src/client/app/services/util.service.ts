@@ -40,13 +40,15 @@ export class UtilService {
     public openConfirm(args: {
         title: string;
         body: string;
+        code?: string;
         cb: Function
     }) {
         const title = args.title;
         const body = args.body;
+        const code = args.code;
         const cb = args.cb;
         this.modal.show(ConfirmModalComponent, {
-            initialState: { title, body, cb },
+            initialState: { title, body, code, cb },
             class: 'modal-dialog-centered'
         });
     }
