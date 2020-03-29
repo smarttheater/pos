@@ -10,7 +10,9 @@ export class ConfirmModalComponent implements OnInit {
 
     @Input() public title: string;
     @Input() public body: string;
+    @Input() public code?: string;
     @Input() public cb: Function;
+    public input = { code: '' };
 
     constructor(
         public modal: BsModalRef,
