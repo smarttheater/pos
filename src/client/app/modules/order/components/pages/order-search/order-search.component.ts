@@ -8,7 +8,7 @@ import { BsDatepickerDirective, BsLocaleService, BsModalService } from 'ngx-boot
 import { BsDatepickerContainerComponent } from 'ngx-bootstrap/datepicker/themes/bs/bs-datepicker-container.component';
 import { Observable } from 'rxjs';
 import { getEnvironment } from '../../../../../../environments/environment';
-import { input2OrderSearchCondition, iOSDatepickerTapBugFix, order2EventOrders } from '../../../../../functions';
+import { createRandomString, input2OrderSearchCondition, iOSDatepickerTapBugFix, order2EventOrders } from '../../../../../functions';
 import { ConnectionType, IOrderSearchConditions, OrderActions } from '../../../../../models';
 import { OrderService, UserService, UtilService } from '../../../../../services';
 import * as reducers from '../../../../../store/reducers';
@@ -166,7 +166,7 @@ export class OrderSearchComponent implements OnInit {
                 throw new Error('order date wrong date range').message;
             }
             this.orders = (await this.orderService.search(params)).data;
-            this.nextOrders = (await this.orderService.search({...params, page: (this.currentPage + 1)})).data;
+            this.nextOrders = (await this.orderService.search({ ...params, page: (this.currentPage + 1) })).data;
             this.totalCount = (this.nextOrders.length === 0) ? this.currentPage * this.limit : 100000;
         } catch (error) {
             console.error(error);
@@ -243,9 +243,11 @@ export class OrderSearchComponent implements OnInit {
      * キャンセル確認
      */
     public cancelConfirm(orders: factory.order.IOrder[]) {
+        const code = createRandomString(6, /[^0-9]/g);
         this.utilService.openConfirm({
             title: this.translate.instant('common.confirm'),
-            body: this.translate.instant('order.search.confirm.cancel'),
+            body: this.translate.instant('order.search.confirm.cancel', { value: code }),
+            code,
             cb: async () => {
                 try {
                     const userData = await this.userService.getData();
@@ -285,11 +287,14 @@ export class OrderSearchComponent implements OnInit {
                 title: this.translate.instant('common.error'),
                 body: this.translate.instant('order.search.alert.unselected')
             });
+            return;
         }
         if (this.actionSelect === OrderActions.Cancel) {
+            const code = createRandomString(6, /[^0-9]/g);
             this.utilService.openConfirm({
                 title: this.translate.instant('common.confirm'),
-                body: this.translate.instant('order.search.confirm.cancel'),
+                body: this.translate.instant('order.search.confirm.cancel', { value: code }),
+                code,
                 cb: async () => {
                     try {
                         const userData = await this.userService.getData();
