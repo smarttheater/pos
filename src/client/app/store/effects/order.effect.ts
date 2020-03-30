@@ -5,7 +5,15 @@ import { TranslateService } from '@ngx-translate/core';
 import * as moment from 'moment';
 import { map, mergeMap } from 'rxjs/operators';
 import { getEnvironment } from '../../../environments/environment';
-import { createPrintCanvas, createTestPrintCanvas, formatTelephone, getItemPrice, getProject, retry, sleep } from '../../functions';
+import {
+    createPrintCanvas,
+    createTestPrintCanvas,
+    formatTelephone,
+    getItemPrice,
+    getProject,
+    isFile, retry,
+    sleep
+} from '../../functions';
 import { ConnectionType, ITicketPrintData, PrintQrcodeType } from '../../models';
 import { CinerinoService, StarPrintService, UtilService } from '../../services';
 import { orderAction } from '../actions';
@@ -68,11 +76,42 @@ export class OrderEffects {
                             ? undefined : this.translate.instant('email.order.return.about'),
                         template: undefined
                     };
-                    if (environment.PURCHASE_COMPLETE_MAIL_CUSTOM) {
-                        // メールをカスタマイズ
-                        const view = await this.utilService.getText(`${getProject().storageUrl}/ejs/mail/return/${payload.language}.ejs`);
+                    if (environment.ORDER_CANCEL_MAIL_CUSTOM) {
+                        // 返品メールをカスタマイズ
+                        const path = `/ejs/mail/return/${payload.language}.ejs`;
+                        const url = (await isFile(`${getProject().storageUrl}${path}`))
+                            ? `${getProject().storageUrl}${path}`
+                            : `/default${path}`;
+                        const view = await this.utilService.getText(url);
                         const template = await (<any>window).ejs.render(view, { moment, formatTelephone, getItemPrice }, { async: true });
                         email.template = template;
+                    }
+                    const refundCreditCardEmail: factory.creativeWork.message.email.ICustomization = {
+                        sender: {
+                            name: (this.translate.instant('email.order.refundCreditCard.sender.name') === '')
+                                ? undefined : this.translate.instant('email.order.refundCreditCard.sender.name'),
+                            email: (this.translate.instant('email.order.refundCreditCard.sender.email') === '')
+                                ? undefined : this.translate.instant('email.order.refundCreditCard.sender.email')
+                        },
+                        toRecipient: {
+                            name: (this.translate.instant('email.order.refundCreditCard.toRecipient.name') === '')
+                                ? undefined : this.translate.instant('email.order.refundCreditCard.toRecipient.name'),
+                            email: (this.translate.instant('email.order.refundCreditCard.toRecipient.email') === '')
+                                ? undefined : this.translate.instant('email.order.refundCreditCard.toRecipient.email')
+                        },
+                        about: (this.translate.instant('email.order.refundCreditCard.about') === '')
+                            ? undefined : this.translate.instant('email.order.refundCreditCard.about'),
+                        template: undefined
+                    };
+                    if (environment.ORDER_CANCEL_MAIL_CUSTOM) {
+                        // 返金メールをカスタマイズ
+                        const path = `/ejs/mail/refundCreditCard/${payload.language}.ejs`;
+                        const url = (await isFile(`${getProject().storageUrl}${path}`))
+                            ? `${getProject().storageUrl}${path}`
+                            : `/default${path}`;
+                        const view = await this.utilService.getText(url);
+                        const template = await (<any>window).ejs.render(view, { moment, formatTelephone, getItemPrice }, { async: true });
+                        refundCreditCardEmail.template = template;
                     }
                     await this.cinerino.transaction.returnOrder.confirm({
                         id: startResult.id,
@@ -81,20 +120,11 @@ export class OrderEffects {
                                 potentialActions: {
                                     refundCreditCard: creditCards.map((c) => {
                                         return {
-                                            object: {
-                                                object: [{
-                                                    paymentMethod: {
-                                                        paymentMethodId: c.paymentMethodId
-                                                    }
-                                                }]
-                                            },
-                                            potentialActions: {
-                                                sendEmailMessage: {
-                                                    object: email
-                                                }
-                                            }
+                                            object: { object: [{ paymentMethod: { paymentMethodId: c.paymentMethodId } }] },
+                                            potentialActions: { sendEmailMessage: { object: refundCreditCardEmail } }
                                         };
-                                    })
+                                    }),
+                                    sendEmailMessage: [{ object: email }]
                                 }
                             }
                         }
@@ -203,7 +233,11 @@ export class OrderEffects {
                         authorizeOrders.push(result);
                     }
                 }
-                const printData = await this.utilService.getJson<ITicketPrintData>(`${getProject().storageUrl}/json/print/ticket.json`);
+                const path = '/json/print/ticket.json';
+                const url = (await isFile(`${getProject().storageUrl}${path}`))
+                    ? `${getProject().storageUrl}${path}`
+                    : `/default${path}`;
+                const printData = await this.utilService.getJson<ITicketPrintData>(url);
                 const testFlg = authorizeOrders.length === 0;
                 const canvasList: HTMLCanvasElement[] = [];
                 if (testFlg) {

@@ -3,7 +3,7 @@ import * as moment from 'moment';
 import * as qrcode from 'qrcode';
 import { IOrderSearchConditions, ITicketPrintData } from '../models';
 import { getItemPrice } from './purchase.function';
-import { formatTelephone, getProject } from './util.function';
+import { formatTelephone, getProject, isFile } from './util.function';
 
 /**
  * キャンバスへ描画
@@ -78,7 +78,10 @@ async function drawCanvas(args: {
     for (const image of printData.image) {
         const imageInstance = new Image();
         imageInstance.crossOrigin = 'anonymous';
-        imageInstance.src = image.src.replace('/storage', getProject().storageUrl);
+        const src = (await isFile(image.src.replace('/storage', getProject().storageUrl)))
+            ? image.src.replace('/storage', getProject().storageUrl)
+            : image.src.replace('/storage', '/default');
+        imageInstance.src = src;
         await drawImage({
             image: imageInstance,
             x: image.x,
@@ -294,6 +297,9 @@ export function order2report(orders: factory.order.IOrder[]) {
                 orderDateJST: moment(order.orderDate).format('YYYY/MM/DD/HH:mm'),
                 orderNumber: order.orderNumber,
                 orderStatus: order.orderStatus,
+                dateReturnedJST: (order.dateReturned === undefined)
+                    ? undefined
+                    : moment(order.dateReturned).format('YYYY/MM/DD/HH:mm'),
                 confirmationNumber: order.confirmationNumber,
                 price: order.price,
                 seller: order.seller,

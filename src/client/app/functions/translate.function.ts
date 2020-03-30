@@ -1,26 +1,49 @@
 import { HttpClient } from '@angular/common/http';
-import { TranslateLoader } from '@ngx-translate/core';
-import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { TranslateLoader, TranslateModuleConfig } from '@ngx-translate/core';
+import * as deepmerge from 'deepmerge';
 import * as moment from 'moment';
+import { forkJoin, of } from 'rxjs';
+import { catchError, map } from 'rxjs/operators';
 import { getProject } from './util.function';
 
 /**
- *  設定ファイル取得設定
+ * 多言語カスタムローダー
  */
-function getUseFactory(http: HttpClient) {
-    const prefix = `${getProject().storageUrl}/i18n/`;
-    const suffix = `.json?date=${moment().toISOString()}`;
-    return new TranslateHttpLoader(http, prefix, suffix);
+class CustomTranslateHttpLoader implements TranslateLoader {
+    constructor(private http: HttpClient) { }
+
+    public getTranslation(lang: string) {
+        const suffix = `.json?date=${moment().toISOString()}`;
+        const resources = [
+            `/default/i18n/${lang}${suffix}`,
+            `${getProject().storageUrl}/i18n/${lang}${suffix}`,
+        ];
+
+        return forkJoin(
+            resources.map((url) => {
+                return this.http.get(url).pipe(catchError((error) => {
+                    console.error(error);
+                    return of({});
+                }));
+            })
+        ).pipe(
+            map(response => {
+                return response.reduce((a, b) => {
+                    return deepmerge(a, b);
+                });
+            })
+        );
+    }
 }
 
 /**
  * 多言語設定取得
  */
-export function getTranslateModuleConfig() {
+export function getTranslateModuleConfig(): TranslateModuleConfig {
     return {
         loader: {
             provide: TranslateLoader,
-            useFactory: getUseFactory,
+            useClass: CustomTranslateHttpLoader,
             deps: [HttpClient]
         }
     };

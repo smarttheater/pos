@@ -2,6 +2,7 @@
     { "label": "購入日時", "value": "orderDateJST" },
     { "label": "注文番号", "value": "orderNumber" },
     { "label": "注文ステータス", "value": "orderStatus" },
+    { "label": "返品日時", "value": "dateReturnedJST" },
     { "label": "購入番号", "value": "confirmationNumber" },
     { "label": "注文金額", "value": "price" },
     { "label": "販売者Id", "value": "seller.id" },

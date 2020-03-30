@@ -49,6 +49,7 @@ window.environment = {
     INQUIRY_QRCODE: true,
     INQUIRY_PRINT: true,
     ORDER_CANCEL: true,
+    ORDER_CANCEL_MAIL_CUSTOM: true,
     ORDER_QRCODE: true,
     ORDER_PRINT: true,
     ORDER_LINK: [

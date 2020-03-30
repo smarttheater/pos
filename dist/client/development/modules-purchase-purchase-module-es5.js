@@ -5589,33 +5589,51 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
           return __awaiter(this, void 0, void 0,
           /*#__PURE__*/
           regeneratorRuntime.mark(function _callee26() {
-            var url, result;
+            var path, url, result;
             return regeneratorRuntime.wrap(function _callee26$(_context26) {
               while (1) {
                 switch (_context26.prev = _context26.next) {
                   case 0:
                     _context26.prev = 0;
-                    url = "".concat(Object(_functions__WEBPACK_IMPORTED_MODULE_3__["getProject"])().storageUrl, "/text/purchase/terms/").concat(this.language, ".txt");
+                    path = "/text/purchase/terms/".concat(this.language, ".txt");
                     _context26.next = 4;
-                    return this.utilService.getText(url);
+                    return Object(_functions__WEBPACK_IMPORTED_MODULE_3__["isFile"])("".concat(Object(_functions__WEBPACK_IMPORTED_MODULE_3__["getProject"])().storageUrl).concat(path));
 
                   case 4:
-                    result = _context26.sent;
-                    this.terms = result.replace(/\n/g, '<br>');
-                    _context26.next = 11;
+                    if (!_context26.sent) {
+                      _context26.next = 8;
+                      break;
+                    }
+
+                    _context26.t0 = "".concat(Object(_functions__WEBPACK_IMPORTED_MODULE_3__["getProject"])().storageUrl).concat(path);
+                    _context26.next = 9;
                     break;
 
                   case 8:
-                    _context26.prev = 8;
-                    _context26.t0 = _context26["catch"](0);
-                    console.error(_context26.t0);
+                    _context26.t0 = "/default".concat(path);
 
-                  case 11:
+                  case 9:
+                    url = _context26.t0;
+                    _context26.next = 12;
+                    return this.utilService.getText(url);
+
+                  case 12:
+                    result = _context26.sent;
+                    this.terms = result.replace(/\n/g, '<br>');
+                    _context26.next = 19;
+                    break;
+
+                  case 16:
+                    _context26.prev = 16;
+                    _context26.t1 = _context26["catch"](0);
+                    console.error(_context26.t1);
+
+                  case 19:
                   case "end":
                     return _context26.stop();
                 }
               }
-            }, _callee26, this, [[0, 8]]);
+            }, _callee26, this, [[0, 16]]);
           }));
         }
       }]);
@@ -5788,33 +5806,51 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
           return __awaiter(this, void 0, void 0,
           /*#__PURE__*/
           regeneratorRuntime.mark(function _callee27() {
-            var url, result;
+            var path, url, result;
             return regeneratorRuntime.wrap(function _callee27$(_context27) {
               while (1) {
                 switch (_context27.prev = _context27.next) {
                   case 0:
                     _context27.prev = 0;
-                    url = "".concat(Object(_functions__WEBPACK_IMPORTED_MODULE_3__["getProject"])().storageUrl, "/text/purchase/warning/").concat(this.language, ".txt");
+                    path = "/text/purchase/warning/".concat(this.language, ".txt");
                     _context27.next = 4;
-                    return this.utilService.getText(url);
+                    return Object(_functions__WEBPACK_IMPORTED_MODULE_3__["isFile"])("".concat(Object(_functions__WEBPACK_IMPORTED_MODULE_3__["getProject"])().storageUrl).concat(path));
 
                   case 4:
-                    result = _context27.sent;
-                    this.warning = result.replace(/\n/g, '<br>');
-                    _context27.next = 11;
+                    if (!_context27.sent) {
+                      _context27.next = 8;
+                      break;
+                    }
+
+                    _context27.t0 = "".concat(Object(_functions__WEBPACK_IMPORTED_MODULE_3__["getProject"])().storageUrl).concat(path);
+                    _context27.next = 9;
                     break;
 
                   case 8:
-                    _context27.prev = 8;
-                    _context27.t0 = _context27["catch"](0);
-                    console.error(_context27.t0);
+                    _context27.t0 = "/default".concat(path);
 
-                  case 11:
+                  case 9:
+                    url = _context27.t0;
+                    _context27.next = 12;
+                    return this.utilService.getText(url);
+
+                  case 12:
+                    result = _context27.sent;
+                    this.warning = result.replace(/\n/g, '<br>');
+                    _context27.next = 19;
+                    break;
+
+                  case 16:
+                    _context27.prev = 16;
+                    _context27.t1 = _context27["catch"](0);
+                    console.error(_context27.t1);
+
+                  case 19:
                   case "end":
                     return _context27.stop();
                 }
               }
-            }, _callee27, this, [[0, 8]]);
+            }, _callee27, this, [[0, 16]]);
           }));
         }
       }]);

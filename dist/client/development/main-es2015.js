@@ -464,7 +464,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("<header class=\"fixed-top text-white border-bottom border-gray\">\n    <div class=\"header contents-width mx-auto d-flex align-items-center justify-content-between px-3\">\n        <div class=\"logo\">\n            <img class=\"d-none d-md-block h-100\" [src]=\"storageUrl + '/images/logo.svg'\">\n            <img class=\"d-md-none h-100\" [src]=\"storageUrl + '/images/logo-sp.svg'\">\n        </div>\n        <div class=\"d-flex align-items-center\">\n            <div *ngIf=\"environment.LANGUAGE.length > 1\" class=\"mr-3 d-flex align-items-center\">\n                <select class=\"form-control border-0\" [(ngModel)]=\"language\" (change)=\"changeLanguage()\">\n                    <option *ngFor=\"let language of environment.LANGUAGE\" [value]=\"language\">{{ getLanguageName(language) }}</option>\n                </select>\n            </div>\n            <div *ngIf=\"environment.HEADER_MENU\" class=\"menu-button pointer\" [class.active]=\"isMenuOpen\"\n                (click)=\"(isMenuOpen) ? menuClose() : menuOpen()\">\n                <div></div>\n                <div></div>\n                <div></div>\n            </div>\n        </div>\n    </div>\n</header>\n\n<app-header-menu [isOpen]=\"isMenuOpen\" (close)=\"menuClose()\"></app-header-menu>");
+/* harmony default export */ __webpack_exports__["default"] = ("<header class=\"fixed-top text-white border-bottom border-gray\">\n    <div class=\"header contents-width mx-auto d-flex align-items-center justify-content-between px-3\">\n        <div class=\"logo\">\n            <img class=\"d-none d-md-block h-100\" [src]=\"imageUrl.pc\" (error)=\"imageLoadingError('pc')\">\n            <img class=\"d-md-none h-100\" [src]=\"imageUrl.sp\" (error)=\"imageLoadingError('sp')\">\n        </div>\n        <div class=\"d-flex align-items-center\">\n            <div *ngIf=\"environment.LANGUAGE.length > 1\" class=\"mr-3 d-flex align-items-center\">\n                <select class=\"form-control border-0\" [(ngModel)]=\"language\" (change)=\"changeLanguage()\">\n                    <option *ngFor=\"let language of environment.LANGUAGE\" [value]=\"language\">{{ getLanguageName(language) }}</option>\n                </select>\n            </div>\n            <div *ngIf=\"environment.HEADER_MENU\" class=\"menu-button pointer\" [class.active]=\"isMenuOpen\"\n                (click)=\"(isMenuOpen) ? menuClose() : menuOpen()\">\n                <div></div>\n                <div></div>\n                <div></div>\n            </div>\n        </div>\n    </div>\n</header>\n\n<app-header-menu [isOpen]=\"isMenuOpen\" (close)=\"menuClose()\"></app-header-menu>");
 
 /***/ }),
 
@@ -909,7 +909,7 @@ AppComponent = __decorate([
 /*!********************************!*\
   !*** ./app/functions/index.ts ***!
   \********************************/
-/*! exports provided: formatTelephone, toFull, toHalf, retry, sleep, buildQueryString, iOSDatepickerTapBugFix, streamingDownload, string2blob, getParameter, getProject, createRandomString, screeningEventsToWorkEvents, createGmoTokenObject, sameMovieTicketFilter, isAvailabilityMovieTicket, createMovieTicketsFromAuthorizeSeatReservation, getCustomPaymentMethodTypeName, getTicketPrice, getItemPrice, movieTicketAuthErroCodeToMessage, getAmount, order2EventOrders, authorizeSeatReservation2Event, getRemainingSeatLength, isEligibleSeatingType, getEmptySeat, selectAvailableSeat, createPrintCanvas, createTestPrintCanvas, createCooperationQRCode, getTransactionAgentIdentifier, order2report, input2OrderSearchCondition, createOrderLink, getTranslateModuleConfig, reservation2report, input2ReservationSearchCondition */
+/*! exports provided: formatTelephone, toFull, toHalf, retry, sleep, buildQueryString, iOSDatepickerTapBugFix, streamingDownload, string2blob, getParameter, getProject, createRandomString, isFile, screeningEventsToWorkEvents, createGmoTokenObject, sameMovieTicketFilter, isAvailabilityMovieTicket, createMovieTicketsFromAuthorizeSeatReservation, getCustomPaymentMethodTypeName, getTicketPrice, getItemPrice, movieTicketAuthErroCodeToMessage, getAmount, order2EventOrders, authorizeSeatReservation2Event, getRemainingSeatLength, isEligibleSeatingType, getEmptySeat, selectAvailableSeat, createPrintCanvas, createTestPrintCanvas, createCooperationQRCode, getTransactionAgentIdentifier, order2report, input2OrderSearchCondition, createOrderLink, getTranslateModuleConfig, reservation2report, input2ReservationSearchCondition */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -971,6 +971,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "getProject", function() { return _util_function__WEBPACK_IMPORTED_MODULE_1__["getProject"]; });
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "createRandomString", function() { return _util_function__WEBPACK_IMPORTED_MODULE_1__["createRandomString"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "isFile", function() { return _util_function__WEBPACK_IMPORTED_MODULE_1__["isFile"]; });
 
 /* harmony import */ var _order_function__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./order.function */ "./app/functions/order.function.ts");
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "createPrintCanvas", function() { return _order_function__WEBPACK_IMPORTED_MODULE_2__["createPrintCanvas"]; });
@@ -1093,7 +1095,10 @@ function drawCanvas(args) {
         for (const image of printData.image) {
             const imageInstance = new Image();
             imageInstance.crossOrigin = 'anonymous';
-            imageInstance.src = image.src.replace('/storage', Object(_util_function__WEBPACK_IMPORTED_MODULE_4__["getProject"])().storageUrl);
+            const src = (yield Object(_util_function__WEBPACK_IMPORTED_MODULE_4__["isFile"])(image.src.replace('/storage', Object(_util_function__WEBPACK_IMPORTED_MODULE_4__["getProject"])().storageUrl)))
+                ? image.src.replace('/storage', Object(_util_function__WEBPACK_IMPORTED_MODULE_4__["getProject"])().storageUrl)
+                : image.src.replace('/storage', '/default');
+            imageInstance.src = src;
             yield drawImage({
                 image: imageInstance,
                 x: image.x,
@@ -1283,6 +1288,9 @@ function order2report(orders) {
                 orderDateJST: moment__WEBPACK_IMPORTED_MODULE_1__(order.orderDate).format('YYYY/MM/DD/HH:mm'),
                 orderNumber: order.orderNumber,
                 orderStatus: order.orderStatus,
+                dateReturnedJST: (order.dateReturned === undefined)
+                    ? undefined
+                    : moment__WEBPACK_IMPORTED_MODULE_1__(order.dateReturned).format('YYYY/MM/DD/HH:mm'),
                 confirmationNumber: order.confirmationNumber,
                 price: order.price,
                 seller: order.seller,
@@ -2019,10 +2027,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getTranslateModuleConfig", function() { return getTranslateModuleConfig; });
 /* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/common/http */ "../../node_modules/@angular/common/fesm2015/http.js");
 /* harmony import */ var _ngx_translate_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @ngx-translate/core */ "../../node_modules/@ngx-translate/core/fesm2015/ngx-translate-core.js");
-/* harmony import */ var _ngx_translate_http_loader__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @ngx-translate/http-loader */ "../../node_modules/@ngx-translate/http-loader/fesm2015/ngx-translate-http-loader.js");
+/* harmony import */ var deepmerge__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! deepmerge */ "../../node_modules/deepmerge/dist/cjs.js");
+/* harmony import */ var deepmerge__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(deepmerge__WEBPACK_IMPORTED_MODULE_2__);
 /* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! moment */ "../../node_modules/moment/moment.js");
 /* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_3__);
-/* harmony import */ var _util_function__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./util.function */ "./app/functions/util.function.ts");
+/* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! rxjs */ "../../node_modules/rxjs/_esm2015/index.js");
+/* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! rxjs/operators */ "../../node_modules/rxjs/_esm2015/operators/index.js");
+/* harmony import */ var _util_function__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./util.function */ "./app/functions/util.function.ts");
 var __importDefault = (undefined && undefined.__importDefault) || function (mod) {
   return (mod && mod.__esModule) ? mod : { "default": mod };
 };
@@ -2031,13 +2042,32 @@ var __importDefault = (undefined && undefined.__importDefault) || function (mod)
 
 
 
+
+
 /**
- *  設定ファイル取得設定
+ * 多言語カスタムローダー
  */
-function getUseFactory(http) {
-    const prefix = `${Object(_util_function__WEBPACK_IMPORTED_MODULE_4__["getProject"])().storageUrl}/i18n/`;
-    const suffix = `.json?date=${moment__WEBPACK_IMPORTED_MODULE_3__().toISOString()}`;
-    return new _ngx_translate_http_loader__WEBPACK_IMPORTED_MODULE_2__["TranslateHttpLoader"](http, prefix, suffix);
+class CustomTranslateHttpLoader {
+    constructor(http) {
+        this.http = http;
+    }
+    getTranslation(lang) {
+        const suffix = `.json?date=${moment__WEBPACK_IMPORTED_MODULE_3__().toISOString()}`;
+        const resources = [
+            `/default/i18n/${lang}${suffix}`,
+            `${Object(_util_function__WEBPACK_IMPORTED_MODULE_6__["getProject"])().storageUrl}/i18n/${lang}${suffix}`,
+        ];
+        return Object(rxjs__WEBPACK_IMPORTED_MODULE_4__["forkJoin"])(resources.map((url) => {
+            return this.http.get(url).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["catchError"])((error) => {
+                console.error(error);
+                return Object(rxjs__WEBPACK_IMPORTED_MODULE_4__["of"])({});
+            }));
+        })).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["map"])(response => {
+            return response.reduce((a, b) => {
+                return deepmerge__WEBPACK_IMPORTED_MODULE_2__(a, b);
+            });
+        }));
+    }
 }
 /**
  * 多言語設定取得
@@ -2046,7 +2076,7 @@ function getTranslateModuleConfig() {
     return {
         loader: {
             provide: _ngx_translate_core__WEBPACK_IMPORTED_MODULE_1__["TranslateLoader"],
-            useFactory: getUseFactory,
+            useClass: CustomTranslateHttpLoader,
             deps: [_angular_common_http__WEBPACK_IMPORTED_MODULE_0__["HttpClient"]]
         }
     };
@@ -2059,7 +2089,7 @@ function getTranslateModuleConfig() {
 /*!****************************************!*\
   !*** ./app/functions/util.function.ts ***!
   \****************************************/
-/*! exports provided: formatTelephone, toFull, toHalf, retry, sleep, buildQueryString, iOSDatepickerTapBugFix, streamingDownload, string2blob, getParameter, getProject, createRandomString */
+/*! exports provided: formatTelephone, toFull, toHalf, retry, sleep, buildQueryString, iOSDatepickerTapBugFix, streamingDownload, string2blob, getParameter, getProject, createRandomString, isFile */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -2076,6 +2106,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getParameter", function() { return getParameter; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getProject", function() { return getProject; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "createRandomString", function() { return createRandomString; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "isFile", function() { return isFile; });
 /* harmony import */ var libphonenumber_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! libphonenumber-js */ "../../node_modules/libphonenumber-js/index.es6.js");
 var __awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -2305,6 +2336,21 @@ function createRandomString(length, regExp) {
         result += str[Math.floor(Math.random() * str.length)];
     }
     return result;
+}
+/**
+ * ファイル存在判定
+ */
+function isFile(url) {
+    return __awaiter(this, void 0, void 0, function* () {
+        const fetchResult = yield fetch(url, {
+            method: 'GET',
+            cache: 'no-cache',
+            headers: {
+                'Content-Type': 'charset=utf-8'
+            },
+        });
+        return (fetchResult.ok);
+    });
 }
 
 
@@ -3903,7 +3949,6 @@ let HeaderComponent = class HeaderComponent {
         this.translate = translate;
         this.userService = userService;
         this.environment = Object(_environments_environment__WEBPACK_IMPORTED_MODULE_3__["getEnvironment"])();
-        this.storageUrl = Object(_functions__WEBPACK_IMPORTED_MODULE_4__["getProject"])().storageUrl;
     }
     ngOnInit() {
         this.user = this.store.pipe(Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_1__["select"])(_store_reducers__WEBPACK_IMPORTED_MODULE_7__["getUser"]));
@@ -3914,6 +3959,10 @@ let HeaderComponent = class HeaderComponent {
             html.setAttribute('lang', this.language);
         }).unsubscribe();
         this.isMenuOpen = false;
+        this.imageUrl = {
+            pc: `${Object(_functions__WEBPACK_IMPORTED_MODULE_4__["getProject"])().storageUrl}/images/logo.svg`,
+            sp: `${Object(_functions__WEBPACK_IMPORTED_MODULE_4__["getProject"])().storageUrl}/images/logo-sp.svg`
+        };
     }
     changeLanguage() {
         this.translate.use(this.language);
@@ -3928,6 +3977,13 @@ let HeaderComponent = class HeaderComponent {
     }
     menuClose() {
         this.isMenuOpen = false;
+    }
+    imageLoadingError(screenType) {
+        if (screenType === 'pc') {
+            this.imageUrl.pc = '/default/images/logo.svg';
+            return;
+        }
+        this.imageUrl.sp = '/default/images/logo-sp.svg';
     }
 };
 HeaderComponent.ctorParameters = () => [
@@ -6531,7 +6587,10 @@ let DownloadService = DownloadService_1 = class DownloadService {
             yield this.cinerino.getServices();
             // カスタム
             const searchResult = yield this.orderService.splitSearch(params);
-            const url = `${Object(_functions__WEBPACK_IMPORTED_MODULE_2__["getProject"])().storageUrl}/json/csv/order.json`;
+            const path = `/json/csv/order.json`;
+            const url = (yield Object(_functions__WEBPACK_IMPORTED_MODULE_2__["isFile"])(`${Object(_functions__WEBPACK_IMPORTED_MODULE_2__["getProject"])().storageUrl}${path}`))
+                ? `${Object(_functions__WEBPACK_IMPORTED_MODULE_2__["getProject"])().storageUrl}${path}`
+                : `/default${path}`;
             const fields = yield this.utilService.getJson(url);
             const opts = { fields, unwind: [] };
             const data = Object(_functions__WEBPACK_IMPORTED_MODULE_2__["order2report"])(searchResult.data);
@@ -6547,7 +6606,10 @@ let DownloadService = DownloadService_1 = class DownloadService {
     reservation(params) {
         return __awaiter(this, void 0, void 0, function* () {
             const searchResult = yield this.reservationService.splitSearch(params);
-            const url = `${Object(_functions__WEBPACK_IMPORTED_MODULE_2__["getProject"])().storageUrl}/json/csv/reservation.json`;
+            const path = '/json/csv/reservation.json';
+            const url = (yield Object(_functions__WEBPACK_IMPORTED_MODULE_2__["isFile"])(`${Object(_functions__WEBPACK_IMPORTED_MODULE_2__["getProject"])().storageUrl}${path}`))
+                ? `${Object(_functions__WEBPACK_IMPORTED_MODULE_2__["getProject"])().storageUrl}${path}`
+                : `/default${path}`;
             const fields = yield this.utilService.getJson(url);
             const opts = { fields, unwind: [] };
             const data = Object(_functions__WEBPACK_IMPORTED_MODULE_2__["reservation2report"])(searchResult.data);
@@ -10296,11 +10358,42 @@ let OrderEffects = class OrderEffects {
                             ? undefined : this.translate.instant('email.order.return.about'),
                         template: undefined
                     };
-                    if (environment.PURCHASE_COMPLETE_MAIL_CUSTOM) {
-                        // メールをカスタマイズ
-                        const view = yield this.utilService.getText(`${Object(_functions__WEBPACK_IMPORTED_MODULE_7__["getProject"])().storageUrl}/ejs/mail/return/${payload.language}.ejs`);
+                    if (environment.ORDER_CANCEL_MAIL_CUSTOM) {
+                        // 返品メールをカスタマイズ
+                        const path = `/ejs/mail/return/${payload.language}.ejs`;
+                        const url = (yield Object(_functions__WEBPACK_IMPORTED_MODULE_7__["isFile"])(`${Object(_functions__WEBPACK_IMPORTED_MODULE_7__["getProject"])().storageUrl}${path}`))
+                            ? `${Object(_functions__WEBPACK_IMPORTED_MODULE_7__["getProject"])().storageUrl}${path}`
+                            : `/default${path}`;
+                        const view = yield this.utilService.getText(url);
                         const template = yield window.ejs.render(view, { moment: moment__WEBPACK_IMPORTED_MODULE_4__, formatTelephone: _functions__WEBPACK_IMPORTED_MODULE_7__["formatTelephone"], getItemPrice: _functions__WEBPACK_IMPORTED_MODULE_7__["getItemPrice"] }, { async: true });
                         email.template = template;
+                    }
+                    const refundCreditCardEmail = {
+                        sender: {
+                            name: (this.translate.instant('email.order.refundCreditCard.sender.name') === '')
+                                ? undefined : this.translate.instant('email.order.refundCreditCard.sender.name'),
+                            email: (this.translate.instant('email.order.refundCreditCard.sender.email') === '')
+                                ? undefined : this.translate.instant('email.order.refundCreditCard.sender.email')
+                        },
+                        toRecipient: {
+                            name: (this.translate.instant('email.order.refundCreditCard.toRecipient.name') === '')
+                                ? undefined : this.translate.instant('email.order.refundCreditCard.toRecipient.name'),
+                            email: (this.translate.instant('email.order.refundCreditCard.toRecipient.email') === '')
+                                ? undefined : this.translate.instant('email.order.refundCreditCard.toRecipient.email')
+                        },
+                        about: (this.translate.instant('email.order.refundCreditCard.about') === '')
+                            ? undefined : this.translate.instant('email.order.refundCreditCard.about'),
+                        template: undefined
+                    };
+                    if (environment.ORDER_CANCEL_MAIL_CUSTOM) {
+                        // 返金メールをカスタマイズ
+                        const path = `/ejs/mail/refundCreditCard/${payload.language}.ejs`;
+                        const url = (yield Object(_functions__WEBPACK_IMPORTED_MODULE_7__["isFile"])(`${Object(_functions__WEBPACK_IMPORTED_MODULE_7__["getProject"])().storageUrl}${path}`))
+                            ? `${Object(_functions__WEBPACK_IMPORTED_MODULE_7__["getProject"])().storageUrl}${path}`
+                            : `/default${path}`;
+                        const view = yield this.utilService.getText(url);
+                        const template = yield window.ejs.render(view, { moment: moment__WEBPACK_IMPORTED_MODULE_4__, formatTelephone: _functions__WEBPACK_IMPORTED_MODULE_7__["formatTelephone"], getItemPrice: _functions__WEBPACK_IMPORTED_MODULE_7__["getItemPrice"] }, { async: true });
+                        refundCreditCardEmail.template = template;
                     }
                     yield this.cinerino.transaction.returnOrder.confirm({
                         id: startResult.id,
@@ -10309,20 +10402,11 @@ let OrderEffects = class OrderEffects {
                                 potentialActions: {
                                     refundCreditCard: creditCards.map((c) => {
                                         return {
-                                            object: {
-                                                object: [{
-                                                        paymentMethod: {
-                                                            paymentMethodId: c.paymentMethodId
-                                                        }
-                                                    }]
-                                            },
-                                            potentialActions: {
-                                                sendEmailMessage: {
-                                                    object: email
-                                                }
-                                            }
+                                            object: { object: [{ paymentMethod: { paymentMethodId: c.paymentMethodId } }] },
+                                            potentialActions: { sendEmailMessage: { object: refundCreditCardEmail } }
                                         };
-                                    })
+                                    }),
+                                    sendEmailMessage: [{ object: email }]
                                 }
                             }
                         }
@@ -10421,7 +10505,11 @@ let OrderEffects = class OrderEffects {
                         authorizeOrders.push(result);
                     }
                 }
-                const printData = yield this.utilService.getJson(`${Object(_functions__WEBPACK_IMPORTED_MODULE_7__["getProject"])().storageUrl}/json/print/ticket.json`);
+                const path = '/json/print/ticket.json';
+                const url = (yield Object(_functions__WEBPACK_IMPORTED_MODULE_7__["isFile"])(`${Object(_functions__WEBPACK_IMPORTED_MODULE_7__["getProject"])().storageUrl}${path}`))
+                    ? `${Object(_functions__WEBPACK_IMPORTED_MODULE_7__["getProject"])().storageUrl}${path}`
+                    : `/default${path}`;
+                const printData = yield this.utilService.getJson(url);
                 const testFlg = authorizeOrders.length === 0;
                 const canvasList = [];
                 if (testFlg) {
@@ -11007,7 +11095,11 @@ let PurchaseEffects = class PurchaseEffects {
                 };
                 if (environment.PURCHASE_COMPLETE_MAIL_CUSTOM && params.email !== undefined) {
                     // 完了メールをカスタマイズ
-                    const view = yield this.utilService.getText(`${Object(_functions__WEBPACK_IMPORTED_MODULE_7__["getProject"])().storageUrl}/ejs/mail/complete/${payload.language}.ejs`);
+                    const path = `/ejs/mail/complete/${payload.language}.ejs`;
+                    const url = (yield Object(_functions__WEBPACK_IMPORTED_MODULE_7__["isFile"])(`${Object(_functions__WEBPACK_IMPORTED_MODULE_7__["getProject"])().storageUrl}${path}`))
+                        ? `${Object(_functions__WEBPACK_IMPORTED_MODULE_7__["getProject"])().storageUrl}${path}`
+                        : `/default${path}`;
+                    const view = yield this.utilService.getText(url);
                     params.email.template = yield window.ejs.render(view, {
                         authorizeSeatReservations: Object(_functions__WEBPACK_IMPORTED_MODULE_7__["authorizeSeatReservation2Event"])({ authorizeSeatReservations }),
                         seller,
@@ -12262,7 +12354,7 @@ const defaultEnvironment = {
     ANALYTICS_ID: '',
     GTM_ID: '',
     VIEW_TYPE: 'cinema',
-    STORAGE_NAME: `${Object(_app_functions_util_function__WEBPACK_IMPORTED_MODULE_0__["getProject"])().projectName}-POS-STATE`,
+    STORAGE_NAME: (Object(_app_functions_util_function__WEBPACK_IMPORTED_MODULE_0__["getProject"])().projectName === '') ? 'POS-STATE' : `${Object(_app_functions_util_function__WEBPACK_IMPORTED_MODULE_0__["getProject"])().projectName.toUpperCase()}-POS-STATE`,
     STORAGE_TYPE: 'localStorage',
     BASE_URL: '/purchase/root',
     LANGUAGE: ['ja'],
@@ -12287,7 +12379,7 @@ const defaultEnvironment = {
     PURCHASE_SCHEDULE_DEFAULT_SELECTED_DATE: '0',
     PURCHASE_SCHEDULE_STATUS_THRESHOLD_VALUE: '30',
     PURCHASE_SCHEDULE_STATUS_THRESHOLD_UNIT: '%',
-    PURCHASE_COMPLETE_MAIL_CUSTOM: false,
+    PURCHASE_COMPLETE_MAIL_CUSTOM: true,
     PURCHASE_TERMS: false,
     PURCHASE_WARNING: false,
     INQUIRY_CANCEL: false,
@@ -12301,6 +12393,7 @@ const defaultEnvironment = {
     INQUIRY_ORDER_DATE_FROM_VALUE: '-3',
     INQUIRY_ORDER_DATE_FROM_UNIT: 'month',
     ORDER_CANCEL: false,
+    ORDER_CANCEL_MAIL_CUSTOM: true,
     ORDER_PRINT: false,
     ORDER_LINK: [],
     PRINT_QRCODE_TYPE: 'token',
@@ -12414,8 +12507,9 @@ function setProject(params) {
  */
 function setProjectConfig(storageUrl) {
     return __awaiter(this, void 0, void 0, function* () {
+        const now = moment_timezone__WEBPACK_IMPORTED_MODULE_3__().toISOString();
         // 設定読み込み
-        const fetchResult = yield fetch(`${storageUrl}/js/environment.js?=date${moment_timezone__WEBPACK_IMPORTED_MODULE_3__().toISOString()}`, {
+        const fetchResult = yield fetch(`${storageUrl}/js/environment.js?=date${now}`, {
             method: 'GET',
             cache: 'no-cache',
             headers: { 'Content-Type': 'application/json; charset=utf-8' }
@@ -12427,13 +12521,19 @@ function setProjectConfig(storageUrl) {
         // スタイル設定
         const style = document.createElement('link');
         style.rel = 'stylesheet';
-        style.href = `${storageUrl}/css/style.css?=date${moment_timezone__WEBPACK_IMPORTED_MODULE_3__().toISOString()}`;
+        style.href = `${storageUrl}/css/style.css?=date${now}`;
+        style.onerror = function () {
+            this.href = `/default/css/style.css?=date${now}`;
+        };
         document.head.appendChild(style);
         // ファビコン設
         const favicon = document.createElement('link');
         favicon.rel = 'icon';
         favicon.type = 'image/x-icon"';
         favicon.href = `${storageUrl}/favicon.ico`;
+        favicon.onerror = function () {
+            this.href = '/default/favicon.ico';
+        };
         document.head.appendChild(favicon);
         // タイトル設定
         document.title = environment.APP_TITLE;

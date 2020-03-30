@@ -260,7 +260,7 @@
                 "search": "検索に失敗しました<br>※購入日の期間の上限は14日間です。"
             },
             "confirm": {
-                "cancel": "キャンセルしてよろしいですか。",
+                "cancel": "キャンセルしてよろしいですか。<br>※「{{value}}」を入力してください。",
                 "print": "印刷してよろしいですか。"
             }
         },
@@ -438,7 +438,7 @@
         "read": "設定を変更できます。",
         "next": "設定を変更",
         "prev": "戻る",
-        "unselected": "選択してください",
+        "unselected": "未選択",
         "pos": "POS",
         "printer": "プリンター",
         "printerIpAddress": "プリンターIPアドレス",
@@ -613,12 +613,12 @@
         "copyright": "Copyright (c) Motionpicture co.,ltd. All rights reserved."
     },
     "email": {
-        "domain": "@example.com",
+        "domain": "@smart-theater.com",
         "purchase": {
             "complete": {
                 "sender": {
                     "name": "",
-                    "email": "noreply@example.com"
+                    "email": "noreply@smart-theater.com"
                 },
                 "toRecipient": {
                     "name": "",
@@ -631,13 +631,24 @@
             "return": {
                 "sender": {
                     "name": "",
-                    "email": "noreply@example.com"
+                    "email": "noreply@smart-theater.com"
                 },
                 "toRecipient": {
                     "name": "",
                     "email": ""
                 },
-                "about": "完了のお知らせ"
+                "about": "返品完了のお知らせ"
+            },
+            "refundCreditCard": {
+                "sender": {
+                    "name": "",
+                    "email": "noreply@smart-theater.com"
+                },
+                "toRecipient": {
+                    "name": "",
+                    "email": ""
+                },
+                "about": "返金完了のお知らせ"
             }
         }
     },
@@ -675,7 +686,7 @@
         "familyName": "姓（全角カタカナ）",
         "givenName": "名（全角カタカナ）",
         "email": "メールアドレス",
-        "emailDescription": "【ドメイン指定受信をご利用の場合について】 <br>※ 携帯電話のドメイン指定受信をされている場合、「@example.com」を追加設定してください。 <br>※ au(@ezweb.ne.jp)をご利用の場合、上記に加え「なりすまし規制回避リスト」にも「@example.com」の追加設定をしてください。",
+        "emailDescription": "【ドメイン指定受信をご利用の場合について】 <br>※ 携帯電話のドメイン指定受信をされている場合、「@smart-theater.com」を追加設定してください。 <br>※ au(@ezweb.ne.jp)をご利用の場合、上記に加え「なりすまし規制回避リスト」にも「@smart-theater.com」の追加設定をしてください。",
         "telephone": "電話番号",
         "age": "年齢",
         "address": "住所",

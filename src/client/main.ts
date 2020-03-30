@@ -72,8 +72,9 @@ async function setProject(params: {
  * プロジェクトごとのアプリケーション設定
  */
 async function setProjectConfig(storageUrl: string) {
+    const now = momentTimezone().toISOString();
     // 設定読み込み
-    const fetchResult = await fetch(`${storageUrl}/js/environment.js?=date${momentTimezone().toISOString()}`, {
+    const fetchResult = await fetch(`${storageUrl}/js/environment.js?=date${now}`, {
         method: 'GET',
         cache: 'no-cache',
         headers: { 'Content-Type': 'application/json; charset=utf-8' }
@@ -85,13 +86,19 @@ async function setProjectConfig(storageUrl: string) {
     // スタイル設定
     const style = document.createElement('link');
     style.rel = 'stylesheet';
-    style.href = `${storageUrl}/css/style.css?=date${momentTimezone().toISOString()}`;
+    style.href = `${storageUrl}/css/style.css?=date${now}`;
+    style.onerror = function () {
+        this.href = `/default/css/style.css?=date${now}`;
+    };
     document.head.appendChild(style);
     // ファビコン設
     const favicon = document.createElement('link');
     favicon.rel = 'icon';
     favicon.type = 'image/x-icon"';
     favicon.href = `${storageUrl}/favicon.ico`;
+    favicon.onerror = function () {
+        this.href = '/default/favicon.ico';
+    };
     document.head.appendChild(favicon);
 
     // タイトル設定
