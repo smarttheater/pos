@@ -12,6 +12,10 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/).
 
 ### Security
 
+## 3.0.21 - 2020-03-31
+### Added
+ - プロジェクトごとの設定にデフォルト設定を追加
+
 ## 3.0.20 - 2020-03-29
 ### Added
  - キャンセル確認へコード追加
