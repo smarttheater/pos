@@ -1,7 +1,7 @@
 import { Component, Input, OnChanges, OnInit } from '@angular/core';
 import { factory } from '@cinerino/api-javascript-client';
 import { getEnvironment } from '../../../../../../environments/environment';
-import { getProject } from '../../../../../functions';
+import { getProject, isFile } from '../../../../../functions';
 import { UtilService } from '../../../../../services';
 
 @Component({
@@ -16,7 +16,7 @@ export class PurchaseTermsComponent implements OnInit, OnChanges {
     public terms: string;
 
     constructor(
-    private utilService: UtilService
+        private utilService: UtilService
     ) { }
 
     public ngOnInit() {
@@ -24,7 +24,10 @@ export class PurchaseTermsComponent implements OnInit, OnChanges {
 
     public async ngOnChanges() {
         try {
-            const url = `${getProject().storageUrl}/text/purchase/terms/${this.language}.txt`;
+            const path = `/text/purchase/terms/${this.language}.txt`;
+            const url = (await isFile(`${getProject().storageUrl}${path}`))
+                ? `${getProject().storageUrl}${path}`
+                : `/default${path}`;
             const result = await this.utilService.getText<string>(url);
             this.terms = result.replace(/\n/g, '<br>');
         } catch (error) {
