@@ -2966,7 +2966,10 @@ let PurchaseTermsComponent = class PurchaseTermsComponent {
     ngOnChanges() {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                const url = `${Object(_functions__WEBPACK_IMPORTED_MODULE_3__["getProject"])().storageUrl}/text/purchase/terms/${this.language}.txt`;
+                const path = `/text/purchase/terms/${this.language}.txt`;
+                const url = (yield Object(_functions__WEBPACK_IMPORTED_MODULE_3__["isFile"])(`${Object(_functions__WEBPACK_IMPORTED_MODULE_3__["getProject"])().storageUrl}${path}`))
+                    ? `${Object(_functions__WEBPACK_IMPORTED_MODULE_3__["getProject"])().storageUrl}${path}`
+                    : `/default${path}`;
                 const result = yield this.utilService.getText(url);
                 this.terms = result.replace(/\n/g, '<br>');
             }
@@ -3064,7 +3067,10 @@ let PurchaseWarningComponent = class PurchaseWarningComponent {
     ngOnChanges() {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                const url = `${Object(_functions__WEBPACK_IMPORTED_MODULE_3__["getProject"])().storageUrl}/text/purchase/warning/${this.language}.txt`;
+                const path = `/text/purchase/warning/${this.language}.txt`;
+                const url = (yield Object(_functions__WEBPACK_IMPORTED_MODULE_3__["isFile"])(`${Object(_functions__WEBPACK_IMPORTED_MODULE_3__["getProject"])().storageUrl}${path}`))
+                    ? `${Object(_functions__WEBPACK_IMPORTED_MODULE_3__["getProject"])().storageUrl}${path}`
+                    : `/default${path}`;
                 const result = yield this.utilService.getText(url);
                 this.warning = result.replace(/\n/g, '<br>');
             }

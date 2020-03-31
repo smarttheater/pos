@@ -12,6 +12,7 @@ import {
     getItemPrice,
     getProject,
     getTicketPrice,
+    isFile,
     selectAvailableSeat
 } from '../../functions';
 import { IScreen, Performance } from '../../models';
@@ -503,7 +504,11 @@ export class PurchaseEffects {
                 };
                 if (environment.PURCHASE_COMPLETE_MAIL_CUSTOM && params.email !== undefined) {
                     // 完了メールをカスタマイズ
-                    const view = await this.utilService.getText(`${getProject().storageUrl}/ejs/mail/complete/${payload.language}.ejs`);
+                    const path = `/ejs/mail/complete/${payload.language}.ejs`;
+                    const url = (await isFile(`${getProject().storageUrl}${path}`))
+                        ? `${getProject().storageUrl}${path}`
+                        : `/default${path}`;
+                    const view = await this.utilService.getText(url);
                     params.email.template = await (<any>window).ejs.render(view, {
                         authorizeSeatReservations: authorizeSeatReservation2Event({ authorizeSeatReservations }),
                         seller,

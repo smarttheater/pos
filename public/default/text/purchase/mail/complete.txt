@@ -1,0 +1,33 @@
+| #{order.customer.familyName} #{order.customer.givenName} 様
+| 
+| この度は、{{ seller.name }}のオンラインチケットサービスにてご購入頂き、誠にありがとうございます。お客様がご購入されましたチケットの情報は下記の通りです。
+| 
+| [注文番号]
+| #{order.orderNumber}
+| 
+| [注文日時]
+| {{ orderDate }}
+|
+| [確認番号]
+| #{order.confirmationNumber}
+| 
+{{ forStartEvent }}
+| [{{ eventIndex }}件目]
+| {{ eventStartDate }} - {{ eventEndDate }}
+| {{ eventNameJa }}　{{ eventHeadlineJa }}
+| {{ eventLocationNameJa }}
+{{ forStartReservation }}| {{ reservationSeatNumber }} / {{ reservationTicketTypeNameJa }} / ￥{{ reservationPrice }}{{ forEndReservation }}
+| {{ forEndEvent }} 
+| [合計]
+| ￥#{order.price}
+| 
+|　購入後のチケット変更・キャンセルはできません。
+|
+| なお、このメールは{{ seller.name }}の予約システムでチケットをご購入頂いた方にお送りしておりますが、
+| チケット購入に覚えのない方に届いております場合は、下記お問い合わせ先までご連絡ください。
+| ※なお、このメールアドレスは送信専用となっておりますので、ご返信頂けません。
+| ご不明な点がございましたら、下記番号までお問合わせください。 
+|
+| お問い合わせはこちら
+| {{ seller.name }}
+| TEL：{{ seller.telephone }}

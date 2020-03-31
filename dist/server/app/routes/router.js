@@ -73,8 +73,8 @@ exports.default = (app) => {
     });
     app.get('*', (req, res, next) => __awaiter(this, void 0, void 0, function* () {
         log('root', req.query);
-        if (req.xhr) {
-            res.status(httpStatus.NOT_FOUND).json('NOT FOUND');
+        if (req.xhr || req.header('Sec-Fetch-Mode') === 'cors') {
+            next();
             return;
         }
         if (req.session === undefined) {
@@ -98,7 +98,7 @@ exports.default = (app) => {
     }));
     app.all('*', (req, res, _next) => {
         res.status(http_status_1.NOT_FOUND);
-        if (req.xhr) {
+        if (req.xhr || req.header('Sec-Fetch-Mode') === 'cors') {
             res.json('NOT FOUND');
             return;
         }

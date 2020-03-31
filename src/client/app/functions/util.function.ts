@@ -237,3 +237,17 @@ export function createRandomString(length: number, regExp: RegExp) {
     return result;
 }
 
+/**
+ * ファイル存在判定
+ */
+export async function isFile(url: string) {
+    const fetchResult = await fetch(url, {
+        method: 'GET',
+        cache: 'no-cache',
+        headers: {
+            'Content-Type': 'charset=utf-8'
+        },
+    });
+    return (fetchResult.ok);
+}
+

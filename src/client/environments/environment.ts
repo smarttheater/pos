@@ -1,4 +1,5 @@
 import * as moment from 'moment';
+import { getProject } from '../app/functions/util.function';
 
 interface IProfile {
     key: string;
@@ -178,6 +179,10 @@ interface IEnvironment {
      */
     ORDER_CANCEL: boolean;
     /**
+     * 注文キャンセルメールカスタム
+     */
+    ORDER_CANCEL_MAIL_CUSTOM: boolean;
+    /**
      * 注文印刷
      */
     ORDER_PRINT: boolean;
@@ -207,7 +212,7 @@ const defaultEnvironment: IEnvironment = {
     ANALYTICS_ID: '',
     GTM_ID: '',
     VIEW_TYPE: 'cinema',
-    STORAGE_NAME: '',
+    STORAGE_NAME: (getProject().projectName === '') ? 'POS-STATE' : `${getProject().projectName.toUpperCase()}-POS-STATE`,
     STORAGE_TYPE: 'localStorage',
     BASE_URL: '/purchase/root',
     LANGUAGE: ['ja'],
@@ -232,7 +237,7 @@ const defaultEnvironment: IEnvironment = {
     PURCHASE_SCHEDULE_DEFAULT_SELECTED_DATE: '0',
     PURCHASE_SCHEDULE_STATUS_THRESHOLD_VALUE: '30',
     PURCHASE_SCHEDULE_STATUS_THRESHOLD_UNIT: '%',
-    PURCHASE_COMPLETE_MAIL_CUSTOM: false,
+    PURCHASE_COMPLETE_MAIL_CUSTOM: true,
     PURCHASE_TERMS: false,
     PURCHASE_WARNING: false,
     INQUIRY_CANCEL: false,
@@ -246,6 +251,7 @@ const defaultEnvironment: IEnvironment = {
     INQUIRY_ORDER_DATE_FROM_VALUE: '-3',
     INQUIRY_ORDER_DATE_FROM_UNIT: 'month',
     ORDER_CANCEL: false,
+    ORDER_CANCEL_MAIL_CUSTOM: true,
     ORDER_PRINT: false,
     ORDER_LINK: [],
     PRINT_QRCODE_TYPE: 'token',
