@@ -23384,7 +23384,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       return __awaiter(this, void 0, void 0,
       /*#__PURE__*/
       regeneratorRuntime.mark(function _callee98() {
-        var space, project;
+        var params, space, projectId;
         return regeneratorRuntime.wrap(function _callee98$(_context103) {
           while (1) {
             switch (_context103.prev = _context103.next) {
@@ -23393,7 +23393,9 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                 moment_timezone__WEBPACK_IMPORTED_MODULE_3__["tz"].setDefault('Asia/Tokyo');
                 moment_timezone__WEBPACK_IMPORTED_MODULE_3__["locale"]('ja'); // 言語設定
 
-                Object(ngx_bootstrap_chronos__WEBPACK_IMPORTED_MODULE_4__["defineLocale"])('ja', ngx_bootstrap_locale__WEBPACK_IMPORTED_MODULE_5__["jaLocale"]); // プロジェクト設定
+                Object(ngx_bootstrap_chronos__WEBPACK_IMPORTED_MODULE_4__["defineLocale"])('ja', ngx_bootstrap_locale__WEBPACK_IMPORTED_MODULE_5__["jaLocale"]); // パラメータ設定
+
+                params = Object(_app_functions__WEBPACK_IMPORTED_MODULE_7__["getParameter"])(); // プロジェクト設定
 
                 space = localStorage.getItem('');
 
@@ -23402,14 +23404,14 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                   localStorage.removeItem('');
                 }
 
-                if (location.hash === '#/auth/signin') {
+                if (params.projectId !== undefined) {
                   sessionStorage.removeItem('PROJECT');
                 }
 
-                project = Object(_app_functions__WEBPACK_IMPORTED_MODULE_7__["getParameter"])().project === undefined ? Object(_app_functions__WEBPACK_IMPORTED_MODULE_7__["getProject"])().projectName === '' ? undefined : Object(_app_functions__WEBPACK_IMPORTED_MODULE_7__["getProject"])().projectName : Object(_app_functions__WEBPACK_IMPORTED_MODULE_7__["getParameter"])().project;
+                projectId = params.projectId === undefined ? Object(_app_functions__WEBPACK_IMPORTED_MODULE_7__["getProject"])().projectId === '' ? undefined : Object(_app_functions__WEBPACK_IMPORTED_MODULE_7__["getProject"])().projectId : params.projectId;
 
-                if (!(project === undefined && location.hash !== '#/auth/signin')) {
-                  _context103.next = 11;
+                if (!(projectId === undefined && location.hash !== '#/auth/signin')) {
+                  _context103.next = 12;
                   break;
                 }
 
@@ -23417,25 +23419,25 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                 location.reload();
                 return _context103.abrupt("return");
 
-              case 11:
-                _context103.next = 13;
+              case 12:
+                _context103.next = 14;
                 return setProject({
-                  project: project
+                  projectId: projectId
                 });
 
-              case 13:
+              case 14:
                 if (!(Object(_app_functions__WEBPACK_IMPORTED_MODULE_7__["getProject"])().storageUrl === undefined)) {
-                  _context103.next = 15;
+                  _context103.next = 16;
                   break;
                 }
 
                 return _context103.abrupt("return");
 
-              case 15:
-                _context103.next = 17;
+              case 16:
+                _context103.next = 18;
                 return setProjectConfig(Object(_app_functions__WEBPACK_IMPORTED_MODULE_7__["getProject"])().storageUrl);
 
-              case 17:
+              case 18:
               case "end":
                 return _context103.stop();
             }
@@ -23549,17 +23551,29 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                   this.href = "/default/css/style.css?=date".concat(now);
                 };
 
-                document.head.appendChild(style); // ファビコン設
+                document.head.appendChild(style); // ファビコン設定
 
                 favicon = document.createElement('link');
                 favicon.rel = 'icon';
                 favicon.type = 'image/x-icon"';
-                favicon.href = "".concat(storageUrl, "/favicon.ico");
+                _context105.next = 21;
+                return Object(_app_functions__WEBPACK_IMPORTED_MODULE_7__["isFile"])("".concat(storageUrl, "/favicon.ico"));
 
-                favicon.onerror = function () {
-                  this.href = '/default/favicon.ico';
-                };
+              case 21:
+                if (!_context105.sent) {
+                  _context105.next = 25;
+                  break;
+                }
 
+                _context105.t2 = "".concat(storageUrl, "/favicon.ico");
+                _context105.next = 26;
+                break;
+
+              case 25:
+                _context105.t2 = '/default/favicon.ico';
+
+              case 26:
+                favicon.href = _context105.t2;
                 document.head.appendChild(favicon); // タイトル設定
 
                 document.title = environment.APP_TITLE; // GTM設定
@@ -23584,7 +23598,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                   Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["enableProdMode"])();
                 }
 
-              case 25:
+              case 31:
               case "end":
                 return _context105.stop();
             }
