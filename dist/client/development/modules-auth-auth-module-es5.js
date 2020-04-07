@@ -598,7 +598,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                     }
 
                     // プロジェクトが一つの場合自動遷移
-                    location.href = "/?project=".concat(this.getProject(projects[0].id).projectName);
+                    location.href = "/?projectId=".concat(projects[0].id);
                     return _context2.abrupt("return");
 
                   case 16:
