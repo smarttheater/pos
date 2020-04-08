@@ -12395,7 +12395,7 @@ const defaultEnvironment = {
     ANALYTICS_ID: '',
     GTM_ID: '',
     VIEW_TYPE: 'cinema',
-    STORAGE_NAME: (Object(_app_functions_util_function__WEBPACK_IMPORTED_MODULE_0__["getProject"])().projectName === '') ? 'POS-STATE' : `${Object(_app_functions_util_function__WEBPACK_IMPORTED_MODULE_0__["getProject"])().projectName.toUpperCase()}-POS-STATE`,
+    STORAGE_NAME: (Object(_app_functions_util_function__WEBPACK_IMPORTED_MODULE_0__["getProject"])().projectId === '') ? 'POS-STATE' : `${Object(_app_functions_util_function__WEBPACK_IMPORTED_MODULE_0__["getProject"])().projectId.toUpperCase()}-POS-STATE`,
     STORAGE_TYPE: 'localStorage',
     BASE_URL: '/purchase/root',
     LANGUAGE: ['ja'],
