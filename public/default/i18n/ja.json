@@ -465,10 +465,15 @@
         "index": {
             "title": "開発",
             "read": "機能を確認できます。",
-            "screen": "座席表確認",
-            "encryption": "暗号化確認",
             "next": "",
-            "prev": "戻る"
+            "prev": "戻る",
+            "list": {
+                "screen": {
+                    "title": "座席表確認",
+                    "read": "座席表確認できます。",
+                    "next": "選択"
+                }
+            }
         },
         "screen": {
             "title": "座席表確認",

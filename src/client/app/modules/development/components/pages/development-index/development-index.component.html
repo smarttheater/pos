@@ -2,14 +2,17 @@
     <h2 class="text-large mb-4 text-center font-weight-bold">{{ 'development.index.title' | translate }}</h2>
     <p class="mb-4 text-md-center" [innerHTML]="'development.index.read' | translate"></p>
 
-    <div class="mb-4 d-grid">
-        <button type="button" class="btn btn-primary btn-block py-3 m-0"
-            routerLink="/development/screen">{{ 'development.index.screen' | translate }}</button>
-    </div>
-
-    <div class="buttons mx-auto text-center">
-        <button type="button" class="btn btn-link"
-            [routerLink]="environment.BASE_URL">{{ 'development.index.prev' | translate }}</button>
-    </div>
-
+    <ul class="d-md-flex">
+        <li class="my-md-2 mb-3">
+            <div class="card mx-md-2 h-100">
+                <div class="card-body">
+                    <h5 class="card-title font-weight-bold">{{ 'development.index.list.screen.title' | translate }}
+                    </h5>
+                    <p class="card-text mb-3" [innerHTML]="'development.index.list.screen.read' | translate"></p>
+                    <button type="button" routerLink="/development/screen"
+                        class="btn btn-primary btn-block py-3">{{ 'development.index.list.screen.next' | translate }}</button>
+                </div>
+            </div>
+        </li>
+    </ul>
 </div>
