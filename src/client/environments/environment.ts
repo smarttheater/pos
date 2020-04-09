@@ -212,7 +212,7 @@ const defaultEnvironment: IEnvironment = {
     ANALYTICS_ID: '',
     GTM_ID: '',
     VIEW_TYPE: 'cinema',
-    STORAGE_NAME: (getProject().projectName === '') ? 'POS-STATE' : `${getProject().projectName.toUpperCase()}-POS-STATE`,
+    STORAGE_NAME: (getProject().projectId === '') ? 'POS-STATE' : `${getProject().projectId.toUpperCase()}-POS-STATE`,
     STORAGE_TYPE: 'localStorage',
     BASE_URL: '/purchase/root',
     LANGUAGE: ['ja'],

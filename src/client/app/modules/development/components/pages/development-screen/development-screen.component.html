@@ -7,8 +7,10 @@
                 <div class="row align-items-center">
                     <p class="col-md-4 py-2 text-md-right">{{ 'common.theater' | translate }}</p>
                     <div class="col-md-8">
-                        <select class="form-control" [(ngModel)]="theaterCode" name="theaterCode" (change)="changeTheater()">
-                            <option *ngFor="let theater of theaters" [value]="theater.branchCode">{{ theater.name | changeLanguage }} [{{ theater.branchCode }}]
+                        <select class="form-control" [(ngModel)]="theaterCode" name="theaterCode"
+                            (change)="changeTheater()">
+                            <option *ngFor="let theater of theaters" [value]="theater.branchCode">
+                                {{ theater.name | changeLanguage }} [{{ theater.branchCode }}]
                             </option>
                         </select>
                     </div>
@@ -19,7 +21,8 @@
                     <p class="col-md-4 py-2 text-md-right">{{ 'common.screen' | translate }}</p>
                     <div class="col-md-8">
                         <select class="form-control" [(ngModel)]="screenCode" name="screenCode">
-                            <option *ngFor="let screen of screens" [value]="screen.branchCode">{{ screen.name | changeLanguage }} [{{ screen.branchCode }}]
+                            <option *ngFor="let screen of screens" [value]="screen.branchCode">
+                                {{ screen.name | changeLanguage }} [{{ screen.branchCode }}]
                             </option>
                         </select>
                     </div>
@@ -27,11 +30,12 @@
             </div>
             <div class="buttons mx-auto text-center">
                 <button type="submit" [disabled]="isLoading | async" class="btn btn-primary btn-block py-3"
-                    (click)="createScreenData()">{{ 'development.screen.next' | translate }}</button>
+                    (click)="update()">{{ 'development.screen.next' | translate }}</button>
             </div>
         </div>
     </form>
-    <app-screen *ngIf="screenData" class="mb-4" [screenData]="screenData">
+    <app-screen *ngIf="screenCode && theaterCode" class="mb-4" [theaterCode]="theaterCode" [screenCode]="screenCode"
+        [screeningEventOffers]="[]" [openSeatingAllowed]="false" [reservations]="[]">
     </app-screen>
 
     <div class="buttons mx-auto text-center">
