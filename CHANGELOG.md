@@ -12,6 +12,12 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/).
 
 ### Security
 
+## 3.0.22 - 2020-04-09
+### Changed
+ - プロジェクト選択をIDへ変更
+### Fixed
+ - 静的ファイル最適化
+
 ## 3.0.21 - 2020-03-31
 ### Added
  - プロジェクトごとの設定にデフォルト設定を追加
