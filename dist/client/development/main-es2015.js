@@ -6706,7 +6706,7 @@ DownloadService = DownloadService_1 = __decorate([
 /*!*******************************!*\
   !*** ./app/services/index.ts ***!
   \*******************************/
-/*! exports provided: AdmissionService, CinerinoService, PurchaseService, UserService, MasterService, OrderService, ReservationService, UtilService, StarPrintService, DownloadService, QRCodeService */
+/*! exports provided: CinerinoService, AdmissionService, PurchaseService, UserService, MasterService, OrderService, ReservationService, UtilService, StarPrintService, DownloadService, QRCodeService */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -12458,24 +12458,26 @@ function main() {
         moment_timezone__WEBPACK_IMPORTED_MODULE_3__["locale"]('ja');
         // 言語設定
         Object(ngx_bootstrap_chronos__WEBPACK_IMPORTED_MODULE_4__["defineLocale"])('ja', ngx_bootstrap_locale__WEBPACK_IMPORTED_MODULE_5__["jaLocale"]);
+        // パラメータ設定
+        const params = Object(_app_functions__WEBPACK_IMPORTED_MODULE_7__["getParameter"])();
         // プロジェクト設定
         const space = localStorage.getItem('');
         if (space !== null) {
             // 無効なストレージ削除
             localStorage.removeItem('');
         }
-        if (location.hash === '#/auth/signin') {
+        if (params.projectId !== undefined) {
             sessionStorage.removeItem('PROJECT');
         }
-        const project = (Object(_app_functions__WEBPACK_IMPORTED_MODULE_7__["getParameter"])().project === undefined)
-            ? (Object(_app_functions__WEBPACK_IMPORTED_MODULE_7__["getProject"])().projectName === '') ? undefined : Object(_app_functions__WEBPACK_IMPORTED_MODULE_7__["getProject"])().projectName
-            : Object(_app_functions__WEBPACK_IMPORTED_MODULE_7__["getParameter"])().project;
-        if (project === undefined && location.hash !== '#/auth/signin') {
+        const projectId = (params.projectId === undefined)
+            ? (Object(_app_functions__WEBPACK_IMPORTED_MODULE_7__["getProject"])().projectId === '') ? undefined : Object(_app_functions__WEBPACK_IMPORTED_MODULE_7__["getProject"])().projectId
+            : params.projectId;
+        if (projectId === undefined && location.hash !== '#/auth/signin') {
             location.href = '/#/auth/signin';
             location.reload();
             return;
         }
-        yield setProject({ project });
+        yield setProject({ projectId });
         if (Object(_app_functions__WEBPACK_IMPORTED_MODULE_7__["getProject"])().storageUrl === undefined) {
             return;
         }
@@ -12526,14 +12528,11 @@ function setProjectConfig(storageUrl) {
             this.href = `/default/css/style.css?=date${now}`;
         };
         document.head.appendChild(style);
-        // ファビコン設
+        // ファビコン設定
         const favicon = document.createElement('link');
         favicon.rel = 'icon';
         favicon.type = 'image/x-icon"';
-        favicon.href = `${storageUrl}/favicon.ico`;
-        favicon.onerror = function () {
-            this.href = '/default/favicon.ico';
-        };
+        favicon.href = (yield Object(_app_functions__WEBPACK_IMPORTED_MODULE_7__["isFile"])(`${storageUrl}/favicon.ico`)) ? `${storageUrl}/favicon.ico` : '/default/favicon.ico';
         document.head.appendChild(favicon);
         // タイトル設定
         document.title = environment.APP_TITLE;

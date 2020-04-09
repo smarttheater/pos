@@ -40,7 +40,7 @@ export class AuthSigninComponent implements OnInit {
         const projects = masterData.projects.filter(p => this.getProject(p.id) !== undefined);
         if (projects.length === 1) {
             // プロジェクトが一つの場合自動遷移
-            location.href = `/?project=${(<any>this.getProject(projects[0].id)).projectName}`;
+            location.href = `/?projectId=${projects[0].id}`;
             return;
         }
         this.utilService.loadEnd();
