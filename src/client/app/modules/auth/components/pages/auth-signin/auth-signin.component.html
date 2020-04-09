@@ -10,7 +10,7 @@
                         <div class="mr-2"><img [src]="project.logo" class="logo" [alt]="project.name"></div>
                         <p class="font-weight-bold">{{ project.name }}</p>
                     </div>
-                    <a class="btn btn-primary btn-block py-3" [href]="'/?project=' + getProject(project.id)?.projectName" [class.disabled]="!getProject(project.id)">選択</a>
+                    <a class="btn btn-primary btn-block py-3" [href]="'/?projectId=' + project.id" [class.disabled]="!getProject(project.id)">選択</a>
                 </div>
             </div>
         </li>

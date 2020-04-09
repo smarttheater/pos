@@ -8,7 +8,7 @@ import * as momentTimezone from 'moment-timezone';
 import { defineLocale } from 'ngx-bootstrap/chronos';
 import { jaLocale } from 'ngx-bootstrap/locale';
 import { AppModule } from './app/app.module';
-import { getParameter, getProject } from './app/functions';
+import { getParameter, getProject, isFile } from './app/functions';
 import { getEnvironment } from './environments/environment';
 
 async function main() {
@@ -19,24 +19,29 @@ async function main() {
     // 言語設定
     defineLocale('ja', jaLocale);
 
+    // パラメータ設定
+    const params = getParameter<{
+        projectId?: string;
+    }>();
+
     // プロジェクト設定
     const space = localStorage.getItem('');
     if (space !== null) {
         // 無効なストレージ削除
         localStorage.removeItem('');
     }
-    if (location.hash === '#/auth/signin') {
+    if (params.projectId !== undefined) {
         sessionStorage.removeItem('PROJECT');
     }
-    const project = (getParameter<{ project: string | undefined }>().project === undefined)
-        ? (getProject().projectName === '') ? undefined : getProject().projectName
-        : getParameter<{ project: string | undefined }>().project;
-    if (project === undefined && location.hash !== '#/auth/signin') {
+    const projectId = (params.projectId === undefined)
+        ? (getProject().projectId === '') ? undefined : getProject().projectId
+        : params.projectId;
+    if (projectId === undefined && location.hash !== '#/auth/signin') {
         location.href = '/#/auth/signin';
         location.reload();
         return;
     }
-    await setProject({ project });
+    await setProject({ projectId });
     if (getProject().storageUrl === undefined) {
         return;
     }
@@ -46,9 +51,7 @@ async function main() {
 /**
  * プロジェクト情報設定
  */
-async function setProject(params: {
-    project?: string;
-}) {
+async function setProject(params: { projectId?: string; projectName?: string; }) {
     const fetchResult = await fetch('/api/project', {
         method: 'POST',
         cache: 'no-cache',
@@ -91,14 +94,11 @@ async function setProjectConfig(storageUrl: string) {
         this.href = `/default/css/style.css?=date${now}`;
     };
     document.head.appendChild(style);
-    // ファビコン設
+    // ファビコン設定
     const favicon = document.createElement('link');
     favicon.rel = 'icon';
     favicon.type = 'image/x-icon"';
-    favicon.href = `${storageUrl}/favicon.ico`;
-    favicon.onerror = function () {
-        this.href = '/default/favicon.ico';
-    };
+    favicon.href = (await isFile(`${storageUrl}/favicon.ico`)) ? `${storageUrl}/favicon.ico` : '/default/favicon.ico';
     document.head.appendChild(favicon);
 
     // タイトル設定

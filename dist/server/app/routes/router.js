@@ -20,23 +20,17 @@ const authorize_1 = require("./api/authorize");
 const util_2 = require("./api/util");
 const log = debug('application: router');
 exports.default = (app) => {
-    app.use('/storage', (req, res) => {
-        const project = (req.body.project || req.query.project);
-        if (project === undefined) {
-            res.redirect(req.originalUrl.replace('/storage', process.env.STORAGE_URL));
+    app.use((_req, res, next) => {
+        res.locals.NODE_ENV = process.env.NODE_ENV;
+        next();
+    });
+    app.use((req, res, next) => {
+        if ((/\.(css|js|svg|jpg|png|gif|ico|json|html|txt)/).test(req.path)) {
+            res.status(404);
+            res.end();
             return;
         }
-        try {
-            const findResult = util_1.getProject(project);
-            if (findResult === undefined) {
-                throw new Error('project not found');
-            }
-            res.redirect(req.originalUrl.replace('/storage', findResult.STORAGE_URL));
-        }
-        catch (error) {
-            res.status(http_status_1.NOT_FOUND);
-            res.end();
-        }
+        next();
     });
     app.use('/api/authorize', authorize_1.authorizeRouter);
     app.use('/api', util_2.utilRouter);
