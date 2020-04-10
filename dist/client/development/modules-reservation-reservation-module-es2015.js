@@ -176,7 +176,7 @@ let ReservationDownloadComponent = class ReservationDownloadComponent {
             try {
                 const params = Object(_functions__WEBPACK_IMPORTED_MODULE_7__["input2ReservationSearchCondition"])({
                     input: this.confirmedConditions,
-                    seller: (yield this.userService.getData()).seller,
+                    theater: (yield this.userService.getData()).theater,
                 });
                 yield this.downloadService.reservation(params);
             }
@@ -458,7 +458,7 @@ let ReservationSearchUnlimitedComponent = class ReservationSearchUnlimitedCompon
                 this.reservations = [];
                 const params = Object(_functions__WEBPACK_IMPORTED_MODULE_7__["input2ReservationSearchCondition"])({
                     input: this.confirmedConditions,
-                    seller: (yield this.userService.getData()).seller,
+                    theater: (yield this.userService.getData()).theater,
                     limit: this.limit
                 });
                 const searchResult = yield this.reservationService.splitSearch(params);
@@ -697,7 +697,7 @@ let ReservationSearchComponent = class ReservationSearchComponent {
             try {
                 const params = Object(_functions__WEBPACK_IMPORTED_MODULE_7__["input2ReservationSearchCondition"])({
                     input: this.confirmedConditions,
-                    seller: (yield this.userService.getData()).seller,
+                    theater: (yield this.userService.getData()).theater,
                     page: this.currentPage,
                     limit: this.limit
                 });

@@ -679,6 +679,7 @@
         "reservationId": "予約ID",
         "reservationNumber": "予約番号",
         "theater": "劇場",
+        "seller": "販売者",
         "screen": "スクリーン",
         "event": "作品",
         "startDate": "上映日時",
@@ -744,6 +745,7 @@
         "warning": "警告",
         "change": "変更",
         "remove": "削除",
-        "etc": "その他"
+        "etc": "その他",
+        "required": "必須"
     }
 }

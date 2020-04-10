@@ -4,37 +4,103 @@ import {
     isAvailabilityMovieTicket,
     sameMovieTicketFilter
 } from '../../functions';
-import { IMovieTicket, IReservation, IReservationTicket, IScreen } from '../../models';
+import { IMovieTicket, IReservation, IReservationTicket } from '../../models';
 import { purchaseAction } from '../actions';
 
 /**
  * IPurchaseState
  */
 export interface IPurchaseState {
+    /**
+     * 販売者
+     */
+    seller?: factory.seller.IOrganization<factory.seller.IAttributes<factory.organizationType>>;
+    /**
+     * イベント
+     */
     screeningEvent?: factory.chevre.event.screeningEvent.IEvent;
+    /**
+     * スケジュール日付
+     */
     scheduleDate?: string;
+    /**
+     * 取引
+     */
     transaction?: factory.transaction.placeOrder.ITransaction;
+    /**
+     * 空席情報
+     */
     screeningEventOffers: factory.chevre.place.screeningRoomSection.IPlaceWithOffer[];
+    /**
+     * スクリーン
+     */
     screen?: factory.chevre.place.screeningRoom.IPlace;
-    screenData?: IScreen;
+    /**
+     * 予約
+     */
     reservations: IReservation[];
+    /**
+     * 券種
+     */
     screeningEventTicketOffers: factory.chevre.event.screeningEvent.ITicketOffer[];
+    /**
+     * 座席予約
+     */
     authorizeSeatReservation?: factory.action.authorize.offer.seatReservation.IAction<factory.service.webAPI.Identifier.Chevre>;
+    /**
+     * 座席予約リスト
+     */
     authorizeSeatReservations: factory.action.authorize.offer.seatReservation.IAction<factory.service.webAPI.Identifier.Chevre>[];
+    /**
+     * プロフィール
+     */
     profile?: factory.person.IProfile;
+    /**
+     * クレジットカード決済
+     */
     authorizeCreditCardPayments: factory.action.authorize.paymentMethod.creditCard.IAction[];
+    /**
+     * ムビチケ決済
+     */
     authorizeMovieTicketPayments: factory.action.authorize.paymentMethod.movieTicket.IAction[];
+    /**
+     * GMOオブジェクト
+     */
     gmoTokenObject?: any;
+    /**
+     * オーダーカウント
+     */
     orderCount: number;
+    /**
+     * 注文
+     */
     order?: factory.order.IOrder;
+    /**
+     * ムビチケ認証情報リスト
+     */
     checkMovieTicketActions: factory.action.check.paymentMethod.movieTicket.IAction[];
+    /**
+     * ムビチケ認証情報
+     */
     checkMovieTicketAction?: factory.action.check.paymentMethod.movieTicket.IAction;
+    /**
+     * 決済
+     */
     authorizeAnyPayments: factory.action.authorize.paymentMethod.any.IAction<any>[];
+    /**
+     * 支払い方法
+     */
     paymentMethod?: {
         typeOf: factory.paymentMethodType;
         category?: string;
     };
+    /**
+     * ムビチケ使用判定
+     */
     isUsedMovieTicket: boolean;
+    /**
+     * 使用中ムビチケ
+     */
     pendingMovieTickets: IMovieTicket[];
 }
 
@@ -83,6 +149,17 @@ export function reducer(state: IState, action: purchaseAction.Actions): IState {
             state.purchaseData.checkMovieTicketAction = undefined;
             state.purchaseData.isUsedMovieTicket = false;
             return { ...state };
+        }
+        case purchaseAction.ActionTypes.GetSeller: {
+            return { ...state, loading: false, process: 'purchaseAction.GetSeller' };
+        }
+        case purchaseAction.ActionTypes.GetSellerSuccess: {
+            state.purchaseData.seller = action.payload.seller;
+            return { ...state, loading: false, process: '', error: null };
+        }
+        case purchaseAction.ActionTypes.GetSellerFail: {
+            const error = action.payload.error;
+            return { ...state, loading: false, process: '', error: JSON.stringify(error) };
         }
         case purchaseAction.ActionTypes.SelectScheduleDate: {
             const scheduleDate = action.payload.scheduleDate;

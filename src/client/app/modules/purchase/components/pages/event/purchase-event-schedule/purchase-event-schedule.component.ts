@@ -1,5 +1,6 @@
 import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
+import { factory } from '@cinerino/api-javascript-client';
 import { select, Store } from '@ngrx/store';
 import { BAD_REQUEST, TOO_MANY_REQUESTS } from 'http-status';
 import * as moment from 'moment';
@@ -90,8 +91,8 @@ export class PurchaseEventScheduleComponent implements OnInit, OnDestroy {
         }
         try {
             const user = await this.userService.getData();
-            const seller = user.seller;
-            if (seller === undefined) {
+            const theater = user.theater;
+            if (theater === undefined) {
                 this.router.navigate(['/error']);
                 return;
             }
@@ -103,11 +104,7 @@ export class PurchaseEventScheduleComponent implements OnInit, OnDestroy {
             const scheduleDate = moment(this.scheduleDate).format('YYYY-MM-DD');
             this.purchaseService.selectScheduleDate(scheduleDate);
             await this.masterService.getSchedule({
-                superEvent: {
-                    locationBranchCodes:
-                        (seller.location === undefined || seller.location.branchCode === undefined)
-                            ? [] : [seller.location.branchCode]
-                },
+                superEvent: { locationBranchCodes: [theater.branchCode] },
                 startFrom: moment(scheduleDate).toDate(),
                 startThrough: moment(scheduleDate).add(1, 'day').toDate()
             });
@@ -126,16 +123,33 @@ export class PurchaseEventScheduleComponent implements OnInit, OnDestroy {
      */
     public async onSubmit() {
         try {
+            const user = await this.userService.getData();
+            if (user.theater === undefined) {
+                throw new Error('user.theater === undefined');
+            }
+            const screeningEvent = (await this.masterService.getData())
+                .screeningEvents
+                .find(s => s.offers !== undefined && s.offers.seller !== undefined && s.offers.seller.id !== undefined);
+            if (screeningEvent === undefined
+                || screeningEvent.offers === undefined
+                || screeningEvent.offers.seller === undefined
+                || screeningEvent.offers.seller.id === undefined) {
+                throw new Error('screeningEvent.offers.seller === undefined');
+            }
+            await this.purchaseService.getSeller(screeningEvent.offers.seller.id);
+        } catch (error) {
+            console.error(error);
+            this.router.navigate(['/error']);
+        }
+        try {
             const purchase = await this.purchaseService.getData();
             const user = await this.userService.getData();
             const authorizeSeatReservations = purchase.authorizeSeatReservations;
-            await this.purchaseService.cancelTemporaryReservations(authorizeSeatReservations);
-            if (user.seller === undefined) {
-                this.router.navigate(['/error']);
-                return;
+            if (authorizeSeatReservations.length > 0) {
+                await this.purchaseService.cancelTemporaryReservations(authorizeSeatReservations);
             }
             await this.purchaseService.startTransaction({
-                seller: user.seller,
+                seller: <factory.seller.IOrganization<factory.seller.IAttributes<factory.organizationType>>>purchase.seller,
                 pos: user.pos
             });
             this.router.navigate(['/purchase/event/ticket']);

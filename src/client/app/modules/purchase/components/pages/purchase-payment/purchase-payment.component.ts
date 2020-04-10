@@ -35,18 +35,17 @@ export class PurchasePaymentComponent implements OnInit {
     /**
      * 決済方法選択
      */
-    public selectPaymentMethodType(
+    public async selectPaymentMethodType(
         typeOf: factory.paymentMethodType,
         category?: string
     ) {
-        this.user.subscribe((user) => {
-            if (user.seller === undefined
-                || user.seller.paymentAccepted === undefined) {
-                this.router.navigate(['/error']);
-                console.error('seller is undefined or paymentAccepted is undefined');
-                return;
+        try {
+            const seller = (await this.purchaseService.getData()).seller;
+            if (seller === undefined
+                || seller.paymentAccepted === undefined) {
+                throw new Error('seller is undefined or paymentAccepted is undefined');
             }
-            const findResult = user.seller.paymentAccepted
+            const findResult = seller.paymentAccepted
                 .find(paymentAccepted => paymentAccepted.paymentMethodType === typeOf);
             if (findResult === undefined) {
                 this.utilService.openAlert({
@@ -57,7 +56,10 @@ export class PurchasePaymentComponent implements OnInit {
             }
             this.purchaseService.selectPaymentMethodType({ typeOf, category });
             this.router.navigate(['/purchase/confirm']);
-        }).unsubscribe();
+        } catch (error) {
+            this.router.navigate(['/error']);
+            console.error(error);
+        }
     }
 
     /**

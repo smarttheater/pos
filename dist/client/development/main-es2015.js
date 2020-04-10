@@ -1177,23 +1177,35 @@ function createPrintCanvas(params) {
             throw new Error('reservationType is not EventReservation').message;
         }
         const data = {
-            sellerNameJa: itemOffered.reservationFor.superEvent.location.name.ja,
-            sellerNameEn: itemOffered.reservationFor.superEvent.location.name.en,
-            eventNameJa: itemOffered.reservationFor.name.ja,
-            eventNameEn: itemOffered.reservationFor.name.en,
+            sellerNameJa: (itemOffered.reservationFor.superEvent.location.name === undefined
+                || itemOffered.reservationFor.superEvent.location.name.ja === undefined)
+                ? '' : itemOffered.reservationFor.superEvent.location.name.ja,
+            sellerNameEn: (itemOffered.reservationFor.superEvent.location.name === undefined
+                || itemOffered.reservationFor.superEvent.location.name.en === undefined)
+                ? '' : itemOffered.reservationFor.superEvent.location.name.en,
+            eventNameJa: (itemOffered.reservationFor.name.ja === undefined) ? '' : itemOffered.reservationFor.name.ja,
+            eventNameEn: (itemOffered.reservationFor.name.en === undefined) ? '' : itemOffered.reservationFor.name.en,
             screenNameJa: (itemOffered.reservationFor.location.address === undefined)
-                ? itemOffered.reservationFor.location.name.ja
-                : `${itemOffered.reservationFor.location.address.ja} ${itemOffered.reservationFor.location.name.ja}`,
+                ? (itemOffered.reservationFor.location.name === undefined || itemOffered.reservationFor.location.name.ja === undefined)
+                    ? '' : itemOffered.reservationFor.location.name.ja
+                : `${itemOffered.reservationFor.location.address.ja} ${(itemOffered.reservationFor.location.name === undefined) ? '' : itemOffered.reservationFor.location.name.ja}`,
             screenNameEn: (itemOffered.reservationFor.location.address === undefined)
-                ? itemOffered.reservationFor.location.name.en
-                : `${itemOffered.reservationFor.location.address.en} ${itemOffered.reservationFor.location.name.en}`,
+                ? (itemOffered.reservationFor.location.name === undefined || itemOffered.reservationFor.location.name.en === undefined)
+                    ? '' : itemOffered.reservationFor.location.name.en
+                : `${itemOffered.reservationFor.location.address.en} ${(itemOffered.reservationFor.location.name === undefined) ? '' : itemOffered.reservationFor.location.name.en}`,
             startDate: moment__WEBPACK_IMPORTED_MODULE_1__(itemOffered.reservationFor.startDate).toISOString(),
             endDate: moment__WEBPACK_IMPORTED_MODULE_1__(itemOffered.reservationFor.endDate).toISOString(),
             seatNumber: (itemOffered.reservedTicket.ticketedSeat === undefined
                 || itemOffered.reservedTicket.ticketedSeat === null)
                 ? undefined : itemOffered.reservedTicket.ticketedSeat.seatNumber,
-            ticketNameJa: itemOffered.reservedTicket.ticketType.name.ja,
-            ticketNameEn: itemOffered.reservedTicket.ticketType.name.en,
+            ticketNameJa: (itemOffered.reservedTicket.ticketType.name === undefined)
+                ? '' : (typeof itemOffered.reservedTicket.ticketType.name === 'string')
+                ? itemOffered.reservedTicket.ticketType.name : (itemOffered.reservedTicket.ticketType.name.ja === undefined)
+                ? '' : itemOffered.reservedTicket.ticketType.name.ja,
+            ticketNameEn: (itemOffered.reservedTicket.ticketType.name === undefined)
+                ? '' : (typeof itemOffered.reservedTicket.ticketType.name === 'string')
+                ? itemOffered.reservedTicket.ticketType.name : (itemOffered.reservedTicket.ticketType.name.en === undefined)
+                ? '' : itemOffered.reservedTicket.ticketType.name.en,
             price: (acceptedOffer.priceSpecification === undefined)
                 ? 0 : Object(_purchase_function__WEBPACK_IMPORTED_MODULE_3__["getItemPrice"])({ priceComponents: acceptedOffer.priceSpecification.priceComponent }),
             posName: (params.pos === undefined) ? '' : params.pos.name,
@@ -1321,7 +1333,7 @@ function order2report(orders) {
  */
 function input2OrderSearchCondition(params) {
     const input = params.input;
-    const seller = params.seller;
+    const theater = params.theater;
     const page = params.page;
     const limit = params.limit;
     const identifiers = [];
@@ -1329,9 +1341,6 @@ function input2OrderSearchCondition(params) {
         identifiers.push({ name: 'posId', value: input.posId });
     }
     const result = {
-        seller: {
-            ids: (seller === undefined) ? undefined : [seller.id]
-        },
         customer: {
             // email: (input.customer.email === '') ? undefined : input.customer.email,
             // telephone: (input.customer.telephone === '') ? undefined : input.customer.telephone,
@@ -1373,6 +1382,7 @@ function input2OrderSearchCondition(params) {
                         ? undefined
                         : moment__WEBPACK_IMPORTED_MODULE_1__(moment__WEBPACK_IMPORTED_MODULE_1__(input.eventStartDateThrough)
                             .format('YYYYMMDD')).add(1, 'day').toDate(),
+                    location: { branchCodes: (theater === undefined) ? [] : [theater.branchCode] }
                 }
             }
         },
@@ -1971,7 +1981,7 @@ function reservation2report(reservations) {
  */
 function input2ReservationSearchCondition(params) {
     const input = params.input;
-    const seller = params.seller;
+    const theater = params.theater;
     const page = params.page;
     const limit = params.limit;
     const result = {
@@ -1990,11 +2000,7 @@ function input2ReservationSearchCondition(params) {
                 ? undefined
                 : moment__WEBPACK_IMPORTED_MODULE_1__(moment__WEBPACK_IMPORTED_MODULE_1__(input.eventStartDateThrough).format('YYYYMMDD')).add(1, 'day').toDate(),
             superEvent: {
-                location: {
-                    branchCodes: (seller === undefined
-                        || seller.location === undefined
-                        || seller.location.branchCode === undefined) ? [] : [seller.location.branchCode]
-                }
+                location: { branchCodes: (theater === undefined) ? [] : [theater.branchCode] }
             }
         },
         ids: (input.id === '')
@@ -4296,12 +4302,11 @@ var __importDefault = (undefined && undefined.__importDefault) || function (mod)
 
 
 let MvtkCheckModalComponent = class MvtkCheckModalComponent {
-    constructor(modal, store, formBuilder, purchaseService, userService, translate, qrcodeService) {
+    constructor(modal, store, formBuilder, purchaseService, translate, qrcodeService) {
         this.modal = modal;
         this.store = store;
         this.formBuilder = formBuilder;
         this.purchaseService = purchaseService;
-        this.userService = userService;
         this.translate = translate;
         this.qrcodeService = qrcodeService;
     }
@@ -4341,7 +4346,7 @@ let MvtkCheckModalComponent = class MvtkCheckModalComponent {
             }
             this.errorMessage = '';
             try {
-                const seller = (yield this.userService.getData()).seller;
+                const seller = (yield this.purchaseService.getData()).seller;
                 if (seller === undefined) {
                     throw new Error('seller undefined');
                 }
@@ -4401,7 +4406,6 @@ MvtkCheckModalComponent.ctorParameters = () => [
     { type: _ngrx_store__WEBPACK_IMPORTED_MODULE_2__["Store"] },
     { type: _angular_forms__WEBPACK_IMPORTED_MODULE_1__["FormBuilder"] },
     { type: _services__WEBPACK_IMPORTED_MODULE_6__["PurchaseService"] },
-    { type: _services__WEBPACK_IMPORTED_MODULE_6__["UserService"] },
     { type: _ngx_translate_core__WEBPACK_IMPORTED_MODULE_3__["TranslateService"] },
     { type: _services__WEBPACK_IMPORTED_MODULE_6__["QRCodeService"] }
 ];
@@ -4415,7 +4419,6 @@ MvtkCheckModalComponent = __decorate([
         _ngrx_store__WEBPACK_IMPORTED_MODULE_2__["Store"],
         _angular_forms__WEBPACK_IMPORTED_MODULE_1__["FormBuilder"],
         _services__WEBPACK_IMPORTED_MODULE_6__["PurchaseService"],
-        _services__WEBPACK_IMPORTED_MODULE_6__["UserService"],
         _ngx_translate_core__WEBPACK_IMPORTED_MODULE_3__["TranslateService"],
         _services__WEBPACK_IMPORTED_MODULE_6__["QRCodeService"]])
 ], MvtkCheckModalComponent);
@@ -4957,11 +4960,10 @@ let PurchaseEventTicketModalComponent = class PurchaseEventTicketModalComponent 
         });
         const selectedTickets = [];
         this.tickets.forEach((ticket) => {
-            selectedTickets.push({
-                id: ticket.id,
-                count: 0,
-                addOn: []
-            });
+            if (ticket.id === undefined) {
+                return;
+            }
+            selectedTickets.push({ id: ticket.id, count: 0, addOn: [] });
         });
         this.selectedTickets = selectedTickets;
         this.additionalTicketText = '';
@@ -7335,9 +7337,15 @@ let PurchaseService = class PurchaseService {
         this.store.dispatch(new _store_actions__WEBPACK_IMPORTED_MODULE_8__["purchaseAction"].UnsettledDelete());
     }
     /**
-     * 販売者選択
+     * 販売者取得
      */
-    selectSeller() {
+    getSeller(id) {
+        return new Promise((resolve, reject) => {
+            this.store.dispatch(new _store_actions__WEBPACK_IMPORTED_MODULE_8__["purchaseAction"].GetSeller({ id }));
+            const success = this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_8__["purchaseAction"].ActionTypes.GetSellerSuccess), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["tap"])(() => { resolve(); }));
+            const fail = this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_8__["purchaseAction"].ActionTypes.GetSellerFail), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["tap"])(() => { this.error.subscribe((error) => { reject(error); }).unsubscribe(); }));
+            Object(rxjs__WEBPACK_IMPORTED_MODULE_5__["race"])(success, fail).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["take"])(1)).subscribe();
+        });
     }
     /**
      * スケジュール日選択
@@ -9012,7 +9020,7 @@ class OrderAuthorizeFail {
 /*!**********************************************!*\
   !*** ./app/store/actions/purchase.action.ts ***!
   \**********************************************/
-/*! exports provided: ActionTypes, Delete, UnsettledDelete, SelectScheduleDate, GetScreeningEvent, GetScreeningEventSuccess, GetScreeningEventFail, StartTransaction, StartTransactionSuccess, StartTransactionFail, CancelTransaction, CancelTransactionSuccess, CancelTransactionFail, GetScreen, GetScreenSuccess, GetScreenFail, GetScreeningEventOffers, GetScreeningEventOffersSuccess, GetScreeningEventOffersFail, SelectSeats, CancelSeats, SelectTickets, GetTicketList, GetTicketListSuccess, GetTicketListFail, TemporaryReservation, TemporaryReservationSuccess, TemporaryReservationFail, CancelTemporaryReservations, CancelTemporaryReservationsSuccess, CancelTemporaryReservationsFail, RegisterContact, RegisterContactSuccess, RegisterContactFail, AuthorizeCreditCard, AuthorizeCreditCardSuccess, AuthorizeCreditCardFail, AuthorizeMovieTicket, AuthorizeMovieTicketSuccess, AuthorizeMovieTicketFail, CheckMovieTicket, CheckMovieTicketSuccess, CheckMovieTicketFail, EndTransaction, EndTransactionSuccess, EndTransactionFail, CreateGmoTokenObject, CreateGmoTokenObjectSuccess, CreateGmoTokenObjectFail, AuthorizeAnyPayment, AuthorizeAnyPaymentSuccess, AuthorizeAnyPaymentFail, SelectPaymentMethodType */
+/*! exports provided: ActionTypes, Delete, UnsettledDelete, SelectScheduleDate, GetSeller, GetSellerSuccess, GetSellerFail, GetScreeningEvent, GetScreeningEventSuccess, GetScreeningEventFail, StartTransaction, StartTransactionSuccess, StartTransactionFail, CancelTransaction, CancelTransactionSuccess, CancelTransactionFail, GetScreen, GetScreenSuccess, GetScreenFail, GetScreeningEventOffers, GetScreeningEventOffersSuccess, GetScreeningEventOffersFail, SelectSeats, CancelSeats, SelectTickets, GetTicketList, GetTicketListSuccess, GetTicketListFail, TemporaryReservation, TemporaryReservationSuccess, TemporaryReservationFail, CancelTemporaryReservations, CancelTemporaryReservationsSuccess, CancelTemporaryReservationsFail, RegisterContact, RegisterContactSuccess, RegisterContactFail, AuthorizeCreditCard, AuthorizeCreditCardSuccess, AuthorizeCreditCardFail, AuthorizeMovieTicket, AuthorizeMovieTicketSuccess, AuthorizeMovieTicketFail, CheckMovieTicket, CheckMovieTicketSuccess, CheckMovieTicketFail, EndTransaction, EndTransactionSuccess, EndTransactionFail, CreateGmoTokenObject, CreateGmoTokenObjectSuccess, CreateGmoTokenObjectFail, AuthorizeAnyPayment, AuthorizeAnyPaymentSuccess, AuthorizeAnyPaymentFail, SelectPaymentMethodType */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -9021,6 +9029,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Delete", function() { return Delete; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "UnsettledDelete", function() { return UnsettledDelete; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SelectScheduleDate", function() { return SelectScheduleDate; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "GetSeller", function() { return GetSeller; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "GetSellerSuccess", function() { return GetSellerSuccess; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "GetSellerFail", function() { return GetSellerFail; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "GetScreeningEvent", function() { return GetScreeningEvent; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "GetScreeningEventSuccess", function() { return GetScreeningEventSuccess; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "GetScreeningEventFail", function() { return GetScreeningEventFail; });
@@ -9081,6 +9092,9 @@ var ActionTypes;
     ActionTypes["Delete"] = "[Purchase] Delete";
     ActionTypes["UnsettledDelete"] = "[Purchase] Unsettled Delete";
     ActionTypes["SelectScheduleDate"] = "[Purchase] Select Schedule Date";
+    ActionTypes["GetSeller"] = "[Purchase] Select Seller";
+    ActionTypes["GetSellerSuccess"] = "[Purchase] Select Seller Success";
+    ActionTypes["GetSellerFail"] = "[Purchase] Select Seller Fail";
     ActionTypes["GetScreeningEvent"] = "[Purchase] Get Screening Event";
     ActionTypes["GetScreeningEventSuccess"] = "[Purchase] Get Screening Event Success";
     ActionTypes["GetScreeningEventFail"] = "[Purchase] Get Screening Event Fail";
@@ -9156,6 +9170,33 @@ class SelectScheduleDate {
     constructor(payload) {
         this.payload = payload;
         this.type = ActionTypes.SelectScheduleDate;
+    }
+}
+/**
+ * GetSeller
+ */
+class GetSeller {
+    constructor(payload) {
+        this.payload = payload;
+        this.type = ActionTypes.GetSeller;
+    }
+}
+/**
+ * GetSellerSuccess
+ */
+class GetSellerSuccess {
+    constructor(payload) {
+        this.payload = payload;
+        this.type = ActionTypes.GetSellerSuccess;
+    }
+}
+/**
+ * GetSellerFail
+ */
+class GetSellerFail {
+    constructor(payload) {
+        this.payload = payload;
+        this.type = ActionTypes.GetSellerFail;
     }
 }
 /**
@@ -10796,6 +10837,20 @@ let PurchaseEffects = class PurchaseEffects {
         this.utilService = utilService;
         this.translate = translate;
         /**
+         * GetSeller
+         */
+        this.getSeller = this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_actions__WEBPACK_IMPORTED_MODULE_10__["purchaseAction"].ActionTypes.GetSeller), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["map"])(action => action.payload), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["mergeMap"])((payload) => __awaiter(this, void 0, void 0, function* () {
+            try {
+                yield this.cinerinoService.getServices();
+                const id = payload.id;
+                const seller = yield this.cinerinoService.seller.findById({ id });
+                return new _actions__WEBPACK_IMPORTED_MODULE_10__["purchaseAction"].GetSellerSuccess({ seller });
+            }
+            catch (error) {
+                return new _actions__WEBPACK_IMPORTED_MODULE_10__["purchaseAction"].GetSellerFail({ error: error });
+            }
+        })));
+        /**
          * StartTransaction
          */
         this.startTransaction = this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_actions__WEBPACK_IMPORTED_MODULE_10__["purchaseAction"].ActionTypes.StartTransaction), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["map"])(action => action.payload), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["mergeMap"])((payload) => __awaiter(this, void 0, void 0, function* () {
@@ -10901,15 +10956,15 @@ let PurchaseEffects = class PurchaseEffects {
                 const authorizeSeatReservation = yield this.cinerinoService.transaction.placeOrder.authorizeSeatReservation({
                     object: {
                         event: { id: screeningEvent.id },
-                        acceptedOffer: reservations.map((reservation, index) => {
-                            if (reservation.ticket === undefined) {
-                                throw new Error('ticket is undefined').message;
+                        acceptedOffer: reservations.map((r, index) => {
+                            if (r.ticket === undefined || r.ticket.ticketOffer.id === undefined) {
+                                throw new Error('ticket or ticket.ticketOffer.id is undefined').message;
                             }
                             return {
-                                id: reservation.ticket.ticketOffer.id,
-                                addOn: (reservation.ticket.addOn === undefined)
+                                id: r.ticket.ticketOffer.id,
+                                addOn: (r.ticket.addOn === undefined)
                                     ? undefined
-                                    : reservation.ticket.addOn.map(a => ({ id: a.id })),
+                                    : r.ticket.addOn.filter(a => a.id !== undefined).map(a => ({ id: a.id })),
                                 additionalProperty: [],
                                 itemOffered: {
                                     serviceOutput: {
@@ -11203,6 +11258,10 @@ PurchaseEffects.ctorParameters = () => [
     { type: _services__WEBPACK_IMPORTED_MODULE_9__["UtilService"] },
     { type: _ngx_translate_core__WEBPACK_IMPORTED_MODULE_3__["TranslateService"] }
 ];
+__decorate([
+    Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["Effect"])(),
+    __metadata("design:type", Object)
+], PurchaseEffects.prototype, "getSeller", void 0);
 __decorate([
     Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["Effect"])(),
     __metadata("design:type", Object)
@@ -11781,6 +11840,17 @@ function reducer(state, action) {
             state.purchaseData.checkMovieTicketAction = undefined;
             state.purchaseData.isUsedMovieTicket = false;
             return Object.assign({}, state);
+        }
+        case _actions__WEBPACK_IMPORTED_MODULE_2__["purchaseAction"].ActionTypes.GetSeller: {
+            return Object.assign({}, state, { loading: false, process: 'purchaseAction.GetSeller' });
+        }
+        case _actions__WEBPACK_IMPORTED_MODULE_2__["purchaseAction"].ActionTypes.GetSellerSuccess: {
+            state.purchaseData.seller = action.payload.seller;
+            return Object.assign({}, state, { loading: false, process: '', error: null });
+        }
+        case _actions__WEBPACK_IMPORTED_MODULE_2__["purchaseAction"].ActionTypes.GetSellerFail: {
+            const error = action.payload.error;
+            return Object.assign({}, state, { loading: false, process: '', error: JSON.stringify(error) });
         }
         case _actions__WEBPACK_IMPORTED_MODULE_2__["purchaseAction"].ActionTypes.SelectScheduleDate: {
             const scheduleDate = action.payload.scheduleDate;

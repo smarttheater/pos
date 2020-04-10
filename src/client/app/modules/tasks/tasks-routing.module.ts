@@ -5,8 +5,6 @@ import { BaseComponent } from '../shared/components/pages/base/base.component';
 import { TasksAccountDepositCSVComponent } from './components/pages/tasks-account-deposit-csv/tasks-account-deposit-csv.component';
 import { TasksAccountDepositComponent } from './components/pages/tasks-account-deposit/tasks-account-deposit.component';
 import { TasksIndexComponent } from './components/pages/tasks-index/tasks-index.component';
-import { TasksOwnershipinfoSearchComponent } from './components/pages/tasks-ownershipinfo-search/tasks-ownershipinfo-search.component';
-
 
 const routes: Routes = [{
   path: '',
@@ -15,8 +13,7 @@ const routes: Routes = [{
   children: [
     { path: '', component: TasksIndexComponent },
     { path: 'account/deposit/csv', component: TasksAccountDepositCSVComponent },
-    { path: 'account/deposit', component: TasksAccountDepositComponent },
-    { path: 'ownershipinfo/search', component: TasksOwnershipinfoSearchComponent }
+    { path: 'account/deposit', component: TasksAccountDepositComponent }
   ]
 }];
 

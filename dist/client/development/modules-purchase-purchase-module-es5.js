@@ -943,7 +943,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
           return __awaiter(this, void 0, void 0,
           /*#__PURE__*/
           regeneratorRuntime.mark(function _callee4() {
-            var user, seller, scheduleDate, master, screeningEvents;
+            var user, theater, scheduleDate, master, screeningEvents;
             return regeneratorRuntime.wrap(function _callee4$(_context4) {
               while (1) {
                 switch (_context4.prev = _context4.next) {
@@ -957,7 +957,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
                   case 3:
                     user = _context4.sent;
-                    seller = user.seller;
+                    theater = user.theater;
 
                     if (this.scheduleDate === undefined) {
                       this.scheduleDate = moment__WEBPACK_IMPORTED_MODULE_5__().add(this.environment.PURCHASE_SCHEDULE_DEFAULT_SELECTED_DATE, 'day').toDate();
@@ -965,7 +965,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
                     scheduleDate = moment__WEBPACK_IMPORTED_MODULE_5__(this.scheduleDate).format('YYYY-MM-DD');
 
-                    if (!(seller === undefined)) {
+                    if (!(theater === undefined)) {
                       _context4.next = 9;
                       break;
                     }
@@ -978,7 +978,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
                     _context4.next = 13;
                     return this.masterService.getSchedule({
                       superEvent: {
-                        locationBranchCodes: seller.location === undefined || seller.location.branchCode === undefined ? [] : [seller.location.branchCode]
+                        locationBranchCodes: [theater.branchCode]
                       },
                       startFrom: moment__WEBPACK_IMPORTED_MODULE_5__(scheduleDate).toDate(),
                       startThrough: moment__WEBPACK_IMPORTED_MODULE_5__(scheduleDate).add(1, 'day').toDate()
@@ -1053,111 +1053,123 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
                     return this.purchaseService.getScreeningEvent(screeningEvent);
 
                   case 9:
-                    _context5.next = 16;
-                    break;
+                    if (!(screeningEvent.offers.seller === undefined || screeningEvent.offers.seller.id === undefined)) {
+                      _context5.next = 11;
+                      break;
+                    }
+
+                    throw new Error('screeningEvent.offers.seller or screeningEvent.offers.seller.id undefined');
 
                   case 11:
-                    _context5.prev = 11;
+                    _context5.next = 13;
+                    return this.purchaseService.getSeller(screeningEvent.offers.seller.id);
+
+                  case 13:
+                    _context5.next = 20;
+                    break;
+
+                  case 15:
+                    _context5.prev = 15;
                     _context5.t0 = _context5["catch"](6);
                     console.error(_context5.t0);
                     this.router.navigate(['/error']);
                     return _context5.abrupt("return");
 
-                  case 16:
-                    _context5.next = 18;
+                  case 20:
+                    _context5.next = 22;
                     return this.purchaseService.getData();
 
-                  case 18:
+                  case 22:
                     purchase = _context5.sent;
-                    _context5.next = 21;
+                    _context5.next = 25;
                     return this.userService.getData();
 
-                  case 21:
+                  case 25:
                     user = _context5.sent;
 
-                    if (!(user.seller === undefined)) {
-                      _context5.next = 25;
+                    if (!(purchase.seller === undefined)) {
+                      _context5.next = 29;
                       break;
                     }
 
                     this.router.navigate(['/error']);
                     return _context5.abrupt("return");
 
-                  case 25:
+                  case 29:
                     if (!(this.environment.PURCHASE_CART && purchase.transaction !== undefined && purchase.authorizeSeatReservations.length > 0)) {
-                      _context5.next = 28;
+                      _context5.next = 32;
                       break;
                     }
 
                     this.openTransactionModal();
                     return _context5.abrupt("return");
 
-                  case 28:
+                  case 32:
                     if (!(purchase.authorizeSeatReservations.length > 0)) {
-                      _context5.next = 39;
+                      _context5.next = 43;
                       break;
                     }
 
-                    _context5.prev = 29;
-                    _context5.next = 32;
+                    _context5.prev = 33;
+                    _context5.next = 36;
                     return this.purchaseService.cancelTemporaryReservations(purchase.authorizeSeatReservations);
 
-                  case 32:
-                    _context5.next = 39;
+                  case 36:
+                    _context5.next = 43;
                     break;
 
-                  case 34:
-                    _context5.prev = 34;
-                    _context5.t1 = _context5["catch"](29);
+                  case 38:
+                    _context5.prev = 38;
+                    _context5.t1 = _context5["catch"](33);
                     console.error(_context5.t1);
                     this.router.navigate(['/error']);
                     return _context5.abrupt("return");
 
-                  case 39:
-                    _context5.prev = 39;
-                    _context5.next = 42;
+                  case 43:
+                    _context5.prev = 43;
+                    _context5.next = 46;
                     return this.purchaseService.startTransaction({
-                      seller: user.seller,
+                      seller: purchase.seller,
                       pos: user.pos
                     });
 
-                  case 42:
+                  case 46:
                     this.router.navigate(['/purchase/cinema/seat']);
-                    _context5.next = 56;
+                    _context5.next = 60;
                     break;
 
-                  case 45:
-                    _context5.prev = 45;
-                    _context5.t2 = _context5["catch"](39);
+                  case 49:
+                    _context5.prev = 49;
+                    _context5.t2 = _context5["catch"](43);
                     console.error(_context5.t2);
                     errorObject = JSON.parse(_context5.t2);
 
                     if (!(errorObject.status === http_status__WEBPACK_IMPORTED_MODULE_4__["TOO_MANY_REQUESTS"])) {
-                      _context5.next = 52;
+                      _context5.next = 56;
                       break;
                     }
 
                     this.router.navigate(['/congestion']);
                     return _context5.abrupt("return");
 
-                  case 52:
+                  case 56:
                     if (!(errorObject.status === http_status__WEBPACK_IMPORTED_MODULE_4__["BAD_REQUEST"])) {
-                      _context5.next = 55;
+                      _context5.next = 59;
                       break;
                     }
 
                     this.router.navigate(['/maintenance']);
                     return _context5.abrupt("return");
 
-                  case 55:
+                  case 59:
                     this.router.navigate(['/error']);
 
-                  case 56:
+                  case 60:
                   case "end":
                     return _context5.stop();
                 }
               }
-            }, _callee5, this, [[6, 11], [29, 34], [39, 45]]);
+            }, _callee5, this, [[6, 15], [33, 38], [43, 49]]);
           }));
         }
         /**
@@ -1416,13 +1428,12 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
     var PurchaseCinemaSeatComponent =
     /*#__PURE__*/
     function () {
-      function PurchaseCinemaSeatComponent(store, router, utilService, userService, purchaseService, translate) {
+      function PurchaseCinemaSeatComponent(store, router, utilService, purchaseService, translate) {
         _classCallCheck(this, PurchaseCinemaSeatComponent);
 
         this.store = store;
         this.router = router;
         this.utilService = utilService;
-        this.userService = userService;
         this.purchaseService = purchaseService;
         this.translate = translate;
         this.environment = Object(_environments_environment__WEBPACK_IMPORTED_MODULE_5__["getEnvironment"])();
@@ -1434,7 +1445,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
           return __awaiter(this, void 0, void 0,
           /*#__PURE__*/
           regeneratorRuntime.mark(function _callee6() {
-            var purchase, user, screeningEvent, seller;
+            var purchase, screeningEvent, seller;
             return regeneratorRuntime.wrap(function _callee6$(_context6) {
               while (1) {
                 switch (_context6.prev = _context6.next) {
@@ -1448,24 +1459,19 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
                   case 6:
                     purchase = _context6.sent;
-                    _context6.next = 9;
-                    return this.userService.getData();
-
-                  case 9:
-                    user = _context6.sent;
                     screeningEvent = purchase.screeningEvent;
-                    seller = user.seller;
+                    seller = purchase.seller;
 
                     if (!(screeningEvent === undefined || seller === undefined)) {
-                      _context6.next = 15;
+                      _context6.next = 12;
                       break;
                     }
 
                     this.router.navigate(['/error']);
                     return _context6.abrupt("return");
 
-                  case 15:
-                    _context6.next = 17;
+                  case 12:
+                    _context6.next = 14;
                     return this.purchaseService.getScreen({
                       branchCode: {
                         $eq: screeningEvent.location.branchCode
@@ -1477,32 +1483,32 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
                       }
                     });
 
-                  case 17:
-                    _context6.next = 19;
+                  case 14:
+                    _context6.next = 16;
                     return this.purchaseService.getScreeningEventOffers();
 
-                  case 19:
-                    _context6.next = 21;
+                  case 16:
+                    _context6.next = 18;
                     return this.purchaseService.getTicketList({
                       seller: seller
                     });
 
-                  case 21:
-                    _context6.next = 27;
+                  case 18:
+                    _context6.next = 24;
                     break;
 
-                  case 23:
-                    _context6.prev = 23;
+                  case 20:
+                    _context6.prev = 20;
                     _context6.t0 = _context6["catch"](3);
                     console.error(_context6.t0);
                     this.router.navigate(['/error']);
 
-                  case 27:
+                  case 24:
                   case "end":
                     return _context6.stop();
                 }
               }
-            }, _callee6, this, [[3, 23]]);
+            }, _callee6, this, [[3, 20]]);
           }));
         }
         /**
@@ -1557,19 +1563,14 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
                       });
                     });
 
-                    if (purchase.authorizeSeatReservation !== undefined && purchase.authorizeSeatReservation.instrument !== undefined) {
-                      if (purchase.authorizeSeatReservation.instrument.identifier === _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_2__["factory"].service.webAPI.Identifier.Chevre) {
-                        // chevre
-                        purchase.authorizeSeatReservation.object.acceptedOffer.forEach(function (offer) {
-                          var chevreOffer = offer;
+                    if (purchase.authorizeSeatReservation !== undefined && purchase.authorizeSeatReservation.result !== undefined && purchase.authorizeSeatReservation.result.responseBody.object.reservations !== undefined) {
+                      purchase.authorizeSeatReservation.result.responseBody.object.reservations.forEach(function (r) {
+                        if (r.reservedTicket.ticketedSeat === undefined) {
+                          return;
+                        }
 
-                          if (chevreOffer.ticketedSeat === undefined) {
-                            return;
-                          }
-
-                          seats.push(chevreOffer.ticketedSeat);
-                        });
-                      }
+                        seats.push(r.reservedTicket.ticketedSeat);
+                      });
                     }
 
                     this.purchaseService.selectSeats(seats);
@@ -1794,8 +1795,6 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         type: _services__WEBPACK_IMPORTED_MODULE_8__["UtilService"]
       }, {
-        type: _services__WEBPACK_IMPORTED_MODULE_8__["UserService"]
-      }, {
         type: _services__WEBPACK_IMPORTED_MODULE_8__["PurchaseService"]
       }, {
         type: _ngx_translate_core__WEBPACK_IMPORTED_MODULE_4__["TranslateService"]
@@ -1810,7 +1809,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       styles: [__importDefault(__webpack_require__(
       /*! ./purchase-cinema-seat.component.scss */
       "./app/modules/purchase/components/pages/cinema/purchase-cinema-seat/purchase-cinema-seat.component.scss"))["default"]]
-    }), __metadata("design:paramtypes", [_ngrx_store__WEBPACK_IMPORTED_MODULE_3__["Store"], _angular_router__WEBPACK_IMPORTED_MODULE_1__["Router"], _services__WEBPACK_IMPORTED_MODULE_8__["UtilService"], _services__WEBPACK_IMPORTED_MODULE_8__["UserService"], _services__WEBPACK_IMPORTED_MODULE_8__["PurchaseService"], _ngx_translate_core__WEBPACK_IMPORTED_MODULE_4__["TranslateService"]])], PurchaseCinemaSeatComponent);
+    }), __metadata("design:paramtypes", [_ngrx_store__WEBPACK_IMPORTED_MODULE_3__["Store"], _angular_router__WEBPACK_IMPORTED_MODULE_1__["Router"], _services__WEBPACK_IMPORTED_MODULE_8__["UtilService"], _services__WEBPACK_IMPORTED_MODULE_8__["PurchaseService"], _ngx_translate_core__WEBPACK_IMPORTED_MODULE_4__["TranslateService"]])], PurchaseCinemaSeatComponent);
     /***/
   },
 
@@ -2459,7 +2458,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
           return __awaiter(this, void 0, void 0,
           /*#__PURE__*/
           regeneratorRuntime.mark(function _callee13() {
-            var user, seller, scheduleDate, master, screeningEvents;
+            var user, theater, scheduleDate, master, screeningEvents;
             return regeneratorRuntime.wrap(function _callee13$(_context13) {
               while (1) {
                 switch (_context13.prev = _context13.next) {
@@ -2474,9 +2473,9 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
                   case 4:
                     user = _context13.sent;
-                    seller = user.seller;
+                    theater = user.theater;
 
-                    if (!(seller === undefined)) {
+                    if (!(theater === undefined)) {
                       _context13.next = 9;
                       break;
                     }
@@ -2494,7 +2493,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
                     _context13.next = 14;
                     return this.masterService.getSchedule({
                       superEvent: {
-                        locationBranchCodes: seller.location === undefined || seller.location.branchCode === undefined ? [] : [seller.location.branchCode]
+                        locationBranchCodes: [theater.branchCode]
                       },
                       startFrom: moment__WEBPACK_IMPORTED_MODULE_4__(scheduleDate).toDate(),
                       startThrough: moment__WEBPACK_IMPORTED_MODULE_4__(scheduleDate).add(1, 'day').toDate()
@@ -2538,78 +2537,123 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
           return __awaiter(this, void 0, void 0,
           /*#__PURE__*/
           regeneratorRuntime.mark(function _callee14() {
-            var purchase, user, authorizeSeatReservations, errorObject;
+            var user, screeningEvent, purchase, _user, authorizeSeatReservations, errorObject;
+
             return regeneratorRuntime.wrap(function _callee14$(_context14) {
               while (1) {
                 switch (_context14.prev = _context14.next) {
                   case 0:
                     _context14.prev = 0;
                     _context14.next = 3;
-                    return this.purchaseService.getData();
-
-                  case 3:
-                    purchase = _context14.sent;
-                    _context14.next = 6;
                     return this.userService.getData();
 
-                  case 6:
+                  case 3:
                     user = _context14.sent;
-                    authorizeSeatReservations = purchase.authorizeSeatReservations;
-                    _context14.next = 10;
-                    return this.purchaseService.cancelTemporaryReservations(authorizeSeatReservations);
 
-                  case 10:
-                    if (!(user.seller === undefined)) {
-                      _context14.next = 13;
+                    if (!(user.theater === undefined)) {
+                      _context14.next = 6;
                       break;
                     }
 
-                    this.router.navigate(['/error']);
-                    return _context14.abrupt("return");
+                    throw new Error('user.theater === undefined');
 
-                  case 13:
-                    _context14.next = 15;
-                    return this.purchaseService.startTransaction({
-                      seller: user.seller,
-                      pos: user.pos
-                    });
+                  case 6:
+                    _context14.next = 8;
+                    return this.masterService.getData();
 
-                  case 15:
-                    this.router.navigate(['/purchase/event/ticket']);
-                    _context14.next = 28;
+                  case 8:
+                    _context14.t0 = function (s) {
+                      return s.offers !== undefined && s.offers.seller !== undefined && s.offers.seller.id !== undefined;
+                    };
+
+                    screeningEvent = _context14.sent.screeningEvents.find(_context14.t0);
+
+                    if (!(screeningEvent === undefined || screeningEvent.offers === undefined || screeningEvent.offers.seller === undefined || screeningEvent.offers.seller.id === undefined)) {
+                      _context14.next = 12;
+                      break;
+                    }
+
+                    throw new Error('screeningEvent.offers.seller === undefined');
+
+                  case 12:
+                    _context14.next = 14;
+                    return this.purchaseService.getSeller(screeningEvent.offers.seller.id);
+
+                  case 14:
+                    _context14.next = 20;
                     break;
 
-                  case 18:
-                    _context14.prev = 18;
-                    _context14.t0 = _context14["catch"](0);
-                    errorObject = JSON.parse(_context14.t0);
+                  case 16:
+                    _context14.prev = 16;
+                    _context14.t1 = _context14["catch"](0);
+                    console.error(_context14.t1);
+                    this.router.navigate(['/error']);
+
+                  case 20:
+                    _context14.prev = 20;
+                    _context14.next = 23;
+                    return this.purchaseService.getData();
+
+                  case 23:
+                    purchase = _context14.sent;
+                    _context14.next = 26;
+                    return this.userService.getData();
+
+                  case 26:
+                    _user = _context14.sent;
+                    authorizeSeatReservations = purchase.authorizeSeatReservations;
+
+                    if (!(authorizeSeatReservations.length > 0)) {
+                      _context14.next = 31;
+                      break;
+                    }
+
+                    _context14.next = 31;
+                    return this.purchaseService.cancelTemporaryReservations(authorizeSeatReservations);
+
+                  case 31:
+                    _context14.next = 33;
+                    return this.purchaseService.startTransaction({
+                      seller: purchase.seller,
+                      pos: _user.pos
+                    });
+
+                  case 33:
+                    this.router.navigate(['/purchase/event/ticket']);
+                    _context14.next = 46;
+                    break;
+
+                  case 36:
+                    _context14.prev = 36;
+                    _context14.t2 = _context14["catch"](20);
+                    errorObject = JSON.parse(_context14.t2);
 
                     if (!(errorObject.status === http_status__WEBPACK_IMPORTED_MODULE_3__["TOO_MANY_REQUESTS"])) {
-                      _context14.next = 24;
+                      _context14.next = 42;
                       break;
                     }
 
                     this.router.navigate(['/congestion']);
                     return _context14.abrupt("return");
 
-                  case 24:
+                  case 42:
                     if (!(errorObject.status === http_status__WEBPACK_IMPORTED_MODULE_3__["BAD_REQUEST"])) {
-                      _context14.next = 27;
+                      _context14.next = 45;
                       break;
                     }
 
                     this.router.navigate(['/maintenance']);
                     return _context14.abrupt("return");
 
-                  case 27:
+                  case 45:
                     this.router.navigate(['/error']);
 
-                  case 28:
+                  case 46:
                   case "end":
                     return _context14.stop();
                 }
               }
-            }, _callee14, this, [[0, 18]]);
+            }, _callee14, this, [[0, 16], [20, 36]]);
           }));
         }
         /**
@@ -2935,69 +2979,68 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
           return __awaiter(this, void 0, void 0,
           /*#__PURE__*/
           regeneratorRuntime.mark(function _callee16() {
-            var user, purchase, seller, scheduleDate, master, screeningEvents;
+            var user, purchase, theater, scheduleDate, master, screeningEvents;
             return regeneratorRuntime.wrap(function _callee16$(_context16) {
               while (1) {
                 switch (_context16.prev = _context16.next) {
                   case 0:
-                    _context16.next = 2;
+                    _context16.prev = 0;
+                    _context16.next = 3;
                     return this.userService.getData();
 
-                  case 2:
+                  case 3:
                     user = _context16.sent;
-                    _context16.next = 5;
+                    _context16.next = 6;
                     return this.purchaseService.getData();
 
-                  case 5:
+                  case 6:
                     purchase = _context16.sent;
-                    seller = user.seller;
+                    theater = user.theater;
                     scheduleDate = purchase.scheduleDate;
 
-                    if (!(seller === undefined || scheduleDate === undefined)) {
+                    if (!(theater === undefined || scheduleDate === undefined)) {
                       _context16.next = 11;
                       break;
                     }
 
-                    this.router.navigate(['/error']);
-                    return _context16.abrupt("return");
+                    throw new Error('theater === undefined || scheduleDate === undefined').message;
 
                   case 11:
-                    _context16.prev = 11;
-                    _context16.next = 14;
+                    _context16.next = 13;
                     return this.masterService.getSchedule({
                       superEvent: {
-                        locationBranchCodes: seller.location === undefined || seller.location.branchCode === undefined ? [] : [seller.location.branchCode]
+                        locationBranchCodes: [theater.branchCode]
                       },
                       startFrom: moment__WEBPACK_IMPORTED_MODULE_4__(scheduleDate).toDate(),
                       startThrough: moment__WEBPACK_IMPORTED_MODULE_4__(scheduleDate).add(1, 'day').toDate()
                     });
 
-                  case 14:
-                    _context16.next = 16;
+                  case 13:
+                    _context16.next = 15;
                     return this.masterService.getData();
 
-                  case 16:
+                  case 15:
                     master = _context16.sent;
                     screeningEvents = master.screeningEvents;
                     this.screeningWorkEvents = Object(_functions__WEBPACK_IMPORTED_MODULE_7__["screeningEventsToWorkEvents"])({
                       screeningEvents: screeningEvents
                     });
                     this.update();
-                    _context16.next = 26;
+                    _context16.next = 25;
                     break;
 
-                  case 22:
-                    _context16.prev = 22;
-                    _context16.t0 = _context16["catch"](11);
+                  case 21:
+                    _context16.prev = 21;
+                    _context16.t0 = _context16["catch"](0);
                     console.error(_context16.t0);
                     this.router.navigate(['/error']);
 
-                  case 26:
+                  case 25:
                   case "end":
                     return _context16.stop();
                 }
               }
-            }, _callee16, this, [[11, 22]]);
+            }, _callee16, this, [[0, 21]]);
           }));
         }
         /**
@@ -3010,33 +3053,28 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
           return __awaiter(this, void 0, void 0,
           /*#__PURE__*/
           regeneratorRuntime.mark(function _callee17() {
-            var user, purchase;
+            var purchase;
             return regeneratorRuntime.wrap(function _callee17$(_context17) {
               while (1) {
                 switch (_context17.prev = _context17.next) {
                   case 0:
                     _context17.next = 2;
-                    return this.userService.getData();
-
-                  case 2:
-                    user = _context17.sent;
-                    _context17.next = 5;
                     return this.purchaseService.getData();
 
-                  case 5:
+                  case 2:
                     purchase = _context17.sent;
 
-                    if (!(user.seller === undefined)) {
-                      _context17.next = 9;
+                    if (!(purchase.seller === undefined)) {
+                      _context17.next = 6;
                       break;
                     }
 
                     this.router.navigate(['/error']);
                     return _context17.abrupt("return");
 
-                  case 9:
+                  case 6:
                     if (!(purchase.authorizeSeatReservations.length > 0 && !this.environment.PURCHASE_CART)) {
-                      _context17.next = 12;
+                      _context17.next = 9;
                       break;
                     }
 
@@ -3046,41 +3084,41 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
                     });
                     return _context17.abrupt("return");
 
-                  case 12:
-                    _context17.prev = 12;
-                    _context17.next = 15;
+                  case 9:
+                    _context17.prev = 9;
+                    _context17.next = 12;
                     return this.purchaseService.getScreeningEvent(screeningEvent);
 
-                  case 15:
-                    _context17.next = 17;
+                  case 12:
+                    _context17.next = 14;
                     return this.purchaseService.getScreeningEventOffers();
 
-                  case 17:
-                    _context17.next = 19;
+                  case 14:
+                    _context17.next = 16;
                     return this.purchaseService.getTicketList({
-                      seller: user.seller
+                      seller: purchase.seller
                     });
 
-                  case 19:
+                  case 16:
                     this.openTicketList();
-                    _context17.next = 26;
+                    _context17.next = 23;
                     break;
 
-                  case 22:
-                    _context17.prev = 22;
-                    _context17.t0 = _context17["catch"](12);
+                  case 19:
+                    _context17.prev = 19;
+                    _context17.t0 = _context17["catch"](9);
                     console.error(_context17.t0);
                     this.utilService.openAlert({
                       title: this.translate.instant('common.error'),
                       body: ''
                     });
 
-                  case 26:
+                  case 23:
                   case "end":
                     return _context17.stop();
                 }
               }
-            }, _callee17, this, [[12, 22]]);
+            }, _callee17, this, [[9, 19]]);
           }));
         }
         /**
@@ -4116,7 +4154,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
                   case 5:
                     userData = _context24.sent;
                     profile = userData.customerContact;
-                    seller = userData.seller;
+                    seller = purchaseData.seller;
                     paymentMethod = purchaseData.paymentMethod;
 
                     if (!(paymentMethod === undefined || profile === undefined || seller === undefined)) {
@@ -4350,6 +4388,34 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
 
+    var __awaiter = undefined && undefined.__awaiter || function (thisArg, _arguments, P, generator) {
+      return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) {
+          try {
+            step(generator.next(value));
+          } catch (e) {
+            reject(e);
+          }
+        }
+
+        function rejected(value) {
+          try {
+            step(generator["throw"](value));
+          } catch (e) {
+            reject(e);
+          }
+        }
+
+        function step(result) {
+          result.done ? resolve(result.value) : new P(function (resolve) {
+            resolve(result.value);
+          }).then(fulfilled, rejected);
+        }
+
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+      });
+    };
+
     var __importDefault = undefined && undefined.__importDefault || function (mod) {
       return mod && mod.__esModule ? mod : {
         "default": mod
@@ -4384,36 +4450,66 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "selectPaymentMethodType",
         value: function selectPaymentMethodType(typeOf, category) {
-          var _this13 = this;
+          return __awaiter(this, void 0, void 0,
+          /*#__PURE__*/
+          regeneratorRuntime.mark(function _callee25() {
+            var seller, findResult;
+            return regeneratorRuntime.wrap(function _callee25$(_context25) {
+              while (1) {
+                switch (_context25.prev = _context25.next) {
+                  case 0:
+                    _context25.prev = 0;
+                    _context25.next = 3;
+                    return this.purchaseService.getData();
 
-          this.user.subscribe(function (user) {
-            if (user.seller === undefined || user.seller.paymentAccepted === undefined) {
-              _this13.router.navigate(['/error']);
+                  case 3:
+                    seller = _context25.sent.seller;
 
-              console.error('seller is undefined or paymentAccepted is undefined');
-              return;
-            }
+                    if (!(seller === undefined || seller.paymentAccepted === undefined)) {
+                      _context25.next = 6;
+                      break;
+                    }
 
-            var findResult = user.seller.paymentAccepted.find(function (paymentAccepted) {
-              return paymentAccepted.paymentMethodType === typeOf;
-            });
+                    throw new Error('seller is undefined or paymentAccepted is undefined');
 
-            if (findResult === undefined) {
-              _this13.utilService.openAlert({
-                title: _this13.translate.instant('common.error'),
-                body: _this13.translate.instant('purchase.payment.alert.notCompatible')
-              });
+                  case 6:
+                    findResult = seller.paymentAccepted.find(function (paymentAccepted) {
+                      return paymentAccepted.paymentMethodType === typeOf;
+                    });
 
-              return;
-            }
+                    if (!(findResult === undefined)) {
+                      _context25.next = 10;
+                      break;
+                    }
 
-            _this13.purchaseService.selectPaymentMethodType({
-              typeOf: typeOf,
-              category: category
-            });
+                    this.utilService.openAlert({
+                      title: this.translate.instant('common.error'),
+                      body: this.translate.instant('purchase.payment.alert.notCompatible')
+                    });
+                    return _context25.abrupt("return");
 
-            _this13.router.navigate(['/purchase/confirm']);
-          }).unsubscribe();
+                  case 10:
+                    this.purchaseService.selectPaymentMethodType({
+                      typeOf: typeOf,
+                      category: category
+                    });
+                    this.router.navigate(['/purchase/confirm']);
+                    _context25.next = 18;
+                    break;
+
+                  case 14:
+                    _context25.prev = 14;
+                    _context25.t0 = _context25["catch"](0);
+                    this.router.navigate(['/error']);
+                    console.error(_context25.t0);
+
+                  case 18:
+                  case "end":
+                    return _context25.stop();
+                }
+              }
+            }, _callee25, this, [[0, 14]]);
+          }));
         }
         /**
          * 表示判定
@@ -4605,57 +4701,57 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
         value: function ngOnInit() {
           return __awaiter(this, void 0, void 0,
           /*#__PURE__*/
-          regeneratorRuntime.mark(function _callee25() {
+          regeneratorRuntime.mark(function _callee26() {
             var purchase;
-            return regeneratorRuntime.wrap(function _callee25$(_context25) {
+            return regeneratorRuntime.wrap(function _callee26$(_context26) {
               while (1) {
-                switch (_context25.prev = _context25.next) {
+                switch (_context26.prev = _context26.next) {
                   case 0:
                     this.user = this.store.pipe(Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_2__["select"])(_store_reducers__WEBPACK_IMPORTED_MODULE_6__["getUser"]));
                     this.purchase = this.store.pipe(Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_2__["select"])(_store_reducers__WEBPACK_IMPORTED_MODULE_6__["getPurchase"]));
-                    _context25.prev = 2;
-                    _context25.next = 5;
+                    _context26.prev = 2;
+                    _context26.next = 5;
                     return this.purchaseService.getData();
 
                   case 5:
-                    purchase = _context25.sent;
+                    purchase = _context26.sent;
 
                     if (!(purchase.transaction !== undefined)) {
-                      _context25.next = 9;
+                      _context26.next = 9;
                       break;
                     }
 
-                    _context25.next = 9;
+                    _context26.next = 9;
                     return this.purchaseService.cancelTransaction();
 
                   case 9:
                     this.purchaseService["delete"]();
 
                     if (!(this.environment.VIEW_TYPE === _models__WEBPACK_IMPORTED_MODULE_4__["ViewType"].Cinema)) {
-                      _context25.next = 13;
+                      _context26.next = 13;
                       break;
                     }
 
                     this.router.navigate(['/purchase/cinema/schedule']);
-                    return _context25.abrupt("return");
+                    return _context26.abrupt("return");
 
                   case 13:
                     this.router.navigate(['/purchase/event/schedule']);
-                    _context25.next = 20;
+                    _context26.next = 20;
                     break;
 
                   case 16:
-                    _context25.prev = 16;
-                    _context25.t0 = _context25["catch"](2);
-                    console.error(_context25.t0);
+                    _context26.prev = 16;
+                    _context26.t0 = _context26["catch"](2);
+                    console.error(_context26.t0);
                     this.router.navigate(['/error']);
 
                   case 20:
                   case "end":
-                    return _context25.stop();
+                    return _context26.stop();
                 }
               }
-            }, _callee25, this, [[2, 16]]);
+            }, _callee26, this, [[2, 16]]);
           }));
         }
       }]);
@@ -5582,52 +5678,52 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
         value: function ngOnChanges() {
           return __awaiter(this, void 0, void 0,
           /*#__PURE__*/
-          regeneratorRuntime.mark(function _callee26() {
+          regeneratorRuntime.mark(function _callee27() {
             var path, url, result;
-            return regeneratorRuntime.wrap(function _callee26$(_context26) {
+            return regeneratorRuntime.wrap(function _callee27$(_context27) {
               while (1) {
-                switch (_context26.prev = _context26.next) {
+                switch (_context27.prev = _context27.next) {
                   case 0:
-                    _context26.prev = 0;
+                    _context27.prev = 0;
                     path = "/text/purchase/terms/".concat(this.language, ".txt");
-                    _context26.next = 4;
+                    _context27.next = 4;
                     return Object(_functions__WEBPACK_IMPORTED_MODULE_3__["isFile"])("".concat(Object(_functions__WEBPACK_IMPORTED_MODULE_3__["getProject"])().storageUrl).concat(path));
 
                   case 4:
-                    if (!_context26.sent) {
-                      _context26.next = 8;
+                    if (!_context27.sent) {
+                      _context27.next = 8;
                       break;
                     }
 
-                    _context26.t0 = "".concat(Object(_functions__WEBPACK_IMPORTED_MODULE_3__["getProject"])().storageUrl).concat(path);
-                    _context26.next = 9;
+                    _context27.t0 = "".concat(Object(_functions__WEBPACK_IMPORTED_MODULE_3__["getProject"])().storageUrl).concat(path);
+                    _context27.next = 9;
                     break;
 
                   case 8:
-                    _context26.t0 = "/default".concat(path);
+                    _context27.t0 = "/default".concat(path);
 
                   case 9:
-                    url = _context26.t0;
-                    _context26.next = 12;
+                    url = _context27.t0;
+                    _context27.next = 12;
                     return this.utilService.getText(url);
 
                   case 12:
-                    result = _context26.sent;
+                    result = _context27.sent;
                     this.terms = result.replace(/\n/g, '<br>');
-                    _context26.next = 19;
+                    _context27.next = 19;
                     break;
 
                   case 16:
-                    _context26.prev = 16;
-                    _context26.t1 = _context26["catch"](0);
-                    console.error(_context26.t1);
+                    _context27.prev = 16;
+                    _context27.t1 = _context27["catch"](0);
+                    console.error(_context27.t1);
 
                   case 19:
                   case "end":
-                    return _context26.stop();
+                    return _context27.stop();
                 }
               }
-            }, _callee26, this, [[0, 16]]);
+            }, _callee27, this, [[0, 16]]);
           }));
         }
       }]);
@@ -5799,52 +5895,52 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
         value: function ngOnChanges() {
           return __awaiter(this, void 0, void 0,
           /*#__PURE__*/
-          regeneratorRuntime.mark(function _callee27() {
+          regeneratorRuntime.mark(function _callee28() {
             var path, url, result;
-            return regeneratorRuntime.wrap(function _callee27$(_context27) {
+            return regeneratorRuntime.wrap(function _callee28$(_context28) {
               while (1) {
-                switch (_context27.prev = _context27.next) {
+                switch (_context28.prev = _context28.next) {
                   case 0:
-                    _context27.prev = 0;
+                    _context28.prev = 0;
                     path = "/text/purchase/warning/".concat(this.language, ".txt");
-                    _context27.next = 4;
+                    _context28.next = 4;
                     return Object(_functions__WEBPACK_IMPORTED_MODULE_3__["isFile"])("".concat(Object(_functions__WEBPACK_IMPORTED_MODULE_3__["getProject"])().storageUrl).concat(path));
 
                   case 4:
-                    if (!_context27.sent) {
-                      _context27.next = 8;
+                    if (!_context28.sent) {
+                      _context28.next = 8;
                       break;
                     }
 
-                    _context27.t0 = "".concat(Object(_functions__WEBPACK_IMPORTED_MODULE_3__["getProject"])().storageUrl).concat(path);
-                    _context27.next = 9;
+                    _context28.t0 = "".concat(Object(_functions__WEBPACK_IMPORTED_MODULE_3__["getProject"])().storageUrl).concat(path);
+                    _context28.next = 9;
                     break;
 
                   case 8:
-                    _context27.t0 = "/default".concat(path);
+                    _context28.t0 = "/default".concat(path);
 
                   case 9:
-                    url = _context27.t0;
-                    _context27.next = 12;
+                    url = _context28.t0;
+                    _context28.next = 12;
                     return this.utilService.getText(url);
 
                   case 12:
-                    result = _context27.sent;
+                    result = _context28.sent;
                     this.warning = result.replace(/\n/g, '<br>');
-                    _context27.next = 19;
+                    _context28.next = 19;
                     break;
 
                   case 16:
-                    _context27.prev = 16;
-                    _context27.t1 = _context27["catch"](0);
-                    console.error(_context27.t1);
+                    _context28.prev = 16;
+                    _context28.t1 = _context28["catch"](0);
+                    console.error(_context28.t1);
 
                   case 19:
                   case "end":
-                    return _context27.stop();
+                    return _context28.stop();
                 }
               }
-            }, _callee27, this, [[0, 16]]);
+            }, _callee28, this, [[0, 16]]);
           }));
         }
       }]);
@@ -5999,12 +6095,12 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "update",
         value: function update() {
-          var _this14 = this;
+          var _this13 = this;
 
           this.updateProcess();
           var time = 1000;
           this.timer = setTimeout(function () {
-            _this14.update();
+            _this13.update();
           }, time);
         }
       }, {

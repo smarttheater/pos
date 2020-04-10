@@ -10,6 +10,9 @@ export enum ActionTypes {
     Delete = '[Purchase] Delete',
     UnsettledDelete = '[Purchase] Unsettled Delete',
     SelectScheduleDate = '[Purchase] Select Schedule Date',
+    GetSeller = '[Purchase] Select Seller',
+    GetSellerSuccess = '[Purchase] Select Seller Success',
+    GetSellerFail = '[Purchase] Select Seller Fail',
     GetScreeningEvent = '[Purchase] Get Screening Event',
     GetScreeningEventSuccess = '[Purchase] Get Screening Event Success',
     GetScreeningEventFail = '[Purchase] Get Screening Event Fail',
@@ -83,6 +86,32 @@ export class UnsettledDelete implements Action {
 export class SelectScheduleDate implements Action {
     public readonly type = ActionTypes.SelectScheduleDate;
     constructor(public payload: { scheduleDate: string }) { }
+}
+
+/**
+ * GetSeller
+ */
+export class GetSeller implements Action {
+    public readonly type = ActionTypes.GetSeller;
+    constructor(public payload: { id: string; }) { }
+}
+
+/**
+ * GetSellerSuccess
+ */
+export class GetSellerSuccess implements Action {
+    public readonly type = ActionTypes.GetSellerSuccess;
+    constructor(public payload: {
+        seller: factory.seller.IOrganization<factory.seller.IAttributes<factory.organizationType>>
+    }) { }
+}
+
+/**
+ * GetSellerFail
+ */
+export class GetSellerFail implements Action {
+    public readonly type = ActionTypes.GetSellerFail;
+    constructor(public payload: { error: Error }) { }
 }
 
 /**
@@ -586,6 +615,9 @@ export type Actions =
     | Delete
     | UnsettledDelete
     | SelectScheduleDate
+    | GetSeller
+    | GetSellerSuccess
+    | GetSellerFail
     | GetScreeningEvent
     | GetScreeningEventSuccess
     | GetScreeningEventFail

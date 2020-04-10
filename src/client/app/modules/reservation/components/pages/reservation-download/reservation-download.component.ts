@@ -91,7 +91,7 @@ export class ReservationDownloadComponent implements OnInit {
         try {
             const params = input2ReservationSearchCondition({
                 input: this.confirmedConditions,
-                seller: (await this.userService.getData()).seller,
+                theater: (await this.userService.getData()).theater,
             });
             await this.downloadService.reservation(params);
         } catch (error) {

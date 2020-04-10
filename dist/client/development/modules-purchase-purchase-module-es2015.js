@@ -510,22 +510,20 @@ let PurchaseCinemaScheduleComponent = class PurchaseCinemaScheduleComponent {
                 this.scheduleDate = date;
             }
             const user = yield this.userService.getData();
-            const seller = user.seller;
+            const theater = user.theater;
             if (this.scheduleDate === undefined) {
                 this.scheduleDate = moment__WEBPACK_IMPORTED_MODULE_5__()
                     .add(this.environment.PURCHASE_SCHEDULE_DEFAULT_SELECTED_DATE, 'day')
                     .toDate();
             }
             const scheduleDate = moment__WEBPACK_IMPORTED_MODULE_5__(this.scheduleDate).format('YYYY-MM-DD');
-            if (seller === undefined) {
+            if (theater === undefined) {
                 return;
             }
             this.purchaseService.selectScheduleDate(scheduleDate);
             try {
                 yield this.masterService.getSchedule({
-                    superEvent: {
-                        locationBranchCodes: (seller.location === undefined || seller.location.branchCode === undefined) ? [] : [seller.location.branchCode]
-                    },
+                    superEvent: { locationBranchCodes: [theater.branchCode] },
                     startFrom: moment__WEBPACK_IMPORTED_MODULE_5__(scheduleDate).toDate(),
                     startThrough: moment__WEBPACK_IMPORTED_MODULE_5__(scheduleDate).add(1, 'day').toDate()
                 });
@@ -562,6 +560,11 @@ let PurchaseCinemaScheduleComponent = class PurchaseCinemaScheduleComponent {
             this.purchaseService.unsettledDelete();
             try {
                 yield this.purchaseService.getScreeningEvent(screeningEvent);
+                if (screeningEvent.offers.seller === undefined
+                    || screeningEvent.offers.seller.id === undefined) {
+                    throw new Error('screeningEvent.offers.seller or screeningEvent.offers.seller.id undefined');
+                }
+                yield this.purchaseService.getSeller(screeningEvent.offers.seller.id);
             }
             catch (error) {
                 console.error(error);
@@ -570,7 +573,7 @@ let PurchaseCinemaScheduleComponent = class PurchaseCinemaScheduleComponent {
             }
             const purchase = yield this.purchaseService.getData();
             const user = yield this.userService.getData();
-            if (user.seller === undefined) {
+            if (purchase.seller === undefined) {
                 this.router.navigate(['/error']);
                 return;
             }
@@ -592,7 +595,7 @@ let PurchaseCinemaScheduleComponent = class PurchaseCinemaScheduleComponent {
             }
             try {
                 yield this.purchaseService.startTransaction({
-                    seller: user.seller,
+                    seller: purchase.seller,
                     pos: user.pos
                 });
                 this.router.navigate(['/purchase/cinema/seat']);
@@ -755,11 +758,10 @@ var __importDefault = (undefined && undefined.__importDefault) || function (mod)
 
 
 let PurchaseCinemaSeatComponent = class PurchaseCinemaSeatComponent {
-    constructor(store, router, utilService, userService, purchaseService, translate) {
+    constructor(store, router, utilService, purchaseService, translate) {
         this.store = store;
         this.router = router;
         this.utilService = utilService;
-        this.userService = userService;
         this.purchaseService = purchaseService;
         this.translate = translate;
         this.environment = Object(_environments_environment__WEBPACK_IMPORTED_MODULE_5__["getEnvironment"])();
@@ -771,9 +773,8 @@ let PurchaseCinemaSeatComponent = class PurchaseCinemaSeatComponent {
             this.isLoading = this.store.pipe(Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_3__["select"])(_store_reducers__WEBPACK_IMPORTED_MODULE_9__["getLoading"]));
             try {
                 const purchase = yield this.purchaseService.getData();
-                const user = yield this.userService.getData();
                 const screeningEvent = purchase.screeningEvent;
-                const seller = user.seller;
+                const seller = purchase.seller;
                 if (screeningEvent === undefined || seller === undefined) {
                     this.router.navigate(['/error']);
                     return;
@@ -830,17 +831,14 @@ let PurchaseCinemaSeatComponent = class PurchaseCinemaSeatComponent {
                 });
             });
             if (purchase.authorizeSeatReservation !== undefined
-                && purchase.authorizeSeatReservation.instrument !== undefined) {
-                if (purchase.authorizeSeatReservation.instrument.identifier === _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_2__["factory"].service.webAPI.Identifier.Chevre) {
-                    // chevre
-                    purchase.authorizeSeatReservation.object.acceptedOffer.forEach((offer) => {
-                        const chevreOffer = offer;
-                        if (chevreOffer.ticketedSeat === undefined) {
-                            return;
-                        }
-                        seats.push(chevreOffer.ticketedSeat);
-                    });
-                }
+                && purchase.authorizeSeatReservation.result !== undefined
+                && purchase.authorizeSeatReservation.result.responseBody.object.reservations !== undefined) {
+                purchase.authorizeSeatReservation.result.responseBody.object.reservations.forEach((r) => {
+                    if (r.reservedTicket.ticketedSeat === undefined) {
+                        return;
+                    }
+                    seats.push(r.reservedTicket.ticketedSeat);
+                });
             }
             this.purchaseService.selectSeats(seats);
         });
@@ -942,7 +940,6 @@ PurchaseCinemaSeatComponent.ctorParameters = () => [
     { type: _ngrx_store__WEBPACK_IMPORTED_MODULE_3__["Store"] },
     { type: _angular_router__WEBPACK_IMPORTED_MODULE_1__["Router"] },
     { type: _services__WEBPACK_IMPORTED_MODULE_8__["UtilService"] },
-    { type: _services__WEBPACK_IMPORTED_MODULE_8__["UserService"] },
     { type: _services__WEBPACK_IMPORTED_MODULE_8__["PurchaseService"] },
     { type: _ngx_translate_core__WEBPACK_IMPORTED_MODULE_4__["TranslateService"] }
 ];
@@ -955,7 +952,6 @@ PurchaseCinemaSeatComponent = __decorate([
     __metadata("design:paramtypes", [_ngrx_store__WEBPACK_IMPORTED_MODULE_3__["Store"],
         _angular_router__WEBPACK_IMPORTED_MODULE_1__["Router"],
         _services__WEBPACK_IMPORTED_MODULE_8__["UtilService"],
-        _services__WEBPACK_IMPORTED_MODULE_8__["UserService"],
         _services__WEBPACK_IMPORTED_MODULE_8__["PurchaseService"],
         _ngx_translate_core__WEBPACK_IMPORTED_MODULE_4__["TranslateService"]])
 ], PurchaseCinemaSeatComponent);
@@ -1309,8 +1305,8 @@ let PurchaseEventScheduleComponent = class PurchaseEventScheduleComponent {
             }
             try {
                 const user = yield this.userService.getData();
-                const seller = user.seller;
-                if (seller === undefined) {
+                const theater = user.theater;
+                if (theater === undefined) {
                     this.router.navigate(['/error']);
                     return;
                 }
@@ -1322,10 +1318,7 @@ let PurchaseEventScheduleComponent = class PurchaseEventScheduleComponent {
                 const scheduleDate = moment__WEBPACK_IMPORTED_MODULE_4__(this.scheduleDate).format('YYYY-MM-DD');
                 this.purchaseService.selectScheduleDate(scheduleDate);
                 yield this.masterService.getSchedule({
-                    superEvent: {
-                        locationBranchCodes: (seller.location === undefined || seller.location.branchCode === undefined)
-                            ? [] : [seller.location.branchCode]
-                    },
+                    superEvent: { locationBranchCodes: [theater.branchCode] },
                     startFrom: moment__WEBPACK_IMPORTED_MODULE_4__(scheduleDate).toDate(),
                     startThrough: moment__WEBPACK_IMPORTED_MODULE_4__(scheduleDate).add(1, 'day').toDate()
                 });
@@ -1346,16 +1339,34 @@ let PurchaseEventScheduleComponent = class PurchaseEventScheduleComponent {
     onSubmit() {
         return __awaiter(this, void 0, void 0, function* () {
             try {
+                const user = yield this.userService.getData();
+                if (user.theater === undefined) {
+                    throw new Error('user.theater === undefined');
+                }
+                const screeningEvent = (yield this.masterService.getData())
+                    .screeningEvents
+                    .find(s => s.offers !== undefined && s.offers.seller !== undefined && s.offers.seller.id !== undefined);
+                if (screeningEvent === undefined
+                    || screeningEvent.offers === undefined
+                    || screeningEvent.offers.seller === undefined
+                    || screeningEvent.offers.seller.id === undefined) {
+                    throw new Error('screeningEvent.offers.seller === undefined');
+                }
+                yield this.purchaseService.getSeller(screeningEvent.offers.seller.id);
+            }
+            catch (error) {
+                console.error(error);
+                this.router.navigate(['/error']);
+            }
+            try {
                 const purchase = yield this.purchaseService.getData();
                 const user = yield this.userService.getData();
                 const authorizeSeatReservations = purchase.authorizeSeatReservations;
-                yield this.purchaseService.cancelTemporaryReservations(authorizeSeatReservations);
-                if (user.seller === undefined) {
-                    this.router.navigate(['/error']);
-                    return;
+                if (authorizeSeatReservations.length > 0) {
+                    yield this.purchaseService.cancelTemporaryReservations(authorizeSeatReservations);
                 }
                 yield this.purchaseService.startTransaction({
-                    seller: user.seller,
+                    seller: purchase.seller,
                     pos: user.pos
                 });
                 this.router.navigate(['/purchase/event/ticket']);
@@ -1546,20 +1557,16 @@ let PurchaseEventTicketComponent = class PurchaseEventTicketComponent {
      */
     getSchedule() {
         return __awaiter(this, void 0, void 0, function* () {
-            const user = yield this.userService.getData();
-            const purchase = yield this.purchaseService.getData();
-            const seller = user.seller;
-            const scheduleDate = purchase.scheduleDate;
-            if (seller === undefined || scheduleDate === undefined) {
-                this.router.navigate(['/error']);
-                return;
-            }
             try {
+                const user = yield this.userService.getData();
+                const purchase = yield this.purchaseService.getData();
+                const theater = user.theater;
+                const scheduleDate = purchase.scheduleDate;
+                if (theater === undefined || scheduleDate === undefined) {
+                    throw new Error('theater === undefined || scheduleDate === undefined').message;
+                }
                 yield this.masterService.getSchedule({
-                    superEvent: {
-                        locationBranchCodes: (seller.location === undefined || seller.location.branchCode === undefined)
-                            ? [] : [seller.location.branchCode]
-                    },
+                    superEvent: { locationBranchCodes: [theater.branchCode] },
                     startFrom: moment__WEBPACK_IMPORTED_MODULE_4__(scheduleDate).toDate(),
                     startThrough: moment__WEBPACK_IMPORTED_MODULE_4__(scheduleDate).add(1, 'day').toDate()
                 });
@@ -1579,9 +1586,8 @@ let PurchaseEventTicketComponent = class PurchaseEventTicketComponent {
      */
     selectSchedule(screeningEvent) {
         return __awaiter(this, void 0, void 0, function* () {
-            const user = yield this.userService.getData();
             const purchase = yield this.purchaseService.getData();
-            if (user.seller === undefined) {
+            if (purchase.seller === undefined) {
                 this.router.navigate(['/error']);
                 return;
             }
@@ -1596,7 +1602,7 @@ let PurchaseEventTicketComponent = class PurchaseEventTicketComponent {
             try {
                 yield this.purchaseService.getScreeningEvent(screeningEvent);
                 yield this.purchaseService.getScreeningEventOffers();
-                yield this.purchaseService.getTicketList({ seller: user.seller });
+                yield this.purchaseService.getTicketList({ seller: purchase.seller });
                 this.openTicketList();
             }
             catch (error) {
@@ -2134,7 +2140,7 @@ let PurchaseConfirmComponent = class PurchaseConfirmComponent {
             const purchaseData = yield this.purchaseService.getData();
             const userData = yield this.userService.getData();
             const profile = userData.customerContact;
-            const seller = userData.seller;
+            const seller = purchaseData.seller;
             const paymentMethod = purchaseData.paymentMethod;
             if (paymentMethod === undefined
                 || profile === undefined
@@ -2245,6 +2251,14 @@ var __decorate = (undefined && undefined.__decorate) || function (decorators, ta
 var __metadata = (undefined && undefined.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
+var __awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : new P(function (resolve) { resolve(result.value); }).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
 var __importDefault = (undefined && undefined.__importDefault) || function (mod) {
   return (mod && mod.__esModule) ? mod : { "default": mod };
 };
@@ -2275,25 +2289,30 @@ let PurchasePaymentComponent = class PurchasePaymentComponent {
      * 決済方法選択
      */
     selectPaymentMethodType(typeOf, category) {
-        this.user.subscribe((user) => {
-            if (user.seller === undefined
-                || user.seller.paymentAccepted === undefined) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                const seller = (yield this.purchaseService.getData()).seller;
+                if (seller === undefined
+                    || seller.paymentAccepted === undefined) {
+                    throw new Error('seller is undefined or paymentAccepted is undefined');
+                }
+                const findResult = seller.paymentAccepted
+                    .find(paymentAccepted => paymentAccepted.paymentMethodType === typeOf);
+                if (findResult === undefined) {
+                    this.utilService.openAlert({
+                        title: this.translate.instant('common.error'),
+                        body: this.translate.instant('purchase.payment.alert.notCompatible')
+                    });
+                    return;
+                }
+                this.purchaseService.selectPaymentMethodType({ typeOf, category });
+                this.router.navigate(['/purchase/confirm']);
+            }
+            catch (error) {
                 this.router.navigate(['/error']);
-                console.error('seller is undefined or paymentAccepted is undefined');
-                return;
+                console.error(error);
             }
-            const findResult = user.seller.paymentAccepted
-                .find(paymentAccepted => paymentAccepted.paymentMethodType === typeOf);
-            if (findResult === undefined) {
-                this.utilService.openAlert({
-                    title: this.translate.instant('common.error'),
-                    body: this.translate.instant('purchase.payment.alert.notCompatible')
-                });
-                return;
-            }
-            this.purchaseService.selectPaymentMethodType({ typeOf, category });
-            this.router.navigate(['/purchase/confirm']);
-        }).unsubscribe();
+        });
     }
     /**
      * 表示判定

@@ -84,23 +84,20 @@ export class PurchaseCinemaScheduleComponent implements OnInit, OnDestroy {
             this.scheduleDate = date;
         }
         const user = await this.userService.getData();
-        const seller = user.seller;
+        const theater = user.theater;
         if (this.scheduleDate === undefined) {
             this.scheduleDate = moment()
                 .add(this.environment.PURCHASE_SCHEDULE_DEFAULT_SELECTED_DATE, 'day')
                 .toDate();
         }
         const scheduleDate = moment(this.scheduleDate).format('YYYY-MM-DD');
-        if (seller === undefined) {
+        if (theater === undefined) {
             return;
         }
         this.purchaseService.selectScheduleDate(scheduleDate);
         try {
             await this.masterService.getSchedule({
-                superEvent: {
-                    locationBranchCodes:
-                        (seller.location === undefined || seller.location.branchCode === undefined) ? [] : [seller.location.branchCode]
-                },
+                superEvent: { locationBranchCodes: [theater.branchCode] },
                 startFrom: moment(scheduleDate).toDate(),
                 startThrough: moment(scheduleDate).add(1, 'day').toDate()
             });
@@ -135,6 +132,11 @@ export class PurchaseCinemaScheduleComponent implements OnInit, OnDestroy {
         this.purchaseService.unsettledDelete();
         try {
             await this.purchaseService.getScreeningEvent(screeningEvent);
+            if (screeningEvent.offers.seller === undefined
+                || screeningEvent.offers.seller.id === undefined) {
+                throw new Error('screeningEvent.offers.seller or screeningEvent.offers.seller.id undefined');
+            }
+            await this.purchaseService.getSeller(screeningEvent.offers.seller.id);
         } catch (error) {
             console.error(error);
             this.router.navigate(['/error']);
@@ -142,7 +144,7 @@ export class PurchaseCinemaScheduleComponent implements OnInit, OnDestroy {
         }
         const purchase = await this.purchaseService.getData();
         const user = await this.userService.getData();
-        if (user.seller === undefined) {
+        if (purchase.seller === undefined) {
             this.router.navigate(['/error']);
             return;
         }
@@ -163,7 +165,7 @@ export class PurchaseCinemaScheduleComponent implements OnInit, OnDestroy {
         }
         try {
             await this.purchaseService.startTransaction({
-                seller: user.seller,
+                seller: purchase.seller,
                 pos: user.pos
             });
             this.router.navigate(['/purchase/cinema/seat']);
