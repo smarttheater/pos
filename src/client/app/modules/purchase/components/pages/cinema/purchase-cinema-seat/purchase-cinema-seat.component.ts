@@ -50,7 +50,6 @@ export class PurchaseCinemaSeatComponent implements OnInit {
                 }
             });
             await this.purchaseService.getScreeningEventOffers();
-            await this.purchaseService.getScreenData({ screeningEvent });
             await this.purchaseService.getTicketList({ seller });
         } catch (error) {
             console.error(error);

@@ -620,7 +620,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("<div class=\"bg-white position-relative\">\n    <div *ngIf=\"openSeatingAllowed\" class=\"open-seating-allowed\"></div>\n    <div class=\"screen\" [class.zoom]=\"zoomState\" (window:resize)=\"resize()\">\n        <div [class.active]=\"zoomState\" class=\"zoom-btn text-center\" (click)=\"scaleDown()\">\n            <i class=\"fas fa-search-minus\"></i>\n        </div>\n        <div *ngIf=\"screenData\" class=\"screen-scroll\" [ngStyle]=\"{ \n            'height.px': height,\n            'transform-origin': origin,\n            'transform': 'scale(' + scale + ')'\n        }\">\n            <div class=\"screen-inner {{ screenType }}\"\n                [ngStyle]=\"{ 'width.px': screenData.size.w, 'height.px': screenData.size.h }\" (click)=\"scaleUp($event)\">\n\n                <div *ngFor=\"let object of screenData.objects\" class=\"object\" [ngStyle]=\"{\n                    'width.px': object.w, \n                    'height.px': object.h, \n                    'top.px': object.y, \n                    'left.px': object.x, \n                    'background-image': 'url(' + object.image + ')',\n                    'background-size': object.w + 'px ' +object.h + 'px'\n                }\"></div>\n\n                <div *ngFor=\"let columnLabel of columnLabels\"\n                    class=\"object label-object column-object column-object-{{ columnLabel.id }}\" [ngStyle]=\"{\n                    'width.px': columnLabel.w,\n                    'height.px': columnLabel.h, \n                    'top.px': columnLabel.y, \n                    'left.px': columnLabel.x\n                }\">{{\n                    columnLabel.label }}</div>\n\n                <div *ngFor=\"let lineLabel of lineLabels\"\n                    class=\"object label-object line-object line-object-{{ lineLabel.id }}\" [ngStyle]=\"{\n                    'width.px': lineLabel.w,\n                    'height.px': lineLabel.h, \n                    'top.px': lineLabel.y, \n                    'left.px': lineLabel.x\n                }\">{{\n                    lineLabel.label }}</div>\n\n                <div *ngFor=\"let row of seats\" class=\"object {{ row.className }}\" [ngStyle]=\"{\n                        'top.px': row.y, \n                        'left.px': row.x\n                    }\">\n                    <div *ngFor=\"let seat of row.data\" class=\"seat {{ seat.className }} {{ seat.status }}\" [ngStyle]=\"{\n                        'top.px': seat.y, \n                        'left.px': seat.x,\n                        'width.px': seat.w,\n                        'height.px': seat.h\n                    }\" (click)=\"selectSeat(seat)\">\n                        <span>{{ seat.code }}</span>\n                    </div>\n                </div>\n\n            </div>\n        </div>\n        <div *ngIf=\"screenData\" class=\"screen-style\"></div>\n    </div>\n</div>");
+/* harmony default export */ __webpack_exports__["default"] = ("<div class=\"bg-white position-relative\">\n    <div *ngIf=\"openSeatingAllowed\" class=\"open-seating-allowed\"></div>\n    <div class=\"screen\" [class.zoom]=\"zoomState\" (window:resize)=\"resize()\">\n        <div [class.active]=\"zoomState\" class=\"zoom-btn text-center\" (click)=\"scaleDown()\">\n            <i class=\"fas fa-search-minus\"></i>\n        </div>\n        <div *ngIf=\"screenData\" class=\"screen-scroll\" [ngStyle]=\"{ \n            'height.px': height,\n            'transform-origin': origin,\n            'transform': 'scale(' + scale + ')'\n        }\">\n            <div class=\"screen-inner {{ screenType }}\"\n                [ngStyle]=\"{ 'width.px': screenData.size.w, 'height.px': screenData.size.h }\" (click)=\"scaleUp($event)\">\n                <div class=\"d-none screen-object\">SCREEN</div>\n                <div *ngFor=\"let object of screenData.objects\" class=\"object\" [ngStyle]=\"{\n                    'width.px': object.w, \n                    'height.px': object.h, \n                    'top.px': object.y, \n                    'left.px': object.x, \n                    'background-image': 'url(' + object.image + ')',\n                    'background-size': object.w + 'px ' +object.h + 'px'\n                }\"></div>\n\n                <div *ngFor=\"let columnLabel of columnLabels\"\n                    class=\"object label-object column-object column-object-{{ columnLabel.id }}\" [ngStyle]=\"{\n                    'width.px': columnLabel.w,\n                    'height.px': columnLabel.h, \n                    'top.px': columnLabel.y, \n                    'left.px': columnLabel.x\n                }\">{{\n                    columnLabel.label }}</div>\n\n                <div *ngFor=\"let lineLabel of lineLabels\"\n                    class=\"object label-object line-object line-object-{{ lineLabel.id }}\" [ngStyle]=\"{\n                    'width.px': lineLabel.w,\n                    'height.px': lineLabel.h, \n                    'top.px': lineLabel.y, \n                    'left.px': lineLabel.x\n                }\">{{\n                    lineLabel.label }}</div>\n\n                <div *ngFor=\"let row of seats\" class=\"object {{ row.className }}\" [ngStyle]=\"{\n                        'top.px': row.y, \n                        'left.px': row.x\n                    }\">\n                    <div *ngFor=\"let seat of row.data\" class=\"seat {{ seat.className }} {{ seat.status }}\" [ngStyle]=\"{\n                        'top.px': seat.y, \n                        'left.px': seat.x,\n                        'width.px': seat.w,\n                        'height.px': seat.h\n                    }\" (click)=\"selectSeat(seat)\">\n                        <span>{{ seat.code }}</span>\n                    </div>\n                </div>\n\n            </div>\n        </div>\n        <div *ngIf=\"screenData\" class=\"screen-style\"></div>\n    </div>\n</div>");
 
 /***/ }),
 
@@ -5504,7 +5504,7 @@ ReservationDetailModalComponent = __decorate([
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = (":host {\n  display: block;\n}\n\n.open-seating-allowed {\n  position: absolute;\n  top: 0;\n  left: 0;\n  right: 0;\n  bottom: 0;\n  background: #000;\n  opacity: 0.5;\n  z-index: 11;\n}\n\n.screen {\n  position: relative;\n}\n\n.screen .screen-scroll {\n  height: 500px;\n}\n\n.screen .screen-inner {\n  position: relative;\n  width: 1600px;\n  height: 1400px;\n}\n\n.screen .seat {\n  position: absolute;\n  cursor: pointer;\n  text-align: center;\n  font-weight: bold;\n  color: #9a9a9b;\n  padding-top: 20px;\n  background-image: url(/assets/images/seat/normal.svg);\n  background-size: 40px 50px;\n  background-repeat: no-repeat;\n  font-size: 12px;\n}\n\n.screen .seat.active {\n  color: #FFF;\n  background-image: url(/assets/images/seat/normal_active.svg);\n}\n\n.screen .seat.disabled {\n  color: #FFF;\n  background-image: url(/assets/images/seat/normal_disabled.svg);\n  cursor: default;\n}\n\n.screen .seat-hc {\n  background-image: url(/assets/images/seat/hc.svg) !important;\n  background-size: 40px 50px;\n  padding-top: 35px;\n}\n\n.screen .seat-hc.active {\n  background-image: url(/assets/images/seat/hc_active.svg) !important;\n}\n\n.screen .seat-hc.disabled {\n  background-image: url(/assets/images/seat/hc_disabled.svg) !important;\n  cursor: default;\n}\n\n.screen .object {\n  position: absolute;\n  background-repeat: no-repeat;\n}\n\n.screen .label-object {\n  text-align: center;\n  line-height: 50px;\n  font-size: 24px;\n  color: #9a9a9b;\n  font-weight: bold;\n}\n\n.screen-4dx .seat {\n  background-image: url(/assets/images/seat/4dx.svg);\n  background-size: 50px 50px;\n}\n\n.screen-4dx .seat.active {\n  color: #FFF;\n  background-image: url(/assets/images/seat/4dx_active.svg);\n}\n\n.screen-4dx .seat.disabled {\n  color: #FFF;\n  background-image: url(/assets/images/seat/4dx_disabled.svg);\n  cursor: default;\n}\n\n.zoom .screen-scroll {\n  overflow: auto;\n  -webkit-transition: -webkit-transform 0.2s;\n  transition: -webkit-transform 0.2s;\n  transition: transform 0.2s;\n  transition: transform 0.2s, -webkit-transform 0.2s;\n  -webkit-overflow-scrolling: touch;\n}\n\n.zoom .seat span {\n  display: block;\n}\n\n.zoom-btn {\n  display: none;\n  cursor: pointer;\n  position: absolute;\n  top: 10px;\n  right: 10px;\n  z-index: 10;\n  width: 50px;\n  height: 50px;\n  color: #FFF;\n  background-color: #3e3a39;\n  border-radius: 3px;\n  -webkit-box-align: center;\n          align-items: center;\n  -webkit-box-pack: center;\n          justify-content: center;\n}\n\n.zoom-btn.active {\n  display: -webkit-box;\n  display: flex;\n}\n\n.zoom-btn.scroll {\n  position: fixed;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9jbGllbnQvYXBwL21vZHVsZXMvc2hhcmVkL2NvbXBvbmVudHMvcGFydHMvc2NyZWVuL0M6XFxVc2Vyc1xcaGF0YWd1Y2hpXFxEZXNrdG9wXFx3b3Jrc3BhY2VcXENpbmVyaW5vXFxwb3Mvc3JjXFxjbGllbnRcXGFwcFxcbW9kdWxlc1xcc2hhcmVkXFxjb21wb25lbnRzXFxwYXJ0c1xcc2NyZWVuXFxzY3JlZW4uY29tcG9uZW50LnNjc3MiLCJzcmMvY2xpZW50L2FwcC9tb2R1bGVzL3NoYXJlZC9jb21wb25lbnRzL3BhcnRzL3NjcmVlbi9zY3JlZW4uY29tcG9uZW50LnNjc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7RUFDSSxjQUFBO0FDQ0o7O0FEQ0E7RUFDSSxrQkFBQTtFQUNBLE1BQUE7RUFDQSxPQUFBO0VBQ0EsUUFBQTtFQUNBLFNBQUE7RUFDQSxnQkFBQTtFQUNBLFlBQUE7RUFDQSxXQUFBO0FDRUo7O0FEQUE7RUFDSSxrQkFBQTtBQ0dKOztBREZJO0VBQ0ksYUFBQTtBQ0lSOztBREZJO0VBQ0ksa0JBQUE7RUFDQSxhQUFBO0VBQ0EsY0FBQTtBQ0lSOztBREZJO0VBQ0ksa0JBQUE7RUFDQSxlQUFBO0VBQ0Esa0JBQUE7RUFDQSxpQkFBQTtFQUNBLGNBQUE7RUFDQSxpQkFBQTtFQUNBLHFEQUFBO0VBQ0EsMEJBQUE7RUFDQSw0QkFBQTtFQUNBLGVBQUE7QUNJUjs7QURIUTtFQUNJLFdBQUE7RUFDQSw0REFBQTtBQ0taOztBREhRO0VBQ0ksV0FBQTtFQUNBLDhEQUFBO0VBQ0EsZUFBQTtBQ0taOztBREZJO0VBQ0ksNERBQUE7RUFDQSwwQkFBQTtFQUNBLGlCQUFBO0FDSVI7O0FESFE7RUFDSSxtRUFBQTtBQ0taOztBREhRO0VBQ0kscUVBQUE7RUFDQSxlQUFBO0FDS1o7O0FERkk7RUFDSSxrQkFBQTtFQUNBLDRCQUFBO0FDSVI7O0FERkk7RUFDSSxrQkFBQTtFQUNBLGlCQUFBO0VBQ0EsZUFBQTtFQUNBLGNBQUE7RUFDQSxpQkFBQTtBQ0lSOztBREFJO0VBQ0ksa0RBQUE7RUFDQSwwQkFBQTtBQ0dSOztBREZRO0VBQ0ksV0FBQTtFQUNBLHlEQUFBO0FDSVo7O0FERlE7RUFDSSxXQUFBO0VBQ0EsMkRBQUE7RUFDQSxlQUFBO0FDSVo7O0FERUk7RUFDSSxjQUFBO0VBQ0EsMENBQUE7RUFBQSxrQ0FBQTtFQUFBLDBCQUFBO0VBQUEsa0RBQUE7RUFDQSxpQ0FBQTtBQ0NSOztBREVRO0VBQ0ksY0FBQTtBQ0FaOztBREtBO0VBQ0ksYUFBQTtFQUNBLGVBQUE7RUFDQSxrQkFBQTtFQUNBLFNBQUE7RUFDQSxXQUFBO0VBQ0EsV0FBQTtFQUNBLFdBQUE7RUFDQSxZQUFBO0VBQ0EsV0FBQTtFQUNBLHlCQUFBO0VBQ0Esa0JBQUE7RUFDQSx5QkFBQTtVQUFBLG1CQUFBO0VBQ0Esd0JBQUE7VUFBQSx1QkFBQTtBQ0ZKOztBREdJO0VBQ0ksb0JBQUE7RUFBQSxhQUFBO0FDRFI7O0FER0k7RUFDSSxlQUFBO0FDRFIiLCJmaWxlIjoic3JjL2NsaWVudC9hcHAvbW9kdWxlcy9zaGFyZWQvY29tcG9uZW50cy9wYXJ0cy9zY3JlZW4vc2NyZWVuLmNvbXBvbmVudC5zY3NzIiwic291cmNlc0NvbnRlbnQiOlsiOmhvc3Qge1xuICAgIGRpc3BsYXk6IGJsb2NrO1xufVxuLm9wZW4tc2VhdGluZy1hbGxvd2VkIHtcbiAgICBwb3NpdGlvbjogYWJzb2x1dGU7XG4gICAgdG9wOiAwO1xuICAgIGxlZnQ6IDA7XG4gICAgcmlnaHQ6IDA7XG4gICAgYm90dG9tOiAwO1xuICAgIGJhY2tncm91bmQ6ICMwMDA7XG4gICAgb3BhY2l0eTogMC41O1xuICAgIHotaW5kZXg6IDExO1xufVxuLnNjcmVlbiB7XG4gICAgcG9zaXRpb246IHJlbGF0aXZlO1xuICAgIC5zY3JlZW4tc2Nyb2xsIHtcbiAgICAgICAgaGVpZ2h0OiA1MDBweDsgICAgICAgIFxuICAgIH1cbiAgICAuc2NyZWVuLWlubmVyIHtcbiAgICAgICAgcG9zaXRpb246IHJlbGF0aXZlO1xuICAgICAgICB3aWR0aDogMTYwMHB4O1xuICAgICAgICBoZWlnaHQ6IDE0MDBweDtcbiAgICB9XG4gICAgLnNlYXQge1xuICAgICAgICBwb3NpdGlvbjogYWJzb2x1dGU7XG4gICAgICAgIGN1cnNvcjogcG9pbnRlcjtcbiAgICAgICAgdGV4dC1hbGlnbjogY2VudGVyO1xuICAgICAgICBmb250LXdlaWdodDogYm9sZDtcbiAgICAgICAgY29sb3I6ICM5YTlhOWI7XG4gICAgICAgIHBhZGRpbmctdG9wOiAyMHB4O1xuICAgICAgICBiYWNrZ3JvdW5kLWltYWdlOiB1cmwoL2Fzc2V0cy9pbWFnZXMvc2VhdC9ub3JtYWwuc3ZnKTtcbiAgICAgICAgYmFja2dyb3VuZC1zaXplOiA0MHB4IDUwcHg7XG4gICAgICAgIGJhY2tncm91bmQtcmVwZWF0OiBuby1yZXBlYXQ7XG4gICAgICAgIGZvbnQtc2l6ZTogMTJweDtcbiAgICAgICAgJi5hY3RpdmUge1xuICAgICAgICAgICAgY29sb3I6ICNGRkY7XG4gICAgICAgICAgICBiYWNrZ3JvdW5kLWltYWdlOiB1cmwoL2Fzc2V0cy9pbWFnZXMvc2VhdC9ub3JtYWxfYWN0aXZlLnN2Zyk7XG4gICAgICAgIH1cbiAgICAgICAgJi5kaXNhYmxlZCB7XG4gICAgICAgICAgICBjb2xvcjogI0ZGRjtcbiAgICAgICAgICAgIGJhY2tncm91bmQtaW1hZ2U6IHVybCgvYXNzZXRzL2ltYWdlcy9zZWF0L25vcm1hbF9kaXNhYmxlZC5zdmcpO1xuICAgICAgICAgICAgY3Vyc29yOiBkZWZhdWx0O1xuICAgICAgICB9XG4gICAgfVxuICAgIC5zZWF0LWhjIHtcbiAgICAgICAgYmFja2dyb3VuZC1pbWFnZTogdXJsKC9hc3NldHMvaW1hZ2VzL3NlYXQvaGMuc3ZnKSAhaW1wb3J0YW50O1xuICAgICAgICBiYWNrZ3JvdW5kLXNpemU6IDQwcHggNTBweDtcbiAgICAgICAgcGFkZGluZy10b3A6IDM1cHg7XG4gICAgICAgICYuYWN0aXZlIHtcbiAgICAgICAgICAgIGJhY2tncm91bmQtaW1hZ2U6IHVybCgvYXNzZXRzL2ltYWdlcy9zZWF0L2hjX2FjdGl2ZS5zdmcpICFpbXBvcnRhbnQ7XG4gICAgICAgIH1cbiAgICAgICAgJi5kaXNhYmxlZCB7XG4gICAgICAgICAgICBiYWNrZ3JvdW5kLWltYWdlOiB1cmwoL2Fzc2V0cy9pbWFnZXMvc2VhdC9oY19kaXNhYmxlZC5zdmcpICFpbXBvcnRhbnQ7XG4gICAgICAgICAgICBjdXJzb3I6IGRlZmF1bHQ7XG4gICAgICAgIH1cbiAgICB9XG4gICAgLm9iamVjdCB7XG4gICAgICAgIHBvc2l0aW9uOiBhYnNvbHV0ZTtcbiAgICAgICAgYmFja2dyb3VuZC1yZXBlYXQ6IG5vLXJlcGVhdDtcbiAgICB9XG4gICAgLmxhYmVsLW9iamVjdCB7XG4gICAgICAgIHRleHQtYWxpZ246IGNlbnRlcjtcbiAgICAgICAgbGluZS1oZWlnaHQ6IDUwcHg7XG4gICAgICAgIGZvbnQtc2l6ZTogMjRweDtcbiAgICAgICAgY29sb3I6ICM5YTlhOWI7XG4gICAgICAgIGZvbnQtd2VpZ2h0OiBib2xkO1xuICAgIH0gICBcbn1cbi5zY3JlZW4tNGR4IHtcbiAgICAuc2VhdCB7XG4gICAgICAgIGJhY2tncm91bmQtaW1hZ2U6IHVybCgvYXNzZXRzL2ltYWdlcy9zZWF0LzRkeC5zdmcpO1xuICAgICAgICBiYWNrZ3JvdW5kLXNpemU6IDUwcHggNTBweDtcbiAgICAgICAgJi5hY3RpdmUge1xuICAgICAgICAgICAgY29sb3I6ICNGRkY7XG4gICAgICAgICAgICBiYWNrZ3JvdW5kLWltYWdlOiB1cmwoL2Fzc2V0cy9pbWFnZXMvc2VhdC80ZHhfYWN0aXZlLnN2Zyk7XG4gICAgICAgIH1cbiAgICAgICAgJi5kaXNhYmxlZCB7XG4gICAgICAgICAgICBjb2xvcjogI0ZGRjtcbiAgICAgICAgICAgIGJhY2tncm91bmQtaW1hZ2U6IHVybCgvYXNzZXRzL2ltYWdlcy9zZWF0LzRkeF9kaXNhYmxlZC5zdmcpO1xuICAgICAgICAgICAgY3Vyc29yOiBkZWZhdWx0O1xuICAgICAgICB9XG4gICAgfVxufVxuXG4uem9vbSB7XG4gICAgLnNjcmVlbi1zY3JvbGwge1xuICAgICAgICBvdmVyZmxvdzogYXV0bztcbiAgICAgICAgdHJhbnNpdGlvbjogdHJhbnNmb3JtIDAuMnM7XG4gICAgICAgIC13ZWJraXQtb3ZlcmZsb3ctc2Nyb2xsaW5nOiB0b3VjaDtcbiAgICB9XG4gICAgLnNlYXQge1xuICAgICAgICBzcGFuIHtcbiAgICAgICAgICAgIGRpc3BsYXk6IGJsb2NrO1xuICAgICAgICB9XG4gICAgfVxufVxuXG4uem9vbS1idG4ge1xuICAgIGRpc3BsYXk6IG5vbmU7XG4gICAgY3Vyc29yOiBwb2ludGVyO1xuICAgIHBvc2l0aW9uOiBhYnNvbHV0ZTtcbiAgICB0b3A6IDEwcHg7XG4gICAgcmlnaHQ6IDEwcHg7XG4gICAgei1pbmRleDogMTA7XG4gICAgd2lkdGg6IDUwcHg7XG4gICAgaGVpZ2h0OiA1MHB4O1xuICAgIGNvbG9yOiAjRkZGO1xuICAgIGJhY2tncm91bmQtY29sb3I6ICMzZTNhMzk7XG4gICAgYm9yZGVyLXJhZGl1czogM3B4O1xuICAgIGFsaWduLWl0ZW1zOiBjZW50ZXI7XG4gICAganVzdGlmeS1jb250ZW50OiBjZW50ZXI7XG4gICAgJi5hY3RpdmUge1xuICAgICAgICBkaXNwbGF5OiBmbGV4O1xuICAgIH1cbiAgICAmLnNjcm9sbCB7XG4gICAgICAgIHBvc2l0aW9uOiBmaXhlZDtcbiAgICB9XG59IiwiOmhvc3Qge1xuICBkaXNwbGF5OiBibG9jaztcbn1cblxuLm9wZW4tc2VhdGluZy1hbGxvd2VkIHtcbiAgcG9zaXRpb246IGFic29sdXRlO1xuICB0b3A6IDA7XG4gIGxlZnQ6IDA7XG4gIHJpZ2h0OiAwO1xuICBib3R0b206IDA7XG4gIGJhY2tncm91bmQ6ICMwMDA7XG4gIG9wYWNpdHk6IDAuNTtcbiAgei1pbmRleDogMTE7XG59XG5cbi5zY3JlZW4ge1xuICBwb3NpdGlvbjogcmVsYXRpdmU7XG59XG4uc2NyZWVuIC5zY3JlZW4tc2Nyb2xsIHtcbiAgaGVpZ2h0OiA1MDBweDtcbn1cbi5zY3JlZW4gLnNjcmVlbi1pbm5lciB7XG4gIHBvc2l0aW9uOiByZWxhdGl2ZTtcbiAgd2lkdGg6IDE2MDBweDtcbiAgaGVpZ2h0OiAxNDAwcHg7XG59XG4uc2NyZWVuIC5zZWF0IHtcbiAgcG9zaXRpb246IGFic29sdXRlO1xuICBjdXJzb3I6IHBvaW50ZXI7XG4gIHRleHQtYWxpZ246IGNlbnRlcjtcbiAgZm9udC13ZWlnaHQ6IGJvbGQ7XG4gIGNvbG9yOiAjOWE5YTliO1xuICBwYWRkaW5nLXRvcDogMjBweDtcbiAgYmFja2dyb3VuZC1pbWFnZTogdXJsKC9hc3NldHMvaW1hZ2VzL3NlYXQvbm9ybWFsLnN2Zyk7XG4gIGJhY2tncm91bmQtc2l6ZTogNDBweCA1MHB4O1xuICBiYWNrZ3JvdW5kLXJlcGVhdDogbm8tcmVwZWF0O1xuICBmb250LXNpemU6IDEycHg7XG59XG4uc2NyZWVuIC5zZWF0LmFjdGl2ZSB7XG4gIGNvbG9yOiAjRkZGO1xuICBiYWNrZ3JvdW5kLWltYWdlOiB1cmwoL2Fzc2V0cy9pbWFnZXMvc2VhdC9ub3JtYWxfYWN0aXZlLnN2Zyk7XG59XG4uc2NyZWVuIC5zZWF0LmRpc2FibGVkIHtcbiAgY29sb3I6ICNGRkY7XG4gIGJhY2tncm91bmQtaW1hZ2U6IHVybCgvYXNzZXRzL2ltYWdlcy9zZWF0L25vcm1hbF9kaXNhYmxlZC5zdmcpO1xuICBjdXJzb3I6IGRlZmF1bHQ7XG59XG4uc2NyZWVuIC5zZWF0LWhjIHtcbiAgYmFja2dyb3VuZC1pbWFnZTogdXJsKC9hc3NldHMvaW1hZ2VzL3NlYXQvaGMuc3ZnKSAhaW1wb3J0YW50O1xuICBiYWNrZ3JvdW5kLXNpemU6IDQwcHggNTBweDtcbiAgcGFkZGluZy10b3A6IDM1cHg7XG59XG4uc2NyZWVuIC5zZWF0LWhjLmFjdGl2ZSB7XG4gIGJhY2tncm91bmQtaW1hZ2U6IHVybCgvYXNzZXRzL2ltYWdlcy9zZWF0L2hjX2FjdGl2ZS5zdmcpICFpbXBvcnRhbnQ7XG59XG4uc2NyZWVuIC5zZWF0LWhjLmRpc2FibGVkIHtcbiAgYmFja2dyb3VuZC1pbWFnZTogdXJsKC9hc3NldHMvaW1hZ2VzL3NlYXQvaGNfZGlzYWJsZWQuc3ZnKSAhaW1wb3J0YW50O1xuICBjdXJzb3I6IGRlZmF1bHQ7XG59XG4uc2NyZWVuIC5vYmplY3Qge1xuICBwb3NpdGlvbjogYWJzb2x1dGU7XG4gIGJhY2tncm91bmQtcmVwZWF0OiBuby1yZXBlYXQ7XG59XG4uc2NyZWVuIC5sYWJlbC1vYmplY3Qge1xuICB0ZXh0LWFsaWduOiBjZW50ZXI7XG4gIGxpbmUtaGVpZ2h0OiA1MHB4O1xuICBmb250LXNpemU6IDI0cHg7XG4gIGNvbG9yOiAjOWE5YTliO1xuICBmb250LXdlaWdodDogYm9sZDtcbn1cblxuLnNjcmVlbi00ZHggLnNlYXQge1xuICBiYWNrZ3JvdW5kLWltYWdlOiB1cmwoL2Fzc2V0cy9pbWFnZXMvc2VhdC80ZHguc3ZnKTtcbiAgYmFja2dyb3VuZC1zaXplOiA1MHB4IDUwcHg7XG59XG4uc2NyZWVuLTRkeCAuc2VhdC5hY3RpdmUge1xuICBjb2xvcjogI0ZGRjtcbiAgYmFja2dyb3VuZC1pbWFnZTogdXJsKC9hc3NldHMvaW1hZ2VzL3NlYXQvNGR4X2FjdGl2ZS5zdmcpO1xufVxuLnNjcmVlbi00ZHggLnNlYXQuZGlzYWJsZWQge1xuICBjb2xvcjogI0ZGRjtcbiAgYmFja2dyb3VuZC1pbWFnZTogdXJsKC9hc3NldHMvaW1hZ2VzL3NlYXQvNGR4X2Rpc2FibGVkLnN2Zyk7XG4gIGN1cnNvcjogZGVmYXVsdDtcbn1cblxuLnpvb20gLnNjcmVlbi1zY3JvbGwge1xuICBvdmVyZmxvdzogYXV0bztcbiAgdHJhbnNpdGlvbjogdHJhbnNmb3JtIDAuMnM7XG4gIC13ZWJraXQtb3ZlcmZsb3ctc2Nyb2xsaW5nOiB0b3VjaDtcbn1cbi56b29tIC5zZWF0IHNwYW4ge1xuICBkaXNwbGF5OiBibG9jaztcbn1cblxuLnpvb20tYnRuIHtcbiAgZGlzcGxheTogbm9uZTtcbiAgY3Vyc29yOiBwb2ludGVyO1xuICBwb3NpdGlvbjogYWJzb2x1dGU7XG4gIHRvcDogMTBweDtcbiAgcmlnaHQ6IDEwcHg7XG4gIHotaW5kZXg6IDEwO1xuICB3aWR0aDogNTBweDtcbiAgaGVpZ2h0OiA1MHB4O1xuICBjb2xvcjogI0ZGRjtcbiAgYmFja2dyb3VuZC1jb2xvcjogIzNlM2EzOTtcbiAgYm9yZGVyLXJhZGl1czogM3B4O1xuICBhbGlnbi1pdGVtczogY2VudGVyO1xuICBqdXN0aWZ5LWNvbnRlbnQ6IGNlbnRlcjtcbn1cbi56b29tLWJ0bi5hY3RpdmUge1xuICBkaXNwbGF5OiBmbGV4O1xufVxuLnpvb20tYnRuLnNjcm9sbCB7XG4gIHBvc2l0aW9uOiBmaXhlZDtcbn0iXX0= */");
+/* harmony default export */ __webpack_exports__["default"] = (":host {\n  display: block;\n}\n\n.open-seating-allowed {\n  position: absolute;\n  top: 0;\n  left: 0;\n  right: 0;\n  bottom: 0;\n  background: #000;\n  opacity: 0.5;\n  z-index: 11;\n}\n\n.screen {\n  position: relative;\n}\n\n.screen .screen-scroll {\n  height: 500px;\n}\n\n.screen .screen-inner {\n  position: relative;\n  width: 1600px;\n  height: 1400px;\n}\n\n.screen .screen-object {\n  text-align: center;\n  color: #9c9c9c;\n  font-weight: bold;\n  font-size: 50px;\n  padding-top: 90px;\n}\n\n.screen .seat {\n  position: absolute;\n  cursor: pointer;\n  text-align: center;\n  font-weight: bold;\n  color: #9a9a9b;\n  padding-top: 20px;\n  background-image: url(/assets/images/seat/normal.svg);\n  background-size: 40px 50px;\n  background-repeat: no-repeat;\n  font-size: 12px;\n}\n\n.screen .seat.active {\n  color: #FFF;\n  background-image: url(/assets/images/seat/normal_active.svg);\n}\n\n.screen .seat.disabled {\n  color: #FFF;\n  background-image: url(/assets/images/seat/normal_disabled.svg);\n  cursor: default;\n}\n\n.screen .seat-hc {\n  background-image: url(/assets/images/seat/hc.svg) !important;\n  background-size: 40px 50px;\n  padding-top: 35px;\n}\n\n.screen .seat-hc.active {\n  background-image: url(/assets/images/seat/hc_active.svg) !important;\n}\n\n.screen .seat-hc.disabled {\n  background-image: url(/assets/images/seat/hc_disabled.svg) !important;\n  cursor: default;\n}\n\n.screen .object {\n  position: absolute;\n  background-repeat: no-repeat;\n}\n\n.screen .label-object {\n  text-align: center;\n  line-height: 50px;\n  font-size: 24px;\n  color: #9a9a9b;\n  font-weight: bold;\n}\n\n.screen-4dx .seat {\n  background-image: url(/assets/images/seat/4dx.svg);\n  background-size: 50px 50px;\n}\n\n.screen-4dx .seat.active {\n  color: #FFF;\n  background-image: url(/assets/images/seat/4dx_active.svg);\n}\n\n.screen-4dx .seat.disabled {\n  color: #FFF;\n  background-image: url(/assets/images/seat/4dx_disabled.svg);\n  cursor: default;\n}\n\n.zoom .screen-scroll {\n  overflow: auto;\n  -webkit-transition: -webkit-transform 0.2s;\n  transition: -webkit-transform 0.2s;\n  transition: transform 0.2s;\n  transition: transform 0.2s, -webkit-transform 0.2s;\n  -webkit-overflow-scrolling: touch;\n}\n\n.zoom .seat span {\n  display: block;\n}\n\n.zoom-btn {\n  display: none;\n  cursor: pointer;\n  position: absolute;\n  top: 10px;\n  right: 10px;\n  z-index: 10;\n  width: 50px;\n  height: 50px;\n  color: #FFF;\n  background-color: #3e3a39;\n  border-radius: 3px;\n  -webkit-box-align: center;\n          align-items: center;\n  -webkit-box-pack: center;\n          justify-content: center;\n}\n\n.zoom-btn.active {\n  display: -webkit-box;\n  display: flex;\n}\n\n.zoom-btn.scroll {\n  position: fixed;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9jbGllbnQvYXBwL21vZHVsZXMvc2hhcmVkL2NvbXBvbmVudHMvcGFydHMvc2NyZWVuL0M6XFxVc2Vyc1xcaGF0YWd1Y2hpXFxEZXNrdG9wXFx3b3Jrc3BhY2VcXENpbmVyaW5vXFxwb3Mvc3JjXFxjbGllbnRcXGFwcFxcbW9kdWxlc1xcc2hhcmVkXFxjb21wb25lbnRzXFxwYXJ0c1xcc2NyZWVuXFxzY3JlZW4uY29tcG9uZW50LnNjc3MiLCJzcmMvY2xpZW50L2FwcC9tb2R1bGVzL3NoYXJlZC9jb21wb25lbnRzL3BhcnRzL3NjcmVlbi9zY3JlZW4uY29tcG9uZW50LnNjc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7RUFDSSxjQUFBO0FDQ0o7O0FEQ0E7RUFDSSxrQkFBQTtFQUNBLE1BQUE7RUFDQSxPQUFBO0VBQ0EsUUFBQTtFQUNBLFNBQUE7RUFDQSxnQkFBQTtFQUNBLFlBQUE7RUFDQSxXQUFBO0FDRUo7O0FEQUE7RUFDSSxrQkFBQTtBQ0dKOztBREZJO0VBQ0ksYUFBQTtBQ0lSOztBREZJO0VBQ0ksa0JBQUE7RUFDQSxhQUFBO0VBQ0EsY0FBQTtBQ0lSOztBREZJO0VBQ0ksa0JBQUE7RUFDQSxjQUFBO0VBQ0EsaUJBQUE7RUFDQSxlQUFBO0VBQ0EsaUJBQUE7QUNJUjs7QURGSTtFQUNJLGtCQUFBO0VBQ0EsZUFBQTtFQUNBLGtCQUFBO0VBQ0EsaUJBQUE7RUFDQSxjQUFBO0VBQ0EsaUJBQUE7RUFDQSxxREFBQTtFQUNBLDBCQUFBO0VBQ0EsNEJBQUE7RUFDQSxlQUFBO0FDSVI7O0FESFE7RUFDSSxXQUFBO0VBQ0EsNERBQUE7QUNLWjs7QURIUTtFQUNJLFdBQUE7RUFDQSw4REFBQTtFQUNBLGVBQUE7QUNLWjs7QURGSTtFQUNJLDREQUFBO0VBQ0EsMEJBQUE7RUFDQSxpQkFBQTtBQ0lSOztBREhRO0VBQ0ksbUVBQUE7QUNLWjs7QURIUTtFQUNJLHFFQUFBO0VBQ0EsZUFBQTtBQ0taOztBREZJO0VBQ0ksa0JBQUE7RUFDQSw0QkFBQTtBQ0lSOztBREZJO0VBQ0ksa0JBQUE7RUFDQSxpQkFBQTtFQUNBLGVBQUE7RUFDQSxjQUFBO0VBQ0EsaUJBQUE7QUNJUjs7QURBSTtFQUNJLGtEQUFBO0VBQ0EsMEJBQUE7QUNHUjs7QURGUTtFQUNJLFdBQUE7RUFDQSx5REFBQTtBQ0laOztBREZRO0VBQ0ksV0FBQTtFQUNBLDJEQUFBO0VBQ0EsZUFBQTtBQ0laOztBREVJO0VBQ0ksY0FBQTtFQUNBLDBDQUFBO0VBQUEsa0NBQUE7RUFBQSwwQkFBQTtFQUFBLGtEQUFBO0VBQ0EsaUNBQUE7QUNDUjs7QURFUTtFQUNJLGNBQUE7QUNBWjs7QURLQTtFQUNJLGFBQUE7RUFDQSxlQUFBO0VBQ0Esa0JBQUE7RUFDQSxTQUFBO0VBQ0EsV0FBQTtFQUNBLFdBQUE7RUFDQSxXQUFBO0VBQ0EsWUFBQTtFQUNBLFdBQUE7RUFDQSx5QkFBQTtFQUNBLGtCQUFBO0VBQ0EseUJBQUE7VUFBQSxtQkFBQTtFQUNBLHdCQUFBO1VBQUEsdUJBQUE7QUNGSjs7QURHSTtFQUNJLG9CQUFBO0VBQUEsYUFBQTtBQ0RSOztBREdJO0VBQ0ksZUFBQTtBQ0RSIiwiZmlsZSI6InNyYy9jbGllbnQvYXBwL21vZHVsZXMvc2hhcmVkL2NvbXBvbmVudHMvcGFydHMvc2NyZWVuL3NjcmVlbi5jb21wb25lbnQuc2NzcyIsInNvdXJjZXNDb250ZW50IjpbIjpob3N0IHtcbiAgICBkaXNwbGF5OiBibG9jaztcbn1cbi5vcGVuLXNlYXRpbmctYWxsb3dlZCB7XG4gICAgcG9zaXRpb246IGFic29sdXRlO1xuICAgIHRvcDogMDtcbiAgICBsZWZ0OiAwO1xuICAgIHJpZ2h0OiAwO1xuICAgIGJvdHRvbTogMDtcbiAgICBiYWNrZ3JvdW5kOiAjMDAwO1xuICAgIG9wYWNpdHk6IDAuNTtcbiAgICB6LWluZGV4OiAxMTtcbn1cbi5zY3JlZW4ge1xuICAgIHBvc2l0aW9uOiByZWxhdGl2ZTtcbiAgICAuc2NyZWVuLXNjcm9sbCB7XG4gICAgICAgIGhlaWdodDogNTAwcHg7ICAgICAgICBcbiAgICB9XG4gICAgLnNjcmVlbi1pbm5lciB7XG4gICAgICAgIHBvc2l0aW9uOiByZWxhdGl2ZTtcbiAgICAgICAgd2lkdGg6IDE2MDBweDtcbiAgICAgICAgaGVpZ2h0OiAxNDAwcHg7XG4gICAgfVxuICAgIC5zY3JlZW4tb2JqZWN0IHtcbiAgICAgICAgdGV4dC1hbGlnbjogY2VudGVyO1xuICAgICAgICBjb2xvcjogIzljOWM5YztcbiAgICAgICAgZm9udC13ZWlnaHQ6IGJvbGQ7XG4gICAgICAgIGZvbnQtc2l6ZTogNTBweDtcbiAgICAgICAgcGFkZGluZy10b3A6IDkwcHg7XG4gICAgfVxuICAgIC5zZWF0IHtcbiAgICAgICAgcG9zaXRpb246IGFic29sdXRlO1xuICAgICAgICBjdXJzb3I6IHBvaW50ZXI7XG4gICAgICAgIHRleHQtYWxpZ246IGNlbnRlcjtcbiAgICAgICAgZm9udC13ZWlnaHQ6IGJvbGQ7XG4gICAgICAgIGNvbG9yOiAjOWE5YTliO1xuICAgICAgICBwYWRkaW5nLXRvcDogMjBweDtcbiAgICAgICAgYmFja2dyb3VuZC1pbWFnZTogdXJsKC9hc3NldHMvaW1hZ2VzL3NlYXQvbm9ybWFsLnN2Zyk7XG4gICAgICAgIGJhY2tncm91bmQtc2l6ZTogNDBweCA1MHB4O1xuICAgICAgICBiYWNrZ3JvdW5kLXJlcGVhdDogbm8tcmVwZWF0O1xuICAgICAgICBmb250LXNpemU6IDEycHg7XG4gICAgICAgICYuYWN0aXZlIHtcbiAgICAgICAgICAgIGNvbG9yOiAjRkZGO1xuICAgICAgICAgICAgYmFja2dyb3VuZC1pbWFnZTogdXJsKC9hc3NldHMvaW1hZ2VzL3NlYXQvbm9ybWFsX2FjdGl2ZS5zdmcpO1xuICAgICAgICB9XG4gICAgICAgICYuZGlzYWJsZWQge1xuICAgICAgICAgICAgY29sb3I6ICNGRkY7XG4gICAgICAgICAgICBiYWNrZ3JvdW5kLWltYWdlOiB1cmwoL2Fzc2V0cy9pbWFnZXMvc2VhdC9ub3JtYWxfZGlzYWJsZWQuc3ZnKTtcbiAgICAgICAgICAgIGN1cnNvcjogZGVmYXVsdDtcbiAgICAgICAgfVxuICAgIH1cbiAgICAuc2VhdC1oYyB7XG4gICAgICAgIGJhY2tncm91bmQtaW1hZ2U6IHVybCgvYXNzZXRzL2ltYWdlcy9zZWF0L2hjLnN2ZykgIWltcG9ydGFudDtcbiAgICAgICAgYmFja2dyb3VuZC1zaXplOiA0MHB4IDUwcHg7XG4gICAgICAgIHBhZGRpbmctdG9wOiAzNXB4O1xuICAgICAgICAmLmFjdGl2ZSB7XG4gICAgICAgICAgICBiYWNrZ3JvdW5kLWltYWdlOiB1cmwoL2Fzc2V0cy9pbWFnZXMvc2VhdC9oY19hY3RpdmUuc3ZnKSAhaW1wb3J0YW50O1xuICAgICAgICB9XG4gICAgICAgICYuZGlzYWJsZWQge1xuICAgICAgICAgICAgYmFja2dyb3VuZC1pbWFnZTogdXJsKC9hc3NldHMvaW1hZ2VzL3NlYXQvaGNfZGlzYWJsZWQuc3ZnKSAhaW1wb3J0YW50O1xuICAgICAgICAgICAgY3Vyc29yOiBkZWZhdWx0O1xuICAgICAgICB9XG4gICAgfVxuICAgIC5vYmplY3Qge1xuICAgICAgICBwb3NpdGlvbjogYWJzb2x1dGU7XG4gICAgICAgIGJhY2tncm91bmQtcmVwZWF0OiBuby1yZXBlYXQ7XG4gICAgfVxuICAgIC5sYWJlbC1vYmplY3Qge1xuICAgICAgICB0ZXh0LWFsaWduOiBjZW50ZXI7XG4gICAgICAgIGxpbmUtaGVpZ2h0OiA1MHB4O1xuICAgICAgICBmb250LXNpemU6IDI0cHg7XG4gICAgICAgIGNvbG9yOiAjOWE5YTliO1xuICAgICAgICBmb250LXdlaWdodDogYm9sZDtcbiAgICB9ICAgXG59XG4uc2NyZWVuLTRkeCB7XG4gICAgLnNlYXQge1xuICAgICAgICBiYWNrZ3JvdW5kLWltYWdlOiB1cmwoL2Fzc2V0cy9pbWFnZXMvc2VhdC80ZHguc3ZnKTtcbiAgICAgICAgYmFja2dyb3VuZC1zaXplOiA1MHB4IDUwcHg7XG4gICAgICAgICYuYWN0aXZlIHtcbiAgICAgICAgICAgIGNvbG9yOiAjRkZGO1xuICAgICAgICAgICAgYmFja2dyb3VuZC1pbWFnZTogdXJsKC9hc3NldHMvaW1hZ2VzL3NlYXQvNGR4X2FjdGl2ZS5zdmcpO1xuICAgICAgICB9XG4gICAgICAgICYuZGlzYWJsZWQge1xuICAgICAgICAgICAgY29sb3I6ICNGRkY7XG4gICAgICAgICAgICBiYWNrZ3JvdW5kLWltYWdlOiB1cmwoL2Fzc2V0cy9pbWFnZXMvc2VhdC80ZHhfZGlzYWJsZWQuc3ZnKTtcbiAgICAgICAgICAgIGN1cnNvcjogZGVmYXVsdDtcbiAgICAgICAgfVxuICAgIH1cbn1cblxuLnpvb20ge1xuICAgIC5zY3JlZW4tc2Nyb2xsIHtcbiAgICAgICAgb3ZlcmZsb3c6IGF1dG87XG4gICAgICAgIHRyYW5zaXRpb246IHRyYW5zZm9ybSAwLjJzO1xuICAgICAgICAtd2Via2l0LW92ZXJmbG93LXNjcm9sbGluZzogdG91Y2g7XG4gICAgfVxuICAgIC5zZWF0IHtcbiAgICAgICAgc3BhbiB7XG4gICAgICAgICAgICBkaXNwbGF5OiBibG9jaztcbiAgICAgICAgfVxuICAgIH1cbn1cblxuLnpvb20tYnRuIHtcbiAgICBkaXNwbGF5OiBub25lO1xuICAgIGN1cnNvcjogcG9pbnRlcjtcbiAgICBwb3NpdGlvbjogYWJzb2x1dGU7XG4gICAgdG9wOiAxMHB4O1xuICAgIHJpZ2h0OiAxMHB4O1xuICAgIHotaW5kZXg6IDEwO1xuICAgIHdpZHRoOiA1MHB4O1xuICAgIGhlaWdodDogNTBweDtcbiAgICBjb2xvcjogI0ZGRjtcbiAgICBiYWNrZ3JvdW5kLWNvbG9yOiAjM2UzYTM5O1xuICAgIGJvcmRlci1yYWRpdXM6IDNweDtcbiAgICBhbGlnbi1pdGVtczogY2VudGVyO1xuICAgIGp1c3RpZnktY29udGVudDogY2VudGVyO1xuICAgICYuYWN0aXZlIHtcbiAgICAgICAgZGlzcGxheTogZmxleDtcbiAgICB9XG4gICAgJi5zY3JvbGwge1xuICAgICAgICBwb3NpdGlvbjogZml4ZWQ7XG4gICAgfVxufSIsIjpob3N0IHtcbiAgZGlzcGxheTogYmxvY2s7XG59XG5cbi5vcGVuLXNlYXRpbmctYWxsb3dlZCB7XG4gIHBvc2l0aW9uOiBhYnNvbHV0ZTtcbiAgdG9wOiAwO1xuICBsZWZ0OiAwO1xuICByaWdodDogMDtcbiAgYm90dG9tOiAwO1xuICBiYWNrZ3JvdW5kOiAjMDAwO1xuICBvcGFjaXR5OiAwLjU7XG4gIHotaW5kZXg6IDExO1xufVxuXG4uc2NyZWVuIHtcbiAgcG9zaXRpb246IHJlbGF0aXZlO1xufVxuLnNjcmVlbiAuc2NyZWVuLXNjcm9sbCB7XG4gIGhlaWdodDogNTAwcHg7XG59XG4uc2NyZWVuIC5zY3JlZW4taW5uZXIge1xuICBwb3NpdGlvbjogcmVsYXRpdmU7XG4gIHdpZHRoOiAxNjAwcHg7XG4gIGhlaWdodDogMTQwMHB4O1xufVxuLnNjcmVlbiAuc2NyZWVuLW9iamVjdCB7XG4gIHRleHQtYWxpZ246IGNlbnRlcjtcbiAgY29sb3I6ICM5YzljOWM7XG4gIGZvbnQtd2VpZ2h0OiBib2xkO1xuICBmb250LXNpemU6IDUwcHg7XG4gIHBhZGRpbmctdG9wOiA5MHB4O1xufVxuLnNjcmVlbiAuc2VhdCB7XG4gIHBvc2l0aW9uOiBhYnNvbHV0ZTtcbiAgY3Vyc29yOiBwb2ludGVyO1xuICB0ZXh0LWFsaWduOiBjZW50ZXI7XG4gIGZvbnQtd2VpZ2h0OiBib2xkO1xuICBjb2xvcjogIzlhOWE5YjtcbiAgcGFkZGluZy10b3A6IDIwcHg7XG4gIGJhY2tncm91bmQtaW1hZ2U6IHVybCgvYXNzZXRzL2ltYWdlcy9zZWF0L25vcm1hbC5zdmcpO1xuICBiYWNrZ3JvdW5kLXNpemU6IDQwcHggNTBweDtcbiAgYmFja2dyb3VuZC1yZXBlYXQ6IG5vLXJlcGVhdDtcbiAgZm9udC1zaXplOiAxMnB4O1xufVxuLnNjcmVlbiAuc2VhdC5hY3RpdmUge1xuICBjb2xvcjogI0ZGRjtcbiAgYmFja2dyb3VuZC1pbWFnZTogdXJsKC9hc3NldHMvaW1hZ2VzL3NlYXQvbm9ybWFsX2FjdGl2ZS5zdmcpO1xufVxuLnNjcmVlbiAuc2VhdC5kaXNhYmxlZCB7XG4gIGNvbG9yOiAjRkZGO1xuICBiYWNrZ3JvdW5kLWltYWdlOiB1cmwoL2Fzc2V0cy9pbWFnZXMvc2VhdC9ub3JtYWxfZGlzYWJsZWQuc3ZnKTtcbiAgY3Vyc29yOiBkZWZhdWx0O1xufVxuLnNjcmVlbiAuc2VhdC1oYyB7XG4gIGJhY2tncm91bmQtaW1hZ2U6IHVybCgvYXNzZXRzL2ltYWdlcy9zZWF0L2hjLnN2ZykgIWltcG9ydGFudDtcbiAgYmFja2dyb3VuZC1zaXplOiA0MHB4IDUwcHg7XG4gIHBhZGRpbmctdG9wOiAzNXB4O1xufVxuLnNjcmVlbiAuc2VhdC1oYy5hY3RpdmUge1xuICBiYWNrZ3JvdW5kLWltYWdlOiB1cmwoL2Fzc2V0cy9pbWFnZXMvc2VhdC9oY19hY3RpdmUuc3ZnKSAhaW1wb3J0YW50O1xufVxuLnNjcmVlbiAuc2VhdC1oYy5kaXNhYmxlZCB7XG4gIGJhY2tncm91bmQtaW1hZ2U6IHVybCgvYXNzZXRzL2ltYWdlcy9zZWF0L2hjX2Rpc2FibGVkLnN2ZykgIWltcG9ydGFudDtcbiAgY3Vyc29yOiBkZWZhdWx0O1xufVxuLnNjcmVlbiAub2JqZWN0IHtcbiAgcG9zaXRpb246IGFic29sdXRlO1xuICBiYWNrZ3JvdW5kLXJlcGVhdDogbm8tcmVwZWF0O1xufVxuLnNjcmVlbiAubGFiZWwtb2JqZWN0IHtcbiAgdGV4dC1hbGlnbjogY2VudGVyO1xuICBsaW5lLWhlaWdodDogNTBweDtcbiAgZm9udC1zaXplOiAyNHB4O1xuICBjb2xvcjogIzlhOWE5YjtcbiAgZm9udC13ZWlnaHQ6IGJvbGQ7XG59XG5cbi5zY3JlZW4tNGR4IC5zZWF0IHtcbiAgYmFja2dyb3VuZC1pbWFnZTogdXJsKC9hc3NldHMvaW1hZ2VzL3NlYXQvNGR4LnN2Zyk7XG4gIGJhY2tncm91bmQtc2l6ZTogNTBweCA1MHB4O1xufVxuLnNjcmVlbi00ZHggLnNlYXQuYWN0aXZlIHtcbiAgY29sb3I6ICNGRkY7XG4gIGJhY2tncm91bmQtaW1hZ2U6IHVybCgvYXNzZXRzL2ltYWdlcy9zZWF0LzRkeF9hY3RpdmUuc3ZnKTtcbn1cbi5zY3JlZW4tNGR4IC5zZWF0LmRpc2FibGVkIHtcbiAgY29sb3I6ICNGRkY7XG4gIGJhY2tncm91bmQtaW1hZ2U6IHVybCgvYXNzZXRzL2ltYWdlcy9zZWF0LzRkeF9kaXNhYmxlZC5zdmcpO1xuICBjdXJzb3I6IGRlZmF1bHQ7XG59XG5cbi56b29tIC5zY3JlZW4tc2Nyb2xsIHtcbiAgb3ZlcmZsb3c6IGF1dG87XG4gIHRyYW5zaXRpb246IHRyYW5zZm9ybSAwLjJzO1xuICAtd2Via2l0LW92ZXJmbG93LXNjcm9sbGluZzogdG91Y2g7XG59XG4uem9vbSAuc2VhdCBzcGFuIHtcbiAgZGlzcGxheTogYmxvY2s7XG59XG5cbi56b29tLWJ0biB7XG4gIGRpc3BsYXk6IG5vbmU7XG4gIGN1cnNvcjogcG9pbnRlcjtcbiAgcG9zaXRpb246IGFic29sdXRlO1xuICB0b3A6IDEwcHg7XG4gIHJpZ2h0OiAxMHB4O1xuICB6LWluZGV4OiAxMDtcbiAgd2lkdGg6IDUwcHg7XG4gIGhlaWdodDogNTBweDtcbiAgY29sb3I6ICNGRkY7XG4gIGJhY2tncm91bmQtY29sb3I6ICMzZTNhMzk7XG4gIGJvcmRlci1yYWRpdXM6IDNweDtcbiAgYWxpZ24taXRlbXM6IGNlbnRlcjtcbiAganVzdGlmeS1jb250ZW50OiBjZW50ZXI7XG59XG4uem9vbS1idG4uYWN0aXZlIHtcbiAgZGlzcGxheTogZmxleDtcbn1cbi56b29tLWJ0bi5zY3JvbGwge1xuICBwb3NpdGlvbjogZml4ZWQ7XG59Il19 */");
 
 /***/ }),
 
@@ -5521,10 +5521,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "../../node_modules/@angular/core/fesm2015/core.js");
 /* harmony import */ var _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @cinerino/api-javascript-client */ "../../node_modules/@cinerino/api-javascript-client/lib/index.js");
 /* harmony import */ var _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _ngrx_store__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @ngrx/store */ "../../node_modules/@ngrx/store/fesm2015/store.js");
+/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! moment */ "../../node_modules/moment/moment.js");
+/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_2__);
 /* harmony import */ var _functions__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../../../functions */ "./app/functions/index.ts");
-/* harmony import */ var _models__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../../../models */ "./app/models/index.ts");
-/* harmony import */ var _store_reducers__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../../../../store/reducers */ "./app/store/reducers/index.ts");
+/* harmony import */ var _models_purchase_screen__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../../../models/purchase/screen */ "./app/models/purchase/screen.ts");
+/* harmony import */ var _services__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../../../../services */ "./app/services/index.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -5533,6 +5534,14 @@ var __decorate = (undefined && undefined.__decorate) || function (decorators, ta
 };
 var __metadata = (undefined && undefined.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var __awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : new P(function (resolve) { resolve(result.value); }).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
 };
 var __importDefault = (undefined && undefined.__importDefault) || function (mod) {
   return (mod && mod.__esModule) ? mod : { "default": mod };
@@ -5545,8 +5554,8 @@ var ScreenComponent_1;
 
 
 let ScreenComponent = ScreenComponent_1 = class ScreenComponent {
-    constructor(store, elementRef) {
-        this.store = store;
+    constructor(utilService, elementRef) {
+        this.utilService = utilService;
         this.elementRef = elementRef;
         this.openSeatingAllowed = false;
         this.select = new _angular_core__WEBPACK_IMPORTED_MODULE_0__["EventEmitter"]();
@@ -5555,17 +5564,20 @@ let ScreenComponent = ScreenComponent_1 = class ScreenComponent {
      * 初期化
      */
     ngOnInit() {
-        this.purchase = this.store.pipe(Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_2__["select"])(_store_reducers__WEBPACK_IMPORTED_MODULE_5__["getPurchase"]));
-        this.purchase.subscribe((purchase) => {
-            this.screeningEventOffers = purchase.screeningEventOffers;
-            this.authorizeSeatReservation = purchase.authorizeSeatReservation;
-            this.zoomState = false;
-            this.scale = 1;
-            this.height = 0;
-            this.origin = '0 0';
-            this.createScreen();
-            this.scaleDown();
-        }).unsubscribe();
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                this.zoomState = false;
+                this.scale = 1;
+                this.height = 0;
+                this.origin = '0 0';
+                this.screenData = yield this.getScreenData();
+                this.createScreen();
+                this.scaleDown();
+            }
+            catch (error) {
+                console.error(error);
+            }
+        });
     }
     /**
      * レンダリング後処理
@@ -5573,51 +5585,140 @@ let ScreenComponent = ScreenComponent_1 = class ScreenComponent {
     ngAfterViewInit() {
         const time = 300;
         const timer = setInterval(() => {
-            if (this.screenData !== undefined) {
-                clearInterval(timer);
-                const screenElement = document.querySelector('.screen-style');
-                if (screenElement !== null && this.screenData.style !== undefined) {
-                    screenElement.innerHTML = this.screenData.style;
-                }
+            if (this.screenData === undefined) {
+                return;
+            }
+            clearInterval(timer);
+            const screenElement = document.querySelector('.screen-style');
+            if (screenElement !== null && this.screenData.style !== undefined) {
+                screenElement.innerHTML = this.screenData.style;
             }
         }, time);
     }
-    ngAfterViewChecked() {
-        this.changeStatus();
+    /**
+     * 変更監視
+     */
+    ngAfterContentChecked() {
+        return __awaiter(this, void 0, void 0, function* () {
+            if (this.screenData === undefined) {
+                return;
+            }
+            this.changeStatus();
+        });
     }
     /**
-     * モバイル判定
-     * @method isMobile
-     * @returns {boolean}
+     * 拡大許可判定
      */
-    isMobile() {
-        if (window.innerWidth > 1024) {
-            return false;
+    isZoomAllowed() {
+        const minWidth = 1346;
+        const mobileWidth = 1024;
+        return (window.innerWidth < mobileWidth || this.screenData.size.w > minWidth);
+    }
+    /**
+     * スクリーン情報取得
+     */
+    getScreenData() {
+        return __awaiter(this, void 0, void 0, function* () {
+            const now = moment__WEBPACK_IMPORTED_MODULE_2__().toISOString();
+            const settingPath = 'json/theater/setting.json';
+            const setting = (yield Object(_functions__WEBPACK_IMPORTED_MODULE_3__["isFile"])(`${Object(_functions__WEBPACK_IMPORTED_MODULE_3__["getProject"])().storageUrl}/${settingPath}`))
+                ? yield this.utilService.getJson(`${Object(_functions__WEBPACK_IMPORTED_MODULE_3__["getProject"])().storageUrl}/${settingPath}`)
+                : yield this.utilService.getJson(`/default/${settingPath}`);
+            const screenPath = `json/theater/${this.theaterCode}/${this.screenCode}.json?date=${now}`;
+            const screen = (yield Object(_functions__WEBPACK_IMPORTED_MODULE_3__["isFile"])(`${Object(_functions__WEBPACK_IMPORTED_MODULE_3__["getProject"])().storageUrl}/${screenPath}`))
+                ? yield this.utilService.getJson(`${Object(_functions__WEBPACK_IMPORTED_MODULE_3__["getProject"])().storageUrl}/${screenPath}`)
+                : this.generateScreenMap(setting);
+            const objects = screen.objects.map((o) => {
+                return Object.assign({}, o, { image: o.image.replace('/storage', Object(_functions__WEBPACK_IMPORTED_MODULE_3__["getProject"])().storageUrl) });
+            });
+            screen.objects = objects;
+            return Object.assign({}, setting, screen);
+        });
+    }
+    /**
+     * 座席自動生成
+     */
+    generateScreenMap(setting) {
+        if (this.screeningEventOffers.length === 0) {
+            return {
+                type: 0,
+                size: { w: 0, h: 0 },
+                objects: [],
+                seatStart: { x: 0, y: 0 },
+                map: []
+            };
         }
-        return true;
+        const array = [];
+        this.screeningEventOffers.forEach((s) => {
+            s.containsPlace.forEach((c) => {
+                const branchCode = c.branchCode;
+                const line = c.branchCode.split('-')[0];
+                const column = c.branchCode.split('-')[1];
+                const findResult = array.find(a => a.length > 0 && a[0].line === line);
+                if (findResult === undefined) {
+                    array.push([{ branchCode, line, column }]);
+                    return;
+                }
+                findResult.push({ branchCode, line, column });
+            });
+        });
+        const lineMaxArray = array.reduce((a, b) => a[a.length - 1].line > b[a.length - 1].line ? a : b);
+        const lineMax = lineMaxArray[lineMaxArray.length - 1].line;
+        const columnMaxArray = array.reduce((a, b) => a[a.length - 1].column > b[a.length - 1].column ? a : b);
+        const columnMax = Number(columnMaxArray[columnMaxArray.length - 1].column);
+        const map = [];
+        const lineLabels = this.createLineLabel();
+        for (const lineLabel of lineLabels) {
+            if (lineLabel > lineMax) {
+                break;
+            }
+            const findResult = array.find(a => a[0].line === lineLabel);
+            const lineMap = [];
+            for (let i = 0; i < columnMax; i++) {
+                const column = String(i + 1);
+                const result = (findResult === undefined || findResult.find(f => f.column === column) === undefined) ? 0 : 1;
+                lineMap.push(result);
+            }
+            map.push(lineMap);
+        }
+        const space = 90;
+        const screenSpace = space * 2 + 50;
+        const minWidth = 1346;
+        const size = {
+            w: map[0].length * setting.seatSize.w + (map[0].length - 1) * setting.seatMargin.w + space * 2,
+            h: map.length * setting.seatSize.h + (map.length - 1) * setting.seatMargin.h + space + screenSpace
+        };
+        return {
+            type: 0,
+            size: {
+                w: (size.w < minWidth) ? minWidth : size.w,
+                h: size.h
+            },
+            objects: [],
+            seatStart: {
+                x: (size.w < minWidth) ? (minWidth - size.w) / 2 + space : space,
+                y: screenSpace
+            },
+            map,
+            style: '<style>.screen-object { display: block !important }</style>'
+        };
     }
     /**
      * status変更
      */
     changeStatus() {
-        this.purchase.subscribe((purchase) => {
-            const reservations = purchase.reservations;
-            this.seats.forEach((row) => {
-                row.data.forEach((seat) => {
-                    if (seat.status === _models__WEBPACK_IMPORTED_MODULE_4__["SeatStatus"].Active) {
-                        seat.status = _models__WEBPACK_IMPORTED_MODULE_4__["SeatStatus"].Default;
-                    }
-                    const findReservationSeatResult = reservations.find((reservation) => {
-                        return (reservation.seat !== undefined
-                            && reservation.seat.seatNumber === seat.code
-                            && reservation.seat.seatSection === seat.section);
-                    });
-                    if (findReservationSeatResult !== undefined) {
-                        seat.status = _models__WEBPACK_IMPORTED_MODULE_4__["SeatStatus"].Active;
-                    }
-                });
+        const reservations = this.reservations;
+        this.seats.forEach((row) => {
+            row.data.forEach((s) => {
+                if (s.status === _models_purchase_screen__WEBPACK_IMPORTED_MODULE_4__["SeatStatus"].Active) {
+                    s.status = _models_purchase_screen__WEBPACK_IMPORTED_MODULE_4__["SeatStatus"].Default;
+                }
+                const findReservationSeatResult = reservations.find(r => (r.seat !== undefined && r.seat.seatNumber === s.code && r.seat.seatSection === s.section));
+                if (findReservationSeatResult !== undefined) {
+                    s.status = _models_purchase_screen__WEBPACK_IMPORTED_MODULE_4__["SeatStatus"].Active;
+                }
             });
-        }).unsubscribe();
+        });
     }
     /**
      * 拡大
@@ -5629,7 +5730,7 @@ let ScreenComponent = ScreenComponent_1 = class ScreenComponent {
         if (this.zoomState) {
             return;
         }
-        if (!this.isMobile()) {
+        if (!this.isZoomAllowed()) {
             return;
         }
         this.zoomState = true;
@@ -5680,16 +5781,23 @@ let ScreenComponent = ScreenComponent_1 = class ScreenComponent {
         this.scaleDown();
     }
     /**
-     * スクリーン作成
+     * 行ラベル作成
      */
-    createScreen() {
-        // y軸ラベル
+    createLineLabel() {
         const labels = [];
         const startLabelNo = 65;
         const endLabelNo = 91;
         for (let i = startLabelNo; i < endLabelNo; i++) {
             labels.push(String.fromCharCode(i));
         }
+        return labels;
+    }
+    /**
+     * スクリーン作成
+     */
+    createScreen() {
+        // y軸ラベル
+        const labels = this.createLineLabel();
         // 行ラベル
         this.lineLabels = [];
         // 列ラベル
@@ -5769,18 +5877,14 @@ let ScreenComponent = ScreenComponent_1 = class ScreenComponent {
                         || this.screenData.map[y][x] === 10) {
                         // 座席HTML生成
                         const code = (() => {
-                            if (this.screenData.codeType === 'coa') {
-                                return (this.screenData.seatNumberAlign === 'left')
-                                    ? `${Object(_functions__WEBPACK_IMPORTED_MODULE_3__["toFull"])(labels[labelCount])}－${Object(_functions__WEBPACK_IMPORTED_MODULE_3__["toFull"])(String(x + 1))}`
-                                    : `${Object(_functions__WEBPACK_IMPORTED_MODULE_3__["toFull"])(labels[labelCount])}－${Object(_functions__WEBPACK_IMPORTED_MODULE_3__["toFull"])(String(this.screenData.map[y].length - x))}`;
-                            }
                             return (this.screenData.seatNumberAlign === 'left')
                                 ? `${labels[labelCount]}-${String(x + 1)}`
                                 : `${labels[labelCount]}-${String(this.screenData.map[y].length - x)}`;
                         })();
                         const className = [`seat-${code}`];
                         let section = '';
-                        let status = _models__WEBPACK_IMPORTED_MODULE_4__["SeatStatus"].Disabled;
+                        const row = '';
+                        let status = _models_purchase_screen__WEBPACK_IMPORTED_MODULE_4__["SeatStatus"].Disabled;
                         let acceptedOffer;
                         // 席の状態変更
                         for (const screeningEventOffer of this.screeningEventOffers) {
@@ -5791,14 +5895,14 @@ let ScreenComponent = ScreenComponent_1 = class ScreenComponent {
                             if (findContainsPlaceResult !== undefined
                                 && findContainsPlaceResult.offers !== undefined) {
                                 if (findContainsPlaceResult.offers[0].availability === _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_1__["factory"].chevre.itemAvailability.InStock) {
-                                    status = _models__WEBPACK_IMPORTED_MODULE_4__["SeatStatus"].Default;
+                                    status = _models_purchase_screen__WEBPACK_IMPORTED_MODULE_4__["SeatStatus"].Default;
                                 }
                                 acceptedOffer = {
                                     ticketedSeat: {
                                         typeOf: findContainsPlaceResult.typeOf,
                                         seatingType: findContainsPlaceResult.seatingType,
                                         seatNumber: findContainsPlaceResult.branchCode,
-                                        seatRow: '',
+                                        seatRow: row,
                                         seatSection: section,
                                         offers: findContainsPlaceResult.offers
                                     }
@@ -5807,21 +5911,22 @@ let ScreenComponent = ScreenComponent_1 = class ScreenComponent {
                             }
                         }
                         if (this.authorizeSeatReservation !== undefined
-                            && this.authorizeSeatReservation.instrument !== undefined) {
-                            if (this.authorizeSeatReservation.instrument.identifier === _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_1__["factory"].service.webAPI.Identifier.Chevre) {
-                                // chevre
-                                const findResult = this.authorizeSeatReservation.object.acceptedOffer.find((offer) => {
-                                    const chevreOffer = offer;
-                                    return (chevreOffer.ticketedSeat !== undefined
-                                        && chevreOffer.ticketedSeat.seatNumber === code
-                                        && chevreOffer.ticketedSeat.seatSection === section);
-                                });
-                                if (findResult !== undefined) {
-                                    status = _models__WEBPACK_IMPORTED_MODULE_4__["SeatStatus"].Default;
-                                }
+                            && this.authorizeSeatReservation.result !== undefined
+                            && this.authorizeSeatReservation.result.responseBody.object.reservations !== undefined) {
+                            // chevre
+                            const findResult = this.authorizeSeatReservation.result.responseBody.object.reservations.find((r) => {
+                                const ticketedSeat = r.reservedTicket.ticketedSeat;
+                                return (ticketedSeat !== undefined
+                                    && ticketedSeat.seatNumber === code
+                                    && ticketedSeat.seatSection === section
+                                    && ticketedSeat.seatRow === row);
+                            });
+                            if (findResult !== undefined) {
+                                status = _models_purchase_screen__WEBPACK_IMPORTED_MODULE_4__["SeatStatus"].Default;
                             }
                         }
-                        if (this.screenData.hc.indexOf(code) !== -1) {
+                        if (this.screenData.hc !== undefined
+                            && this.screenData.hc.indexOf(code) !== -1) {
                             className.push('seat-hc');
                         }
                         const seat = {
@@ -5870,12 +5975,15 @@ let ScreenComponent = ScreenComponent_1 = class ScreenComponent {
         this.screenType = screenType;
         // console.log(this.seats);
     }
+    /**
+     * 座席選択
+     */
     selectSeat(seat) {
-        if (this.isMobile() && !this.zoomState) {
+        if (this.isZoomAllowed() && !this.zoomState) {
             return;
         }
         if (seat.ticketedSeat === undefined
-            || seat.status === _models__WEBPACK_IMPORTED_MODULE_4__["SeatStatus"].Disabled) {
+            || seat.status === _models_purchase_screen__WEBPACK_IMPORTED_MODULE_4__["SeatStatus"].Disabled) {
             return;
         }
         this.select.emit({
@@ -5886,17 +5994,33 @@ let ScreenComponent = ScreenComponent_1 = class ScreenComponent {
 };
 ScreenComponent.ZOOM_SCALE = 1;
 ScreenComponent.ctorParameters = () => [
-    { type: _ngrx_store__WEBPACK_IMPORTED_MODULE_2__["Store"] },
+    { type: _services__WEBPACK_IMPORTED_MODULE_5__["UtilService"] },
     { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["ElementRef"] }
 ];
 __decorate([
     Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"])(),
     __metadata("design:type", Object)
-], ScreenComponent.prototype, "screenData", void 0);
+], ScreenComponent.prototype, "openSeatingAllowed", void 0);
+__decorate([
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"])(),
+    __metadata("design:type", String)
+], ScreenComponent.prototype, "theaterCode", void 0);
+__decorate([
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"])(),
+    __metadata("design:type", String)
+], ScreenComponent.prototype, "screenCode", void 0);
+__decorate([
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"])(),
+    __metadata("design:type", Array)
+], ScreenComponent.prototype, "screeningEventOffers", void 0);
+__decorate([
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"])(),
+    __metadata("design:type", Array)
+], ScreenComponent.prototype, "reservations", void 0);
 __decorate([
     Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"])(),
     __metadata("design:type", Object)
-], ScreenComponent.prototype, "openSeatingAllowed", void 0);
+], ScreenComponent.prototype, "authorizeSeatReservation", void 0);
 __decorate([
     Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Output"])(),
     __metadata("design:type", Object)
@@ -5907,7 +6031,7 @@ ScreenComponent = ScreenComponent_1 = __decorate([
         template: __importDefault(__webpack_require__(/*! raw-loader!./screen.component.html */ "../../node_modules/raw-loader/dist/cjs.js!./app/modules/shared/components/parts/screen/screen.component.html")).default,
         styles: [__importDefault(__webpack_require__(/*! ./screen.component.scss */ "./app/modules/shared/components/parts/screen/screen.component.scss")).default]
     }),
-    __metadata("design:paramtypes", [_ngrx_store__WEBPACK_IMPORTED_MODULE_2__["Store"],
+    __metadata("design:paramtypes", [_services__WEBPACK_IMPORTED_MODULE_5__["UtilService"],
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ElementRef"]])
 ], ScreenComponent);
 
@@ -7290,17 +7414,6 @@ let PurchaseService = class PurchaseService {
             this.store.dispatch(new _store_actions__WEBPACK_IMPORTED_MODULE_8__["purchaseAction"].GetScreen(params));
             const success = this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_8__["purchaseAction"].ActionTypes.GetScreenSuccess), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["tap"])(() => { resolve(); }));
             const fail = this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_8__["purchaseAction"].ActionTypes.GetScreenFail), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["tap"])(() => { this.error.subscribe((error) => { reject(error); }).unsubscribe(); }));
-            Object(rxjs__WEBPACK_IMPORTED_MODULE_5__["race"])(success, fail).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["take"])(1)).subscribe();
-        });
-    }
-    /**
-     * スクリーン情報取得
-     */
-    getScreenData(params) {
-        return new Promise((resolve, reject) => {
-            this.store.dispatch(new _store_actions__WEBPACK_IMPORTED_MODULE_8__["purchaseAction"].GetScreenData(params));
-            const success = this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_8__["purchaseAction"].ActionTypes.GetScreenDataSuccess), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["tap"])(() => { resolve(); }));
-            const fail = this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_8__["purchaseAction"].ActionTypes.GetScreenDataFail), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["tap"])(() => { this.error.subscribe((error) => { reject(error); }).unsubscribe(); }));
             Object(rxjs__WEBPACK_IMPORTED_MODULE_5__["race"])(success, fail).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["take"])(1)).subscribe();
         });
     }
@@ -8899,7 +9012,7 @@ class OrderAuthorizeFail {
 /*!**********************************************!*\
   !*** ./app/store/actions/purchase.action.ts ***!
   \**********************************************/
-/*! exports provided: ActionTypes, Delete, UnsettledDelete, SelectScheduleDate, GetScreeningEvent, GetScreeningEventSuccess, GetScreeningEventFail, StartTransaction, StartTransactionSuccess, StartTransactionFail, CancelTransaction, CancelTransactionSuccess, CancelTransactionFail, GetScreen, GetScreenSuccess, GetScreenFail, GetScreenData, GetScreenDataSuccess, GetScreenDataFail, GetScreeningEventOffers, GetScreeningEventOffersSuccess, GetScreeningEventOffersFail, SelectSeats, CancelSeats, SelectTickets, GetTicketList, GetTicketListSuccess, GetTicketListFail, TemporaryReservation, TemporaryReservationSuccess, TemporaryReservationFail, CancelTemporaryReservations, CancelTemporaryReservationsSuccess, CancelTemporaryReservationsFail, RegisterContact, RegisterContactSuccess, RegisterContactFail, AuthorizeCreditCard, AuthorizeCreditCardSuccess, AuthorizeCreditCardFail, AuthorizeMovieTicket, AuthorizeMovieTicketSuccess, AuthorizeMovieTicketFail, CheckMovieTicket, CheckMovieTicketSuccess, CheckMovieTicketFail, EndTransaction, EndTransactionSuccess, EndTransactionFail, CreateGmoTokenObject, CreateGmoTokenObjectSuccess, CreateGmoTokenObjectFail, AuthorizeAnyPayment, AuthorizeAnyPaymentSuccess, AuthorizeAnyPaymentFail, SelectPaymentMethodType */
+/*! exports provided: ActionTypes, Delete, UnsettledDelete, SelectScheduleDate, GetScreeningEvent, GetScreeningEventSuccess, GetScreeningEventFail, StartTransaction, StartTransactionSuccess, StartTransactionFail, CancelTransaction, CancelTransactionSuccess, CancelTransactionFail, GetScreen, GetScreenSuccess, GetScreenFail, GetScreeningEventOffers, GetScreeningEventOffersSuccess, GetScreeningEventOffersFail, SelectSeats, CancelSeats, SelectTickets, GetTicketList, GetTicketListSuccess, GetTicketListFail, TemporaryReservation, TemporaryReservationSuccess, TemporaryReservationFail, CancelTemporaryReservations, CancelTemporaryReservationsSuccess, CancelTemporaryReservationsFail, RegisterContact, RegisterContactSuccess, RegisterContactFail, AuthorizeCreditCard, AuthorizeCreditCardSuccess, AuthorizeCreditCardFail, AuthorizeMovieTicket, AuthorizeMovieTicketSuccess, AuthorizeMovieTicketFail, CheckMovieTicket, CheckMovieTicketSuccess, CheckMovieTicketFail, EndTransaction, EndTransactionSuccess, EndTransactionFail, CreateGmoTokenObject, CreateGmoTokenObjectSuccess, CreateGmoTokenObjectFail, AuthorizeAnyPayment, AuthorizeAnyPaymentSuccess, AuthorizeAnyPaymentFail, SelectPaymentMethodType */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -8920,9 +9033,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "GetScreen", function() { return GetScreen; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "GetScreenSuccess", function() { return GetScreenSuccess; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "GetScreenFail", function() { return GetScreenFail; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "GetScreenData", function() { return GetScreenData; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "GetScreenDataSuccess", function() { return GetScreenDataSuccess; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "GetScreenDataFail", function() { return GetScreenDataFail; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "GetScreeningEventOffers", function() { return GetScreeningEventOffers; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "GetScreeningEventOffersSuccess", function() { return GetScreeningEventOffersSuccess; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "GetScreeningEventOffersFail", function() { return GetScreeningEventOffersFail; });
@@ -8983,9 +9093,6 @@ var ActionTypes;
     ActionTypes["GetScreen"] = "[Purchase] Get Screen";
     ActionTypes["GetScreenSuccess"] = "[Purchase] Get Screen Success";
     ActionTypes["GetScreenFail"] = "[Purchase] Get Screen Fail";
-    ActionTypes["GetScreenData"] = "[Purchase] Get Screen Data";
-    ActionTypes["GetScreenDataSuccess"] = "[Purchase] Get Screen Data Success";
-    ActionTypes["GetScreenDataFail"] = "[Purchase] Get Screen Data Fail";
     ActionTypes["GetScreeningEventOffers"] = "[Purchase] Get ScreeningEvent Offers";
     ActionTypes["GetScreeningEventOffersSuccess"] = "[Purchase] Get ScreeningEvent Offers Success";
     ActionTypes["GetScreeningEventOffersFail"] = "[Purchase] Get ScreeningEvent Offers Fail";
@@ -9157,33 +9264,6 @@ class GetScreenFail {
     constructor(payload) {
         this.payload = payload;
         this.type = ActionTypes.GetScreenFail;
-    }
-}
-/**
- * GetScreenData
- */
-class GetScreenData {
-    constructor(payload) {
-        this.payload = payload;
-        this.type = ActionTypes.GetScreenData;
-    }
-}
-/**
- * GetScreenDataSuccess
- */
-class GetScreenDataSuccess {
-    constructor(payload) {
-        this.payload = payload;
-        this.type = ActionTypes.GetScreenDataSuccess;
-    }
-}
-/**
- * GetScreenDataFail
- */
-class GetScreenDataFail {
-    constructor(payload) {
-        this.payload = payload;
-        this.type = ActionTypes.GetScreenDataFail;
     }
 }
 /**
@@ -10760,28 +10840,6 @@ let PurchaseEffects = class PurchaseEffects {
             }
         })));
         /**
-         * getScreenData
-         */
-        this.getScreenData = this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_actions__WEBPACK_IMPORTED_MODULE_10__["purchaseAction"].ActionTypes.GetScreenData), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["map"])(action => action.payload), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["mergeMap"])((payload) => __awaiter(this, void 0, void 0, function* () {
-            try {
-                yield this.cinerinoService.getServices();
-                const screeningEvent = payload.screeningEvent;
-                const setting = yield this.utilService.getJson(`${Object(_functions__WEBPACK_IMPORTED_MODULE_7__["getProject"])().storageUrl}/json/theater/setting.json`);
-                const theaterCode = screeningEvent.superEvent.location.branchCode;
-                const screenCode = `000${payload.screeningEvent.location.branchCode}`.slice(-3);
-                const screen = yield this.utilService.getJson(`${Object(_functions__WEBPACK_IMPORTED_MODULE_7__["getProject"])().storageUrl}/json/theater/${theaterCode}/${screenCode}.json?${moment__WEBPACK_IMPORTED_MODULE_4__().format('YYYYMMDDHHmm')}`);
-                const objects = screen.objects.map((o) => {
-                    return Object.assign({}, o, { image: o.image.replace('/storage', Object(_functions__WEBPACK_IMPORTED_MODULE_7__["getProject"])().storageUrl) });
-                });
-                screen.objects = objects;
-                const screenData = Object.assign({}, setting, screen);
-                return new _actions__WEBPACK_IMPORTED_MODULE_10__["purchaseAction"].GetScreenDataSuccess({ screenData });
-            }
-            catch (error) {
-                return new _actions__WEBPACK_IMPORTED_MODULE_10__["purchaseAction"].GetScreenDataFail({ error: error });
-            }
-        })));
-        /**
          * GetScreeningEvent
          */
         this.getScreeningEvent = this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_actions__WEBPACK_IMPORTED_MODULE_10__["purchaseAction"].ActionTypes.GetScreeningEvent), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["map"])(action => action.payload), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["mergeMap"])((payload) => __awaiter(this, void 0, void 0, function* () {
@@ -11157,10 +11215,6 @@ __decorate([
     Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["Effect"])(),
     __metadata("design:type", Object)
 ], PurchaseEffects.prototype, "getScreen", void 0);
-__decorate([
-    Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["Effect"])(),
-    __metadata("design:type", Object)
-], PurchaseEffects.prototype, "getScreenData", void 0);
 __decorate([
     Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["Effect"])(),
     __metadata("design:type", Object)
@@ -11795,19 +11849,6 @@ function reducer(state, action) {
             const error = action.payload.error;
             return Object.assign({}, state, { loading: false, process: '', error: JSON.stringify(error) });
         }
-        case _actions__WEBPACK_IMPORTED_MODULE_2__["purchaseAction"].ActionTypes.GetScreenData: {
-            state.purchaseData.screenData = undefined;
-            return Object.assign({}, state, { loading: true, process: 'purchaseAction.GetScreenData' });
-        }
-        case _actions__WEBPACK_IMPORTED_MODULE_2__["purchaseAction"].ActionTypes.GetScreenDataSuccess: {
-            const screenData = action.payload.screenData;
-            state.purchaseData.screenData = screenData;
-            return Object.assign({}, state, { loading: false, process: '', error: null });
-        }
-        case _actions__WEBPACK_IMPORTED_MODULE_2__["purchaseAction"].ActionTypes.GetScreenDataFail: {
-            const error = action.payload.error;
-            return Object.assign({}, state, { loading: false, process: '', error: JSON.stringify(error) });
-        }
         case _actions__WEBPACK_IMPORTED_MODULE_2__["purchaseAction"].ActionTypes.GetScreeningEventOffers: {
             state.purchaseData.screeningEventOffers = [];
             return Object.assign({}, state, { loading: true, process: 'purchaseAction.GetScreeningEventOffers' });
@@ -12354,7 +12395,7 @@ const defaultEnvironment = {
     ANALYTICS_ID: '',
     GTM_ID: '',
     VIEW_TYPE: 'cinema',
-    STORAGE_NAME: (Object(_app_functions_util_function__WEBPACK_IMPORTED_MODULE_0__["getProject"])().projectName === '') ? 'POS-STATE' : `${Object(_app_functions_util_function__WEBPACK_IMPORTED_MODULE_0__["getProject"])().projectName.toUpperCase()}-POS-STATE`,
+    STORAGE_NAME: (Object(_app_functions_util_function__WEBPACK_IMPORTED_MODULE_0__["getProject"])().projectId === '') ? 'POS-STATE' : `${Object(_app_functions_util_function__WEBPACK_IMPORTED_MODULE_0__["getProject"])().projectId.toUpperCase()}-POS-STATE`,
     STORAGE_TYPE: 'localStorage',
     BASE_URL: '/purchase/root',
     LANGUAGE: ['ja'],

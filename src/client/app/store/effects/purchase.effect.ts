@@ -15,7 +15,7 @@ import {
     isFile,
     selectAvailableSeat
 } from '../../functions';
-import { IScreen, Performance } from '../../models';
+import { Performance } from '../../models';
 import { CinerinoService, UtilService } from '../../services';
 import { purchaseAction } from '../actions';
 
@@ -87,35 +87,6 @@ export class PurchaseEffects {
                 return new purchaseAction.GetScreenSuccess({ screen: searchResult[0] });
             } catch (error) {
                 return new purchaseAction.GetScreenFail({ error: error });
-            }
-        })
-    );
-
-    /**
-     * getScreenData
-     */
-    @Effect()
-    public getScreenData = this.actions.pipe(
-        ofType<purchaseAction.GetScreenData>(purchaseAction.ActionTypes.GetScreenData),
-        map(action => action.payload),
-        mergeMap(async (payload) => {
-            try {
-                await this.cinerinoService.getServices();
-                const screeningEvent = payload.screeningEvent;
-                const setting = await this.utilService.getJson<IScreen>(`${getProject().storageUrl}/json/theater/setting.json`);
-                const theaterCode = screeningEvent.superEvent.location.branchCode;
-                const screenCode = `000${payload.screeningEvent.location.branchCode}`.slice(-3);
-                const screen = await this.utilService.getJson<IScreen>(
-                    `${getProject().storageUrl}/json/theater/${theaterCode}/${screenCode}.json?${moment().format('YYYYMMDDHHmm')}`
-                );
-                const objects = screen.objects.map((o) => {
-                    return { ...o, image: o.image.replace('/storage', getProject().storageUrl) };
-                });
-                screen.objects = objects;
-                const screenData = { ...setting, ...screen };
-                return new purchaseAction.GetScreenDataSuccess({ screenData });
-            } catch (error) {
-                return new purchaseAction.GetScreenDataFail({ error: error });
             }
         })
     );
