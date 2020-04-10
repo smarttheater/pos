@@ -1269,11 +1269,13 @@ let PurchaseEventScheduleComponent = class PurchaseEventScheduleComponent {
                     .toDate();
             }
             try {
+                if ((yield this.purchaseService.getData()).transaction === undefined) {
+                    return;
+                }
                 yield this.purchaseService.cancelTransaction();
             }
             catch (error) {
                 console.error(error);
-                this.router.navigate(['/error']);
             }
         });
     }
@@ -1361,10 +1363,6 @@ let PurchaseEventScheduleComponent = class PurchaseEventScheduleComponent {
             try {
                 const purchase = yield this.purchaseService.getData();
                 const user = yield this.userService.getData();
-                const authorizeSeatReservations = purchase.authorizeSeatReservations;
-                if (authorizeSeatReservations.length > 0) {
-                    yield this.purchaseService.cancelTemporaryReservations(authorizeSeatReservations);
-                }
                 yield this.purchaseService.startTransaction({
                     seller: purchase.seller,
                     pos: user.pos

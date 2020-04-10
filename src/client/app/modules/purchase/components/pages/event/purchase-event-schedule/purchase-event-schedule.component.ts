@@ -55,10 +55,12 @@ export class PurchaseEventScheduleComponent implements OnInit, OnDestroy {
                 .toDate();
         }
         try {
+            if ((await this.purchaseService.getData()).transaction === undefined) {
+                return;
+            }
             await this.purchaseService.cancelTransaction();
         } catch (error) {
             console.error(error);
-            this.router.navigate(['/error']);
         }
     }
 
@@ -144,10 +146,6 @@ export class PurchaseEventScheduleComponent implements OnInit, OnDestroy {
         try {
             const purchase = await this.purchaseService.getData();
             const user = await this.userService.getData();
-            const authorizeSeatReservations = purchase.authorizeSeatReservations;
-            if (authorizeSeatReservations.length > 0) {
-                await this.purchaseService.cancelTemporaryReservations(authorizeSeatReservations);
-            }
             await this.purchaseService.startTransaction({
                 seller: <factory.seller.IOrganization<factory.seller.IAttributes<factory.organizationType>>>purchase.seller,
                 pos: user.pos

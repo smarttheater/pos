@@ -2400,24 +2400,38 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
                     _context12.prev = 7;
                     _context12.next = 10;
-                    return this.purchaseService.cancelTransaction();
+                    return this.purchaseService.getData();
 
                   case 10:
-                    _context12.next = 16;
-                    break;
+                    _context12.t0 = _context12.sent.transaction;
+                    _context12.t1 = undefined;
 
-                  case 12:
-                    _context12.prev = 12;
-                    _context12.t0 = _context12["catch"](7);
-                    console.error(_context12.t0);
-                    this.router.navigate(['/error']);
+                    if (!(_context12.t0 === _context12.t1)) {
+                      _context12.next = 14;
+                      break;
+                    }
+
+                    return _context12.abrupt("return");
+
+                  case 14:
+                    _context12.next = 16;
+                    return this.purchaseService.cancelTransaction();
 
                   case 16:
+                    _context12.next = 21;
+                    break;
+
+                  case 18:
+                    _context12.prev = 18;
+                    _context12.t2 = _context12["catch"](7);
+                    console.error(_context12.t2);
+
+                  case 21:
                   case "end":
                     return _context12.stop();
                 }
               }
-            }, _callee12, this, [[7, 12]]);
+            }, _callee12, this, [[7, 18]]);
           }));
         }
         /**
@@ -2537,7 +2551,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
           return __awaiter(this, void 0, void 0,
           /*#__PURE__*/
           regeneratorRuntime.mark(function _callee14() {
-            var user, screeningEvent, purchase, _user, authorizeSeatReservations, errorObject;
+            var user, screeningEvent, purchase, _user, errorObject;
 
             return regeneratorRuntime.wrap(function _callee14$(_context14) {
               while (1) {
@@ -2601,59 +2615,48 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
                   case 26:
                     _user = _context14.sent;
-                    authorizeSeatReservations = purchase.authorizeSeatReservations;
-
-                    if (!(authorizeSeatReservations.length > 0)) {
-                      _context14.next = 31;
-                      break;
-                    }
-
-                    _context14.next = 31;
-                    return this.purchaseService.cancelTemporaryReservations(authorizeSeatReservations);
-
-                  case 31:
-                    _context14.next = 33;
+                    _context14.next = 29;
                     return this.purchaseService.startTransaction({
                       seller: purchase.seller,
                       pos: _user.pos
                     });
 
-                  case 33:
+                  case 29:
                     this.router.navigate(['/purchase/event/ticket']);
-                    _context14.next = 46;
+                    _context14.next = 42;
                     break;
 
-                  case 36:
-                    _context14.prev = 36;
+                  case 32:
+                    _context14.prev = 32;
                     _context14.t2 = _context14["catch"](20);
                     errorObject = JSON.parse(_context14.t2);
 
                     if (!(errorObject.status === http_status__WEBPACK_IMPORTED_MODULE_3__["TOO_MANY_REQUESTS"])) {
-                      _context14.next = 42;
+                      _context14.next = 38;
                       break;
                     }
 
                     this.router.navigate(['/congestion']);
                     return _context14.abrupt("return");
 
-                  case 42:
+                  case 38:
                     if (!(errorObject.status === http_status__WEBPACK_IMPORTED_MODULE_3__["BAD_REQUEST"])) {
-                      _context14.next = 45;
+                      _context14.next = 41;
                       break;
                     }
 
                     this.router.navigate(['/maintenance']);
                     return _context14.abrupt("return");
 
-                  case 45:
+                  case 41:
                     this.router.navigate(['/error']);
 
-                  case 46:
+                  case 42:
                   case "end":
                     return _context14.stop();
                 }
               }
-            }, _callee14, this, [[0, 16], [20, 36]]);
+            }, _callee14, this, [[0, 16], [20, 32]]);
           }));
         }
         /**
