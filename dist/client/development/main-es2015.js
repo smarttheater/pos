@@ -6832,7 +6832,7 @@ DownloadService = DownloadService_1 = __decorate([
 /*!*******************************!*\
   !*** ./app/services/index.ts ***!
   \*******************************/
-/*! exports provided: AdmissionService, CinerinoService, PurchaseService, UserService, MasterService, OrderService, ReservationService, UtilService, StarPrintService, DownloadService, QRCodeService */
+/*! exports provided: CinerinoService, AdmissionService, PurchaseService, UserService, MasterService, OrderService, ReservationService, UtilService, StarPrintService, DownloadService, QRCodeService */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -12244,6 +12244,7 @@ function getInitialState() {
     const sessonJson = sessionStorage.getItem('SESSION_STATE');
     const sessionData = (sessonJson === undefined || sessonJson === null) ? { App: {} } : JSON.parse(sessonJson);
     const data = Object.assign({}, initialState, saveData.App, sessionData.App);
+    data.userData.seller = undefined;
     data.loading = false;
     return data;
 }
@@ -12373,12 +12374,10 @@ function reducer(state, action) {
         }
         case _actions__WEBPACK_IMPORTED_MODULE_0__["userAction"].ActionTypes.UpdateAll: {
             const customerContact = action.payload.customerContact;
-            const seller = action.payload.seller;
             const pos = action.payload.pos;
             const theater = action.payload.theater;
             const printer = action.payload.printer;
             state.userData.customerContact = customerContact;
-            state.userData.seller = seller;
             state.userData.pos = pos;
             state.userData.theater = theater;
             state.userData.printer = printer;

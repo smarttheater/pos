@@ -108,7 +108,7 @@ export class OrderService {
     public async cancel(params: {
         orders: factory.order.IOrder[];
         language: string;
-        pos?: factory.seller.IPOS;
+        pos?: factory.chevre.place.movieTheater.IPOS;
     }) {
         const identifier = (params.pos === undefined)
             ? []
@@ -164,7 +164,7 @@ export class OrderService {
     public async print(prams: {
         orders: factory.order.IOrder[];
         printer: IPrinter;
-        pos?: factory.seller.IPOS;
+        pos?: factory.chevre.place.movieTheater.IPOS;
         timeout?: number;
     }) {
         return new Promise<void>((resolve, reject) => {

@@ -5,13 +5,9 @@ import { userAction } from '../actions';
 
 export interface IUserState {
     /**
-     * 販売者情報
-     */
-    seller?: factory.seller.IOrganization<factory.seller.IAttributes<factory.organizationType>>;
-    /**
      * POS
      */
-    pos?: factory.seller.IPOS;
+    pos?: factory.chevre.place.movieTheater.IPOS;
     /**
      * 劇場
      */
@@ -53,12 +49,10 @@ export function reducer(state: IState, action: userAction.Actions): IState {
         }
         case userAction.ActionTypes.UpdateAll: {
             const customerContact = action.payload.customerContact;
-            const seller = action.payload.seller;
             const pos = action.payload.pos;
             const theater = action.payload.theater;
             const printer = action.payload.printer;
             state.userData.customerContact = customerContact;
-            state.userData.seller = seller;
             state.userData.pos = pos;
             state.userData.theater = theater;
             state.userData.printer = printer;
