@@ -10,7 +10,7 @@
                         <p class="col-md-4 py-2 text-md-right">{{ 'common.theater' | translate }}<span
                                 class="badge badge-danger ml-2">{{ 'common.required' | translate }}</span></p>
                         <div class="col-md-8">
-                            <select class="form-control" formControlName="theaterBranchCode">
+                            <select class="form-control" formControlName="theaterBranchCode" (change)="changePosList()">
                                 <option value="">{{ 'setting.unselected' | translate }}</option>
                                 <option *ngFor="let theater of (master | async).theaters" [value]="theater.branchCode">
                                     {{ theater.name | changeLanguage }}</option>
