@@ -520,45 +520,37 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
                   case 4:
                     user = _context3.sent;
 
-                    if (!(user.seller === undefined)) {
-                      _context3.next = 7;
-                      break;
-                    }
-
-                    throw new Error('seller not found').message;
-
-                  case 7:
                     if (!(user.theater === undefined)) {
-                      _context3.next = 9;
+                      _context3.next = 7;
                       break;
                     }
 
                     throw new Error('theater not found').message;
 
-                  case 9:
+                  case 7:
                     if (!(user.customerContact === undefined)) {
-                      _context3.next = 11;
+                      _context3.next = 9;
                       break;
                     }
 
                     throw new Error('customerContact not found').message;
 
-                  case 11:
+                  case 9:
                     return _context3.abrupt("return", true);
 
-                  case 14:
-                    _context3.prev = 14;
+                  case 12:
+                    _context3.prev = 12;
                     _context3.t0 = _context3["catch"](0);
                     console.log('canActivate', _context3.t0);
                     this.router.navigate(['/setting']);
                     return _context3.abrupt("return", false);
 
-                  case 19:
+                  case 17:
                   case "end":
                     return _context3.stop();
                 }
               }
-            }, _callee3, this, [[0, 14]]);
+            }, _callee3, this, [[0, 12]]);
           }));
         }
       }, {

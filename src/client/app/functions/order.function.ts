@@ -181,23 +181,35 @@ export async function createPrintCanvas(params: {
         throw new Error('reservationType is not EventReservation').message;
     }
     const data = {
-        sellerNameJa: itemOffered.reservationFor.superEvent.location.name.ja,
-        sellerNameEn: itemOffered.reservationFor.superEvent.location.name.en,
-        eventNameJa: itemOffered.reservationFor.name.ja,
-        eventNameEn: itemOffered.reservationFor.name.en,
+        sellerNameJa: (itemOffered.reservationFor.superEvent.location.name === undefined
+            || itemOffered.reservationFor.superEvent.location.name.ja === undefined)
+            ? '' : itemOffered.reservationFor.superEvent.location.name.ja,
+        sellerNameEn: (itemOffered.reservationFor.superEvent.location.name === undefined
+            || itemOffered.reservationFor.superEvent.location.name.en === undefined)
+            ? '' : itemOffered.reservationFor.superEvent.location.name.en,
+        eventNameJa: (itemOffered.reservationFor.name.ja === undefined) ? '' : itemOffered.reservationFor.name.ja,
+        eventNameEn: (itemOffered.reservationFor.name.en === undefined) ? '' : itemOffered.reservationFor.name.en,
         screenNameJa: (itemOffered.reservationFor.location.address === undefined)
-            ? itemOffered.reservationFor.location.name.ja
-            : `${itemOffered.reservationFor.location.address.ja} ${itemOffered.reservationFor.location.name.ja}`,
+            ? (itemOffered.reservationFor.location.name === undefined || itemOffered.reservationFor.location.name.ja === undefined)
+                ? '' : itemOffered.reservationFor.location.name.ja
+            : `${itemOffered.reservationFor.location.address.ja} ${(itemOffered.reservationFor.location.name === undefined) ? '' : itemOffered.reservationFor.location.name.ja}`,
         screenNameEn: (itemOffered.reservationFor.location.address === undefined)
-            ? itemOffered.reservationFor.location.name.en
-            : `${itemOffered.reservationFor.location.address.en} ${itemOffered.reservationFor.location.name.en}`,
+            ? (itemOffered.reservationFor.location.name === undefined || itemOffered.reservationFor.location.name.en === undefined)
+                ? '' : itemOffered.reservationFor.location.name.en
+            : `${itemOffered.reservationFor.location.address.en} ${(itemOffered.reservationFor.location.name === undefined) ? '' : itemOffered.reservationFor.location.name.en}`,
         startDate: moment(itemOffered.reservationFor.startDate).toISOString(),
         endDate: moment(itemOffered.reservationFor.endDate).toISOString(),
         seatNumber: (itemOffered.reservedTicket.ticketedSeat === undefined
             || itemOffered.reservedTicket.ticketedSeat === null)
             ? undefined : itemOffered.reservedTicket.ticketedSeat.seatNumber,
-        ticketNameJa: itemOffered.reservedTicket.ticketType.name.ja,
-        ticketNameEn: itemOffered.reservedTicket.ticketType.name.en,
+        ticketNameJa: (itemOffered.reservedTicket.ticketType.name === undefined)
+            ? '' : (typeof itemOffered.reservedTicket.ticketType.name === 'string')
+                ? itemOffered.reservedTicket.ticketType.name : (itemOffered.reservedTicket.ticketType.name.ja === undefined)
+                    ? '' : itemOffered.reservedTicket.ticketType.name.ja,
+        ticketNameEn: (itemOffered.reservedTicket.ticketType.name === undefined)
+            ? '' : (typeof itemOffered.reservedTicket.ticketType.name === 'string')
+                ? itemOffered.reservedTicket.ticketType.name : (itemOffered.reservedTicket.ticketType.name.en === undefined)
+                    ? '' : itemOffered.reservedTicket.ticketType.name.en,
         price: (acceptedOffer.priceSpecification === undefined)
             ? 0 : getItemPrice({ priceComponents: (<any>acceptedOffer.priceSpecification).priceComponent }),
         posName: (params.pos === undefined) ? '' : params.pos.name,
@@ -339,12 +351,12 @@ export function order2report(orders: factory.order.IOrder[]) {
  */
 export function input2OrderSearchCondition(params: {
     input: IOrderSearchConditions;
-    seller?: factory.seller.IOrganization<factory.seller.IAttributes<factory.organizationType>>;
+    theater?: factory.chevre.place.movieTheater.IPlaceWithoutScreeningRoom;
     page?: number;
     limit?: number;
 }) {
     const input = params.input;
-    const seller = params.seller;
+    const theater = params.theater;
     const page = params.page;
     const limit = params.limit;
     const identifiers: factory.propertyValue.IPropertyValue<string>[] = [];
@@ -352,9 +364,6 @@ export function input2OrderSearchCondition(params: {
         identifiers.push({ name: 'posId', value: input.posId });
     }
     const result: factory.order.ISearchConditions = {
-        seller: {
-            ids: (seller === undefined) ? undefined : [seller.id]
-        },
         customer: {
             // email: (input.customer.email === '') ? undefined : input.customer.email,
             // telephone: (input.customer.telephone === '') ? undefined : input.customer.telephone,
@@ -396,6 +405,9 @@ export function input2OrderSearchCondition(params: {
                         ? undefined
                         : moment(moment(input.eventStartDateThrough)
                             .format('YYYYMMDD')).add(1, 'day').toDate(),
+                    superEvent: {
+                        location: { branchCodes: (theater === undefined) ? [] : [theater.branchCode] }
+                    }
                 }
             }
         },

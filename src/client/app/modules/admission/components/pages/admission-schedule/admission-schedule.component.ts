@@ -62,8 +62,8 @@ export class AdmissionScheduleComponent implements OnInit, OnDestroy {
         }
         try {
             const user = await this.userService.getData();
-            const seller = user.seller;
-            if (seller === undefined) {
+            const theater = user.theater;
+            if (theater === undefined) {
                 this.router.navigate(['/error']);
                 return;
             }
@@ -73,11 +73,7 @@ export class AdmissionScheduleComponent implements OnInit, OnDestroy {
             const scheduleDate = moment(this.scheduleDate).format('YYYY-MM-DD');
             this.admissionService.selectScheduleDate(scheduleDate);
             await this.masterService.getSchedule({
-                superEvent: {
-                    locationBranchCodes:
-                        (seller.location === undefined || seller.location.branchCode === undefined)
-                            ? [] : [seller.location.branchCode]
-                },
+                superEvent: { locationBranchCodes: [theater.branchCode] },
                 startFrom: moment(scheduleDate).toDate(),
                 startThrough: moment(scheduleDate).add(1, 'day').toDate()
             });

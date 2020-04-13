@@ -119,7 +119,7 @@ export class OrderDownloadComponent implements OnInit {
         try {
             const params = input2OrderSearchCondition({
                 input: this.confirmedConditions,
-                seller: (await this.userService.getData()).seller,
+                theater: (await this.userService.getData()).theater,
             });
             await this.downloadService.order(params);
         } catch (error) {

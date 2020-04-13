@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
 import { getEnvironment } from '../../../../../../../environments/environment';
 import { getEmptySeat, getRemainingSeatLength } from '../../../../../../functions';
 import { IReservationSeat, Performance, SeatStatus } from '../../../../../../models';
-import { PurchaseService, UserService, UtilService } from '../../../../../../services';
+import { PurchaseService, UtilService } from '../../../../../../services';
 import * as reducers from '../../../../../../store/reducers';
 
 @Component({
@@ -25,7 +25,6 @@ export class PurchaseCinemaSeatComponent implements OnInit {
         private store: Store<reducers.IState>,
         private router: Router,
         private utilService: UtilService,
-        private userService: UserService,
         private purchaseService: PurchaseService,
         private translate: TranslateService
     ) { }
@@ -36,9 +35,8 @@ export class PurchaseCinemaSeatComponent implements OnInit {
         this.isLoading = this.store.pipe(select(reducers.getLoading));
         try {
             const purchase = await this.purchaseService.getData();
-            const user = await this.userService.getData();
             const screeningEvent = purchase.screeningEvent;
-            const seller = user.seller;
+            const seller = purchase.seller;
             if (screeningEvent === undefined || seller === undefined) {
                 this.router.navigate(['/error']);
                 return;
@@ -97,17 +95,14 @@ export class PurchaseCinemaSeatComponent implements OnInit {
             });
         });
         if (purchase.authorizeSeatReservation !== undefined
-            && purchase.authorizeSeatReservation.instrument !== undefined) {
-            if (purchase.authorizeSeatReservation.instrument.identifier === factory.service.webAPI.Identifier.Chevre) {
-                // chevre
-                purchase.authorizeSeatReservation.object.acceptedOffer.forEach((offer) => {
-                    const chevreOffer = <factory.action.authorize.offer.seatReservation.IAcceptedOffer4chevre>offer;
-                    if (chevreOffer.ticketedSeat === undefined) {
-                        return;
-                    }
-                    seats.push(chevreOffer.ticketedSeat);
-                });
-            }
+            && purchase.authorizeSeatReservation.result !== undefined
+            && purchase.authorizeSeatReservation.result.responseBody.object.reservations !== undefined) {
+            purchase.authorizeSeatReservation.result.responseBody.object.reservations.forEach((r) => {
+                if (r.reservedTicket.ticketedSeat === undefined) {
+                    return;
+                }
+                seats.push(r.reservedTicket.ticketedSeat);
+            });
         }
         this.purchaseService.selectSeats(seats);
     }

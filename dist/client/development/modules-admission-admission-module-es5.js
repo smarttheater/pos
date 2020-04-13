@@ -782,7 +782,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
           return __awaiter(this, void 0, void 0,
           /*#__PURE__*/
           regeneratorRuntime.mark(function _callee5() {
-            var user, seller, scheduleDate, master, screeningEvents;
+            var user, theater, scheduleDate, master, screeningEvents;
             return regeneratorRuntime.wrap(function _callee5$(_context5) {
               while (1) {
                 switch (_context5.prev = _context5.next) {
@@ -797,9 +797,9 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
                   case 4:
                     user = _context5.sent;
-                    seller = user.seller;
+                    theater = user.theater;
 
-                    if (!(seller === undefined)) {
+                    if (!(theater === undefined)) {
                       _context5.next = 9;
                       break;
                     }
@@ -817,7 +817,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                     _context5.next = 14;
                     return this.masterService.getSchedule({
                       superEvent: {
-                        locationBranchCodes: seller.location === undefined || seller.location.branchCode === undefined ? [] : [seller.location.branchCode]
+                        locationBranchCodes: [theater.branchCode]
                       },
                       startFrom: moment__WEBPACK_IMPORTED_MODULE_3__(scheduleDate).toDate(),
                       startThrough: moment__WEBPACK_IMPORTED_MODULE_3__(scheduleDate).add(1, 'day').toDate()

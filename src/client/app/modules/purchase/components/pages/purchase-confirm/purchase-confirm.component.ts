@@ -55,7 +55,7 @@ export class PurchaseConfirmComponent implements OnInit {
         const purchaseData = await this.purchaseService.getData();
         const userData = await this.userService.getData();
         const profile = userData.customerContact;
-        const seller = userData.seller;
+        const seller = purchaseData.seller;
         const paymentMethod = purchaseData.paymentMethod;
         if (paymentMethod === undefined
             || profile === undefined

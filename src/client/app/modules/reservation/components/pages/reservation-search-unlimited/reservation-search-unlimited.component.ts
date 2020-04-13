@@ -99,7 +99,7 @@ export class ReservationSearchUnlimitedComponent implements OnInit {
             this.reservations = [];
             const params = input2ReservationSearchCondition({
                 input: this.confirmedConditions,
-                seller: (await this.userService.getData()).seller,
+                theater: (await this.userService.getData()).theater,
                 limit: this.limit
             });
             const searchResult = await this.reservationService.splitSearch(params);

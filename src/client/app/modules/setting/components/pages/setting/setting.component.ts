@@ -51,28 +51,6 @@ export class SettingComponent implements OnInit {
         try {
             await this.masterService.getSellers();
             await this.masterService.getTheaters();
-            const userData = await this.userService.getData();
-            const masterData = await this.masterService.getData();
-            if (userData.seller !== undefined
-                && userData.pos !== undefined
-                && userData.customerContact !== undefined
-                && userData.printer !== undefined
-                && userData.theater === undefined) {
-                // 互換性担保
-                const seller = userData.seller;
-                const findResult = masterData.theaters.find(t => {
-                    return (seller.location !== undefined
-                        && t.branchCode === seller.location.branchCode);
-                });
-                const theater = (findResult === undefined) ? masterData.theaters[0] : findResult;
-                this.userService.updateAll({
-                    seller: userData.seller,
-                    pos: userData.pos,
-                    theater: theater,
-                    customerContact: userData.customerContact,
-                    printer: userData.printer
-                });
-            }
             await this.createSettlingForm();
         } catch (error) {
             console.error(error);
@@ -87,6 +65,7 @@ export class SettingComponent implements OnInit {
         const profile = this.environment.PROFILE;
         this.settingForm = this.formBuilder.group({
             theaterBranchCode: ['', [Validators.required]],
+            sellerId: ['', [Validators.required]],
             posId: [''],
             printerType: [ConnectionType.None],
             printerIpAddress: ['']
@@ -136,8 +115,11 @@ export class SettingComponent implements OnInit {
         if (user.theater !== undefined) {
             this.settingForm.controls.theaterBranchCode.setValue(user.theater.branchCode);
         }
-        if (user.pos !== undefined) {
+        if (user.seller !== undefined) {
+            this.settingForm.controls.sellerId.setValue(user.seller.id);
             this.changePosList();
+        }
+        if (user.pos !== undefined) {
             this.settingForm.controls.posId.setValue(user.pos.id);
         }
         const customerContact = user.customerContact;
@@ -167,14 +149,13 @@ export class SettingComponent implements OnInit {
      */
     public changePosList() {
         this.settingForm.controls.posId.setValue('');
-        const theaterBranchCode = this.settingForm.controls.theaterBranchCode.value;
-        if (theaterBranchCode === '') {
+        const sellerId = this.settingForm.controls.sellerId.value;
+        if (sellerId === '') {
             this.posList = [];
             return;
         }
         this.master.subscribe((master) => {
-            const findResult =
-                master.sellers.find(s => (s.location !== undefined && s.location.branchCode === theaterBranchCode));
+            const findResult = master.sellers.find(s => (s.id === sellerId));
             if (findResult === undefined) {
                 this.posList = [];
                 return;
@@ -201,8 +182,9 @@ export class SettingComponent implements OnInit {
         try {
             const masterData = await this.masterService.getData();
             const theaterBranchCode = this.settingForm.controls.theaterBranchCode.value;
+            const sellerId = this.settingForm.controls.sellerId.value;
             const posId = this.settingForm.controls.posId.value;
-            const seller = masterData.sellers.find(s => (s.location !== undefined && s.location.branchCode === theaterBranchCode));
+            const seller = masterData.sellers.find(s => (s.id === sellerId));
             if (seller === undefined || seller.hasPOS === undefined) {
                 throw new Error('seller not found').message;
             }
@@ -275,6 +257,13 @@ export class SettingComponent implements OnInit {
         if (this.settingForm.controls.printerType.value === ConnectionType.StarBluetooth) {
             this.settingForm.controls.printerIpAddress.setValue(this.translate.instant('setting.starBluetoothAddress'));
         }
+    }
+
+    /**
+     * 必須判定
+     */
+    public isRequired(key: String) {
+        return this.environment.PROFILE.find(p => p.key === key && p.required) !== undefined;
     }
 
 }

@@ -325,10 +325,10 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
                     return this.userService.getData();
 
                   case 9:
-                    _context.t2 = _context.sent.seller;
+                    _context.t2 = _context.sent.theater;
                     _context.t3 = {
                       input: _context.t1,
-                      seller: _context.t2
+                      theater: _context.t2
                     };
                     params = (0, _context.t0)(_context.t3);
                     _context.next = 14;
@@ -798,11 +798,11 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
                     return this.userService.getData();
 
                   case 12:
-                    _context2.t2 = _context2.sent.seller;
+                    _context2.t2 = _context2.sent.theater;
                     _context2.t3 = this.limit;
                     _context2.t4 = {
                       input: _context2.t1,
-                      seller: _context2.t2,
+                      theater: _context2.t2,
                       limit: _context2.t3
                     };
                     params = (0, _context2.t0)(_context2.t4);
@@ -1197,12 +1197,12 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
                     return this.userService.getData();
 
                   case 10:
-                    _context3.t2 = _context3.sent.seller;
+                    _context3.t2 = _context3.sent.theater;
                     _context3.t3 = this.currentPage;
                     _context3.t4 = this.limit;
                     _context3.t5 = {
                       input: _context3.t1,
-                      seller: _context3.t2,
+                      theater: _context3.t2,
                       page: _context3.t3,
                       limit: _context3.t4
                     };

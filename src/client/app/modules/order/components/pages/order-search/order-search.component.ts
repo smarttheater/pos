@@ -155,7 +155,7 @@ export class OrderSearchComponent implements OnInit {
         try {
             const params = input2OrderSearchCondition({
                 input: this.confirmedConditions,
-                seller: (await this.userService.getData()).seller,
+                theater: (await this.userService.getData()).theater,
                 page: this.currentPage,
                 limit: this.limit
             });
