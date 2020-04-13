@@ -20,6 +20,7 @@ export class PurchaseCinemaSeatComponent implements OnInit {
     public user: Observable<reducers.IUserState>;
     public isLoading: Observable<boolean>;
     public environment = getEnvironment();
+    public screeningEventSeats: factory.chevre.place.seat.IPlaceWithOffer[];
 
     constructor(
         private store: Store<reducers.IState>,
@@ -33,6 +34,7 @@ export class PurchaseCinemaSeatComponent implements OnInit {
         this.purchase = this.store.pipe(select(reducers.getPurchase));
         this.user = this.store.pipe(select(reducers.getUser));
         this.isLoading = this.store.pipe(select(reducers.getLoading));
+        this.screeningEventSeats = [];
         try {
             const purchase = await this.purchaseService.getData();
             const screeningEvent = purchase.screeningEvent;
@@ -47,7 +49,7 @@ export class PurchaseCinemaSeatComponent implements OnInit {
                     branchCode: { $eq: screeningEvent.superEvent.location.branchCode }
                 }
             });
-            await this.purchaseService.getScreeningEventOffers();
+            this.screeningEventSeats = await this.purchaseService.getScreeningEventSeats();
             await this.purchaseService.getTicketList({ seller });
         } catch (error) {
             console.error(error);
@@ -76,22 +78,21 @@ export class PurchaseCinemaSeatComponent implements OnInit {
     public async allSelectSeats() {
         const seats: IReservationSeat[] = [];
         const purchase = await this.purchaseService.getData();
-        const screeningEventOffers = purchase.screeningEventOffers;
-        screeningEventOffers.forEach((screeningEventOffer) => {
-            screeningEventOffer.containsPlace.forEach((containsPlace) => {
-                if (containsPlace.offers === undefined
-                    || containsPlace.offers[0].availability !== factory.chevre.itemAvailability.InStock) {
-                    return;
-                }
-                seats.push({
-                    typeOf: containsPlace.typeOf,
-                    seatingType: (containsPlace.seatingType === undefined)
-                        ? '' : containsPlace.seatingType,
-                    seatNumber: containsPlace.branchCode,
-                    seatRow: '',
-                    seatSection: screeningEventOffer.branchCode,
-                    offers: containsPlace.offers
-                });
+        const screeningEventSeats = this.screeningEventSeats;
+        screeningEventSeats.forEach((s) => {
+            if (s.offers === undefined
+                || s.offers[0].availability !== factory.chevre.itemAvailability.InStock
+                || s.containedInPlace === undefined) {
+                return;
+            }
+            seats.push({
+                typeOf: s.typeOf,
+                seatingType: (s.seatingType === undefined)
+                    ? '' : s.seatingType,
+                seatNumber: s.branchCode,
+                seatRow: '',
+                seatSection: (s.containedInPlace.branchCode === undefined) ? '' : s.containedInPlace.branchCode,
+                offers: s.offers
             });
         });
         if (purchase.authorizeSeatReservation !== undefined
@@ -126,11 +127,11 @@ export class PurchaseCinemaSeatComponent implements OnInit {
      * 自由席予約可能数計算
      */
     public remainingAttendeeCapacityValue(params: {
-        screeningEventOffers: factory.chevre.place.screeningRoomSection.IPlaceWithOffer[];
+        screeningEventSeats: factory.chevre.place.seat.IPlaceWithOffer[];
         screeningEvent: factory.chevre.event.screeningEvent.IEvent;
         authorizeSeatReservations: factory.action.authorize.offer.seatReservation.IAction<factory.service.webAPI.Identifier.Chevre>[];
     }) {
-        const screeningEventOffers = params.screeningEventOffers;
+        const screeningEventSeats = params.screeningEventSeats;
         const screeningEvent = params.screeningEvent;
         const authorizeSeatReservations = params.authorizeSeatReservations;
         const values: number[] = [];
@@ -141,7 +142,7 @@ export class PurchaseCinemaSeatComponent implements OnInit {
         if (new Performance(screeningEvent).isTicketedSeat()) {
             // イベント全体の残席数計算
             const screeningEventLimit = getRemainingSeatLength({
-                screeningEventOffers, screeningEvent, authorizeSeatReservations
+                screeningEventSeats, screeningEvent, authorizeSeatReservations
             });
             if (limit > screeningEventLimit) {
                 limit = screeningEventLimit;
@@ -163,8 +164,8 @@ export class PurchaseCinemaSeatComponent implements OnInit {
         const purchaseData = await this.purchaseService.getData();
         const value = Number((<HTMLSelectElement>event.target).value);
         const reservations = purchaseData.reservations;
-        const screeningEventOffers = purchaseData.screeningEventOffers;
-        const seats = getEmptySeat({ reservations, screeningEventOffers });
+        const screeningEventSeats = this.screeningEventSeats;
+        const seats = getEmptySeat({ reservations, screeningEventSeats });
         await this.resetSeats();
         const selectSeats: IReservationSeat[] = [];
         for (let i = 0; i < value; i++) {
@@ -197,7 +198,10 @@ export class PurchaseCinemaSeatComponent implements OnInit {
             return;
         }
         try {
-            await this.purchaseService.temporaryReservation({ reservations });
+            await this.purchaseService.temporaryReservation({
+                reservations,
+                screeningEventSeats: this.screeningEventSeats
+            });
             this.router.navigate(['/purchase/cinema/ticket']);
         } catch (error) {
             console.error(error);

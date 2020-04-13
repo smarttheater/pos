@@ -35,7 +35,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("<div class=\"contents-width mx-auto px-3 py-5\">\n    <h2 class=\"text-large mb-4 text-center font-weight-bold\">{{ 'purchase.cinema.seat.title' | translate }}</h2>\n    <p class=\"mb-4 text-md-center\" [innerHTML]=\"'purchase.cinema.seat.read' | translate\"></p>\n    <div *ngIf=\"!(purchase | async).screen?.openSeatingAllowed\" class=\"d-flex mb-3\">\n        <button type=\"button\" class=\"btn btn-primary mr-2\" [disabled]=\"isLoading | async\"\n            (click)=\"allSelectSeats()\">{{ 'purchase.cinema.seat.allSelect' | translate }}</button>\n        <button type=\"button\" class=\"btn btn-outline-primary m-0\"\n            (click)=\"resetSeats()\">{{ 'purchase.cinema.seat.reset' | translate }}</button>\n    </div>\n\n    <div class=\"row\">\n        <div class=\"col-lg-9\">\n            <app-screen *ngIf=\"(user | async).theater \n                && (purchase | async).screeningEventOffers.length > 0 \n                && (purchase | async).screen\" class=\"mb-4\"\n                [theaterCode]=\"(user | async).theater.branchCode\"\n                [screenCode]=\"(purchase | async).screen.branchCode\"\n                [screeningEventOffers]=\"(purchase | async).screeningEventOffers\"\n                [openSeatingAllowed]=\"(purchase | async).screen.openSeatingAllowed\"\n                [reservations]=\"(purchase | async).reservations\"\n                [authorizeSeatReservation]=\"(purchase | async).authorizeSeatReservation\" (select)=\"selectSeat($event)\">\n            </app-screen>\n            <div *ngIf=\"(purchase | async).screen?.openSeatingAllowed\" class=\"mb-4\">\n                <div class=\"d-flex align-items-center\">\n                    <p class=\"mr-2\">{{ 'purchase.cinema.seat.openSeating' | translate }}</p>\n                    <select class=\"form-control d-inline-block w-auto\" (change)=\"selectOpenSeating($event)\"\n                        [ngModel]=\"(purchase | async).reservations.length\">\n                        <option value=\"0\">0</option>\n                        <option\n                            *ngFor=\"let value of remainingAttendeeCapacityValue((purchase | async).screeningEvent, (purchase | async).screeningEventOffers)\"\n                            [value]=\"value\">{{ value }}</option>\n                    </select>\n                </div>\n            </div>\n        </div>\n        <div class=\"col-lg-3\">\n            <app-purchase-info class=\"mb-4\" [purchase]=\"purchase | async\"></app-purchase-info>\n        </div>\n    </div>\n\n    <div *ngIf=\"environment.PURCHASE_TERMS\">\n        <h2 class=\"text-large mb-4 text-center font-weight-bold\">{{ 'purchase.cinema.seat.terms' | translate }}</h2>\n        <div class=\"mb-4\">\n            <app-purchase-terms [language]=\"(user | async).language\"\n                [screeningEvent]=\"(purchase | async).screeningEvent\"></app-purchase-terms>\n        </div>\n    </div>\n\n    <div class=\"buttons mx-auto text-center\">\n        <button type=\"submit\" class=\"btn btn-primary btn-block py-3 mb-3\" [disabled]=\"isLoading | async\"\n            (click)=\"onSubmit()\">{{ 'purchase.cinema.seat.next' | translate }}</button>\n        <button type=\"button\" class=\"btn btn-link\"\n            routerLink=\"/purchase/cinema/schedule\">{{ 'purchase.cinema.seat.prev' | translate }}</button>\n    </div>\n\n</div>");
+/* harmony default export */ __webpack_exports__["default"] = ("<div class=\"contents-width mx-auto px-3 py-5\">\n    <h2 class=\"text-large mb-4 text-center font-weight-bold\">{{ 'purchase.cinema.seat.title' | translate }}</h2>\n    <p class=\"mb-4 text-md-center\" [innerHTML]=\"'purchase.cinema.seat.read' | translate\"></p>\n    <div *ngIf=\"!(purchase | async).screen?.openSeatingAllowed\" class=\"d-flex mb-3\">\n        <button type=\"button\" class=\"btn btn-primary mr-2\" [disabled]=\"isLoading | async\"\n            (click)=\"allSelectSeats()\">{{ 'purchase.cinema.seat.allSelect' | translate }}</button>\n        <button type=\"button\" class=\"btn btn-outline-primary m-0\"\n            (click)=\"resetSeats()\">{{ 'purchase.cinema.seat.reset' | translate }}</button>\n    </div>\n\n    <div class=\"row\">\n        <div class=\"col-lg-9\">\n            <app-screen *ngIf=\"(user | async).theater \n                && screeningEventSeats.length > 0 \n                && (purchase | async).screen\" class=\"mb-4\"\n                [theaterCode]=\"(user | async).theater.branchCode\"\n                [screenCode]=\"(purchase | async).screen.branchCode\"\n                [screeningEventSeats]=\"screeningEventSeats\"\n                [openSeatingAllowed]=\"(purchase | async).screen.openSeatingAllowed\"\n                [reservations]=\"(purchase | async).reservations\"\n                [authorizeSeatReservation]=\"(purchase | async).authorizeSeatReservation\" (select)=\"selectSeat($event)\">\n            </app-screen>\n            <div *ngIf=\"(purchase | async).screen?.openSeatingAllowed\" class=\"mb-4\">\n                <div class=\"d-flex align-items-center\">\n                    <p class=\"mr-2\">{{ 'purchase.cinema.seat.openSeating' | translate }}</p>\n                    <select class=\"form-control d-inline-block w-auto\" (change)=\"selectOpenSeating($event)\"\n                        [ngModel]=\"(purchase | async).reservations.length\">\n                        <option value=\"0\">0</option>\n                        <option\n                            *ngFor=\"let value of remainingAttendeeCapacityValue((purchase | async).screeningEvent, screeningEventSeats)\"\n                            [value]=\"value\">{{ value }}</option>\n                    </select>\n                </div>\n            </div>\n        </div>\n        <div class=\"col-lg-3\">\n            <app-purchase-info class=\"mb-4\" [purchase]=\"purchase | async\"></app-purchase-info>\n        </div>\n    </div>\n\n    <div *ngIf=\"environment.PURCHASE_TERMS\">\n        <h2 class=\"text-large mb-4 text-center font-weight-bold\">{{ 'purchase.cinema.seat.terms' | translate }}</h2>\n        <div class=\"mb-4\">\n            <app-purchase-terms [language]=\"(user | async).language\"\n                [screeningEvent]=\"(purchase | async).screeningEvent\"></app-purchase-terms>\n        </div>\n    </div>\n\n    <div class=\"buttons mx-auto text-center\">\n        <button type=\"submit\" class=\"btn btn-primary btn-block py-3 mb-3\" [disabled]=\"isLoading | async\"\n            (click)=\"onSubmit()\">{{ 'purchase.cinema.seat.next' | translate }}</button>\n        <button type=\"button\" class=\"btn btn-link\"\n            routerLink=\"/purchase/cinema/schedule\">{{ 'purchase.cinema.seat.prev' | translate }}</button>\n    </div>\n\n</div>");
 
 /***/ }),
 
@@ -522,13 +522,11 @@ let PurchaseCinemaScheduleComponent = class PurchaseCinemaScheduleComponent {
             }
             this.purchaseService.selectScheduleDate(scheduleDate);
             try {
-                yield this.masterService.getSchedule({
+                const screeningEvents = yield this.masterService.getSchedule({
                     superEvent: { locationBranchCodes: [theater.branchCode] },
                     startFrom: moment__WEBPACK_IMPORTED_MODULE_5__(scheduleDate).toDate(),
                     startThrough: moment__WEBPACK_IMPORTED_MODULE_5__(scheduleDate).add(1, 'day').toDate()
                 });
-                const master = yield this.masterService.getData();
-                const screeningEvents = master.screeningEvents;
                 this.screeningWorkEvents = Object(_functions__WEBPACK_IMPORTED_MODULE_8__["screeningEventsToWorkEvents"])({ screeningEvents });
                 this.update();
             }
@@ -771,6 +769,7 @@ let PurchaseCinemaSeatComponent = class PurchaseCinemaSeatComponent {
             this.purchase = this.store.pipe(Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_3__["select"])(_store_reducers__WEBPACK_IMPORTED_MODULE_9__["getPurchase"]));
             this.user = this.store.pipe(Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_3__["select"])(_store_reducers__WEBPACK_IMPORTED_MODULE_9__["getUser"]));
             this.isLoading = this.store.pipe(Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_3__["select"])(_store_reducers__WEBPACK_IMPORTED_MODULE_9__["getLoading"]));
+            this.screeningEventSeats = [];
             try {
                 const purchase = yield this.purchaseService.getData();
                 const screeningEvent = purchase.screeningEvent;
@@ -785,7 +784,7 @@ let PurchaseCinemaSeatComponent = class PurchaseCinemaSeatComponent {
                         branchCode: { $eq: screeningEvent.superEvent.location.branchCode }
                     }
                 });
-                yield this.purchaseService.getScreeningEventOffers();
+                this.screeningEventSeats = yield this.purchaseService.getScreeningEventSeats();
                 yield this.purchaseService.getTicketList({ seller });
             }
             catch (error) {
@@ -812,22 +811,21 @@ let PurchaseCinemaSeatComponent = class PurchaseCinemaSeatComponent {
         return __awaiter(this, void 0, void 0, function* () {
             const seats = [];
             const purchase = yield this.purchaseService.getData();
-            const screeningEventOffers = purchase.screeningEventOffers;
-            screeningEventOffers.forEach((screeningEventOffer) => {
-                screeningEventOffer.containsPlace.forEach((containsPlace) => {
-                    if (containsPlace.offers === undefined
-                        || containsPlace.offers[0].availability !== _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_2__["factory"].chevre.itemAvailability.InStock) {
-                        return;
-                    }
-                    seats.push({
-                        typeOf: containsPlace.typeOf,
-                        seatingType: (containsPlace.seatingType === undefined)
-                            ? '' : containsPlace.seatingType,
-                        seatNumber: containsPlace.branchCode,
-                        seatRow: '',
-                        seatSection: screeningEventOffer.branchCode,
-                        offers: containsPlace.offers
-                    });
+            const screeningEventSeats = this.screeningEventSeats;
+            screeningEventSeats.forEach((s) => {
+                if (s.offers === undefined
+                    || s.offers[0].availability !== _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_2__["factory"].chevre.itemAvailability.InStock
+                    || s.containedInPlace === undefined) {
+                    return;
+                }
+                seats.push({
+                    typeOf: s.typeOf,
+                    seatingType: (s.seatingType === undefined)
+                        ? '' : s.seatingType,
+                    seatNumber: s.branchCode,
+                    seatRow: '',
+                    seatSection: (s.containedInPlace.branchCode === undefined) ? '' : s.containedInPlace.branchCode,
+                    offers: s.offers
                 });
             });
             if (purchase.authorizeSeatReservation !== undefined
@@ -863,7 +861,7 @@ let PurchaseCinemaSeatComponent = class PurchaseCinemaSeatComponent {
      * 自由席予約可能数計算
      */
     remainingAttendeeCapacityValue(params) {
-        const screeningEventOffers = params.screeningEventOffers;
+        const screeningEventSeats = params.screeningEventSeats;
         const screeningEvent = params.screeningEvent;
         const authorizeSeatReservations = params.authorizeSeatReservations;
         const values = [];
@@ -874,7 +872,7 @@ let PurchaseCinemaSeatComponent = class PurchaseCinemaSeatComponent {
         if (new _models__WEBPACK_IMPORTED_MODULE_7__["Performance"](screeningEvent).isTicketedSeat()) {
             // イベント全体の残席数計算
             const screeningEventLimit = Object(_functions__WEBPACK_IMPORTED_MODULE_6__["getRemainingSeatLength"])({
-                screeningEventOffers, screeningEvent, authorizeSeatReservations
+                screeningEventSeats, screeningEvent, authorizeSeatReservations
             });
             if (limit > screeningEventLimit) {
                 limit = screeningEventLimit;
@@ -896,8 +894,8 @@ let PurchaseCinemaSeatComponent = class PurchaseCinemaSeatComponent {
             const purchaseData = yield this.purchaseService.getData();
             const value = Number(event.target.value);
             const reservations = purchaseData.reservations;
-            const screeningEventOffers = purchaseData.screeningEventOffers;
-            const seats = Object(_functions__WEBPACK_IMPORTED_MODULE_6__["getEmptySeat"])({ reservations, screeningEventOffers });
+            const screeningEventSeats = this.screeningEventSeats;
+            const seats = Object(_functions__WEBPACK_IMPORTED_MODULE_6__["getEmptySeat"])({ reservations, screeningEventSeats });
             yield this.resetSeats();
             const selectSeats = [];
             for (let i = 0; i < value; i++) {
@@ -928,7 +926,10 @@ let PurchaseCinemaSeatComponent = class PurchaseCinemaSeatComponent {
                 return;
             }
             try {
-                yield this.purchaseService.temporaryReservation({ reservations });
+                yield this.purchaseService.temporaryReservation({
+                    reservations,
+                    screeningEventSeats: this.screeningEventSeats
+                });
                 this.router.navigate(['/purchase/cinema/ticket']);
             }
             catch (error) {
@@ -1100,7 +1101,12 @@ let PurchaseCinemaTicketComponent = class PurchaseCinemaTicketComponent {
             }
             try {
                 const additionalTicketText = this.additionalTicketText;
-                yield this.purchaseService.temporaryReservation({ reservations, additionalTicketText });
+                const screeningEventSeats = yield this.purchaseService.getScreeningEventSeats();
+                yield this.purchaseService.temporaryReservation({
+                    reservations,
+                    additionalTicketText,
+                    screeningEventSeats
+                });
                 if (!this.environment.PURCHASE_CART) {
                     this.router.navigate(['/purchase/payment']);
                     return;
@@ -1324,14 +1330,12 @@ let PurchaseEventScheduleComponent = class PurchaseEventScheduleComponent {
                 }
                 const scheduleDate = moment__WEBPACK_IMPORTED_MODULE_4__(this.scheduleDate).format('YYYY-MM-DD');
                 this.purchaseService.selectScheduleDate(scheduleDate);
-                yield this.masterService.getSchedule({
+                this.screeningEvents = yield this.masterService.getSchedule({
                     superEvent: { locationBranchCodes: [theater.branchCode] },
                     startFrom: moment__WEBPACK_IMPORTED_MODULE_4__(scheduleDate).toDate(),
                     startThrough: moment__WEBPACK_IMPORTED_MODULE_4__(scheduleDate).add(1, 'day').toDate()
                 });
-                const master = yield this.masterService.getData();
-                const screeningEvents = master.screeningEvents;
-                this.screeningWorkEvents = Object(_functions__WEBPACK_IMPORTED_MODULE_7__["screeningEventsToWorkEvents"])({ screeningEvents });
+                this.screeningWorkEvents = Object(_functions__WEBPACK_IMPORTED_MODULE_7__["screeningEventsToWorkEvents"])({ screeningEvents: this.screeningEvents });
                 this.update();
             }
             catch (error) {
@@ -1350,8 +1354,7 @@ let PurchaseEventScheduleComponent = class PurchaseEventScheduleComponent {
                 if (user.theater === undefined) {
                     throw new Error('user.theater === undefined');
                 }
-                const screeningEvent = (yield this.masterService.getData())
-                    .screeningEvents
+                const screeningEvent = this.screeningEvents
                     .find(s => s.offers !== undefined && s.offers.seller !== undefined && s.offers.seller.id !== undefined);
                 if (screeningEvent === undefined
                     || screeningEvent.offers === undefined
@@ -1568,13 +1571,11 @@ let PurchaseEventTicketComponent = class PurchaseEventTicketComponent {
                 if (theater === undefined || scheduleDate === undefined) {
                     throw new Error('theater === undefined || scheduleDate === undefined').message;
                 }
-                yield this.masterService.getSchedule({
+                const screeningEvents = yield this.masterService.getSchedule({
                     superEvent: { locationBranchCodes: [theater.branchCode] },
                     startFrom: moment__WEBPACK_IMPORTED_MODULE_4__(scheduleDate).toDate(),
                     startThrough: moment__WEBPACK_IMPORTED_MODULE_4__(scheduleDate).add(1, 'day').toDate()
                 });
-                const master = yield this.masterService.getData();
-                const screeningEvents = master.screeningEvents;
                 this.screeningWorkEvents = Object(_functions__WEBPACK_IMPORTED_MODULE_7__["screeningEventsToWorkEvents"])({ screeningEvents });
                 this.update();
             }
@@ -1604,7 +1605,7 @@ let PurchaseEventTicketComponent = class PurchaseEventTicketComponent {
             }
             try {
                 yield this.purchaseService.getScreeningEvent(screeningEvent);
-                yield this.purchaseService.getScreeningEventOffers();
+                this.screeningEventSeats = yield this.purchaseService.getScreeningEventSeats();
                 yield this.purchaseService.getTicketList({ seller: purchase.seller });
                 this.openTicketList();
             }
@@ -1625,13 +1626,13 @@ let PurchaseEventTicketComponent = class PurchaseEventTicketComponent {
             this.purchase.subscribe((purchase) => {
                 const screeningEvent = purchase.screeningEvent;
                 const screeningEventTicketOffers = purchase.screeningEventTicketOffers;
-                const screeningEventOffers = purchase.screeningEventOffers;
+                const screeningEventSeats = this.screeningEventSeats;
                 const authorizeSeatReservations = purchase.authorizeSeatReservations;
                 this.modal.show(_shared_components_parts_purchase_event_ticket_modal_ticket_modal_component__WEBPACK_IMPORTED_MODULE_11__["PurchaseEventTicketModalComponent"], {
                     class: 'modal-dialog-centered modal-lg',
                     initialState: {
                         screeningEventTicketOffers,
-                        screeningEventOffers,
+                        screeningEventSeats,
                         screeningEvent,
                         authorizeSeatReservations,
                         cb: (params) => {
@@ -1657,19 +1658,19 @@ let PurchaseEventTicketComponent = class PurchaseEventTicketComponent {
                 return;
             }
             try {
-                yield this.purchaseService.getScreeningEventOffers();
+                this.screeningEventSeats = yield this.purchaseService.getScreeningEventSeats();
                 const purchase = yield this.purchaseService.getData();
                 if (purchase.screeningEvent !== undefined
                     && new _models__WEBPACK_IMPORTED_MODULE_8__["Performance"](purchase.screeningEvent).isTicketedSeat()) {
                     const remainingSeatLength = Object(_functions__WEBPACK_IMPORTED_MODULE_7__["getRemainingSeatLength"])({
-                        screeningEventOffers: purchase.screeningEventOffers,
+                        screeningEventSeats: this.screeningEventSeats,
                         screeningEvent: purchase.screeningEvent,
                         authorizeSeatReservations: purchase.authorizeSeatReservations
                     });
                     if (remainingSeatLength < reservations.length) {
                         this.utilService.openAlert({
                             title: this.translate.instant('common.error'),
-                            body: this.translate.instant('purchase.event.ticket.alert.getScreeningEventOffers')
+                            body: this.translate.instant('purchase.event.ticket.alert.getScreeningEventSeats')
                         });
                         return;
                     }
@@ -1683,7 +1684,11 @@ let PurchaseEventTicketComponent = class PurchaseEventTicketComponent {
                 });
             }
             try {
-                yield this.purchaseService.temporaryReservation({ reservations, additionalTicketText });
+                yield this.purchaseService.temporaryReservation({
+                    reservations,
+                    additionalTicketText,
+                    screeningEventSeats: this.screeningEventSeats
+                });
                 this.utilService.openAlert({
                     title: this.translate.instant('common.complete'),
                     body: this.translate.instant('purchase.event.ticket.success.temporaryReservation')

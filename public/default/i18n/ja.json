@@ -599,7 +599,7 @@
             "GetScreen": "スクリーン情報を取得しています",
             "GetScreenData": "座席情報を取得しています",
             "GetTicketList": "券種情報を取得しています",
-            "GetScreeningEventOffers": "空席情報を取得しています",
+            "GetScreeningEventSeats": "空席情報を取得しています",
             "GetSeller": "販売者情報を取得しています",
             "TemporaryReservation": "仮予約しています",
             "TemporaryReservationFreeSeat": "仮予約しています",
