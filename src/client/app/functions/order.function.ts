@@ -405,7 +405,9 @@ export function input2OrderSearchCondition(params: {
                         ? undefined
                         : moment(moment(input.eventStartDateThrough)
                             .format('YYYYMMDD')).add(1, 'day').toDate(),
-                    location: { branchCodes: (theater === undefined) ? [] : [theater.branchCode] }
+                    superEvent: {
+                        location: { branchCodes: (theater === undefined) ? [] : [theater.branchCode] }
+                    }
                 }
             }
         },
