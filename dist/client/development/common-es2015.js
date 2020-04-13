@@ -245,9 +245,6 @@ let SettingGuardService = class SettingGuardService {
             try {
                 this.user = this.store.pipe(Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_2__["select"])(_store_reducers__WEBPACK_IMPORTED_MODULE_3__["getUser"]));
                 const user = yield this.getUser();
-                if (user.seller === undefined) {
-                    throw new Error('seller not found').message;
-                }
                 if (user.theater === undefined) {
                     throw new Error('theater not found').message;
                 }

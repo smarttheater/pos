@@ -5,7 +5,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { BsModalRef } from 'ngx-bootstrap';
 import { Observable } from 'rxjs';
 import { movieTicketAuthErroCodeToMessage } from '../../../../../../functions';
-import { PurchaseService, QRCodeService, UserService } from '../../../../../../services';
+import { PurchaseService, QRCodeService } from '../../../../../../services';
 import * as reducers from '../../../../../../store/reducers';
 import { ChangeLanguagePipe } from '../../../../../shared/pipes/change-language.pipe';
 
@@ -30,7 +30,6 @@ export class MvtkCheckModalComponent implements OnInit {
         private store: Store<reducers.IState>,
         private formBuilder: FormBuilder,
         private purchaseService: PurchaseService,
-        private userService: UserService,
         private translate: TranslateService,
         private qrcodeService: QRCodeService
     ) { }
@@ -73,7 +72,7 @@ export class MvtkCheckModalComponent implements OnInit {
         }
         this.errorMessage = '';
         try {
-            const seller = (await this.userService.getData()).seller;
+            const seller = (await this.purchaseService.getData()).seller;
             if (seller === undefined) {
                 throw new Error('seller undefined');
             }

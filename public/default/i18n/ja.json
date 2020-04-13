@@ -600,6 +600,7 @@
             "GetScreenData": "座席情報を取得しています",
             "GetTicketList": "券種情報を取得しています",
             "GetScreeningEventOffers": "空席情報を取得しています",
+            "GetSeller": "販売者情報を取得しています",
             "TemporaryReservation": "仮予約しています",
             "TemporaryReservationFreeSeat": "仮予約しています",
             "CancelTemporaryReservations": "仮予約をキャンセルしています",
@@ -679,6 +680,7 @@
         "reservationId": "予約ID",
         "reservationNumber": "予約番号",
         "theater": "劇場",
+        "seller": "販売者",
         "screen": "スクリーン",
         "event": "作品",
         "startDate": "上映日時",
@@ -744,6 +746,7 @@
         "warning": "警告",
         "change": "変更",
         "remove": "削除",
-        "etc": "その他"
+        "etc": "その他",
+        "required": "必須"
     }
 }

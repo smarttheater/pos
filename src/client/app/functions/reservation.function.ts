@@ -37,12 +37,12 @@ export function reservation2report(
  */
 export function input2ReservationSearchCondition(params: {
     input: IReservationSearchConditions;
-    seller?: factory.seller.IOrganization<factory.seller.IAttributes<factory.organizationType>>;
+    theater?: factory.chevre.place.movieTheater.IPlaceWithoutScreeningRoom;
     page?: number;
     limit?: number;
 }) {
     const input = params.input;
-    const seller = params.seller;
+    const theater = params.theater;
     const page = params.page;
     const limit = params.limit;
     const result: factory.chevre.reservation.ISearchConditions<factory.chevre.reservationType.EventReservation> = {
@@ -61,11 +61,7 @@ export function input2ReservationSearchCondition(params: {
                 ? undefined
                 : moment(moment(input.eventStartDateThrough).format('YYYYMMDD')).add(1, 'day').toDate(),
             superEvent: {
-                location: {
-                    branchCodes: (seller === undefined
-                        || seller.location === undefined
-                        || seller.location.branchCode === undefined) ? [] : [seller.location.branchCode]
-                }
+                location: { branchCodes: (theater === undefined) ? [] : [theater.branchCode] }
             }
         },
         ids: (input.id === '')

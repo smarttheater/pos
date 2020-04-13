@@ -33,6 +33,25 @@ export class PurchaseEffects {
     ) { }
 
     /**
+     * GetSeller
+     */
+    @Effect()
+    public getSeller = this.actions.pipe(
+        ofType<purchaseAction.GetSeller>(purchaseAction.ActionTypes.GetSeller),
+        map(action => action.payload),
+        mergeMap(async (payload) => {
+            try {
+                await this.cinerinoService.getServices();
+                const id = payload.id;
+                const seller = await this.cinerinoService.seller.findById({ id });
+                return new purchaseAction.GetSellerSuccess({ seller });
+            } catch (error) {
+                return new purchaseAction.GetSellerFail({ error: error });
+            }
+        })
+    );
+
+    /**
      * StartTransaction
      */
     @Effect()
@@ -171,15 +190,15 @@ export class PurchaseEffects {
                     await this.cinerinoService.transaction.placeOrder.authorizeSeatReservation({
                         object: {
                             event: { id: screeningEvent.id },
-                            acceptedOffer: reservations.map((reservation, index) => {
-                                if (reservation.ticket === undefined) {
-                                    throw new Error('ticket is undefined').message;
+                            acceptedOffer: reservations.map((r, index) => {
+                                if (r.ticket === undefined || r.ticket.ticketOffer.id === undefined) {
+                                    throw new Error('ticket or ticket.ticketOffer.id is undefined').message;
                                 }
                                 return {
-                                    id: reservation.ticket.ticketOffer.id,
-                                    addOn: (reservation.ticket.addOn === undefined)
+                                    id: r.ticket.ticketOffer.id,
+                                    addOn: (r.ticket.addOn === undefined)
                                         ? undefined
-                                        : reservation.ticket.addOn.map(a => ({ id: a.id })),
+                                        : r.ticket.addOn.filter(a => a.id !== undefined).map(a => ({ id: <string>a.id })),
                                     additionalProperty: [],
                                     itemOffered: {
                                         serviceOutput: {

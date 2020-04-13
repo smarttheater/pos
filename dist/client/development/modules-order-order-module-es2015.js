@@ -207,7 +207,7 @@ let OrderDownloadComponent = class OrderDownloadComponent {
             try {
                 const params = Object(_functions__WEBPACK_IMPORTED_MODULE_7__["input2OrderSearchCondition"])({
                     input: this.confirmedConditions,
-                    seller: (yield this.userService.getData()).seller,
+                    theater: (yield this.userService.getData()).theater,
                 });
                 yield this.downloadService.order(params);
             }
@@ -562,7 +562,7 @@ let OrderSearchUnlimitedComponent = class OrderSearchUnlimitedComponent {
                 this.orders = [];
                 const params = Object(_functions__WEBPACK_IMPORTED_MODULE_8__["input2OrderSearchCondition"])({
                     input: this.confirmedConditions,
-                    seller: (yield this.userService.getData()).seller,
+                    theater: (yield this.userService.getData()).theater,
                     limit: this.limit
                 });
                 const searchResult = yield this.orderService.splitSearch(params);
@@ -996,7 +996,7 @@ let OrderSearchComponent = class OrderSearchComponent {
             try {
                 const params = Object(_functions__WEBPACK_IMPORTED_MODULE_8__["input2OrderSearchCondition"])({
                     input: this.confirmedConditions,
-                    seller: (yield this.userService.getData()).seller,
+                    theater: (yield this.userService.getData()).theater,
                     page: this.currentPage,
                     limit: this.limit
                 });

@@ -161,7 +161,7 @@ export class OrderSearchUnlimitedComponent implements OnInit {
             this.orders = [];
             const params = input2OrderSearchCondition({
                 input: this.confirmedConditions,
-                seller: (await this.userService.getData()).seller,
+                theater: (await this.userService.getData()).theater,
                 limit: this.limit
             });
             const searchResult = await this.orderService.splitSearch(params);

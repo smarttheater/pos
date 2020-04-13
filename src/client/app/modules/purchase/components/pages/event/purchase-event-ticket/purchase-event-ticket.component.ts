@@ -83,21 +83,16 @@ export class PurchaseEventTicketComponent implements OnInit, OnDestroy {
      * スケジュール取得
      */
     public async getSchedule() {
-        const user = await this.userService.getData();
-        const purchase = await this.purchaseService.getData();
-        const seller = user.seller;
-        const scheduleDate = purchase.scheduleDate;
-        if (seller === undefined || scheduleDate === undefined) {
-            this.router.navigate(['/error']);
-            return;
-        }
         try {
+            const user = await this.userService.getData();
+            const purchase = await this.purchaseService.getData();
+            const theater = user.theater;
+            const scheduleDate = purchase.scheduleDate;
+            if (theater === undefined || scheduleDate === undefined) {
+                throw new Error('theater === undefined || scheduleDate === undefined').message;
+            }
             await this.masterService.getSchedule({
-                superEvent: {
-                    locationBranchCodes:
-                        (seller.location === undefined || seller.location.branchCode === undefined)
-                            ? [] : [seller.location.branchCode]
-                },
+                superEvent: { locationBranchCodes: [theater.branchCode] },
                 startFrom: moment(scheduleDate).toDate(),
                 startThrough: moment(scheduleDate).add(1, 'day').toDate()
             });
@@ -115,9 +110,8 @@ export class PurchaseEventTicketComponent implements OnInit, OnDestroy {
      * スケジュール選択
      */
     public async selectSchedule(screeningEvent: factory.event.screeningEvent.IEvent) {
-        const user = await this.userService.getData();
         const purchase = await this.purchaseService.getData();
-        if (user.seller === undefined) {
+        if (purchase.seller === undefined) {
             this.router.navigate(['/error']);
             return;
         }
@@ -132,7 +126,7 @@ export class PurchaseEventTicketComponent implements OnInit, OnDestroy {
         try {
             await this.purchaseService.getScreeningEvent(screeningEvent);
             await this.purchaseService.getScreeningEventOffers();
-            await this.purchaseService.getTicketList({ seller: user.seller });
+            await this.purchaseService.getTicketList({ seller: purchase.seller });
             this.openTicketList();
         } catch (error) {
             console.error(error);

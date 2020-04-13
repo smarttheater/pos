@@ -403,8 +403,8 @@ let AdmissionScheduleComponent = class AdmissionScheduleComponent {
             }
             try {
                 const user = yield this.userService.getData();
-                const seller = user.seller;
-                if (seller === undefined) {
+                const theater = user.theater;
+                if (theater === undefined) {
                     this.router.navigate(['/error']);
                     return;
                 }
@@ -414,10 +414,7 @@ let AdmissionScheduleComponent = class AdmissionScheduleComponent {
                 const scheduleDate = moment__WEBPACK_IMPORTED_MODULE_3__(this.scheduleDate).format('YYYY-MM-DD');
                 this.admissionService.selectScheduleDate(scheduleDate);
                 yield this.masterService.getSchedule({
-                    superEvent: {
-                        locationBranchCodes: (seller.location === undefined || seller.location.branchCode === undefined)
-                            ? [] : [seller.location.branchCode]
-                    },
+                    superEvent: { locationBranchCodes: [theater.branchCode] },
                     startFrom: moment__WEBPACK_IMPORTED_MODULE_3__(scheduleDate).toDate(),
                     startThrough: moment__WEBPACK_IMPORTED_MODULE_3__(scheduleDate).add(1, 'day').toDate()
                 });

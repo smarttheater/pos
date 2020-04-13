@@ -57,19 +57,6 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "../../node_modules/raw-loader/dist/cjs.js!./app/modules/tasks/components/pages/tasks-ownershipinfo-search/tasks-ownershipinfo-search.component.html":
-/*!*******************************************************************************************************************************************************************************************************!*\
-  !*** C:/Users/hataguchi/Desktop/workspace/Cinerino/pos/node_modules/raw-loader/dist/cjs.js!./app/modules/tasks/components/pages/tasks-ownershipinfo-search/tasks-ownershipinfo-search.component.html ***!
-  \*******************************************************************************************************************************************************************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("<div class=\"contents-width mx-auto px-3 py-5\">\n    <h2 class=\"text-large mb-4 text-center font-weight-bold\">{{ 'tasks.ownershipinfoSearch.title' | translate }}</h2>\n    <p class=\"mb-4 text-md-center\" [innerHTML]=\"'tasks.ownershipinfoSearch.read' | translate\"></p>\n    <div class=\"conditions p-3 bg-white mb-4\">\n        <form (submit)=\"ownershipinfoSearch(true)\">\n            <div class=\"form-row\">\n                <div class=\"form-group col-md-6\">\n                    <label for=\"fromDate\"\n                        class=\"mb-2\">{{ 'tasks.ownershipinfoSearch.conditions.fromDate' | translate }}</label>\n                    <input type=\"text\" name=\"fromDate\" id=\"fromDate\" placeholder=\"YYYY/MM/DD\" class=\"form-control\"\n                        #fromDate=\"bsDatepicker\" bsDatepicker [(ngModel)]=\"conditions.fromDate\"\n                        [bsConfig]=\"{ dateInputFormat: 'YYYY/MM/DD', adaptivePosition: true, showWeekNumbers: false }\"\n                        readonly (onShown)=\"onShowPicker($event)\" (click)=\"setDatePicker()\">\n                </div>\n                <div class=\"form-group col-md-6\">\n                    <label for=\"toDate\"\n                        class=\"mb-2\">{{ 'tasks.ownershipinfoSearch.conditions.toDate' | translate }}</label>\n                    <input type=\"text\" name=\"toDate\" id=\"toDate\" placeholder=\"YYYY/MM/DD\" class=\"form-control\"\n                        #toDate=\"bsDatepicker\" bsDatepicker [(ngModel)]=\"conditions.toDate\"\n                        [bsConfig]=\"{ dateInputFormat: 'YYYY/MM/DD', adaptivePosition: true, showWeekNumbers: false }\"\n                        readonly (onShown)=\"onShowPicker($event)\" (click)=\"setDatePicker()\">\n                    <!-- <input type=\"date\" class=\"form-control\" name=\"toDate\" id=\"toDate\"\n                        [(ngModel)]=\"conditions.toDate\" placeholder=\"{{ moment().format('YYYY-MM-DD') }}\"> -->\n                </div>\n            </div>\n            <div class=\"form-row\">\n                <div class=\"form-group col-md-12\">\n                    <label for=\"ownershipinfoStatus\" class=\"mb-2\">{{ 'common.theater' | translate }}</label>\n                    <div class=\"container mw-100\">\n                        <div class=\"row\">\n                            <div *ngFor=\"let seller of (master | async).sellers; let i = index\"\n                                class=\"form-check col-md-6 py-1\">\n                                <input class=\"form-check-input\" type=\"checkbox\" (change)=\"changeSeller(seller.id)\"\n                                    [checked]=\"isSellerChecked(seller.id)\" [id]=\"seller.identifier\" name=\"theaterIds\">\n                                <label class=\"form-check-label\" [for]=\"seller.identifier\">{{ seller.name.ja }}</label>\n                            </div>\n                        </div>\n                    </div>\n                </div>\n            </div>\n            <div class=\"buttons mx-auto text-center\">\n                <button type=\"submit\" class=\"btn btn-primary btn-block py-3 mb-3\"\n                    [disabled]=\"isLoading | async\">{{ 'tasks.ownershipinfoSearch.search' | translate }}</button>\n                <button type=\"button\" class=\"btn btn-outline-primary btn-block py-3\"\n                    (click)=\"searchConditionClear()\">{{ 'tasks.ownershipinfoSearch.clear' | translate }}</button>\n            </div>\n        </form>\n    </div>\n\n    <p class=\"mb-4\" *ngIf=\"table.length === 0\">{{ 'tasks.ownershipinfoSearch.notfound' | translate }}</p>\n\n    <div class=\"mb-4\" *ngIf=\"table.length > 0\">\n        <div class=\"scroll-horizontal\">\n            <table class=\"table bg-white border text-small mb-0 border border-gray\">\n                <thead>\n                    <tr>\n                        <th scope=\"col\">{{ 'common.theater' | translate }}</th>\n                        <th class=\"text-right\" scope=\"col\">{{ 'tasks.ownershipinfoSearch.count' | translate }}</th>\n                    </tr>\n                </thead>\n                <tbody>\n                    <tr *ngFor=\"let data of table let index = index\" [class.bg-light-gray]=\"index % 2 === 0\">\n                        <td class=\"align-middle\">\n                            <p>{{ data.seller.name.ja }}</p>\n                        </td>\n                        <td class=\"align-middle text-right\">\n                            <p>{{ data.count }}</p>\n                        </td>\n                    </tr>\n                    <tr [class.bg-light-gray]=\"table.length % 2 === 0\">\n                        <td class=\"align-middle font-weight-bold\">\n                            <p>{{ 'tasks.ownershipinfoSearch.total' | translate }}</p>\n                        </td>\n                        <td class=\"align-middle text-right font-weight-bold\">\n                            <p>{{ getTotalCount() }}</p>\n                        </td>\n                    </tr>\n                </tbody>\n            </table>\n        </div>\n\n\n    </div>\n    <div class=\"buttons mx-auto text-center\">\n        <button type=\"button\" class=\"btn btn-link\"\n            routerLink=\"/tasks\">{{ 'tasks.ownershipinfoSearch.prev' | translate }}</button>\n    </div>\n</div>");
-
-/***/ }),
-
 /***/ "./app/modules/tasks/components/pages/tasks-account-deposit-csv/tasks-account-deposit-csv.component.scss":
 /*!***************************************************************************************************************!*\
   !*** ./app/modules/tasks/components/pages/tasks-account-deposit-csv/tasks-account-deposit-csv.component.scss ***!
@@ -715,253 +702,6 @@ TasksIndexComponent = __decorate([
 
 /***/ }),
 
-/***/ "./app/modules/tasks/components/pages/tasks-ownershipinfo-search/tasks-ownershipinfo-search.component.scss":
-/*!*****************************************************************************************************************!*\
-  !*** ./app/modules/tasks/components/pages/tasks-ownershipinfo-search/tasks-ownershipinfo-search.component.scss ***!
-  \*****************************************************************************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = (".scroll-horizontal .table {\n  min-width: 900px;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9jbGllbnQvYXBwL21vZHVsZXMvdGFza3MvY29tcG9uZW50cy9wYWdlcy90YXNrcy1vd25lcnNoaXBpbmZvLXNlYXJjaC9DOlxcVXNlcnNcXGhhdGFndWNoaVxcRGVza3RvcFxcd29ya3NwYWNlXFxDaW5lcmlub1xccG9zL3NyY1xcY2xpZW50XFxhcHBcXG1vZHVsZXNcXHRhc2tzXFxjb21wb25lbnRzXFxwYWdlc1xcdGFza3Mtb3duZXJzaGlwaW5mby1zZWFyY2hcXHRhc2tzLW93bmVyc2hpcGluZm8tc2VhcmNoLmNvbXBvbmVudC5zY3NzIiwic3JjL2NsaWVudC9hcHAvbW9kdWxlcy90YXNrcy9jb21wb25lbnRzL3BhZ2VzL3Rhc2tzLW93bmVyc2hpcGluZm8tc2VhcmNoL3Rhc2tzLW93bmVyc2hpcGluZm8tc2VhcmNoLmNvbXBvbmVudC5zY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUtJO0VBQ0ksZ0JBQUE7QUNKUiIsImZpbGUiOiJzcmMvY2xpZW50L2FwcC9tb2R1bGVzL3Rhc2tzL2NvbXBvbmVudHMvcGFnZXMvdGFza3Mtb3duZXJzaGlwaW5mby1zZWFyY2gvdGFza3Mtb3duZXJzaGlwaW5mby1zZWFyY2guY29tcG9uZW50LnNjc3MiLCJzb3VyY2VzQ29udGVudCI6WyJAaW1wb3J0IFwibm9kZV9tb2R1bGVzL2Jvb3RzdHJhcC9zY3NzL2Z1bmN0aW9uc1wiO1xuQGltcG9ydCBcIm5vZGVfbW9kdWxlcy9ib290c3RyYXAvc2Nzcy92YXJpYWJsZXNcIjtcbkBpbXBvcnQgXCJub2RlX21vZHVsZXMvYm9vdHN0cmFwL3Njc3MvbWl4aW5zXCI7XG5cbi5zY3JvbGwtaG9yaXpvbnRhbCB7XG4gICAgLnRhYmxlIHtcbiAgICAgICAgbWluLXdpZHRoOiA5MDBweDtcbiAgICB9XG59XG5cbiIsIi5zY3JvbGwtaG9yaXpvbnRhbCAudGFibGUge1xuICBtaW4td2lkdGg6IDkwMHB4O1xufSJdfQ== */");
-
-/***/ }),
-
-/***/ "./app/modules/tasks/components/pages/tasks-ownershipinfo-search/tasks-ownershipinfo-search.component.ts":
-/*!***************************************************************************************************************!*\
-  !*** ./app/modules/tasks/components/pages/tasks-ownershipinfo-search/tasks-ownershipinfo-search.component.ts ***!
-  \***************************************************************************************************************/
-/*! exports provided: TasksOwnershipinfoSearchComponent */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "TasksOwnershipinfoSearchComponent", function() { return TasksOwnershipinfoSearchComponent; });
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "../../node_modules/@angular/core/fesm2015/core.js");
-/* harmony import */ var _ngrx_store__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @ngrx/store */ "../../node_modules/@ngrx/store/fesm2015/store.js");
-/* harmony import */ var _ngx_translate_core__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @ngx-translate/core */ "../../node_modules/@ngx-translate/core/fesm2015/ngx-translate-core.js");
-/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! moment */ "../../node_modules/moment/moment.js");
-/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_3__);
-/* harmony import */ var ngx_bootstrap__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ngx-bootstrap */ "../../node_modules/ngx-bootstrap/esm5/ngx-bootstrap.js");
-/* harmony import */ var _functions__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../../../../functions */ "./app/functions/index.ts");
-/* harmony import */ var _services__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../../../../services */ "./app/services/index.ts");
-/* harmony import */ var _store_reducers__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../../../../../store/reducers */ "./app/store/reducers/index.ts");
-var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata = (undefined && undefined.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-var __awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : new P(function (resolve) { resolve(result.value); }).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-};
-var __importDefault = (undefined && undefined.__importDefault) || function (mod) {
-  return (mod && mod.__esModule) ? mod : { "default": mod };
-};
-
-
-
-
-
-
-
-
-let TasksOwnershipinfoSearchComponent = class TasksOwnershipinfoSearchComponent {
-    constructor(store, utilService, userService, masterService, cinerinoService, localeService, translate) {
-        this.store = store;
-        this.utilService = utilService;
-        this.userService = userService;
-        this.masterService = masterService;
-        this.cinerinoService = cinerinoService;
-        this.localeService = localeService;
-        this.translate = translate;
-    }
-    ngOnInit() {
-        return __awaiter(this, void 0, void 0, function* () {
-            this.isLoading = this.store.pipe(Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_1__["select"])(_store_reducers__WEBPACK_IMPORTED_MODULE_7__["getLoading"]));
-            this.user = this.store.pipe(Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_1__["select"])(_store_reducers__WEBPACK_IMPORTED_MODULE_7__["getUser"]));
-            this.master = this.store.pipe(Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_1__["select"])(_store_reducers__WEBPACK_IMPORTED_MODULE_7__["getMaster"]));
-            this.table = [];
-            const now = moment__WEBPACK_IMPORTED_MODULE_3__();
-            const today = moment__WEBPACK_IMPORTED_MODULE_3__(moment__WEBPACK_IMPORTED_MODULE_3__(now).format('YYYYMMDD'));
-            this.conditions = {
-                fromDate: moment__WEBPACK_IMPORTED_MODULE_3__(today).add(-1, 'month').toDate(),
-                toDate: moment__WEBPACK_IMPORTED_MODULE_3__(today).toDate(),
-                theaterIds: []
-            };
-            try {
-                yield this.masterService.getSellers();
-            }
-            catch (error) {
-                console.error(error);
-            }
-            const userData = yield this.userService.getData();
-            if (userData.seller === undefined) {
-                throw new Error('seller undefined');
-            }
-            this.conditions.theaterIds = [userData.seller.id];
-        });
-    }
-    /**
-     * 検索パラメータへ変換
-     */
-    convertToSearchParams() {
-        return {
-            fromDate: this.confirmedConditions.fromDate,
-            toDate: this.confirmedConditions.toDate,
-            theaterIds: this.confirmedConditions.theaterIds
-        };
-    }
-    /**
-     * 検索
-     */
-    ownershipinfoSearch(changeConditions) {
-        return __awaiter(this, void 0, void 0, function* () {
-            this.table = [];
-            if (changeConditions) {
-                this.confirmedConditions = {
-                    fromDate: this.conditions.fromDate,
-                    toDate: this.conditions.toDate,
-                    theaterIds: this.conditions.theaterIds
-                };
-            }
-            this.utilService.loadStart();
-            try {
-                const params = this.convertToSearchParams();
-                const sellers = (yield this.masterService.getData()).sellers;
-                yield this.cinerinoService.getServices();
-                for (const id of params.theaterIds) {
-                    const result = yield this.cinerinoService.admin.ownershipInfo.countByRegisterDateAndTheater({
-                        fromDate: params.fromDate,
-                        toDate: moment__WEBPACK_IMPORTED_MODULE_3__(params.toDate).add(1, 'day').toDate(),
-                        theaterIds: [id]
-                    });
-                    const findResult = sellers.find(s => s.id === id);
-                    if (findResult === undefined) {
-                        continue;
-                    }
-                    this.table.push({ seller: findResult, count: result.count });
-                }
-            }
-            catch (error) {
-                console.error(error);
-                this.utilService.openAlert({
-                    title: this.translate.instant('common.error'),
-                    body: this.translate.instant('person.search.alert.search')
-                });
-            }
-            this.utilService.loadEnd();
-        });
-    }
-    /**
-     * 検索条件クリア
-     */
-    searchConditionClear() {
-        return __awaiter(this, void 0, void 0, function* () {
-            const userData = yield this.userService.getData();
-            if (userData.seller === undefined) {
-                throw new Error('seller undefined');
-            }
-            const now = moment__WEBPACK_IMPORTED_MODULE_3__();
-            const today = moment__WEBPACK_IMPORTED_MODULE_3__(moment__WEBPACK_IMPORTED_MODULE_3__(now).format('YYYYMMDD'));
-            this.conditions = {
-                fromDate: moment__WEBPACK_IMPORTED_MODULE_3__(today).add(-1, 'month').toDate(),
-                toDate: moment__WEBPACK_IMPORTED_MODULE_3__(today).toDate(),
-                theaterIds: [userData.seller.id]
-            };
-        });
-    }
-    /**
-     * DatePicker設定
-     */
-    setDatePicker() {
-        this.user.subscribe((user) => {
-            this.localeService.use(user.language);
-        }).unsubscribe();
-    }
-    /**
-     * iOS bugfix（2回タップしないと選択できない）
-     */
-    onShowPicker(container) {
-        Object(_functions__WEBPACK_IMPORTED_MODULE_5__["iOSDatepickerTapBugFix"])(container, [
-            this.fromDate,
-            this.toDate
-        ]);
-    }
-    /**
-     * 劇場変更
-     */
-    changeSeller(id) {
-        const findResult = this.conditions.theaterIds.find(theaterId => theaterId === id);
-        if (findResult === undefined) {
-            this.conditions.theaterIds.push(id);
-        }
-        else {
-            const tmp = this.conditions.theaterIds.filter(theaterId => theaterId !== id);
-            this.conditions.theaterIds = tmp;
-        }
-    }
-    /**
-     * 劇場選択判定
-     */
-    isSellerChecked(branchCode) {
-        const findResult = this.conditions.theaterIds.find(id => id === branchCode);
-        return (findResult !== undefined);
-    }
-    /**
-     * 合計値取得
-     */
-    getTotalCount() {
-        let result = 0;
-        this.table.forEach(t => result += t.count);
-        return result;
-    }
-};
-TasksOwnershipinfoSearchComponent.ctorParameters = () => [
-    { type: _ngrx_store__WEBPACK_IMPORTED_MODULE_1__["Store"] },
-    { type: _services__WEBPACK_IMPORTED_MODULE_6__["UtilService"] },
-    { type: _services__WEBPACK_IMPORTED_MODULE_6__["UserService"] },
-    { type: _services__WEBPACK_IMPORTED_MODULE_6__["MasterService"] },
-    { type: _services__WEBPACK_IMPORTED_MODULE_6__["CinerinoService"] },
-    { type: ngx_bootstrap__WEBPACK_IMPORTED_MODULE_4__["BsLocaleService"] },
-    { type: _ngx_translate_core__WEBPACK_IMPORTED_MODULE_2__["TranslateService"] }
-];
-__decorate([
-    Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ViewChild"])('fromDate', { static: true }),
-    __metadata("design:type", ngx_bootstrap__WEBPACK_IMPORTED_MODULE_4__["BsDatepickerDirective"])
-], TasksOwnershipinfoSearchComponent.prototype, "fromDate", void 0);
-__decorate([
-    Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ViewChild"])('toDate', { static: true }),
-    __metadata("design:type", ngx_bootstrap__WEBPACK_IMPORTED_MODULE_4__["BsDatepickerDirective"])
-], TasksOwnershipinfoSearchComponent.prototype, "toDate", void 0);
-TasksOwnershipinfoSearchComponent = __decorate([
-    Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
-        selector: 'app-tasks-ownershipinfo-search',
-        template: __importDefault(__webpack_require__(/*! raw-loader!./tasks-ownershipinfo-search.component.html */ "../../node_modules/raw-loader/dist/cjs.js!./app/modules/tasks/components/pages/tasks-ownershipinfo-search/tasks-ownershipinfo-search.component.html")).default,
-        styles: [__importDefault(__webpack_require__(/*! ./tasks-ownershipinfo-search.component.scss */ "./app/modules/tasks/components/pages/tasks-ownershipinfo-search/tasks-ownershipinfo-search.component.scss")).default]
-    }),
-    __metadata("design:paramtypes", [_ngrx_store__WEBPACK_IMPORTED_MODULE_1__["Store"],
-        _services__WEBPACK_IMPORTED_MODULE_6__["UtilService"],
-        _services__WEBPACK_IMPORTED_MODULE_6__["UserService"],
-        _services__WEBPACK_IMPORTED_MODULE_6__["MasterService"],
-        _services__WEBPACK_IMPORTED_MODULE_6__["CinerinoService"],
-        ngx_bootstrap__WEBPACK_IMPORTED_MODULE_4__["BsLocaleService"],
-        _ngx_translate_core__WEBPACK_IMPORTED_MODULE_2__["TranslateService"]])
-], TasksOwnershipinfoSearchComponent);
-
-
-
-/***/ }),
-
 /***/ "./app/modules/tasks/tasks-routing.module.ts":
 /*!***************************************************!*\
   !*** ./app/modules/tasks/tasks-routing.module.ts ***!
@@ -979,7 +719,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_pages_tasks_account_deposit_csv_tasks_account_deposit_csv_component__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./components/pages/tasks-account-deposit-csv/tasks-account-deposit-csv.component */ "./app/modules/tasks/components/pages/tasks-account-deposit-csv/tasks-account-deposit-csv.component.ts");
 /* harmony import */ var _components_pages_tasks_account_deposit_tasks_account_deposit_component__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./components/pages/tasks-account-deposit/tasks-account-deposit.component */ "./app/modules/tasks/components/pages/tasks-account-deposit/tasks-account-deposit.component.ts");
 /* harmony import */ var _components_pages_tasks_index_tasks_index_component__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./components/pages/tasks-index/tasks-index.component */ "./app/modules/tasks/components/pages/tasks-index/tasks-index.component.ts");
-/* harmony import */ var _components_pages_tasks_ownershipinfo_search_tasks_ownershipinfo_search_component__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./components/pages/tasks-ownershipinfo-search/tasks-ownershipinfo-search.component */ "./app/modules/tasks/components/pages/tasks-ownershipinfo-search/tasks-ownershipinfo-search.component.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -996,7 +735,6 @@ var __importDefault = (undefined && undefined.__importDefault) || function (mod)
 
 
 
-
 const routes = [{
         path: '',
         component: _shared_components_pages_base_base_component__WEBPACK_IMPORTED_MODULE_3__["BaseComponent"],
@@ -1004,8 +742,7 @@ const routes = [{
         children: [
             { path: '', component: _components_pages_tasks_index_tasks_index_component__WEBPACK_IMPORTED_MODULE_6__["TasksIndexComponent"] },
             { path: 'account/deposit/csv', component: _components_pages_tasks_account_deposit_csv_tasks_account_deposit_csv_component__WEBPACK_IMPORTED_MODULE_4__["TasksAccountDepositCSVComponent"] },
-            { path: 'account/deposit', component: _components_pages_tasks_account_deposit_tasks_account_deposit_component__WEBPACK_IMPORTED_MODULE_5__["TasksAccountDepositComponent"] },
-            { path: 'ownershipinfo/search', component: _components_pages_tasks_ownershipinfo_search_tasks_ownershipinfo_search_component__WEBPACK_IMPORTED_MODULE_7__["TasksOwnershipinfoSearchComponent"] }
+            { path: 'account/deposit', component: _components_pages_tasks_account_deposit_tasks_account_deposit_component__WEBPACK_IMPORTED_MODULE_5__["TasksAccountDepositComponent"] }
         ]
     }];
 let TasksRoutingModule = class TasksRoutingModule {
@@ -1037,8 +774,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_pages_tasks_account_deposit_csv_tasks_account_deposit_csv_component__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./components/pages/tasks-account-deposit-csv/tasks-account-deposit-csv.component */ "./app/modules/tasks/components/pages/tasks-account-deposit-csv/tasks-account-deposit-csv.component.ts");
 /* harmony import */ var _components_pages_tasks_account_deposit_tasks_account_deposit_component__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./components/pages/tasks-account-deposit/tasks-account-deposit.component */ "./app/modules/tasks/components/pages/tasks-account-deposit/tasks-account-deposit.component.ts");
 /* harmony import */ var _components_pages_tasks_index_tasks_index_component__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./components/pages/tasks-index/tasks-index.component */ "./app/modules/tasks/components/pages/tasks-index/tasks-index.component.ts");
-/* harmony import */ var _components_pages_tasks_ownershipinfo_search_tasks_ownershipinfo_search_component__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./components/pages/tasks-ownershipinfo-search/tasks-ownershipinfo-search.component */ "./app/modules/tasks/components/pages/tasks-ownershipinfo-search/tasks-ownershipinfo-search.component.ts");
-/* harmony import */ var _tasks_routing_module__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./tasks-routing.module */ "./app/modules/tasks/tasks-routing.module.ts");
+/* harmony import */ var _tasks_routing_module__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./tasks-routing.module */ "./app/modules/tasks/tasks-routing.module.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -1055,7 +791,6 @@ var __importDefault = (undefined && undefined.__importDefault) || function (mod)
 
 
 
-
 let TasksModule = class TasksModule {
 };
 TasksModule = __decorate([
@@ -1063,12 +798,11 @@ TasksModule = __decorate([
         declarations: [
             _components_pages_tasks_account_deposit_tasks_account_deposit_component__WEBPACK_IMPORTED_MODULE_4__["TasksAccountDepositComponent"],
             _components_pages_tasks_account_deposit_csv_tasks_account_deposit_csv_component__WEBPACK_IMPORTED_MODULE_3__["TasksAccountDepositCSVComponent"],
-            _components_pages_tasks_ownershipinfo_search_tasks_ownershipinfo_search_component__WEBPACK_IMPORTED_MODULE_6__["TasksOwnershipinfoSearchComponent"],
             _components_pages_tasks_index_tasks_index_component__WEBPACK_IMPORTED_MODULE_5__["TasksIndexComponent"]
         ],
         imports: [
             _angular_common__WEBPACK_IMPORTED_MODULE_0__["CommonModule"],
-            _tasks_routing_module__WEBPACK_IMPORTED_MODULE_7__["TasksRoutingModule"],
+            _tasks_routing_module__WEBPACK_IMPORTED_MODULE_6__["TasksRoutingModule"],
             _shared_shared_module__WEBPACK_IMPORTED_MODULE_2__["SharedModule"],
         ]
     })
