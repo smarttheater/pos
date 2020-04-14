@@ -31,23 +31,14 @@ export class AuthSigninComponent implements OnInit {
         this.projects = [];
         await this.masterService.getProjects();
         this.utilService.loadStart();
-        this.projects = await this.utilService.postJson<{
-            projectId: string;
-            projectName: string;
-            storageUrl: string;
-        }[]>('/api/projects', {});
         const masterData = await this.masterService.getData();
-        const projects = masterData.projects.filter(p => this.getProject(p.id) !== undefined);
+        const projects = masterData.projects;
         if (projects.length === 1) {
             // プロジェクトが一つの場合自動遷移
             location.href = `/?projectId=${projects[0].id}`;
             return;
         }
         this.utilService.loadEnd();
-    }
-
-    public getProject(id: string) {
-        return this.projects.find(p => p.projectId === id);
     }
 
     public async signOut() {

@@ -22,7 +22,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("<div *ngIf=\"projects.length > 0\" class=\"contents-width mx-auto px-3 py-5\">\n    <h2 class=\"text-large mb-4 text-center font-weight-bold\">プロジェクト選択</h2>\n    <p class=\"mb-4 text-md-center\">プロジェクトを選択してください。</p>\n\n    <ul class=\"d-md-flex flex-wrap mb-4\">\n        <li *ngFor=\"let project of (master | async).projects\" class=\"my-md-2 mb-3\">\n            <div class=\"card mx-md-2 h-100\">\n                <div class=\"card-body\">\n                    <div class=\"d-flex align-items-center mb-4\">\n                        <div class=\"mr-2\"><img [src]=\"project.logo\" class=\"logo\" [alt]=\"project.name\"></div>\n                        <p class=\"font-weight-bold\">{{ project.name }}</p>\n                    </div>\n                    <a class=\"btn btn-primary btn-block py-3\" [href]=\"'/?projectId=' + project.id\" [class.disabled]=\"!getProject(project.id)\">選択</a>\n                </div>\n            </div>\n        </li>\n    </ul>\n\n    <div class=\"buttons mx-auto text-center\">\n        <button type=\"button\" class=\"btn btn-link\" (click)=\"signOut()\">戻る</button>\n    </div>\n</div>\n\n<app-loading [isLoading]=\"isLoading | async\" process=\"process.masterAction.GetProjects\"></app-loading>");
+/* harmony default export */ __webpack_exports__["default"] = ("<div *ngIf=\"(master | async).projects.length > 0\" class=\"contents-width mx-auto px-3 py-5\">\n    <h2 class=\"text-large mb-4 text-center font-weight-bold\">プロジェクト選択</h2>\n    <p class=\"mb-4 text-md-center\">プロジェクトを選択してください。</p>\n\n    <ul class=\"d-md-flex flex-wrap mb-4\">\n        <li *ngFor=\"let project of (master | async).projects\" class=\"my-md-2 mb-3\">\n            <div class=\"card mx-md-2 h-100\">\n                <div class=\"card-body\">\n                    <div class=\"d-flex align-items-center mb-4\">\n                        <div class=\"mr-2\"><img [src]=\"project.logo\" class=\"logo\" [alt]=\"project.name\"></div>\n                        <p class=\"font-weight-bold\">{{ project.name }}</p>\n                    </div>\n                    <a class=\"btn btn-primary btn-block py-3\" [href]=\"'/?projectId=' + project.id\">選択</a>\n                </div>\n            </div>\n        </li>\n    </ul>\n\n    <div class=\"buttons mx-auto text-center\">\n        <button type=\"button\" class=\"btn btn-link\" (click)=\"signOut()\">戻る</button>\n    </div>\n</div>\n\n<app-loading [isLoading]=\"isLoading | async\" process=\"process.masterAction.GetProjects\"></app-loading>");
 
 /***/ }),
 
@@ -299,9 +299,8 @@ let AuthSigninComponent = class AuthSigninComponent {
             this.projects = [];
             yield this.masterService.getProjects();
             this.utilService.loadStart();
-            this.projects = yield this.utilService.postJson('/api/projects', {});
             const masterData = yield this.masterService.getData();
-            const projects = masterData.projects.filter(p => this.getProject(p.id) !== undefined);
+            const projects = masterData.projects;
             if (projects.length === 1) {
                 // プロジェクトが一つの場合自動遷移
                 location.href = `/?projectId=${projects[0].id}`;
@@ -309,9 +308,6 @@ let AuthSigninComponent = class AuthSigninComponent {
             }
             this.utilService.loadEnd();
         });
-    }
-    getProject(id) {
-        return this.projects.find(p => p.projectId === id);
     }
     signOut() {
         return __awaiter(this, void 0, void 0, function* () {
