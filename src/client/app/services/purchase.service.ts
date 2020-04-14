@@ -101,7 +101,7 @@ export class PurchaseService {
      */
     public async startTransaction(params: {
         seller: factory.seller.IOrganization<factory.seller.IAttributes<factory.organizationType>>;
-        pos?: factory.seller.IPOS;
+        pos?: factory.chevre.place.movieTheater.IPOS;
     }) {
         const environment = getEnvironment();
         const now = (await this.utilService.getServerTime()).date;

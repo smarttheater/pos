@@ -23117,6 +23117,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
         App: {}
       } : JSON.parse(sessonJson);
       var data = Object.assign({}, initialState, saveData.App, sessionData.App);
+      data.userData.seller = undefined;
       data.loading = false;
       return data;
     }
@@ -23327,12 +23328,10 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
         case _actions__WEBPACK_IMPORTED_MODULE_0__["userAction"].ActionTypes.UpdateAll:
           {
             var customerContact = action.payload.customerContact;
-            var seller = action.payload.seller;
             var pos = action.payload.pos;
             var theater = action.payload.theater;
             var printer = action.payload.printer;
             state.userData.customerContact = customerContact;
-            state.userData.seller = seller;
             state.userData.pos = pos;
             state.userData.theater = theater;
             state.userData.printer = printer;

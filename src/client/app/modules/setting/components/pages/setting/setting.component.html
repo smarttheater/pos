@@ -4,24 +4,26 @@
             <h2 class="text-large mb-4 text-center font-weight-bold">{{ 'setting.title' | translate }}</h2>
             <p class="mb-4 text-md-center" [innerHTML]="'setting.read' | translate"></p>
             <div class="p-3 bg-white">
+
                 <div class="form-group">
                     <div class="row align-items-center">
-                        <p class="col-md-4 py-2 text-md-right">{{ 'common.seller' | translate }}<span
+                        <p class="col-md-4 py-2 text-md-right">{{ 'common.theater' | translate }}<span
                                 class="badge badge-danger ml-2">{{ 'common.required' | translate }}</span></p>
                         <div class="col-md-8">
-                            <select class="form-control" formControlName="sellerId" (change)="changePosList()">
+                            <select class="form-control" formControlName="theaterBranchCode" (change)="changePosList()">
                                 <option value="">{{ 'setting.unselected' | translate }}</option>
-                                <option *ngFor="let seller of (master | async).sellers" [value]="seller.id">
-                                    {{ seller.name | changeLanguage }}</option>
+                                <option *ngFor="let theater of (master | async).theaters" [value]="theater.branchCode">
+                                    {{ theater.name | changeLanguage }}</option>
                             </select>
-                            <div *ngIf="settingForm.controls.sellerId.invalid && settingForm.controls.sellerId.touched"
+                            <div *ngIf="settingForm.controls.theaterBranchCode.invalid && settingForm.controls.theaterBranchCode.touched"
                                 class="mt-2">
-                                <p *ngIf="settingForm.controls.sellerId.errors.required" class="text-danger">
+                                <p *ngIf="settingForm.controls.theaterBranchCode.errors.required" class="text-danger">
                                     {{ 'form.validation.unselected' | translate }}</p>
                             </div>
                         </div>
                     </div>
                 </div>
+                
                 <div class="form-group">
                     <div class="row align-items-center">
                         <p class="col-md-4 py-2 text-md-right">{{ 'setting.pos' | translate }}</p>
@@ -33,25 +35,6 @@
                             <div *ngIf="settingForm.controls.posId.invalid && settingForm.controls.posId.touched"
                                 class="mt-2">
                                 <p *ngIf="settingForm.controls.posId.errors.required" class="text-danger">
-                                    {{ 'form.validation.unselected' | translate }}</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <div class="row align-items-center">
-                        <p class="col-md-4 py-2 text-md-right">{{ 'common.theater' | translate }}<span
-                                class="badge badge-danger ml-2">{{ 'common.required' | translate }}</span></p>
-                        <div class="col-md-8">
-                            <select class="form-control" formControlName="theaterBranchCode">
-                                <option value="">{{ 'setting.unselected' | translate }}</option>
-                                <option *ngFor="let theater of (master | async).theaters" [value]="theater.branchCode">
-                                    {{ theater.name | changeLanguage }}</option>
-                            </select>
-                            <div *ngIf="settingForm.controls.theaterBranchCode.invalid && settingForm.controls.theaterBranchCode.touched"
-                                class="mt-2">
-                                <p *ngIf="settingForm.controls.theaterBranchCode.errors.required" class="text-danger">
                                     {{ 'form.validation.unselected' | translate }}</p>
                             </div>
                         </div>

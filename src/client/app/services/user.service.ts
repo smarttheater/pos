@@ -45,8 +45,7 @@ export class UserService {
      * すべて更新
      */
     public updateAll(params: {
-        seller: factory.seller.IOrganization<factory.seller.IAttributes<factory.organizationType>>;
-        pos?: factory.seller.IPOS;
+        pos?: factory.chevre.place.movieTheater.IPOS;
         theater: factory.chevre.place.movieTheater.IPlaceWithoutScreeningRoom;
         customerContact: factory.transaction.placeOrder.ICustomerProfile;
         printer: IPrinter;

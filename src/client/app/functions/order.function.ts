@@ -171,7 +171,7 @@ export async function createPrintCanvas(params: {
     printData: ITicketPrintData;
     acceptedOffer: factory.order.IAcceptedOffer<factory.order.IItemOffered>;
     order: factory.order.IOrder;
-    pos?: factory.seller.IPOS;
+    pos?: factory.chevre.place.movieTheater.IPOS;
     qrcode?: string;
     index: number;
 }) {
