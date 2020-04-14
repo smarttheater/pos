@@ -1627,7 +1627,10 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
       }, {
         key: "remainingAttendeeCapacityValue",
-        value: function remainingAttendeeCapacityValue(screeningEvent, screeningEventOffers) {
+        value: function remainingAttendeeCapacityValue(params) {
+          var screeningEventOffers = params.screeningEventOffers;
+          var screeningEvent = params.screeningEvent;
+          var authorizeSeatReservations = params.authorizeSeatReservations;
           var values = [];
 
           if (screeningEvent === undefined) {
@@ -1638,7 +1641,11 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
           if (new _models__WEBPACK_IMPORTED_MODULE_7__["Performance"](screeningEvent).isTicketedSeat()) {
             // イベント全体の残席数計算
-            var screeningEventLimit = Object(_functions__WEBPACK_IMPORTED_MODULE_6__["getRemainingSeatLength"])(screeningEventOffers, screeningEvent);
+            var screeningEventLimit = Object(_functions__WEBPACK_IMPORTED_MODULE_6__["getRemainingSeatLength"])({
+              screeningEventOffers: screeningEventOffers,
+              screeningEvent: screeningEvent,
+              authorizeSeatReservations: authorizeSeatReservations
+            });
 
             if (limit > screeningEventLimit) {
               limit = screeningEventLimit;
@@ -3144,6 +3151,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
                       var screeningEvent = purchase.screeningEvent;
                       var screeningEventTicketOffers = purchase.screeningEventTicketOffers;
                       var screeningEventOffers = purchase.screeningEventOffers;
+                      var authorizeSeatReservations = purchase.authorizeSeatReservations;
 
                       _this10.modal.show(_shared_components_parts_purchase_event_ticket_modal_ticket_modal_component__WEBPACK_IMPORTED_MODULE_11__["PurchaseEventTicketModalComponent"], {
                         "class": 'modal-dialog-centered modal-lg',
@@ -3151,6 +3159,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
                           screeningEventTicketOffers: screeningEventTicketOffers,
                           screeningEventOffers: screeningEventOffers,
                           screeningEvent: screeningEvent,
+                          authorizeSeatReservations: authorizeSeatReservations,
                           cb: function cb(params) {
                             _this10.selectTicket(params);
                           }
@@ -3214,7 +3223,11 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
                       break;
                     }
 
-                    remainingSeatLength = Object(_functions__WEBPACK_IMPORTED_MODULE_7__["getRemainingSeatLength"])(purchase.screeningEventOffers, purchase.screeningEvent);
+                    remainingSeatLength = Object(_functions__WEBPACK_IMPORTED_MODULE_7__["getRemainingSeatLength"])({
+                      screeningEventOffers: purchase.screeningEventOffers,
+                      screeningEvent: purchase.screeningEvent,
+                      authorizeSeatReservations: purchase.authorizeSeatReservations
+                    });
 
                     if (!(remainingSeatLength < reservations.length)) {
                       _context19.next = 16;
