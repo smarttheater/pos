@@ -133,7 +133,6 @@ export class PurchaseCinemaSeatComponent implements OnInit {
     }) {
         const screeningEventSeats = params.screeningEventSeats;
         const screeningEvent = params.screeningEvent;
-        const authorizeSeatReservations = params.authorizeSeatReservations;
         const values: number[] = [];
         if (screeningEvent === undefined) {
             return values;
@@ -142,7 +141,7 @@ export class PurchaseCinemaSeatComponent implements OnInit {
         if (new Performance(screeningEvent).isTicketedSeat()) {
             // イベント全体の残席数計算
             const screeningEventLimit = getRemainingSeatLength({
-                screeningEventSeats, screeningEvent, authorizeSeatReservations
+                screeningEventSeats, screeningEvent
             });
             if (limit > screeningEventLimit) {
                 limit = screeningEventLimit;

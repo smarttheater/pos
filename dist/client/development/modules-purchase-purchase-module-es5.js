@@ -1625,7 +1625,6 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
         value: function remainingAttendeeCapacityValue(params) {
           var screeningEventSeats = params.screeningEventSeats;
           var screeningEvent = params.screeningEvent;
-          var authorizeSeatReservations = params.authorizeSeatReservations;
           var values = [];
 
           if (screeningEvent === undefined) {
@@ -1638,8 +1637,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
             // イベント全体の残席数計算
             var screeningEventLimit = Object(_functions__WEBPACK_IMPORTED_MODULE_6__["getRemainingSeatLength"])({
               screeningEventSeats: screeningEventSeats,
-              screeningEvent: screeningEvent,
-              authorizeSeatReservations: authorizeSeatReservations
+              screeningEvent: screeningEvent
             });
 
             if (limit > screeningEventLimit) {
@@ -3138,7 +3136,6 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
                       var screeningEvent = purchase.screeningEvent;
                       var screeningEventTicketOffers = purchase.screeningEventTicketOffers;
                       var screeningEventSeats = _this10.screeningEventSeats;
-                      var authorizeSeatReservations = purchase.authorizeSeatReservations;
 
                       _this10.modal.show(_shared_components_parts_purchase_event_ticket_modal_ticket_modal_component__WEBPACK_IMPORTED_MODULE_11__["PurchaseEventTicketModalComponent"], {
                         "class": 'modal-dialog-centered modal-lg',
@@ -3146,7 +3143,6 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
                           screeningEventTicketOffers: screeningEventTicketOffers,
                           screeningEventSeats: screeningEventSeats,
                           screeningEvent: screeningEvent,
-                          authorizeSeatReservations: authorizeSeatReservations,
                           cb: function cb(params) {
                             _this10.selectTicket(params);
                           }
@@ -3213,8 +3209,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
                     remainingSeatLength = Object(_functions__WEBPACK_IMPORTED_MODULE_7__["getRemainingSeatLength"])({
                       screeningEventSeats: this.screeningEventSeats,
-                      screeningEvent: purchase.screeningEvent,
-                      authorizeSeatReservations: purchase.authorizeSeatReservations
+                      screeningEvent: purchase.screeningEvent
                     });
 
                     if (!(remainingSeatLength < reservations.length)) {

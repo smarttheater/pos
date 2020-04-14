@@ -863,7 +863,6 @@ let PurchaseCinemaSeatComponent = class PurchaseCinemaSeatComponent {
     remainingAttendeeCapacityValue(params) {
         const screeningEventSeats = params.screeningEventSeats;
         const screeningEvent = params.screeningEvent;
-        const authorizeSeatReservations = params.authorizeSeatReservations;
         const values = [];
         if (screeningEvent === undefined) {
             return values;
@@ -872,7 +871,7 @@ let PurchaseCinemaSeatComponent = class PurchaseCinemaSeatComponent {
         if (new _models__WEBPACK_IMPORTED_MODULE_7__["Performance"](screeningEvent).isTicketedSeat()) {
             // イベント全体の残席数計算
             const screeningEventLimit = Object(_functions__WEBPACK_IMPORTED_MODULE_6__["getRemainingSeatLength"])({
-                screeningEventSeats, screeningEvent, authorizeSeatReservations
+                screeningEventSeats, screeningEvent
             });
             if (limit > screeningEventLimit) {
                 limit = screeningEventLimit;
@@ -1627,14 +1626,12 @@ let PurchaseEventTicketComponent = class PurchaseEventTicketComponent {
                 const screeningEvent = purchase.screeningEvent;
                 const screeningEventTicketOffers = purchase.screeningEventTicketOffers;
                 const screeningEventSeats = this.screeningEventSeats;
-                const authorizeSeatReservations = purchase.authorizeSeatReservations;
                 this.modal.show(_shared_components_parts_purchase_event_ticket_modal_ticket_modal_component__WEBPACK_IMPORTED_MODULE_11__["PurchaseEventTicketModalComponent"], {
                     class: 'modal-dialog-centered modal-lg',
                     initialState: {
                         screeningEventTicketOffers,
                         screeningEventSeats,
                         screeningEvent,
-                        authorizeSeatReservations,
                         cb: (params) => {
                             this.selectTicket(params);
                         }
@@ -1664,8 +1661,7 @@ let PurchaseEventTicketComponent = class PurchaseEventTicketComponent {
                     && new _models__WEBPACK_IMPORTED_MODULE_8__["Performance"](purchase.screeningEvent).isTicketedSeat()) {
                     const remainingSeatLength = Object(_functions__WEBPACK_IMPORTED_MODULE_7__["getRemainingSeatLength"])({
                         screeningEventSeats: this.screeningEventSeats,
-                        screeningEvent: purchase.screeningEvent,
-                        authorizeSeatReservations: purchase.authorizeSeatReservations
+                        screeningEvent: purchase.screeningEvent
                     });
                     if (remainingSeatLength < reservations.length) {
                         this.utilService.openAlert({
