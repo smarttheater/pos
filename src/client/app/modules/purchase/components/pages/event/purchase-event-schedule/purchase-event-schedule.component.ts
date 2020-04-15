@@ -23,6 +23,7 @@ export class PurchaseEventScheduleComponent implements OnInit, OnDestroy {
     public master: Observable<reducers.IMasterState>;
     public error: Observable<string | null>;
     public isLoading: Observable<boolean>;
+    public screeningEvents: factory.chevre.event.screeningEvent.IEvent[];
     public screeningWorkEvents: IScreeningEventWork[];
     public moment: typeof moment = moment;
     private updateTimer: any;
@@ -105,14 +106,12 @@ export class PurchaseEventScheduleComponent implements OnInit, OnDestroy {
             }
             const scheduleDate = moment(this.scheduleDate).format('YYYY-MM-DD');
             this.purchaseService.selectScheduleDate(scheduleDate);
-            await this.masterService.getSchedule({
+            this.screeningEvents = await this.masterService.getSchedule({
                 superEvent: { locationBranchCodes: [theater.branchCode] },
                 startFrom: moment(scheduleDate).toDate(),
                 startThrough: moment(scheduleDate).add(1, 'day').toDate()
             });
-            const master = await this.masterService.getData();
-            const screeningEvents = master.screeningEvents;
-            this.screeningWorkEvents = screeningEventsToWorkEvents({ screeningEvents });
+            this.screeningWorkEvents = screeningEventsToWorkEvents({ screeningEvents: this.screeningEvents });
             this.update();
         } catch (error) {
             console.error(error);
@@ -129,8 +128,7 @@ export class PurchaseEventScheduleComponent implements OnInit, OnDestroy {
             if (user.theater === undefined) {
                 throw new Error('user.theater === undefined');
             }
-            const screeningEvent = (await this.masterService.getData())
-                .screeningEvents
+            const screeningEvent = this.screeningEvents
                 .find(s => s.offers !== undefined && s.offers.seller !== undefined && s.offers.seller.id !== undefined);
             if (screeningEvent === undefined
                 || screeningEvent.offers === undefined

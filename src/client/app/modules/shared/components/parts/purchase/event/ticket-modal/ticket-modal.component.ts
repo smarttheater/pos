@@ -17,10 +17,8 @@ type IMovieTicketTypeChargeSpecification =
 export class PurchaseEventTicketModalComponent implements OnInit {
 
     @Input() public screeningEventTicketOffers: factory.chevre.event.screeningEvent.ITicketOffer[];
-    @Input() public screeningEventOffers: factory.chevre.place.screeningRoomSection.IPlaceWithOffer[];
+    @Input() public screeningEventSeats: factory.chevre.place.seat.IPlaceWithOffer[];
     @Input() public screeningEvent: factory.event.screeningEvent.IEvent;
-    @Input() public authorizeSeatReservations:
-        factory.action.authorize.offer.seatReservation.IAction<factory.service.webAPI.Identifier.Chevre>[];
     @Input() public cb: (params: {
         reservations: IReservation[];
         additionalTicketText?: string;
@@ -75,15 +73,13 @@ export class PurchaseEventTicketModalComponent implements OnInit {
     public remainingAttendeeCapacityValue(screeningEventTicketOffer: factory.chevre.event.screeningEvent.ITicketOffer) {
         const values = [];
         const screeningEvent = this.screeningEvent;
-        const screeningEventOffers = this.screeningEventOffers;
-        const authorizeSeatReservations = this.authorizeSeatReservations;
+        const screeningEventSeats = this.screeningEventSeats;
         let limit = Number(this.environment.PURCHASE_ITEM_MAX_LENGTH);
         if (new Performance(screeningEvent).isTicketedSeat()) {
             // イベント全体の残席数計算
             const screeningEventLimit = getRemainingSeatLength({
                 screeningEvent,
-                screeningEventOffers,
-                authorizeSeatReservations
+                screeningEventSeats
             });
             if (limit > screeningEventLimit) {
                 limit = screeningEventLimit;

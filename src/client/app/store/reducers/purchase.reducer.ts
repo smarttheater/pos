@@ -28,10 +28,6 @@ export interface IPurchaseState {
      */
     transaction?: factory.transaction.placeOrder.ITransaction;
     /**
-     * 空席情報
-     */
-    screeningEventOffers: factory.chevre.place.screeningRoomSection.IPlaceWithOffer[];
-    /**
      * スクリーン
      */
     screen?: factory.chevre.place.screeningRoom.IPlace;
@@ -105,7 +101,6 @@ export interface IPurchaseState {
 }
 
 export const purchaseInitialState: IPurchaseState = {
-    screeningEventOffers: [],
     reservations: [],
     screeningEventTicketOffers: [],
     orderCount: 0,
@@ -127,7 +122,6 @@ export function reducer(state: IState, action: purchaseAction.Actions): IState {
     switch (action.type) {
         case purchaseAction.ActionTypes.Delete: {
             state.purchaseData = {
-                screeningEventOffers: [],
                 reservations: [],
                 screeningEventTicketOffers: [],
                 orderCount: 0,
@@ -225,19 +219,6 @@ export function reducer(state: IState, action: purchaseAction.Actions): IState {
             return { ...state, loading: false, process: '', error: null };
         }
         case purchaseAction.ActionTypes.GetScreenFail: {
-            const error = action.payload.error;
-            return { ...state, loading: false, process: '', error: JSON.stringify(error) };
-        }
-        case purchaseAction.ActionTypes.GetScreeningEventOffers: {
-            state.purchaseData.screeningEventOffers = [];
-            return { ...state, loading: true, process: 'purchaseAction.GetScreeningEventOffers' };
-        }
-        case purchaseAction.ActionTypes.GetScreeningEventOffersSuccess: {
-            const screeningEventOffers = action.payload.screeningEventOffers;
-            state.purchaseData.screeningEventOffers = screeningEventOffers;
-            return { ...state, loading: false, process: '', error: null };
-        }
-        case purchaseAction.ActionTypes.GetScreeningEventOffersFail: {
             const error = action.payload.error;
             return { ...state, loading: false, process: '', error: JSON.stringify(error) };
         }
@@ -451,7 +432,6 @@ export function reducer(state: IState, action: purchaseAction.Actions): IState {
         case purchaseAction.ActionTypes.EndTransactionSuccess: {
             const order = action.payload.order;
             state.purchaseData = {
-                screeningEventOffers: [],
                 reservations: [],
                 screeningEventTicketOffers: [],
                 orderCount: 0,
