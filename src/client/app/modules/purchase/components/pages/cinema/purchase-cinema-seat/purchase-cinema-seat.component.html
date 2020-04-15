@@ -11,11 +11,11 @@
     <div class="row">
         <div class="col-lg-9">
             <app-screen *ngIf="(user | async).theater 
-                && (purchase | async).screeningEventOffers.length > 0 
+                && screeningEventSeats.length > 0 
                 && (purchase | async).screen" class="mb-4"
                 [theaterCode]="(user | async).theater.branchCode"
                 [screenCode]="(purchase | async).screen.branchCode"
-                [screeningEventOffers]="(purchase | async).screeningEventOffers"
+                [screeningEventSeats]="screeningEventSeats"
                 [openSeatingAllowed]="(purchase | async).screen.openSeatingAllowed"
                 [reservations]="(purchase | async).reservations"
                 [authorizeSeatReservation]="(purchase | async).authorizeSeatReservation" (select)="selectSeat($event)">
@@ -27,7 +27,7 @@
                         [ngModel]="(purchase | async).reservations.length">
                         <option value="0">0</option>
                         <option
-                            *ngFor="let value of remainingAttendeeCapacityValue((purchase | async).screeningEvent, (purchase | async).screeningEventOffers)"
+                            *ngFor="let value of remainingAttendeeCapacityValue((purchase | async).screeningEvent, screeningEventSeats)"
                             [value]="value">{{ value }}</option>
                     </select>
                 </div>

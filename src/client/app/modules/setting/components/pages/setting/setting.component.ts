@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormBuilder, FormControl, FormGroup, ValidatorFn, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { factory } from '@cinerino/api-javascript-client';
 import { select, Store } from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
 import * as libphonenumber from 'libphonenumber-js';
@@ -26,6 +27,7 @@ export class SettingComponent implements OnInit {
     public printers = printers;
     public connectionType = ConnectionType;
     public viewType = ViewType;
+    public theaters: factory.chevre.place.movieTheater.IPlaceWithoutScreeningRoom[];
     public environment = getEnvironment();
 
     constructor(
@@ -44,13 +46,12 @@ export class SettingComponent implements OnInit {
      */
     public async ngOnInit() {
         this.user = this.store.pipe(select(reducers.getUser));
-        this.master = this.store.pipe(select(reducers.getMaster));
         this.error = this.store.pipe(select(reducers.getError));
         this.isLoading = this.store.pipe(select(reducers.getLoading));
         this.posList = [];
+        this.theaters = [];
         try {
-            await this.masterService.getSellers();
-            await this.masterService.getTheaters();
+            this.theaters = await this.masterService.getTheaters();
             await this.createSettlingForm();
         } catch (error) {
             console.error(error);
@@ -150,14 +151,12 @@ export class SettingComponent implements OnInit {
             this.posList = [];
             return;
         }
-        this.master.subscribe((master) => {
-            const findResult = master.theaters.find(t => (t.branchCode === theaterBranchCode));
-            if (findResult === undefined) {
-                this.posList = [];
-                return;
-            }
-            this.posList = (findResult.hasPOS === undefined) ? [] : findResult.hasPOS;
-        }).unsubscribe();
+        const findResult = this.theaters.find(t => (t.branchCode === theaterBranchCode));
+        if (findResult === undefined) {
+            this.posList = [];
+            return;
+        }
+        this.posList = (findResult.hasPOS === undefined) ? [] : findResult.hasPOS;
     }
 
 
@@ -176,10 +175,9 @@ export class SettingComponent implements OnInit {
             return;
         }
         try {
-            const masterData = await this.masterService.getData();
             const theaterBranchCode = this.settingForm.controls.theaterBranchCode.value;
             const posId = this.settingForm.controls.posId.value;
-            const theater = masterData.theaters.find(t => (t.branchCode === theaterBranchCode));
+            const theater = this.theaters.find(t => (t.branchCode === theaterBranchCode));
             if (theater === undefined) {
                 throw new Error('theater not found').message;
             }

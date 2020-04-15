@@ -96,7 +96,12 @@ export class PurchaseCinemaTicketComponent implements OnInit {
         }
         try {
             const additionalTicketText = this.additionalTicketText;
-            await this.purchaseService.temporaryReservation({ reservations, additionalTicketText });
+            const screeningEventSeats = await this.purchaseService.getScreeningEventSeats();
+            await this.purchaseService.temporaryReservation({
+                reservations,
+                additionalTicketText,
+                screeningEventSeats
+            });
             if (!this.environment.PURCHASE_CART) {
                 this.router.navigate(['/purchase/payment']);
                 return;

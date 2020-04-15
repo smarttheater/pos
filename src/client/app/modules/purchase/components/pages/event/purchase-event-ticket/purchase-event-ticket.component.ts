@@ -34,6 +34,7 @@ export class PurchaseEventTicketComponent implements OnInit, OnDestroy {
     public moment: typeof moment = moment;
     public environment = getEnvironment();
     private updateTimer: any;
+    public screeningEventSeats: factory.chevre.place.seat.IPlaceWithOffer[];
 
     constructor(
         private store: Store<reducers.IState>,
@@ -91,13 +92,11 @@ export class PurchaseEventTicketComponent implements OnInit, OnDestroy {
             if (theater === undefined || scheduleDate === undefined) {
                 throw new Error('theater === undefined || scheduleDate === undefined').message;
             }
-            await this.masterService.getSchedule({
+            const screeningEvents = await this.masterService.getSchedule({
                 superEvent: { locationBranchCodes: [theater.branchCode] },
                 startFrom: moment(scheduleDate).toDate(),
                 startThrough: moment(scheduleDate).add(1, 'day').toDate()
             });
-            const master = await this.masterService.getData();
-            const screeningEvents = master.screeningEvents;
             this.screeningWorkEvents = screeningEventsToWorkEvents({ screeningEvents });
             this.update();
         } catch (error) {
@@ -125,7 +124,7 @@ export class PurchaseEventTicketComponent implements OnInit, OnDestroy {
         }
         try {
             await this.purchaseService.getScreeningEvent(screeningEvent);
-            await this.purchaseService.getScreeningEventOffers();
+            this.screeningEventSeats = await this.purchaseService.getScreeningEventSeats();
             await this.purchaseService.getTicketList({ seller: purchase.seller });
             this.openTicketList();
         } catch (error) {
@@ -144,15 +143,13 @@ export class PurchaseEventTicketComponent implements OnInit, OnDestroy {
         this.purchase.subscribe((purchase) => {
             const screeningEvent = purchase.screeningEvent;
             const screeningEventTicketOffers = purchase.screeningEventTicketOffers;
-            const screeningEventOffers = purchase.screeningEventOffers;
-            const authorizeSeatReservations = purchase.authorizeSeatReservations;
+            const screeningEventSeats = this.screeningEventSeats;
             this.modal.show(PurchaseEventTicketModalComponent, {
                 class: 'modal-dialog-centered modal-lg',
                 initialState: {
                     screeningEventTicketOffers,
-                    screeningEventOffers,
+                    screeningEventSeats,
                     screeningEvent,
-                    authorizeSeatReservations,
                     cb: (params: {
                         reservations: IReservation[];
                         additionalTicketText?: string;
@@ -184,19 +181,18 @@ export class PurchaseEventTicketComponent implements OnInit, OnDestroy {
             return;
         }
         try {
-            await this.purchaseService.getScreeningEventOffers();
+            this.screeningEventSeats = await this.purchaseService.getScreeningEventSeats();
             const purchase = await this.purchaseService.getData();
             if (purchase.screeningEvent !== undefined
                 && new Performance(purchase.screeningEvent).isTicketedSeat()) {
                 const remainingSeatLength = getRemainingSeatLength({
-                    screeningEventOffers: purchase.screeningEventOffers,
-                    screeningEvent: purchase.screeningEvent,
-                    authorizeSeatReservations: purchase.authorizeSeatReservations
+                    screeningEventSeats: this.screeningEventSeats,
+                    screeningEvent: purchase.screeningEvent
                 });
                 if (remainingSeatLength < reservations.length) {
                     this.utilService.openAlert({
                         title: this.translate.instant('common.error'),
-                        body: this.translate.instant('purchase.event.ticket.alert.getScreeningEventOffers')
+                        body: this.translate.instant('purchase.event.ticket.alert.getScreeningEventSeats')
                     });
                     return;
                 }
@@ -210,7 +206,11 @@ export class PurchaseEventTicketComponent implements OnInit, OnDestroy {
         }
 
         try {
-            await this.purchaseService.temporaryReservation({ reservations, additionalTicketText });
+            await this.purchaseService.temporaryReservation({
+                reservations,
+                additionalTicketText,
+                screeningEventSeats: this.screeningEventSeats
+            });
             this.utilService.openAlert({
                 title: this.translate.instant('common.complete'),
                 body: this.translate.instant('purchase.event.ticket.success.temporaryReservation')

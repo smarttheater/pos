@@ -782,7 +782,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
           return __awaiter(this, void 0, void 0,
           /*#__PURE__*/
           regeneratorRuntime.mark(function _callee5() {
-            var user, theater, scheduleDate, master, screeningEvents;
+            var user, theater, scheduleDate, screeningEvents;
             return regeneratorRuntime.wrap(function _callee5$(_context5) {
               while (1) {
                 switch (_context5.prev = _context5.next) {
@@ -824,31 +824,26 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                     });
 
                   case 14:
-                    _context5.next = 16;
-                    return this.masterService.getData();
-
-                  case 16:
-                    master = _context5.sent;
-                    screeningEvents = master.screeningEvents;
+                    screeningEvents = _context5.sent;
                     this.screeningWorkEvents = Object(_functions__WEBPACK_IMPORTED_MODULE_5__["screeningEventsToWorkEvents"])({
                       screeningEvents: screeningEvents
                     });
                     this.update();
-                    _context5.next = 26;
+                    _context5.next = 23;
                     break;
 
-                  case 22:
-                    _context5.prev = 22;
+                  case 19:
+                    _context5.prev = 19;
                     _context5.t0 = _context5["catch"](1);
                     console.error(_context5.t0);
                     this.router.navigate(['/error']);
 
-                  case 26:
+                  case 23:
                   case "end":
                     return _context5.stop();
                 }
               }
-            }, _callee5, this, [[1, 22]]);
+            }, _callee5, this, [[1, 19]]);
           }));
         }
         /**

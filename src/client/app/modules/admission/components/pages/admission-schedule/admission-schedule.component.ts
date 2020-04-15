@@ -72,13 +72,12 @@ export class AdmissionScheduleComponent implements OnInit, OnDestroy {
             }
             const scheduleDate = moment(this.scheduleDate).format('YYYY-MM-DD');
             this.admissionService.selectScheduleDate(scheduleDate);
-            await this.masterService.getSchedule({
+
+            const screeningEvents = await this.masterService.getSchedule({
                 superEvent: { locationBranchCodes: [theater.branchCode] },
                 startFrom: moment(scheduleDate).toDate(),
                 startThrough: moment(scheduleDate).add(1, 'day').toDate()
             });
-            const master = await this.masterService.getData();
-            const screeningEvents = master.screeningEvents;
             this.screeningWorkEvents = screeningEventsToWorkEvents({ screeningEvents });
             this.update();
         } catch (error) {
