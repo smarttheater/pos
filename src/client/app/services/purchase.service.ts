@@ -207,6 +207,7 @@ export class PurchaseService {
             if (!new Performance(screeningEvent).isTicketedSeat()) {
                 return screeningEventSeats;
             }
+            await this.cinerinoService.getServices();
             while (roop) {
                 const searchResult = await this.cinerinoService.event.searchSeats({
                     event: { id: screeningEvent.id },

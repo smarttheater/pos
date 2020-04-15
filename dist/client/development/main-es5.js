@@ -12191,14 +12191,16 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                     page = 1;
                     roop = true;
                     screeningEvents = [];
+                    _context39.next = 8;
+                    return this.cinerinoService.getServices();
 
-                  case 6:
+                  case 8:
                     if (!roop) {
-                      _context39.next = 17;
+                      _context39.next = 19;
                       break;
                     }
 
-                    _context39.next = 9;
+                    _context39.next = 11;
                     return this.cinerinoService.event.search({
                       page: page,
                       limit: limit,
@@ -12209,19 +12211,19 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                       startThrough: params.startThrough
                     });
 
-                  case 9:
+                  case 11:
                     searchResult = _context39.sent;
                     screeningEvents = screeningEvents.concat(searchResult.data);
                     page++;
                     roop = searchResult.data.length > 0;
-                    _context39.next = 15;
+                    _context39.next = 17;
                     return Object(_functions__WEBPACK_IMPORTED_MODULE_7__["sleep"])(500);
 
-                  case 15:
-                    _context39.next = 6;
+                  case 17:
+                    _context39.next = 8;
                     break;
 
-                  case 17:
+                  case 19:
                     // 公開日順（降順）へソート
                     screeningEvents = screeningEvents.sort(function (a, b) {
                       if (a.workPerformed === undefined || b.workPerformed === undefined || a.workPerformed.datePublished === undefined || b.workPerformed.datePublished === undefined) {
@@ -12244,19 +12246,19 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                     this.utilService.loadEnd();
                     return _context39.abrupt("return", screeningEvents);
 
-                  case 22:
-                    _context39.prev = 22;
+                  case 24:
+                    _context39.prev = 24;
                     _context39.t0 = _context39["catch"](0);
                     this.utilService.setError(_context39.t0);
                     this.utilService.loadEnd();
                     throw _context39.t0;
 
-                  case 27:
+                  case 29:
                   case "end":
                     return _context39.stop();
                 }
               }
-            }, _callee39, this, [[0, 22]]);
+            }, _callee39, this, [[0, 24]]);
           }));
         }
         /**
@@ -13359,12 +13361,16 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                     return _context52.abrupt("return", screeningEventSeats);
 
                   case 14:
+                    _context52.next = 16;
+                    return this.cinerinoService.getServices();
+
+                  case 16:
                     if (!roop) {
-                      _context52.next = 25;
+                      _context52.next = 27;
                       break;
                     }
 
-                    _context52.next = 17;
+                    _context52.next = 19;
                     return this.cinerinoService.event.searchSeats({
                       event: {
                         id: screeningEvent.id
@@ -13373,35 +13379,35 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                       limit: limit
                     });
 
-                  case 17:
+                  case 19:
                     searchResult = _context52.sent;
                     screeningEventSeats = screeningEventSeats.concat(searchResult.data);
                     page++;
                     roop = searchResult.data.length > 0;
-                    _context52.next = 23;
+                    _context52.next = 25;
                     return Object(_functions__WEBPACK_IMPORTED_MODULE_8__["sleep"])(500);
 
-                  case 23:
-                    _context52.next = 14;
+                  case 25:
+                    _context52.next = 16;
                     break;
 
-                  case 25:
+                  case 27:
                     this.utilService.loadEnd();
                     return _context52.abrupt("return", screeningEventSeats);
 
-                  case 29:
-                    _context52.prev = 29;
+                  case 31:
+                    _context52.prev = 31;
                     _context52.t0 = _context52["catch"](0);
                     this.utilService.setError(_context52.t0);
                     this.utilService.loadEnd();
                     throw _context52.t0;
 
-                  case 34:
+                  case 36:
                   case "end":
                     return _context52.stop();
                 }
               }
-            }, _callee52, this, [[0, 29]]);
+            }, _callee52, this, [[0, 31]]);
           }));
         }
         /**

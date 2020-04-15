@@ -7028,6 +7028,7 @@ let MasterService = class MasterService {
                 let page = 1;
                 let roop = true;
                 let screeningEvents = [];
+                yield this.cinerinoService.getServices();
                 while (roop) {
                     const searchResult = yield this.cinerinoService.event.search({
                         page,
@@ -7535,6 +7536,7 @@ let PurchaseService = class PurchaseService {
                 if (!new _models__WEBPACK_IMPORTED_MODULE_9__["Performance"](screeningEvent).isTicketedSeat()) {
                     return screeningEventSeats;
                 }
+                yield this.cinerinoService.getServices();
                 while (roop) {
                     const searchResult = yield this.cinerinoService.event.searchSeats({
                         event: { id: screeningEvent.id },
