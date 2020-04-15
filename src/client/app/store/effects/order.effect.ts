@@ -314,7 +314,7 @@ export class OrderEffects {
                         break;
                     case ConnectionType.Image:
                         const domList = canvasList.map(canvas => `<div class="mb-3 p-4 border border-light-gray shadow-sm">
-                        <img class="w-100" src="${canvas.toDataURL()}">
+                        <img class="w-100" src="${canvas.toDataURL()}" alt="">
                         </div>`);
                         this.utilService.openAlert({
                             title: '',
