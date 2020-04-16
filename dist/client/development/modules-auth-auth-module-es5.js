@@ -41,7 +41,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     /* harmony default export */
 
 
-    __webpack_exports__["default"] = "<div *ngIf=\"projects.length > 0\" class=\"contents-width mx-auto px-3 py-5\">\n    <h2 class=\"text-large mb-4 text-center font-weight-bold\">プロジェクト選択</h2>\n    <p class=\"mb-4 text-md-center\">プロジェクトを選択してください。</p>\n\n    <ul class=\"d-md-flex flex-wrap mb-4\">\n        <li *ngFor=\"let project of (master | async).projects\" class=\"my-md-2 mb-3\">\n            <div class=\"card mx-md-2 h-100\">\n                <div class=\"card-body\">\n                    <div class=\"d-flex align-items-center mb-4\">\n                        <div class=\"mr-2\"><img [src]=\"project.logo\" class=\"logo\" [alt]=\"project.name\"></div>\n                        <p class=\"font-weight-bold\">{{ project.name }}</p>\n                    </div>\n                    <a class=\"btn btn-primary btn-block py-3\" [href]=\"'/?projectId=' + project.id\" [class.disabled]=\"!getProject(project.id)\">選択</a>\n                </div>\n            </div>\n        </li>\n    </ul>\n\n    <div class=\"buttons mx-auto text-center\">\n        <button type=\"button\" class=\"btn btn-link\" (click)=\"signOut()\">戻る</button>\n    </div>\n</div>\n\n<app-loading [isLoading]=\"isLoading | async\" process=\"process.masterAction.GetProjects\"></app-loading>";
+    __webpack_exports__["default"] = "<div *ngIf=\"(master | async).projects.length > 0\" class=\"contents-width mx-auto px-3 py-5\">\n    <h2 class=\"text-large mb-4 text-center font-weight-bold\">プロジェクト選択</h2>\n    <p class=\"mb-4 text-md-center\">プロジェクトを選択してください。</p>\n\n    <ul class=\"d-md-flex flex-wrap mb-4\">\n        <li *ngFor=\"let project of (master | async).projects\" class=\"my-md-2 mb-3\">\n            <div class=\"card mx-md-2 h-100\">\n                <div class=\"card-body\">\n                    <div class=\"d-flex align-items-center mb-4\">\n                        <div class=\"mr-2\"><img [src]=\"project.logo\" class=\"logo\" [alt]=\"project.name\"></div>\n                        <p class=\"font-weight-bold\">{{ project.name }}</p>\n                    </div>\n                    <a class=\"btn btn-primary btn-block py-3\" [href]=\"'/?projectId=' + project.id\">選択</a>\n                </div>\n            </div>\n        </li>\n    </ul>\n\n    <div class=\"buttons mx-auto text-center\">\n        <button type=\"button\" class=\"btn btn-link\" (click)=\"signOut()\">戻る</button>\n    </div>\n</div>\n\n<app-loading [isLoading]=\"isLoading | async\" process=\"process.masterAction.GetProjects\"></app-loading>";
     /***/
   },
 
@@ -563,8 +563,6 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
           return __awaiter(this, void 0, void 0,
           /*#__PURE__*/
           regeneratorRuntime.mark(function _callee2() {
-            var _this = this;
-
             var masterData, projects;
             return regeneratorRuntime.wrap(function _callee2$(_context2) {
               while (1) {
@@ -579,21 +577,14 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                   case 5:
                     this.utilService.loadStart();
                     _context2.next = 8;
-                    return this.utilService.postJson('/api/projects', {});
-
-                  case 8:
-                    this.projects = _context2.sent;
-                    _context2.next = 11;
                     return this.masterService.getData();
 
-                  case 11:
+                  case 8:
                     masterData = _context2.sent;
-                    projects = masterData.projects.filter(function (p) {
-                      return _this.getProject(p.id) !== undefined;
-                    });
+                    projects = masterData.projects;
 
                     if (!(projects.length === 1)) {
-                      _context2.next = 16;
+                      _context2.next = 13;
                       break;
                     }
 
@@ -601,23 +592,16 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                     location.href = "/?projectId=".concat(projects[0].id);
                     return _context2.abrupt("return");
 
-                  case 16:
+                  case 13:
                     this.utilService.loadEnd();
 
-                  case 17:
+                  case 14:
                   case "end":
                     return _context2.stop();
                 }
               }
             }, _callee2, this);
           }));
-        }
-      }, {
-        key: "getProject",
-        value: function getProject(id) {
-          return this.projects.find(function (p) {
-            return p.projectId === id;
-          });
         }
       }, {
         key: "signOut",

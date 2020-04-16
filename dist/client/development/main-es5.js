@@ -23051,7 +23051,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       INSTRUCTION_URL: '',
       ANALYTICS_ID: '',
       GTM_ID: '',
-      VIEW_TYPE: 'cinema',
+      VIEW_TYPE: 'event',
       STORAGE_NAME: Object(_app_functions_util_function__WEBPACK_IMPORTED_MODULE_0__["getProject"])().projectId === '' ? 'POS-STATE' : "".concat(Object(_app_functions_util_function__WEBPACK_IMPORTED_MODULE_0__["getProject"])().projectId.toUpperCase(), "-POS-STATE"),
       STORAGE_TYPE: 'localStorage',
       BASE_URL: '/purchase/root',
@@ -23084,8 +23084,8 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       PAYMENT_METHOD_CUSTOM: [],
       REGIGROW_QRCODE: '',
       DISPLAY_TICKETED_SEAT: false,
-      HEADER_MENU: false,
-      HEADER_MENU_SCOPE: [],
+      HEADER_MENU: true,
+      HEADER_MENU_SCOPE: ['purchase', 'order', 'reservation', 'setting', 'auth'],
       PURCHASE_CART: false,
       PURCHASE_ITEM_MAX_LENGTH: '50',
       PURCHASE_TRANSACTION_TIME: '15',
@@ -23317,7 +23317,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                   localStorage.removeItem('');
                 }
 
-                if (params.projectId !== undefined) {
+                if (params.projectId !== undefined || location.hash === '#/auth/signin') {
                   sessionStorage.removeItem('PROJECT');
                 }
 

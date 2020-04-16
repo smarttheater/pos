@@ -34,7 +34,8 @@ async function main() {
         // 無効なストレージ削除
         localStorage.removeItem('');
     }
-    if (params.projectId !== undefined) {
+    if (params.projectId !== undefined
+        || location.hash === '#/auth/signin') {
         sessionStorage.removeItem('PROJECT');
     }
     const projectId = (params.projectId === undefined)
@@ -55,13 +56,11 @@ async function main() {
 /**
  * プロジェクト情報設定
  */
-async function setProject(params: { projectId?: string; projectName?: string; }) {
+async function setProject(params: { projectId?: string; }) {
     const fetchResult = await fetch('/api/project', {
         method: 'POST',
         cache: 'no-cache',
-        headers: {
-            'Content-Type': 'application/json; charset=utf-8'
-        },
+        headers: { 'Content-Type': 'application/json; charset=utf-8' },
         body: JSON.stringify(params)
     });
     if (!fetchResult.ok) {

@@ -1,4 +1,4 @@
-<div *ngIf="projects.length > 0" class="contents-width mx-auto px-3 py-5">
+<div *ngIf="(master | async).projects.length > 0" class="contents-width mx-auto px-3 py-5">
     <h2 class="text-large mb-4 text-center font-weight-bold">プロジェクト選択</h2>
     <p class="mb-4 text-md-center">プロジェクトを選択してください。</p>
 
@@ -10,7 +10,7 @@
                         <div class="mr-2"><img [src]="project.logo" class="logo" [alt]="project.name"></div>
                         <p class="font-weight-bold">{{ project.name }}</p>
                     </div>
-                    <a class="btn btn-primary btn-block py-3" [href]="'/?projectId=' + project.id" [class.disabled]="!getProject(project.id)">選択</a>
+                    <a class="btn btn-primary btn-block py-3" [href]="'/?projectId=' + project.id">選択</a>
                 </div>
             </div>
         </li>
