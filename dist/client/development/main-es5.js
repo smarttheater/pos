@@ -821,7 +821,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     /* harmony default export */
 
 
-    __webpack_exports__["default"] = "<div class=\"bg-white position-relative\">\n    <div *ngIf=\"openSeatingAllowed\" class=\"open-seating-allowed\"></div>\n    <div class=\"screen\" [class.zoom]=\"zoomState\" (window:resize)=\"resize()\">\n        <div [class.active]=\"zoomState\" class=\"zoom-btn text-center\" (click)=\"scaleDown()\">\n            <i class=\"fas fa-search-minus\"></i>\n        </div>\n        <div *ngIf=\"screenData\" class=\"screen-scroll\" [ngStyle]=\"{ \n            'height.px': height,\n            'transform-origin': origin,\n            'transform': 'scale(' + scale + ')'\n        }\">\n            <div class=\"screen-inner {{ screenType }}\"\n                [ngStyle]=\"{ 'width.px': screenData.size.w, 'height.px': screenData.size.h }\" (click)=\"scaleUp($event)\">\n                <div class=\"d-none screen-object\">SCREEN</div>\n                <div *ngFor=\"let object of screenData.objects\" class=\"object\" [ngStyle]=\"{\n                    'width.px': object.w, \n                    'height.px': object.h, \n                    'top.px': object.y, \n                    'left.px': object.x, \n                    'background-image': 'url(' + object.image + ')',\n                    'background-size': object.w + 'px ' +object.h + 'px'\n                }\"></div>\n\n                <div *ngFor=\"let columnLabel of columnLabels\"\n                    class=\"object label-object column-object column-object-{{ columnLabel.id }}\" [ngStyle]=\"{\n                    'width.px': columnLabel.w,\n                    'height.px': columnLabel.h, \n                    'top.px': columnLabel.y, \n                    'left.px': columnLabel.x\n                }\">{{\n                    columnLabel.label }}</div>\n\n                <div *ngFor=\"let lineLabel of lineLabels\"\n                    class=\"object label-object line-object line-object-{{ lineLabel.id }}\" [ngStyle]=\"{\n                    'width.px': lineLabel.w,\n                    'height.px': lineLabel.h, \n                    'top.px': lineLabel.y, \n                    'left.px': lineLabel.x\n                }\">{{\n                    lineLabel.label }}</div>\n\n                <div *ngFor=\"let row of seats\" class=\"object {{ row.className }}\" [ngStyle]=\"{\n                        'top.px': row.y, \n                        'left.px': row.x\n                    }\">\n                    <div *ngFor=\"let seat of row.data\" class=\"seat {{ seat.className }} {{ seat.status }}\" [ngStyle]=\"{\n                        'top.px': seat.y, \n                        'left.px': seat.x,\n                        'width.px': seat.w,\n                        'height.px': seat.h\n                    }\" (click)=\"selectSeat(seat)\">\n                        <span>{{ seat.code }}</span>\n                    </div>\n                </div>\n\n            </div>\n        </div>\n        <div *ngIf=\"screenData\" class=\"screen-style\"></div>\n    </div>\n</div>";
+    __webpack_exports__["default"] = "<div class=\"bg-white position-relative\">\n    <div *ngIf=\"openSeatingAllowed\" class=\"open-seating-allowed\"></div>\n    <div #screen class=\"screen\" [class.zoom]=\"zoomState\" (window:resize)=\"resize()\">\n        <div #zoomBtn [class.active]=\"zoomState\" class=\"zoom-btn text-center\" (click)=\"scaleDown()\">\n            <i class=\"fas fa-search-minus\"></i>\n        </div>\n        <div *ngIf=\"screenData\" class=\"screen-scroll\" [ngStyle]=\"{ \n            'height.px': height,\n            'transform-origin': origin,\n            'transform': 'scale(' + scale + ')'\n        }\">\n            <div class=\"screen-inner {{ screenType }}\"\n                [ngStyle]=\"{ 'width.px': screenData.size.w, 'height.px': screenData.size.h }\" (click)=\"scaleUp($event)\">\n                <div class=\"d-none screen-object\">SCREEN</div>\n                <div *ngFor=\"let object of screenData.objects\" class=\"object\" [ngStyle]=\"{\n                    'width.px': object.w, \n                    'height.px': object.h, \n                    'top.px': object.y, \n                    'left.px': object.x, \n                    'background-image': 'url(' + object.image + ')',\n                    'background-size': object.w + 'px ' +object.h + 'px'\n                }\"></div>\n\n                <div *ngFor=\"let columnLabel of columnLabels\"\n                    class=\"object label-object column-object column-object-{{ columnLabel.id }}\" [ngStyle]=\"{\n                    'width.px': columnLabel.w,\n                    'height.px': columnLabel.h, \n                    'top.px': columnLabel.y, \n                    'left.px': columnLabel.x\n                }\">{{\n                    columnLabel.label }}</div>\n\n                <div *ngFor=\"let lineLabel of lineLabels\"\n                    class=\"object label-object line-object line-object-{{ lineLabel.id }}\" [ngStyle]=\"{\n                    'width.px': lineLabel.w,\n                    'height.px': lineLabel.h, \n                    'top.px': lineLabel.y, \n                    'left.px': lineLabel.x\n                }\">{{\n                    lineLabel.label }}</div>\n\n                <div *ngFor=\"let row of seats\" class=\"object {{ row.className }}\" [ngStyle]=\"{\n                        'top.px': row.y, \n                        'left.px': row.x\n                    }\">\n                    <div *ngFor=\"let seat of row.data\" class=\"seat {{ seat.className }} {{ seat.status }}\" [ngStyle]=\"{\n                        'top.px': seat.y, \n                        'left.px': seat.x,\n                        'width.px': seat.w,\n                        'height.px': seat.h\n                    }\" (click)=\"selectSeat(seat)\">\n                        <span>{{ seat.code }}</span>\n                    </div>\n                </div>\n\n            </div>\n        </div>\n        <div *ngIf=\"screenData\" class=\"screen-style\"></div>\n    </div>\n</div>";
     /***/
   },
 
@@ -8807,18 +8807,18 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                       audio: false,
                       video: {
                         width: {
-                          min: 1024,
+                          min: 640,
                           ideal: 1280,
                           max: 1920
                         },
                         height: {
-                          min: 776,
+                          min: 360,
                           ideal: 720,
                           max: 1080
                         },
                         frameRate: {
                           ideal: 5,
-                          max: 30
+                          max: 20
                         },
                         facingMode: {
                           exact: 'environment'
@@ -9415,20 +9415,21 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                     this.screenData = _context19.sent;
                     this.createScreen();
                     this.scaleDown();
-                    _context19.next = 15;
+                    this.setScrollEvent();
+                    _context19.next = 16;
                     break;
 
-                  case 12:
-                    _context19.prev = 12;
+                  case 13:
+                    _context19.prev = 13;
                     _context19.t0 = _context19["catch"](0);
                     console.error(_context19.t0);
 
-                  case 15:
+                  case 16:
                   case "end":
                     return _context19.stop();
                 }
               }
-            }, _callee19, this, [[0, 12]]);
+            }, _callee19, this, [[0, 13]]);
           }));
         }
         /**
@@ -9485,6 +9486,41 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
               }
             }, _callee20, this);
           }));
+        }
+        /**
+         * 破棄
+         */
+
+      }, {
+        key: "ngOnDestroy",
+        value: function ngOnDestroy() {
+          var element = document.getElementById('contents');
+          element.removeEventListener('scroll', this.onWindowScroll);
+        }
+        /**
+         * スクロールイベント設定
+         */
+
+      }, {
+        key: "setScrollEvent",
+        value: function setScrollEvent() {
+          var _this19 = this;
+
+          this.onWindowScroll = function (event) {
+            var target = event.target;
+
+            var rect = _this19.screen.nativeElement.getBoundingClientRect();
+
+            var offsetTop = rect.top - target.getBoundingClientRect().top;
+            var screenHeight = _this19.screen.nativeElement.clientHeight;
+            var btnHeight = _this19.zoomBtn.nativeElement.clientHeight;
+            var space = 10;
+            var top = offsetTop > 0 || screenHeight + offsetTop - btnHeight - space < 0 ? space : (offsetTop - space) * -1;
+            _this19.zoomBtn.nativeElement.style.top = "".concat(top, "px");
+          }.bind(this);
+
+          var element = document.getElementById('contents');
+          element.addEventListener('scroll', this.onWindowScroll);
         }
         /**
          * 拡大許可判定
@@ -9829,7 +9865,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       }, {
         key: "createScreen",
         value: function createScreen() {
-          var _this19 = this;
+          var _this20 = this;
 
           // y軸ラベル
           var labels = this.createLineLabel(); // 行ラベル
@@ -9852,15 +9888,15 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
 
             if (y === 0) {
-              pos.y += _this19.screenData.seatStart.y;
-            } else if (_this19.screenData.map[y].length === 0) {
-              pos.y += _this19.screenData.aisle.middle.h - _this19.screenData.seatMargin.h;
+              pos.y += _this20.screenData.seatStart.y;
+            } else if (_this20.screenData.map[y].length === 0) {
+              pos.y += _this20.screenData.aisle.middle.h - _this20.screenData.seatMargin.h;
             } else {
               labelCount++;
-              pos.y += _this19.screenData.seatSize.h + _this19.screenData.seatMargin.h;
+              pos.y += _this20.screenData.seatSize.h + _this20.screenData.seatMargin.h;
             }
 
-            if (_this19.screenData.map[y].length > 0) {
+            if (_this20.screenData.map[y].length > 0) {
               seats.push({
                 className: "seat-".concat(labels[labelCount]),
                 code: labels[labelCount],
@@ -9871,49 +9907,49 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
               var _loop5 = function _loop5(x) {
                 if (x === 0) {
-                  pos.x = _this19.screenData.seatStart.x;
+                  pos.x = _this20.screenData.seatStart.x;
                 } // 座席ラベルHTML生成
 
 
-                if (x === 0 && _this19.screenData.lineLabel) {
-                  _this19.lineLabels.push({
+                if (x === 0 && _this20.screenData.lineLabel) {
+                  _this20.lineLabels.push({
                     id: labelCount,
-                    w: _this19.screenData.seatSize.w,
-                    h: _this19.screenData.seatSize.h,
+                    w: _this20.screenData.seatSize.w,
+                    h: _this20.screenData.seatSize.h,
                     y: pos.y,
-                    x: pos.x - _this19.screenData.seatLabelPos,
+                    x: pos.x - _this20.screenData.seatLabelPos,
                     label: labels[labelCount]
                   });
                 }
 
-                if (_this19.screenData.map[y][x] === 8) {
-                  pos.x += _this19.screenData.aisle.middle.w;
-                } else if (_this19.screenData.map[y][x] === 9) {
-                  pos.x += _this19.screenData.aisle.middle.w;
-                } else if (_this19.screenData.map[y][x] === 10) {
-                  pos.x += _this19.screenData.seatSize.w / 2 + _this19.screenData.seatMargin.w;
-                } else if (_this19.screenData.map[y][x] === 11) {
-                  pos.x += _this19.screenData.seatSize.w / 2 + _this19.screenData.seatMargin.w;
+                if (_this20.screenData.map[y][x] === 8) {
+                  pos.x += _this20.screenData.aisle.middle.w;
+                } else if (_this20.screenData.map[y][x] === 9) {
+                  pos.x += _this20.screenData.aisle.middle.w;
+                } else if (_this20.screenData.map[y][x] === 10) {
+                  pos.x += _this20.screenData.seatSize.w / 2 + _this20.screenData.seatMargin.w;
+                } else if (_this20.screenData.map[y][x] === 11) {
+                  pos.x += _this20.screenData.seatSize.w / 2 + _this20.screenData.seatMargin.w;
                 } // 座席番号HTML生成
 
 
-                if (y === 0 && _this19.screenData.columnLabel) {
-                  var label = _this19.screenData.seatNumberAlign === 'left' ? String(x + 1) : String(_this19.screenData.map[0].length - x);
+                if (y === 0 && _this20.screenData.columnLabel) {
+                  var label = _this20.screenData.seatNumberAlign === 'left' ? String(x + 1) : String(_this20.screenData.map[0].length - x);
 
-                  _this19.columnLabels.push({
+                  _this20.columnLabels.push({
                     id: x,
-                    w: _this19.screenData.seatSize.w,
-                    h: _this19.screenData.seatSize.h,
-                    y: pos.y - _this19.screenData.seatNumberPos,
+                    w: _this20.screenData.seatSize.w,
+                    h: _this20.screenData.seatSize.h,
+                    y: pos.y - _this20.screenData.seatNumberPos,
                     x: pos.x,
                     label: label
                   });
                 }
 
-                if (_this19.screenData.map[y][x] === 1 || _this19.screenData.map[y][x] === 4 || _this19.screenData.map[y][x] === 5 || _this19.screenData.map[y][x] === 8 || _this19.screenData.map[y][x] === 10) {
+                if (_this20.screenData.map[y][x] === 1 || _this20.screenData.map[y][x] === 4 || _this20.screenData.map[y][x] === 5 || _this20.screenData.map[y][x] === 8 || _this20.screenData.map[y][x] === 10) {
                   // 座席HTML生成
                   var code = function () {
-                    return _this19.screenData.seatNumberAlign === 'left' ? "".concat(labels[labelCount], "-").concat(String(x + 1)) : "".concat(labels[labelCount], "-").concat(String(_this19.screenData.map[y].length - x));
+                    return _this20.screenData.seatNumberAlign === 'left' ? "".concat(labels[labelCount], "-").concat(String(x + 1)) : "".concat(labels[labelCount], "-").concat(String(_this20.screenData.map[y].length - x));
                   }();
 
                   var className = ["seat-".concat(code)];
@@ -9922,7 +9958,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                   var status = _models_purchase_screen__WEBPACK_IMPORTED_MODULE_4__["SeatStatus"].Disabled;
                   var acceptedOffer; // 席の状態変更
 
-                  _this19.screeningEventSeats.forEach(function (s) {
+                  _this20.screeningEventSeats.forEach(function (s) {
                     if (s.containedInPlace !== undefined && s.containedInPlace.branchCode !== undefined) {
                       section = s.containedInPlace.branchCode;
                     }
@@ -9947,9 +9983,9 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                     };
                   });
 
-                  if (_this19.authorizeSeatReservation !== undefined && _this19.authorizeSeatReservation.result !== undefined && _this19.authorizeSeatReservation.result.responseBody.object.reservations !== undefined) {
+                  if (_this20.authorizeSeatReservation !== undefined && _this20.authorizeSeatReservation.result !== undefined && _this20.authorizeSeatReservation.result.responseBody.object.reservations !== undefined) {
                     // chevre
-                    var findResult = _this19.authorizeSeatReservation.result.responseBody.object.reservations.find(function (r) {
+                    var findResult = _this20.authorizeSeatReservation.result.responseBody.object.reservations.find(function (r) {
                       var ticketedSeat = r.reservedTicket.ticketedSeat;
                       return ticketedSeat !== undefined && ticketedSeat.seatNumber === code && ticketedSeat.seatSection === section && ticketedSeat.seatRow === row;
                     });
@@ -9959,14 +9995,14 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                     }
                   }
 
-                  if (_this19.screenData.hc !== undefined && _this19.screenData.hc.indexOf(code) !== -1) {
+                  if (_this20.screenData.hc !== undefined && _this20.screenData.hc.indexOf(code) !== -1) {
                     className.push('seat-hc');
                   }
 
                   var seat = {
                     className: className.join(' '),
-                    w: _this19.screenData.seatSize.w,
-                    h: _this19.screenData.seatSize.h,
+                    w: _this20.screenData.seatSize.w,
+                    h: _this20.screenData.seatSize.h,
                     y: 0,
                     x: pos.x,
                     code: code,
@@ -9978,24 +10014,24 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                 } // ポジション設定
 
 
-                if (_this19.screenData.map[y][x] === 2) {
-                  pos.x += _this19.screenData.aisle.middle.w + _this19.screenData.seatMargin.w;
-                } else if (_this19.screenData.map[y][x] === 3) {
-                  pos.x += _this19.screenData.aisle.small.w + _this19.screenData.seatMargin.w;
-                } else if (_this19.screenData.map[y][x] === 4) {
-                  pos.x += _this19.screenData.aisle.middle.w + _this19.screenData.seatSize.w + _this19.screenData.seatMargin.w;
-                } else if (_this19.screenData.map[y][x] === 5) {
-                  pos.x += _this19.screenData.aisle.small.w + _this19.screenData.seatSize.w + _this19.screenData.seatMargin.w;
-                } else if (_this19.screenData.map[y][x] === 6) {
-                  pos.x += _this19.screenData.aisle.middle.w + _this19.screenData.seatSize.w + _this19.screenData.seatMargin.w;
-                } else if (_this19.screenData.map[y][x] === 7) {
-                  pos.x += _this19.screenData.aisle.small.w + _this19.screenData.seatSize.w + _this19.screenData.seatMargin.w;
+                if (_this20.screenData.map[y][x] === 2) {
+                  pos.x += _this20.screenData.aisle.middle.w + _this20.screenData.seatMargin.w;
+                } else if (_this20.screenData.map[y][x] === 3) {
+                  pos.x += _this20.screenData.aisle.small.w + _this20.screenData.seatMargin.w;
+                } else if (_this20.screenData.map[y][x] === 4) {
+                  pos.x += _this20.screenData.aisle.middle.w + _this20.screenData.seatSize.w + _this20.screenData.seatMargin.w;
+                } else if (_this20.screenData.map[y][x] === 5) {
+                  pos.x += _this20.screenData.aisle.small.w + _this20.screenData.seatSize.w + _this20.screenData.seatMargin.w;
+                } else if (_this20.screenData.map[y][x] === 6) {
+                  pos.x += _this20.screenData.aisle.middle.w + _this20.screenData.seatSize.w + _this20.screenData.seatMargin.w;
+                } else if (_this20.screenData.map[y][x] === 7) {
+                  pos.x += _this20.screenData.aisle.small.w + _this20.screenData.seatSize.w + _this20.screenData.seatMargin.w;
                 } else {
-                  pos.x += _this19.screenData.seatSize.w + _this19.screenData.seatMargin.w;
+                  pos.x += _this20.screenData.seatSize.w + _this20.screenData.seatMargin.w;
                 }
               };
 
-              for (var x = 0; x < _this19.screenData.map[y].length; x++) {
+              for (var x = 0; x < _this20.screenData.map[y].length; x++) {
                 _loop5(x);
               }
             }
@@ -10058,6 +10094,14 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     __decorate([Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"])(), __metadata("design:type", Object)], ScreenComponent.prototype, "authorizeSeatReservation", void 0);
 
     __decorate([Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Output"])(), __metadata("design:type", Object)], ScreenComponent.prototype, "select", void 0);
+
+    __decorate([Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ViewChild"])('screen', {
+      "static": true
+    }), __metadata("design:type", _angular_core__WEBPACK_IMPORTED_MODULE_0__["ElementRef"])], ScreenComponent.prototype, "screen", void 0);
+
+    __decorate([Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ViewChild"])('zoomBtn', {
+      "static": true
+    }), __metadata("design:type", _angular_core__WEBPACK_IMPORTED_MODULE_0__["ElementRef"])], ScreenComponent.prototype, "zoomBtn", void 0);
 
     ScreenComponent = ScreenComponent_1 = __decorate([Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
       selector: 'app-screen',
@@ -10720,14 +10764,14 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
           return __awaiter(this, void 0, void 0,
           /*#__PURE__*/
           regeneratorRuntime.mark(function _callee22() {
-            var _this20 = this;
+            var _this21 = this;
 
             return regeneratorRuntime.wrap(function _callee22$(_context22) {
               while (1) {
                 switch (_context22.prev = _context22.next) {
                   case 0:
                     return _context22.abrupt("return", new Promise(function (resolve) {
-                      _this20.admission.subscribe(function (admission) {
+                      _this21.admission.subscribe(function (admission) {
                         resolve(admission);
                       }).unsubscribe();
                     }));
@@ -10779,17 +10823,17 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
           return __awaiter(this, void 0, void 0,
           /*#__PURE__*/
           regeneratorRuntime.mark(function _callee24() {
-            var _this21 = this;
+            var _this22 = this;
 
             return regeneratorRuntime.wrap(function _callee24$(_context24) {
               while (1) {
                 switch (_context24.prev = _context24.next) {
                   case 0:
                     return _context24.abrupt("return", new Promise(function (resolve, reject) {
-                      return __awaiter(_this21, void 0, void 0,
+                      return __awaiter(_this22, void 0, void 0,
                       /*#__PURE__*/
                       regeneratorRuntime.mark(function _callee23() {
-                        var _this22 = this;
+                        var _this23 = this;
 
                         var _ref, screeningEvent, specified, scheduleDate, success, fail;
 
@@ -10815,7 +10859,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                                   return resolve();
                                 }));
                                 fail = this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_1__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_6__["admissionAction"].ActionTypes.CheckFail), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["tap"])(function () {
-                                  _this22.error.subscribe(function (error) {
+                                  _this23.error.subscribe(function (error) {
                                     reject(error);
                                   }).unsubscribe();
                                 }));
@@ -10848,23 +10892,23 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
           return __awaiter(this, void 0, void 0,
           /*#__PURE__*/
           regeneratorRuntime.mark(function _callee25() {
-            var _this23 = this;
+            var _this24 = this;
 
             return regeneratorRuntime.wrap(function _callee25$(_context25) {
               while (1) {
                 switch (_context25.prev = _context25.next) {
                   case 0:
                     return _context25.abrupt("return", new Promise(function (resolve, reject) {
-                      _this23.store.dispatch(new _store_actions__WEBPACK_IMPORTED_MODULE_6__["admissionAction"].GetScreeningEvent({
+                      _this24.store.dispatch(new _store_actions__WEBPACK_IMPORTED_MODULE_6__["admissionAction"].GetScreeningEvent({
                         screeningEvent: screeningEvent
                       }));
 
-                      var success = _this23.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_1__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_6__["admissionAction"].ActionTypes.GetScreeningEventSuccess), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["tap"])(function () {
+                      var success = _this24.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_1__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_6__["admissionAction"].ActionTypes.GetScreeningEventSuccess), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["tap"])(function () {
                         resolve();
                       }));
 
-                      var fail = _this23.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_1__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_6__["admissionAction"].ActionTypes.GetScreeningEventFail), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["tap"])(function () {
-                        _this23.error.subscribe(function (error) {
+                      var fail = _this24.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_1__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_6__["admissionAction"].ActionTypes.GetScreeningEventFail), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["tap"])(function () {
+                        _this24.error.subscribe(function (error) {
                           reject(error);
                         }).unsubscribe();
                       }));
@@ -12049,14 +12093,14 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
           return __awaiter(this, void 0, void 0,
           /*#__PURE__*/
           regeneratorRuntime.mark(function _callee36() {
-            var _this24 = this;
+            var _this25 = this;
 
             return regeneratorRuntime.wrap(function _callee36$(_context36) {
               while (1) {
                 switch (_context36.prev = _context36.next) {
                   case 0:
                     return _context36.abrupt("return", new Promise(function (resolve) {
-                      _this24.master.subscribe(function (master) {
+                      _this25.master.subscribe(function (master) {
                         resolve(master);
                       }).unsubscribe();
                     }));
@@ -12271,21 +12315,21 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
           return __awaiter(this, void 0, void 0,
           /*#__PURE__*/
           regeneratorRuntime.mark(function _callee40() {
-            var _this25 = this;
+            var _this26 = this;
 
             return regeneratorRuntime.wrap(function _callee40$(_context40) {
               while (1) {
                 switch (_context40.prev = _context40.next) {
                   case 0:
                     return _context40.abrupt("return", new Promise(function (resolve, reject) {
-                      _this25.store.dispatch(new _store_actions__WEBPACK_IMPORTED_MODULE_8__["masterAction"].GetProjects());
+                      _this26.store.dispatch(new _store_actions__WEBPACK_IMPORTED_MODULE_8__["masterAction"].GetProjects());
 
-                      var success = _this25.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_8__["masterAction"].ActionTypes.GetProjectsSuccess), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["tap"])(function () {
+                      var success = _this26.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_8__["masterAction"].ActionTypes.GetProjectsSuccess), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["tap"])(function () {
                         resolve();
                       }));
 
-                      var fail = _this25.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_8__["masterAction"].ActionTypes.GetProjectsFail), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["tap"])(function () {
-                        _this25.error.subscribe(function (error) {
+                      var fail = _this26.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_8__["masterAction"].ActionTypes.GetProjectsFail), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["tap"])(function () {
+                        _this26.error.subscribe(function (error) {
                           reject(error);
                         }).unsubscribe();
                       }));
@@ -12488,14 +12532,14 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
           return __awaiter(this, void 0, void 0,
           /*#__PURE__*/
           regeneratorRuntime.mark(function _callee41() {
-            var _this26 = this;
+            var _this27 = this;
 
             return regeneratorRuntime.wrap(function _callee41$(_context41) {
               while (1) {
                 switch (_context41.prev = _context41.next) {
                   case 0:
                     return _context41.abrupt("return", new Promise(function (resolve) {
-                      _this26.order.subscribe(function (order) {
+                      _this27.order.subscribe(function (order) {
                         resolve(order);
                       }).unsubscribe();
                     }));
@@ -12666,7 +12710,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
           return __awaiter(this, void 0, void 0,
           /*#__PURE__*/
           regeneratorRuntime.mark(function _callee44() {
-            var _this27 = this;
+            var _this28 = this;
 
             var identifier;
             return regeneratorRuntime.wrap(function _callee44$(_context44) {
@@ -12681,7 +12725,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                       value: params.pos.name
                     }];
                     return _context44.abrupt("return", new Promise(function (resolve, reject) {
-                      _this27.store.dispatch(new _store_actions__WEBPACK_IMPORTED_MODULE_7__["orderAction"].Cancel({
+                      _this28.store.dispatch(new _store_actions__WEBPACK_IMPORTED_MODULE_7__["orderAction"].Cancel({
                         orders: params.orders,
                         language: params.language,
                         agent: {
@@ -12689,12 +12733,12 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                         }
                       }));
 
-                      var success = _this27.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_1__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_7__["orderAction"].ActionTypes.CancelSuccess), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["tap"])(function () {
+                      var success = _this28.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_1__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_7__["orderAction"].ActionTypes.CancelSuccess), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["tap"])(function () {
                         resolve();
                       }));
 
-                      var fail = _this27.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_1__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_7__["orderAction"].ActionTypes.CancelFail), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["tap"])(function () {
-                        _this27.error.subscribe(function (error) {
+                      var fail = _this28.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_1__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_7__["orderAction"].ActionTypes.CancelFail), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["tap"])(function () {
+                        _this28.error.subscribe(function (error) {
                           reject(error);
                         }).unsubscribe();
                       }));
@@ -12720,21 +12764,21 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
           return __awaiter(this, void 0, void 0,
           /*#__PURE__*/
           regeneratorRuntime.mark(function _callee45() {
-            var _this28 = this;
+            var _this29 = this;
 
             return regeneratorRuntime.wrap(function _callee45$(_context45) {
               while (1) {
                 switch (_context45.prev = _context45.next) {
                   case 0:
                     return _context45.abrupt("return", new Promise(function (resolve, reject) {
-                      _this28.store.dispatch(new _store_actions__WEBPACK_IMPORTED_MODULE_7__["orderAction"].Inquiry(params));
+                      _this29.store.dispatch(new _store_actions__WEBPACK_IMPORTED_MODULE_7__["orderAction"].Inquiry(params));
 
-                      var success = _this28.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_1__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_7__["orderAction"].ActionTypes.InquirySuccess), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["tap"])(function () {
+                      var success = _this29.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_1__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_7__["orderAction"].ActionTypes.InquirySuccess), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["tap"])(function () {
                         resolve();
                       }));
 
-                      var fail = _this28.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_1__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_7__["orderAction"].ActionTypes.InquiryFail), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["tap"])(function () {
-                        _this28.error.subscribe(function (error) {
+                      var fail = _this29.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_1__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_7__["orderAction"].ActionTypes.InquiryFail), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["tap"])(function () {
+                        _this29.error.subscribe(function (error) {
                           reject(error);
                         }).unsubscribe();
                       }));
@@ -12760,7 +12804,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
           return __awaiter(this, void 0, void 0,
           /*#__PURE__*/
           regeneratorRuntime.mark(function _callee46() {
-            var _this29 = this;
+            var _this30 = this;
 
             return regeneratorRuntime.wrap(function _callee46$(_context46) {
               while (1) {
@@ -12771,18 +12815,18 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                       var pos = prams.pos;
                       var printer = prams.printer;
 
-                      _this29.store.dispatch(new _store_actions__WEBPACK_IMPORTED_MODULE_7__["orderAction"].Print({
+                      _this30.store.dispatch(new _store_actions__WEBPACK_IMPORTED_MODULE_7__["orderAction"].Print({
                         orders: orders,
                         pos: pos,
                         printer: printer
                       }));
 
-                      var success = _this29.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_1__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_7__["orderAction"].ActionTypes.PrintSuccess), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["tap"])(function () {
+                      var success = _this30.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_1__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_7__["orderAction"].ActionTypes.PrintSuccess), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["tap"])(function () {
                         resolve();
                       }));
 
-                      var fail = _this29.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_1__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_7__["orderAction"].ActionTypes.PrintFail), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["tap"])(function () {
-                        _this29.error.subscribe(function (error) {
+                      var fail = _this30.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_1__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_7__["orderAction"].ActionTypes.PrintFail), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["tap"])(function () {
+                        _this30.error.subscribe(function (error) {
                           reject(error);
                         }).unsubscribe();
                       }));
@@ -12808,26 +12852,26 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
           return __awaiter(this, void 0, void 0,
           /*#__PURE__*/
           regeneratorRuntime.mark(function _callee47() {
-            var _this30 = this;
+            var _this31 = this;
 
             return regeneratorRuntime.wrap(function _callee47$(_context47) {
               while (1) {
                 switch (_context47.prev = _context47.next) {
                   case 0:
                     return _context47.abrupt("return", new Promise(function (resolve, reject) {
-                      _this30.store.dispatch(new _store_actions__WEBPACK_IMPORTED_MODULE_7__["orderAction"].OrderAuthorize({
+                      _this31.store.dispatch(new _store_actions__WEBPACK_IMPORTED_MODULE_7__["orderAction"].OrderAuthorize({
                         orderNumber: order.orderNumber,
                         customer: {
                           telephone: order.customer.telephone
                         }
                       }));
 
-                      var success = _this30.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_1__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_7__["orderAction"].ActionTypes.OrderAuthorizeSuccess), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["tap"])(function () {
+                      var success = _this31.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_1__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_7__["orderAction"].ActionTypes.OrderAuthorizeSuccess), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["tap"])(function () {
                         resolve();
                       }));
 
-                      var fail = _this30.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_1__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_7__["orderAction"].ActionTypes.OrderAuthorizeFail), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["tap"])(function () {
-                        _this30.error.subscribe(function (error) {
+                      var fail = _this31.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_1__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_7__["orderAction"].ActionTypes.OrderAuthorizeFail), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["tap"])(function () {
+                        _this31.error.subscribe(function (error) {
                           reject(error);
                         }).unsubscribe();
                       }));
@@ -13054,14 +13098,14 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
           return __awaiter(this, void 0, void 0,
           /*#__PURE__*/
           regeneratorRuntime.mark(function _callee48() {
-            var _this31 = this;
+            var _this32 = this;
 
             return regeneratorRuntime.wrap(function _callee48$(_context48) {
               while (1) {
                 switch (_context48.prev = _context48.next) {
                   case 0:
                     return _context48.abrupt("return", new Promise(function (resolve) {
-                      _this31.purchase.subscribe(function (purchase) {
+                      _this32.purchase.subscribe(function (purchase) {
                         resolve(purchase);
                       }).unsubscribe();
                     }));
@@ -13099,19 +13143,19 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       }, {
         key: "getSeller",
         value: function getSeller(id) {
-          var _this32 = this;
+          var _this33 = this;
 
           return new Promise(function (resolve, reject) {
-            _this32.store.dispatch(new _store_actions__WEBPACK_IMPORTED_MODULE_10__["purchaseAction"].GetSeller({
+            _this33.store.dispatch(new _store_actions__WEBPACK_IMPORTED_MODULE_10__["purchaseAction"].GetSeller({
               id: id
             }));
 
-            var success = _this32.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_10__["purchaseAction"].ActionTypes.GetSellerSuccess), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["tap"])(function () {
+            var success = _this33.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_10__["purchaseAction"].ActionTypes.GetSellerSuccess), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["tap"])(function () {
               resolve();
             }));
 
-            var fail = _this32.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_10__["purchaseAction"].ActionTypes.GetSellerFail), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["tap"])(function () {
-              _this32.error.subscribe(function (error) {
+            var fail = _this33.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_10__["purchaseAction"].ActionTypes.GetSellerFail), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["tap"])(function () {
+              _this33.error.subscribe(function (error) {
                 reject(error);
               }).unsubscribe();
             }));
@@ -13140,23 +13184,23 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
           return __awaiter(this, void 0, void 0,
           /*#__PURE__*/
           regeneratorRuntime.mark(function _callee49() {
-            var _this33 = this;
+            var _this34 = this;
 
             return regeneratorRuntime.wrap(function _callee49$(_context49) {
               while (1) {
                 switch (_context49.prev = _context49.next) {
                   case 0:
                     return _context49.abrupt("return", new Promise(function (resolve, reject) {
-                      _this33.store.dispatch(new _store_actions__WEBPACK_IMPORTED_MODULE_10__["purchaseAction"].GetScreeningEvent({
+                      _this34.store.dispatch(new _store_actions__WEBPACK_IMPORTED_MODULE_10__["purchaseAction"].GetScreeningEvent({
                         screeningEvent: screeningEvent
                       }));
 
-                      var success = _this33.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_10__["purchaseAction"].ActionTypes.GetScreeningEventSuccess), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["tap"])(function () {
+                      var success = _this34.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_10__["purchaseAction"].ActionTypes.GetScreeningEventSuccess), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["tap"])(function () {
                         resolve();
                       }));
 
-                      var fail = _this33.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_10__["purchaseAction"].ActionTypes.GetScreeningEventFail), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["tap"])(function () {
-                        _this33.error.subscribe(function (error) {
+                      var fail = _this34.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_10__["purchaseAction"].ActionTypes.GetScreeningEventFail), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["tap"])(function () {
+                        _this34.error.subscribe(function (error) {
                           reject(error);
                         }).unsubscribe();
                       }));
@@ -13182,7 +13226,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
           return __awaiter(this, void 0, void 0,
           /*#__PURE__*/
           regeneratorRuntime.mark(function _callee50() {
-            var _this34 = this;
+            var _this35 = this;
 
             var environment, now, identifier;
             return regeneratorRuntime.wrap(function _callee50$(_context50) {
@@ -13203,7 +13247,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                       value: params.pos.name
                     }]);
                     return _context50.abrupt("return", new Promise(function (resolve, reject) {
-                      _this34.store.dispatch(new _store_actions__WEBPACK_IMPORTED_MODULE_10__["purchaseAction"].StartTransaction({
+                      _this35.store.dispatch(new _store_actions__WEBPACK_IMPORTED_MODULE_10__["purchaseAction"].StartTransaction({
                         expires: moment__WEBPACK_IMPORTED_MODULE_4__(now).add(environment.PURCHASE_TRANSACTION_TIME, 'minutes').toDate(),
                         seller: {
                           typeOf: params.seller.typeOf,
@@ -13215,12 +13259,12 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                         }
                       }));
 
-                      var success = _this34.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_10__["purchaseAction"].ActionTypes.StartTransactionSuccess), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["tap"])(function () {
+                      var success = _this35.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_10__["purchaseAction"].ActionTypes.StartTransactionSuccess), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["tap"])(function () {
                         resolve();
                       }));
 
-                      var fail = _this34.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_10__["purchaseAction"].ActionTypes.StartTransactionFail), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["tap"])(function () {
-                        _this34.error.subscribe(function (error) {
+                      var fail = _this35.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_10__["purchaseAction"].ActionTypes.StartTransactionFail), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["tap"])(function () {
+                        _this35.error.subscribe(function (error) {
                           reject(error);
                         }).unsubscribe();
                       }));
@@ -13246,7 +13290,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
           return __awaiter(this, void 0, void 0,
           /*#__PURE__*/
           regeneratorRuntime.mark(function _callee51() {
-            var _this35 = this;
+            var _this36 = this;
 
             var purchase;
             return regeneratorRuntime.wrap(function _callee51$(_context51) {
@@ -13266,15 +13310,15 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                         return;
                       }
 
-                      _this35.store.dispatch(new _store_actions__WEBPACK_IMPORTED_MODULE_10__["purchaseAction"].CancelTransaction({
+                      _this36.store.dispatch(new _store_actions__WEBPACK_IMPORTED_MODULE_10__["purchaseAction"].CancelTransaction({
                         transaction: transaction
                       }));
 
-                      var success = _this35.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_10__["purchaseAction"].ActionTypes.CancelTransactionSuccess), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["tap"])(function () {
+                      var success = _this36.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_10__["purchaseAction"].ActionTypes.CancelTransactionSuccess), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["tap"])(function () {
                         resolve();
                       }));
 
-                      var fail = _this35.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_10__["purchaseAction"].ActionTypes.CancelTransactionFail), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["tap"])(function () {
+                      var fail = _this36.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_10__["purchaseAction"].ActionTypes.CancelTransactionFail), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["tap"])(function () {
                         resolve();
                       }));
 
@@ -13296,17 +13340,17 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       }, {
         key: "getScreen",
         value: function getScreen(params) {
-          var _this36 = this;
+          var _this37 = this;
 
           return new Promise(function (resolve, reject) {
-            _this36.store.dispatch(new _store_actions__WEBPACK_IMPORTED_MODULE_10__["purchaseAction"].GetScreen(params));
+            _this37.store.dispatch(new _store_actions__WEBPACK_IMPORTED_MODULE_10__["purchaseAction"].GetScreen(params));
 
-            var success = _this36.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_10__["purchaseAction"].ActionTypes.GetScreenSuccess), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["tap"])(function () {
+            var success = _this37.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_10__["purchaseAction"].ActionTypes.GetScreenSuccess), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["tap"])(function () {
               resolve();
             }));
 
-            var fail = _this36.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_10__["purchaseAction"].ActionTypes.GetScreenFail), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["tap"])(function () {
-              _this36.error.subscribe(function (error) {
+            var fail = _this37.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_10__["purchaseAction"].ActionTypes.GetScreenFail), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["tap"])(function () {
+              _this37.error.subscribe(function (error) {
                 reject(error);
               }).unsubscribe();
             }));
@@ -13442,7 +13486,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
           return __awaiter(this, void 0, void 0,
           /*#__PURE__*/
           regeneratorRuntime.mark(function _callee53() {
-            var _this37 = this;
+            var _this38 = this;
 
             var purchase;
             return regeneratorRuntime.wrap(function _callee53$(_context53) {
@@ -13462,17 +13506,17 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                         return;
                       }
 
-                      _this37.store.dispatch(new _store_actions__WEBPACK_IMPORTED_MODULE_10__["purchaseAction"].GetTicketList({
+                      _this38.store.dispatch(new _store_actions__WEBPACK_IMPORTED_MODULE_10__["purchaseAction"].GetTicketList({
                         screeningEvent: screeningEvent,
                         seller: params.seller
                       }));
 
-                      var success = _this37.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_10__["purchaseAction"].ActionTypes.GetTicketListSuccess), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["tap"])(function () {
+                      var success = _this38.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_10__["purchaseAction"].ActionTypes.GetTicketListSuccess), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["tap"])(function () {
                         resolve();
                       }));
 
-                      var fail = _this37.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_10__["purchaseAction"].ActionTypes.GetTicketListFail), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["tap"])(function () {
-                        _this37.error.subscribe(function (error) {
+                      var fail = _this38.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_10__["purchaseAction"].ActionTypes.GetTicketListFail), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["tap"])(function () {
+                        _this38.error.subscribe(function (error) {
                           reject(error);
                         }).unsubscribe();
                       }));
@@ -13509,7 +13553,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
           return __awaiter(this, void 0, void 0,
           /*#__PURE__*/
           regeneratorRuntime.mark(function _callee54() {
-            var _this38 = this;
+            var _this39 = this;
 
             var additionalTicketText, reservations, purchase;
             return regeneratorRuntime.wrap(function _callee54$(_context54) {
@@ -13535,7 +13579,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
                       var authorizeSeatReservation = purchase.authorizeSeatReservation;
 
-                      _this38.store.dispatch(new _store_actions__WEBPACK_IMPORTED_MODULE_10__["purchaseAction"].TemporaryReservation({
+                      _this39.store.dispatch(new _store_actions__WEBPACK_IMPORTED_MODULE_10__["purchaseAction"].TemporaryReservation({
                         reservations: reservations.map(function (reservation) {
                           return {
                             seat: reservation.seat,
@@ -13551,12 +13595,12 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                         additionalTicketText: additionalTicketText
                       }));
 
-                      var success = _this38.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_10__["purchaseAction"].ActionTypes.TemporaryReservationSuccess), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["tap"])(function () {
+                      var success = _this39.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_10__["purchaseAction"].ActionTypes.TemporaryReservationSuccess), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["tap"])(function () {
                         resolve();
                       }));
 
-                      var fail = _this38.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_10__["purchaseAction"].ActionTypes.TemporaryReservationFail), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["tap"])(function () {
-                        _this38.error.subscribe(function (error) {
+                      var fail = _this39.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_10__["purchaseAction"].ActionTypes.TemporaryReservationFail), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["tap"])(function () {
+                        _this39.error.subscribe(function (error) {
                           reject(error);
                         }).unsubscribe();
                       }));
@@ -13582,23 +13626,23 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
           return __awaiter(this, void 0, void 0,
           /*#__PURE__*/
           regeneratorRuntime.mark(function _callee55() {
-            var _this39 = this;
+            var _this40 = this;
 
             return regeneratorRuntime.wrap(function _callee55$(_context55) {
               while (1) {
                 switch (_context55.prev = _context55.next) {
                   case 0:
                     return _context55.abrupt("return", new Promise(function (resolve, reject) {
-                      _this39.store.dispatch(new _store_actions__WEBPACK_IMPORTED_MODULE_10__["purchaseAction"].CancelTemporaryReservations({
+                      _this40.store.dispatch(new _store_actions__WEBPACK_IMPORTED_MODULE_10__["purchaseAction"].CancelTemporaryReservations({
                         authorizeSeatReservations: authorizeSeatReservations
                       }));
 
-                      var success = _this39.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_10__["purchaseAction"].ActionTypes.CancelTemporaryReservationsSuccess), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["tap"])(function () {
+                      var success = _this40.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_10__["purchaseAction"].ActionTypes.CancelTemporaryReservationsSuccess), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["tap"])(function () {
                         resolve();
                       }));
 
-                      var fail = _this39.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_10__["purchaseAction"].ActionTypes.CancelTemporaryReservationsFail), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["tap"])(function () {
-                        _this39.error.subscribe(function (error) {
+                      var fail = _this40.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_10__["purchaseAction"].ActionTypes.CancelTemporaryReservationsFail), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["tap"])(function () {
+                        _this40.error.subscribe(function (error) {
                           reject(error);
                         }).unsubscribe();
                       }));
@@ -13624,7 +13668,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
           return __awaiter(this, void 0, void 0,
           /*#__PURE__*/
           regeneratorRuntime.mark(function _callee56() {
-            var _this40 = this;
+            var _this41 = this;
 
             var purchase, transaction;
             return regeneratorRuntime.wrap(function _callee56$(_context56) {
@@ -13643,17 +13687,17 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                         return;
                       }
 
-                      _this40.store.dispatch(new _store_actions__WEBPACK_IMPORTED_MODULE_10__["purchaseAction"].RegisterContact({
+                      _this41.store.dispatch(new _store_actions__WEBPACK_IMPORTED_MODULE_10__["purchaseAction"].RegisterContact({
                         transaction: transaction,
                         contact: contact
                       }));
 
-                      var success = _this40.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_10__["purchaseAction"].ActionTypes.RegisterContactSuccess), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["tap"])(function () {
+                      var success = _this41.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_10__["purchaseAction"].ActionTypes.RegisterContactSuccess), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["tap"])(function () {
                         resolve();
                       }));
 
-                      var fail = _this40.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_10__["purchaseAction"].ActionTypes.RegisterContactFail), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["tap"])(function () {
-                        _this40.error.subscribe(function (error) {
+                      var fail = _this41.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_10__["purchaseAction"].ActionTypes.RegisterContactFail), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["tap"])(function () {
+                        _this41.error.subscribe(function (error) {
                           reject(error);
                         }).unsubscribe();
                       }));
@@ -13686,7 +13730,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
           return __awaiter(this, void 0, void 0,
           /*#__PURE__*/
           regeneratorRuntime.mark(function _callee57() {
-            var _this41 = this;
+            var _this42 = this;
 
             var purchase;
             return regeneratorRuntime.wrap(function _callee57$(_context57) {
@@ -13704,7 +13748,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                         return;
                       }
 
-                      _this41.store.dispatch(new _store_actions__WEBPACK_IMPORTED_MODULE_10__["purchaseAction"].AuthorizeMovieTicket({
+                      _this42.store.dispatch(new _store_actions__WEBPACK_IMPORTED_MODULE_10__["purchaseAction"].AuthorizeMovieTicket({
                         transaction: purchase.transaction,
                         authorizeMovieTicketPayments: purchase.authorizeMovieTicketPayments,
                         authorizeSeatReservations: purchase.authorizeSeatReservations,
@@ -13712,12 +13756,12 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                         seller: params.seller
                       }));
 
-                      var success = _this41.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_10__["purchaseAction"].ActionTypes.AuthorizeMovieTicketSuccess), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["tap"])(function () {
+                      var success = _this42.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_10__["purchaseAction"].ActionTypes.AuthorizeMovieTicketSuccess), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["tap"])(function () {
                         resolve();
                       }));
 
-                      var fail = _this41.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_10__["purchaseAction"].ActionTypes.AuthorizeMovieTicketFail), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["tap"])(function () {
-                        _this41.error.subscribe(function (error) {
+                      var fail = _this42.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_10__["purchaseAction"].ActionTypes.AuthorizeMovieTicketFail), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["tap"])(function () {
+                        _this42.error.subscribe(function (error) {
                           reject(error);
                         }).unsubscribe();
                       }));
@@ -13743,7 +13787,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
           return __awaiter(this, void 0, void 0,
           /*#__PURE__*/
           regeneratorRuntime.mark(function _callee58() {
-            var _this42 = this;
+            var _this43 = this;
 
             var movieTicket, seller, purchase;
             return regeneratorRuntime.wrap(function _callee58$(_context58) {
@@ -13763,7 +13807,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                         return;
                       }
 
-                      _this42.store.dispatch(new _store_actions__WEBPACK_IMPORTED_MODULE_10__["purchaseAction"].CheckMovieTicket({
+                      _this43.store.dispatch(new _store_actions__WEBPACK_IMPORTED_MODULE_10__["purchaseAction"].CheckMovieTicket({
                         transaction: purchase.transaction,
                         movieTickets: [{
                           typeOf: _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_1__["factory"].paymentMethodType.MovieTicket,
@@ -13775,12 +13819,12 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                         screeningEvent: purchase.screeningEvent
                       }));
 
-                      var success = _this42.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_10__["purchaseAction"].ActionTypes.CheckMovieTicketSuccess), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["tap"])(function () {
+                      var success = _this43.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_10__["purchaseAction"].ActionTypes.CheckMovieTicketSuccess), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["tap"])(function () {
                         resolve();
                       }));
 
-                      var fail = _this42.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_10__["purchaseAction"].ActionTypes.CheckMovieTicketFail), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["tap"])(function () {
-                        _this42.error.subscribe(function (error) {
+                      var fail = _this43.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_10__["purchaseAction"].ActionTypes.CheckMovieTicketFail), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["tap"])(function () {
+                        _this43.error.subscribe(function (error) {
                           reject(error);
                         }).unsubscribe();
                       }));
@@ -13806,7 +13850,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
           return __awaiter(this, void 0, void 0,
           /*#__PURE__*/
           regeneratorRuntime.mark(function _callee59() {
-            var _this43 = this;
+            var _this44 = this;
 
             var purchase, seller, language;
             return regeneratorRuntime.wrap(function _callee59$(_context59) {
@@ -13829,19 +13873,19 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                       var transaction = purchase.transaction;
                       var authorizeSeatReservations = purchase.authorizeSeatReservations;
 
-                      _this43.store.dispatch(new _store_actions__WEBPACK_IMPORTED_MODULE_10__["purchaseAction"].EndTransaction({
+                      _this44.store.dispatch(new _store_actions__WEBPACK_IMPORTED_MODULE_10__["purchaseAction"].EndTransaction({
                         transaction: transaction,
                         authorizeSeatReservations: authorizeSeatReservations,
                         seller: seller,
                         language: language
                       }));
 
-                      var success = _this43.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_10__["purchaseAction"].ActionTypes.EndTransactionSuccess), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["tap"])(function () {
+                      var success = _this44.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_10__["purchaseAction"].ActionTypes.EndTransactionSuccess), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["tap"])(function () {
                         resolve();
                       }));
 
-                      var fail = _this43.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_10__["purchaseAction"].ActionTypes.EndTransactionFail), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["tap"])(function () {
-                        _this43.error.subscribe(function (error) {
+                      var fail = _this44.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_10__["purchaseAction"].ActionTypes.EndTransactionFail), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["tap"])(function () {
+                        _this44.error.subscribe(function (error) {
                           reject(error);
                         }).unsubscribe();
                       }));
@@ -13874,7 +13918,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
           return __awaiter(this, void 0, void 0,
           /*#__PURE__*/
           regeneratorRuntime.mark(function _callee60() {
-            var _this44 = this;
+            var _this45 = this;
 
             var purchase;
             return regeneratorRuntime.wrap(function _callee60$(_context60) {
@@ -13909,7 +13953,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                         });
                       }
 
-                      _this44.store.dispatch(new _store_actions__WEBPACK_IMPORTED_MODULE_10__["purchaseAction"].AuthorizeAnyPayment({
+                      _this45.store.dispatch(new _store_actions__WEBPACK_IMPORTED_MODULE_10__["purchaseAction"].AuthorizeAnyPayment({
                         transaction: transaction,
                         typeOf: purchase.paymentMethod.typeOf,
                         name: purchase.paymentMethod.category,
@@ -13917,12 +13961,12 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                         additionalProperty: additionalProperty
                       }));
 
-                      var success = _this44.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_10__["purchaseAction"].ActionTypes.AuthorizeAnyPaymentSuccess), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["tap"])(function () {
+                      var success = _this45.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_10__["purchaseAction"].ActionTypes.AuthorizeAnyPaymentSuccess), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["tap"])(function () {
                         resolve();
                       }));
 
-                      var fail = _this44.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_10__["purchaseAction"].ActionTypes.AuthorizeAnyPaymentFail), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["tap"])(function () {
-                        _this44.error.subscribe(function (error) {
+                      var fail = _this45.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_10__["purchaseAction"].ActionTypes.AuthorizeAnyPaymentFail), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["tap"])(function () {
+                        _this45.error.subscribe(function (error) {
                           reject(error);
                         }).unsubscribe();
                       }));
@@ -14239,14 +14283,14 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
           return __awaiter(this, void 0, void 0,
           /*#__PURE__*/
           regeneratorRuntime.mark(function _callee61() {
-            var _this45 = this;
+            var _this46 = this;
 
             return regeneratorRuntime.wrap(function _callee61$(_context61) {
               while (1) {
                 switch (_context61.prev = _context61.next) {
                   case 0:
                     return _context61.abrupt("return", new Promise(function (resolve) {
-                      _this45.reservation.subscribe(function (reservation) {
+                      _this46.reservation.subscribe(function (reservation) {
                         resolve(reservation);
                       }).unsubscribe();
                     }));
@@ -14894,14 +14938,14 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
           return __awaiter(this, void 0, void 0,
           /*#__PURE__*/
           regeneratorRuntime.mark(function _callee67() {
-            var _this46 = this;
+            var _this47 = this;
 
             return regeneratorRuntime.wrap(function _callee67$(_context67) {
               while (1) {
                 switch (_context67.prev = _context67.next) {
                   case 0:
                     return _context67.abrupt("return", new Promise(function (resolve, reject) {
-                      if (!_this46.isReady) {
+                      if (!_this47.isReady) {
                         reject({
                           isSuccess: false,
                           message: 'プリンターが初期化されていません',
@@ -14911,8 +14955,8 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                       } // 印刷命令送信後処理
 
 
-                      _this46.trader.onReceive = function (response) {
-                        var result = _this46.getStatusByReceivedResponse(response);
+                      _this47.trader.onReceive = function (response) {
+                        var result = _this47.getStatusByReceivedResponse(response);
 
                         if (!result.isSuccess) {
                           reject(result);
@@ -14923,7 +14967,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                       }; // 印刷命令失敗処理
 
 
-                      _this46.trader.onError = function (response) {
+                      _this47.trader.onError = function (response) {
                         reject({
                           isSuccess: false,
                           message: 'プリンターとの通信に失敗しました',
@@ -14932,7 +14976,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                       }; // プリンターに送信
 
 
-                      _this46.trader.sendMessage({
+                      _this47.trader.sendMessage({
                         request: args.printerRequest
                       });
                     }));
@@ -15094,14 +15138,14 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
           return __awaiter(this, void 0, void 0,
           /*#__PURE__*/
           regeneratorRuntime.mark(function _callee68() {
-            var _this47 = this;
+            var _this48 = this;
 
             return regeneratorRuntime.wrap(function _callee68$(_context68) {
               while (1) {
                 switch (_context68.prev = _context68.next) {
                   case 0:
                     return _context68.abrupt("return", new Promise(function (resolve) {
-                      _this47.user.subscribe(function (user) {
+                      _this48.user.subscribe(function (user) {
                         resolve(user);
                       }).unsubscribe();
                     }));
@@ -18087,7 +18131,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
 
     var AdmissionEffects = function AdmissionEffects(actions, cinerino) {
-      var _this48 = this;
+      var _this49 = this;
 
       _classCallCheck(this, AdmissionEffects);
 
@@ -18100,7 +18144,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       this.getScreeningEvent = this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_actions__WEBPACK_IMPORTED_MODULE_9__["admissionAction"].ActionTypes.GetScreeningEvent), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["map"])(function (action) {
         return action.payload;
       }), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["mergeMap"])(function (payload) {
-        return __awaiter(_this48, void 0, void 0,
+        return __awaiter(_this49, void 0, void 0,
         /*#__PURE__*/
         regeneratorRuntime.mark(function _callee76() {
           var screeningEvent;
@@ -18146,7 +18190,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       this.check = this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_actions__WEBPACK_IMPORTED_MODULE_9__["admissionAction"].ActionTypes.Check), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["map"])(function (action) {
         return action.payload;
       }), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["mergeMap"])(function (payload) {
-        return __awaiter(_this48, void 0, void 0,
+        return __awaiter(_this49, void 0, void 0,
         /*#__PURE__*/
         regeneratorRuntime.mark(function _callee77() {
           var code, screeningEvent, scheduleDate, specified, _ref3, token, decodeResult, checkTokenActions, searchResult, statusCode, findScreeningEventResult, id;
@@ -18479,7 +18523,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
 
     var MasterEffects = function MasterEffects(actions, cinerino) {
-      var _this49 = this;
+      var _this50 = this;
 
       _classCallCheck(this, MasterEffects);
 
@@ -18492,7 +18536,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       this.GetProjects = this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_1__["ofType"])(_actions__WEBPACK_IMPORTED_MODULE_5__["masterAction"].ActionTypes.GetProjects), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["map"])(function (action) {
         return action.payload;
       }), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["mergeMap"])(function () {
-        return __awaiter(_this49, void 0, void 0,
+        return __awaiter(_this50, void 0, void 0,
         /*#__PURE__*/
         regeneratorRuntime.mark(function _callee78() {
           var limit, page, roop, projects, searchResult;
@@ -18721,7 +18765,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
 
     var OrderEffects = function OrderEffects(actions, cinerino, starPrint, utilService, translate) {
-      var _this50 = this;
+      var _this51 = this;
 
       _classCallCheck(this, OrderEffects);
 
@@ -18737,10 +18781,10 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       this.cancel = this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_actions__WEBPACK_IMPORTED_MODULE_10__["orderAction"].ActionTypes.Cancel), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["map"])(function (action) {
         return action.payload;
       }), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["mergeMap"])(function (payload) {
-        return __awaiter(_this50, void 0, void 0,
+        return __awaiter(_this51, void 0, void 0,
         /*#__PURE__*/
         regeneratorRuntime.mark(function _callee80() {
-          var _this51 = this;
+          var _this52 = this;
 
           var orders, environment, agent, _iteratorNormalCompletion6, _didIteratorError6, _iteratorError6, _loop6, _iterator6, _step6, orderStatusWatch;
 
@@ -18771,7 +18815,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                           case 0:
                             order = _step6.value;
                             _context80.next = 3;
-                            return _this51.cinerino.transaction.returnOrder.start({
+                            return _this52.cinerino.transaction.returnOrder.start({
                               expires: moment__WEBPACK_IMPORTED_MODULE_4__().add(1, 'day').toDate(),
                               object: {
                                 order: {
@@ -18791,14 +18835,14 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                             });
                             email = {
                               sender: {
-                                name: _this51.translate.instant('email.order.return.sender.name') === '' ? undefined : _this51.translate.instant('email.order.return.sender.name'),
-                                email: _this51.translate.instant('email.order.return.sender.email') === '' ? undefined : _this51.translate.instant('email.order.return.sender.email')
+                                name: _this52.translate.instant('email.order.return.sender.name') === '' ? undefined : _this52.translate.instant('email.order.return.sender.name'),
+                                email: _this52.translate.instant('email.order.return.sender.email') === '' ? undefined : _this52.translate.instant('email.order.return.sender.email')
                               },
                               toRecipient: {
-                                name: _this51.translate.instant('email.order.return.toRecipient.name') === '' ? undefined : _this51.translate.instant('email.order.return.toRecipient.name'),
-                                email: _this51.translate.instant('email.order.return.toRecipient.email') === '' ? undefined : _this51.translate.instant('email.order.return.toRecipient.email')
+                                name: _this52.translate.instant('email.order.return.toRecipient.name') === '' ? undefined : _this52.translate.instant('email.order.return.toRecipient.name'),
+                                email: _this52.translate.instant('email.order.return.toRecipient.email') === '' ? undefined : _this52.translate.instant('email.order.return.toRecipient.email')
                               },
-                              about: _this51.translate.instant('email.order.return.about') === '' ? undefined : _this51.translate.instant('email.order.return.about'),
+                              about: _this52.translate.instant('email.order.return.about') === '' ? undefined : _this52.translate.instant('email.order.return.about'),
                               template: undefined
                             };
 
@@ -18828,7 +18872,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                           case 15:
                             url = _context80.t0;
                             _context80.next = 18;
-                            return _this51.utilService.getText(url);
+                            return _this52.utilService.getText(url);
 
                           case 18:
                             view = _context80.sent;
@@ -18848,14 +18892,14 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                           case 23:
                             refundCreditCardEmail = {
                               sender: {
-                                name: _this51.translate.instant('email.order.refundCreditCard.sender.name') === '' ? undefined : _this51.translate.instant('email.order.refundCreditCard.sender.name'),
-                                email: _this51.translate.instant('email.order.refundCreditCard.sender.email') === '' ? undefined : _this51.translate.instant('email.order.refundCreditCard.sender.email')
+                                name: _this52.translate.instant('email.order.refundCreditCard.sender.name') === '' ? undefined : _this52.translate.instant('email.order.refundCreditCard.sender.name'),
+                                email: _this52.translate.instant('email.order.refundCreditCard.sender.email') === '' ? undefined : _this52.translate.instant('email.order.refundCreditCard.sender.email')
                               },
                               toRecipient: {
-                                name: _this51.translate.instant('email.order.refundCreditCard.toRecipient.name') === '' ? undefined : _this51.translate.instant('email.order.refundCreditCard.toRecipient.name'),
-                                email: _this51.translate.instant('email.order.refundCreditCard.toRecipient.email') === '' ? undefined : _this51.translate.instant('email.order.refundCreditCard.toRecipient.email')
+                                name: _this52.translate.instant('email.order.refundCreditCard.toRecipient.name') === '' ? undefined : _this52.translate.instant('email.order.refundCreditCard.toRecipient.name'),
+                                email: _this52.translate.instant('email.order.refundCreditCard.toRecipient.email') === '' ? undefined : _this52.translate.instant('email.order.refundCreditCard.toRecipient.email')
                               },
-                              about: _this51.translate.instant('email.order.refundCreditCard.about') === '' ? undefined : _this51.translate.instant('email.order.refundCreditCard.about'),
+                              about: _this52.translate.instant('email.order.refundCreditCard.about') === '' ? undefined : _this52.translate.instant('email.order.refundCreditCard.about'),
                               template: undefined
                             };
 
@@ -18885,7 +18929,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                           case 33:
                             _url = _context80.t1;
                             _context80.next = 36;
-                            return _this51.utilService.getText(_url);
+                            return _this52.utilService.getText(_url);
 
                           case 36:
                             _view = _context80.sent;
@@ -18904,7 +18948,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
                           case 41:
                             _context80.next = 43;
-                            return _this51.cinerino.transaction.returnOrder.confirm({
+                            return _this52.cinerino.transaction.returnOrder.confirm({
                               id: startResult.id,
                               potentialActions: {
                                 returnOrder: {
@@ -18992,7 +19036,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                 case 31:
                   orderStatusWatch = function orderStatusWatch() {
                     return new Promise(function (resolve, reject) {
-                      return __awaiter(_this51, void 0, void 0,
+                      return __awaiter(_this52, void 0, void 0,
                       /*#__PURE__*/
                       regeneratorRuntime.mark(function _callee79() {
                         var limit, i, searchResult, filterResult;
@@ -19096,7 +19140,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       this.inquiry = this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_actions__WEBPACK_IMPORTED_MODULE_10__["orderAction"].ActionTypes.Inquiry), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["map"])(function (action) {
         return action.payload;
       }), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["mergeMap"])(function (payload) {
-        return __awaiter(_this50, void 0, void 0,
+        return __awaiter(_this51, void 0, void 0,
         /*#__PURE__*/
         regeneratorRuntime.mark(function _callee81() {
           var environment, now, today, confirmationNumber, customer, orderDateFrom, params, order;
@@ -19161,10 +19205,10 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       this.print = this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_actions__WEBPACK_IMPORTED_MODULE_10__["orderAction"].ActionTypes.Print), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["map"])(function (action) {
         return action.payload;
       }), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["mergeMap"])(function (payload) {
-        return __awaiter(_this50, void 0, void 0,
+        return __awaiter(_this51, void 0, void 0,
         /*#__PURE__*/
         regeneratorRuntime.mark(function _callee83() {
-          var _this52 = this;
+          var _this53 = this;
 
           var _orders, printer, pos, environment, authorizeOrders, _iteratorNormalCompletion7, _didIteratorError7, _iteratorError7, _loop7, _iterator7, _step7, path, url, printData, testFlg, canvasList, _canvas2, _iteratorNormalCompletion8, _didIteratorError8, _iteratorError8, _loop8, _iterator8, _step8, domList;
 
@@ -19218,7 +19262,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                             _context84.next = 3;
                             return Object(_functions__WEBPACK_IMPORTED_MODULE_7__["retry"])({
                               process: function process() {
-                                return __awaiter(_this52, void 0, void 0,
+                                return __awaiter(_this53, void 0, void 0,
                                 /*#__PURE__*/
                                 regeneratorRuntime.mark(function _callee82() {
                                   var orderNumber, customer, authorizeOrder;
@@ -19636,7 +19680,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       this.orderAuthorize = this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_actions__WEBPACK_IMPORTED_MODULE_10__["orderAction"].ActionTypes.OrderAuthorize), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["map"])(function (action) {
         return action.payload;
       }), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["mergeMap"])(function (payload) {
-        return __awaiter(_this50, void 0, void 0,
+        return __awaiter(_this51, void 0, void 0,
         /*#__PURE__*/
         regeneratorRuntime.mark(function _callee84() {
           var params, order;
@@ -19855,7 +19899,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
 
     var PurchaseEffects = function PurchaseEffects(actions, cinerinoService, utilService, translate) {
-      var _this53 = this;
+      var _this54 = this;
 
       _classCallCheck(this, PurchaseEffects);
 
@@ -19870,7 +19914,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       this.getSeller = this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_actions__WEBPACK_IMPORTED_MODULE_10__["purchaseAction"].ActionTypes.GetSeller), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["map"])(function (action) {
         return action.payload;
       }), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["mergeMap"])(function (payload) {
-        return __awaiter(_this53, void 0, void 0,
+        return __awaiter(_this54, void 0, void 0,
         /*#__PURE__*/
         regeneratorRuntime.mark(function _callee85() {
           var id, seller;
@@ -19917,7 +19961,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       this.startTransaction = this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_actions__WEBPACK_IMPORTED_MODULE_10__["purchaseAction"].ActionTypes.StartTransaction), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["map"])(function (action) {
         return action.payload;
       }), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["mergeMap"])(function (payload) {
-        return __awaiter(_this53, void 0, void 0,
+        return __awaiter(_this54, void 0, void 0,
         /*#__PURE__*/
         regeneratorRuntime.mark(function _callee86() {
           var params, selleId, passport, transaction;
@@ -19971,7 +20015,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       this.cancelTransaction = this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_actions__WEBPACK_IMPORTED_MODULE_10__["purchaseAction"].ActionTypes.CancelTransaction), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["map"])(function (action) {
         return action.payload;
       }), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["mergeMap"])(function (payload) {
-        return __awaiter(_this53, void 0, void 0,
+        return __awaiter(_this54, void 0, void 0,
         /*#__PURE__*/
         regeneratorRuntime.mark(function _callee87() {
           var transaction;
@@ -20015,7 +20059,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       this.getScreen = this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_actions__WEBPACK_IMPORTED_MODULE_10__["purchaseAction"].ActionTypes.GetScreen), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["map"])(function (action) {
         return action.payload;
       }), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["mergeMap"])(function (payload) {
-        return __awaiter(_this53, void 0, void 0,
+        return __awaiter(_this54, void 0, void 0,
         /*#__PURE__*/
         regeneratorRuntime.mark(function _callee88() {
           var searchResult;
@@ -20059,7 +20103,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       this.getScreeningEvent = this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_actions__WEBPACK_IMPORTED_MODULE_10__["purchaseAction"].ActionTypes.GetScreeningEvent), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["map"])(function (action) {
         return action.payload;
       }), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["mergeMap"])(function (payload) {
-        return __awaiter(_this53, void 0, void 0,
+        return __awaiter(_this54, void 0, void 0,
         /*#__PURE__*/
         regeneratorRuntime.mark(function _callee89() {
           var screeningEvent, searchMovie;
@@ -20117,7 +20161,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       this.temporaryReservation = this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_actions__WEBPACK_IMPORTED_MODULE_10__["purchaseAction"].ActionTypes.TemporaryReservation), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["map"])(function (action) {
         return action.payload;
       }), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["mergeMap"])(function (payload) {
-        return __awaiter(_this53, void 0, void 0,
+        return __awaiter(_this54, void 0, void 0,
         /*#__PURE__*/
         regeneratorRuntime.mark(function _callee90() {
           var transaction, screeningEvent, reservations, screeningEventSeats, additionalTicketText, availableSeats, authorizeSeatReservation;
@@ -20232,7 +20276,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       this.cancelTemporaryReservations = this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_actions__WEBPACK_IMPORTED_MODULE_10__["purchaseAction"].ActionTypes.CancelTemporaryReservations), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["map"])(function (action) {
         return action.payload;
       }), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["mergeMap"])(function (payload) {
-        return __awaiter(_this53, void 0, void 0,
+        return __awaiter(_this54, void 0, void 0,
         /*#__PURE__*/
         regeneratorRuntime.mark(function _callee91() {
           var authorizeSeatReservations, _iteratorNormalCompletion10, _didIteratorError10, _iteratorError10, _iterator10, _step10, authorizeSeatReservation;
@@ -20329,7 +20373,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       this.getTicketList = this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_actions__WEBPACK_IMPORTED_MODULE_10__["purchaseAction"].ActionTypes.GetTicketList), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["map"])(function (action) {
         return action.payload;
       }), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["mergeMap"])(function (payload) {
-        return __awaiter(_this53, void 0, void 0,
+        return __awaiter(_this54, void 0, void 0,
         /*#__PURE__*/
         regeneratorRuntime.mark(function _callee92() {
           var clientId, screeningEvent, seller, screeningEventTicketOffers;
@@ -20387,7 +20431,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       this.registerContact = this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_actions__WEBPACK_IMPORTED_MODULE_10__["purchaseAction"].ActionTypes.RegisterContact), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["map"])(function (action) {
         return action.payload;
       }), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["mergeMap"])(function (payload) {
-        return __awaiter(_this53, void 0, void 0,
+        return __awaiter(_this54, void 0, void 0,
         /*#__PURE__*/
         regeneratorRuntime.mark(function _callee93() {
           var transaction, profile;
@@ -20440,7 +20484,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       this.authorizeCreditCard = this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_actions__WEBPACK_IMPORTED_MODULE_10__["purchaseAction"].ActionTypes.AuthorizeCreditCard), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["map"])(function (action) {
         return action.payload;
       }), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["mergeMap"])(function (payload) {
-        return __awaiter(_this53, void 0, void 0,
+        return __awaiter(_this54, void 0, void 0,
         /*#__PURE__*/
         regeneratorRuntime.mark(function _callee94() {
           var gmoTokenObject, amount, transaction, creditCard, authorizeCreditCardPaymentResult;
@@ -20507,10 +20551,10 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       this.authorizeMovieTicket = this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_actions__WEBPACK_IMPORTED_MODULE_10__["purchaseAction"].ActionTypes.AuthorizeMovieTicket), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["map"])(function (action) {
         return action.payload;
       }), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["mergeMap"])(function (payload) {
-        return __awaiter(_this53, void 0, void 0,
+        return __awaiter(_this54, void 0, void 0,
         /*#__PURE__*/
         regeneratorRuntime.mark(function _callee95() {
-          var _this54 = this;
+          var _this55 = this;
 
           var _iteratorNormalCompletion11, _didIteratorError11, _iteratorError11, _iterator11, _step11, authorizeMovieTicketPayment, transaction, pendingMovieTickets, authorizeSeatReservations, authorizeMovieTicketPayments, seller, _iteratorNormalCompletion12, _didIteratorError12, _iteratorError12, _loop10, _iterator12, _step12;
 
@@ -20634,7 +20678,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
                             movieTicketIdentifier = _movieTicketIdentifie[_i4];
                             _context99.next = 9;
-                            return _this54.cinerinoService.payment.authorizeMovieTicket({
+                            return _this55.cinerinoService.payment.authorizeMovieTicket({
                               object: {
                                 typeOf: _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_1__["factory"].paymentMethodType.MovieTicket,
                                 amount: 0,
@@ -20735,7 +20779,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       this.checkMovieTicket = this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_actions__WEBPACK_IMPORTED_MODULE_10__["purchaseAction"].ActionTypes.CheckMovieTicket), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["map"])(function (action) {
         return action.payload;
       }), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["mergeMap"])(function (payload) {
-        return __awaiter(_this53, void 0, void 0,
+        return __awaiter(_this54, void 0, void 0,
         /*#__PURE__*/
         regeneratorRuntime.mark(function _callee96() {
           var screeningEvent, movieTickets, checkMovieTicketAction;
@@ -20808,7 +20852,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       this.endTransaction = this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_actions__WEBPACK_IMPORTED_MODULE_10__["purchaseAction"].ActionTypes.EndTransaction), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["map"])(function (action) {
         return action.payload;
       }), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["mergeMap"])(function (payload) {
-        return __awaiter(_this53, void 0, void 0,
+        return __awaiter(_this54, void 0, void 0,
         /*#__PURE__*/
         regeneratorRuntime.mark(function _callee97() {
           var transaction, authorizeSeatReservations, seller, environment, params, path, url, view, result;
@@ -20927,7 +20971,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       this.authorizeAnyPayment = this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_actions__WEBPACK_IMPORTED_MODULE_10__["purchaseAction"].ActionTypes.AuthorizeAnyPayment), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["map"])(function (action) {
         return action.payload;
       }), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["mergeMap"])(function (payload) {
-        return __awaiter(_this53, void 0, void 0,
+        return __awaiter(_this54, void 0, void 0,
         /*#__PURE__*/
         regeneratorRuntime.mark(function _callee98() {
           var transaction, typeOf, amount, name, additionalProperty, authorizeAnyPayment;
