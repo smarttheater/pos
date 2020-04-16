@@ -23124,7 +23124,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
         maxLength: 15,
         minLength: 9
       }],
-      PAYMENT_METHOD_TO_USE: [],
+      PAYMENT_METHOD_TO_USE: ['Cash', 'EMoney', 'CreditCard'],
       PAYMENT_METHOD_CUSTOM: [],
       REGIGROW_QRCODE: '',
       DISPLAY_TICKETED_SEAT: false,
