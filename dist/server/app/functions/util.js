@@ -106,15 +106,3 @@ function base64Decode(str) {
     return new Buffer(str, 'base64').toString();
 }
 exports.base64Decode = base64Decode;
-/**
- * プロジェクト情報取得
- */
-function getProject(params) {
-    const projects = JSON.parse(process.env.PROJECTS);
-    return projects.find(p => {
-        return (params.projectName === undefined)
-            ? p.PROJECT_ID === params.projectId
-            : p.PROJECT_ID === params.projectId && p.PROJECT_NAME === params.projectName;
-    });
-}
-exports.getProject = getProject;

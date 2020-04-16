@@ -6,7 +6,6 @@ import * as debug from 'debug';
 import * as express from 'express';
 import { NOT_FOUND } from 'http-status';
 import * as moment from 'moment';
-import { getProject } from '../../functions/util';
 const log = debug('application: /api/util');
 const router = express.Router();
 
@@ -14,60 +13,20 @@ const router = express.Router();
  * プロジェクト設定取得
  */
 router.post('/project', async (req, res) => {
-    log('project', req.body.project);
+    log('project', req.body);
     try {
-        const params = <{ projectId: string; projectName?: string; } | undefined>(req.body);
-        if (params === undefined
-            || params.projectId === undefined) {
-            if (process.env.PROJECT_ID === undefined
-                || process.env.PROJECT_ID === '') {
-                throw new Error('project not found');
-            }
+        const projectId = req.body.projectId;
+        if (projectId !== undefined) {
             res.json({
-                projectId: process.env.PROJECT_ID,
-                projectName: process.env.PROJECT_NAME,
-                storageUrl: process.env.STORAGE_URL
+                projectId: projectId,
+                storageUrl: `${process.env.STORAGE_URL}/${projectId}`
             });
             return;
         }
-        const findResult = getProject(params);
-        if (findResult === undefined) {
-            throw new Error('project not found');
-        }
         res.json({
-            projectId: findResult.PROJECT_ID,
-            projectName: findResult.PROJECT_NAME,
-            storageUrl: findResult.STORAGE_URL
+            projectId: (process.env.PROJECT_ID === undefined) ? '' : process.env.PROJECT_ID,
+            storageUrl: (process.env.PROJECT_STORAGE_URL === undefined) ? '' : process.env.PROJECT_STORAGE_URL
         });
-    } catch (error) {
-        log('project', error.message);
-        res.status(NOT_FOUND);
-        res.json({ error: error.message });
-    }
-});
-
-/**
- * プロジェクト設定取得
- */
-router.post('/projects', async (_req, res) => {
-    log('projects');
-    try {
-        const projects: {
-            projectId: string;
-            projectName: string;
-            storageUrl: string;
-        }[] = JSON.parse(<string>process.env.PROJECTS).map((project: {
-            'PROJECT_NAME': string;
-            'PROJECT_ID': string;
-            'STORAGE_URL': string;
-        }) => {
-            return {
-                projectId: project.PROJECT_ID,
-                projectName: project.PROJECT_NAME,
-                storageUrl: project.STORAGE_URL
-            };
-        });
-        res.json(projects);
     } catch (error) {
         log('project', error.message);
         res.status(NOT_FOUND);

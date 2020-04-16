@@ -6841,7 +6841,7 @@ DownloadService = DownloadService_1 = __decorate([
 /*!*******************************!*\
   !*** ./app/services/index.ts ***!
   \*******************************/
-/*! exports provided: CinerinoService, AdmissionService, PurchaseService, UserService, MasterService, OrderService, ReservationService, UtilService, StarPrintService, DownloadService, QRCodeService */
+/*! exports provided: AdmissionService, CinerinoService, PurchaseService, UserService, MasterService, OrderService, ReservationService, UtilService, StarPrintService, DownloadService, QRCodeService */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -12272,7 +12272,7 @@ const defaultEnvironment = {
     INSTRUCTION_URL: '',
     ANALYTICS_ID: '',
     GTM_ID: '',
-    VIEW_TYPE: 'cinema',
+    VIEW_TYPE: 'event',
     STORAGE_NAME: (Object(_app_functions_util_function__WEBPACK_IMPORTED_MODULE_0__["getProject"])().projectId === '') ? 'POS-STATE' : `${Object(_app_functions_util_function__WEBPACK_IMPORTED_MODULE_0__["getProject"])().projectId.toUpperCase()}-POS-STATE`,
     STORAGE_TYPE: 'localStorage',
     BASE_URL: '/purchase/root',
@@ -12287,8 +12287,8 @@ const defaultEnvironment = {
     PAYMENT_METHOD_CUSTOM: [],
     REGIGROW_QRCODE: '',
     DISPLAY_TICKETED_SEAT: false,
-    HEADER_MENU: false,
-    HEADER_MENU_SCOPE: [],
+    HEADER_MENU: true,
+    HEADER_MENU_SCOPE: ['purchase', 'order', 'reservation', 'setting', 'auth'],
     PURCHASE_CART: false,
     PURCHASE_ITEM_MAX_LENGTH: '50',
     PURCHASE_TRANSACTION_TIME: '15',
@@ -12385,7 +12385,8 @@ function main() {
             // 無効なストレージ削除
             localStorage.removeItem('');
         }
-        if (params.projectId !== undefined) {
+        if (params.projectId !== undefined
+            || location.hash === '#/auth/signin') {
             sessionStorage.removeItem('PROJECT');
         }
         const projectId = (params.projectId === undefined)
@@ -12411,9 +12412,7 @@ function setProject(params) {
         const fetchResult = yield fetch('/api/project', {
             method: 'POST',
             cache: 'no-cache',
-            headers: {
-                'Content-Type': 'application/json; charset=utf-8'
-            },
+            headers: { 'Content-Type': 'application/json; charset=utf-8' },
             body: JSON.stringify(params)
         });
         if (!fetchResult.ok) {

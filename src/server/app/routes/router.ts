@@ -5,7 +5,6 @@ import * as debug from 'debug';
 import * as express from 'express';
 import { NOT_FOUND } from 'http-status';
 import * as path from 'path';
-import { getProject } from '../functions/util';
 import { Auth2Model } from '../models/auth2/auth2.model';
 import { authorizeRouter } from './api/authorize';
 import { utilRouter } from './api/util';
@@ -72,17 +71,6 @@ export default (app: express.Application) => {
         if (req.session === undefined) {
             next();
             return;
-        }
-        if (req.query.project !== undefined) {
-            try {
-                const findResult = getProject(req.query.project);
-                if (findResult === undefined) {
-                    throw new Error('project not found');
-                }
-            } catch (error) {
-                res.sendFile(path.resolve(`${__dirname}/../../../../public/404.html`));
-                return;
-            }
         }
         const dir = (process.env.NODE_ENV === 'production') ? 'production' : 'development';
         res.sendFile(path.resolve(`${__dirname}/../../../client/${dir}/index.html`));
