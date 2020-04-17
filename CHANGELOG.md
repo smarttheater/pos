@@ -12,6 +12,16 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/).
 
 ### Security
 
+## 3.0.28 - 2020-04-17
+### Changed
+ - デフォルトの決済方法変更
+### Fixed
+ - パフォーマンス改善
+ - アクセシビリティ改善
+ - 座席選択拡大ボタンレイアウト調整
+ - QRリーダー調整
+ - 作品公開日なしへ対応
+
 ## 3.0.27 - 2020-04-16
 ### Changed
  - 環境変数PROJECTSを廃止
