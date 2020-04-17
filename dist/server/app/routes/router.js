@@ -14,10 +14,9 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const debug = require("debug");
 const http_status_1 = require("http-status");
 const path = require("path");
-const util_1 = require("../functions/util");
 const auth2_model_1 = require("../models/auth2/auth2.model");
 const authorize_1 = require("./api/authorize");
-const util_2 = require("./api/util");
+const util_1 = require("./api/util");
 const log = debug('application: router');
 exports.default = (app) => {
     app.use((_req, res, next) => {
@@ -33,7 +32,7 @@ exports.default = (app) => {
         next();
     });
     app.use('/api/authorize', authorize_1.authorizeRouter);
-    app.use('/api', util_2.utilRouter);
+    app.use('/api', util_1.utilRouter);
     app.get('/signIn', (req, res, next) => __awaiter(this, void 0, void 0, function* () {
         log('signInRedirect');
         try {
@@ -74,18 +73,6 @@ exports.default = (app) => {
         if (req.session === undefined) {
             next();
             return;
-        }
-        if (req.query.project !== undefined) {
-            try {
-                const findResult = util_1.getProject(req.query.project);
-                if (findResult === undefined) {
-                    throw new Error('project not found');
-                }
-            }
-            catch (error) {
-                res.sendFile(path.resolve(`${__dirname}/../../../../public/404.html`));
-                return;
-            }
         }
         const dir = (process.env.NODE_ENV === 'production') ? 'production' : 'development';
         res.sendFile(path.resolve(`${__dirname}/../../../client/${dir}/index.html`));

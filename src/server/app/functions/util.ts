@@ -97,19 +97,3 @@ export function bace64Encode(str: string): string {
 export function base64Decode(str: string): string {
     return new Buffer(str, 'base64').toString();
 }
-
-/**
- * プロジェクト情報取得
- */
-export function getProject(params: { projectId: string; projectName?: string; }) {
-    const projects: {
-        'PROJECT_NAME': string;
-        'PROJECT_ID': string;
-        'STORAGE_URL': string;
-    }[] = JSON.parse(<string>process.env.PROJECTS);
-    return projects.find(p => {
-        return (params.projectName === undefined)
-            ? p.PROJECT_ID === params.projectId
-            : p.PROJECT_ID === params.projectId && p.PROJECT_NAME === params.projectName;
-    });
-}
