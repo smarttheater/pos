@@ -12270,8 +12270,12 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                   case 19:
                     // 公開日順（降順）へソート
                     screeningEvents = screeningEvents.sort(function (a, b) {
-                      if (a.workPerformed === undefined || b.workPerformed === undefined || a.workPerformed.datePublished === undefined || b.workPerformed.datePublished === undefined) {
-                        return 0;
+                      if (a.workPerformed === undefined || a.workPerformed.datePublished === undefined) {
+                        return 1;
+                      }
+
+                      if (b.workPerformed === undefined || b.workPerformed.datePublished === undefined) {
+                        return -1;
                       }
 
                       var unixA = moment__WEBPACK_IMPORTED_MODULE_4__(a.workPerformed.datePublished).unix();
@@ -23199,103 +23203,55 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     /* harmony import */
 
 
-    var _fortawesome_fontawesome_free_js_brands__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
-    /*! @fortawesome/fontawesome-free/js/brands */
-    "../../node_modules/@fortawesome/fontawesome-free/js/brands.js");
-    /* harmony import */
-
-
-    var _fortawesome_fontawesome_free_js_brands__WEBPACK_IMPORTED_MODULE_2___default =
-    /*#__PURE__*/
-    __webpack_require__.n(_fortawesome_fontawesome_free_js_brands__WEBPACK_IMPORTED_MODULE_2__);
-    /* harmony import */
-
-
-    var _fortawesome_fontawesome_free_js_fontawesome__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(
-    /*! @fortawesome/fontawesome-free/js/fontawesome */
-    "../../node_modules/@fortawesome/fontawesome-free/js/fontawesome.js");
-    /* harmony import */
-
-
-    var _fortawesome_fontawesome_free_js_fontawesome__WEBPACK_IMPORTED_MODULE_3___default =
-    /*#__PURE__*/
-    __webpack_require__.n(_fortawesome_fontawesome_free_js_fontawesome__WEBPACK_IMPORTED_MODULE_3__);
-    /* harmony import */
-
-
-    var _fortawesome_fontawesome_free_js_regular__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(
-    /*! @fortawesome/fontawesome-free/js/regular */
-    "../../node_modules/@fortawesome/fontawesome-free/js/regular.js");
-    /* harmony import */
-
-
-    var _fortawesome_fontawesome_free_js_regular__WEBPACK_IMPORTED_MODULE_4___default =
-    /*#__PURE__*/
-    __webpack_require__.n(_fortawesome_fontawesome_free_js_regular__WEBPACK_IMPORTED_MODULE_4__);
-    /* harmony import */
-
-
-    var _fortawesome_fontawesome_free_js_solid__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(
-    /*! @fortawesome/fontawesome-free/js/solid */
-    "../../node_modules/@fortawesome/fontawesome-free/js/solid.js");
-    /* harmony import */
-
-
-    var _fortawesome_fontawesome_free_js_solid__WEBPACK_IMPORTED_MODULE_5___default =
-    /*#__PURE__*/
-    __webpack_require__.n(_fortawesome_fontawesome_free_js_solid__WEBPACK_IMPORTED_MODULE_5__);
-    /* harmony import */
-
-
-    var hammerjs__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(
+    var hammerjs__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
     /*! hammerjs */
     "../../node_modules/hammerjs/hammer.js");
     /* harmony import */
 
 
-    var hammerjs__WEBPACK_IMPORTED_MODULE_6___default =
+    var hammerjs__WEBPACK_IMPORTED_MODULE_2___default =
     /*#__PURE__*/
-    __webpack_require__.n(hammerjs__WEBPACK_IMPORTED_MODULE_6__);
+    __webpack_require__.n(hammerjs__WEBPACK_IMPORTED_MODULE_2__);
     /* harmony import */
 
 
-    var moment_timezone__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(
+    var moment_timezone__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(
     /*! moment-timezone */
     "../../node_modules/moment-timezone/index.js");
     /* harmony import */
 
 
-    var moment_timezone__WEBPACK_IMPORTED_MODULE_7___default =
+    var moment_timezone__WEBPACK_IMPORTED_MODULE_3___default =
     /*#__PURE__*/
-    __webpack_require__.n(moment_timezone__WEBPACK_IMPORTED_MODULE_7__);
+    __webpack_require__.n(moment_timezone__WEBPACK_IMPORTED_MODULE_3__);
     /* harmony import */
 
 
-    var ngx_bootstrap_chronos__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(
+    var ngx_bootstrap_chronos__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(
     /*! ngx-bootstrap/chronos */
     "../../node_modules/ngx-bootstrap/chronos/fesm2015/ngx-bootstrap-chronos.js");
     /* harmony import */
 
 
-    var ngx_bootstrap_locale__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(
+    var ngx_bootstrap_locale__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(
     /*! ngx-bootstrap/locale */
     "../../node_modules/ngx-bootstrap/locale/fesm2015/ngx-bootstrap-locale.js");
     /* harmony import */
 
 
-    var _app_app_module__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(
+    var _app_app_module__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(
     /*! ./app/app.module */
     "./app/app.module.ts");
     /* harmony import */
 
 
-    var _app_functions__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(
+    var _app_functions__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(
     /*! ./app/functions */
     "./app/functions/index.ts");
     /* harmony import */
 
 
-    var _environments_environment__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(
+    var _environments_environment__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(
     /*! ./environments/environment */
     "./environments/environment.ts");
 
@@ -23347,12 +23303,12 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
             switch (_context104.prev = _context104.next) {
               case 0:
                 // タイムゾーン設定
-                moment_timezone__WEBPACK_IMPORTED_MODULE_7__["tz"].setDefault('Asia/Tokyo');
-                moment_timezone__WEBPACK_IMPORTED_MODULE_7__["locale"]('ja'); // 言語設定
+                moment_timezone__WEBPACK_IMPORTED_MODULE_3__["tz"].setDefault('Asia/Tokyo');
+                moment_timezone__WEBPACK_IMPORTED_MODULE_3__["locale"]('ja'); // 言語設定
 
-                Object(ngx_bootstrap_chronos__WEBPACK_IMPORTED_MODULE_8__["defineLocale"])('ja', ngx_bootstrap_locale__WEBPACK_IMPORTED_MODULE_9__["jaLocale"]); // パラメータ設定
+                Object(ngx_bootstrap_chronos__WEBPACK_IMPORTED_MODULE_4__["defineLocale"])('ja', ngx_bootstrap_locale__WEBPACK_IMPORTED_MODULE_5__["jaLocale"]); // パラメータ設定
 
-                params = Object(_app_functions__WEBPACK_IMPORTED_MODULE_11__["getParameter"])(); // プロジェクト設定
+                params = Object(_app_functions__WEBPACK_IMPORTED_MODULE_7__["getParameter"])(); // プロジェクト設定
 
                 space = localStorage.getItem('');
 
@@ -23365,7 +23321,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                   sessionStorage.removeItem('PROJECT');
                 }
 
-                projectId = params.projectId === undefined ? Object(_app_functions__WEBPACK_IMPORTED_MODULE_11__["getProject"])().projectId === '' ? undefined : Object(_app_functions__WEBPACK_IMPORTED_MODULE_11__["getProject"])().projectId : params.projectId;
+                projectId = params.projectId === undefined ? Object(_app_functions__WEBPACK_IMPORTED_MODULE_7__["getProject"])().projectId === '' ? undefined : Object(_app_functions__WEBPACK_IMPORTED_MODULE_7__["getProject"])().projectId : params.projectId;
 
                 if (!(projectId === undefined && location.hash !== '#/auth/signin')) {
                   _context104.next = 12;
@@ -23383,7 +23339,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                 });
 
               case 14:
-                if (!(Object(_app_functions__WEBPACK_IMPORTED_MODULE_11__["getProject"])().storageUrl === undefined)) {
+                if (!(Object(_app_functions__WEBPACK_IMPORTED_MODULE_7__["getProject"])().storageUrl === undefined)) {
                   _context104.next = 16;
                   break;
                 }
@@ -23392,7 +23348,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
               case 16:
                 _context104.next = 18;
-                return setProjectConfig(Object(_app_functions__WEBPACK_IMPORTED_MODULE_11__["getProject"])().storageUrl);
+                return setProjectConfig(Object(_app_functions__WEBPACK_IMPORTED_MODULE_7__["getProject"])().storageUrl);
 
               case 18:
               case "end":
@@ -23469,7 +23425,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
           while (1) {
             switch (_context106.prev = _context106.next) {
               case 0:
-                now = moment_timezone__WEBPACK_IMPORTED_MODULE_7__().toISOString(); // 設定読み込み
+                now = moment_timezone__WEBPACK_IMPORTED_MODULE_3__().toISOString(); // 設定読み込み
 
                 _context106.next = 3;
                 return fetch("".concat(storageUrl, "/js/environment.js?=date").concat(now), {
@@ -23498,7 +23454,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                 _context106.t0.eval.call(_context106.t0, _context106.t1);
 
               case 10:
-                environment = Object(_environments_environment__WEBPACK_IMPORTED_MODULE_12__["getEnvironment"])(); // スタイル設定
+                environment = Object(_environments_environment__WEBPACK_IMPORTED_MODULE_8__["getEnvironment"])(); // スタイル設定
 
                 style = document.createElement('link');
                 style.rel = 'stylesheet';
@@ -23514,7 +23470,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                 favicon.rel = 'icon';
                 favicon.type = 'image/x-icon"';
                 _context106.next = 21;
-                return Object(_app_functions__WEBPACK_IMPORTED_MODULE_11__["isFile"])("".concat(storageUrl, "/favicon.ico"));
+                return Object(_app_functions__WEBPACK_IMPORTED_MODULE_7__["isFile"])("".concat(storageUrl, "/favicon.ico"));
 
               case 21:
                 if (!_context106.sent) {
@@ -23572,7 +23528,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
           while (1) {
             switch (_context107.prev = _context107.next) {
               case 0:
-                Object(_angular_platform_browser_dynamic__WEBPACK_IMPORTED_MODULE_1__["platformBrowserDynamic"])().bootstrapModule(_app_app_module__WEBPACK_IMPORTED_MODULE_10__["AppModule"]);
+                Object(_angular_platform_browser_dynamic__WEBPACK_IMPORTED_MODULE_1__["platformBrowserDynamic"])().bootstrapModule(_app_app_module__WEBPACK_IMPORTED_MODULE_6__["AppModule"]);
 
               case 1:
               case "end":

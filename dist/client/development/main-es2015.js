@@ -7081,10 +7081,12 @@ let MasterService = class MasterService {
                 // 公開日順（降順）へソート
                 screeningEvents = screeningEvents.sort((a, b) => {
                     if (a.workPerformed === undefined
-                        || b.workPerformed === undefined
-                        || a.workPerformed.datePublished === undefined
+                        || a.workPerformed.datePublished === undefined) {
+                        return 1;
+                    }
+                    if (b.workPerformed === undefined
                         || b.workPerformed.datePublished === undefined) {
-                        return 0;
+                        return -1;
                     }
                     const unixA = moment__WEBPACK_IMPORTED_MODULE_4__(a.workPerformed.datePublished).unix();
                     const unixB = moment__WEBPACK_IMPORTED_MODULE_4__(b.workPerformed.datePublished).unix();
@@ -12372,23 +12374,15 @@ function getEnvironment() {
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "../../node_modules/@angular/core/fesm2015/core.js");
 /* harmony import */ var _angular_platform_browser_dynamic__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/platform-browser-dynamic */ "../../node_modules/@angular/platform-browser-dynamic/fesm2015/platform-browser-dynamic.js");
-/* harmony import */ var _fortawesome_fontawesome_free_js_brands__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @fortawesome/fontawesome-free/js/brands */ "../../node_modules/@fortawesome/fontawesome-free/js/brands.js");
-/* harmony import */ var _fortawesome_fontawesome_free_js_brands__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_fortawesome_fontawesome_free_js_brands__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var _fortawesome_fontawesome_free_js_fontawesome__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @fortawesome/fontawesome-free/js/fontawesome */ "../../node_modules/@fortawesome/fontawesome-free/js/fontawesome.js");
-/* harmony import */ var _fortawesome_fontawesome_free_js_fontawesome__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_fortawesome_fontawesome_free_js_fontawesome__WEBPACK_IMPORTED_MODULE_3__);
-/* harmony import */ var _fortawesome_fontawesome_free_js_regular__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @fortawesome/fontawesome-free/js/regular */ "../../node_modules/@fortawesome/fontawesome-free/js/regular.js");
-/* harmony import */ var _fortawesome_fontawesome_free_js_regular__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_fortawesome_fontawesome_free_js_regular__WEBPACK_IMPORTED_MODULE_4__);
-/* harmony import */ var _fortawesome_fontawesome_free_js_solid__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @fortawesome/fontawesome-free/js/solid */ "../../node_modules/@fortawesome/fontawesome-free/js/solid.js");
-/* harmony import */ var _fortawesome_fontawesome_free_js_solid__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(_fortawesome_fontawesome_free_js_solid__WEBPACK_IMPORTED_MODULE_5__);
-/* harmony import */ var hammerjs__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! hammerjs */ "../../node_modules/hammerjs/hammer.js");
-/* harmony import */ var hammerjs__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(hammerjs__WEBPACK_IMPORTED_MODULE_6__);
-/* harmony import */ var moment_timezone__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! moment-timezone */ "../../node_modules/moment-timezone/index.js");
-/* harmony import */ var moment_timezone__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(moment_timezone__WEBPACK_IMPORTED_MODULE_7__);
-/* harmony import */ var ngx_bootstrap_chronos__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ngx-bootstrap/chronos */ "../../node_modules/ngx-bootstrap/chronos/fesm2015/ngx-bootstrap-chronos.js");
-/* harmony import */ var ngx_bootstrap_locale__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ngx-bootstrap/locale */ "../../node_modules/ngx-bootstrap/locale/fesm2015/ngx-bootstrap-locale.js");
-/* harmony import */ var _app_app_module__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./app/app.module */ "./app/app.module.ts");
-/* harmony import */ var _app_functions__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./app/functions */ "./app/functions/index.ts");
-/* harmony import */ var _environments_environment__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./environments/environment */ "./environments/environment.ts");
+/* harmony import */ var hammerjs__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! hammerjs */ "../../node_modules/hammerjs/hammer.js");
+/* harmony import */ var hammerjs__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(hammerjs__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var moment_timezone__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! moment-timezone */ "../../node_modules/moment-timezone/index.js");
+/* harmony import */ var moment_timezone__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(moment_timezone__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var ngx_bootstrap_chronos__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ngx-bootstrap/chronos */ "../../node_modules/ngx-bootstrap/chronos/fesm2015/ngx-bootstrap-chronos.js");
+/* harmony import */ var ngx_bootstrap_locale__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ngx-bootstrap/locale */ "../../node_modules/ngx-bootstrap/locale/fesm2015/ngx-bootstrap-locale.js");
+/* harmony import */ var _app_app_module__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./app/app.module */ "./app/app.module.ts");
+/* harmony import */ var _app_functions__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./app/functions */ "./app/functions/index.ts");
+/* harmony import */ var _environments_environment__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./environments/environment */ "./environments/environment.ts");
 var __awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
     return new (P || (P = Promise))(function (resolve, reject) {
         function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
@@ -12412,19 +12406,15 @@ var __importDefault = (undefined && undefined.__importDefault) || function (mod)
 
 
 
-
-
-
-
 function main() {
     return __awaiter(this, void 0, void 0, function* () {
         // タイムゾーン設定
-        moment_timezone__WEBPACK_IMPORTED_MODULE_7__["tz"].setDefault('Asia/Tokyo');
-        moment_timezone__WEBPACK_IMPORTED_MODULE_7__["locale"]('ja');
+        moment_timezone__WEBPACK_IMPORTED_MODULE_3__["tz"].setDefault('Asia/Tokyo');
+        moment_timezone__WEBPACK_IMPORTED_MODULE_3__["locale"]('ja');
         // 言語設定
-        Object(ngx_bootstrap_chronos__WEBPACK_IMPORTED_MODULE_8__["defineLocale"])('ja', ngx_bootstrap_locale__WEBPACK_IMPORTED_MODULE_9__["jaLocale"]);
+        Object(ngx_bootstrap_chronos__WEBPACK_IMPORTED_MODULE_4__["defineLocale"])('ja', ngx_bootstrap_locale__WEBPACK_IMPORTED_MODULE_5__["jaLocale"]);
         // パラメータ設定
-        const params = Object(_app_functions__WEBPACK_IMPORTED_MODULE_11__["getParameter"])();
+        const params = Object(_app_functions__WEBPACK_IMPORTED_MODULE_7__["getParameter"])();
         // プロジェクト設定
         const space = localStorage.getItem('');
         if (space !== null) {
@@ -12436,7 +12426,7 @@ function main() {
             sessionStorage.removeItem('PROJECT');
         }
         const projectId = (params.projectId === undefined)
-            ? (Object(_app_functions__WEBPACK_IMPORTED_MODULE_11__["getProject"])().projectId === '') ? undefined : Object(_app_functions__WEBPACK_IMPORTED_MODULE_11__["getProject"])().projectId
+            ? (Object(_app_functions__WEBPACK_IMPORTED_MODULE_7__["getProject"])().projectId === '') ? undefined : Object(_app_functions__WEBPACK_IMPORTED_MODULE_7__["getProject"])().projectId
             : params.projectId;
         if (projectId === undefined && location.hash !== '#/auth/signin') {
             location.href = '/#/auth/signin';
@@ -12444,10 +12434,10 @@ function main() {
             return;
         }
         yield setProject({ projectId });
-        if (Object(_app_functions__WEBPACK_IMPORTED_MODULE_11__["getProject"])().storageUrl === undefined) {
+        if (Object(_app_functions__WEBPACK_IMPORTED_MODULE_7__["getProject"])().storageUrl === undefined) {
             return;
         }
-        yield setProjectConfig(Object(_app_functions__WEBPACK_IMPORTED_MODULE_11__["getProject"])().storageUrl);
+        yield setProjectConfig(Object(_app_functions__WEBPACK_IMPORTED_MODULE_7__["getProject"])().storageUrl);
     });
 }
 /**
@@ -12473,7 +12463,7 @@ function setProject(params) {
  */
 function setProjectConfig(storageUrl) {
     return __awaiter(this, void 0, void 0, function* () {
-        const now = moment_timezone__WEBPACK_IMPORTED_MODULE_7__().toISOString();
+        const now = moment_timezone__WEBPACK_IMPORTED_MODULE_3__().toISOString();
         // 設定読み込み
         const fetchResult = yield fetch(`${storageUrl}/js/environment.js?=date${now}`, {
             method: 'GET',
@@ -12483,7 +12473,7 @@ function setProjectConfig(storageUrl) {
         if (fetchResult.ok) {
             window.eval(yield fetchResult.text());
         }
-        const environment = Object(_environments_environment__WEBPACK_IMPORTED_MODULE_12__["getEnvironment"])();
+        const environment = Object(_environments_environment__WEBPACK_IMPORTED_MODULE_8__["getEnvironment"])();
         // スタイル設定
         const style = document.createElement('link');
         style.rel = 'stylesheet';
@@ -12496,7 +12486,7 @@ function setProjectConfig(storageUrl) {
         const favicon = document.createElement('link');
         favicon.rel = 'icon';
         favicon.type = 'image/x-icon"';
-        favicon.href = (yield Object(_app_functions__WEBPACK_IMPORTED_MODULE_11__["isFile"])(`${storageUrl}/favicon.ico`)) ? `${storageUrl}/favicon.ico` : '/default/favicon.ico';
+        favicon.href = (yield Object(_app_functions__WEBPACK_IMPORTED_MODULE_7__["isFile"])(`${storageUrl}/favicon.ico`)) ? `${storageUrl}/favicon.ico` : '/default/favicon.ico';
         document.head.appendChild(favicon);
         // タイトル設定
         document.title = environment.APP_TITLE;
@@ -12518,7 +12508,7 @@ function setProjectConfig(storageUrl) {
     });
 }
 main().then(() => __awaiter(undefined, void 0, void 0, function* () {
-    Object(_angular_platform_browser_dynamic__WEBPACK_IMPORTED_MODULE_1__["platformBrowserDynamic"])().bootstrapModule(_app_app_module__WEBPACK_IMPORTED_MODULE_10__["AppModule"]);
+    Object(_angular_platform_browser_dynamic__WEBPACK_IMPORTED_MODULE_1__["platformBrowserDynamic"])().bootstrapModule(_app_app_module__WEBPACK_IMPORTED_MODULE_6__["AppModule"]);
 })).catch((error) => {
     console.error(error);
 });
