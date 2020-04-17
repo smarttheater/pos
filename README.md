@@ -1,4 +1,4 @@
-# pos
+# smart-theater-pos
 
 # Usage
 
