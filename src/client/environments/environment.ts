@@ -222,7 +222,7 @@ const defaultEnvironment: IEnvironment = {
         { key: 'familyName', value: '', required: true, pattern: /^[ァ-ヶー]+$/, maxLength: 12 },
         { key: 'telephone', value: '', required: true, maxLength: 15, minLength: 9 }
     ],
-    PAYMENT_METHOD_TO_USE: [],
+    PAYMENT_METHOD_TO_USE: ['Cash', 'EMoney', 'CreditCard'],
     PAYMENT_METHOD_CUSTOM: [],
     REGIGROW_QRCODE: '',
     DISPLAY_TICKETED_SEAT: false,
