@@ -1738,14 +1738,11 @@ function getParameter() {
  */
 function getProject() {
     const project = sessionStorage.getItem('PROJECT');
+    const defaultProject = { projectId: '', projectName: '', storageUrl: '' };
     if (project === null || project === '') {
-        return {
-            projectId: '',
-            projectName: '',
-            storageUrl: ''
-        };
+        return defaultProject;
     }
-    return JSON.parse(project);
+    return Object.assign({}, defaultProject, JSON.parse(project));
 }
 /**
  * ランダム英数字生成
