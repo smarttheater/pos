@@ -77,18 +77,18 @@ jobs:
           command: |
             git remote add prerelease ${DEPLOY_TARGET_REPOSITORY_PRERELEASE}
             git push prerelease $CIRCLE_BRANCH:master -f -v
-  prerelease-oyatsu-pos:
-    docker:
-      - image: circleci/node:latest
-    steps:
-      - checkout
-      - restore_cache:
-          key: dependency-cache-{{ checksum "package.json" }}
-      - run:
-          name: deploy to azure webapps prerelease-oyatsu-pos
-          command: |
-            git remote add prerelease-oyatsu-pos ${DEPLOY_TARGET_REPOSITORY_PRERELEASE_OYATSU_POS}
-            git push prerelease-oyatsu-pos $CIRCLE_BRANCH:master -f -v
+  # prerelease-oyatsu-pos:
+  #   docker:
+  #     - image: circleci/node:latest
+  #   steps:
+  #     - checkout
+  #     - restore_cache:
+  #         key: dependency-cache-{{ checksum "package.json" }}
+  #     - run:
+  #         name: deploy to azure webapps prerelease-oyatsu-pos
+  #         command: |
+  #           git remote add prerelease-oyatsu-pos ${DEPLOY_TARGET_REPOSITORY_PRERELEASE_OYATSU_POS}
+  #           git push prerelease-oyatsu-pos $CIRCLE_BRANCH:master -f -v
   deploy:
     docker:
       - image: circleci/node:latest
@@ -135,12 +135,12 @@ workflows:
           filters:
             branches:
               only: /feature\/.+-alpha.+/
-      - prerelease-oyatsu-pos:
-          requires:
-            - test
-          filters:
-            branches:
-              only: /feature\/.+-alpha.+/
+      # - prerelease-oyatsu-pos:
+      #     requires:
+      #       - test
+      #     filters:
+      #       branches:
+      #         only: /feature\/.+-alpha.+/
       - deploy:
           requires:
             - test
