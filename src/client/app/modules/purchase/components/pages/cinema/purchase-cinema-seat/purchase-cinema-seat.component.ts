@@ -179,6 +179,7 @@ export class PurchaseCinemaSeatComponent implements OnInit {
     public async onSubmit() {
         const purchase = await this.purchaseService.getData();
         const reservations = purchase.reservations;
+        const screeningEventTicketOffers = purchase.screeningEventTicketOffers;
         if (reservations.length === 0) {
             this.utilService.openAlert({
                 title: this.translate.instant('common.error'),
@@ -193,6 +194,13 @@ export class PurchaseCinemaSeatComponent implements OnInit {
                     'purchase.cinema.seat.alert.limit',
                     { value: this.environment.PURCHASE_ITEM_MAX_LENGTH }
                 )
+            });
+            return;
+        }
+        if (screeningEventTicketOffers.length === 0) {
+            this.utilService.openAlert({
+                title: this.translate.instant('common.error'),
+                body: this.translate.instant('purchase.cinema.seat.alert.ticketNotfound')
             });
             return;
         }

@@ -222,10 +222,16 @@ button {
     &.active {
         .page-link {
             background-color: theme-color('primary');
-            border-color: theme-color('primary');
+            border-color: $gray;
+        }
+    }
+    &.disabled {
+        .page-link {
+            display: none;
         }
     }
     .page-link {
         color: theme-color('primary');
+        border-color: $gray;
     }
 }

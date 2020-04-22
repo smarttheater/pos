@@ -63,7 +63,6 @@ header::after {
 
 .page-item.active .page-link {
     background-color: navy !important;
-    border-color: navy !important;
     color: #FFF !important;
 }
 

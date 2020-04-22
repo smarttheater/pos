@@ -33,7 +33,8 @@
                 "alert": {
                     "unselected": "座席が未選択です。",
                     "limit": "同時購入可能数は{{value}}件までです。",
-                    "temporaryReservation": "仮予約に失敗しました。"
+                    "temporaryReservation": "仮予約に失敗しました。",
+                    "ticketNotfound": "販売可能券種がありません。"
                 }
             },
             "ticket": {
@@ -690,8 +691,8 @@
         "referenceQuantityValue": "[{{value}}枚あたり]",
         "customer": "購入者",
         "customerName": "お名前",
-        "familyName": "姓（全角カタカナ）",
-        "givenName": "名（全角カタカナ）",
+        "familyName": "姓",
+        "givenName": "名",
         "email": "メールアドレス",
         "emailDescription": "【ドメイン指定受信をご利用の場合について】 <br>※ 携帯電話のドメイン指定受信をされている場合、「@smart-theater.com」を追加設定してください。 <br>※ au(@ezweb.ne.jp)をご利用の場合、上記に加え「なりすまし規制回避リスト」にも「@smart-theater.com」の追加設定をしてください。",
         "telephone": "電話番号",
