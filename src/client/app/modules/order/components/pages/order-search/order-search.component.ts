@@ -173,7 +173,8 @@ export class OrderSearchComponent implements OnInit {
             }
             this.orders = (await this.orderService.search(params)).data;
             this.nextOrders = (await this.orderService.search({ ...params, page: (this.currentPage + 1) })).data;
-            const totalCount = (this.nextOrders.length === 0) ? this.currentPage * this.limit : (this.currentPage + 1) * this.limit;
+            const totalCount = (this.nextOrders.length === 0)
+                ? this.currentPage * this.limit : (this.currentPage + 1) * this.limit;
             this.totalCount = (this.totalCount < totalCount) ? totalCount : this.totalCount;
             const maxSize = this.totalCount / this.limit;
             const maxSizeLimit = 5;
