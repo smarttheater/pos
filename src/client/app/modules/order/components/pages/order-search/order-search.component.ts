@@ -26,6 +26,7 @@ export class OrderSearchComponent implements OnInit {
     public orders: factory.order.IOrder[];
     public nextOrders: factory.order.IOrder[];
     public totalCount: number;
+    public maxSize: number;
     public currentPage: number;
     public moment: typeof moment = moment;
     public orderStatus: typeof factory.orderStatus = factory.orderStatus;
@@ -62,7 +63,8 @@ export class OrderSearchComponent implements OnInit {
         this.error = this.store.pipe(select(reducers.getError));
         this.user = this.store.pipe(select(reducers.getUser));
         this.orders = [];
-        this.totalCount = 100000;
+        this.totalCount = 20;
+        this.maxSize = 1;
         this.currentPage = 1;
         this.limit = 20;
         const now = moment().toDate();
@@ -151,6 +153,10 @@ export class OrderSearchComponent implements OnInit {
                 posId: this.conditions.posId,
                 page: 1
             };
+            this.orders = [];
+            this.totalCount = 20;
+            this.maxSize = 1;
+            this.currentPage = 1;
         }
         try {
             const params = input2OrderSearchCondition({
@@ -167,7 +173,12 @@ export class OrderSearchComponent implements OnInit {
             }
             this.orders = (await this.orderService.search(params)).data;
             this.nextOrders = (await this.orderService.search({ ...params, page: (this.currentPage + 1) })).data;
-            this.totalCount = (this.nextOrders.length === 0) ? this.currentPage * this.limit : 100000;
+            const totalCount = (this.nextOrders.length === 0)
+                ? this.currentPage * this.limit : (this.currentPage + 1) * this.limit;
+            this.totalCount = (this.totalCount < totalCount) ? totalCount : this.totalCount;
+            const maxSize = this.totalCount / this.limit;
+            const maxSizeLimit = 5;
+            this.maxSize = (maxSize > maxSizeLimit) ? maxSizeLimit : maxSize;
         } catch (error) {
             console.error(error);
             this.utilService.openAlert({

@@ -105650,7 +105650,7 @@ function _classCallCheck2(instance, Constructor) { if (!(instance instanceof Con
                     _context4.t0 = _context4["catch"](6);
                     console.error(_context4.t0);
                     this.isSuccess = false;
-                    this.errorMessage = this.translate.instant('modal.mvtk.check.alert.error');
+                    this.errorMessage = "".concat(this.translate.instant('modal.mvtk.check.alert.error'), "<br>\n            <span class=\"text-break text-small\">").concat(_context4.t0, "</span>");
 
                   case 41:
                   case "end":
@@ -106603,6 +106603,10 @@ function _classCallCheck2(instance, Constructor) { if (!(instance instanceof Con
           var screeningEvent = this.screeningEvent;
           var screeningEventSeats = this.screeningEventSeats;
           var limit = Number(this.environment.PURCHASE_ITEM_MAX_LENGTH);
+
+          if (screeningEvent.remainingAttendeeCapacity !== undefined && limit > screeningEvent.remainingAttendeeCapacity) {
+            limit = screeningEvent.remainingAttendeeCapacity;
+          }
 
           if (new _models__WEBPACK_IMPORTED_MODULE_6__["Performance"](screeningEvent).isTicketedSeat()) {
             // イベント全体の残席数計算

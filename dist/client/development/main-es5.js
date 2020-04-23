@@ -3539,7 +3539,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
           }
         }
         /**
-         * 座席指定ありイベント判定
+         * 座席あり判定
          */
 
       }, {
@@ -3547,6 +3547,16 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
         value: function isTicketedSeat() {
           var screeningEvent = this.screeningEvent;
           return screeningEvent.offers !== undefined && screeningEvent.offers.itemOffered.serviceOutput !== undefined && screeningEvent.offers.itemOffered.serviceOutput.reservedTicket !== undefined && screeningEvent.offers.itemOffered.serviceOutput.reservedTicket.ticketedSeat !== undefined;
+        }
+        /**
+         * 在庫無限判定
+         */
+
+      }, {
+        key: "isInfinitetock",
+        value: function isInfinitetock() {
+          var screeningEvent = this.screeningEvent;
+          return screeningEvent.maximumAttendeeCapacity === undefined;
         }
         /**
          * 開場判定
