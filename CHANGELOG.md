@@ -12,6 +12,10 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/).
 
 ### Security
 
+## 3.0.29 - 2020-04-23
+### Fixed
+ - ストレージ作成不具合修正
+
 ## 3.0.28 - 2020-04-17
 ### Changed
  - デフォルトの決済方法変更
