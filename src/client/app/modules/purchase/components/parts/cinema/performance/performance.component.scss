@@ -9,3 +9,11 @@
         height: 30px;
     }
 }
+
+.text-overflow-ellipsis {
+    @include media-breakpoint-down(sm) {
+        overflow: auto;
+        width: auto;
+        white-space: normal;
+    }
+}
