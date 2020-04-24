@@ -58,12 +58,12 @@
                     {{ 'admission.schedule.status.beforeOpening' | translate }}</div>
                 <div class="status mb-2" *ngIf="performance.isScreening('after')">
                     {{ 'admission.schedule.status.filmCompletion' | translate }}</div>
-                <div *ngIf="performance.isTicketedSeat() && environment.DISPLAY_TICKETED_SEAT" class="mb-2 text-small">
+                <div *ngIf="!performance.isInfinitetock() && environment.DISPLAY_TICKETED_SEAT" class="mb-2 text-small">
                     {{ 'common.seat' | translate }}
                     {{ performance.screeningEvent.remainingAttendeeCapacity }} /
                     {{ performance.screeningEvent.maximumAttendeeCapacity }}
                 </div>
-                <div *ngIf="!performance.isTicketedSeat()" class="mb-2 text-small">
+                <div *ngIf="performance.isInfinitetock()" class="mb-2 text-small">
                     {{ 'admission.schedule.infiniteStock' | translate }}</div>
                 <div class="text-small mb-1">{{ 'common.ticketing' | translate }}
                     {{ performance.screeningEvent.checkInCount }}</div>
