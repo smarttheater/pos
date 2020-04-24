@@ -121,7 +121,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
     /* harmony default export */
 
 
-    __webpack_exports__["default"] = "<div class=\"contents-width mx-auto px-3 py-5\">\n    <h2 class=\"text-large mb-4 text-center font-weight-bold\">{{ 'purchase.event.ticket.title' | translate }}</h2>\n    <p class=\"mb-4 text-md-center\" [innerHTML]=\"'purchase.event.ticket.read' | translate\"></p>\n\n    <div class=\"mb-4\">\n        <p *ngIf=\"(purchase | async)?.scheduleDate\" class=\"text-primary text-large mb-3\">\n            {{ (purchase | async).scheduleDate | formatDate: 'YYYY/MM/DD (ddd)' }}\n        </p>\n        <p *ngIf=\"screeningWorkEvents.length === 0\" class=\"mb-3\">\n            {{ 'purchase.event.ticket.notfound' | translate }}\n        </p>\n        <app-purchase-event-performances *ngFor=\"let screeningWorkEvent of screeningWorkEvents\"\n            [screeningWorkEvent]=\"screeningWorkEvent\" [isSlider]=\"!(screeningWorkEvents.length === 1 && screeningWorkEvent.data.length > 10)\" (select)=\"selectSchedule($event)\" class=\"mb-3\">\n        </app-purchase-event-performances>\n    </div>\n\n    <div class=\"mb-4\">\n        <h2 class=\"text-large mb-4 text-center font-weight-bold\">{{ 'purchase.event.cart.title' | translate }}</h2>\n        <div *ngIf=\"(purchase | async).authorizeSeatReservations.length === 0\">\n            <p>{{ 'purchase.event.cart.notfound' | translate }}</p>\n        </div>\n        <div *ngFor=\"let authorizeSeatReservation of (purchase | async).authorizeSeatReservations\"\n            class=\"mb-4 bg-white p-3 position-relative\">\n            <button type=\"button\" class=\"close\" aria-label=\"Close\" (click)=\"removeItem(authorizeSeatReservation)\">\n                <span aria-hidden=\"true\">&times;</span>\n            </button>\n            <div class=\"mb-3\">\n                <div class=\"mb-1\">\n                    <p class=\"font-weight-bold text-large pr-3\">\n                        {{ authorizeSeatReservation.object.event.name | changeLanguage }}</p>\n                    <p class=\"text-small\"\n                        *ngIf=\"authorizeSeatReservation.object.event.superEvent.headline && (authorizeSeatReservation.object.event.superEvent.headline | changeLanguage)\">\n                        {{ authorizeSeatReservation.object.event.superEvent.headline | changeLanguage }}</p>\n                    <p class=\"text-small\"\n                        *ngIf=\"authorizeSeatReservation.object.event.superEvent.description && (authorizeSeatReservation.object.event.superEvent.description | changeLanguage)\">{{\n                        authorizeSeatReservation.object.event.superEvent.description | changeLanguage }}</p>\n                </div>\n                <p class=\"mb-1\">\n                    {{ authorizeSeatReservation.object.event.startDate | formatDate: 'MM/DD(ddd) HH:mm' }}-{{ authorizeSeatReservation.object.event.endDate | formatDate: 'HH:mm' }}\n                </p>\n                <p class=\"text-small mb-1\">\n                    <span class=\"theater-name\">\n                        {{ authorizeSeatReservation.object.event.superEvent.location.name | changeLanguage }}\n                    </span>\n                    <span class=\"screen-name\">\n                        &nbsp;/&nbsp;<span *ngIf=\"authorizeSeatReservation.object.event.location.address\" class=\"mr-2\">{{ authorizeSeatReservation.object.event.location.address | changeLanguage }}</span>{{ authorizeSeatReservation.object.event.location.name | changeLanguage }}\n                    </span>\n                    <span\n                        *ngIf=\"authorizeSeatReservation.object.event.workPerformed?.duration && moment.duration(authorizeSeatReservation.object.event.workPerformed?.duration).asMinutes() > 0\">\n                        &nbsp;/&nbsp;<span class=\"mr-1\">{{ 'common.duration' | translate }}</span>{{ moment.duration(authorizeSeatReservation.object.event.workPerformed?.duration).asMinutes() }}{{ 'common.date.minute' | translate }}\n                    </span>\n                </p>\n                <!-- <button type=\"button\" class=\"btn btn-link btn-sm ml-auto p-0\"\n                    (click)=\"removeItem(authorizeSeatReservation)\">{{ 'common.remove' | translate }}</button> -->\n            </div>\n            <hr class=\"mb-3\">\n\n            <app-item-list [authorizeSeatReservations]=\"authorizeSeatReservation?.result?.responseBody.object.reservations\"></app-item-list>\n            \n        </div>\n    </div>\n\n    <div class=\"buttons mx-auto text-center\">\n        <button type=\"submit\" [disabled]=\"isLoading | async\" class=\"btn btn-primary btn-block py-3 mb-3\"\n            (click)=\"onSubmit()\">{{ 'purchase.event.cart.next' | translate }}</button>\n        <button type=\"button\" class=\"btn btn-link\"\n            routerLink=\"/purchase/event/schedule\">{{ 'purchase.event.ticket.prev' | translate }}</button>\n    </div>\n</div>";
+    __webpack_exports__["default"] = "<div class=\"contents-width mx-auto px-3 py-5\">\n    <h2 class=\"text-large mb-4 text-center font-weight-bold\">{{ 'purchase.event.ticket.title' | translate }}</h2>\n    <p class=\"mb-4 text-md-center\" [innerHTML]=\"'purchase.event.ticket.read' | translate\"></p>\n\n    <div class=\"mb-4\">\n        <p *ngIf=\"(purchase | async)?.scheduleDate\" class=\"text-primary text-large mb-3\">\n            {{ (purchase | async).scheduleDate | formatDate: 'YYYY/MM/DD (ddd)' }}\n        </p>\n        <p *ngIf=\"screeningWorkEvents.length === 0\" class=\"mb-3\">\n            {{ 'purchase.event.ticket.notfound' | translate }}\n        </p>\n        <app-purchase-event-performances *ngFor=\"let screeningWorkEvent of screeningWorkEvents\"\n            [screeningWorkEvent]=\"screeningWorkEvent\" [isSlider]=\"!(screeningWorkEvents.length === 1 && screeningWorkEvent.data.length > 10)\" (select)=\"selectSchedule($event)\" class=\"mb-3\">\n        </app-purchase-event-performances>\n    </div>\n\n    <div class=\"mb-4\">\n        <h2 class=\"text-large mb-4 text-center font-weight-bold\">{{ 'purchase.event.cart.title' | translate }}</h2>\n        <div *ngIf=\"(purchase | async).authorizeSeatReservations.length === 0\">\n            <p class=\"text-md-center\">{{ 'purchase.event.cart.notfound' | translate }}</p>\n        </div>\n        <div *ngFor=\"let authorizeSeatReservation of (purchase | async).authorizeSeatReservations\"\n            class=\"mb-4 bg-white p-3 position-relative\">\n            <button type=\"button\" class=\"close\" aria-label=\"Close\" (click)=\"removeItem(authorizeSeatReservation)\">\n                <span aria-hidden=\"true\">&times;</span>\n            </button>\n            <div class=\"mb-3\">\n                <div class=\"mb-1\">\n                    <p class=\"font-weight-bold text-large pr-3\">\n                        {{ authorizeSeatReservation.object.event.name | changeLanguage }}</p>\n                    <p class=\"text-small\"\n                        *ngIf=\"authorizeSeatReservation.object.event.superEvent.headline && (authorizeSeatReservation.object.event.superEvent.headline | changeLanguage)\">\n                        {{ authorizeSeatReservation.object.event.superEvent.headline | changeLanguage }}</p>\n                    <p class=\"text-small\"\n                        *ngIf=\"authorizeSeatReservation.object.event.superEvent.description && (authorizeSeatReservation.object.event.superEvent.description | changeLanguage)\">{{\n                        authorizeSeatReservation.object.event.superEvent.description | changeLanguage }}</p>\n                </div>\n                <p class=\"mb-1\">\n                    {{ authorizeSeatReservation.object.event.startDate | formatDate: 'MM/DD(ddd) HH:mm' }}-{{ authorizeSeatReservation.object.event.endDate | formatDate: 'HH:mm' }}\n                </p>\n                <p class=\"text-small mb-1\">\n                    <span class=\"theater-name\">\n                        {{ authorizeSeatReservation.object.event.superEvent.location.name | changeLanguage }}\n                    </span>\n                    <span class=\"screen-name\">\n                        &nbsp;/&nbsp;<span *ngIf=\"authorizeSeatReservation.object.event.location.address\" class=\"mr-2\">{{ authorizeSeatReservation.object.event.location.address | changeLanguage }}</span>{{ authorizeSeatReservation.object.event.location.name | changeLanguage }}\n                    </span>\n                    <span\n                        *ngIf=\"authorizeSeatReservation.object.event.workPerformed?.duration && moment.duration(authorizeSeatReservation.object.event.workPerformed?.duration).asMinutes() > 0\">\n                        &nbsp;/&nbsp;<span class=\"mr-1\">{{ 'common.duration' | translate }}</span>{{ moment.duration(authorizeSeatReservation.object.event.workPerformed?.duration).asMinutes() }}{{ 'common.date.minute' | translate }}\n                    </span>\n                </p>\n                <!-- <button type=\"button\" class=\"btn btn-link btn-sm ml-auto p-0\"\n                    (click)=\"removeItem(authorizeSeatReservation)\">{{ 'common.remove' | translate }}</button> -->\n            </div>\n            <hr class=\"mb-3\">\n\n            <app-item-list [authorizeSeatReservations]=\"authorizeSeatReservation?.result?.responseBody.object.reservations\"></app-item-list>\n            \n        </div>\n    </div>\n\n    <div class=\"buttons mx-auto text-center\">\n        <button type=\"submit\" [disabled]=\"isLoading | async\" class=\"btn btn-primary btn-block py-3 mb-3\"\n            (click)=\"onSubmit()\">{{ 'purchase.event.cart.next' | translate }}</button>\n        <button type=\"button\" class=\"btn btn-link\"\n            routerLink=\"/purchase/event/schedule\">{{ 'purchase.event.ticket.prev' | translate }}</button>\n    </div>\n</div>";
     /***/
   },
 
@@ -1716,7 +1716,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
           return __awaiter(this, void 0, void 0,
           /*#__PURE__*/
           regeneratorRuntime.mark(function _callee10() {
-            var purchase, reservations;
+            var purchase, reservations, screeningEventTicketOffers;
             return regeneratorRuntime.wrap(function _callee10$(_context10) {
               while (1) {
                 switch (_context10.prev = _context10.next) {
@@ -1727,9 +1727,10 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
                   case 2:
                     purchase = _context10.sent;
                     reservations = purchase.reservations;
+                    screeningEventTicketOffers = purchase.screeningEventTicketOffers;
 
                     if (!(reservations.length === 0)) {
-                      _context10.next = 7;
+                      _context10.next = 8;
                       break;
                     }
 
@@ -1739,9 +1740,9 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
                     });
                     return _context10.abrupt("return");
 
-                  case 7:
+                  case 8:
                     if (!(reservations.length > Number(this.environment.PURCHASE_ITEM_MAX_LENGTH))) {
-                      _context10.next = 10;
+                      _context10.next = 11;
                       break;
                     }
 
@@ -1753,34 +1754,46 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
                     });
                     return _context10.abrupt("return");
 
-                  case 10:
-                    _context10.prev = 10;
-                    _context10.next = 13;
+                  case 11:
+                    if (!(screeningEventTicketOffers.length === 0)) {
+                      _context10.next = 14;
+                      break;
+                    }
+
+                    this.utilService.openAlert({
+                      title: this.translate.instant('common.error'),
+                      body: this.translate.instant('purchase.cinema.seat.alert.ticketNotfound')
+                    });
+                    return _context10.abrupt("return");
+
+                  case 14:
+                    _context10.prev = 14;
+                    _context10.next = 17;
                     return this.purchaseService.temporaryReservation({
                       reservations: reservations,
                       screeningEventSeats: this.screeningEventSeats
                     });
 
-                  case 13:
+                  case 17:
                     this.router.navigate(['/purchase/cinema/ticket']);
-                    _context10.next = 20;
+                    _context10.next = 24;
                     break;
 
-                  case 16:
-                    _context10.prev = 16;
-                    _context10.t0 = _context10["catch"](10);
+                  case 20:
+                    _context10.prev = 20;
+                    _context10.t0 = _context10["catch"](14);
                     console.error(_context10.t0);
                     this.utilService.openAlert({
                       title: this.translate.instant('common.error'),
                       body: this.translate.instant('purchase.cinema.seat.alert.temporaryReservation')
                     });
 
-                  case 20:
+                  case 24:
                   case "end":
                     return _context10.stop();
                 }
               }
-            }, _callee10, this, [[10, 16]]);
+            }, _callee10, this, [[14, 20]]);
           }));
         }
       }]);

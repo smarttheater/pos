@@ -27,6 +27,7 @@ export class ReservationSearchComponent implements OnInit {
     public reservations: factory.chevre.reservation.IReservation<factory.chevre.reservationType.EventReservation>[];
     public nextReservations: factory.chevre.reservation.IReservation<factory.chevre.reservationType.EventReservation>[];
     public totalCount: number;
+    public maxSize: number;
     public currentPage: number;
     public moment: typeof moment = moment;
     public reservationStatus = factory.chevre.reservationStatusType;
@@ -54,7 +55,8 @@ export class ReservationSearchComponent implements OnInit {
         this.error = this.store.pipe(select(reducers.getError));
         this.user = this.store.pipe(select(reducers.getUser));
         this.reservations = [];
-        this.totalCount = 100000;
+        this.totalCount = 20;
+        this.maxSize = 1;
         this.currentPage = 1;
         this.limit = 20;
         const now = moment().toDate();
@@ -95,6 +97,10 @@ export class ReservationSearchComponent implements OnInit {
                 reservationStatus: this.conditions.reservationStatus,
                 page: 1
             };
+            this.reservations = [];
+            this.totalCount = 20;
+            this.maxSize = 1;
+            this.currentPage = 1;
         }
         try {
             const params = input2ReservationSearchCondition({
@@ -106,12 +112,17 @@ export class ReservationSearchComponent implements OnInit {
             if (params.bookingFrom !== null
                 && params.bookingThrough !== null
                 && moment(params.bookingThrough).diff(moment(params.bookingFrom), 'day') > 14) {
-                    // 予約日の範囲が14日以上
-                    throw new Error('reservation date wrong date range').message;
-                }
+                // 予約日の範囲が14日以上
+                throw new Error('reservation date wrong date range').message;
+            }
             this.reservations = (await this.reservationService.search(params)).data;
-            this.nextReservations = (await this.reservationService.search({...params, page: (this.currentPage + 1)})).data;
-            this.totalCount = (this.nextReservations.length === 0) ? this.currentPage * this.limit : 100000;
+            this.nextReservations = (await this.reservationService.search({ ...params, page: (this.currentPage + 1) })).data;
+            const totalCount = (this.nextReservations.length === 0)
+                ? this.currentPage * this.limit : (this.currentPage + 1) * this.limit;
+            this.totalCount = (this.totalCount < totalCount) ? totalCount : this.totalCount;
+            const maxSize = this.totalCount / this.limit;
+            const maxSizeLimit = 5;
+            this.maxSize = (maxSize > maxSizeLimit) ? maxSizeLimit : maxSize;
         } catch (error) {
             console.error(error);
             this.utilService.openAlert({

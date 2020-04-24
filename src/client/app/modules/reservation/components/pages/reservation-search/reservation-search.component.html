@@ -81,7 +81,7 @@
             <div class="text-md-right text-center mb-3 mb-md-0 order-2">
                 <div class="d-inline-block">
                     <pagination [(ngModel)]="currentPage" [totalItems]="totalCount" [itemsPerPage]="limit"
-                        [maxSize]="1" [boundaryLinks]="false" previousText="&lsaquo;" nextText="&rsaquo;"
+                        [maxSize]="maxSize" [boundaryLinks]="false" previousText="&lsaquo;" nextText="&rsaquo;"
                         firstText="&laquo;" lastText="&raquo;" (pageChanged)="reservationSearch(false, $event)"></pagination>
                 </div>
             </div>
