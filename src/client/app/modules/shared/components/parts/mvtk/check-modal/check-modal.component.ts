@@ -114,7 +114,8 @@ export class MvtkCheckModalComponent implements OnInit {
         } catch (error) {
             console.error(error);
             this.isSuccess = false;
-            this.errorMessage = this.translate.instant('modal.mvtk.check.alert.error');
+            this.errorMessage = `${this.translate.instant('modal.mvtk.check.alert.error')}<br>
+            <span class="text-break text-small">${error}</span>`;
         }
     }
 

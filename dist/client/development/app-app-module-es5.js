@@ -105650,7 +105650,7 @@ function _classCallCheck2(instance, Constructor) { if (!(instance instanceof Con
                     _context4.t0 = _context4["catch"](6);
                     console.error(_context4.t0);
                     this.isSuccess = false;
-                    this.errorMessage = this.translate.instant('modal.mvtk.check.alert.error');
+                    this.errorMessage = "".concat(this.translate.instant('modal.mvtk.check.alert.error'), "<br>\n            <span class=\"text-break text-small\">").concat(_context4.t0, "</span>");
 
                   case 41:
                   case "end":
