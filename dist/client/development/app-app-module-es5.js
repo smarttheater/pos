@@ -106604,6 +106604,10 @@ function _classCallCheck2(instance, Constructor) { if (!(instance instanceof Con
           var screeningEventSeats = this.screeningEventSeats;
           var limit = Number(this.environment.PURCHASE_ITEM_MAX_LENGTH);
 
+          if (screeningEvent.remainingAttendeeCapacity !== undefined && limit > screeningEvent.remainingAttendeeCapacity) {
+            limit = screeningEvent.remainingAttendeeCapacity;
+          }
+
           if (new _models__WEBPACK_IMPORTED_MODULE_6__["Performance"](screeningEvent).isTicketedSeat()) {
             // イベント全体の残席数計算
             var screeningEventLimit = Object(_functions__WEBPACK_IMPORTED_MODULE_5__["getRemainingSeatLength"])({
