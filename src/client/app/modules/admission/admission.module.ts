@@ -4,14 +4,16 @@ import { SharedModule } from '../shared/shared.module';
 import { AdmissionRoutingModule } from './admission-routing.module';
 import { AdmissionCheckComponent } from './components/pages/admission-check/admission-check.component';
 import { AdmissionScheduleComponent } from './components/pages/admission-schedule/admission-schedule.component';
-import { AdmissionScheduleWorkComponent } from './components/parts/admission-schedule-work/admission-schedule-work.component';
+import { AdmissionPerformanceComponent } from './components/parts/performance/performance.component';
+import { AdmissionPerformancesComponent } from './components/parts/performances/performances.component';
 
 
 @NgModule({
   declarations: [
     AdmissionScheduleComponent,
     AdmissionCheckComponent,
-    AdmissionScheduleWorkComponent,
+    AdmissionPerformanceComponent,
+    AdmissionPerformancesComponent,
   ],
   imports: [
     CommonModule,

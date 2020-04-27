@@ -4,7 +4,7 @@ function _defineProperties(target, props) { for (var i = 0; i < props.length; i+
 
 function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
 
-(window["webpackJsonp"] = window["webpackJsonp"] || []).push([["common"], {
+(window["webpackJsonp"] = window["webpackJsonp"] || []).push([["default~modules-admission-admission-module~modules-auth-auth-module~modules-inquiry-inquiry-module~m~f17d069f"], {
   /***/
   "./app/canActivates/auth-guard.service.ts":
   /*!************************************************!*\
@@ -168,7 +168,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
     !*** ./app/canActivates/index.ts ***!
     \***********************************/
 
-  /*! exports provided: AuthGuardService, PurchaseTransactionGuardService, SettingGuardService */
+  /*! exports provided: AuthGuardService, PurchaseTransactionGuardService, SettingGuardService, ViewTypeGuardService */
 
   /***/
   function appCanActivatesIndexTs(module, __webpack_exports__, __webpack_require__) {
@@ -210,6 +210,18 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
     __webpack_require__.d(__webpack_exports__, "SettingGuardService", function () {
       return _setting_guard_service__WEBPACK_IMPORTED_MODULE_2__["SettingGuardService"];
+    });
+    /* harmony import */
+
+
+    var _view_type_guard_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(
+    /*! ./view-type-guard.service */
+    "./app/canActivates/view-type-guard.service.ts");
+    /* harmony reexport (safe) */
+
+
+    __webpack_require__.d(__webpack_exports__, "ViewTypeGuardService", function () {
+      return _view_type_guard_service__WEBPACK_IMPORTED_MODULE_3__["ViewTypeGuardService"];
     });
 
     var __importDefault = undefined && undefined.__importDefault || function (mod) {
@@ -596,6 +608,181 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       providedIn: 'root'
     }), __metadata("design:paramtypes", [_angular_router__WEBPACK_IMPORTED_MODULE_1__["Router"], _ngrx_store__WEBPACK_IMPORTED_MODULE_2__["Store"]])], SettingGuardService);
     /***/
+  },
+
+  /***/
+  "./app/canActivates/view-type-guard.service.ts":
+  /*!*****************************************************!*\
+    !*** ./app/canActivates/view-type-guard.service.ts ***!
+    \*****************************************************/
+
+  /*! exports provided: ViewTypeGuardService */
+
+  /***/
+  function appCanActivatesViewTypeGuardServiceTs(module, __webpack_exports__, __webpack_require__) {
+    "use strict";
+
+    __webpack_require__.r(__webpack_exports__);
+    /* harmony export (binding) */
+
+
+    __webpack_require__.d(__webpack_exports__, "ViewTypeGuardService", function () {
+      return ViewTypeGuardService;
+    });
+    /* harmony import */
+
+
+    var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(
+    /*! @angular/core */
+    "../../node_modules/@angular/core/fesm2015/core.js");
+    /* harmony import */
+
+
+    var _angular_router__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(
+    /*! @angular/router */
+    "../../node_modules/@angular/router/fesm2015/router.js");
+    /* harmony import */
+
+
+    var _environments_environment__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
+    /*! ../../environments/environment */
+    "./environments/environment.ts");
+    /* harmony import */
+
+
+    var _models__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(
+    /*! ../models */
+    "./app/models/index.ts");
+
+    var __decorate = undefined && undefined.__decorate || function (decorators, target, key, desc) {
+      var c = arguments.length,
+          r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc,
+          d;
+      if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);else for (var i = decorators.length - 1; i >= 0; i--) {
+        if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+      }
+      return c > 3 && r && Object.defineProperty(target, key, r), r;
+    };
+
+    var __metadata = undefined && undefined.__metadata || function (k, v) {
+      if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+    };
+
+    var __awaiter = undefined && undefined.__awaiter || function (thisArg, _arguments, P, generator) {
+      return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) {
+          try {
+            step(generator.next(value));
+          } catch (e) {
+            reject(e);
+          }
+        }
+
+        function rejected(value) {
+          try {
+            step(generator["throw"](value));
+          } catch (e) {
+            reject(e);
+          }
+        }
+
+        function step(result) {
+          result.done ? resolve(result.value) : new P(function (resolve) {
+            resolve(result.value);
+          }).then(fulfilled, rejected);
+        }
+
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+      });
+    };
+
+    var __importDefault = undefined && undefined.__importDefault || function (mod) {
+      return mod && mod.__esModule ? mod : {
+        "default": mod
+      };
+    };
+    /**
+     * ViewTypeGuardService
+     */
+
+
+    var ViewTypeGuardService =
+    /*#__PURE__*/
+    function () {
+      function ViewTypeGuardService(router) {
+        _classCallCheck(this, ViewTypeGuardService);
+
+        this.router = router;
+      }
+      /**
+       * 認証
+       * @method canActivate
+       * @returns {Promise<boolean>}
+       */
+
+
+      _createClass(ViewTypeGuardService, [{
+        key: "canActivate",
+        value: function canActivate(_next, state) {
+          return __awaiter(this, void 0, void 0,
+          /*#__PURE__*/
+          regeneratorRuntime.mark(function _callee5() {
+            var viewType;
+            return regeneratorRuntime.wrap(function _callee5$(_context5) {
+              while (1) {
+                switch (_context5.prev = _context5.next) {
+                  case 0:
+                    _context5.prev = 0;
+                    viewType = Object(_environments_environment__WEBPACK_IMPORTED_MODULE_2__["getEnvironment"])().VIEW_TYPE;
+
+                    if (!(state.url.match('/cinema') !== null && viewType !== _models__WEBPACK_IMPORTED_MODULE_3__["ViewType"].Cinema)) {
+                      _context5.next = 4;
+                      break;
+                    }
+
+                    throw new Error('viewType not match');
+
+                  case 4:
+                    if (!(state.url.match('/event') !== null && viewType !== _models__WEBPACK_IMPORTED_MODULE_3__["ViewType"].Event)) {
+                      _context5.next = 6;
+                      break;
+                    }
+
+                    throw new Error('viewType not match');
+
+                  case 6:
+                    return _context5.abrupt("return", true);
+
+                  case 9:
+                    _context5.prev = 9;
+                    _context5.t0 = _context5["catch"](0);
+                    console.error('canActivate', _context5.t0);
+                    this.router.navigate(['/error']);
+                    return _context5.abrupt("return", false);
+
+                  case 14:
+                  case "end":
+                    return _context5.stop();
+                }
+              }
+            }, _callee5, this, [[0, 9]]);
+          }));
+        }
+      }]);
+
+      return ViewTypeGuardService;
+    }();
+
+    ViewTypeGuardService.ctorParameters = function () {
+      return [{
+        type: _angular_router__WEBPACK_IMPORTED_MODULE_1__["Router"]
+      }];
+    };
+
+    ViewTypeGuardService = __decorate([Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"])({
+      providedIn: 'root'
+    }), __metadata("design:paramtypes", [_angular_router__WEBPACK_IMPORTED_MODULE_1__["Router"]])], ViewTypeGuardService);
+    /***/
   }
 }]);
-//# sourceMappingURL=common-es5.js.map
+//# sourceMappingURL=default~modules-admission-admission-module~modules-auth-auth-module~modules-inquiry-inquiry-module~m~f17d069f-es5.js.map

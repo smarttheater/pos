@@ -82,7 +82,7 @@
         <div class="p-3">
             <p class="theater-name">{{ (admission | async).screeningEvent.superEvent.location.name | changeLanguage }}</p>
             <p class="screen-name">
-                <span *ngIf="(admission | async).screeningEvent.location.address" class="mr-2">
+                <span *ngIf="(admission | async).screeningEvent.location.address | changeLanguage" class="mr-2">
                     {{ (admission | async).screeningEvent.location.address | changeLanguage }}
                 </span>
                 <span>

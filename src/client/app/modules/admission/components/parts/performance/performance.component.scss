@@ -2,22 +2,18 @@
 @import "node_modules/bootstrap/scss/variables";
 @import "node_modules/bootstrap/scss/mixins";
 
-:host {
-    display: block;
-}
-ul {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
-    grid-gap: 0.5rem;
-    @include media-breakpoint-down(sm) {
-        grid-template-columns: 1fr;
-    }
-}
-
 .status {
     line-height: 30px;
     img {
         width: 30px;
         height: 30px;
+    }
+}
+
+.text-overflow-ellipsis {
+    @include media-breakpoint-down(sm) {
+        overflow: auto;
+        width: auto;
+        white-space: normal;
     }
 }

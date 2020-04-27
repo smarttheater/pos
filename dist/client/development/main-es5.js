@@ -2397,7 +2397,13 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
     /* harmony import */
 
 
-    var _util_function__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(
+    var _environments_environment__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(
+    /*! ../../environments/environment */
+    "./environments/environment.ts");
+    /* harmony import */
+
+
+    var _util_function__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(
     /*! ./util.function */
     "./app/functions/util.function.ts");
 
@@ -2426,7 +2432,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
           var _this = this;
 
           var suffix = ".json?date=".concat(moment__WEBPACK_IMPORTED_MODULE_3__().toISOString());
-          var resources = ["/default/i18n/".concat(lang).concat(suffix), "".concat(Object(_util_function__WEBPACK_IMPORTED_MODULE_6__["getProject"])().storageUrl, "/i18n/").concat(lang).concat(suffix)];
+          var resources = ["/default/i18n/common/".concat(lang).concat(suffix), "/default/i18n/".concat(Object(_environments_environment__WEBPACK_IMPORTED_MODULE_6__["getEnvironment"])().VIEW_TYPE, "/").concat(lang).concat(suffix), "".concat(Object(_util_function__WEBPACK_IMPORTED_MODULE_7__["getProject"])().storageUrl, "/i18n/").concat(lang).concat(suffix)];
           return Object(rxjs__WEBPACK_IMPORTED_MODULE_4__["forkJoin"])(resources.map(function (url) {
             return _this.http.get(url).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["catchError"])(function (error) {
               console.error(error);

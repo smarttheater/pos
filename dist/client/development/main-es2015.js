@@ -1454,10 +1454,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_3__);
 /* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! rxjs */ "../../node_modules/rxjs/_esm2015/index.js");
 /* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! rxjs/operators */ "../../node_modules/rxjs/_esm2015/operators/index.js");
-/* harmony import */ var _util_function__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./util.function */ "./app/functions/util.function.ts");
+/* harmony import */ var _environments_environment__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../environments/environment */ "./environments/environment.ts");
+/* harmony import */ var _util_function__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./util.function */ "./app/functions/util.function.ts");
 var __importDefault = (undefined && undefined.__importDefault) || function (mod) {
   return (mod && mod.__esModule) ? mod : { "default": mod };
 };
+
 
 
 
@@ -1475,8 +1477,9 @@ class CustomTranslateHttpLoader {
     getTranslation(lang) {
         const suffix = `.json?date=${moment__WEBPACK_IMPORTED_MODULE_3__().toISOString()}`;
         const resources = [
-            `/default/i18n/${lang}${suffix}`,
-            `${Object(_util_function__WEBPACK_IMPORTED_MODULE_6__["getProject"])().storageUrl}/i18n/${lang}${suffix}`,
+            `/default/i18n/common/${lang}${suffix}`,
+            `/default/i18n/${Object(_environments_environment__WEBPACK_IMPORTED_MODULE_6__["getEnvironment"])().VIEW_TYPE}/${lang}${suffix}`,
+            `${Object(_util_function__WEBPACK_IMPORTED_MODULE_7__["getProject"])().storageUrl}/i18n/${lang}${suffix}`,
         ];
         return Object(rxjs__WEBPACK_IMPORTED_MODULE_4__["forkJoin"])(resources.map((url) => {
             return this.http.get(url).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["catchError"])((error) => {
