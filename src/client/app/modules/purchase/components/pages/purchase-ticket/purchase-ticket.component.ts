@@ -60,7 +60,7 @@ export class PurchaseTicketComponent implements OnInit {
         if (unselectedReservations.length > 0) {
             this.utilService.openAlert({
                 title: this.translate.instant('common.error'),
-                body: this.translate.instant(`${this.translateName}'.alert.unselected`)
+                body: this.translate.instant(`${this.translateName}.alert.unselected`)
             });
             return;
         }
@@ -89,7 +89,7 @@ export class PurchaseTicketComponent implements OnInit {
         if (validResult.length > 0) {
             this.utilService.openAlert({
                 title: this.translate.instant('common.error'),
-                body: this.translate.instant(`${this.translateName}'.alert.ticketCondition`)
+                body: this.translate.instant(`${this.translateName}.alert.ticketCondition`)
             });
             return;
         }
@@ -110,7 +110,7 @@ export class PurchaseTicketComponent implements OnInit {
             this.utilService.openAlert({
                 title: this.translate.instant('common.error'),
                 body: `
-                <p class="mb-4">${this.translate.instant(`${this.translateName}'.alert.temporaryReservation`)}</p>
+                <p class="mb-4">${this.translate.instant(`${this.translateName}.alert.temporaryReservation`)}</p>
                 <div class="p-3 bg-light-gray select-text text-left">
                     <code>${JSON.stringify(error)}</code>
                 </div>`
