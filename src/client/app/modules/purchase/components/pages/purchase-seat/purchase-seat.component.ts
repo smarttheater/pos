@@ -33,7 +33,8 @@ export class PurchaseSeatComponent implements OnInit {
         this.purchase = this.store.pipe(select(reducers.getPurchase));
         this.user = this.store.pipe(select(reducers.getUser));
         this.isLoading = this.store.pipe(select(reducers.getLoading));
-        this.translateName = (this.environment.VIEW_TYPE === 'cinema') ? 'purchase.cinema.seat' : 'purchase.event.seat';
+        this.translateName = (this.environment.VIEW_TYPE === 'cinema')
+            ? 'purchase.cinema.seat' : 'purchase.event.seat';
         this.screeningEventSeats = [];
         try {
             const purchase = await this.purchaseService.getData();

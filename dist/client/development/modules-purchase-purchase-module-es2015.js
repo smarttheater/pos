@@ -791,7 +791,7 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "PurchaseCinemaTicketComponent", function() { return PurchaseCinemaTicketComponent; });
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "../../node_modules/@angular/core/fesm2015/core.js");
-/* harmony import */ var _purchase_ticket_purchase_cinema_ticket_component__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../purchase-ticket/purchase-cinema-ticket.component */ "./app/modules/purchase/components/pages/purchase-ticket/purchase-cinema-ticket.component.ts");
+/* harmony import */ var _purchase_ticket_purchase_ticket_component__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../purchase-ticket/purchase-ticket.component */ "./app/modules/purchase/components/pages/purchase-ticket/purchase-ticket.component.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -803,7 +803,7 @@ var __importDefault = (undefined && undefined.__importDefault) || function (mod)
 };
 
 
-let PurchaseCinemaTicketComponent = class PurchaseCinemaTicketComponent extends _purchase_ticket_purchase_cinema_ticket_component__WEBPACK_IMPORTED_MODULE_1__["PurchaseTicketComponent"] {
+let PurchaseCinemaTicketComponent = class PurchaseCinemaTicketComponent extends _purchase_ticket_purchase_ticket_component__WEBPACK_IMPORTED_MODULE_1__["PurchaseTicketComponent"] {
 };
 PurchaseCinemaTicketComponent = __decorate([
     Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
@@ -1099,7 +1099,7 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "PurchaseEventSeatTicketComponent", function() { return PurchaseEventSeatTicketComponent; });
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "../../node_modules/@angular/core/fesm2015/core.js");
-/* harmony import */ var _purchase_ticket_purchase_cinema_ticket_component__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../purchase-ticket/purchase-cinema-ticket.component */ "./app/modules/purchase/components/pages/purchase-ticket/purchase-cinema-ticket.component.ts");
+/* harmony import */ var _purchase_ticket_purchase_ticket_component__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../purchase-ticket/purchase-ticket.component */ "./app/modules/purchase/components/pages/purchase-ticket/purchase-ticket.component.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -1111,7 +1111,7 @@ var __importDefault = (undefined && undefined.__importDefault) || function (mod)
 };
 
 
-let PurchaseEventSeatTicketComponent = class PurchaseEventSeatTicketComponent extends _purchase_ticket_purchase_cinema_ticket_component__WEBPACK_IMPORTED_MODULE_1__["PurchaseTicketComponent"] {
+let PurchaseEventSeatTicketComponent = class PurchaseEventSeatTicketComponent extends _purchase_ticket_purchase_ticket_component__WEBPACK_IMPORTED_MODULE_1__["PurchaseTicketComponent"] {
 };
 PurchaseEventSeatTicketComponent = __decorate([
     Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
@@ -2274,7 +2274,8 @@ let PurchaseSeatComponent = class PurchaseSeatComponent {
             this.purchase = this.store.pipe(Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_3__["select"])(_store_reducers__WEBPACK_IMPORTED_MODULE_9__["getPurchase"]));
             this.user = this.store.pipe(Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_3__["select"])(_store_reducers__WEBPACK_IMPORTED_MODULE_9__["getUser"]));
             this.isLoading = this.store.pipe(Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_3__["select"])(_store_reducers__WEBPACK_IMPORTED_MODULE_9__["getLoading"]));
-            this.translateName = (this.environment.VIEW_TYPE === 'cinema') ? 'purchase.cinema.seat' : 'purchase.event.seat';
+            this.translateName = (this.environment.VIEW_TYPE === 'cinema')
+                ? 'purchase.cinema.seat' : 'purchase.event.seat';
             this.screeningEventSeats = [];
             try {
                 const purchase = yield this.purchaseService.getData();
@@ -2480,10 +2481,10 @@ PurchaseSeatComponent = __decorate([
 
 /***/ }),
 
-/***/ "./app/modules/purchase/components/pages/purchase-ticket/purchase-cinema-ticket.component.ts":
-/*!***************************************************************************************************!*\
-  !*** ./app/modules/purchase/components/pages/purchase-ticket/purchase-cinema-ticket.component.ts ***!
-  \***************************************************************************************************/
+/***/ "./app/modules/purchase/components/pages/purchase-ticket/purchase-ticket.component.ts":
+/*!********************************************************************************************!*\
+  !*** ./app/modules/purchase/components/pages/purchase-ticket/purchase-ticket.component.ts ***!
+  \********************************************************************************************/
 /*! exports provided: PurchaseTicketComponent */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -2547,7 +2548,8 @@ let PurchaseTicketComponent = class PurchaseTicketComponent {
         this.purchase = this.store.pipe(Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_3__["select"])(_store_reducers__WEBPACK_IMPORTED_MODULE_8__["getPurchase"]));
         this.user = this.store.pipe(Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_3__["select"])(_store_reducers__WEBPACK_IMPORTED_MODULE_8__["getUser"]));
         this.isLoading = this.store.pipe(Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_3__["select"])(_store_reducers__WEBPACK_IMPORTED_MODULE_8__["getLoading"]));
-        this.translateName = (this.environment.VIEW_TYPE === 'cinema') ? 'purchase.cinema.ticket' : 'purchase.event.seatTicket';
+        this.translateName = (this.environment.VIEW_TYPE === 'cinema')
+            ? 'purchase.cinema.ticket' : 'purchase.event.seatTicket';
         this.additionalTicketText = '';
     }
     /**

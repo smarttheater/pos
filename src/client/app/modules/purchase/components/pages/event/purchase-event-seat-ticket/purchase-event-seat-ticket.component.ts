@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { PurchaseTicketComponent } from '../../purchase-ticket/purchase-cinema-ticket.component';
+import { PurchaseTicketComponent } from '../../purchase-ticket/purchase-ticket.component';
 
 @Component({
     selector: 'app-purchase-event-seat-ticket',

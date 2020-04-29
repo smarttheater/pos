@@ -1458,9 +1458,9 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
     /* harmony import */
 
 
-    var _purchase_ticket_purchase_cinema_ticket_component__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(
-    /*! ../../purchase-ticket/purchase-cinema-ticket.component */
-    "./app/modules/purchase/components/pages/purchase-ticket/purchase-cinema-ticket.component.ts");
+    var _purchase_ticket_purchase_ticket_component__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(
+    /*! ../../purchase-ticket/purchase-ticket.component */
+    "./app/modules/purchase/components/pages/purchase-ticket/purchase-ticket.component.ts");
 
     var __decorate = undefined && undefined.__decorate || function (decorators, target, key, desc) {
       var c = arguments.length,
@@ -1490,7 +1490,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }
 
       return PurchaseCinemaTicketComponent;
-    }(_purchase_ticket_purchase_cinema_ticket_component__WEBPACK_IMPORTED_MODULE_1__["PurchaseTicketComponent"]);
+    }(_purchase_ticket_purchase_ticket_component__WEBPACK_IMPORTED_MODULE_1__["PurchaseTicketComponent"]);
 
     PurchaseCinemaTicketComponent = __decorate([Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
       selector: 'app-purchase-cinema-ticket',
@@ -2072,9 +2072,9 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
     /* harmony import */
 
 
-    var _purchase_ticket_purchase_cinema_ticket_component__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(
-    /*! ../../purchase-ticket/purchase-cinema-ticket.component */
-    "./app/modules/purchase/components/pages/purchase-ticket/purchase-cinema-ticket.component.ts");
+    var _purchase_ticket_purchase_ticket_component__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(
+    /*! ../../purchase-ticket/purchase-ticket.component */
+    "./app/modules/purchase/components/pages/purchase-ticket/purchase-ticket.component.ts");
 
     var __decorate = undefined && undefined.__decorate || function (decorators, target, key, desc) {
       var c = arguments.length,
@@ -2104,7 +2104,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }
 
       return PurchaseEventSeatTicketComponent;
-    }(_purchase_ticket_purchase_cinema_ticket_component__WEBPACK_IMPORTED_MODULE_1__["PurchaseTicketComponent"]);
+    }(_purchase_ticket_purchase_ticket_component__WEBPACK_IMPORTED_MODULE_1__["PurchaseTicketComponent"]);
 
     PurchaseEventSeatTicketComponent = __decorate([Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
       selector: 'app-purchase-event-seat-ticket',
@@ -4843,15 +4843,15 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
   },
 
   /***/
-  "./app/modules/purchase/components/pages/purchase-ticket/purchase-cinema-ticket.component.ts":
-  /*!***************************************************************************************************!*\
-    !*** ./app/modules/purchase/components/pages/purchase-ticket/purchase-cinema-ticket.component.ts ***!
-    \***************************************************************************************************/
+  "./app/modules/purchase/components/pages/purchase-ticket/purchase-ticket.component.ts":
+  /*!********************************************************************************************!*\
+    !*** ./app/modules/purchase/components/pages/purchase-ticket/purchase-ticket.component.ts ***!
+    \********************************************************************************************/
 
   /*! exports provided: PurchaseTicketComponent */
 
   /***/
-  function appModulesPurchaseComponentsPagesPurchaseTicketPurchaseCinemaTicketComponentTs(module, __webpack_exports__, __webpack_require__) {
+  function appModulesPurchaseComponentsPagesPurchaseTicketPurchaseTicketComponentTs(module, __webpack_exports__, __webpack_require__) {
     "use strict";
 
     __webpack_require__.r(__webpack_exports__);

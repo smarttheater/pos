@@ -424,9 +424,6 @@
         "instruction": "説明書"
     },
     "modal": {
-        "ticket": {
-            "notfound": "販売可能券種がありません。"
-        },
         "mvtk": {
             "check": {
                 "success": "ムビチケ券を追加しました。",
@@ -453,7 +450,8 @@
                 "prev": "カートへ移動"
             },
             "seatTicket": {
-                "addOn": "オプション選択"
+                "addOn": "オプション選択",
+                "notfound": "販売可能券種がありません。"
             }
         }
     },
