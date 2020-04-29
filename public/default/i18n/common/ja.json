@@ -445,11 +445,16 @@
                 }
             }
         },
-        "purchaseTransaction": {
-            "title": "確認",
-            "read": "取引中の取引があります。",
-            "next": "追加して進む",
-            "prev": "カートへ移動"
+        "purchase": {
+            "transaction": {
+                "title": "確認",
+                "read": "取引中の取引があります。",
+                "next": "追加して進む",
+                "prev": "カートへ移動"
+            },
+            "seatTicket": {
+                "addOn": "オプション選択"
+            }
         }
     },
     "process": {

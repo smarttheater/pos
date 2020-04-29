@@ -92216,26 +92216,6 @@ function _classCallCheck2(instance, Constructor) { if (!(instance instanceof Con
   },
 
   /***/
-  "../../node_modules/raw-loader/dist/cjs.js!./app/modules/shared/components/parts/purchase/cinema/ticket-modal/ticket-modal.component.html":
-  /*!********************************************************************************************************************************************************************************************!*\
-    !*** C:/Users/hataguchi/Desktop/workspace/Cinerino/pos/node_modules/raw-loader/dist/cjs.js!./app/modules/shared/components/parts/purchase/cinema/ticket-modal/ticket-modal.component.html ***!
-    \********************************************************************************************************************************************************************************************/
-
-  /*! exports provided: default */
-
-  /***/
-  function node_modulesRawLoaderDistCjsJsAppModulesSharedComponentsPartsPurchaseCinemaTicketModalTicketModalComponentHtml(module, __webpack_exports__, __webpack_require__) {
-    "use strict";
-
-    __webpack_require__.r(__webpack_exports__);
-    /* harmony default export */
-
-
-    __webpack_exports__["default"] = "<div *ngIf=\"!selectedTicket\" class=\"p-3 scroll-vertical\">\n    <div *ngFor=\"let ticket of tickets\" class=\"ticket mb-2\">\n        <button type=\"button\" (click)=\"selsctTicket(ticket)\" class=\"btn btn-block btn-outline-primary py-3\">\n            <div class=\"d-flex justify-content-between align-items-center\" *ngFor=\"let priceComponent of ticket.ticketOffer.priceSpecification.priceComponent\">\n                <p class=\"w-50 text-left\">{{ priceComponent.name | changeLanguage }}</p>\n                <p class=\"w-50 text-right\">\n                    <span>{{ priceComponent.price | currency : priceComponent.priceCurrency }}</span><!--\n                    --><span class=\"text-small\" *ngIf=\"priceComponent?.referenceQuantity?.value\">{{ 'common.referenceQuantityValue' | translate: { value: priceComponent?.referenceQuantity?.value } }}</span>\n                </p>\n            </div>\n            <p *ngIf=\"ticket.ticketOffer.description\" class=\"text-x-small text-left\">{{ ticket.ticketOffer.description | changeLanguage }}</p>\n        </button>\n    </div>\n    <p *ngIf=\"tickets.length === 0\">{{ 'modal.ticket.notfound' | translate }}</p>\n</div>\n\n<div *ngIf=\"selectedTicket\" class=\"p-3 scroll-vertical\">\n    <div class=\"mb-3 text-large text-center\">{{ 'purchase.cinema.ticket.addOn' | translate }}</div>\n    <ul class=\"mb-4\">\n        <li class=\"mb-3\" *ngFor=\"let addOn of selectedTicket.ticketOffer.addOn; let index = index\">\n            <app-checkbox class=\"pointer\" (change)=\"changeAddOnList(addOn.id)\">\n                <div class=\"d-flex w-100\">\n                    <div class=\"w-50\">{{ addOn.priceSpecification?.name | changeLanguage }}<span *ngIf=\"addOn.priceSpecification?.referenceQuantity?.value\">{{ 'common.referenceQuantityValue' | translate: { value: addOn.priceSpecification?.referenceQuantity?.value } }}</span></div>\n                    <div class=\"w-50 text-right\">{{ addOn.priceSpecification?.price | currency : addOn.priceSpecification?.priceCurrency }}</div>\n                </div>\n            </app-checkbox>\n        </li>\n    </ul>\n    <div class=\"buttons mx-auto text-center\">\n        <button type=\"button\" class=\"btn btn-primary btn-block py-3 mb-3\"\n            (click)=\"selsctOption()\">{{ 'common.done' | translate }}</button>\n        <button type=\"button\" class=\"btn btn-link btn-sm\"\n            (click)=\"modal.hide()\">{{ 'common.close' | translate }}</button>\n    </div>\n</div>";
-    /***/
-  },
-
-  /***/
   "../../node_modules/raw-loader/dist/cjs.js!./app/modules/shared/components/parts/purchase/event/ticket-modal/ticket-modal.component.html":
   /*!*******************************************************************************************************************************************************************************************!*\
     !*** C:/Users/hataguchi/Desktop/workspace/Cinerino/pos/node_modules/raw-loader/dist/cjs.js!./app/modules/shared/components/parts/purchase/event/ticket-modal/ticket-modal.component.html ***!
@@ -92252,6 +92232,26 @@ function _classCallCheck2(instance, Constructor) { if (!(instance instanceof Con
 
 
     __webpack_exports__["default"] = "<div class=\"p-3 scroll-vertical\">\n    <div class=\"mb-3\">\n        <div class=\"mb-1\">\n            <p class=\"font-weight-bold text-large\">{{ screeningEvent.name | changeLanguage }}</p>\n            <p class=\"text-small\"\n                *ngIf=\"screeningEvent.superEvent.headline && (screeningEvent.superEvent.headline | changeLanguage)\">\n                {{ screeningEvent.superEvent.headline | changeLanguage }}</p>\n            <p class=\"text-small\"\n                *ngIf=\"screeningEvent.superEvent.description && (screeningEvent.superEvent.description | changeLanguage)\">{{\n                    screeningEvent.superEvent.description | changeLanguage }}</p>\n        </div>\n        <p class=\"mb-1\">\n            {{ moment(screeningEvent.startDate).format('MM/DD(ddd) HH:mm') }}-{{ moment(screeningEvent.endDate).format('HH:mm') }}\n        </p>\n        <p class=\"text-small mb-1\">\n            <span class=\"theater-name\">\n                {{ screeningEvent.superEvent.location.name | changeLanguage }}\n            </span>\n            <span class=\"screen-name\">\n                &nbsp;/&nbsp;<span *ngIf=\"screeningEvent.location.address | changeLanguage\"\n                    class=\"mr-2\">{{ screeningEvent.location.address | changeLanguage }}</span>{{ screeningEvent.location.name | changeLanguage }}\n            </span>\n            <span\n                *ngIf=\"screeningEvent.workPerformed?.duration && moment.duration(screeningEvent.workPerformed?.duration).asMinutes() > 0\">\n                &nbsp;/&nbsp;<span\n                    class=\"mr-1\">{{ 'common.duration' | translate }}</span>{{ moment.duration(screeningEvent.workPerformed?.duration).asMinutes() }}{{ 'common.date.minute' | translate }}\n            </span>\n        </p>\n        <p *ngIf=\"performance.isTicketedSeat()\" class=\"font-weight-bold\"><span\n                class=\"mr-1\">{{ 'purchase.event.ticket.remainingSeat' | translate }}</span>{{ getRemainingSeatLength({\n            screeningEventSeats: screeningEventSeats, \n            screeningEvent: screeningEvent\n        }) }}</p>\n    </div>\n    <hr class=\"mb-3\">\n    <ul *ngIf=\"tickets.length > 0\" class=\"mb-4\">\n        <li *ngFor=\"let ticket of tickets\" class=\"ticket mb-3 pb-3 border-bottom border-gray\"\n            [class.text-danger]=\"remainingAttendeeCapacityValue(ticket).length === 0\">\n            <div class=\"d-flex justify-content-between align-items-center\">\n                <div class=\"w-75 text-left\">\n                    <p *ngFor=\"let priceComponent of ticket.priceSpecification.priceComponent\">\n                        <span>{{ priceComponent.name | changeLanguage }}</span>\n                        <!--\n                        --><span>&nbsp;/&nbsp;{{ priceComponent.price | currency : priceComponent.priceCurrency }}</span>\n                        <!--\n                        --><span class=\"text-small\"\n                            *ngIf=\"priceComponent?.referenceQuantity?.value\">{{ 'common.referenceQuantityValue' | translate: { value: priceComponent?.referenceQuantity?.value } }}</span>\n                    </p>\n                    <p *ngIf=\"ticket.description\" class=\"text-x-small text-left\">\n                        {{ ticket.description | changeLanguage }}</p>\n                </div>\n                <div class=\"w-25 text-right\">\n                    <select class=\"form-control\" (change)=\"changeSelect(ticket.id, $event)\">\n                        <option value=\"0\">0</option>\n                        <option *ngFor=\"let value of remainingAttendeeCapacityValue(ticket)\" [value]=\"value\">{{ value }}\n                        </option>\n                    </select>\n                </div>\n            </div>\n            <ul *ngIf=\"ticket.addOn && ticket.addOn.length > 0\" class=\"mt-2 bg-light-gray py-2 px-3\">\n                <li class=\"my-1\" *ngFor=\"let addOn of ticket.addOn; let index = index\">\n                    <app-checkbox class=\"pointer\" (change)=\"changeAddOn(ticket.id, addOn.id)\">\n                        {{ addOn.priceSpecification?.name | changeLanguage }}<span\n                            *ngIf=\"addOn.priceSpecification?.referenceQuantity?.value\">{{ 'common.referenceQuantityValue' | translate: { value: addOn.priceSpecification?.referenceQuantity?.value } }}</span>\n                        <!--\n                        -->&nbsp;/&nbsp;\n                        <!--\n                        -->{{ addOn.priceSpecification?.price | currency : addOn.priceSpecification?.priceCurrency }}\n                    </app-checkbox>\n                </li>\n            </ul>\n        </li>\n    </ul>\n    <p *ngIf=\"tickets.length === 0\" class=\"mb-4\">{{ 'modal.ticket.notfound' | translate }}</p>\n\n    <div class=\"mb-4 additional-ticket-text\">\n        <p>{{ 'common.additionalTicketText' | translate }}</p>\n        <textarea [(ngModel)]=\"additionalTicketText\" class=\"py-1 px-2\"></textarea>\n    </div>\n\n    <div class=\"buttons mx-auto text-center text-center\">\n        <button [disabled]=\"selectedTickets && createReservations().length === 0\" type=\"button\"\n            class=\"btn btn-primary btn-block py-3 mb-3\"\n            (click)=\"close(createReservations())\">{{ 'purchase.event.ticket.next' | translate }}</button>\n        <button type=\"button\" class=\"btn btn-link btn-sm\"\n            (click)=\"modal.hide()\">{{ 'common.close' | translate }}</button>\n    </div>\n</div>";
+    /***/
+  },
+
+  /***/
+  "../../node_modules/raw-loader/dist/cjs.js!./app/modules/shared/components/parts/purchase/seat-ticket-modal/seat-ticket-modal.component.html":
+  /*!***********************************************************************************************************************************************************************************************!*\
+    !*** C:/Users/hataguchi/Desktop/workspace/Cinerino/pos/node_modules/raw-loader/dist/cjs.js!./app/modules/shared/components/parts/purchase/seat-ticket-modal/seat-ticket-modal.component.html ***!
+    \***********************************************************************************************************************************************************************************************/
+
+  /*! exports provided: default */
+
+  /***/
+  function node_modulesRawLoaderDistCjsJsAppModulesSharedComponentsPartsPurchaseSeatTicketModalSeatTicketModalComponentHtml(module, __webpack_exports__, __webpack_require__) {
+    "use strict";
+
+    __webpack_require__.r(__webpack_exports__);
+    /* harmony default export */
+
+
+    __webpack_exports__["default"] = "<div *ngIf=\"!selectedTicket\" class=\"p-3 scroll-vertical\">\n    <div *ngFor=\"let ticket of tickets\" class=\"ticket mb-2\">\n        <button type=\"button\" (click)=\"selsctTicket(ticket)\" class=\"btn btn-block btn-outline-primary py-3\">\n            <div class=\"d-flex justify-content-between align-items-center\" *ngFor=\"let priceComponent of ticket.ticketOffer.priceSpecification.priceComponent\">\n                <p class=\"w-50 text-left\">{{ priceComponent.name | changeLanguage }}</p>\n                <p class=\"w-50 text-right\">\n                    <span>{{ priceComponent.price | currency : priceComponent.priceCurrency }}</span><!--\n                    --><span class=\"text-small\" *ngIf=\"priceComponent?.referenceQuantity?.value\">{{ 'common.referenceQuantityValue' | translate: { value: priceComponent?.referenceQuantity?.value } }}</span>\n                </p>\n            </div>\n            <p *ngIf=\"ticket.ticketOffer.description\" class=\"text-x-small text-left\">{{ ticket.ticketOffer.description | changeLanguage }}</p>\n        </button>\n    </div>\n    <p *ngIf=\"tickets.length === 0\">{{ 'modal.ticket.notfound' | translate }}</p>\n</div>\n\n<div *ngIf=\"selectedTicket\" class=\"p-3 scroll-vertical\">\n    <div class=\"mb-3 text-large text-center\">{{ 'modal.purchase.seatTicket.addOn' | translate }}</div>\n    <ul class=\"mb-4\">\n        <li class=\"mb-3\" *ngFor=\"let addOn of selectedTicket.ticketOffer.addOn; let index = index\">\n            <app-checkbox class=\"pointer\" (change)=\"changeAddOnList(addOn.id)\">\n                <div class=\"d-flex w-100\">\n                    <div class=\"w-50\">{{ addOn.priceSpecification?.name | changeLanguage }}<span *ngIf=\"addOn.priceSpecification?.referenceQuantity?.value\">{{ 'common.referenceQuantityValue' | translate: { value: addOn.priceSpecification?.referenceQuantity?.value } }}</span></div>\n                    <div class=\"w-50 text-right\">{{ addOn.priceSpecification?.price | currency : addOn.priceSpecification?.priceCurrency }}</div>\n                </div>\n            </app-checkbox>\n        </li>\n    </ul>\n    <div class=\"buttons mx-auto text-center\">\n        <button type=\"button\" class=\"btn btn-primary btn-block py-3 mb-3\"\n            (click)=\"selsctOption()\">{{ 'common.done' | translate }}</button>\n        <button type=\"button\" class=\"btn btn-link btn-sm\"\n            (click)=\"modal.hide()\">{{ 'common.close' | translate }}</button>\n    </div>\n</div>";
     /***/
   },
 
@@ -102662,6 +102662,8 @@ function _classCallCheck2(instance, Constructor) { if (!(instance instanceof Con
         /*! ./modules/purchase/purchase.module */
         "./app/modules/purchase/purchase.module.ts")).then(function (m) {
           return m.PurchaseModule;
+        })["catch"](function () {
+          return location.reload();
         });
       }
     }, {
@@ -102673,6 +102675,8 @@ function _classCallCheck2(instance, Constructor) { if (!(instance instanceof Con
         /*! ./modules/auth/auth.module */
         "./app/modules/auth/auth.module.ts")).then(function (m) {
           return m.AuthModule;
+        })["catch"](function () {
+          return location.reload();
         });
       }
     }, {
@@ -102684,6 +102688,8 @@ function _classCallCheck2(instance, Constructor) { if (!(instance instanceof Con
         /*! ./modules/inquiry/inquiry.module */
         "./app/modules/inquiry/inquiry.module.ts")).then(function (m) {
           return m.InquiryModule;
+        })["catch"](function () {
+          return location.reload();
         });
       }
     }, {
@@ -102695,6 +102701,8 @@ function _classCallCheck2(instance, Constructor) { if (!(instance instanceof Con
         /*! ./modules/admission/admission.module */
         "./app/modules/admission/admission.module.ts")).then(function (m) {
           return m.AdmissionModule;
+        })["catch"](function () {
+          return location.reload();
         });
       }
     }, {
@@ -102706,6 +102714,8 @@ function _classCallCheck2(instance, Constructor) { if (!(instance instanceof Con
         /*! ./modules/order/order.module */
         "./app/modules/order/order.module.ts")).then(function (m) {
           return m.OrderModule;
+        })["catch"](function () {
+          return location.reload();
         });
       }
     }, {
@@ -102717,6 +102727,8 @@ function _classCallCheck2(instance, Constructor) { if (!(instance instanceof Con
         /*! ./modules/reservation/reservation.module */
         "./app/modules/reservation/reservation.module.ts")).then(function (m) {
           return m.ReservationModule;
+        })["catch"](function () {
+          return location.reload();
         });
       }
     }, {
@@ -102728,6 +102740,8 @@ function _classCallCheck2(instance, Constructor) { if (!(instance instanceof Con
         /*! ./modules/tasks/tasks.module */
         "./app/modules/tasks/tasks.module.ts")).then(function (m) {
           return m.TasksModule;
+        })["catch"](function () {
+          return location.reload();
         });
       }
     }, {
@@ -102739,6 +102753,8 @@ function _classCallCheck2(instance, Constructor) { if (!(instance instanceof Con
         /*! ./modules/development/development.module */
         "./app/modules/development/development.module.ts")).then(function (m) {
           return m.DevelopmentModule;
+        })["catch"](function () {
+          return location.reload();
         });
       }
     }, {
@@ -102750,6 +102766,8 @@ function _classCallCheck2(instance, Constructor) { if (!(instance instanceof Con
         /*! ./modules/setting/setting.module */
         "./app/modules/setting/setting.module.ts")).then(function (m) {
           return m.SettingModule;
+        })["catch"](function () {
+          return location.reload();
         });
       }
     }, {
@@ -106131,312 +106149,6 @@ function _classCallCheck2(instance, Constructor) { if (!(instance instanceof Con
   },
 
   /***/
-  "./app/modules/shared/components/parts/purchase/cinema/ticket-modal/ticket-modal.component.scss":
-  /*!******************************************************************************************************!*\
-    !*** ./app/modules/shared/components/parts/purchase/cinema/ticket-modal/ticket-modal.component.scss ***!
-    \******************************************************************************************************/
-
-  /*! exports provided: default */
-
-  /***/
-  function appModulesSharedComponentsPartsPurchaseCinemaTicketModalTicketModalComponentScss(module, __webpack_exports__, __webpack_require__) {
-    "use strict";
-
-    __webpack_require__.r(__webpack_exports__);
-    /* harmony default export */
-
-
-    __webpack_exports__["default"] = ".close {\n  position: absolute;\n  top: -30px;\n  right: 0;\n}\n\n.scroll-vertical {\n  max-height: 75vh;\n}\n\n.ticket:last-child {\n  margin-bottom: 0 !important;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9jbGllbnQvYXBwL21vZHVsZXMvc2hhcmVkL2NvbXBvbmVudHMvcGFydHMvcHVyY2hhc2UvY2luZW1hL3RpY2tldC1tb2RhbC9DOlxcVXNlcnNcXGhhdGFndWNoaVxcRGVza3RvcFxcd29ya3NwYWNlXFxDaW5lcmlub1xccG9zL3NyY1xcY2xpZW50XFxhcHBcXG1vZHVsZXNcXHNoYXJlZFxcY29tcG9uZW50c1xccGFydHNcXHB1cmNoYXNlXFxjaW5lbWFcXHRpY2tldC1tb2RhbFxcdGlja2V0LW1vZGFsLmNvbXBvbmVudC5zY3NzIiwic3JjL2NsaWVudC9hcHAvbW9kdWxlcy9zaGFyZWQvY29tcG9uZW50cy9wYXJ0cy9wdXJjaGFzZS9jaW5lbWEvdGlja2V0LW1vZGFsL3RpY2tldC1tb2RhbC5jb21wb25lbnQuc2NzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtFQUNJLGtCQUFBO0VBQ0EsVUFBQTtFQUNBLFFBQUE7QUNDSjs7QURDQTtFQUNJLGdCQUFBO0FDRUo7O0FEQ0k7RUFDSSwyQkFBQTtBQ0VSIiwiZmlsZSI6InNyYy9jbGllbnQvYXBwL21vZHVsZXMvc2hhcmVkL2NvbXBvbmVudHMvcGFydHMvcHVyY2hhc2UvY2luZW1hL3RpY2tldC1tb2RhbC90aWNrZXQtbW9kYWwuY29tcG9uZW50LnNjc3MiLCJzb3VyY2VzQ29udGVudCI6WyIuY2xvc2Uge1xuICAgIHBvc2l0aW9uOiBhYnNvbHV0ZTtcbiAgICB0b3A6IC0zMHB4O1xuICAgIHJpZ2h0OiAwO1xufVxuLnNjcm9sbC12ZXJ0aWNhbCB7XG4gICAgbWF4LWhlaWdodDogNzV2aDtcbn1cbi50aWNrZXQge1xuICAgICY6bGFzdC1jaGlsZCB7XG4gICAgICAgIG1hcmdpbi1ib3R0b206IDAgIWltcG9ydGFudDtcbiAgICB9XG59IiwiLmNsb3NlIHtcbiAgcG9zaXRpb246IGFic29sdXRlO1xuICB0b3A6IC0zMHB4O1xuICByaWdodDogMDtcbn1cblxuLnNjcm9sbC12ZXJ0aWNhbCB7XG4gIG1heC1oZWlnaHQ6IDc1dmg7XG59XG5cbi50aWNrZXQ6bGFzdC1jaGlsZCB7XG4gIG1hcmdpbi1ib3R0b206IDAgIWltcG9ydGFudDtcbn0iXX0= */";
-    /***/
-  },
-
-  /***/
-  "./app/modules/shared/components/parts/purchase/cinema/ticket-modal/ticket-modal.component.ts":
-  /*!****************************************************************************************************!*\
-    !*** ./app/modules/shared/components/parts/purchase/cinema/ticket-modal/ticket-modal.component.ts ***!
-    \****************************************************************************************************/
-
-  /*! exports provided: PurchaseCinemaTicketModalComponent */
-
-  /***/
-  function appModulesSharedComponentsPartsPurchaseCinemaTicketModalTicketModalComponentTs(module, __webpack_exports__, __webpack_require__) {
-    "use strict";
-
-    __webpack_require__.r(__webpack_exports__);
-    /* harmony export (binding) */
-
-
-    __webpack_require__.d(__webpack_exports__, "PurchaseCinemaTicketModalComponent", function () {
-      return PurchaseCinemaTicketModalComponent;
-    });
-    /* harmony import */
-
-
-    var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(
-    /*! @angular/core */
-    "../../node_modules/@angular/core/fesm2015/core.js");
-    /* harmony import */
-
-
-    var _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(
-    /*! @cinerino/api-javascript-client */
-    "../../node_modules/@cinerino/api-javascript-client/lib/index.js");
-    /* harmony import */
-
-
-    var _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_1___default =
-    /*#__PURE__*/
-    __webpack_require__.n(_cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_1__);
-    /* harmony import */
-
-
-    var ngx_bootstrap__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
-    /*! ngx-bootstrap */
-    "../../node_modules/ngx-bootstrap/esm5/ngx-bootstrap.js");
-    /* harmony import */
-
-
-    var _functions__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(
-    /*! ../../../../../../../functions */
-    "./app/functions/index.ts");
-
-    var __decorate = undefined && undefined.__decorate || function (decorators, target, key, desc) {
-      var c = arguments.length,
-          r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc,
-          d;
-      if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);else for (var i = decorators.length - 1; i >= 0; i--) {
-        if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-      }
-      return c > 3 && r && Object.defineProperty(target, key, r), r;
-    };
-
-    var __metadata = undefined && undefined.__metadata || function (k, v) {
-      if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-    };
-
-    var __importDefault = undefined && undefined.__importDefault || function (mod) {
-      return mod && mod.__esModule ? mod : {
-        "default": mod
-      };
-    };
-
-    var PurchaseCinemaTicketModalComponent =
-    /*#__PURE__*/
-    function () {
-      function PurchaseCinemaTicketModalComponent(modal) {
-        _classCallCheck2(this, PurchaseCinemaTicketModalComponent);
-
-        this.modal = modal;
-      }
-
-      _createClass2(PurchaseCinemaTicketModalComponent, [{
-        key: "ngOnInit",
-        value: function ngOnInit() {
-          var _this233 = this;
-
-          this.tickets = [];
-          this.addOnList = [];
-          var movieTickets = [];
-          this.screeningEventTicketOffers.forEach(function (ticketOffer) {
-            var movieTicketTypeChargeSpecification = ticketOffer.priceSpecification.priceComponent.filter(function (c) {
-              return c.typeOf === _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_1__["factory"].chevre.priceSpecificationType.MovieTicketTypeChargeSpecification;
-            }).shift();
-
-            if (movieTicketTypeChargeSpecification === undefined && ticketOffer.eligibleSeatingType !== undefined) {
-              // 券種の適用座席タイプ条件あり（ムビチケ以外）
-              if (_this233.reservation !== undefined && _this233.reservation.seat !== undefined && Object(_functions__WEBPACK_IMPORTED_MODULE_3__["isEligibleSeatingType"])({
-                seat: _this233.reservation.seat,
-                eligibleSeatingType: ticketOffer.eligibleSeatingType
-              })) {
-                _this233.tickets.push({
-                  ticketOffer: ticketOffer
-                });
-              }
-
-              return;
-            }
-
-            if (movieTicketTypeChargeSpecification === undefined) {
-              // 通常券種（ムビチケ以外）
-              _this233.tickets.push({
-                ticketOffer: ticketOffer
-              });
-
-              return;
-            } // 対象ムビチケ券
-
-
-            var targetMovieTickets = [];
-
-            _this233.checkMovieTicketActions.forEach(function (checkMovieTicketAction) {
-              if (checkMovieTicketAction.result === undefined) {
-                return;
-              }
-
-              var availabilityMovieTickets = checkMovieTicketAction.result.movieTickets.filter(function (movieTicket) {
-                return movieTicket.validThrough === undefined;
-              });
-              availabilityMovieTickets.forEach(function (movieTicket) {
-                if (movieTicket.serviceType === movieTicketTypeChargeSpecification.appliesToMovieTicketType) {
-                  targetMovieTickets.push(movieTicket);
-                }
-              });
-            }); // 選択中の対象ムビチケ券
-
-
-            var reservations = _this233.reservations.filter(function (reservation) {
-              if (reservation.ticket === undefined || reservation.ticket.movieTicket === undefined) {
-                return false;
-              }
-
-              return movieTicketTypeChargeSpecification.appliesToMovieTicketType === reservation.ticket.movieTicket.serviceType;
-            }); // 予約待ちのムビチケ券
-
-
-            var pendingMovieTickets = [];
-
-            _this233.pendingMovieTickets.forEach(function (pendingMovieTicket) {
-              pendingMovieTicket.movieTickets.forEach(function (movieTicket) {
-                pendingMovieTickets.push(movieTicket);
-              });
-            });
-
-            targetMovieTickets.forEach(function (movieTicket) {
-              var reservationsIndex = reservations.findIndex(function (reservation) {
-                return reservation.ticket !== undefined && reservation.ticket.movieTicket !== undefined && reservation.ticket.movieTicket.identifier === movieTicket.identifier;
-              });
-
-              if (reservationsIndex > -1) {
-                reservations.splice(reservationsIndex, 1);
-                return;
-              }
-
-              var pendingMovieTicketsIndex = pendingMovieTickets.findIndex(function (pendingMovieTicket) {
-                return pendingMovieTicket.identifier === movieTicket.identifier;
-              });
-
-              if (pendingMovieTicketsIndex > -1) {
-                pendingMovieTickets.splice(pendingMovieTicketsIndex, 1);
-                return;
-              }
-
-              movieTickets.push({
-                ticketOffer: ticketOffer,
-                movieTicket: movieTicket
-              });
-            });
-          });
-          this.tickets = [].concat(movieTickets, _toConsumableArray2(this.tickets));
-        }
-      }, {
-        key: "close",
-        value: function close(ticket) {
-          this.modal.hide();
-          this.cb(ticket);
-        }
-        /**
-         * 券種選択
-         */
-
-      }, {
-        key: "selsctTicket",
-        value: function selsctTicket(ticket) {
-          if (ticket.ticketOffer.addOn === undefined || ticket.ticketOffer.addOn.length === 0) {
-            this.close(ticket);
-            return;
-          }
-
-          this.selectedTicket = ticket;
-        }
-        /**
-         * オプション確定
-         */
-
-      }, {
-        key: "selsctOption",
-        value: function selsctOption() {
-          var _this234 = this;
-
-          if (this.selectedTicket === undefined) {
-            this.modal.hide();
-            return;
-          }
-
-          var addOn = [];
-          this.addOnList.forEach(function (id) {
-            if (_this234.selectedTicket === undefined || _this234.selectedTicket.ticketOffer.addOn === undefined) {
-              return;
-            }
-
-            var findResult = _this234.selectedTicket.ticketOffer.addOn.find(function (a) {
-              return a.id === id;
-            });
-
-            if (findResult === undefined) {
-              return;
-            }
-
-            addOn.push(findResult);
-          });
-          this.selectedTicket.addOn = addOn;
-          this.close(this.selectedTicket);
-        }
-        /**
-         * オプション選択
-         */
-
-      }, {
-        key: "changeAddOnList",
-        value: function changeAddOnList(id) {
-          var findResult = this.addOnList.find(function (a) {
-            return a === id;
-          });
-
-          if (findResult === undefined) {
-            this.addOnList.push(id);
-            return;
-          }
-
-          this.addOnList = this.addOnList.filter(function (a) {
-            return a !== id;
-          });
-        }
-      }]);
-
-      return PurchaseCinemaTicketModalComponent;
-    }();
-
-    PurchaseCinemaTicketModalComponent.ctorParameters = function () {
-      return [{
-        type: ngx_bootstrap__WEBPACK_IMPORTED_MODULE_2__["BsModalRef"]
-      }];
-    };
-
-    __decorate([Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"])(), __metadata("design:type", Array)], PurchaseCinemaTicketModalComponent.prototype, "screeningEventTicketOffers", void 0);
-
-    __decorate([Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"])(), __metadata("design:type", Array)], PurchaseCinemaTicketModalComponent.prototype, "checkMovieTicketActions", void 0);
-
-    __decorate([Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"])(), __metadata("design:type", Array)], PurchaseCinemaTicketModalComponent.prototype, "reservations", void 0);
-
-    __decorate([Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"])(), __metadata("design:type", Object)], PurchaseCinemaTicketModalComponent.prototype, "reservation", void 0);
-
-    __decorate([Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"])(), __metadata("design:type", Array)], PurchaseCinemaTicketModalComponent.prototype, "pendingMovieTickets", void 0);
-
-    __decorate([Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"])(), __metadata("design:type", Function)], PurchaseCinemaTicketModalComponent.prototype, "cb", void 0);
-
-    PurchaseCinemaTicketModalComponent = __decorate([Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
-      selector: 'app-purchase-cinema-ticket-modal',
-      template: __importDefault(__webpack_require__(
-      /*! raw-loader!./ticket-modal.component.html */
-      "../../node_modules/raw-loader/dist/cjs.js!./app/modules/shared/components/parts/purchase/cinema/ticket-modal/ticket-modal.component.html"))["default"],
-      styles: [__importDefault(__webpack_require__(
-      /*! ./ticket-modal.component.scss */
-      "./app/modules/shared/components/parts/purchase/cinema/ticket-modal/ticket-modal.component.scss"))["default"]]
-    }), __metadata("design:paramtypes", [ngx_bootstrap__WEBPACK_IMPORTED_MODULE_2__["BsModalRef"]])], PurchaseCinemaTicketModalComponent);
-    /***/
-  },
-
-  /***/
   "./app/modules/shared/components/parts/purchase/event/ticket-modal/ticket-modal.component.scss":
   /*!*****************************************************************************************************!*\
     !*** ./app/modules/shared/components/parts/purchase/event/ticket-modal/ticket-modal.component.scss ***!
@@ -106659,14 +106371,14 @@ function _classCallCheck2(instance, Constructor) { if (!(instance instanceof Con
       }, {
         key: "createReservations",
         value: function createReservations() {
-          var _this235 = this;
+          var _this233 = this;
 
           var reservations = [];
           this.selectedTickets.forEach(function (t) {
             var count = t.count;
 
             var _loop4 = function _loop4(i) {
-              var findResult = _this235.screeningEventTicketOffers.find(function (s) {
+              var findResult = _this233.screeningEventTicketOffers.find(function (s) {
                 return s.id === t.id;
               });
 
@@ -106788,6 +106500,312 @@ function _classCallCheck2(instance, Constructor) { if (!(instance instanceof Con
       /*! ./ticket-modal.component.scss */
       "./app/modules/shared/components/parts/purchase/event/ticket-modal/ticket-modal.component.scss"))["default"]]
     }), __metadata("design:paramtypes", [ngx_bootstrap__WEBPACK_IMPORTED_MODULE_3__["BsModalRef"]])], PurchaseEventTicketModalComponent);
+    /***/
+  },
+
+  /***/
+  "./app/modules/shared/components/parts/purchase/seat-ticket-modal/seat-ticket-modal.component.scss":
+  /*!*********************************************************************************************************!*\
+    !*** ./app/modules/shared/components/parts/purchase/seat-ticket-modal/seat-ticket-modal.component.scss ***!
+    \*********************************************************************************************************/
+
+  /*! exports provided: default */
+
+  /***/
+  function appModulesSharedComponentsPartsPurchaseSeatTicketModalSeatTicketModalComponentScss(module, __webpack_exports__, __webpack_require__) {
+    "use strict";
+
+    __webpack_require__.r(__webpack_exports__);
+    /* harmony default export */
+
+
+    __webpack_exports__["default"] = ".close {\n  position: absolute;\n  top: -30px;\n  right: 0;\n}\n\n.scroll-vertical {\n  max-height: 75vh;\n}\n\n.ticket:last-child {\n  margin-bottom: 0 !important;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9jbGllbnQvYXBwL21vZHVsZXMvc2hhcmVkL2NvbXBvbmVudHMvcGFydHMvcHVyY2hhc2Uvc2VhdC10aWNrZXQtbW9kYWwvQzpcXFVzZXJzXFxoYXRhZ3VjaGlcXERlc2t0b3BcXHdvcmtzcGFjZVxcQ2luZXJpbm9cXHBvcy9zcmNcXGNsaWVudFxcYXBwXFxtb2R1bGVzXFxzaGFyZWRcXGNvbXBvbmVudHNcXHBhcnRzXFxwdXJjaGFzZVxcc2VhdC10aWNrZXQtbW9kYWxcXHNlYXQtdGlja2V0LW1vZGFsLmNvbXBvbmVudC5zY3NzIiwic3JjL2NsaWVudC9hcHAvbW9kdWxlcy9zaGFyZWQvY29tcG9uZW50cy9wYXJ0cy9wdXJjaGFzZS9zZWF0LXRpY2tldC1tb2RhbC9zZWF0LXRpY2tldC1tb2RhbC5jb21wb25lbnQuc2NzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtFQUNJLGtCQUFBO0VBQ0EsVUFBQTtFQUNBLFFBQUE7QUNDSjs7QURDQTtFQUNJLGdCQUFBO0FDRUo7O0FEQ0k7RUFDSSwyQkFBQTtBQ0VSIiwiZmlsZSI6InNyYy9jbGllbnQvYXBwL21vZHVsZXMvc2hhcmVkL2NvbXBvbmVudHMvcGFydHMvcHVyY2hhc2Uvc2VhdC10aWNrZXQtbW9kYWwvc2VhdC10aWNrZXQtbW9kYWwuY29tcG9uZW50LnNjc3MiLCJzb3VyY2VzQ29udGVudCI6WyIuY2xvc2Uge1xuICAgIHBvc2l0aW9uOiBhYnNvbHV0ZTtcbiAgICB0b3A6IC0zMHB4O1xuICAgIHJpZ2h0OiAwO1xufVxuLnNjcm9sbC12ZXJ0aWNhbCB7XG4gICAgbWF4LWhlaWdodDogNzV2aDtcbn1cbi50aWNrZXQge1xuICAgICY6bGFzdC1jaGlsZCB7XG4gICAgICAgIG1hcmdpbi1ib3R0b206IDAgIWltcG9ydGFudDtcbiAgICB9XG59IiwiLmNsb3NlIHtcbiAgcG9zaXRpb246IGFic29sdXRlO1xuICB0b3A6IC0zMHB4O1xuICByaWdodDogMDtcbn1cblxuLnNjcm9sbC12ZXJ0aWNhbCB7XG4gIG1heC1oZWlnaHQ6IDc1dmg7XG59XG5cbi50aWNrZXQ6bGFzdC1jaGlsZCB7XG4gIG1hcmdpbi1ib3R0b206IDAgIWltcG9ydGFudDtcbn0iXX0= */";
+    /***/
+  },
+
+  /***/
+  "./app/modules/shared/components/parts/purchase/seat-ticket-modal/seat-ticket-modal.component.ts":
+  /*!*******************************************************************************************************!*\
+    !*** ./app/modules/shared/components/parts/purchase/seat-ticket-modal/seat-ticket-modal.component.ts ***!
+    \*******************************************************************************************************/
+
+  /*! exports provided: PurchaseSeatTicketModalComponent */
+
+  /***/
+  function appModulesSharedComponentsPartsPurchaseSeatTicketModalSeatTicketModalComponentTs(module, __webpack_exports__, __webpack_require__) {
+    "use strict";
+
+    __webpack_require__.r(__webpack_exports__);
+    /* harmony export (binding) */
+
+
+    __webpack_require__.d(__webpack_exports__, "PurchaseSeatTicketModalComponent", function () {
+      return PurchaseSeatTicketModalComponent;
+    });
+    /* harmony import */
+
+
+    var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(
+    /*! @angular/core */
+    "../../node_modules/@angular/core/fesm2015/core.js");
+    /* harmony import */
+
+
+    var _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(
+    /*! @cinerino/api-javascript-client */
+    "../../node_modules/@cinerino/api-javascript-client/lib/index.js");
+    /* harmony import */
+
+
+    var _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_1___default =
+    /*#__PURE__*/
+    __webpack_require__.n(_cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_1__);
+    /* harmony import */
+
+
+    var ngx_bootstrap__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
+    /*! ngx-bootstrap */
+    "../../node_modules/ngx-bootstrap/esm5/ngx-bootstrap.js");
+    /* harmony import */
+
+
+    var _functions__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(
+    /*! ../../../../../../functions */
+    "./app/functions/index.ts");
+
+    var __decorate = undefined && undefined.__decorate || function (decorators, target, key, desc) {
+      var c = arguments.length,
+          r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc,
+          d;
+      if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);else for (var i = decorators.length - 1; i >= 0; i--) {
+        if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+      }
+      return c > 3 && r && Object.defineProperty(target, key, r), r;
+    };
+
+    var __metadata = undefined && undefined.__metadata || function (k, v) {
+      if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+    };
+
+    var __importDefault = undefined && undefined.__importDefault || function (mod) {
+      return mod && mod.__esModule ? mod : {
+        "default": mod
+      };
+    };
+
+    var PurchaseSeatTicketModalComponent =
+    /*#__PURE__*/
+    function () {
+      function PurchaseSeatTicketModalComponent(modal) {
+        _classCallCheck2(this, PurchaseSeatTicketModalComponent);
+
+        this.modal = modal;
+      }
+
+      _createClass2(PurchaseSeatTicketModalComponent, [{
+        key: "ngOnInit",
+        value: function ngOnInit() {
+          var _this234 = this;
+
+          this.tickets = [];
+          this.addOnList = [];
+          var movieTickets = [];
+          this.screeningEventTicketOffers.forEach(function (ticketOffer) {
+            var movieTicketTypeChargeSpecification = ticketOffer.priceSpecification.priceComponent.filter(function (c) {
+              return c.typeOf === _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_1__["factory"].chevre.priceSpecificationType.MovieTicketTypeChargeSpecification;
+            }).shift();
+
+            if (movieTicketTypeChargeSpecification === undefined && ticketOffer.eligibleSeatingType !== undefined) {
+              // 券種の適用座席タイプ条件あり（ムビチケ以外）
+              if (_this234.reservation !== undefined && _this234.reservation.seat !== undefined && Object(_functions__WEBPACK_IMPORTED_MODULE_3__["isEligibleSeatingType"])({
+                seat: _this234.reservation.seat,
+                eligibleSeatingType: ticketOffer.eligibleSeatingType
+              })) {
+                _this234.tickets.push({
+                  ticketOffer: ticketOffer
+                });
+              }
+
+              return;
+            }
+
+            if (movieTicketTypeChargeSpecification === undefined) {
+              // 通常券種（ムビチケ以外）
+              _this234.tickets.push({
+                ticketOffer: ticketOffer
+              });
+
+              return;
+            } // 対象ムビチケ券
+
+
+            var targetMovieTickets = [];
+
+            _this234.checkMovieTicketActions.forEach(function (checkMovieTicketAction) {
+              if (checkMovieTicketAction.result === undefined) {
+                return;
+              }
+
+              var availabilityMovieTickets = checkMovieTicketAction.result.movieTickets.filter(function (movieTicket) {
+                return movieTicket.validThrough === undefined;
+              });
+              availabilityMovieTickets.forEach(function (movieTicket) {
+                if (movieTicket.serviceType === movieTicketTypeChargeSpecification.appliesToMovieTicketType) {
+                  targetMovieTickets.push(movieTicket);
+                }
+              });
+            }); // 選択中の対象ムビチケ券
+
+
+            var reservations = _this234.reservations.filter(function (reservation) {
+              if (reservation.ticket === undefined || reservation.ticket.movieTicket === undefined) {
+                return false;
+              }
+
+              return movieTicketTypeChargeSpecification.appliesToMovieTicketType === reservation.ticket.movieTicket.serviceType;
+            }); // 予約待ちのムビチケ券
+
+
+            var pendingMovieTickets = [];
+
+            _this234.pendingMovieTickets.forEach(function (pendingMovieTicket) {
+              pendingMovieTicket.movieTickets.forEach(function (movieTicket) {
+                pendingMovieTickets.push(movieTicket);
+              });
+            });
+
+            targetMovieTickets.forEach(function (movieTicket) {
+              var reservationsIndex = reservations.findIndex(function (reservation) {
+                return reservation.ticket !== undefined && reservation.ticket.movieTicket !== undefined && reservation.ticket.movieTicket.identifier === movieTicket.identifier;
+              });
+
+              if (reservationsIndex > -1) {
+                reservations.splice(reservationsIndex, 1);
+                return;
+              }
+
+              var pendingMovieTicketsIndex = pendingMovieTickets.findIndex(function (pendingMovieTicket) {
+                return pendingMovieTicket.identifier === movieTicket.identifier;
+              });
+
+              if (pendingMovieTicketsIndex > -1) {
+                pendingMovieTickets.splice(pendingMovieTicketsIndex, 1);
+                return;
+              }
+
+              movieTickets.push({
+                ticketOffer: ticketOffer,
+                movieTicket: movieTicket
+              });
+            });
+          });
+          this.tickets = [].concat(movieTickets, _toConsumableArray2(this.tickets));
+        }
+      }, {
+        key: "close",
+        value: function close(ticket) {
+          this.modal.hide();
+          this.cb(ticket);
+        }
+        /**
+         * 券種選択
+         */
+
+      }, {
+        key: "selsctTicket",
+        value: function selsctTicket(ticket) {
+          if (ticket.ticketOffer.addOn === undefined || ticket.ticketOffer.addOn.length === 0) {
+            this.close(ticket);
+            return;
+          }
+
+          this.selectedTicket = ticket;
+        }
+        /**
+         * オプション確定
+         */
+
+      }, {
+        key: "selsctOption",
+        value: function selsctOption() {
+          var _this235 = this;
+
+          if (this.selectedTicket === undefined) {
+            this.modal.hide();
+            return;
+          }
+
+          var addOn = [];
+          this.addOnList.forEach(function (id) {
+            if (_this235.selectedTicket === undefined || _this235.selectedTicket.ticketOffer.addOn === undefined) {
+              return;
+            }
+
+            var findResult = _this235.selectedTicket.ticketOffer.addOn.find(function (a) {
+              return a.id === id;
+            });
+
+            if (findResult === undefined) {
+              return;
+            }
+
+            addOn.push(findResult);
+          });
+          this.selectedTicket.addOn = addOn;
+          this.close(this.selectedTicket);
+        }
+        /**
+         * オプション選択
+         */
+
+      }, {
+        key: "changeAddOnList",
+        value: function changeAddOnList(id) {
+          var findResult = this.addOnList.find(function (a) {
+            return a === id;
+          });
+
+          if (findResult === undefined) {
+            this.addOnList.push(id);
+            return;
+          }
+
+          this.addOnList = this.addOnList.filter(function (a) {
+            return a !== id;
+          });
+        }
+      }]);
+
+      return PurchaseSeatTicketModalComponent;
+    }();
+
+    PurchaseSeatTicketModalComponent.ctorParameters = function () {
+      return [{
+        type: ngx_bootstrap__WEBPACK_IMPORTED_MODULE_2__["BsModalRef"]
+      }];
+    };
+
+    __decorate([Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"])(), __metadata("design:type", Array)], PurchaseSeatTicketModalComponent.prototype, "screeningEventTicketOffers", void 0);
+
+    __decorate([Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"])(), __metadata("design:type", Array)], PurchaseSeatTicketModalComponent.prototype, "checkMovieTicketActions", void 0);
+
+    __decorate([Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"])(), __metadata("design:type", Array)], PurchaseSeatTicketModalComponent.prototype, "reservations", void 0);
+
+    __decorate([Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"])(), __metadata("design:type", Object)], PurchaseSeatTicketModalComponent.prototype, "reservation", void 0);
+
+    __decorate([Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"])(), __metadata("design:type", Array)], PurchaseSeatTicketModalComponent.prototype, "pendingMovieTickets", void 0);
+
+    __decorate([Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"])(), __metadata("design:type", Function)], PurchaseSeatTicketModalComponent.prototype, "cb", void 0);
+
+    PurchaseSeatTicketModalComponent = __decorate([Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
+      selector: 'app-purchase-seat-ticket-modal',
+      template: __importDefault(__webpack_require__(
+      /*! raw-loader!./seat-ticket-modal.component.html */
+      "../../node_modules/raw-loader/dist/cjs.js!./app/modules/shared/components/parts/purchase/seat-ticket-modal/seat-ticket-modal.component.html"))["default"],
+      styles: [__importDefault(__webpack_require__(
+      /*! ./seat-ticket-modal.component.scss */
+      "./app/modules/shared/components/parts/purchase/seat-ticket-modal/seat-ticket-modal.component.scss"))["default"]]
+    }), __metadata("design:paramtypes", [ngx_bootstrap__WEBPACK_IMPORTED_MODULE_2__["BsModalRef"]])], PurchaseSeatTicketModalComponent);
     /***/
   },
 
@@ -108782,15 +108800,15 @@ function _classCallCheck2(instance, Constructor) { if (!(instance instanceof Con
     /* harmony import */
 
 
-    var _components_parts_purchase_cinema_ticket_modal_ticket_modal_component__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(
-    /*! ./components/parts/purchase/cinema/ticket-modal/ticket-modal.component */
-    "./app/modules/shared/components/parts/purchase/cinema/ticket-modal/ticket-modal.component.ts");
+    var _components_parts_purchase_event_ticket_modal_ticket_modal_component__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(
+    /*! ./components/parts/purchase/event/ticket-modal/ticket-modal.component */
+    "./app/modules/shared/components/parts/purchase/event/ticket-modal/ticket-modal.component.ts");
     /* harmony import */
 
 
-    var _components_parts_purchase_event_ticket_modal_ticket_modal_component__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(
-    /*! ./components/parts/purchase/event/ticket-modal/ticket-modal.component */
-    "./app/modules/shared/components/parts/purchase/event/ticket-modal/ticket-modal.component.ts");
+    var _components_parts_purchase_seat_ticket_modal_seat_ticket_modal_component__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(
+    /*! ./components/parts/purchase/seat-ticket-modal/seat-ticket-modal.component */
+    "./app/modules/shared/components/parts/purchase/seat-ticket-modal/seat-ticket-modal.component.ts");
     /* harmony import */
 
 
@@ -108857,7 +108875,7 @@ function _classCallCheck2(instance, Constructor) { if (!(instance instanceof Con
     };
 
     var components = [_components_pages_base_base_component__WEBPACK_IMPORTED_MODULE_7__["BaseComponent"], _components_parts_contents_contents_component__WEBPACK_IMPORTED_MODULE_10__["ContentsComponent"], _components_parts_footer_footer_component__WEBPACK_IMPORTED_MODULE_11__["FooterComponent"], _components_parts_header_header_component__WEBPACK_IMPORTED_MODULE_14__["HeaderComponent"], _components_parts_header_menu_header_menu_component__WEBPACK_IMPORTED_MODULE_13__["HeaderMenuComponent"], _components_parts_loading_loading_component__WEBPACK_IMPORTED_MODULE_16__["LoadingComponent"], _components_parts_screen_screen_component__WEBPACK_IMPORTED_MODULE_26__["ScreenComponent"], _components_parts_item_list_item_list_component__WEBPACK_IMPORTED_MODULE_15__["ItemListComponent"], _components_parts_form_checkbox_checkbox_component__WEBPACK_IMPORTED_MODULE_12__["CheckboxComponent"]];
-    var entryComponents = [_components_parts_alert_modal_alert_modal_component__WEBPACK_IMPORTED_MODULE_8__["AlertModalComponent"], _components_parts_confirm_modal_confirm_modal_component__WEBPACK_IMPORTED_MODULE_9__["ConfirmModalComponent"], _components_parts_mvtk_check_modal_check_modal_component__WEBPACK_IMPORTED_MODULE_17__["MvtkCheckModalComponent"], _components_parts_numeric_keypad_numeric_keypad_component__WEBPACK_IMPORTED_MODULE_18__["NumericKeypadComponent"], _components_parts_order_detail_modal_detail_modal_component__WEBPACK_IMPORTED_MODULE_19__["OrderDetailModalComponent"], _components_parts_purchase_cinema_ticket_modal_ticket_modal_component__WEBPACK_IMPORTED_MODULE_20__["PurchaseCinemaTicketModalComponent"], _components_parts_purchase_event_ticket_modal_ticket_modal_component__WEBPACK_IMPORTED_MODULE_21__["PurchaseEventTicketModalComponent"], _components_parts_purchase_transaction_modal_transaction_modal_component__WEBPACK_IMPORTED_MODULE_22__["PurchaseTransactionModalComponent"], _components_parts_qrcode_reader_modal_reader_modal_component__WEBPACK_IMPORTED_MODULE_23__["QRCodeReaderModalComponent"], _components_parts_qrcode_viewer_modal_viewer_modal_component__WEBPACK_IMPORTED_MODULE_24__["QRCodeViewerModalComponent"], _components_parts_reservation_detail_modal_detail_modal_component__WEBPACK_IMPORTED_MODULE_25__["ReservationDetailModalComponent"]];
+    var entryComponents = [_components_parts_alert_modal_alert_modal_component__WEBPACK_IMPORTED_MODULE_8__["AlertModalComponent"], _components_parts_confirm_modal_confirm_modal_component__WEBPACK_IMPORTED_MODULE_9__["ConfirmModalComponent"], _components_parts_mvtk_check_modal_check_modal_component__WEBPACK_IMPORTED_MODULE_17__["MvtkCheckModalComponent"], _components_parts_numeric_keypad_numeric_keypad_component__WEBPACK_IMPORTED_MODULE_18__["NumericKeypadComponent"], _components_parts_order_detail_modal_detail_modal_component__WEBPACK_IMPORTED_MODULE_19__["OrderDetailModalComponent"], _components_parts_purchase_seat_ticket_modal_seat_ticket_modal_component__WEBPACK_IMPORTED_MODULE_21__["PurchaseSeatTicketModalComponent"], _components_parts_purchase_event_ticket_modal_ticket_modal_component__WEBPACK_IMPORTED_MODULE_20__["PurchaseEventTicketModalComponent"], _components_parts_purchase_transaction_modal_transaction_modal_component__WEBPACK_IMPORTED_MODULE_22__["PurchaseTransactionModalComponent"], _components_parts_qrcode_reader_modal_reader_modal_component__WEBPACK_IMPORTED_MODULE_23__["QRCodeReaderModalComponent"], _components_parts_qrcode_viewer_modal_viewer_modal_component__WEBPACK_IMPORTED_MODULE_24__["QRCodeViewerModalComponent"], _components_parts_reservation_detail_modal_detail_modal_component__WEBPACK_IMPORTED_MODULE_25__["ReservationDetailModalComponent"]];
 
     var SharedModule = function SharedModule() {
       _classCallCheck2(this, SharedModule);

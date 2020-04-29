@@ -15,7 +15,7 @@
 </div>
 
 <div *ngIf="selectedTicket" class="p-3 scroll-vertical">
-    <div class="mb-3 text-large text-center">{{ 'purchase.cinema.ticket.addOn' | translate }}</div>
+    <div class="mb-3 text-large text-center">{{ 'modal.purchase.seatTicket.addOn' | translate }}</div>
     <ul class="mb-4">
         <li class="mb-3" *ngFor="let addOn of selectedTicket.ticketOffer.addOn; let index = index">
             <app-checkbox class="pointer" (change)="changeAddOnList(addOn.id)">
