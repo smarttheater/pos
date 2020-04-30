@@ -23,10 +23,10 @@ export class PurchaseSeatComponent implements OnInit {
 
     constructor(
         private store: Store<reducers.IState>,
-        private router: Router,
         private utilService: UtilService,
-        private purchaseService: PurchaseService,
-        private translate: TranslateService
+        private translate: TranslateService,
+        protected router: Router,
+        protected purchaseService: PurchaseService
     ) { }
 
     public async ngOnInit() {

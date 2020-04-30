@@ -87,7 +87,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("<div class=\"contents-width mx-auto px-3 py-5\">\n    <h2 class=\"text-large mb-4 text-center font-weight-bold\">{{ 'purchase.event.seat.title' | translate }}</h2>\n    <p class=\"mb-4 text-md-center\" [innerHTML]=\"'purchase.event.seat.read' | translate\"></p>\n    <div *ngIf=\"!(purchase | async).screen?.openSeatingAllowed\" class=\"d-flex mb-3\">\n        <button type=\"button\" class=\"btn btn-primary mr-2\" [disabled]=\"isLoading | async\"\n            (click)=\"allSelectSeats()\">{{ 'purchase.event.seat.allSelect' | translate }}</button>\n        <button type=\"button\" class=\"btn btn-outline-primary m-0\"\n            (click)=\"resetSeats()\">{{ 'purchase.event.seat.reset' | translate }}</button>\n    </div>\n\n    <div class=\"row\">\n        <div class=\"col-lg-9\">\n            <app-screen *ngIf=\"(user | async).theater \n                && screeningEventSeats.length > 0 \n                && (purchase | async).screen\" class=\"mb-4\"\n                [theaterCode]=\"(user | async).theater.branchCode\"\n                [screenCode]=\"(purchase | async).screen.branchCode\"\n                [screeningEventSeats]=\"screeningEventSeats\"\n                [openSeatingAllowed]=\"(purchase | async).screen.openSeatingAllowed\"\n                [reservations]=\"(purchase | async).reservations\"\n                [authorizeSeatReservation]=\"(purchase | async).authorizeSeatReservation\" (select)=\"selectSeat($event)\">\n            </app-screen>\n            <div *ngIf=\"(purchase | async).screen?.openSeatingAllowed\" class=\"mb-4\">\n                <div class=\"d-flex align-items-center\">\n                    <p class=\"mr-2\">{{ 'purchase.event.seat.openSeating' | translate }}</p>\n                    <select class=\"form-control d-inline-block w-auto\" (change)=\"selectOpenSeating($event)\"\n                        [ngModel]=\"(purchase | async).reservations.length\">\n                        <option value=\"0\">0</option>\n                        <option\n                            *ngFor=\"let value of remainingAttendeeCapacityValue((purchase | async).screeningEvent, screeningEventSeats)\"\n                            [value]=\"value\">{{ value }}</option>\n                    </select>\n                </div>\n            </div>\n        </div>\n        <div class=\"col-lg-3\">\n            <app-purchase-info class=\"mb-4\" [purchase]=\"purchase | async\"></app-purchase-info>\n        </div>\n    </div>\n\n    <div class=\"buttons mx-auto text-center\">\n        <button type=\"submit\" class=\"btn btn-primary btn-block py-3 mb-3\" [disabled]=\"isLoading | async\"\n            (click)=\"onSubmit()\">{{ 'purchase.event.seat.next' | translate }}</button>\n        <button type=\"button\" class=\"btn btn-link\"\n            routerLink=\"/purchase/event/ticket\">{{ 'purchase.event.seat.prev' | translate }}</button>\n    </div>\n\n</div>");
+/* harmony default export */ __webpack_exports__["default"] = ("<div class=\"contents-width mx-auto px-3 py-5\">\n    <h2 class=\"text-large mb-4 text-center font-weight-bold\">{{ 'purchase.event.seat.title' | translate }}</h2>\n    <p class=\"mb-4 text-md-center\" [innerHTML]=\"'purchase.event.seat.read' | translate\"></p>\n    <div *ngIf=\"!(purchase | async).screen?.openSeatingAllowed\" class=\"d-flex mb-3\">\n        <button type=\"button\" class=\"btn btn-primary mr-2\" [disabled]=\"isLoading | async\"\n            (click)=\"allSelectSeats()\">{{ 'purchase.event.seat.allSelect' | translate }}</button>\n        <button type=\"button\" class=\"btn btn-outline-primary m-0\"\n            (click)=\"resetSeats()\">{{ 'purchase.event.seat.reset' | translate }}</button>\n    </div>\n\n    <div class=\"row\">\n        <div class=\"col-lg-9\">\n            <app-screen *ngIf=\"(user | async).theater \n                && screeningEventSeats.length > 0 \n                && (purchase | async).screen\" class=\"mb-4\"\n                [theaterCode]=\"(user | async).theater.branchCode\"\n                [screenCode]=\"(purchase | async).screen.branchCode\"\n                [screeningEventSeats]=\"screeningEventSeats\"\n                [openSeatingAllowed]=\"(purchase | async).screen.openSeatingAllowed\"\n                [reservations]=\"(purchase | async).reservations\"\n                [authorizeSeatReservation]=\"(purchase | async).authorizeSeatReservation\" (select)=\"selectSeat($event)\">\n            </app-screen>\n            <div *ngIf=\"(purchase | async).screen?.openSeatingAllowed\" class=\"mb-4\">\n                <div class=\"d-flex align-items-center\">\n                    <p class=\"mr-2\">{{ 'purchase.event.seat.openSeating' | translate }}</p>\n                    <select class=\"form-control d-inline-block w-auto\" (change)=\"selectOpenSeating($event)\"\n                        [ngModel]=\"(purchase | async).reservations.length\">\n                        <option value=\"0\">0</option>\n                        <option\n                            *ngFor=\"let value of remainingAttendeeCapacityValue((purchase | async).screeningEvent, screeningEventSeats)\"\n                            [value]=\"value\">{{ value }}</option>\n                    </select>\n                </div>\n            </div>\n        </div>\n        <div class=\"col-lg-3\">\n            <app-purchase-info class=\"mb-4\" [purchase]=\"purchase | async\"></app-purchase-info>\n        </div>\n    </div>\n\n    <div class=\"buttons mx-auto text-center\">\n        <button type=\"submit\" class=\"btn btn-primary btn-block py-3 mb-3\" [disabled]=\"isLoading | async\"\n            (click)=\"onSubmit()\">{{ 'purchase.event.seat.next' | translate }}</button>\n        <button type=\"button\" class=\"btn btn-link\" (click)=\"prev()\">{{ 'purchase.event.seat.prev' | translate }}</button>\n    </div>\n\n</div>");
 
 /***/ }),
 
@@ -1156,12 +1156,34 @@ var __decorate = (undefined && undefined.__decorate) || function (decorators, ta
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
+var __awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : new P(function (resolve) { resolve(result.value); }).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
 var __importDefault = (undefined && undefined.__importDefault) || function (mod) {
   return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 
 
 let PurchaseEventSeatComponent = class PurchaseEventSeatComponent extends _purchase_seat_purchase_seat_component__WEBPACK_IMPORTED_MODULE_1__["PurchaseSeatComponent"] {
+    prev() {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                const authorizeSeatReservation = (yield this.purchaseService.getData()).authorizeSeatReservation;
+                if (authorizeSeatReservation !== undefined) {
+                    yield this.purchaseService.cancelTemporaryReservations([authorizeSeatReservation]);
+                }
+                this.router.navigate(['/purchase/event/ticket']);
+            }
+            catch (error) {
+                console.error(error);
+            }
+        });
+    }
 };
 PurchaseEventSeatComponent = __decorate([
     Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
@@ -2261,12 +2283,12 @@ var __importDefault = (undefined && undefined.__importDefault) || function (mod)
 
 
 let PurchaseSeatComponent = class PurchaseSeatComponent {
-    constructor(store, router, utilService, purchaseService, translate) {
+    constructor(store, utilService, translate, router, purchaseService) {
         this.store = store;
-        this.router = router;
         this.utilService = utilService;
-        this.purchaseService = purchaseService;
         this.translate = translate;
+        this.router = router;
+        this.purchaseService = purchaseService;
         this.environment = Object(_environments_environment__WEBPACK_IMPORTED_MODULE_5__["getEnvironment"])();
     }
     ngOnInit() {
@@ -2461,20 +2483,20 @@ let PurchaseSeatComponent = class PurchaseSeatComponent {
 };
 PurchaseSeatComponent.ctorParameters = () => [
     { type: _ngrx_store__WEBPACK_IMPORTED_MODULE_3__["Store"] },
-    { type: _angular_router__WEBPACK_IMPORTED_MODULE_1__["Router"] },
     { type: _services__WEBPACK_IMPORTED_MODULE_8__["UtilService"] },
-    { type: _services__WEBPACK_IMPORTED_MODULE_8__["PurchaseService"] },
-    { type: _ngx_translate_core__WEBPACK_IMPORTED_MODULE_4__["TranslateService"] }
+    { type: _ngx_translate_core__WEBPACK_IMPORTED_MODULE_4__["TranslateService"] },
+    { type: _angular_router__WEBPACK_IMPORTED_MODULE_1__["Router"] },
+    { type: _services__WEBPACK_IMPORTED_MODULE_8__["PurchaseService"] }
 ];
 PurchaseSeatComponent = __decorate([
     Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
         selector: 'app-purchase-seat'
     }),
     __metadata("design:paramtypes", [_ngrx_store__WEBPACK_IMPORTED_MODULE_3__["Store"],
-        _angular_router__WEBPACK_IMPORTED_MODULE_1__["Router"],
         _services__WEBPACK_IMPORTED_MODULE_8__["UtilService"],
-        _services__WEBPACK_IMPORTED_MODULE_8__["PurchaseService"],
-        _ngx_translate_core__WEBPACK_IMPORTED_MODULE_4__["TranslateService"]])
+        _ngx_translate_core__WEBPACK_IMPORTED_MODULE_4__["TranslateService"],
+        _angular_router__WEBPACK_IMPORTED_MODULE_1__["Router"],
+        _services__WEBPACK_IMPORTED_MODULE_8__["PurchaseService"]])
 ], PurchaseSeatComponent);
 
 
