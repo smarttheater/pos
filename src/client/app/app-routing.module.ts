@@ -8,60 +8,60 @@ import { ErrorModule } from './modules/error/error.module';
 
 const appRoutes: Routes = [
     { path: '', redirectTo: '', pathMatch: 'full' },
-    // {
-    //     path: 'purchase',
-    //     loadChildren: () => import('./modules/purchase/purchase.module')
-    //         .then(m => m.PurchaseModule)
-    //         .catch(() => location.reload())
-    // },
-    // {
-    //     path: 'auth',
-    //     loadChildren: () => import('./modules/auth/auth.module')
-    //         .then(m => m.AuthModule)
-    //         .catch(() => location.reload())
-    // },
-    // {
-    //     path: 'inquiry',
-    //     loadChildren: () => import('./modules/inquiry/inquiry.module')
-    //         .then(m => m.InquiryModule)
-    //         .catch(() => location.reload())
-    // },
-    // {
-    //     path: 'admission',
-    //     loadChildren: () => import('./modules/admission/admission.module')
-    //         .then(m => m.AdmissionModule)
-    //         .catch(() => location.reload())
-    // },
-    // {
-    //     path: 'order',
-    //     loadChildren: () => import('./modules/order/order.module')
-    //         .then(m => m.OrderModule)
-    //         .catch(() => location.reload())
-    // },
-    // {
-    //     path: 'reservation',
-    //     loadChildren: () => import('./modules/reservation/reservation.module')
-    //         .then(m => m.ReservationModule)
-    //         .catch(() => location.reload())
-    // },
-    // {
-    //     path: 'tasks',
-    //     loadChildren: () => import('./modules/tasks/tasks.module')
-    //         .then(m => m.TasksModule)
-    //         .catch(() => location.reload())
-    // },
-    // {
-    //     path: 'development',
-    //     loadChildren: () => import('./modules/development/development.module')
-    //         .then(m => m.DevelopmentModule)
-    //         .catch(() => location.reload())
-    // },
-    // {
-    //     path: 'setting',
-    //     loadChildren: () => import('./modules/setting/setting.module')
-    //         .then(m => m.SettingModule)
-    //         .catch(() => location.reload())
-    // },
+    {
+        path: 'purchase',
+        loadChildren: () => import('./modules/purchase/purchase.module')
+            .then(m => m.PurchaseModule)
+            .catch(() => location.reload())
+    },
+    {
+        path: 'auth',
+        loadChildren: () => import('./modules/auth/auth.module')
+            .then(m => m.AuthModule)
+            .catch(() => location.reload())
+    },
+    {
+        path: 'inquiry',
+        loadChildren: () => import('./modules/inquiry/inquiry.module')
+            .then(m => m.InquiryModule)
+            .catch(() => location.reload())
+    },
+    {
+        path: 'admission',
+        loadChildren: () => import('./modules/admission/admission.module')
+            .then(m => m.AdmissionModule)
+            .catch(() => location.reload())
+    },
+    {
+        path: 'order',
+        loadChildren: () => import('./modules/order/order.module')
+            .then(m => m.OrderModule)
+            .catch(() => location.reload())
+    },
+    {
+        path: 'reservation',
+        loadChildren: () => import('./modules/reservation/reservation.module')
+            .then(m => m.ReservationModule)
+            .catch(() => location.reload())
+    },
+    {
+        path: 'tasks',
+        loadChildren: () => import('./modules/tasks/tasks.module')
+            .then(m => m.TasksModule)
+            .catch(() => location.reload())
+    },
+    {
+        path: 'development',
+        loadChildren: () => import('./modules/development/development.module')
+            .then(m => m.DevelopmentModule)
+            .catch(() => location.reload())
+    },
+    {
+        path: 'setting',
+        loadChildren: () => import('./modules/setting/setting.module')
+            .then(m => m.SettingModule)
+            .catch(() => location.reload())
+    },
     {
         path: '',
         loadChildren: () => ErrorModule

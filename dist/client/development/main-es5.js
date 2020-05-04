@@ -1,10 +1,16 @@
-function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _nonIterableSpread(); }
+function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
 
-function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance"); }
+function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
 
-function _iterableToArray(iter) { if (Symbol.iterator in Object(iter) || Object.prototype.toString.call(iter) === "[object Arguments]") return Array.from(iter); }
+function _iterableToArray(iter) { if (typeof Symbol !== "undefined" && Symbol.iterator in Object(iter)) return Array.from(iter); }
 
-function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = new Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } }
+function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) return _arrayLikeToArray(arr); }
+
+function _createForOfIteratorHelper(o) { if (typeof Symbol === "undefined" || o[Symbol.iterator] == null) { if (Array.isArray(o) || (o = _unsupportedIterableToArray(o))) { var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var it, normalCompletion = true, didErr = false, err; return { s: function s() { it = o[Symbol.iterator](); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it["return"] != null) it["return"](); } finally { if (didErr) throw err; } } }; }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
 
 function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
 
@@ -341,7 +347,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     !*** ./app/app-routing.module.ts ***!
     \***********************************/
 
-  /*! exports provided: AppRoutingModule, ɵ0 */
+  /*! exports provided: AppRoutingModule, ɵ0, ɵ1, ɵ2, ɵ3, ɵ4, ɵ5, ɵ6, ɵ7, ɵ8, ɵ9 */
 
   /***/
   function appAppRoutingModuleTs(module, __webpack_exports__, __webpack_require__) {
@@ -360,6 +366,60 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     __webpack_require__.d(__webpack_exports__, "ɵ0", function () {
       return ɵ0;
     });
+    /* harmony export (binding) */
+
+
+    __webpack_require__.d(__webpack_exports__, "ɵ1", function () {
+      return ɵ1;
+    });
+    /* harmony export (binding) */
+
+
+    __webpack_require__.d(__webpack_exports__, "ɵ2", function () {
+      return ɵ2;
+    });
+    /* harmony export (binding) */
+
+
+    __webpack_require__.d(__webpack_exports__, "ɵ3", function () {
+      return ɵ3;
+    });
+    /* harmony export (binding) */
+
+
+    __webpack_require__.d(__webpack_exports__, "ɵ4", function () {
+      return ɵ4;
+    });
+    /* harmony export (binding) */
+
+
+    __webpack_require__.d(__webpack_exports__, "ɵ5", function () {
+      return ɵ5;
+    });
+    /* harmony export (binding) */
+
+
+    __webpack_require__.d(__webpack_exports__, "ɵ6", function () {
+      return ɵ6;
+    });
+    /* harmony export (binding) */
+
+
+    __webpack_require__.d(__webpack_exports__, "ɵ7", function () {
+      return ɵ7;
+    });
+    /* harmony export (binding) */
+
+
+    __webpack_require__.d(__webpack_exports__, "ɵ8", function () {
+      return ɵ8;
+    });
+    /* harmony export (binding) */
+
+
+    __webpack_require__.d(__webpack_exports__, "ɵ9", function () {
+      return ɵ9;
+    });
     /* harmony import */
 
 
@@ -374,6 +434,105 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     "./app/modules/error/error.module.ts");
 
     var ɵ0 = function ɵ0() {
+      return __webpack_require__.e(
+      /*! import() | modules-purchase-purchase-module */
+      "modules-purchase-purchase-module").then(__webpack_require__.bind(null,
+      /*! ./modules/purchase/purchase.module */
+      "./app/modules/purchase/purchase.module.ts")).then(function (m) {
+        return m.PurchaseModule;
+      })["catch"](function () {
+        return location.reload();
+      });
+    },
+        ɵ1 = function ɵ1() {
+      return __webpack_require__.e(
+      /*! import() | modules-auth-auth-module */
+      "modules-auth-auth-module").then(__webpack_require__.bind(null,
+      /*! ./modules/auth/auth.module */
+      "./app/modules/auth/auth.module.ts")).then(function (m) {
+        return m.AuthModule;
+      })["catch"](function () {
+        return location.reload();
+      });
+    },
+        ɵ2 = function ɵ2() {
+      return __webpack_require__.e(
+      /*! import() | modules-inquiry-inquiry-module */
+      "modules-inquiry-inquiry-module").then(__webpack_require__.bind(null,
+      /*! ./modules/inquiry/inquiry.module */
+      "./app/modules/inquiry/inquiry.module.ts")).then(function (m) {
+        return m.InquiryModule;
+      })["catch"](function () {
+        return location.reload();
+      });
+    },
+        ɵ3 = function ɵ3() {
+      return __webpack_require__.e(
+      /*! import() | modules-admission-admission-module */
+      "modules-admission-admission-module").then(__webpack_require__.bind(null,
+      /*! ./modules/admission/admission.module */
+      "./app/modules/admission/admission.module.ts")).then(function (m) {
+        return m.AdmissionModule;
+      })["catch"](function () {
+        return location.reload();
+      });
+    },
+        ɵ4 = function ɵ4() {
+      return __webpack_require__.e(
+      /*! import() | modules-order-order-module */
+      "modules-order-order-module").then(__webpack_require__.bind(null,
+      /*! ./modules/order/order.module */
+      "./app/modules/order/order.module.ts")).then(function (m) {
+        return m.OrderModule;
+      })["catch"](function () {
+        return location.reload();
+      });
+    },
+        ɵ5 = function ɵ5() {
+      return __webpack_require__.e(
+      /*! import() | modules-reservation-reservation-module */
+      "modules-reservation-reservation-module").then(__webpack_require__.bind(null,
+      /*! ./modules/reservation/reservation.module */
+      "./app/modules/reservation/reservation.module.ts")).then(function (m) {
+        return m.ReservationModule;
+      })["catch"](function () {
+        return location.reload();
+      });
+    },
+        ɵ6 = function ɵ6() {
+      return __webpack_require__.e(
+      /*! import() | modules-tasks-tasks-module */
+      "modules-tasks-tasks-module").then(__webpack_require__.bind(null,
+      /*! ./modules/tasks/tasks.module */
+      "./app/modules/tasks/tasks.module.ts")).then(function (m) {
+        return m.TasksModule;
+      })["catch"](function () {
+        return location.reload();
+      });
+    },
+        ɵ7 = function ɵ7() {
+      return __webpack_require__.e(
+      /*! import() | modules-development-development-module */
+      "modules-development-development-module").then(__webpack_require__.bind(null,
+      /*! ./modules/development/development.module */
+      "./app/modules/development/development.module.ts")).then(function (m) {
+        return m.DevelopmentModule;
+      })["catch"](function () {
+        return location.reload();
+      });
+    },
+        ɵ8 = function ɵ8() {
+      return __webpack_require__.e(
+      /*! import() | modules-setting-setting-module */
+      "modules-setting-setting-module").then(__webpack_require__.bind(null,
+      /*! ./modules/setting/setting.module */
+      "./app/modules/setting/setting.module.ts")).then(function (m) {
+        return m.SettingModule;
+      })["catch"](function () {
+        return location.reload();
+      });
+    },
+        ɵ9 = function ɵ9() {
       return _modules_error_error_module__WEBPACK_IMPORTED_MODULE_1__["ErrorModule"];
     };
 
@@ -381,63 +540,36 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       path: '',
       redirectTo: '',
       pathMatch: 'full'
-    }, // {
-    //     path: 'purchase',
-    //     loadChildren: () => import('./modules/purchase/purchase.module')
-    //         .then(m => m.PurchaseModule)
-    //         .catch(() => location.reload())
-    // },
-    // {
-    //     path: 'auth',
-    //     loadChildren: () => import('./modules/auth/auth.module')
-    //         .then(m => m.AuthModule)
-    //         .catch(() => location.reload())
-    // },
-    // {
-    //     path: 'inquiry',
-    //     loadChildren: () => import('./modules/inquiry/inquiry.module')
-    //         .then(m => m.InquiryModule)
-    //         .catch(() => location.reload())
-    // },
-    // {
-    //     path: 'admission',
-    //     loadChildren: () => import('./modules/admission/admission.module')
-    //         .then(m => m.AdmissionModule)
-    //         .catch(() => location.reload())
-    // },
-    // {
-    //     path: 'order',
-    //     loadChildren: () => import('./modules/order/order.module')
-    //         .then(m => m.OrderModule)
-    //         .catch(() => location.reload())
-    // },
-    // {
-    //     path: 'reservation',
-    //     loadChildren: () => import('./modules/reservation/reservation.module')
-    //         .then(m => m.ReservationModule)
-    //         .catch(() => location.reload())
-    // },
-    // {
-    //     path: 'tasks',
-    //     loadChildren: () => import('./modules/tasks/tasks.module')
-    //         .then(m => m.TasksModule)
-    //         .catch(() => location.reload())
-    // },
-    // {
-    //     path: 'development',
-    //     loadChildren: () => import('./modules/development/development.module')
-    //         .then(m => m.DevelopmentModule)
-    //         .catch(() => location.reload())
-    // },
-    // {
-    //     path: 'setting',
-    //     loadChildren: () => import('./modules/setting/setting.module')
-    //         .then(m => m.SettingModule)
-    //         .catch(() => location.reload())
-    // },
-    {
-      path: '',
+    }, {
+      path: 'purchase',
       loadChildren: ɵ0
+    }, {
+      path: 'auth',
+      loadChildren: ɵ1
+    }, {
+      path: 'inquiry',
+      loadChildren: ɵ2
+    }, {
+      path: 'admission',
+      loadChildren: ɵ3
+    }, {
+      path: 'order',
+      loadChildren: ɵ4
+    }, {
+      path: 'reservation',
+      loadChildren: ɵ5
+    }, {
+      path: 'tasks',
+      loadChildren: ɵ6
+    }, {
+      path: 'development',
+      loadChildren: ɵ7
+    }, {
+      path: 'setting',
+      loadChildren: ɵ8
+    }, {
+      path: '',
+      loadChildren: ɵ9
     }];
 
     var AppRoutingModule = function AppRoutingModule() {
@@ -817,8 +949,35 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
           redirectTo: "",
           pathMatch: "full"
         }, {
-          path: "",
+          path: "purchase",
           loadChildren: _app_routing_module__WEBPACK_IMPORTED_MODULE_32__["ɵ0"]
+        }, {
+          path: "auth",
+          loadChildren: _app_routing_module__WEBPACK_IMPORTED_MODULE_32__["ɵ1"]
+        }, {
+          path: "inquiry",
+          loadChildren: _app_routing_module__WEBPACK_IMPORTED_MODULE_32__["ɵ2"]
+        }, {
+          path: "admission",
+          loadChildren: _app_routing_module__WEBPACK_IMPORTED_MODULE_32__["ɵ3"]
+        }, {
+          path: "order",
+          loadChildren: _app_routing_module__WEBPACK_IMPORTED_MODULE_32__["ɵ4"]
+        }, {
+          path: "reservation",
+          loadChildren: _app_routing_module__WEBPACK_IMPORTED_MODULE_32__["ɵ5"]
+        }, {
+          path: "tasks",
+          loadChildren: _app_routing_module__WEBPACK_IMPORTED_MODULE_32__["ɵ6"]
+        }, {
+          path: "development",
+          loadChildren: _app_routing_module__WEBPACK_IMPORTED_MODULE_32__["ɵ7"]
+        }, {
+          path: "setting",
+          loadChildren: _app_routing_module__WEBPACK_IMPORTED_MODULE_32__["ɵ8"]
+        }, {
+          path: "",
+          loadChildren: _app_routing_module__WEBPACK_IMPORTED_MODULE_32__["ɵ9"]
         }]];
       }, []), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵmpd"](1024, _angular_router__WEBPACK_IMPORTED_MODULE_24__["Router"], _angular_router__WEBPACK_IMPORTED_MODULE_24__["ɵangular_packages_router_router_f"], [_angular_core__WEBPACK_IMPORTED_MODULE_0__["ApplicationRef"], _angular_router__WEBPACK_IMPORTED_MODULE_24__["UrlSerializer"], _angular_router__WEBPACK_IMPORTED_MODULE_24__["ChildrenOutletContexts"], _angular_common__WEBPACK_IMPORTED_MODULE_19__["Location"], _angular_core__WEBPACK_IMPORTED_MODULE_0__["Injector"], _angular_core__WEBPACK_IMPORTED_MODULE_0__["NgModuleFactoryLoader"], _angular_core__WEBPACK_IMPORTED_MODULE_0__["Compiler"], _angular_router__WEBPACK_IMPORTED_MODULE_24__["ROUTES"], _angular_router__WEBPACK_IMPORTED_MODULE_24__["ROUTER_CONFIGURATION"], [2, _angular_router__WEBPACK_IMPORTED_MODULE_24__["UrlHandlingStrategy"]], [2, _angular_router__WEBPACK_IMPORTED_MODULE_24__["RouteReuseStrategy"]]]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵmpd"](1073742336, _angular_router__WEBPACK_IMPORTED_MODULE_24__["RouterModule"], _angular_router__WEBPACK_IMPORTED_MODULE_24__["RouterModule"], [[2, _angular_router__WEBPACK_IMPORTED_MODULE_24__["ɵangular_packages_router_router_a"]], [2, _angular_router__WEBPACK_IMPORTED_MODULE_24__["Router"]]]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵmpd"](1073742336, _app_routing_module__WEBPACK_IMPORTED_MODULE_32__["AppRoutingModule"], _app_routing_module__WEBPACK_IMPORTED_MODULE_32__["AppRoutingModule"], []), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵmpd"](1024, _ngrx_store__WEBPACK_IMPORTED_MODULE_33__["ɵngrx_modules_store_store_n"], function () {
         return [{}];
@@ -1014,9 +1173,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
      */
 
 
-    var AppComponent =
-    /*#__PURE__*/
-    function () {
+    var AppComponent = /*#__PURE__*/function () {
       function AppComponent(router, translate) {
         _classCallCheck(this, AppComponent);
 
@@ -1430,9 +1587,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     /* harmony import */
 
 
-    var _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_0___default =
-    /*#__PURE__*/
-    __webpack_require__.n(_cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_0__);
+    var _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_0__);
     /* harmony import */
 
 
@@ -1442,9 +1597,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     /* harmony import */
 
 
-    var moment__WEBPACK_IMPORTED_MODULE_1___default =
-    /*#__PURE__*/
-    __webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_1__);
+    var moment__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_1__);
     /* harmony import */
 
 
@@ -1454,9 +1607,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     /* harmony import */
 
 
-    var qrcode__WEBPACK_IMPORTED_MODULE_2___default =
-    /*#__PURE__*/
-    __webpack_require__.n(qrcode__WEBPACK_IMPORTED_MODULE_2__);
+    var qrcode__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(qrcode__WEBPACK_IMPORTED_MODULE_2__);
     /* harmony import */
 
 
@@ -1503,10 +1654,8 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
 
     function drawCanvas(args) {
-      return __awaiter(this, void 0, void 0,
-      /*#__PURE__*/
-      regeneratorRuntime.mark(function _callee() {
-        var printData, data, canvas, size, context, drawImage, changePosition, font, _iteratorNormalCompletion, _didIteratorError, _iteratorError, _iterator, _step, image, imageInstance, src, _iteratorNormalCompletion2, _didIteratorError2, _iteratorError2, _iterator2, _step2, text, value, eventName, limit, _iteratorNormalCompletion3, _didIteratorError3, _iteratorError3, _iterator3, _step3, qrCode, qrcodeCanvas;
+      return __awaiter(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee() {
+        var printData, data, canvas, size, context, drawImage, changePosition, font, _iterator, _step, image, imageInstance, src, _iterator2, _step2, text, value, eventName, limit, _iterator3, _step3, qrCode, qrcodeCanvas;
 
         return regeneratorRuntime.wrap(function _callee$(_context) {
           while (1) {
@@ -1572,41 +1721,40 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
                 font = "\"Hiragino Sans\", \"Hiragino Kaku Gothic ProN\", \"\u6E38\u30B4\u30B7\u30C3\u30AF  Medium\", meiryo, sans-serif"; // 画像描画
 
-                _iteratorNormalCompletion = true;
-                _didIteratorError = false;
-                _iteratorError = undefined;
-                _context.prev = 15;
-                _iterator = printData.image[Symbol.iterator]();
+                _iterator = _createForOfIteratorHelper(printData.image);
+                _context.prev = 13;
 
-              case 17:
-                if (_iteratorNormalCompletion = (_step = _iterator.next()).done) {
-                  _context.next = 35;
+                _iterator.s();
+
+              case 15:
+                if ((_step = _iterator.n()).done) {
+                  _context.next = 32;
                   break;
                 }
 
                 image = _step.value;
                 imageInstance = new Image();
                 imageInstance.crossOrigin = 'anonymous';
-                _context.next = 23;
+                _context.next = 21;
                 return Object(_util_function__WEBPACK_IMPORTED_MODULE_4__["isFile"])(image.src.replace('/storage', Object(_util_function__WEBPACK_IMPORTED_MODULE_4__["getProject"])().storageUrl));
 
-              case 23:
+              case 21:
                 if (!_context.sent) {
-                  _context.next = 27;
+                  _context.next = 25;
                   break;
                 }
 
                 _context.t0 = image.src.replace('/storage', Object(_util_function__WEBPACK_IMPORTED_MODULE_4__["getProject"])().storageUrl);
-                _context.next = 28;
+                _context.next = 26;
                 break;
 
-              case 27:
+              case 25:
                 _context.t0 = image.src.replace('/storage', '/default');
 
-              case 28:
+              case 26:
                 src = _context.t0;
                 imageInstance.src = src;
-                _context.next = 32;
+                _context.next = 30;
                 return drawImage({
                   image: imageInstance,
                   x: image.x,
@@ -1615,56 +1763,37 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                   height: image.height
                 });
 
-              case 32:
-                _iteratorNormalCompletion = true;
-                _context.next = 17;
+              case 30:
+                _context.next = 15;
                 break;
 
-              case 35:
-                _context.next = 41;
+              case 32:
+                _context.next = 37;
                 break;
+
+              case 34:
+                _context.prev = 34;
+                _context.t1 = _context["catch"](13);
+
+                _iterator.e(_context.t1);
 
               case 37:
                 _context.prev = 37;
-                _context.t1 = _context["catch"](15);
-                _didIteratorError = true;
-                _iteratorError = _context.t1;
 
-              case 41:
-                _context.prev = 41;
-                _context.prev = 42;
+                _iterator.f();
 
-                if (!_iteratorNormalCompletion && _iterator["return"] != null) {
-                  _iterator["return"]();
-                }
+                return _context.finish(37);
 
-              case 44:
-                _context.prev = 44;
-
-                if (!_didIteratorError) {
-                  _context.next = 47;
-                  break;
-                }
-
-                throw _iteratorError;
-
-              case 47:
-                return _context.finish(44);
-
-              case 48:
-                return _context.finish(41);
-
-              case 49:
+              case 40:
                 // テキスト描画
-                _iteratorNormalCompletion2 = true;
-                _didIteratorError2 = false;
-                _iteratorError2 = undefined;
-                _context.prev = 52;
-                _iterator2 = printData.text[Symbol.iterator]();
+                _iterator2 = _createForOfIteratorHelper(printData.text);
+                _context.prev = 41;
 
-              case 54:
-                if (_iteratorNormalCompletion2 = (_step2 = _iterator2.next()).done) {
-                  _context.next = 87;
+                _iterator2.s();
+
+              case 43:
+                if ((_step2 = _iterator2.n()).done) {
+                  _context.next = 75;
                   break;
                 }
 
@@ -1675,27 +1804,27 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                 value = '';
 
                 if (!(text.name !== undefined)) {
-                  _context.next = 77;
+                  _context.next = 66;
                   break;
                 }
 
                 _context.t2 = text.name;
-                _context.next = _context.t2 === 'price' ? 64 : _context.t2 === 'date' ? 66 : _context.t2 === 'startDate' ? 68 : _context.t2 === 'endDate' ? 68 : _context.t2 === 'eventNameJa' ? 70 : _context.t2 === 'eventNameEn' ? 70 : 74;
+                _context.next = _context.t2 === 'price' ? 53 : _context.t2 === 'date' ? 55 : _context.t2 === 'startDate' ? 57 : _context.t2 === 'endDate' ? 57 : _context.t2 === 'eventNameJa' ? 59 : _context.t2 === 'eventNameEn' ? 59 : 63;
                 break;
 
-              case 64:
+              case 53:
                 value = "\uFFE5".concat(data.price.toLocaleString());
-                return _context.abrupt("break", 75);
+                return _context.abrupt("break", 64);
 
-              case 66:
+              case 55:
                 value = "(".concat(moment__WEBPACK_IMPORTED_MODULE_1__().format('YYYY/MM/DD HH:mm'), " \u767A\u5238)");
-                return _context.abrupt("break", 75);
+                return _context.abrupt("break", 64);
 
-              case 68:
+              case 57:
                 value = "".concat(moment__WEBPACK_IMPORTED_MODULE_1__(data[text.name]).format(text.value));
-                return _context.abrupt("break", 75);
+                return _context.abrupt("break", 64);
 
-              case 70:
+              case 59:
                 eventName = data[text.name];
                 limit = Math.floor(size.width / parseInt(text.font.size, 10));
 
@@ -1706,29 +1835,29 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                   context.fillText(eventName, changePosition(text.fillText.x), changePosition(text.fillText.y) + parseInt(text.font.size, 10) * 0.75);
                 }
 
-                return _context.abrupt("continue", 84);
+                return _context.abrupt("continue", 73);
 
-              case 74:
+              case 63:
                 value = "".concat(text.value === undefined ? '' : text.value).concat(data[text.name] === undefined ? '-' : data[text.name]);
 
-              case 75:
-                _context.next = 82;
+              case 64:
+                _context.next = 71;
                 break;
 
-              case 77:
+              case 66:
                 if (!(text.value !== undefined)) {
-                  _context.next = 81;
+                  _context.next = 70;
                   break;
                 }
 
                 value = text.value;
-                _context.next = 82;
+                _context.next = 71;
                 break;
 
-              case 81:
-                return _context.abrupt("continue", 84);
+              case 70:
+                return _context.abrupt("continue", 73);
 
-              case 82:
+              case 71:
                 if (text.slice !== undefined) {
                   // 文字制限
                   value = value.slice(text.slice[0], text.slice[1]);
@@ -1736,119 +1865,82 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
                 context.fillText(value, changePosition(text.fillText.x), changePosition(text.fillText.y));
 
-              case 84:
-                _iteratorNormalCompletion2 = true;
-                _context.next = 54;
+              case 73:
+                _context.next = 43;
                 break;
+
+              case 75:
+                _context.next = 80;
+                break;
+
+              case 77:
+                _context.prev = 77;
+                _context.t3 = _context["catch"](41);
+
+                _iterator2.e(_context.t3);
+
+              case 80:
+                _context.prev = 80;
+
+                _iterator2.f();
+
+                return _context.finish(80);
+
+              case 83:
+                if (!(data.qrcode !== undefined)) {
+                  _context.next = 103;
+                  break;
+                }
+
+                _iterator3 = _createForOfIteratorHelper(printData.qrCode);
+                _context.prev = 85;
+
+                _iterator3.s();
 
               case 87:
-                _context.next = 93;
-                break;
-
-              case 89:
-                _context.prev = 89;
-                _context.t3 = _context["catch"](52);
-                _didIteratorError2 = true;
-                _iteratorError2 = _context.t3;
-
-              case 93:
-                _context.prev = 93;
-                _context.prev = 94;
-
-                if (!_iteratorNormalCompletion2 && _iterator2["return"] != null) {
-                  _iterator2["return"]();
-                }
-
-              case 96:
-                _context.prev = 96;
-
-                if (!_didIteratorError2) {
-                  _context.next = 99;
-                  break;
-                }
-
-                throw _iteratorError2;
-
-              case 99:
-                return _context.finish(96);
-
-              case 100:
-                return _context.finish(93);
-
-              case 101:
-                if (!(data.qrcode !== undefined)) {
-                  _context.next = 130;
-                  break;
-                }
-
-                _iteratorNormalCompletion3 = true;
-                _didIteratorError3 = false;
-                _iteratorError3 = undefined;
-                _context.prev = 105;
-                _iterator3 = printData.qrCode[Symbol.iterator]();
-
-              case 107:
-                if (_iteratorNormalCompletion3 = (_step3 = _iterator3.next()).done) {
-                  _context.next = 116;
+                if ((_step3 = _iterator3.n()).done) {
+                  _context.next = 95;
                   break;
                 }
 
                 qrCode = _step3.value;
                 qrcodeCanvas = document.createElement('canvas');
-                _context.next = 112;
+                _context.next = 92;
                 return qrcode__WEBPACK_IMPORTED_MODULE_2__["toCanvas"](qrcodeCanvas, data.qrcode);
 
-              case 112:
+              case 92:
                 context.drawImage(qrcodeCanvas, qrCode.x, qrCode.y, qrCode.width, qrCode.height);
 
-              case 113:
-                _iteratorNormalCompletion3 = true;
-                _context.next = 107;
+              case 93:
+                _context.next = 87;
                 break;
 
-              case 116:
-                _context.next = 122;
+              case 95:
+                _context.next = 100;
                 break;
 
-              case 118:
-                _context.prev = 118;
-                _context.t4 = _context["catch"](105);
-                _didIteratorError3 = true;
-                _iteratorError3 = _context.t4;
+              case 97:
+                _context.prev = 97;
+                _context.t4 = _context["catch"](85);
 
-              case 122:
-                _context.prev = 122;
-                _context.prev = 123;
+                _iterator3.e(_context.t4);
 
-                if (!_iteratorNormalCompletion3 && _iterator3["return"] != null) {
-                  _iterator3["return"]();
-                }
+              case 100:
+                _context.prev = 100;
 
-              case 125:
-                _context.prev = 125;
+                _iterator3.f();
 
-                if (!_didIteratorError3) {
-                  _context.next = 128;
-                  break;
-                }
+                return _context.finish(100);
 
-                throw _iteratorError3;
-
-              case 128:
-                return _context.finish(125);
-
-              case 129:
-                return _context.finish(122);
-
-              case 130:
+              case 103:
                 return _context.abrupt("return", canvas);
 
-              case 131:
+              case 104:
               case "end":
                 return _context.stop();
             }
           }
-        }, _callee, null, [[15, 37, 41, 49], [42,, 44, 48], [52, 89, 93, 101], [94,, 96, 100], [105, 118, 122, 130], [123,, 125, 129]]);
+        }, _callee, null, [[13, 34, 37, 40], [41, 77, 80, 83], [85, 97, 100, 103]]);
       }));
     }
     /**
@@ -1857,9 +1949,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
 
     function createPrintCanvas(params) {
-      return __awaiter(this, void 0, void 0,
-      /*#__PURE__*/
-      regeneratorRuntime.mark(function _callee2() {
+      return __awaiter(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee2() {
         var acceptedOffer, itemOffered, data, printData, canvas;
         return regeneratorRuntime.wrap(function _callee2$(_context2) {
           while (1) {
@@ -1923,9 +2013,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
 
     function createTestPrintCanvas(args) {
-      return __awaiter(this, void 0, void 0,
-      /*#__PURE__*/
-      regeneratorRuntime.mark(function _callee3() {
+      return __awaiter(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee3() {
         var printData, data, canvas;
         return regeneratorRuntime.wrap(function _callee3$(_context3) {
           while (1) {
@@ -1976,9 +2064,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
 
     function createCooperationQRCode(params) {
-      return __awaiter(this, void 0, void 0,
-      /*#__PURE__*/
-      regeneratorRuntime.mark(function _callee4() {
+      return __awaiter(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee4() {
         var order, qrcodeText, canvas, text;
         return regeneratorRuntime.wrap(function _callee4$(_context4) {
           while (1) {
@@ -2278,9 +2364,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     /* harmony import */
 
 
-    var _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_0___default =
-    /*#__PURE__*/
-    __webpack_require__.n(_cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_0__);
+    var _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_0__);
     /* harmony import */
 
 
@@ -2290,9 +2374,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     /* harmony import */
 
 
-    var moment__WEBPACK_IMPORTED_MODULE_1___default =
-    /*#__PURE__*/
-    __webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_1__);
+    var moment__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_1__);
     /* harmony import */
 
 
@@ -2975,9 +3057,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     /* harmony import */
 
 
-    var _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_0___default =
-    /*#__PURE__*/
-    __webpack_require__.n(_cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_0__);
+    var _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_0__);
     /* harmony import */
 
 
@@ -2987,9 +3067,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     /* harmony import */
 
 
-    var moment__WEBPACK_IMPORTED_MODULE_1___default =
-    /*#__PURE__*/
-    __webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_1__);
+    var moment__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_1__);
     /* harmony import */
 
 
@@ -3107,9 +3185,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     /* harmony import */
 
 
-    var deepmerge__WEBPACK_IMPORTED_MODULE_2___default =
-    /*#__PURE__*/
-    __webpack_require__.n(deepmerge__WEBPACK_IMPORTED_MODULE_2__);
+    var deepmerge__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(deepmerge__WEBPACK_IMPORTED_MODULE_2__);
     /* harmony import */
 
 
@@ -3119,9 +3195,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     /* harmony import */
 
 
-    var moment__WEBPACK_IMPORTED_MODULE_3___default =
-    /*#__PURE__*/
-    __webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_3__);
+    var moment__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_3__);
     /* harmony import */
 
 
@@ -3151,9 +3225,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
      */
 
 
-    var CustomTranslateHttpLoader =
-    /*#__PURE__*/
-    function () {
+    var CustomTranslateHttpLoader = /*#__PURE__*/function () {
       function CustomTranslateHttpLoader(http) {
         _classCallCheck(this, CustomTranslateHttpLoader);
 
@@ -3366,9 +3438,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
 
     function retry(args) {
-      return __awaiter(this, void 0, void 0,
-      /*#__PURE__*/
-      regeneratorRuntime.mark(function _callee7() {
+      return __awaiter(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee7() {
         var _this3 = this;
 
         var count;
@@ -3378,9 +3448,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
               case 0:
                 count = 0;
                 return _context7.abrupt("return", new Promise(function (resolve, reject) {
-                  return __awaiter(_this3, void 0, void 0,
-                  /*#__PURE__*/
-                  regeneratorRuntime.mark(function _callee6() {
+                  return __awaiter(_this3, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee6() {
                     var _this4 = this;
 
                     var timerProcess, result;
@@ -3390,9 +3458,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                           case 0:
                             timerProcess = function timerProcess() {
                               setTimeout(function () {
-                                return __awaiter(_this4, void 0, void 0,
-                                /*#__PURE__*/
-                                regeneratorRuntime.mark(function _callee5() {
+                                return __awaiter(_this4, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee5() {
                                   var result;
                                   return regeneratorRuntime.wrap(function _callee5$(_context5) {
                                     while (1) {
@@ -3473,9 +3539,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
 
     function sleep(time) {
-      return __awaiter(this, void 0, void 0,
-      /*#__PURE__*/
-      regeneratorRuntime.mark(function _callee8() {
+      return __awaiter(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee8() {
         return regeneratorRuntime.wrap(function _callee8$(_context8) {
           while (1) {
             switch (_context8.prev = _context8.next) {
@@ -3589,9 +3653,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
 
     function streamingDownload(stream) {
-      return __awaiter(this, void 0, void 0,
-      /*#__PURE__*/
-      regeneratorRuntime.mark(function _callee11() {
+      return __awaiter(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee11() {
         var _this5 = this;
 
         var reader, decoder, streamText;
@@ -3603,9 +3665,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                 decoder = new TextDecoder();
                 streamText = '';
                 return _context11.abrupt("return", new Promise(function (resolve, reject) {
-                  return __awaiter(_this5, void 0, void 0,
-                  /*#__PURE__*/
-                  regeneratorRuntime.mark(function _callee10() {
+                  return __awaiter(_this5, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee10() {
                     var _this6 = this;
 
                     var readChunk;
@@ -3616,9 +3676,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                             _context10.prev = 0;
 
                             readChunk = function readChunk(chunk) {
-                              return __awaiter(_this6, void 0, void 0,
-                              /*#__PURE__*/
-                              regeneratorRuntime.mark(function _callee9() {
+                              return __awaiter(_this6, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee9() {
                                 return regeneratorRuntime.wrap(function _callee9$(_context9) {
                                   while (1) {
                                     switch (_context9.prev = _context9.next) {
@@ -3756,9 +3814,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
 
     function isFile(url) {
-      return __awaiter(this, void 0, void 0,
-      /*#__PURE__*/
-      regeneratorRuntime.mark(function _callee12() {
+      return __awaiter(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee12() {
         var fetchResult;
         return regeneratorRuntime.wrap(function _callee12$(_context12) {
           while (1) {
@@ -4103,9 +4159,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     /* harmony import */
 
 
-    var moment__WEBPACK_IMPORTED_MODULE_0___default =
-    /*#__PURE__*/
-    __webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_0__);
+    var moment__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_0__);
     /* harmony import */
 
 
@@ -4117,9 +4171,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
      */
 
 
-    var Performance =
-    /*#__PURE__*/
-    function () {
+    var Performance = /*#__PURE__*/function () {
       function Performance(screeningEvent) {
         _classCallCheck(this, Performance);
 
@@ -4594,9 +4646,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     /*! ../../../../../store/reducers */
     "./app/store/reducers/index.ts");
 
-    var BaseComponent =
-    /*#__PURE__*/
-    function () {
+    var BaseComponent = /*#__PURE__*/function () {
       function BaseComponent(store, changeDetectorRef) {
         _classCallCheck(this, BaseComponent);
 
@@ -4834,9 +4884,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     /*! ngx-bootstrap */
     "../../node_modules/ngx-bootstrap/esm5/ngx-bootstrap.js");
 
-    var AlertModalComponent =
-    /*#__PURE__*/
-    function () {
+    var AlertModalComponent = /*#__PURE__*/function () {
       function AlertModalComponent(modal, elementRef) {
         _classCallCheck(this, AlertModalComponent);
 
@@ -5149,9 +5197,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     /*! ngx-bootstrap */
     "../../node_modules/ngx-bootstrap/esm5/ngx-bootstrap.js");
 
-    var ConfirmModalComponent =
-    /*#__PURE__*/
-    function () {
+    var ConfirmModalComponent = /*#__PURE__*/function () {
       function ConfirmModalComponent(modal, elementRef) {
         _classCallCheck(this, ConfirmModalComponent);
 
@@ -5250,9 +5296,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       });
     };
 
-    var ContentsComponent =
-    /*#__PURE__*/
-    function () {
+    var ContentsComponent = /*#__PURE__*/function () {
       function ContentsComponent(router, elementRef, userService) {
         _classCallCheck(this, ContentsComponent);
 
@@ -5264,9 +5308,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       _createClass(ContentsComponent, [{
         key: "ngOnInit",
         value: function ngOnInit() {
-          return __awaiter(this, void 0, void 0,
-          /*#__PURE__*/
-          regeneratorRuntime.mark(function _callee13() {
+          return __awaiter(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee13() {
             var _this7 = this;
 
             return regeneratorRuntime.wrap(function _callee13$(_context13) {
@@ -5333,9 +5375,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     /*! @angular/core */
     "../../node_modules/@angular/core/fesm2015/core.js");
 
-    var FooterComponent =
-    /*#__PURE__*/
-    function () {
+    var FooterComponent = /*#__PURE__*/function () {
       function FooterComponent() {
         _classCallCheck(this, FooterComponent);
       }
@@ -5518,9 +5558,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     /*! @angular/core */
     "../../node_modules/@angular/core/fesm2015/core.js");
 
-    var CheckboxComponent =
-    /*#__PURE__*/
-    function () {
+    var CheckboxComponent = /*#__PURE__*/function () {
       function CheckboxComponent() {
         _classCallCheck(this, CheckboxComponent);
 
@@ -5634,9 +5672,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
      */
 
 
-    var HeaderMenuComponent =
-    /*#__PURE__*/
-    function () {
+    var HeaderMenuComponent = /*#__PURE__*/function () {
       function HeaderMenuComponent(cinerino, utilService, translate) {
         _classCallCheck(this, HeaderMenuComponent);
 
@@ -5661,9 +5697,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
             title: this.translate.instant('common.confirm'),
             body: this.translate.instant('menu.confirm.logout'),
             cb: function cb() {
-              return __awaiter(_this8, void 0, void 0,
-              /*#__PURE__*/
-              regeneratorRuntime.mark(function _callee14() {
+              return __awaiter(_this8, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee14() {
                 return regeneratorRuntime.wrap(function _callee14$(_context14) {
                   while (1) {
                     switch (_context14.prev = _context14.next) {
@@ -5778,9 +5812,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     /*! ../../../../../store/reducers */
     "./app/store/reducers/index.ts");
 
-    var HeaderComponent =
-    /*#__PURE__*/
-    function () {
+    var HeaderComponent = /*#__PURE__*/function () {
       function HeaderComponent(store, translate, userService) {
         _classCallCheck(this, HeaderComponent);
 
@@ -6285,9 +6317,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     /* harmony import */
 
 
-    var _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_1___default =
-    /*#__PURE__*/
-    __webpack_require__.n(_cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_1__);
+    var _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_1__);
     /* harmony import */
 
 
@@ -6295,9 +6325,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     /*! ../../../../../../environments/environment */
     "./environments/environment.ts");
 
-    var ItemListComponent =
-    /*#__PURE__*/
-    function () {
+    var ItemListComponent = /*#__PURE__*/function () {
       function ItemListComponent() {
         _classCallCheck(this, ItemListComponent);
 
@@ -6461,9 +6489,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     /*! @angular/core */
     "../../node_modules/@angular/core/fesm2015/core.js");
 
-    var LoadingComponent =
-    /*#__PURE__*/
-    function () {
+    var LoadingComponent = /*#__PURE__*/function () {
       function LoadingComponent() {
         _classCallCheck(this, LoadingComponent);
       }
@@ -7068,9 +7094,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       });
     };
 
-    var MvtkCheckModalComponent =
-    /*#__PURE__*/
-    function () {
+    var MvtkCheckModalComponent = /*#__PURE__*/function () {
       function MvtkCheckModalComponent(modal, store, formBuilder, purchaseService, translate, qrcodeService) {
         _classCallCheck(this, MvtkCheckModalComponent);
 
@@ -7107,9 +7131,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       }, {
         key: "checkMovieTicket",
         value: function checkMovieTicket() {
-          return __awaiter(this, void 0, void 0,
-          /*#__PURE__*/
-          regeneratorRuntime.mark(function _callee15() {
+          return __awaiter(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee15() {
             var _this11 = this;
 
             var seller, purchase, checkMovieTicketAction, knyknrNoMkujyuCd, message;
@@ -7614,9 +7636,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     /*! @angular/core */
     "../../node_modules/@angular/core/fesm2015/core.js");
 
-    var NumericKeypadComponent =
-    /*#__PURE__*/
-    function () {
+    var NumericKeypadComponent = /*#__PURE__*/function () {
       function NumericKeypadComponent() {
         _classCallCheck(this, NumericKeypadComponent);
 
@@ -8292,9 +8312,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     /* harmony import */
 
 
-    var _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_1___default =
-    /*#__PURE__*/
-    __webpack_require__.n(_cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_1__);
+    var _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_1__);
     /* harmony import */
 
 
@@ -8304,9 +8322,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     /* harmony import */
 
 
-    var moment__WEBPACK_IMPORTED_MODULE_2___default =
-    /*#__PURE__*/
-    __webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_2__);
+    var moment__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_2__);
     /* harmony import */
 
 
@@ -8322,9 +8338,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     /* harmony import */
 
 
-    var platform__WEBPACK_IMPORTED_MODULE_4___default =
-    /*#__PURE__*/
-    __webpack_require__.n(platform__WEBPACK_IMPORTED_MODULE_4__);
+    var platform__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(platform__WEBPACK_IMPORTED_MODULE_4__);
     /* harmony import */
 
 
@@ -8366,9 +8380,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       });
     };
 
-    var OrderDetailModalComponent =
-    /*#__PURE__*/
-    function () {
+    var OrderDetailModalComponent = /*#__PURE__*/function () {
       function OrderDetailModalComponent(modal, elementRef) {
         _classCallCheck(this, OrderDetailModalComponent);
 
@@ -8385,9 +8397,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       _createClass(OrderDetailModalComponent, [{
         key: "ngOnInit",
         value: function ngOnInit() {
-          return __awaiter(this, void 0, void 0,
-          /*#__PURE__*/
-          regeneratorRuntime.mark(function _callee16() {
+          return __awaiter(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee16() {
             var order, element, isRegiGrow, findResult, qrcodeText;
             return regeneratorRuntime.wrap(function _callee16$(_context16) {
               while (1) {
@@ -9012,9 +9022,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     /* harmony import */
 
 
-    var _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_1___default =
-    /*#__PURE__*/
-    __webpack_require__.n(_cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_1__);
+    var _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_1__);
     /* harmony import */
 
 
@@ -9024,9 +9032,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     /* harmony import */
 
 
-    var moment__WEBPACK_IMPORTED_MODULE_2___default =
-    /*#__PURE__*/
-    __webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_2__);
+    var moment__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_2__);
     /* harmony import */
 
 
@@ -9052,9 +9058,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     /*! ../../../../../../../models */
     "./app/models/index.ts");
 
-    var PurchaseEventSeatModalComponent =
-    /*#__PURE__*/
-    function () {
+    var PurchaseEventSeatModalComponent = /*#__PURE__*/function () {
       function PurchaseEventSeatModalComponent(modal) {
         _classCallCheck(this, PurchaseEventSeatModalComponent);
 
@@ -9785,9 +9789,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     /* harmony import */
 
 
-    var _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_1___default =
-    /*#__PURE__*/
-    __webpack_require__.n(_cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_1__);
+    var _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_1__);
     /* harmony import */
 
 
@@ -9797,9 +9799,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     /* harmony import */
 
 
-    var moment__WEBPACK_IMPORTED_MODULE_2___default =
-    /*#__PURE__*/
-    __webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_2__);
+    var moment__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_2__);
     /* harmony import */
 
 
@@ -9825,9 +9825,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     /*! ../../../../../../../models */
     "./app/models/index.ts");
 
-    var PurchaseEventTicketModalComponent =
-    /*#__PURE__*/
-    function () {
+    var PurchaseEventTicketModalComponent = /*#__PURE__*/function () {
       function PurchaseEventTicketModalComponent(modal) {
         _classCallCheck(this, PurchaseEventTicketModalComponent);
 
@@ -10422,9 +10420,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     /* harmony import */
 
 
-    var _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_1___default =
-    /*#__PURE__*/
-    __webpack_require__.n(_cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_1__);
+    var _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_1__);
     /* harmony import */
 
 
@@ -10438,9 +10434,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     /*! ../../../../../../functions */
     "./app/functions/index.ts");
 
-    var PurchaseSeatTicketModalComponent =
-    /*#__PURE__*/
-    function () {
+    var PurchaseSeatTicketModalComponent = /*#__PURE__*/function () {
       function PurchaseSeatTicketModalComponent(modal) {
         _classCallCheck(this, PurchaseSeatTicketModalComponent);
 
@@ -10888,9 +10882,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     /*! ../../../../../../store/reducers */
     "./app/store/reducers/index.ts");
 
-    var PurchaseTransactionModalComponent =
-    /*#__PURE__*/
-    function () {
+    var PurchaseTransactionModalComponent = /*#__PURE__*/function () {
       function PurchaseTransactionModalComponent(modal) {
         _classCallCheck(this, PurchaseTransactionModalComponent);
 
@@ -11077,7 +11069,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
      */
 
 
-    var styles = [".full-screen[_ngcontent-%COMP%] {\n  position: fixed;\n  left: 0;\n  top: 0;\n  bottom: 0;\n  right: 0;\n}\n\nvideo[_ngcontent-%COMP%] {\n  width: 100%;\n  height: 100%;\n}\n\n.top[_ngcontent-%COMP%] {\n  position: absolute;\n  top: 1rem;\n  left: 0;\n}\n\n.bottom[_ngcontent-%COMP%] {\n  position: absolute;\n  bottom: 1rem;\n  left: 0;\n}\n\n.scan[_ngcontent-%COMP%] {\n  position: absolute;\n  top: 50%;\n  left: 50%;\n  width: 100px;\n  height: 100px;\n  border-width: 3px !important;\n  margin: -50px 0 0 -50px;\n  -webkit-animation: scale 2s infinite linear;\n          animation: scale 2s infinite linear;\n}\n\n@-webkit-keyframes scale {\n  0% {\n    -webkit-transform: scale(0.75);\n            transform: scale(0.75);\n  }\n  50% {\n    -webkit-transform: scale(1.5);\n            transform: scale(1.5);\n  }\n  100% {\n    -webkit-transform: scale(0.75);\n            transform: scale(0.75);\n  }\n}\n\n@keyframes scale {\n  0% {\n    -webkit-transform: scale(0.75);\n            transform: scale(0.75);\n  }\n  50% {\n    -webkit-transform: scale(1.5);\n            transform: scale(1.5);\n  }\n  100% {\n    -webkit-transform: scale(0.75);\n            transform: scale(0.75);\n  }\n}"];
+    var styles = [".full-screen[_ngcontent-%COMP%] {\n  position: fixed;\n  left: 0;\n  top: 0;\n  bottom: 0;\n  right: 0;\n}\n\nvideo[_ngcontent-%COMP%] {\n  width: 100%;\n  height: 100%;\n}\n\n.top[_ngcontent-%COMP%] {\n  position: absolute;\n  top: 1rem;\n  left: 0;\n}\n\n.bottom[_ngcontent-%COMP%] {\n  position: absolute;\n  bottom: 1rem;\n  left: 0;\n}\n\n.scan[_ngcontent-%COMP%] {\n  position: absolute;\n  top: 50%;\n  left: 50%;\n  width: 100px;\n  height: 100px;\n  border-width: 3px !important;\n  margin: -50px 0 0 -50px;\n  -webkit-animation: scale 2s infinite linear;\n          animation: scale 2s infinite linear;\n}\n\n@-webkit-keyframes scale {\n  0% {\n    transform: scale(0.75);\n  }\n  50% {\n    transform: scale(1.5);\n  }\n  100% {\n    transform: scale(0.75);\n  }\n}\n\n@keyframes scale {\n  0% {\n    transform: scale(0.75);\n  }\n  50% {\n    transform: scale(1.5);\n  }\n  100% {\n    transform: scale(0.75);\n  }\n}"];
     /***/
   },
 
@@ -11115,9 +11107,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     /* harmony import */
 
 
-    var jsqr__WEBPACK_IMPORTED_MODULE_1___default =
-    /*#__PURE__*/
-    __webpack_require__.n(jsqr__WEBPACK_IMPORTED_MODULE_1__);
+    var jsqr__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(jsqr__WEBPACK_IMPORTED_MODULE_1__);
     /* harmony import */
 
 
@@ -11153,9 +11143,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       });
     };
 
-    var QRCodeReaderModalComponent =
-    /*#__PURE__*/
-    function () {
+    var QRCodeReaderModalComponent = /*#__PURE__*/function () {
       function QRCodeReaderModalComponent(modal) {
         _classCallCheck(this, QRCodeReaderModalComponent);
 
@@ -11165,9 +11153,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       _createClass(QRCodeReaderModalComponent, [{
         key: "ngOnInit",
         value: function ngOnInit() {
-          return __awaiter(this, void 0, void 0,
-          /*#__PURE__*/
-          regeneratorRuntime.mark(function _callee17() {
+          return __awaiter(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee17() {
             var constraints;
             return regeneratorRuntime.wrap(function _callee17$(_context17) {
               while (1) {
@@ -11220,9 +11206,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       }, {
         key: "start",
         value: function start(constraints) {
-          return __awaiter(this, void 0, void 0,
-          /*#__PURE__*/
-          regeneratorRuntime.mark(function _callee18() {
+          return __awaiter(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee18() {
             var _this17 = this;
 
             var stream, scanLoopTime;
@@ -11545,13 +11529,9 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     /* harmony import */
 
 
-    var qrcode__WEBPACK_IMPORTED_MODULE_2___default =
-    /*#__PURE__*/
-    __webpack_require__.n(qrcode__WEBPACK_IMPORTED_MODULE_2__);
+    var qrcode__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(qrcode__WEBPACK_IMPORTED_MODULE_2__);
 
-    var QRCodeViewerModalComponent =
-    /*#__PURE__*/
-    function () {
+    var QRCodeViewerModalComponent = /*#__PURE__*/function () {
       function QRCodeViewerModalComponent(modal) {
         _classCallCheck(this, QRCodeViewerModalComponent);
 
@@ -11901,9 +11881,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     /* harmony import */
 
 
-    var _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_1___default =
-    /*#__PURE__*/
-    __webpack_require__.n(_cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_1__);
+    var _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_1__);
     /* harmony import */
 
 
@@ -11913,9 +11891,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     /* harmony import */
 
 
-    var moment__WEBPACK_IMPORTED_MODULE_2___default =
-    /*#__PURE__*/
-    __webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_2__);
+    var moment__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_2__);
     /* harmony import */
 
 
@@ -11929,9 +11905,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     /*! ../../../../../../../environments/environment */
     "./environments/environment.ts");
 
-    var ReservationDetailModalComponent =
-    /*#__PURE__*/
-    function () {
+    var ReservationDetailModalComponent = /*#__PURE__*/function () {
       function ReservationDetailModalComponent(modal, elementRef) {
         _classCallCheck(this, ReservationDetailModalComponent);
 
@@ -12335,7 +12309,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
      */
 
 
-    var styles = ["[_nghost-%COMP%] {\n  display: block;\n}\n\n.open-seating-allowed[_ngcontent-%COMP%] {\n  position: absolute;\n  top: 0;\n  left: 0;\n  right: 0;\n  bottom: 0;\n  background: #000;\n  opacity: 0.5;\n  z-index: 11;\n}\n\n.screen[_ngcontent-%COMP%] {\n  position: relative;\n}\n\n.screen[_ngcontent-%COMP%]   .screen-scroll[_ngcontent-%COMP%] {\n  height: 500px;\n}\n\n.screen[_ngcontent-%COMP%]   .screen-inner[_ngcontent-%COMP%] {\n  position: relative;\n  width: 1600px;\n  height: 1400px;\n}\n\n.screen[_ngcontent-%COMP%]   .screen-object[_ngcontent-%COMP%] {\n  text-align: center;\n  color: #9c9c9c;\n  font-weight: bold;\n  font-size: 50px;\n  padding-top: 90px;\n}\n\n.screen[_ngcontent-%COMP%]   .seat[_ngcontent-%COMP%] {\n  position: absolute;\n  cursor: pointer;\n  text-align: center;\n  font-weight: bold;\n  color: #9a9a9b;\n  padding-top: 20px;\n  background-image: url(/assets/images/seat/normal.svg);\n  background-size: 40px 50px;\n  background-repeat: no-repeat;\n  font-size: 12px;\n}\n\n.screen[_ngcontent-%COMP%]   .seat.active[_ngcontent-%COMP%] {\n  color: #FFF;\n  background-image: url(/assets/images/seat/normal_active.svg);\n}\n\n.screen[_ngcontent-%COMP%]   .seat.disabled[_ngcontent-%COMP%] {\n  color: #FFF;\n  background-image: url(/assets/images/seat/normal_disabled.svg);\n  cursor: default;\n}\n\n.screen[_ngcontent-%COMP%]   .seat-hc[_ngcontent-%COMP%] {\n  background-image: url(/assets/images/seat/hc.svg) !important;\n  background-size: 40px 50px;\n  padding-top: 35px;\n}\n\n.screen[_ngcontent-%COMP%]   .seat-hc.active[_ngcontent-%COMP%] {\n  background-image: url(/assets/images/seat/hc_active.svg) !important;\n}\n\n.screen[_ngcontent-%COMP%]   .seat-hc.disabled[_ngcontent-%COMP%] {\n  background-image: url(/assets/images/seat/hc_disabled.svg) !important;\n  cursor: default;\n}\n\n.screen[_ngcontent-%COMP%]   .object[_ngcontent-%COMP%] {\n  position: absolute;\n  background-repeat: no-repeat;\n}\n\n.screen[_ngcontent-%COMP%]   .label-object[_ngcontent-%COMP%] {\n  text-align: center;\n  line-height: 50px;\n  font-size: 24px;\n  color: #9a9a9b;\n  font-weight: bold;\n}\n\n.screen-4dx[_ngcontent-%COMP%]   .seat[_ngcontent-%COMP%] {\n  background-image: url(/assets/images/seat/4dx.svg);\n  background-size: 50px 50px;\n}\n\n.screen-4dx[_ngcontent-%COMP%]   .seat.active[_ngcontent-%COMP%] {\n  color: #FFF;\n  background-image: url(/assets/images/seat/4dx_active.svg);\n}\n\n.screen-4dx[_ngcontent-%COMP%]   .seat.disabled[_ngcontent-%COMP%] {\n  color: #FFF;\n  background-image: url(/assets/images/seat/4dx_disabled.svg);\n  cursor: default;\n}\n\n.zoom[_ngcontent-%COMP%]   .screen-scroll[_ngcontent-%COMP%] {\n  overflow: auto;\n  -webkit-transition: -webkit-transform 0.2s;\n  transition: -webkit-transform 0.2s;\n  transition: transform 0.2s;\n  transition: transform 0.2s, -webkit-transform 0.2s;\n  -webkit-overflow-scrolling: touch;\n}\n\n.zoom[_ngcontent-%COMP%]   .seat[_ngcontent-%COMP%]   span[_ngcontent-%COMP%] {\n  display: block;\n}\n\n.zoom-btn[_ngcontent-%COMP%] {\n  display: none;\n  cursor: pointer;\n  position: absolute;\n  top: 10px;\n  right: 10px;\n  z-index: 10;\n  width: 50px;\n  height: 50px;\n  color: #FFF;\n  background-color: #3e3a39;\n  border-radius: 3px;\n  -webkit-box-align: center;\n          align-items: center;\n  -webkit-box-pack: center;\n          justify-content: center;\n}\n\n.zoom-btn.active[_ngcontent-%COMP%] {\n  display: -webkit-box;\n  display: flex;\n}\n\n.zoom-btn.scroll[_ngcontent-%COMP%] {\n  position: fixed;\n}"];
+    var styles = ["[_nghost-%COMP%] {\n  display: block;\n}\n\n.open-seating-allowed[_ngcontent-%COMP%] {\n  position: absolute;\n  top: 0;\n  left: 0;\n  right: 0;\n  bottom: 0;\n  background: #000;\n  opacity: 0.5;\n  z-index: 11;\n}\n\n.screen[_ngcontent-%COMP%] {\n  position: relative;\n}\n\n.screen[_ngcontent-%COMP%]   .screen-scroll[_ngcontent-%COMP%] {\n  height: 500px;\n}\n\n.screen[_ngcontent-%COMP%]   .screen-inner[_ngcontent-%COMP%] {\n  position: relative;\n  width: 1600px;\n  height: 1400px;\n}\n\n.screen[_ngcontent-%COMP%]   .screen-object[_ngcontent-%COMP%] {\n  text-align: center;\n  color: #9c9c9c;\n  font-weight: bold;\n  font-size: 50px;\n  padding-top: 90px;\n}\n\n.screen[_ngcontent-%COMP%]   .seat[_ngcontent-%COMP%] {\n  position: absolute;\n  cursor: pointer;\n  text-align: center;\n  font-weight: bold;\n  color: #9a9a9b;\n  padding-top: 20px;\n  background-image: url(/assets/images/seat/normal.svg);\n  background-size: 40px 50px;\n  background-repeat: no-repeat;\n  font-size: 12px;\n}\n\n.screen[_ngcontent-%COMP%]   .seat.active[_ngcontent-%COMP%] {\n  color: #FFF;\n  background-image: url(/assets/images/seat/normal_active.svg);\n}\n\n.screen[_ngcontent-%COMP%]   .seat.disabled[_ngcontent-%COMP%] {\n  color: #FFF;\n  background-image: url(/assets/images/seat/normal_disabled.svg);\n  cursor: default;\n}\n\n.screen[_ngcontent-%COMP%]   .seat-hc[_ngcontent-%COMP%] {\n  background-image: url(/assets/images/seat/hc.svg) !important;\n  background-size: 40px 50px;\n  padding-top: 35px;\n}\n\n.screen[_ngcontent-%COMP%]   .seat-hc.active[_ngcontent-%COMP%] {\n  background-image: url(/assets/images/seat/hc_active.svg) !important;\n}\n\n.screen[_ngcontent-%COMP%]   .seat-hc.disabled[_ngcontent-%COMP%] {\n  background-image: url(/assets/images/seat/hc_disabled.svg) !important;\n  cursor: default;\n}\n\n.screen[_ngcontent-%COMP%]   .object[_ngcontent-%COMP%] {\n  position: absolute;\n  background-repeat: no-repeat;\n}\n\n.screen[_ngcontent-%COMP%]   .label-object[_ngcontent-%COMP%] {\n  text-align: center;\n  line-height: 50px;\n  font-size: 24px;\n  color: #9a9a9b;\n  font-weight: bold;\n}\n\n.screen-4dx[_ngcontent-%COMP%]   .seat[_ngcontent-%COMP%] {\n  background-image: url(/assets/images/seat/4dx.svg);\n  background-size: 50px 50px;\n}\n\n.screen-4dx[_ngcontent-%COMP%]   .seat.active[_ngcontent-%COMP%] {\n  color: #FFF;\n  background-image: url(/assets/images/seat/4dx_active.svg);\n}\n\n.screen-4dx[_ngcontent-%COMP%]   .seat.disabled[_ngcontent-%COMP%] {\n  color: #FFF;\n  background-image: url(/assets/images/seat/4dx_disabled.svg);\n  cursor: default;\n}\n\n.zoom[_ngcontent-%COMP%]   .screen-scroll[_ngcontent-%COMP%] {\n  overflow: auto;\n  transition: transform 0.2s;\n  -webkit-overflow-scrolling: touch;\n}\n\n.zoom[_ngcontent-%COMP%]   .seat[_ngcontent-%COMP%]   span[_ngcontent-%COMP%] {\n  display: block;\n}\n\n.zoom-btn[_ngcontent-%COMP%] {\n  display: none;\n  cursor: pointer;\n  position: absolute;\n  top: 10px;\n  right: 10px;\n  z-index: 10;\n  width: 50px;\n  height: 50px;\n  color: #FFF;\n  background-color: #3e3a39;\n  border-radius: 3px;\n  align-items: center;\n  justify-content: center;\n}\n\n.zoom-btn.active[_ngcontent-%COMP%] {\n  display: flex;\n}\n\n.zoom-btn.scroll[_ngcontent-%COMP%] {\n  position: fixed;\n}"];
     /***/
   },
 
@@ -12373,9 +12347,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     /* harmony import */
 
 
-    var _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_1___default =
-    /*#__PURE__*/
-    __webpack_require__.n(_cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_1__);
+    var _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_1__);
     /* harmony import */
 
 
@@ -12385,9 +12357,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     /* harmony import */
 
 
-    var moment__WEBPACK_IMPORTED_MODULE_2___default =
-    /*#__PURE__*/
-    __webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_2__);
+    var moment__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_2__);
     /* harmony import */
 
 
@@ -12435,9 +12405,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       });
     };
 
-    var ScreenComponent =
-    /*#__PURE__*/
-    function () {
+    var ScreenComponent = /*#__PURE__*/function () {
       function ScreenComponent(utilService, elementRef) {
         _classCallCheck(this, ScreenComponent);
 
@@ -12454,9 +12422,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       _createClass(ScreenComponent, [{
         key: "ngOnInit",
         value: function ngOnInit() {
-          return __awaiter(this, void 0, void 0,
-          /*#__PURE__*/
-          regeneratorRuntime.mark(function _callee19() {
+          return __awaiter(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee19() {
             return regeneratorRuntime.wrap(function _callee19$(_context19) {
               while (1) {
                 switch (_context19.prev = _context19.next) {
@@ -12520,9 +12486,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       }, {
         key: "ngAfterContentChecked",
         value: function ngAfterContentChecked() {
-          return __awaiter(this, void 0, void 0,
-          /*#__PURE__*/
-          regeneratorRuntime.mark(function _callee20() {
+          return __awaiter(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee20() {
             return regeneratorRuntime.wrap(function _callee20$(_context20) {
               while (1) {
                 switch (_context20.prev = _context20.next) {
@@ -12598,9 +12562,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       }, {
         key: "getScreenData",
         value: function getScreenData() {
-          return __awaiter(this, void 0, void 0,
-          /*#__PURE__*/
-          regeneratorRuntime.mark(function _callee21() {
+          return __awaiter(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee21() {
             var now, settingPath, setting, screenPath, screen, objects;
             return regeneratorRuntime.wrap(function _callee21$(_context21) {
               while (1) {
@@ -12730,9 +12692,9 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
           var columnMax = Number(columnMaxArray[columnMaxArray.length - 1].column);
           var map = [];
           var lineLabels = this.createLineLabel();
-          var _iteratorNormalCompletion4 = true;
-          var _didIteratorError4 = false;
-          var _iteratorError4 = undefined;
+
+          var _iterator4 = _createForOfIteratorHelper(lineLabels),
+              _step4;
 
           try {
             var _loop2 = function _loop2() {
@@ -12762,24 +12724,15 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
               map.push(lineMap);
             };
 
-            for (var _iterator4 = lineLabels[Symbol.iterator](), _step4; !(_iteratorNormalCompletion4 = (_step4 = _iterator4.next()).done); _iteratorNormalCompletion4 = true) {
+            for (_iterator4.s(); !(_step4 = _iterator4.n()).done;) {
               var _ret2 = _loop2();
 
               if (_ret2 === "break") break;
             }
           } catch (err) {
-            _didIteratorError4 = true;
-            _iteratorError4 = err;
+            _iterator4.e(err);
           } finally {
-            try {
-              if (!_iteratorNormalCompletion4 && _iterator4["return"] != null) {
-                _iterator4["return"]();
-              }
-            } finally {
-              if (_didIteratorError4) {
-                throw _iteratorError4;
-              }
-            }
+            _iterator4.f();
           }
 
           var space = 90;
@@ -13165,9 +13118,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     /*! @ngx-translate/core */
     "../../node_modules/@ngx-translate/core/fesm2015/ngx-translate-core.js");
 
-    var ChangeLanguagePipe =
-    /*#__PURE__*/
-    function () {
+    var ChangeLanguagePipe = /*#__PURE__*/function () {
       function ChangeLanguagePipe(translate) {
         _classCallCheck(this, ChangeLanguagePipe);
 
@@ -13241,13 +13192,9 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     /* harmony import */
 
 
-    var moment__WEBPACK_IMPORTED_MODULE_2___default =
-    /*#__PURE__*/
-    __webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_2__);
+    var moment__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_2__);
 
-    var FormatDatePipe =
-    /*#__PURE__*/
-    function () {
+    var FormatDatePipe = /*#__PURE__*/function () {
       function FormatDatePipe(translate) {
         _classCallCheck(this, FormatDatePipe);
 
@@ -13301,9 +13248,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     /*! libphonenumber-js */
     "../../node_modules/libphonenumber-js/index.es6.js");
 
-    var LibphonenumberFormatPipe =
-    /*#__PURE__*/
-    function () {
+    var LibphonenumberFormatPipe = /*#__PURE__*/function () {
       function LibphonenumberFormatPipe() {
         _classCallCheck(this, LibphonenumberFormatPipe);
       }
@@ -13527,9 +13472,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     /* harmony import */
 
 
-    var moment__WEBPACK_IMPORTED_MODULE_2___default =
-    /*#__PURE__*/
-    __webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_2__);
+    var moment__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_2__);
     /* harmony import */
 
 
@@ -13589,9 +13532,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       });
     };
 
-    var AdmissionService =
-    /*#__PURE__*/
-    function () {
+    var AdmissionService = /*#__PURE__*/function () {
       function AdmissionService(actions, store) {
         _classCallCheck(this, AdmissionService);
 
@@ -13608,9 +13549,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       _createClass(AdmissionService, [{
         key: "getData",
         value: function getData() {
-          return __awaiter(this, void 0, void 0,
-          /*#__PURE__*/
-          regeneratorRuntime.mark(function _callee22() {
+          return __awaiter(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee22() {
             var _this21 = this;
 
             return regeneratorRuntime.wrap(function _callee22$(_context22) {
@@ -13667,9 +13606,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       }, {
         key: "checkQrcodeToken",
         value: function checkQrcodeToken(code) {
-          return __awaiter(this, void 0, void 0,
-          /*#__PURE__*/
-          regeneratorRuntime.mark(function _callee24() {
+          return __awaiter(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee24() {
             var _this22 = this;
 
             return regeneratorRuntime.wrap(function _callee24$(_context24) {
@@ -13677,12 +13614,10 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                 switch (_context24.prev = _context24.next) {
                   case 0:
                     return _context24.abrupt("return", new Promise(function (resolve, reject) {
-                      return __awaiter(_this22, void 0, void 0,
-                      /*#__PURE__*/
-                      regeneratorRuntime.mark(function _callee23() {
+                      return __awaiter(_this22, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee23() {
                         var _this23 = this;
 
-                        var _ref, screeningEvent, specified, scheduleDate, success, fail;
+                        var _yield$this$getData, screeningEvent, specified, scheduleDate, success, fail;
 
                         return regeneratorRuntime.wrap(function _callee23$(_context23) {
                           while (1) {
@@ -13692,10 +13627,10 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                                 return this.getData();
 
                               case 2:
-                                _ref = _context23.sent;
-                                screeningEvent = _ref.screeningEvent;
-                                specified = _ref.specified;
-                                scheduleDate = _ref.scheduleDate;
+                                _yield$this$getData = _context23.sent;
+                                screeningEvent = _yield$this$getData.screeningEvent;
+                                specified = _yield$this$getData.specified;
+                                scheduleDate = _yield$this$getData.scheduleDate;
                                 this.store.dispatch(new _store_actions__WEBPACK_IMPORTED_MODULE_5__["admissionAction"].Check({
                                   code: code,
                                   screeningEvent: screeningEvent,
@@ -13736,9 +13671,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       }, {
         key: "getScreeningEvent",
         value: function getScreeningEvent(screeningEvent) {
-          return __awaiter(this, void 0, void 0,
-          /*#__PURE__*/
-          regeneratorRuntime.mark(function _callee25() {
+          return __awaiter(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee25() {
             var _this24 = this;
 
             return regeneratorRuntime.wrap(function _callee25$(_context25) {
@@ -13820,9 +13753,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     /* harmony import */
 
 
-    var _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_1___default =
-    /*#__PURE__*/
-    __webpack_require__.n(_cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_1__);
+    var _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_1__);
     /* harmony import */
 
 
@@ -13864,9 +13795,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       });
     };
 
-    var CinerinoService =
-    /*#__PURE__*/
-    function () {
+    var CinerinoService = /*#__PURE__*/function () {
       function CinerinoService(http) {
         _classCallCheck(this, CinerinoService);
 
@@ -13880,9 +13809,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       _createClass(CinerinoService, [{
         key: "getServices",
         value: function getServices() {
-          return __awaiter(this, void 0, void 0,
-          /*#__PURE__*/
-          regeneratorRuntime.mark(function _callee26() {
+          return __awaiter(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee26() {
             var option;
             return regeneratorRuntime.wrap(function _callee26$(_context26) {
               while (1) {
@@ -13941,9 +13868,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       }, {
         key: "createOption",
         value: function createOption() {
-          return __awaiter(this, void 0, void 0,
-          /*#__PURE__*/
-          regeneratorRuntime.mark(function _callee27() {
+          return __awaiter(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee27() {
             return regeneratorRuntime.wrap(function _callee27$(_context27) {
               while (1) {
                 switch (_context27.prev = _context27.next) {
@@ -13975,9 +13900,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       }, {
         key: "authorize",
         value: function authorize() {
-          return __awaiter(this, void 0, void 0,
-          /*#__PURE__*/
-          regeneratorRuntime.mark(function _callee28() {
+          return __awaiter(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee28() {
             var url, body, result;
             return regeneratorRuntime.wrap(function _callee28$(_context28) {
               while (1) {
@@ -14034,9 +13957,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       }, {
         key: "signIn",
         value: function signIn() {
-          return __awaiter(this, void 0, void 0,
-          /*#__PURE__*/
-          regeneratorRuntime.mark(function _callee29() {
+          return __awaiter(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee29() {
             var url, result;
             return regeneratorRuntime.wrap(function _callee29$(_context29) {
               while (1) {
@@ -14066,9 +13987,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       }, {
         key: "signOut",
         value: function signOut() {
-          return __awaiter(this, void 0, void 0,
-          /*#__PURE__*/
-          regeneratorRuntime.mark(function _callee30() {
+          return __awaiter(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee30() {
             var url, result;
             return regeneratorRuntime.wrap(function _callee30$(_context30) {
               while (1) {
@@ -14098,9 +14017,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       }, {
         key: "getPassport",
         value: function getPassport(selleId) {
-          return __awaiter(this, void 0, void 0,
-          /*#__PURE__*/
-          regeneratorRuntime.mark(function _callee31() {
+          return __awaiter(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee31() {
             var url, body, result;
             return regeneratorRuntime.wrap(function _callee31$(_context31) {
               while (1) {
@@ -14178,9 +14095,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     /* harmony import */
 
 
-    var json2csv__WEBPACK_IMPORTED_MODULE_0___default =
-    /*#__PURE__*/
-    __webpack_require__.n(json2csv__WEBPACK_IMPORTED_MODULE_0__);
+    var json2csv__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(json2csv__WEBPACK_IMPORTED_MODULE_0__);
     /* harmony import */
 
 
@@ -14246,9 +14161,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       });
     };
 
-    var DownloadService =
-    /*#__PURE__*/
-    function () {
+    var DownloadService = /*#__PURE__*/function () {
       function DownloadService(cinerino, utilService, orderService, reservationService) {
         _classCallCheck(this, DownloadService);
 
@@ -14265,9 +14178,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       _createClass(DownloadService, [{
         key: "order",
         value: function order(params) {
-          return __awaiter(this, void 0, void 0,
-          /*#__PURE__*/
-          regeneratorRuntime.mark(function _callee32() {
+          return __awaiter(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee32() {
             var searchResult, path, url, fields, opts, data, csv, blob, fileName;
             return regeneratorRuntime.wrap(function _callee32$(_context32) {
               while (1) {
@@ -14337,9 +14248,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       }, {
         key: "reservation",
         value: function reservation(params) {
-          return __awaiter(this, void 0, void 0,
-          /*#__PURE__*/
-          regeneratorRuntime.mark(function _callee33() {
+          return __awaiter(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee33() {
             var searchResult, path, url, fields, opts, data, csv, blob, fileName;
             return regeneratorRuntime.wrap(function _callee33$(_context33) {
               while (1) {
@@ -14405,9 +14314,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       }, {
         key: "person",
         value: function person(params) {
-          return __awaiter(this, void 0, void 0,
-          /*#__PURE__*/
-          regeneratorRuntime.mark(function _callee34() {
+          return __awaiter(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee34() {
             var url, fields, opts, limit, page, roop, persons, searchResult, data;
             return regeneratorRuntime.wrap(function _callee34$(_context34) {
               while (1) {
@@ -14477,9 +14384,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       }, {
         key: "splitDownload",
         value: function splitDownload(filename, data, opts, split) {
-          return __awaiter(this, void 0, void 0,
-          /*#__PURE__*/
-          regeneratorRuntime.mark(function _callee35() {
+          return __awaiter(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee35() {
             var limit, i, splitData, csv, blob, fileName;
             return regeneratorRuntime.wrap(function _callee35$(_context35) {
               while (1) {
@@ -14729,9 +14634,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     /* harmony import */
 
 
-    var _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_0___default =
-    /*#__PURE__*/
-    __webpack_require__.n(_cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_0__);
+    var _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_0__);
     /* harmony import */
 
 
@@ -14753,9 +14656,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     /* harmony import */
 
 
-    var moment__WEBPACK_IMPORTED_MODULE_3___default =
-    /*#__PURE__*/
-    __webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_3__);
+    var moment__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_3__);
     /* harmony import */
 
 
@@ -14833,9 +14734,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       });
     };
 
-    var MasterService =
-    /*#__PURE__*/
-    function () {
+    var MasterService = /*#__PURE__*/function () {
       function MasterService(actions, store, cinerinoService, utilService) {
         _classCallCheck(this, MasterService);
 
@@ -14854,9 +14753,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       _createClass(MasterService, [{
         key: "getData",
         value: function getData() {
-          return __awaiter(this, void 0, void 0,
-          /*#__PURE__*/
-          regeneratorRuntime.mark(function _callee36() {
+          return __awaiter(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee36() {
             var _this25 = this;
 
             return regeneratorRuntime.wrap(function _callee36$(_context36) {
@@ -14891,9 +14788,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       }, {
         key: "getSellers",
         value: function getSellers(params) {
-          return __awaiter(this, void 0, void 0,
-          /*#__PURE__*/
-          regeneratorRuntime.mark(function _callee37() {
+          return __awaiter(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee37() {
             var searchResult;
             return regeneratorRuntime.wrap(function _callee37$(_context37) {
               while (1) {
@@ -14937,9 +14832,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       }, {
         key: "getTheaters",
         value: function getTheaters(params) {
-          return __awaiter(this, void 0, void 0,
-          /*#__PURE__*/
-          regeneratorRuntime.mark(function _callee38() {
+          return __awaiter(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee38() {
             var searchResult;
             return regeneratorRuntime.wrap(function _callee38$(_context38) {
               while (1) {
@@ -14983,9 +14876,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       }, {
         key: "getSchedule",
         value: function getSchedule(params) {
-          return __awaiter(this, void 0, void 0,
-          /*#__PURE__*/
-          regeneratorRuntime.mark(function _callee39() {
+          return __awaiter(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee39() {
             var limit, page, roop, screeningEvents, searchResult;
             return regeneratorRuntime.wrap(function _callee39$(_context39) {
               while (1) {
@@ -15080,9 +14971,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       }, {
         key: "getProjects",
         value: function getProjects() {
-          return __awaiter(this, void 0, void 0,
-          /*#__PURE__*/
-          regeneratorRuntime.mark(function _callee40() {
+          return __awaiter(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee40() {
             var _this26 = this;
 
             return regeneratorRuntime.wrap(function _callee40$(_context40) {
@@ -15168,9 +15057,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     /* harmony import */
 
 
-    var moment__WEBPACK_IMPORTED_MODULE_2___default =
-    /*#__PURE__*/
-    __webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_2__);
+    var moment__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_2__);
     /* harmony import */
 
 
@@ -15248,9 +15135,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       });
     };
 
-    var OrderService =
-    /*#__PURE__*/
-    function () {
+    var OrderService = /*#__PURE__*/function () {
       function OrderService(store, actions, cinerinoService, utilService) {
         _classCallCheck(this, OrderService);
 
@@ -15269,9 +15154,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       _createClass(OrderService, [{
         key: "getData",
         value: function getData() {
-          return __awaiter(this, void 0, void 0,
-          /*#__PURE__*/
-          regeneratorRuntime.mark(function _callee41() {
+          return __awaiter(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee41() {
             var _this27 = this;
 
             return regeneratorRuntime.wrap(function _callee41$(_context41) {
@@ -15308,9 +15191,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       }, {
         key: "search",
         value: function search(params) {
-          return __awaiter(this, void 0, void 0,
-          /*#__PURE__*/
-          regeneratorRuntime.mark(function _callee42() {
+          return __awaiter(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee42() {
             var searchResult;
             return regeneratorRuntime.wrap(function _callee42$(_context42) {
               while (1) {
@@ -15354,9 +15235,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       }, {
         key: "splitSearch",
         value: function splitSearch(params) {
-          return __awaiter(this, void 0, void 0,
-          /*#__PURE__*/
-          regeneratorRuntime.mark(function _callee43() {
+          return __awaiter(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee43() {
             var orders, splitDay, splitCount, i, limit, page, roop, orderDateThrough, orderDateFrom, searchResult;
             return regeneratorRuntime.wrap(function _callee43$(_context43) {
               while (1) {
@@ -15447,9 +15326,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       }, {
         key: "cancel",
         value: function cancel(params) {
-          return __awaiter(this, void 0, void 0,
-          /*#__PURE__*/
-          regeneratorRuntime.mark(function _callee44() {
+          return __awaiter(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee44() {
             var _this28 = this;
 
             var identifier;
@@ -15501,9 +15378,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       }, {
         key: "inquiry",
         value: function inquiry(params) {
-          return __awaiter(this, void 0, void 0,
-          /*#__PURE__*/
-          regeneratorRuntime.mark(function _callee45() {
+          return __awaiter(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee45() {
             var _this29 = this;
 
             return regeneratorRuntime.wrap(function _callee45$(_context45) {
@@ -15541,9 +15416,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       }, {
         key: "print",
         value: function print(prams) {
-          return __awaiter(this, void 0, void 0,
-          /*#__PURE__*/
-          regeneratorRuntime.mark(function _callee46() {
+          return __awaiter(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee46() {
             var _this30 = this;
 
             return regeneratorRuntime.wrap(function _callee46$(_context46) {
@@ -15589,9 +15462,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       }, {
         key: "authorize",
         value: function authorize(order) {
-          return __awaiter(this, void 0, void 0,
-          /*#__PURE__*/
-          regeneratorRuntime.mark(function _callee47() {
+          return __awaiter(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee47() {
             var _this31 = this;
 
             return regeneratorRuntime.wrap(function _callee47$(_context47) {
@@ -15670,9 +15541,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     /* harmony import */
 
 
-    var _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_0___default =
-    /*#__PURE__*/
-    __webpack_require__.n(_cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_0__);
+    var _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_0__);
     /* harmony import */
 
 
@@ -15694,9 +15563,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     /* harmony import */
 
 
-    var moment__WEBPACK_IMPORTED_MODULE_3___default =
-    /*#__PURE__*/
-    __webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_3__);
+    var moment__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_3__);
     /* harmony import */
 
 
@@ -15786,9 +15653,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       });
     };
 
-    var PurchaseService =
-    /*#__PURE__*/
-    function () {
+    var PurchaseService = /*#__PURE__*/function () {
       function PurchaseService(actions, store, utilService, cinerinoService) {
         _classCallCheck(this, PurchaseService);
 
@@ -15807,9 +15672,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       _createClass(PurchaseService, [{
         key: "getData",
         value: function getData() {
-          return __awaiter(this, void 0, void 0,
-          /*#__PURE__*/
-          regeneratorRuntime.mark(function _callee48() {
+          return __awaiter(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee48() {
             var _this32 = this;
 
             return regeneratorRuntime.wrap(function _callee48$(_context48) {
@@ -15893,9 +15756,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       }, {
         key: "getScreeningEvent",
         value: function getScreeningEvent(screeningEvent) {
-          return __awaiter(this, void 0, void 0,
-          /*#__PURE__*/
-          regeneratorRuntime.mark(function _callee49() {
+          return __awaiter(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee49() {
             var _this34 = this;
 
             return regeneratorRuntime.wrap(function _callee49$(_context49) {
@@ -15935,9 +15796,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       }, {
         key: "startTransaction",
         value: function startTransaction(params) {
-          return __awaiter(this, void 0, void 0,
-          /*#__PURE__*/
-          regeneratorRuntime.mark(function _callee50() {
+          return __awaiter(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee50() {
             var _this35 = this;
 
             var environment, now, identifier;
@@ -15999,9 +15858,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       }, {
         key: "cancelTransaction",
         value: function cancelTransaction() {
-          return __awaiter(this, void 0, void 0,
-          /*#__PURE__*/
-          regeneratorRuntime.mark(function _callee51() {
+          return __awaiter(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee51() {
             var _this36 = this;
 
             var purchase;
@@ -16077,9 +15934,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       }, {
         key: "getScreeningEventSeats",
         value: function getScreeningEventSeats() {
-          return __awaiter(this, void 0, void 0,
-          /*#__PURE__*/
-          regeneratorRuntime.mark(function _callee52() {
+          return __awaiter(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee52() {
             var purchase, screeningEvent, limit, page, roop, screeningEventSeats, searchResult;
             return regeneratorRuntime.wrap(function _callee52$(_context52) {
               while (1) {
@@ -16195,9 +16050,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       }, {
         key: "getTicketList",
         value: function getTicketList(params) {
-          return __awaiter(this, void 0, void 0,
-          /*#__PURE__*/
-          regeneratorRuntime.mark(function _callee53() {
+          return __awaiter(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee53() {
             var _this38 = this;
 
             var purchase;
@@ -16262,9 +16115,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       }, {
         key: "temporaryReservation",
         value: function temporaryReservation(params) {
-          return __awaiter(this, void 0, void 0,
-          /*#__PURE__*/
-          regeneratorRuntime.mark(function _callee54() {
+          return __awaiter(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee54() {
             var _this39 = this;
 
             var additionalTicketText, reservations, purchase;
@@ -16335,9 +16186,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       }, {
         key: "cancelTemporaryReservations",
         value: function cancelTemporaryReservations(authorizeSeatReservations) {
-          return __awaiter(this, void 0, void 0,
-          /*#__PURE__*/
-          regeneratorRuntime.mark(function _callee55() {
+          return __awaiter(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee55() {
             var _this40 = this;
 
             return regeneratorRuntime.wrap(function _callee55$(_context55) {
@@ -16377,9 +16226,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       }, {
         key: "registerContact",
         value: function registerContact(contact) {
-          return __awaiter(this, void 0, void 0,
-          /*#__PURE__*/
-          regeneratorRuntime.mark(function _callee56() {
+          return __awaiter(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee56() {
             var _this41 = this;
 
             var purchase, transaction;
@@ -16439,9 +16286,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       }, {
         key: "authorizeMovieTicket",
         value: function authorizeMovieTicket(params) {
-          return __awaiter(this, void 0, void 0,
-          /*#__PURE__*/
-          regeneratorRuntime.mark(function _callee57() {
+          return __awaiter(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee57() {
             var _this42 = this;
 
             var purchase;
@@ -16496,9 +16341,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       }, {
         key: "checkMovieTicket",
         value: function checkMovieTicket(params) {
-          return __awaiter(this, void 0, void 0,
-          /*#__PURE__*/
-          regeneratorRuntime.mark(function _callee58() {
+          return __awaiter(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee58() {
             var _this43 = this;
 
             var movieTicket, seller, purchase;
@@ -16559,9 +16402,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       }, {
         key: "endTransaction",
         value: function endTransaction(params) {
-          return __awaiter(this, void 0, void 0,
-          /*#__PURE__*/
-          regeneratorRuntime.mark(function _callee59() {
+          return __awaiter(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee59() {
             var _this44 = this;
 
             var purchase, seller, language;
@@ -16627,9 +16468,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       }, {
         key: "authorizeAnyPayment",
         value: function authorizeAnyPayment(params) {
-          return __awaiter(this, void 0, void 0,
-          /*#__PURE__*/
-          regeneratorRuntime.mark(function _callee60() {
+          return __awaiter(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee60() {
             var _this45 = this;
 
             var purchase;
@@ -16768,9 +16607,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     /*! ngx-bootstrap/modal */
     "../../node_modules/ngx-bootstrap/modal/fesm2015/ngx-bootstrap-modal.js");
 
-    var QRCodeService =
-    /*#__PURE__*/
-    function () {
+    var QRCodeService = /*#__PURE__*/function () {
       function QRCodeService(modal) {
         _classCallCheck(this, QRCodeService);
 
@@ -16860,9 +16697,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     /* harmony import */
 
 
-    var moment__WEBPACK_IMPORTED_MODULE_1___default =
-    /*#__PURE__*/
-    __webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_1__);
+    var moment__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_1__);
     /* harmony import */
 
 
@@ -16928,9 +16763,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       });
     };
 
-    var ReservationService =
-    /*#__PURE__*/
-    function () {
+    var ReservationService = /*#__PURE__*/function () {
       function ReservationService(store, cinerinoService, utilService) {
         _classCallCheck(this, ReservationService);
 
@@ -16948,9 +16781,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       _createClass(ReservationService, [{
         key: "getData",
         value: function getData() {
-          return __awaiter(this, void 0, void 0,
-          /*#__PURE__*/
-          regeneratorRuntime.mark(function _callee61() {
+          return __awaiter(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee61() {
             var _this46 = this;
 
             return regeneratorRuntime.wrap(function _callee61$(_context61) {
@@ -16987,9 +16818,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       }, {
         key: "search",
         value: function search(params) {
-          return __awaiter(this, void 0, void 0,
-          /*#__PURE__*/
-          regeneratorRuntime.mark(function _callee62() {
+          return __awaiter(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee62() {
             var searchResult;
             return regeneratorRuntime.wrap(function _callee62$(_context62) {
               while (1) {
@@ -17033,9 +16862,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       }, {
         key: "splitSearch",
         value: function splitSearch(params) {
-          return __awaiter(this, void 0, void 0,
-          /*#__PURE__*/
-          regeneratorRuntime.mark(function _callee63() {
+          return __awaiter(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee63() {
             var reservations, splitDay, splitCount, i, limit, page, roop, bookingThrough, bookingFrom, searchResult;
             return regeneratorRuntime.wrap(function _callee63$(_context63) {
               while (1) {
@@ -17200,9 +17027,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       });
     };
 
-    var StarPrintService =
-    /*#__PURE__*/
-    function () {
+    var StarPrintService = /*#__PURE__*/function () {
       function StarPrintService() {
         _classCallCheck(this, StarPrintService);
       }
@@ -17214,9 +17039,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       _createClass(StarPrintService, [{
         key: "printProcess",
         value: function printProcess(args) {
-          return __awaiter(this, void 0, void 0,
-          /*#__PURE__*/
-          regeneratorRuntime.mark(function _callee64() {
+          return __awaiter(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee64() {
             var printerRequests, canvasList, testFlg, divide, divideRequests, divideRequest, _i3, _divideRequests, printerRequest;
 
             return regeneratorRuntime.wrap(function _callee64$(_context64) {
@@ -17452,9 +17275,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       }, {
         key: "createTestPrinterRequest",
         value: function createTestPrinterRequest(canvas) {
-          return __awaiter(this, void 0, void 0,
-          /*#__PURE__*/
-          regeneratorRuntime.mark(function _callee65() {
+          return __awaiter(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee65() {
             var request;
             return regeneratorRuntime.wrap(function _callee65$(_context65) {
               while (1) {
@@ -17490,84 +17311,63 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       }, {
         key: "createPrinterRequestList",
         value: function createPrinterRequestList(canvasList) {
-          return __awaiter(this, void 0, void 0,
-          /*#__PURE__*/
-          regeneratorRuntime.mark(function _callee66() {
-            var printerRequests, _iteratorNormalCompletion5, _didIteratorError5, _iteratorError5, _iterator5, _step5, _canvas, printerRequest;
+          return __awaiter(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee66() {
+            var printerRequests, _iterator5, _step5, _canvas, printerRequest;
 
             return regeneratorRuntime.wrap(function _callee66$(_context66) {
               while (1) {
                 switch (_context66.prev = _context66.next) {
                   case 0:
                     printerRequests = [];
-                    _iteratorNormalCompletion5 = true;
-                    _didIteratorError5 = false;
-                    _iteratorError5 = undefined;
-                    _context66.prev = 4;
-                    _iterator5 = canvasList[Symbol.iterator]();
+                    _iterator5 = _createForOfIteratorHelper(canvasList);
+                    _context66.prev = 2;
 
-                  case 6:
-                    if (_iteratorNormalCompletion5 = (_step5 = _iterator5.next()).done) {
-                      _context66.next = 15;
+                    _iterator5.s();
+
+                  case 4:
+                    if ((_step5 = _iterator5.n()).done) {
+                      _context66.next = 12;
                       break;
                     }
 
                     _canvas = _step5.value;
-                    _context66.next = 10;
+                    _context66.next = 8;
                     return this.createPrinterRequest(_canvas);
 
-                  case 10:
+                  case 8:
                     printerRequest = _context66.sent;
                     printerRequests.push(printerRequest);
 
-                  case 12:
-                    _iteratorNormalCompletion5 = true;
-                    _context66.next = 6;
+                  case 10:
+                    _context66.next = 4;
                     break;
 
-                  case 15:
-                    _context66.next = 21;
+                  case 12:
+                    _context66.next = 17;
                     break;
+
+                  case 14:
+                    _context66.prev = 14;
+                    _context66.t0 = _context66["catch"](2);
+
+                    _iterator5.e(_context66.t0);
 
                   case 17:
                     _context66.prev = 17;
-                    _context66.t0 = _context66["catch"](4);
-                    _didIteratorError5 = true;
-                    _iteratorError5 = _context66.t0;
 
-                  case 21:
-                    _context66.prev = 21;
-                    _context66.prev = 22;
+                    _iterator5.f();
 
-                    if (!_iteratorNormalCompletion5 && _iterator5["return"] != null) {
-                      _iterator5["return"]();
-                    }
+                    return _context66.finish(17);
 
-                  case 24:
-                    _context66.prev = 24;
-
-                    if (!_didIteratorError5) {
-                      _context66.next = 27;
-                      break;
-                    }
-
-                    throw _iteratorError5;
-
-                  case 27:
-                    return _context66.finish(24);
-
-                  case 28:
-                    return _context66.finish(21);
-
-                  case 29:
+                  case 20:
                     return _context66.abrupt("return", printerRequests);
 
-                  case 30:
+                  case 21:
                   case "end":
                     return _context66.stop();
                 }
               }
-            }, _callee66, this, [[4, 17, 21, 29], [22,, 24, 28]]);
+            }, _callee66, this, [[2, 14, 17, 20]]);
           }));
         }
         /**
@@ -17577,9 +17377,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       }, {
         key: "print",
         value: function print(args) {
-          return __awaiter(this, void 0, void 0,
-          /*#__PURE__*/
-          regeneratorRuntime.mark(function _callee67() {
+          return __awaiter(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee67() {
             var _this47 = this;
 
             return regeneratorRuntime.wrap(function _callee67$(_context67) {
@@ -17686,9 +17484,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     /* harmony import */
 
 
-    var moment__WEBPACK_IMPORTED_MODULE_2___default =
-    /*#__PURE__*/
-    __webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_2__);
+    var moment__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_2__);
     /* harmony import */
 
 
@@ -17742,9 +17538,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       });
     };
 
-    var UserService =
-    /*#__PURE__*/
-    function () {
+    var UserService = /*#__PURE__*/function () {
       function UserService(store, translate, utilService) {
         _classCallCheck(this, UserService);
 
@@ -17761,9 +17555,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       _createClass(UserService, [{
         key: "getData",
         value: function getData() {
-          return __awaiter(this, void 0, void 0,
-          /*#__PURE__*/
-          regeneratorRuntime.mark(function _callee68() {
+          return __awaiter(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee68() {
             var _this48 = this;
 
             return regeneratorRuntime.wrap(function _callee68$(_context68) {
@@ -17829,10 +17621,8 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       }, {
         key: "checkVersion",
         value: function checkVersion() {
-          return __awaiter(this, void 0, void 0,
-          /*#__PURE__*/
-          regeneratorRuntime.mark(function _callee69() {
-            var query, _ref2, version, data;
+          return __awaiter(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee69() {
+            var query, _yield$this$utilServi, version, data;
 
             return regeneratorRuntime.wrap(function _callee69$(_context69) {
               while (1) {
@@ -17843,8 +17633,8 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                     return this.utilService.getJson("/api/version".concat(query));
 
                   case 3:
-                    _ref2 = _context69.sent;
-                    version = _ref2.version;
+                    _yield$this$utilServi = _context69.sent;
+                    version = _yield$this$utilServi.version;
                     _context69.next = 7;
                     return this.getData();
 
@@ -17983,9 +17773,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       });
     };
 
-    var UtilService =
-    /*#__PURE__*/
-    function () {
+    var UtilService = /*#__PURE__*/function () {
       function UtilService(modal, http, store) {
         _classCallCheck(this, UtilService);
 
@@ -18040,9 +17828,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       }, {
         key: "getServerTime",
         value: function getServerTime() {
-          return __awaiter(this, void 0, void 0,
-          /*#__PURE__*/
-          regeneratorRuntime.mark(function _callee70() {
+          return __awaiter(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee70() {
             var result;
             return regeneratorRuntime.wrap(function _callee70$(_context70) {
               while (1) {
@@ -18070,9 +17856,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       }, {
         key: "getJson",
         value: function getJson(url, options) {
-          return __awaiter(this, void 0, void 0,
-          /*#__PURE__*/
-          regeneratorRuntime.mark(function _callee71() {
+          return __awaiter(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee71() {
             var result;
             return regeneratorRuntime.wrap(function _callee71$(_context71) {
               while (1) {
@@ -18100,9 +17884,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       }, {
         key: "postJson",
         value: function postJson(url, body, options) {
-          return __awaiter(this, void 0, void 0,
-          /*#__PURE__*/
-          regeneratorRuntime.mark(function _callee72() {
+          return __awaiter(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee72() {
             var result;
             return regeneratorRuntime.wrap(function _callee72$(_context72) {
               while (1) {
@@ -18130,9 +17912,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       }, {
         key: "getText",
         value: function getText(url, options) {
-          return __awaiter(this, void 0, void 0,
-          /*#__PURE__*/
-          regeneratorRuntime.mark(function _callee73() {
+          return __awaiter(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee73() {
             var result;
             return regeneratorRuntime.wrap(function _callee73$(_context73) {
               while (1) {
@@ -18162,9 +17942,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       }, {
         key: "encryptionEncode",
         value: function encryptionEncode(encyptText) {
-          return __awaiter(this, void 0, void 0,
-          /*#__PURE__*/
-          regeneratorRuntime.mark(function _callee74() {
+          return __awaiter(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee74() {
             var encryptedResult;
             return regeneratorRuntime.wrap(function _callee74$(_context74) {
               while (1) {
@@ -18194,9 +17972,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       }, {
         key: "encryptionDecode",
         value: function encryptionDecode(encryptedResult) {
-          return __awaiter(this, void 0, void 0,
-          /*#__PURE__*/
-          regeneratorRuntime.mark(function _callee75() {
+          return __awaiter(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee75() {
             var decryptedResult;
             return regeneratorRuntime.wrap(function _callee75$(_context75) {
               while (1) {
@@ -20388,9 +20164,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     /* harmony import */
 
 
-    var _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_0___default =
-    /*#__PURE__*/
-    __webpack_require__.n(_cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_0__);
+    var _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_0__);
     /* harmony import */
 
 
@@ -20406,9 +20180,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     /* harmony import */
 
 
-    var http_status__WEBPACK_IMPORTED_MODULE_2___default =
-    /*#__PURE__*/
-    __webpack_require__.n(http_status__WEBPACK_IMPORTED_MODULE_2__);
+    var http_status__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(http_status__WEBPACK_IMPORTED_MODULE_2__);
     /* harmony import */
 
 
@@ -20418,9 +20190,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     /* harmony import */
 
 
-    var jwt_decode__WEBPACK_IMPORTED_MODULE_3___default =
-    /*#__PURE__*/
-    __webpack_require__.n(jwt_decode__WEBPACK_IMPORTED_MODULE_3__);
+    var jwt_decode__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(jwt_decode__WEBPACK_IMPORTED_MODULE_3__);
     /* harmony import */
 
 
@@ -20430,9 +20200,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     /* harmony import */
 
 
-    var moment__WEBPACK_IMPORTED_MODULE_4___default =
-    /*#__PURE__*/
-    __webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_4__);
+    var moment__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_4__);
     /* harmony import */
 
 
@@ -20518,9 +20286,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       this.getScreeningEvent = this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_1__["ofType"])(_actions__WEBPACK_IMPORTED_MODULE_8__["admissionAction"].ActionTypes.GetScreeningEvent), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["map"])(function (action) {
         return action.payload;
       }), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["mergeMap"])(function (payload) {
-        return __awaiter(_this49, void 0, void 0,
-        /*#__PURE__*/
-        regeneratorRuntime.mark(function _callee76() {
+        return __awaiter(_this49, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee76() {
           var screeningEvent;
           return regeneratorRuntime.wrap(function _callee76$(_context76) {
             while (1) {
@@ -20564,10 +20330,8 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       this.check = this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_1__["ofType"])(_actions__WEBPACK_IMPORTED_MODULE_8__["admissionAction"].ActionTypes.Check), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["map"])(function (action) {
         return action.payload;
       }), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["mergeMap"])(function (payload) {
-        return __awaiter(_this49, void 0, void 0,
-        /*#__PURE__*/
-        regeneratorRuntime.mark(function _callee77() {
-          var code, screeningEvent, scheduleDate, specified, _ref3, token, decodeResult, checkTokenActions, searchResult, statusCode, findScreeningEventResult, id;
+        return __awaiter(_this49, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee77() {
+          var code, screeningEvent, scheduleDate, specified, _yield$this$cinerino$, token, decodeResult, checkTokenActions, searchResult, statusCode, findScreeningEventResult, id;
 
           return regeneratorRuntime.wrap(function _callee77$(_context77) {
             while (1) {
@@ -20589,8 +20353,8 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                   });
 
                 case 9:
-                  _ref3 = _context77.sent;
-                  token = _ref3.token;
+                  _yield$this$cinerino$ = _context77.sent;
+                  token = _yield$this$cinerino$.token;
                   decodeResult = jwt_decode__WEBPACK_IMPORTED_MODULE_3__(token);
                   _context77.next = 14;
                   return this.cinerino.admin.ownershipInfo.searchCheckTokenActions({
@@ -20794,9 +20558,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       this.GetProjects = this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_0__["ofType"])(_actions__WEBPACK_IMPORTED_MODULE_4__["masterAction"].ActionTypes.GetProjects), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_1__["map"])(function (action) {
         return action.payload;
       }), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_1__["mergeMap"])(function () {
-        return __awaiter(_this50, void 0, void 0,
-        /*#__PURE__*/
-        regeneratorRuntime.mark(function _callee78() {
+        return __awaiter(_this50, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee78() {
           var limit, page, roop, projects, searchResult;
           return regeneratorRuntime.wrap(function _callee78$(_context78) {
             while (1) {
@@ -20891,9 +20653,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     /* harmony import */
 
 
-    var _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_0___default =
-    /*#__PURE__*/
-    __webpack_require__.n(_cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_0__);
+    var _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_0__);
     /* harmony import */
 
 
@@ -20915,9 +20675,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     /* harmony import */
 
 
-    var moment__WEBPACK_IMPORTED_MODULE_3___default =
-    /*#__PURE__*/
-    __webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_3__);
+    var moment__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_3__);
     /* harmony import */
 
 
@@ -21018,12 +20776,10 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       this.cancel = this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_1__["ofType"])(_actions__WEBPACK_IMPORTED_MODULE_9__["orderAction"].ActionTypes.Cancel), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["map"])(function (action) {
         return action.payload;
       }), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["mergeMap"])(function (payload) {
-        return __awaiter(_this51, void 0, void 0,
-        /*#__PURE__*/
-        regeneratorRuntime.mark(function _callee80() {
+        return __awaiter(_this51, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee80() {
           var _this52 = this;
 
-          var orders, environment, agent, _iteratorNormalCompletion6, _didIteratorError6, _iteratorError6, _loop6, _iterator6, _step6, orderStatusWatch;
+          var orders, environment, agent, _iterator6, _step6, _loop6, orderStatusWatch;
 
           return regeneratorRuntime.wrap(function _callee80$(_context81) {
             while (1) {
@@ -21037,13 +20793,9 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                   return this.cinerino.getServices();
 
                 case 6:
-                  _iteratorNormalCompletion6 = true;
-                  _didIteratorError6 = false;
-                  _iteratorError6 = undefined;
-                  _context81.prev = 9;
-                  _loop6 =
-                  /*#__PURE__*/
-                  regeneratorRuntime.mark(function _loop6() {
+                  _iterator6 = _createForOfIteratorHelper(orders);
+                  _context81.prev = 7;
+                  _loop6 = /*#__PURE__*/regeneratorRuntime.mark(function _loop6() {
                     var order, startResult, creditCards, email, path, url, view, template, refundCreditCardEmail, _path, _url, _view, _template;
 
                     return regeneratorRuntime.wrap(function _loop6$(_context80) {
@@ -21221,61 +20973,42 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                       }
                     }, _loop6);
                   });
-                  _iterator6 = orders[Symbol.iterator]();
 
-                case 12:
-                  if (_iteratorNormalCompletion6 = (_step6 = _iterator6.next()).done) {
-                    _context81.next = 17;
+                  _iterator6.s();
+
+                case 10:
+                  if ((_step6 = _iterator6.n()).done) {
+                    _context81.next = 14;
                     break;
                   }
 
-                  return _context81.delegateYield(_loop6(), "t0", 14);
+                  return _context81.delegateYield(_loop6(), "t0", 12);
+
+                case 12:
+                  _context81.next = 10;
+                  break;
 
                 case 14:
-                  _iteratorNormalCompletion6 = true;
-                  _context81.next = 12;
+                  _context81.next = 19;
                   break;
 
-                case 17:
-                  _context81.next = 23;
-                  break;
+                case 16:
+                  _context81.prev = 16;
+                  _context81.t1 = _context81["catch"](7);
+
+                  _iterator6.e(_context81.t1);
 
                 case 19:
                   _context81.prev = 19;
-                  _context81.t1 = _context81["catch"](9);
-                  _didIteratorError6 = true;
-                  _iteratorError6 = _context81.t1;
 
-                case 23:
-                  _context81.prev = 23;
-                  _context81.prev = 24;
+                  _iterator6.f();
 
-                  if (!_iteratorNormalCompletion6 && _iterator6["return"] != null) {
-                    _iterator6["return"]();
-                  }
+                  return _context81.finish(19);
 
-                case 26:
-                  _context81.prev = 26;
-
-                  if (!_didIteratorError6) {
-                    _context81.next = 29;
-                    break;
-                  }
-
-                  throw _iteratorError6;
-
-                case 29:
-                  return _context81.finish(26);
-
-                case 30:
-                  return _context81.finish(23);
-
-                case 31:
+                case 22:
                   orderStatusWatch = function orderStatusWatch() {
                     return new Promise(function (resolve, reject) {
-                      return __awaiter(_this52, void 0, void 0,
-                      /*#__PURE__*/
-                      regeneratorRuntime.mark(function _callee79() {
+                      return __awaiter(_this52, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee79() {
                         var limit, i, searchResult, filterResult;
                         return regeneratorRuntime.wrap(function _callee79$(_context79) {
                           while (1) {
@@ -21349,25 +21082,25 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                     });
                   };
 
-                  _context81.next = 34;
+                  _context81.next = 25;
                   return orderStatusWatch();
 
-                case 34:
+                case 25:
                   return _context81.abrupt("return", new _actions__WEBPACK_IMPORTED_MODULE_9__["orderAction"].CancelSuccess());
 
-                case 37:
-                  _context81.prev = 37;
+                case 28:
+                  _context81.prev = 28;
                   _context81.t2 = _context81["catch"](3);
                   return _context81.abrupt("return", new _actions__WEBPACK_IMPORTED_MODULE_9__["orderAction"].CancelFail({
                     error: _context81.t2
                   }));
 
-                case 40:
+                case 31:
                 case "end":
                   return _context81.stop();
               }
             }
-          }, _callee80, this, [[3, 37], [9, 19, 23, 31], [24,, 26, 30]]);
+          }, _callee80, this, [[3, 28], [7, 16, 19, 22]]);
         }));
       }));
       /**
@@ -21377,9 +21110,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       this.inquiry = this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_1__["ofType"])(_actions__WEBPACK_IMPORTED_MODULE_9__["orderAction"].ActionTypes.Inquiry), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["map"])(function (action) {
         return action.payload;
       }), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["mergeMap"])(function (payload) {
-        return __awaiter(_this51, void 0, void 0,
-        /*#__PURE__*/
-        regeneratorRuntime.mark(function _callee81() {
+        return __awaiter(_this51, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee81() {
           var environment, now, today, confirmationNumber, customer, orderDateFrom, params, order;
           return regeneratorRuntime.wrap(function _callee81$(_context82) {
             while (1) {
@@ -21442,12 +21173,10 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       this.print = this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_1__["ofType"])(_actions__WEBPACK_IMPORTED_MODULE_9__["orderAction"].ActionTypes.Print), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["map"])(function (action) {
         return action.payload;
       }), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["mergeMap"])(function (payload) {
-        return __awaiter(_this51, void 0, void 0,
-        /*#__PURE__*/
-        regeneratorRuntime.mark(function _callee83() {
+        return __awaiter(_this51, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee83() {
           var _this53 = this;
 
-          var _orders, printer, pos, environment, authorizeOrders, _iteratorNormalCompletion7, _didIteratorError7, _iteratorError7, _loop7, _iterator7, _step7, path, url, printData, testFlg, canvasList, _canvas2, _iteratorNormalCompletion8, _didIteratorError8, _iteratorError8, _loop8, _iterator8, _step8, domList;
+          var _orders, printer, pos, environment, authorizeOrders, _iterator7, _step7, _loop7, path, url, printData, testFlg, canvasList, _canvas2, _iterator8, _step8, _loop8, domList;
 
           return regeneratorRuntime.wrap(function _callee83$(_context87) {
             while (1) {
@@ -21479,17 +21208,13 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                   }
 
                   authorizeOrders = _orders;
-                  _context87.next = 39;
+                  _context87.next = 30;
                   break;
 
                 case 14:
-                  _iteratorNormalCompletion7 = true;
-                  _didIteratorError7 = false;
-                  _iteratorError7 = undefined;
-                  _context87.prev = 17;
-                  _loop7 =
-                  /*#__PURE__*/
-                  regeneratorRuntime.mark(function _loop7() {
+                  _iterator7 = _createForOfIteratorHelper(_orders);
+                  _context87.prev = 15;
+                  _loop7 = /*#__PURE__*/regeneratorRuntime.mark(function _loop7() {
                     var order, result;
                     return regeneratorRuntime.wrap(function _loop7$(_context84) {
                       while (1) {
@@ -21499,9 +21224,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                             _context84.next = 3;
                             return Object(_functions__WEBPACK_IMPORTED_MODULE_6__["retry"])({
                               process: function process() {
-                                return __awaiter(_this53, void 0, void 0,
-                                /*#__PURE__*/
-                                regeneratorRuntime.mark(function _callee82() {
+                                return __awaiter(_this53, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee82() {
                                   var orderNumber, customer, authorizeOrder;
                                   return regeneratorRuntime.wrap(function _callee82$(_context83) {
                                     while (1) {
@@ -21544,108 +21267,87 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                       }
                     }, _loop7);
                   });
-                  _iterator7 = _orders[Symbol.iterator]();
 
-                case 20:
-                  if (_iteratorNormalCompletion7 = (_step7 = _iterator7.next()).done) {
-                    _context87.next = 25;
+                  _iterator7.s();
+
+                case 18:
+                  if ((_step7 = _iterator7.n()).done) {
+                    _context87.next = 22;
                     break;
                   }
 
-                  return _context87.delegateYield(_loop7(), "t0", 22);
+                  return _context87.delegateYield(_loop7(), "t0", 20);
+
+                case 20:
+                  _context87.next = 18;
+                  break;
 
                 case 22:
-                  _iteratorNormalCompletion7 = true;
-                  _context87.next = 20;
+                  _context87.next = 27;
                   break;
 
-                case 25:
-                  _context87.next = 31;
-                  break;
+                case 24:
+                  _context87.prev = 24;
+                  _context87.t1 = _context87["catch"](15);
+
+                  _iterator7.e(_context87.t1);
 
                 case 27:
                   _context87.prev = 27;
-                  _context87.t1 = _context87["catch"](17);
-                  _didIteratorError7 = true;
-                  _iteratorError7 = _context87.t1;
 
-                case 31:
-                  _context87.prev = 31;
-                  _context87.prev = 32;
+                  _iterator7.f();
 
-                  if (!_iteratorNormalCompletion7 && _iterator7["return"] != null) {
-                    _iterator7["return"]();
-                  }
+                  return _context87.finish(27);
 
-                case 34:
-                  _context87.prev = 34;
+                case 30:
+                  path = '/json/print/ticket.json';
+                  _context87.next = 33;
+                  return Object(_functions__WEBPACK_IMPORTED_MODULE_6__["isFile"])("".concat(Object(_functions__WEBPACK_IMPORTED_MODULE_6__["getProject"])().storageUrl).concat(path));
 
-                  if (!_didIteratorError7) {
+                case 33:
+                  if (!_context87.sent) {
                     _context87.next = 37;
                     break;
                   }
 
-                  throw _iteratorError7;
-
-                case 37:
-                  return _context87.finish(34);
-
-                case 38:
-                  return _context87.finish(31);
-
-                case 39:
-                  path = '/json/print/ticket.json';
-                  _context87.next = 42;
-                  return Object(_functions__WEBPACK_IMPORTED_MODULE_6__["isFile"])("".concat(Object(_functions__WEBPACK_IMPORTED_MODULE_6__["getProject"])().storageUrl).concat(path));
-
-                case 42:
-                  if (!_context87.sent) {
-                    _context87.next = 46;
-                    break;
-                  }
-
                   _context87.t2 = "".concat(Object(_functions__WEBPACK_IMPORTED_MODULE_6__["getProject"])().storageUrl).concat(path);
-                  _context87.next = 47;
+                  _context87.next = 38;
                   break;
 
-                case 46:
+                case 37:
                   _context87.t2 = "/default".concat(path);
 
-                case 47:
+                case 38:
                   url = _context87.t2;
-                  _context87.next = 50;
+                  _context87.next = 41;
                   return this.utilService.getJson(url);
 
-                case 50:
+                case 41:
                   printData = _context87.sent;
                   testFlg = authorizeOrders.length === 0;
                   canvasList = [];
 
                   if (!testFlg) {
-                    _context87.next = 60;
+                    _context87.next = 51;
                     break;
                   }
 
-                  _context87.next = 56;
+                  _context87.next = 47;
                   return Object(_functions__WEBPACK_IMPORTED_MODULE_6__["createTestPrintCanvas"])({
                     printData: printData
                   });
 
-                case 56:
+                case 47:
                   _canvas2 = _context87.sent;
                   canvasList.push(_canvas2);
-                  _context87.next = 85;
+                  _context87.next = 67;
                   break;
 
-                case 60:
-                  _iteratorNormalCompletion8 = true;
-                  _didIteratorError8 = false;
-                  _iteratorError8 = undefined;
-                  _context87.prev = 63;
-                  _loop8 =
-                  /*#__PURE__*/
-                  regeneratorRuntime.mark(function _loop8() {
-                    var authorizeOrder, index, _iteratorNormalCompletion9, _didIteratorError9, _iteratorError9, _loop9, _iterator9, _step9, _ret3;
+                case 51:
+                  _iterator8 = _createForOfIteratorHelper(authorizeOrders);
+                  _context87.prev = 52;
+                  _loop8 = /*#__PURE__*/regeneratorRuntime.mark(function _loop8() {
+                    var authorizeOrder, index, _iterator9, _step9, _loop9, _ret3;
 
                     return regeneratorRuntime.wrap(function _loop8$(_context86) {
                       while (1) {
@@ -21653,13 +21355,9 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                           case 0:
                             authorizeOrder = _step8.value;
                             index = 0;
-                            _iteratorNormalCompletion9 = true;
-                            _didIteratorError9 = false;
-                            _iteratorError9 = undefined;
-                            _context86.prev = 5;
-                            _loop9 =
-                            /*#__PURE__*/
-                            regeneratorRuntime.mark(function _loop9() {
+                            _iterator9 = _createForOfIteratorHelper(authorizeOrder.acceptedOffers);
+                            _context86.prev = 3;
+                            _loop9 = /*#__PURE__*/regeneratorRuntime.mark(function _loop9() {
                               var acceptedOffer, itemOffered, order, qrcode, additionalProperty, isDisplayQrcode, canvas;
                               return regeneratorRuntime.wrap(function _loop9$(_context85) {
                                 while (1) {
@@ -21731,155 +21429,121 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                                 }
                               }, _loop9);
                             });
-                            _iterator9 = authorizeOrder.acceptedOffers[Symbol.iterator]();
 
-                          case 8:
-                            if (_iteratorNormalCompletion9 = (_step9 = _iterator9.next()).done) {
-                              _context86.next = 16;
-                              break;
-                            }
+                            _iterator9.s();
 
-                            return _context86.delegateYield(_loop9(), "t0", 10);
-
-                          case 10:
-                            _ret3 = _context86.t0;
-
-                            if (!(_ret3 === "continue")) {
+                          case 6:
+                            if ((_step9 = _iterator9.n()).done) {
                               _context86.next = 13;
                               break;
                             }
 
-                            return _context86.abrupt("continue", 13);
+                            return _context86.delegateYield(_loop9(), "t0", 8);
 
-                          case 13:
-                            _iteratorNormalCompletion9 = true;
-                            _context86.next = 8;
-                            break;
+                          case 8:
+                            _ret3 = _context86.t0;
 
-                          case 16:
-                            _context86.next = 22;
-                            break;
-
-                          case 18:
-                            _context86.prev = 18;
-                            _context86.t1 = _context86["catch"](5);
-                            _didIteratorError9 = true;
-                            _iteratorError9 = _context86.t1;
-
-                          case 22:
-                            _context86.prev = 22;
-                            _context86.prev = 23;
-
-                            if (!_iteratorNormalCompletion9 && _iterator9["return"] != null) {
-                              _iterator9["return"]();
-                            }
-
-                          case 25:
-                            _context86.prev = 25;
-
-                            if (!_didIteratorError9) {
-                              _context86.next = 28;
+                            if (!(_ret3 === "continue")) {
+                              _context86.next = 11;
                               break;
                             }
 
-                            throw _iteratorError9;
+                            return _context86.abrupt("continue", 11);
 
-                          case 28:
-                            return _context86.finish(25);
+                          case 11:
+                            _context86.next = 6;
+                            break;
 
-                          case 29:
-                            return _context86.finish(22);
+                          case 13:
+                            _context86.next = 18;
+                            break;
 
-                          case 30:
+                          case 15:
+                            _context86.prev = 15;
+                            _context86.t1 = _context86["catch"](3);
+
+                            _iterator9.e(_context86.t1);
+
+                          case 18:
+                            _context86.prev = 18;
+
+                            _iterator9.f();
+
+                            return _context86.finish(18);
+
+                          case 21:
                           case "end":
                             return _context86.stop();
                         }
                       }
-                    }, _loop8, null, [[5, 18, 22, 30], [23,, 25, 29]]);
+                    }, _loop8, null, [[3, 15, 18, 21]]);
                   });
-                  _iterator8 = authorizeOrders[Symbol.iterator]();
 
-                case 66:
-                  if (_iteratorNormalCompletion8 = (_step8 = _iterator8.next()).done) {
-                    _context87.next = 71;
+                  _iterator8.s();
+
+                case 55:
+                  if ((_step8 = _iterator8.n()).done) {
+                    _context87.next = 59;
                     break;
                   }
 
-                  return _context87.delegateYield(_loop8(), "t3", 68);
+                  return _context87.delegateYield(_loop8(), "t3", 57);
 
-                case 68:
-                  _iteratorNormalCompletion8 = true;
-                  _context87.next = 66;
+                case 57:
+                  _context87.next = 55;
                   break;
 
-                case 71:
-                  _context87.next = 77;
+                case 59:
+                  _context87.next = 64;
                   break;
+
+                case 61:
+                  _context87.prev = 61;
+                  _context87.t4 = _context87["catch"](52);
+
+                  _iterator8.e(_context87.t4);
+
+                case 64:
+                  _context87.prev = 64;
+
+                  _iterator8.f();
+
+                  return _context87.finish(64);
+
+                case 67:
+                  _context87.t5 = printer.connectionType;
+                  _context87.next = _context87.t5 === _models__WEBPACK_IMPORTED_MODULE_7__["ConnectionType"].StarBluetooth ? 70 : _context87.t5 === _models__WEBPACK_IMPORTED_MODULE_7__["ConnectionType"].StarLAN ? 74 : _context87.t5 === _models__WEBPACK_IMPORTED_MODULE_7__["ConnectionType"].Image ? 78 : 81;
+                  break;
+
+                case 70:
+                  this.starPrint.initialize({
+                    printer: printer,
+                    pos: pos
+                  });
+                  _context87.next = 73;
+                  return this.starPrint.printProcess({
+                    canvasList: canvasList,
+                    testFlg: testFlg
+                  });
 
                 case 73:
-                  _context87.prev = 73;
-                  _context87.t4 = _context87["catch"](63);
-                  _didIteratorError8 = true;
-                  _iteratorError8 = _context87.t4;
+                  return _context87.abrupt("break", 82);
+
+                case 74:
+                  this.starPrint.initialize({
+                    printer: printer,
+                    pos: pos
+                  });
+                  _context87.next = 77;
+                  return this.starPrint.printProcess({
+                    canvasList: canvasList,
+                    testFlg: testFlg
+                  });
 
                 case 77:
-                  _context87.prev = 77;
-                  _context87.prev = 78;
+                  return _context87.abrupt("break", 82);
 
-                  if (!_iteratorNormalCompletion8 && _iterator8["return"] != null) {
-                    _iterator8["return"]();
-                  }
-
-                case 80:
-                  _context87.prev = 80;
-
-                  if (!_didIteratorError8) {
-                    _context87.next = 83;
-                    break;
-                  }
-
-                  throw _iteratorError8;
-
-                case 83:
-                  return _context87.finish(80);
-
-                case 84:
-                  return _context87.finish(77);
-
-                case 85:
-                  _context87.t5 = printer.connectionType;
-                  _context87.next = _context87.t5 === _models__WEBPACK_IMPORTED_MODULE_7__["ConnectionType"].StarBluetooth ? 88 : _context87.t5 === _models__WEBPACK_IMPORTED_MODULE_7__["ConnectionType"].StarLAN ? 92 : _context87.t5 === _models__WEBPACK_IMPORTED_MODULE_7__["ConnectionType"].Image ? 96 : 99;
-                  break;
-
-                case 88:
-                  this.starPrint.initialize({
-                    printer: printer,
-                    pos: pos
-                  });
-                  _context87.next = 91;
-                  return this.starPrint.printProcess({
-                    canvasList: canvasList,
-                    testFlg: testFlg
-                  });
-
-                case 91:
-                  return _context87.abrupt("break", 100);
-
-                case 92:
-                  this.starPrint.initialize({
-                    printer: printer,
-                    pos: pos
-                  });
-                  _context87.next = 95;
-                  return this.starPrint.printProcess({
-                    canvasList: canvasList,
-                    testFlg: testFlg
-                  });
-
-                case 95:
-                  return _context87.abrupt("break", 100);
-
-                case 96:
+                case 78:
                   domList = canvasList.map(function (canvas) {
                     return "<div class=\"mb-3 p-4 border border-light-gray shadow-sm\">\n                        <img class=\"w-100\" src=\"".concat(canvas.toDataURL(), "\" alt=\"\">\n                        </div>");
                   });
@@ -21887,27 +21551,27 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                     title: '',
                     body: "<div class=\"px-5\">".concat(domList.join('\n'), "</div>")
                   });
-                  return _context87.abrupt("break", 100);
+                  return _context87.abrupt("break", 82);
 
-                case 99:
-                  return _context87.abrupt("break", 100);
+                case 81:
+                  return _context87.abrupt("break", 82);
 
-                case 100:
+                case 82:
                   return _context87.abrupt("return", new _actions__WEBPACK_IMPORTED_MODULE_9__["orderAction"].PrintSuccess());
 
-                case 103:
-                  _context87.prev = 103;
+                case 85:
+                  _context87.prev = 85;
                   _context87.t6 = _context87["catch"](0);
                   return _context87.abrupt("return", new _actions__WEBPACK_IMPORTED_MODULE_9__["orderAction"].PrintFail({
                     error: _context87.t6
                   }));
 
-                case 106:
+                case 88:
                 case "end":
                   return _context87.stop();
               }
             }
-          }, _callee83, this, [[0, 103], [17, 27, 31, 39], [32,, 34, 38], [63, 73, 77, 85], [78,, 80, 84]]);
+          }, _callee83, this, [[0, 85], [15, 24, 27, 30], [52, 61, 64, 67]]);
         }));
       }));
       /**
@@ -21917,9 +21581,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       this.orderAuthorize = this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_1__["ofType"])(_actions__WEBPACK_IMPORTED_MODULE_9__["orderAction"].ActionTypes.OrderAuthorize), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["map"])(function (action) {
         return action.payload;
       }), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["mergeMap"])(function (payload) {
-        return __awaiter(_this51, void 0, void 0,
-        /*#__PURE__*/
-        regeneratorRuntime.mark(function _callee84() {
+        return __awaiter(_this51, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee84() {
           var params, order;
           return regeneratorRuntime.wrap(function _callee84$(_context88) {
             while (1) {
@@ -21998,9 +21660,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     /* harmony import */
 
 
-    var _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_0___default =
-    /*#__PURE__*/
-    __webpack_require__.n(_cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_0__);
+    var _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_0__);
     /* harmony import */
 
 
@@ -22022,9 +21682,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     /* harmony import */
 
 
-    var moment__WEBPACK_IMPORTED_MODULE_3___default =
-    /*#__PURE__*/
-    __webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_3__);
+    var moment__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_3__);
     /* harmony import */
 
 
@@ -22124,9 +21782,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       this.getSeller = this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_1__["ofType"])(_actions__WEBPACK_IMPORTED_MODULE_9__["purchaseAction"].ActionTypes.GetSeller), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["map"])(function (action) {
         return action.payload;
       }), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["mergeMap"])(function (payload) {
-        return __awaiter(_this54, void 0, void 0,
-        /*#__PURE__*/
-        regeneratorRuntime.mark(function _callee85() {
+        return __awaiter(_this54, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee85() {
           var id, seller;
           return regeneratorRuntime.wrap(function _callee85$(_context89) {
             while (1) {
@@ -22171,9 +21827,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       this.startTransaction = this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_1__["ofType"])(_actions__WEBPACK_IMPORTED_MODULE_9__["purchaseAction"].ActionTypes.StartTransaction), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["map"])(function (action) {
         return action.payload;
       }), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["mergeMap"])(function (payload) {
-        return __awaiter(_this54, void 0, void 0,
-        /*#__PURE__*/
-        regeneratorRuntime.mark(function _callee86() {
+        return __awaiter(_this54, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee86() {
           var params, selleId, passport, transaction;
           return regeneratorRuntime.wrap(function _callee86$(_context90) {
             while (1) {
@@ -22225,9 +21879,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       this.cancelTransaction = this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_1__["ofType"])(_actions__WEBPACK_IMPORTED_MODULE_9__["purchaseAction"].ActionTypes.CancelTransaction), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["map"])(function (action) {
         return action.payload;
       }), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["mergeMap"])(function (payload) {
-        return __awaiter(_this54, void 0, void 0,
-        /*#__PURE__*/
-        regeneratorRuntime.mark(function _callee87() {
+        return __awaiter(_this54, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee87() {
           var transaction;
           return regeneratorRuntime.wrap(function _callee87$(_context91) {
             while (1) {
@@ -22269,9 +21921,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       this.getScreen = this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_1__["ofType"])(_actions__WEBPACK_IMPORTED_MODULE_9__["purchaseAction"].ActionTypes.GetScreen), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["map"])(function (action) {
         return action.payload;
       }), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["mergeMap"])(function (payload) {
-        return __awaiter(_this54, void 0, void 0,
-        /*#__PURE__*/
-        regeneratorRuntime.mark(function _callee88() {
+        return __awaiter(_this54, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee88() {
           var searchResult;
           return regeneratorRuntime.wrap(function _callee88$(_context92) {
             while (1) {
@@ -22313,9 +21963,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       this.getScreeningEvent = this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_1__["ofType"])(_actions__WEBPACK_IMPORTED_MODULE_9__["purchaseAction"].ActionTypes.GetScreeningEvent), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["map"])(function (action) {
         return action.payload;
       }), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["mergeMap"])(function (payload) {
-        return __awaiter(_this54, void 0, void 0,
-        /*#__PURE__*/
-        regeneratorRuntime.mark(function _callee89() {
+        return __awaiter(_this54, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee89() {
           var screeningEvent, searchMovie;
           return regeneratorRuntime.wrap(function _callee89$(_context93) {
             while (1) {
@@ -22371,9 +22019,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       this.temporaryReservation = this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_1__["ofType"])(_actions__WEBPACK_IMPORTED_MODULE_9__["purchaseAction"].ActionTypes.TemporaryReservation), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["map"])(function (action) {
         return action.payload;
       }), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["mergeMap"])(function (payload) {
-        return __awaiter(_this54, void 0, void 0,
-        /*#__PURE__*/
-        regeneratorRuntime.mark(function _callee90() {
+        return __awaiter(_this54, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee90() {
           var transaction, screeningEvent, reservations, screeningEventSeats, additionalTicketText, availableSeats, authorizeSeatReservation;
           return regeneratorRuntime.wrap(function _callee90$(_context94) {
             while (1) {
@@ -22486,10 +22132,8 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       this.cancelTemporaryReservations = this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_1__["ofType"])(_actions__WEBPACK_IMPORTED_MODULE_9__["purchaseAction"].ActionTypes.CancelTemporaryReservations), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["map"])(function (action) {
         return action.payload;
       }), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["mergeMap"])(function (payload) {
-        return __awaiter(_this54, void 0, void 0,
-        /*#__PURE__*/
-        regeneratorRuntime.mark(function _callee91() {
-          var authorizeSeatReservations, _iteratorNormalCompletion10, _didIteratorError10, _iteratorError10, _iterator10, _step10, authorizeSeatReservation;
+        return __awaiter(_this54, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee91() {
+          var authorizeSeatReservations, _iterator10, _step10, authorizeSeatReservation;
 
           return regeneratorRuntime.wrap(function _callee91$(_context95) {
             while (1) {
@@ -22501,79 +22145,60 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                   return this.cinerinoService.getServices();
 
                 case 4:
-                  _iteratorNormalCompletion10 = true;
-                  _didIteratorError10 = false;
-                  _iteratorError10 = undefined;
-                  _context95.prev = 7;
-                  _iterator10 = authorizeSeatReservations[Symbol.iterator]();
+                  _iterator10 = _createForOfIteratorHelper(authorizeSeatReservations);
+                  _context95.prev = 5;
 
-                case 9:
-                  if (_iteratorNormalCompletion10 = (_step10 = _iterator10.next()).done) {
-                    _context95.next = 16;
+                  _iterator10.s();
+
+                case 7:
+                  if ((_step10 = _iterator10.n()).done) {
+                    _context95.next = 13;
                     break;
                   }
 
                   authorizeSeatReservation = _step10.value;
-                  _context95.next = 13;
+                  _context95.next = 11;
                   return this.cinerinoService.transaction.placeOrder.voidSeatReservation(authorizeSeatReservation);
 
-                case 13:
-                  _iteratorNormalCompletion10 = true;
-                  _context95.next = 9;
+                case 11:
+                  _context95.next = 7;
                   break;
 
-                case 16:
-                  _context95.next = 22;
+                case 13:
+                  _context95.next = 18;
                   break;
+
+                case 15:
+                  _context95.prev = 15;
+                  _context95.t0 = _context95["catch"](5);
+
+                  _iterator10.e(_context95.t0);
 
                 case 18:
                   _context95.prev = 18;
-                  _context95.t0 = _context95["catch"](7);
-                  _didIteratorError10 = true;
-                  _iteratorError10 = _context95.t0;
 
-                case 22:
-                  _context95.prev = 22;
-                  _context95.prev = 23;
+                  _iterator10.f();
 
-                  if (!_iteratorNormalCompletion10 && _iterator10["return"] != null) {
-                    _iterator10["return"]();
-                  }
+                  return _context95.finish(18);
 
-                case 25:
-                  _context95.prev = 25;
-
-                  if (!_didIteratorError10) {
-                    _context95.next = 28;
-                    break;
-                  }
-
-                  throw _iteratorError10;
-
-                case 28:
-                  return _context95.finish(25);
-
-                case 29:
-                  return _context95.finish(22);
-
-                case 30:
+                case 21:
                   return _context95.abrupt("return", new _actions__WEBPACK_IMPORTED_MODULE_9__["purchaseAction"].CancelTemporaryReservationsSuccess({
                     authorizeSeatReservations: authorizeSeatReservations
                   }));
 
-                case 33:
-                  _context95.prev = 33;
+                case 24:
+                  _context95.prev = 24;
                   _context95.t1 = _context95["catch"](0);
                   return _context95.abrupt("return", new _actions__WEBPACK_IMPORTED_MODULE_9__["purchaseAction"].CancelTemporaryReservationsFail({
                     error: _context95.t1
                   }));
 
-                case 36:
+                case 27:
                 case "end":
                   return _context95.stop();
               }
             }
-          }, _callee91, this, [[0, 33], [7, 18, 22, 30], [23,, 25, 29]]);
+          }, _callee91, this, [[0, 24], [5, 15, 18, 21]]);
         }));
       }));
       /**
@@ -22583,9 +22208,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       this.getTicketList = this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_1__["ofType"])(_actions__WEBPACK_IMPORTED_MODULE_9__["purchaseAction"].ActionTypes.GetTicketList), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["map"])(function (action) {
         return action.payload;
       }), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["mergeMap"])(function (payload) {
-        return __awaiter(_this54, void 0, void 0,
-        /*#__PURE__*/
-        regeneratorRuntime.mark(function _callee92() {
+        return __awaiter(_this54, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee92() {
           var clientId, screeningEvent, seller, screeningEventTicketOffers;
           return regeneratorRuntime.wrap(function _callee92$(_context96) {
             while (1) {
@@ -22641,9 +22264,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       this.registerContact = this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_1__["ofType"])(_actions__WEBPACK_IMPORTED_MODULE_9__["purchaseAction"].ActionTypes.RegisterContact), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["map"])(function (action) {
         return action.payload;
       }), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["mergeMap"])(function (payload) {
-        return __awaiter(_this54, void 0, void 0,
-        /*#__PURE__*/
-        regeneratorRuntime.mark(function _callee93() {
+        return __awaiter(_this54, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee93() {
           var transaction, profile;
           return regeneratorRuntime.wrap(function _callee93$(_context97) {
             while (1) {
@@ -22694,9 +22315,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       this.authorizeCreditCard = this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_1__["ofType"])(_actions__WEBPACK_IMPORTED_MODULE_9__["purchaseAction"].ActionTypes.AuthorizeCreditCard), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["map"])(function (action) {
         return action.payload;
       }), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["mergeMap"])(function (payload) {
-        return __awaiter(_this54, void 0, void 0,
-        /*#__PURE__*/
-        regeneratorRuntime.mark(function _callee94() {
+        return __awaiter(_this54, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee94() {
           var gmoTokenObject, amount, transaction, creditCard, authorizeCreditCardPaymentResult;
           return regeneratorRuntime.wrap(function _callee94$(_context98) {
             while (1) {
@@ -22761,12 +22380,10 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       this.authorizeMovieTicket = this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_1__["ofType"])(_actions__WEBPACK_IMPORTED_MODULE_9__["purchaseAction"].ActionTypes.AuthorizeMovieTicket), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["map"])(function (action) {
         return action.payload;
       }), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["mergeMap"])(function (payload) {
-        return __awaiter(_this54, void 0, void 0,
-        /*#__PURE__*/
-        regeneratorRuntime.mark(function _callee95() {
+        return __awaiter(_this54, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee95() {
           var _this55 = this;
 
-          var _iteratorNormalCompletion11, _didIteratorError11, _iteratorError11, _iterator11, _step11, authorizeMovieTicketPayment, transaction, pendingMovieTickets, authorizeSeatReservations, authorizeMovieTicketPayments, seller, _iteratorNormalCompletion12, _didIteratorError12, _iteratorError12, _loop10, _iterator12, _step12;
+          var _iterator11, _step11, authorizeMovieTicketPayment, transaction, pendingMovieTickets, authorizeSeatReservations, authorizeMovieTicketPayments, seller, _iterator12, _step12, _loop10;
 
           return regeneratorRuntime.wrap(function _callee95$(_context100) {
             while (1) {
@@ -22778,78 +22395,55 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
                 case 3:
                   if (!(payload.authorizeMovieTicketPayments.length > 0)) {
-                    _context100.next = 30;
+                    _context100.next = 21;
                     break;
                   }
 
-                  _iteratorNormalCompletion11 = true;
-                  _didIteratorError11 = false;
-                  _iteratorError11 = undefined;
-                  _context100.prev = 7;
-                  _iterator11 = payload.authorizeMovieTicketPayments[Symbol.iterator]();
+                  _iterator11 = _createForOfIteratorHelper(payload.authorizeMovieTicketPayments);
+                  _context100.prev = 5;
 
-                case 9:
-                  if (_iteratorNormalCompletion11 = (_step11 = _iterator11.next()).done) {
-                    _context100.next = 16;
+                  _iterator11.s();
+
+                case 7:
+                  if ((_step11 = _iterator11.n()).done) {
+                    _context100.next = 13;
                     break;
                   }
 
                   authorizeMovieTicketPayment = _step11.value;
-                  _context100.next = 13;
+                  _context100.next = 11;
                   return this.cinerinoService.payment.voidTransaction(authorizeMovieTicketPayment);
 
-                case 13:
-                  _iteratorNormalCompletion11 = true;
-                  _context100.next = 9;
+                case 11:
+                  _context100.next = 7;
                   break;
 
-                case 16:
-                  _context100.next = 22;
+                case 13:
+                  _context100.next = 18;
                   break;
+
+                case 15:
+                  _context100.prev = 15;
+                  _context100.t0 = _context100["catch"](5);
+
+                  _iterator11.e(_context100.t0);
 
                 case 18:
                   _context100.prev = 18;
-                  _context100.t0 = _context100["catch"](7);
-                  _didIteratorError11 = true;
-                  _iteratorError11 = _context100.t0;
 
-                case 22:
-                  _context100.prev = 22;
-                  _context100.prev = 23;
+                  _iterator11.f();
 
-                  if (!_iteratorNormalCompletion11 && _iterator11["return"] != null) {
-                    _iterator11["return"]();
-                  }
+                  return _context100.finish(18);
 
-                case 25:
-                  _context100.prev = 25;
-
-                  if (!_didIteratorError11) {
-                    _context100.next = 28;
-                    break;
-                  }
-
-                  throw _iteratorError11;
-
-                case 28:
-                  return _context100.finish(25);
-
-                case 29:
-                  return _context100.finish(22);
-
-                case 30:
+                case 21:
                   transaction = payload.transaction;
                   pendingMovieTickets = payload.pendingMovieTickets;
                   authorizeSeatReservations = payload.authorizeSeatReservations;
                   authorizeMovieTicketPayments = [];
                   seller = payload.seller;
-                  _iteratorNormalCompletion12 = true;
-                  _didIteratorError12 = false;
-                  _iteratorError12 = undefined;
-                  _context100.prev = 38;
-                  _loop10 =
-                  /*#__PURE__*/
-                  regeneratorRuntime.mark(function _loop10() {
+                  _iterator12 = _createForOfIteratorHelper(authorizeSeatReservations);
+                  _context100.prev = 27;
+                  _loop10 = /*#__PURE__*/regeneratorRuntime.mark(function _loop10() {
                     var authorizeSeatReservation, movieTickets, movieTicketIdentifiers, _i4, _movieTicketIdentifie, movieTicketIdentifier, authorizeMovieTicketPaymentResult;
 
                     return regeneratorRuntime.wrap(function _loop10$(_context99) {
@@ -22913,73 +22507,56 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                       }
                     }, _loop10);
                   });
-                  _iterator12 = authorizeSeatReservations[Symbol.iterator]();
 
-                case 41:
-                  if (_iteratorNormalCompletion12 = (_step12 = _iterator12.next()).done) {
-                    _context100.next = 46;
+                  _iterator12.s();
+
+                case 30:
+                  if ((_step12 = _iterator12.n()).done) {
+                    _context100.next = 34;
                     break;
                   }
 
-                  return _context100.delegateYield(_loop10(), "t1", 43);
+                  return _context100.delegateYield(_loop10(), "t1", 32);
 
-                case 43:
-                  _iteratorNormalCompletion12 = true;
-                  _context100.next = 41;
+                case 32:
+                  _context100.next = 30;
                   break;
 
-                case 46:
-                  _context100.next = 52;
+                case 34:
+                  _context100.next = 39;
                   break;
 
-                case 48:
-                  _context100.prev = 48;
-                  _context100.t2 = _context100["catch"](38);
-                  _didIteratorError12 = true;
-                  _iteratorError12 = _context100.t2;
+                case 36:
+                  _context100.prev = 36;
+                  _context100.t2 = _context100["catch"](27);
 
-                case 52:
-                  _context100.prev = 52;
-                  _context100.prev = 53;
+                  _iterator12.e(_context100.t2);
 
-                  if (!_iteratorNormalCompletion12 && _iterator12["return"] != null) {
-                    _iterator12["return"]();
-                  }
+                case 39:
+                  _context100.prev = 39;
 
-                case 55:
-                  _context100.prev = 55;
+                  _iterator12.f();
 
-                  if (!_didIteratorError12) {
-                    _context100.next = 58;
-                    break;
-                  }
+                  return _context100.finish(39);
 
-                  throw _iteratorError12;
-
-                case 58:
-                  return _context100.finish(55);
-
-                case 59:
-                  return _context100.finish(52);
-
-                case 60:
+                case 42:
                   return _context100.abrupt("return", new _actions__WEBPACK_IMPORTED_MODULE_9__["purchaseAction"].AuthorizeMovieTicketSuccess({
                     authorizeMovieTicketPayments: authorizeMovieTicketPayments
                   }));
 
-                case 63:
-                  _context100.prev = 63;
+                case 45:
+                  _context100.prev = 45;
                   _context100.t3 = _context100["catch"](0);
                   return _context100.abrupt("return", new _actions__WEBPACK_IMPORTED_MODULE_9__["purchaseAction"].AuthorizeMovieTicketFail({
                     error: _context100.t3
                   }));
 
-                case 66:
+                case 48:
                 case "end":
                   return _context100.stop();
               }
             }
-          }, _callee95, this, [[0, 63], [7, 18, 22, 30], [23,, 25, 29], [38, 48, 52, 60], [53,, 55, 59]]);
+          }, _callee95, this, [[0, 45], [5, 15, 18, 21], [27, 36, 39, 42]]);
         }));
       }));
       /**
@@ -22989,9 +22566,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       this.checkMovieTicket = this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_1__["ofType"])(_actions__WEBPACK_IMPORTED_MODULE_9__["purchaseAction"].ActionTypes.CheckMovieTicket), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["map"])(function (action) {
         return action.payload;
       }), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["mergeMap"])(function (payload) {
-        return __awaiter(_this54, void 0, void 0,
-        /*#__PURE__*/
-        regeneratorRuntime.mark(function _callee96() {
+        return __awaiter(_this54, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee96() {
           var screeningEvent, movieTickets, checkMovieTicketAction;
           return regeneratorRuntime.wrap(function _callee96$(_context101) {
             while (1) {
@@ -23062,9 +22637,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       this.endTransaction = this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_1__["ofType"])(_actions__WEBPACK_IMPORTED_MODULE_9__["purchaseAction"].ActionTypes.EndTransaction), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["map"])(function (action) {
         return action.payload;
       }), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["mergeMap"])(function (payload) {
-        return __awaiter(_this54, void 0, void 0,
-        /*#__PURE__*/
-        regeneratorRuntime.mark(function _callee97() {
+        return __awaiter(_this54, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee97() {
           var transaction, authorizeSeatReservations, seller, environment, params, path, url, view, result;
           return regeneratorRuntime.wrap(function _callee97$(_context102) {
             while (1) {
@@ -23181,9 +22754,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       this.authorizeAnyPayment = this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_1__["ofType"])(_actions__WEBPACK_IMPORTED_MODULE_9__["purchaseAction"].ActionTypes.AuthorizeAnyPayment), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["map"])(function (action) {
         return action.payload;
       }), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["mergeMap"])(function (payload) {
-        return __awaiter(_this54, void 0, void 0,
-        /*#__PURE__*/
-        regeneratorRuntime.mark(function _callee98() {
+        return __awaiter(_this54, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee98() {
           var transaction, typeOf, amount, name, additionalProperty, authorizeAnyPayment;
           return regeneratorRuntime.wrap(function _callee98$(_context103) {
             while (1) {
@@ -23969,9 +23540,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     /* harmony import */
 
 
-    var _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_0___default =
-    /*#__PURE__*/
-    __webpack_require__.n(_cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_0__);
+    var _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_0__);
     /* harmony import */
 
 
@@ -25254,9 +24823,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     /* harmony import */
 
 
-    var hammerjs__WEBPACK_IMPORTED_MODULE_1___default =
-    /*#__PURE__*/
-    __webpack_require__.n(hammerjs__WEBPACK_IMPORTED_MODULE_1__);
+    var hammerjs__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(hammerjs__WEBPACK_IMPORTED_MODULE_1__);
     /* harmony import */
 
 
@@ -25266,9 +24833,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     /* harmony import */
 
 
-    var moment_timezone__WEBPACK_IMPORTED_MODULE_2___default =
-    /*#__PURE__*/
-    __webpack_require__.n(moment_timezone__WEBPACK_IMPORTED_MODULE_2__);
+    var moment_timezone__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(moment_timezone__WEBPACK_IMPORTED_MODULE_2__);
     /* harmony import */
 
 
@@ -25339,9 +24904,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
 
     function main() {
-      return __awaiter(this, void 0, void 0,
-      /*#__PURE__*/
-      regeneratorRuntime.mark(function _callee99() {
+      return __awaiter(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee99() {
         var params, space, projectId;
         return regeneratorRuntime.wrap(function _callee99$(_context104) {
           while (1) {
@@ -25409,9 +24972,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
 
     function setProject(params) {
-      return __awaiter(this, void 0, void 0,
-      /*#__PURE__*/
-      regeneratorRuntime.mark(function _callee100() {
+      return __awaiter(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee100() {
         var fetchResult, json;
         return regeneratorRuntime.wrap(function _callee100$(_context105) {
           while (1) {
@@ -25462,9 +25023,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
 
     function setProjectConfig(storageUrl) {
-      return __awaiter(this, void 0, void 0,
-      /*#__PURE__*/
-      regeneratorRuntime.mark(function _callee101() {
+      return __awaiter(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee101() {
         var now, fetchResult, environment, style, favicon;
         return regeneratorRuntime.wrap(function _callee101$(_context106) {
           while (1) {
@@ -25566,9 +25125,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     }
 
     main().then(function () {
-      return __awaiter(undefined, void 0, void 0,
-      /*#__PURE__*/
-      regeneratorRuntime.mark(function _callee102() {
+      return __awaiter(undefined, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee102() {
         return regeneratorRuntime.wrap(function _callee102$(_context107) {
           while (1) {
             switch (_context107.prev = _context107.next) {
