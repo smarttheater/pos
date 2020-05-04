@@ -14,6 +14,7 @@ import { PurchaseSeatTicketModalComponent } from '../../../../shared/components/
 
 @Component({
     selector: 'app-purchase-ticket',
+    template: ''
 })
 export class PurchaseTicketComponent implements OnInit {
     public purchase: Observable<reducers.IPurchaseState>;

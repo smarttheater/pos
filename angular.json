@@ -35,12 +35,12 @@
           "configurations": {
             "local": {
               "outputPath": "./dist/client/development",
-              "watch": true,
-              "aot": false
+              "watch": true
             },
             "development": {
               "outputPath": "./dist/client/development",
-              "aot": false
+              "sourceMap": false,
+              "aot": true
             },
             "production": {
               "outputPath": "./dist/client/production",
@@ -49,7 +49,7 @@
               "sourceMap": false,
               "extractCss": true,
               "namedChunks": false,
-              "aot": false,
+              "aot": true,
               "extractLicenses": true,
               "vendorChunk": true,
               "buildOptimizer": false,

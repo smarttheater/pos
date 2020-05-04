@@ -204,6 +204,8 @@ interface IEnvironment {
     PRINT_LOADING: boolean;
 }
 
+export const isProduction = (document.querySelector('body.production') !== null);
+
 const defaultEnvironment: IEnvironment = {
     production: false,
     APP_TITLE: '',
@@ -263,7 +265,7 @@ export function getEnvironment(): IEnvironment {
     const environment = {
         ...defaultEnvironment,
         ...(<any>window).environment,
-        production: (document.querySelector('body.production') !== null)
+        production: isProduction
     };
     return environment;
 }
