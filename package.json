@@ -49,7 +49,7 @@
     "@fortawesome/fontawesome-free": "^5.13.0",
     "@ngrx/effects": "^9.1.0",
     "@ngrx/store": "^9.1.0",
-    "@ngx-translate/core": "^11.0.1",
+    "@ngx-translate/core": "^12.1.2",
     "@ngx-translate/http-loader": "^4.0.0",
     "basic-auth": "^2.0.0",
     "body-parser": "^1.19.0",
