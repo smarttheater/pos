@@ -1,4 +1,5 @@
 import { factory } from '@cinerino/api-javascript-client';
+import { Action, createReducer, on } from '@ngrx/store';
 import { IState } from '.';
 import { IDecodeResult } from '../../models';
 import { admissionAction } from '../actions';
@@ -22,67 +23,53 @@ export const admissionInitialState: IAdmissionState = {
     specified: false
 };
 
-/**
- * Reducer
- * @param state
- * @param action
- */
-export function reducer(state: IState, action: admissionAction.Actions): IState {
-    switch (action.type) {
-        case admissionAction.ActionTypes.Delete: {
+export function reducer(initialState: IState, action: Action) {
+    return createReducer(
+        initialState,
+        on(admissionAction.remove, state => {
             state.admissionData.screeningEventReservations = [];
             state.admissionData.specified = false;
             state.admissionData.qrcodeToken = undefined;
             state.admissionData.screeningEvent = undefined;
             return { ...state };
-        }
-        case admissionAction.ActionTypes.SelectScheduleDate: {
-            const scheduleDate = action.payload.scheduleDate;
-            state.admissionData.scheduleDate = scheduleDate;
+        }),
+        on(admissionAction.selectScheduleDate, (state, payload) => {
+            state.admissionData.scheduleDate = payload.scheduleDate;
             return { ...state, loading: true, process: '', error: null };
-        }
-        case admissionAction.ActionTypes.SelectSchedule: {
-            const screeningEvent = action.payload.screeningEvent;
-            state.admissionData.screeningEvent = screeningEvent;
-            return { ...state, loading: false, process: '' };
-        }
-        case admissionAction.ActionTypes.GetScreeningEvent: {
+        }),
+        on(admissionAction.getScreeningEvent, (state) => {
             return { ...state };
-        }
-        case admissionAction.ActionTypes.GetScreeningEventSuccess: {
-            const screeningEvent = action.payload.screeningEvent;
+        }),
+        on(admissionAction.getScreeningEventSuccess, (state, payload) => {
+            const screeningEvent = payload.screeningEvent;
             state.admissionData.screeningEvent = screeningEvent;
             state.admissionData.specified = true;
             return { ...state, error: null };
-        }
-        case admissionAction.ActionTypes.GetScreeningEventFail: {
-            const error = action.payload.error;
+        }),
+        on(admissionAction.getScreeningEventFail, (state, payload) => {
+            const error = payload.error;
             return { ...state, error: JSON.stringify(error) };
-        }
-        case admissionAction.ActionTypes.InitializeQrcodeToken: {
+        }),
+        on(admissionAction.initializeQrcodeToken, (state) => {
             const qrcodeToken = undefined;
             state.admissionData.qrcodeToken = qrcodeToken;
             return { ...state };
-        }
-        case admissionAction.ActionTypes.Check: {
+        }),
+        on(admissionAction.check, (state) => {
             return { ...state, error: null, loading: true, process: 'admissionAction.Check' };
-        }
-        case admissionAction.ActionTypes.CheckSuccess: {
-            const qrcodeToken = action.payload.qrcodeToken;
-            const screeningEvent = action.payload.screeningEvent;
+        }),
+        on(admissionAction.checkSuccess, (state, payload) => {
+            const qrcodeToken = payload.qrcodeToken;
+            const screeningEvent = payload.screeningEvent;
             state.admissionData.qrcodeToken = qrcodeToken;
             if (screeningEvent !== undefined) {
                 state.admissionData.screeningEvent = screeningEvent;
             }
             return { ...state, loading: false, process: '', error: null };
-        }
-        case admissionAction.ActionTypes.CheckFail: {
-            const error = action.payload.error;
-
+        }),
+        on(admissionAction.checkFail, (state, payload) => {
+            const error = payload.error;
             return { ...state, error: JSON.stringify(error), loading: false, process: '' };
-        }
-        default: {
-            return state;
-        }
-    }
+        })
+    )(initialState, action);
 }

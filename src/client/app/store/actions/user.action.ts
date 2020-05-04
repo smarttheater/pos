@@ -1,60 +1,29 @@
 import { factory } from '@cinerino/api-javascript-client';
-import { Action } from '@ngrx/store';
+import { createAction, props } from '@ngrx/store';
 import { IPrinter } from '../../models';
 
-/**
- * Action types
- */
-export enum ActionTypes {
-    Delete = '[User] Delete',
-    UpdateAll = '[User] Update All',
-    UpdateLanguage = '[User] Update Language',
-    SetVersion = '[User] Set Version',
-}
+const LABEL = '[Admission]';
 
-/**
- * 削除
- */
-export class Delete implements Action {
-    public readonly type = ActionTypes.Delete;
-    constructor(public payload?: {}) { }
-}
+export const remove = createAction(
+    `${LABEL} remove`,
+);
 
-/**
- * 設定更新
- */
-export class UpdateAll implements Action {
-    public readonly type = ActionTypes.UpdateAll;
-    constructor(public payload: {
+export const updateAll = createAction(
+    `${LABEL} updateAll`,
+    props<{
         pos?: factory.chevre.place.movieTheater.IPOS;
         theater: factory.chevre.place.movieTheater.IPlaceWithoutScreeningRoom;
         customerContact: factory.transaction.placeOrder.ICustomerProfile;
         printer: IPrinter;
-    }) { }
-}
+    }>()
+);
 
+export const updateLanguage = createAction(
+    `${LABEL} updateLanguage`,
+    props<{ language: string }>()
+);
 
-/**
- * 言語更新
- */
-export class UpdateLanguage implements Action {
-    public readonly type = ActionTypes.UpdateLanguage;
-    constructor(public payload: { language: string }) { }
-}
-
-/**
- * バージョン設定
- */
-export class SetVersion implements Action {
-    public readonly type = ActionTypes.SetVersion;
-    constructor(public payload: { version: string }) { }
-}
-
-/**
- * Actions
- */
-export type Actions =
-    | Delete
-    | UpdateAll
-    | UpdateLanguage
-    | SetVersion;
+export const setVersion = createAction(
+    `${LABEL} setVersion`,
+    props<{ version: string }>()
+);

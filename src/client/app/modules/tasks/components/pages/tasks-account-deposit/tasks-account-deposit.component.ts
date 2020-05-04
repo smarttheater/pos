@@ -46,7 +46,7 @@ export class TasksAccountDepositComponent implements OnInit {
      * ポイント付与
      */
     public async deposit() {
-        this.utilService.loadStart();
+        this.utilService.loadStart({ process: 'load' });
         try {
             await this.cinerinoService.getServices();
             await this.cinerinoService.account.deposit4sskts({

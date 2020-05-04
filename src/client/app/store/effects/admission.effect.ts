@@ -26,8 +26,8 @@ export class AdmissionEffects {
      */
     @Effect()
     public getScreeningEvent = this.actions.pipe(
-        ofType<admissionAction.GetScreeningEvent>(admissionAction.ActionTypes.GetScreeningEvent),
-        map(action => action.payload),
+        ofType(admissionAction.getScreeningEvent),
+        map(action => action),
         mergeMap(async (payload) => {
             // console.log(payload);
             try {
@@ -35,9 +35,9 @@ export class AdmissionEffects {
                 const screeningEvent = await this.cinerino.event.findById<factory.chevre.eventType.ScreeningEvent>({
                     id: payload.screeningEvent.id
                 });
-                return new admissionAction.GetScreeningEventSuccess({ screeningEvent });
+                return admissionAction.getScreeningEventSuccess({ screeningEvent });
             } catch (error) {
-                return new admissionAction.GetScreeningEventFail({ error: error });
+                return admissionAction.getScreeningEventFail({ error: error });
             }
         })
     );
@@ -47,8 +47,8 @@ export class AdmissionEffects {
      */
     @Effect()
     public check = this.actions.pipe(
-        ofType<admissionAction.Check>(admissionAction.ActionTypes.Check),
-        map(action => action.payload),
+        ofType(admissionAction.check),
+        map(action => action),
         mergeMap(async (payload) => {
             // console.log(payload);
             const code = payload.code;
@@ -86,7 +86,7 @@ export class AdmissionEffects {
                     findScreeningEventResult = await this.cinerino.event.findById<factory.chevre.eventType.ScreeningEvent>({ id });
                 }
 
-                return new admissionAction.CheckSuccess({
+                return admissionAction.checkSuccess({
                     qrcodeToken: {
                         token,
                         decodeResult,
@@ -97,7 +97,7 @@ export class AdmissionEffects {
                     screeningEvent: findScreeningEventResult
                 });
             } catch (error) {
-                return new admissionAction.CheckSuccess({
+                return admissionAction.checkSuccess({
                     qrcodeToken: {
                         checkTokenActions: [],
                         statusCode: (error.code === undefined) ? INTERNAL_SERVER_ERROR : error.code

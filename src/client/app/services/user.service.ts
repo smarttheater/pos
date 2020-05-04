@@ -38,7 +38,7 @@ export class UserService {
      * ユーザーデータ削除
      */
     public delete() {
-        this.store.dispatch(new userAction.Delete());
+        this.store.dispatch(userAction.remove());
     }
 
     /**
@@ -50,7 +50,7 @@ export class UserService {
         customerContact: factory.transaction.placeOrder.ICustomerProfile;
         printer: IPrinter;
     }) {
-        this.store.dispatch(new userAction.UpdateAll(params));
+        this.store.dispatch(userAction.updateAll(params));
     }
 
     /**
@@ -64,7 +64,7 @@ export class UserService {
         this.translate.use(language);
         const html = <HTMLElement>document.querySelector('html');
         html.setAttribute('lang', language);
-        this.store.dispatch(new userAction.UpdateLanguage({ language }));
+        this.store.dispatch(userAction.updateLanguage({ language }));
     }
 
     /**
@@ -75,11 +75,11 @@ export class UserService {
         const { version } = await this.utilService.getJson<{ version: string }>(`/api/version${query}`);
         const data = await this.getData();
         if (data.version === undefined) {
-            this.store.dispatch(new userAction.SetVersion({ version }));
+            this.store.dispatch(userAction.setVersion({ version }));
         }
         if (data.version !== undefined
             && data.version !== version) {
-            this.store.dispatch(new userAction.SetVersion({ version }));
+            this.store.dispatch(userAction.setVersion({ version }));
             location.reload();
         }
     }

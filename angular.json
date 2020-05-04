@@ -176,7 +176,7 @@
     }
   },
   "cli": {
-    "warnings": {
-    }
+    "warnings": {},
+    "analytics": "78f8271a-b5f8-442e-9f70-3d2678e9386d"
   }
 }
