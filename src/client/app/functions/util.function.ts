@@ -251,6 +251,9 @@ export async function isFile(url: string) {
     return (fetchResult.ok);
 }
 
+/**
+ * オブジェクトディープコピー
+ */
 export function deepCopy<T>(obj: any) {
     return <T>JSON.parse(JSON.stringify(obj));
 }

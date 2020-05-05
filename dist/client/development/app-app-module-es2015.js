@@ -83567,9 +83567,6 @@ function reducer(initialState, action) {
     }), Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_1__["on"])(_actions__WEBPACK_IMPORTED_MODULE_3__["purchaseAction"].cancelTransactionSuccess, (state) => {
         const transaction = undefined;
         return Object.assign(Object.assign({}, state), { purchaseData: Object.assign(Object.assign({}, state.purchaseData), { transaction, authorizeAnyPayments: [], authorizeMovieTicketPayments: [], authorizeSeatReservations: [], pendingMovieTickets: [], checkMovieTicketActions: [] }), loading: false, process: '', error: null });
-    }), Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_1__["on"])(_actions__WEBPACK_IMPORTED_MODULE_3__["purchaseAction"].cancelTransactionSuccess, (state) => {
-        const transaction = undefined;
-        return Object.assign(Object.assign({}, state), { purchaseData: Object.assign(Object.assign({}, state.purchaseData), { transaction, authorizeAnyPayments: [], authorizeMovieTicketPayments: [], authorizeSeatReservations: [], pendingMovieTickets: [], checkMovieTicketActions: [] }), loading: false, process: '', error: null });
     }), Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_1__["on"])(_actions__WEBPACK_IMPORTED_MODULE_3__["purchaseAction"].cancelTransactionFail, (state, payload) => {
         const error = payload.error;
         const transaction = undefined;

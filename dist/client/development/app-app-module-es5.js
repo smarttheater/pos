@@ -119485,21 +119485,6 @@ function _classCallCheck2(instance, Constructor) { if (!(instance instanceof Con
           process: '',
           error: null
         });
-      }), Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_1__["on"])(_actions__WEBPACK_IMPORTED_MODULE_3__["purchaseAction"].cancelTransactionSuccess, function (state) {
-        var transaction = undefined;
-        return Object.assign(Object.assign({}, state), {
-          purchaseData: Object.assign(Object.assign({}, state.purchaseData), {
-            transaction: transaction,
-            authorizeAnyPayments: [],
-            authorizeMovieTicketPayments: [],
-            authorizeSeatReservations: [],
-            pendingMovieTickets: [],
-            checkMovieTicketActions: []
-          }),
-          loading: false,
-          process: '',
-          error: null
-        });
       }), Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_1__["on"])(_actions__WEBPACK_IMPORTED_MODULE_3__["purchaseAction"].cancelTransactionFail, function (state, payload) {
         var error = payload.error;
         var transaction = undefined;

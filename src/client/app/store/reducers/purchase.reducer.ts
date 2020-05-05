@@ -209,20 +209,6 @@ export function reducer(initialState: IState, action: Action) {
                     authorizeMovieTicketPayments: [],
                     authorizeSeatReservations: [],
                     pendingMovieTickets: [],
-                    checkMovieTicketActions: []
-                }, loading: false, process: '', error: null
-            };
-        }),
-        on(purchaseAction.cancelTransactionSuccess, (state) => {
-            const transaction = undefined;
-            return {
-                ...state, purchaseData: {
-                    ...state.purchaseData,
-                    transaction,
-                    authorizeAnyPayments: [],
-                    authorizeMovieTicketPayments: [],
-                    authorizeSeatReservations: [],
-                    pendingMovieTickets: [],
                     checkMovieTicketActions: [],
                 }, loading: false, process: '', error: null
             };
