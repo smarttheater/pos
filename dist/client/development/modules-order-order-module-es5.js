@@ -3558,101 +3558,101 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
     /* harmony import */
 
 
-    var _angular_router__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(
-    /*! @angular/router */
-    "../../node_modules/@angular/router/__ivy_ngcc__/fesm2015/router.js");
-    /* harmony import */
-
-
-    var _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
+    var _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(
     /*! @cinerino/api-javascript-client */
     "../../node_modules/@cinerino/api-javascript-client/lib/index.js");
     /* harmony import */
 
 
-    var _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_2__);
+    var _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_1__);
     /* harmony import */
 
 
-    var _ngrx_store__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(
+    var _ngrx_store__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
     /*! @ngrx/store */
     "../../node_modules/@ngrx/store/__ivy_ngcc__/fesm2015/store.js");
     /* harmony import */
 
 
-    var _ngx_translate_core__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(
+    var _ngx_translate_core__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(
     /*! @ngx-translate/core */
     "../../node_modules/@ngx-translate/core/__ivy_ngcc__/fesm2015/ngx-translate-core.js");
     /* harmony import */
 
 
-    var moment__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(
+    var moment__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(
     /*! moment */
     "../../node_modules/moment/moment.js");
     /* harmony import */
 
 
-    var moment__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_5__);
+    var moment__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_4__);
     /* harmony import */
 
 
-    var ngx_bootstrap_datepicker__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(
+    var ngx_bootstrap_datepicker__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(
     /*! ngx-bootstrap/datepicker */
     "../../node_modules/ngx-bootstrap/__ivy_ngcc__/datepicker/fesm2015/ngx-bootstrap-datepicker.js");
     /* harmony import */
 
 
-    var ngx_bootstrap_modal__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(
+    var ngx_bootstrap_modal__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(
     /*! ngx-bootstrap/modal */
     "../../node_modules/ngx-bootstrap/__ivy_ngcc__/modal/fesm2015/ngx-bootstrap-modal.js");
     /* harmony import */
 
 
-    var _environments_environment__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(
+    var _environments_environment__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(
     /*! ../../../../../../environments/environment */
     "./environments/environment.ts");
     /* harmony import */
 
 
-    var _functions__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(
+    var _functions__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(
     /*! ../../../../../functions */
     "./app/functions/index.ts");
     /* harmony import */
 
 
-    var _models__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(
+    var _models__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(
     /*! ../../../../../models */
     "./app/models/index.ts");
     /* harmony import */
 
 
-    var _services__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(
+    var _services__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(
     /*! ../../../../../services */
     "./app/services/index.ts");
     /* harmony import */
 
 
-    var _store_reducers__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(
+    var _store_reducers__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(
     /*! ../../../../../store/reducers */
     "./app/store/reducers/index.ts");
     /* harmony import */
 
 
-    var _shared_components_parts_order_detail_modal_detail_modal_component__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(
+    var _shared_components_parts_order_detail_modal_detail_modal_component__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(
     /*! ../../../../shared/components/parts/order/detail-modal/detail-modal.component */
     "./app/modules/shared/components/parts/order/detail-modal/detail-modal.component.ts");
     /* harmony import */
 
 
-    var _angular_forms__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(
+    var _angular_forms__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(
     /*! @angular/forms */
     "../../node_modules/@angular/forms/__ivy_ngcc__/fesm2015/forms.js");
     /* harmony import */
 
 
-    var _angular_common__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(
+    var _angular_common__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(
     /*! @angular/common */
     "../../node_modules/@angular/common/__ivy_ngcc__/fesm2015/common.js");
+    /* harmony import */
+
+
+    var _angular_router__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(
+    /*! @angular/router */
+    "../../node_modules/@angular/router/__ivy_ngcc__/fesm2015/router.js");
     /* harmony import */
 
 
@@ -4363,24 +4363,23 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
     };
 
     var OrderSearchComponent = /*#__PURE__*/function () {
-      function OrderSearchComponent(store, modal, router, utilService, userService, orderService, translate, localeService) {
+      function OrderSearchComponent(store, modal, utilService, userService, orderService, translate, localeService) {
         _classCallCheck(this, OrderSearchComponent);
 
         this.store = store;
         this.modal = modal;
-        this.router = router;
         this.utilService = utilService;
         this.userService = userService;
         this.orderService = orderService;
         this.translate = translate;
         this.localeService = localeService;
-        this.moment = moment__WEBPACK_IMPORTED_MODULE_5__;
-        this.orderStatus = _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_2__["factory"].orderStatus;
-        this.paymentMethodType = _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_2__["factory"].paymentMethodType;
-        this.OrderActions = _models__WEBPACK_IMPORTED_MODULE_10__["OrderActions"];
-        this.environment = Object(_environments_environment__WEBPACK_IMPORTED_MODULE_8__["getEnvironment"])();
-        this.order2EventOrders = _functions__WEBPACK_IMPORTED_MODULE_9__["order2EventOrders"];
-        this.connectionType = _models__WEBPACK_IMPORTED_MODULE_10__["ConnectionType"];
+        this.moment = moment__WEBPACK_IMPORTED_MODULE_4__;
+        this.orderStatus = _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_1__["factory"].orderStatus;
+        this.paymentMethodType = _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_1__["factory"].paymentMethodType;
+        this.OrderActions = _models__WEBPACK_IMPORTED_MODULE_9__["OrderActions"];
+        this.environment = Object(_environments_environment__WEBPACK_IMPORTED_MODULE_7__["getEnvironment"])();
+        this.order2EventOrders = _functions__WEBPACK_IMPORTED_MODULE_8__["order2EventOrders"];
+        this.connectionType = _models__WEBPACK_IMPORTED_MODULE_9__["ConnectionType"];
       }
 
       _createClass(OrderSearchComponent, [{
@@ -4388,19 +4387,19 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
         value: function ngOnInit() {
           this.actionSelect = '';
           this.selectedOrders = [];
-          this.isLoading = this.store.pipe(Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_3__["select"])(_store_reducers__WEBPACK_IMPORTED_MODULE_12__["getLoading"]));
-          this.error = this.store.pipe(Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_3__["select"])(_store_reducers__WEBPACK_IMPORTED_MODULE_12__["getError"]));
-          this.user = this.store.pipe(Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_3__["select"])(_store_reducers__WEBPACK_IMPORTED_MODULE_12__["getUser"]));
+          this.isLoading = this.store.pipe(Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_2__["select"])(_store_reducers__WEBPACK_IMPORTED_MODULE_11__["getLoading"]));
+          this.error = this.store.pipe(Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_2__["select"])(_store_reducers__WEBPACK_IMPORTED_MODULE_11__["getError"]));
+          this.user = this.store.pipe(Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_2__["select"])(_store_reducers__WEBPACK_IMPORTED_MODULE_11__["getUser"]));
           this.orders = [];
           this.totalCount = 20;
           this.maxSize = 1;
           this.currentPage = 1;
           this.limit = 20;
-          var now = moment__WEBPACK_IMPORTED_MODULE_5__().toDate();
-          var today = moment__WEBPACK_IMPORTED_MODULE_5__(moment__WEBPACK_IMPORTED_MODULE_5__(now).format('YYYYMMDD'));
+          var now = moment__WEBPACK_IMPORTED_MODULE_4__().toDate();
+          var today = moment__WEBPACK_IMPORTED_MODULE_4__(moment__WEBPACK_IMPORTED_MODULE_4__(now).format('YYYYMMDD'));
           this.conditions = {
-            orderDateFrom: moment__WEBPACK_IMPORTED_MODULE_5__(today).add(-13, 'day').toDate(),
-            orderDateThrough: moment__WEBPACK_IMPORTED_MODULE_5__(today).toDate(),
+            orderDateFrom: moment__WEBPACK_IMPORTED_MODULE_4__(today).add(-13, 'day').toDate(),
+            orderDateThrough: moment__WEBPACK_IMPORTED_MODULE_4__(today).toDate(),
             confirmationNumber: '',
             orderNumber: '',
             customer: {
@@ -4504,7 +4503,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
                     }
 
                     _context7.prev = 10;
-                    _context7.t0 = Object(_functions__WEBPACK_IMPORTED_MODULE_9__["input2OrderSearchCondition"]);
+                    _context7.t0 = Object(_functions__WEBPACK_IMPORTED_MODULE_8__["input2OrderSearchCondition"]);
                     _context7.t1 = this.confirmedConditions;
                     _context7.next = 15;
                     return this.userService.getData();
@@ -4521,7 +4520,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
                     };
                     params = (0, _context7.t0)(_context7.t5);
 
-                    if (!(params.orderDateFrom !== null && params.orderDateThrough !== null && moment__WEBPACK_IMPORTED_MODULE_5__(params.orderDateThrough).diff(moment__WEBPACK_IMPORTED_MODULE_5__(params.orderDateFrom), 'day') > 14)) {
+                    if (!(params.orderDateFrom !== null && params.orderDateThrough !== null && moment__WEBPACK_IMPORTED_MODULE_4__(params.orderDateThrough).diff(moment__WEBPACK_IMPORTED_MODULE_4__(params.orderDateFrom), 'day') > 14)) {
                       _context7.next = 22;
                       break;
                     }
@@ -4573,11 +4572,11 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "searchConditionClear",
         value: function searchConditionClear() {
-          var now = moment__WEBPACK_IMPORTED_MODULE_5__().toDate();
-          var today = moment__WEBPACK_IMPORTED_MODULE_5__(moment__WEBPACK_IMPORTED_MODULE_5__(now).format('YYYYMMDD'));
+          var now = moment__WEBPACK_IMPORTED_MODULE_4__().toDate();
+          var today = moment__WEBPACK_IMPORTED_MODULE_4__(moment__WEBPACK_IMPORTED_MODULE_4__(now).format('YYYYMMDD'));
           this.conditions = {
-            orderDateFrom: moment__WEBPACK_IMPORTED_MODULE_5__(today).add(-13, 'day').toDate(),
-            orderDateThrough: moment__WEBPACK_IMPORTED_MODULE_5__(today).toDate(),
+            orderDateFrom: moment__WEBPACK_IMPORTED_MODULE_4__(today).add(-13, 'day').toDate(),
+            orderDateThrough: moment__WEBPACK_IMPORTED_MODULE_4__(today).toDate(),
             confirmationNumber: '',
             orderNumber: '',
             customer: {
@@ -4625,30 +4624,29 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
                       case 3:
                         user = _context8.sent;
 
-                        if (!(user.pos === undefined || user.printer === undefined)) {
-                          _context8.next = 7;
+                        if (!(user.printer === undefined)) {
+                          _context8.next = 6;
                           break;
                         }
 
-                        this.router.navigate(['/error']);
-                        return _context8.abrupt("return");
+                        throw new Error('printer undefined');
 
-                      case 7:
+                      case 6:
                         pos = user.pos;
                         printer = user.printer;
-                        _context8.next = 11;
+                        _context8.next = 10;
                         return this.orderService.print({
                           orders: orders,
                           pos: pos,
                           printer: printer
                         });
 
-                      case 11:
-                        _context8.next = 17;
+                      case 10:
+                        _context8.next = 16;
                         break;
 
-                      case 13:
-                        _context8.prev = 13;
+                      case 12:
+                        _context8.prev = 12;
                         _context8.t0 = _context8["catch"](0);
                         console.error(_context8.t0);
                         this.utilService.openAlert({
@@ -4656,12 +4654,12 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
                           body: "<p class=\"mb-4\">".concat(this.translate.instant('order.search.alert.print'), "</p>\n                        <div class=\"p-3 bg-light-gray select-text\">\n                        <code>").concat(_context8.t0, "</code>\n                    </div>")
                         });
 
-                      case 17:
+                      case 16:
                       case "end":
                         return _context8.stop();
                     }
                   }
-                }, _callee8, this, [[0, 13]]);
+                }, _callee8, this, [[0, 12]]);
               }));
             }
           });
@@ -4675,7 +4673,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
         value: function cancelConfirm(orders) {
           var _this7 = this;
 
-          var code = Object(_functions__WEBPACK_IMPORTED_MODULE_9__["createRandomString"])(6, /[^0-9]/g);
+          var code = Object(_functions__WEBPACK_IMPORTED_MODULE_8__["createRandomString"])(6, /[^0-9]/g);
           this.utilService.openConfirm({
             title: this.translate.instant('common.confirm'),
             body: this.translate.instant('order.search.confirm.cancel', {
@@ -4734,7 +4732,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "openDetail",
         value: function openDetail(order) {
-          this.modal.show(_shared_components_parts_order_detail_modal_detail_modal_component__WEBPACK_IMPORTED_MODULE_13__["OrderDetailModalComponent"], {
+          this.modal.show(_shared_components_parts_order_detail_modal_detail_modal_component__WEBPACK_IMPORTED_MODULE_12__["OrderDetailModalComponent"], {
             "class": 'modal-dialog-centered modal-lg',
             initialState: {
               order: order
@@ -4758,8 +4756,8 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
             return;
           }
 
-          if (this.actionSelect === _models__WEBPACK_IMPORTED_MODULE_10__["OrderActions"].Cancel) {
-            var code = Object(_functions__WEBPACK_IMPORTED_MODULE_9__["createRandomString"])(6, /[^0-9]/g);
+          if (this.actionSelect === _models__WEBPACK_IMPORTED_MODULE_9__["OrderActions"].Cancel) {
+            var code = Object(_functions__WEBPACK_IMPORTED_MODULE_8__["createRandomString"])(6, /[^0-9]/g);
             this.utilService.openConfirm({
               title: this.translate.instant('common.confirm'),
               body: this.translate.instant('order.search.confirm.cancel', {
@@ -4810,7 +4808,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
                 }));
               }
             });
-          } else if (this.actionSelect === _models__WEBPACK_IMPORTED_MODULE_10__["OrderActions"].Print) {
+          } else if (this.actionSelect === _models__WEBPACK_IMPORTED_MODULE_9__["OrderActions"].Print) {
             this.utilService.openConfirm({
               title: this.translate.instant('common.confirm'),
               body: this.translate.instant('order.search.confirm.print'),
@@ -4828,31 +4826,30 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
                         case 3:
                           user = _context11.sent;
 
-                          if (!(user.pos === undefined || user.printer === undefined)) {
-                            _context11.next = 7;
+                          if (!(user.printer === undefined)) {
+                            _context11.next = 6;
                             break;
                           }
 
-                          this.router.navigate(['/error']);
-                          return _context11.abrupt("return");
+                          throw new Error('printer undefined');
 
-                        case 7:
+                        case 6:
                           pos = user.pos;
                           printer = user.printer;
                           orders = this.selectedOrders;
-                          _context11.next = 12;
+                          _context11.next = 11;
                           return this.orderService.print({
                             orders: orders,
                             pos: pos,
                             printer: printer
                           });
 
-                        case 12:
-                          _context11.next = 18;
+                        case 11:
+                          _context11.next = 17;
                           break;
 
-                        case 14:
-                          _context11.prev = 14;
+                        case 13:
+                          _context11.prev = 13;
                           _context11.t0 = _context11["catch"](0);
                           console.error(_context11.t0);
                           this.utilService.openAlert({
@@ -4860,12 +4857,12 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
                             body: "<p class=\"mb-4\">".concat(this.translate.instant('order.search.alert.print'), "</p>\n                            <div class=\"p-3 bg-light-gray select-text\">\n                            <code>").concat(_context11.t0, "</code>\n                        </div>")
                           });
 
-                        case 18:
+                        case 17:
                         case "end":
                           return _context11.stop();
                       }
                     }
-                  }, _callee11, this, [[0, 14]]);
+                  }, _callee11, this, [[0, 13]]);
                 }));
               }
             });
@@ -4891,7 +4888,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "onShowPicker",
         value: function onShowPicker(container) {
-          Object(_functions__WEBPACK_IMPORTED_MODULE_9__["iOSDatepickerTapBugFix"])(container, [this.orderDateFrom, this.orderDateThrough, this.eventStartDateFrom, this.eventStartDateThrough]);
+          Object(_functions__WEBPACK_IMPORTED_MODULE_8__["iOSDatepickerTapBugFix"])(container, [this.orderDateFrom, this.orderDateThrough, this.eventStartDateFrom, this.eventStartDateThrough]);
         }
       }]);
 
@@ -4899,7 +4896,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
     }();
 
     OrderSearchComponent.ɵfac = function OrderSearchComponent_Factory(t) {
-      return new (t || OrderSearchComponent)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_ngrx_store__WEBPACK_IMPORTED_MODULE_3__["Store"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](ngx_bootstrap_modal__WEBPACK_IMPORTED_MODULE_7__["BsModalService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_router__WEBPACK_IMPORTED_MODULE_1__["Router"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_services__WEBPACK_IMPORTED_MODULE_11__["UtilService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_services__WEBPACK_IMPORTED_MODULE_11__["UserService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_services__WEBPACK_IMPORTED_MODULE_11__["OrderService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_ngx_translate_core__WEBPACK_IMPORTED_MODULE_4__["TranslateService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](ngx_bootstrap_datepicker__WEBPACK_IMPORTED_MODULE_6__["BsLocaleService"]));
+      return new (t || OrderSearchComponent)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_ngrx_store__WEBPACK_IMPORTED_MODULE_2__["Store"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](ngx_bootstrap_modal__WEBPACK_IMPORTED_MODULE_6__["BsModalService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_services__WEBPACK_IMPORTED_MODULE_10__["UtilService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_services__WEBPACK_IMPORTED_MODULE_10__["UserService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_services__WEBPACK_IMPORTED_MODULE_10__["OrderService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_ngx_translate_core__WEBPACK_IMPORTED_MODULE_3__["TranslateService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](ngx_bootstrap_datepicker__WEBPACK_IMPORTED_MODULE_5__["BsLocaleService"]));
     };
 
     OrderSearchComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineComponent"]({
@@ -5631,8 +5628,8 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
           _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtextInterpolate"](_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipeBind1"](135, 140, "order.search.prev"));
         }
       },
-      directives: [_angular_forms__WEBPACK_IMPORTED_MODULE_14__["ɵangular_packages_forms_forms_y"], _angular_forms__WEBPACK_IMPORTED_MODULE_14__["NgControlStatusGroup"], _angular_forms__WEBPACK_IMPORTED_MODULE_14__["NgForm"], ngx_bootstrap_datepicker__WEBPACK_IMPORTED_MODULE_6__["BsDatepickerInputDirective"], _angular_forms__WEBPACK_IMPORTED_MODULE_14__["DefaultValueAccessor"], ngx_bootstrap_datepicker__WEBPACK_IMPORTED_MODULE_6__["BsDatepickerDirective"], _angular_forms__WEBPACK_IMPORTED_MODULE_14__["NgControlStatus"], _angular_forms__WEBPACK_IMPORTED_MODULE_14__["NgModel"], _angular_forms__WEBPACK_IMPORTED_MODULE_14__["SelectControlValueAccessor"], _angular_forms__WEBPACK_IMPORTED_MODULE_14__["NgSelectOption"], _angular_forms__WEBPACK_IMPORTED_MODULE_14__["ɵangular_packages_forms_forms_x"], _angular_common__WEBPACK_IMPORTED_MODULE_15__["NgForOf"], _angular_common__WEBPACK_IMPORTED_MODULE_15__["NgIf"], _angular_router__WEBPACK_IMPORTED_MODULE_1__["RouterLink"], ngx_bootstrap_pagination__WEBPACK_IMPORTED_MODULE_16__["PaginationComponent"]],
-      pipes: [_ngx_translate_core__WEBPACK_IMPORTED_MODULE_4__["TranslatePipe"], _angular_common__WEBPACK_IMPORTED_MODULE_15__["AsyncPipe"], _shared_pipes_format_date_pipe__WEBPACK_IMPORTED_MODULE_17__["FormatDatePipe"], _shared_pipes_change_language_pipe__WEBPACK_IMPORTED_MODULE_18__["ChangeLanguagePipe"], _angular_common__WEBPACK_IMPORTED_MODULE_15__["SlicePipe"]],
+      directives: [_angular_forms__WEBPACK_IMPORTED_MODULE_13__["ɵangular_packages_forms_forms_y"], _angular_forms__WEBPACK_IMPORTED_MODULE_13__["NgControlStatusGroup"], _angular_forms__WEBPACK_IMPORTED_MODULE_13__["NgForm"], ngx_bootstrap_datepicker__WEBPACK_IMPORTED_MODULE_5__["BsDatepickerInputDirective"], _angular_forms__WEBPACK_IMPORTED_MODULE_13__["DefaultValueAccessor"], ngx_bootstrap_datepicker__WEBPACK_IMPORTED_MODULE_5__["BsDatepickerDirective"], _angular_forms__WEBPACK_IMPORTED_MODULE_13__["NgControlStatus"], _angular_forms__WEBPACK_IMPORTED_MODULE_13__["NgModel"], _angular_forms__WEBPACK_IMPORTED_MODULE_13__["SelectControlValueAccessor"], _angular_forms__WEBPACK_IMPORTED_MODULE_13__["NgSelectOption"], _angular_forms__WEBPACK_IMPORTED_MODULE_13__["ɵangular_packages_forms_forms_x"], _angular_common__WEBPACK_IMPORTED_MODULE_14__["NgForOf"], _angular_common__WEBPACK_IMPORTED_MODULE_14__["NgIf"], _angular_router__WEBPACK_IMPORTED_MODULE_15__["RouterLink"], ngx_bootstrap_pagination__WEBPACK_IMPORTED_MODULE_16__["PaginationComponent"]],
+      pipes: [_ngx_translate_core__WEBPACK_IMPORTED_MODULE_3__["TranslatePipe"], _angular_common__WEBPACK_IMPORTED_MODULE_14__["AsyncPipe"], _shared_pipes_format_date_pipe__WEBPACK_IMPORTED_MODULE_17__["FormatDatePipe"], _shared_pipes_change_language_pipe__WEBPACK_IMPORTED_MODULE_18__["ChangeLanguagePipe"], _angular_common__WEBPACK_IMPORTED_MODULE_14__["SlicePipe"]],
       styles: [".scroll-horizontal[_ngcontent-%COMP%]   .table[_ngcontent-%COMP%] {\n  min-width: 900px;\n}"]
     });
     /*@__PURE__*/
@@ -5647,21 +5644,19 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
         }]
       }], function () {
         return [{
-          type: _ngrx_store__WEBPACK_IMPORTED_MODULE_3__["Store"]
+          type: _ngrx_store__WEBPACK_IMPORTED_MODULE_2__["Store"]
         }, {
-          type: ngx_bootstrap_modal__WEBPACK_IMPORTED_MODULE_7__["BsModalService"]
+          type: ngx_bootstrap_modal__WEBPACK_IMPORTED_MODULE_6__["BsModalService"]
         }, {
-          type: _angular_router__WEBPACK_IMPORTED_MODULE_1__["Router"]
+          type: _services__WEBPACK_IMPORTED_MODULE_10__["UtilService"]
         }, {
-          type: _services__WEBPACK_IMPORTED_MODULE_11__["UtilService"]
+          type: _services__WEBPACK_IMPORTED_MODULE_10__["UserService"]
         }, {
-          type: _services__WEBPACK_IMPORTED_MODULE_11__["UserService"]
+          type: _services__WEBPACK_IMPORTED_MODULE_10__["OrderService"]
         }, {
-          type: _services__WEBPACK_IMPORTED_MODULE_11__["OrderService"]
+          type: _ngx_translate_core__WEBPACK_IMPORTED_MODULE_3__["TranslateService"]
         }, {
-          type: _ngx_translate_core__WEBPACK_IMPORTED_MODULE_4__["TranslateService"]
-        }, {
-          type: ngx_bootstrap_datepicker__WEBPACK_IMPORTED_MODULE_6__["BsLocaleService"]
+          type: ngx_bootstrap_datepicker__WEBPACK_IMPORTED_MODULE_5__["BsLocaleService"]
         }];
       }, {
         orderDateFrom: [{

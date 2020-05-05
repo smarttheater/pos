@@ -2,7 +2,7 @@
  * NgModule
  */
 import { NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
+import { BrowserModule, HammerModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { TranslateModule } from '@ngx-translate/core';
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
@@ -24,6 +24,7 @@ import { CoreStoreModule } from './store/core/store';
     imports: [
         BrowserModule,
         BrowserAnimationsModule,
+        HammerModule,
         AppRoutingModule,
         StoreModule,
         CoreStoreModule,

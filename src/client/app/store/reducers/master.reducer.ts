@@ -18,19 +18,15 @@ export function reducer(initialState: IState, action: Action) {
     return createReducer(
         initialState,
         on(masterAction.remove, state => {
-            state.masterData = {
-                projects: []
-            };
-            return { ...state };
+            return { ...state, masterData: { projects: [] } };
         }),
         on(masterAction.getProjects, (state) => {
             return { ...state, loading: true, process: 'masterAction.GetProjects' };
         }),
         on(masterAction.getProjectsSuccess, (state, payload) => {
             const projects = payload.projects;
-            state.masterData.projects = projects;
 
-            return { ...state, loading: false, process: '', error: null };
+            return { ...state, masterData: { projects }, loading: false, process: '', error: null };
         }),
         on(masterAction.getProjectsFail, (state, payload) => {
             const error = payload.error;

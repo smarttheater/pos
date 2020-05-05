@@ -6,6 +6,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { BsModalService } from 'ngx-bootstrap/modal';
 import { Observable } from 'rxjs';
 import { getEnvironment } from '../../../../../../environments/environment';
+import { deepCopy } from '../../../../../functions';
 import { IReservation, IReservationTicket } from '../../../../../models/purchase/reservation';
 import { PurchaseService, UtilService } from '../../../../../services';
 import * as reducers from '../../../../../store/reducers';
@@ -122,28 +123,27 @@ export class PurchaseTicketComponent implements OnInit {
     /**
      * 券種一覧表示
      */
-    public openTicketList(reservation?: IReservation) {
-        this.purchase.subscribe((purchase) => {
-            this.modal.show(PurchaseSeatTicketModalComponent, {
-                class: 'modal-dialog-centered modal-lg',
-                initialState: {
-                    screeningEventTicketOffers: purchase.screeningEventTicketOffers,
-                    checkMovieTicketActions: purchase.checkMovieTicketActions,
-                    reservations: purchase.reservations,
-                    reservation: reservation,
-                    pendingMovieTickets: purchase.pendingMovieTickets,
-                    cb: (ticket: IReservationTicket) => {
-                        if (reservation === undefined) {
-                            purchase.reservations.forEach(r => r.ticket = ticket);
-                            this.purchaseService.selectTickets(purchase.reservations);
-                            return;
-                        }
-                        reservation.ticket = ticket;
-                        this.purchaseService.selectTickets([reservation]);
+    public async openTicketList(reservation?: IReservation) {
+        const purchase = await this.purchaseService.getData();
+        this.modal.show(PurchaseSeatTicketModalComponent, {
+            class: 'modal-dialog-centered modal-lg',
+            initialState: {
+                screeningEventTicketOffers: purchase.screeningEventTicketOffers,
+                checkMovieTicketActions: purchase.checkMovieTicketActions,
+                reservations: purchase.reservations,
+                reservation: reservation,
+                pendingMovieTickets: purchase.pendingMovieTickets,
+                cb: (ticket: IReservationTicket) => {
+                    if (reservation === undefined) {
+                        const reservations = deepCopy<IReservation[]>(purchase.reservations);
+                        reservations.forEach(r => r.ticket = ticket);
+                        this.purchaseService.selectTickets(reservations);
+                        return;
                     }
-                },
-            });
-        }).unsubscribe();
+                    this.purchaseService.selectTickets([{ ...reservation, ticket }]);
+                }
+            },
+        });
     }
 
     /**

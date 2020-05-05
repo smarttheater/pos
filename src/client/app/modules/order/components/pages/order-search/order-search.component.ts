@@ -1,5 +1,4 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { Router } from '@angular/router';
 import { factory } from '@cinerino/api-javascript-client';
 import { select, Store } from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
@@ -48,7 +47,6 @@ export class OrderSearchComponent implements OnInit {
     constructor(
         private store: Store<reducers.IOrderState>,
         private modal: BsModalService,
-        private router: Router,
         private utilService: UtilService,
         private userService: UserService,
         private orderService: OrderService,
@@ -229,9 +227,8 @@ export class OrderSearchComponent implements OnInit {
             cb: async () => {
                 try {
                     const user = await this.userService.getData();
-                    if (user.pos === undefined || user.printer === undefined) {
-                        this.router.navigate(['/error']);
-                        return;
+                    if (user.printer === undefined) {
+                        throw new Error('printer undefined');
                     }
                     const pos = user.pos;
                     const printer = user.printer;
@@ -334,9 +331,8 @@ export class OrderSearchComponent implements OnInit {
                 cb: async () => {
                     try {
                         const user = await this.userService.getData();
-                        if (user.pos === undefined || user.printer === undefined) {
-                            this.router.navigate(['/error']);
-                            return;
+                        if (user.printer === undefined) {
+                            throw new Error('printer undefined');
                         }
                         const pos = user.pos;
                         const printer = user.printer;

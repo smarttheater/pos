@@ -15,11 +15,10 @@ export function reducer(initialState: IState, action: Action) {
     return createReducer(
         initialState,
         on(orderAction.remove, state => {
-            state.orderData = {};
-            return { ...state };
+            return { ...state, orderData: {} };
         }),
         on(orderAction.cancel, (state) => {
-            return { ...state, loading: true, process:  'orderAction.Cancel' };
+            return { ...state, loading: true, process: 'orderAction.Cancel' };
         }),
         on(orderAction.cancelSuccess, (state) => {
             return { ...state, loading: false, process: '', error: null };
@@ -33,8 +32,7 @@ export function reducer(initialState: IState, action: Action) {
         }),
         on(orderAction.inquirySuccess, (state, payload) => {
             const order = payload.order;
-            state.orderData.order = order;
-            return { ...state, loading: false, process: '', error: null };
+            return { ...state, orderData: { ...state.orderData, order }, loading: false, process: '', error: null };
         }),
         on(orderAction.inquiryFail, (state, payload) => {
             const error = payload.error;
@@ -54,9 +52,8 @@ export function reducer(initialState: IState, action: Action) {
             return { ...state, loading: true, process: 'orderAction.OrderAuthorize' };
         }),
         on(orderAction.orderAuthorizeSuccess, (state, payload) => {
-            const authorizeOrder = payload.order;
-            state.orderData.order = authorizeOrder;
-            return { ...state, loading: false, process: '', error: null };
+            const order = payload.order;
+            return { ...state, orderData: { ...state.orderData, order }, loading: false, process: '', error: null };
         }),
         on(orderAction.orderAuthorizeFail, (state, payload) => {
             const error = payload.error;

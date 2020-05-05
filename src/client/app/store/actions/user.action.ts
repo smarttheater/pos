@@ -2,7 +2,7 @@ import { factory } from '@cinerino/api-javascript-client';
 import { createAction, props } from '@ngrx/store';
 import { IPrinter } from '../../models';
 
-const LABEL = '[Admission]';
+const LABEL = '[User]';
 
 export const remove = createAction(
     `${LABEL} remove`,

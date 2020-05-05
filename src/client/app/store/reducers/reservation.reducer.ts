@@ -20,12 +20,11 @@ export function reducer(initialState: IState, action: Action) {
     return createReducer(
         initialState,
         on(reservationAction.remove, state => {
-            state.reservationData = {
+            return { ...state, reservationData: {
                 reservations: [],
                 totalCount: 0,
                 pageCount: 1
-            };
-            return { ...state };
+            } };
         }),
     )(initialState, action);
 }

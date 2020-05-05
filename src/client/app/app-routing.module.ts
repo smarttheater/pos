@@ -7,7 +7,7 @@ import { isProduction } from '../environments/environment';
 import { ErrorModule } from './modules/error/error.module';
 
 const appRoutes: Routes = [
-    { path: '', redirectTo: '', pathMatch: 'full' },
+    { path: '', redirectTo: '/auth', pathMatch: 'full' },
     {
         path: 'purchase',
         loadChildren: () => import('./modules/purchase/purchase.module')

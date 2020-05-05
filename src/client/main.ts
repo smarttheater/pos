@@ -7,7 +7,6 @@ import 'hammerjs';
 import * as momentTimezone from 'moment-timezone';
 import { defineLocale } from 'ngx-bootstrap/chronos';
 import { jaLocale } from 'ngx-bootstrap/locale';
-import { AppModule } from './app/app.module';
 import { getParameter, getProject, isFile } from './app/functions';
 import { getEnvironment } from './environments/environment';
 
@@ -121,7 +120,7 @@ async function setProjectConfig(storageUrl: string) {
 
 
 main().then(async () => {
-    // const { AppModule } = await import('./app/app.module');
+    const { AppModule } = await import('./app/app.module');
     platformBrowserDynamic().bootstrapModule(AppModule);
 }).catch((error) => {
     console.error(error);

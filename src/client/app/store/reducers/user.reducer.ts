@@ -39,30 +39,36 @@ export function reducer(initialState: IState, action: Action) {
     return createReducer(
         initialState,
         on(userAction.remove, state => {
-            state.userData = {
-                language: 'ja'
+            return {
+                ...state,
+                userData: {
+                    language: 'ja'
+                }, loading: false, process: ''
             };
-            return { ...state, loading: false, process: '' };
         }),
         on(userAction.updateAll, (state, payload) => {
             const customerContact = payload.customerContact;
             const pos = payload.pos;
             const theater = payload.theater;
             const printer = payload.printer;
-            state.userData.customerContact = customerContact;
-            state.userData.pos = pos;
-            state.userData.theater = theater;
-            state.userData.printer = printer;
 
-            return { ...state, loading: false, process: '' };
+            return {
+                ...state, userData: {
+                    ...state.userData,
+                    customerContact,
+                    pos,
+                    theater,
+                    printer
+                }, loading: false, process: ''
+            };
         }),
         on(userAction.updateLanguage, (state, payload) => {
-            state.userData.language = payload.language;
-            return { ...state };
+            const language = payload.language;
+            return { ...state, userData: { ...state.userData, language } };
         }),
         on(userAction.setVersion, (state, payload) => {
-            state.userData.version = payload.version;
-            return { ...state };
+            const version = payload.version;
+            return { ...state, userData: { ...state.userData, version } };
         }),
     )(initialState, action);
 }

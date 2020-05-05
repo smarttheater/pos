@@ -8,6 +8,7 @@ import { getEnvironment } from '../../../environments/environment';
 import {
     authorizeSeatReservation2Event,
     createMovieTicketsFromAuthorizeSeatReservation,
+    deepCopy,
     formatTelephone,
     getItemPrice,
     getProject,
@@ -64,10 +65,13 @@ export class PurchaseEffects {
                 const selleId = params.seller.id;
                 await this.cinerinoService.getServices();
                 const passport = await this.cinerinoService.getPassport(selleId);
-                params.object = { passport };
-                const transaction = await this.cinerinoService.transaction.placeOrder.start(params);
+                const transaction = await this.cinerinoService.transaction.placeOrder.start({
+                    ...params,
+                    object: { passport }
+                });
                 return purchaseAction.startTransactionSuccess({ transaction });
             } catch (error) {
+                console.error(error);
                 return purchaseAction.startTransactionFail({ error: error });
             }
         })
@@ -269,7 +273,7 @@ export class PurchaseEffects {
         map(action => action),
         mergeMap(async (payload) => {
             const transaction = payload.transaction;
-            const profile = payload.contact;
+            const profile = deepCopy<factory.person.IProfile>(payload.contact);
             if (profile.telephone !== undefined) {
                 profile.telephone = formatTelephone(profile.telephone);
             }

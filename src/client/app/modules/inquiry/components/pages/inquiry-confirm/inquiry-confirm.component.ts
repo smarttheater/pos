@@ -125,11 +125,12 @@ export class InquiryConfirmComponent implements OnInit {
         try {
             const orderData = await this.orderService.getData();
             const user = await this.userService.getData();
-            if (orderData.order === undefined
-                || user.pos === undefined
-                || user.printer === undefined) {
+            if (orderData.order === undefined) {
                 this.router.navigate(['/error']);
                 return;
+            }
+            if (user.printer === undefined) {
+                throw new Error('printer undefined');
             }
             // 二重発券防止
             const reservationNumbers = orderData.order.acceptedOffers.map((offers) => {

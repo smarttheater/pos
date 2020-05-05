@@ -14,7 +14,7 @@ export class NumericKeypadComponent implements OnInit {
     @Input() public inputType: 'number' | 'telephone';
     @Output() public change = new EventEmitter<string>();
     @Output() public hidden = new EventEmitter<string>();
-    @ViewChild('trigger', { static: true }) private trigger: { nativeElement: HTMLElement };
+    @ViewChild('trigger') private trigger: { nativeElement: HTMLElement };
     @ViewChild('keypad') private keypad: { nativeElement: HTMLElement };
     constructor() { }
 

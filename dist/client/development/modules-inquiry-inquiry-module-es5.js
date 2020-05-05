@@ -613,7 +613,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
                   case 13:
                     user = _context2.sent;
 
-                    if (!(orderData.order === undefined || user.pos === undefined || user.printer === undefined)) {
+                    if (!(orderData.order === undefined)) {
                       _context2.next = 17;
                       break;
                     }
@@ -622,6 +622,14 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
                     return _context2.abrupt("return");
 
                   case 17:
+                    if (!(user.printer === undefined)) {
+                      _context2.next = 19;
+                      break;
+                    }
+
+                    throw new Error('printer undefined');
+
+                  case 19:
                     // 二重発券防止
                     reservationNumbers = orderData.order.acceptedOffers.map(function (offers) {
                       if (offers.itemOffered.typeOf !== _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_2__["factory"].chevre.reservationType.EventReservation) {
@@ -630,24 +638,24 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
                       return offers.itemOffered.reservationNumber;
                     });
-                    _context2.next = 20;
+                    _context2.next = 22;
                     return this.reservationService.search({
                       typeOf: _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_2__["factory"].chevre.reservationType.EventReservation,
                       reservationNumbers: reservationNumbers
                     });
 
-                  case 20:
-                    _context2.next = 22;
+                  case 22:
+                    _context2.next = 24;
                     return this.reservationService.getData();
 
-                  case 22:
+                  case 24:
                     reservationData = _context2.sent;
                     checkedInResult = reservationData.reservations.filter(function (r) {
                       return r.checkedIn;
                     });
 
                     if (!(checkedInResult.length > 0)) {
-                      _context2.next = 27;
+                      _context2.next = 29;
                       break;
                     }
 
@@ -657,25 +665,25 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
                     });
                     return _context2.abrupt("return");
 
-                  case 27:
+                  case 29:
                     // 印刷
                     orders = [orderData.order];
                     pos = user.pos;
                     printer = user.printer;
-                    _context2.next = 32;
+                    _context2.next = 34;
                     return this.orderService.print({
                       orders: orders,
                       pos: pos,
                       printer: printer
                     });
 
-                  case 32:
+                  case 34:
                     this.router.navigate(['/inquiry/print']);
-                    _context2.next = 39;
+                    _context2.next = 41;
                     break;
 
-                  case 35:
-                    _context2.prev = 35;
+                  case 37:
+                    _context2.prev = 37;
                     _context2.t0 = _context2["catch"](7);
                     console.error(_context2.t0);
                     this.utilService.openAlert({
@@ -683,12 +691,12 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
                       body: "\n                <p class=\"mb-4\">".concat(this.translate.instant('inquiry.confirm.alert.print'), "</p>\n                    <div class=\"p-3 bg-light-gray select-text\">\n                    <code>").concat(_context2.t0, "</code>\n                </div>")
                     });
 
-                  case 39:
+                  case 41:
                   case "end":
                     return _context2.stop();
                 }
               }
-            }, _callee2, this, [[7, 35]]);
+            }, _callee2, this, [[7, 37]]);
           }));
         }
       }]);

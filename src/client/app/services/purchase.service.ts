@@ -120,9 +120,7 @@ export class PurchaseService {
                 expires: moment(now).add(environment.PURCHASE_TRANSACTION_TIME, 'minutes').toDate(),
                 seller: { typeOf: params.seller.typeOf, id: params.seller.id },
                 object: {},
-                agent: {
-                    identifier
-                }
+                agent: { identifier }
             }));
             const success = this.actions.pipe(
                 ofType(purchaseAction.startTransactionSuccess.type),
@@ -194,7 +192,7 @@ export class PurchaseService {
      */
     public async getScreeningEventSeats() {
         try {
-            this.utilService.loadStart({ process: 'purchaseAction.getScreeningEventSeats' });
+            this.utilService.loadStart({ process: 'purchaseAction.GetScreeningEventSeats' });
             const purchase = await this.getData();
             if (purchase.screeningEvent === undefined) {
                 throw new Error('purchase.screeningEvent === undefined').message;

@@ -2,6 +2,7 @@ import { factory } from '@cinerino/api-javascript-client';
 import { Action, createReducer, on } from '@ngrx/store';
 import { IState } from '.';
 import {
+    deepCopy,
     isAvailabilityMovieTicket,
     sameMovieTicketFilter
 } from '../../functions';
@@ -118,35 +119,42 @@ export function reducer(initialState: IState, action: Action) {
     return createReducer(
         initialState,
         on(purchaseAction.remove, state => {
-            state.purchaseData = {
-                reservations: [],
-                screeningEventTicketOffers: [],
-                orderCount: 0,
-                checkMovieTicketActions: [],
-                authorizeSeatReservations: [],
-                authorizeMovieTicketPayments: [],
-                authorizeCreditCardPayments: [],
-                authorizeAnyPayments: [],
-                isUsedMovieTicket: false,
-                pendingMovieTickets: []
+            return {
+                ...state,
+                purchaseData: {
+                    reservations: [],
+                    screeningEventTicketOffers: [],
+                    orderCount: 0,
+                    checkMovieTicketActions: [],
+                    authorizeSeatReservations: [],
+                    authorizeMovieTicketPayments: [],
+                    authorizeCreditCardPayments: [],
+                    authorizeAnyPayments: [],
+                    isUsedMovieTicket: false,
+                    pendingMovieTickets: []
+                }
             };
-            return { ...state };
         }),
         on(purchaseAction.unsettledDelete, state => {
-            state.purchaseData.reservations = [];
-            state.purchaseData.screeningEvent = undefined;
-            state.purchaseData.screeningEventTicketOffers = [];
-            state.purchaseData.authorizeSeatReservation = undefined;
-            state.purchaseData.checkMovieTicketAction = undefined;
-            state.purchaseData.isUsedMovieTicket = false;
-            return { ...state };
+            return {
+                ...state,
+                purchaseData: {
+                    ...state.purchaseData,
+                    reservations: [],
+                    screeningEvent: undefined,
+                    screeningEventTicketOffers: [],
+                    authorizeSeatReservation: undefined,
+                    checkMovieTicketAction: undefined,
+                    isUsedMovieTicket: false
+                }
+            };
         }),
         on(purchaseAction.getSeller, (state) => {
             return { ...state, loading: false, process: 'purchaseAction.GetSeller' };
         }),
         on(purchaseAction.getSellerSuccess, (state, payload) => {
-            state.purchaseData.seller = payload.seller;
-            return { ...state, loading: false, process: '', error: null };
+            const seller = payload.seller;
+            return { ...state, purchaseData: { ...state.purchaseData, seller }, loading: false, process: '', error: null };
         }),
         on(purchaseAction.getSellerFail, (state, payload) => {
             const error = payload.error;
@@ -160,8 +168,8 @@ export function reducer(initialState: IState, action: Action) {
             return { ...state, loading: true, process: 'purchaseAction.GetScreeningEvent' };
         }),
         on(purchaseAction.getScreeningEventSuccess, (state, payload) => {
-            state.purchaseData.screeningEvent = payload.screeningEvent;
-            return { ...state, loading: false, process: '', error: null };
+            const screeningEvent = payload.screeningEvent;
+            return { ...state, purchaseData: { ...state.purchaseData, screeningEvent }, loading: false, process: '', error: null };
         }),
         on(purchaseAction.getScreeningEventFail, (state, payload) => {
             const error = payload.error;
@@ -171,13 +179,18 @@ export function reducer(initialState: IState, action: Action) {
             return { ...state, loading: true, process: 'purchaseAction.StartTransaction' };
         }),
         on(purchaseAction.startTransactionSuccess, (state, payload) => {
-            state.purchaseData.transaction = payload.transaction;
-            state.purchaseData.authorizeAnyPayments = [];
-            state.purchaseData.authorizeMovieTicketPayments = [];
-            state.purchaseData.authorizeSeatReservations = [];
-            state.purchaseData.pendingMovieTickets = [];
-            state.purchaseData.checkMovieTicketActions = [];
-            return { ...state, loading: false, process: '', error: null };
+            const transaction = payload.transaction;
+            return {
+                ...state, purchaseData: {
+                    ...state.purchaseData,
+                    transaction,
+                    authorizeAnyPayments: [],
+                    authorizeMovieTicketPayments: [],
+                    authorizeSeatReservations: [],
+                    pendingMovieTickets: [],
+                    checkMovieTicketActions: []
+                }, loading: false, process: '', error: null
+            };
         }),
         on(purchaseAction.getScreeningEventFail, (state, payload) => {
             const error = payload.error;
@@ -187,44 +200,82 @@ export function reducer(initialState: IState, action: Action) {
             return { ...state, loading: true, process: 'purchaseAction.CancelTransaction' };
         }),
         on(purchaseAction.cancelTransactionSuccess, (state) => {
-            state.purchaseData.transaction = undefined;
-            state.purchaseData.authorizeAnyPayments = [];
-            state.purchaseData.authorizeMovieTicketPayments = [];
-            state.purchaseData.authorizeSeatReservations = [];
-            state.purchaseData.pendingMovieTickets = [];
-            state.purchaseData.checkMovieTicketActions = [];
-            return { ...state, loading: false, process: '', error: null };
+            const transaction = undefined;
+            return {
+                ...state, purchaseData: {
+                    ...state.purchaseData,
+                    transaction,
+                    authorizeAnyPayments: [],
+                    authorizeMovieTicketPayments: [],
+                    authorizeSeatReservations: [],
+                    pendingMovieTickets: [],
+                    checkMovieTicketActions: []
+                }, loading: false, process: '', error: null
+            };
+        }),
+        on(purchaseAction.cancelTransactionSuccess, (state) => {
+            const transaction = undefined;
+            return {
+                ...state, purchaseData: {
+                    ...state.purchaseData,
+                    transaction,
+                    authorizeAnyPayments: [],
+                    authorizeMovieTicketPayments: [],
+                    authorizeSeatReservations: [],
+                    pendingMovieTickets: [],
+                    checkMovieTicketActions: [],
+                }, loading: false, process: '', error: null
+            };
         }),
         on(purchaseAction.cancelTransactionFail, (state, payload) => {
             const error = payload.error;
-            state.purchaseData.transaction = undefined;
-            state.purchaseData.authorizeAnyPayments = [];
-            state.purchaseData.authorizeMovieTicketPayments = [];
-            state.purchaseData.authorizeSeatReservations = [];
-            state.purchaseData.pendingMovieTickets = [];
-            state.purchaseData.checkMovieTicketActions = [];
-            return { ...state, loading: false, process: '', error: JSON.stringify(error) };
+            const transaction = undefined;
+            return {
+                ...state, purchaseData: {
+                    ...state.purchaseData,
+                    transaction,
+                    authorizeAnyPayments: [],
+                    authorizeMovieTicketPayments: [],
+                    authorizeSeatReservations: [],
+                    pendingMovieTickets: [],
+                    checkMovieTicketActions: [],
+                }, loading: false, process: '', error: JSON.stringify(error)
+            };
         }),
         on(purchaseAction.getScreen, (state) => {
-            state.purchaseData.screen = undefined;
-            return { ...state, loading: true, process: 'purchaseAction.GetScreen' };
+            const screen = undefined;
+            return {
+                ...state, purchaseData: {
+                    ...state.purchaseData,
+                    screen
+                }, loading: true, process: 'purchaseAction.GetScreen'
+            };
         }),
         on(purchaseAction.getScreenSuccess, (state, payload) => {
             const screen = payload.screen;
-            state.purchaseData.screen = screen;
-            return { ...state, loading: false, process: '', error: null };
+            return {
+                ...state, purchaseData: {
+                    ...state.purchaseData,
+                    screen
+                }, loading: false, process: '', error: null
+            };
         }),
-        on(purchaseAction.cancelTransactionFail, (state, payload) => {
+        on(purchaseAction.getScreenFail, (state, payload) => {
             const error = payload.error;
             return { ...state, loading: false, process: '', error: JSON.stringify(error) };
         }),
         on(purchaseAction.selectSeats, (state, payload) => {
-            const reservations = state.purchaseData.reservations;
+            const reservations = deepCopy<IReservation[]>(state.purchaseData.reservations);
             payload.seats.forEach((seat) => {
                 reservations.push({ seat });
             });
-            state.purchaseData.reservations = reservations;
-            return { ...state, loading: false, process: '', error: null };
+            return {
+                ...state,
+                purchaseData: {
+                    ...state.purchaseData,
+                    reservations
+                }, loading: false, process: '', error: null
+            };
         }),
         on(purchaseAction.cancelSeats, (state, payload) => {
             const reservations: IReservation[] = [];
@@ -239,8 +290,13 @@ export function reducer(initialState: IState, action: Action) {
                     reservations.push(reservation);
                 }
             });
-            state.purchaseData.reservations = reservations;
-            return { ...state, loading: false, process: '', error: null };
+            return {
+                ...state,
+                purchaseData: {
+                    ...state.purchaseData,
+                    reservations
+                }, loading: false, process: '', error: null
+            };
         }),
         on(purchaseAction.getTicketList, (state) => {
             return { ...state, loading: true, process: 'purchaseAction.GetTicketList' };
@@ -253,9 +309,16 @@ export function reducer(initialState: IState, action: Action) {
                 });
                 return (movieTicketTypeChargeSpecifications.length > 0);
             });
-            state.purchaseData.screeningEventTicketOffers = screeningEventTicketOffers;
-            state.purchaseData.isUsedMovieTicket = (movieTicketTypeOffers.length > 0);
-            return { ...state, loading: false, process: '', error: null };
+            const isUsedMovieTicket = (movieTicketTypeOffers.length > 0);
+            return {
+                ...state,
+                purchaseData: {
+                    ...state.purchaseData,
+                    screeningEventTicketOffers,
+                    movieTicketTypeOffers,
+                    isUsedMovieTicket
+                }, loading: false, process: '', error: null
+            };
         }),
         on(purchaseAction.getTicketListFail, (state, payload) => {
             const error = payload.error;
@@ -266,48 +329,60 @@ export function reducer(initialState: IState, action: Action) {
             const selectedReservations = payload.reservations;
             state.purchaseData.reservations.forEach((reservation) => {
                 const findResult =
-                    selectedReservations.find(selectedReservation => Object.is(reservation, selectedReservation));
+                    selectedReservations.find(r => {
+                        return (reservation.seat?.seatNumber === r.seat?.seatNumber
+                            && reservation.seat?.seatRow === r.seat?.seatRow
+                            && reservation.seat?.seatSection === r.seat?.seatSection);
+                    });
                 if (findResult === undefined) {
                     reservations.push(reservation);
                 } else {
                     reservations.push(findResult);
                 }
             });
-            state.purchaseData.reservations = reservations;
-            return { ...state };
+            return {
+                ...state,
+                purchaseData: {
+                    ...state.purchaseData,
+                    reservations
+                }
+            };
         }),
         on(purchaseAction.temporaryReservation, (state) => {
             return { ...state, loading: true, process: 'purchaseAction.TemporaryReservation' };
         }),
         on(purchaseAction.temporaryReservationSuccess, (state, payload) => {
-            const addAuthorizeSeatReservation = payload.addAuthorizeSeatReservation;
+            const authorizeSeatReservation =
+                deepCopy<factory.action.authorize.offer.seatReservation.IAction<factory.service.webAPI.Identifier.Chevre>>
+                    (payload.addAuthorizeSeatReservation);
             const removeAuthorizeSeatReservation = payload.removeAuthorizeSeatReservation;
-            const reservations = state.purchaseData.reservations;
-            state.purchaseData.authorizeSeatReservation = addAuthorizeSeatReservation;
+            const reservations = deepCopy<IReservation[]>(state.purchaseData.reservations);
+            const authorizeSeatReservations =
+                deepCopy<factory.action.authorize.offer.seatReservation.IAction<factory.service.webAPI.Identifier.Chevre>[]>
+                    (state.purchaseData.authorizeSeatReservations);
+            const pendingMovieTickets = deepCopy<IMovieTicket[]>(state.purchaseData.pendingMovieTickets);
             if (removeAuthorizeSeatReservation !== undefined) {
                 // 削除
-                const findAuthorizeSeatReservation = state.purchaseData.authorizeSeatReservations.findIndex(
-                    target => target.id === removeAuthorizeSeatReservation.id
-                );
+                const findAuthorizeSeatReservation =
+                    authorizeSeatReservations.findIndex(r => r.id === removeAuthorizeSeatReservation.id);
                 if (findAuthorizeSeatReservation > -1) {
-                    state.purchaseData.authorizeSeatReservations.splice(findAuthorizeSeatReservation, 1);
+                    authorizeSeatReservations.splice(findAuthorizeSeatReservation, 1);
                 }
-                const findPendingMovieTicket = state.purchaseData.pendingMovieTickets.findIndex(
-                    target => target.id === removeAuthorizeSeatReservation.id
-                );
+                const findPendingMovieTicket =
+                    pendingMovieTickets.findIndex(t => t.id === removeAuthorizeSeatReservation.id);
                 if (findPendingMovieTicket > -1) {
-                    state.purchaseData.pendingMovieTickets.splice(findPendingMovieTicket, 1);
+                    pendingMovieTickets.splice(findPendingMovieTicket, 1);
                 }
             }
             // 追加
-            state.purchaseData.authorizeSeatReservations.push(addAuthorizeSeatReservation);
+            authorizeSeatReservations.push(authorizeSeatReservation);
             const movieTicketReservations = reservations.filter(r => r.ticket !== undefined && r.ticket.movieTicket !== undefined);
             if (movieTicketReservations.length > 0
-                && addAuthorizeSeatReservation.result !== undefined
-                && addAuthorizeSeatReservation.result.responseBody.object.reservations !== undefined) {
-                const pendingReservations = addAuthorizeSeatReservation.result.responseBody.object.reservations;
-                state.purchaseData.pendingMovieTickets.push({
-                    id: addAuthorizeSeatReservation.id,
+                && authorizeSeatReservation.result !== undefined
+                && authorizeSeatReservation.result.responseBody.object.reservations !== undefined) {
+                const pendingReservations = authorizeSeatReservation.result.responseBody.object.reservations;
+                pendingMovieTickets.push({
+                    id: authorizeSeatReservation.id,
                     movieTickets: movieTicketReservations.map((r) => {
                         const pendingReservation = pendingReservations.find((p) => {
                             return (p.reservedTicket.ticketedSeat !== undefined
@@ -332,7 +407,17 @@ export function reducer(initialState: IState, action: Action) {
                     })
                 });
             }
-            return { ...state, loading: false, process: '', error: null };
+            return {
+                ...state,
+                purchaseData: {
+                    ...state.purchaseData,
+                    authorizeSeatReservation,
+                    removeAuthorizeSeatReservation,
+                    reservations,
+                    authorizeSeatReservations,
+                    pendingMovieTickets
+                }, loading: false, process: '', error: null
+            };
         }),
         on(purchaseAction.cancelTemporaryReservationsFail, (state, payload) => {
             const error = payload.error;
@@ -342,22 +427,33 @@ export function reducer(initialState: IState, action: Action) {
             return { ...state, loading: true, process: 'purchaseAction.CancelTemporaryReservations' };
         }),
         on(purchaseAction.cancelTemporaryReservationsSuccess, (state, payload) => {
-            const authorizeSeatReservations = payload.authorizeSeatReservations;
-            authorizeSeatReservations.forEach((authorizeSeatReservation) => {
-                const findAuthorizeSeatReservation = state.purchaseData.authorizeSeatReservations.findIndex(
-                    target => target.id === authorizeSeatReservation.id
-                );
+            const authorizeSeatReservations =
+                deepCopy<factory.action.authorize.offer.seatReservation.IAction<factory.service.webAPI.Identifier.Chevre>[]>
+                    (state.purchaseData.authorizeSeatReservations);
+            const pendingMovieTickets = deepCopy<IMovieTicket[]>(state.purchaseData.pendingMovieTickets);
+            payload.authorizeSeatReservations.forEach((authorizeSeatReservation) => {
+                const findAuthorizeSeatReservation =
+                    deepCopy<factory.action.authorize.offer.seatReservation.IAction<factory.service.webAPI.Identifier.Chevre>[]>
+                        (authorizeSeatReservations).findIndex(
+                            target => target.id === authorizeSeatReservation.id
+                        );
                 if (findAuthorizeSeatReservation > -1) {
-                    state.purchaseData.authorizeSeatReservations.splice(findAuthorizeSeatReservation, 1);
+                    authorizeSeatReservations.splice(findAuthorizeSeatReservation, 1);
                 }
-                const findPendingMovieTicket = state.purchaseData.pendingMovieTickets.findIndex(
+                const findPendingMovieTicket = pendingMovieTickets.findIndex(
                     target => target.id === authorizeSeatReservation.id
                 );
                 if (findPendingMovieTicket > -1) {
-                    state.purchaseData.pendingMovieTickets.splice(findPendingMovieTicket, 1);
+                    pendingMovieTickets.splice(findPendingMovieTicket, 1);
                 }
             });
-            return { ...state, loading: false, process: '', error: null };
+            return {
+                ...state, purchaseData: {
+                    ...state.purchaseData,
+                    authorizeSeatReservations,
+                    pendingMovieTickets
+                }, loading: false, process: '', error: null
+            };
         }),
         on(purchaseAction.cancelTemporaryReservationsFail, (state, payload) => {
             const error = payload.error;
@@ -368,8 +464,13 @@ export function reducer(initialState: IState, action: Action) {
         }),
         on(purchaseAction.registerContactSuccess, (state, payload) => {
             const profile = payload.profile;
-            state.purchaseData.profile = profile;
-            return { ...state, loading: false, process: '', error: null };
+            return {
+                ...state,
+                purchaseData: {
+                    ...state.purchaseData,
+                    profile
+                }, loading: false, process: '', error: null
+            };
         }),
         on(purchaseAction.registerContactFail, (state, payload) => {
             const error = payload.error;
@@ -379,8 +480,14 @@ export function reducer(initialState: IState, action: Action) {
             return { ...state, loading: true, process: 'purchaseAction.AuthorizeMovieTicket' };
         }),
         on(purchaseAction.authorizeMovieTicketSuccess, (state, payload) => {
-            state.purchaseData.authorizeMovieTicketPayments = payload.authorizeMovieTicketPayments;
-            return { ...state, loading: false, process: '', error: null };
+            const authorizeMovieTicketPayments = payload.authorizeMovieTicketPayments;
+            return {
+                ...state,
+                purchaseData: {
+                    ...state.purchaseData,
+                    authorizeMovieTicketPayments
+                }, loading: false, process: '', error: null
+            };
         }),
         on(purchaseAction.authorizeMovieTicketFail, (state, payload) => {
             const error = payload.error;
@@ -391,17 +498,24 @@ export function reducer(initialState: IState, action: Action) {
         }),
         on(purchaseAction.checkMovieTicketSuccess, (state, payload) => {
             const checkMovieTicketAction = payload.checkMovieTicketAction;
-            const checkMovieTicketActions = state.purchaseData.checkMovieTicketActions;
+            const checkMovieTicketActions =
+                deepCopy<factory.action.check.paymentMethod.movieTicket.IAction[]>(state.purchaseData.checkMovieTicketActions);
             const sameMovieTicketFilterResults = sameMovieTicketFilter({
                 checkMovieTicketAction, checkMovieTicketActions
             });
             if (sameMovieTicketFilterResults.length === 0
                 && isAvailabilityMovieTicket(checkMovieTicketAction)) {
-                state.purchaseData.checkMovieTicketActions.push(checkMovieTicketAction);
+                checkMovieTicketActions.push(checkMovieTicketAction);
             }
-            state.purchaseData.checkMovieTicketAction = checkMovieTicketAction;
 
-            return { ...state, loading: false, process: '', error: null };
+            return {
+                ...state,
+                purchaseData: {
+                    ...state.purchaseData,
+                    checkMovieTicketAction,
+                    checkMovieTicketActions,
+                }, loading: false, process: '', error: null
+            };
         }),
         on(purchaseAction.checkMovieTicketFail, (state, payload) => {
             const error = payload.error;
@@ -412,20 +526,22 @@ export function reducer(initialState: IState, action: Action) {
         }),
         on(purchaseAction.endTransactionSuccess, (state, payload) => {
             const order = payload.order;
-            state.purchaseData = {
-                reservations: [],
-                screeningEventTicketOffers: [],
-                orderCount: 0,
-                authorizeSeatReservations: [],
-                checkMovieTicketActions: [],
-                authorizeCreditCardPayments: [],
-                authorizeMovieTicketPayments: [],
-                authorizeAnyPayments: [],
-                isUsedMovieTicket: false,
-                pendingMovieTickets: []
+            return {
+                ...state,
+                purchaseData: {
+                    reservations: [],
+                    screeningEventTicketOffers: [],
+                    orderCount: 0,
+                    authorizeSeatReservations: [],
+                    checkMovieTicketActions: [],
+                    authorizeCreditCardPayments: [],
+                    authorizeMovieTicketPayments: [],
+                    authorizeAnyPayments: [],
+                    isUsedMovieTicket: false,
+                    pendingMovieTickets: [],
+                    order
+                }, loading: false, process: '', error: null
             };
-            state.purchaseData.order = order;
-            return { ...state, loading: false, process: '', error: null };
         }),
         on(purchaseAction.endTransactionFail, (state, payload) => {
             const error = payload.error;
@@ -436,8 +552,16 @@ export function reducer(initialState: IState, action: Action) {
         }),
         on(purchaseAction.authorizeAnyPaymentSuccess, (state, payload) => {
             const authorizeAnyPayment = payload.authorizeAnyPayment;
-            state.purchaseData.authorizeAnyPayments.push(authorizeAnyPayment);
-            return { ...state, loading: false, process: '', error: null };
+            const authorizeAnyPayments =
+                deepCopy<factory.action.authorize.paymentMethod.any.IAction<any>[]>(state.purchaseData.authorizeAnyPayments);
+            authorizeAnyPayments.push(authorizeAnyPayment);
+            return {
+                ...state,
+                purchaseData: {
+                    ...state.purchaseData,
+                    authorizeAnyPayments
+                }, loading: false, process: '', error: null
+            };
         }),
         on(purchaseAction.authorizeAnyPaymentFail, (state, payload) => {
             const error = payload.error;
@@ -448,9 +572,14 @@ export function reducer(initialState: IState, action: Action) {
                 typeOf: payload.typeOf,
                 category: payload.category
             };
-            state.purchaseData.paymentMethod = paymentMethod;
 
-            return { ...state, loading: false, process: '', error: null };
+            return {
+                ...state,
+                purchaseData: {
+                    ...state.purchaseData,
+                    paymentMethod
+                }, loading: false, process: '', error: null
+            };
         }),
     )(initialState, action);
 }
