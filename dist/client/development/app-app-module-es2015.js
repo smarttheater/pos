@@ -79780,7 +79780,7 @@ class DownloadService {
                 const searchResult = yield this.cinerino.person.search(params);
                 persons = persons.concat(searchResult.data);
                 page++;
-                roop = searchResult.data.length > 0;
+                roop = searchResult.data.length === limit;
             }
             const data = [];
             persons.forEach((person) => {
@@ -80031,7 +80031,7 @@ class MasterService {
                     });
                     screeningEvents = screeningEvents.concat(searchResult.data);
                     page++;
-                    roop = searchResult.data.length > 0;
+                    roop = searchResult.data.length === limit;
                     yield Object(_functions__WEBPACK_IMPORTED_MODULE_7__["sleep"])(500);
                 }
                 // 公開日順（降順）へソート
@@ -80208,7 +80208,7 @@ class OrderService {
                         const searchResult = yield this.cinerinoService.order.search(Object.assign(Object.assign({}, params), { orderDateThrough, orderDateFrom }));
                         orders = orders.concat(searchResult.data);
                         page++;
-                        roop = searchResult.data.length > 0;
+                        roop = searchResult.data.length === limit;
                         yield Object(_functions__WEBPACK_IMPORTED_MODULE_6__["sleep"])(500);
                     }
                 }
@@ -80507,7 +80507,7 @@ class PurchaseService {
                     });
                     screeningEventSeats = screeningEventSeats.concat(searchResult.data);
                     page++;
-                    roop = searchResult.data.length > 0;
+                    roop = searchResult.data.length === limit;
                     yield Object(_functions__WEBPACK_IMPORTED_MODULE_8__["sleep"])(500);
                 }
                 this.utilService.loadEnd();
@@ -80937,7 +80937,7 @@ class ReservationService {
                             .search(Object.assign(Object.assign({}, params), { bookingThrough, bookingFrom }));
                         reservations = reservations.concat(searchResult.data);
                         page++;
-                        roop = searchResult.data.length > 0;
+                        roop = searchResult.data.length === limit;
                         yield Object(_functions__WEBPACK_IMPORTED_MODULE_3__["sleep"])(500);
                     }
                 }
@@ -82281,7 +82281,7 @@ class MasterEffects {
                     });
                     projects = projects.concat(searchResult.data);
                     page++;
-                    roop = searchResult.data.length > 0;
+                    roop = searchResult.data.length === limit;
                     yield Object(_functions__WEBPACK_IMPORTED_MODULE_3__["sleep"])(500);
                 }
                 return _actions__WEBPACK_IMPORTED_MODULE_5__["masterAction"].getProjectsSuccess({ projects });
