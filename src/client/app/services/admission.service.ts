@@ -37,21 +37,21 @@ export class AdmissionService {
      * データ削除
      */
     public delete() {
-        this.store.dispatch(new admissionAction.Delete());
+        this.store.dispatch(admissionAction.remove());
     }
 
     /**
      * スケジュール選択
      */
     public selectScheduleDate(scheduleDate: string) {
-        this.store.dispatch(new admissionAction.SelectScheduleDate({ scheduleDate }));
+        this.store.dispatch(admissionAction.selectScheduleDate({ scheduleDate }));
     }
 
     /**
      * QRコード初期化
      */
     public initializeQrcodeToken() {
-        this.store.dispatch(new admissionAction.InitializeQrcodeToken());
+        this.store.dispatch(admissionAction.initializeQrcodeToken());
     }
 
     /**
@@ -60,18 +60,18 @@ export class AdmissionService {
     public async checkQrcodeToken(code: string) {
         return new Promise<void>(async (resolve, reject) => {
             const { screeningEvent, specified, scheduleDate } = await this.getData();
-            this.store.dispatch(new admissionAction.Check({
+            this.store.dispatch(admissionAction.check({
                 code,
                 screeningEvent,
                 scheduleDate: moment(scheduleDate, 'YYYY-MM-DD').toDate(),
                 specified
             }));
             const success = this.actions.pipe(
-                ofType(admissionAction.ActionTypes.CheckSuccess),
+                ofType(admissionAction.checkSuccess.type),
                 tap(() => resolve())
             );
             const fail = this.actions.pipe(
-                ofType(admissionAction.ActionTypes.CheckFail),
+                ofType(admissionAction.checkFail.type),
                 tap(() => { this.error.subscribe((error) => { reject(error); }).unsubscribe(); })
             );
             race(success, fail).pipe(take(1)).subscribe();
@@ -83,13 +83,13 @@ export class AdmissionService {
      */
     public async getScreeningEvent(screeningEvent: factory.chevre.event.screeningEvent.IEvent) {
         return new Promise<void>((resolve, reject) => {
-            this.store.dispatch(new admissionAction.GetScreeningEvent({ screeningEvent }));
+            this.store.dispatch(admissionAction.getScreeningEvent({ screeningEvent }));
             const success = this.actions.pipe(
-                ofType(admissionAction.ActionTypes.GetScreeningEventSuccess),
+                ofType(admissionAction.getScreeningEventSuccess.type),
                 tap(() => { resolve(); })
             );
             const fail = this.actions.pipe(
-                ofType(admissionAction.ActionTypes.GetScreeningEventFail),
+                ofType(admissionAction.getScreeningEventFail.type),
                 tap(() => { this.error.subscribe((error) => { reject(error); }).unsubscribe(); })
             );
             race(success, fail).pipe(take(1)).subscribe();

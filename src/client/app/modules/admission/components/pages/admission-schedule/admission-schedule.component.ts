@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { factory } from '@cinerino/api-javascript-client';
 import { select, Store } from '@ngrx/store';
 import * as moment from 'moment';
-import { BsDatepickerContainerComponent, BsDatepickerDirective, BsLocaleService } from 'ngx-bootstrap';
+import { BsDatepickerContainerComponent, BsDatepickerDirective, BsLocaleService } from 'ngx-bootstrap/datepicker';
 import { Observable } from 'rxjs';
 import { iOSDatepickerTapBugFix, IScreeningEventWork, screeningEventsToWorkEvents } from '../../../../../functions';
 import { AdmissionService, MasterService, UserService } from '../../../../../services';

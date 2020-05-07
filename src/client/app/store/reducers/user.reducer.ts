@@ -1,4 +1,5 @@
 import { factory } from '@cinerino/api-javascript-client';
+import { Action, createReducer, on } from '@ngrx/store';
 import { IState } from '.';
 import { IPrinter } from '../../models';
 import { userAction } from '../actions';
@@ -34,41 +35,40 @@ export const userInitialState: IUserState = {
     language: 'ja'
 };
 
-/**
- * Reducer
- * @param state
- * @param action
- */
-export function reducer(state: IState, action: userAction.Actions): IState {
-    switch (action.type) {
-        case userAction.ActionTypes.Delete: {
-            state.userData = {
-                language: 'ja'
+export function reducer(initialState: IState, action: Action) {
+    return createReducer(
+        initialState,
+        on(userAction.remove, state => {
+            return {
+                ...state,
+                userData: {
+                    language: 'ja'
+                }, loading: false, process: ''
             };
-            return { ...state, loading: false, process: '' };
-        }
-        case userAction.ActionTypes.UpdateAll: {
-            const customerContact = action.payload.customerContact;
-            const pos = action.payload.pos;
-            const theater = action.payload.theater;
-            const printer = action.payload.printer;
-            state.userData.customerContact = customerContact;
-            state.userData.pos = pos;
-            state.userData.theater = theater;
-            state.userData.printer = printer;
+        }),
+        on(userAction.updateAll, (state, payload) => {
+            const customerContact = payload.customerContact;
+            const pos = payload.pos;
+            const theater = payload.theater;
+            const printer = payload.printer;
 
-            return { ...state, loading: false, process: '' };
-        }
-        case userAction.ActionTypes.UpdateLanguage: {
-            state.userData.language = action.payload.language;
-            return { ...state };
-        }
-        case userAction.ActionTypes.SetVersion: {
-            state.userData.version = action.payload.version;
-            return { ...state };
-        }
-        default: {
-            return state;
-        }
-    }
+            return {
+                ...state, userData: {
+                    ...state.userData,
+                    customerContact,
+                    pos,
+                    theater,
+                    printer
+                }, loading: false, process: ''
+            };
+        }),
+        on(userAction.updateLanguage, (state, payload) => {
+            const language = payload.language;
+            return { ...state, userData: { ...state.userData, language } };
+        }),
+        on(userAction.setVersion, (state, payload) => {
+            const version = payload.version;
+            return { ...state, userData: { ...state.userData, version } };
+        }),
+    )(initialState, action);
 }

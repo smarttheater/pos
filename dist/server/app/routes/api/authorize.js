@@ -1,9 +1,10 @@
 "use strict";
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
         function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
         function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : new P(function (resolve) { resolve(result.value); }).then(fulfilled, rejected); }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
@@ -20,7 +21,7 @@ const log = debug('application: /api/authorize');
 /**
  * 認証情報取得
  */
-router.post('/getCredentials', (req, res) => __awaiter(this, void 0, void 0, function* () {
+router.post('/getCredentials', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     log('getCredentials', req.body.member);
     try {
         const endpoint = process.env.API_ENDPOINT;
@@ -37,7 +38,7 @@ router.post('/getCredentials', (req, res) => __awaiter(this, void 0, void 0, fun
         base_1.errorProsess(res, error);
     }
 }));
-router.get('/signIn', (req, res) => __awaiter(this, void 0, void 0, function* () {
+router.get('/signIn', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     log('signIn');
     if (req.session === undefined) {
         throw new Error('session is undefined');
@@ -53,7 +54,7 @@ router.get('/signIn', (req, res) => __awaiter(this, void 0, void 0, function* ()
     delete req.session.auth;
     res.json({ url });
 }));
-router.get('/signOut', (req, res) => __awaiter(this, void 0, void 0, function* () {
+router.get('/signOut', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     log('signOut');
     const authModel = new auth2_model_1.Auth2Model(req.session.auth);
     const auth = authModel.create(req);

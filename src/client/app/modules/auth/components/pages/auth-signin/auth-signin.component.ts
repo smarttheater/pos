@@ -30,7 +30,7 @@ export class AuthSigninComponent implements OnInit {
         this.master = this.store.pipe(select(reducers.getMaster));
         this.projects = [];
         await this.masterService.getProjects();
-        this.utilService.loadStart();
+        this.utilService.loadStart({ process: 'load' });
         const masterData = await this.masterService.getData();
         const projects = masterData.projects;
         if (projects.length === 1) {

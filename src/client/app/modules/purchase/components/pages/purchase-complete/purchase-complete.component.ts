@@ -97,8 +97,7 @@ export class PurchaseCompleteComponent implements OnInit {
             const user = await this.userService.getData();
             if (purchase.order === undefined
                 || user.printer === undefined) {
-                this.router.navigate(['/error']);
-                return;
+                throw new Error('printer undefined');
             }
             const orders = [purchase.order];
             const pos = user.pos;

@@ -3,8 +3,7 @@ import { factory } from '@cinerino/api-javascript-client';
 import { select, Store } from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
 import * as moment from 'moment';
-import { BsDatepickerDirective, BsLocaleService } from 'ngx-bootstrap';
-import { BsDatepickerContainerComponent } from 'ngx-bootstrap/datepicker/themes/bs/bs-datepicker-container.component';
+import { BsDatepickerContainerComponent, BsDatepickerDirective, BsLocaleService } from 'ngx-bootstrap/datepicker';
 import { Observable } from 'rxjs';
 import { getEnvironment } from '../../../../../../environments/environment';
 import { input2ReservationSearchCondition, iOSDatepickerTapBugFix } from '../../../../../functions';
@@ -87,7 +86,7 @@ export class ReservationDownloadComponent implements OnInit {
                 page: 1
             };
         }
-        this.utilService.loadStart();
+        this.utilService.loadStart({ process: 'load' });
         try {
             const params = input2ReservationSearchCondition({
                 input: this.confirmedConditions,
