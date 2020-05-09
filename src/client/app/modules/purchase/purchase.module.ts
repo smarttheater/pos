@@ -6,12 +6,16 @@ import { PurchaseCinemaScheduleComponent } from './components/pages/cinema/purch
 import { PurchaseCinemaSeatComponent } from './components/pages/cinema/purchase-cinema-seat/purchase-cinema-seat.component';
 import { PurchaseCinemaTicketComponent } from './components/pages/cinema/purchase-cinema-ticket/purchase-cinema-ticket.component';
 import { PurchaseEventScheduleComponent } from './components/pages/event/purchase-event-schedule/purchase-event-schedule.component';
+import { PurchaseEventSeatTicketComponent } from './components/pages/event/purchase-event-seat-ticket/purchase-event-seat-ticket.component';
+import { PurchaseEventSeatComponent } from './components/pages/event/purchase-event-seat/purchase-event-seat.component';
 import { PurchaseEventTicketComponent } from './components/pages/event/purchase-event-ticket/purchase-event-ticket.component';
 import { PurchaseBaseComponent } from './components/pages/purchase-base/purchase-base.component';
 import { PurchaseCompleteComponent } from './components/pages/purchase-complete/purchase-complete.component';
 import { PurchaseConfirmComponent } from './components/pages/purchase-confirm/purchase-confirm.component';
 import { PurchasePaymentComponent } from './components/pages/purchase-payment/purchase-payment.component';
 import { PurchaseRootComponent } from './components/pages/purchase-root/purchase-root.component';
+import { PurchaseSeatComponent } from './components/pages/purchase-seat/purchase-seat.component';
+import { PurchaseTicketComponent } from './components/pages/purchase-ticket/purchase-ticket.component';
 import { PurchaseCinemaPerformanceComponent } from './components/parts/cinema/performance/performance.component';
 import { PurchaseCinemaPerformancesComponent } from './components/parts/cinema/performances/performances.component';
 import { PurchaseEventPerformanceComponent } from './components/parts/event/performance/performance.component';
@@ -46,6 +50,10 @@ import { PurchaseRoutingModule } from './purchase-routing.module';
     PurchaseTermsComponent,
     PurchaseWarningComponent,
     TransactionRemainingTimeComponent,
+    PurchaseEventSeatComponent,
+    PurchaseEventSeatTicketComponent,
+    PurchaseTicketComponent,
+    PurchaseSeatComponent
   ],
   imports: [
     CommonModule,

@@ -3,7 +3,9 @@ import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
-import { BsDatepickerModule, ModalModule, PaginationModule } from 'ngx-bootstrap';
+import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
+import { ModalModule } from 'ngx-bootstrap/modal';
+import { PaginationModule } from 'ngx-bootstrap/pagination';
 import { SwiperModule } from 'ngx-swiper-wrapper';
 import { BaseComponent } from './components/pages/base/base.component';
 import { AlertModalComponent } from './components/parts/alert-modal/alert-modal.component';
@@ -18,8 +20,9 @@ import { LoadingComponent } from './components/parts/loading/loading.component';
 import { MvtkCheckModalComponent } from './components/parts/mvtk/check-modal/check-modal.component';
 import { NumericKeypadComponent } from './components/parts/numeric-keypad/numeric-keypad.component';
 import { OrderDetailModalComponent } from './components/parts/order/detail-modal/detail-modal.component';
-import { PurchaseCinemaTicketModalComponent } from './components/parts/purchase/cinema/ticket-modal/ticket-modal.component';
+import { PurchaseEventSeatModalComponent } from './components/parts/purchase/event/seat-modal/seat-modal.component';
 import { PurchaseEventTicketModalComponent } from './components/parts/purchase/event/ticket-modal/ticket-modal.component';
+import { PurchaseSeatTicketModalComponent } from './components/parts/purchase/seat-ticket-modal/seat-ticket-modal.component';
 import { PurchaseTransactionModalComponent } from './components/parts/purchase/transaction-modal/transaction-modal.component';
 import { QRCodeReaderModalComponent } from './components/parts/qrcode/reader-modal/reader-modal.component';
 import { QRCodeViewerModalComponent } from './components/parts/qrcode/viewer-modal/viewer-modal.component';
@@ -47,12 +50,13 @@ const entryComponents = [
   MvtkCheckModalComponent,
   NumericKeypadComponent,
   OrderDetailModalComponent,
-  PurchaseCinemaTicketModalComponent,
+  PurchaseSeatTicketModalComponent,
   PurchaseEventTicketModalComponent,
   PurchaseTransactionModalComponent,
   QRCodeReaderModalComponent,
   QRCodeViewerModalComponent,
   ReservationDetailModalComponent,
+  PurchaseEventSeatModalComponent,
 ];
 
 

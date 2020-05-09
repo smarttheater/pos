@@ -39,7 +39,7 @@ export class ReservationService {
      * 予約データ削除
      */
     public delete() {
-        this.store.dispatch(new reservationAction.Delete());
+        this.store.dispatch(reservationAction.remove());
     }
 
     /**

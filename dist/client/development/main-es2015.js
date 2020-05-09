@@ -313,7 +313,7 @@ webpackEmptyAsyncContext.id = "./$$_lazy_route_resource lazy recursive";
 /*!********************************!*\
   !*** ./app/functions/index.ts ***!
   \********************************/
-/*! exports provided: formatTelephone, toFull, toHalf, retry, sleep, buildQueryString, iOSDatepickerTapBugFix, streamingDownload, string2blob, getParameter, getProject, createRandomString, isFile, screeningEventsToWorkEvents, createGmoTokenObject, sameMovieTicketFilter, isAvailabilityMovieTicket, createMovieTicketsFromAuthorizeSeatReservation, getCustomPaymentMethodTypeName, getTicketPrice, getItemPrice, movieTicketAuthErroCodeToMessage, getAmount, order2EventOrders, authorizeSeatReservation2Event, getRemainingSeatLength, isEligibleSeatingType, getEmptySeat, selectAvailableSeat, createPrintCanvas, createTestPrintCanvas, createCooperationQRCode, getTransactionAgentIdentifier, order2report, input2OrderSearchCondition, createOrderLink, getTranslateModuleConfig, reservation2report, input2ReservationSearchCondition */
+/*! exports provided: screeningEventsToWorkEvents, createGmoTokenObject, sameMovieTicketFilter, isAvailabilityMovieTicket, createMovieTicketsFromAuthorizeSeatReservation, getCustomPaymentMethodTypeName, getTicketPrice, getItemPrice, movieTicketAuthErroCodeToMessage, getAmount, order2EventOrders, authorizeSeatReservation2Event, getRemainingSeatLength, isEligibleSeatingType, getEmptySeat, selectAvailableSeat, formatTelephone, toFull, toHalf, retry, sleep, buildQueryString, iOSDatepickerTapBugFix, string2blob, getParameter, getProject, createRandomString, isFile, deepCopy, createPrintCanvas, createTestPrintCanvas, createCooperationQRCode, getTransactionAgentIdentifier, order2report, input2OrderSearchCondition, createOrderLink, CustomTranslateHttpLoader, getTranslateModuleConfig, reservation2report, input2ReservationSearchCondition */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -366,8 +366,6 @@ __webpack_require__.r(__webpack_exports__);
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "iOSDatepickerTapBugFix", function() { return _util_function__WEBPACK_IMPORTED_MODULE_1__["iOSDatepickerTapBugFix"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "streamingDownload", function() { return _util_function__WEBPACK_IMPORTED_MODULE_1__["streamingDownload"]; });
-
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "string2blob", function() { return _util_function__WEBPACK_IMPORTED_MODULE_1__["string2blob"]; });
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "getParameter", function() { return _util_function__WEBPACK_IMPORTED_MODULE_1__["getParameter"]; });
@@ -377,6 +375,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "createRandomString", function() { return _util_function__WEBPACK_IMPORTED_MODULE_1__["createRandomString"]; });
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "isFile", function() { return _util_function__WEBPACK_IMPORTED_MODULE_1__["isFile"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "deepCopy", function() { return _util_function__WEBPACK_IMPORTED_MODULE_1__["deepCopy"]; });
 
 /* harmony import */ var _order_function__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./order.function */ "./app/functions/order.function.ts");
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "createPrintCanvas", function() { return _order_function__WEBPACK_IMPORTED_MODULE_2__["createPrintCanvas"]; });
@@ -394,6 +394,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "createOrderLink", function() { return _order_function__WEBPACK_IMPORTED_MODULE_2__["createOrderLink"]; });
 
 /* harmony import */ var _translate_function__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./translate.function */ "./app/functions/translate.function.ts");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "CustomTranslateHttpLoader", function() { return _translate_function__WEBPACK_IMPORTED_MODULE_3__["CustomTranslateHttpLoader"]; });
+
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "getTranslateModuleConfig", function() { return _translate_function__WEBPACK_IMPORTED_MODULE_3__["getTranslateModuleConfig"]; });
 
 /* harmony import */ var _reservation_function__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./reservation.function */ "./app/functions/reservation.function.ts");
@@ -401,9 +403,6 @@ __webpack_require__.r(__webpack_exports__);
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "input2ReservationSearchCondition", function() { return _reservation_function__WEBPACK_IMPORTED_MODULE_4__["input2ReservationSearchCondition"]; });
 
-var __importDefault = (undefined && undefined.__importDefault) || function (mod) {
-  return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 
 
 
@@ -438,15 +437,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _purchase_function__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./purchase.function */ "./app/functions/purchase.function.ts");
 /* harmony import */ var _util_function__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./util.function */ "./app/functions/util.function.ts");
 var __awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
         function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
         function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : new P(function (resolve) { resolve(result.value); }).then(fulfilled, rejected); }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
-};
-var __importDefault = (undefined && undefined.__importDefault) || function (mod) {
-  return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 
 
@@ -711,7 +708,7 @@ function order2report(orders) {
                 price: order.price,
                 seller: order.seller,
                 paymentMethodsNames: order.paymentMethods.map(m => m.name).join(','),
-                customer: Object.assign({}, order.customer, { formatTelephone: Object(_util_function__WEBPACK_IMPORTED_MODULE_4__["formatTelephone"])(order.customer.telephone), pos: {
+                customer: Object.assign(Object.assign({}, order.customer), { formatTelephone: Object(_util_function__WEBPACK_IMPORTED_MODULE_4__["formatTelephone"])(order.customer.telephone), pos: {
                         name: (getTransactionAgentIdentifier(order, 'posName') === undefined)
                             ? { name: '', value: '' }
                             : getTransactionAgentIdentifier(order, 'posName')
@@ -724,7 +721,7 @@ function order2report(orders) {
                     id: itemOffered.id,
                     price: Object(_purchase_function__WEBPACK_IMPORTED_MODULE_3__["getItemPrice"])({ priceComponents: acceptedOffer.priceSpecification.priceComponent }),
                     reservedTicket: itemOffered.reservedTicket,
-                    reservationFor: Object.assign({}, itemOffered.reservationFor, { startDateJST: moment__WEBPACK_IMPORTED_MODULE_1__(itemOffered.reservationFor.startDate).format('YYYY/MM/DD/HH:mm') })
+                    reservationFor: Object.assign(Object.assign({}, itemOffered.reservationFor), { startDateJST: moment__WEBPACK_IMPORTED_MODULE_1__(itemOffered.reservationFor.startDate).format('YYYY/MM/DD/HH:mm') })
                 }
             };
             data.push(customData);
@@ -844,9 +841,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var _environments_environment__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../environments/environment */ "./environments/environment.ts");
 /* harmony import */ var _models__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../models */ "./app/models/index.ts");
-var __importDefault = (undefined && undefined.__importDefault) || function (mod) {
-  return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 
 
 
@@ -1285,7 +1279,7 @@ function selectAvailableSeat(params) {
         if (r.ticket === undefined
             || r.ticket.ticketOffer.eligibleSubReservation === undefined) {
             // サブ予約なし
-            availableSeats.push(Object.assign({}, findReservationSeat, { subReservations: [] }));
+            availableSeats.push(Object.assign(Object.assign({}, findReservationSeat), { subReservations: [] }));
             return;
         }
         // サブ予約分取得
@@ -1337,7 +1331,7 @@ function selectAvailableSeat(params) {
                 subReservations.push(subReservation);
             }
         });
-        availableSeats.push(Object.assign({}, findReservationSeat, { subReservations }));
+        availableSeats.push(Object.assign(Object.assign({}, findReservationSeat), { subReservations }));
     });
     return availableSeats;
 }
@@ -1361,9 +1355,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! moment */ "../../node_modules/moment/moment.js");
 /* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var _purchase_function__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./purchase.function */ "./app/functions/purchase.function.ts");
-var __importDefault = (undefined && undefined.__importDefault) || function (mod) {
-  return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 
 
 
@@ -1383,7 +1374,7 @@ function reservation2report(reservations) {
                 ? reservation.price
                 : Object(_purchase_function__WEBPACK_IMPORTED_MODULE_2__["getItemPrice"])({ priceComponents: reservation.price.priceComponent }),
             reservedTicket: reservation.reservedTicket,
-            reservationFor: Object.assign({}, reservation.reservationFor, { startDateJST: moment__WEBPACK_IMPORTED_MODULE_1__(reservation.reservationFor.startDate).format('YYYY/MM/DD/HH:mm') }),
+            reservationFor: Object.assign(Object.assign({}, reservation.reservationFor), { startDateJST: moment__WEBPACK_IMPORTED_MODULE_1__(reservation.reservationFor.startDate).format('YYYY/MM/DD/HH:mm') }),
             checkedIn: reservation.checkedIn,
             attended: reservation.attended
         };
@@ -1440,14 +1431,15 @@ function input2ReservationSearchCondition(params) {
 /*!*********************************************!*\
   !*** ./app/functions/translate.function.ts ***!
   \*********************************************/
-/*! exports provided: getTranslateModuleConfig */
+/*! exports provided: CustomTranslateHttpLoader, getTranslateModuleConfig */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CustomTranslateHttpLoader", function() { return CustomTranslateHttpLoader; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getTranslateModuleConfig", function() { return getTranslateModuleConfig; });
-/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/common/http */ "../../node_modules/@angular/common/fesm2015/http.js");
-/* harmony import */ var _ngx_translate_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @ngx-translate/core */ "../../node_modules/@ngx-translate/core/fesm2015/ngx-translate-core.js");
+/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/common/http */ "../../node_modules/@angular/common/__ivy_ngcc__/fesm2015/http.js");
+/* harmony import */ var _ngx_translate_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @ngx-translate/core */ "../../node_modules/@ngx-translate/core/__ivy_ngcc__/fesm2015/ngx-translate-core.js");
 /* harmony import */ var deepmerge__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! deepmerge */ "../../node_modules/deepmerge/dist/cjs.js");
 /* harmony import */ var deepmerge__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(deepmerge__WEBPACK_IMPORTED_MODULE_2__);
 /* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! moment */ "../../node_modules/moment/moment.js");
@@ -1456,9 +1448,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! rxjs/operators */ "../../node_modules/rxjs/_esm2015/operators/index.js");
 /* harmony import */ var _environments_environment__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../environments/environment */ "./environments/environment.ts");
 /* harmony import */ var _util_function__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./util.function */ "./app/functions/util.function.ts");
-var __importDefault = (undefined && undefined.__importDefault) || function (mod) {
-  return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 
 
 
@@ -1513,7 +1502,7 @@ function getTranslateModuleConfig() {
 /*!****************************************!*\
   !*** ./app/functions/util.function.ts ***!
   \****************************************/
-/*! exports provided: formatTelephone, toFull, toHalf, retry, sleep, buildQueryString, iOSDatepickerTapBugFix, streamingDownload, string2blob, getParameter, getProject, createRandomString, isFile */
+/*! exports provided: formatTelephone, toFull, toHalf, retry, sleep, buildQueryString, iOSDatepickerTapBugFix, string2blob, getParameter, getProject, createRandomString, isFile, deepCopy */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1525,23 +1514,21 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "sleep", function() { return sleep; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "buildQueryString", function() { return buildQueryString; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "iOSDatepickerTapBugFix", function() { return iOSDatepickerTapBugFix; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "streamingDownload", function() { return streamingDownload; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "string2blob", function() { return string2blob; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getParameter", function() { return getParameter; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getProject", function() { return getProject; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "createRandomString", function() { return createRandomString; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "isFile", function() { return isFile; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "deepCopy", function() { return deepCopy; });
 /* harmony import */ var libphonenumber_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! libphonenumber-js */ "../../node_modules/libphonenumber-js/index.es6.js");
 var __awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
         function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
         function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : new P(function (resolve) { resolve(result.value); }).then(fulfilled, rejected); }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
-};
-var __importDefault = (undefined && undefined.__importDefault) || function (mod) {
-  return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 
 /**
@@ -1690,29 +1677,26 @@ function iOSDatepickerTapBugFix(container, datepickerDirectives) {
 /**
  * ストリーミングダウンロード
  */
-function streamingDownload(stream) {
-    return __awaiter(this, void 0, void 0, function* () {
-        const reader = stream.getReader();
-        const decoder = new TextDecoder();
-        let streamText = '';
-        return new Promise((resolve, reject) => __awaiter(this, void 0, void 0, function* () {
-            try {
-                const readChunk = (chunk) => __awaiter(this, void 0, void 0, function* () {
-                    if (chunk.done) {
-                        resolve(streamText);
-                        return;
-                    }
-                    streamText += decoder.decode(chunk.value);
-                    yield readChunk(yield reader.read());
-                });
-                yield readChunk(yield reader.read());
-            }
-            catch (error) {
-                reject(error);
-            }
-        }));
-    });
-}
+// export async function streamingDownload<T>(stream: ReadableStream<T>) {
+//     const reader = stream.getReader();
+//     const decoder = new TextDecoder();
+//     let streamText = '';
+//     return new Promise<string>(async (resolve, reject) => {
+//         try {
+//             const readChunk = async (chunk: { done: boolean; value: any; }) => {
+//                 if (chunk.done) {
+//                     resolve(streamText);
+//                     return;
+//                 }
+//                 streamText += decoder.decode(chunk.value);
+//                 await readChunk(await reader.read());
+//             };
+//             await readChunk(await reader.read());
+//         } catch (error) {
+//             reject(error);
+//         }
+//     });
+// }
 /**
  * 文字列をBLOB変換
  */
@@ -1745,7 +1729,7 @@ function getProject() {
     if (project === null || project === '') {
         return defaultProject;
     }
-    return Object.assign({}, defaultProject, JSON.parse(project));
+    return Object.assign(Object.assign({}, defaultProject), JSON.parse(project));
 }
 /**
  * ランダム英数字生成
@@ -1772,6 +1756,12 @@ function isFile(url) {
         });
         return (fetchResult.ok);
     });
+}
+/**
+ * オブジェクトディープコピー
+ */
+function deepCopy(obj) {
+    return JSON.parse(JSON.stringify(obj));
 }
 
 
@@ -1815,10 +1805,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _util_viewType__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./util/viewType */ "./app/models/util/viewType.ts");
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "ViewType", function() { return _util_viewType__WEBPACK_IMPORTED_MODULE_8__["ViewType"]; });
 
-/* empty/unused harmony star reexport */var __importDefault = (undefined && undefined.__importDefault) || function (mod) {
-  return (mod && mod.__esModule) ? mod : { "default": mod };
-};
-
+/* empty/unused harmony star reexport */
 
 
 
@@ -1842,9 +1829,6 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "OrderActions", function() { return OrderActions; });
-var __importDefault = (undefined && undefined.__importDefault) || function (mod) {
-  return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 var OrderActions;
 (function (OrderActions) {
     /**
@@ -1870,9 +1854,6 @@ var OrderActions;
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CsvFormat", function() { return CsvFormat; });
-var __importDefault = (undefined && undefined.__importDefault) || function (mod) {
-  return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 var CsvFormat;
 (function (CsvFormat) {
     CsvFormat["Default"] = "Default";
@@ -1892,9 +1873,6 @@ var CsvFormat;
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "PrintQrcodeType", function() { return PrintQrcodeType; });
-var __importDefault = (undefined && undefined.__importDefault) || function (mod) {
-  return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 /**
  * QRコード文字列
  */
@@ -1918,9 +1896,6 @@ var PrintQrcodeType;
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "PaymentMethodType", function() { return PaymentMethodType; });
-var __importDefault = (undefined && undefined.__importDefault) || function (mod) {
-  return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 /**
  * 決済方法タイプ
  */
@@ -1960,9 +1935,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! moment */ "../../node_modules/moment/moment.js");
 /* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _environments_environment__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../environments/environment */ "./environments/environment.ts");
-var __importDefault = (undefined && undefined.__importDefault) || function (mod) {
-  return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 
 
 /**
@@ -2138,9 +2110,6 @@ class Performance {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SeatStatus", function() { return SeatStatus; });
-var __importDefault = (undefined && undefined.__importDefault) || function (mod) {
-  return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 var SeatStatus;
 (function (SeatStatus) {
     SeatStatus["Disabled"] = "disabled";
@@ -2161,9 +2130,6 @@ var SeatStatus;
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Language", function() { return Language; });
-var __importDefault = (undefined && undefined.__importDefault) || function (mod) {
-  return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 /**
  * 言語
  */
@@ -2197,9 +2163,6 @@ var Language;
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ConnectionType", function() { return ConnectionType; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "printers", function() { return printers; });
-var __importDefault = (undefined && undefined.__importDefault) || function (mod) {
-  return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 /**
  * 接続の種類
  */
@@ -2257,9 +2220,6 @@ const printers = [
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ViewType", function() { return ViewType; });
-var __importDefault = (undefined && undefined.__importDefault) || function (mod) {
-  return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 var ViewType;
 (function (ViewType) {
     /**
@@ -2279,17 +2239,16 @@ var ViewType;
 /*!*************************************!*\
   !*** ./environments/environment.ts ***!
   \*************************************/
-/*! exports provided: getEnvironment */
+/*! exports provided: isProduction, getEnvironment */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "isProduction", function() { return isProduction; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getEnvironment", function() { return getEnvironment; });
 /* harmony import */ var _app_functions_util_function__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../app/functions/util.function */ "./app/functions/util.function.ts");
-var __importDefault = (undefined && undefined.__importDefault) || function (mod) {
-  return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 
+const isProduction = (document.querySelector('body.production') !== null);
 const defaultEnvironment = {
     production: false,
     APP_TITLE: '',
@@ -2311,13 +2270,13 @@ const defaultEnvironment = {
     PAYMENT_METHOD_TO_USE: ['Cash', 'EMoney', 'CreditCard'],
     PAYMENT_METHOD_CUSTOM: [],
     REGIGROW_QRCODE: '',
-    DISPLAY_TICKETED_SEAT: false,
+    DISPLAY_TICKETED_SEAT: true,
     HEADER_MENU: true,
     HEADER_MENU_SCOPE: ['purchase', 'order', 'reservation', 'setting', 'auth'],
     PURCHASE_CART: false,
     PURCHASE_ITEM_MAX_LENGTH: '50',
     PURCHASE_TRANSACTION_TIME: '15',
-    PURCHASE_TRANSACTION_TIME_DISPLAY: false,
+    PURCHASE_TRANSACTION_TIME_DISPLAY: true,
     PURCHASE_TRANSACTION_IDENTIFIER: [],
     PURCHASE_PRE_SCHEDULE_DATE: '3',
     PURCHASE_SCHEDULE_DEFAULT_SELECTED_DATE: '0',
@@ -2345,7 +2304,7 @@ const defaultEnvironment = {
     PRINT_LOADING: true
 };
 function getEnvironment() {
-    const environment = Object.assign({}, defaultEnvironment, window.environment, { production: (document.querySelector('body.production') !== null) });
+    const environment = Object.assign(Object.assign(Object.assign({}, defaultEnvironment), window.environment), { production: isProduction });
     return environment;
 }
 
@@ -2361,26 +2320,24 @@ function getEnvironment() {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "../../node_modules/@angular/core/fesm2015/core.js");
-/* harmony import */ var _angular_platform_browser_dynamic__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/platform-browser-dynamic */ "../../node_modules/@angular/platform-browser-dynamic/fesm2015/platform-browser-dynamic.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "../../node_modules/@angular/core/__ivy_ngcc__/fesm2015/core.js");
+/* harmony import */ var _angular_platform_browser_dynamic__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/platform-browser-dynamic */ "../../node_modules/@angular/platform-browser-dynamic/__ivy_ngcc__/fesm2015/platform-browser-dynamic.js");
 /* harmony import */ var hammerjs__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! hammerjs */ "../../node_modules/hammerjs/hammer.js");
 /* harmony import */ var hammerjs__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(hammerjs__WEBPACK_IMPORTED_MODULE_2__);
 /* harmony import */ var moment_timezone__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! moment-timezone */ "../../node_modules/moment-timezone/index.js");
 /* harmony import */ var moment_timezone__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(moment_timezone__WEBPACK_IMPORTED_MODULE_3__);
-/* harmony import */ var ngx_bootstrap_chronos__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ngx-bootstrap/chronos */ "../../node_modules/ngx-bootstrap/chronos/fesm2015/ngx-bootstrap-chronos.js");
-/* harmony import */ var ngx_bootstrap_locale__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ngx-bootstrap/locale */ "../../node_modules/ngx-bootstrap/locale/fesm2015/ngx-bootstrap-locale.js");
+/* harmony import */ var ngx_bootstrap_chronos__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ngx-bootstrap/chronos */ "../../node_modules/ngx-bootstrap/__ivy_ngcc__/chronos/fesm2015/ngx-bootstrap-chronos.js");
+/* harmony import */ var ngx_bootstrap_locale__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ngx-bootstrap/locale */ "../../node_modules/ngx-bootstrap/__ivy_ngcc__/locale/fesm2015/ngx-bootstrap-locale.js");
 /* harmony import */ var _app_functions__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./app/functions */ "./app/functions/index.ts");
 /* harmony import */ var _environments_environment__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./environments/environment */ "./environments/environment.ts");
 var __awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
         function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
         function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : new P(function (resolve) { resolve(result.value); }).then(fulfilled, rejected); }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
-};
-var __importDefault = (undefined && undefined.__importDefault) || function (mod) {
-  return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 /**
  * main
@@ -2494,7 +2451,7 @@ function setProjectConfig(storageUrl) {
         }
     });
 }
-main().then(() => __awaiter(undefined, void 0, void 0, function* () {
+main().then(() => __awaiter(void 0, void 0, void 0, function* () {
     const { AppModule } = yield __webpack_require__.e(/*! import() | app-app-module */ "app-app-module").then(__webpack_require__.bind(null, /*! ./app/app.module */ "./app/app.module.ts"));
     Object(_angular_platform_browser_dynamic__WEBPACK_IMPORTED_MODULE_1__["platformBrowserDynamic"])().bootstrapModule(AppModule);
 })).catch((error) => {
@@ -2517,4 +2474,3 @@ module.exports = __webpack_require__(/*! C:\Users\hataguchi\Desktop\workspace\Ci
 /***/ })
 
 },[[0,"runtime","vendor"]]]);
-//# sourceMappingURL=main-es2015.js.map

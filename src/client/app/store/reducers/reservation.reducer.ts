@@ -1,4 +1,5 @@
 import { factory } from '@cinerino/api-javascript-client';
+import { Action, createReducer, on } from '@ngrx/store';
 import { IState } from '.';
 import { reservationAction } from '../actions';
 
@@ -15,23 +16,15 @@ export const reservationInitialState: IReservationState = {
     pageCount: 1
 };
 
-/**
- * Reducer
- * @param state
- * @param action
- */
-export function reducer(state: IState, action: reservationAction.Actions): IState {
-    switch (action.type) {
-        case reservationAction.ActionTypes.Delete: {
-            state.reservationData = {
+export function reducer(initialState: IState, action: Action) {
+    return createReducer(
+        initialState,
+        on(reservationAction.remove, state => {
+            return { ...state, reservationData: {
                 reservations: [],
                 totalCount: 0,
                 pageCount: 1
-            };
-            return { ...state };
-        }
-        default: {
-            return state;
-        }
-    }
+            } };
+        }),
+    )(initialState, action);
 }

@@ -204,6 +204,8 @@ interface IEnvironment {
     PRINT_LOADING: boolean;
 }
 
+export const isProduction = (document.querySelector('body.production') !== null);
+
 const defaultEnvironment: IEnvironment = {
     production: false,
     APP_TITLE: '',
@@ -225,13 +227,13 @@ const defaultEnvironment: IEnvironment = {
     PAYMENT_METHOD_TO_USE: ['Cash', 'EMoney', 'CreditCard'],
     PAYMENT_METHOD_CUSTOM: [],
     REGIGROW_QRCODE: '',
-    DISPLAY_TICKETED_SEAT: false,
+    DISPLAY_TICKETED_SEAT: true,
     HEADER_MENU: true,
     HEADER_MENU_SCOPE: ['purchase', 'order', 'reservation', 'setting', 'auth'],
     PURCHASE_CART: false,
     PURCHASE_ITEM_MAX_LENGTH: '50',
     PURCHASE_TRANSACTION_TIME: '15',
-    PURCHASE_TRANSACTION_TIME_DISPLAY: false,
+    PURCHASE_TRANSACTION_TIME_DISPLAY: true,
     PURCHASE_TRANSACTION_IDENTIFIER: [],
     PURCHASE_PRE_SCHEDULE_DATE: '3',
     PURCHASE_SCHEDULE_DEFAULT_SELECTED_DATE: '0',
@@ -263,7 +265,7 @@ export function getEnvironment(): IEnvironment {
     const environment = {
         ...defaultEnvironment,
         ...(<any>window).environment,
-        production: (document.querySelector('body.production') !== null)
+        production: isProduction
     };
     return environment;
 }

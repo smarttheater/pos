@@ -2,10 +2,12 @@
  * NgModule
  */
 import { NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
+import { BrowserModule, HammerModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { TranslateModule } from '@ngx-translate/core';
-import { BsDatepickerModule, ModalModule, PaginationModule } from 'ngx-bootstrap';
+import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
+import { ModalModule } from 'ngx-bootstrap/modal';
+import { PaginationModule } from 'ngx-bootstrap/pagination';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app/app.component';
 import { getTranslateModuleConfig } from './functions';
@@ -22,6 +24,7 @@ import { CoreStoreModule } from './store/core/store';
     imports: [
         BrowserModule,
         BrowserAnimationsModule,
+        HammerModule,
         AppRoutingModule,
         StoreModule,
         CoreStoreModule,

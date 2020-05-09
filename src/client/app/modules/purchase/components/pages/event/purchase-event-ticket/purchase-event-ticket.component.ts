@@ -4,7 +4,7 @@ import { factory } from '@cinerino/api-javascript-client';
 import { select, Store } from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
 import * as moment from 'moment';
-import { BsModalService } from 'ngx-bootstrap';
+import { BsModalService } from 'ngx-bootstrap/modal';
 import { Observable } from 'rxjs';
 import { getEnvironment } from '../../../../../../../environments/environment';
 import {
@@ -53,6 +53,7 @@ export class PurchaseEventTicketComponent implements OnInit, OnDestroy {
         this.master = this.store.pipe(select(reducers.getMaster));
         this.error = this.store.pipe(select(reducers.getError));
         this.isLoading = this.store.pipe(select(reducers.getLoading));
+        this.purchaseService.unsettledDelete();
         this.screeningWorkEvents = [];
         this.purchase.subscribe((purchase) => {
             if (purchase.transaction === undefined) {
@@ -126,6 +127,7 @@ export class PurchaseEventTicketComponent implements OnInit, OnDestroy {
             await this.purchaseService.getScreeningEvent(screeningEvent);
             this.screeningEventSeats = await this.purchaseService.getScreeningEventSeats();
             await this.purchaseService.getTicketList({ seller: purchase.seller });
+            await this.purchaseService.getScreen({ branchCode: { $eq: screeningEvent.location.branchCode } });
             this.openTicketList();
         } catch (error) {
             console.error(error);
@@ -140,25 +142,38 @@ export class PurchaseEventTicketComponent implements OnInit, OnDestroy {
      * 券種表示
      */
     private async openTicketList() {
-        this.purchase.subscribe((purchase) => {
-            const screeningEvent = purchase.screeningEvent;
-            const screeningEventTicketOffers = purchase.screeningEventTicketOffers;
-            const screeningEventSeats = this.screeningEventSeats;
-            this.modal.show(PurchaseEventTicketModalComponent, {
-                class: 'modal-dialog-centered modal-lg',
-                initialState: {
-                    screeningEventTicketOffers,
-                    screeningEventSeats,
-                    screeningEvent,
-                    cb: (params: {
-                        reservations: IReservation[];
-                        additionalTicketText?: string;
-                    }) => {
-                        this.selectTicket(params);
-                    }
+        const purchase = await this.purchaseService.getData();
+        const screeningEvent = purchase.screeningEvent;
+        const screeningEventTicketOffers = purchase.screeningEventTicketOffers;
+        const screeningEventSeats = this.screeningEventSeats;
+        const screen = purchase.screen;
+        if (screeningEvent === undefined || screen === undefined) {
+            return;
+        }
+        const performance = new Performance(screeningEvent);
+        if (!performance.isInfinitetock()
+            && !screen.openSeatingAllowed
+            && performance.isTicketedSeat()) {
+            // 座席選択あり
+        this.router.navigate(['/purchase/event/seat']);
+            return;
+        }
+        // 座席選択なし
+        this.modal.show(PurchaseEventTicketModalComponent, {
+            class: 'modal-dialog-centered modal-lg',
+            backdrop: 'static',
+            initialState: {
+                screeningEventTicketOffers,
+                screeningEventSeats,
+                screeningEvent,
+                cb: (params: {
+                    reservations: IReservation[];
+                    additionalTicketText?: string;
+                }) => {
+                    this.selectTicket(params);
                 }
-            });
-        }).unsubscribe();
+            }
+        });
     }
 
     /**

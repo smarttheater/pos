@@ -5,7 +5,7 @@ import { TranslateService } from '@ngx-translate/core';
 import * as csvtojson from 'csvtojson';
 import * as json2csv from 'json2csv';
 import * as moment from 'moment';
-import { BsDatepickerContainerComponent, BsDatepickerDirective, BsLocaleService } from 'ngx-bootstrap';
+import { BsDatepickerContainerComponent, BsDatepickerDirective, BsLocaleService } from 'ngx-bootstrap/datepicker';
 import { Observable } from 'rxjs';
 import { iOSDatepickerTapBugFix, sleep } from '../../../../../functions';
 import { CinerinoService, DownloadService, UtilService } from '../../../../../services';
@@ -182,7 +182,7 @@ export class TasksAccountDepositCSVComponent implements OnInit {
      * 絞り込み
      */
     public async refine() {
-        this.utilService.loadStart();
+        this.utilService.loadStart({ process: 'load' });
         try {
             this.targetTable = [];
             this.successTable = [];
@@ -307,7 +307,7 @@ export class TasksAccountDepositCSVComponent implements OnInit {
      * ポイント付与
      */
     public async deposit() {
-        this.utilService.loadStart();
+        this.utilService.loadStart({ process: 'load' });
         this.successTable = [];
         this.failTable = [];
         try {

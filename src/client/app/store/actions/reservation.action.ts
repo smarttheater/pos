@@ -1,22 +1,6 @@
-import { Action } from '@ngrx/store';
+import { createAction } from '@ngrx/store';
+const LABEL = '[Reservation]';
 
-/**
- * Action types
- */
-export enum ActionTypes {
-    Delete = '[Reservation] Delete',
-}
-
-/**
- * Delete
- */
-export class Delete implements Action {
-    public readonly type = ActionTypes.Delete;
-    constructor(public payload?: {}) { }
-}
-
-/**
- * Actions
- */
-export type Actions =
-    | Delete;
+export const remove = createAction(
+    `${LABEL} remove`,
+);

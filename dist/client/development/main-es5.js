@@ -4,6 +4,12 @@ function _defineProperties(target, props) { for (var i = 0; i < props.length; i+
 
 function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
 
+function _createForOfIteratorHelper(o) { if (typeof Symbol === "undefined" || o[Symbol.iterator] == null) { if (Array.isArray(o) || (o = _unsupportedIterableToArray(o))) { var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var it, normalCompletion = true, didErr = false, err; return { s: function s() { it = o[Symbol.iterator](); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it["return"] != null) it["return"](); } finally { if (didErr) throw err; } } }; }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
 (window["webpackJsonp"] = window["webpackJsonp"] || []).push([["main"], {
   /***/
   "../../node_modules/moment/locale sync recursive ^\\.\\/.*$":
@@ -333,7 +339,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
     !*** ./app/functions/index.ts ***!
     \********************************/
 
-  /*! exports provided: formatTelephone, toFull, toHalf, retry, sleep, buildQueryString, iOSDatepickerTapBugFix, streamingDownload, string2blob, getParameter, getProject, createRandomString, isFile, screeningEventsToWorkEvents, createGmoTokenObject, sameMovieTicketFilter, isAvailabilityMovieTicket, createMovieTicketsFromAuthorizeSeatReservation, getCustomPaymentMethodTypeName, getTicketPrice, getItemPrice, movieTicketAuthErroCodeToMessage, getAmount, order2EventOrders, authorizeSeatReservation2Event, getRemainingSeatLength, isEligibleSeatingType, getEmptySeat, selectAvailableSeat, createPrintCanvas, createTestPrintCanvas, createCooperationQRCode, getTransactionAgentIdentifier, order2report, input2OrderSearchCondition, createOrderLink, getTranslateModuleConfig, reservation2report, input2ReservationSearchCondition */
+  /*! exports provided: screeningEventsToWorkEvents, createGmoTokenObject, sameMovieTicketFilter, isAvailabilityMovieTicket, createMovieTicketsFromAuthorizeSeatReservation, getCustomPaymentMethodTypeName, getTicketPrice, getItemPrice, movieTicketAuthErroCodeToMessage, getAmount, order2EventOrders, authorizeSeatReservation2Event, getRemainingSeatLength, isEligibleSeatingType, getEmptySeat, selectAvailableSeat, formatTelephone, toFull, toHalf, retry, sleep, buildQueryString, iOSDatepickerTapBugFix, string2blob, getParameter, getProject, createRandomString, isFile, deepCopy, createPrintCanvas, createTestPrintCanvas, createCooperationQRCode, getTransactionAgentIdentifier, order2report, input2OrderSearchCondition, createOrderLink, CustomTranslateHttpLoader, getTranslateModuleConfig, reservation2report, input2ReservationSearchCondition */
 
   /***/
   function appFunctionsIndexTs(module, __webpack_exports__, __webpack_require__) {
@@ -493,12 +499,6 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
     /* harmony reexport (safe) */
 
 
-    __webpack_require__.d(__webpack_exports__, "streamingDownload", function () {
-      return _util_function__WEBPACK_IMPORTED_MODULE_1__["streamingDownload"];
-    });
-    /* harmony reexport (safe) */
-
-
     __webpack_require__.d(__webpack_exports__, "string2blob", function () {
       return _util_function__WEBPACK_IMPORTED_MODULE_1__["string2blob"];
     });
@@ -525,6 +525,12 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
     __webpack_require__.d(__webpack_exports__, "isFile", function () {
       return _util_function__WEBPACK_IMPORTED_MODULE_1__["isFile"];
+    });
+    /* harmony reexport (safe) */
+
+
+    __webpack_require__.d(__webpack_exports__, "deepCopy", function () {
+      return _util_function__WEBPACK_IMPORTED_MODULE_1__["deepCopy"];
     });
     /* harmony import */
 
@@ -583,6 +589,12 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
     /* harmony reexport (safe) */
 
 
+    __webpack_require__.d(__webpack_exports__, "CustomTranslateHttpLoader", function () {
+      return _translate_function__WEBPACK_IMPORTED_MODULE_3__["CustomTranslateHttpLoader"];
+    });
+    /* harmony reexport (safe) */
+
+
     __webpack_require__.d(__webpack_exports__, "getTranslateModuleConfig", function () {
       return _translate_function__WEBPACK_IMPORTED_MODULE_3__["getTranslateModuleConfig"];
     });
@@ -604,12 +616,6 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
     __webpack_require__.d(__webpack_exports__, "input2ReservationSearchCondition", function () {
       return _reservation_function__WEBPACK_IMPORTED_MODULE_4__["input2ReservationSearchCondition"];
     });
-
-    var __importDefault = undefined && undefined.__importDefault || function (mod) {
-      return mod && mod.__esModule ? mod : {
-        "default": mod
-      };
-    };
     /***/
 
   },
@@ -678,9 +684,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
     /* harmony import */
 
 
-    var _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_0___default =
-    /*#__PURE__*/
-    __webpack_require__.n(_cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_0__);
+    var _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_0__);
     /* harmony import */
 
 
@@ -690,9 +694,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
     /* harmony import */
 
 
-    var moment__WEBPACK_IMPORTED_MODULE_1___default =
-    /*#__PURE__*/
-    __webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_1__);
+    var moment__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_1__);
     /* harmony import */
 
 
@@ -702,9 +704,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
     /* harmony import */
 
 
-    var qrcode__WEBPACK_IMPORTED_MODULE_2___default =
-    /*#__PURE__*/
-    __webpack_require__.n(qrcode__WEBPACK_IMPORTED_MODULE_2__);
+    var qrcode__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(qrcode__WEBPACK_IMPORTED_MODULE_2__);
     /* harmony import */
 
 
@@ -719,6 +719,12 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
     "./app/functions/util.function.ts");
 
     var __awaiter = undefined && undefined.__awaiter || function (thisArg, _arguments, P, generator) {
+      function adopt(value) {
+        return value instanceof P ? value : new P(function (resolve) {
+          resolve(value);
+        });
+      }
+
       return new (P || (P = Promise))(function (resolve, reject) {
         function fulfilled(value) {
           try {
@@ -737,19 +743,11 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
         }
 
         function step(result) {
-          result.done ? resolve(result.value) : new P(function (resolve) {
-            resolve(result.value);
-          }).then(fulfilled, rejected);
+          result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected);
         }
 
         step((generator = generator.apply(thisArg, _arguments || [])).next());
       });
-    };
-
-    var __importDefault = undefined && undefined.__importDefault || function (mod) {
-      return mod && mod.__esModule ? mod : {
-        "default": mod
-      };
     };
     /**
      * キャンバスへ描画
@@ -757,10 +755,8 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
 
     function drawCanvas(args) {
-      return __awaiter(this, void 0, void 0,
-      /*#__PURE__*/
-      regeneratorRuntime.mark(function _callee() {
-        var printData, data, canvas, size, context, drawImage, changePosition, font, _iteratorNormalCompletion, _didIteratorError, _iteratorError, _iterator, _step, image, imageInstance, src, _iteratorNormalCompletion2, _didIteratorError2, _iteratorError2, _iterator2, _step2, text, value, eventName, limit, _iteratorNormalCompletion3, _didIteratorError3, _iteratorError3, _iterator3, _step3, qrCode, qrcodeCanvas;
+      return __awaiter(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee() {
+        var printData, data, canvas, size, context, drawImage, changePosition, font, _iterator, _step, image, imageInstance, src, _iterator2, _step2, text, value, eventName, limit, _iterator3, _step3, qrCode, qrcodeCanvas;
 
         return regeneratorRuntime.wrap(function _callee$(_context) {
           while (1) {
@@ -826,41 +822,40 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
                 font = "\"Hiragino Sans\", \"Hiragino Kaku Gothic ProN\", \"\u6E38\u30B4\u30B7\u30C3\u30AF  Medium\", meiryo, sans-serif"; // 画像描画
 
-                _iteratorNormalCompletion = true;
-                _didIteratorError = false;
-                _iteratorError = undefined;
-                _context.prev = 15;
-                _iterator = printData.image[Symbol.iterator]();
+                _iterator = _createForOfIteratorHelper(printData.image);
+                _context.prev = 13;
 
-              case 17:
-                if (_iteratorNormalCompletion = (_step = _iterator.next()).done) {
-                  _context.next = 35;
+                _iterator.s();
+
+              case 15:
+                if ((_step = _iterator.n()).done) {
+                  _context.next = 32;
                   break;
                 }
 
                 image = _step.value;
                 imageInstance = new Image();
                 imageInstance.crossOrigin = 'anonymous';
-                _context.next = 23;
+                _context.next = 21;
                 return Object(_util_function__WEBPACK_IMPORTED_MODULE_4__["isFile"])(image.src.replace('/storage', Object(_util_function__WEBPACK_IMPORTED_MODULE_4__["getProject"])().storageUrl));
 
-              case 23:
+              case 21:
                 if (!_context.sent) {
-                  _context.next = 27;
+                  _context.next = 25;
                   break;
                 }
 
                 _context.t0 = image.src.replace('/storage', Object(_util_function__WEBPACK_IMPORTED_MODULE_4__["getProject"])().storageUrl);
-                _context.next = 28;
+                _context.next = 26;
                 break;
 
-              case 27:
+              case 25:
                 _context.t0 = image.src.replace('/storage', '/default');
 
-              case 28:
+              case 26:
                 src = _context.t0;
                 imageInstance.src = src;
-                _context.next = 32;
+                _context.next = 30;
                 return drawImage({
                   image: imageInstance,
                   x: image.x,
@@ -869,56 +864,37 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
                   height: image.height
                 });
 
-              case 32:
-                _iteratorNormalCompletion = true;
-                _context.next = 17;
+              case 30:
+                _context.next = 15;
                 break;
 
-              case 35:
-                _context.next = 41;
+              case 32:
+                _context.next = 37;
                 break;
+
+              case 34:
+                _context.prev = 34;
+                _context.t1 = _context["catch"](13);
+
+                _iterator.e(_context.t1);
 
               case 37:
                 _context.prev = 37;
-                _context.t1 = _context["catch"](15);
-                _didIteratorError = true;
-                _iteratorError = _context.t1;
 
-              case 41:
-                _context.prev = 41;
-                _context.prev = 42;
+                _iterator.f();
 
-                if (!_iteratorNormalCompletion && _iterator["return"] != null) {
-                  _iterator["return"]();
-                }
+                return _context.finish(37);
 
-              case 44:
-                _context.prev = 44;
-
-                if (!_didIteratorError) {
-                  _context.next = 47;
-                  break;
-                }
-
-                throw _iteratorError;
-
-              case 47:
-                return _context.finish(44);
-
-              case 48:
-                return _context.finish(41);
-
-              case 49:
+              case 40:
                 // テキスト描画
-                _iteratorNormalCompletion2 = true;
-                _didIteratorError2 = false;
-                _iteratorError2 = undefined;
-                _context.prev = 52;
-                _iterator2 = printData.text[Symbol.iterator]();
+                _iterator2 = _createForOfIteratorHelper(printData.text);
+                _context.prev = 41;
 
-              case 54:
-                if (_iteratorNormalCompletion2 = (_step2 = _iterator2.next()).done) {
-                  _context.next = 87;
+                _iterator2.s();
+
+              case 43:
+                if ((_step2 = _iterator2.n()).done) {
+                  _context.next = 75;
                   break;
                 }
 
@@ -929,27 +905,27 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
                 value = '';
 
                 if (!(text.name !== undefined)) {
-                  _context.next = 77;
+                  _context.next = 66;
                   break;
                 }
 
                 _context.t2 = text.name;
-                _context.next = _context.t2 === 'price' ? 64 : _context.t2 === 'date' ? 66 : _context.t2 === 'startDate' ? 68 : _context.t2 === 'endDate' ? 68 : _context.t2 === 'eventNameJa' ? 70 : _context.t2 === 'eventNameEn' ? 70 : 74;
+                _context.next = _context.t2 === 'price' ? 53 : _context.t2 === 'date' ? 55 : _context.t2 === 'startDate' ? 57 : _context.t2 === 'endDate' ? 57 : _context.t2 === 'eventNameJa' ? 59 : _context.t2 === 'eventNameEn' ? 59 : 63;
                 break;
 
-              case 64:
+              case 53:
                 value = "\uFFE5".concat(data.price.toLocaleString());
-                return _context.abrupt("break", 75);
+                return _context.abrupt("break", 64);
 
-              case 66:
+              case 55:
                 value = "(".concat(moment__WEBPACK_IMPORTED_MODULE_1__().format('YYYY/MM/DD HH:mm'), " \u767A\u5238)");
-                return _context.abrupt("break", 75);
+                return _context.abrupt("break", 64);
 
-              case 68:
+              case 57:
                 value = "".concat(moment__WEBPACK_IMPORTED_MODULE_1__(data[text.name]).format(text.value));
-                return _context.abrupt("break", 75);
+                return _context.abrupt("break", 64);
 
-              case 70:
+              case 59:
                 eventName = data[text.name];
                 limit = Math.floor(size.width / parseInt(text.font.size, 10));
 
@@ -960,29 +936,29 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
                   context.fillText(eventName, changePosition(text.fillText.x), changePosition(text.fillText.y) + parseInt(text.font.size, 10) * 0.75);
                 }
 
-                return _context.abrupt("continue", 84);
+                return _context.abrupt("continue", 73);
 
-              case 74:
+              case 63:
                 value = "".concat(text.value === undefined ? '' : text.value).concat(data[text.name] === undefined ? '-' : data[text.name]);
 
-              case 75:
-                _context.next = 82;
+              case 64:
+                _context.next = 71;
                 break;
 
-              case 77:
+              case 66:
                 if (!(text.value !== undefined)) {
-                  _context.next = 81;
+                  _context.next = 70;
                   break;
                 }
 
                 value = text.value;
-                _context.next = 82;
+                _context.next = 71;
                 break;
 
-              case 81:
-                return _context.abrupt("continue", 84);
+              case 70:
+                return _context.abrupt("continue", 73);
 
-              case 82:
+              case 71:
                 if (text.slice !== undefined) {
                   // 文字制限
                   value = value.slice(text.slice[0], text.slice[1]);
@@ -990,119 +966,82 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
                 context.fillText(value, changePosition(text.fillText.x), changePosition(text.fillText.y));
 
-              case 84:
-                _iteratorNormalCompletion2 = true;
-                _context.next = 54;
+              case 73:
+                _context.next = 43;
                 break;
+
+              case 75:
+                _context.next = 80;
+                break;
+
+              case 77:
+                _context.prev = 77;
+                _context.t3 = _context["catch"](41);
+
+                _iterator2.e(_context.t3);
+
+              case 80:
+                _context.prev = 80;
+
+                _iterator2.f();
+
+                return _context.finish(80);
+
+              case 83:
+                if (!(data.qrcode !== undefined)) {
+                  _context.next = 103;
+                  break;
+                }
+
+                _iterator3 = _createForOfIteratorHelper(printData.qrCode);
+                _context.prev = 85;
+
+                _iterator3.s();
 
               case 87:
-                _context.next = 93;
-                break;
-
-              case 89:
-                _context.prev = 89;
-                _context.t3 = _context["catch"](52);
-                _didIteratorError2 = true;
-                _iteratorError2 = _context.t3;
-
-              case 93:
-                _context.prev = 93;
-                _context.prev = 94;
-
-                if (!_iteratorNormalCompletion2 && _iterator2["return"] != null) {
-                  _iterator2["return"]();
-                }
-
-              case 96:
-                _context.prev = 96;
-
-                if (!_didIteratorError2) {
-                  _context.next = 99;
-                  break;
-                }
-
-                throw _iteratorError2;
-
-              case 99:
-                return _context.finish(96);
-
-              case 100:
-                return _context.finish(93);
-
-              case 101:
-                if (!(data.qrcode !== undefined)) {
-                  _context.next = 130;
-                  break;
-                }
-
-                _iteratorNormalCompletion3 = true;
-                _didIteratorError3 = false;
-                _iteratorError3 = undefined;
-                _context.prev = 105;
-                _iterator3 = printData.qrCode[Symbol.iterator]();
-
-              case 107:
-                if (_iteratorNormalCompletion3 = (_step3 = _iterator3.next()).done) {
-                  _context.next = 116;
+                if ((_step3 = _iterator3.n()).done) {
+                  _context.next = 95;
                   break;
                 }
 
                 qrCode = _step3.value;
                 qrcodeCanvas = document.createElement('canvas');
-                _context.next = 112;
+                _context.next = 92;
                 return qrcode__WEBPACK_IMPORTED_MODULE_2__["toCanvas"](qrcodeCanvas, data.qrcode);
 
-              case 112:
+              case 92:
                 context.drawImage(qrcodeCanvas, qrCode.x, qrCode.y, qrCode.width, qrCode.height);
 
-              case 113:
-                _iteratorNormalCompletion3 = true;
-                _context.next = 107;
+              case 93:
+                _context.next = 87;
                 break;
 
-              case 116:
-                _context.next = 122;
+              case 95:
+                _context.next = 100;
                 break;
 
-              case 118:
-                _context.prev = 118;
-                _context.t4 = _context["catch"](105);
-                _didIteratorError3 = true;
-                _iteratorError3 = _context.t4;
+              case 97:
+                _context.prev = 97;
+                _context.t4 = _context["catch"](85);
 
-              case 122:
-                _context.prev = 122;
-                _context.prev = 123;
+                _iterator3.e(_context.t4);
 
-                if (!_iteratorNormalCompletion3 && _iterator3["return"] != null) {
-                  _iterator3["return"]();
-                }
+              case 100:
+                _context.prev = 100;
 
-              case 125:
-                _context.prev = 125;
+                _iterator3.f();
 
-                if (!_didIteratorError3) {
-                  _context.next = 128;
-                  break;
-                }
+                return _context.finish(100);
 
-                throw _iteratorError3;
-
-              case 128:
-                return _context.finish(125);
-
-              case 129:
-                return _context.finish(122);
-
-              case 130:
+              case 103:
                 return _context.abrupt("return", canvas);
 
-              case 131:
+              case 104:
               case "end":
                 return _context.stop();
             }
           }
-        }, _callee, null, [[15, 37, 41, 49], [42,, 44, 48], [52, 89, 93, 101], [94,, 96, 100], [105, 118, 122, 130], [123,, 125, 129]]);
+        }, _callee, null, [[13, 34, 37, 40], [41, 77, 80, 83], [85, 97, 100, 103]]);
       }));
     }
     /**
@@ -1111,9 +1050,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
 
     function createPrintCanvas(params) {
-      return __awaiter(this, void 0, void 0,
-      /*#__PURE__*/
-      regeneratorRuntime.mark(function _callee2() {
+      return __awaiter(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee2() {
         var acceptedOffer, itemOffered, data, printData, canvas;
         return regeneratorRuntime.wrap(function _callee2$(_context2) {
           while (1) {
@@ -1177,9 +1114,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
 
     function createTestPrintCanvas(args) {
-      return __awaiter(this, void 0, void 0,
-      /*#__PURE__*/
-      regeneratorRuntime.mark(function _callee3() {
+      return __awaiter(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee3() {
         var printData, data, canvas;
         return regeneratorRuntime.wrap(function _callee3$(_context3) {
           while (1) {
@@ -1230,9 +1165,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
 
     function createCooperationQRCode(params) {
-      return __awaiter(this, void 0, void 0,
-      /*#__PURE__*/
-      regeneratorRuntime.mark(function _callee4() {
+      return __awaiter(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee4() {
         var order, qrcodeText, canvas, text;
         return regeneratorRuntime.wrap(function _callee4$(_context4) {
           while (1) {
@@ -1300,7 +1233,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
             paymentMethodsNames: order.paymentMethods.map(function (m) {
               return m.name;
             }).join(','),
-            customer: Object.assign({}, order.customer, {
+            customer: Object.assign(Object.assign({}, order.customer), {
               formatTelephone: Object(_util_function__WEBPACK_IMPORTED_MODULE_4__["formatTelephone"])(order.customer.telephone),
               pos: {
                 name: getTransactionAgentIdentifier(order, 'posName') === undefined ? {
@@ -1321,7 +1254,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
                 priceComponents: acceptedOffer.priceSpecification.priceComponent
               }),
               reservedTicket: itemOffered.reservedTicket,
-              reservationFor: Object.assign({}, itemOffered.reservationFor, {
+              reservationFor: Object.assign(Object.assign({}, itemOffered.reservationFor), {
                 startDateJST: moment__WEBPACK_IMPORTED_MODULE_1__(itemOffered.reservationFor.startDate).format('YYYY/MM/DD/HH:mm')
               })
             }
@@ -1532,9 +1465,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
     /* harmony import */
 
 
-    var _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_0___default =
-    /*#__PURE__*/
-    __webpack_require__.n(_cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_0__);
+    var _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_0__);
     /* harmony import */
 
 
@@ -1544,9 +1475,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
     /* harmony import */
 
 
-    var moment__WEBPACK_IMPORTED_MODULE_1___default =
-    /*#__PURE__*/
-    __webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_1__);
+    var moment__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_1__);
     /* harmony import */
 
 
@@ -1559,12 +1488,6 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
     var _models__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(
     /*! ../models */
     "./app/models/index.ts");
-
-    var __importDefault = undefined && undefined.__importDefault || function (mod) {
-      return mod && mod.__esModule ? mod : {
-        "default": mod
-      };
-    };
     /**
      * 作品別イベントへ変換
      */
@@ -2121,7 +2044,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
         if (r.ticket === undefined || r.ticket.ticketOffer.eligibleSubReservation === undefined) {
           // サブ予約なし
-          availableSeats.push(Object.assign({}, findReservationSeat, {
+          availableSeats.push(Object.assign(Object.assign({}, findReservationSeat), {
             subReservations: []
           }));
           return;
@@ -2191,7 +2114,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
             subReservations.push(subReservation);
           }
         });
-        availableSeats.push(Object.assign({}, findReservationSeat, {
+        availableSeats.push(Object.assign(Object.assign({}, findReservationSeat), {
           subReservations: subReservations
         }));
       });
@@ -2235,9 +2158,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
     /* harmony import */
 
 
-    var _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_0___default =
-    /*#__PURE__*/
-    __webpack_require__.n(_cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_0__);
+    var _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_0__);
     /* harmony import */
 
 
@@ -2247,21 +2168,13 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
     /* harmony import */
 
 
-    var moment__WEBPACK_IMPORTED_MODULE_1___default =
-    /*#__PURE__*/
-    __webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_1__);
+    var moment__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_1__);
     /* harmony import */
 
 
     var _purchase_function__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
     /*! ./purchase.function */
     "./app/functions/purchase.function.ts");
-
-    var __importDefault = undefined && undefined.__importDefault || function (mod) {
-      return mod && mod.__esModule ? mod : {
-        "default": mod
-      };
-    };
     /**
      * 予約データCSV変換
      */
@@ -2280,7 +2193,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
             priceComponents: reservation.price.priceComponent
           }),
           reservedTicket: reservation.reservedTicket,
-          reservationFor: Object.assign({}, reservation.reservationFor, {
+          reservationFor: Object.assign(Object.assign({}, reservation.reservationFor), {
             startDateJST: moment__WEBPACK_IMPORTED_MODULE_1__(reservation.reservationFor.startDate).format('YYYY/MM/DD/HH:mm')
           }),
           checkedIn: reservation.checkedIn,
@@ -2333,13 +2246,19 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
     !*** ./app/functions/translate.function.ts ***!
     \*********************************************/
 
-  /*! exports provided: getTranslateModuleConfig */
+  /*! exports provided: CustomTranslateHttpLoader, getTranslateModuleConfig */
 
   /***/
   function appFunctionsTranslateFunctionTs(module, __webpack_exports__, __webpack_require__) {
     "use strict";
 
     __webpack_require__.r(__webpack_exports__);
+    /* harmony export (binding) */
+
+
+    __webpack_require__.d(__webpack_exports__, "CustomTranslateHttpLoader", function () {
+      return CustomTranslateHttpLoader;
+    });
     /* harmony export (binding) */
 
 
@@ -2351,13 +2270,13 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
     var _angular_common_http__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(
     /*! @angular/common/http */
-    "../../node_modules/@angular/common/fesm2015/http.js");
+    "../../node_modules/@angular/common/__ivy_ngcc__/fesm2015/http.js");
     /* harmony import */
 
 
     var _ngx_translate_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(
     /*! @ngx-translate/core */
-    "../../node_modules/@ngx-translate/core/fesm2015/ngx-translate-core.js");
+    "../../node_modules/@ngx-translate/core/__ivy_ngcc__/fesm2015/ngx-translate-core.js");
     /* harmony import */
 
 
@@ -2367,9 +2286,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
     /* harmony import */
 
 
-    var deepmerge__WEBPACK_IMPORTED_MODULE_2___default =
-    /*#__PURE__*/
-    __webpack_require__.n(deepmerge__WEBPACK_IMPORTED_MODULE_2__);
+    var deepmerge__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(deepmerge__WEBPACK_IMPORTED_MODULE_2__);
     /* harmony import */
 
 
@@ -2379,9 +2296,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
     /* harmony import */
 
 
-    var moment__WEBPACK_IMPORTED_MODULE_3___default =
-    /*#__PURE__*/
-    __webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_3__);
+    var moment__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_3__);
     /* harmony import */
 
 
@@ -2406,20 +2321,12 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
     var _util_function__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(
     /*! ./util.function */
     "./app/functions/util.function.ts");
-
-    var __importDefault = undefined && undefined.__importDefault || function (mod) {
-      return mod && mod.__esModule ? mod : {
-        "default": mod
-      };
-    };
     /**
      * 多言語カスタムローダー
      */
 
 
-    var CustomTranslateHttpLoader =
-    /*#__PURE__*/
-    function () {
+    var CustomTranslateHttpLoader = /*#__PURE__*/function () {
       function CustomTranslateHttpLoader(http) {
         _classCallCheck(this, CustomTranslateHttpLoader);
 
@@ -2472,7 +2379,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
     !*** ./app/functions/util.function.ts ***!
     \****************************************/
 
-  /*! exports provided: formatTelephone, toFull, toHalf, retry, sleep, buildQueryString, iOSDatepickerTapBugFix, streamingDownload, string2blob, getParameter, getProject, createRandomString, isFile */
+  /*! exports provided: formatTelephone, toFull, toHalf, retry, sleep, buildQueryString, iOSDatepickerTapBugFix, string2blob, getParameter, getProject, createRandomString, isFile, deepCopy */
 
   /***/
   function appFunctionsUtilFunctionTs(module, __webpack_exports__, __webpack_require__) {
@@ -2524,12 +2431,6 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
     /* harmony export (binding) */
 
 
-    __webpack_require__.d(__webpack_exports__, "streamingDownload", function () {
-      return streamingDownload;
-    });
-    /* harmony export (binding) */
-
-
     __webpack_require__.d(__webpack_exports__, "string2blob", function () {
       return string2blob;
     });
@@ -2557,6 +2458,12 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
     __webpack_require__.d(__webpack_exports__, "isFile", function () {
       return isFile;
     });
+    /* harmony export (binding) */
+
+
+    __webpack_require__.d(__webpack_exports__, "deepCopy", function () {
+      return deepCopy;
+    });
     /* harmony import */
 
 
@@ -2565,6 +2472,12 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
     "../../node_modules/libphonenumber-js/index.es6.js");
 
     var __awaiter = undefined && undefined.__awaiter || function (thisArg, _arguments, P, generator) {
+      function adopt(value) {
+        return value instanceof P ? value : new P(function (resolve) {
+          resolve(value);
+        });
+      }
+
       return new (P || (P = Promise))(function (resolve, reject) {
         function fulfilled(value) {
           try {
@@ -2583,19 +2496,11 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
         }
 
         function step(result) {
-          result.done ? resolve(result.value) : new P(function (resolve) {
-            resolve(result.value);
-          }).then(fulfilled, rejected);
+          result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected);
         }
 
         step((generator = generator.apply(thisArg, _arguments || [])).next());
       });
-    };
-
-    var __importDefault = undefined && undefined.__importDefault || function (mod) {
-      return mod && mod.__esModule ? mod : {
-        "default": mod
-      };
     };
     /**
      * 電話番号変換
@@ -2638,9 +2543,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
 
     function retry(args) {
-      return __awaiter(this, void 0, void 0,
-      /*#__PURE__*/
-      regeneratorRuntime.mark(function _callee7() {
+      return __awaiter(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee7() {
         var _this2 = this;
 
         var count;
@@ -2650,9 +2553,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
               case 0:
                 count = 0;
                 return _context7.abrupt("return", new Promise(function (resolve, reject) {
-                  return __awaiter(_this2, void 0, void 0,
-                  /*#__PURE__*/
-                  regeneratorRuntime.mark(function _callee6() {
+                  return __awaiter(_this2, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee6() {
                     var _this3 = this;
 
                     var timerProcess, result;
@@ -2662,9 +2563,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
                           case 0:
                             timerProcess = function timerProcess() {
                               setTimeout(function () {
-                                return __awaiter(_this3, void 0, void 0,
-                                /*#__PURE__*/
-                                regeneratorRuntime.mark(function _callee5() {
+                                return __awaiter(_this3, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee5() {
                                   var result;
                                   return regeneratorRuntime.wrap(function _callee5$(_context5) {
                                     while (1) {
@@ -2745,9 +2644,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
 
     function sleep(time) {
-      return __awaiter(this, void 0, void 0,
-      /*#__PURE__*/
-      regeneratorRuntime.mark(function _callee8() {
+      return __awaiter(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee8() {
         return regeneratorRuntime.wrap(function _callee8$(_context8) {
           while (1) {
             switch (_context8.prev = _context8.next) {
@@ -2858,106 +2755,27 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
     /**
      * ストリーミングダウンロード
      */
+    // export async function streamingDownload<T>(stream: ReadableStream<T>) {
+    //     const reader = stream.getReader();
+    //     const decoder = new TextDecoder();
+    //     let streamText = '';
+    //     return new Promise<string>(async (resolve, reject) => {
+    //         try {
+    //             const readChunk = async (chunk: { done: boolean; value: any; }) => {
+    //                 if (chunk.done) {
+    //                     resolve(streamText);
+    //                     return;
+    //                 }
+    //                 streamText += decoder.decode(chunk.value);
+    //                 await readChunk(await reader.read());
+    //             };
+    //             await readChunk(await reader.read());
+    //         } catch (error) {
+    //             reject(error);
+    //         }
+    //     });
+    // }
 
-
-    function streamingDownload(stream) {
-      return __awaiter(this, void 0, void 0,
-      /*#__PURE__*/
-      regeneratorRuntime.mark(function _callee11() {
-        var _this4 = this;
-
-        var reader, decoder, streamText;
-        return regeneratorRuntime.wrap(function _callee11$(_context11) {
-          while (1) {
-            switch (_context11.prev = _context11.next) {
-              case 0:
-                reader = stream.getReader();
-                decoder = new TextDecoder();
-                streamText = '';
-                return _context11.abrupt("return", new Promise(function (resolve, reject) {
-                  return __awaiter(_this4, void 0, void 0,
-                  /*#__PURE__*/
-                  regeneratorRuntime.mark(function _callee10() {
-                    var _this5 = this;
-
-                    var readChunk;
-                    return regeneratorRuntime.wrap(function _callee10$(_context10) {
-                      while (1) {
-                        switch (_context10.prev = _context10.next) {
-                          case 0:
-                            _context10.prev = 0;
-
-                            readChunk = function readChunk(chunk) {
-                              return __awaiter(_this5, void 0, void 0,
-                              /*#__PURE__*/
-                              regeneratorRuntime.mark(function _callee9() {
-                                return regeneratorRuntime.wrap(function _callee9$(_context9) {
-                                  while (1) {
-                                    switch (_context9.prev = _context9.next) {
-                                      case 0:
-                                        if (!chunk.done) {
-                                          _context9.next = 3;
-                                          break;
-                                        }
-
-                                        resolve(streamText);
-                                        return _context9.abrupt("return");
-
-                                      case 3:
-                                        streamText += decoder.decode(chunk.value);
-                                        _context9.t0 = readChunk;
-                                        _context9.next = 7;
-                                        return reader.read();
-
-                                      case 7:
-                                        _context9.t1 = _context9.sent;
-                                        _context9.next = 10;
-                                        return (0, _context9.t0)(_context9.t1);
-
-                                      case 10:
-                                      case "end":
-                                        return _context9.stop();
-                                    }
-                                  }
-                                }, _callee9);
-                              }));
-                            };
-
-                            _context10.t0 = readChunk;
-                            _context10.next = 5;
-                            return reader.read();
-
-                          case 5:
-                            _context10.t1 = _context10.sent;
-                            _context10.next = 8;
-                            return (0, _context10.t0)(_context10.t1);
-
-                          case 8:
-                            _context10.next = 13;
-                            break;
-
-                          case 10:
-                            _context10.prev = 10;
-                            _context10.t2 = _context10["catch"](0);
-                            reject(_context10.t2);
-
-                          case 13:
-                          case "end":
-                            return _context10.stop();
-                        }
-                      }
-                    }, _callee10, null, [[0, 10]]);
-                  }));
-                }));
-
-              case 4:
-              case "end":
-                return _context11.stop();
-            }
-          }
-        }, _callee11);
-      }));
-    }
     /**
      * 文字列をBLOB変換
      */
@@ -3005,7 +2823,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
         return defaultProject;
       }
 
-      return Object.assign({}, defaultProject, JSON.parse(project));
+      return Object.assign(Object.assign({}, defaultProject), JSON.parse(project));
     }
     /**
      * ランダム英数字生成
@@ -3028,15 +2846,13 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
 
     function isFile(url) {
-      return __awaiter(this, void 0, void 0,
-      /*#__PURE__*/
-      regeneratorRuntime.mark(function _callee12() {
+      return __awaiter(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee9() {
         var fetchResult;
-        return regeneratorRuntime.wrap(function _callee12$(_context12) {
+        return regeneratorRuntime.wrap(function _callee9$(_context9) {
           while (1) {
-            switch (_context12.prev = _context12.next) {
+            switch (_context9.prev = _context9.next) {
               case 0:
-                _context12.next = 2;
+                _context9.next = 2;
                 return fetch(url, {
                   method: 'GET',
                   cache: 'no-cache',
@@ -3046,16 +2862,24 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
                 });
 
               case 2:
-                fetchResult = _context12.sent;
-                return _context12.abrupt("return", fetchResult.ok);
+                fetchResult = _context9.sent;
+                return _context9.abrupt("return", fetchResult.ok);
 
               case 4:
               case "end":
-                return _context12.stop();
+                return _context9.stop();
             }
           }
-        }, _callee12);
+        }, _callee9);
       }));
+    }
+    /**
+     * オブジェクトディープコピー
+     */
+
+
+    function deepCopy(obj) {
+      return JSON.parse(JSON.stringify(obj));
     }
     /***/
 
@@ -3190,12 +3014,6 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
     });
     /* empty/unused harmony star reexport */
 
-
-    var __importDefault = undefined && undefined.__importDefault || function (mod) {
-      return mod && mod.__esModule ? mod : {
-        "default": mod
-      };
-    };
     /***/
 
   },
@@ -3219,12 +3037,6 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
     __webpack_require__.d(__webpack_exports__, "OrderActions", function () {
       return OrderActions;
     });
-
-    var __importDefault = undefined && undefined.__importDefault || function (mod) {
-      return mod && mod.__esModule ? mod : {
-        "default": mod
-      };
-    };
 
     var OrderActions;
 
@@ -3263,12 +3075,6 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       return CsvFormat;
     });
 
-    var __importDefault = undefined && undefined.__importDefault || function (mod) {
-      return mod && mod.__esModule ? mod : {
-        "default": mod
-      };
-    };
-
     var CsvFormat;
 
     (function (CsvFormat) {
@@ -3298,12 +3104,6 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
     __webpack_require__.d(__webpack_exports__, "PrintQrcodeType", function () {
       return PrintQrcodeType;
     });
-
-    var __importDefault = undefined && undefined.__importDefault || function (mod) {
-      return mod && mod.__esModule ? mod : {
-        "default": mod
-      };
-    };
     /**
      * QRコード文字列
      */
@@ -3339,12 +3139,6 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
     __webpack_require__.d(__webpack_exports__, "PaymentMethodType", function () {
       return PaymentMethodType;
     });
-
-    var __importDefault = undefined && undefined.__importDefault || function (mod) {
-      return mod && mod.__esModule ? mod : {
-        "default": mod
-      };
-    };
     /**
      * 決済方法タイプ
      */
@@ -3405,29 +3199,19 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
     /* harmony import */
 
 
-    var moment__WEBPACK_IMPORTED_MODULE_0___default =
-    /*#__PURE__*/
-    __webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_0__);
+    var moment__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_0__);
     /* harmony import */
 
 
     var _environments_environment__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(
     /*! ../../../environments/environment */
     "./environments/environment.ts");
-
-    var __importDefault = undefined && undefined.__importDefault || function (mod) {
-      return mod && mod.__esModule ? mod : {
-        "default": mod
-      };
-    };
     /**
      * Performance
      */
 
 
-    var Performance =
-    /*#__PURE__*/
-    function () {
+    var Performance = /*#__PURE__*/function () {
       function Performance(screeningEvent) {
         _classCallCheck(this, Performance);
 
@@ -3644,12 +3428,6 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       return SeatStatus;
     });
 
-    var __importDefault = undefined && undefined.__importDefault || function (mod) {
-      return mod && mod.__esModule ? mod : {
-        "default": mod
-      };
-    };
-
     var SeatStatus;
 
     (function (SeatStatus) {
@@ -3680,12 +3458,6 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
     __webpack_require__.d(__webpack_exports__, "Language", function () {
       return Language;
     });
-
-    var __importDefault = undefined && undefined.__importDefault || function (mod) {
-      return mod && mod.__esModule ? mod : {
-        "default": mod
-      };
-    };
     /**
      * 言語
      */
@@ -3736,12 +3508,6 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
     __webpack_require__.d(__webpack_exports__, "printers", function () {
       return printers;
     });
-
-    var __importDefault = undefined && undefined.__importDefault || function (mod) {
-      return mod && mod.__esModule ? mod : {
-        "default": mod
-      };
-    };
     /**
      * 接続の種類
      */
@@ -3811,12 +3577,6 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       return ViewType;
     });
 
-    var __importDefault = undefined && undefined.__importDefault || function (mod) {
-      return mod && mod.__esModule ? mod : {
-        "default": mod
-      };
-    };
-
     var ViewType;
 
     (function (ViewType) {
@@ -3840,13 +3600,19 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
     !*** ./environments/environment.ts ***!
     \*************************************/
 
-  /*! exports provided: getEnvironment */
+  /*! exports provided: isProduction, getEnvironment */
 
   /***/
   function environmentsEnvironmentTs(module, __webpack_exports__, __webpack_require__) {
     "use strict";
 
     __webpack_require__.r(__webpack_exports__);
+    /* harmony export (binding) */
+
+
+    __webpack_require__.d(__webpack_exports__, "isProduction", function () {
+      return isProduction;
+    });
     /* harmony export (binding) */
 
 
@@ -3860,12 +3626,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
     /*! ../app/functions/util.function */
     "./app/functions/util.function.ts");
 
-    var __importDefault = undefined && undefined.__importDefault || function (mod) {
-      return mod && mod.__esModule ? mod : {
-        "default": mod
-      };
-    };
-
+    var isProduction = document.querySelector('body.production') !== null;
     var defaultEnvironment = {
       production: false,
       APP_TITLE: '',
@@ -3905,13 +3666,13 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       PAYMENT_METHOD_TO_USE: ['Cash', 'EMoney', 'CreditCard'],
       PAYMENT_METHOD_CUSTOM: [],
       REGIGROW_QRCODE: '',
-      DISPLAY_TICKETED_SEAT: false,
+      DISPLAY_TICKETED_SEAT: true,
       HEADER_MENU: true,
       HEADER_MENU_SCOPE: ['purchase', 'order', 'reservation', 'setting', 'auth'],
       PURCHASE_CART: false,
       PURCHASE_ITEM_MAX_LENGTH: '50',
       PURCHASE_TRANSACTION_TIME: '15',
-      PURCHASE_TRANSACTION_TIME_DISPLAY: false,
+      PURCHASE_TRANSACTION_TIME_DISPLAY: true,
       PURCHASE_TRANSACTION_IDENTIFIER: [],
       PURCHASE_PRE_SCHEDULE_DATE: '3',
       PURCHASE_SCHEDULE_DEFAULT_SELECTED_DATE: '0',
@@ -3940,8 +3701,8 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
     };
 
     function getEnvironment() {
-      var environment = Object.assign({}, defaultEnvironment, window.environment, {
-        production: document.querySelector('body.production') !== null
+      var environment = Object.assign(Object.assign(Object.assign({}, defaultEnvironment), window.environment), {
+        production: isProduction
       });
       return environment;
     }
@@ -3967,13 +3728,13 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
     var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(
     /*! @angular/core */
-    "../../node_modules/@angular/core/fesm2015/core.js");
+    "../../node_modules/@angular/core/__ivy_ngcc__/fesm2015/core.js");
     /* harmony import */
 
 
     var _angular_platform_browser_dynamic__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(
     /*! @angular/platform-browser-dynamic */
-    "../../node_modules/@angular/platform-browser-dynamic/fesm2015/platform-browser-dynamic.js");
+    "../../node_modules/@angular/platform-browser-dynamic/__ivy_ngcc__/fesm2015/platform-browser-dynamic.js");
     /* harmony import */
 
 
@@ -3983,9 +3744,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
     /* harmony import */
 
 
-    var hammerjs__WEBPACK_IMPORTED_MODULE_2___default =
-    /*#__PURE__*/
-    __webpack_require__.n(hammerjs__WEBPACK_IMPORTED_MODULE_2__);
+    var hammerjs__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(hammerjs__WEBPACK_IMPORTED_MODULE_2__);
     /* harmony import */
 
 
@@ -3995,21 +3754,19 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
     /* harmony import */
 
 
-    var moment_timezone__WEBPACK_IMPORTED_MODULE_3___default =
-    /*#__PURE__*/
-    __webpack_require__.n(moment_timezone__WEBPACK_IMPORTED_MODULE_3__);
+    var moment_timezone__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(moment_timezone__WEBPACK_IMPORTED_MODULE_3__);
     /* harmony import */
 
 
     var ngx_bootstrap_chronos__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(
     /*! ngx-bootstrap/chronos */
-    "../../node_modules/ngx-bootstrap/chronos/fesm2015/ngx-bootstrap-chronos.js");
+    "../../node_modules/ngx-bootstrap/__ivy_ngcc__/chronos/fesm2015/ngx-bootstrap-chronos.js");
     /* harmony import */
 
 
     var ngx_bootstrap_locale__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(
     /*! ngx-bootstrap/locale */
-    "../../node_modules/ngx-bootstrap/locale/fesm2015/ngx-bootstrap-locale.js");
+    "../../node_modules/ngx-bootstrap/__ivy_ngcc__/locale/fesm2015/ngx-bootstrap-locale.js");
     /* harmony import */
 
 
@@ -4024,6 +3781,12 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
     "./environments/environment.ts");
 
     var __awaiter = undefined && undefined.__awaiter || function (thisArg, _arguments, P, generator) {
+      function adopt(value) {
+        return value instanceof P ? value : new P(function (resolve) {
+          resolve(value);
+        });
+      }
+
       return new (P || (P = Promise))(function (resolve, reject) {
         function fulfilled(value) {
           try {
@@ -4042,19 +3805,11 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
         }
 
         function step(result) {
-          result.done ? resolve(result.value) : new P(function (resolve) {
-            resolve(result.value);
-          }).then(fulfilled, rejected);
+          result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected);
         }
 
         step((generator = generator.apply(thisArg, _arguments || [])).next());
       });
-    };
-
-    var __importDefault = undefined && undefined.__importDefault || function (mod) {
-      return mod && mod.__esModule ? mod : {
-        "default": mod
-      };
     };
     /**
      * main
@@ -4062,13 +3817,11 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
 
     function main() {
-      return __awaiter(this, void 0, void 0,
-      /*#__PURE__*/
-      regeneratorRuntime.mark(function _callee13() {
+      return __awaiter(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee10() {
         var params, space, projectId;
-        return regeneratorRuntime.wrap(function _callee13$(_context13) {
+        return regeneratorRuntime.wrap(function _callee10$(_context10) {
           while (1) {
-            switch (_context13.prev = _context13.next) {
+            switch (_context10.prev = _context10.next) {
               case 0:
                 // タイムゾーン設定
                 moment_timezone__WEBPACK_IMPORTED_MODULE_3__["tz"].setDefault('Asia/Tokyo');
@@ -4092,38 +3845,38 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
                 projectId = params.projectId === undefined ? Object(_app_functions__WEBPACK_IMPORTED_MODULE_6__["getProject"])().projectId === '' ? undefined : Object(_app_functions__WEBPACK_IMPORTED_MODULE_6__["getProject"])().projectId : params.projectId;
 
                 if (!(projectId === undefined && location.hash !== '#/auth/signin')) {
-                  _context13.next = 12;
+                  _context10.next = 12;
                   break;
                 }
 
                 location.href = '/#/auth/signin';
                 location.reload();
-                return _context13.abrupt("return");
+                return _context10.abrupt("return");
 
               case 12:
-                _context13.next = 14;
+                _context10.next = 14;
                 return setProject({
                   projectId: projectId
                 });
 
               case 14:
                 if (!(Object(_app_functions__WEBPACK_IMPORTED_MODULE_6__["getProject"])().storageUrl === undefined)) {
-                  _context13.next = 16;
+                  _context10.next = 16;
                   break;
                 }
 
-                return _context13.abrupt("return");
+                return _context10.abrupt("return");
 
               case 16:
-                _context13.next = 18;
+                _context10.next = 18;
                 return setProjectConfig(Object(_app_functions__WEBPACK_IMPORTED_MODULE_6__["getProject"])().storageUrl);
 
               case 18:
               case "end":
-                return _context13.stop();
+                return _context10.stop();
             }
           }
-        }, _callee13);
+        }, _callee10);
       }));
     }
     /**
@@ -4132,15 +3885,13 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
 
     function setProject(params) {
-      return __awaiter(this, void 0, void 0,
-      /*#__PURE__*/
-      regeneratorRuntime.mark(function _callee14() {
+      return __awaiter(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee11() {
         var fetchResult, json;
-        return regeneratorRuntime.wrap(function _callee14$(_context14) {
+        return regeneratorRuntime.wrap(function _callee11$(_context11) {
           while (1) {
-            switch (_context14.prev = _context14.next) {
+            switch (_context11.prev = _context11.next) {
               case 0:
-                _context14.next = 2;
+                _context11.next = 2;
                 return fetch('/api/project', {
                   method: 'POST',
                   cache: 'no-cache',
@@ -4151,10 +3902,10 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
                 });
 
               case 2:
-                fetchResult = _context14.sent;
+                fetchResult = _context11.sent;
 
                 if (fetchResult.ok) {
-                  _context14.next = 5;
+                  _context11.next = 5;
                   break;
                 }
 
@@ -4164,19 +3915,19 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
                 }));
 
               case 5:
-                _context14.next = 7;
+                _context11.next = 7;
                 return fetchResult.json();
 
               case 7:
-                json = _context14.sent;
+                json = _context11.sent;
                 sessionStorage.setItem('PROJECT', JSON.stringify(json));
 
               case 9:
               case "end":
-                return _context14.stop();
+                return _context11.stop();
             }
           }
-        }, _callee14);
+        }, _callee11);
       }));
     }
     /**
@@ -4185,17 +3936,15 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
 
     function setProjectConfig(storageUrl) {
-      return __awaiter(this, void 0, void 0,
-      /*#__PURE__*/
-      regeneratorRuntime.mark(function _callee15() {
+      return __awaiter(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee12() {
         var now, fetchResult, environment, style, favicon;
-        return regeneratorRuntime.wrap(function _callee15$(_context15) {
+        return regeneratorRuntime.wrap(function _callee12$(_context12) {
           while (1) {
-            switch (_context15.prev = _context15.next) {
+            switch (_context12.prev = _context12.next) {
               case 0:
                 now = moment_timezone__WEBPACK_IMPORTED_MODULE_3__().toISOString(); // 設定読み込み
 
-                _context15.next = 3;
+                _context12.next = 3;
                 return fetch("".concat(storageUrl, "/js/environment.js?=date").concat(now), {
                   method: 'GET',
                   cache: 'no-cache',
@@ -4205,21 +3954,21 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
                 });
 
               case 3:
-                fetchResult = _context15.sent;
+                fetchResult = _context12.sent;
 
                 if (!fetchResult.ok) {
-                  _context15.next = 10;
+                  _context12.next = 10;
                   break;
                 }
 
-                _context15.t0 = window;
-                _context15.next = 8;
+                _context12.t0 = window;
+                _context12.next = 8;
                 return fetchResult.text();
 
               case 8:
-                _context15.t1 = _context15.sent;
+                _context12.t1 = _context12.sent;
 
-                _context15.t0.eval.call(_context15.t0, _context15.t1);
+                _context12.t0.eval.call(_context12.t0, _context12.t1);
 
               case 10:
                 environment = Object(_environments_environment__WEBPACK_IMPORTED_MODULE_7__["getEnvironment"])(); // スタイル設定
@@ -4237,24 +3986,24 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
                 favicon = document.createElement('link');
                 favicon.rel = 'icon';
                 favicon.type = 'image/x-icon"';
-                _context15.next = 21;
+                _context12.next = 21;
                 return Object(_app_functions__WEBPACK_IMPORTED_MODULE_6__["isFile"])("".concat(storageUrl, "/favicon.ico"));
 
               case 21:
-                if (!_context15.sent) {
-                  _context15.next = 25;
+                if (!_context12.sent) {
+                  _context12.next = 25;
                   break;
                 }
 
-                _context15.t2 = "".concat(storageUrl, "/favicon.ico");
-                _context15.next = 26;
+                _context12.t2 = "".concat(storageUrl, "/favicon.ico");
+                _context12.next = 26;
                 break;
 
               case 25:
-                _context15.t2 = '/default/favicon.ico';
+                _context12.t2 = '/default/favicon.ico';
 
               case 26:
-                favicon.href = _context15.t2;
+                favicon.href = _context12.t2;
                 document.head.appendChild(favicon); // タイトル設定
 
                 document.title = environment.APP_TITLE; // GTM設定
@@ -4281,24 +4030,22 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
               case 31:
               case "end":
-                return _context15.stop();
+                return _context12.stop();
             }
           }
-        }, _callee15);
+        }, _callee12);
       }));
     }
 
     main().then(function () {
-      return __awaiter(undefined, void 0, void 0,
-      /*#__PURE__*/
-      regeneratorRuntime.mark(function _callee16() {
-        var _ref, AppModule;
+      return __awaiter(void 0, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee13() {
+        var _yield$__webpack_requ, AppModule;
 
-        return regeneratorRuntime.wrap(function _callee16$(_context16) {
+        return regeneratorRuntime.wrap(function _callee13$(_context13) {
           while (1) {
-            switch (_context16.prev = _context16.next) {
+            switch (_context13.prev = _context13.next) {
               case 0:
-                _context16.next = 2;
+                _context13.next = 2;
                 return __webpack_require__.e(
                 /*! import() | app-app-module */
                 "app-app-module").then(__webpack_require__.bind(null,
@@ -4306,16 +4053,16 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
                 "./app/app.module.ts"));
 
               case 2:
-                _ref = _context16.sent;
-                AppModule = _ref.AppModule;
+                _yield$__webpack_requ = _context13.sent;
+                AppModule = _yield$__webpack_requ.AppModule;
                 Object(_angular_platform_browser_dynamic__WEBPACK_IMPORTED_MODULE_1__["platformBrowserDynamic"])().bootstrapModule(AppModule);
 
               case 5:
               case "end":
-                return _context16.stop();
+                return _context13.stop();
             }
           }
-        }, _callee16);
+        }, _callee13);
       }));
     })["catch"](function (error) {
       console.error(error);
@@ -4339,4 +4086,3 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
     /***/
   }
 }, [[0, "runtime", "vendor"]]]);
-//# sourceMappingURL=main-es5.js.map

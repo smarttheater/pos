@@ -45,7 +45,6 @@
                 "next": "次へ",
                 "prev": "戻る",
                 "allSelect": "すべて選択",
-                "addOn": "オプション選択",
                 "notfound":"",
                 "alert": {
                     "unselected": "チケットが未選択です。",

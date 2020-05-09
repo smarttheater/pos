@@ -1,0 +1,87 @@
+<div class="p-3 scroll-vertical">
+    <div class="mb-3">
+        <div class="mb-1">
+            <p class="font-weight-bold text-large">{{ screeningEvent.name | changeLanguage }}</p>
+            <p class="text-small"
+                *ngIf="screeningEvent.superEvent.headline && (screeningEvent.superEvent.headline | changeLanguage)">
+                {{ screeningEvent.superEvent.headline | changeLanguage }}</p>
+            <p class="text-small"
+                *ngIf="screeningEvent.superEvent.description && (screeningEvent.superEvent.description | changeLanguage)">{{
+                    screeningEvent.superEvent.description | changeLanguage }}</p>
+        </div>
+        <p class="mb-1">
+            {{ moment(screeningEvent.startDate).format('MM/DD(ddd) HH:mm') }}-{{ moment(screeningEvent.endDate).format('HH:mm') }}
+        </p>
+        <p class="text-small mb-1">
+            <span class="theater-name">
+                {{ screeningEvent.superEvent.location.name | changeLanguage }}
+            </span>
+            <span class="screen-name">
+                &nbsp;/&nbsp;<span *ngIf="screeningEvent.location.address | changeLanguage"
+                    class="mr-2">{{ screeningEvent.location.address | changeLanguage }}</span>{{ screeningEvent.location.name | changeLanguage }}
+            </span>
+            <span
+                *ngIf="screeningEvent.workPerformed?.duration && moment.duration(screeningEvent.workPerformed?.duration).asMinutes() > 0">
+                &nbsp;/&nbsp;<span
+                    class="mr-1">{{ 'common.duration' | translate }}</span>{{ moment.duration(screeningEvent.workPerformed?.duration).asMinutes() }}{{ 'common.date.minute' | translate }}
+            </span>
+        </p>
+        <p *ngIf="performance.isTicketedSeat()" class="font-weight-bold"><span
+                class="mr-1">{{ 'purchase.event.ticket.remainingSeat' | translate }}</span>{{ getRemainingSeatLength({
+            screeningEventSeats: screeningEventSeats, 
+            screeningEvent: screeningEvent
+        }) }}</p>
+    </div>
+    <hr class="mb-3">
+
+    <app-screen class="mb-4" [theaterCode]="theater.branchCode" [screenCode]="screen.branchCode"
+        [screeningEventSeats]="screeningEventSeats" [openSeatingAllowed]="screen.openSeatingAllowed"
+        [reservations]="reservations" (select)="selectSeat($event)">
+    </app-screen>
+    <div *ngIf="reservations.length > 0">
+        <div *ngFor="let reservation of reservations">
+            <div class="d-flex justify-content-between align-items-center">
+                <div class="w-50">
+                    <p class="">{{ reservation.seat.seatNumber }}</p>
+                </div>
+                <div class="w-50">
+                    <button type="button" class="btn btn-primary btn-block py-2">{{ 'common.change' | translate }}</button>
+                </div>
+            </div>
+            <ul *ngIf="tickets.length > 0" class="mb-4">
+                <li *ngFor="let ticket of tickets" class="ticket mb-3 pb-3 border-bottom border-gray"
+                    [class.text-danger]="remainingAttendeeCapacityValue(ticket).length === 0">
+                    <p *ngFor="let priceComponent of ticket.priceSpecification.priceComponent">
+                        <span>{{ priceComponent.name | changeLanguage }}</span>
+                        <!--
+                        --><span>&nbsp;/&nbsp;{{ priceComponent.price | currency : priceComponent.priceCurrency }}</span>
+                        <!--
+                        --><span class="text-small"
+                            *ngIf="priceComponent?.referenceQuantity?.value">{{ 'common.referenceQuantityValue' | translate: { value: priceComponent?.referenceQuantity?.value } }}</span>
+                    </p>
+                    <p *ngIf="ticket.description" class="text-x-small text-left">
+                        {{ ticket.description | changeLanguage }}</p>
+                    <ul *ngIf="ticket.addOn && ticket.addOn.length > 0" class="mt-2 bg-light-gray py-2 px-3 d-none">
+                        <li class="my-1" *ngFor="let addOn of ticket.addOn; let index = index">
+                            <app-checkbox class="pointer" (change)="changeAddOn(ticket.id, addOn.id)">
+                                {{ addOn.priceSpecification?.name | changeLanguage }}<span
+                                    *ngIf="addOn.priceSpecification?.referenceQuantity?.value">{{ 'common.referenceQuantityValue' | translate: { value: addOn.priceSpecification?.referenceQuantity?.value } }}</span>
+                                <!--
+                                -->&nbsp;/&nbsp;
+                                <!--
+                                -->{{ addOn.priceSpecification?.price | currency : addOn.priceSpecification?.priceCurrency }}
+                            </app-checkbox>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+            <p *ngIf="tickets.length === 0" class="mb-4">{{ 'modal.ticket.notfound' | translate }}</p>
+        </div>
+    </div>
+    <div class="buttons mx-auto text-center text-center">
+        <button [disabled]="true" type="button" class="btn btn-primary btn-block py-3 mb-3"
+            (click)="close()">{{ 'purchase.event.ticket.next' | translate }}</button>
+        <button type="button" class="btn btn-link btn-sm"
+            (click)="modal.hide()">{{ 'common.close' | translate }}</button>
+    </div>
+</div>
