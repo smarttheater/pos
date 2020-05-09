@@ -262,7 +262,7 @@ class InquiryConfirmComponent {
                         body: `
                         <p class="mb-4">${this.translate.instant('inquiry.confirm.alert.cancel')}</p>
                             <div class="p-3 bg-light-gray select-text">
-                            <code>${JSON.stringify(error)}</code>
+                            <code>${error}</code>
                         </div>`
                     });
                 }

@@ -553,7 +553,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
                         console.error(_context.t0);
                         this.utilService.openAlert({
                           title: this.translate.instant('common.error'),
-                          body: "\n                        <p class=\"mb-4\">".concat(this.translate.instant('inquiry.confirm.alert.cancel'), "</p>\n                            <div class=\"p-3 bg-light-gray select-text\">\n                            <code>").concat(JSON.stringify(_context.t0), "</code>\n                        </div>")
+                          body: "\n                        <p class=\"mb-4\">".concat(this.translate.instant('inquiry.confirm.alert.cancel'), "</p>\n                            <div class=\"p-3 bg-light-gray select-text\">\n                            <code>").concat(_context.t0, "</code>\n                        </div>")
                         });
 
                       case 21:
