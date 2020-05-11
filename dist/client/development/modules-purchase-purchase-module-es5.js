@@ -5030,6 +5030,11 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
                     return this.purchaseService.getScreen({
                       branchCode: {
                         $eq: screeningEvent.location.branchCode
+                      },
+                      containedInPlace: {
+                        branchCode: {
+                          $eq: screeningEvent.superEvent.location.branchCode
+                        }
                       }
                     });
 

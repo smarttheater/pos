@@ -2240,7 +2240,12 @@ class PurchaseEventTicketComponent {
                 yield this.purchaseService.getScreeningEvent(screeningEvent);
                 this.screeningEventSeats = yield this.purchaseService.getScreeningEventSeats();
                 yield this.purchaseService.getTicketList({ seller: purchase.seller });
-                yield this.purchaseService.getScreen({ branchCode: { $eq: screeningEvent.location.branchCode } });
+                yield this.purchaseService.getScreen({
+                    branchCode: { $eq: screeningEvent.location.branchCode },
+                    containedInPlace: {
+                        branchCode: { $eq: screeningEvent.superEvent.location.branchCode }
+                    }
+                });
                 this.openTicketList();
             }
             catch (error) {
