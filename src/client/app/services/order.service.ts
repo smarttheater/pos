@@ -89,7 +89,7 @@ export class OrderService {
                     const searchResult = await this.cinerinoService.order.search({ ...params, orderDateThrough, orderDateFrom });
                     orders = orders.concat(searchResult.data);
                     page++;
-                    roop = searchResult.data.length > 0;
+                    roop = searchResult.data.length === limit;
                     await sleep(500);
                 }
             }

@@ -88,7 +88,7 @@ export class ReservationService {
                             .search<factory.chevre.reservationType.EventReservation>({ ...params, bookingThrough, bookingFrom });
                     reservations = reservations.concat(searchResult.data);
                     page++;
-                    roop = searchResult.data.length > 0;
+                    roop = searchResult.data.length === limit;
                     await sleep(500);
                 }
             }

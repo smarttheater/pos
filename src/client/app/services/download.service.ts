@@ -85,7 +85,7 @@ export class DownloadService {
             const searchResult = await this.cinerino.person.search(params);
             persons = persons.concat(searchResult.data);
             page++;
-            roop = searchResult.data.length > 0;
+            roop = searchResult.data.length === limit;
         }
 
         const data: any[] = [];

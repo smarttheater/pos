@@ -2240,7 +2240,12 @@ class PurchaseEventTicketComponent {
                 yield this.purchaseService.getScreeningEvent(screeningEvent);
                 this.screeningEventSeats = yield this.purchaseService.getScreeningEventSeats();
                 yield this.purchaseService.getTicketList({ seller: purchase.seller });
-                yield this.purchaseService.getScreen({ branchCode: { $eq: screeningEvent.location.branchCode } });
+                yield this.purchaseService.getScreen({
+                    branchCode: { $eq: screeningEvent.location.branchCode },
+                    containedInPlace: {
+                        branchCode: { $eq: screeningEvent.superEvent.location.branchCode }
+                    }
+                });
                 this.openTicketList();
             }
             catch (error) {
@@ -2346,7 +2351,7 @@ class PurchaseEventTicketComponent {
                     body: `
                 <p class="mb-4">${this.translate.instant('purchase.event.ticket.alert.temporaryReservation')}</p>
                 <div class="p-3 bg-light-gray select-text text-left">
-                    <code>${JSON.stringify(error)}</code>
+                    <code>${error}</code>
                 </div>`
                 });
             }
@@ -4253,7 +4258,10 @@ class PurchaseSeatComponent {
                 console.error(error);
                 this.utilService.openAlert({
                     title: this.translate.instant('common.error'),
-                    body: this.translate.instant(`${this.translateName}.alert.temporaryReservation`)
+                    body: `<p class="mb-4">${this.translate.instant(`${this.translateName}.alert.temporaryReservation`)}</p>
+                <div class="p-3 bg-light-gray select-text">
+                <code>${error}</code>
+            </div>`
                 });
             }
         });
@@ -4411,7 +4419,7 @@ class PurchaseTicketComponent {
                     body: `
                 <p class="mb-4">${this.translate.instant(`${this.translateName}.alert.temporaryReservation`)}</p>
                 <div class="p-3 bg-light-gray select-text text-left">
-                    <code>${JSON.stringify(error)}</code>
+                    <code>${error}</code>
                 </div>`
                 });
             }

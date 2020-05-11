@@ -5030,6 +5030,11 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
                     return this.purchaseService.getScreen({
                       branchCode: {
                         $eq: screeningEvent.location.branchCode
+                      },
+                      containedInPlace: {
+                        branchCode: {
+                          $eq: screeningEvent.superEvent.location.branchCode
+                        }
                       }
                     });
 
@@ -5222,7 +5227,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
                     console.error(_context14.t1);
                     this.utilService.openAlert({
                       title: this.translate.instant('common.error'),
-                      body: "\n                <p class=\"mb-4\">".concat(this.translate.instant('purchase.event.ticket.alert.temporaryReservation'), "</p>\n                <div class=\"p-3 bg-light-gray select-text text-left\">\n                    <code>").concat(JSON.stringify(_context14.t1), "</code>\n                </div>")
+                      body: "\n                <p class=\"mb-4\">".concat(this.translate.instant('purchase.event.ticket.alert.temporaryReservation'), "</p>\n                <div class=\"p-3 bg-light-gray select-text text-left\">\n                    <code>").concat(_context14.t1, "</code>\n                </div>")
                     });
 
                   case 34:
@@ -9338,7 +9343,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
                     console.error(_context26.t0);
                     this.utilService.openAlert({
                       title: this.translate.instant('common.error'),
-                      body: this.translate.instant("".concat(this.translateName, ".alert.temporaryReservation"))
+                      body: "<p class=\"mb-4\">".concat(this.translate.instant("".concat(this.translateName, ".alert.temporaryReservation")), "</p>\n                <div class=\"p-3 bg-light-gray select-text\">\n                <code>").concat(_context26.t0, "</code>\n            </div>")
                     });
 
                   case 25:
@@ -9648,7 +9653,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
                     console.error(_context27.t0);
                     this.utilService.openAlert({
                       title: this.translate.instant('common.error'),
-                      body: "\n                <p class=\"mb-4\">".concat(this.translate.instant("".concat(this.translateName, ".alert.temporaryReservation")), "</p>\n                <div class=\"p-3 bg-light-gray select-text text-left\">\n                    <code>").concat(JSON.stringify(_context27.t0), "</code>\n                </div>")
+                      body: "\n                <p class=\"mb-4\">".concat(this.translate.instant("".concat(this.translateName, ".alert.temporaryReservation")), "</p>\n                <div class=\"p-3 bg-light-gray select-text text-left\">\n                    <code>").concat(_context27.t0, "</code>\n                </div>")
                     });
 
                   case 32:
