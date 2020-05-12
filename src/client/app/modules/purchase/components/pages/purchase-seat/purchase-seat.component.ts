@@ -219,8 +219,10 @@ export class PurchaseSeatComponent implements OnInit {
             console.error(error);
             this.utilService.openAlert({
                 title: this.translate.instant('common.error'),
-                body: this.translate.instant(`${this.translateName}.alert.temporaryReservation`)
-            });
+                body: `<p class="mb-4">${this.translate.instant(`${this.translateName}.alert.temporaryReservation`)}</p>
+                <div class="p-3 bg-light-gray select-text">
+                <code>${error}</code>
+            </div>`});
         }
     }
 }

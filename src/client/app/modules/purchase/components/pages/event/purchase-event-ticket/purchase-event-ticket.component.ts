@@ -127,7 +127,12 @@ export class PurchaseEventTicketComponent implements OnInit, OnDestroy {
             await this.purchaseService.getScreeningEvent(screeningEvent);
             this.screeningEventSeats = await this.purchaseService.getScreeningEventSeats();
             await this.purchaseService.getTicketList({ seller: purchase.seller });
-            await this.purchaseService.getScreen({ branchCode: { $eq: screeningEvent.location.branchCode } });
+            await this.purchaseService.getScreen({
+                branchCode: { $eq: screeningEvent.location.branchCode },
+                containedInPlace: {
+                    branchCode: { $eq: screeningEvent.superEvent.location.branchCode }
+                }
+            });
             this.openTicketList();
         } catch (error) {
             console.error(error);
@@ -155,7 +160,7 @@ export class PurchaseEventTicketComponent implements OnInit, OnDestroy {
             && !screen.openSeatingAllowed
             && performance.isTicketedSeat()) {
             // 座席選択あり
-        this.router.navigate(['/purchase/event/seat']);
+            this.router.navigate(['/purchase/event/seat']);
             return;
         }
         // 座席選択なし
@@ -238,7 +243,7 @@ export class PurchaseEventTicketComponent implements OnInit, OnDestroy {
                 body: `
                 <p class="mb-4">${this.translate.instant('purchase.event.ticket.alert.temporaryReservation')}</p>
                 <div class="p-3 bg-light-gray select-text text-left">
-                    <code>${JSON.stringify(error)}</code>
+                    <code>${error}</code>
                 </div>`
             });
         }

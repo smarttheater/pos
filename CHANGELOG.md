@@ -12,6 +12,11 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/).
 
 ### Security
 
+## 3.0.34 - 2020-05-11
+### Fixed
+ - reducer修正
+ - screen取得修正
+
 ## 3.0.33 - 2020-05-07
 ### Added
  - イベント用テンプレートに座席選択を追加

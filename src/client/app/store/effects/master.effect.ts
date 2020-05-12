@@ -38,7 +38,7 @@ export class MasterEffects {
                     });
                     projects = projects.concat(searchResult.data);
                     page++;
-                    roop = searchResult.data.length > 0;
+                    roop = searchResult.data.length === limit;
                     await sleep(500);
                 }
 
