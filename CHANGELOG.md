@@ -12,6 +12,11 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/).
 
 ### Security
 
+## 3.0.35 - 2020-05-14
+### Changed
+ - 購入完了メールの料金を詳細表示へ変更
+ - デフォルトで入場ありへ変更
+
 ## 3.0.34 - 2020-05-11
 ### Fixed
  - reducer修正
