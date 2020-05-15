@@ -118,7 +118,7 @@
                     <label for="posId" class="mb-2">{{ 'order.search.conditions.pos' | translate }}</label>
                     <select class="form-control" name="posId" id="posId" [(ngModel)]="conditions.posId">
                         <option value="">{{ 'common.all' | translate }}</option>
-                        <option *ngFor="let pos of (user | async).theater.hasPOS" [value]="pos.id">{{ pos.name }}
+                        <option *ngFor="let pos of (user | async)?.theater.hasPOS" [value]="pos.id">{{ pos.name }}
                         </option>
                     </select>
                 </div>
@@ -216,7 +216,7 @@
                             <button class="btn btn-primary mr-2" (click)="openDetail(order)"><i
                                     class="fas fa-search-plus"></i></button>
                             <button *ngIf="environment.ORDER_PRINT"
-                                [disabled]="(user | async).printer.connectionType === connectionType.None || order.orderStatus !== orderStatus.OrderDelivered"
+                                [disabled]="(user | async)?.printer.connectionType === connectionType.None || order.orderStatus !== orderStatus.OrderDelivered"
                                 class="btn btn-primary mr-2" (click)="printConfirm([order])"><i
                                     class="fas fa-print"></i></button>
                             <button *ngIf="environment.ORDER_CANCEL"

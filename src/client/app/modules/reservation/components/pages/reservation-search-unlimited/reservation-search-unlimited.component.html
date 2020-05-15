@@ -83,7 +83,7 @@
                     <p>{{ 'reservation.search.count' | translate: {value: totalCount} }}</p>
                     <pagination [(ngModel)]="currentPage" [totalItems]="reservations.length * limit" [itemsPerPage]="limit" 
                         [maxSize]="5" [boundaryLinks]="false" previousText="&lsaquo;" nextText="&rsaquo;"
-                        firstText="&laquo;" lastText="&raquo;" (pageChanged)="changePage(false, $event)"></pagination>
+                        firstText="&laquo;" lastText="&raquo;" (pageChanged)="reservationSearch(false, $event)"></pagination>
                 </div>
             </div>
         </div>

@@ -13,8 +13,8 @@
             </div>
         </div>
     </div>
-    <p *ngIf="(purchase | async).scheduleDate" class="text-primary text-large mb-3">
-        {{ (purchase | async).scheduleDate | formatDate: 'YYYY/MM/DD (ddd)' }}
+    <p *ngIf="(purchase | async)?.scheduleDate" class="text-primary text-large mb-3">
+        {{ (purchase | async)?.scheduleDate | formatDate: 'YYYY/MM/DD (ddd)' }}
     </p>
     <p *ngIf="screeningWorkEvents.length === 0" class="mb-3"
         [innerHTML]="'purchase.cinema.schedule.notfound' | translate"></p>

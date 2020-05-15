@@ -8,7 +8,7 @@
             (click)="openTicketList()">{{ 'purchase.event.seatTicket.allSelect' | translate }}</button>
     </div>
 
-    <div *ngIf="(purchase | async).isUsedMovieTicket" class="mb-4">
+    <div *ngIf="(purchase | async)?.isUsedMovieTicket" class="mb-4">
         <div class="bg-white p-3 d-md-flex align-items-center movieticket">
             <p class="mb-2 mb-md-0">{{ 'purchase.event.seatTicket.mvtk' | translate }}</p>
             <div>
@@ -22,7 +22,7 @@
 
     <div class="mb-4">
         <ul class="d-flex flex-wrap">
-            <li *ngFor="let reservation of (purchase | async).reservations">
+            <li *ngFor="let reservation of (purchase | async)?.reservations">
                 <div class="bg-white p-3 m-2">
                     <p class="mb-2 font-weight-bold text-large">
                         <span class="mr-2">{{ 'common.seat' | translate }}</span>{{ reservation.seat.seatNumber }}
