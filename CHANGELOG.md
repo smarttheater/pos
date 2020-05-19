@@ -12,6 +12,10 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/).
 
 ### Security
 
+## 3.0.36 - 2020-05-19
+### Changed
+ - fullTemplateTypeCheck対応
+
 ## 3.0.35 - 2020-05-14
 ### Changed
  - 購入完了メールの料金を詳細表示へ変更
