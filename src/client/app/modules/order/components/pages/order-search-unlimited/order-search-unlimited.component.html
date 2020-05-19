@@ -120,7 +120,7 @@
                     <label for="posId" class="mb-2">{{ 'order.search.conditions.pos' | translate }}</label>
                     <select class="form-control" name="posId" id="posId" [(ngModel)]="conditions.posId">
                         <option value="">{{ 'common.all' | translate }}</option>
-                        <option *ngFor="let pos of (user | async).theater.hasPOS" [value]="pos.id">{{ pos.name }}
+                        <option *ngFor="let pos of (user | async)?.theater.hasPOS" [value]="pos.id">{{ pos.name }}
                         </option>
                     </select>
                 </div>
@@ -142,7 +142,7 @@
                     <p>{{ 'order.search.count' | translate: {value: totalCount} }}</p>
                     <pagination [(ngModel)]="currentPage" [totalItems]="orders.length * limit" [itemsPerPage]="limit" 
                         [maxSize]="5" [boundaryLinks]="false" previousText="&lsaquo;" nextText="&rsaquo;"
-                        firstText="&laquo;" lastText="&raquo;" (pageChanged)="changePage(false, $event)"></pagination>
+                        firstText="&laquo;" lastText="&raquo;" (pageChanged)="orderSearch(false, $event)"></pagination>
                 </div>
             </div>
 

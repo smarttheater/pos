@@ -24,7 +24,7 @@
                     <span class="theater-name">{{ reservation.reservationFor.superEvent.location.name | changeLanguage }}</span>
                     <span class="screen-name">&nbsp;/&nbsp;<span *ngIf="reservation.reservationFor.location.address | changeLanguage" class="mr-2">{{ reservation.reservationFor.location.address | changeLanguage }}</span>{{ reservation.reservationFor.location.name | changeLanguage }}</span>
                 </p>
-                <p>{{ reservation.reservationFor.startDate | formatDate: 'YYYY/MM/DD (ddd) HH:mm' }}
+                <p>{{ moment(reservation.reservationFor.startDate).format('YYYY/MM/DD (ddd) HH:mm') }}
                     -</p>
             </div>
         </div>

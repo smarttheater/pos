@@ -11,7 +11,7 @@ import { getEnvironment } from '../../../../../../../environments/environment';
 })
 export class ReservationDetailModalComponent implements OnInit {
     @Input() public reservation: factory.chevre.reservation.IReservation<factory.chevre.reservationType.EventReservation>;
-    public moment: typeof moment = moment;
+    public moment = moment;
     public environment = getEnvironment();
 
     constructor(

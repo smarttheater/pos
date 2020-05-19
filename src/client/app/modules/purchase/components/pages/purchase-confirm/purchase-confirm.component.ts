@@ -23,7 +23,7 @@ export class PurchaseConfirmComponent implements OnInit {
     public moment: typeof moment = moment;
     public paymentMethodType: typeof factory.paymentMethodType = factory.paymentMethodType;
     public viewType: typeof ViewType = ViewType;
-    public depositAmount: string;
+    public depositAmount: number;
     public amount: number;
     public environment = getEnvironment();
     public getCustomPaymentMethodTypeName = getCustomPaymentMethodTypeName;
@@ -42,7 +42,7 @@ export class PurchaseConfirmComponent implements OnInit {
         this.isLoading = this.store.pipe(select(reducers.getLoading));
         this.user = this.store.pipe(select(reducers.getUser));
         this.amount = 0;
-        this.depositAmount = '0';
+        this.depositAmount = 0;
         this.purchase.subscribe((purchase) => {
             this.amount = getAmount(purchase.authorizeSeatReservations);
         }).unsubscribe();
@@ -93,8 +93,8 @@ export class PurchaseConfirmComponent implements OnInit {
     /**
      * 支払い金額変換
      */
-    public changeDepositAmount(value: string) {
-        this.depositAmount = String(Number(value));
+    public changeDepositAmount(value: number) {
+        this.depositAmount = value;
     }
 
 }

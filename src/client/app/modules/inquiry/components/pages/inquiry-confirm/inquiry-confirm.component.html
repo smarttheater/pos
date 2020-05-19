@@ -7,7 +7,7 @@
                 <p class="col-4">
                     {{ 'common.confirmationNumber' | translate }}</p>
                 <p class="col-8 text-large text-info font-weight-bold text-md-left text-right">
-                    {{ (order | async).order.confirmationNumber }}
+                    {{ (order | async)?.order.confirmationNumber }}
                 </p>
             </div>
         </div>
@@ -44,23 +44,23 @@
             <div class="py-3 border-bottom border-gray">
                 <div class="row align-items-center">
                     <p class="mb-2 mb-md-0 col-md-4">{{ 'common.customerName' | translate }}</p>
-                    <p class="col-md-8">{{ (order | async).order.customer.familyName }}
-                        {{ (order | async).order.customer.givenName }}</p>
+                    <p class="col-md-8">{{ (order | async)?.order.customer.familyName }}
+                        {{ (order | async)?.order.customer.givenName }}</p>
                 </div>
             </div>
             <div class="py-3 border-bottom border-gray">
                 <div class="row align-items-center">
                     <p class="mb-2 mb-md-0 col-md-4">{{ 'common.email' | translate }}</p>
-                    <p class="col-md-8">{{ (order | async).order.customer.email }}</p>
+                    <p class="col-md-8">{{ (order | async)?.order.customer.email }}</p>
                 </div>
             </div>
             <div class="py-3">
                 <div class="row align-items-center">
                     <p class="mb-2 mb-md-0 col-md-4">{{ 'common.telephone' | translate }}</p>
-                    <p class="col-md-8">{{ (order | async).order.customer.telephone | libphonenumberFormat }}</p>
+                    <p class="col-md-8">{{ (order | async)?.order.customer.telephone | libphonenumberFormat }}</p>
                 </div>
             </div>
-            <!-- <div class="py-3" *ngIf="(order | async).order.price > 0">
+            <!-- <div class="py-3" *ngIf="(order | async)?.order.price > 0">
                 <div class="row align-items-center">
                     <p class="mb-2 mb-md-0 col-md-4">{{ 'common.paymentMethod' | translate }}</p>
                     <p class="col-md-8">クレジットカード</p>
@@ -71,11 +71,11 @@
 
     <div class="buttons mx-auto text-center">
         <button *ngIf="environment.INQUIRY_PRINT"
-            [disabled]="(order | async).order.orderStatus !== orderStatus.OrderDelivered" type="button"
+            [disabled]="(order | async)?.order.orderStatus !== orderStatus.OrderDelivered" type="button"
             class="btn btn-primary btn-block py-3 mb-3" (click)="print()"
             [disabled]="isLoading | async">{{ 'inquiry.confirm.next' | translate }}</button>
         <button *ngIf="environment.INQUIRY_CANCEL"
-            [disabled]="(order | async).order.orderStatus === orderStatus.OrderReturned" type="button"
+            [disabled]="(order | async)?.order.orderStatus === orderStatus.OrderReturned" type="button"
             class="btn btn-danger btn-block py-3 mb-3"
             (click)="cancelConfirm()">{{ 'inquiry.confirm.cancel' | translate }}</button>
         <button type="button" class="btn btn-link"

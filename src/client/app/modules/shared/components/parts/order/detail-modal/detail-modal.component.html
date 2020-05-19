@@ -66,7 +66,7 @@
                 <div class="col-md-8">
                     <p>{{ order.customer.familyName }} {{ order.customer.givenName }}</p>
                     <p>{{ order.customer.email }}</p>
-                    <p>{{ order.customer.telephone | libphonenumberFormat }}</p>
+                    <p *ngIf="order.customer.telephone">{{ order.customer.telephone | libphonenumberFormat }}</p>
                 </div>
             </div>
         </div>
@@ -109,25 +109,25 @@
                 <div class="col-md-8">
                     <p *ngIf="getTransactionAgentIdentifier(order, 'linyId')">
                         [linyId]<br>
-                        {{ getTransactionAgentIdentifier(order, 'linyId').value }}
+                        {{ getTransactionAgentIdentifier(order, 'linyId')?.value }}
                     </p>
                     <p *ngIf="getTransactionAgentIdentifier(order, 'userAgent')">
                         [platform]<br>
-                        name: {{ platform.parse(getTransactionAgentIdentifier(order, 'userAgent').value).name }}<br>
+                        name: {{ platform.parse(getTransactionAgentIdentifier(order, 'userAgent')?.value).name }}<br>
                         version:
-                        {{ platform.parse(getTransactionAgentIdentifier(order, 'userAgent').value).version }}<br>
+                        {{ platform.parse(getTransactionAgentIdentifier(order, 'userAgent')?.value).version }}<br>
                         product: <span
-                            *ngIf="platform.parse(getTransactionAgentIdentifier(order, 'userAgent').value).product">{{ platform.parse(getTransactionAgentIdentifier(order, 'userAgent').value).product }}</span><span
-                            *ngIf="!platform.parse(getTransactionAgentIdentifier(order, 'userAgent').value).product">-</span><br>
-                        layout: {{ platform.parse(getTransactionAgentIdentifier(order, 'userAgent').value).layout }}<br>
-                        os: {{ platform.parse(getTransactionAgentIdentifier(order, 'userAgent').value).os }}<br>
-                        ({{ platform.parse(getTransactionAgentIdentifier(order, 'userAgent').value).description }})
+                            *ngIf="platform.parse(getTransactionAgentIdentifier(order, 'userAgent')?.value).product">{{ platform.parse(getTransactionAgentIdentifier(order, 'userAgent')?.value).product }}</span><span
+                            *ngIf="!platform.parse(getTransactionAgentIdentifier(order, 'userAgent')?.value).product">-</span><br>
+                        layout: {{ platform.parse(getTransactionAgentIdentifier(order, 'userAgent')?.value).layout }}<br>
+                        os: {{ platform.parse(getTransactionAgentIdentifier(order, 'userAgent')?.value).os }}<br>
+                        ({{ platform.parse(getTransactionAgentIdentifier(order, 'userAgent')?.value).description }})
                     </p>
                     <p
                         *ngIf="getTransactionAgentIdentifier(order, 'posId') && getTransactionAgentIdentifier(order, 'posName')">
                         [POS]<br>
-                        id: {{ getTransactionAgentIdentifier(order, 'posId').value }}<br>
-                        name: {{ getTransactionAgentIdentifier(order, 'posName').value }}
+                        id: {{ getTransactionAgentIdentifier(order, 'posId')?.value }}<br>
+                        name: {{ getTransactionAgentIdentifier(order, 'posName')?.value }}
                     </p>
                 </div>
             </div>
