@@ -16,11 +16,9 @@ import { PurchasePaymentComponent } from './components/pages/purchase-payment/pu
 import { PurchaseRootComponent } from './components/pages/purchase-root/purchase-root.component';
 import { PurchaseSeatComponent } from './components/pages/purchase-seat/purchase-seat.component';
 import { PurchaseTicketComponent } from './components/pages/purchase-ticket/purchase-ticket.component';
-import { PurchaseCinemaPerformanceComponent } from './components/parts/cinema/performance/performance.component';
-import { PurchaseCinemaPerformancesComponent } from './components/parts/cinema/performances/performances.component';
-import { PurchaseEventPerformanceComponent } from './components/parts/event/performance/performance.component';
 import { PurchaseEventPerformancesConfirmComponent } from './components/parts/event/performances-confirm/performances-confirm.component';
-import { PurchaseEventPerformancesComponent } from './components/parts/event/performances/performances.component';
+import { PurchasePerformanceComponent } from './components/parts/performance/performance.component';
+import { PurchasePerformancesComponent } from './components/parts/performances/performances.component';
 import { PurchaseInfoComponent } from './components/parts/purchase-info/purchase-info.component';
 import { PurchaseTermsComponent } from './components/parts/purchase-terms/purchase-terms.component';
 import { PurchaseWarningComponent } from './components/parts/purchase-warning/purchase-warning.component';
@@ -41,10 +39,8 @@ import { PurchaseRoutingModule } from './purchase-routing.module';
     PurchaseCompleteComponent,
     PurchaseCinemaScheduleComponent,
     PurchaseEventScheduleComponent,
-    PurchaseCinemaPerformanceComponent,
-    PurchaseCinemaPerformancesComponent,
-    PurchaseEventPerformanceComponent,
-    PurchaseEventPerformancesComponent,
+    PurchasePerformanceComponent,
+    PurchasePerformancesComponent,
     PurchaseEventPerformancesConfirmComponent,
     PurchaseInfoComponent,
     PurchaseTermsComponent,
