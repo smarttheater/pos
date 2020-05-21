@@ -107966,30 +107966,34 @@ function _classCallCheck2(instance, Constructor) { if (!(instance instanceof Con
                   var status = _models_purchase_screen__WEBPACK_IMPORTED_MODULE_4__["SeatStatus"].Disabled;
                   var acceptedOffer; // 席の状態変更
 
-                  _this226.screeningEventSeats.forEach(function (s) {
-                    if (s.containedInPlace !== undefined && s.containedInPlace.branchCode !== undefined) {
-                      section = s.containedInPlace.branchCode;
+                  var findSeat = _this226.screeningEventSeats.find(function (s) {
+                    return s.branchCode === code;
+                  });
+
+                  if (findSeat !== undefined && findSeat.offers !== undefined) {
+                    if (findSeat.containedInPlace !== undefined && findSeat.containedInPlace.branchCode !== undefined) {
+                      section = findSeat.containedInPlace.branchCode;
                     }
 
-                    if (s.branchCode !== code || s.offers === undefined) {
-                      return;
-                    }
-
-                    if (s.offers[0].availability === _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_1__["factory"].chevre.itemAvailability.InStock) {
+                    if (findSeat.offers[0].availability === _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_1__["factory"].chevre.itemAvailability.InStock) {
                       status = _models_purchase_screen__WEBPACK_IMPORTED_MODULE_4__["SeatStatus"].Default;
                     }
 
                     acceptedOffer = {
                       ticketedSeat: {
-                        typeOf: s.typeOf,
-                        seatingType: s.seatingType,
-                        seatNumber: s.branchCode,
+                        typeOf: findSeat.typeOf,
+                        seatingType: findSeat.seatingType,
+                        seatNumber: findSeat.branchCode,
                         seatRow: row,
                         seatSection: section,
-                        offers: s.offers
+                        offers: findSeat.offers
                       }
                     };
-                  });
+                  }
+
+                  if (findSeat === undefined) {
+                    className.push('space');
+                  }
 
                   if (_this226.authorizeSeatReservation !== undefined && _this226.authorizeSeatReservation.result !== undefined && _this226.authorizeSeatReservation.result.responseBody.object.reservations !== undefined) {
                     // chevre
@@ -108170,7 +108174,7 @@ function _classCallCheck2(instance, Constructor) { if (!(instance instanceof Con
         }
       },
       directives: [_angular_common__WEBPACK_IMPORTED_MODULE_6__["NgIf"], _angular_common__WEBPACK_IMPORTED_MODULE_6__["NgStyle"], _angular_common__WEBPACK_IMPORTED_MODULE_6__["NgForOf"]],
-      styles: ["[_nghost-%COMP%] {\n  display: block;\n}\n\n.open-seating-allowed[_ngcontent-%COMP%] {\n  position: absolute;\n  top: 0;\n  left: 0;\n  right: 0;\n  bottom: 0;\n  background: #000;\n  opacity: 0.5;\n  z-index: 11;\n}\n\n.screen[_ngcontent-%COMP%] {\n  position: relative;\n}\n\n.screen[_ngcontent-%COMP%]   .screen-scroll[_ngcontent-%COMP%] {\n  height: 500px;\n}\n\n.screen[_ngcontent-%COMP%]   .screen-inner[_ngcontent-%COMP%] {\n  position: relative;\n  width: 1600px;\n  height: 1400px;\n}\n\n.screen[_ngcontent-%COMP%]   .screen-object[_ngcontent-%COMP%] {\n  text-align: center;\n  color: #9c9c9c;\n  font-weight: bold;\n  font-size: 50px;\n  padding-top: 90px;\n}\n\n.screen[_ngcontent-%COMP%]   .seat[_ngcontent-%COMP%] {\n  position: absolute;\n  cursor: pointer;\n  text-align: center;\n  font-weight: bold;\n  color: #9a9a9b;\n  padding-top: 20px;\n  background-image: url(/assets/images/seat/normal.svg);\n  background-size: 40px 50px;\n  background-repeat: no-repeat;\n  font-size: 12px;\n}\n\n.screen[_ngcontent-%COMP%]   .seat.active[_ngcontent-%COMP%] {\n  color: #FFF;\n  background-image: url(/assets/images/seat/normal_active.svg);\n}\n\n.screen[_ngcontent-%COMP%]   .seat.disabled[_ngcontent-%COMP%] {\n  color: #FFF;\n  background-image: url(/assets/images/seat/normal_disabled.svg);\n  cursor: default;\n}\n\n.screen[_ngcontent-%COMP%]   .seat-hc[_ngcontent-%COMP%] {\n  background-image: url(/assets/images/seat/hc.svg) !important;\n  background-size: 40px 50px;\n  padding-top: 35px;\n}\n\n.screen[_ngcontent-%COMP%]   .seat-hc.active[_ngcontent-%COMP%] {\n  background-image: url(/assets/images/seat/hc_active.svg) !important;\n}\n\n.screen[_ngcontent-%COMP%]   .seat-hc.disabled[_ngcontent-%COMP%] {\n  background-image: url(/assets/images/seat/hc_disabled.svg) !important;\n  cursor: default;\n}\n\n.screen[_ngcontent-%COMP%]   .object[_ngcontent-%COMP%] {\n  position: absolute;\n  background-repeat: no-repeat;\n}\n\n.screen[_ngcontent-%COMP%]   .label-object[_ngcontent-%COMP%] {\n  text-align: center;\n  line-height: 50px;\n  font-size: 24px;\n  color: #9a9a9b;\n  font-weight: bold;\n}\n\n.screen-4dx[_ngcontent-%COMP%]   .seat[_ngcontent-%COMP%] {\n  background-image: url(/assets/images/seat/4dx.svg);\n  background-size: 50px 50px;\n}\n\n.screen-4dx[_ngcontent-%COMP%]   .seat.active[_ngcontent-%COMP%] {\n  color: #FFF;\n  background-image: url(/assets/images/seat/4dx_active.svg);\n}\n\n.screen-4dx[_ngcontent-%COMP%]   .seat.disabled[_ngcontent-%COMP%] {\n  color: #FFF;\n  background-image: url(/assets/images/seat/4dx_disabled.svg);\n  cursor: default;\n}\n\n.zoom[_ngcontent-%COMP%]   .screen-scroll[_ngcontent-%COMP%] {\n  overflow: auto;\n  transition: transform 0.2s;\n  -webkit-overflow-scrolling: touch;\n}\n\n.zoom[_ngcontent-%COMP%]   .seat[_ngcontent-%COMP%]   span[_ngcontent-%COMP%] {\n  display: block;\n}\n\n.zoom-btn[_ngcontent-%COMP%] {\n  display: none;\n  cursor: pointer;\n  position: absolute;\n  top: 10px;\n  right: 10px;\n  z-index: 10;\n  width: 50px;\n  height: 50px;\n  color: #FFF;\n  background-color: #3e3a39;\n  border-radius: 3px;\n  align-items: center;\n  justify-content: center;\n}\n\n.zoom-btn.active[_ngcontent-%COMP%] {\n  display: flex;\n}\n\n.zoom-btn.scroll[_ngcontent-%COMP%] {\n  position: fixed;\n}"]
+      styles: ["[_nghost-%COMP%] {\n  display: block;\n}\n\n.open-seating-allowed[_ngcontent-%COMP%] {\n  position: absolute;\n  top: 0;\n  left: 0;\n  right: 0;\n  bottom: 0;\n  background: #000;\n  opacity: 0.5;\n  z-index: 11;\n}\n\n.screen[_ngcontent-%COMP%] {\n  position: relative;\n}\n\n.screen[_ngcontent-%COMP%]   .screen-scroll[_ngcontent-%COMP%] {\n  height: 500px;\n}\n\n.screen[_ngcontent-%COMP%]   .screen-inner[_ngcontent-%COMP%] {\n  position: relative;\n  width: 1600px;\n  height: 1400px;\n}\n\n.screen[_ngcontent-%COMP%]   .screen-object[_ngcontent-%COMP%] {\n  text-align: center;\n  color: #9c9c9c;\n  font-weight: bold;\n  font-size: 50px;\n  padding-top: 90px;\n}\n\n.screen[_ngcontent-%COMP%]   .seat[_ngcontent-%COMP%] {\n  position: absolute;\n  cursor: pointer;\n  text-align: center;\n  font-weight: bold;\n  color: #9a9a9b;\n  padding-top: 20px;\n  background-image: url(/assets/images/seat/normal.svg);\n  background-size: 40px 50px;\n  background-repeat: no-repeat;\n  font-size: 12px;\n}\n\n.screen[_ngcontent-%COMP%]   .seat.active[_ngcontent-%COMP%] {\n  color: #FFF;\n  background-image: url(/assets/images/seat/normal_active.svg);\n}\n\n.screen[_ngcontent-%COMP%]   .seat.disabled[_ngcontent-%COMP%] {\n  color: #FFF;\n  background-image: url(/assets/images/seat/normal_disabled.svg);\n  cursor: default;\n}\n\n.screen[_ngcontent-%COMP%]   .seat-hc[_ngcontent-%COMP%] {\n  background-image: url(/assets/images/seat/hc.svg) !important;\n  background-size: 40px 50px;\n  padding-top: 35px;\n}\n\n.screen[_ngcontent-%COMP%]   .seat-hc.active[_ngcontent-%COMP%] {\n  background-image: url(/assets/images/seat/hc_active.svg) !important;\n}\n\n.screen[_ngcontent-%COMP%]   .seat-hc.disabled[_ngcontent-%COMP%] {\n  background-image: url(/assets/images/seat/hc_disabled.svg) !important;\n  cursor: default;\n}\n\n.screen[_ngcontent-%COMP%]   .space[_ngcontent-%COMP%] {\n  padding-top: 20px;\n}\n\n.screen[_ngcontent-%COMP%]   .space.disabled[_ngcontent-%COMP%] {\n  background-image: url(/assets/images/seat/space_disabled.svg) !important;\n  cursor: default;\n}\n\n.screen[_ngcontent-%COMP%]   .object[_ngcontent-%COMP%] {\n  position: absolute;\n  background-repeat: no-repeat;\n}\n\n.screen[_ngcontent-%COMP%]   .label-object[_ngcontent-%COMP%] {\n  text-align: center;\n  line-height: 50px;\n  font-size: 24px;\n  color: #9a9a9b;\n  font-weight: bold;\n}\n\n.screen-4dx[_ngcontent-%COMP%]   .seat[_ngcontent-%COMP%] {\n  background-image: url(/assets/images/seat/4dx.svg);\n  background-size: 50px 50px;\n}\n\n.screen-4dx[_ngcontent-%COMP%]   .seat.active[_ngcontent-%COMP%] {\n  color: #FFF;\n  background-image: url(/assets/images/seat/4dx_active.svg);\n}\n\n.screen-4dx[_ngcontent-%COMP%]   .seat.disabled[_ngcontent-%COMP%] {\n  color: #FFF;\n  background-image: url(/assets/images/seat/4dx_disabled.svg);\n  cursor: default;\n}\n\n.zoom[_ngcontent-%COMP%]   .screen-scroll[_ngcontent-%COMP%] {\n  overflow: auto;\n  transition: transform 0.2s;\n  -webkit-overflow-scrolling: touch;\n}\n\n.zoom[_ngcontent-%COMP%]   .seat[_ngcontent-%COMP%]   span[_ngcontent-%COMP%] {\n  display: block;\n}\n\n.zoom-btn[_ngcontent-%COMP%] {\n  display: none;\n  cursor: pointer;\n  position: absolute;\n  top: 10px;\n  right: 10px;\n  z-index: 10;\n  width: 50px;\n  height: 50px;\n  color: #FFF;\n  background-color: #3e3a39;\n  border-radius: 3px;\n  align-items: center;\n  justify-content: center;\n}\n\n.zoom-btn.active[_ngcontent-%COMP%] {\n  display: flex;\n}\n\n.zoom-btn.scroll[_ngcontent-%COMP%] {\n  position: fixed;\n}"]
     });
     /*@__PURE__*/
 
