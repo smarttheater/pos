@@ -12,8 +12,9 @@ import {
 } from '@angular/core';
 import { factory } from '@cinerino/api-javascript-client';
 import * as moment from 'moment';
+import { getEnvironment } from '../../../../../../environments/environment';
 import { getProject, isFile } from '../../../../../functions';
-import { IReservation, IReservationSeat } from '../../../../../models';
+import { IReservation, IReservationSeat, ViewType } from '../../../../../models';
 import { ILabel, IObject, IRow, IScreen, ISeat, SeatStatus } from '../../../../../models/purchase/screen';
 import { UtilService } from '../../../../../services';
 
@@ -41,6 +42,7 @@ export class ScreenComponent implements OnInit, AfterViewInit, AfterContentCheck
     public height: number;
     public origin: string;
     public screenData: IScreen;
+    public environment = getEnvironment();
     public onWindowScroll: (event: Event) => void;
     @ViewChild('screen', { static: true }) public screen: ElementRef<HTMLDivElement>;
     @ViewChild('zoomBtn', { static: true }) public zoomBtn: ElementRef<HTMLDivElement>;
@@ -196,7 +198,8 @@ export class ScreenComponent implements OnInit, AfterViewInit, AfterContentCheck
             map.push(lineMap);
         }
         const space = 90;
-        const screenSpace = space * 2 + 50;
+        const screenSpace = (this.environment.VIEW_TYPE === ViewType.Cinema)
+            ? space * 2 + 50 : space + 30;
         const minWidth = 1346;
         const size = {
             w: map[0].length * setting.seatSize.w + (map[0].length - 1) * setting.seatMargin.w + space * 2,
@@ -215,7 +218,9 @@ export class ScreenComponent implements OnInit, AfterViewInit, AfterContentCheck
                 y: screenSpace
             },
             map,
-            style: '<style>.screen-object { display: block !important }</style>'
+            style: (this.environment.VIEW_TYPE === ViewType.Cinema)
+                ? '<style>.screen-object { display: block !important }</style>'
+                : undefined
         };
     }
 
