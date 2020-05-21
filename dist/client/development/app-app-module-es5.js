@@ -107680,11 +107680,11 @@ function _classCallCheck2(instance, Constructor) { if (!(instance instanceof Con
             });
           });
           var lineMaxArray = array.reduce(function (a, b) {
-            return a[a.length - 1].line > b[a.length - 1].line ? a : b;
+            return a[a.length - 1].line > b[b.length - 1].line ? a : b;
           });
           var lineMax = lineMaxArray[lineMaxArray.length - 1].line;
           var columnMaxArray = array.reduce(function (a, b) {
-            return a[a.length - 1].column > b[a.length - 1].column ? a : b;
+            return a[a.length - 1].column > b[b.length - 1].column ? a : b;
           });
           var columnMax = Number(columnMaxArray[columnMaxArray.length - 1].column);
           var map = [];
