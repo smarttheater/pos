@@ -34,8 +34,12 @@
     </div>
 
     <div class="buttons mx-auto text-center">
-        <button type="submit" class="btn btn-primary btn-block py-3 mb-3" [disabled]="screeningWorkEvents.length === 0 || (isLoading | async)"
+        <button *ngIf="!environment.PURCHASE_TERMS" type="submit" class="btn btn-primary btn-block py-3 mb-3"
+            [disabled]="screeningWorkEvents.length === 0 || (isLoading | async)"
             (click)="onSubmit()">{{ 'purchase.event.schedule.next' | translate }}</button>
+        <button *ngIf="environment.PURCHASE_TERMS" type="submit" class="btn btn-primary btn-block py-3 mb-3"
+            [disabled]="screeningWorkEvents.length === 0 || (isLoading | async)"
+            (click)="onSubmit()">{{ 'purchase.event.schedule.consent' | translate }}</button>
         <!-- <button type="button" class="btn btn-link"
             routerLink="/purchase/event/schedule">{{ 'purchase.event.schedule.prev' | translate }}</button> -->
     </div>
