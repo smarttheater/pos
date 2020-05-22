@@ -107102,25 +107102,37 @@ function _classCallCheck2(instance, Constructor) { if (!(instance instanceof Con
     /* harmony import */
 
 
-    var _functions__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(
+    var _environments_environment__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(
+    /*! ../../../../../../environments/environment */
+    "./environments/environment.ts");
+    /* harmony import */
+
+
+    var _functions__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(
     /*! ../../../../../functions */
     "./app/functions/index.ts");
     /* harmony import */
 
 
-    var _models_purchase_screen__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(
+    var _models__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(
+    /*! ../../../../../models */
+    "./app/models/index.ts");
+    /* harmony import */
+
+
+    var _models_purchase_screen__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(
     /*! ../../../../../models/purchase/screen */
     "./app/models/purchase/screen.ts");
     /* harmony import */
 
 
-    var _services__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(
+    var _services__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(
     /*! ../../../../../services */
     "./app/services/index.ts");
     /* harmony import */
 
 
-    var _angular_common__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(
+    var _angular_common__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(
     /*! @angular/common */
     "../../node_modules/@angular/common/__ivy_ngcc__/fesm2015/common.js");
 
@@ -107410,6 +107422,7 @@ function _classCallCheck2(instance, Constructor) { if (!(instance instanceof Con
         this.elementRef = elementRef;
         this.openSeatingAllowed = false;
         this.select = new _angular_core__WEBPACK_IMPORTED_MODULE_0__["EventEmitter"]();
+        this.environment = Object(_environments_environment__WEBPACK_IMPORTED_MODULE_3__["getEnvironment"])();
       }
       /**
        * 初期化
@@ -107568,7 +107581,7 @@ function _classCallCheck2(instance, Constructor) { if (!(instance instanceof Con
                     now = moment__WEBPACK_IMPORTED_MODULE_2__().toISOString();
                     settingPath = 'json/theater/setting.json';
                     _context10.next = 4;
-                    return Object(_functions__WEBPACK_IMPORTED_MODULE_3__["isFile"])("".concat(Object(_functions__WEBPACK_IMPORTED_MODULE_3__["getProject"])().storageUrl, "/").concat(settingPath));
+                    return Object(_functions__WEBPACK_IMPORTED_MODULE_4__["isFile"])("".concat(Object(_functions__WEBPACK_IMPORTED_MODULE_4__["getProject"])().storageUrl, "/").concat(settingPath));
 
                   case 4:
                     if (!_context10.sent) {
@@ -107577,7 +107590,7 @@ function _classCallCheck2(instance, Constructor) { if (!(instance instanceof Con
                     }
 
                     _context10.next = 7;
-                    return this.utilService.getJson("".concat(Object(_functions__WEBPACK_IMPORTED_MODULE_3__["getProject"])().storageUrl, "/").concat(settingPath));
+                    return this.utilService.getJson("".concat(Object(_functions__WEBPACK_IMPORTED_MODULE_4__["getProject"])().storageUrl, "/").concat(settingPath));
 
                   case 7:
                     _context10.t0 = _context10.sent;
@@ -107595,7 +107608,7 @@ function _classCallCheck2(instance, Constructor) { if (!(instance instanceof Con
                     setting = _context10.t0;
                     screenPath = "json/theater/".concat(this.theaterCode, "/").concat(this.screenCode, ".json?date=").concat(now);
                     _context10.next = 17;
-                    return Object(_functions__WEBPACK_IMPORTED_MODULE_3__["isFile"])("".concat(Object(_functions__WEBPACK_IMPORTED_MODULE_3__["getProject"])().storageUrl, "/").concat(screenPath));
+                    return Object(_functions__WEBPACK_IMPORTED_MODULE_4__["isFile"])("".concat(Object(_functions__WEBPACK_IMPORTED_MODULE_4__["getProject"])().storageUrl, "/").concat(screenPath));
 
                   case 17:
                     if (!_context10.sent) {
@@ -107604,7 +107617,7 @@ function _classCallCheck2(instance, Constructor) { if (!(instance instanceof Con
                     }
 
                     _context10.next = 20;
-                    return this.utilService.getJson("".concat(Object(_functions__WEBPACK_IMPORTED_MODULE_3__["getProject"])().storageUrl, "/").concat(screenPath));
+                    return this.utilService.getJson("".concat(Object(_functions__WEBPACK_IMPORTED_MODULE_4__["getProject"])().storageUrl, "/").concat(screenPath));
 
                   case 20:
                     _context10.t1 = _context10.sent;
@@ -107618,7 +107631,7 @@ function _classCallCheck2(instance, Constructor) { if (!(instance instanceof Con
                     screen = _context10.t1;
                     objects = screen.objects.map(function (o) {
                       return Object.assign(Object.assign({}, o), {
-                        image: o.image.replace('/storage', Object(_functions__WEBPACK_IMPORTED_MODULE_3__["getProject"])().storageUrl)
+                        image: o.image.replace('/storage', Object(_functions__WEBPACK_IMPORTED_MODULE_4__["getProject"])().storageUrl)
                       });
                     });
                     screen.objects = objects;
@@ -107733,7 +107746,7 @@ function _classCallCheck2(instance, Constructor) { if (!(instance instanceof Con
           }
 
           var space = 90;
-          var screenSpace = space * 2 + 50;
+          var screenSpace = this.environment.VIEW_TYPE === _models__WEBPACK_IMPORTED_MODULE_5__["ViewType"].Cinema ? space * 2 + 50 : space + 30;
           var minWidth = 1346;
           var size = {
             w: map[0].length * setting.seatSize.w + (map[0].length - 1) * setting.seatMargin.w + space * 2,
@@ -107751,7 +107764,7 @@ function _classCallCheck2(instance, Constructor) { if (!(instance instanceof Con
               y: screenSpace
             },
             map: map,
-            style: '<style>.screen-object { display: block !important }</style>'
+            style: this.environment.VIEW_TYPE === _models__WEBPACK_IMPORTED_MODULE_5__["ViewType"].Cinema ? '<style>.screen-object { display: block !important }</style>' : undefined
           };
         }
         /**
@@ -107764,8 +107777,8 @@ function _classCallCheck2(instance, Constructor) { if (!(instance instanceof Con
           var reservations = this.reservations;
           this.seats.forEach(function (row) {
             row.data.forEach(function (s) {
-              if (s.status === _models_purchase_screen__WEBPACK_IMPORTED_MODULE_4__["SeatStatus"].Active) {
-                s.status = _models_purchase_screen__WEBPACK_IMPORTED_MODULE_4__["SeatStatus"].Default;
+              if (s.status === _models_purchase_screen__WEBPACK_IMPORTED_MODULE_6__["SeatStatus"].Active) {
+                s.status = _models_purchase_screen__WEBPACK_IMPORTED_MODULE_6__["SeatStatus"].Default;
               }
 
               var findReservationSeatResult = reservations.find(function (r) {
@@ -107773,7 +107786,7 @@ function _classCallCheck2(instance, Constructor) { if (!(instance instanceof Con
               });
 
               if (findReservationSeatResult !== undefined) {
-                s.status = _models_purchase_screen__WEBPACK_IMPORTED_MODULE_4__["SeatStatus"].Active;
+                s.status = _models_purchase_screen__WEBPACK_IMPORTED_MODULE_6__["SeatStatus"].Active;
               }
             });
           });
@@ -107963,33 +107976,37 @@ function _classCallCheck2(instance, Constructor) { if (!(instance instanceof Con
                   var className = ["seat-".concat(code)];
                   var section = '';
                   var row = '';
-                  var status = _models_purchase_screen__WEBPACK_IMPORTED_MODULE_4__["SeatStatus"].Disabled;
+                  var status = _models_purchase_screen__WEBPACK_IMPORTED_MODULE_6__["SeatStatus"].Disabled;
                   var acceptedOffer; // 席の状態変更
 
-                  _this226.screeningEventSeats.forEach(function (s) {
-                    if (s.containedInPlace !== undefined && s.containedInPlace.branchCode !== undefined) {
-                      section = s.containedInPlace.branchCode;
+                  var findSeat = _this226.screeningEventSeats.find(function (s) {
+                    return s.branchCode === code;
+                  });
+
+                  if (findSeat !== undefined && findSeat.offers !== undefined) {
+                    if (findSeat.containedInPlace !== undefined && findSeat.containedInPlace.branchCode !== undefined) {
+                      section = findSeat.containedInPlace.branchCode;
                     }
 
-                    if (s.branchCode !== code || s.offers === undefined) {
-                      return;
-                    }
-
-                    if (s.offers[0].availability === _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_1__["factory"].chevre.itemAvailability.InStock) {
-                      status = _models_purchase_screen__WEBPACK_IMPORTED_MODULE_4__["SeatStatus"].Default;
+                    if (findSeat.offers[0].availability === _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_1__["factory"].chevre.itemAvailability.InStock) {
+                      status = _models_purchase_screen__WEBPACK_IMPORTED_MODULE_6__["SeatStatus"].Default;
                     }
 
                     acceptedOffer = {
                       ticketedSeat: {
-                        typeOf: s.typeOf,
-                        seatingType: s.seatingType,
-                        seatNumber: s.branchCode,
+                        typeOf: findSeat.typeOf,
+                        seatingType: findSeat.seatingType,
+                        seatNumber: findSeat.branchCode,
                         seatRow: row,
                         seatSection: section,
-                        offers: s.offers
+                        offers: findSeat.offers
                       }
                     };
-                  });
+                  }
+
+                  if (findSeat === undefined) {
+                    className.push('space');
+                  }
 
                   if (_this226.authorizeSeatReservation !== undefined && _this226.authorizeSeatReservation.result !== undefined && _this226.authorizeSeatReservation.result.responseBody.object.reservations !== undefined) {
                     // chevre
@@ -107999,7 +108016,7 @@ function _classCallCheck2(instance, Constructor) { if (!(instance instanceof Con
                     });
 
                     if (findResult !== undefined) {
-                      status = _models_purchase_screen__WEBPACK_IMPORTED_MODULE_4__["SeatStatus"].Default;
+                      status = _models_purchase_screen__WEBPACK_IMPORTED_MODULE_6__["SeatStatus"].Default;
                     }
                   }
 
@@ -108065,7 +108082,7 @@ function _classCallCheck2(instance, Constructor) { if (!(instance instanceof Con
             return;
           }
 
-          if (seat.ticketedSeat === undefined || seat.status === _models_purchase_screen__WEBPACK_IMPORTED_MODULE_4__["SeatStatus"].Disabled) {
+          if (seat.ticketedSeat === undefined || seat.status === _models_purchase_screen__WEBPACK_IMPORTED_MODULE_6__["SeatStatus"].Disabled) {
             return;
           }
 
@@ -108082,7 +108099,7 @@ function _classCallCheck2(instance, Constructor) { if (!(instance instanceof Con
     ScreenComponent.ZOOM_SCALE = 1;
 
     ScreenComponent.ɵfac = function ScreenComponent_Factory(t) {
-      return new (t || ScreenComponent)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_services__WEBPACK_IMPORTED_MODULE_5__["UtilService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_core__WEBPACK_IMPORTED_MODULE_0__["ElementRef"]));
+      return new (t || ScreenComponent)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_services__WEBPACK_IMPORTED_MODULE_7__["UtilService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_core__WEBPACK_IMPORTED_MODULE_0__["ElementRef"]));
     };
 
     ScreenComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineComponent"]({
@@ -108169,8 +108186,8 @@ function _classCallCheck2(instance, Constructor) { if (!(instance instanceof Con
           _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("ngIf", ctx.screenData);
         }
       },
-      directives: [_angular_common__WEBPACK_IMPORTED_MODULE_6__["NgIf"], _angular_common__WEBPACK_IMPORTED_MODULE_6__["NgStyle"], _angular_common__WEBPACK_IMPORTED_MODULE_6__["NgForOf"]],
-      styles: ["[_nghost-%COMP%] {\n  display: block;\n}\n\n.open-seating-allowed[_ngcontent-%COMP%] {\n  position: absolute;\n  top: 0;\n  left: 0;\n  right: 0;\n  bottom: 0;\n  background: #000;\n  opacity: 0.5;\n  z-index: 11;\n}\n\n.screen[_ngcontent-%COMP%] {\n  position: relative;\n}\n\n.screen[_ngcontent-%COMP%]   .screen-scroll[_ngcontent-%COMP%] {\n  height: 500px;\n}\n\n.screen[_ngcontent-%COMP%]   .screen-inner[_ngcontent-%COMP%] {\n  position: relative;\n  width: 1600px;\n  height: 1400px;\n}\n\n.screen[_ngcontent-%COMP%]   .screen-object[_ngcontent-%COMP%] {\n  text-align: center;\n  color: #9c9c9c;\n  font-weight: bold;\n  font-size: 50px;\n  padding-top: 90px;\n}\n\n.screen[_ngcontent-%COMP%]   .seat[_ngcontent-%COMP%] {\n  position: absolute;\n  cursor: pointer;\n  text-align: center;\n  font-weight: bold;\n  color: #9a9a9b;\n  padding-top: 20px;\n  background-image: url(/assets/images/seat/normal.svg);\n  background-size: 40px 50px;\n  background-repeat: no-repeat;\n  font-size: 12px;\n}\n\n.screen[_ngcontent-%COMP%]   .seat.active[_ngcontent-%COMP%] {\n  color: #FFF;\n  background-image: url(/assets/images/seat/normal_active.svg);\n}\n\n.screen[_ngcontent-%COMP%]   .seat.disabled[_ngcontent-%COMP%] {\n  color: #FFF;\n  background-image: url(/assets/images/seat/normal_disabled.svg);\n  cursor: default;\n}\n\n.screen[_ngcontent-%COMP%]   .seat-hc[_ngcontent-%COMP%] {\n  background-image: url(/assets/images/seat/hc.svg) !important;\n  background-size: 40px 50px;\n  padding-top: 35px;\n}\n\n.screen[_ngcontent-%COMP%]   .seat-hc.active[_ngcontent-%COMP%] {\n  background-image: url(/assets/images/seat/hc_active.svg) !important;\n}\n\n.screen[_ngcontent-%COMP%]   .seat-hc.disabled[_ngcontent-%COMP%] {\n  background-image: url(/assets/images/seat/hc_disabled.svg) !important;\n  cursor: default;\n}\n\n.screen[_ngcontent-%COMP%]   .object[_ngcontent-%COMP%] {\n  position: absolute;\n  background-repeat: no-repeat;\n}\n\n.screen[_ngcontent-%COMP%]   .label-object[_ngcontent-%COMP%] {\n  text-align: center;\n  line-height: 50px;\n  font-size: 24px;\n  color: #9a9a9b;\n  font-weight: bold;\n}\n\n.screen-4dx[_ngcontent-%COMP%]   .seat[_ngcontent-%COMP%] {\n  background-image: url(/assets/images/seat/4dx.svg);\n  background-size: 50px 50px;\n}\n\n.screen-4dx[_ngcontent-%COMP%]   .seat.active[_ngcontent-%COMP%] {\n  color: #FFF;\n  background-image: url(/assets/images/seat/4dx_active.svg);\n}\n\n.screen-4dx[_ngcontent-%COMP%]   .seat.disabled[_ngcontent-%COMP%] {\n  color: #FFF;\n  background-image: url(/assets/images/seat/4dx_disabled.svg);\n  cursor: default;\n}\n\n.zoom[_ngcontent-%COMP%]   .screen-scroll[_ngcontent-%COMP%] {\n  overflow: auto;\n  transition: transform 0.2s;\n  -webkit-overflow-scrolling: touch;\n}\n\n.zoom[_ngcontent-%COMP%]   .seat[_ngcontent-%COMP%]   span[_ngcontent-%COMP%] {\n  display: block;\n}\n\n.zoom-btn[_ngcontent-%COMP%] {\n  display: none;\n  cursor: pointer;\n  position: absolute;\n  top: 10px;\n  right: 10px;\n  z-index: 10;\n  width: 50px;\n  height: 50px;\n  color: #FFF;\n  background-color: #3e3a39;\n  border-radius: 3px;\n  align-items: center;\n  justify-content: center;\n}\n\n.zoom-btn.active[_ngcontent-%COMP%] {\n  display: flex;\n}\n\n.zoom-btn.scroll[_ngcontent-%COMP%] {\n  position: fixed;\n}"]
+      directives: [_angular_common__WEBPACK_IMPORTED_MODULE_8__["NgIf"], _angular_common__WEBPACK_IMPORTED_MODULE_8__["NgStyle"], _angular_common__WEBPACK_IMPORTED_MODULE_8__["NgForOf"]],
+      styles: ["[_nghost-%COMP%] {\n  display: block;\n}\n\n.open-seating-allowed[_ngcontent-%COMP%] {\n  position: absolute;\n  top: 0;\n  left: 0;\n  right: 0;\n  bottom: 0;\n  background: #000;\n  opacity: 0.5;\n  z-index: 11;\n}\n\n.screen[_ngcontent-%COMP%] {\n  position: relative;\n}\n\n.screen[_ngcontent-%COMP%]   .screen-scroll[_ngcontent-%COMP%] {\n  height: 500px;\n}\n\n.screen[_ngcontent-%COMP%]   .screen-inner[_ngcontent-%COMP%] {\n  position: relative;\n  width: 1600px;\n  height: 1400px;\n}\n\n.screen[_ngcontent-%COMP%]   .screen-object[_ngcontent-%COMP%] {\n  text-align: center;\n  color: #9c9c9c;\n  font-weight: bold;\n  font-size: 50px;\n  padding-top: 90px;\n}\n\n.screen[_ngcontent-%COMP%]   .seat[_ngcontent-%COMP%] {\n  position: absolute;\n  cursor: pointer;\n  text-align: center;\n  font-weight: bold;\n  color: #9a9a9b;\n  padding-top: 20px;\n  background-image: url(/assets/images/seat/normal.svg);\n  background-size: 40px 50px;\n  background-repeat: no-repeat;\n  font-size: 12px;\n}\n\n.screen[_ngcontent-%COMP%]   .seat.active[_ngcontent-%COMP%] {\n  color: #FFF;\n  background-image: url(/assets/images/seat/normal_active.svg);\n}\n\n.screen[_ngcontent-%COMP%]   .seat.disabled[_ngcontent-%COMP%] {\n  color: #FFF;\n  background-image: url(/assets/images/seat/normal_disabled.svg);\n  cursor: default;\n}\n\n.screen[_ngcontent-%COMP%]   .seat-hc[_ngcontent-%COMP%] {\n  background-image: url(/assets/images/seat/hc.svg) !important;\n  background-size: 40px 50px;\n  padding-top: 35px;\n}\n\n.screen[_ngcontent-%COMP%]   .seat-hc.active[_ngcontent-%COMP%] {\n  background-image: url(/assets/images/seat/hc_active.svg) !important;\n}\n\n.screen[_ngcontent-%COMP%]   .seat-hc.disabled[_ngcontent-%COMP%] {\n  background-image: url(/assets/images/seat/hc_disabled.svg) !important;\n  cursor: default;\n}\n\n.screen[_ngcontent-%COMP%]   .space[_ngcontent-%COMP%] {\n  padding-top: 20px;\n}\n\n.screen[_ngcontent-%COMP%]   .space.disabled[_ngcontent-%COMP%] {\n  background-image: url(/assets/images/seat/space_disabled.svg) !important;\n  cursor: default;\n}\n\n.screen[_ngcontent-%COMP%]   .object[_ngcontent-%COMP%] {\n  position: absolute;\n  background-repeat: no-repeat;\n}\n\n.screen[_ngcontent-%COMP%]   .label-object[_ngcontent-%COMP%] {\n  text-align: center;\n  line-height: 50px;\n  font-size: 24px;\n  color: #9a9a9b;\n  font-weight: bold;\n}\n\n.screen-4dx[_ngcontent-%COMP%]   .seat[_ngcontent-%COMP%] {\n  background-image: url(/assets/images/seat/4dx.svg);\n  background-size: 50px 50px;\n}\n\n.screen-4dx[_ngcontent-%COMP%]   .seat.active[_ngcontent-%COMP%] {\n  color: #FFF;\n  background-image: url(/assets/images/seat/4dx_active.svg);\n}\n\n.screen-4dx[_ngcontent-%COMP%]   .seat.disabled[_ngcontent-%COMP%] {\n  color: #FFF;\n  background-image: url(/assets/images/seat/4dx_disabled.svg);\n  cursor: default;\n}\n\n.zoom[_ngcontent-%COMP%]   .screen-scroll[_ngcontent-%COMP%] {\n  overflow: auto;\n  transition: transform 0.2s;\n  -webkit-overflow-scrolling: touch;\n}\n\n.zoom[_ngcontent-%COMP%]   .seat[_ngcontent-%COMP%]   span[_ngcontent-%COMP%] {\n  display: block;\n}\n\n.zoom-btn[_ngcontent-%COMP%] {\n  display: none;\n  cursor: pointer;\n  position: absolute;\n  top: 10px;\n  right: 10px;\n  z-index: 10;\n  width: 50px;\n  height: 50px;\n  color: #FFF;\n  background-color: #3e3a39;\n  border-radius: 3px;\n  align-items: center;\n  justify-content: center;\n}\n\n.zoom-btn.active[_ngcontent-%COMP%] {\n  display: flex;\n}\n\n.zoom-btn.scroll[_ngcontent-%COMP%] {\n  position: fixed;\n}"]
     });
     /*@__PURE__*/
 
@@ -108184,7 +108201,7 @@ function _classCallCheck2(instance, Constructor) { if (!(instance instanceof Con
         }]
       }], function () {
         return [{
-          type: _services__WEBPACK_IMPORTED_MODULE_5__["UtilService"]
+          type: _services__WEBPACK_IMPORTED_MODULE_7__["UtilService"]
         }, {
           type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["ElementRef"]
         }];
