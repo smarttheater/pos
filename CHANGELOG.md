@@ -12,6 +12,15 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/).
 
 ### Security
 
+## 3.0.38 - 2020-05-22
+### Added
+ - 座席なし判定追加
+### Changed
+ - 利用規約、注意事項同意文言を動的に変更
+ - 汎用テンプレートの場合スクリーン自動生成時「SCREEN」削除
+### Fixed
+ - cssサイズ削減
+
 ## 3.0.37 - 2020-05-21
 ### Changed
  -  デフォルトをカート機能ONへ変更
