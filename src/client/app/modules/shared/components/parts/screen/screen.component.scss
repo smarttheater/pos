@@ -61,6 +61,13 @@
             cursor: default;
         }
     }
+    .space {
+        padding-top: 20px;
+        &.disabled {
+            background-image: url(/assets/images/seat/space_disabled.svg) !important;
+            cursor: default;
+        }
+    }
     .object {
         position: absolute;
         background-repeat: no-repeat;

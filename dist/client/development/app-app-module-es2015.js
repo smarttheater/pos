@@ -77947,10 +77947,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! moment */ "../../node_modules/moment/moment.js");
 /* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var _functions__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../../../functions */ "./app/functions/index.ts");
-/* harmony import */ var _models_purchase_screen__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../../../models/purchase/screen */ "./app/models/purchase/screen.ts");
-/* harmony import */ var _services__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../../../../services */ "./app/services/index.ts");
-/* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @angular/common */ "../../node_modules/@angular/common/__ivy_ngcc__/fesm2015/common.js");
+/* harmony import */ var _environments_environment__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../../../../environments/environment */ "./environments/environment.ts");
+/* harmony import */ var _functions__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../../../functions */ "./app/functions/index.ts");
+/* harmony import */ var _models__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../../../../models */ "./app/models/index.ts");
+/* harmony import */ var _models_purchase_screen__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../../../../models/purchase/screen */ "./app/models/purchase/screen.ts");
+/* harmony import */ var _services__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../../../../../services */ "./app/services/index.ts");
+/* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @angular/common */ "../../node_modules/@angular/common/__ivy_ngcc__/fesm2015/common.js");
 var __awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -77960,6 +77962,8 @@ var __awaiter = (undefined && undefined.__awaiter) || function (thisArg, _argume
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+
+
 
 
 
@@ -78072,6 +78076,7 @@ class ScreenComponent {
         this.elementRef = elementRef;
         this.openSeatingAllowed = false;
         this.select = new _angular_core__WEBPACK_IMPORTED_MODULE_0__["EventEmitter"]();
+        this.environment = Object(_environments_environment__WEBPACK_IMPORTED_MODULE_3__["getEnvironment"])();
     }
     /**
      * 初期化
@@ -78160,15 +78165,15 @@ class ScreenComponent {
         return __awaiter(this, void 0, void 0, function* () {
             const now = moment__WEBPACK_IMPORTED_MODULE_2__().toISOString();
             const settingPath = 'json/theater/setting.json';
-            const setting = (yield Object(_functions__WEBPACK_IMPORTED_MODULE_3__["isFile"])(`${Object(_functions__WEBPACK_IMPORTED_MODULE_3__["getProject"])().storageUrl}/${settingPath}`))
-                ? yield this.utilService.getJson(`${Object(_functions__WEBPACK_IMPORTED_MODULE_3__["getProject"])().storageUrl}/${settingPath}`)
+            const setting = (yield Object(_functions__WEBPACK_IMPORTED_MODULE_4__["isFile"])(`${Object(_functions__WEBPACK_IMPORTED_MODULE_4__["getProject"])().storageUrl}/${settingPath}`))
+                ? yield this.utilService.getJson(`${Object(_functions__WEBPACK_IMPORTED_MODULE_4__["getProject"])().storageUrl}/${settingPath}`)
                 : yield this.utilService.getJson(`/default/${settingPath}`);
             const screenPath = `json/theater/${this.theaterCode}/${this.screenCode}.json?date=${now}`;
-            const screen = (yield Object(_functions__WEBPACK_IMPORTED_MODULE_3__["isFile"])(`${Object(_functions__WEBPACK_IMPORTED_MODULE_3__["getProject"])().storageUrl}/${screenPath}`))
-                ? yield this.utilService.getJson(`${Object(_functions__WEBPACK_IMPORTED_MODULE_3__["getProject"])().storageUrl}/${screenPath}`)
+            const screen = (yield Object(_functions__WEBPACK_IMPORTED_MODULE_4__["isFile"])(`${Object(_functions__WEBPACK_IMPORTED_MODULE_4__["getProject"])().storageUrl}/${screenPath}`))
+                ? yield this.utilService.getJson(`${Object(_functions__WEBPACK_IMPORTED_MODULE_4__["getProject"])().storageUrl}/${screenPath}`)
                 : this.generateScreenMap(setting);
             const objects = screen.objects.map((o) => {
-                return Object.assign(Object.assign({}, o), { image: o.image.replace('/storage', Object(_functions__WEBPACK_IMPORTED_MODULE_3__["getProject"])().storageUrl) });
+                return Object.assign(Object.assign({}, o), { image: o.image.replace('/storage', Object(_functions__WEBPACK_IMPORTED_MODULE_4__["getProject"])().storageUrl) });
             });
             screen.objects = objects;
             return Object.assign(Object.assign({}, setting), screen);
@@ -78219,7 +78224,8 @@ class ScreenComponent {
             map.push(lineMap);
         }
         const space = 90;
-        const screenSpace = space * 2 + 50;
+        const screenSpace = (this.environment.VIEW_TYPE === _models__WEBPACK_IMPORTED_MODULE_5__["ViewType"].Cinema)
+            ? space * 2 + 50 : space + 30;
         const minWidth = 1346;
         const size = {
             w: map[0].length * setting.seatSize.w + (map[0].length - 1) * setting.seatMargin.w + space * 2,
@@ -78237,7 +78243,9 @@ class ScreenComponent {
                 y: screenSpace
             },
             map,
-            style: '<style>.screen-object { display: block !important }</style>'
+            style: (this.environment.VIEW_TYPE === _models__WEBPACK_IMPORTED_MODULE_5__["ViewType"].Cinema)
+                ? '<style>.screen-object { display: block !important }</style>'
+                : undefined
         };
     }
     /**
@@ -78247,12 +78255,12 @@ class ScreenComponent {
         const reservations = this.reservations;
         this.seats.forEach((row) => {
             row.data.forEach((s) => {
-                if (s.status === _models_purchase_screen__WEBPACK_IMPORTED_MODULE_4__["SeatStatus"].Active) {
-                    s.status = _models_purchase_screen__WEBPACK_IMPORTED_MODULE_4__["SeatStatus"].Default;
+                if (s.status === _models_purchase_screen__WEBPACK_IMPORTED_MODULE_6__["SeatStatus"].Active) {
+                    s.status = _models_purchase_screen__WEBPACK_IMPORTED_MODULE_6__["SeatStatus"].Default;
                 }
                 const findReservationSeatResult = reservations.find(r => (r.seat !== undefined && r.seat.seatNumber === s.code && r.seat.seatSection === s.section));
                 if (findReservationSeatResult !== undefined) {
-                    s.status = _models_purchase_screen__WEBPACK_IMPORTED_MODULE_4__["SeatStatus"].Active;
+                    s.status = _models_purchase_screen__WEBPACK_IMPORTED_MODULE_6__["SeatStatus"].Active;
                 }
             });
         });
@@ -78421,31 +78429,33 @@ class ScreenComponent {
                         const className = [`seat-${code}`];
                         let section = '';
                         const row = '';
-                        let status = _models_purchase_screen__WEBPACK_IMPORTED_MODULE_4__["SeatStatus"].Disabled;
+                        let status = _models_purchase_screen__WEBPACK_IMPORTED_MODULE_6__["SeatStatus"].Disabled;
                         let acceptedOffer;
                         // 席の状態変更
-                        this.screeningEventSeats.forEach((s) => {
-                            if (s.containedInPlace !== undefined
-                                && s.containedInPlace.branchCode !== undefined) {
-                                section = s.containedInPlace.branchCode;
+                        const findSeat = this.screeningEventSeats.find(s => s.branchCode === code);
+                        if (findSeat !== undefined
+                            && findSeat.offers !== undefined) {
+                            if (findSeat.containedInPlace !== undefined
+                                && findSeat.containedInPlace.branchCode !== undefined) {
+                                section = findSeat.containedInPlace.branchCode;
                             }
-                            if (s.branchCode !== code || s.offers === undefined) {
-                                return;
-                            }
-                            if (s.offers[0].availability === _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_1__["factory"].chevre.itemAvailability.InStock) {
-                                status = _models_purchase_screen__WEBPACK_IMPORTED_MODULE_4__["SeatStatus"].Default;
+                            if (findSeat.offers[0].availability === _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_1__["factory"].chevre.itemAvailability.InStock) {
+                                status = _models_purchase_screen__WEBPACK_IMPORTED_MODULE_6__["SeatStatus"].Default;
                             }
                             acceptedOffer = {
                                 ticketedSeat: {
-                                    typeOf: s.typeOf,
-                                    seatingType: s.seatingType,
-                                    seatNumber: s.branchCode,
+                                    typeOf: findSeat.typeOf,
+                                    seatingType: findSeat.seatingType,
+                                    seatNumber: findSeat.branchCode,
                                     seatRow: row,
                                     seatSection: section,
-                                    offers: s.offers
+                                    offers: findSeat.offers
                                 }
                             };
-                        });
+                        }
+                        if (findSeat === undefined) {
+                            className.push('space');
+                        }
                         if (this.authorizeSeatReservation !== undefined
                             && this.authorizeSeatReservation.result !== undefined
                             && this.authorizeSeatReservation.result.responseBody.object.reservations !== undefined) {
@@ -78458,7 +78468,7 @@ class ScreenComponent {
                                     && ticketedSeat.seatRow === row);
                             });
                             if (findResult !== undefined) {
-                                status = _models_purchase_screen__WEBPACK_IMPORTED_MODULE_4__["SeatStatus"].Default;
+                                status = _models_purchase_screen__WEBPACK_IMPORTED_MODULE_6__["SeatStatus"].Default;
                             }
                         }
                         if (this.screenData.hc !== undefined
@@ -78519,7 +78529,7 @@ class ScreenComponent {
             return;
         }
         if (seat.ticketedSeat === undefined
-            || seat.status === _models_purchase_screen__WEBPACK_IMPORTED_MODULE_4__["SeatStatus"].Disabled) {
+            || seat.status === _models_purchase_screen__WEBPACK_IMPORTED_MODULE_6__["SeatStatus"].Disabled) {
             return;
         }
         this.select.emit({
@@ -78529,7 +78539,7 @@ class ScreenComponent {
     }
 }
 ScreenComponent.ZOOM_SCALE = 1;
-ScreenComponent.ɵfac = function ScreenComponent_Factory(t) { return new (t || ScreenComponent)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_services__WEBPACK_IMPORTED_MODULE_5__["UtilService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_core__WEBPACK_IMPORTED_MODULE_0__["ElementRef"])); };
+ScreenComponent.ɵfac = function ScreenComponent_Factory(t) { return new (t || ScreenComponent)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_services__WEBPACK_IMPORTED_MODULE_7__["UtilService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_core__WEBPACK_IMPORTED_MODULE_0__["ElementRef"])); };
 ScreenComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineComponent"]({ type: ScreenComponent, selectors: [["app-screen"]], viewQuery: function ScreenComponent_Query(rf, ctx) { if (rf & 1) {
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵstaticViewQuery"](_c0, true);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵstaticViewQuery"](_c1, true);
@@ -78561,7 +78571,7 @@ ScreenComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineCo
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("ngIf", ctx.screenData);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](1);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("ngIf", ctx.screenData);
-    } }, directives: [_angular_common__WEBPACK_IMPORTED_MODULE_6__["NgIf"], _angular_common__WEBPACK_IMPORTED_MODULE_6__["NgStyle"], _angular_common__WEBPACK_IMPORTED_MODULE_6__["NgForOf"]], styles: ["[_nghost-%COMP%] {\n  display: block;\n}\n\n.open-seating-allowed[_ngcontent-%COMP%] {\n  position: absolute;\n  top: 0;\n  left: 0;\n  right: 0;\n  bottom: 0;\n  background: #000;\n  opacity: 0.5;\n  z-index: 11;\n}\n\n.screen[_ngcontent-%COMP%] {\n  position: relative;\n}\n\n.screen[_ngcontent-%COMP%]   .screen-scroll[_ngcontent-%COMP%] {\n  height: 500px;\n}\n\n.screen[_ngcontent-%COMP%]   .screen-inner[_ngcontent-%COMP%] {\n  position: relative;\n  width: 1600px;\n  height: 1400px;\n}\n\n.screen[_ngcontent-%COMP%]   .screen-object[_ngcontent-%COMP%] {\n  text-align: center;\n  color: #9c9c9c;\n  font-weight: bold;\n  font-size: 50px;\n  padding-top: 90px;\n}\n\n.screen[_ngcontent-%COMP%]   .seat[_ngcontent-%COMP%] {\n  position: absolute;\n  cursor: pointer;\n  text-align: center;\n  font-weight: bold;\n  color: #9a9a9b;\n  padding-top: 20px;\n  background-image: url(/assets/images/seat/normal.svg);\n  background-size: 40px 50px;\n  background-repeat: no-repeat;\n  font-size: 12px;\n}\n\n.screen[_ngcontent-%COMP%]   .seat.active[_ngcontent-%COMP%] {\n  color: #FFF;\n  background-image: url(/assets/images/seat/normal_active.svg);\n}\n\n.screen[_ngcontent-%COMP%]   .seat.disabled[_ngcontent-%COMP%] {\n  color: #FFF;\n  background-image: url(/assets/images/seat/normal_disabled.svg);\n  cursor: default;\n}\n\n.screen[_ngcontent-%COMP%]   .seat-hc[_ngcontent-%COMP%] {\n  background-image: url(/assets/images/seat/hc.svg) !important;\n  background-size: 40px 50px;\n  padding-top: 35px;\n}\n\n.screen[_ngcontent-%COMP%]   .seat-hc.active[_ngcontent-%COMP%] {\n  background-image: url(/assets/images/seat/hc_active.svg) !important;\n}\n\n.screen[_ngcontent-%COMP%]   .seat-hc.disabled[_ngcontent-%COMP%] {\n  background-image: url(/assets/images/seat/hc_disabled.svg) !important;\n  cursor: default;\n}\n\n.screen[_ngcontent-%COMP%]   .object[_ngcontent-%COMP%] {\n  position: absolute;\n  background-repeat: no-repeat;\n}\n\n.screen[_ngcontent-%COMP%]   .label-object[_ngcontent-%COMP%] {\n  text-align: center;\n  line-height: 50px;\n  font-size: 24px;\n  color: #9a9a9b;\n  font-weight: bold;\n}\n\n.screen-4dx[_ngcontent-%COMP%]   .seat[_ngcontent-%COMP%] {\n  background-image: url(/assets/images/seat/4dx.svg);\n  background-size: 50px 50px;\n}\n\n.screen-4dx[_ngcontent-%COMP%]   .seat.active[_ngcontent-%COMP%] {\n  color: #FFF;\n  background-image: url(/assets/images/seat/4dx_active.svg);\n}\n\n.screen-4dx[_ngcontent-%COMP%]   .seat.disabled[_ngcontent-%COMP%] {\n  color: #FFF;\n  background-image: url(/assets/images/seat/4dx_disabled.svg);\n  cursor: default;\n}\n\n.zoom[_ngcontent-%COMP%]   .screen-scroll[_ngcontent-%COMP%] {\n  overflow: auto;\n  transition: transform 0.2s;\n  -webkit-overflow-scrolling: touch;\n}\n\n.zoom[_ngcontent-%COMP%]   .seat[_ngcontent-%COMP%]   span[_ngcontent-%COMP%] {\n  display: block;\n}\n\n.zoom-btn[_ngcontent-%COMP%] {\n  display: none;\n  cursor: pointer;\n  position: absolute;\n  top: 10px;\n  right: 10px;\n  z-index: 10;\n  width: 50px;\n  height: 50px;\n  color: #FFF;\n  background-color: #3e3a39;\n  border-radius: 3px;\n  align-items: center;\n  justify-content: center;\n}\n\n.zoom-btn.active[_ngcontent-%COMP%] {\n  display: flex;\n}\n\n.zoom-btn.scroll[_ngcontent-%COMP%] {\n  position: fixed;\n}"] });
+    } }, directives: [_angular_common__WEBPACK_IMPORTED_MODULE_8__["NgIf"], _angular_common__WEBPACK_IMPORTED_MODULE_8__["NgStyle"], _angular_common__WEBPACK_IMPORTED_MODULE_8__["NgForOf"]], styles: ["[_nghost-%COMP%] {\n  display: block;\n}\n\n.open-seating-allowed[_ngcontent-%COMP%] {\n  position: absolute;\n  top: 0;\n  left: 0;\n  right: 0;\n  bottom: 0;\n  background: #000;\n  opacity: 0.5;\n  z-index: 11;\n}\n\n.screen[_ngcontent-%COMP%] {\n  position: relative;\n}\n\n.screen[_ngcontent-%COMP%]   .screen-scroll[_ngcontent-%COMP%] {\n  height: 500px;\n}\n\n.screen[_ngcontent-%COMP%]   .screen-inner[_ngcontent-%COMP%] {\n  position: relative;\n  width: 1600px;\n  height: 1400px;\n}\n\n.screen[_ngcontent-%COMP%]   .screen-object[_ngcontent-%COMP%] {\n  text-align: center;\n  color: #9c9c9c;\n  font-weight: bold;\n  font-size: 50px;\n  padding-top: 90px;\n}\n\n.screen[_ngcontent-%COMP%]   .seat[_ngcontent-%COMP%] {\n  position: absolute;\n  cursor: pointer;\n  text-align: center;\n  font-weight: bold;\n  color: #9a9a9b;\n  padding-top: 20px;\n  background-image: url(/assets/images/seat/normal.svg);\n  background-size: 40px 50px;\n  background-repeat: no-repeat;\n  font-size: 12px;\n}\n\n.screen[_ngcontent-%COMP%]   .seat.active[_ngcontent-%COMP%] {\n  color: #FFF;\n  background-image: url(/assets/images/seat/normal_active.svg);\n}\n\n.screen[_ngcontent-%COMP%]   .seat.disabled[_ngcontent-%COMP%] {\n  color: #FFF;\n  background-image: url(/assets/images/seat/normal_disabled.svg);\n  cursor: default;\n}\n\n.screen[_ngcontent-%COMP%]   .seat-hc[_ngcontent-%COMP%] {\n  background-image: url(/assets/images/seat/hc.svg) !important;\n  background-size: 40px 50px;\n  padding-top: 35px;\n}\n\n.screen[_ngcontent-%COMP%]   .seat-hc.active[_ngcontent-%COMP%] {\n  background-image: url(/assets/images/seat/hc_active.svg) !important;\n}\n\n.screen[_ngcontent-%COMP%]   .seat-hc.disabled[_ngcontent-%COMP%] {\n  background-image: url(/assets/images/seat/hc_disabled.svg) !important;\n  cursor: default;\n}\n\n.screen[_ngcontent-%COMP%]   .space[_ngcontent-%COMP%] {\n  padding-top: 20px;\n}\n\n.screen[_ngcontent-%COMP%]   .space.disabled[_ngcontent-%COMP%] {\n  background-image: url(/assets/images/seat/space_disabled.svg) !important;\n  cursor: default;\n}\n\n.screen[_ngcontent-%COMP%]   .object[_ngcontent-%COMP%] {\n  position: absolute;\n  background-repeat: no-repeat;\n}\n\n.screen[_ngcontent-%COMP%]   .label-object[_ngcontent-%COMP%] {\n  text-align: center;\n  line-height: 50px;\n  font-size: 24px;\n  color: #9a9a9b;\n  font-weight: bold;\n}\n\n.screen-4dx[_ngcontent-%COMP%]   .seat[_ngcontent-%COMP%] {\n  background-image: url(/assets/images/seat/4dx.svg);\n  background-size: 50px 50px;\n}\n\n.screen-4dx[_ngcontent-%COMP%]   .seat.active[_ngcontent-%COMP%] {\n  color: #FFF;\n  background-image: url(/assets/images/seat/4dx_active.svg);\n}\n\n.screen-4dx[_ngcontent-%COMP%]   .seat.disabled[_ngcontent-%COMP%] {\n  color: #FFF;\n  background-image: url(/assets/images/seat/4dx_disabled.svg);\n  cursor: default;\n}\n\n.zoom[_ngcontent-%COMP%]   .screen-scroll[_ngcontent-%COMP%] {\n  overflow: auto;\n  transition: transform 0.2s;\n  -webkit-overflow-scrolling: touch;\n}\n\n.zoom[_ngcontent-%COMP%]   .seat[_ngcontent-%COMP%]   span[_ngcontent-%COMP%] {\n  display: block;\n}\n\n.zoom-btn[_ngcontent-%COMP%] {\n  display: none;\n  cursor: pointer;\n  position: absolute;\n  top: 10px;\n  right: 10px;\n  z-index: 10;\n  width: 50px;\n  height: 50px;\n  color: #FFF;\n  background-color: #3e3a39;\n  border-radius: 3px;\n  align-items: center;\n  justify-content: center;\n}\n\n.zoom-btn.active[_ngcontent-%COMP%] {\n  display: flex;\n}\n\n.zoom-btn.scroll[_ngcontent-%COMP%] {\n  position: fixed;\n}"] });
 /*@__PURE__*/ (function () { _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵsetClassMetadata"](ScreenComponent, [{
         type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"],
         args: [{
@@ -78569,7 +78579,7 @@ ScreenComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineCo
                 templateUrl: './screen.component.html',
                 styleUrls: ['./screen.component.scss']
             }]
-    }], function () { return [{ type: _services__WEBPACK_IMPORTED_MODULE_5__["UtilService"] }, { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["ElementRef"] }]; }, { openSeatingAllowed: [{
+    }], function () { return [{ type: _services__WEBPACK_IMPORTED_MODULE_7__["UtilService"] }, { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["ElementRef"] }]; }, { openSeatingAllowed: [{
             type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"]
         }], theaterCode: [{
             type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"]

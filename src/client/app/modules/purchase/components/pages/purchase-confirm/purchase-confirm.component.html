@@ -25,18 +25,23 @@
                         {{ authorizeSeatReservation.object.event.superEvent.location.name | changeLanguage }}
                     </span>
                     <span class="screen-name">
-                        &nbsp;/&nbsp;<span *ngIf="authorizeSeatReservation.object.event.location.address | changeLanguage" class="mr-2">{{ authorizeSeatReservation.object.event.location.address | changeLanguage }}</span>{{ authorizeSeatReservation.object.event.location.name | changeLanguage }}
+                        &nbsp;/&nbsp;<span
+                            *ngIf="authorizeSeatReservation.object.event.location.address | changeLanguage"
+                            class="mr-2">{{ authorizeSeatReservation.object.event.location.address | changeLanguage }}</span>{{ authorizeSeatReservation.object.event.location.name | changeLanguage }}
                     </span>
                     <span
                         *ngIf="authorizeSeatReservation.object.event.workPerformed?.duration && moment.duration(authorizeSeatReservation.object.event.workPerformed?.duration).asMinutes() > 0">
-                        &nbsp;/&nbsp;<span class="mr-1">{{ 'common.duration' | translate }}</span>{{ moment.duration(authorizeSeatReservation.object.event.workPerformed?.duration).asMinutes() }}{{ 'common.date.minute' | translate }}
+                        &nbsp;/&nbsp;<span
+                            class="mr-1">{{ 'common.duration' | translate }}</span>{{ moment.duration(authorizeSeatReservation.object.event.workPerformed?.duration).asMinutes() }}{{ 'common.date.minute' | translate }}
                     </span>
                 </p>
             </div>
             <hr class="mb-3">
 
-            <app-item-list [authorizeSeatReservations]="authorizeSeatReservation?.result?.responseBody.object.reservations"></app-item-list>
-            
+            <app-item-list
+                [authorizeSeatReservations]="authorizeSeatReservation?.result?.responseBody.object.reservations">
+            </app-item-list>
+
         </div>
 
         <div class="mb-4 px-3 bg-white"
@@ -47,8 +52,8 @@
                         <i class="fas fa-arrow-right mr-2"></i>{{ 'purchase.confirm.custody' | translate }}</p>
                     <p class="col-md-8 d-flex align-items-center position-static">
                         <span class="mr-2">￥</span>
-                        <app-numeric-keypad inputType="number" [inputValue]="depositAmount" viewPosition="Top" [maxlength]="10"
-                            (change)="changeDepositAmount($event)"
+                        <app-numeric-keypad inputType="number" [inputValue]="depositAmount" viewPosition="Top"
+                            [maxlength]="10" (change)="changeDepositAmount($event)"
                             (hidden)="depositAmount = ($event.length > 0) ? $event : 0">
                             <input type="number" class="form-control text-large py-2 h-auto" id="depositAmount"
                                 [(ngModel)]="depositAmount" readonly>
@@ -71,23 +76,23 @@
                     <p class="mb-2 mb-md-0 col-md-4">{{ 'common.paymentMethod' | translate }}</p>
                     <p class="col-md-8">
                         <span
-                                *ngIf="(purchase | async)?.paymentMethod.typeOf === paymentMethodType.Cash">{{ 'common.paymentMethodType.cash' | translate }}</span>
-                            <span
-                                *ngIf="(purchase | async)?.paymentMethod.typeOf === paymentMethodType.Account">{{ 'common.paymentMethodType.account' | translate }}</span>
-                            <span
-                                *ngIf="(purchase | async)?.paymentMethod.typeOf === paymentMethodType.CreditCard">{{ 'common.paymentMethodType.creditCard' | translate }}</span>
-                            <span
-                                *ngIf="(purchase | async)?.paymentMethod.typeOf === paymentMethodType.EMoney">{{ 'common.paymentMethodType.eMoney' | translate }}</span>
-                            <span
-                                *ngIf="(purchase | async)?.paymentMethod.typeOf === paymentMethodType.MovieTicket">{{ 'common.paymentMethodType.movieTicket' | translate }}</span>
-                            <span
-                                *ngIf="(purchase | async)?.paymentMethod.typeOf === paymentMethodType.Others 
+                            *ngIf="(purchase | async)?.paymentMethod.typeOf === paymentMethodType.Cash">{{ 'common.paymentMethodType.cash' | translate }}</span>
+                        <span
+                            *ngIf="(purchase | async)?.paymentMethod.typeOf === paymentMethodType.Account">{{ 'common.paymentMethodType.account' | translate }}</span>
+                        <span
+                            *ngIf="(purchase | async)?.paymentMethod.typeOf === paymentMethodType.CreditCard">{{ 'common.paymentMethodType.creditCard' | translate }}</span>
+                        <span
+                            *ngIf="(purchase | async)?.paymentMethod.typeOf === paymentMethodType.EMoney">{{ 'common.paymentMethodType.eMoney' | translate }}</span>
+                        <span
+                            *ngIf="(purchase | async)?.paymentMethod.typeOf === paymentMethodType.MovieTicket">{{ 'common.paymentMethodType.movieTicket' | translate }}</span>
+                        <span
+                            *ngIf="(purchase | async)?.paymentMethod.typeOf === paymentMethodType.Others 
                                 && !(purchase | async)?.paymentMethod.category">{{ 'common.paymentMethodType.others' | translate }}</span>
-                            <span
-                                *ngIf="(purchase | async)?.paymentMethod.typeOf === paymentMethodType.Others 
+                        <span
+                            *ngIf="(purchase | async)?.paymentMethod.typeOf === paymentMethodType.Others 
                                 && (purchase | async)?.paymentMethod.category === 'RegiGrow'">{{ 'common.paymentMethodType.regiGrow' | translate }}</span>
-                            <span
-                                *ngIf="(purchase | async)?.paymentMethod.typeOf === paymentMethodType.Others 
+                        <span
+                            *ngIf="(purchase | async)?.paymentMethod.typeOf === paymentMethodType.Others 
                                 && (purchase | async)?.paymentMethod.category !== 'RegiGrow' 
                                 && (purchase | async)?.paymentMethod.category">{{ getCustomPaymentMethodTypeName((purchase | async)?.paymentMethod) | changeLanguage }}</span>
                     </p>
@@ -110,8 +115,10 @@
         </div>
 
         <div class="buttons mx-auto text-center">
-            <button type="submit" class="btn btn-primary btn-block py-3 mb-3" [disabled]="isLoading | async"
+            <button *ngIf="!environment.PURCHASE_WARNING" type="submit" class="btn btn-primary btn-block py-3 mb-3" [disabled]="isLoading | async"
                 (click)="onSubmit()">{{ 'purchase.confirm.next' | translate }}</button>
+            <button *ngIf="environment.PURCHASE_WARNING" type="submit" class="btn btn-primary btn-block py-3 mb-3" [disabled]="isLoading | async"
+                (click)="onSubmit()">{{ 'purchase.confirm.consent' | translate }}</button>
             <button *ngIf="amount > 0" type="button" class="btn btn-link"
                 routerLink="/purchase/payment">{{ 'purchase.confirm.prev' | translate }}</button>
             <div *ngIf="amount === 0 && environment.VIEW_TYPE === viewType.Cinema">
