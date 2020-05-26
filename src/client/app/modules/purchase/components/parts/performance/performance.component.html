@@ -1,13 +1,18 @@
 <div class="row mx-0 border boder-gray rounded p-3 py-md-3 text-md-center d-md-block align-items-center pointer h-100"
     [ngClass]="{ 
                 'bg-white': performance.isSales() && !performance.isSeatStatus('danger'), 
-                'bg-dark-gray text-light-gray': !performance.isSales() || performance.isSeatStatus('danger') || performance.isInfinitetock()
-                }" [class.not-event]="performance.isInfinitetock()" (click)="select.emit(performance.screeningEvent)">
+                'bg-dark-gray text-light-gray': !performance.isSales() 
+                || performance.isSeatStatus('danger') 
+                || (performance.isInfinitetock() && environment.VIEW_TYPE === viewType.Cinema)
+                }" [class.not-event]="performance.isInfinitetock() && environment.VIEW_TYPE === viewType.Cinema"
+    (click)="select.emit(performance.screeningEvent)">
     <div class="col-md-12 col-8 px-0">
         <div class="mb-1 text-small screen-name">
-            <p *ngIf="performance.screeningEvent.location.address | changeLanguage" class="text-overflow-ellipsis mr-2 d-inline-block d-md-block">
+            <p *ngIf="performance.screeningEvent.location.address | changeLanguage"
+                class="text-overflow-ellipsis mr-2 d-inline-block d-md-block">
                 {{ performance.screeningEvent.location.address | changeLanguage }}</p>
-            <p class="text-overflow-ellipsis d-inline-block d-md-block">{{ performance.screeningEvent.location.name | changeLanguage }}</p>
+            <p class="text-overflow-ellipsis d-inline-block d-md-block">
+                {{ performance.screeningEvent.location.name | changeLanguage }}</p>
         </div>
         <div>
             <strong class="text-large">{{ moment(performance.screeningEvent.startDate).format('HH:mm') }}</strong>
