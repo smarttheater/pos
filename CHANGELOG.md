@@ -12,6 +12,10 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/).
 
 ### Security
 
+## 3.0.39 - 2020-05-28
+### Changed
+ - スケジュールUI変更
+
 ## 3.0.38 - 2020-05-22
 ### Added
  - 座席なし判定追加
