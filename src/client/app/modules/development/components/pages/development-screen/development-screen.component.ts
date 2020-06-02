@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { factory } from '@cinerino/api-javascript-client';
 import { select, Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
+import { Models } from '../../../../..';
 import { getEnvironment } from '../../../../../../environments/environment';
-import { IScreen } from '../../../../../models';
 import { CinerinoService } from '../../../../../services';
 import * as reducers from '../../../../../store/reducers';
 
@@ -17,7 +17,7 @@ export class DevelopmentScreenComponent implements OnInit {
     public theaterCode: string;
     public screenCode: string;
     public isLoading: Observable<boolean>;
-    public screenData?: IScreen;
+    public screenData?: Models.Purchase.Screen.IScreen;
     public theaters: factory.chevre.place.movieTheater.IPlaceWithoutScreeningRoom[];
     public screens: factory.chevre.place.screeningRoom.IPlace[];
 

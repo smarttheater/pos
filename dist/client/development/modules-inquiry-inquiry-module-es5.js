@@ -71,15 +71,15 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
     /* harmony import */
 
 
-    var _environments_environment__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(
-    /*! ../../../../../../environments/environment */
-    "./environments/environment.ts");
+    var ___WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(
+    /*! ../../../../.. */
+    "./app/index.ts");
     /* harmony import */
 
 
-    var _functions__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(
-    /*! ../../../../../functions */
-    "./app/functions/index.ts");
+    var _environments_environment__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(
+    /*! ../../../../../../environments/environment */
+    "./environments/environment.ts");
     /* harmony import */
 
 
@@ -456,7 +456,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
         this.translate = translate;
         this.moment = moment__WEBPACK_IMPORTED_MODULE_5__;
         this.orderStatus = _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_2__["factory"].orderStatus;
-        this.environment = Object(_environments_environment__WEBPACK_IMPORTED_MODULE_6__["getEnvironment"])();
+        this.environment = Object(_environments_environment__WEBPACK_IMPORTED_MODULE_7__["getEnvironment"])();
       }
 
       _createClass(InquiryConfirmComponent, [{
@@ -478,7 +478,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
             }
 
             var order = value.order;
-            _this.eventOrders = Object(_functions__WEBPACK_IMPORTED_MODULE_7__["order2EventOrders"])({
+            _this.eventOrders = ___WEBPACK_IMPORTED_MODULE_6__["Functions"].Purchase.order2EventOrders({
               order: order
             });
           }).unsubscribe();

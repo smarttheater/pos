@@ -1,4 +1,5 @@
-import { IReservationSeat } from '..';
+import { IReservationSeat } from './reservation';
+
 
 export interface ISize {
     w: number;

@@ -1,7 +1,7 @@
 
 import { factory } from '@cinerino/api-javascript-client';
 import { createAction, props } from '@ngrx/store';
-import { IDecodeResult } from '../../models';
+import { Models } from '../..';
 const LABEL = '[Admission]';
 
 export const remove = createAction(
@@ -51,7 +51,7 @@ export const checkSuccess = createAction(
     props<{
         qrcodeToken: {
             token?: string;
-            decodeResult?: IDecodeResult;
+            decodeResult?: Models.Admission.IDecodeResult;
             availableReservation?: factory.chevre.reservation.IReservation<factory.chevre.reservationType.EventReservation>;
             checkTokenActions: factory.action.check.token.IAction[];
             statusCode: number;

@@ -5,7 +5,7 @@ import { select, Store } from '@ngrx/store';
 import * as moment from 'moment';
 import { BsDatepickerContainerComponent, BsDatepickerDirective, BsLocaleService } from 'ngx-bootstrap/datepicker';
 import { Observable } from 'rxjs';
-import { iOSDatepickerTapBugFix, IScreeningEventWork, screeningEventsToWorkEvents } from '../../../../../functions';
+import { Functions } from '../../../../..';
 import { AdmissionService, MasterService, UserService } from '../../../../../services';
 import * as reducers from '../../../../../store/reducers';
 
@@ -19,7 +19,7 @@ export class AdmissionScheduleComponent implements OnInit, OnDestroy {
     @ViewChild('datepicker', { static: true }) private datepicker: BsDatepickerDirective;
     public admission: Observable<reducers.IAdmissionState>;
     public user: Observable<reducers.IUserState>;
-    public screeningWorkEvents: IScreeningEventWork[];
+    public screeningWorkEvents: Functions.Purchase.IScreeningEventWork[];
     public moment: typeof moment = moment;
     public scheduleDate: Date;
     private updateTimer: any;
@@ -78,7 +78,7 @@ export class AdmissionScheduleComponent implements OnInit, OnDestroy {
                 startFrom: moment(scheduleDate).toDate(),
                 startThrough: moment(scheduleDate).add(1, 'day').toDate()
             });
-            this.screeningWorkEvents = screeningEventsToWorkEvents({ screeningEvents });
+            this.screeningWorkEvents = Functions.Purchase.screeningEvents2WorkEvents({ screeningEvents });
             this.update();
         } catch (error) {
             console.error(error);
@@ -128,7 +128,7 @@ export class AdmissionScheduleComponent implements OnInit, OnDestroy {
      * iOS bugfix（2回タップしないと選択できない）
      */
     public onShowPicker(container: BsDatepickerContainerComponent) {
-        iOSDatepickerTapBugFix(container, [
+        Functions.Util.iOSDatepickerTapBugFix(container, [
             this.datepicker
         ]);
     }

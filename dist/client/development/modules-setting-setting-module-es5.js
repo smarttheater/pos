@@ -63,15 +63,15 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
     /* harmony import */
 
 
-    var _environments_environment__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(
-    /*! ../../../../../../environments/environment */
-    "./environments/environment.ts");
+    var ___WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(
+    /*! ../../../../.. */
+    "./app/index.ts");
     /* harmony import */
 
 
-    var _models__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(
-    /*! ../../../../../models */
-    "./app/models/index.ts");
+    var _environments_environment__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(
+    /*! ../../../../../../environments/environment */
+    "./environments/environment.ts");
     /* harmony import */
 
 
@@ -1893,10 +1893,10 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
         this.orderService = orderService;
         this.translate = translate;
         this.router = router;
-        this.printers = _models__WEBPACK_IMPORTED_MODULE_7__["printers"];
-        this.connectionType = _models__WEBPACK_IMPORTED_MODULE_7__["ConnectionType"];
-        this.viewType = _models__WEBPACK_IMPORTED_MODULE_7__["ViewType"];
-        this.environment = Object(_environments_environment__WEBPACK_IMPORTED_MODULE_6__["getEnvironment"])();
+        this.printers = ___WEBPACK_IMPORTED_MODULE_6__["Models"].Util.Printer.printers;
+        this.connectionType = ___WEBPACK_IMPORTED_MODULE_6__["Models"].Util.Printer.ConnectionType;
+        this.viewType = ___WEBPACK_IMPORTED_MODULE_6__["Models"].Util.ViewType;
+        this.environment = Object(_environments_environment__WEBPACK_IMPORTED_MODULE_7__["getEnvironment"])();
       }
       /**
        * 初期化
@@ -1962,7 +1962,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
                     this.settingForm = this.formBuilder.group({
                       theaterBranchCode: ['', [_angular_forms__WEBPACK_IMPORTED_MODULE_1__["Validators"].required]],
                       posId: [''],
-                      printerType: [_models__WEBPACK_IMPORTED_MODULE_7__["ConnectionType"].None],
+                      printerType: [___WEBPACK_IMPORTED_MODULE_6__["Models"].Util.Printer.ConnectionType.None],
                       printerIpAddress: ['']
                     });
                     profile.forEach(function (p) {
@@ -2234,7 +2234,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "changePrinterType",
         value: function changePrinterType() {
-          if (this.settingForm.controls.printerType.value === _models__WEBPACK_IMPORTED_MODULE_7__["ConnectionType"].StarBluetooth) {
+          if (this.settingForm.controls.printerType.value === ___WEBPACK_IMPORTED_MODULE_6__["Models"].Util.Printer.ConnectionType.StarBluetooth) {
             this.settingForm.controls.printerIpAddress.setValue(this.translate.instant('setting.starBluetoothAddress'));
           }
         }

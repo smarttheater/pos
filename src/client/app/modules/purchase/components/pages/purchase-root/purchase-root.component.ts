@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { select, Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
+import { Models } from '../../../../..';
 import { getEnvironment } from '../../../../../../environments/environment';
-import { ViewType } from '../../../../../models';
 import { PurchaseService } from '../../../../../services';
 import * as reducers from '../../../../../store/reducers';
 
@@ -32,7 +32,7 @@ export class PurchaseRootComponent implements OnInit {
                 await this.purchaseService.cancelTransaction();
             }
             this.purchaseService.delete();
-            if (this.environment.VIEW_TYPE === ViewType.Cinema) {
+            if (this.environment.VIEW_TYPE === Models.Util.ViewType.Cinema) {
                 this.router.navigate(['/purchase/cinema/schedule']);
                 return;
             }

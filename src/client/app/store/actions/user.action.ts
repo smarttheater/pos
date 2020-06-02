@@ -1,6 +1,6 @@
 import { factory } from '@cinerino/api-javascript-client';
 import { createAction, props } from '@ngrx/store';
-import { IPrinter } from '../../models';
+import { Models } from '../..';
 
 const LABEL = '[User]';
 
@@ -14,7 +14,7 @@ export const updateAll = createAction(
         pos?: factory.chevre.place.movieTheater.IPOS;
         theater: factory.chevre.place.movieTheater.IPlaceWithoutScreeningRoom;
         customerContact: factory.transaction.placeOrder.ICustomerProfile;
-        printer: IPrinter;
+        printer: Models.Util.Printer.IPrinter;
     }>()
 );
 

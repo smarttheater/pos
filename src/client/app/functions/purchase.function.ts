@@ -1,20 +1,20 @@
 import { factory } from '@cinerino/api-javascript-client';
 import * as moment from 'moment';
 import { getEnvironment } from '../../environments/environment';
-import { IMovieTicket, IReservation, IReservationSeat, Performance } from '../models';
+import { Purchase } from '../models';
 
 /**
  * 作品別イベント
  */
 export interface IScreeningEventWork {
     info: factory.chevre.event.screeningEvent.IEvent;
-    data: Performance[];
+    data: Purchase.Performance[];
 }
 
 /**
  * 作品別イベントへ変換
  */
-export function screeningEventsToWorkEvents(params: {
+export function screeningEvents2WorkEvents(params: {
     screeningEvents: factory.chevre.event.screeningEvent.IEvent[]
 }) {
     const films: IScreeningEventWork[] = [];
@@ -26,10 +26,10 @@ export function screeningEventsToWorkEvents(params: {
         if (registered === undefined) {
             films.push({
                 info: screeningEvent,
-                data: [new Performance(screeningEvent)]
+                data: [new Purchase.Performance(screeningEvent)]
             });
         } else {
-            registered.data.push(new Performance(screeningEvent));
+            registered.data.push(new Purchase.Performance(screeningEvent));
         }
     });
 
@@ -129,7 +129,7 @@ export function isAvailabilityMovieTicket(checkMovieTicketAction: factory.action
  */
 export function createMovieTicketsFromAuthorizeSeatReservation(args: {
     authorizeSeatReservation: factory.action.authorize.offer.seatReservation.IAction<factory.service.webAPI.Identifier.Chevre>;
-    pendingMovieTickets: IMovieTicket[];
+    pendingMovieTickets: Purchase.MovieTicket.IMovieTicket[];
     seller: factory.seller.IOrganization<factory.seller.IAttributes<factory.organizationType>>
 }) {
     const results: factory.paymentMethod.paymentCard.movieTicket.IMovieTicket[] = [];
@@ -249,7 +249,7 @@ export function getTicketPrice(
  */
 export function getItemPrice(params: {
     priceComponents?: factory.chevre.event.screeningEvent.ITicketPriceComponent[];
-    seat?: IReservationSeat;
+    seat?: Purchase.Reservation.IReservationSeat;
 }) {
     let price = 0;
     // 券種価格
@@ -452,7 +452,7 @@ export function getRemainingSeatLength(params: {
  * 適用座席タイプ判定
  */
 export function isEligibleSeatingType(params: {
-    seat: IReservationSeat;
+    seat: Purchase.Reservation.IReservationSeat;
     eligibleSeatingType: factory.chevre.categoryCode.ICategoryCode[]
 }) {
     const seat = params.seat;
@@ -477,7 +477,7 @@ export interface IAvailableSeat extends factory.chevre.reservation.ISeat<factory
  * 空席取得
  */
 export function getEmptySeat(params: {
-    reservations: IReservation[];
+    reservations: Purchase.Reservation.IReservation[];
     screeningEventSeats: factory.chevre.place.seat.IPlaceWithOffer[];
 }) {
     const reservations = params.reservations;
@@ -511,7 +511,7 @@ export function getEmptySeat(params: {
  * 予約可能席取得
  */
 export function selectAvailableSeat(params: {
-    reservations: IReservation[];
+    reservations: Purchase.Reservation.IReservation[];
     screeningEventSeats: factory.chevre.place.seat.IPlaceWithOffer[];
 }) {
     const reservations = params.reservations;

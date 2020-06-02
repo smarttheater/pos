@@ -5,9 +5,8 @@ import { TranslateService } from '@ngx-translate/core';
 import * as moment from 'moment';
 import { BsDatepickerContainerComponent, BsDatepickerDirective, BsLocaleService } from 'ngx-bootstrap/datepicker';
 import { Observable } from 'rxjs';
+import { Functions, Models } from '../../../../..';
 import { getEnvironment } from '../../../../../../environments/environment';
-import { input2ReservationSearchCondition, iOSDatepickerTapBugFix } from '../../../../../functions';
-import { IReservationSearchConditions } from '../../../../../models';
 import { DownloadService, ReservationService, UserService, UtilService } from '../../../../../services';
 import * as reducers from '../../../../../store/reducers';
 
@@ -26,8 +25,8 @@ export class ReservationDownloadComponent implements OnInit {
     public moment: typeof moment = moment;
     public reservationStatus = factory.chevre.reservationStatusType;
     public limit: number;
-    public conditions: IReservationSearchConditions;
-    public confirmedConditions: IReservationSearchConditions;
+    public conditions: Models.Reservation.IReservationSearchConditions;
+    public confirmedConditions: Models.Reservation.IReservationSearchConditions;
     public environment = getEnvironment();
     @ViewChild('reservationDateFrom', { static: true }) private reservationDateFrom: BsDatepickerDirective;
     @ViewChild('reservationDateThrough', { static: true }) private reservationDateThrough: BsDatepickerDirective;
@@ -88,7 +87,7 @@ export class ReservationDownloadComponent implements OnInit {
         }
         this.utilService.loadStart({ process: 'load' });
         try {
-            const params = input2ReservationSearchCondition({
+            const params = Functions.Reservation.input2ReservationSearchCondition({
                 input: this.confirmedConditions,
                 theater: (await this.userService.getData()).theater,
             });
@@ -135,7 +134,7 @@ export class ReservationDownloadComponent implements OnInit {
      * iOS bugfix（2回タップしないと選択できない）
      */
     public onShowPicker(container: BsDatepickerContainerComponent) {
-        iOSDatepickerTapBugFix(container, [
+        Functions.Util.iOSDatepickerTapBugFix(container, [
             this.reservationDateFrom,
             this.reservationDateThrough,
             this.eventStartDateFrom,

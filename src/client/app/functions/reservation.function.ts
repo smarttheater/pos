@@ -1,6 +1,6 @@
 import { factory } from '@cinerino/api-javascript-client';
 import * as moment from 'moment';
-import { IReservationSearchConditions } from '../models';
+import { Models } from '..';
 import { getItemPrice } from './purchase.function';
 
 /**
@@ -36,7 +36,7 @@ export function reservation2report(
  * 入力データを検索条件へ変換
  */
 export function input2ReservationSearchCondition(params: {
-    input: IReservationSearchConditions;
+    input: Models.Reservation.IReservationSearchConditions;
     theater?: factory.chevre.place.movieTheater.IPlaceWithoutScreeningRoom;
     page?: number;
     limit?: number;

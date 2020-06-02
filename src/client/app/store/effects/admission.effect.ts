@@ -5,8 +5,7 @@ import { INTERNAL_SERVER_ERROR, OK } from 'http-status';
 import * as decode from 'jwt-decode';
 import * as moment from 'moment';
 import { map, mergeMap } from 'rxjs/operators';
-import { getProject } from '../../functions';
-import { IDecodeResult } from '../../models';
+import { Functions, Models } from '../..';
 import { CinerinoService } from '../../services';
 import { admissionAction } from '../actions';
 
@@ -58,13 +57,13 @@ export class AdmissionEffects {
             try {
                 await this.cinerino.getServices();
                 const { token } = await this.cinerino.admin.ownershipInfo.getToken({ code });
-                const decodeResult = decode<IDecodeResult>(token);
+                const decodeResult = decode<Models.Admission.IDecodeResult>(token);
                 const checkTokenActions =
                     (await this.cinerino.admin.ownershipInfo.searchCheckTokenActions({ id: decodeResult.id })).data;
                 const searchResult =
                     await this.cinerino.reservation.search<factory.chevre.reservationType.EventReservation>({
                         typeOf: factory.chevre.reservationType.EventReservation,
-                        project: { ids: [getProject().projectId] },
+                        project: { ids: [Functions.Util.getProject().projectId] },
                         reservationStatuses: [factory.chevre.reservationStatusType.ReservationConfirmed],
                         reservationFor: {
                             typeOf: factory.chevre.eventType.ScreeningEvent,

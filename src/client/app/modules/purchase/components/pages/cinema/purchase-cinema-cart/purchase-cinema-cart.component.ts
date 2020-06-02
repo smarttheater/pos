@@ -5,8 +5,8 @@ import { select, Store } from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
 import * as moment from 'moment';
 import { Observable } from 'rxjs';
+import { Functions } from '../../../../../..';
 import { getEnvironment } from '../../../../../../../environments/environment';
-import { getAmount } from '../../../../../../functions';
 import { PurchaseService, UtilService } from '../../../../../../services';
 import * as reducers from '../../../../../../store/reducers';
 
@@ -38,7 +38,7 @@ export class PurchaseCinemaCartComponent implements OnInit {
         this.isLoading = this.store.pipe(select(reducers.getLoading));
         this.purchaseService.unsettledDelete();
         const purchase = await this.purchaseService.getData();
-        this.amount = getAmount(purchase.authorizeSeatReservations);
+        this.amount = Functions.Purchase.getAmount(purchase.authorizeSeatReservations);
     }
 
     public removeItem(

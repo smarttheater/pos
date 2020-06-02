@@ -5,9 +5,8 @@ import { select, Store } from '@ngrx/store';
 import * as moment from 'moment';
 import { Observable, race } from 'rxjs';
 import { take, tap } from 'rxjs/operators';
+import { Functions, Models } from '..';
 import { getEnvironment } from '../../environments/environment';
-import { sleep } from '../functions';
-import { IReservation, IReservationSeat, Performance } from '../models';
 import { purchaseAction } from '../store/actions';
 import * as reducers from '../store/reducers';
 import { CinerinoService } from './cinerino.service';
@@ -202,7 +201,7 @@ export class PurchaseService {
             let page = 1;
             let roop = true;
             let screeningEventSeats: factory.chevre.place.seat.IPlaceWithOffer[] = [];
-            if (!new Performance(screeningEvent).isTicketedSeat()) {
+            if (!new Models.Purchase.Performance(screeningEvent).isTicketedSeat()) {
                 return screeningEventSeats;
             }
             await this.cinerinoService.getServices();
@@ -215,7 +214,7 @@ export class PurchaseService {
                 screeningEventSeats = screeningEventSeats.concat(searchResult.data);
                 page++;
                 roop = searchResult.data.length === limit;
-                await sleep(500);
+                await Functions.Util.sleep(500);
             }
             this.utilService.loadEnd();
             return screeningEventSeats;
@@ -229,14 +228,14 @@ export class PurchaseService {
     /**
      * 座席選択
      */
-    public selectSeats(seats: IReservationSeat[]) {
+    public selectSeats(seats: Models.Purchase.Reservation.IReservationSeat[]) {
         this.store.dispatch(purchaseAction.selectSeats({ seats }));
     }
 
     /**
      * 座席選択解除
      */
-    public cancelSeats(seats: IReservationSeat[]) {
+    public cancelSeats(seats: Models.Purchase.Reservation.IReservationSeat[]) {
         this.store.dispatch(purchaseAction.cancelSeats({ seats }));
     }
 
@@ -269,7 +268,7 @@ export class PurchaseService {
     /**
      * チケット選択
     */
-    public selectTickets(reservations: IReservation[]) {
+    public selectTickets(reservations: Models.Purchase.Reservation.IReservation[]) {
         this.store.dispatch(purchaseAction.selectTickets({ reservations }));
     }
 
@@ -277,7 +276,7 @@ export class PurchaseService {
      * 座席仮予約
      */
     public async temporaryReservation(params: {
-        reservations: IReservation[];
+        reservations: Models.Purchase.Reservation.IReservation[];
         additionalTicketText?: string;
         screeningEventSeats: factory.chevre.place.seat.IPlaceWithOffer[];
     }) {

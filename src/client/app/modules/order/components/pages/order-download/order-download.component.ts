@@ -6,9 +6,8 @@ import * as moment from 'moment';
 import { BsDatepickerDirective, BsLocaleService } from 'ngx-bootstrap/datepicker';
 import { BsDatepickerContainerComponent } from 'ngx-bootstrap/datepicker/themes/bs/bs-datepicker-container.component';
 import { Observable } from 'rxjs';
+import { Functions, Models } from '../../../../..';
 import { getEnvironment } from '../../../../../../environments/environment';
-import { buildQueryString, input2OrderSearchCondition, iOSDatepickerTapBugFix, order2EventOrders } from '../../../../../functions';
-import { CsvFormat, IOrderSearchConditions, OrderActions } from '../../../../../models';
 import { DownloadService, OrderService, UserService, UtilService } from '../../../../../services';
 import * as reducers from '../../../../../store/reducers';
 
@@ -25,15 +24,15 @@ export class OrderDownloadComponent implements OnInit {
     public moment: typeof moment = moment;
     public orderStatus: typeof factory.orderStatus = factory.orderStatus;
     public paymentMethodType: typeof factory.paymentMethodType = factory.paymentMethodType;
-    public conditions: IOrderSearchConditions;
-    public confirmedConditions: IOrderSearchConditions;
+    public conditions: Models.Order.Search.IOrderSearchConditions;
+    public confirmedConditions: Models.Order.Search.IOrderSearchConditions;
     public selectedOrders: factory.order.IOrder[];
-    public actionSelect: OrderActions | '';
-    public buildQueryString = buildQueryString;
+    public actionSelect: Models.Order.Action.OrderActions | '';
+    public buildQueryString = Functions.Util.buildQueryString;
     public environment = getEnvironment();
     public encodingFormat = factory.encodingFormat;
-    public order2EventOrders = order2EventOrders;
-    public csvFormat = CsvFormat;
+    public order2EventOrders = Functions.Purchase.order2EventOrders;
+    public csvFormat = Models.Order.Download.CsvFormat;
     @ViewChild('orderDateFrom', { static: true }) private orderDateFrom: BsDatepickerDirective;
     @ViewChild('orderDateThrough', { static: true }) private orderDateThrough: BsDatepickerDirective;
     @ViewChild('eventStartDateFrom', { static: true }) private eventStartDateFrom: BsDatepickerDirective;
@@ -117,7 +116,7 @@ export class OrderDownloadComponent implements OnInit {
         }
         this.utilService.loadStart({ process: 'load' });
         try {
-            const params = input2OrderSearchCondition({
+            const params = Functions.Order.input2OrderSearchCondition({
                 input: this.confirmedConditions,
                 theater: (await this.userService.getData()).theater,
             });
@@ -176,7 +175,7 @@ export class OrderDownloadComponent implements OnInit {
      * iOS bugfix（2回タップしないと選択できない）
      */
     public onShowPicker(container: BsDatepickerContainerComponent) {
-        iOSDatepickerTapBugFix(container, [
+        Functions.Util.iOSDatepickerTapBugFix(container, [
             this.orderDateFrom,
             this.orderDateThrough,
             this.eventStartDateFrom,

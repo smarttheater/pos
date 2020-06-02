@@ -6,13 +6,8 @@ import { TranslateService } from '@ngx-translate/core';
 import * as moment from 'moment';
 import { BsModalService } from 'ngx-bootstrap/modal';
 import { Observable } from 'rxjs';
+import { Functions, Models } from '../../../../../..';
 import { getEnvironment } from '../../../../../../../environments/environment';
-import {
-    getRemainingSeatLength,
-    IScreeningEventWork,
-    screeningEventsToWorkEvents
-} from '../../../../../../functions';
-import { IReservation, Performance } from '../../../../../../models';
 import { MasterService, PurchaseService, UserService, UtilService } from '../../../../../../services';
 import * as reducers from '../../../../../../store/reducers';
 import {
@@ -30,7 +25,7 @@ export class PurchaseEventTicketComponent implements OnInit, OnDestroy {
     public master: Observable<reducers.IMasterState>;
     public error: Observable<string | null>;
     public isLoading: Observable<boolean>;
-    public screeningWorkEvents: IScreeningEventWork[];
+    public screeningWorkEvents: Functions.Purchase.IScreeningEventWork[];
     public moment: typeof moment = moment;
     public environment = getEnvironment();
     private updateTimer: any;
@@ -98,7 +93,7 @@ export class PurchaseEventTicketComponent implements OnInit, OnDestroy {
                 startFrom: moment(scheduleDate).toDate(),
                 startThrough: moment(scheduleDate).add(1, 'day').toDate()
             });
-            this.screeningWorkEvents = screeningEventsToWorkEvents({ screeningEvents });
+            this.screeningWorkEvents = Functions.Purchase.screeningEvents2WorkEvents({ screeningEvents });
             this.update();
         } catch (error) {
             console.error(error);
@@ -155,7 +150,7 @@ export class PurchaseEventTicketComponent implements OnInit, OnDestroy {
         if (screeningEvent === undefined || screen === undefined) {
             return;
         }
-        const performance = new Performance(screeningEvent);
+        const performance = new Models.Purchase.Performance(screeningEvent);
         if (!performance.isInfinitetock()
             && !screen.openSeatingAllowed
             && performance.isTicketedSeat()) {
@@ -172,7 +167,7 @@ export class PurchaseEventTicketComponent implements OnInit, OnDestroy {
                 screeningEventSeats,
                 screeningEvent,
                 cb: (params: {
-                    reservations: IReservation[];
+                    reservations: Models.Purchase.Reservation.IReservation[];
                     additionalTicketText?: string;
                 }) => {
                     this.selectTicket(params);
@@ -185,7 +180,7 @@ export class PurchaseEventTicketComponent implements OnInit, OnDestroy {
      * 券種選択
      */
     private async selectTicket(params: {
-        reservations: IReservation[];
+        reservations: Models.Purchase.Reservation.IReservation[];
         additionalTicketText?: string;
     }) {
         const reservations = params.reservations;
@@ -204,8 +199,8 @@ export class PurchaseEventTicketComponent implements OnInit, OnDestroy {
             this.screeningEventSeats = await this.purchaseService.getScreeningEventSeats();
             const purchase = await this.purchaseService.getData();
             if (purchase.screeningEvent !== undefined
-                && new Performance(purchase.screeningEvent).isTicketedSeat()) {
-                const remainingSeatLength = getRemainingSeatLength({
+                && new Models.Purchase.Performance(purchase.screeningEvent).isTicketedSeat()) {
+                const remainingSeatLength = Functions.Purchase.getRemainingSeatLength({
                     screeningEventSeats: this.screeningEventSeats,
                     screeningEvent: purchase.screeningEvent
                 });

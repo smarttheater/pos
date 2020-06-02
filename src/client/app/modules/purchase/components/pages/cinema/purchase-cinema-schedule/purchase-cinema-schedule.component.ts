@@ -8,8 +8,8 @@ import * as moment from 'moment';
 import { BsDatepickerContainerComponent, BsDatepickerDirective, BsLocaleService } from 'ngx-bootstrap/datepicker';
 import { BsModalService } from 'ngx-bootstrap/modal';
 import { Observable } from 'rxjs';
+import { Functions } from '../../../../../..';
 import { getEnvironment } from '../../../../../../../environments/environment';
-import { iOSDatepickerTapBugFix, IScreeningEventWork, screeningEventsToWorkEvents } from '../../../../../../functions';
 import { MasterService, PurchaseService, UserService, UtilService } from '../../../../../../services';
 import * as reducers from '../../../../../../store/reducers';
 import {
@@ -26,7 +26,7 @@ export class PurchaseCinemaScheduleComponent implements OnInit, OnDestroy {
     public error: Observable<string | null>;
     public master: Observable<reducers.IMasterState>;
     public user: Observable<reducers.IUserState>;
-    public screeningWorkEvents: IScreeningEventWork[];
+    public screeningWorkEvents: Functions.Purchase.IScreeningEventWork[];
     public moment = moment;
     public scheduleDate: Date;
     public environment = getEnvironment();
@@ -101,7 +101,7 @@ export class PurchaseCinemaScheduleComponent implements OnInit, OnDestroy {
                 startFrom: moment(scheduleDate).toDate(),
                 startThrough: moment(scheduleDate).add(1, 'day').toDate()
             });
-            this.screeningWorkEvents = screeningEventsToWorkEvents({ screeningEvents });
+            this.screeningWorkEvents = Functions.Purchase.screeningEvents2WorkEvents({ screeningEvents });
             this.update();
         } catch (error) {
             console.error(error);
@@ -222,7 +222,7 @@ export class PurchaseCinemaScheduleComponent implements OnInit, OnDestroy {
      * iOS bugfix（2回タップしないと選択できない）
      */
     public onShowPicker(container: BsDatepickerContainerComponent) {
-        iOSDatepickerTapBugFix(container, [
+        Functions.Util.iOSDatepickerTapBugFix(container, [
             this.datepicker
         ]);
     }

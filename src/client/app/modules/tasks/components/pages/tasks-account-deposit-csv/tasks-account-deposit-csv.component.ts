@@ -7,7 +7,7 @@ import * as json2csv from 'json2csv';
 import * as moment from 'moment';
 import { BsDatepickerContainerComponent, BsDatepickerDirective, BsLocaleService } from 'ngx-bootstrap/datepicker';
 import { Observable } from 'rxjs';
-import { iOSDatepickerTapBugFix, sleep } from '../../../../../functions';
+import { Functions } from '../../../../..';
 import { CinerinoService, DownloadService, UtilService } from '../../../../../services';
 import * as reducers from '../../../../../store/reducers';
 
@@ -278,7 +278,7 @@ export class TasksAccountDepositCSVComponent implements OnInit {
                         ? programMembership.totalCount - 1 - depositedCount : 0, // 初年度は自動なので-1
                     pointTransferActions,
                 });
-                await sleep(1000);
+                await Functions.Util.sleep(1000);
                 loopCount++;
             }
             if (this.years === 0) {
@@ -331,7 +331,7 @@ export class TasksAccountDepositCSVComponent implements OnInit {
                     data.status = false;
                     console.error(error);
                 }
-                await sleep(1000);
+                await Functions.Util.sleep(1000);
             }
         } catch (error) {
             console.error(error);
@@ -387,7 +387,7 @@ export class TasksAccountDepositCSVComponent implements OnInit {
      * iOS bugfix（2回タップしないと選択できない）
      */
     public onShowPicker(container: BsDatepickerContainerComponent) {
-        iOSDatepickerTapBugFix(container, [
+        Functions.Util.iOSDatepickerTapBugFix(container, [
             this.orderDateFrom,
             this.orderDateThrough
         ]);

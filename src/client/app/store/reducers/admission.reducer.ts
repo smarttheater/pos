@@ -1,7 +1,7 @@
 import { factory } from '@cinerino/api-javascript-client';
 import { Action, createReducer, on } from '@ngrx/store';
 import { IState } from '.';
-import { IDecodeResult } from '../../models';
+import { Models } from '../..';
 import { admissionAction } from '../actions';
 
 export interface IAdmissionState {
@@ -10,7 +10,7 @@ export interface IAdmissionState {
     screeningEventReservations: factory.chevre.reservation.IReservation<factory.chevre.reservationType.EventReservation>[];
     qrcodeToken?: {
         token?: string;
-        decodeResult?: IDecodeResult;
+        decodeResult?: Models.Admission.IDecodeResult;
         availableReservation?: factory.chevre.reservation.IReservation<factory.chevre.reservationType.EventReservation>;
         checkTokenActions: factory.action.check.token.IAction[];
         statusCode: number;
