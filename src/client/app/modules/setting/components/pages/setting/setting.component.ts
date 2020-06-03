@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { AbstractControl, FormBuilder, FormControl, FormGroup, ValidatorFn, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, ValidatorFn, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { factory } from '@cinerino/api-javascript-client';
 import { select, Store } from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
-import * as libphonenumber from 'libphonenumber-js';
+import { CountryISO, SearchCountryField, TooltipLabel, } from 'ngx-intl-tel-input';
 import { Observable } from 'rxjs';
 import { Models } from '../../../../..';
 import { getEnvironment } from '../../../../../../environments/environment';
@@ -29,6 +29,9 @@ export class SettingComponent implements OnInit {
     public viewType = Models.Util.ViewType;
     public theaters: factory.chevre.place.movieTheater.IPlaceWithoutScreeningRoom[];
     public environment = getEnvironment();
+    public SearchCountryField = SearchCountryField;
+    public TooltipLabel = TooltipLabel;
+    public CountryISO = CountryISO;
 
     constructor(
         private formBuilder: FormBuilder,
@@ -88,26 +91,26 @@ export class SettingComponent implements OnInit {
                 validators.push(Validators.email);
             }
             if (p.key === 'telephone') {
-                validators.push((control: AbstractControl) => {
-                    const field = control.root.get('telephone');
-                    if (field !== null) {
-                        if (field.value === '') {
-                            return null;
-                        }
-                        const parsedNumber = (new RegExp(/^\+/).test(field.value))
-                            ? libphonenumber.parse(field.value)
-                            : libphonenumber.parse(field.value, 'JP');
-                        if (parsedNumber.phone === undefined) {
-                            return { telephone: true };
-                        }
-                        const isValid = libphonenumber.isValidNumber(parsedNumber);
-                        if (!isValid) {
-                            return { telephone: true };
-                        }
-                    }
+                // validators.push((control: AbstractControl) => {
+                //     const field = control.root.get('telephone');
+                //     if (field !== null) {
+                //         if (field.value === '') {
+                //             return null;
+                //         }
+                //         const parsedNumber = (new RegExp(/^\+/).test(field.value))
+                //             ? libphonenumber.parse(field.value)
+                //             : libphonenumber.parse(field.value, 'JP');
+                //         if (parsedNumber.phone === undefined) {
+                //             return { telephone: true };
+                //         }
+                //         const isValid = libphonenumber.isValidNumber(parsedNumber);
+                //         if (!isValid) {
+                //             return { telephone: true };
+                //         }
+                //     }
 
-                    return null;
-                });
+                //     return null;
+                // });
             }
             this.settingForm.addControl(p.key, new FormControl(p.value, validators));
         });
@@ -194,7 +197,8 @@ export class SettingComponent implements OnInit {
                     email: (this.settingForm.controls.email === undefined)
                         ? undefined : this.settingForm.controls.email.value,
                     telephone: (this.settingForm.controls.telephone === undefined)
-                        ? undefined : this.settingForm.controls.telephone.value,
+                        ? undefined : this.settingForm.controls.telephone.value.e164Number,
+                        // ? undefined : this.settingForm.controls.telephone.value,
                     age: (this.settingForm.controls.age === undefined)
                         ? undefined : this.settingForm.controls.age.value,
                     address: (this.settingForm.controls.address === undefined)
