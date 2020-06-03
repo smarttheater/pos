@@ -1,10 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, ValidatorFn, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { factory } from '@cinerino/api-javascript-client';
 import { select, Store } from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
-import { CountryISO, SearchCountryField, TooltipLabel, } from 'ngx-intl-tel-input';
+import { CountryISO, NgxIntlTelInputComponent, SearchCountryField, TooltipLabel, } from 'ngx-intl-tel-input';
 import { Observable } from 'rxjs';
 import { Models } from '../../../../..';
 import { getEnvironment } from '../../../../../../environments/environment';
@@ -32,6 +32,7 @@ export class SettingComponent implements OnInit {
     public SearchCountryField = SearchCountryField;
     public TooltipLabel = TooltipLabel;
     public CountryISO = CountryISO;
+    @ViewChild('intlTelInput') private intlTelInput: NgxIntlTelInputComponent;
 
     constructor(
         private formBuilder: FormBuilder,
@@ -60,6 +61,16 @@ export class SettingComponent implements OnInit {
             console.error(error);
             this.router.navigate(['/error']);
         }
+        setTimeout(() => {
+            if (this.intlTelInput === undefined) {
+                return;
+            }
+            const findResult = this.intlTelInput.allCountries.find(c => c.iso2 === CountryISO.Japan);
+            if (findResult === undefined) {
+                return;
+            }
+            findResult.placeHolder = this.translate.instant('form.placeholder.telephone');
+        }, 0);
     }
 
     /**
@@ -198,7 +209,7 @@ export class SettingComponent implements OnInit {
                         ? undefined : this.settingForm.controls.email.value,
                     telephone: (this.settingForm.controls.telephone === undefined)
                         ? undefined : this.settingForm.controls.telephone.value.e164Number,
-                        // ? undefined : this.settingForm.controls.telephone.value,
+                    // ? undefined : this.settingForm.controls.telephone.value,
                     age: (this.settingForm.controls.age === undefined)
                         ? undefined : this.settingForm.controls.age.value,
                     address: (this.settingForm.controls.address === undefined)
