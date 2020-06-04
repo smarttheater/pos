@@ -1,7 +1,7 @@
 import { factory } from '@cinerino/api-javascript-client';
 import { Action, createReducer, on } from '@ngrx/store';
 import { IState } from '.';
-import { IPrinter } from '../../models';
+import { Models } from '../..';
 import { userAction } from '../actions';
 
 export interface IUserState {
@@ -20,7 +20,7 @@ export interface IUserState {
     /**
      * プリンター
      */
-    printer?: IPrinter;
+    printer?: Models.Util.Printer.IPrinter;
     /**
      * 言語
      */

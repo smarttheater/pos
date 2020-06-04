@@ -4,8 +4,8 @@ import { factory } from '@cinerino/api-javascript-client';
 import { select, Store } from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
+import { Models } from '../../../../..';
 import { getEnvironment } from '../../../../../../environments/environment';
-import { ViewType } from '../../../../../models';
 import { PurchaseService, UtilService } from '../../../../../services';
 import * as reducers from '../../../../../store/reducers';
 
@@ -17,7 +17,7 @@ import * as reducers from '../../../../../store/reducers';
 export class PurchasePaymentComponent implements OnInit {
     public user: Observable<reducers.IUserState>;
     public paymentMethodType = factory.paymentMethodType;
-    public viewType: typeof ViewType = ViewType;
+    public viewType = Models.Util.ViewType;
     public environment = getEnvironment();
 
     constructor(

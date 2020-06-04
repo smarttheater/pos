@@ -5,8 +5,8 @@ import { select, Store } from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
 import { BsModalService } from 'ngx-bootstrap/modal';
 import { Observable } from 'rxjs';
+import { Functions } from '../../../../..';
 import { getEnvironment } from '../../../../../../environments/environment';
-import { deepCopy } from '../../../../../functions';
 import { IReservation, IReservationTicket } from '../../../../../models/purchase/reservation';
 import { PurchaseService, UtilService } from '../../../../../services';
 import * as reducers from '../../../../../store/reducers';
@@ -135,7 +135,7 @@ export class PurchaseTicketComponent implements OnInit {
                 pendingMovieTickets: purchase.pendingMovieTickets,
                 cb: (ticket: IReservationTicket) => {
                     if (reservation === undefined) {
-                        const reservations = deepCopy<IReservation[]>(purchase.reservations);
+                        const reservations = Functions.Util.deepCopy<IReservation[]>(purchase.reservations);
                         reservations.forEach(r => r.ticket = ticket);
                         this.purchaseService.selectTickets(reservations);
                         return;

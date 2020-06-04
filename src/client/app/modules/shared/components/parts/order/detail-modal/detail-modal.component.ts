@@ -3,14 +3,8 @@ import { factory } from '@cinerino/api-javascript-client';
 import * as moment from 'moment';
 import { BsModalRef } from 'ngx-bootstrap/modal';
 import * as platform from 'platform';
+import { Functions } from '../../../../../..';
 import { getEnvironment } from '../../../../../../../environments/environment';
-import {
-    createCooperationQRCode,
-    createOrderLink,
-    getTransactionAgentIdentifier,
-    IEventOrder,
-    order2EventOrders
-} from '../../../../../../functions';
 
 @Component({
     selector: 'app-order-detail-modal',
@@ -20,13 +14,13 @@ import {
 export class OrderDetailModalComponent implements OnInit {
     @Input() public order: factory.order.IOrder;
     public moment: typeof moment = moment;
-    public eventOrders: IEventOrder[];
+    public eventOrders: Functions.Purchase.IEventOrder[];
     public environment = getEnvironment();
     public qrcode?: string;
-    public getTransactionAgentIdentifier = getTransactionAgentIdentifier;
+    public getTransactionAgentIdentifier = Functions.Order.getTransactionAgentIdentifier;
     public platform = platform;
     public paymentMethodType = factory.paymentMethodType;
-    public createOrderLink = createOrderLink;
+    public createOrderLink = Functions.Order.createOrderLink;
 
     constructor(
         public modal: BsModalRef,
@@ -35,7 +29,7 @@ export class OrderDetailModalComponent implements OnInit {
 
     public async ngOnInit() {
         const order = this.order;
-        this.eventOrders = order2EventOrders({ order: this.order });
+        this.eventOrders = Functions.Purchase.order2EventOrders({ order: this.order });
         const element: HTMLElement = this.elementRef.nativeElement.querySelector('.scroll-vertical');
         setTimeout(() => {
             element.scrollTop = 0;
@@ -53,7 +47,7 @@ export class OrderDetailModalComponent implements OnInit {
                 || (findResult !== undefined && findResult.qrcode !== undefined)) {
                 const qrcodeText = (isRegiGrow) ? this.environment.REGIGROW_QRCODE
                     : (findResult !== undefined && findResult.qrcode !== undefined) ? findResult.qrcode : '';
-                this.qrcode = await createCooperationQRCode({ order, qrcodeText });
+                this.qrcode = await Functions.Order.createCooperationQRCode({ order, qrcodeText });
             }
         } catch (error) {
             console.error(error);

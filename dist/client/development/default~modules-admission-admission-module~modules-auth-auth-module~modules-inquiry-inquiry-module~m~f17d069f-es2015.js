@@ -263,8 +263,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ViewTypeGuardService", function() { return ViewTypeGuardService; });
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "../../node_modules/@angular/core/__ivy_ngcc__/fesm2015/core.js");
 /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/router */ "../../node_modules/@angular/router/__ivy_ngcc__/fesm2015/router.js");
-/* harmony import */ var _environments_environment__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../environments/environment */ "./environments/environment.ts");
-/* harmony import */ var _models__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../models */ "./app/models/index.ts");
+/* harmony import */ var ___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! .. */ "./app/index.ts");
+/* harmony import */ var _environments_environment__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../environments/environment */ "./environments/environment.ts");
 var __awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -295,11 +295,11 @@ class ViewTypeGuardService {
     canActivate(_next, state) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                const viewType = Object(_environments_environment__WEBPACK_IMPORTED_MODULE_2__["getEnvironment"])().VIEW_TYPE;
-                if (state.url.match('/cinema') !== null && viewType !== _models__WEBPACK_IMPORTED_MODULE_3__["ViewType"].Cinema) {
+                const viewType = Object(_environments_environment__WEBPACK_IMPORTED_MODULE_3__["getEnvironment"])().VIEW_TYPE;
+                if (state.url.match('/cinema') !== null && viewType !== ___WEBPACK_IMPORTED_MODULE_2__["Models"].Util.ViewType.Cinema) {
                     throw new Error('viewType not match');
                 }
-                if (state.url.match('/event') !== null && viewType !== _models__WEBPACK_IMPORTED_MODULE_3__["ViewType"].Event) {
+                if (state.url.match('/event') !== null && viewType !== ___WEBPACK_IMPORTED_MODULE_2__["Models"].Util.ViewType.Event) {
                     throw new Error('viewType not match');
                 }
                 return true;

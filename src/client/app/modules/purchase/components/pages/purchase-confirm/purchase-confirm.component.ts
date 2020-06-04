@@ -5,9 +5,8 @@ import { select, Store } from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
 import * as moment from 'moment';
 import { Observable } from 'rxjs';
+import { Functions, Models } from '../../../../..';
 import { getEnvironment } from '../../../../../../environments/environment';
-import { getAmount, getCustomPaymentMethodTypeName } from '../../../../../functions';
-import { ViewType } from '../../../../../models';
 import { PurchaseService, UserService, UtilService } from '../../../../../services';
 import * as reducers from '../../../../../store/reducers';
 
@@ -22,11 +21,11 @@ export class PurchaseConfirmComponent implements OnInit {
     public user: Observable<reducers.IUserState>;
     public moment: typeof moment = moment;
     public paymentMethodType: typeof factory.paymentMethodType = factory.paymentMethodType;
-    public viewType: typeof ViewType = ViewType;
+    public viewType = Models.Util.ViewType;
     public depositAmount: number;
     public amount: number;
     public environment = getEnvironment();
-    public getCustomPaymentMethodTypeName = getCustomPaymentMethodTypeName;
+    public getCustomPaymentMethodTypeName = Functions.Purchase.getCustomPaymentMethodTypeName;
 
     constructor(
         private store: Store<reducers.IState>,
@@ -44,7 +43,7 @@ export class PurchaseConfirmComponent implements OnInit {
         this.amount = 0;
         this.depositAmount = 0;
         this.purchase.subscribe((purchase) => {
-            this.amount = getAmount(purchase.authorizeSeatReservations);
+            this.amount = Functions.Purchase.getAmount(purchase.authorizeSeatReservations);
         }).unsubscribe();
     }
 

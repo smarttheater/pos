@@ -5,8 +5,7 @@ import { select, Store } from '@ngrx/store';
 import * as moment from 'moment';
 import { Observable, race } from 'rxjs';
 import { take, tap } from 'rxjs/operators';
-import { sleep } from '../functions';
-import { IPrinter } from '../models';
+import { Functions, Models } from '..';
 import { orderAction } from '../store/actions';
 import * as reducers from '../store/reducers';
 import { CinerinoService } from './cinerino.service';
@@ -90,7 +89,7 @@ export class OrderService {
                     orders = orders.concat(searchResult.data);
                     page++;
                     roop = searchResult.data.length === limit;
-                    await sleep(500);
+                    await Functions.Util.sleep(500);
                 }
             }
             this.utilService.loadEnd();
@@ -163,7 +162,7 @@ export class OrderService {
      */
     public async print(prams: {
         orders: factory.order.IOrder[];
-        printer: IPrinter;
+        printer: Models.Util.Printer.IPrinter;
         pos?: factory.chevre.place.movieTheater.IPOS;
         timeout?: number;
     }) {

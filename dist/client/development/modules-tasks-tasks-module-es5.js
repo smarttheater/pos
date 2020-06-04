@@ -7362,9 +7362,9 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
     /* harmony import */
 
 
-    var _functions__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(
-    /*! ../../../../../functions */
-    "./app/functions/index.ts");
+    var ___WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(
+    /*! ../../../../.. */
+    "./app/index.ts");
     /* harmony import */
 
 
@@ -7963,7 +7963,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
                       pointTransferActions: pointTransferActions
                     });
                     _context5.next = 34;
-                    return Object(_functions__WEBPACK_IMPORTED_MODULE_8__["sleep"])(1000);
+                    return ___WEBPACK_IMPORTED_MODULE_8__["Functions"].Util.sleep(1000);
 
                   case 34:
                     loopCount++;
@@ -8078,7 +8078,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
                   case 21:
                     _context6.next = 23;
-                    return Object(_functions__WEBPACK_IMPORTED_MODULE_8__["sleep"])(1000);
+                    return ___WEBPACK_IMPORTED_MODULE_8__["Functions"].Util.sleep(1000);
 
                   case 23:
                     _context6.next = 9;
@@ -8198,7 +8198,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "onShowPicker",
         value: function onShowPicker(container) {
-          Object(_functions__WEBPACK_IMPORTED_MODULE_8__["iOSDatepickerTapBugFix"])(container, [this.orderDateFrom, this.orderDateThrough]);
+          ___WEBPACK_IMPORTED_MODULE_8__["Functions"].Util.iOSDatepickerTapBugFix(container, [this.orderDateFrom, this.orderDateThrough]);
         }
       }]);
 

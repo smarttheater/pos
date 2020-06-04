@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import * as cinerino from '@cinerino/api-javascript-client';
-import { getProject } from '../functions';
+import { Functions } from '..';
 
 @Injectable({
     providedIn: 'root'
@@ -74,7 +74,7 @@ export class CinerinoService {
         return {
             endpoint: this.endpoint,
             auth: this.auth,
-            project: { id: getProject().projectId }
+            project: { id: Functions.Util.getProject().projectId }
         };
     }
 
@@ -152,7 +152,7 @@ export class CinerinoService {
             || this.waiterServerUrl === '') {
             return { token: '' };
         }
-        const url = `${this.waiterServerUrl}/projects/${getProject().projectId}/passports`;
+        const url = `${this.waiterServerUrl}/projects/${Functions.Util.getProject().projectId}/passports`;
         const body = { scope: `Transaction:PlaceOrder:${selleId}` };
         const result = await this.http.post<{ token: string; }>(url, body).toPromise();
 

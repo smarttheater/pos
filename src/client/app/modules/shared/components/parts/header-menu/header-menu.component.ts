@@ -3,8 +3,8 @@
  */
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
+import { Functions } from '../../../../..';
 import { getEnvironment } from '../../../../../../environments/environment';
-import { getProject } from '../../../../../functions';
 import { UtilService } from '../../../../../services';
 import { CinerinoService } from '../../../../../services/cinerino.service';
 
@@ -17,7 +17,7 @@ export class HeaderMenuComponent implements OnInit {
     @Input() public isOpen: boolean;
     @Output() public close: EventEmitter<{}> = new EventEmitter();
     public environment = getEnvironment();
-    public instructionUrl = getEnvironment().INSTRUCTION_URL.replace('/storage', getProject().storageUrl);
+    public instructionUrl = getEnvironment().INSTRUCTION_URL.replace('/storage', Functions.Util.getProject().storageUrl);
 
     constructor(
         private cinerino: CinerinoService,

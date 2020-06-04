@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { factory } from '@cinerino/api-javascript-client';
 import * as json2csv from 'json2csv';
-import { getProject, isFile, order2report, reservation2report, string2blob } from '../functions';
+import { Functions } from '..';
 import { CinerinoService } from './cinerino.service';
 import { OrderService } from './order.service';
 import { ReservationService } from './reservation.service';
@@ -28,14 +28,14 @@ export class DownloadService {
         // カスタム
         const searchResult = await this.orderService.splitSearch(params);
         const path = `/json/csv/order.json`;
-        const url = (await isFile(`${getProject().storageUrl}${path}`))
-            ? `${getProject().storageUrl}${path}`
+        const url = (await Functions.Util.isFile(`${Functions.Util.getProject().storageUrl}${path}`))
+            ? `${Functions.Util.getProject().storageUrl}${path}`
             : `/default${path}`;
         const fields = await this.utilService.getJson<{ label: string, value: string }[]>(url);
         const opts = { fields, unwind: [] };
-        const data = order2report(searchResult.data);
+        const data = Functions.Order.order2report(searchResult.data);
         const csv = await json2csv.parseAsync(data, opts);
-        const blob = string2blob(csv, { type: 'text/csv' });
+        const blob = Functions.Util.string2blob(csv, { type: 'text/csv' });
         const fileName = 'CustomOrderReport.csv';
         this.download(blob, fileName);
     }
@@ -46,14 +46,14 @@ export class DownloadService {
     public async reservation(params: factory.chevre.reservation.ISearchConditions<factory.chevre.reservationType.EventReservation>) {
         const searchResult = await this.reservationService.splitSearch(params);
         const path = '/json/csv/reservation.json';
-        const url = (await isFile(`${getProject().storageUrl}${path}`))
-            ? `${getProject().storageUrl}${path}`
+        const url = (await Functions.Util.isFile(`${Functions.Util.getProject().storageUrl}${path}`))
+            ? `${Functions.Util.getProject().storageUrl}${path}`
             : `/default${path}`;
         const fields = await this.utilService.getJson<{ label: string, value: string }[]>(url);
         const opts = { fields, unwind: [] };
-        const data = reservation2report(searchResult.data);
+        const data = Functions.Reservation.reservation2report(searchResult.data);
         const csv = await json2csv.parseAsync(data, opts);
-        const blob = string2blob(csv, { type: 'text/csv' });
+        const blob = Functions.Util.string2blob(csv, { type: 'text/csv' });
         const fileName = 'CustomReservationReport.csv';
         this.download(blob, fileName);
     }
@@ -71,7 +71,7 @@ export class DownloadService {
         givenName?: string;
         familyName?: string;
     }) {
-        const url = `${getProject().storageUrl}/json/csv/person.json`;
+        const url = `${Functions.Util.getProject().storageUrl}/json/csv/person.json`;
         const fields = await this.utilService.getJson<{ label: string, value: string }[]>(url);
         const opts = { fields, unwind: [] };
         await this.cinerino.getServices();
@@ -106,7 +106,7 @@ export class DownloadService {
         for (let i = 0; i < limit; i++) {
             const splitData = data.slice(i * split, ((i + 1) * split > data.length) ? data.length : (i + 1) * split);
             const csv = await json2csv.parseAsync(splitData, opts);
-            const blob = string2blob(csv, { type: 'text/csv' });
+            const blob = Functions.Util.string2blob(csv, { type: 'text/csv' });
             const fileName = `${filename}${(limit > 1) ? `_${(i + 1)}` : ''}.csv`;
             this.download(blob, fileName);
         }

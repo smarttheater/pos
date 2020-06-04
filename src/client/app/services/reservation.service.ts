@@ -3,7 +3,7 @@ import { factory } from '@cinerino/api-javascript-client';
 import { select, Store } from '@ngrx/store';
 import * as moment from 'moment';
 import { Observable } from 'rxjs';
-import { sleep } from '../functions';
+import { Functions } from '..';
 import { reservationAction } from '../store/actions';
 import * as reducers from '../store/reducers';
 import { CinerinoService } from './cinerino.service';
@@ -89,7 +89,7 @@ export class ReservationService {
                     reservations = reservations.concat(searchResult.data);
                     page++;
                     roop = searchResult.data.length === limit;
-                    await sleep(500);
+                    await Functions.Util.sleep(500);
                 }
             }
             this.utilService.loadEnd();

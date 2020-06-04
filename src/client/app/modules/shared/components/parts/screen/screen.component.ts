@@ -12,9 +12,8 @@ import {
 } from '@angular/core';
 import { factory } from '@cinerino/api-javascript-client';
 import * as moment from 'moment';
+import { Functions, Models } from '../../../../..';
 import { getEnvironment } from '../../../../../../environments/environment';
-import { getProject, isFile } from '../../../../../functions';
-import { IReservation, IReservationSeat, ViewType } from '../../../../../models';
 import { ILabel, IObject, IRow, IScreen, ISeat, SeatStatus } from '../../../../../models/purchase/screen';
 import { UtilService } from '../../../../../services';
 
@@ -29,10 +28,13 @@ export class ScreenComponent implements OnInit, AfterViewInit, AfterContentCheck
     @Input() public theaterCode: string;
     @Input() public screenCode: string;
     @Input() public screeningEventSeats: factory.chevre.place.seat.IPlaceWithOffer[];
-    @Input() public reservations: IReservation[];
+    @Input() public reservations: Models.Purchase.Reservation.IReservation[];
     @Input() public authorizeSeatReservation?:
         factory.action.authorize.offer.seatReservation.IAction<factory.service.webAPI.Identifier.Chevre>;
-    @Output() public select = new EventEmitter<{ seat: IReservationSeat; status: SeatStatus; }>();
+    @Output() public select = new EventEmitter<{
+        seat: Models.Purchase.Reservation.IReservationSeat;
+        status: SeatStatus;
+    }>();
     public seats: IRow[];
     public lineLabels: ILabel[];
     public columnLabels: ILabel[];
@@ -139,15 +141,15 @@ export class ScreenComponent implements OnInit, AfterViewInit, AfterContentCheck
     public async getScreenData() {
         const now = moment().toISOString();
         const settingPath = 'json/theater/setting.json';
-        const setting = (await isFile(`${getProject().storageUrl}/${settingPath}`))
-            ? await this.utilService.getJson<IScreen>(`${getProject().storageUrl}/${settingPath}`)
+        const setting = (await Functions.Util.isFile(`${Functions.Util.getProject().storageUrl}/${settingPath}`))
+            ? await this.utilService.getJson<IScreen>(`${Functions.Util.getProject().storageUrl}/${settingPath}`)
             : await this.utilService.getJson<IScreen>(`/default/${settingPath}`);
         const screenPath = `json/theater/${this.theaterCode}/${this.screenCode}.json?date=${now}`;
-        const screen = (await isFile(`${getProject().storageUrl}/${screenPath}`))
-            ? await this.utilService.getJson<IScreen>(`${getProject().storageUrl}/${screenPath}`)
+        const screen = (await Functions.Util.isFile(`${Functions.Util.getProject().storageUrl}/${screenPath}`))
+            ? await this.utilService.getJson<IScreen>(`${Functions.Util.getProject().storageUrl}/${screenPath}`)
             : this.generateScreenMap(setting);
         const objects = screen.objects.map((o) => {
-            return { ...o, image: o.image.replace('/storage', getProject().storageUrl) };
+            return { ...o, image: o.image.replace('/storage', Functions.Util.getProject().storageUrl) };
         });
         screen.objects = objects;
         return { ...setting, ...screen };
@@ -198,7 +200,7 @@ export class ScreenComponent implements OnInit, AfterViewInit, AfterContentCheck
             map.push(lineMap);
         }
         const space = 90;
-        const screenSpace = (this.environment.VIEW_TYPE === ViewType.Cinema)
+        const screenSpace = (this.environment.VIEW_TYPE === Models.Util.ViewType.Cinema)
             ? space * 2 + 50 : space + 30;
         const minWidth = 1346;
         const size = {
@@ -218,7 +220,7 @@ export class ScreenComponent implements OnInit, AfterViewInit, AfterContentCheck
                 y: screenSpace
             },
             map,
-            style: (this.environment.VIEW_TYPE === ViewType.Cinema)
+            style: (this.environment.VIEW_TYPE === Models.Util.ViewType.Cinema)
                 ? '<style>.screen-object { display: block !important }</style>'
                 : undefined
         };
@@ -424,7 +426,7 @@ export class ScreenComponent implements OnInit, AfterViewInit, AfterContentCheck
                                 status = SeatStatus.Default;
                             }
                             acceptedOffer = {
-                                ticketedSeat: <IReservationSeat>{
+                                ticketedSeat: <Models.Purchase.Reservation.IReservationSeat>{
                                     typeOf: findSeat.typeOf,
                                     seatingType: findSeat.seatingType,
                                     seatNumber: findSeat.branchCode,

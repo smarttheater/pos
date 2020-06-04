@@ -6,9 +6,8 @@ import * as moment from 'moment';
 import { BsDatepickerContainerComponent, BsDatepickerDirective, BsLocaleService } from 'ngx-bootstrap/datepicker';
 import { BsModalService } from 'ngx-bootstrap/modal';
 import { Observable } from 'rxjs';
+import { Functions, Models } from '../../../../..';
 import { getEnvironment } from '../../../../../../environments/environment';
-import { createRandomString, input2OrderSearchCondition, iOSDatepickerTapBugFix, order2EventOrders } from '../../../../../functions';
-import { ConnectionType, IOrderSearchConditions, OrderActions } from '../../../../../models';
 import { OrderService, UserService, UtilService } from '../../../../../services';
 import * as reducers from '../../../../../store/reducers';
 import { OrderDetailModalComponent } from '../../../../shared/components/parts/order/detail-modal/detail-modal.component';
@@ -31,14 +30,14 @@ export class OrderSearchComponent implements OnInit {
     public orderStatus: typeof factory.orderStatus = factory.orderStatus;
     public paymentMethodType: typeof factory.paymentMethodType = factory.paymentMethodType;
     public limit: number;
-    public conditions: IOrderSearchConditions;
-    public confirmedConditions: IOrderSearchConditions;
+    public conditions: Models.Order.Search.IOrderSearchConditions;
+    public confirmedConditions: Models.Order.Search.IOrderSearchConditions;
     public selectedOrders: factory.order.IOrder[];
-    public OrderActions: typeof OrderActions = OrderActions;
-    public actionSelect: OrderActions | '';
+    public OrderActions = Models.Order.Action.OrderActions;
+    public actionSelect: Models.Order.Action.OrderActions | '';
     public environment = getEnvironment();
-    public order2EventOrders = order2EventOrders;
-    public connectionType = ConnectionType;
+    public order2EventOrders = Functions.Purchase.order2EventOrders;
+    public connectionType = Models.Util.Printer.ConnectionType;
     @ViewChild('orderDateFrom', { static: true }) private orderDateFrom: BsDatepickerDirective;
     @ViewChild('orderDateThrough', { static: true }) private orderDateThrough: BsDatepickerDirective;
     @ViewChild('eventStartDateFrom', { static: true }) private eventStartDateFrom: BsDatepickerDirective;
@@ -157,7 +156,7 @@ export class OrderSearchComponent implements OnInit {
             this.currentPage = 1;
         }
         try {
-            const params = input2OrderSearchCondition({
+            const params = Functions.Order.input2OrderSearchCondition({
                 input: this.confirmedConditions,
                 theater: (await this.userService.getData()).theater,
                 page: this.currentPage,
@@ -251,7 +250,7 @@ export class OrderSearchComponent implements OnInit {
      * キャンセル確認
      */
     public cancelConfirm(orders: factory.order.IOrder[]) {
-        const code = createRandomString(6, /[^0-9]/g);
+        const code = Functions.Util.createRandomString(6, /[^0-9]/g);
         this.utilService.openConfirm({
             title: this.translate.instant('common.confirm'),
             body: this.translate.instant('order.search.confirm.cancel', { value: code }),
@@ -297,8 +296,8 @@ export class OrderSearchComponent implements OnInit {
             });
             return;
         }
-        if (this.actionSelect === OrderActions.Cancel) {
-            const code = createRandomString(6, /[^0-9]/g);
+        if (this.actionSelect === Models.Order.Action.OrderActions.Cancel) {
+            const code = Functions.Util.createRandomString(6, /[^0-9]/g);
             this.utilService.openConfirm({
                 title: this.translate.instant('common.confirm'),
                 body: this.translate.instant('order.search.confirm.cancel', { value: code }),
@@ -324,7 +323,7 @@ export class OrderSearchComponent implements OnInit {
                     }
                 }
             });
-        } else if (this.actionSelect === OrderActions.Print) {
+        } else if (this.actionSelect === Models.Order.Action.OrderActions.Print) {
             this.utilService.openConfirm({
                 title: this.translate.instant('common.confirm'),
                 body: this.translate.instant('order.search.confirm.print'),
@@ -366,7 +365,7 @@ export class OrderSearchComponent implements OnInit {
      * iOS bugfix（2回タップしないと選択できない）
      */
     public onShowPicker(container: BsDatepickerContainerComponent) {
-        iOSDatepickerTapBugFix(container, [
+        Functions.Util.iOSDatepickerTapBugFix(container, [
             this.orderDateFrom,
             this.orderDateThrough,
             this.eventStartDateFrom,

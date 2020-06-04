@@ -5,9 +5,8 @@ import { select, Store } from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
 import * as moment from 'moment';
 import { Observable } from 'rxjs';
+import { Functions, Models } from '../../../../..';
 import { getEnvironment } from '../../../../../../environments/environment';
-import { createCooperationQRCode, createOrderLink, getCustomPaymentMethodTypeName, IEventOrder, order2EventOrders } from '../../../../../functions';
-import { ConnectionType } from '../../../../../models';
 import { OrderService, PurchaseService, UserService, UtilService } from '../../../../../services';
 import * as reducers from '../../../../../store/reducers';
 
@@ -22,13 +21,13 @@ export class PurchaseCompleteComponent implements OnInit {
     public isLoading: Observable<boolean>;
     public error: Observable<string | null>;
     public moment: typeof moment = moment;
-    public eventOrders: IEventOrder[];
+    public eventOrders: Functions.Purchase.IEventOrder[];
     public environment = getEnvironment();
     public qrcode?: string;
     public paymentMethodType = factory.paymentMethodType;
-    public getCustomPaymentMethodTypeName = getCustomPaymentMethodTypeName;
-    public connectionType = ConnectionType;
-    public createOrderLink = createOrderLink;
+    public getCustomPaymentMethodTypeName = Functions.Purchase.getCustomPaymentMethodTypeName;
+    public connectionType = Models.Util.Printer.ConnectionType;
+    public createOrderLink = Functions.Order.createOrderLink;
 
     constructor(
         private store: Store<reducers.IState>,
@@ -53,7 +52,7 @@ export class PurchaseCompleteComponent implements OnInit {
                 throw new Error('order not found').message;
             }
             order = purchaseData.order;
-            this.eventOrders = order2EventOrders({ order });
+            this.eventOrders = Functions.Purchase.order2EventOrders({ order });
             this.print();
         } catch (error) {
             this.router.navigate(['/error']);
@@ -73,7 +72,7 @@ export class PurchaseCompleteComponent implements OnInit {
                 || (findResult !== undefined && findResult.qrcode !== undefined)) {
                 const qrcodeText = (isRegiGrow) ? this.environment.REGIGROW_QRCODE
                     : (findResult !== undefined && findResult.qrcode !== undefined) ? findResult.qrcode : '';
-                this.qrcode = await createCooperationQRCode({ order, qrcodeText });
+                this.qrcode = await Functions.Order.createCooperationQRCode({ order, qrcodeText });
             }
         } catch (error) {
             this.utilService.openAlert({

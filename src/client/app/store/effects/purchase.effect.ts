@@ -4,19 +4,8 @@ import { Actions, Effect, ofType } from '@ngrx/effects';
 import { TranslateService } from '@ngx-translate/core';
 import * as moment from 'moment';
 import { map, mergeMap } from 'rxjs/operators';
+import { Functions, Models } from '../..';
 import { getEnvironment } from '../../../environments/environment';
-import {
-    authorizeSeatReservation2Event,
-    createMovieTicketsFromAuthorizeSeatReservation,
-    deepCopy,
-    formatTelephone,
-    getItemPrice,
-    getProject,
-    getTicketPrice,
-    isFile,
-    selectAvailableSeat
-} from '../../functions';
-import { Performance } from '../../models';
 import { CinerinoService, UtilService } from '../../services';
 import { purchaseAction } from '../actions';
 
@@ -159,8 +148,8 @@ export class PurchaseEffects {
                     await this.cinerinoService.transaction.placeOrder
                         .voidSeatReservation(payload.authorizeSeatReservation);
                 }
-                const availableSeats = selectAvailableSeat({ reservations, screeningEventSeats });
-                if (new Performance(screeningEvent).isTicketedSeat()
+                const availableSeats = Functions.Purchase.selectAvailableSeat({ reservations, screeningEventSeats });
+                if (new Models.Purchase.Performance(screeningEvent).isTicketedSeat()
                     && availableSeats.length !== reservations.length) {
                     throw new Error('Out of stock').message;
                 }
@@ -188,10 +177,10 @@ export class PurchaseEffects {
                                             additionalTicketText: additionalTicketText,
                                             reservedTicket: {
                                                 typeOf: 'Ticket',
-                                                ticketedSeat: (new Performance(screeningEvent).isTicketedSeat())
+                                                ticketedSeat: (new Models.Purchase.Performance(screeningEvent).isTicketedSeat())
                                                     ? availableSeats[index] : undefined,
                                             },
-                                            subReservation: (new Performance(screeningEvent).isTicketedSeat())
+                                            subReservation: (new Models.Purchase.Performance(screeningEvent).isTicketedSeat())
                                                 ? availableSeats[index].subReservations.map(s => {
                                                     return {
                                                         reservedTicket: { typeOf: 'Ticket', ticketedSeat: s }
@@ -273,9 +262,9 @@ export class PurchaseEffects {
         map(action => action),
         mergeMap(async (payload) => {
             const transaction = payload.transaction;
-            const profile = deepCopy<factory.person.IProfile>(payload.contact);
+            const profile = Functions.Util.deepCopy<factory.person.IProfile>(payload.contact);
             if (profile.telephone !== undefined) {
-                profile.telephone = formatTelephone(profile.telephone);
+                profile.telephone = Functions.Util.formatTelephone(profile.telephone);
             }
             try {
                 await this.cinerinoService.getServices();
@@ -311,7 +300,7 @@ export class PurchaseEffects {
                 const authorizeMovieTicketPayments: factory.action.authorize.paymentMethod.movieTicket.IAction[] = [];
                 const seller = payload.seller;
                 for (const authorizeSeatReservation of authorizeSeatReservations) {
-                    const movieTickets = createMovieTicketsFromAuthorizeSeatReservation({
+                    const movieTickets = Functions.Purchase.createMovieTicketsFromAuthorizeSeatReservation({
                         authorizeSeatReservation, pendingMovieTickets, seller
                     });
                     const movieTicketIdentifiers: {
@@ -439,14 +428,17 @@ export class PurchaseEffects {
                 if (environment.PURCHASE_COMPLETE_MAIL_CUSTOM && params.email !== undefined) {
                     // 完了メールをカスタマイズ
                     const path = `/ejs/mail/complete/${payload.language}.ejs`;
-                    const url = (await isFile(`${getProject().storageUrl}${path}`))
-                        ? `${getProject().storageUrl}${path}`
+                    const url = (await Functions.Util.isFile(`${Functions.Util.getProject().storageUrl}${path}`))
+                        ? `${Functions.Util.getProject().storageUrl}${path}`
                         : `/default${path}`;
                     const view = await this.utilService.getText(url);
                     params.email.template = await (<any>window).ejs.render(view, {
-                        authorizeSeatReservations: authorizeSeatReservation2Event({ authorizeSeatReservations }),
+                        authorizeSeatReservations: Functions.Purchase.authorizeSeatReservation2Event({ authorizeSeatReservations }),
                         seller,
-                        moment, formatTelephone, getItemPrice, getTicketPrice
+                        moment,
+                        formatTelephone: Functions.Util.formatTelephone,
+                        getItemPrice: Functions.Purchase.getItemPrice,
+                        getTicketPrice: Functions.Purchase.getTicketPrice
                     }, { async: true });
                 }
 

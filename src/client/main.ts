@@ -7,7 +7,7 @@ import 'hammerjs';
 import * as momentTimezone from 'moment-timezone';
 import { defineLocale } from 'ngx-bootstrap/chronos';
 import { jaLocale } from 'ngx-bootstrap/locale';
-import { getParameter, getProject, isFile } from './app/functions';
+import { Functions } from './app';
 import { getEnvironment } from './environments/environment';
 
 async function main() {
@@ -19,7 +19,7 @@ async function main() {
     defineLocale('ja', jaLocale);
 
     // パラメータ設定
-    const params = getParameter<{
+    const params = Functions.Util.getParameter<{
         projectId?: string;
     }>();
 
@@ -34,7 +34,7 @@ async function main() {
         sessionStorage.removeItem('PROJECT');
     }
     const projectId = (params.projectId === undefined)
-        ? (getProject().projectId === '') ? undefined : getProject().projectId
+        ? (Functions.Util.getProject().projectId === '') ? undefined : Functions.Util.getProject().projectId
         : params.projectId;
     if (projectId === undefined && location.hash !== '#/auth/signin') {
         location.href = '/#/auth/signin';
@@ -42,10 +42,10 @@ async function main() {
         return;
     }
     await setProject({ projectId });
-    if (getProject().storageUrl === undefined) {
+    if (Functions.Util.getProject().storageUrl === undefined) {
         return;
     }
-    await setProjectConfig(getProject().storageUrl);
+    await setProjectConfig(Functions.Util.getProject().storageUrl);
 }
 
 /**
@@ -96,7 +96,7 @@ async function setProjectConfig(storageUrl: string) {
     const favicon = document.createElement('link');
     favicon.rel = 'icon';
     favicon.type = 'image/x-icon"';
-    favicon.href = (await isFile(`${storageUrl}/favicon.ico`)) ? `${storageUrl}/favicon.ico` : '/default/favicon.ico';
+    favicon.href = (await Functions.Util.isFile(`${storageUrl}/favicon.ico`)) ? `${storageUrl}/favicon.ico` : '/default/favicon.ico';
     document.head.appendChild(favicon);
 
     // タイトル設定

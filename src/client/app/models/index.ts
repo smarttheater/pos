@@ -1,17 +1,13 @@
-export * from './purchase/screen';
-export * from './purchase/reservation';
-export * from './purchase/payment';
-export * from './purchase/movieTicket';
-export * from './purchase/performance';
-export * from './admission/decodeResult';
-export * from './util/printer';
-export * from './order/action';
-export * from './order/download';
-export * from './order/print';
-export * from './order/search';
-export * from './person/search';
-export * from './reservation/search';
-export * from './util/language';
-export * from './util/viewType';
-export * from './util/language';
-export * from './ownershipinfo/search';
+import * as Admission from './admission';
+import * as Order from './order';
+import * as Purchase from './purchase';
+import * as Reservation from './reservation';
+import * as Util from './util';
+
+export {
+    Admission,
+    Reservation,
+    Purchase,
+    Order,
+    Util,
+};

@@ -4,7 +4,7 @@ import { select, Store } from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
 import * as moment from 'moment';
 import { Observable } from 'rxjs';
-import { IPrinter } from '../models';
+import { Models } from '..';
 import { userAction } from '../store/actions';
 import * as reducers from '../store/reducers';
 import { UtilService } from './util.service';
@@ -48,7 +48,7 @@ export class UserService {
         pos?: factory.chevre.place.movieTheater.IPOS;
         theater: factory.chevre.place.movieTheater.IPlaceWithoutScreeningRoom;
         customerContact: factory.transaction.placeOrder.ICustomerProfile;
-        printer: IPrinter;
+        printer: Models.Util.Printer.IPrinter;
     }) {
         this.store.dispatch(userAction.updateAll(params));
     }

@@ -621,15 +621,15 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
     /* harmony import */
 
 
-    var _environments_environment__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
-    /*! ../../environments/environment */
-    "./environments/environment.ts");
+    var ___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
+    /*! .. */
+    "./app/index.ts");
     /* harmony import */
 
 
-    var _models__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(
-    /*! ../models */
-    "./app/models/index.ts");
+    var _environments_environment__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(
+    /*! ../../environments/environment */
+    "./environments/environment.ts");
 
     var __awaiter = undefined && undefined.__awaiter || function (thisArg, _arguments, P, generator) {
       function adopt(value) {
@@ -690,9 +690,9 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
                 switch (_context5.prev = _context5.next) {
                   case 0:
                     _context5.prev = 0;
-                    viewType = Object(_environments_environment__WEBPACK_IMPORTED_MODULE_2__["getEnvironment"])().VIEW_TYPE;
+                    viewType = Object(_environments_environment__WEBPACK_IMPORTED_MODULE_3__["getEnvironment"])().VIEW_TYPE;
 
-                    if (!(state.url.match('/cinema') !== null && viewType !== _models__WEBPACK_IMPORTED_MODULE_3__["ViewType"].Cinema)) {
+                    if (!(state.url.match('/cinema') !== null && viewType !== ___WEBPACK_IMPORTED_MODULE_2__["Models"].Util.ViewType.Cinema)) {
                       _context5.next = 4;
                       break;
                     }
@@ -700,7 +700,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
                     throw new Error('viewType not match');
 
                   case 4:
-                    if (!(state.url.match('/event') !== null && viewType !== _models__WEBPACK_IMPORTED_MODULE_3__["ViewType"].Event)) {
+                    if (!(state.url.match('/event') !== null && viewType !== ___WEBPACK_IMPORTED_MODULE_2__["Models"].Util.ViewType.Event)) {
                       _context5.next = 6;
                       break;
                     }

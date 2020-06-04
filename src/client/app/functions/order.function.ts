@@ -1,7 +1,8 @@
 import { factory } from '@cinerino/api-javascript-client';
 import * as moment from 'moment';
 import * as qrcode from 'qrcode';
-import { IOrderSearchConditions, ITicketPrintData } from '../models';
+import { ITicketPrintData } from '../models/order/print';
+import { IOrderSearchConditions } from '../models/order/search';
 import { getItemPrice } from './purchase.function';
 import { formatTelephone, getProject, isFile } from './util.function';
 
