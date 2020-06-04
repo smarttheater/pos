@@ -12,6 +12,10 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/).
 
 ### Security
 
+## 3.0.40 - 2020-06-04
+### Changed
+ - モデル、関数エクスポート先変更
+
 ## 3.0.39 - 2020-05-28
 ### Changed
  - スケジュールUI変更
