@@ -12,6 +12,10 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/).
 
 ### Security
 
+## 3.0.41 - 2020-06-05
+### Changed
+ - 電話番号入力国際化対応
+
 ## 3.0.40 - 2020-06-04
 ### Changed
  - モデル、関数エクスポート先変更
