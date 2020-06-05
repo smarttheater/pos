@@ -202,6 +202,10 @@ interface IEnvironment {
      * 印刷時ローディング
      */
     PRINT_LOADING: boolean;
+    /**
+     * 印刷データ
+     */
+    PRINT_DATA: 'JSON' | 'HTML';
 }
 
 export const isProduction = (document.querySelector('body.production') !== null);
@@ -258,7 +262,8 @@ const defaultEnvironment: IEnvironment = {
     ORDER_LINK: [],
     PRINT_QRCODE_TYPE: 'token',
     PRINT_QRCODE_CUSTOM: '',
-    PRINT_LOADING: true
+    PRINT_LOADING: true,
+    PRINT_DATA: 'JSON'
 };
 
 export function getEnvironment(): IEnvironment {

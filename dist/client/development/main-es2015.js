@@ -342,13 +342,15 @@ __webpack_require__.r(__webpack_exports__);
 /*!*****************************************!*\
   !*** ./app/functions/order.function.ts ***!
   \*****************************************/
-/*! exports provided: createPrintCanvas, createTestPrintCanvas, createCooperationQRCode, getTransactionAgentIdentifier, order2report, input2OrderSearchCondition, createOrderLink */
+/*! exports provided: createPrintCanvas4Html, createPrintCanvas, createTestPrintCanvas, createTestPrintCanvas4Html, createCooperationQRCode, getTransactionAgentIdentifier, order2report, input2OrderSearchCondition, createOrderLink */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "createPrintCanvas4Html", function() { return createPrintCanvas4Html; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "createPrintCanvas", function() { return createPrintCanvas; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "createTestPrintCanvas", function() { return createTestPrintCanvas; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "createTestPrintCanvas4Html", function() { return createTestPrintCanvas4Html; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "createCooperationQRCode", function() { return createCooperationQRCode; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getTransactionAgentIdentifier", function() { return getTransactionAgentIdentifier; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "order2report", function() { return order2report; });
@@ -356,12 +358,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "createOrderLink", function() { return createOrderLink; });
 /* harmony import */ var _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @cinerino/api-javascript-client */ "../../node_modules/@cinerino/api-javascript-client/lib/index.js");
 /* harmony import */ var _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! moment */ "../../node_modules/moment/moment.js");
-/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var qrcode__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! qrcode */ "../../node_modules/qrcode/lib/browser.js");
-/* harmony import */ var qrcode__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(qrcode__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var _purchase_function__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./purchase.function */ "./app/functions/purchase.function.ts");
-/* harmony import */ var _util_function__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./util.function */ "./app/functions/util.function.ts");
+/* harmony import */ var html2canvas__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! html2canvas */ "../../node_modules/html2canvas/dist/html2canvas.js");
+/* harmony import */ var html2canvas__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(html2canvas__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! moment */ "../../node_modules/moment/moment.js");
+/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var qrcode__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! qrcode */ "../../node_modules/qrcode/lib/browser.js");
+/* harmony import */ var qrcode__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(qrcode__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var _purchase_function__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./purchase.function */ "./app/functions/purchase.function.ts");
+/* harmony import */ var _util_function__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./util.function */ "./app/functions/util.function.ts");
 var __awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -376,6 +380,27 @@ var __awaiter = (undefined && undefined.__awaiter) || function (thisArg, _argume
 
 
 
+
+/**
+ * 印刷イメージ作成
+ */
+function createPrintCanvas4Html(params) {
+    return __awaiter(this, void 0, void 0, function* () {
+        // QR描画
+        if (params.qrcode !== undefined) {
+            params.qrcode = yield qrcode__WEBPACK_IMPORTED_MODULE_3__["toDataURL"](params.qrcode);
+        }
+        const template = yield window.ejs.render(params.view, Object.assign({ moment: moment__WEBPACK_IMPORTED_MODULE_2__ }, params), { async: true });
+        const div = document.createElement('div');
+        div.className = 'position-absolute bg-white';
+        div.style.top = '-9999px';
+        div.innerHTML = template;
+        document.body.appendChild(div);
+        const canvas = yield html2canvas__WEBPACK_IMPORTED_MODULE_1___default()(div, { width: 560, removeContainer: true });
+        div.remove();
+        return canvas;
+    });
+}
 /**
  * キャンバスへ描画
  */
@@ -422,8 +447,8 @@ function drawCanvas(args) {
         for (const image of printData.image) {
             const imageInstance = new Image();
             imageInstance.crossOrigin = 'anonymous';
-            const src = (yield Object(_util_function__WEBPACK_IMPORTED_MODULE_4__["isFile"])(image.src.replace('/storage', Object(_util_function__WEBPACK_IMPORTED_MODULE_4__["getProject"])().storageUrl)))
-                ? image.src.replace('/storage', Object(_util_function__WEBPACK_IMPORTED_MODULE_4__["getProject"])().storageUrl)
+            const src = (yield Object(_util_function__WEBPACK_IMPORTED_MODULE_5__["isFile"])(image.src.replace('/storage', Object(_util_function__WEBPACK_IMPORTED_MODULE_5__["getProject"])().storageUrl)))
+                ? image.src.replace('/storage', Object(_util_function__WEBPACK_IMPORTED_MODULE_5__["getProject"])().storageUrl)
                 : image.src.replace('/storage', '/default');
             imageInstance.src = src;
             yield drawImage({
@@ -446,11 +471,11 @@ function drawCanvas(args) {
                         value = `￥${data.price.toLocaleString()}`;
                         break;
                     case 'date':
-                        value = `(${moment__WEBPACK_IMPORTED_MODULE_1__().format('YYYY/MM/DD HH:mm')} 発券)`;
+                        value = `(${moment__WEBPACK_IMPORTED_MODULE_2__().format('YYYY/MM/DD HH:mm')} 発券)`;
                         break;
                     case 'startDate':
                     case 'endDate':
-                        value = `${moment__WEBPACK_IMPORTED_MODULE_1__(data[text.name]).format(text.value)}`;
+                        value = `${moment__WEBPACK_IMPORTED_MODULE_2__(data[text.name]).format(text.value)}`;
                         break;
                     case 'eventNameJa':
                     case 'eventNameEn':
@@ -486,7 +511,7 @@ function drawCanvas(args) {
         if (data.qrcode !== undefined) {
             for (const qrCode of printData.qrCode) {
                 const qrcodeCanvas = document.createElement('canvas');
-                yield qrcode__WEBPACK_IMPORTED_MODULE_2__["toCanvas"](qrcodeCanvas, data.qrcode);
+                yield qrcode__WEBPACK_IMPORTED_MODULE_3__["toCanvas"](qrcodeCanvas, data.qrcode);
                 context.drawImage(qrcodeCanvas, qrCode.x, qrCode.y, qrCode.width, qrCode.height);
             }
         }
@@ -520,8 +545,8 @@ function createPrintCanvas(params) {
                 ? (itemOffered.reservationFor.location.name === undefined || itemOffered.reservationFor.location.name.en === undefined)
                     ? '' : itemOffered.reservationFor.location.name.en
                 : `${itemOffered.reservationFor.location.address.en} ${(itemOffered.reservationFor.location.name === undefined) ? '' : itemOffered.reservationFor.location.name.en}`,
-            startDate: moment__WEBPACK_IMPORTED_MODULE_1__(itemOffered.reservationFor.startDate).toISOString(),
-            endDate: moment__WEBPACK_IMPORTED_MODULE_1__(itemOffered.reservationFor.endDate).toISOString(),
+            startDate: moment__WEBPACK_IMPORTED_MODULE_2__(itemOffered.reservationFor.startDate).toISOString(),
+            endDate: moment__WEBPACK_IMPORTED_MODULE_2__(itemOffered.reservationFor.endDate).toISOString(),
             seatNumber: (itemOffered.reservedTicket.ticketedSeat === undefined
                 || itemOffered.reservedTicket.ticketedSeat === null)
                 ? undefined : itemOffered.reservedTicket.ticketedSeat.seatNumber,
@@ -534,7 +559,7 @@ function createPrintCanvas(params) {
                 ? itemOffered.reservedTicket.ticketType.name : (itemOffered.reservedTicket.ticketType.name.en === undefined)
                 ? '' : itemOffered.reservedTicket.ticketType.name.en,
             price: (acceptedOffer.priceSpecification === undefined)
-                ? 0 : Object(_purchase_function__WEBPACK_IMPORTED_MODULE_3__["getItemPrice"])({ priceComponents: acceptedOffer.priceSpecification.priceComponent }),
+                ? 0 : Object(_purchase_function__WEBPACK_IMPORTED_MODULE_4__["getItemPrice"])({ priceComponents: acceptedOffer.priceSpecification.priceComponent }),
             posName: (params.pos === undefined) ? '' : params.pos.name,
             confirmationNumber: String(params.order.confirmationNumber),
             orderNumber: params.order.orderNumber,
@@ -564,8 +589,8 @@ function createTestPrintCanvas(args) {
                 : 'test1 test2 test3 test4 test5 test6 test7 event',
             screenNameJa: 'テストスクリーン',
             screenNameEn: 'test screen',
-            startDate: moment__WEBPACK_IMPORTED_MODULE_1__().toISOString(),
-            endDate: moment__WEBPACK_IMPORTED_MODULE_1__().toISOString(),
+            startDate: moment__WEBPACK_IMPORTED_MODULE_2__().toISOString(),
+            endDate: moment__WEBPACK_IMPORTED_MODULE_2__().toISOString(),
             seatNumber: 'TEST-1',
             ticketNameJa: 'テストチケット123456',
             ticketNameEn: 'test ticket 123456',
@@ -582,6 +607,29 @@ function createTestPrintCanvas(args) {
     });
 }
 /**
+ * テスト印刷用イメージ作成
+ */
+function createTestPrintCanvas4Html() {
+    return __awaiter(this, void 0, void 0, function* () {
+        const view = `<div style="width: 560px;">
+    <div class="py-5 text-center" style="font-size: 30px;">
+    <p class="mb-3"><img width="400" height="64" src="/default/images/print/logo.png"></p>
+    <p class="mb-3">Test print</p>
+    <p><%= moment().tz('Asia/Tokyo').locale('ja').format('YYYY/MM/DD HH:mm:ss') %></p>
+    </div>
+    </div>`;
+        const template = yield window.ejs.render(view, { moment: moment__WEBPACK_IMPORTED_MODULE_2__ }, { async: true });
+        const div = document.createElement('div');
+        div.className = 'position-absolute bg-white';
+        div.style.top = '-9999px';
+        div.innerHTML = template;
+        document.body.appendChild(div);
+        const canvas = yield html2canvas__WEBPACK_IMPORTED_MODULE_1___default()(div, { width: 560, removeContainer: true });
+        div.remove();
+        return canvas;
+    });
+}
+/**
  * 連携用QR作成
  */
 function createCooperationQRCode(params) {
@@ -593,7 +641,7 @@ function createCooperationQRCode(params) {
             .replace(/\{\{ orderNumber \}\}/g, order.orderNumber)
             .replace(/\{\{ price \}\}/g, String(order.price));
         return new Promise((resolve, reject) => {
-            qrcode__WEBPACK_IMPORTED_MODULE_2__["toCanvas"](canvas, text).then(() => {
+            qrcode__WEBPACK_IMPORTED_MODULE_3__["toCanvas"](canvas, text).then(() => {
                 resolve(canvas.toDataURL());
             }).catch((error) => {
                 console.error(error);
@@ -624,17 +672,17 @@ function order2report(orders) {
             }
             const customData = {
                 orderDate: order.orderDate,
-                orderDateJST: moment__WEBPACK_IMPORTED_MODULE_1__(order.orderDate).format('YYYY/MM/DD/HH:mm'),
+                orderDateJST: moment__WEBPACK_IMPORTED_MODULE_2__(order.orderDate).format('YYYY/MM/DD/HH:mm'),
                 orderNumber: order.orderNumber,
                 orderStatus: order.orderStatus,
                 dateReturnedJST: (order.dateReturned === undefined)
                     ? undefined
-                    : moment__WEBPACK_IMPORTED_MODULE_1__(order.dateReturned).format('YYYY/MM/DD/HH:mm'),
+                    : moment__WEBPACK_IMPORTED_MODULE_2__(order.dateReturned).format('YYYY/MM/DD/HH:mm'),
                 confirmationNumber: order.confirmationNumber,
                 price: order.price,
                 seller: order.seller,
                 paymentMethodsNames: order.paymentMethods.map(m => m.name).join(','),
-                customer: Object.assign(Object.assign({}, order.customer), { formatTelephone: Object(_util_function__WEBPACK_IMPORTED_MODULE_4__["formatTelephone"])(order.customer.telephone), pos: {
+                customer: Object.assign(Object.assign({}, order.customer), { formatTelephone: Object(_util_function__WEBPACK_IMPORTED_MODULE_5__["formatTelephone"])(order.customer.telephone), pos: {
                         name: (getTransactionAgentIdentifier(order, 'posName') === undefined)
                             ? { name: '', value: '' }
                             : getTransactionAgentIdentifier(order, 'posName')
@@ -645,9 +693,9 @@ function order2report(orders) {
                     } }),
                 itemOffered: {
                     id: itemOffered.id,
-                    price: Object(_purchase_function__WEBPACK_IMPORTED_MODULE_3__["getItemPrice"])({ priceComponents: acceptedOffer.priceSpecification.priceComponent }),
+                    price: Object(_purchase_function__WEBPACK_IMPORTED_MODULE_4__["getItemPrice"])({ priceComponents: acceptedOffer.priceSpecification.priceComponent }),
                     reservedTicket: itemOffered.reservedTicket,
-                    reservationFor: Object.assign(Object.assign({}, itemOffered.reservationFor), { startDateJST: moment__WEBPACK_IMPORTED_MODULE_1__(itemOffered.reservationFor.startDate).format('YYYY/MM/DD/HH:mm') })
+                    reservationFor: Object.assign(Object.assign({}, itemOffered.reservationFor), { startDateJST: moment__WEBPACK_IMPORTED_MODULE_2__(itemOffered.reservationFor.startDate).format('YYYY/MM/DD/HH:mm') })
                 }
             };
             data.push(customData);
@@ -689,10 +737,10 @@ function input2OrderSearchCondition(params) {
             ? undefined : [input.orderStatus],
         orderDateFrom: (input.orderDateFrom === undefined)
             ? undefined
-            : moment__WEBPACK_IMPORTED_MODULE_1__(moment__WEBPACK_IMPORTED_MODULE_1__(input.orderDateFrom).format('YYYYMMDD')).toDate(),
+            : moment__WEBPACK_IMPORTED_MODULE_2__(moment__WEBPACK_IMPORTED_MODULE_2__(input.orderDateFrom).format('YYYYMMDD')).toDate(),
         orderDateThrough: (input.orderDateThrough === undefined)
             ? undefined
-            : moment__WEBPACK_IMPORTED_MODULE_1__(moment__WEBPACK_IMPORTED_MODULE_1__(input.orderDateThrough).format('YYYYMMDD')).add(1, 'day').toDate(),
+            : moment__WEBPACK_IMPORTED_MODULE_2__(moment__WEBPACK_IMPORTED_MODULE_2__(input.orderDateThrough).format('YYYYMMDD')).add(1, 'day').toDate(),
         confirmationNumbers: (input.confirmationNumber === '')
             ? undefined : [input.confirmationNumber],
         orderNumbers: (input.orderNumber === '')
@@ -704,10 +752,10 @@ function input2OrderSearchCondition(params) {
                 reservationFor: {
                     inSessionFrom: (input.eventStartDateFrom === undefined)
                         ? undefined
-                        : moment__WEBPACK_IMPORTED_MODULE_1__(moment__WEBPACK_IMPORTED_MODULE_1__(input.eventStartDateFrom).format('YYYYMMDD')).toDate(),
+                        : moment__WEBPACK_IMPORTED_MODULE_2__(moment__WEBPACK_IMPORTED_MODULE_2__(input.eventStartDateFrom).format('YYYYMMDD')).toDate(),
                     inSessionThrough: (input.eventStartDateThrough === undefined)
                         ? undefined
-                        : moment__WEBPACK_IMPORTED_MODULE_1__(moment__WEBPACK_IMPORTED_MODULE_1__(input.eventStartDateThrough)
+                        : moment__WEBPACK_IMPORTED_MODULE_2__(moment__WEBPACK_IMPORTED_MODULE_2__(input.eventStartDateThrough)
                             .format('YYYYMMDD')).add(1, 'day').toDate(),
                     superEvent: {
                         location: { branchCodes: (theater === undefined) ? [] : [theater.branchCode] }
@@ -2365,7 +2413,8 @@ const defaultEnvironment = {
     ORDER_LINK: [],
     PRINT_QRCODE_TYPE: 'token',
     PRINT_QRCODE_CUSTOM: '',
-    PRINT_LOADING: true
+    PRINT_LOADING: true,
+    PRINT_DATA: 'JSON'
 };
 function getEnvironment() {
     const environment = Object.assign(Object.assign(Object.assign({}, defaultEnvironment), window.environment), { production: isProduction });
