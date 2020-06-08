@@ -299,7 +299,7 @@ export async function createTestPrintCanvas4Html() {
     </div>`;
     const template = await (<any>window).ejs.render(view, { moment }, { async: true });
     const div = document.createElement('div');
-    div.className = 'position-absolute bg-white';
+    div.className = 'position-absolute';
     div.style.top = '-9999px';
     div.innerHTML = template;
     document.body.appendChild(div);

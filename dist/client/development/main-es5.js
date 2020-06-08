@@ -595,7 +595,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
               case 6:
                 template = _context.sent;
                 div = document.createElement('div');
-                div.className = 'position-absolute bg-white';
+                div.className = 'position-absolute';
                 div.style.top = '-9999px';
                 div.innerHTML = template;
                 document.body.appendChild(div);
@@ -1051,7 +1051,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
               case 3:
                 template = _context5.sent;
                 div = document.createElement('div');
-                div.className = 'position-absolute bg-white';
+                div.className = 'position-absolute';
                 div.style.top = '-9999px';
                 div.innerHTML = template;
                 document.body.appendChild(div);
@@ -3871,9 +3871,9 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
       INQUIRY_INPUT_KEYPAD: false,
       INQUIRY_ORDER_DATE_FROM_VALUE: '-3',
       INQUIRY_ORDER_DATE_FROM_UNIT: 'month',
-      ORDER_CANCEL: false,
+      ORDER_CANCEL: true,
       ORDER_CANCEL_MAIL_CUSTOM: true,
-      ORDER_PRINT: false,
+      ORDER_PRINT: true,
       ORDER_LINK: [],
       PRINT_QRCODE_TYPE: 'token',
       PRINT_QRCODE_CUSTOM: '',

@@ -392,7 +392,7 @@ function createPrintCanvas4Html(params) {
         }
         const template = yield window.ejs.render(params.view, Object.assign({ moment: moment__WEBPACK_IMPORTED_MODULE_2__ }, params), { async: true });
         const div = document.createElement('div');
-        div.className = 'position-absolute bg-white';
+        div.className = 'position-absolute';
         div.style.top = '-9999px';
         div.innerHTML = template;
         document.body.appendChild(div);
@@ -620,7 +620,7 @@ function createTestPrintCanvas4Html() {
     </div>`;
         const template = yield window.ejs.render(view, { moment: moment__WEBPACK_IMPORTED_MODULE_2__ }, { async: true });
         const div = document.createElement('div');
-        div.className = 'position-absolute bg-white';
+        div.className = 'position-absolute';
         div.style.top = '-9999px';
         div.innerHTML = template;
         document.body.appendChild(div);
@@ -2407,9 +2407,9 @@ const defaultEnvironment = {
     INQUIRY_INPUT_KEYPAD: false,
     INQUIRY_ORDER_DATE_FROM_VALUE: '-3',
     INQUIRY_ORDER_DATE_FROM_UNIT: 'month',
-    ORDER_CANCEL: false,
+    ORDER_CANCEL: true,
     ORDER_CANCEL_MAIL_CUSTOM: true,
-    ORDER_PRINT: false,
+    ORDER_PRINT: true,
     ORDER_LINK: [],
     PRINT_QRCODE_TYPE: 'token',
     PRINT_QRCODE_CUSTOM: '',

@@ -233,6 +233,7 @@ export class OrderEffects {
                     }
                 }
                 let printData;
+                // environment.PRINT_DATA = 'JSON';
                 if (environment.PRINT_DATA === 'JSON') {
                     const path = '/json/print/ticket.json';
                     const url = (await Functions.Util.isFile(`${Functions.Util.getProject().storageUrl}${path}`))
@@ -253,6 +254,7 @@ export class OrderEffects {
                         ? await Functions.Order.createTestPrintCanvas({ printData: <Models.Order.Print.ITicketPrintData>printData })
                         : await Functions.Order.createTestPrintCanvas4Html();
                     canvasList.push(canvas);
+                    console.log('2d------------', canvas.getContext('2d'));
                 } else {
                     for (const authorizeOrder of authorizeOrders) {
                         let index = 0;
