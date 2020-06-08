@@ -396,7 +396,7 @@ function createPrintCanvas4Html(params) {
         div.style.top = '-9999px';
         div.innerHTML = template;
         document.body.appendChild(div);
-        const canvas = yield html2canvas__WEBPACK_IMPORTED_MODULE_1___default()(div, { width: 560, removeContainer: true });
+        const canvas = yield html2canvas__WEBPACK_IMPORTED_MODULE_1___default()(div, { width: 560, scale: 1 });
         div.remove();
         return canvas;
     });
@@ -624,7 +624,7 @@ function createTestPrintCanvas4Html() {
         div.style.top = '-9999px';
         div.innerHTML = template;
         document.body.appendChild(div);
-        const canvas = yield html2canvas__WEBPACK_IMPORTED_MODULE_1___default()(div, { width: 560, removeContainer: true });
+        const canvas = yield html2canvas__WEBPACK_IMPORTED_MODULE_1___default()(div, { width: 560, scale: 1 });
         div.remove();
         return canvas;
     });

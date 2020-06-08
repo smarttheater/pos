@@ -602,7 +602,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
                 _context.next = 14;
                 return html2canvas__WEBPACK_IMPORTED_MODULE_1___default()(div, {
                   width: 560,
-                  removeContainer: true
+                  scale: 1
                 });
 
               case 14:
@@ -1058,7 +1058,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
                 _context5.next = 11;
                 return html2canvas__WEBPACK_IMPORTED_MODULE_1___default()(div, {
                   width: 560,
-                  removeContainer: true
+                  scale: 1
                 });
 
               case 11:

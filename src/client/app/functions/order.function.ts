@@ -27,7 +27,7 @@ export async function createPrintCanvas4Html(params: {
     div.style.top = '-9999px';
     div.innerHTML = template;
     document.body.appendChild(div);
-    const canvas = await html2canvas(div, { width: 560, removeContainer: true });
+    const canvas = await html2canvas(div, { width: 560, scale: 1 });
     div.remove();
     return canvas;
 }
@@ -303,7 +303,7 @@ export async function createTestPrintCanvas4Html() {
     div.style.top = '-9999px';
     div.innerHTML = template;
     document.body.appendChild(div);
-    const canvas = await html2canvas(div, { width: 560, removeContainer: true });
+    const canvas = await html2canvas(div, { width: 560, scale: 1 });
     div.remove();
     return canvas;
 }
