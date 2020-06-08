@@ -240,7 +240,7 @@ export class OrderEffects {
                         : `/default${path}`;
                     printData = await this.utilService.getJson<Models.Order.Print.ITicketPrintData>(url);
                 } else {
-                    const path = `/ejs/ticket.ejs`;
+                    const path = `/ejs/print/ticket.ejs`;
                     const url = (await Functions.Util.isFile(`${Functions.Util.getProject().storageUrl}${path}`))
                         ? `${Functions.Util.getProject().storageUrl}${path}`
                         : `/default${path}`;
