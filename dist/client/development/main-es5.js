@@ -3858,6 +3858,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
       PURCHASE_SCHEDULE_DEFAULT_SELECTED_DATE: '0',
       PURCHASE_SCHEDULE_STATUS_THRESHOLD_VALUE: '30',
       PURCHASE_SCHEDULE_STATUS_THRESHOLD_UNIT: '%',
+      PURCHASE_SCHEDULE_SORT: true,
       PURCHASE_COMPLETE_MAIL_CUSTOM: true,
       PURCHASE_TERMS: false,
       PURCHASE_WARNING: false,
