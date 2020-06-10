@@ -601,7 +601,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
                 document.body.appendChild(div);
                 _context.next = 14;
                 return html2canvas__WEBPACK_IMPORTED_MODULE_1___default()(div, {
-                  width: 560,
+                  width: div.clientWidth,
                   scale: 1
                 });
 
@@ -1057,7 +1057,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
                 document.body.appendChild(div);
                 _context5.next = 11;
                 return html2canvas__WEBPACK_IMPORTED_MODULE_1___default()(div, {
-                  width: 560,
+                  width: div.clientWidth,
                   scale: 1
                 });
 
