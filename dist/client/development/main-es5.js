@@ -416,13 +416,19 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
     !*** ./app/functions/order.function.ts ***!
     \*****************************************/
 
-  /*! exports provided: createPrintCanvas, createTestPrintCanvas, createCooperationQRCode, getTransactionAgentIdentifier, order2report, input2OrderSearchCondition, createOrderLink */
+  /*! exports provided: createPrintCanvas4Html, createPrintCanvas, createTestPrintCanvas, createTestPrintCanvas4Html, createCooperationQRCode, getTransactionAgentIdentifier, order2report, input2OrderSearchCondition, createOrderLink */
 
   /***/
   function appFunctionsOrderFunctionTs(module, __webpack_exports__, __webpack_require__) {
     "use strict";
 
     __webpack_require__.r(__webpack_exports__);
+    /* harmony export (binding) */
+
+
+    __webpack_require__.d(__webpack_exports__, "createPrintCanvas4Html", function () {
+      return createPrintCanvas4Html;
+    });
     /* harmony export (binding) */
 
 
@@ -434,6 +440,12 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 
     __webpack_require__.d(__webpack_exports__, "createTestPrintCanvas", function () {
       return createTestPrintCanvas;
+    });
+    /* harmony export (binding) */
+
+
+    __webpack_require__.d(__webpack_exports__, "createTestPrintCanvas4Html", function () {
+      return createTestPrintCanvas4Html;
     });
     /* harmony export (binding) */
 
@@ -478,33 +490,43 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
     /* harmony import */
 
 
-    var moment__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(
+    var html2canvas__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(
+    /*! html2canvas */
+    "../../node_modules/html2canvas/dist/html2canvas.js");
+    /* harmony import */
+
+
+    var html2canvas__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(html2canvas__WEBPACK_IMPORTED_MODULE_1__);
+    /* harmony import */
+
+
+    var moment__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
     /*! moment */
     "../../node_modules/moment/moment.js");
     /* harmony import */
 
 
-    var moment__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_1__);
+    var moment__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_2__);
     /* harmony import */
 
 
-    var qrcode__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
+    var qrcode__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(
     /*! qrcode */
     "../../node_modules/qrcode/lib/browser.js");
     /* harmony import */
 
 
-    var qrcode__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(qrcode__WEBPACK_IMPORTED_MODULE_2__);
+    var qrcode__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(qrcode__WEBPACK_IMPORTED_MODULE_3__);
     /* harmony import */
 
 
-    var _purchase_function__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(
+    var _purchase_function__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(
     /*! ./purchase.function */
     "./app/functions/purchase.function.ts");
     /* harmony import */
 
 
-    var _util_function__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(
+    var _util_function__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(
     /*! ./util.function */
     "./app/functions/util.function.ts");
 
@@ -540,17 +562,74 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
       });
     };
     /**
+     * 印刷イメージ作成
+     */
+
+
+    function createPrintCanvas4Html(params) {
+      return __awaiter(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee() {
+        var template, div, canvas;
+        return regeneratorRuntime.wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                if (!(params.qrcode !== undefined)) {
+                  _context.next = 4;
+                  break;
+                }
+
+                _context.next = 3;
+                return qrcode__WEBPACK_IMPORTED_MODULE_3__["toDataURL"](params.qrcode);
+
+              case 3:
+                params.qrcode = _context.sent;
+
+              case 4:
+                _context.next = 6;
+                return window.ejs.render(params.view, Object.assign({
+                  moment: moment__WEBPACK_IMPORTED_MODULE_2__
+                }, params), {
+                  async: true
+                });
+
+              case 6:
+                template = _context.sent;
+                div = document.createElement('div');
+                div.className = 'position-absolute';
+                div.style.top = '-9999px';
+                div.innerHTML = template;
+                document.body.appendChild(div);
+                _context.next = 14;
+                return html2canvas__WEBPACK_IMPORTED_MODULE_1___default()(div, {
+                  width: 560,
+                  scale: 1
+                });
+
+              case 14:
+                canvas = _context.sent;
+                div.remove();
+                return _context.abrupt("return", canvas);
+
+              case 17:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee);
+      }));
+    }
+    /**
      * キャンバスへ描画
      */
 
 
     function drawCanvas(args) {
-      return __awaiter(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee() {
+      return __awaiter(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee2() {
         var printData, data, canvas, size, context, drawImage, changePosition, font, _iterator, _step, image, imageInstance, src, _iterator2, _step2, text, value, eventName, limit, _iterator3, _step3, qrCode, qrcodeCanvas;
 
-        return regeneratorRuntime.wrap(function _callee$(_context) {
+        return regeneratorRuntime.wrap(function _callee2$(_context2) {
           while (1) {
-            switch (_context.prev = _context.next) {
+            switch (_context2.prev = _context2.next) {
               case 0:
                 printData = args.printData;
                 data = args.data;
@@ -561,7 +640,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
                 context = canvas.getContext('2d');
 
                 if (!(context === null)) {
-                  _context.next = 9;
+                  _context2.next = 9;
                   break;
                 }
 
@@ -613,39 +692,39 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
                 font = "\"Hiragino Sans\", \"Hiragino Kaku Gothic ProN\", \"\u6E38\u30B4\u30B7\u30C3\u30AF  Medium\", meiryo, sans-serif"; // 画像描画
 
                 _iterator = _createForOfIteratorHelper(printData.image);
-                _context.prev = 13;
+                _context2.prev = 13;
 
                 _iterator.s();
 
               case 15:
                 if ((_step = _iterator.n()).done) {
-                  _context.next = 32;
+                  _context2.next = 32;
                   break;
                 }
 
                 image = _step.value;
                 imageInstance = new Image();
                 imageInstance.crossOrigin = 'anonymous';
-                _context.next = 21;
-                return Object(_util_function__WEBPACK_IMPORTED_MODULE_4__["isFile"])(image.src.replace('/storage', Object(_util_function__WEBPACK_IMPORTED_MODULE_4__["getProject"])().storageUrl));
+                _context2.next = 21;
+                return Object(_util_function__WEBPACK_IMPORTED_MODULE_5__["isFile"])(image.src.replace('/storage', Object(_util_function__WEBPACK_IMPORTED_MODULE_5__["getProject"])().storageUrl));
 
               case 21:
-                if (!_context.sent) {
-                  _context.next = 25;
+                if (!_context2.sent) {
+                  _context2.next = 25;
                   break;
                 }
 
-                _context.t0 = image.src.replace('/storage', Object(_util_function__WEBPACK_IMPORTED_MODULE_4__["getProject"])().storageUrl);
-                _context.next = 26;
+                _context2.t0 = image.src.replace('/storage', Object(_util_function__WEBPACK_IMPORTED_MODULE_5__["getProject"])().storageUrl);
+                _context2.next = 26;
                 break;
 
               case 25:
-                _context.t0 = image.src.replace('/storage', '/default');
+                _context2.t0 = image.src.replace('/storage', '/default');
 
               case 26:
-                src = _context.t0;
+                src = _context2.t0;
                 imageInstance.src = src;
-                _context.next = 30;
+                _context2.next = 30;
                 return drawImage({
                   image: imageInstance,
                   x: image.x,
@@ -655,36 +734,36 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
                 });
 
               case 30:
-                _context.next = 15;
+                _context2.next = 15;
                 break;
 
               case 32:
-                _context.next = 37;
+                _context2.next = 37;
                 break;
 
               case 34:
-                _context.prev = 34;
-                _context.t1 = _context["catch"](13);
+                _context2.prev = 34;
+                _context2.t1 = _context2["catch"](13);
 
-                _iterator.e(_context.t1);
+                _iterator.e(_context2.t1);
 
               case 37:
-                _context.prev = 37;
+                _context2.prev = 37;
 
                 _iterator.f();
 
-                return _context.finish(37);
+                return _context2.finish(37);
 
               case 40:
                 // テキスト描画
                 _iterator2 = _createForOfIteratorHelper(printData.text);
-                _context.prev = 41;
+                _context2.prev = 41;
 
                 _iterator2.s();
 
               case 43:
                 if ((_step2 = _iterator2.n()).done) {
-                  _context.next = 75;
+                  _context2.next = 75;
                   break;
                 }
 
@@ -695,25 +774,25 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
                 value = '';
 
                 if (!(text.name !== undefined)) {
-                  _context.next = 66;
+                  _context2.next = 66;
                   break;
                 }
 
-                _context.t2 = text.name;
-                _context.next = _context.t2 === 'price' ? 53 : _context.t2 === 'date' ? 55 : _context.t2 === 'startDate' ? 57 : _context.t2 === 'endDate' ? 57 : _context.t2 === 'eventNameJa' ? 59 : _context.t2 === 'eventNameEn' ? 59 : 63;
+                _context2.t2 = text.name;
+                _context2.next = _context2.t2 === 'price' ? 53 : _context2.t2 === 'date' ? 55 : _context2.t2 === 'startDate' ? 57 : _context2.t2 === 'endDate' ? 57 : _context2.t2 === 'eventNameJa' ? 59 : _context2.t2 === 'eventNameEn' ? 59 : 63;
                 break;
 
               case 53:
                 value = "\uFFE5".concat(data.price.toLocaleString());
-                return _context.abrupt("break", 64);
+                return _context2.abrupt("break", 64);
 
               case 55:
-                value = "(".concat(moment__WEBPACK_IMPORTED_MODULE_1__().format('YYYY/MM/DD HH:mm'), " \u767A\u5238)");
-                return _context.abrupt("break", 64);
+                value = "(".concat(moment__WEBPACK_IMPORTED_MODULE_2__().format('YYYY/MM/DD HH:mm'), " \u767A\u5238)");
+                return _context2.abrupt("break", 64);
 
               case 57:
-                value = "".concat(moment__WEBPACK_IMPORTED_MODULE_1__(data[text.name]).format(text.value));
-                return _context.abrupt("break", 64);
+                value = "".concat(moment__WEBPACK_IMPORTED_MODULE_2__(data[text.name]).format(text.value));
+                return _context2.abrupt("break", 64);
 
               case 59:
                 eventName = data[text.name];
@@ -726,27 +805,27 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
                   context.fillText(eventName, changePosition(text.fillText.x), changePosition(text.fillText.y) + parseInt(text.font.size, 10) * 0.75);
                 }
 
-                return _context.abrupt("continue", 73);
+                return _context2.abrupt("continue", 73);
 
               case 63:
                 value = "".concat(text.value === undefined ? '' : text.value).concat(data[text.name] === undefined ? '-' : data[text.name]);
 
               case 64:
-                _context.next = 71;
+                _context2.next = 71;
                 break;
 
               case 66:
                 if (!(text.value !== undefined)) {
-                  _context.next = 70;
+                  _context2.next = 70;
                   break;
                 }
 
                 value = text.value;
-                _context.next = 71;
+                _context2.next = 71;
                 break;
 
               case 70:
-                return _context.abrupt("continue", 73);
+                return _context2.abrupt("continue", 73);
 
               case 71:
                 if (text.slice !== undefined) {
@@ -757,81 +836,81 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
                 context.fillText(value, changePosition(text.fillText.x), changePosition(text.fillText.y));
 
               case 73:
-                _context.next = 43;
+                _context2.next = 43;
                 break;
 
               case 75:
-                _context.next = 80;
+                _context2.next = 80;
                 break;
 
               case 77:
-                _context.prev = 77;
-                _context.t3 = _context["catch"](41);
+                _context2.prev = 77;
+                _context2.t3 = _context2["catch"](41);
 
-                _iterator2.e(_context.t3);
+                _iterator2.e(_context2.t3);
 
               case 80:
-                _context.prev = 80;
+                _context2.prev = 80;
 
                 _iterator2.f();
 
-                return _context.finish(80);
+                return _context2.finish(80);
 
               case 83:
                 if (!(data.qrcode !== undefined)) {
-                  _context.next = 103;
+                  _context2.next = 103;
                   break;
                 }
 
                 _iterator3 = _createForOfIteratorHelper(printData.qrCode);
-                _context.prev = 85;
+                _context2.prev = 85;
 
                 _iterator3.s();
 
               case 87:
                 if ((_step3 = _iterator3.n()).done) {
-                  _context.next = 95;
+                  _context2.next = 95;
                   break;
                 }
 
                 qrCode = _step3.value;
                 qrcodeCanvas = document.createElement('canvas');
-                _context.next = 92;
-                return qrcode__WEBPACK_IMPORTED_MODULE_2__["toCanvas"](qrcodeCanvas, data.qrcode);
+                _context2.next = 92;
+                return qrcode__WEBPACK_IMPORTED_MODULE_3__["toCanvas"](qrcodeCanvas, data.qrcode);
 
               case 92:
                 context.drawImage(qrcodeCanvas, qrCode.x, qrCode.y, qrCode.width, qrCode.height);
 
               case 93:
-                _context.next = 87;
+                _context2.next = 87;
                 break;
 
               case 95:
-                _context.next = 100;
+                _context2.next = 100;
                 break;
 
               case 97:
-                _context.prev = 97;
-                _context.t4 = _context["catch"](85);
+                _context2.prev = 97;
+                _context2.t4 = _context2["catch"](85);
 
-                _iterator3.e(_context.t4);
+                _iterator3.e(_context2.t4);
 
               case 100:
-                _context.prev = 100;
+                _context2.prev = 100;
 
                 _iterator3.f();
 
-                return _context.finish(100);
+                return _context2.finish(100);
 
               case 103:
-                return _context.abrupt("return", canvas);
+                return _context2.abrupt("return", canvas);
 
               case 104:
               case "end":
-                return _context.stop();
+                return _context2.stop();
             }
           }
-        }, _callee, null, [[13, 34, 37, 40], [41, 77, 80, 83], [85, 97, 100, 103]]);
+        }, _callee2, null, [[13, 34, 37, 40], [41, 77, 80, 83], [85, 97, 100, 103]]);
       }));
     }
     /**
@@ -840,17 +919,17 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 
 
     function createPrintCanvas(params) {
-      return __awaiter(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee2() {
+      return __awaiter(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee3() {
         var acceptedOffer, itemOffered, data, printData, canvas;
-        return regeneratorRuntime.wrap(function _callee2$(_context2) {
+        return regeneratorRuntime.wrap(function _callee3$(_context3) {
           while (1) {
-            switch (_context2.prev = _context2.next) {
+            switch (_context3.prev = _context3.next) {
               case 0:
                 acceptedOffer = params.acceptedOffer;
                 itemOffered = acceptedOffer.itemOffered;
 
                 if (!(itemOffered.typeOf !== _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_0__["factory"].chevre.reservationType.EventReservation)) {
-                  _context2.next = 4;
+                  _context3.next = 4;
                   break;
                 }
 
@@ -864,12 +943,12 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
                   eventNameEn: itemOffered.reservationFor.name.en === undefined ? '' : itemOffered.reservationFor.name.en,
                   screenNameJa: itemOffered.reservationFor.location.address === undefined ? itemOffered.reservationFor.location.name === undefined || itemOffered.reservationFor.location.name.ja === undefined ? '' : itemOffered.reservationFor.location.name.ja : "".concat(itemOffered.reservationFor.location.address.ja, " ").concat(itemOffered.reservationFor.location.name === undefined ? '' : itemOffered.reservationFor.location.name.ja),
                   screenNameEn: itemOffered.reservationFor.location.address === undefined ? itemOffered.reservationFor.location.name === undefined || itemOffered.reservationFor.location.name.en === undefined ? '' : itemOffered.reservationFor.location.name.en : "".concat(itemOffered.reservationFor.location.address.en, " ").concat(itemOffered.reservationFor.location.name === undefined ? '' : itemOffered.reservationFor.location.name.en),
-                  startDate: moment__WEBPACK_IMPORTED_MODULE_1__(itemOffered.reservationFor.startDate).toISOString(),
-                  endDate: moment__WEBPACK_IMPORTED_MODULE_1__(itemOffered.reservationFor.endDate).toISOString(),
+                  startDate: moment__WEBPACK_IMPORTED_MODULE_2__(itemOffered.reservationFor.startDate).toISOString(),
+                  endDate: moment__WEBPACK_IMPORTED_MODULE_2__(itemOffered.reservationFor.endDate).toISOString(),
                   seatNumber: itemOffered.reservedTicket.ticketedSeat === undefined || itemOffered.reservedTicket.ticketedSeat === null ? undefined : itemOffered.reservedTicket.ticketedSeat.seatNumber,
                   ticketNameJa: itemOffered.reservedTicket.ticketType.name === undefined ? '' : typeof itemOffered.reservedTicket.ticketType.name === 'string' ? itemOffered.reservedTicket.ticketType.name : itemOffered.reservedTicket.ticketType.name.ja === undefined ? '' : itemOffered.reservedTicket.ticketType.name.ja,
                   ticketNameEn: itemOffered.reservedTicket.ticketType.name === undefined ? '' : typeof itemOffered.reservedTicket.ticketType.name === 'string' ? itemOffered.reservedTicket.ticketType.name : itemOffered.reservedTicket.ticketType.name.en === undefined ? '' : itemOffered.reservedTicket.ticketType.name.en,
-                  price: acceptedOffer.priceSpecification === undefined ? 0 : Object(_purchase_function__WEBPACK_IMPORTED_MODULE_3__["getItemPrice"])({
+                  price: acceptedOffer.priceSpecification === undefined ? 0 : Object(_purchase_function__WEBPACK_IMPORTED_MODULE_4__["getItemPrice"])({
                     priceComponents: acceptedOffer.priceSpecification.priceComponent
                   }),
                   posName: params.pos === undefined ? '' : params.pos.name,
@@ -880,22 +959,22 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
                   index: params.index
                 };
                 printData = params.printData;
-                _context2.next = 8;
+                _context3.next = 8;
                 return drawCanvas({
                   data: data,
                   printData: printData
                 });
 
               case 8:
-                canvas = _context2.sent;
-                return _context2.abrupt("return", canvas);
+                canvas = _context3.sent;
+                return _context3.abrupt("return", canvas);
 
               case 10:
               case "end":
-                return _context2.stop();
+                return _context3.stop();
             }
           }
-        }, _callee2);
+        }, _callee3);
       }));
     }
     /**
@@ -904,11 +983,11 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 
 
     function createTestPrintCanvas(args) {
-      return __awaiter(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee3() {
+      return __awaiter(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee4() {
         var printData, data, canvas;
-        return regeneratorRuntime.wrap(function _callee3$(_context3) {
+        return regeneratorRuntime.wrap(function _callee4$(_context4) {
           while (1) {
-            switch (_context3.prev = _context3.next) {
+            switch (_context4.prev = _context4.next) {
               case 0:
                 printData = args.printData;
                 data = {
@@ -918,8 +997,8 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
                   eventNameEn: Math.floor(Math.random() * 11) < 5 ? 'test event' : 'test1 test2 test3 test4 test5 test6 test7 event',
                   screenNameJa: 'テストスクリーン',
                   screenNameEn: 'test screen',
-                  startDate: moment__WEBPACK_IMPORTED_MODULE_1__().toISOString(),
-                  endDate: moment__WEBPACK_IMPORTED_MODULE_1__().toISOString(),
+                  startDate: moment__WEBPACK_IMPORTED_MODULE_2__().toISOString(),
+                  endDate: moment__WEBPACK_IMPORTED_MODULE_2__().toISOString(),
                   seatNumber: 'TEST-1',
                   ticketNameJa: 'テストチケット123456',
                   ticketNameEn: 'test ticket 123456',
@@ -931,22 +1010,68 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
                   qrcode: 'TEST-123456-123456',
                   index: 0
                 };
-                _context3.next = 4;
+                _context4.next = 4;
                 return drawCanvas({
                   printData: printData,
                   data: data
                 });
 
               case 4:
-                canvas = _context3.sent;
-                return _context3.abrupt("return", canvas);
+                canvas = _context4.sent;
+                return _context4.abrupt("return", canvas);
 
               case 6:
               case "end":
-                return _context3.stop();
+                return _context4.stop();
             }
           }
-        }, _callee3);
+        }, _callee4);
+      }));
+    }
+    /**
+     * テスト印刷用イメージ作成
+     */
+
+
+    function createTestPrintCanvas4Html() {
+      return __awaiter(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee5() {
+        var view, template, div, canvas;
+        return regeneratorRuntime.wrap(function _callee5$(_context5) {
+          while (1) {
+            switch (_context5.prev = _context5.next) {
+              case 0:
+                view = "<div style=\"width: 560px;\">\n    <div class=\"py-5 text-center\" style=\"font-size: 30px;\">\n    <p class=\"mb-3\"><img width=\"400\" height=\"64\" src=\"/default/images/print/logo.png\"></p>\n    <p class=\"mb-3\">Test print</p>\n    <p><%= moment().tz('Asia/Tokyo').locale('ja').format('YYYY/MM/DD HH:mm:ss') %></p>\n    </div>\n    </div>";
+                _context5.next = 3;
+                return window.ejs.render(view, {
+                  moment: moment__WEBPACK_IMPORTED_MODULE_2__
+                }, {
+                  async: true
+                });
+
+              case 3:
+                template = _context5.sent;
+                div = document.createElement('div');
+                div.className = 'position-absolute';
+                div.style.top = '-9999px';
+                div.innerHTML = template;
+                document.body.appendChild(div);
+                _context5.next = 11;
+                return html2canvas__WEBPACK_IMPORTED_MODULE_1___default()(div, {
+                  width: 560,
+                  scale: 1
+                });
+
+              case 11:
+                canvas = _context5.sent;
+                div.remove();
+                return _context5.abrupt("return", canvas);
+
+              case 14:
+              case "end":
+                return _context5.stop();
+            }
+          }
+        }, _callee5);
       }));
     }
     /**
@@ -955,18 +1080,18 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 
 
     function createCooperationQRCode(params) {
-      return __awaiter(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee4() {
+      return __awaiter(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee6() {
         var order, qrcodeText, canvas, text;
-        return regeneratorRuntime.wrap(function _callee4$(_context4) {
+        return regeneratorRuntime.wrap(function _callee6$(_context6) {
           while (1) {
-            switch (_context4.prev = _context4.next) {
+            switch (_context6.prev = _context6.next) {
               case 0:
                 order = params.order;
                 qrcodeText = params.qrcodeText;
                 canvas = document.createElement('canvas');
                 text = qrcodeText.replace(/\{\{ orderNumber \}\}/g, order.orderNumber).replace(/\{\{ price \}\}/g, String(order.price));
-                return _context4.abrupt("return", new Promise(function (resolve, reject) {
-                  qrcode__WEBPACK_IMPORTED_MODULE_2__["toCanvas"](canvas, text).then(function () {
+                return _context6.abrupt("return", new Promise(function (resolve, reject) {
+                  qrcode__WEBPACK_IMPORTED_MODULE_3__["toCanvas"](canvas, text).then(function () {
                     resolve(canvas.toDataURL());
                   })["catch"](function (error) {
                     console.error(error);
@@ -976,10 +1101,10 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 
               case 5:
               case "end":
-                return _context4.stop();
+                return _context6.stop();
             }
           }
-        }, _callee4);
+        }, _callee6);
       }));
     }
     /**
@@ -1013,10 +1138,10 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 
           var customData = {
             orderDate: order.orderDate,
-            orderDateJST: moment__WEBPACK_IMPORTED_MODULE_1__(order.orderDate).format('YYYY/MM/DD/HH:mm'),
+            orderDateJST: moment__WEBPACK_IMPORTED_MODULE_2__(order.orderDate).format('YYYY/MM/DD/HH:mm'),
             orderNumber: order.orderNumber,
             orderStatus: order.orderStatus,
-            dateReturnedJST: order.dateReturned === undefined ? undefined : moment__WEBPACK_IMPORTED_MODULE_1__(order.dateReturned).format('YYYY/MM/DD/HH:mm'),
+            dateReturnedJST: order.dateReturned === undefined ? undefined : moment__WEBPACK_IMPORTED_MODULE_2__(order.dateReturned).format('YYYY/MM/DD/HH:mm'),
             confirmationNumber: order.confirmationNumber,
             price: order.price,
             seller: order.seller,
@@ -1024,7 +1149,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
               return m.name;
             }).join(','),
             customer: Object.assign(Object.assign({}, order.customer), {
-              formatTelephone: Object(_util_function__WEBPACK_IMPORTED_MODULE_4__["formatTelephone"])(order.customer.telephone),
+              formatTelephone: Object(_util_function__WEBPACK_IMPORTED_MODULE_5__["formatTelephone"])(order.customer.telephone),
               pos: {
                 name: getTransactionAgentIdentifier(order, 'posName') === undefined ? {
                   name: '',
@@ -1040,12 +1165,12 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
             }),
             itemOffered: {
               id: itemOffered.id,
-              price: Object(_purchase_function__WEBPACK_IMPORTED_MODULE_3__["getItemPrice"])({
+              price: Object(_purchase_function__WEBPACK_IMPORTED_MODULE_4__["getItemPrice"])({
                 priceComponents: acceptedOffer.priceSpecification.priceComponent
               }),
               reservedTicket: itemOffered.reservedTicket,
               reservationFor: Object.assign(Object.assign({}, itemOffered.reservationFor), {
-                startDateJST: moment__WEBPACK_IMPORTED_MODULE_1__(itemOffered.reservationFor.startDate).format('YYYY/MM/DD/HH:mm')
+                startDateJST: moment__WEBPACK_IMPORTED_MODULE_2__(itemOffered.reservationFor.startDate).format('YYYY/MM/DD/HH:mm')
               })
             }
           };
@@ -1092,8 +1217,8 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
           identifiers: identifiers
         },
         orderStatuses: input.orderStatus === '' ? undefined : [input.orderStatus],
-        orderDateFrom: input.orderDateFrom === undefined ? undefined : moment__WEBPACK_IMPORTED_MODULE_1__(moment__WEBPACK_IMPORTED_MODULE_1__(input.orderDateFrom).format('YYYYMMDD')).toDate(),
-        orderDateThrough: input.orderDateThrough === undefined ? undefined : moment__WEBPACK_IMPORTED_MODULE_1__(moment__WEBPACK_IMPORTED_MODULE_1__(input.orderDateThrough).format('YYYYMMDD')).add(1, 'day').toDate(),
+        orderDateFrom: input.orderDateFrom === undefined ? undefined : moment__WEBPACK_IMPORTED_MODULE_2__(moment__WEBPACK_IMPORTED_MODULE_2__(input.orderDateFrom).format('YYYYMMDD')).toDate(),
+        orderDateThrough: input.orderDateThrough === undefined ? undefined : moment__WEBPACK_IMPORTED_MODULE_2__(moment__WEBPACK_IMPORTED_MODULE_2__(input.orderDateThrough).format('YYYYMMDD')).add(1, 'day').toDate(),
         confirmationNumbers: input.confirmationNumber === '' ? undefined : [input.confirmationNumber],
         orderNumbers: input.orderNumber === '' ? undefined : [input.orderNumber],
         paymentMethods: input.paymentMethodType === '' ? undefined : {
@@ -1102,8 +1227,8 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
         acceptedOffers: {
           itemOffered: {
             reservationFor: {
-              inSessionFrom: input.eventStartDateFrom === undefined ? undefined : moment__WEBPACK_IMPORTED_MODULE_1__(moment__WEBPACK_IMPORTED_MODULE_1__(input.eventStartDateFrom).format('YYYYMMDD')).toDate(),
-              inSessionThrough: input.eventStartDateThrough === undefined ? undefined : moment__WEBPACK_IMPORTED_MODULE_1__(moment__WEBPACK_IMPORTED_MODULE_1__(input.eventStartDateThrough).format('YYYYMMDD')).add(1, 'day').toDate(),
+              inSessionFrom: input.eventStartDateFrom === undefined ? undefined : moment__WEBPACK_IMPORTED_MODULE_2__(moment__WEBPACK_IMPORTED_MODULE_2__(input.eventStartDateFrom).format('YYYYMMDD')).toDate(),
+              inSessionThrough: input.eventStartDateThrough === undefined ? undefined : moment__WEBPACK_IMPORTED_MODULE_2__(moment__WEBPACK_IMPORTED_MODULE_2__(input.eventStartDateThrough).format('YYYYMMDD')).add(1, 'day').toDate(),
               superEvent: {
                 location: {
                   branchCodes: theater === undefined ? [] : [theater.branchCode]
@@ -2333,98 +2458,98 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 
 
     function retry(args) {
-      return __awaiter(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee7() {
+      return __awaiter(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee9() {
         var _this2 = this;
 
         var count;
-        return regeneratorRuntime.wrap(function _callee7$(_context7) {
+        return regeneratorRuntime.wrap(function _callee9$(_context9) {
           while (1) {
-            switch (_context7.prev = _context7.next) {
+            switch (_context9.prev = _context9.next) {
               case 0:
                 count = 0;
-                return _context7.abrupt("return", new Promise(function (resolve, reject) {
-                  return __awaiter(_this2, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee6() {
+                return _context9.abrupt("return", new Promise(function (resolve, reject) {
+                  return __awaiter(_this2, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee8() {
                     var _this3 = this;
 
                     var timerProcess, result;
-                    return regeneratorRuntime.wrap(function _callee6$(_context6) {
+                    return regeneratorRuntime.wrap(function _callee8$(_context8) {
                       while (1) {
-                        switch (_context6.prev = _context6.next) {
+                        switch (_context8.prev = _context8.next) {
                           case 0:
                             timerProcess = function timerProcess() {
                               setTimeout(function () {
-                                return __awaiter(_this3, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee5() {
+                                return __awaiter(_this3, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee7() {
                                   var result;
-                                  return regeneratorRuntime.wrap(function _callee5$(_context5) {
+                                  return regeneratorRuntime.wrap(function _callee7$(_context7) {
                                     while (1) {
-                                      switch (_context5.prev = _context5.next) {
+                                      switch (_context7.prev = _context7.next) {
                                         case 0:
                                           count++;
-                                          _context5.prev = 1;
-                                          _context5.next = 4;
+                                          _context7.prev = 1;
+                                          _context7.next = 4;
                                           return args.process();
 
                                         case 4:
-                                          result = _context5.sent;
+                                          result = _context7.sent;
                                           resolve(result);
-                                          _context5.next = 14;
+                                          _context7.next = 14;
                                           break;
 
                                         case 8:
-                                          _context5.prev = 8;
-                                          _context5.t0 = _context5["catch"](1);
+                                          _context7.prev = 8;
+                                          _context7.t0 = _context7["catch"](1);
 
                                           if (!(count >= args.limit)) {
-                                            _context5.next = 13;
+                                            _context7.next = 13;
                                             break;
                                           }
 
-                                          reject(_context5.t0);
-                                          return _context5.abrupt("return");
+                                          reject(_context7.t0);
+                                          return _context7.abrupt("return");
 
                                         case 13:
                                           timerProcess();
 
                                         case 14:
                                         case "end":
-                                          return _context5.stop();
+                                          return _context7.stop();
                                       }
                                     }
-                                  }, _callee5, null, [[1, 8]]);
+                                  }, _callee7, null, [[1, 8]]);
                                 }));
                               }, args.interval);
                             };
 
-                            _context6.prev = 1;
-                            _context6.next = 4;
+                            _context8.prev = 1;
+                            _context8.next = 4;
                             return args.process();
 
                           case 4:
-                            result = _context6.sent;
+                            result = _context8.sent;
                             resolve(result);
-                            _context6.next = 11;
+                            _context8.next = 11;
                             break;
 
                           case 8:
-                            _context6.prev = 8;
-                            _context6.t0 = _context6["catch"](1);
+                            _context8.prev = 8;
+                            _context8.t0 = _context8["catch"](1);
                             timerProcess();
 
                           case 11:
                           case "end":
-                            return _context6.stop();
+                            return _context8.stop();
                         }
                       }
-                    }, _callee6, null, [[1, 8]]);
+                    }, _callee8, null, [[1, 8]]);
                   }));
                 }));
 
               case 2:
               case "end":
-                return _context7.stop();
+                return _context9.stop();
             }
           }
-        }, _callee7);
+        }, _callee9);
       }));
     }
     /**
@@ -2434,12 +2559,12 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 
 
     function sleep(time) {
-      return __awaiter(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee8() {
-        return regeneratorRuntime.wrap(function _callee8$(_context8) {
+      return __awaiter(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee10() {
+        return regeneratorRuntime.wrap(function _callee10$(_context10) {
           while (1) {
-            switch (_context8.prev = _context8.next) {
+            switch (_context10.prev = _context10.next) {
               case 0:
-                return _context8.abrupt("return", new Promise(function (resolve) {
+                return _context10.abrupt("return", new Promise(function (resolve) {
                   setTimeout(function () {
                     resolve();
                   }, time);
@@ -2447,10 +2572,10 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 
               case 1:
               case "end":
-                return _context8.stop();
+                return _context10.stop();
             }
           }
-        }, _callee8);
+        }, _callee10);
       }));
     }
     /**
@@ -2636,13 +2761,13 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 
 
     function isFile(url) {
-      return __awaiter(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee9() {
+      return __awaiter(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee11() {
         var fetchResult;
-        return regeneratorRuntime.wrap(function _callee9$(_context9) {
+        return regeneratorRuntime.wrap(function _callee11$(_context11) {
           while (1) {
-            switch (_context9.prev = _context9.next) {
+            switch (_context11.prev = _context11.next) {
               case 0:
-                _context9.next = 2;
+                _context11.next = 2;
                 return fetch(url, {
                   method: 'GET',
                   cache: 'no-cache',
@@ -2652,15 +2777,15 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
                 });
 
               case 2:
-                fetchResult = _context9.sent;
-                return _context9.abrupt("return", fetchResult.ok);
+                fetchResult = _context11.sent;
+                return _context11.abrupt("return", fetchResult.ok);
 
               case 4:
               case "end":
-                return _context9.stop();
+                return _context11.stop();
             }
           }
-        }, _callee9);
+        }, _callee11);
       }));
     }
     /**
@@ -3746,13 +3871,14 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
       INQUIRY_INPUT_KEYPAD: false,
       INQUIRY_ORDER_DATE_FROM_VALUE: '-3',
       INQUIRY_ORDER_DATE_FROM_UNIT: 'month',
-      ORDER_CANCEL: false,
+      ORDER_CANCEL: true,
       ORDER_CANCEL_MAIL_CUSTOM: true,
-      ORDER_PRINT: false,
+      ORDER_PRINT: true,
       ORDER_LINK: [],
       PRINT_QRCODE_TYPE: 'token',
       PRINT_QRCODE_CUSTOM: '',
-      PRINT_LOADING: true
+      PRINT_LOADING: true,
+      PRINT_DATA: 'JSON'
     };
 
     function getEnvironment() {
@@ -3872,11 +3998,11 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 
 
     function main() {
-      return __awaiter(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee10() {
+      return __awaiter(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee12() {
         var params, space, projectId;
-        return regeneratorRuntime.wrap(function _callee10$(_context10) {
+        return regeneratorRuntime.wrap(function _callee12$(_context12) {
           while (1) {
-            switch (_context10.prev = _context10.next) {
+            switch (_context12.prev = _context12.next) {
               case 0:
                 // タイムゾーン設定
                 moment_timezone__WEBPACK_IMPORTED_MODULE_3__["tz"].setDefault('Asia/Tokyo');
@@ -3900,38 +4026,38 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
                 projectId = params.projectId === undefined ? _app__WEBPACK_IMPORTED_MODULE_6__["Functions"].Util.getProject().projectId === '' ? undefined : _app__WEBPACK_IMPORTED_MODULE_6__["Functions"].Util.getProject().projectId : params.projectId;
 
                 if (!(projectId === undefined && location.hash !== '#/auth/signin')) {
-                  _context10.next = 12;
+                  _context12.next = 12;
                   break;
                 }
 
                 location.href = '/#/auth/signin';
                 location.reload();
-                return _context10.abrupt("return");
+                return _context12.abrupt("return");
 
               case 12:
-                _context10.next = 14;
+                _context12.next = 14;
                 return setProject({
                   projectId: projectId
                 });
 
               case 14:
                 if (!(_app__WEBPACK_IMPORTED_MODULE_6__["Functions"].Util.getProject().storageUrl === undefined)) {
-                  _context10.next = 16;
+                  _context12.next = 16;
                   break;
                 }
 
-                return _context10.abrupt("return");
+                return _context12.abrupt("return");
 
               case 16:
-                _context10.next = 18;
+                _context12.next = 18;
                 return setProjectConfig(_app__WEBPACK_IMPORTED_MODULE_6__["Functions"].Util.getProject().storageUrl);
 
               case 18:
               case "end":
-                return _context10.stop();
+                return _context12.stop();
             }
           }
-        }, _callee10);
+        }, _callee12);
       }));
     }
     /**
@@ -3940,13 +4066,13 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 
 
     function setProject(params) {
-      return __awaiter(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee11() {
+      return __awaiter(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee13() {
         var fetchResult, json;
-        return regeneratorRuntime.wrap(function _callee11$(_context11) {
+        return regeneratorRuntime.wrap(function _callee13$(_context13) {
           while (1) {
-            switch (_context11.prev = _context11.next) {
+            switch (_context13.prev = _context13.next) {
               case 0:
-                _context11.next = 2;
+                _context13.next = 2;
                 return fetch('/api/project', {
                   method: 'POST',
                   cache: 'no-cache',
@@ -3957,10 +4083,10 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
                 });
 
               case 2:
-                fetchResult = _context11.sent;
+                fetchResult = _context13.sent;
 
                 if (fetchResult.ok) {
-                  _context11.next = 5;
+                  _context13.next = 5;
                   break;
                 }
 
@@ -3970,19 +4096,19 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
                 }));
 
               case 5:
-                _context11.next = 7;
+                _context13.next = 7;
                 return fetchResult.json();
 
               case 7:
-                json = _context11.sent;
+                json = _context13.sent;
                 sessionStorage.setItem('PROJECT', JSON.stringify(json));
 
               case 9:
               case "end":
-                return _context11.stop();
+                return _context13.stop();
             }
           }
-        }, _callee11);
+        }, _callee13);
       }));
     }
     /**
@@ -3991,15 +4117,15 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 
 
     function setProjectConfig(storageUrl) {
-      return __awaiter(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee12() {
+      return __awaiter(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee14() {
         var now, fetchResult, environment, style, favicon;
-        return regeneratorRuntime.wrap(function _callee12$(_context12) {
+        return regeneratorRuntime.wrap(function _callee14$(_context14) {
           while (1) {
-            switch (_context12.prev = _context12.next) {
+            switch (_context14.prev = _context14.next) {
               case 0:
                 now = moment_timezone__WEBPACK_IMPORTED_MODULE_3__().toISOString(); // 設定読み込み
 
-                _context12.next = 3;
+                _context14.next = 3;
                 return fetch("".concat(storageUrl, "/js/environment.js?=date").concat(now), {
                   method: 'GET',
                   cache: 'no-cache',
@@ -4009,21 +4135,21 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
                 });
 
               case 3:
-                fetchResult = _context12.sent;
+                fetchResult = _context14.sent;
 
                 if (!fetchResult.ok) {
-                  _context12.next = 10;
+                  _context14.next = 10;
                   break;
                 }
 
-                _context12.t0 = window;
-                _context12.next = 8;
+                _context14.t0 = window;
+                _context14.next = 8;
                 return fetchResult.text();
 
               case 8:
-                _context12.t1 = _context12.sent;
+                _context14.t1 = _context14.sent;
 
-                _context12.t0.eval.call(_context12.t0, _context12.t1);
+                _context14.t0.eval.call(_context14.t0, _context14.t1);
 
               case 10:
                 environment = Object(_environments_environment__WEBPACK_IMPORTED_MODULE_7__["getEnvironment"])(); // スタイル設定
@@ -4041,24 +4167,24 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
                 favicon = document.createElement('link');
                 favicon.rel = 'icon';
                 favicon.type = 'image/x-icon"';
-                _context12.next = 21;
+                _context14.next = 21;
                 return _app__WEBPACK_IMPORTED_MODULE_6__["Functions"].Util.isFile("".concat(storageUrl, "/favicon.ico"));
 
               case 21:
-                if (!_context12.sent) {
-                  _context12.next = 25;
+                if (!_context14.sent) {
+                  _context14.next = 25;
                   break;
                 }
 
-                _context12.t2 = "".concat(storageUrl, "/favicon.ico");
-                _context12.next = 26;
+                _context14.t2 = "".concat(storageUrl, "/favicon.ico");
+                _context14.next = 26;
                 break;
 
               case 25:
-                _context12.t2 = '/default/favicon.ico';
+                _context14.t2 = '/default/favicon.ico';
 
               case 26:
-                favicon.href = _context12.t2;
+                favicon.href = _context14.t2;
                 document.head.appendChild(favicon); // タイトル設定
 
                 document.title = environment.APP_TITLE; // GTM設定
@@ -4085,22 +4211,22 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 
               case 31:
               case "end":
-                return _context12.stop();
+                return _context14.stop();
             }
           }
-        }, _callee12);
+        }, _callee14);
       }));
     }
 
     main().then(function () {
-      return __awaiter(void 0, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee13() {
+      return __awaiter(void 0, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee15() {
         var _yield$__webpack_requ, AppModule;
 
-        return regeneratorRuntime.wrap(function _callee13$(_context13) {
+        return regeneratorRuntime.wrap(function _callee15$(_context15) {
           while (1) {
-            switch (_context13.prev = _context13.next) {
+            switch (_context15.prev = _context15.next) {
               case 0:
-                _context13.next = 2;
+                _context15.next = 2;
                 return __webpack_require__.e(
                 /*! import() | app-app-module */
                 "app-app-module").then(__webpack_require__.bind(null,
@@ -4108,16 +4234,16 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
                 "./app/app.module.ts"));
 
               case 2:
-                _yield$__webpack_requ = _context13.sent;
+                _yield$__webpack_requ = _context15.sent;
                 AppModule = _yield$__webpack_requ.AppModule;
                 Object(_angular_platform_browser_dynamic__WEBPACK_IMPORTED_MODULE_1__["platformBrowserDynamic"])().bootstrapModule(AppModule);
 
               case 5:
               case "end":
-                return _context13.stop();
+                return _context15.stop();
             }
           }
-        }, _callee13);
+        }, _callee15);
       }));
     })["catch"](function (error) {
       console.error(error);

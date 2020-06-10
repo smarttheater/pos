@@ -30,16 +30,10 @@ export class StarPrintService {
      */
     public async printProcess(args: {
         canvasList: HTMLCanvasElement[];
-        testFlg?: boolean;
     }) {
         let printerRequests: string[] = [];
         const canvasList = args.canvasList;
-        const testFlg = (args.testFlg === undefined) ? false : args.testFlg;
-        if (testFlg) {
-            printerRequests = await this.createTestPrinterRequest(canvasList[0]);
-        } else {
-            printerRequests = await this.createPrinterRequestList(canvasList);
-        }
+        printerRequests = await this.createPrinterRequestList(canvasList);
         // n分割配列へ変換
         const divide = 4;
         const divideRequests: string[] = [];
@@ -172,24 +166,6 @@ export class StarPrintService {
         request += this.builder.createCutPaperElement({ feed: true, type: 'partial' });
 
         return request;
-    }
-
-    /**
-     * プリンターテスト用リクエスト作成
-     */
-    private async createTestPrinterRequest(canvas: HTMLCanvasElement) {
-        let request = '';
-        request = this.builder.createBitImageElement({
-            context: canvas.getContext('2d'),
-            x: 0,
-            y: 0,
-            width: canvas.width,
-            height: canvas.height
-        });
-        // 紙を切断
-        request += this.builder.createCutPaperElement({ feed: true, type: 'partial' });
-
-        return [request];
     }
 
     /**

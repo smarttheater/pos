@@ -1,6 +1,6 @@
 {
   "name": "smart-theater-pos",
-  "version": "3.0.41",
+  "version": "3.0.42",
   "license": "MIT",
   "author": {
     "name": "Motionpicture co.,ltd."
@@ -68,6 +68,7 @@
     "google-libphonenumber": "^3.2.10",
     "hammerjs": "^2.0.8",
     "helmet": "^3.21.2",
+    "html2canvas": "^1.0.0-rc.5",
     "http-status": "^1.4.2",
     "intl-tel-input": "^14.1.0",
     "json2csv": "^4.5.4",

@@ -232,15 +232,26 @@ export class OrderEffects {
                         authorizeOrders.push(result);
                     }
                 }
-                const path = '/json/print/ticket.json';
-                const url = (await Functions.Util.isFile(`${Functions.Util.getProject().storageUrl}${path}`))
-                    ? `${Functions.Util.getProject().storageUrl}${path}`
-                    : `/default${path}`;
-                const printData = await this.utilService.getJson<Models.Order.Print.ITicketPrintData>(url);
+                let printData;
+                if (environment.PRINT_DATA === 'JSON') {
+                    const path = '/json/print/ticket.json';
+                    const url = (await Functions.Util.isFile(`${Functions.Util.getProject().storageUrl}${path}`))
+                        ? `${Functions.Util.getProject().storageUrl}${path}`
+                        : `/default${path}`;
+                    printData = await this.utilService.getJson<Models.Order.Print.ITicketPrintData>(url);
+                } else {
+                    const path = `/ejs/print/ticket.ejs`;
+                    const url = (await Functions.Util.isFile(`${Functions.Util.getProject().storageUrl}${path}`))
+                        ? `${Functions.Util.getProject().storageUrl}${path}`
+                        : `/default${path}`;
+                    printData = await this.utilService.getText<string>(url);
+                }
                 const testFlg = authorizeOrders.length === 0;
                 const canvasList: HTMLCanvasElement[] = [];
                 if (testFlg) {
-                    const canvas = await Functions.Order.createTestPrintCanvas({ printData });
+                    const canvas = (environment.PRINT_DATA === 'JSON')
+                        ? await Functions.Order.createTestPrintCanvas({ printData: <Models.Order.Print.ITicketPrintData>printData })
+                        : await Functions.Order.createTestPrintCanvas4Html();
                     canvasList.push(canvas);
                 } else {
                     for (const authorizeOrder of authorizeOrders) {
@@ -296,7 +307,12 @@ export class OrderEffects {
                                         moment(itemOffered.reservationFor.startDate).format('YYMMDD')
                                     );
                             }
-                            const canvas = await Functions.Order.createPrintCanvas({ printData, order, acceptedOffer, pos, qrcode, index });
+                            const canvas = (environment.PRINT_DATA === 'JSON')
+                                ? await Functions.Order.createPrintCanvas({
+                                    printData: <Models.Order.Print.ITicketPrintData>printData,
+                                    order, acceptedOffer, pos, qrcode, index
+                                })
+                                : await Functions.Order.createPrintCanvas4Html({ view: <string>printData, order, pos, qrcode, index });
                             canvasList.push(canvas);
                             index++;
                         }
@@ -305,11 +321,11 @@ export class OrderEffects {
                 switch (printer.connectionType) {
                     case Models.Util.Printer.ConnectionType.StarBluetooth:
                         this.starPrint.initialize({ printer, pos });
-                        await this.starPrint.printProcess({ canvasList, testFlg });
+                        await this.starPrint.printProcess({ canvasList });
                         break;
                     case Models.Util.Printer.ConnectionType.StarLAN:
                         this.starPrint.initialize({ printer, pos });
-                        await this.starPrint.printProcess({ canvasList, testFlg });
+                        await this.starPrint.printProcess({ canvasList });
                         break;
                     case Models.Util.Printer.ConnectionType.Image:
                         const domList = canvasList.map(canvas => `<div class="mb-3 p-4 border border-light-gray shadow-sm">
