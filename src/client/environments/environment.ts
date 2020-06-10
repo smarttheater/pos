@@ -202,6 +202,10 @@ interface IEnvironment {
      * 印刷時ローディング
      */
     PRINT_LOADING: boolean;
+    /**
+     * 印刷データ
+     */
+    PRINT_DATA: 'JSON' | 'HTML';
 }
 
 export const isProduction = (document.querySelector('body.production') !== null);
@@ -252,13 +256,14 @@ const defaultEnvironment: IEnvironment = {
     INQUIRY_INPUT_KEYPAD: false,
     INQUIRY_ORDER_DATE_FROM_VALUE: '-3',
     INQUIRY_ORDER_DATE_FROM_UNIT: 'month',
-    ORDER_CANCEL: false,
+    ORDER_CANCEL: true,
     ORDER_CANCEL_MAIL_CUSTOM: true,
-    ORDER_PRINT: false,
+    ORDER_PRINT: true,
     ORDER_LINK: [],
     PRINT_QRCODE_TYPE: 'token',
     PRINT_QRCODE_CUSTOM: '',
-    PRINT_LOADING: true
+    PRINT_LOADING: true,
+    PRINT_DATA: 'JSON'
 };
 
 export function getEnvironment(): IEnvironment {
