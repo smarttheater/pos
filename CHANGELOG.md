@@ -12,6 +12,10 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/).
 
 ### Security
 
+## 3.0.42 - 2020-06-10
+### Changed
+ - チケット印刷をHTMLから生成可能へ変更
+
 ## 3.0.41 - 2020-06-05
 ### Changed
  - 電話番号入力国際化対応
