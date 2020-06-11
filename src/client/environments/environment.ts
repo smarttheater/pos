@@ -123,6 +123,10 @@ interface IEnvironment {
      */
     PURCHASE_SCHEDULE_STATUS_THRESHOLD_UNIT: string;
     /**
+     * スケジュールソート
+     */
+    PURCHASE_SCHEDULE_SORT: boolean;
+    /**
      * 購入完了メールカスタム
      */
     PURCHASE_COMPLETE_MAIL_CUSTOM: boolean;
@@ -243,6 +247,7 @@ const defaultEnvironment: IEnvironment = {
     PURCHASE_SCHEDULE_DEFAULT_SELECTED_DATE: '0',
     PURCHASE_SCHEDULE_STATUS_THRESHOLD_VALUE: '30',
     PURCHASE_SCHEDULE_STATUS_THRESHOLD_UNIT: '%',
+    PURCHASE_SCHEDULE_SORT: true,
     PURCHASE_COMPLETE_MAIL_CUSTOM: true,
     PURCHASE_TERMS: false,
     PURCHASE_WARNING: false,
