@@ -21,7 +21,11 @@ export async function createPrintCanvas4Html(params: {
     if (params.qrcode !== undefined) {
         params.qrcode = await qrcode.toDataURL(params.qrcode);
     }
-    const template = await (<any>window).ejs.render(params.view, { moment, ...params, }, { async: true });
+    const template = await (<any>window).ejs.render(params.view, {
+        moment,
+        ...params,
+        storageUrl: getProject().storageUrl
+    }, { async: true });
     const div = document.createElement('div');
     div.className = 'position-absolute';
     div.style.top = '-9999px';

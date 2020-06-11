@@ -586,9 +586,11 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 
               case 4:
                 _context.next = 6;
-                return window.ejs.render(params.view, Object.assign({
+                return window.ejs.render(params.view, Object.assign(Object.assign({
                   moment: moment__WEBPACK_IMPORTED_MODULE_2__
                 }, params), {
+                  storageUrl: Object(_util_function__WEBPACK_IMPORTED_MODULE_5__["getProject"])().storageUrl
+                }), {
                   async: true
                 });
 

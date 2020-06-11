@@ -390,7 +390,7 @@ function createPrintCanvas4Html(params) {
         if (params.qrcode !== undefined) {
             params.qrcode = yield qrcode__WEBPACK_IMPORTED_MODULE_3__["toDataURL"](params.qrcode);
         }
-        const template = yield window.ejs.render(params.view, Object.assign({ moment: moment__WEBPACK_IMPORTED_MODULE_2__ }, params), { async: true });
+        const template = yield window.ejs.render(params.view, Object.assign(Object.assign({ moment: moment__WEBPACK_IMPORTED_MODULE_2__ }, params), { storageUrl: Object(_util_function__WEBPACK_IMPORTED_MODULE_5__["getProject"])().storageUrl }), { async: true });
         const div = document.createElement('div');
         div.className = 'position-absolute';
         div.style.top = '-9999px';
