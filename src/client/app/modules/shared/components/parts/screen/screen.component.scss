@@ -35,21 +35,29 @@
         font-weight: bold;
         color: #9a9a9b;
         padding-top: 20px;
-        background-image: url(/assets/images/seat/normal.svg);
-        background-size: 40px 50px;
-        background-repeat: no-repeat;
+        border: 3px solid #9a9a9b;
+        border-radius: 15px 15px 0 0;
         font-size: 12px;
         &.active {
             color: #FFF;
-            background-image: url(/assets/images/seat/normal_active.svg);
+            background-color: #258ac3;
+            border-color: #258ac3;
         }
         &.disabled {
             color: #FFF;
-            background-image: url(/assets/images/seat/normal_disabled.svg);
+            background-color: #9a9a9b;
+            border-color: #9a9a9b;
             cursor: default;
+        }
+        &.space.disabled {
+            padding-top: 20px;
+            background-color: #333;
+            border-color: #333;
         }
     }
     .seat-hc {
+        border: none;
+        border-radius: 0;
         background-image: url(/assets/images/seat/hc.svg) !important;
         background-size: 40px 50px;
         padding-top: 35px;
@@ -60,12 +68,9 @@
             background-image: url(/assets/images/seat/hc_disabled.svg) !important;
             cursor: default;
         }
-    }
-    .space {
-        padding-top: 20px;
-        &.disabled {
-            background-image: url(/assets/images/seat/space_disabled.svg) !important;
-            cursor: default;
+        &.space.disabled {
+            padding-top: 35px;
+            background-image: url(/assets/images/seat/hc_space.svg) !important;
         }
     }
     .object {
@@ -82,6 +87,8 @@
 }
 .screen-4dx {
     .seat {
+        border: none;
+        border-radius: 0;
         background-image: url(/assets/images/seat/4dx.svg);
         background-size: 50px 50px;
         &.active {

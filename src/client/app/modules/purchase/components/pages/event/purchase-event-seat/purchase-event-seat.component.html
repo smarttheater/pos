@@ -20,6 +20,7 @@
                 [reservations]="(purchase | async)?.reservations"
                 [authorizeSeatReservation]="(purchase | async)?.authorizeSeatReservation" (select)="selectSeat($event)">
             </app-screen>
+            <app-seat-info class="mb-4"></app-seat-info>
             <div *ngIf="(purchase | async)?.screen?.openSeatingAllowed" class="mb-4">
                 <div class="d-flex align-items-center">
                     <p class="mr-2">{{ 'purchase.event.seat.openSeating' | translate }}</p>
