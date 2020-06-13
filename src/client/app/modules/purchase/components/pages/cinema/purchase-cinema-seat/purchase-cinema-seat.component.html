@@ -12,7 +12,9 @@
         <div class="col-lg-9">
             <app-screen *ngIf="(user | async)?.theater 
                 && screeningEventSeats.length > 0 
-                && (purchase | async)?.screen" class="mb-4" [theaterCode]="(user | async)?.theater.branchCode"
+                && (purchase | async)?.screen" 
+                class="bg-white mb-3"
+                [theaterCode]="(user | async)?.theater.branchCode"
                 [screenCode]="(purchase | async)?.screen.branchCode" [screeningEventSeats]="screeningEventSeats"
                 [openSeatingAllowed]="(purchase | async)?.screen.openSeatingAllowed"
                 [reservations]="(purchase | async)?.reservations"

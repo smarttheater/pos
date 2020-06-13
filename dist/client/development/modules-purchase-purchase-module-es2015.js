@@ -860,7 +860,7 @@ function PurchaseCinemaSeatComponent_button_22_Template(rf, ctx) { if (rf & 1) {
 class PurchaseCinemaSeatComponent extends _purchase_seat_purchase_seat_component__WEBPACK_IMPORTED_MODULE_1__["PurchaseSeatComponent"] {
 }
 PurchaseCinemaSeatComponent.ɵfac = function PurchaseCinemaSeatComponent_Factory(t) { return ɵPurchaseCinemaSeatComponent_BaseFactory(t || PurchaseCinemaSeatComponent); };
-PurchaseCinemaSeatComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineComponent"]({ type: PurchaseCinemaSeatComponent, selectors: [["app-purchase-cinema-seat"]], features: [_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵInheritDefinitionFeature"]], decls: 26, vars: 26, consts: [[1, "contents-width", "mx-auto", "px-3", "py-5"], [1, "text-large", "mb-4", "text-center", "font-weight-bold"], [1, "mb-4", "text-md-center", 3, "innerHTML"], ["class", "d-flex mb-3", 4, "ngIf"], [1, "row"], [1, "col-lg-9"], ["class", "mb-4", 3, "theaterCode", "screenCode", "screeningEventSeats", "openSeatingAllowed", "reservations", "authorizeSeatReservation", "select", 4, "ngIf"], [1, "mb-4"], ["class", "mb-4", 4, "ngIf"], [1, "col-lg-3"], [1, "mb-4", 3, "purchase"], [4, "ngIf"], [1, "buttons", "mx-auto", "text-center"], ["type", "submit", "class", "btn btn-primary btn-block py-3 mb-3", 3, "disabled", "click", 4, "ngIf"], ["type", "button", "routerLink", "/purchase/cinema/schedule", 1, "btn", "btn-link"], [1, "d-flex", "mb-3"], ["type", "button", 1, "btn", "btn-primary", "mr-2", 3, "disabled", "click"], ["type", "button", 1, "btn", "btn-outline-primary", "m-0", 3, "click"], [1, "mb-4", 3, "theaterCode", "screenCode", "screeningEventSeats", "openSeatingAllowed", "reservations", "authorizeSeatReservation", "select"], [1, "d-flex", "align-items-center"], [1, "mr-2"], [1, "form-control", "d-inline-block", "w-auto", 3, "ngModel", "change"], ["value", "0"], [3, "value", 4, "ngFor", "ngForOf"], [3, "value"], [3, "language", "screeningEvent"], ["type", "submit", 1, "btn", "btn-primary", "btn-block", "py-3", "mb-3", 3, "disabled", "click"]], template: function PurchaseCinemaSeatComponent_Template(rf, ctx) { if (rf & 1) {
+PurchaseCinemaSeatComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineComponent"]({ type: PurchaseCinemaSeatComponent, selectors: [["app-purchase-cinema-seat"]], features: [_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵInheritDefinitionFeature"]], decls: 26, vars: 26, consts: [[1, "contents-width", "mx-auto", "px-3", "py-5"], [1, "text-large", "mb-4", "text-center", "font-weight-bold"], [1, "mb-4", "text-md-center", 3, "innerHTML"], ["class", "d-flex mb-3", 4, "ngIf"], [1, "row"], [1, "col-lg-9"], ["class", "bg-white mb-3", 3, "theaterCode", "screenCode", "screeningEventSeats", "openSeatingAllowed", "reservations", "authorizeSeatReservation", "select", 4, "ngIf"], [1, "mb-4"], ["class", "mb-4", 4, "ngIf"], [1, "col-lg-3"], [1, "mb-4", 3, "purchase"], [4, "ngIf"], [1, "buttons", "mx-auto", "text-center"], ["type", "submit", "class", "btn btn-primary btn-block py-3 mb-3", 3, "disabled", "click", 4, "ngIf"], ["type", "button", "routerLink", "/purchase/cinema/schedule", 1, "btn", "btn-link"], [1, "d-flex", "mb-3"], ["type", "button", 1, "btn", "btn-primary", "mr-2", 3, "disabled", "click"], ["type", "button", 1, "btn", "btn-outline-primary", "m-0", 3, "click"], [1, "bg-white", "mb-3", 3, "theaterCode", "screenCode", "screeningEventSeats", "openSeatingAllowed", "reservations", "authorizeSeatReservation", "select"], [1, "d-flex", "align-items-center"], [1, "mr-2"], [1, "form-control", "d-inline-block", "w-auto", 3, "ngModel", "change"], ["value", "0"], [3, "value", 4, "ngFor", "ngForOf"], [3, "value"], [3, "language", "screeningEvent"], ["type", "submit", 1, "btn", "btn-primary", "btn-block", "py-3", "mb-3", 3, "disabled", "click"]], template: function PurchaseCinemaSeatComponent_Template(rf, ctx) { if (rf & 1) {
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "div", 0);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](1, "h2", 1);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](2);
@@ -1975,7 +1975,7 @@ class PurchaseEventSeatComponent extends _purchase_seat_purchase_seat_component_
     }
 }
 PurchaseEventSeatComponent.ɵfac = function PurchaseEventSeatComponent_Factory(t) { return ɵPurchaseEventSeatComponent_BaseFactory(t || PurchaseEventSeatComponent); };
-PurchaseEventSeatComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineComponent"]({ type: PurchaseEventSeatComponent, selectors: [["app-purchase-event-seat"]], features: [_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵInheritDefinitionFeature"]], decls: 27, vars: 29, consts: [[1, "contents-width", "mx-auto", "px-3", "py-5"], [1, "text-large", "mb-4", "text-center", "font-weight-bold"], [1, "mb-4", "text-md-center", 3, "innerHTML"], ["class", "d-flex mb-3", 4, "ngIf"], [1, "row"], [1, "col-lg-9"], ["class", "mb-4", 3, "theaterCode", "screenCode", "screeningEventSeats", "openSeatingAllowed", "reservations", "authorizeSeatReservation", "select", 4, "ngIf"], [1, "mb-4"], ["class", "mb-4", 4, "ngIf"], [1, "col-lg-3"], [1, "mb-4", 3, "purchase"], [1, "buttons", "mx-auto", "text-center"], ["type", "submit", 1, "btn", "btn-primary", "btn-block", "py-3", "mb-3", 3, "disabled", "click"], ["type", "button", 1, "btn", "btn-link", 3, "click"], [1, "d-flex", "mb-3"], ["type", "button", 1, "btn", "btn-primary", "mr-2", 3, "disabled", "click"], ["type", "button", 1, "btn", "btn-outline-primary", "m-0", 3, "click"], [1, "mb-4", 3, "theaterCode", "screenCode", "screeningEventSeats", "openSeatingAllowed", "reservations", "authorizeSeatReservation", "select"], [1, "d-flex", "align-items-center"], [1, "mr-2"], [1, "form-control", "d-inline-block", "w-auto", 3, "ngModel", "change"], ["value", "0"], [3, "value", 4, "ngFor", "ngForOf"], [3, "value"]], template: function PurchaseEventSeatComponent_Template(rf, ctx) { if (rf & 1) {
+PurchaseEventSeatComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineComponent"]({ type: PurchaseEventSeatComponent, selectors: [["app-purchase-event-seat"]], features: [_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵInheritDefinitionFeature"]], decls: 27, vars: 29, consts: [[1, "contents-width", "mx-auto", "px-3", "py-5"], [1, "text-large", "mb-4", "text-center", "font-weight-bold"], [1, "mb-4", "text-md-center", 3, "innerHTML"], ["class", "d-flex mb-3", 4, "ngIf"], [1, "row"], [1, "col-lg-9"], ["class", "bg-white mb-3", 3, "theaterCode", "screenCode", "screeningEventSeats", "openSeatingAllowed", "reservations", "authorizeSeatReservation", "select", 4, "ngIf"], [1, "mb-4"], ["class", "mb-4", 4, "ngIf"], [1, "col-lg-3"], [1, "mb-4", 3, "purchase"], [1, "buttons", "mx-auto", "text-center"], ["type", "submit", 1, "btn", "btn-primary", "btn-block", "py-3", "mb-3", 3, "disabled", "click"], ["type", "button", 1, "btn", "btn-link", 3, "click"], [1, "d-flex", "mb-3"], ["type", "button", 1, "btn", "btn-primary", "mr-2", 3, "disabled", "click"], ["type", "button", 1, "btn", "btn-outline-primary", "m-0", 3, "click"], [1, "bg-white", "mb-3", 3, "theaterCode", "screenCode", "screeningEventSeats", "openSeatingAllowed", "reservations", "authorizeSeatReservation", "select"], [1, "d-flex", "align-items-center"], [1, "mr-2"], [1, "form-control", "d-inline-block", "w-auto", 3, "ngModel", "change"], ["value", "0"], [3, "value", 4, "ngFor", "ngForOf"], [3, "value"]], template: function PurchaseEventSeatComponent_Template(rf, ctx) { if (rf & 1) {
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "div", 0);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](1, "h2", 1);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](2);
@@ -5602,34 +5602,33 @@ class SeatInfoComponent {
     }
 }
 SeatInfoComponent.ɵfac = function SeatInfoComponent_Factory(t) { return new (t || SeatInfoComponent)(); };
-SeatInfoComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineComponent"]({ type: SeatInfoComponent, selectors: [["app-seat-info"]], decls: 23, vars: 12, consts: [[1, "bg-white", "d-flex", "justify-content-center", "flex-wrap", "px-3"], [1, "d-flex"], [1, "d-flex", "align-items-center"], [1, "seat"], [1, "seat", "active"], [1, "seat", "disabled"], [1, "seat", "space", "disabled"]], template: function SeatInfoComponent_Template(rf, ctx) { if (rf & 1) {
+SeatInfoComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineComponent"]({ type: SeatInfoComponent, selectors: [["app-seat-info"]], decls: 23, vars: 12, consts: [[1, "bg-white", "px-3"], [1, "container"], [1, "row", "align-items-center"], [1, "d-flex", "align-items-center", "col-6", "col-md-3"], [1, "seat"], [1, "seat", "active"], [1, "seat", "disabled"], [1, "seat", "space", "disabled"]], template: function SeatInfoComponent_Template(rf, ctx) { if (rf & 1) {
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "div", 0);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](1, "div", 1);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](2, "div", 2);
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelement"](3, "div", 3);
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](4, "div");
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](5);
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipe"](6, "translate");
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](3, "div", 3);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelement"](4, "div", 4);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](5, "div");
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](6);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipe"](7, "translate");
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](7, "div", 2);
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelement"](8, "div", 4);
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](9, "div");
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](10);
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipe"](11, "translate");
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](8, "div", 3);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelement"](9, "div", 5);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](10, "div");
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](11);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipe"](12, "translate");
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](12, "div", 1);
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](13, "div", 2);
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelement"](14, "div", 5);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](13, "div", 3);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelement"](14, "div", 6);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](15, "div");
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](16);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipe"](17, "translate");
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](18, "div", 2);
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelement"](19, "div", 6);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](18, "div", 3);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelement"](19, "div", 7);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](20, "div");
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](21);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipe"](22, "translate");
@@ -5637,12 +5636,13 @@ SeatInfoComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefine
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
     } if (rf & 2) {
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](5);
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtextInterpolate"](_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipeBind1"](6, 4, "purchase.seat.normal"));
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](5);
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtextInterpolate"](_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipeBind1"](11, 6, "purchase.seat.active"));
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](6);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtextInterpolate"](_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipeBind1"](7, 4, "purchase.seat.normal"));
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](5);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtextInterpolate"](_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipeBind1"](12, 6, "purchase.seat.active"));
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](5);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtextInterpolate"](_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipeBind1"](17, 8, "purchase.seat.disabled"));
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](5);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtextInterpolate"](_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipeBind1"](22, 10, "purchase.seat.space"));
