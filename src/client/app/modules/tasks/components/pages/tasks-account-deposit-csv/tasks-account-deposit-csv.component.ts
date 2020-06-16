@@ -37,11 +37,11 @@ export class TasksAccountDepositCSVComponent implements OnInit {
     public message: string;
     public amount: number;
     public json: {
-        '購入者ID': string;
-        '購入者お名前': string;
-        '購入者会員番号': string;
-        '購入者メールアドレス': string;
-        '購入者電話番号': string;
+        'id': string;
+        'name': string;
+        'username': string;
+        'email': string;
+        'tel': string;
     }[];
     public targetTable: IData[];
     public successTable: IData[];
@@ -85,43 +85,6 @@ export class TasksAccountDepositCSVComponent implements OnInit {
     }
 
     /**
-     * ファイルダウンロード
-     */
-    public async download() {
-        // iOS bugfix
-        this.conditions.itemId
-            = (<HTMLInputElement>document.getElementById('itemId')).value;
-        try {
-            const params: factory.order.ISearchConditions & {
-                format: factory.encodingFormat.Application | factory.encodingFormat.Text;
-            } = {
-                orderDateFrom: (this.conditions.orderDateFrom === undefined)
-                    ? undefined
-                    : moment(moment(this.conditions.orderDateFrom).format('YYYYMMDD')).toDate(),
-                orderDateThrough: (this.conditions.orderDateThrough === undefined)
-                    ? undefined
-                    : moment(moment(this.conditions.orderDateThrough).format('YYYYMMDD')).add(1, 'day').toDate(),
-                acceptedOffers: {
-                    itemOffered: {
-                        ids: [this.conditions.itemId]
-                    }
-                },
-                sort: {
-                    orderDate: factory.sortType.Descending
-                },
-                format: factory.encodingFormat.Text.csv
-            };
-            this.downloadService.order(params);
-        } catch (error) {
-            console.error(error);
-            this.utilService.openAlert({
-                title: this.translate.instant('common.error'),
-                body: this.translate.instant('tasks.accountDepositCSV.alert.download')
-            });
-        }
-    }
-
-    /**
      * ファイルアップロード
      */
     public async onChangeInput(event: any) {
@@ -151,7 +114,16 @@ export class TasksAccountDepositCSVComponent implements OnInit {
             });
             return;
         }
-        this.json = await this.csvToJson(text);
+        const json = await this.csvToJson(text);
+        this.json = json.map((j: any) => {
+            return {
+                id: j.購入者ID,
+                name: j.購入者名称,
+                username: j.購入者会員番号,
+                email: j.購入者メールアドレス,
+                tel: j.購入者電話番号,
+            };
+        });
         // console.log(this.json);
     }
 
@@ -183,6 +155,12 @@ export class TasksAccountDepositCSVComponent implements OnInit {
      */
     public async refine() {
         this.utilService.loadStart({ process: 'load' });
+        const limitYears = 10;
+        if (this.years > limitYears) {
+            alert('The number of years exceeds the upper limit');
+            this.utilService.loadEnd();
+            return;
+        }
         try {
             this.targetTable = [];
             this.successTable = [];
@@ -196,11 +174,11 @@ export class TasksAccountDepositCSVComponent implements OnInit {
             }[] = [];
             this.json.forEach((row) => {
                 // console.log(row);
-                const id = row.購入者ID;
-                const userName = row.購入者会員番号;
-                const name = row.購入者お名前;
-                const email = row.購入者メールアドレス;
-                const telephone = row.購入者電話番号;
+                const id = row.id;
+                const userName = row.username;
+                const name = row.name;
+                const email = row.email;
+                const telephone = row.tel;
                 if (deduplication.find(d => d.id === id) === undefined) {
                     deduplication.push({ id, userName, name, email, telephone });
                 }
@@ -312,6 +290,7 @@ export class TasksAccountDepositCSVComponent implements OnInit {
         this.failTable = [];
         try {
             await this.cinerinoService.getServices();
+            let count = 0;
             for (const data of this.targetTable) {
                 try {
                     await this.cinerinoService.account.deposit4sskts({
@@ -331,7 +310,11 @@ export class TasksAccountDepositCSVComponent implements OnInit {
                     data.status = false;
                     console.error(error);
                 }
-                await Functions.Util.sleep(1000);
+                await Functions.Util.sleep(500);
+                count++;
+                if (count % 500 === 0) {
+                    await this.cinerinoService.getServices();
+                }
             }
         } catch (error) {
             console.error(error);

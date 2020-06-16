@@ -2,37 +2,6 @@
     <h2 class="text-large mb-4 text-center font-weight-bold">{{ 'tasks.accountDepositCSV.title' | translate }}</h2>
     <p class="mb-4 text-md-center" [innerHTML]="'tasks.accountDepositCSV.read' | translate"></p>
     <div class="p-3 bg-white mb-4">
-        <div class="form-row">
-            <div class="form-group col-md-4">
-                <label for="orderDateFrom"
-                    class="mb-2">{{ 'tasks.accountDepositCSV.conditions.orderDateFrom' | translate }}</label>
-                <input type="text" name="orderDateFrom" id="orderDateFrom" placeholder="YYYY/MM/DD" class="form-control"
-                    #orderDateFrom="bsDatepicker" bsDatepicker [(ngModel)]="conditions.orderDateFrom"
-                    [bsConfig]="{ dateInputFormat: 'YYYY/MM/DD', adaptivePosition: true, showWeekNumbers: false }"
-                    readonly (onShown)="onShowPicker($event)" (click)="setDatePicker()">
-            </div>
-            <div class="form-group col-md-4">
-                <label for="orderDateThrough"
-                    class="mb-2">{{ 'tasks.accountDepositCSV.conditions.orderDateThrough' | translate }}</label>
-                <input type="text" name="orderDateThrough" id="orderDateThrough" placeholder="YYYY/MM/DD"
-                    class="form-control" #orderDateThrough="bsDatepicker" bsDatepicker
-                    [(ngModel)]="conditions.orderDateThrough"
-                    [bsConfig]="{ dateInputFormat: 'YYYY/MM/DD', adaptivePosition: true, showWeekNumbers: false }"
-                    readonly (onShown)="onShowPicker($event)" (click)="setDatePicker()">
-            </div>
-            <div class="form-group col-md-4">
-                <label for="itemId" class="mb-2">{{ 'tasks.accountDepositCSV.conditions.itemId' | translate }}</label>
-                <input type="text" class="form-control" name="itemId" id="itemId" [(ngModel)]="conditions.itemId"
-                    placeholder="{{ 'tasks.accountDepositCSV.conditions.itemId' | translate }}">
-            </div>
-        </div>
-        <div class="form-row">
-            <div class="form-group col-md-4">
-                <button type="button" class="btn btn-primary btn-block py-2"
-                    [disabled]="conditions.itemId === '' || (isLoading | async)"
-                    (click)="download()">{{ 'tasks.accountDepositCSV.download' | translate }}</button>
-            </div>
-        </div>
 
         <div class="mb-3 py-2"><input type="file" (change)="onChangeInput($event)"></div>
 
