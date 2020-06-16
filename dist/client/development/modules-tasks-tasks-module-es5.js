@@ -7431,9 +7431,9 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
     var _c0 = ["orderDateFrom"];
     var _c1 = ["orderDateThrough"];
 
-    function TasksAccountDepositCSVComponent_p_67_Template(rf, ctx) {
+    function TasksAccountDepositCSVComponent_p_42_Template(rf, ctx) {
       if (rf & 1) {
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "p", 31);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "p", 23);
 
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](1);
 
@@ -7449,29 +7449,29 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }
     }
 
-    function TasksAccountDepositCSVComponent_div_68_tr_21_Template(rf, ctx) {
+    function TasksAccountDepositCSVComponent_div_43_tr_21_Template(rf, ctx) {
       if (rf & 1) {
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "tr");
 
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](1, "td", 37);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](1, "td", 29);
 
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](2);
 
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
 
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](3, "td", 37);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](3, "td", 29);
 
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](4);
 
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
 
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](5, "td", 37);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](5, "td", 29);
 
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](6);
 
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
 
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](7, "td", 37);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](7, "td", 29);
 
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](8);
 
@@ -7481,34 +7481,34 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }
 
       if (rf & 2) {
-        var data_r5 = ctx.$implicit;
-        var index_r6 = ctx.index;
+        var data_r3 = ctx.$implicit;
+        var index_r4 = ctx.index;
 
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵclassProp"]("bg-light-gray", index_r6 % 2 === 0);
-
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](2);
-
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtextInterpolate1"](" ", data_r5.userName, " ");
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵclassProp"]("bg-light-gray", index_r4 % 2 === 0);
 
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](2);
 
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtextInterpolate2"]("", data_r5.person == null ? null : data_r5.person.familyName, " ", data_r5.person == null ? null : data_r5.person.givenName, "");
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtextInterpolate1"](" ", data_r3.userName, " ");
 
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](2);
 
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtextInterpolate"](data_r5.programMembershipCount);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtextInterpolate2"]("", data_r3.person == null ? null : data_r3.person.familyName, " ", data_r3.person == null ? null : data_r3.person.givenName, "");
 
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](2);
 
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtextInterpolate"](data_r5.status);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtextInterpolate"](data_r3.programMembershipCount);
+
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](2);
+
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtextInterpolate"](data_r3.status);
       }
     }
 
-    function TasksAccountDepositCSVComponent_div_68_Template(rf, ctx) {
+    function TasksAccountDepositCSVComponent_div_43_Template(rf, ctx) {
       if (rf & 1) {
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "div", 31);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "div", 23);
 
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](1, "h2", 32);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](1, "h2", 24);
 
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](2);
 
@@ -7516,15 +7516,15 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
 
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](4, "div", 33);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](4, "div", 25);
 
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](5, "table", 34);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](5, "table", 26);
 
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](6, "thead");
 
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](7, "tr");
 
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](8, "th", 35);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](8, "th", 27);
 
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](9);
 
@@ -7532,7 +7532,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
 
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](11, "th", 35);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](11, "th", 27);
 
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](12);
 
@@ -7540,7 +7540,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
 
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](14, "th", 35);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](14, "th", 27);
 
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](15);
 
@@ -7548,7 +7548,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
 
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](17, "th", 35);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](17, "th", 27);
 
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](18);
 
@@ -7562,7 +7562,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](20, "tbody");
 
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](21, TasksAccountDepositCSVComponent_div_68_tr_21_Template, 9, 7, "tr", 36);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](21, TasksAccountDepositCSVComponent_div_43_tr_21_Template, 9, 7, "tr", 28);
 
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
 
@@ -7574,11 +7574,11 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }
 
       if (rf & 2) {
-        var ctx_r3 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵnextContext"]();
+        var ctx_r1 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵnextContext"]();
 
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](2);
 
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtextInterpolate2"]("", _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipeBind1"](3, 7, "tasks.accountDepositCSV.targetTable"), " [", ctx_r3.targetTable.length, "]");
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtextInterpolate2"]("", _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipeBind1"](3, 7, "tasks.accountDepositCSV.targetTable"), " [", ctx_r1.targetTable.length, "]");
 
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](7);
 
@@ -7598,17 +7598,9 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](3);
 
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("ngForOf", ctx_r3.targetTable);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("ngForOf", ctx_r1.targetTable);
       }
     }
-
-    var _c2 = function _c2() {
-      return {
-        dateInputFormat: "YYYY/MM/DD",
-        adaptivePosition: true,
-        showWeekNumbers: false
-      };
-    };
 
     var TasksAccountDepositCSVComponent = /*#__PURE__*/function () {
       function TasksAccountDepositCSVComponent(store, utilService, translate, cinerinoService, downloadService, localeService) {
@@ -7645,71 +7637,24 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
           };
         }
         /**
-         * ファイルダウンロード
-         */
-
-      }, {
-        key: "download",
-        value: function download() {
-          return __awaiter(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee() {
-            var params;
-            return regeneratorRuntime.wrap(function _callee$(_context) {
-              while (1) {
-                switch (_context.prev = _context.next) {
-                  case 0:
-                    // iOS bugfix
-                    this.conditions.itemId = document.getElementById('itemId').value;
-
-                    try {
-                      params = {
-                        orderDateFrom: this.conditions.orderDateFrom === undefined ? undefined : moment__WEBPACK_IMPORTED_MODULE_6__(moment__WEBPACK_IMPORTED_MODULE_6__(this.conditions.orderDateFrom).format('YYYYMMDD')).toDate(),
-                        orderDateThrough: this.conditions.orderDateThrough === undefined ? undefined : moment__WEBPACK_IMPORTED_MODULE_6__(moment__WEBPACK_IMPORTED_MODULE_6__(this.conditions.orderDateThrough).format('YYYYMMDD')).add(1, 'day').toDate(),
-                        acceptedOffers: {
-                          itemOffered: {
-                            ids: [this.conditions.itemId]
-                          }
-                        },
-                        sort: {
-                          orderDate: _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_1__["factory"].sortType.Descending
-                        },
-                        format: _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_1__["factory"].encodingFormat.Text.csv
-                      };
-                      this.downloadService.order(params);
-                    } catch (error) {
-                      console.error(error);
-                      this.utilService.openAlert({
-                        title: this.translate.instant('common.error'),
-                        body: this.translate.instant('tasks.accountDepositCSV.alert.download')
-                      });
-                    }
-
-                  case 2:
-                  case "end":
-                    return _context.stop();
-                }
-              }
-            }, _callee, this);
-          }));
-        }
-        /**
          * ファイルアップロード
          */
 
       }, {
         key: "onChangeInput",
         value: function onChangeInput(event) {
-          return __awaiter(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee2() {
-            var file, limit, text;
-            return regeneratorRuntime.wrap(function _callee2$(_context2) {
+          return __awaiter(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee() {
+            var file, limit, text, json;
+            return regeneratorRuntime.wrap(function _callee$(_context) {
               while (1) {
-                switch (_context2.prev = _context2.next) {
+                switch (_context.prev = _context.next) {
                   case 0:
                     this.json = [];
                     file = event.target.files[0];
                     limit = 100000000;
 
                     if (!(file.size > limit)) {
-                      _context2.next = 6;
+                      _context.next = 6;
                       break;
                     }
 
@@ -7717,17 +7662,17 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
                       title: this.translate.instant('common.error'),
                       body: "\n                <p class=\"mb-4\">".concat(this.translate.instant('tasks.accountDepositCSV.alert.upload'), "</p>\n                    <div class=\"p-3 bg-light-gray select-text\">\n                    <code>File size upper limit 100MB</code>\n                </div>")
                     });
-                    return _context2.abrupt("return");
+                    return _context.abrupt("return");
 
                   case 6:
-                    _context2.next = 8;
+                    _context.next = 8;
                     return this.fileToText(file);
 
                   case 8:
-                    text = _context2.sent;
+                    text = _context.sent;
 
                     if (!(typeof text !== 'string')) {
-                      _context2.next = 12;
+                      _context.next = 12;
                       break;
                     }
 
@@ -7735,21 +7680,30 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
                       title: this.translate.instant('common.error'),
                       body: "\n                <p class=\"mb-4\">".concat(this.translate.instant('tasks.accountDepositCSV.alert.upload'), "</p>\n                    <div class=\"p-3 bg-light-gray select-text\">\n                    <code>File format error</code>\n                </div>")
                     });
-                    return _context2.abrupt("return");
+                    return _context.abrupt("return");
 
                   case 12:
-                    _context2.next = 14;
+                    _context.next = 14;
                     return this.csvToJson(text);
 
                   case 14:
-                    this.json = _context2.sent;
+                    json = _context.sent;
+                    this.json = json.map(function (j) {
+                      return {
+                        id: j.購入者ID,
+                        name: j.購入者名称,
+                        username: j.購入者会員番号,
+                        email: j.購入者メールアドレス,
+                        tel: j.購入者電話番号
+                      };
+                    }); // console.log(this.json);
 
-                  case 15:
+                  case 16:
                   case "end":
-                    return _context2.stop();
+                    return _context.stop();
                 }
               }
-            }, _callee2, this);
+            }, _callee, this);
           }));
         }
         /**
@@ -7759,15 +7713,15 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "fileToText",
         value: function fileToText(file) {
-          return __awaiter(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee3() {
+          return __awaiter(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee2() {
             var reader;
-            return regeneratorRuntime.wrap(function _callee3$(_context3) {
+            return regeneratorRuntime.wrap(function _callee2$(_context2) {
               while (1) {
-                switch (_context3.prev = _context3.next) {
+                switch (_context2.prev = _context2.next) {
                   case 0:
                     reader = new FileReader();
                     reader.readAsText(file);
-                    return _context3.abrupt("return", new Promise(function (resolve, reject) {
+                    return _context2.abrupt("return", new Promise(function (resolve, reject) {
                       reader.onload = function () {
                         return resolve(reader.result);
                       };
@@ -7779,10 +7733,10 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
                   case 3:
                   case "end":
-                    return _context3.stop();
+                    return _context2.stop();
                 }
               }
-            }, _callee3);
+            }, _callee2);
           }));
         }
         /**
@@ -7792,12 +7746,12 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "csvToJson",
         value: function csvToJson(csv) {
-          return __awaiter(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee4() {
-            return regeneratorRuntime.wrap(function _callee4$(_context4) {
+          return __awaiter(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee3() {
+            return regeneratorRuntime.wrap(function _callee3$(_context3) {
               while (1) {
-                switch (_context4.prev = _context4.next) {
+                switch (_context3.prev = _context3.next) {
                   case 0:
-                    return _context4.abrupt("return", new Promise(function (resolve) {
+                    return _context3.abrupt("return", new Promise(function (resolve) {
                       csvtojson__WEBPACK_IMPORTED_MODULE_4__().fromString(csv).then(function (data) {
                         return resolve(data);
                       });
@@ -7805,10 +7759,10 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
                   case 1:
                   case "end":
-                    return _context4.stop();
+                    return _context3.stop();
                 }
               }
-            }, _callee4);
+            }, _callee3);
           }));
         }
         /**
@@ -7818,30 +7772,42 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "refine",
         value: function refine() {
-          return __awaiter(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee5() {
+          return __awaiter(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee4() {
             var _this = this;
 
-            var deduplication, data, now, loopCount, _i, _deduplication, d, person, programMembership, account, pointTransferActions, depositedCount;
+            var limitYears, deduplication, data, now, loopCount, _i, _deduplication, d, person, programMembership, account, pointTransferActions, depositedCount;
 
-            return regeneratorRuntime.wrap(function _callee5$(_context5) {
+            return regeneratorRuntime.wrap(function _callee4$(_context4) {
               while (1) {
-                switch (_context5.prev = _context5.next) {
+                switch (_context4.prev = _context4.next) {
                   case 0:
                     this.utilService.loadStart({
                       process: 'load'
                     });
-                    _context5.prev = 1;
+                    limitYears = 10;
+
+                    if (!(this.years > limitYears)) {
+                      _context4.next = 6;
+                      break;
+                    }
+
+                    alert('The number of years exceeds the upper limit');
+                    this.utilService.loadEnd();
+                    return _context4.abrupt("return");
+
+                  case 6:
+                    _context4.prev = 6;
                     this.targetTable = [];
                     this.successTable = [];
                     this.failTable = [];
                     deduplication = [];
                     this.json.forEach(function (row) {
                       // console.log(row);
-                      var id = row.購入者ID;
-                      var userName = row.購入者会員番号;
-                      var name = row.購入者お名前;
-                      var email = row.購入者メールアドレス;
-                      var telephone = row.購入者電話番号;
+                      var id = row.id;
+                      var userName = row.username;
+                      var name = row.name;
+                      var email = row.email;
+                      var telephone = row.tel;
 
                       if (deduplication.find(function (d) {
                         return d.id === id;
@@ -7856,39 +7822,39 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
                       }
                     });
                     data = [];
-                    _context5.next = 10;
+                    _context4.next = 15;
                     return this.utilService.getServerTime();
 
-                  case 10:
-                    now = _context5.sent.date;
+                  case 15:
+                    now = _context4.sent.date;
                     loopCount = 0;
                     _i = 0, _deduplication = deduplication;
 
-                  case 13:
+                  case 18:
                     if (!(_i < _deduplication.length)) {
-                      _context5.next = 38;
+                      _context4.next = 43;
                       break;
                     }
 
                     d = _deduplication[_i];
 
                     if (!(loopCount % 10 === 0)) {
-                      _context5.next = 18;
+                      _context4.next = 23;
                       break;
                     }
 
-                    _context5.next = 18;
+                    _context4.next = 23;
                     return this.cinerinoService.getServices();
 
-                  case 18:
-                    _context5.next = 20;
+                  case 23:
+                    _context4.next = 25;
                     return this.cinerinoService.person.search({
                       id: d.id
                     });
 
-                  case 20:
-                    person = _context5.sent;
-                    _context5.next = 23;
+                  case 25:
+                    person = _context4.sent;
+                    _context4.next = 28;
                     return this.cinerinoService.ownershipInfo.search({
                       sort: {
                         ownedFrom: _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_1__["factory"].sortType.Descending
@@ -7900,9 +7866,9 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
                       }
                     });
 
-                  case 23:
-                    programMembership = _context5.sent;
-                    _context5.next = 26;
+                  case 28:
+                    programMembership = _context4.sent;
+                    _context4.next = 31;
                     return this.cinerinoService.ownershipInfo.search({
                       id: d.id,
                       typeOfGood: {
@@ -7911,8 +7877,8 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
                       }
                     });
 
-                  case 26:
-                    account = _context5.sent;
+                  case 31:
+                    account = _context4.sent;
                     // ポイント遷移
                     // const getPointTransferActions = async () => {
                     //     const limit = 100;
@@ -7943,13 +7909,13 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
                     }).length;
 
                     if (!(programMembership.totalCount === undefined)) {
-                      _context5.next = 31;
+                      _context4.next = 36;
                       break;
                     }
 
                     throw new Error('programMembership.totalCount undefined');
 
-                  case 31:
+                  case 36:
                     data.push({
                       id: person.data.length === 0 ? d.id : person.data[0].id,
                       userName: person.data.length === 0 || person.data[0].memberOf === undefined || person.data[0].memberOf.membershipNumber === undefined ? d.userName : person.data[0].memberOf.membershipNumber,
@@ -7962,54 +7928,54 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
                       depositCount: programMembership.totalCount - 1 - depositedCount > 0 ? programMembership.totalCount - 1 - depositedCount : 0,
                       pointTransferActions: pointTransferActions
                     });
-                    _context5.next = 34;
+                    _context4.next = 39;
                     return ___WEBPACK_IMPORTED_MODULE_8__["Functions"].Util.sleep(1000);
 
-                  case 34:
+                  case 39:
                     loopCount++;
 
-                  case 35:
+                  case 40:
                     _i++;
-                    _context5.next = 13;
+                    _context4.next = 18;
                     break;
 
-                  case 38:
+                  case 43:
                     if (!(this.years === 0)) {
-                      _context5.next = 42;
+                      _context4.next = 47;
                       break;
                     }
 
                     this.targetTable = data; // console.log(this.targetTable);
 
                     this.utilService.loadEnd();
-                    return _context5.abrupt("return");
+                    return _context4.abrupt("return");
 
-                  case 42:
+                  case 47:
                     this.targetTable = data.filter(function (d) {
                       return d.programMembershipCount === _this.years;
                     });
-                    _context5.next = 49;
+                    _context4.next = 54;
                     break;
 
-                  case 45:
-                    _context5.prev = 45;
-                    _context5.t0 = _context5["catch"](1);
-                    console.error(_context5.t0);
+                  case 50:
+                    _context4.prev = 50;
+                    _context4.t0 = _context4["catch"](6);
+                    console.error(_context4.t0);
                     this.utilService.openAlert({
                       title: this.translate.instant('common.error'),
-                      body: "\n                <p class=\"mb-4\">".concat(this.translate.instant('tasks.accountDepositCSV.alert.refine'), "</p>\n                    <div class=\"p-3 bg-light-gray select-text\">\n                    <code>").concat(_context5.t0.message, "</code>\n                </div>")
+                      body: "\n                <p class=\"mb-4\">".concat(this.translate.instant('tasks.accountDepositCSV.alert.refine'), "</p>\n                    <div class=\"p-3 bg-light-gray select-text\">\n                    <code>").concat(_context4.t0.message, "</code>\n                </div>")
                     });
 
-                  case 49:
+                  case 54:
                     // console.log(this.targetTable);
                     this.utilService.loadEnd();
 
-                  case 50:
+                  case 55:
                   case "end":
-                    return _context5.stop();
+                    return _context4.stop();
                 }
               }
-            }, _callee5, this, [[1, 45]]);
+            }, _callee4, this, [[6, 50]]);
           }));
         }
         /**
@@ -8019,37 +7985,38 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "deposit",
         value: function deposit() {
-          return __awaiter(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee6() {
-            var _iterator, _step, data, bom, fields, opts, csv, blob;
+          return __awaiter(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee5() {
+            var count, _iterator, _step, data, bom, fields, opts, csv, blob;
 
-            return regeneratorRuntime.wrap(function _callee6$(_context6) {
+            return regeneratorRuntime.wrap(function _callee5$(_context5) {
               while (1) {
-                switch (_context6.prev = _context6.next) {
+                switch (_context5.prev = _context5.next) {
                   case 0:
                     this.utilService.loadStart({
                       process: 'load'
                     });
                     this.successTable = [];
                     this.failTable = [];
-                    _context6.prev = 3;
-                    _context6.next = 6;
+                    _context5.prev = 3;
+                    _context5.next = 6;
                     return this.cinerinoService.getServices();
 
                   case 6:
+                    count = 0;
                     _iterator = _createForOfIteratorHelper(this.targetTable);
-                    _context6.prev = 7;
+                    _context5.prev = 8;
 
                     _iterator.s();
 
-                  case 9:
+                  case 10:
                     if ((_step = _iterator.n()).done) {
-                      _context6.next = 25;
+                      _context5.next = 30;
                       break;
                     }
 
                     data = _step.value;
-                    _context6.prev = 11;
-                    _context6.next = 14;
+                    _context5.prev = 12;
+                    _context5.next = 15;
                     return this.cinerinoService.account.deposit4sskts({
                       object: {
                         amount: this.amount,
@@ -8065,57 +8032,68 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
                       }
                     });
 
-                  case 14:
+                  case 15:
                     data.status = true;
-                    _context6.next = 21;
+                    _context5.next = 22;
                     break;
 
-                  case 17:
-                    _context6.prev = 17;
-                    _context6.t0 = _context6["catch"](11);
+                  case 18:
+                    _context5.prev = 18;
+                    _context5.t0 = _context5["catch"](12);
                     data.status = false;
-                    console.error(_context6.t0);
+                    console.error(_context5.t0);
 
-                  case 21:
-                    _context6.next = 23;
-                    return ___WEBPACK_IMPORTED_MODULE_8__["Functions"].Util.sleep(1000);
+                  case 22:
+                    _context5.next = 24;
+                    return ___WEBPACK_IMPORTED_MODULE_8__["Functions"].Util.sleep(500);
 
-                  case 23:
-                    _context6.next = 9;
+                  case 24:
+                    count++;
+
+                    if (!(count % 500 === 0)) {
+                      _context5.next = 28;
+                      break;
+                    }
+
+                    _context5.next = 28;
+                    return this.cinerinoService.getServices();
+
+                  case 28:
+                    _context5.next = 10;
                     break;
-
-                  case 25:
-                    _context6.next = 30;
-                    break;
-
-                  case 27:
-                    _context6.prev = 27;
-                    _context6.t1 = _context6["catch"](7);
-
-                    _iterator.e(_context6.t1);
 
                   case 30:
-                    _context6.prev = 30;
+                    _context5.next = 35;
+                    break;
+
+                  case 32:
+                    _context5.prev = 32;
+                    _context5.t1 = _context5["catch"](8);
+
+                    _iterator.e(_context5.t1);
+
+                  case 35:
+                    _context5.prev = 35;
 
                     _iterator.f();
 
-                    return _context6.finish(30);
+                    return _context5.finish(35);
 
-                  case 33:
-                    _context6.next = 39;
+                  case 38:
+                    _context5.next = 44;
                     break;
 
-                  case 35:
-                    _context6.prev = 35;
-                    _context6.t2 = _context6["catch"](3);
-                    console.error(_context6.t2);
+                  case 40:
+                    _context5.prev = 40;
+                    _context5.t2 = _context5["catch"](3);
+                    console.error(_context5.t2);
                     this.utilService.openAlert({
                       title: this.translate.instant('common.error'),
-                      body: "\n                <p class=\"mb-4\">".concat(this.translate.instant('tasks.accountDepositCSV.alert.deposit'), "</p>\n                    <div class=\"p-3 bg-light-gray select-text\">\n                    <code>").concat(_context6.t2.message, "</code>\n                </div>")
+                      body: "\n                <p class=\"mb-4\">".concat(this.translate.instant('tasks.accountDepositCSV.alert.deposit'), "</p>\n                    <div class=\"p-3 bg-light-gray select-text\">\n                    <code>").concat(_context5.t2.message, "</code>\n                </div>")
                     });
 
-                  case 39:
-                    _context6.prev = 39;
+                  case 44:
+                    _context5.prev = 44;
                     bom = new Uint8Array([0xEF, 0xBB, 0xBF]);
                     fields = [{
                       label: '購入者ID',
@@ -8146,36 +8124,36 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
                       fields: fields,
                       unwind: []
                     };
-                    _context6.next = 45;
+                    _context5.next = 50;
                     return json2csv__WEBPACK_IMPORTED_MODULE_5__["parseAsync"](this.targetTable, opts);
 
-                  case 45:
-                    csv = _context6.sent;
+                  case 50:
+                    csv = _context5.sent;
                     blob = new Blob([bom, csv], {
                       'type': 'text/csv'
                     });
                     this.downloadService.download(blob, 'deposit.csv');
-                    _context6.next = 54;
+                    _context5.next = 59;
                     break;
 
-                  case 50:
-                    _context6.prev = 50;
-                    _context6.t3 = _context6["catch"](39);
-                    console.error(_context6.t3);
+                  case 55:
+                    _context5.prev = 55;
+                    _context5.t3 = _context5["catch"](44);
+                    console.error(_context5.t3);
                     this.utilService.openAlert({
                       title: this.translate.instant('common.error'),
-                      body: "\n                <p class=\"mb-4\">".concat(this.translate.instant('tasks.accountDepositCSV.alert.download'), "</p>\n                    <div class=\"p-3 bg-light-gray select-text\">\n                    <code>").concat(_context6.t3.message, "</code>\n                </div>")
+                      body: "\n                <p class=\"mb-4\">".concat(this.translate.instant('tasks.accountDepositCSV.alert.download'), "</p>\n                    <div class=\"p-3 bg-light-gray select-text\">\n                    <code>").concat(_context5.t3.message, "</code>\n                </div>")
                     });
 
-                  case 54:
+                  case 59:
                     this.utilService.loadEnd();
 
-                  case 55:
+                  case 60:
                   case "end":
-                    return _context6.stop();
+                    return _context5.stop();
                 }
               }
-            }, _callee6, this, [[3, 35], [7, 27, 30, 33], [11, 17], [39, 50]]);
+            }, _callee5, this, [[3, 40], [8, 32, 35, 38], [12, 18], [44, 55]]);
           }));
         }
         /**
@@ -8226,9 +8204,9 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
           _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵqueryRefresh"](_t = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵloadQuery"]()) && (ctx.orderDateThrough = _t.first);
         }
       },
-      decls: 73,
-      vars: 63,
-      consts: [[1, "contents-width", "mx-auto", "px-3", "py-5"], [1, "text-large", "mb-4", "text-center", "font-weight-bold"], [1, "mb-4", "text-md-center", 3, "innerHTML"], [1, "p-3", "bg-white", "mb-4"], [1, "form-row"], [1, "form-group", "col-md-4"], ["for", "orderDateFrom", 1, "mb-2"], ["type", "text", "name", "orderDateFrom", "id", "orderDateFrom", "placeholder", "YYYY/MM/DD", "bsDatepicker", "", "readonly", "", 1, "form-control", 3, "ngModel", "bsConfig", "ngModelChange", "onShown", "click"], ["orderDateFrom", "bsDatepicker"], ["for", "orderDateThrough", 1, "mb-2"], ["type", "text", "name", "orderDateThrough", "id", "orderDateThrough", "placeholder", "YYYY/MM/DD", "bsDatepicker", "", "readonly", "", 1, "form-control", 3, "ngModel", "bsConfig", "ngModelChange", "onShown", "click"], ["orderDateThrough", "bsDatepicker"], ["for", "itemId", 1, "mb-2"], ["type", "text", "name", "itemId", "id", "itemId", 1, "form-control", 3, "ngModel", "placeholder", "ngModelChange"], ["type", "button", 1, "btn", "btn-primary", "btn-block", "py-2", 3, "disabled", "click"], [1, "mb-3", "py-2"], ["type", "file", 3, "change"], [1, "form-group"], [1, "form-row", "align-items-center", "mb-2"], [1, "col-md-2", "mb-md-0", "mb-2"], ["for", "years"], ["id", "years", "type", "number", 1, "form-control", 3, "ngModel", "ngModelChange"], [1, "col-md-2", "mb-md-0", "mb-3"], ["for", "amount", 1, "mb-2"], ["type", "number", "name", "amount", "id", "amount", "placeholder", "", 1, "form-control", 3, "ngModel", "ngModelChange"], [1, "form-group", "col-md-8"], ["for", "message", 1, "mb-2"], ["type", "text", "name", "message", "id", "message", "placeholder", "", 1, "form-control", 3, "ngModel", "ngModelChange"], ["class", "mb-4", 4, "ngIf"], [1, "buttons", "mx-auto", "text-center"], ["type", "button", "routerLink", "/tasks", 1, "btn", "btn-link"], [1, "mb-4"], [1, "mb-2", "font-weight-bold"], [1, "scroll-horizontal"], [1, "table", "bg-white", "bperson", "text-small", "mb-0", "border", "border-gray"], ["scope", "col"], [3, "bg-light-gray", 4, "ngFor", "ngForOf"], [1, "align-middle"]],
+      decls: 48,
+      vars: 38,
+      consts: [[1, "contents-width", "mx-auto", "px-3", "py-5"], [1, "text-large", "mb-4", "text-center", "font-weight-bold"], [1, "mb-4", "text-md-center", 3, "innerHTML"], [1, "p-3", "bg-white", "mb-4"], [1, "mb-3", "py-2"], ["type", "file", 3, "change"], [1, "form-group"], [1, "form-row", "align-items-center", "mb-2"], [1, "col-md-2", "mb-md-0", "mb-2"], ["for", "years"], ["id", "years", "type", "number", 1, "form-control", 3, "ngModel", "ngModelChange"], [1, "col-md-2", "mb-md-0", "mb-3"], ["type", "button", 1, "btn", "btn-primary", "btn-block", "py-2", 3, "disabled", "click"], [1, "form-row"], [1, "form-group", "col-md-4"], ["for", "amount", 1, "mb-2"], ["type", "number", "name", "amount", "id", "amount", "placeholder", "", 1, "form-control", 3, "ngModel", "ngModelChange"], [1, "form-group", "col-md-8"], ["for", "message", 1, "mb-2"], ["type", "text", "name", "message", "id", "message", "placeholder", "", 1, "form-control", 3, "ngModel", "ngModelChange"], ["class", "mb-4", 4, "ngIf"], [1, "buttons", "mx-auto", "text-center"], ["type", "button", "routerLink", "/tasks", 1, "btn", "btn-link"], [1, "mb-4"], [1, "mb-2", "font-weight-bold"], [1, "scroll-horizontal"], [1, "table", "bg-white", "bperson", "text-small", "mb-0", "border", "border-gray"], ["scope", "col"], [3, "bg-light-gray", 4, "ngFor", "ngForOf"], [1, "align-middle"]],
       template: function TasksAccountDepositCSVComponent_Template(rf, ctx) {
         if (rf & 1) {
           _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "div", 0);
@@ -8249,105 +8227,9 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
           _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](7, "div", 4);
 
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](8, "div", 5);
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](8, "input", 5);
 
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](9, "label", 6);
-
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](10);
-
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipe"](11, "translate");
-
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
-
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](12, "input", 7, 8);
-
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵlistener"]("ngModelChange", function TasksAccountDepositCSVComponent_Template_input_ngModelChange_12_listener($event) {
-            return ctx.conditions.orderDateFrom = $event;
-          })("onShown", function TasksAccountDepositCSVComponent_Template_input_onShown_12_listener($event) {
-            return ctx.onShowPicker($event);
-          })("click", function TasksAccountDepositCSVComponent_Template_input_click_12_listener() {
-            return ctx.setDatePicker();
-          });
-
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
-
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
-
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](14, "div", 5);
-
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](15, "label", 9);
-
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](16);
-
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipe"](17, "translate");
-
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
-
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](18, "input", 10, 11);
-
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵlistener"]("ngModelChange", function TasksAccountDepositCSVComponent_Template_input_ngModelChange_18_listener($event) {
-            return ctx.conditions.orderDateThrough = $event;
-          })("onShown", function TasksAccountDepositCSVComponent_Template_input_onShown_18_listener($event) {
-            return ctx.onShowPicker($event);
-          })("click", function TasksAccountDepositCSVComponent_Template_input_click_18_listener() {
-            return ctx.setDatePicker();
-          });
-
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
-
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
-
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](20, "div", 5);
-
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](21, "label", 12);
-
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](22);
-
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipe"](23, "translate");
-
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
-
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](24, "input", 13);
-
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵlistener"]("ngModelChange", function TasksAccountDepositCSVComponent_Template_input_ngModelChange_24_listener($event) {
-            return ctx.conditions.itemId = $event;
-          });
-
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipe"](25, "translate");
-
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
-
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
-
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
-
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](26, "div", 4);
-
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](27, "div", 5);
-
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](28, "button", 14);
-
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵlistener"]("click", function TasksAccountDepositCSVComponent_Template_button_click_28_listener() {
-            return ctx.download();
-          });
-
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipe"](29, "async");
-
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](30);
-
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipe"](31, "translate");
-
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
-
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
-
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
-
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](32, "div", 15);
-
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](33, "input", 16);
-
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵlistener"]("change", function TasksAccountDepositCSVComponent_Template_input_change_33_listener($event) {
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵlistener"]("change", function TasksAccountDepositCSVComponent_Template_input_change_8_listener($event) {
             return ctx.onChangeInput($event);
           });
 
@@ -8355,27 +8237,27 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
           _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
 
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](34, "div", 17);
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](9, "div", 6);
 
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](35, "div", 18);
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](10, "div", 7);
 
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](36, "div", 19);
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](11, "div", 8);
 
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](37, "label", 20);
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](12, "label", 9);
 
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](38);
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](13);
 
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipe"](39, "translate");
-
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipe"](14, "translate");
 
           _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
 
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](40, "div", 19);
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
 
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](41, "input", 21);
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](15, "div", 8);
 
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵlistener"]("ngModelChange", function TasksAccountDepositCSVComponent_Template_input_ngModelChange_41_listener($event) {
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](16, "input", 10);
+
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵlistener"]("ngModelChange", function TasksAccountDepositCSVComponent_Template_input_ngModelChange_16_listener($event) {
             return ctx.years = $event;
           });
 
@@ -8383,51 +8265,51 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
           _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
 
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](42, "div", 22);
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](17, "div", 11);
 
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](43, "button", 14);
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](18, "button", 12);
 
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵlistener"]("click", function TasksAccountDepositCSVComponent_Template_button_click_43_listener() {
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵlistener"]("click", function TasksAccountDepositCSVComponent_Template_button_click_18_listener() {
             return ctx.refine();
           });
 
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipe"](44, "async");
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipe"](19, "async");
 
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](45);
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](20);
 
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipe"](46, "translate");
-
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipe"](21, "translate");
 
           _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
 
           _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
 
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](47, "p");
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
 
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](48);
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](22, "p");
 
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipe"](49, "translate");
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](23);
+
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipe"](24, "translate");
 
           _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
 
           _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
 
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](50, "div", 4);
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](25, "div", 13);
 
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](51, "div", 5);
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](26, "div", 14);
 
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](52, "label", 23);
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](27, "label", 15);
 
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](53);
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](28);
 
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipe"](54, "translate");
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipe"](29, "translate");
 
           _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
 
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](55, "input", 24);
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](30, "input", 16);
 
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵlistener"]("ngModelChange", function TasksAccountDepositCSVComponent_Template_input_ngModelChange_55_listener($event) {
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵlistener"]("ngModelChange", function TasksAccountDepositCSVComponent_Template_input_ngModelChange_30_listener($event) {
             return ctx.amount = $event;
           });
 
@@ -8435,19 +8317,19 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
           _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
 
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](56, "div", 25);
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](31, "div", 17);
 
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](57, "label", 26);
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](32, "label", 18);
 
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](58);
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](33);
 
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipe"](59, "translate");
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipe"](34, "translate");
 
           _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
 
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](60, "input", 27);
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](35, "input", 19);
 
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵlistener"]("ngModelChange", function TasksAccountDepositCSVComponent_Template_input_ngModelChange_60_listener($event) {
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵlistener"]("ngModelChange", function TasksAccountDepositCSVComponent_Template_input_ngModelChange_35_listener($event) {
             return ctx.message = $event;
           });
 
@@ -8457,23 +8339,21 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
           _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
 
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](61, "div", 4);
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](36, "div", 13);
 
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](62, "div", 5);
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](37, "div", 14);
 
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](63, "button", 14);
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](38, "button", 12);
 
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵlistener"]("click", function TasksAccountDepositCSVComponent_Template_button_click_63_listener() {
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵlistener"]("click", function TasksAccountDepositCSVComponent_Template_button_click_38_listener() {
             return ctx.deposit();
           });
 
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipe"](64, "async");
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipe"](39, "async");
 
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](65);
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](40);
 
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipe"](66, "translate");
-
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipe"](41, "translate");
 
           _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
 
@@ -8481,17 +8361,19 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
           _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
 
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](67, TasksAccountDepositCSVComponent_p_67_Template, 3, 3, "p", 28);
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
 
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](68, TasksAccountDepositCSVComponent_div_68_Template, 22, 17, "div", 28);
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](42, TasksAccountDepositCSVComponent_p_42_Template, 3, 3, "p", 20);
 
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](69, "div", 29);
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](43, TasksAccountDepositCSVComponent_div_43_Template, 22, 17, "div", 20);
 
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](70, "button", 30);
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](44, "div", 21);
 
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](71);
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](45, "button", 22);
 
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipe"](72, "translate");
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](46);
+
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipe"](47, "translate");
 
           _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
 
@@ -8503,49 +8385,15 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
         if (rf & 2) {
           _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](2);
 
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtextInterpolate"](_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipeBind1"](3, 27, "tasks.accountDepositCSV.title"));
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtextInterpolate"](_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipeBind1"](3, 16, "tasks.accountDepositCSV.title"));
 
           _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](2);
 
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("innerHTML", _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipeBind1"](5, 29, "tasks.accountDepositCSV.read"), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵsanitizeHtml"]);
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("innerHTML", _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipeBind1"](5, 18, "tasks.accountDepositCSV.read"), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵsanitizeHtml"]);
 
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](6);
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](9);
 
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtextInterpolate"](_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipeBind1"](11, 31, "tasks.accountDepositCSV.conditions.orderDateFrom"));
-
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](2);
-
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("ngModel", ctx.conditions.orderDateFrom)("bsConfig", _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpureFunction0"](61, _c2));
-
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](4);
-
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtextInterpolate"](_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipeBind1"](17, 33, "tasks.accountDepositCSV.conditions.orderDateThrough"));
-
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](2);
-
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("ngModel", ctx.conditions.orderDateThrough)("bsConfig", _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpureFunction0"](62, _c2));
-
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](4);
-
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtextInterpolate"](_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipeBind1"](23, 35, "tasks.accountDepositCSV.conditions.itemId"));
-
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](2);
-
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpropertyInterpolate"]("placeholder", _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipeBind1"](25, 37, "tasks.accountDepositCSV.conditions.itemId"));
-
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("ngModel", ctx.conditions.itemId);
-
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](4);
-
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("disabled", ctx.conditions.itemId === "" || _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipeBind1"](29, 39, ctx.isLoading));
-
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](2);
-
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtextInterpolate"](_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipeBind1"](31, 41, "tasks.accountDepositCSV.download"));
-
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](8);
-
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtextInterpolate"](_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipeBind1"](39, 43, "tasks.accountDepositCSV.years"));
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtextInterpolate"](_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipeBind1"](14, 20, "tasks.accountDepositCSV.years"));
 
           _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](3);
 
@@ -8553,19 +8401,19 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
           _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](2);
 
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("disabled", ctx.json.length === 0 || _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipeBind1"](44, 45, ctx.isLoading));
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("disabled", ctx.json.length === 0 || _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipeBind1"](19, 22, ctx.isLoading));
 
           _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](2);
 
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtextInterpolate"](_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipeBind1"](46, 47, "tasks.accountDepositCSV.refine"));
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtextInterpolate"](_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipeBind1"](21, 24, "tasks.accountDepositCSV.refine"));
 
           _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](3);
 
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtextInterpolate"](_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipeBind1"](49, 49, "tasks.accountDepositCSV.refineDescription"));
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtextInterpolate"](_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipeBind1"](24, 26, "tasks.accountDepositCSV.refineDescription"));
 
           _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](5);
 
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtextInterpolate"](_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipeBind1"](54, 51, "tasks.accountDepositCSV.amount"));
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtextInterpolate"](_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipeBind1"](29, 28, "tasks.accountDepositCSV.amount"));
 
           _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](2);
 
@@ -8573,7 +8421,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
           _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](3);
 
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtextInterpolate"](_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipeBind1"](59, 53, "tasks.accountDepositCSV.message"));
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtextInterpolate"](_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipeBind1"](34, 30, "tasks.accountDepositCSV.message"));
 
           _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](2);
 
@@ -8581,11 +8429,11 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
           _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](3);
 
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("disabled", ctx.targetTable.length === 0 || _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipeBind1"](64, 55, ctx.isLoading));
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("disabled", ctx.targetTable.length === 0 || _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipeBind1"](39, 32, ctx.isLoading));
 
           _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](2);
 
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtextInterpolate"](_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipeBind1"](66, 57, "tasks.accountDepositCSV.next"));
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtextInterpolate"](_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipeBind1"](41, 34, "tasks.accountDepositCSV.next"));
 
           _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](2);
 
@@ -8597,10 +8445,10 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
           _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](3);
 
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtextInterpolate"](_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipeBind1"](72, 59, "tasks.accountDepositCSV.prev"));
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtextInterpolate"](_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipeBind1"](47, 36, "tasks.accountDepositCSV.prev"));
         }
       },
-      directives: [ngx_bootstrap_datepicker__WEBPACK_IMPORTED_MODULE_7__["BsDatepickerInputDirective"], _angular_forms__WEBPACK_IMPORTED_MODULE_11__["DefaultValueAccessor"], ngx_bootstrap_datepicker__WEBPACK_IMPORTED_MODULE_7__["BsDatepickerDirective"], _angular_forms__WEBPACK_IMPORTED_MODULE_11__["NgControlStatus"], _angular_forms__WEBPACK_IMPORTED_MODULE_11__["NgModel"], _angular_forms__WEBPACK_IMPORTED_MODULE_11__["NumberValueAccessor"], _angular_common__WEBPACK_IMPORTED_MODULE_12__["NgIf"], _angular_router__WEBPACK_IMPORTED_MODULE_13__["RouterLink"], _angular_common__WEBPACK_IMPORTED_MODULE_12__["NgForOf"]],
+      directives: [_angular_forms__WEBPACK_IMPORTED_MODULE_11__["NumberValueAccessor"], _angular_forms__WEBPACK_IMPORTED_MODULE_11__["DefaultValueAccessor"], _angular_forms__WEBPACK_IMPORTED_MODULE_11__["NgControlStatus"], _angular_forms__WEBPACK_IMPORTED_MODULE_11__["NgModel"], _angular_common__WEBPACK_IMPORTED_MODULE_12__["NgIf"], _angular_router__WEBPACK_IMPORTED_MODULE_13__["RouterLink"], _angular_common__WEBPACK_IMPORTED_MODULE_12__["NgForOf"]],
       pipes: [_ngx_translate_core__WEBPACK_IMPORTED_MODULE_3__["TranslatePipe"], _angular_common__WEBPACK_IMPORTED_MODULE_12__["AsyncPipe"]],
       styles: [".scroll-horizontal[_ngcontent-%COMP%]   .table[_ngcontent-%COMP%] {\n  min-width: 900px;\n}\n\n.table[_ngcontent-%COMP%]   th[_ngcontent-%COMP%], .table[_ngcontent-%COMP%]   td[_ngcontent-%COMP%] {\n  width: 20%;\n}"]
     });
@@ -8778,20 +8626,20 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "deposit",
         value: function deposit() {
-          return __awaiter(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee7() {
-            return regeneratorRuntime.wrap(function _callee7$(_context7) {
+          return __awaiter(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee6() {
+            return regeneratorRuntime.wrap(function _callee6$(_context6) {
               while (1) {
-                switch (_context7.prev = _context7.next) {
+                switch (_context6.prev = _context6.next) {
                   case 0:
                     this.utilService.loadStart({
                       process: 'load'
                     });
-                    _context7.prev = 1;
-                    _context7.next = 4;
+                    _context6.prev = 1;
+                    _context6.next = 4;
                     return this.cinerinoService.getServices();
 
                   case 4:
-                    _context7.next = 6;
+                    _context6.next = 6;
                     return this.cinerinoService.account.deposit4sskts({
                       object: {
                         amount: this.conditions.amount,
@@ -8812,15 +8660,15 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
                       title: this.translate.instant('common.complete'),
                       body: "".concat(this.translate.instant('tasks.accountDeposit.alert.depositSuccess'))
                     });
-                    _context7.next = 12;
+                    _context6.next = 12;
                     break;
 
                   case 9:
-                    _context7.prev = 9;
-                    _context7.t0 = _context7["catch"](1);
+                    _context6.prev = 9;
+                    _context6.t0 = _context6["catch"](1);
                     this.utilService.openAlert({
                       title: this.translate.instant('common.error'),
-                      body: "\n                <p class=\"mb-4\">".concat(this.translate.instant('tasks.accountDeposit.alert.depositFail'), "</p>\n                    <div class=\"p-3 bg-light-gray select-text\">\n                    <code>").concat(_context7.t0.message, "</code>\n                </div>")
+                      body: "\n                <p class=\"mb-4\">".concat(this.translate.instant('tasks.accountDeposit.alert.depositFail'), "</p>\n                    <div class=\"p-3 bg-light-gray select-text\">\n                    <code>").concat(_context6.t0.message, "</code>\n                </div>")
                     });
 
                   case 12:
@@ -8828,10 +8676,10 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
                   case 13:
                   case "end":
-                    return _context7.stop();
+                    return _context6.stop();
                 }
               }
-            }, _callee7, this, [[1, 9]]);
+            }, _callee6, this, [[1, 9]]);
           }));
         }
         /**
@@ -9193,9 +9041,9 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
     TasksIndexComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineComponent"]({
       type: TasksIndexComponent,
       selectors: [["app-tasks-index"]],
-      decls: 43,
-      vars: 33,
-      consts: [[1, "contents-width", "mx-auto", "px-3", "py-5"], [1, "text-large", "mb-4", "text-center", "font-weight-bold"], [1, "mb-4", "text-md-center", 3, "innerHTML"], [1, "d-md-flex"], [1, "my-md-2", "mb-3"], [1, "card", "mx-md-2", "h-100"], [1, "card-body"], [1, "card-title", "font-weight-bold"], [1, "card-text", "mb-3"], ["type", "button", "routerLink", "/tasks/account/deposit", 1, "btn", "btn-primary"], ["type", "button", "routerLink", "/tasks/account/deposit/csv", 1, "btn", "btn-primary"], ["type", "button", "routerLink", "/tasks/ownershipinfo/search", 1, "btn", "btn-primary"]],
+      decls: 31,
+      vars: 24,
+      consts: [[1, "contents-width", "mx-auto", "px-3", "py-5"], [1, "text-large", "mb-4", "text-center", "font-weight-bold"], [1, "mb-4", "text-md-center", 3, "innerHTML"], [1, "d-md-flex"], [1, "my-md-2", "mb-3"], [1, "card", "mx-md-2", "h-100"], [1, "card-body"], [1, "card-title", "font-weight-bold"], [1, "card-text", "mb-3"], ["type", "button", "routerLink", "/tasks/account/deposit", 1, "btn", "btn-primary"], ["type", "button", "routerLink", "/tasks/account/deposit/csv", 1, "btn", "btn-primary"]],
       template: function TasksIndexComponent_Template(rf, ctx) {
         if (rf & 1) {
           _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "div", 0);
@@ -9286,42 +9134,6 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
           _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
 
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](31, "li", 4);
-
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](32, "div", 5);
-
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](33, "div", 6);
-
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](34, "h5", 7);
-
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](35);
-
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipe"](36, "translate");
-
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
-
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](37, "p", 8);
-
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](38);
-
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipe"](39, "translate");
-
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
-
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](40, "button", 11);
-
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](41);
-
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipe"](42, "translate");
-
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
-
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
-
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
-
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
-
           _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
 
           _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
@@ -9330,47 +9142,35 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
         if (rf & 2) {
           _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](2);
 
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtextInterpolate"](_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipeBind1"](3, 11, "tasks.index.title"));
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtextInterpolate"](_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipeBind1"](3, 8, "tasks.index.title"));
 
           _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](2);
 
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("innerHTML", _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipeBind1"](5, 13, "tasks.index.read"), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵsanitizeHtml"]);
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("innerHTML", _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipeBind1"](5, 10, "tasks.index.read"), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵsanitizeHtml"]);
 
           _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](7);
 
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtextInterpolate1"]("", _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipeBind1"](12, 15, "tasks.index.list.accountDeposit.title"), " ");
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtextInterpolate1"]("", _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipeBind1"](12, 12, "tasks.index.list.accountDeposit.title"), " ");
 
           _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](3);
 
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtextInterpolate"](_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipeBind1"](15, 17, "tasks.index.list.accountDeposit.read"));
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtextInterpolate"](_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipeBind1"](15, 14, "tasks.index.list.accountDeposit.read"));
 
           _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](3);
 
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtextInterpolate"](_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipeBind1"](18, 19, "tasks.index.list.accountDeposit.next"));
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtextInterpolate"](_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipeBind1"](18, 16, "tasks.index.list.accountDeposit.next"));
 
           _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](6);
 
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtextInterpolate1"]("", _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipeBind1"](24, 21, "tasks.index.list.accountDepositCSV.title"), " ");
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtextInterpolate1"]("", _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipeBind1"](24, 18, "tasks.index.list.accountDepositCSV.title"), " ");
 
           _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](3);
 
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtextInterpolate"](_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipeBind1"](27, 23, "tasks.index.list.accountDepositCSV.read"));
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtextInterpolate"](_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipeBind1"](27, 20, "tasks.index.list.accountDepositCSV.read"));
 
           _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](3);
 
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtextInterpolate"](_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipeBind1"](30, 25, "tasks.index.list.accountDepositCSV.next"));
-
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](6);
-
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtextInterpolate1"]("", _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipeBind1"](36, 27, "tasks.index.list.ownershipinfoSearch.title"), " ");
-
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](3);
-
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtextInterpolate"](_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipeBind1"](39, 29, "tasks.index.list.ownershipinfoSearch.read"));
-
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](3);
-
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtextInterpolate"](_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipeBind1"](42, 31, "tasks.index.list.ownershipinfoSearch.next"));
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtextInterpolate"](_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipeBind1"](30, 22, "tasks.index.list.accountDepositCSV.next"));
         }
       },
       directives: [_angular_router__WEBPACK_IMPORTED_MODULE_1__["RouterLink"]],
@@ -9460,7 +9260,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
     var routes = [{
       path: '',
       component: _shared_components_pages_base_base_component__WEBPACK_IMPORTED_MODULE_3__["BaseComponent"],
-      canActivate: [_canActivates__WEBPACK_IMPORTED_MODULE_2__["AuthGuardService"], _canActivates__WEBPACK_IMPORTED_MODULE_2__["SettingGuardService"]],
+      canActivate: [_canActivates__WEBPACK_IMPORTED_MODULE_2__["AuthGuardService"]],
       children: [{
         path: '',
         component: _components_pages_tasks_index_tasks_index_component__WEBPACK_IMPORTED_MODULE_6__["TasksIndexComponent"]
