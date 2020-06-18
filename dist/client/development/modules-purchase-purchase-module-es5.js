@@ -7396,6 +7396,12 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }
     }
 
+    var _c0 = function _c0(a0) {
+      return {
+        "font-weight-bold text-danger": a0
+      };
+    };
+
     function PurchaseConfirmComponent_div_9_Template(rf, ctx) {
       if (rf & 1) {
         var _r26 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵgetCurrentView"]();
@@ -7474,7 +7480,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
 
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](18, "p", 10);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](18, "p", 39);
 
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](19);
 
@@ -7494,7 +7500,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](5);
 
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtextInterpolate"](_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipeBind1"](6, 6, "purchase.confirm.custody"));
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtextInterpolate"](_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipeBind1"](6, 7, "purchase.confirm.custody"));
 
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](5);
 
@@ -7506,11 +7512,15 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](5);
 
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtextInterpolate"](_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipeBind1"](17, 8, "purchase.confirm.change"));
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtextInterpolate"](_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipeBind1"](17, 9, "purchase.confirm.change"));
 
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](3);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](2);
 
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtextInterpolate"](_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipeBind2"](20, 10, ctx_r1.depositAmount - ctx_r1.amount, "JPY"));
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("ngClass", _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpureFunction1"](14, _c0, ctx_r1.depositAmount - ctx_r1.amount < 0));
+
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](1);
+
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtextInterpolate"](_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipeBind2"](20, 11, ctx_r1.depositAmount - ctx_r1.amount, "JPY"));
       }
     }
 
@@ -7678,7 +7688,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](4, "div", 1);
 
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelement"](5, "app-purchase-warning", 39);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelement"](5, "app-purchase-warning", 40);
 
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipe"](6, "async");
 
@@ -7711,7 +7721,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       if (rf & 1) {
         var _r30 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵgetCurrentView"]();
 
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "button", 40);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "button", 41);
 
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵlistener"]("click", function PurchaseConfirmComponent_button_49_Template_button_click_0_listener() {
           _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵrestoreView"](_r30);
@@ -7745,7 +7755,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       if (rf & 1) {
         var _r32 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵgetCurrentView"]();
 
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "button", 40);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "button", 41);
 
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵlistener"]("click", function PurchaseConfirmComponent_button_50_Template_button_click_0_listener() {
           _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵrestoreView"](_r32);
@@ -7777,7 +7787,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
     function PurchaseConfirmComponent_button_51_Template(rf, ctx) {
       if (rf & 1) {
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "button", 41);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "button", 42);
 
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](1);
 
@@ -7795,7 +7805,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
     function PurchaseConfirmComponent_div_52_button_1_Template(rf, ctx) {
       if (rf & 1) {
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "button", 44);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "button", 45);
 
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](1);
 
@@ -7813,7 +7823,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
     function PurchaseConfirmComponent_div_52_button_2_Template(rf, ctx) {
       if (rf & 1) {
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "button", 45);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "button", 46);
 
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](1);
 
@@ -7833,9 +7843,9 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       if (rf & 1) {
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "div");
 
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](1, PurchaseConfirmComponent_div_52_button_1_Template, 3, 3, "button", 42);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](1, PurchaseConfirmComponent_div_52_button_1_Template, 3, 3, "button", 43);
 
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](2, PurchaseConfirmComponent_div_52_button_2_Template, 3, 3, "button", 43);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](2, PurchaseConfirmComponent_div_52_button_2_Template, 3, 3, "button", 44);
 
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
       }
@@ -7857,7 +7867,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       if (rf & 1) {
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "div");
 
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](1, "button", 46);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](1, "button", 47);
 
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](2);
 
@@ -8031,7 +8041,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       selectors: [["app-purchase-confirm"]],
       decls: 54,
       vars: 62,
-      consts: [[1, "contents-width", "mx-auto", "px-3", "py-5"], [1, "mb-4"], [1, "text-large", "mb-4", "text-center", "font-weight-bold"], [1, "mb-4", "text-md-center", 3, "innerHTML"], ["class", "mb-4 bg-white p-3", 4, "ngFor", "ngForOf"], ["class", "mb-4 px-3 bg-white", 4, "ngIf"], [1, "bg-white", "px-3", "mb-4"], [1, "overflow-hidden"], [1, "py-3", "row", "align-items-center", "border-bottom", "border-gray"], [1, "mb-2", "mb-md-0", "col-md-4"], [1, "col-md-8"], [4, "ngIf"], [1, "py-3", "row", "align-items-center"], [1, "col-md-8", "font-weight-bold", "text-large", "text-info"], [1, "buttons", "mx-auto", "text-center"], ["type", "submit", "class", "btn btn-primary btn-block py-3 mb-3", 3, "disabled", "click", 4, "ngIf"], ["type", "button", "class", "btn btn-link", "routerLink", "/purchase/payment", 4, "ngIf"], [1, "mb-4", "bg-white", "p-3"], [1, "mb-3"], [1, "mb-1"], [1, "font-weight-bold", "text-large"], ["class", "text-small", 4, "ngIf"], [1, "text-small", "mb-1"], [1, "theater-name"], [1, "screen-name"], ["class", "mr-2", 4, "ngIf"], [3, "authorizeSeatReservations"], [1, "text-small"], [1, "mr-2"], [1, "mr-1"], [1, "mb-4", "px-3", "bg-white"], [1, "py-3", "border-bottom", "border-gray"], [1, "row", "align-items-center"], [1, "fas", "fa-arrow-right", "mr-2"], [1, "col-md-8", "d-flex", "align-items-center", "position-static"], ["inputType", "number", "viewPosition", "Top", 3, "inputValue", "maxlength", "change", "hidden"], ["type", "number", "id", "depositAmount", "readonly", "", 1, "form-control", "text-large", "py-2", "h-auto", 3, "ngModel", "ngModelChange"], [1, "py-3"], [1, "fas", "fa-arrow-left", "mr-2"], [3, "language", "screeningEvent"], ["type", "submit", 1, "btn", "btn-primary", "btn-block", "py-3", "mb-3", 3, "disabled", "click"], ["type", "button", "routerLink", "/purchase/payment", 1, "btn", "btn-link"], ["type", "button", "class", "btn btn-link", "routerLink", "/purchase/cinema/cart", 4, "ngIf"], ["type", "button", "class", "btn btn-link", "routerLink", "/purchase/cinema/ticket", 4, "ngIf"], ["type", "button", "routerLink", "/purchase/cinema/cart", 1, "btn", "btn-link"], ["type", "button", "routerLink", "/purchase/cinema/ticket", 1, "btn", "btn-link"], ["type", "button", "routerLink", "/purchase/event/ticket", 1, "btn", "btn-link"]],
+      consts: [[1, "contents-width", "mx-auto", "px-3", "py-5"], [1, "mb-4"], [1, "text-large", "mb-4", "text-center", "font-weight-bold"], [1, "mb-4", "text-md-center", 3, "innerHTML"], ["class", "mb-4 bg-white p-3", 4, "ngFor", "ngForOf"], ["class", "mb-4 px-3 bg-white", 4, "ngIf"], [1, "bg-white", "px-3", "mb-4"], [1, "overflow-hidden"], [1, "py-3", "row", "align-items-center", "border-bottom", "border-gray"], [1, "mb-2", "mb-md-0", "col-md-4"], [1, "col-md-8"], [4, "ngIf"], [1, "py-3", "row", "align-items-center"], [1, "col-md-8", "font-weight-bold", "text-large", "text-info"], [1, "buttons", "mx-auto", "text-center"], ["type", "submit", "class", "btn btn-primary btn-block py-3 mb-3", 3, "disabled", "click", 4, "ngIf"], ["type", "button", "class", "btn btn-link", "routerLink", "/purchase/payment", 4, "ngIf"], [1, "mb-4", "bg-white", "p-3"], [1, "mb-3"], [1, "mb-1"], [1, "font-weight-bold", "text-large"], ["class", "text-small", 4, "ngIf"], [1, "text-small", "mb-1"], [1, "theater-name"], [1, "screen-name"], ["class", "mr-2", 4, "ngIf"], [3, "authorizeSeatReservations"], [1, "text-small"], [1, "mr-2"], [1, "mr-1"], [1, "mb-4", "px-3", "bg-white"], [1, "py-3", "border-bottom", "border-gray"], [1, "row", "align-items-center"], [1, "fas", "fa-arrow-right", "mr-2"], [1, "col-md-8", "d-flex", "align-items-center", "position-static"], ["inputType", "number", "viewPosition", "Top", 3, "inputValue", "maxlength", "change", "hidden"], ["type", "number", "id", "depositAmount", "readonly", "", 1, "form-control", "text-large", "py-2", "h-auto", 3, "ngModel", "ngModelChange"], [1, "py-3"], [1, "fas", "fa-arrow-left", "mr-2"], [1, "col-md-8", 3, "ngClass"], [3, "language", "screeningEvent"], ["type", "submit", 1, "btn", "btn-primary", "btn-block", "py-3", "mb-3", 3, "disabled", "click"], ["type", "button", "routerLink", "/purchase/payment", 1, "btn", "btn-link"], ["type", "button", "class", "btn btn-link", "routerLink", "/purchase/cinema/cart", 4, "ngIf"], ["type", "button", "class", "btn btn-link", "routerLink", "/purchase/cinema/ticket", 4, "ngIf"], ["type", "button", "routerLink", "/purchase/cinema/cart", 1, "btn", "btn-link"], ["type", "button", "routerLink", "/purchase/cinema/ticket", 1, "btn", "btn-link"], ["type", "button", "routerLink", "/purchase/event/ticket", 1, "btn", "btn-link"]],
       template: function PurchaseConfirmComponent_Template(rf, ctx) {
         if (rf & 1) {
           _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "div", 0);
@@ -8054,7 +8064,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
           _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipe"](8, "async");
 
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](9, PurchaseConfirmComponent_div_9_Template, 21, 13, "div", 5);
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](9, PurchaseConfirmComponent_div_9_Template, 21, 16, "div", 5);
 
           _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipe"](10, "async");
 
@@ -8276,7 +8286,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
           _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("ngIf", ctx.amount === 0 && ctx.environment.VIEW_TYPE === ctx.viewType.Event);
         }
       },
-      directives: [_angular_common__WEBPACK_IMPORTED_MODULE_10__["NgForOf"], _angular_common__WEBPACK_IMPORTED_MODULE_10__["NgIf"], _shared_components_parts_item_list_item_list_component__WEBPACK_IMPORTED_MODULE_11__["ItemListComponent"], _shared_components_parts_numeric_keypad_numeric_keypad_component__WEBPACK_IMPORTED_MODULE_12__["NumericKeypadComponent"], _angular_forms__WEBPACK_IMPORTED_MODULE_13__["NumberValueAccessor"], _angular_forms__WEBPACK_IMPORTED_MODULE_13__["DefaultValueAccessor"], _angular_forms__WEBPACK_IMPORTED_MODULE_13__["NgControlStatus"], _angular_forms__WEBPACK_IMPORTED_MODULE_13__["NgModel"], _parts_purchase_warning_purchase_warning_component__WEBPACK_IMPORTED_MODULE_14__["PurchaseWarningComponent"], _angular_router__WEBPACK_IMPORTED_MODULE_1__["RouterLink"]],
+      directives: [_angular_common__WEBPACK_IMPORTED_MODULE_10__["NgForOf"], _angular_common__WEBPACK_IMPORTED_MODULE_10__["NgIf"], _shared_components_parts_item_list_item_list_component__WEBPACK_IMPORTED_MODULE_11__["ItemListComponent"], _shared_components_parts_numeric_keypad_numeric_keypad_component__WEBPACK_IMPORTED_MODULE_12__["NumericKeypadComponent"], _angular_forms__WEBPACK_IMPORTED_MODULE_13__["NumberValueAccessor"], _angular_forms__WEBPACK_IMPORTED_MODULE_13__["DefaultValueAccessor"], _angular_forms__WEBPACK_IMPORTED_MODULE_13__["NgControlStatus"], _angular_forms__WEBPACK_IMPORTED_MODULE_13__["NgModel"], _angular_common__WEBPACK_IMPORTED_MODULE_10__["NgClass"], _parts_purchase_warning_purchase_warning_component__WEBPACK_IMPORTED_MODULE_14__["PurchaseWarningComponent"], _angular_router__WEBPACK_IMPORTED_MODULE_1__["RouterLink"]],
       pipes: [_ngx_translate_core__WEBPACK_IMPORTED_MODULE_4__["TranslatePipe"], _angular_common__WEBPACK_IMPORTED_MODULE_10__["AsyncPipe"], _angular_common__WEBPACK_IMPORTED_MODULE_10__["CurrencyPipe"], _shared_pipes_change_language_pipe__WEBPACK_IMPORTED_MODULE_15__["ChangeLanguagePipe"], _shared_pipes_format_date_pipe__WEBPACK_IMPORTED_MODULE_16__["FormatDatePipe"]],
       styles: [""]
     });
