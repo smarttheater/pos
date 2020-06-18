@@ -63,17 +63,17 @@
         padding-top: 32px;
     }
     .hc {
-        background-image: url(/assets/images/seat/hc.svg) !important;
+        background-image: url(/default/images/seat/hc.svg) !important;
         &.active,
         &.disabled {
-            background-image: url(/assets/images/seat/hc_white.svg) !important;
+            background-image: url(/default/images/seat/hc_white.svg) !important;
         }
     }
     .spare {
-        background-image: url(/assets/images/seat/spare.svg) !important;
+        background-image: url(/default/images/seat/spare.svg) !important;
         &.active,
         &.disabled {
-            background-image: url(/assets/images/seat/spare_white.svg) !important;
+            background-image: url(/default/images/seat/spare_white.svg) !important;
         }
     }
     .object {
