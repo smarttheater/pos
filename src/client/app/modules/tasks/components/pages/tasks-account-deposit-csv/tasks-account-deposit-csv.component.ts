@@ -202,37 +202,17 @@ export class TasksAccountDepositCSVComponent implements OnInit {
                     }
                 });
                 // ポイント口座取得
-                const account = await this.cinerinoService.ownershipInfo.search({
+                const searchAccounts = await this.cinerinoService.ownershipInfo.search({
+                    sort: { ownedFrom: factory.sortType.Ascending },
                     id: d.id,
                     typeOfGood: {
                         typeOf: factory.ownershipInfo.AccountGoodType.Account,
                         accountType: factory.accountType.Point
                     }
                 });
-                // ポイント遷移
-                // const getPointTransferActions = async () => {
-                //     const limit = 100;
-                //     let page = 1;
-                //     let roop = true;
-                //     let result: factory.pecorino.action.transfer.moneyTransfer.IAction<factory.accountType.Point>[] = [];
-                //     while (roop) {
-                //         const pointTransferActionsResult =
-                //             await this.cinerinoService.ownershipInfo
-                //                 .searchAccountMoneyTransferActions<factory.accountType.Point>({
-                //                     page,
-                //                     limit,
-                //                     id: d.id,
-                //                     accountType: factory.accountType.Point,
-                //                     accountNumber: account.data[0].typeOfGood.accountNumber
-                //                 });
-                //         result = result.concat(pointTransferActionsResult.data);
-                //         const lastPage = Math.ceil(pointTransferActionsResult.totalCount / limit);
-                //         page++;
-                //         roop = !(page > lastPage);
-                //     }
-                //     return result;
-                // };
-                // const pointTransferActions = await getPointTransferActions();
+                const accounts = searchAccounts.data.filter((a) => {
+                    return (a.typeOfGood.status === factory.pecorino.accountStatusType.Opened);
+                });
                 const pointTransferActions: any[] = [];
                 const depositedCount = pointTransferActions.filter(p => p.description === this.message).length;
                 if (programMembership.totalCount === undefined) {
@@ -246,7 +226,7 @@ export class TasksAccountDepositCSVComponent implements OnInit {
                         ? d.userName : person.data[0].memberOf.membershipNumber,
                     person: person.data[0],
                     programMembership: programMembership.data[0],
-                    account: account.data[0],
+                    account: accounts[0],
                     validityMember: (programMembership.data[0] === undefined)
                         ? false : (moment(programMembership.data[0].ownedFrom).unix() < moment(now).unix()
                             && moment(programMembership.data[0].ownedThrough).unix() > moment(now).unix()),

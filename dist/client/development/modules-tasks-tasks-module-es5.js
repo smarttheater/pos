@@ -7775,7 +7775,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
           return __awaiter(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee4() {
             var _this = this;
 
-            var limitYears, deduplication, data, now, loopCount, _i, _deduplication, d, person, programMembership, account, pointTransferActions, depositedCount;
+            var limitYears, deduplication, data, now, loopCount, _i, _deduplication, d, person, programMembership, searchAccounts, accounts, pointTransferActions, depositedCount;
 
             return regeneratorRuntime.wrap(function _callee4$(_context4) {
               while (1) {
@@ -7832,7 +7832,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
                   case 18:
                     if (!(_i < _deduplication.length)) {
-                      _context4.next = 43;
+                      _context4.next = 44;
                       break;
                     }
 
@@ -7870,6 +7870,9 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
                     programMembership = _context4.sent;
                     _context4.next = 31;
                     return this.cinerinoService.ownershipInfo.search({
+                      sort: {
+                        ownedFrom: _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_1__["factory"].sortType.Ascending
+                      },
                       id: d.id,
                       typeOfGood: {
                         typeOf: _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_1__["factory"].ownershipInfo.AccountGoodType.Account,
@@ -7878,70 +7881,49 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
                     });
 
                   case 31:
-                    account = _context4.sent;
-                    // ポイント遷移
-                    // const getPointTransferActions = async () => {
-                    //     const limit = 100;
-                    //     let page = 1;
-                    //     let roop = true;
-                    //     let result: factory.pecorino.action.transfer.moneyTransfer.IAction<factory.accountType.Point>[] = [];
-                    //     while (roop) {
-                    //         const pointTransferActionsResult =
-                    //             await this.cinerinoService.ownershipInfo
-                    //                 .searchAccountMoneyTransferActions<factory.accountType.Point>({
-                    //                     page,
-                    //                     limit,
-                    //                     id: d.id,
-                    //                     accountType: factory.accountType.Point,
-                    //                     accountNumber: account.data[0].typeOfGood.accountNumber
-                    //                 });
-                    //         result = result.concat(pointTransferActionsResult.data);
-                    //         const lastPage = Math.ceil(pointTransferActionsResult.totalCount / limit);
-                    //         page++;
-                    //         roop = !(page > lastPage);
-                    //     }
-                    //     return result;
-                    // };
-                    // const pointTransferActions = await getPointTransferActions();
+                    searchAccounts = _context4.sent;
+                    accounts = searchAccounts.data.filter(function (a) {
+                      return a.typeOfGood.status === _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_1__["factory"].pecorino.accountStatusType.Opened;
+                    });
                     pointTransferActions = [];
                     depositedCount = pointTransferActions.filter(function (p) {
                       return p.description === _this.message;
                     }).length;
 
                     if (!(programMembership.totalCount === undefined)) {
-                      _context4.next = 36;
+                      _context4.next = 37;
                       break;
                     }
 
                     throw new Error('programMembership.totalCount undefined');
 
-                  case 36:
+                  case 37:
                     data.push({
                       id: person.data.length === 0 ? d.id : person.data[0].id,
                       userName: person.data.length === 0 || person.data[0].memberOf === undefined || person.data[0].memberOf.membershipNumber === undefined ? d.userName : person.data[0].memberOf.membershipNumber,
                       person: person.data[0],
                       programMembership: programMembership.data[0],
-                      account: account.data[0],
+                      account: accounts[0],
                       validityMember: programMembership.data[0] === undefined ? false : moment__WEBPACK_IMPORTED_MODULE_6__(programMembership.data[0].ownedFrom).unix() < moment__WEBPACK_IMPORTED_MODULE_6__(now).unix() && moment__WEBPACK_IMPORTED_MODULE_6__(programMembership.data[0].ownedThrough).unix() > moment__WEBPACK_IMPORTED_MODULE_6__(now).unix(),
                       programMembershipCount: programMembership.totalCount,
                       depositedCount: depositedCount,
                       depositCount: programMembership.totalCount - 1 - depositedCount > 0 ? programMembership.totalCount - 1 - depositedCount : 0,
                       pointTransferActions: pointTransferActions
                     });
-                    _context4.next = 39;
+                    _context4.next = 40;
                     return ___WEBPACK_IMPORTED_MODULE_8__["Functions"].Util.sleep(1000);
 
-                  case 39:
+                  case 40:
                     loopCount++;
 
-                  case 40:
+                  case 41:
                     _i++;
                     _context4.next = 18;
                     break;
 
-                  case 43:
+                  case 44:
                     if (!(this.years === 0)) {
-                      _context4.next = 47;
+                      _context4.next = 48;
                       break;
                     }
 
@@ -7950,15 +7932,15 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
                     this.utilService.loadEnd();
                     return _context4.abrupt("return");
 
-                  case 47:
+                  case 48:
                     this.targetTable = data.filter(function (d) {
                       return d.programMembershipCount === _this.years;
                     });
-                    _context4.next = 54;
+                    _context4.next = 55;
                     break;
 
-                  case 50:
-                    _context4.prev = 50;
+                  case 51:
+                    _context4.prev = 51;
                     _context4.t0 = _context4["catch"](6);
                     console.error(_context4.t0);
                     this.utilService.openAlert({
@@ -7966,16 +7948,16 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
                       body: "\n                <p class=\"mb-4\">".concat(this.translate.instant('tasks.accountDepositCSV.alert.refine'), "</p>\n                    <div class=\"p-3 bg-light-gray select-text\">\n                    <code>").concat(_context4.t0.message, "</code>\n                </div>")
                     });
 
-                  case 54:
+                  case 55:
                     // console.log(this.targetTable);
                     this.utilService.loadEnd();
 
-                  case 55:
+                  case 56:
                   case "end":
                     return _context4.stop();
                 }
               }
-            }, _callee4, this, [[6, 50]]);
+            }, _callee4, this, [[6, 51]]);
           }));
         }
         /**
