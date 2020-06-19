@@ -1314,17 +1314,27 @@ class ReservationSearchComponent {
         this.maxSize = 1;
         this.currentPage = 1;
         this.limit = 20;
-        const now = moment__WEBPACK_IMPORTED_MODULE_4__().toDate();
-        const today = moment__WEBPACK_IMPORTED_MODULE_4__(moment__WEBPACK_IMPORTED_MODULE_4__(now).format('YYYYMMDD'));
-        this.conditions = {
-            reservationDateFrom: moment__WEBPACK_IMPORTED_MODULE_4__(today).add(-13, 'day').toDate(),
-            reservationDateThrough: moment__WEBPACK_IMPORTED_MODULE_4__(today).toDate(),
-            id: '',
-            reservationNumber: '',
-            reservationStatus: '',
+        this.searchConditionClear();
+        this.reservationService.delete();
+    }
+    /**
+     * 検索条件変更
+     */
+    changeConditions() {
+        this.confirmedConditions = {
+            reservationDateFrom: this.conditions.reservationDateFrom,
+            reservationDateThrough: this.conditions.reservationDateThrough,
+            eventStartDateFrom: this.conditions.eventStartDateFrom,
+            eventStartDateThrough: this.conditions.eventStartDateThrough,
+            id: this.conditions.id,
+            reservationNumber: this.conditions.reservationNumber,
+            reservationStatus: this.conditions.reservationStatus,
             page: 1
         };
-        this.reservationService.delete();
+        this.reservations = [];
+        this.totalCount = 20;
+        this.maxSize = 1;
+        this.currentPage = 1;
     }
     /**
      * 検索
@@ -1342,20 +1352,7 @@ class ReservationSearchComponent {
             this.conditions.reservationNumber
                 = document.getElementById('reservationNumber').value;
             if (changeConditions) {
-                this.confirmedConditions = {
-                    reservationDateFrom: this.conditions.reservationDateFrom,
-                    reservationDateThrough: this.conditions.reservationDateThrough,
-                    eventStartDateFrom: this.conditions.eventStartDateFrom,
-                    eventStartDateThrough: this.conditions.eventStartDateThrough,
-                    id: this.conditions.id,
-                    reservationNumber: this.conditions.reservationNumber,
-                    reservationStatus: this.conditions.reservationStatus,
-                    page: 1
-                };
-                this.reservations = [];
-                this.totalCount = 20;
-                this.maxSize = 1;
-                this.currentPage = 1;
+                this.changeConditions();
             }
             try {
                 const params = ___WEBPACK_IMPORTED_MODULE_7__["Functions"].Reservation.input2ReservationSearchCondition({

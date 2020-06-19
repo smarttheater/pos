@@ -58,17 +58,28 @@ export class ReservationSearchComponent implements OnInit {
         this.maxSize = 1;
         this.currentPage = 1;
         this.limit = 20;
-        const now = moment().toDate();
-        const today = moment(moment(now).format('YYYYMMDD'));
-        this.conditions = {
-            reservationDateFrom: moment(today).add(-13, 'day').toDate(),
-            reservationDateThrough: moment(today).toDate(),
-            id: '',
-            reservationNumber: '',
-            reservationStatus: '',
+        this.searchConditionClear();
+        this.reservationService.delete();
+    }
+
+    /**
+     * 検索条件変更
+     */
+    private changeConditions() {
+        this.confirmedConditions = {
+            reservationDateFrom: this.conditions.reservationDateFrom,
+            reservationDateThrough: this.conditions.reservationDateThrough,
+            eventStartDateFrom: this.conditions.eventStartDateFrom,
+            eventStartDateThrough: this.conditions.eventStartDateThrough,
+            id: this.conditions.id,
+            reservationNumber: this.conditions.reservationNumber,
+            reservationStatus: this.conditions.reservationStatus,
             page: 1
         };
-        this.reservationService.delete();
+        this.reservations = [];
+        this.totalCount = 20;
+        this.maxSize = 1;
+        this.currentPage = 1;
     }
 
     /**
@@ -86,20 +97,7 @@ export class ReservationSearchComponent implements OnInit {
         this.conditions.reservationNumber
             = (<HTMLInputElement>document.getElementById('reservationNumber')).value;
         if (changeConditions) {
-            this.confirmedConditions = {
-                reservationDateFrom: this.conditions.reservationDateFrom,
-                reservationDateThrough: this.conditions.reservationDateThrough,
-                eventStartDateFrom: this.conditions.eventStartDateFrom,
-                eventStartDateThrough: this.conditions.eventStartDateThrough,
-                id: this.conditions.id,
-                reservationNumber: this.conditions.reservationNumber,
-                reservationStatus: this.conditions.reservationStatus,
-                page: 1
-            };
-            this.reservations = [];
-            this.totalCount = 20;
-            this.maxSize = 1;
-            this.currentPage = 1;
+            this.changeConditions();
         }
         try {
             const params = Functions.Reservation.input2ReservationSearchCondition({
