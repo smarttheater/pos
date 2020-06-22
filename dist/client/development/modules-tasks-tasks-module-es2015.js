@@ -307,37 +307,17 @@ class TasksAccountDepositCSVComponent {
                         }
                     });
                     // ポイント口座取得
-                    const account = yield this.cinerinoService.ownershipInfo.search({
+                    const searchAccounts = yield this.cinerinoService.ownershipInfo.search({
+                        sort: { ownedFrom: _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_1__["factory"].sortType.Ascending },
                         id: d.id,
                         typeOfGood: {
                             typeOf: _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_1__["factory"].ownershipInfo.AccountGoodType.Account,
                             accountType: _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_1__["factory"].accountType.Point
                         }
                     });
-                    // ポイント遷移
-                    // const getPointTransferActions = async () => {
-                    //     const limit = 100;
-                    //     let page = 1;
-                    //     let roop = true;
-                    //     let result: factory.pecorino.action.transfer.moneyTransfer.IAction<factory.accountType.Point>[] = [];
-                    //     while (roop) {
-                    //         const pointTransferActionsResult =
-                    //             await this.cinerinoService.ownershipInfo
-                    //                 .searchAccountMoneyTransferActions<factory.accountType.Point>({
-                    //                     page,
-                    //                     limit,
-                    //                     id: d.id,
-                    //                     accountType: factory.accountType.Point,
-                    //                     accountNumber: account.data[0].typeOfGood.accountNumber
-                    //                 });
-                    //         result = result.concat(pointTransferActionsResult.data);
-                    //         const lastPage = Math.ceil(pointTransferActionsResult.totalCount / limit);
-                    //         page++;
-                    //         roop = !(page > lastPage);
-                    //     }
-                    //     return result;
-                    // };
-                    // const pointTransferActions = await getPointTransferActions();
+                    const accounts = searchAccounts.data.filter((a) => {
+                        return (a.typeOfGood.status === _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_1__["factory"].pecorino.accountStatusType.Opened);
+                    });
                     const pointTransferActions = [];
                     const depositedCount = pointTransferActions.filter(p => p.description === this.message).length;
                     if (programMembership.totalCount === undefined) {
@@ -351,7 +331,7 @@ class TasksAccountDepositCSVComponent {
                             ? d.userName : person.data[0].memberOf.membershipNumber,
                         person: person.data[0],
                         programMembership: programMembership.data[0],
-                        account: account.data[0],
+                        account: accounts[0],
                         validityMember: (programMembership.data[0] === undefined)
                             ? false : (moment__WEBPACK_IMPORTED_MODULE_6__(programMembership.data[0].ownedFrom).unix() < moment__WEBPACK_IMPORTED_MODULE_6__(now).unix()
                             && moment__WEBPACK_IMPORTED_MODULE_6__(programMembership.data[0].ownedThrough).unix() > moment__WEBPACK_IMPORTED_MODULE_6__(now).unix()),
