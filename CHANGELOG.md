@@ -12,6 +12,10 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/).
 
 ### Security
 
+## 3.0.47 - 2020-06-24
+### Changed
+ -  チケット印刷をHTMLから印刷へデフォルト値を変更
+
 ## 3.0.46 - 2020-06-22
 ### Added
  -  予備席表示追加
