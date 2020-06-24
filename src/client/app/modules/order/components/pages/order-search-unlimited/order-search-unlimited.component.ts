@@ -62,24 +62,7 @@ export class OrderSearchUnlimitedComponent implements OnInit {
         this.totalCount = 0;
         this.currentPage = 1;
         this.limit = 20;
-        const now = moment().toDate();
-        const today = moment(moment(now).format('YYYYMMDD'));
-        this.conditions = {
-            orderDateFrom: moment(today).add(-13, 'day').toDate(),
-            orderDateThrough: moment(today).toDate(),
-            confirmationNumber: '',
-            orderNumber: '',
-            customer: {
-                familyName: '',
-                givenName: '',
-                email: '',
-                telephone: ''
-            },
-            orderStatus: '',
-            paymentMethodType: '',
-            posId: '',
-            page: 1
-        };
+        this.searchConditionClear();
         this.orderService.delete();
     }
 
