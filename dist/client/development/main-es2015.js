@@ -2415,7 +2415,7 @@ const defaultEnvironment = {
     PRINT_QRCODE_TYPE: 'token',
     PRINT_QRCODE_CUSTOM: '',
     PRINT_LOADING: true,
-    PRINT_DATA: 'JSON'
+    PRINT_DATA: 'HTML'
 };
 function getEnvironment() {
     const environment = Object.assign(Object.assign(Object.assign({}, defaultEnvironment), window.environment), { production: isProduction });

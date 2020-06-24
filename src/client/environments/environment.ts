@@ -268,7 +268,7 @@ const defaultEnvironment: IEnvironment = {
     PRINT_QRCODE_TYPE: 'token',
     PRINT_QRCODE_CUSTOM: '',
     PRINT_LOADING: true,
-    PRINT_DATA: 'JSON'
+    PRINT_DATA: 'HTML'
 };
 
 export function getEnvironment(): IEnvironment {

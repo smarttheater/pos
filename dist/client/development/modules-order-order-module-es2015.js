@@ -1071,24 +1071,7 @@ class OrderSearchUnlimitedComponent {
         this.totalCount = 0;
         this.currentPage = 1;
         this.limit = 20;
-        const now = moment__WEBPACK_IMPORTED_MODULE_5__().toDate();
-        const today = moment__WEBPACK_IMPORTED_MODULE_5__(moment__WEBPACK_IMPORTED_MODULE_5__(now).format('YYYYMMDD'));
-        this.conditions = {
-            orderDateFrom: moment__WEBPACK_IMPORTED_MODULE_5__(today).add(-13, 'day').toDate(),
-            orderDateThrough: moment__WEBPACK_IMPORTED_MODULE_5__(today).toDate(),
-            confirmationNumber: '',
-            orderNumber: '',
-            customer: {
-                familyName: '',
-                givenName: '',
-                email: '',
-                telephone: ''
-            },
-            orderStatus: '',
-            paymentMethodType: '',
-            posId: '',
-            page: 1
-        };
+        this.searchConditionClear();
         this.orderService.delete();
     }
     /**
@@ -2121,24 +2104,7 @@ class OrderSearchComponent {
         this.maxSize = 1;
         this.currentPage = 1;
         this.limit = 20;
-        const now = moment__WEBPACK_IMPORTED_MODULE_4__().toDate();
-        const today = moment__WEBPACK_IMPORTED_MODULE_4__(moment__WEBPACK_IMPORTED_MODULE_4__(now).format('YYYYMMDD'));
-        this.conditions = {
-            orderDateFrom: moment__WEBPACK_IMPORTED_MODULE_4__(today).add(-13, 'day').toDate(),
-            orderDateThrough: moment__WEBPACK_IMPORTED_MODULE_4__(today).toDate(),
-            confirmationNumber: '',
-            orderNumber: '',
-            customer: {
-                familyName: '',
-                givenName: '',
-                email: '',
-                telephone: ''
-            },
-            orderStatus: '',
-            paymentMethodType: '',
-            posId: '',
-            page: 1
-        };
+        this.searchConditionClear();
         this.orderService.delete();
     }
     /**
@@ -2160,6 +2126,33 @@ class OrderSearchComponent {
     removeOrder(order) {
         const findIndex = this.selectedOrders.findIndex(o => o.orderNumber === order.orderNumber);
         this.selectedOrders.splice(findIndex, 1);
+    }
+    /**
+     * 検索条件変更
+     */
+    changeConditions() {
+        this.confirmedConditions = {
+            orderDateFrom: this.conditions.orderDateFrom,
+            orderDateThrough: this.conditions.orderDateThrough,
+            confirmationNumber: this.conditions.confirmationNumber,
+            orderNumber: this.conditions.orderNumber,
+            customer: {
+                familyName: this.conditions.customer.familyName,
+                givenName: this.conditions.customer.givenName,
+                email: this.conditions.customer.email,
+                telephone: this.conditions.customer.telephone
+            },
+            orderStatus: this.conditions.orderStatus,
+            paymentMethodType: this.conditions.paymentMethodType,
+            eventStartDateFrom: this.conditions.eventStartDateFrom,
+            eventStartDateThrough: this.conditions.eventStartDateThrough,
+            posId: this.conditions.posId,
+            page: 1
+        };
+        this.orders = [];
+        this.totalCount = 20;
+        this.maxSize = 1;
+        this.currentPage = 1;
     }
     /**
      * 検索
@@ -2186,28 +2179,7 @@ class OrderSearchComponent {
             this.conditions.customer.telephone
                 = document.getElementById('telephone').value;
             if (changeConditions) {
-                this.confirmedConditions = {
-                    orderDateFrom: this.conditions.orderDateFrom,
-                    orderDateThrough: this.conditions.orderDateThrough,
-                    confirmationNumber: this.conditions.confirmationNumber,
-                    orderNumber: this.conditions.orderNumber,
-                    customer: {
-                        familyName: this.conditions.customer.familyName,
-                        givenName: this.conditions.customer.givenName,
-                        email: this.conditions.customer.email,
-                        telephone: this.conditions.customer.telephone
-                    },
-                    orderStatus: this.conditions.orderStatus,
-                    paymentMethodType: this.conditions.paymentMethodType,
-                    eventStartDateFrom: this.conditions.eventStartDateFrom,
-                    eventStartDateThrough: this.conditions.eventStartDateThrough,
-                    posId: this.conditions.posId,
-                    page: 1
-                };
-                this.orders = [];
-                this.totalCount = 20;
-                this.maxSize = 1;
-                this.currentPage = 1;
+                this.changeConditions();
             }
             try {
                 const params = ___WEBPACK_IMPORTED_MODULE_7__["Functions"].Order.input2OrderSearchCondition({

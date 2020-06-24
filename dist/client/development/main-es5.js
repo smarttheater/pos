@@ -3881,7 +3881,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
       PRINT_QRCODE_TYPE: 'token',
       PRINT_QRCODE_CUSTOM: '',
       PRINT_LOADING: true,
-      PRINT_DATA: 'JSON'
+      PRINT_DATA: 'HTML'
     };
 
     function getEnvironment() {

@@ -64,24 +64,7 @@ export class OrderSearchComponent implements OnInit {
         this.maxSize = 1;
         this.currentPage = 1;
         this.limit = 20;
-        const now = moment().toDate();
-        const today = moment(moment(now).format('YYYYMMDD'));
-        this.conditions = {
-            orderDateFrom: moment(today).add(-13, 'day').toDate(),
-            orderDateThrough: moment(today).toDate(),
-            confirmationNumber: '',
-            orderNumber: '',
-            customer: {
-                familyName: '',
-                givenName: '',
-                email: '',
-                telephone: ''
-            },
-            orderStatus: '',
-            paymentMethodType: '',
-            posId: '',
-            page: 1
-        };
+        this.searchConditionClear();
         this.orderService.delete();
     }
 
@@ -109,6 +92,34 @@ export class OrderSearchComponent implements OnInit {
     }
 
     /**
+     * 検索条件変更
+     */
+    private changeConditions() {
+        this.confirmedConditions = {
+            orderDateFrom: this.conditions.orderDateFrom,
+            orderDateThrough: this.conditions.orderDateThrough,
+            confirmationNumber: this.conditions.confirmationNumber,
+            orderNumber: this.conditions.orderNumber,
+            customer: {
+                familyName: this.conditions.customer.familyName,
+                givenName: this.conditions.customer.givenName,
+                email: this.conditions.customer.email,
+                telephone: this.conditions.customer.telephone
+            },
+            orderStatus: this.conditions.orderStatus,
+            paymentMethodType: this.conditions.paymentMethodType,
+            eventStartDateFrom: this.conditions.eventStartDateFrom,
+            eventStartDateThrough: this.conditions.eventStartDateThrough,
+            posId: this.conditions.posId,
+            page: 1
+        };
+        this.orders = [];
+        this.totalCount = 20;
+        this.maxSize = 1;
+        this.currentPage = 1;
+    }
+
+    /**
      * 検索
      */
     public async orderSearch(changeConditions: boolean, event?: { page: number }) {
@@ -132,28 +143,7 @@ export class OrderSearchComponent implements OnInit {
         this.conditions.customer.telephone
             = (<HTMLInputElement>document.getElementById('telephone')).value;
         if (changeConditions) {
-            this.confirmedConditions = {
-                orderDateFrom: this.conditions.orderDateFrom,
-                orderDateThrough: this.conditions.orderDateThrough,
-                confirmationNumber: this.conditions.confirmationNumber,
-                orderNumber: this.conditions.orderNumber,
-                customer: {
-                    familyName: this.conditions.customer.familyName,
-                    givenName: this.conditions.customer.givenName,
-                    email: this.conditions.customer.email,
-                    telephone: this.conditions.customer.telephone
-                },
-                orderStatus: this.conditions.orderStatus,
-                paymentMethodType: this.conditions.paymentMethodType,
-                eventStartDateFrom: this.conditions.eventStartDateFrom,
-                eventStartDateThrough: this.conditions.eventStartDateThrough,
-                posId: this.conditions.posId,
-                page: 1
-            };
-            this.orders = [];
-            this.totalCount = 20;
-            this.maxSize = 1;
-            this.currentPage = 1;
+            this.changeConditions();
         }
         try {
             const params = Functions.Order.input2OrderSearchCondition({
