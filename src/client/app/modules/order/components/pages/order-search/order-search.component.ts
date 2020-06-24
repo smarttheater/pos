@@ -152,12 +152,6 @@ export class OrderSearchComponent implements OnInit {
                 page: this.currentPage,
                 limit: this.limit
             });
-            if (params.orderDateFrom !== null
-                && params.orderDateThrough !== null
-                && moment(params.orderDateThrough).diff(moment(params.orderDateFrom), 'day') > 14) {
-                // 購入日の範囲が14日以上
-                throw new Error('order date wrong date range').message;
-            }
             this.orders = (await this.orderService.search(params)).data;
             this.nextOrders = (await this.orderService.search({ ...params, page: (this.currentPage + 1) })).data;
             const totalCount = (this.nextOrders.length === 0)
@@ -179,11 +173,7 @@ export class OrderSearchComponent implements OnInit {
      * 検索条件クリア
      */
     public searchConditionClear() {
-        const now = moment().toDate();
-        const today = moment(moment(now).format('YYYYMMDD'));
         this.conditions = {
-            orderDateFrom: moment(today).add(-13, 'day').toDate(),
-            orderDateThrough: moment(today).toDate(),
             confirmationNumber: '',
             orderNumber: '',
             customer: {
