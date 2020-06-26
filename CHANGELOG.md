@@ -12,19 +12,23 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/).
 
 ### Security
 
+## 3.0.48 - 2020-06-26
+### Changed
+ - 注文検索条件変更
+
 ## 3.0.47 - 2020-06-24
 ### Changed
- -  チケット印刷をHTMLから印刷へデフォルト値を変更
+ - チケット印刷をHTMLから印刷へデフォルト値を変更
 
 ## 3.0.46 - 2020-06-22
 ### Added
- -  予備席表示追加
+ - 予備席表示追加
 
 ## 3.0.45 - 2020-06-16
 ### Added
- -  座席説明追加
+ - 座席説明追加
 ### Changed
- -  座席表示を画像からcssへ変更
+ - 座席表示を画像からcssへ変更
 
 ## 3.0.44 - 2020-06-15
 ### Changed
@@ -61,7 +65,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/).
 
 ## 3.0.37 - 2020-05-21
 ### Changed
- -  デフォルトをカート機能ONへ変更
+ - デフォルトをカート機能ONへ変更
 ### Fixed
  - スクリーン自動生成不具合修正
 
