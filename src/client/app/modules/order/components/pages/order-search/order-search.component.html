@@ -7,20 +7,30 @@
                 <div class="form-group col-md-4 col-lg-3">
                     <label for="orderDateFrom"
                         class="mb-2">{{ 'order.search.conditions.orderDateFrom' | translate }}</label>
-                    <input type="text" name="orderDateFrom" id="orderDateFrom" placeholder="YYYY/MM/DD"
-                        class="form-control" #orderDateFrom="bsDatepicker" bsDatepicker
-                        [(ngModel)]="conditions.orderDateFrom"
-                        [bsConfig]="{ dateInputFormat: 'YYYY/MM/DD', adaptivePosition: true, showWeekNumbers: false }"
-                        readonly (onShown)="onShowPicker($event)" (click)="setDatePicker()">
+                    <div class="position-relative">
+                        <input type="text" name="orderDateFrom" id="orderDateFrom" placeholder="YYYY/MM/DD"
+                            class="form-control" #orderDateFrom="bsDatepicker" bsDatepicker
+                            [(ngModel)]="conditions.orderDateFrom"
+                            [bsConfig]="{ dateInputFormat: 'YYYY/MM/DD', adaptivePosition: true, showWeekNumbers: false }"
+                            readonly (onShown)="onShowPicker($event)" (click)="setDatePicker()">
+                        <div class="datepicker-append d-flex align-items-center px-2" (click)="conditions.orderDateFrom = undefined">
+                            <i class="fas fa-times"></i>
+                        </div>
+                    </div>
                 </div>
                 <div class="form-group col-md-4 col-lg-3">
                     <label for="orderDateThrough"
                         class="mb-2">{{ 'order.search.conditions.orderDateThrough' | translate }}</label>
-                    <input type="text" name="orderDateThrough" id="orderDateThrough" placeholder="YYYY/MM/DD"
+                    <div class="position-relative">
+                        <input type="text" name="orderDateThrough" id="orderDateThrough" placeholder="YYYY/MM/DD"
                         class="form-control" #orderDateThrough="bsDatepicker" bsDatepicker
                         [(ngModel)]="conditions.orderDateThrough"
                         [bsConfig]="{ dateInputFormat: 'YYYY/MM/DD', adaptivePosition: true, showWeekNumbers: false }"
                         readonly (onShown)="onShowPicker($event)" (click)="setDatePicker()">
+                        <div class="datepicker-append d-flex align-items-center px-2" (click)="conditions.orderDateThrough = undefined">
+                            <i class="fas fa-times"></i>
+                        </div>
+                    </div>
                 </div>
                 <div class="form-group col-md-4 col-lg-3">
                     <label for="confirmationNumber" class="mb-2">{{ 'common.confirmationNumber' | translate }}</label>
@@ -96,20 +106,30 @@
                 <div class="form-group col-md-4 col-lg-3">
                     <label for="eventStartDateFrom"
                         class="mb-2">{{ 'order.search.conditions.eventStartDateFrom' | translate }}</label>
-                    <input type="text" name="eventStartDateFrom" id="eventStartDateFrom" placeholder="YYYY/MM/DD"
+                    <div class="position-relative">
+                        <input type="text" name="eventStartDateFrom" id="eventStartDateFrom" placeholder="YYYY/MM/DD"
                         class="form-control" #eventStartDateFrom="bsDatepicker" bsDatepicker
                         [(ngModel)]="conditions.eventStartDateFrom"
                         [bsConfig]="{ dateInputFormat: 'YYYY/MM/DD', adaptivePosition: true, showWeekNumbers: false }"
                         readonly (onShown)="onShowPicker($event)" (click)="setDatePicker()">
+                        <div class="datepicker-append d-flex align-items-center px-2" (click)="conditions.eventStartDateFrom = undefined">
+                            <i class="fas fa-times"></i>
+                        </div>
+                    </div>
                 </div>
                 <div class="form-group col-md-4 col-lg-3">
                     <label for="eventStartDateThrough"
                         class="mb-2">{{ 'order.search.conditions.eventStartDateThrough' | translate }}</label>
-                    <input type="text" name="eventStartDateThrough" id="eventStartDateThrough" placeholder="YYYY/MM/DD"
+                    <div class="position-relative">
+                        <input type="text" name="eventStartDateThrough" id="eventStartDateThrough" placeholder="YYYY/MM/DD"
                         class="form-control" #eventStartDateThrough="bsDatepicker" bsDatepicker
                         [(ngModel)]="conditions.eventStartDateThrough"
                         [bsConfig]="{ dateInputFormat: 'YYYY/MM/DD', adaptivePosition: true, showWeekNumbers: false }"
                         readonly (onShown)="onShowPicker($event)" (click)="setDatePicker()">
+                        <div class="datepicker-append d-flex align-items-center px-2" (click)="conditions.eventStartDateThrough = undefined">
+                            <i class="fas fa-times"></i>
+                        </div>
+                    </div>
                 </div>
 
                 <div class="form-group col-md-4 col-lg-3">
@@ -168,8 +188,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr *ngFor="let order of orders let index = index"
-                        [class.bg-light-gray]="index % 2 === 0">
+                    <tr *ngFor="let order of orders let index = index" [class.bg-light-gray]="index % 2 === 0">
                         <td class="align-middle text-large text-center">
                             <div *ngIf="order.orderStatus === orderStatus.OrderDelivered">
                                 <i *ngIf="!isSelected(order)" class="far fa-square pointer"
@@ -194,8 +213,9 @@
                                 <p>
                                     <span
                                         class="theater-name">{{ eventOrder.event.superEvent.location.name | changeLanguage }}</span>
-                                    <span
-                                        class="screen-name">&nbsp;/&nbsp;<span *ngIf="eventOrder.event.location.address | changeLanguage" class="mr-2">{{ eventOrder.event.location.address | changeLanguage }}</span>{{ eventOrder.event.location.name | changeLanguage }}</span>
+                                    <span class="screen-name">&nbsp;/&nbsp;<span
+                                            *ngIf="eventOrder.event.location.address | changeLanguage"
+                                            class="mr-2">{{ eventOrder.event.location.address | changeLanguage }}</span>{{ eventOrder.event.location.name | changeLanguage }}</span>
                                 </p>
                                 <p>{{ eventOrder.event.startDate | formatDate: 'YYYY/MM/DD (ddd) HH:mm' }}
                                     -</p>

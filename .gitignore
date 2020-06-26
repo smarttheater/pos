@@ -49,3 +49,4 @@ private/
 old/
 dist/client/production/stats.json
 dist/client/production/stats-es2015.json
+*.gcp.yaml
