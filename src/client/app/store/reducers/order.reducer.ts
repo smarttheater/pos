@@ -25,7 +25,7 @@ export function reducer(initialState: IState, action: Action) {
         }),
         on(orderAction.cancelFail, (state, payload) => {
             const error = payload.error;
-            return { ...state, loading: false, process: '', error: JSON.stringify(error) };
+            return { ...state, loading: false, process: '', error: (error.message) ? error.message :  JSON.stringify(error) };
         }),
         on(orderAction.inquiry, (state) => {
             return { ...state, loading: true, process: 'orderAction.Inquiry' };
@@ -36,7 +36,7 @@ export function reducer(initialState: IState, action: Action) {
         }),
         on(orderAction.inquiryFail, (state, payload) => {
             const error = payload.error;
-            return { ...state, loading: false, process: '', error: JSON.stringify(error) };
+            return { ...state, loading: false, process: '', error: (error.message) ? error.message :  JSON.stringify(error) };
         }),
         on(orderAction.print, (state) => {
             return { ...state, loading: environment.PRINT_LOADING, process: 'orderAction.Print' };
@@ -46,7 +46,7 @@ export function reducer(initialState: IState, action: Action) {
         }),
         on(orderAction.printFail, (state, payload) => {
             const error = payload.error;
-            return { ...state, loading: false, process: '', error: JSON.stringify(error) };
+            return { ...state, loading: false, process: '', error: (error.message) ? error.message :  JSON.stringify(error) };
         }),
         on(orderAction.orderAuthorize, (state) => {
             return { ...state, loading: true, process: 'orderAction.OrderAuthorize' };
@@ -57,7 +57,7 @@ export function reducer(initialState: IState, action: Action) {
         }),
         on(orderAction.orderAuthorizeFail, (state, payload) => {
             const error = payload.error;
-            return { ...state, loading: false, process: '', error: JSON.stringify(error) };
+            return { ...state, loading: false, process: '', error: (error.message) ? error.message :  JSON.stringify(error) };
         })
     )(initialState, action);
 }

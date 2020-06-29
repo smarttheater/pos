@@ -61,7 +61,7 @@ export function reducer(initialState: IState, action: Action) {
         }),
         on(admissionAction.getScreeningEventFail, (state, payload) => {
             const error = payload.error;
-            return { ...state, error: JSON.stringify(error) };
+            return { ...state, error: (error.message) ? error.message :  JSON.stringify(error) };
         }),
         on(admissionAction.initializeQrcodeToken, (state) => {
             const qrcodeToken = undefined;
@@ -81,7 +81,7 @@ export function reducer(initialState: IState, action: Action) {
         }),
         on(admissionAction.checkFail, (state, payload) => {
             const error = payload.error;
-            return { ...state, error: JSON.stringify(error), loading: false, process: '' };
+            return { ...state, error: (error.message) ? error.message :  JSON.stringify(error), loading: false, process: '' };
         })
     )(initialState, action);
 }
