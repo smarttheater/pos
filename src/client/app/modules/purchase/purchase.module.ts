@@ -1,7 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { SharedModule } from '../shared/shared.module';
-import { PurchaseCinemaCartComponent } from './components/pages/cinema/purchase-cinema-cart/purchase-cinema-cart.component';
 import { PurchaseCinemaScheduleComponent } from './components/pages/cinema/purchase-cinema-schedule/purchase-cinema-schedule.component';
 import { PurchaseCinemaSeatComponent } from './components/pages/cinema/purchase-cinema-seat/purchase-cinema-seat.component';
 import { PurchaseCinemaTicketComponent } from './components/pages/cinema/purchase-cinema-ticket/purchase-cinema-ticket.component';
@@ -33,7 +32,6 @@ import { PurchaseRoutingModule } from './purchase-routing.module';
     PurchaseRootComponent,
     PurchaseCinemaSeatComponent,
     PurchaseCinemaTicketComponent,
-    PurchaseCinemaCartComponent,
     PurchaseEventTicketComponent,
     PurchasePaymentComponent,
     PurchaseConfirmComponent,
