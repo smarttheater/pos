@@ -12,6 +12,10 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/).
 
 ### Security
 
+## 3.0.49 - 2020-07-01
+### Changed
+ - PURCHASE_CARTでの制御を削除
+
 ## 3.0.48 - 2020-06-26
 ### Changed
  - 注文検索条件変更

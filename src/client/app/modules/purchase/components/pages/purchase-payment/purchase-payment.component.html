@@ -47,9 +47,7 @@
 
     <div class="buttons mx-auto text-center">
         <div *ngIf="environment.VIEW_TYPE === viewType.Cinema">
-            <button *ngIf="environment.PURCHASE_CART" type="button" class="btn btn-link"
-                routerLink="/purchase/cinema/cart">{{ 'purchase.payment.prev' | translate }}</button>
-            <button *ngIf="!environment.PURCHASE_CART" type="button" class="btn btn-link"
+            <button type="button" class="btn btn-link"
                 routerLink="/purchase/cinema/ticket">{{ 'purchase.payment.prev' | translate }}</button>
         </div>
         <div *ngIf="environment.VIEW_TYPE === viewType.Event">

@@ -122,9 +122,7 @@
             <button *ngIf="amount > 0" type="button" class="btn btn-link"
                 routerLink="/purchase/payment">{{ 'purchase.confirm.prev' | translate }}</button>
             <div *ngIf="amount === 0 && environment.VIEW_TYPE === viewType.Cinema">
-                <button *ngIf="environment.PURCHASE_CART" type="button" class="btn btn-link"
-                    routerLink="/purchase/cinema/cart">{{ 'purchase.confirm.prev' | translate }}</button>
-                <button *ngIf="!environment.PURCHASE_CART" type="button" class="btn btn-link"
+                <button type="button" class="btn btn-link"
                     routerLink="/purchase/cinema/ticket">{{ 'purchase.confirm.prev' | translate }}</button>
             </div>
             <div *ngIf="amount === 0 && environment.VIEW_TYPE === viewType.Event">
