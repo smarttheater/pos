@@ -2385,7 +2385,6 @@ const defaultEnvironment = {
     DISPLAY_TICKETED_SEAT: true,
     HEADER_MENU: true,
     HEADER_MENU_SCOPE: ['purchase', 'admission', 'order', 'reservation', 'setting', 'auth'],
-    PURCHASE_CART: true,
     PURCHASE_ITEM_MAX_LENGTH: '50',
     PURCHASE_TRANSACTION_TIME: '15',
     PURCHASE_TRANSACTION_TIME_DISPLAY: true,

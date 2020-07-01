@@ -6,15 +6,11 @@ import { TranslateService } from '@ngx-translate/core';
 import { BAD_REQUEST, TOO_MANY_REQUESTS } from 'http-status';
 import * as moment from 'moment';
 import { BsDatepickerContainerComponent, BsDatepickerDirective, BsLocaleService } from 'ngx-bootstrap/datepicker';
-import { BsModalService } from 'ngx-bootstrap/modal';
 import { Observable } from 'rxjs';
 import { Functions } from '../../../../../..';
 import { getEnvironment } from '../../../../../../../environments/environment';
 import { MasterService, PurchaseService, UserService, UtilService } from '../../../../../../services';
 import * as reducers from '../../../../../../store/reducers';
-import {
-    PurchaseTransactionModalComponent
-} from '../../../../../shared/components/parts/purchase/transaction-modal/transaction-modal.component';
 
 @Component({
     selector: 'app-purchase-cinema-schedule',
@@ -37,7 +33,6 @@ export class PurchaseCinemaScheduleComponent implements OnInit, OnDestroy {
         private store: Store<reducers.IState>,
         private router: Router,
         private utilService: UtilService,
-        private modal: BsModalService,
         private translate: TranslateService,
         private userService: UserService,
         private masterService: MasterService,
@@ -146,12 +141,7 @@ export class PurchaseCinemaScheduleComponent implements OnInit, OnDestroy {
             this.router.navigate(['/error']);
             return;
         }
-        if (this.environment.PURCHASE_CART
-            && purchase.transaction !== undefined
-            && purchase.authorizeSeatReservations.length > 0) {
-            this.openTransactionModal();
-            return;
-        }
+
         if (purchase.authorizeSeatReservations.length > 0) {
             try {
                 await this.purchaseService.cancelTemporaryReservations(purchase.authorizeSeatReservations);
@@ -180,25 +170,6 @@ export class PurchaseCinemaScheduleComponent implements OnInit, OnDestroy {
             }
             this.router.navigate(['/error']);
         }
-    }
-
-    /**
-     * 取引重複モーダル表示
-     */
-    public openTransactionModal() {
-        this.purchase.subscribe((purchase) => {
-            this.user.subscribe((user) => {
-                this.modal.show(PurchaseTransactionModalComponent, {
-                    class: 'modal-dialog-centered',
-                    initialState: {
-                        purchase, user,
-                        cb: () => {
-                            this.router.navigate(['/purchase/cinema/seat']);
-                        }
-                    }
-                });
-            }).unsubscribe();
-        }).unsubscribe();
     }
 
     /**

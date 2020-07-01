@@ -87,10 +87,6 @@ interface IEnvironment {
      */
     HEADER_MENU_SCOPE: string[];
     /**
-     * カート機能有無
-     */
-    PURCHASE_CART: boolean;
-    /**
      * 購入アイテム上限数
      */
     PURCHASE_ITEM_MAX_LENGTH: string;
@@ -238,7 +234,6 @@ const defaultEnvironment: IEnvironment = {
     DISPLAY_TICKETED_SEAT: true,
     HEADER_MENU: true,
     HEADER_MENU_SCOPE: ['purchase', 'admission', 'order', 'reservation', 'setting', 'auth'],
-    PURCHASE_CART: true,
     PURCHASE_ITEM_MAX_LENGTH: '50',
     PURCHASE_TRANSACTION_TIME: '15',
     PURCHASE_TRANSACTION_TIME_DISPLAY: true,
