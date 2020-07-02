@@ -84,15 +84,31 @@ export class CinerinoService {
     public async authorize() {
         const url = '/api/authorize/getCredentials';
         const body = {};
-        const result = await this.http.post<{
-            accessToken: string;
-            expiryDate: number;
-            clientId: string;
-            endpoint: string;
-            waiterServerUrl: string;
-            userName: string;
-        }>(url, body).toPromise();
-        this.setCredentials(result);
+        const limit = 5;
+        let count = 0;
+        let loop = true;
+        while (loop) {
+            loop = false;
+            try {
+                const result = await this.http.post<{
+                    accessToken: string;
+                    expiryDate: number;
+                    clientId: string;
+                    endpoint: string;
+                    waiterServerUrl: string;
+                    userName: string;
+                }>(url, body).toPromise();
+                this.setCredentials(result);
+            } catch (error) {
+                if (error.status !== undefined && error.status >= 500) {
+                    loop = (count < limit);
+                    count++;
+                    await Functions.Util.sleep(20000);
+                    continue;
+                }
+                throw error;
+            }
+        }
     }
 
     /**
