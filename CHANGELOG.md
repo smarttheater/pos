@@ -12,6 +12,10 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/).
 
 ### Security
 
+## 3.0.50 - 2020-07-06
+### Added
+ - 認証情報取得にリトライ処理追加
+
 ## 3.0.49 - 2020-07-01
 ### Changed
  - PURCHASE_CARTでの制御を削除
