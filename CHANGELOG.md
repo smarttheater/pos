@@ -12,6 +12,10 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/).
 
 ### Security
 
+## 3.0.51 - 2020-07-09
+### Added
+ - ムビチケ購入番号表示追加
+
 ## 3.0.50 - 2020-07-06
 ### Added
  - 認証情報取得にリトライ処理追加
