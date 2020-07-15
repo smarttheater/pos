@@ -144,7 +144,7 @@ export class PurchaseEventScheduleComponent implements OnInit, OnDestroy {
             const purchase = await this.purchaseService.getData();
             const user = await this.userService.getData();
             await this.purchaseService.startTransaction({
-                seller: <factory.seller.IOrganization<factory.seller.IAttributes<factory.organizationType>>>purchase.seller,
+                seller: <factory.chevre.seller.ISeller>purchase.seller,
                 pos: user.pos
             });
             this.router.navigate(['/purchase/event/ticket']);

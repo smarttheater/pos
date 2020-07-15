@@ -56,7 +56,7 @@ export function createGmoTokenObject(params: {
         holderName: string;
         securityCode: string;
     },
-    seller: factory.seller.IOrganization<factory.seller.IAttributes<factory.organizationType>>;
+    seller: factory.chevre.seller.ISeller;
 }) {
     return new Promise<IGmoTokenObject>((resolve, reject) => {
         if (params.seller.paymentAccepted === undefined) {

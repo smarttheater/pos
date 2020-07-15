@@ -11,7 +11,7 @@ export interface IPurchaseState {
     /**
      * 販売者
      */
-    seller?: factory.seller.IOrganization<factory.seller.IAttributes<factory.organizationType>>;
+    seller?: factory.chevre.seller.ISeller;
     /**
      * イベント
      */
