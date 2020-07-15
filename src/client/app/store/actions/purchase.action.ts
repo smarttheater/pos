@@ -248,7 +248,6 @@ export const checkMovieTicket = createAction(
             typeOf: factory.paymentMethodType.MovieTicket;
             identifier: string;
             accessCode: string;
-            project: factory.project.IProject;
         }[];
         screeningEvent: factory.chevre.event.screeningEvent.IEvent;
     }>()

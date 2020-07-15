@@ -410,7 +410,6 @@ export class PurchaseService {
         seller: factory.seller.IOrganization<factory.seller.IAttributes<factory.organizationType>>
     }) {
         const movieTicket = params.movieTicket;
-        const seller = params.seller;
         const purchase = await this.getData();
         return new Promise<void>((resolve, reject) => {
             if (purchase.transaction === undefined || purchase.screeningEvent === undefined) {
@@ -421,7 +420,6 @@ export class PurchaseService {
                 transaction: purchase.transaction,
                 movieTickets: [{
                     typeOf: factory.paymentMethodType.MovieTicket,
-                    project: seller.project,
                     identifier: movieTicket.code, // 購入管理番号
                     accessCode: movieTicket.password // PINコード
                 }],
