@@ -1,4 +1,4 @@
-import { factory } from '@cinerino/api-javascript-client';
+import { factory } from '@cinerino/sdk';
 import { createAction, props } from '@ngrx/store';
 import { Functions, Models } from '../..';
 
@@ -313,7 +313,7 @@ export const authorizeAnyPayment = createAction(
     `${LABEL} authorizeAnyPayment`,
     props<{
         transaction: factory.transaction.placeOrder.ITransaction;
-        typeOf: factory.paymentMethodType | string;
+        typeOf: factory.paymentMethodType;
         name?: string;
         amount: number;
         additionalProperty: { name: string; value: any; }[];

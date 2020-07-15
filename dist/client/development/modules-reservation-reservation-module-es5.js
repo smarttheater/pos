@@ -33,13 +33,13 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
     /* harmony import */
 
 
-    var _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(
-    /*! @cinerino/api-javascript-client */
-    "../../node_modules/@cinerino/api-javascript-client/lib/index.js");
+    var _cinerino_sdk__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(
+    /*! @cinerino/sdk */
+    "../../node_modules/@cinerino/sdk/lib/browser.js");
     /* harmony import */
 
 
-    var _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_1__);
+    var _cinerino_sdk__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_cinerino_sdk__WEBPACK_IMPORTED_MODULE_1__);
     /* harmony import */
 
 
@@ -168,7 +168,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
         this.localeService = localeService;
         this.userService = userService;
         this.moment = moment__WEBPACK_IMPORTED_MODULE_4__;
-        this.reservationStatus = _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_1__["factory"].chevre.reservationStatusType;
+        this.reservationStatus = _cinerino_sdk__WEBPACK_IMPORTED_MODULE_1__["factory"].chevre.reservationStatusType;
         this.environment = Object(_environments_environment__WEBPACK_IMPORTED_MODULE_7__["getEnvironment"])();
       }
 
@@ -1025,13 +1025,13 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
     /* harmony import */
 
 
-    var _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(
-    /*! @cinerino/api-javascript-client */
-    "../../node_modules/@cinerino/api-javascript-client/lib/index.js");
+    var _cinerino_sdk__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(
+    /*! @cinerino/sdk */
+    "../../node_modules/@cinerino/sdk/lib/browser.js");
     /* harmony import */
 
 
-    var _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_1__);
+    var _cinerino_sdk__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_cinerino_sdk__WEBPACK_IMPORTED_MODULE_1__);
     /* harmony import */
 
 
@@ -1565,7 +1565,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
         this.translate = translate;
         this.userService = userService;
         this.moment = moment__WEBPACK_IMPORTED_MODULE_4__;
-        this.reservationStatus = _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_1__["factory"].chevre.reservationStatusType;
+        this.reservationStatus = _cinerino_sdk__WEBPACK_IMPORTED_MODULE_1__["factory"].chevre.reservationStatusType;
         this.environment = Object(_environments_environment__WEBPACK_IMPORTED_MODULE_8__["getEnvironment"])();
       }
 
@@ -2247,13 +2247,13 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
     /* harmony import */
 
 
-    var _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(
-    /*! @cinerino/api-javascript-client */
-    "../../node_modules/@cinerino/api-javascript-client/lib/index.js");
+    var _cinerino_sdk__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(
+    /*! @cinerino/sdk */
+    "../../node_modules/@cinerino/sdk/lib/browser.js");
     /* harmony import */
 
 
-    var _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_1__);
+    var _cinerino_sdk__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_cinerino_sdk__WEBPACK_IMPORTED_MODULE_1__);
     /* harmony import */
 
 
@@ -2769,7 +2769,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
         this.translate = translate;
         this.userService = userService;
         this.moment = moment__WEBPACK_IMPORTED_MODULE_4__;
-        this.reservationStatus = _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_1__["factory"].chevre.reservationStatusType;
+        this.reservationStatus = _cinerino_sdk__WEBPACK_IMPORTED_MODULE_1__["factory"].chevre.reservationStatusType;
         this.environment = Object(_environments_environment__WEBPACK_IMPORTED_MODULE_8__["getEnvironment"])();
       }
 

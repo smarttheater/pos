@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { factory } from '@cinerino/api-javascript-client';
+import { factory } from '@cinerino/sdk';
 import { Actions, Effect, ofType } from '@ngrx/effects';
 import { TranslateService } from '@ngx-translate/core';
 import * as moment from 'moment';
@@ -240,6 +240,9 @@ export class PurchaseEffects {
                 const clientId = this.cinerinoService.auth.options.clientId;
                 const screeningEvent = payload.screeningEvent;
                 const seller = payload.seller;
+                if (clientId === undefined) {
+                    throw new Error('clientId undefined');
+                }
                 const screeningEventTicketOffers = await this.cinerinoService.event.searchTicketOffers({
                     event: { id: screeningEvent.id },
                     seller: { typeOf: seller.typeOf, id: seller.id },
@@ -298,14 +301,13 @@ export class PurchaseEffects {
                 const pendingMovieTickets = payload.pendingMovieTickets;
                 const authorizeSeatReservations = payload.authorizeSeatReservations;
                 const authorizeMovieTicketPayments: factory.action.authorize.paymentMethod.movieTicket.IAction[] = [];
-                const seller = payload.seller;
                 for (const authorizeSeatReservation of authorizeSeatReservations) {
                     const movieTickets = Functions.Purchase.createMovieTicketsFromAuthorizeSeatReservation({
-                        authorizeSeatReservation, pendingMovieTickets, seller
+                        authorizeSeatReservation, pendingMovieTickets
                     });
                     const movieTicketIdentifiers: {
                         identifier: string;
-                        movieTickets: factory.paymentMethod.paymentCard.movieTicket.IMovieTicket[]
+                        movieTickets: factory.chevre.paymentMethod.paymentCard.movieTicket.IMovieTicket[]
                     }[] = [];
                     movieTickets.forEach((movieTicket) => {
                         const findResult = movieTicketIdentifiers.find((movieTicketIdentifier) => {
@@ -356,6 +358,7 @@ export class PurchaseEffects {
                     movieTickets: movieTickets.map((movieTicket) => {
                         return {
                             ...movieTicket,
+                            project: screeningEvent.project,
                             serviceType: '', // 情報空でよし
                             serviceOutput: {
                                 reservationFor: {

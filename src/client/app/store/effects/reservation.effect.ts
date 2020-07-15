@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-// import { factory } from '@cinerino/api-javascript-client/lib/abstract';
+// import { factory } from '@cinerino/sdk/lib/abstract';
 // import { Actions, Effect, ofType } from '@ngrx/effects';
 // import { map, mergeMap } from 'rxjs/operators';
 // import { CinerinoService } from '../../services';

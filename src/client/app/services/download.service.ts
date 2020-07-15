@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { factory } from '@cinerino/api-javascript-client';
+import { factory } from '@cinerino/sdk';
 import * as json2csv from 'json2csv';
 import { Functions } from '..';
 import { CinerinoService } from './cinerino.service';

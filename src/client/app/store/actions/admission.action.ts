@@ -1,5 +1,5 @@
 
-import { factory } from '@cinerino/api-javascript-client';
+import { factory } from '@cinerino/sdk';
 import { createAction, props } from '@ngrx/store';
 import { Models } from '../..';
 const LABEL = '[Admission]';

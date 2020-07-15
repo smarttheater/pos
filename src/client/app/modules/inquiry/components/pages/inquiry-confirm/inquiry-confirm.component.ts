@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { factory } from '@cinerino/api-javascript-client';
+import { factory } from '@cinerino/sdk';
 import { select, Store } from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
 import * as moment from 'moment';
@@ -137,7 +137,10 @@ export class InquiryConfirmComponent implements OnInit {
                 if (offers.itemOffered.typeOf !== factory.chevre.reservationType.EventReservation) {
                     return '';
                 }
-                return offers.itemOffered.reservationNumber;
+                const itemOffered = <factory.chevre.reservation.IReservation<
+                    factory.chevre.reservationType.EventReservation
+                >>offers.itemOffered;
+                return itemOffered.reservationNumber;
             });
             await this.reservationService.search({
                 typeOf: factory.chevre.reservationType.EventReservation,
