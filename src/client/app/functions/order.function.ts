@@ -1,4 +1,4 @@
-import { factory } from '@cinerino/api-javascript-client';
+import { factory } from '@cinerino/sdk';
 import html2canvas from 'html2canvas';
 import * as moment from 'moment';
 import * as qrcode from 'qrcode';
@@ -207,10 +207,12 @@ export async function createPrintCanvas(params: {
     index: number;
 }) {
     const acceptedOffer = params.acceptedOffer;
-    const itemOffered = acceptedOffer.itemOffered;
-    if (itemOffered.typeOf !== factory.chevre.reservationType.EventReservation) {
+    if (acceptedOffer.itemOffered.typeOf !== factory.chevre.reservationType.EventReservation) {
         throw new Error('reservationType is not EventReservation').message;
     }
+    const itemOffered = <factory.chevre.reservation.IReservation<
+        factory.chevre.reservationType.EventReservation
+    >>acceptedOffer.itemOffered;
     const data = {
         sellerNameJa: (itemOffered.reservationFor.superEvent.location.name === undefined
             || itemOffered.reservationFor.superEvent.location.name.ja === undefined)
@@ -353,10 +355,12 @@ export function order2report(orders: factory.order.IOrder[]) {
     const data: any[] = [];
     orders.forEach((order) => {
         order.acceptedOffers.forEach((acceptedOffer) => {
-            const itemOffered = acceptedOffer.itemOffered;
-            if (itemOffered.typeOf !== factory.chevre.reservationType.EventReservation) {
+            if (acceptedOffer.itemOffered.typeOf !== factory.chevre.reservationType.EventReservation) {
                 return;
             }
+            const itemOffered = <factory.chevre.reservation.IReservation<
+                factory.chevre.reservationType.EventReservation
+            >>acceptedOffer.itemOffered;
             const customData = {
                 orderDate: order.orderDate,
                 orderDateJST: moment(order.orderDate).format('YYYY/MM/DD/HH:mm'),

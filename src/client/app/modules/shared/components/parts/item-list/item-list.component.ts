@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { factory } from '@cinerino/api-javascript-client';
+import { factory } from '@cinerino/sdk';
 import { Models } from '../../../../..';
 import { getEnvironment } from '../../../../../../environments/environment';
 
@@ -77,9 +77,15 @@ export class ItemListComponent implements OnInit {
                         if (p.name === undefined) {
                             p.name = o.name;
                         }
+                        if (o.itemOffered.typeOf !== factory.chevre.reservationType.EventReservation) {
+                            return;
+                        }
+                        const itemOffered = <factory.chevre.reservation.IReservation<
+                            factory.chevre.reservationType.EventReservation
+                        >>o.itemOffered;
                         if (p.name === undefined
-                            && o.itemOffered.typeOf === factory.chevre.reservationType.EventReservation) {
-                            p.name = o.itemOffered.reservedTicket.ticketType.name;
+                            && itemOffered.typeOf === factory.chevre.reservationType.EventReservation) {
+                            p.name = itemOffered.reservedTicket.ticketType.name;
                         }
                         priceComponents.push(p);
                     });

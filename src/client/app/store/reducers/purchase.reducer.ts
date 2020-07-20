@@ -1,4 +1,4 @@
-import { factory } from '@cinerino/api-javascript-client';
+import { factory } from '@cinerino/sdk';
 import { Action, createReducer, on } from '@ngrx/store';
 import { IState } from '.';
 import { Functions, Models } from '../..';
@@ -11,7 +11,7 @@ export interface IPurchaseState {
     /**
      * 販売者
      */
-    seller?: factory.seller.IOrganization<factory.seller.IAttributes<factory.organizationType>>;
+    seller?: factory.chevre.seller.ISeller;
     /**
      * イベント
      */
@@ -371,7 +371,7 @@ export function reducer(initialState: IState, action: Action) {
                             throw new Error('pendingReservation is undefined');
                         }
                         const movieTicket =
-                            (<factory.paymentMethod.paymentCard.movieTicket.IMovieTicket>(<
+                            (<factory.chevre.paymentMethod.paymentCard.movieTicket.IMovieTicket>(<
                                 Models.Purchase.Reservation.IReservationTicket
                                 >r.ticket).movieTicket);
                         movieTicket.serviceOutput = {

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { factory } from '@cinerino/api-javascript-client';
+import { factory } from '@cinerino/sdk';
 import { Actions, Effect, ofType } from '@ngrx/effects';
 import { TranslateService } from '@ngx-translate/core';
 import * as moment from 'moment';
@@ -190,7 +190,9 @@ export class OrderEffects {
                 };
                 const order = await this.cinerino.order.findByConfirmationNumber(params);
 
-                return orderAction.inquirySuccess({ order });
+                return orderAction.inquirySuccess({
+                    order: (Array.isArray(order)) ? order[0] : order
+                });
             } catch (error) {
                 return orderAction.inquiryFail({ error: error });
             }
@@ -257,10 +259,12 @@ export class OrderEffects {
                     for (const authorizeOrder of authorizeOrders) {
                         let index = 0;
                         for (const acceptedOffer of authorizeOrder.acceptedOffers) {
-                            const itemOffered = acceptedOffer.itemOffered;
-                            if (itemOffered.typeOf !== factory.chevre.reservationType.EventReservation) {
+                            if (acceptedOffer.itemOffered.typeOf !== factory.chevre.reservationType.EventReservation) {
                                 continue;
                             }
+                            const itemOffered = <factory.chevre.reservation.IReservation<
+                                factory.chevre.reservationType.EventReservation
+                            >>acceptedOffer.itemOffered;
                             const order = authorizeOrder;
                             let qrcode = (environment.PRINT_QRCODE_TYPE === Models.Order.Print.PrintQrcodeType.None)
                                 ? undefined : itemOffered.reservedTicket.ticketToken;
