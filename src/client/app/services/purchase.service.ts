@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { factory } from '@cinerino/api-javascript-client';
+import { factory } from '@cinerino/sdk';
 import { Actions, ofType } from '@ngrx/effects';
 import { select, Store } from '@ngrx/store';
 import * as moment from 'moment';
@@ -102,22 +102,27 @@ export class PurchaseService {
      * 取引開始
      */
     public async startTransaction(params: {
-        seller: factory.seller.IOrganization<factory.seller.IAttributes<factory.organizationType>>;
+        seller: factory.chevre.seller.ISeller;
         pos?: factory.chevre.place.movieTheater.IPOS;
     }) {
+        const seller = params.seller;
+        const pos = params.pos;
+        if (seller.id === undefined) {
+            throw new Error('seller.id undefined');
+        }
         const environment = getEnvironment();
         const now = (await this.utilService.getServerTime()).date;
-        const identifier = (params.pos === undefined)
+        const identifier = (pos === undefined)
             ? [...environment.PURCHASE_TRANSACTION_IDENTIFIER]
             : [
                 ...environment.PURCHASE_TRANSACTION_IDENTIFIER,
-                { name: 'posId', value: params.pos.id },
-                { name: 'posName', value: params.pos.name }
+                { name: 'posId', value: pos.id },
+                { name: 'posName', value: pos.name }
             ];
         return new Promise<void>((resolve, reject) => {
             this.store.dispatch(purchaseAction.startTransaction({
                 expires: moment(now).add(environment.PURCHASE_TRANSACTION_TIME, 'minutes').toDate(),
-                seller: { typeOf: params.seller.typeOf, id: params.seller.id },
+                seller: { typeOf: params.seller.typeOf, id: <string>seller.id },
                 object: {},
                 agent: { identifier }
             }));
@@ -243,7 +248,7 @@ export class PurchaseService {
      * 券種一覧取得
      */
     public async getTicketList(params: {
-        seller: factory.seller.IOrganization<factory.seller.IAttributes<factory.organizationType>>
+        seller: factory.chevre.seller.ISeller
     }) {
         const purchase = await this.getData();
         return new Promise<void>((resolve, reject) => {
@@ -375,7 +380,7 @@ export class PurchaseService {
      * ムビチケ承認
      */
     public async authorizeMovieTicket(params: {
-        seller: factory.seller.IOrganization<factory.seller.IAttributes<factory.organizationType>>
+        seller: factory.chevre.seller.ISeller
     }) {
         const purchase = await this.getData();
         return new Promise<void>((resolve, reject) => {
@@ -407,10 +412,9 @@ export class PurchaseService {
      */
     public async checkMovieTicket(params: {
         movieTicket: { code: string; password: string; };
-        seller: factory.seller.IOrganization<factory.seller.IAttributes<factory.organizationType>>
+        seller: factory.chevre.seller.ISeller
     }) {
         const movieTicket = params.movieTicket;
-        const seller = params.seller;
         const purchase = await this.getData();
         return new Promise<void>((resolve, reject) => {
             if (purchase.transaction === undefined || purchase.screeningEvent === undefined) {
@@ -421,7 +425,6 @@ export class PurchaseService {
                 transaction: purchase.transaction,
                 movieTickets: [{
                     typeOf: factory.paymentMethodType.MovieTicket,
-                    project: seller.project,
                     identifier: movieTicket.code, // 購入管理番号
                     accessCode: movieTicket.password // PINコード
                 }],
@@ -443,7 +446,7 @@ export class PurchaseService {
      * 取引確定
      */
     public async endTransaction(params: {
-        seller: factory.seller.IOrganization<factory.seller.IAttributes<factory.organizationType>>;
+        seller: factory.chevre.seller.ISeller;
         language: string;
     }) {
         const purchase = await this.getData();

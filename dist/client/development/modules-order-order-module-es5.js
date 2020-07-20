@@ -33,13 +33,13 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
     /* harmony import */
 
 
-    var _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(
-    /*! @cinerino/api-javascript-client */
-    "../../node_modules/@cinerino/api-javascript-client/lib/index.js");
+    var _cinerino_sdk__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(
+    /*! @cinerino/sdk */
+    "../../node_modules/@cinerino/sdk/lib/browser.js");
     /* harmony import */
 
 
-    var _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_1__);
+    var _cinerino_sdk__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_cinerino_sdk__WEBPACK_IMPORTED_MODULE_1__);
     /* harmony import */
 
 
@@ -188,11 +188,11 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
         this.localeService = localeService;
         this.userService = userService;
         this.moment = moment__WEBPACK_IMPORTED_MODULE_4__;
-        this.orderStatus = _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_1__["factory"].orderStatus;
-        this.paymentMethodType = _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_1__["factory"].paymentMethodType;
+        this.orderStatus = _cinerino_sdk__WEBPACK_IMPORTED_MODULE_1__["factory"].orderStatus;
+        this.paymentMethodType = _cinerino_sdk__WEBPACK_IMPORTED_MODULE_1__["factory"].paymentMethodType;
         this.buildQueryString = ___WEBPACK_IMPORTED_MODULE_6__["Functions"].Util.buildQueryString;
         this.environment = Object(_environments_environment__WEBPACK_IMPORTED_MODULE_7__["getEnvironment"])();
-        this.encodingFormat = _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_1__["factory"].encodingFormat;
+        this.encodingFormat = _cinerino_sdk__WEBPACK_IMPORTED_MODULE_1__["factory"].encodingFormat;
         this.order2EventOrders = ___WEBPACK_IMPORTED_MODULE_6__["Functions"].Purchase.order2EventOrders;
         this.csvFormat = ___WEBPACK_IMPORTED_MODULE_6__["Models"].Order.Download.CsvFormat;
       }
@@ -1403,13 +1403,13 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
     /* harmony import */
 
 
-    var _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
-    /*! @cinerino/api-javascript-client */
-    "../../node_modules/@cinerino/api-javascript-client/lib/index.js");
+    var _cinerino_sdk__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
+    /*! @cinerino/sdk */
+    "../../node_modules/@cinerino/sdk/lib/browser.js");
     /* harmony import */
 
 
-    var _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_2__);
+    var _cinerino_sdk__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_cinerino_sdk__WEBPACK_IMPORTED_MODULE_2__);
     /* harmony import */
 
 
@@ -2224,8 +2224,8 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
         this.translate = translate;
         this.localeService = localeService;
         this.moment = moment__WEBPACK_IMPORTED_MODULE_5__;
-        this.orderStatus = _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_2__["factory"].orderStatus;
-        this.paymentMethodType = _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_2__["factory"].paymentMethodType;
+        this.orderStatus = _cinerino_sdk__WEBPACK_IMPORTED_MODULE_2__["factory"].orderStatus;
+        this.paymentMethodType = _cinerino_sdk__WEBPACK_IMPORTED_MODULE_2__["factory"].paymentMethodType;
         this.OrderActions = ___WEBPACK_IMPORTED_MODULE_8__["Models"].Order.Action.OrderActions;
         this.environment = Object(_environments_environment__WEBPACK_IMPORTED_MODULE_9__["getEnvironment"])();
         this.order2EventOrders = ___WEBPACK_IMPORTED_MODULE_8__["Functions"].Purchase.order2EventOrders;
@@ -3535,13 +3535,13 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
     /* harmony import */
 
 
-    var _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(
-    /*! @cinerino/api-javascript-client */
-    "../../node_modules/@cinerino/api-javascript-client/lib/index.js");
+    var _cinerino_sdk__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(
+    /*! @cinerino/sdk */
+    "../../node_modules/@cinerino/sdk/lib/browser.js");
     /* harmony import */
 
 
-    var _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_1__);
+    var _cinerino_sdk__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_cinerino_sdk__WEBPACK_IMPORTED_MODULE_1__);
     /* harmony import */
 
 
@@ -4348,8 +4348,8 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
         this.translate = translate;
         this.localeService = localeService;
         this.moment = moment__WEBPACK_IMPORTED_MODULE_4__;
-        this.orderStatus = _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_1__["factory"].orderStatus;
-        this.paymentMethodType = _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_1__["factory"].paymentMethodType;
+        this.orderStatus = _cinerino_sdk__WEBPACK_IMPORTED_MODULE_1__["factory"].orderStatus;
+        this.paymentMethodType = _cinerino_sdk__WEBPACK_IMPORTED_MODULE_1__["factory"].paymentMethodType;
         this.OrderActions = ___WEBPACK_IMPORTED_MODULE_7__["Models"].Order.Action.OrderActions;
         this.environment = Object(_environments_environment__WEBPACK_IMPORTED_MODULE_8__["getEnvironment"])();
         this.order2EventOrders = ___WEBPACK_IMPORTED_MODULE_7__["Functions"].Purchase.order2EventOrders;

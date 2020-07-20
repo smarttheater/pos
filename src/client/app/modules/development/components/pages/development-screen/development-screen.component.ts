@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { factory } from '@cinerino/api-javascript-client';
+import { factory } from '@cinerino/sdk';
 import { select, Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { Models } from '../../../../..';

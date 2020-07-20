@@ -45,12 +45,6 @@ const appRoutes: Routes = [
             .catch(() => location.reload())
     },
     {
-        path: 'tasks',
-        loadChildren: () => import('./modules/tasks/tasks.module')
-            .then(m => m.TasksModule)
-            .catch(() => location.reload())
-    },
-    {
         path: 'development',
         loadChildren: () => import('./modules/development/development.module')
             .then(m => m.DevelopmentModule)

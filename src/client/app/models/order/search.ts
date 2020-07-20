@@ -1,4 +1,4 @@
-import { factory } from '@cinerino/api-javascript-client';
+import { factory } from '@cinerino/sdk';
 
 export interface IOrderSearchConditions {
     orderDateFrom?: Date;

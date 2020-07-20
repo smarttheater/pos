@@ -1,4 +1,4 @@
-import { factory } from '@cinerino/api-javascript-client';
+import { factory } from '@cinerino/sdk';
 import { createAction, props } from '@ngrx/store';
 import { Functions, Models } from '../..';
 
@@ -25,7 +25,7 @@ export const getSeller = createAction(
 export const getSellerSuccess = createAction(
     `${LABEL} getSellerSuccess`,
     props<{
-        seller: factory.seller.IOrganization<factory.seller.IAttributes<factory.organizationType>>
+        seller: factory.chevre.seller.ISeller
     }>()
 );
 
@@ -133,7 +133,7 @@ export const getTicketList = createAction(
     `${LABEL} getTicketList`,
     props<{
         screeningEvent: factory.chevre.event.screeningEvent.IEvent;
-        seller: factory.seller.IOrganization<factory.seller.IAttributes<factory.organizationType>>;
+        seller: factory.chevre.seller.ISeller;
     }>()
 );
 
@@ -224,7 +224,7 @@ export const authorizeMovieTicket = createAction(
         authorizeMovieTicketPayments: factory.action.authorize.paymentMethod.movieTicket.IAction[];
         authorizeSeatReservations: factory.action.authorize.offer.seatReservation.IAction<factory.service.webAPI.Identifier.Chevre>[];
         pendingMovieTickets: Models.Purchase.MovieTicket.IMovieTicket[];
-        seller: factory.seller.IOrganization<factory.seller.IAttributes<factory.organizationType>>
+        seller: factory.chevre.seller.ISeller
     }>()
 );
 
@@ -248,7 +248,6 @@ export const checkMovieTicket = createAction(
             typeOf: factory.paymentMethodType.MovieTicket;
             identifier: string;
             accessCode: string;
-            project: factory.project.IProject;
         }[];
         screeningEvent: factory.chevre.event.screeningEvent.IEvent;
     }>()
@@ -270,7 +269,7 @@ export const endTransaction = createAction(
     `${LABEL} endTransaction`,
     props<{
         transaction: factory.transaction.placeOrder.ITransaction;
-        seller: factory.seller.IOrganization<factory.seller.IAttributes<factory.organizationType>>;
+        seller: factory.chevre.seller.ISeller;
         authorizeSeatReservations: factory.action.authorize.offer.seatReservation.IAction<factory.service.webAPI.Identifier.Chevre>[];
         language: string;
     }>()
@@ -295,7 +294,7 @@ export const createGmoTokenObject = createAction(
             holderName: string;
             securityCode: string;
         },
-        seller: factory.seller.IOrganization<factory.seller.IAttributes<factory.organizationType>>;
+        seller: factory.chevre.seller.ISeller;
     }>()
 );
 
@@ -313,7 +312,7 @@ export const authorizeAnyPayment = createAction(
     `${LABEL} authorizeAnyPayment`,
     props<{
         transaction: factory.transaction.placeOrder.ITransaction;
-        typeOf: factory.paymentMethodType | string;
+        typeOf: factory.paymentMethodType;
         name?: string;
         amount: number;
         additionalProperty: { name: string; value: any; }[];
