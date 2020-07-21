@@ -264,7 +264,7 @@
             "next": "作品を指定せずに確認",
             "prev": "戻る",
             "notfound": "スケジュールがありません。",
-            "infiniteStock": "在庫管理なし",
+            "infiniteStock": "在庫無限",
             "status": {
                 "opening": "開場中",
                 "nowShowing": "上映中",
@@ -343,7 +343,8 @@
             "none": "印刷しない",
             "image": "画像表示",
             "starLAN": "スター精密 LAN接続",
-            "starBluetooth": "スター精密 Bluetooth接続"
+            "starBluetooth": "スター精密 Bluetooth接続",
+            "epsonEPOS": "Epson EPOS"
         },
         "alert": {
             "customer": "購入者情報に誤りがあります。",
@@ -573,7 +574,7 @@
                 "endSale": "販売終了",
                 "outsideSalesPeriod": "販売期間外"
             },
-            "infiniteStock": "在庫管理なし"
+            "infiniteStock": "在庫無限"
         },
         "date": {
             "year": "年",

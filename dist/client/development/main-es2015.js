@@ -2309,6 +2309,10 @@ var ConnectionType;
      * スター精密 Bluetooth接続
      */
     ConnectionType["StarBluetooth"] = "StarBluetooth";
+    /**
+     * Epson ePOS
+     */
+    ConnectionType["EpsonEPOS"] = "EpsonEPOS";
 })(ConnectionType || (ConnectionType = {}));
 /**
  * プリンター一覧
@@ -2329,7 +2333,11 @@ const printers = [
     {
         connectionType: ConnectionType.StarBluetooth,
         name: 'setting.printType.starBluetooth'
-    }
+    },
+    {
+        connectionType: ConnectionType.EpsonEPOS,
+        name: 'setting.printType.epsonEPOS'
+    },
 ];
 
 
