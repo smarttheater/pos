@@ -12,6 +12,12 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/).
 
 ### Security
 
+## 3.0.53 - 2020-07-23
+### Added
+ - エプソンプリンター連携追加
+### Fixed
+ - 在庫無限の表示修正
+
 ## 3.0.52 - 2020-07-20
 ### Changed
  - @cinerino/sdkへ変更
