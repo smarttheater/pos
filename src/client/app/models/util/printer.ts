@@ -18,6 +18,10 @@ export enum ConnectionType {
      * スター精密 Bluetooth接続
      */
     'StarBluetooth' = 'StarBluetooth',
+    /**
+     * Epson ePOS
+     */
+    'EpsonEPOS' = 'EpsonEPOS',
 }
 
 /**
@@ -39,7 +43,11 @@ export const printers = [
     {
         connectionType: ConnectionType.StarBluetooth,
         name: 'setting.printType.starBluetooth'
-    }
+    },
+    {
+        connectionType: ConnectionType.EpsonEPOS,
+        name: 'setting.printType.epsonEPOS'
+    },
 ];
 
 export interface IPrinter {

@@ -3735,6 +3735,11 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
        */
 
       ConnectionType["StarBluetooth"] = "StarBluetooth";
+      /**
+       * Epson ePOS
+       */
+
+      ConnectionType["EpsonEPOS"] = "EpsonEPOS";
     })(ConnectionType || (ConnectionType = {}));
     /**
      * プリンター一覧
@@ -3753,6 +3758,9 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
     }, {
       connectionType: ConnectionType.StarBluetooth,
       name: 'setting.printType.starBluetooth'
+    }, {
+      connectionType: ConnectionType.EpsonEPOS,
+      name: 'setting.printType.epsonEPOS'
     }];
     /***/
   },
