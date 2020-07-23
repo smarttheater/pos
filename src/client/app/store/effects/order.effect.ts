@@ -6,7 +6,7 @@ import * as moment from 'moment';
 import { map, mergeMap } from 'rxjs/operators';
 import { Functions, Models } from '../..';
 import { getEnvironment } from '../../../environments/environment';
-import { CinerinoService, StarPrintService, UtilService } from '../../services';
+import { CinerinoService, EpsonEPOSService, StarPrintService, UtilService } from '../../services';
 import { orderAction } from '../actions';
 
 /**
@@ -20,7 +20,8 @@ export class OrderEffects {
         private cinerino: CinerinoService,
         private starPrint: StarPrintService,
         private utilService: UtilService,
-        private translate: TranslateService
+        private translate: TranslateService,
+        private epsonEPOSService: EpsonEPOSService,
     ) { }
 
     /**
@@ -339,6 +340,11 @@ export class OrderEffects {
                             title: '',
                             body: `<div class="px-5">${domList.join('\n')}</div>`
                         });
+                        break;
+                    case Models.Util.Printer.ConnectionType.EpsonEPOS:
+                        await this.epsonEPOSService.printer.init({ printer });
+                        await this.epsonEPOSService.printer.print({ canvasList });
+                        await this.epsonEPOSService.printer.disconnect();
                         break;
                     default:
                         break;
