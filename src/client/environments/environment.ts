@@ -8,6 +8,8 @@ interface IProfile {
     pattern?: RegExp;
     maxLength?: number;
     minLength?: number;
+    label?: { ja: string; en: string; };
+    inputType?: 'input' | 'textarea';
 }
 
 /**

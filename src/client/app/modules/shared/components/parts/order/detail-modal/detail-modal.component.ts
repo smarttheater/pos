@@ -52,6 +52,7 @@ export class OrderDetailModalComponent implements OnInit {
         } catch (error) {
             console.error(error);
         }
+        console.log(order);
     }
 
 }
