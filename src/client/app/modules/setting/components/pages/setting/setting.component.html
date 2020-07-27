@@ -5,252 +5,92 @@
             <p class="mb-4 text-md-center" [innerHTML]="'setting.read' | translate"></p>
             <div class="p-3 bg-white">
 
-                <div class="form-group">
-                    <div class="row align-items-center">
-                        <p class="col-md-4 py-2 text-md-right">{{ 'common.theater' | translate }}<span
-                                class="badge badge-danger ml-2">{{ 'common.required' | translate }}</span></p>
-                        <div class="col-md-8">
-                            <select class="form-control" formControlName="theaterBranchCode" (change)="changePosList()">
-                                <option value="">{{ 'setting.unselected' | translate }}</option>
-                                <option *ngFor="let theater of theaters" [value]="theater.branchCode">
-                                    {{ theater.name | changeLanguage }}</option>
-                            </select>
-                            <div *ngIf="settingForm.controls.theaterBranchCode.invalid && settingForm.controls.theaterBranchCode.touched"
-                                class="mt-2">
-                                <p *ngIf="settingForm.controls.theaterBranchCode.errors?.required" class="text-danger">
-                                    {{ 'form.validation.unselected' | translate }}</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="form-group">
-                    <div class="row align-items-center">
-                        <p class="col-md-4 py-2 text-md-right">{{ 'setting.pos' | translate }}</p>
-                        <div class="col-md-8">
-                            <select class="form-control" formControlName="posId">
-                                <option value="">{{ 'setting.unselected' | translate }}</option>
-                                <option *ngFor="let pos of posList" [value]="pos.id">{{ pos.name }}</option>
-                            </select>
-                            <div *ngIf="settingForm.controls.posId.invalid && settingForm.controls.posId.touched"
-                                class="mt-2">
-                                <p *ngIf="settingForm.controls.posId.errors?.required" class="text-danger">
-                                    {{ 'form.validation.unselected' | translate }}</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div *ngIf="settingForm.controls.familyName" class="form-group">
-                    <div class="row align-items-center">
-                        <p class="col-md-4 py-2 text-md-right">{{ 'common.familyName' | translate }}<span
-                                *ngIf="isRequired('familyName')"
-                                class="badge badge-danger ml-2">{{ 'common.required' | translate }}</span></p>
-                        <div class="col-md-8">
-                            <input type="text" class="form-control" formControlName="familyName" placeholder="モーション">
-                            <div *ngIf="settingForm.controls.familyName.invalid && settingForm.controls.familyName.touched"
-                                class="mt-2">
-                                <p *ngIf="settingForm.controls.familyName.errors?.required" class="text-danger">
-                                    {{ 'form.validation.required' | translate }}</p>
-                                <p *ngIf="settingForm.controls.familyName.errors?.maxlength" class="text-danger">
-                                    {{ 'form.validation.maxlength' | translate: { value: settingForm.controls.familyName.errors?.maxlength.requiredLength } }}
-                                </p>
-                                <p *ngIf="settingForm.controls.familyName.errors?.pattern" class="text-danger">
-                                    {{ 'form.validation.fullKana' | translate }}</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div *ngIf="settingForm.controls.givenName" class="form-group">
-                    <div class="row align-items-center">
-                        <p class="col-md-4 py-2 text-md-right">{{ 'common.givenName' | translate }}<span
-                                *ngIf="isRequired('givenName')"
-                                class="badge badge-danger ml-2">{{ 'common.required' | translate }}</span></p>
-                        <div class="col-md-8">
-                            <input type="text" class="form-control" formControlName="givenName" placeholder="ピクチャー">
-                            <div *ngIf="settingForm.controls.givenName.invalid && settingForm.controls.givenName.touched"
-                                class="mt-2">
-                                <p *ngIf="settingForm.controls.givenName.errors?.required" class="text-danger">
-                                    {{ 'form.validation.required' | translate }}</p>
-                                <p *ngIf="settingForm.controls.givenName.errors?.maxlength" class="text-danger">
-                                    {{ 'form.validation.maxlength' | translate: { value: settingForm.controls.givenName.errors?.maxlength.requiredLength } }}
-                                </p>
-                                <p *ngIf="settingForm.controls.givenName.errors?.pattern" class="text-danger">
-                                    {{ 'form.validation.fullKana' | translate }}
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div *ngIf="settingForm.controls.email" class="form-group">
-                    <div class="row align-items-center">
-                        <p class="col-md-4 py-2 text-md-right">{{ 'common.email' | translate }}<span
-                            *ngIf="isRequired('email')"
-                            class="badge badge-danger ml-2">{{ 'common.required' | translate }}</span></p>
-                        <div class="col-md-8">
-                            <input type="email" class="form-control" formControlName="email"
-                                placeholder="motionpicture@example.jp">
-                            <div *ngIf="settingForm.controls.email.invalid && settingForm.controls.email.touched"
-                                class="mt-2">
-                                <p *ngIf="settingForm.controls.email.errors?.required" class="text-danger">
-                                    {{ 'form.validation.required' | translate }}</p>
-                                <p *ngIf="settingForm.controls.email.errors?.maxlength" class="text-danger">
-                                    {{ 'form.validation.maxlength' | translate: { value: settingForm.controls.email.errors?.maxlength.requiredLength } }}
-                                </p>
-                                <p *ngIf="settingForm.controls.email.errors?.email" class="text-danger">
-                                    {{ 'form.validation.email' | translate }}</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div *ngIf="settingForm.controls.telephone" class="form-group">
-                    <div class="row align-items-center">
-                        <p class="col-md-4 py-2 text-md-right">{{ 'common.telephone' | translate }}<span
-                            *ngIf="isRequired('telephone')"
-                            class="badge badge-danger ml-2">{{ 'common.required' | translate }}</span></p>
-                        <div class="col-md-8">
-                            <ngx-intl-tel-input #intlTelInput
-                                [preferredCountries]="[CountryISO.Japan]"
-                                [enableAutoCountrySelect]="false"
-                                [enablePlaceholder]="true"
-                                [searchCountryFlag]="true"
-                                [searchCountryField]="[SearchCountryField.Iso2, SearchCountryField.Name]"
-                                [selectFirstCountry]="false"
-                                [selectedCountryISO]="CountryISO.Japan"
-                                [maxLength]="15"
-                                [tooltipField]="TooltipLabel.Name"
-                                [phoneValidation]="true"
-                                [separateDialCode]="false"
-                                name="telephone"
-                                formControlName="telephone"></ngx-intl-tel-input>
-                            <!-- <input type="tel" class="form-control" formControlName="telephone" placeholder="0362778824"> -->
-                            <div *ngIf="settingForm.controls.telephone.invalid && settingForm.controls.telephone.touched"
-                                class="mt-2">
-                                <p *ngIf="settingForm.controls.telephone.errors?.required" class="text-danger">
-                                    {{ 'form.validation.required' | translate }}</p>
-                                <p *ngIf="settingForm.controls.telephone.errors?.minlength" class="text-danger">
-                                    {{ 'form.validation.minlength' | translate: { value: settingForm.controls.telephone.errors?.minlength.requiredLength } }}
-                                </p>
-                                <p *ngIf="settingForm.controls.telephone.errors?.maxlength" class="text-danger">
-                                    {{ 'form.validation.minlength' | translate: { value: settingForm.controls.telephone.errors?.maxlength.requiredLength } }}
-                                </p>
-                                <!-- <p *ngIf="settingForm.controls.telephone.errors?.telephone" class="text-danger">
-                                    {{ 'form.validation.telephone' | translate }}</p> -->
-                                <p *ngIf="settingForm.controls.telephone.errors?.validatePhoneNumber" class="text-danger">
-                                    {{ 'form.validation.telephone' | translate }}
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div *ngIf="settingForm.controls.age" class="form-group">
-                    <div class="row align-items-center">
-                        <p class="col-md-4 py-2 text-md-right">{{ 'common.age' | translate }}<span
-                            *ngIf="isRequired('age')"
-                            class="badge badge-danger ml-2">{{ 'common.required' | translate }}</span></p>
-                        <div class="col-md-8">
-                            <input type="text" class="form-control" formControlName="age" placeholder="">
-                            <div *ngIf="settingForm.controls.age.invalid && settingForm.controls.age.touched"
-                                class="mt-2">
-                                <p *ngIf="settingForm.controls.age.errors?.required" class="text-danger">
-                                    {{ 'form.validation.required' | translate }}</p>
-                                <p *ngIf="settingForm.controls.age.errors?.minlength" class="text-danger">
-                                    {{ 'form.validation.minlength' | translate: { value: settingForm.controls.age.errors?.minlength.requiredLength } }}
-                                </p>
-                                <p *ngIf="settingForm.controls.age.errors?.maxlength" class="text-danger">
-                                    {{ 'form.validation.minlength' | translate: { value: settingForm.controls.age.errors?.maxlength.requiredLength } }}
-                                </p>
-                                <p *ngIf="settingForm.controls.age.errors?.pattern" class="text-danger">
-                                    {{ 'form.validation.pattern' | translate }}
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div *ngIf="settingForm.controls.address" class="form-group">
-                    <div class="row align-items-center">
-                        <p class="col-md-4 py-2 text-md-right">{{ 'common.address' | translate }}<span
-                            *ngIf="isRequired('address')"
-                            class="badge badge-danger ml-2">{{ 'common.required' | translate }}</span></p>
-                        <div class="col-md-8">
-                            <input type="text" class="form-control" formControlName="address" placeholder="">
-                            <div *ngIf="settingForm.controls.address.invalid && settingForm.controls.address.touched"
-                                class="mt-2">
-                                <p *ngIf="settingForm.controls.address.errors?.required" class="text-danger">
-                                    {{ 'form.validation.required' | translate }}</p>
-                                <p *ngIf="settingForm.controls.address.errors?.minlength" class="text-danger">
-                                    {{ 'form.validation.minlength' | translate: { value: settingForm.controls.age.errors?.minlength.requiredLength } }}
-                                </p>
-                                <p *ngIf="settingForm.controls.address.errors?.maxlength" class="text-danger">
-                                    {{ 'form.validation.minlength' | translate: { value: settingForm.controls.age.errors?.maxlength.requiredLength } }}
-                                </p>
-                                <p *ngIf="settingForm.controls.address.errors?.pattern" class="text-danger">
-                                    {{ 'form.validation.pattern' | translate }}
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div *ngIf="settingForm.controls.gender" class="form-group">
-                    <div class="row align-items-center">
-                        <p class="col-md-4 py-2 text-md-right">{{ 'common.gender.label' | translate }}<span
-                            *ngIf="isRequired('gender')"
-                            class="badge badge-danger ml-2">{{ 'common.required' | translate }}</span></p>
-                        <div class="col-md-8">
-                            <select class="form-control" formControlName="gender">
-                                <option value="">{{ 'common.gender.unselected' | translate }}</option>
-                                <option value="man">{{ 'common.gender.man' | translate }}</option>
-                                <option value="woman">{{ 'common.gender.woman' | translate }}</option>
-                            </select>
-                            <div *ngIf="settingForm.controls.gender.invalid && settingForm.controls.gender.touched"
-                                class="mt-2">
-                                <p *ngIf="settingForm.controls.gender.errors?.required" class="text-danger">
-                                    {{ 'form.validation.required' | translate }}</p>
-                                <p *ngIf="settingForm.controls.gender.errors?.minlength" class="text-danger">
-                                    {{ 'form.validation.minlength' | translate: { value: settingForm.controls.age.errors?.minlength.requiredLength } }}
-                                </p>
-                                <p *ngIf="settingForm.controls.gender.errors?.maxlength" class="text-danger">
-                                    {{ 'form.validation.minlength' | translate: { value: settingForm.controls.age.errors?.maxlength.requiredLength } }}
-                                </p>
-                                <p *ngIf="settingForm.controls.gender.errors?.pattern" class="text-danger">
-                                    {{ 'form.validation.pattern' | translate }}
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <div class="row align-items-center">
-                        <p class="col-md-4 py-2 text-md-right">{{ 'setting.printer' | translate }}</p>
-                        <div class="col-md-8">
-                            <select class="form-control" formControlName="printerType" (change)="changePrinterType()">
-                                <option *ngFor="let printer of printers" [value]="printer.connectionType">
-                                    {{ printer.name | translate }}</option>
-                            </select>
-                            <button
-                                *ngIf="this.settingForm.controls.printerType.value && this.settingForm.controls.printerType.value !== connectionType.None"
-                                type="button" class="btn btn-sm btn-primary py-2 mt-2"
-                                (click)="print()">{{ 'setting.testPrinting' | translate }}</button>
-                        </div>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <div class="row align-items-center">
-                        <p class="col-md-4 py-2 text-md-right">{{ 'setting.printerIpAddress' | translate }}</p>
-                        <div class="col-md-8">
-                            <input type="text" class="form-control" formControlName="printerIpAddress"
-                                placeholder="0.0.0.0">
-                            <div *ngIf="settingForm.controls.printerIpAddress.invalid && settingForm.controls.printerIpAddress.touched"
-                                class="mt-2">
-                                <p *ngIf="settingForm.controls.printerIpAddress.errors?.required" class="text-danger">
-                                    {{ 'form.validation.required' | translate }}</p>
-                            </div>
-                            <p class="text-small mt-2">
-                                {{ 'setting.printerIpAddressDescription' | translate }}
+                <div *ngFor="let key of getProfileFormKeys()" class="form-group row">
+                    <div class="col-md-4 py-2 text-md-right ">
+                        <div class="d-inline-flex align-items-center">
+                            <p *ngIf="!getAdditionalProperty(key)">{{ 'form.label.' + key | translate }}</p>
+                            <p *ngIf="getAdditionalProperty(key)">
+                                {{ getAdditionalProperty(key)?.label | changeLanguage }}</p>
+                            <p *ngIf="isRequired(key)" class="badge badge-danger ml-2">{{ 'form.required' | translate }}
                             </p>
                         </div>
                     </div>
+                    <div class="col-md-8">
+                        <input *ngIf="key !== 'theaterBranchCode'
+                            && key !== 'posId'
+                            && key !== 'printerType'
+                            && key !== 'email' 
+                            && key !== 'telephone' 
+                            && key !== 'gender' 
+                            && getAdditionalProperty(key)?.inputType !== 'textarea'" type="text" class="form-control"
+                            [formControlName]="key" [id]="key" [placeholder]="'form.placeholder.' + key | translate">
+                        <select *ngIf="key === 'theaterBranchCode'" class="form-control" [formControlName]="key"
+                            (change)="changePosList()">
+                            <option value="">{{ 'setting.unselected' | translate }}</option>
+                            <option *ngFor="let theater of theaters" [value]="theater.branchCode">
+                                {{ theater.name | changeLanguage }}</option>
+                        </select>
+                        <select *ngIf="key === 'posId'" class="form-control" [formControlName]="key">
+                            <option value="">{{ 'setting.unselected' | translate }}</option>
+                            <option *ngFor="let pos of posList" [value]="pos.id">{{ pos.name }}</option>
+                        </select>
+                        <select *ngIf="key === 'printerType'" class="form-control" [formControlName]="key"
+                            (change)="changePrinterType()">
+                            <option *ngFor="let printer of printers" [value]="printer.connectionType">
+                                {{ printer.name | translate }}</option>
+                        </select>
+                        <input *ngIf="key === 'email'" type="email" class="form-control" [formControlName]="key"
+                            [id]="key" [placeholder]="'form.placeholder.' + key | translate">
+                        <ngx-intl-tel-input *ngIf="key === 'telephone'" #intlTelInput
+                            [preferredCountries]="[CountryISO.Japan]" [enableAutoCountrySelect]="false"
+                            [enablePlaceholder]="true" [searchCountryFlag]="true"
+                            [searchCountryField]="[SearchCountryField.Iso2, SearchCountryField.Name]"
+                            [selectFirstCountry]="false" [selectedCountryISO]="CountryISO.Japan" [maxLength]="15"
+                            [tooltipField]="TooltipLabel.Name" [phoneValidation]="true" [separateDialCode]="false"
+                            inputId="telephone" name="telephone" formControlName="telephone"></ngx-intl-tel-input>
+                        <select *ngIf="key === 'gender'" class="form-control" [formControlName]="key" [id]="key">
+                            <option value="">{{ 'form.option.unselected' | translate }}</option>
+                            <option value="man">{{ 'form.option.man' | translate }}</option>
+                            <option value="woman">{{ 'form.option.woman' | translate }}</option>
+                        </select>
+                        <textarea *ngIf="getAdditionalProperty(key)?.inputType === 'textarea'" class="form-control"
+                            [formControlName]="key" [id]="key" placeholder=""></textarea>
+                        <div *ngIf="settingForm.controls[key].invalid && settingForm.controls[key].touched"
+                            class="mt-2">
+                            <p *ngIf="settingForm.controls[key].errors?.required" class="text-danger">
+                                {{ 'form.validation.required' | translate }}
+                            </p>
+                            <p *ngIf="settingForm.controls[key].errors?.maxlength" class="text-danger">
+                                {{ 'form.validation.maxlength' | translate:{ value: settingForm.controls[key].errors?.maxlength.requiredLength } }}
+                            </p>
+                            <p *ngIf="settingForm.controls[key].errors?.email" class="text-danger">
+                                {{ 'form.validation.email' | translate }}
+                            </p>
+                            <p *ngIf="settingForm.controls[key].errors?.validatePhoneNumber" class="text-danger">
+                                {{ 'form.validation.telephone' | translate }}
+                            </p>
+                            <div *ngIf="key === 'familyName' || key === 'givenName'">
+                                <p *ngIf="(user | async)?.language === 'ja' && settingForm.controls[key].errors?.customPattern"
+                                    class="text-danger">
+                                    {{ 'form.validation.fullKana' | translate }}</p>
+                                <p *ngIf="(user | async)?.language !== 'ja' && settingForm.controls[key].errors?.customPattern"
+                                    class="text-danger">
+                                    {{ 'form.validation.lowercaseLetters' | translate }}</p>
+                            </div>
+                        </div>
+                        <div *ngIf="key === 'printerType'">
+                            <button *ngIf="this.settingForm.controls.printerType.value 
+                            && this.settingForm.controls.printerType.value !== connectionType.None" type="button"
+                                class="btn btn-sm btn-primary py-2 mt-2"
+                                (click)="print()">{{ 'setting.testPrinting' | translate }}</button>
+                        </div>
+                        <p *ngIf="key === 'printerIpAddress'" class="text-small mt-2">
+                            {{ 'setting.printerIpAddressDescription' | translate }}
+                        </p>
+                    </div>
                 </div>
+
+                
 
 
             </div>

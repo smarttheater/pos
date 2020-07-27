@@ -331,9 +331,6 @@
         "next": "設定を変更",
         "prev": "戻る",
         "unselected": "未選択",
-        "pos": "POS",
-        "printer": "プリンター",
-        "printerIpAddress": "プリンターIPアドレス",
         "printerIpAddressDescription": "※スター精密 Bluetooth接続(StarwebPRNT専用ブラウザー)の場合localhost:8001を設定してください。",
         "testPrinting": "テスト印刷",
         "isPurchaseCart": "カート使用",
@@ -390,6 +387,24 @@
         }
     },
     "form": {
+        "label": {
+            "theaterBranchCode": "施設",
+            "posId": "POS",
+            "printerType": "プリンター",
+            "printerIpAddress": "プリンターIPアドレス",
+            "familyName": "姓（全角カタカナ）",
+            "givenName": "名（全角カタカナ）",
+            "email": "メールアドレス",
+            "telephone": "電話番号",
+            "age": "年齢",
+            "address": "住所",
+            "gender": "性別"
+        },
+        "option": {
+            "man": "男",
+            "woman": "女",
+            "unselected": "未選択"
+        },
         "validation": {
             "required": "未入力です",
             "maxlength": "{{value}}文字以下で入力してください",
@@ -403,16 +418,21 @@
             "pattern": "形式が正しくありません"
         },
         "placeholder": {
+            "printerIpAddress": "0.0.0.0",
             "familyName": "モーション",
             "givenName": "ピクチャー",
             "email": "xxx@motionpicture.jp",
             "telephone": "0362778824",
+            "age": "",
+            "address": "",
+            "gender": "",
             "cardNumber": "",
             "cardExpiration": "",
             "securityCode": "",
             "holderName": "",
             "confirmationNumber": "12345"
-        }
+        },
+        "required":"必須"
     },
     "menu": {
         "purchase": "購入",

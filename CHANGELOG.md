@@ -12,6 +12,11 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/).
 
 ### Security
 
+## 3.0.54 - 2020-07-27
+### Changed
+ - 注文検索、詳細の購入者情報をすべて表示へ変更
+ - StarWebPRNTSDK1.7.0更新
+
 ## 3.0.53 - 2020-07-23
 ### Added
  - エプソンプリンター連携追加

@@ -101,28 +101,6 @@ export class SettingComponent implements OnInit {
             if (p.key === 'email') {
                 validators.push(Validators.email);
             }
-            if (p.key === 'telephone') {
-                // validators.push((control: AbstractControl) => {
-                //     const field = control.root.get('telephone');
-                //     if (field !== null) {
-                //         if (field.value === '') {
-                //             return null;
-                //         }
-                //         const parsedNumber = (new RegExp(/^\+/).test(field.value))
-                //             ? libphonenumber.parse(field.value)
-                //             : libphonenumber.parse(field.value, 'JP');
-                //         if (parsedNumber.phone === undefined) {
-                //             return { telephone: true };
-                //         }
-                //         const isValid = libphonenumber.isValidNumber(parsedNumber);
-                //         if (!isValid) {
-                //             return { telephone: true };
-                //         }
-                //     }
-
-                //     return null;
-                // });
-            }
             this.settingForm.addControl(p.key, new FormControl(p.value, validators));
         });
         const user = await this.userService.getData();
@@ -143,6 +121,18 @@ export class SettingComponent implements OnInit {
                 if (key === 'telephone') {
                     this.settingForm.controls.telephone
                         .setValue(new LibphonenumberFormatPipe().transform(value));
+                    return;
+                }
+                this.settingForm.controls[key].setValue(value);
+            });
+            const additionalProperty = customerContact.additionalProperty;
+            if (additionalProperty === undefined) {
+                return;
+            }
+            additionalProperty.forEach(a => {
+                const key = `additionalProperty.${a.name}`;
+                const value = a.value;
+                if (value === undefined || this.settingForm.controls[key] === undefined) {
                     return;
                 }
                 this.settingForm.controls[key].setValue(value);
@@ -196,7 +186,16 @@ export class SettingComponent implements OnInit {
                 throw new Error('theater not found').message;
             }
             const pos = (theater.hasPOS === undefined) ? theater.hasPOS : theater.hasPOS.find(p => p.id === posId);
-
+            const additionalProperty: { name: string; value: string; }[] = [];
+            Object.keys(this.settingForm.controls).forEach(key => {
+                if (!/additionalProperty/.test(key)) {
+                    return;
+                }
+                additionalProperty.push({
+                    name: key.replace('additionalProperty.', ''),
+                    value: this.settingForm.controls[key].value
+                });
+            });
             this.userService.updateAll({
                 pos,
                 theater,
@@ -215,7 +214,8 @@ export class SettingComponent implements OnInit {
                     address: (this.settingForm.controls.address === undefined)
                         ? undefined : this.settingForm.controls.address.value,
                     gender: (this.settingForm.controls.gender === undefined)
-                        ? undefined : this.settingForm.controls.gender.value
+                        ? undefined : this.settingForm.controls.gender.value,
+                    additionalProperty
                 },
                 printer: {
                     ipAddress: this.settingForm.controls.printerIpAddress.value,
@@ -267,7 +267,24 @@ export class SettingComponent implements OnInit {
      * 必須判定
      */
     public isRequired(key: String) {
+        if (key === 'theaterBranchCode') {
+            return true;
+        }
         return this.environment.PROFILE.find(p => p.key === key && p.required) !== undefined;
+    }
+
+    /**
+     * 購入者情報フォームのコントロールkeyを配列で返却
+     */
+    public getProfileFormKeys() {
+        return Object.keys(this.settingForm.controls);
+    }
+
+    /**
+     * 追加特性項目取得
+     */
+    public getAdditionalProperty(key: string) {
+        return this.environment.PROFILE.find(p => /additionalProperty/.test(p.key) && p.key === key);
     }
 
 }
