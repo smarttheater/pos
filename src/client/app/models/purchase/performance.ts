@@ -15,7 +15,7 @@ export class Performance {
     /**
      * 販売判定
      */
-    public isSales(status?: 'window' | 'start' | 'end') {
+    public isSales(status?: 'start' | 'end') {
         const screeningEvent = this.screeningEvent;
         const offers = screeningEvent.offers;
         if (offers === undefined) {
@@ -26,9 +26,6 @@ export class Performance {
         const validThrough = moment(offers.validThrough).unix();
         let result = false;
         switch (status) {
-            case 'window':
-                result = false;
-                break;
             case 'start':
                 result = now < validFrom;
                 break;
