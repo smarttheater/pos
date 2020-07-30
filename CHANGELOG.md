@@ -12,6 +12,11 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/).
 
 ### Security
 
+## 3.0.55 - 2020-07-30
+### Changed
+ - Profile順番変更
+ - 窓口設定を廃止
+
 ## 3.0.54 - 2020-07-27
 ### Changed
  - 注文検索、詳細の購入者情報をすべて表示へ変更
