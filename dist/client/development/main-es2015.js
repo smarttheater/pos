@@ -2392,9 +2392,9 @@ const defaultEnvironment = {
     BASE_URL: '/purchase/root',
     LANGUAGE: ['ja'],
     PROFILE: [
-        { key: 'email', value: '', required: true, maxLength: 50 },
-        { key: 'givenName', value: '', required: true, pattern: /^[ァ-ヶー]+$/, maxLength: 12 },
         { key: 'familyName', value: '', required: true, pattern: /^[ァ-ヶー]+$/, maxLength: 12 },
+        { key: 'givenName', value: '', required: true, pattern: /^[ァ-ヶー]+$/, maxLength: 12 },
+        { key: 'email', value: '', required: true, maxLength: 50 },
         { key: 'telephone', value: '', required: true, maxLength: 15, minLength: 9 }
     ],
     PAYMENT_METHOD_TO_USE: ['Cash', 'EMoney', 'CreditCard'],
