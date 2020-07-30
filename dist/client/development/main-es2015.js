@@ -342,14 +342,12 @@ __webpack_require__.r(__webpack_exports__);
 /*!*****************************************!*\
   !*** ./app/functions/order.function.ts ***!
   \*****************************************/
-/*! exports provided: createPrintCanvas4Html, createPrintCanvas, createTestPrintCanvas, createTestPrintCanvas4Html, createCooperationQRCode, getTransactionAgentIdentifier, order2report, input2OrderSearchCondition, createOrderLink */
+/*! exports provided: createPrintCanvas4Html, createTestPrintCanvas4Html, createCooperationQRCode, getTransactionAgentIdentifier, order2report, input2OrderSearchCondition, createOrderLink */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "createPrintCanvas4Html", function() { return createPrintCanvas4Html; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "createPrintCanvas", function() { return createPrintCanvas; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "createTestPrintCanvas", function() { return createTestPrintCanvas; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "createTestPrintCanvas4Html", function() { return createTestPrintCanvas4Html; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "createCooperationQRCode", function() { return createCooperationQRCode; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getTransactionAgentIdentifier", function() { return getTransactionAgentIdentifier; });
@@ -402,222 +400,11 @@ function createPrintCanvas4Html(params) {
     });
 }
 /**
- * キャンバスへ描画
- */
-function drawCanvas(args) {
-    return __awaiter(this, void 0, void 0, function* () {
-        const printData = args.printData;
-        const data = args.data;
-        const canvas = document.createElement('canvas');
-        const size = printData.size;
-        canvas.width = size.width;
-        canvas.height = size.height;
-        const context = canvas.getContext('2d');
-        if (context === null) {
-            throw new Error('context is null').message;
-        }
-        const drawImage = (drawImageArgs) => {
-            return new Promise((resolve, reject) => {
-                drawImageArgs.image.onload = () => {
-                    context.drawImage(drawImageArgs.image, drawImageArgs.x, drawImageArgs.y, drawImageArgs.width, drawImageArgs.height);
-                    resolve();
-                };
-                drawImageArgs.image.onerror = (error) => {
-                    console.error(error);
-                    reject(error);
-                };
-            });
-        };
-        const changePosition = ((value) => {
-            const position = [
-                { key: 'center', value: canvas.width / 2 },
-                { key: 'left', value: 0 },
-                { key: 'right', value: canvas.width },
-                { key: 'top', value: 0 },
-                { key: 'bottom', value: canvas.height }
-            ];
-            const findResult = position.find((p) => p.key === value);
-            if (findResult === undefined) {
-                return value;
-            }
-            return findResult.value;
-        });
-        const font = `"Hiragino Sans", "Hiragino Kaku Gothic ProN", "游ゴシック  Medium", meiryo, sans-serif`;
-        // 画像描画
-        for (const image of printData.image) {
-            const imageInstance = new Image();
-            imageInstance.crossOrigin = 'anonymous';
-            const src = (yield Object(_util_function__WEBPACK_IMPORTED_MODULE_5__["isFile"])(image.src.replace('/storage', Object(_util_function__WEBPACK_IMPORTED_MODULE_5__["getProject"])().storageUrl)))
-                ? image.src.replace('/storage', Object(_util_function__WEBPACK_IMPORTED_MODULE_5__["getProject"])().storageUrl)
-                : image.src.replace('/storage', '/default');
-            imageInstance.src = src;
-            yield drawImage({
-                image: imageInstance,
-                x: image.x,
-                y: image.y,
-                width: image.width,
-                height: image.height
-            });
-        }
-        // テキスト描画
-        for (const text of printData.text) {
-            context.fillStyle = text.fillStyle;
-            context.font = `${text.font.weight} ${text.font.size} ${(text.font.family === undefined) ? font : text.font.family}`;
-            context.textAlign = text.textAlign;
-            let value = '';
-            if (text.name !== undefined) {
-                switch (text.name) {
-                    case 'price':
-                        value = `￥${data.price.toLocaleString()}`;
-                        break;
-                    case 'date':
-                        value = `(${moment__WEBPACK_IMPORTED_MODULE_2__().format('YYYY/MM/DD HH:mm')} 発券)`;
-                        break;
-                    case 'startDate':
-                    case 'endDate':
-                        value = `${moment__WEBPACK_IMPORTED_MODULE_2__(data[text.name]).format(text.value)}`;
-                        break;
-                    case 'eventNameJa':
-                    case 'eventNameEn':
-                        const eventName = data[text.name];
-                        const limit = Math.floor(size.width / parseInt(text.font.size, 10));
-                        if (eventName.length > limit) {
-                            context.fillText(eventName.slice(0, limit), changePosition(text.fillText.x), changePosition(text.fillText.y));
-                            context.fillText((eventName.length - limit < limit)
-                                ? eventName.slice(limit, eventName.length)
-                                : eventName.slice(limit, limit * 2), changePosition(text.fillText.x), changePosition(text.fillText.y) + parseInt(text.font.size, 10) * 1.5);
-                        }
-                        else {
-                            context.fillText(eventName, changePosition(text.fillText.x), changePosition(text.fillText.y) + parseInt(text.font.size, 10) * 0.75);
-                        }
-                        continue;
-                    default:
-                        value = `${(text.value === undefined) ? '' : text.value}${(data[text.name] === undefined) ? '-' : data[text.name]}`;
-                }
-            }
-            else if (text.value !== undefined) {
-                value = text.value;
-            }
-            else {
-                continue;
-            }
-            if (text.slice !== undefined) {
-                // 文字制限
-                value = value.slice(text.slice[0], text.slice[1]);
-            }
-            context.fillText(value, changePosition(text.fillText.x), changePosition(text.fillText.y));
-        }
-        // QR描画
-        if (data.qrcode !== undefined) {
-            for (const qrCode of printData.qrCode) {
-                const qrcodeCanvas = document.createElement('canvas');
-                yield qrcode__WEBPACK_IMPORTED_MODULE_3__["toCanvas"](qrcodeCanvas, data.qrcode);
-                context.drawImage(qrcodeCanvas, qrCode.x, qrCode.y, qrCode.width, qrCode.height);
-            }
-        }
-        return canvas;
-    });
-}
-/**
- * 印刷イメージ作成
- */
-function createPrintCanvas(params) {
-    return __awaiter(this, void 0, void 0, function* () {
-        const acceptedOffer = params.acceptedOffer;
-        if (acceptedOffer.itemOffered.typeOf !== _cinerino_sdk__WEBPACK_IMPORTED_MODULE_0__["factory"].chevre.reservationType.EventReservation) {
-            throw new Error('reservationType is not EventReservation').message;
-        }
-        const itemOffered = acceptedOffer.itemOffered;
-        const data = {
-            sellerNameJa: (itemOffered.reservationFor.superEvent.location.name === undefined
-                || itemOffered.reservationFor.superEvent.location.name.ja === undefined)
-                ? '' : itemOffered.reservationFor.superEvent.location.name.ja,
-            sellerNameEn: (itemOffered.reservationFor.superEvent.location.name === undefined
-                || itemOffered.reservationFor.superEvent.location.name.en === undefined)
-                ? '' : itemOffered.reservationFor.superEvent.location.name.en,
-            eventNameJa: (itemOffered.reservationFor.name.ja === undefined) ? '' : itemOffered.reservationFor.name.ja,
-            eventNameEn: (itemOffered.reservationFor.name.en === undefined) ? '' : itemOffered.reservationFor.name.en,
-            screenNameJa: (itemOffered.reservationFor.location.address === undefined)
-                ? (itemOffered.reservationFor.location.name === undefined || itemOffered.reservationFor.location.name.ja === undefined)
-                    ? '' : itemOffered.reservationFor.location.name.ja
-                : `${itemOffered.reservationFor.location.address.ja} ${(itemOffered.reservationFor.location.name === undefined) ? '' : itemOffered.reservationFor.location.name.ja}`,
-            screenNameEn: (itemOffered.reservationFor.location.address === undefined)
-                ? (itemOffered.reservationFor.location.name === undefined || itemOffered.reservationFor.location.name.en === undefined)
-                    ? '' : itemOffered.reservationFor.location.name.en
-                : `${itemOffered.reservationFor.location.address.en} ${(itemOffered.reservationFor.location.name === undefined) ? '' : itemOffered.reservationFor.location.name.en}`,
-            startDate: moment__WEBPACK_IMPORTED_MODULE_2__(itemOffered.reservationFor.startDate).toISOString(),
-            endDate: moment__WEBPACK_IMPORTED_MODULE_2__(itemOffered.reservationFor.endDate).toISOString(),
-            seatNumber: (itemOffered.reservedTicket.ticketedSeat === undefined
-                || itemOffered.reservedTicket.ticketedSeat === null)
-                ? undefined : itemOffered.reservedTicket.ticketedSeat.seatNumber,
-            ticketNameJa: (itemOffered.reservedTicket.ticketType.name === undefined)
-                ? '' : (typeof itemOffered.reservedTicket.ticketType.name === 'string')
-                ? itemOffered.reservedTicket.ticketType.name : (itemOffered.reservedTicket.ticketType.name.ja === undefined)
-                ? '' : itemOffered.reservedTicket.ticketType.name.ja,
-            ticketNameEn: (itemOffered.reservedTicket.ticketType.name === undefined)
-                ? '' : (typeof itemOffered.reservedTicket.ticketType.name === 'string')
-                ? itemOffered.reservedTicket.ticketType.name : (itemOffered.reservedTicket.ticketType.name.en === undefined)
-                ? '' : itemOffered.reservedTicket.ticketType.name.en,
-            price: (acceptedOffer.priceSpecification === undefined)
-                ? 0 : Object(_purchase_function__WEBPACK_IMPORTED_MODULE_4__["getItemPrice"])({ priceComponents: acceptedOffer.priceSpecification.priceComponent }),
-            posName: (params.pos === undefined) ? '' : params.pos.name,
-            confirmationNumber: String(params.order.confirmationNumber),
-            orderNumber: params.order.orderNumber,
-            ticketNumber: itemOffered.id,
-            qrcode: params.qrcode,
-            index: params.index
-        };
-        const printData = params.printData;
-        const canvas = yield drawCanvas({ data, printData });
-        return canvas;
-    });
-}
-/**
  * テスト印刷用イメージ作成
  */
-function createTestPrintCanvas(args) {
+function createTestPrintCanvas4Html(params) {
     return __awaiter(this, void 0, void 0, function* () {
-        const printData = args.printData;
-        const data = {
-            sellerNameJa: 'テスト劇場',
-            sellerNameEn: 'test theater',
-            eventNameJa: (Math.floor(Math.random() * 11) < 5)
-                ? 'テストイベント'
-                : 'テスト1テスト2テスト3テスト4テスト5テスト6テスト7テスト8テスト9テスト10イベント',
-            eventNameEn: (Math.floor(Math.random() * 11) < 5)
-                ? 'test event'
-                : 'test1 test2 test3 test4 test5 test6 test7 event',
-            screenNameJa: 'テストスクリーン',
-            screenNameEn: 'test screen',
-            startDate: moment__WEBPACK_IMPORTED_MODULE_2__().toISOString(),
-            endDate: moment__WEBPACK_IMPORTED_MODULE_2__().toISOString(),
-            seatNumber: 'TEST-1',
-            ticketNameJa: 'テストチケット123456',
-            ticketNameEn: 'test ticket 123456',
-            price: 1000,
-            posName: 'test-01',
-            confirmationNumber: '12345678',
-            orderNumber: 'TEST-123456-123456',
-            ticketNumber: 'TEST-123456-123456-00',
-            qrcode: 'TEST-123456-123456',
-            index: 0
-        };
-        const canvas = yield drawCanvas({ printData, data });
-        return canvas;
-    });
-}
-/**
- * テスト印刷用イメージ作成
- */
-function createTestPrintCanvas4Html() {
-    return __awaiter(this, void 0, void 0, function* () {
-        const view = `<div style="width: 560px;">
-    <div class="py-5 text-center" style="font-size: 30px;">
-    <p class="mb-3"><img width="400" height="64" src="/default/images/print/logo.png"></p>
-    <p class="mb-3">Test print</p>
-    <p><%= moment().tz('Asia/Tokyo').locale('ja').format('YYYY/MM/DD HH:mm:ss') %></p>
-    </div>
-    </div>`;
+        const view = params.view;
         const template = yield window.ejs.render(view, { moment: moment__WEBPACK_IMPORTED_MODULE_2__ }, { async: true });
         const div = document.createElement('div');
         div.className = 'position-absolute';
@@ -2432,7 +2219,6 @@ const defaultEnvironment = {
     PRINT_QRCODE_TYPE: 'token',
     PRINT_QRCODE_CUSTOM: '',
     PRINT_LOADING: true,
-    PRINT_DATA: 'HTML'
 };
 function getEnvironment() {
     const environment = Object.assign(Object.assign(Object.assign({}, defaultEnvironment), window.environment), { production: isProduction });
