@@ -12,6 +12,14 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/).
 
 ### Security
 
+## 3.0.56 - 2020-07-31
+### Added
+ - テスト印刷へ印刷幅を確認追加
+### Changed
+ - ムビチケロゴ変更
+ - チケット印刷でJSONから生成を廃止
+ - 座席番号表示「-」なしへ変更
+
 ## 3.0.55 - 2020-07-30
 ### Changed
  - Profile順番変更
