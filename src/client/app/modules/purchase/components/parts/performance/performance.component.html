@@ -53,7 +53,7 @@
             {{ performance.screeningEvent.remainingAttendeeCapacity }} /
             {{ performance.screeningEvent.maximumAttendeeCapacity }}
         </div>
-        <div *ngIf="performance.isInfinitetock()" class="status">
+        <div *ngIf="performance.isSales() && performance.isInfinitetock()" class="status">
             <div class="d-flex justify-content-center align-items-center mb-2">
                 <div class="text-success mr-2">
                     {{ 'common.performance.status.success' | translate }}</div>
