@@ -8574,7 +8574,9 @@
           key: "ngOnInit",
           value: function ngOnInit() {
             return __awaiter(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee20() {
-              var purchase, screeningEvent, seller;
+              var _this10 = this;
+
+              var purchase, screeningEvent, seller, reservations;
               return regeneratorRuntime.wrap(function _callee20$(_context20) {
                 while (1) {
                   switch (_context20.prev = _context20.next) {
@@ -8602,7 +8604,22 @@
                       return _context20.abrupt("return");
 
                     case 14:
-                      _context20.next = 16;
+                      reservations = purchase.reservations;
+                      _context20.next = 17;
+                      return this.resetSeats();
+
+                    case 17:
+                      reservations.forEach(function (r) {
+                        if (r.seat === undefined) {
+                          return;
+                        }
+
+                        _this10.selectSeat({
+                          seat: r.seat,
+                          status: ___WEBPACK_IMPORTED_MODULE_5__["Models"].Purchase.Screen.SeatStatus.Default
+                        });
+                      });
+                      _context20.next = 20;
                       return this.purchaseService.getScreen({
                         branchCode: {
                           $eq: screeningEvent.location.branchCode
@@ -8614,33 +8631,33 @@
                         }
                       });
 
-                    case 16:
-                      _context20.next = 18;
+                    case 20:
+                      _context20.next = 22;
                       return this.purchaseService.getScreeningEventSeats();
 
-                    case 18:
+                    case 22:
                       this.screeningEventSeats = _context20.sent;
-                      _context20.next = 21;
+                      _context20.next = 25;
                       return this.purchaseService.getTicketList({
                         seller: seller
                       });
 
-                    case 21:
-                      _context20.next = 27;
+                    case 25:
+                      _context20.next = 31;
                       break;
 
-                    case 23:
-                      _context20.prev = 23;
+                    case 27:
+                      _context20.prev = 27;
                       _context20.t0 = _context20["catch"](5);
                       console.error(_context20.t0);
                       this.router.navigate(['/error']);
 
-                    case 27:
+                    case 31:
                     case "end":
                       return _context20.stop();
                   }
                 }
-              }, _callee20, this, [[5, 23]]);
+              }, _callee20, this, [[5, 27]]);
             }));
           }
           /**
@@ -9242,7 +9259,7 @@
           key: "openTicketList",
           value: function openTicketList(reservation) {
             return __awaiter(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee26() {
-              var _this10 = this;
+              var _this11 = this;
 
               var purchase;
               return regeneratorRuntime.wrap(function _callee26$(_context26) {
@@ -9270,12 +9287,12 @@
                                 return r.ticket = ticket;
                               });
 
-                              _this10.purchaseService.selectTickets(reservations);
+                              _this11.purchaseService.selectTickets(reservations);
 
                               return;
                             }
 
-                            _this10.purchaseService.selectTickets([Object.assign(Object.assign({}, reservation), {
+                            _this11.purchaseService.selectTickets([Object.assign(Object.assign({}, reservation), {
                               ticket: ticket
                             })]);
                           }
@@ -10073,13 +10090,37 @@
         }
       }
 
+      function PurchasePerformanceComponent_div_21_div_1_Template(rf, ctx) {
+        if (rf & 1) {
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "div", 28);
+
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](1, "div", 17);
+
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](2);
+
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipe"](3, "translate");
+
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
+
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelement"](4, "img", 18);
+
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
+        }
+
+        if (rf & 2) {
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](2);
+
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtextInterpolate1"](" ", _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipeBind1"](3, 1, "common.performance.status.success"), "");
+        }
+      }
+
       function PurchasePerformanceComponent_div_21_Template(rf, ctx) {
         if (rf & 1) {
           _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "div", 26);
 
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](1, "div", 27);
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](1, PurchasePerformanceComponent_div_21_div_1_Template, 5, 3, "div", 27);
 
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](2, "div", 17);
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](2, "div", 25);
 
           _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](3);
 
@@ -10087,29 +10128,19 @@
 
           _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
 
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelement"](5, "img", 18);
-
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
-
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](6, "div", 25);
-
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](7);
-
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipe"](8, "translate");
-
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
-
           _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
         }
 
         if (rf & 2) {
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](3);
+          var ctx_r5 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵnextContext"]();
 
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtextInterpolate1"](" ", _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipeBind1"](4, 2, "common.performance.status.success"), "");
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](1);
 
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](4);
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("ngIf", ctx_r5.performance.isSales());
 
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtextInterpolate"](_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipeBind1"](8, 4, "common.performance.infiniteStock"));
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](2);
+
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtextInterpolate"](_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipeBind1"](4, 2, "common.performance.infiniteStock"));
         }
       }
 
@@ -10153,7 +10184,7 @@
         },
         decls: 28,
         vars: 27,
-        consts: [[1, "row", "mx-0", "border", "boder-gray", "rounded", "p-3", "py-md-3", "text-md-center", "d-md-block", "align-items-center", "pointer", "h-100", 3, "ngClass", "click"], [1, "col-md-12", "col-8", "px-0"], [1, "mb-1", "text-small", "screen-name"], ["class", "text-overflow-ellipsis mr-2 d-inline-block d-md-block", 4, "ngIf"], [1, "text-overflow-ellipsis", "d-inline-block", "d-md-block"], [1, "text-large"], [1, "border-0", "bg-light-gray", "my-2"], [1, "col-md-12", "col-4", "px-0", "text-center"], ["class", "status mb-2", 4, "ngIf"], ["class", "mb-2 text-small", 4, "ngIf"], ["class", "status", 4, "ngIf"], [1, "text-small", "mb-1"], [1, "text-small"], [1, "text-overflow-ellipsis", "mr-2", "d-inline-block", "d-md-block"], [1, "status", "mb-2"], ["class", "d-flex justify-content-center align-items-center", 4, "ngIf"], [1, "d-flex", "justify-content-center", "align-items-center"], [1, "text-success", "mr-2"], ["src", "/assets/images/icon/status_success.svg", "alt", ""], [1, "text-warning", "mr-2"], ["src", "/assets/images/icon/status_warning.svg", "alt", ""], [1, "text-danger", "mr-2"], ["src", "/assets/images/icon/status_danger.svg", "alt", ""], [1, "mr-2", "mr-md-0"], ["src", "/assets/images/icon/status_undefined.svg", "alt", ""], [1, "mb-2", "text-small"], [1, "status"], [1, "d-flex", "justify-content-center", "align-items-center", "mb-2"]],
+        consts: [[1, "row", "mx-0", "border", "boder-gray", "rounded", "p-3", "py-md-3", "text-md-center", "d-md-block", "align-items-center", "pointer", "h-100", 3, "ngClass", "click"], [1, "col-md-12", "col-8", "px-0"], [1, "mb-1", "text-small", "screen-name"], ["class", "text-overflow-ellipsis mr-2 d-inline-block d-md-block", 4, "ngIf"], [1, "text-overflow-ellipsis", "d-inline-block", "d-md-block"], [1, "text-large"], [1, "border-0", "bg-light-gray", "my-2"], [1, "col-md-12", "col-4", "px-0", "text-center"], ["class", "status mb-2", 4, "ngIf"], ["class", "mb-2 text-small", 4, "ngIf"], ["class", "status", 4, "ngIf"], [1, "text-small", "mb-1"], [1, "text-small"], [1, "text-overflow-ellipsis", "mr-2", "d-inline-block", "d-md-block"], [1, "status", "mb-2"], ["class", "d-flex justify-content-center align-items-center", 4, "ngIf"], [1, "d-flex", "justify-content-center", "align-items-center"], [1, "text-success", "mr-2"], ["src", "/assets/images/icon/status_success.svg", "alt", ""], [1, "text-warning", "mr-2"], ["src", "/assets/images/icon/status_warning.svg", "alt", ""], [1, "text-danger", "mr-2"], ["src", "/assets/images/icon/status_danger.svg", "alt", ""], [1, "mr-2", "mr-md-0"], ["src", "/assets/images/icon/status_undefined.svg", "alt", ""], [1, "mb-2", "text-small"], [1, "status"], ["class", "d-flex justify-content-center align-items-center mb-2", 4, "ngIf"], [1, "d-flex", "justify-content-center", "align-items-center", "mb-2"]],
         template: function PurchasePerformanceComponent_Template(rf, ctx) {
           if (rf & 1) {
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "div", 0);
@@ -10216,7 +10247,7 @@
 
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](20, PurchasePerformanceComponent_div_20_Template, 3, 5, "div", 9);
 
-            _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](21, PurchasePerformanceComponent_div_21_Template, 9, 6, "div", 10);
+            _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](21, PurchasePerformanceComponent_div_21_Template, 5, 4, "div", 10);
 
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](22, "div", 11);
 
@@ -11727,12 +11758,12 @@
         }, {
           key: "update",
           value: function update() {
-            var _this11 = this;
+            var _this12 = this;
 
             this.updateProcess();
             var time = 1000;
             this.timer = setTimeout(function () {
-              _this11.update();
+              _this12.update();
             }, time);
           }
         }, {
