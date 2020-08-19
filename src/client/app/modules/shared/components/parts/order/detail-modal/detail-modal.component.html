@@ -145,7 +145,7 @@
     <div class="buttons mx-auto text-center">
         <a *ngFor="let link of environment.ORDER_LINK" class="btn btn-primary btn-block py-3 mb-3" target="_blank"
             [href]="createOrderLink(order, link)">{{ link.name | changeLanguage }}</a>
-        <button type="button" class="btn btn-link btn-sm"
+        <button type="button" class="btn btn-outline-primary btn-block py-3 btn-sm"
             (click)="modal.hide()">{{ 'common.close' | translate }}</button>
     </div>
 
