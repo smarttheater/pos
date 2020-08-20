@@ -12,8 +12,8 @@
 | `REDIS_KEY`                         | true     |                               | redis key                               |
 | `STORAGE_URL`                       | true     |                               | storage url                             |
 | `API_ENDPOINT`                      | true     |                               | api endpoint                            |
-| `CLIENT_ID_OAUTH2`                  | true     |                               | client id oauth2                        |
-| `CLIENT_SECRET_OAUTH2`              | true     |                               | client secret oauth2                    |
-| `OAUTH2_SERVER_DOMAIN`              | true     |                               | oauth2 server domain                    |
+| `AUTHORIZATION_CODE_CLIENT_ID`      | true     |                               | client id oauth2                        |
+| `AUTHORIZATION_CODE_CLIENT_SECRET`  | true     |                               | client secret oauth2                    |
+| `AUTHORIZATION_CODE_DOMAIN`         | true     |                               | oauth2 server domain                    |
 | `WAITER_SERVER_URL`                 | true     |                               | waiter server url                       |
 | `DEBUG`                             | false    |                               | debug                                   |

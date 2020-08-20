@@ -54,7 +54,7 @@
             (click)="onSubmit()">{{ 'purchase.cinema.seat.next' | translate }}</button>
         <button *ngIf="environment.PURCHASE_TERMS" type="submit" class="btn btn-primary btn-block py-3 mb-3" [disabled]="isLoading | async"
             (click)="onSubmit()">{{ 'purchase.cinema.seat.consent' | translate }}</button>
-        <button type="button" class="btn btn-link"
+        <button type="button" class="btn btn-outline-primary btn-block py-3"
             routerLink="/purchase/cinema/schedule">{{ 'purchase.cinema.seat.prev' | translate }}</button>
     </div>
 
