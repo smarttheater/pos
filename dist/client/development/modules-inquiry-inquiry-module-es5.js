@@ -445,15 +445,13 @@
       }
 
       var InquiryConfirmComponent = /*#__PURE__*/function () {
-        function InquiryConfirmComponent(store, router, userService, utilService, orderService, reservationService, translate) {
+        function InquiryConfirmComponent(store, router, actionService, utilService, translate) {
           _classCallCheck(this, InquiryConfirmComponent);
 
           this.store = store;
           this.router = router;
-          this.userService = userService;
+          this.actionService = actionService;
           this.utilService = utilService;
-          this.orderService = orderService;
-          this.reservationService = reservationService;
           this.translate = translate;
           this.moment = moment__WEBPACK_IMPORTED_MODULE_5__;
           this.orderStatus = _cinerino_sdk__WEBPACK_IMPORTED_MODULE_2__["factory"].orderStatus;
@@ -512,12 +510,12 @@
                         case 0:
                           _context.prev = 0;
                           _context.next = 3;
-                          return this.userService.getData();
+                          return this.actionService.user.getData();
 
                         case 3:
                           userData = _context.sent;
                           _context.next = 6;
-                          return this.orderService.getData();
+                          return this.actionService.order.getData();
 
                         case 6:
                           orderData = _context.sent;
@@ -536,14 +534,14 @@
 
                         case 11:
                           _context.next = 13;
-                          return this.orderService.cancel({
+                          return this.actionService.order.cancel({
                             orders: [order],
                             language: userData.language
                           });
 
                         case 13:
                           _context.next = 15;
-                          return this.orderService.inquiry({
+                          return this.actionService.order.inquiry({
                             confirmationNumber: order.confirmationNumber,
                             customer: {
                               telephone: order.customer.telephone
@@ -610,12 +608,12 @@
 
                       _context2.prev = 7;
                       _context2.next = 10;
-                      return this.orderService.getData();
+                      return this.actionService.order.getData();
 
                     case 10:
                       orderData = _context2.sent;
                       _context2.next = 13;
-                      return this.userService.getData();
+                      return this.actionService.user.getData();
 
                     case 13:
                       user = _context2.sent;
@@ -647,14 +645,14 @@
                         return itemOffered.reservationNumber;
                       });
                       _context2.next = 22;
-                      return this.reservationService.search({
+                      return this.actionService.reservation.search({
                         typeOf: _cinerino_sdk__WEBPACK_IMPORTED_MODULE_2__["factory"].chevre.reservationType.EventReservation,
                         reservationNumbers: reservationNumbers
                       });
 
                     case 22:
                       _context2.next = 24;
-                      return this.reservationService.getData();
+                      return this.actionService.reservation.getData();
 
                     case 24:
                       reservationData = _context2.sent;
@@ -679,7 +677,7 @@
                       pos = user.pos;
                       printer = user.printer;
                       _context2.next = 34;
-                      return this.orderService.print({
+                      return this.actionService.order.print({
                         orders: orders,
                         pos: pos,
                         printer: printer
@@ -713,7 +711,7 @@
       }();
 
       InquiryConfirmComponent.ɵfac = function InquiryConfirmComponent_Factory(t) {
-        return new (t || InquiryConfirmComponent)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_ngrx_store__WEBPACK_IMPORTED_MODULE_3__["Store"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_router__WEBPACK_IMPORTED_MODULE_1__["Router"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_services__WEBPACK_IMPORTED_MODULE_8__["UserService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_services__WEBPACK_IMPORTED_MODULE_8__["UtilService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_services__WEBPACK_IMPORTED_MODULE_8__["OrderService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_services__WEBPACK_IMPORTED_MODULE_8__["ReservationService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_ngx_translate_core__WEBPACK_IMPORTED_MODULE_4__["TranslateService"]));
+        return new (t || InquiryConfirmComponent)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_ngrx_store__WEBPACK_IMPORTED_MODULE_3__["Store"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_router__WEBPACK_IMPORTED_MODULE_1__["Router"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_services__WEBPACK_IMPORTED_MODULE_8__["ActionService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_services__WEBPACK_IMPORTED_MODULE_8__["UtilService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_ngx_translate_core__WEBPACK_IMPORTED_MODULE_4__["TranslateService"]));
       };
 
       InquiryConfirmComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineComponent"]({
@@ -942,13 +940,9 @@
           }, {
             type: _angular_router__WEBPACK_IMPORTED_MODULE_1__["Router"]
           }, {
-            type: _services__WEBPACK_IMPORTED_MODULE_8__["UserService"]
+            type: _services__WEBPACK_IMPORTED_MODULE_8__["ActionService"]
           }, {
             type: _services__WEBPACK_IMPORTED_MODULE_8__["UtilService"]
-          }, {
-            type: _services__WEBPACK_IMPORTED_MODULE_8__["OrderService"]
-          }, {
-            type: _services__WEBPACK_IMPORTED_MODULE_8__["ReservationService"]
           }, {
             type: _ngx_translate_core__WEBPACK_IMPORTED_MODULE_4__["TranslateService"]
           }];
@@ -1407,13 +1401,13 @@
       }
 
       var InquiryInputComponent = /*#__PURE__*/function () {
-        function InquiryInputComponent(store, formBuilder, utilService, orderService, router, translate) {
+        function InquiryInputComponent(store, formBuilder, utilService, actionService, router, translate) {
           _classCallCheck(this, InquiryInputComponent);
 
           this.store = store;
           this.formBuilder = formBuilder;
           this.utilService = utilService;
-          this.orderService = orderService;
+          this.actionService = actionService;
           this.router = router;
           this.translate = translate;
           this.environment = Object(_environments_environment__WEBPACK_IMPORTED_MODULE_7__["getEnvironment"])();
@@ -1525,7 +1519,7 @@
                       telephone = this.environment.INQUIRY_INPUT_KEYPAD ? this.inquiryForm.controls.telephone.value : this.inquiryForm.controls.telephone.value.e164Number;
                       _context3.prev = 7;
                       _context3.next = 10;
-                      return this.orderService.inquiry({
+                      return this.actionService.order.inquiry({
                         confirmationNumber: confirmationNumber,
                         customer: {
                           telephone: telephone
@@ -1578,7 +1572,7 @@
       }();
 
       InquiryInputComponent.ɵfac = function InquiryInputComponent_Factory(t) {
-        return new (t || InquiryInputComponent)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_ngrx_store__WEBPACK_IMPORTED_MODULE_3__["Store"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_forms__WEBPACK_IMPORTED_MODULE_1__["FormBuilder"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_services__WEBPACK_IMPORTED_MODULE_8__["UtilService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_services__WEBPACK_IMPORTED_MODULE_8__["OrderService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_router__WEBPACK_IMPORTED_MODULE_2__["Router"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_ngx_translate_core__WEBPACK_IMPORTED_MODULE_4__["TranslateService"]));
+        return new (t || InquiryInputComponent)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_ngrx_store__WEBPACK_IMPORTED_MODULE_3__["Store"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_forms__WEBPACK_IMPORTED_MODULE_1__["FormBuilder"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_services__WEBPACK_IMPORTED_MODULE_8__["UtilService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_services__WEBPACK_IMPORTED_MODULE_8__["ActionService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_router__WEBPACK_IMPORTED_MODULE_2__["Router"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_ngx_translate_core__WEBPACK_IMPORTED_MODULE_4__["TranslateService"]));
       };
 
       InquiryInputComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineComponent"]({
@@ -1771,7 +1765,7 @@
           }, {
             type: _services__WEBPACK_IMPORTED_MODULE_8__["UtilService"]
           }, {
-            type: _services__WEBPACK_IMPORTED_MODULE_8__["OrderService"]
+            type: _services__WEBPACK_IMPORTED_MODULE_8__["ActionService"]
           }, {
             type: _angular_router__WEBPACK_IMPORTED_MODULE_2__["Router"]
           }, {

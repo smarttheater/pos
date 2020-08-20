@@ -784,19 +784,18 @@
       "./app/modules/shared/components/parts/loading/loading.component.ts");
 
       var AuthSignoutComponent = /*#__PURE__*/function () {
-        function AuthSignoutComponent(router, purchaseService, orderService) {
+        function AuthSignoutComponent(router, actionService) {
           _classCallCheck(this, AuthSignoutComponent);
 
           this.router = router;
-          this.purchaseService = purchaseService;
-          this.orderService = orderService;
+          this.actionService = actionService;
         }
 
         _createClass(AuthSignoutComponent, [{
           key: "ngOnInit",
           value: function ngOnInit() {
-            this.orderService["delete"]();
-            this.purchaseService["delete"]();
+            this.actionService.order["delete"]();
+            this.actionService.purchase["delete"]();
             this.router.navigate(['/']);
           }
         }, {
@@ -808,7 +807,7 @@
       }();
 
       AuthSignoutComponent.ɵfac = function AuthSignoutComponent_Factory(t) {
-        return new (t || AuthSignoutComponent)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_router__WEBPACK_IMPORTED_MODULE_1__["Router"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_services__WEBPACK_IMPORTED_MODULE_2__["PurchaseService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_services__WEBPACK_IMPORTED_MODULE_2__["OrderService"]));
+        return new (t || AuthSignoutComponent)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_router__WEBPACK_IMPORTED_MODULE_1__["Router"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_services__WEBPACK_IMPORTED_MODULE_2__["ActionService"]));
       };
 
       AuthSignoutComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineComponent"]({
@@ -843,9 +842,7 @@
           return [{
             type: _angular_router__WEBPACK_IMPORTED_MODULE_1__["Router"]
           }, {
-            type: _services__WEBPACK_IMPORTED_MODULE_2__["PurchaseService"]
-          }, {
-            type: _services__WEBPACK_IMPORTED_MODULE_2__["OrderService"]
+            type: _services__WEBPACK_IMPORTED_MODULE_2__["ActionService"]
           }];
         }, null);
       })();

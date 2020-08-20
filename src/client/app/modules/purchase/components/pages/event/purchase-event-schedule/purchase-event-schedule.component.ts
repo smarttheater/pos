@@ -8,7 +8,7 @@ import { BsDatepickerContainerComponent, BsDatepickerDirective, BsLocaleService 
 import { Observable } from 'rxjs';
 import { Functions } from '../../../../../..';
 import { getEnvironment } from '../../../../../../../environments/environment';
-import { MasterService, PurchaseService, UserService } from '../../../../../../services';
+import { ActionService, MasterService } from '../../../../../../services';
 import * as reducers from '../../../../../../store/reducers';
 
 @Component({
@@ -33,9 +33,8 @@ export class PurchaseEventScheduleComponent implements OnInit, OnDestroy {
     constructor(
         private store: Store<reducers.IState>,
         private router: Router,
-        private purchaseService: PurchaseService,
+        private actionService: ActionService,
         private masterService: MasterService,
-        private userService: UserService,
         private localeService: BsLocaleService
     ) { }
 
@@ -55,10 +54,10 @@ export class PurchaseEventScheduleComponent implements OnInit, OnDestroy {
                 .toDate();
         }
         try {
-            if ((await this.purchaseService.getData()).transaction === undefined) {
+            if ((await this.actionService.purchase.getData()).transaction === undefined) {
                 return;
             }
-            await this.purchaseService.cancelTransaction();
+            await this.actionService.purchase.cancelTransaction();
         } catch (error) {
             console.error(error);
         }
@@ -92,7 +91,7 @@ export class PurchaseEventScheduleComponent implements OnInit, OnDestroy {
             this.scheduleDate = date;
         }
         try {
-            const user = await this.userService.getData();
+            const user = await this.actionService.user.getData();
             const theater = user.theater;
             if (theater === undefined) {
                 this.router.navigate(['/error']);
@@ -104,7 +103,7 @@ export class PurchaseEventScheduleComponent implements OnInit, OnDestroy {
                     .toDate();
             }
             const scheduleDate = moment(this.scheduleDate).format('YYYY-MM-DD');
-            this.purchaseService.selectScheduleDate(scheduleDate);
+            this.actionService.purchase.selectScheduleDate(scheduleDate);
             this.screeningEvents = await this.masterService.getSchedule({
                 superEvent: { locationBranchCodes: [theater.branchCode] },
                 startFrom: moment(scheduleDate).toDate(),
@@ -123,7 +122,7 @@ export class PurchaseEventScheduleComponent implements OnInit, OnDestroy {
      */
     public async onSubmit() {
         try {
-            const user = await this.userService.getData();
+            const user = await this.actionService.user.getData();
             if (user.theater === undefined) {
                 throw new Error('user.theater === undefined');
             }
@@ -135,15 +134,15 @@ export class PurchaseEventScheduleComponent implements OnInit, OnDestroy {
                 || screeningEvent.offers.seller.id === undefined) {
                 throw new Error('screeningEvent.offers.seller === undefined');
             }
-            await this.purchaseService.getSeller(screeningEvent.offers.seller.id);
+            await this.actionService.purchase.getSeller(screeningEvent.offers.seller.id);
         } catch (error) {
             console.error(error);
             this.router.navigate(['/error']);
         }
         try {
-            const purchase = await this.purchaseService.getData();
-            const user = await this.userService.getData();
-            await this.purchaseService.startTransaction({
+            const purchase = await this.actionService.purchase.getData();
+            const user = await this.actionService.user.getData();
+            await this.actionService.purchase.startTransaction({
                 seller: <factory.chevre.seller.ISeller>purchase.seller,
                 pos: user.pos
             });

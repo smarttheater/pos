@@ -128,9 +128,9 @@ var __awaiter = (undefined && undefined.__awaiter) || function (thisArg, _argume
 
 
 class PurchaseTransactionGuardService {
-    constructor(router, purchaseService) {
+    constructor(router, actionService) {
         this.router = router;
-        this.purchaseService = purchaseService;
+        this.actionService = actionService;
     }
     /**
      * 認証
@@ -140,7 +140,7 @@ class PurchaseTransactionGuardService {
     canActivate() {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                const transaction = (yield this.purchaseService.getData()).transaction;
+                const transaction = (yield this.actionService.purchase.getData()).transaction;
                 if (transaction === undefined) {
                     throw new Error('transaction not found').message;
                 }
@@ -154,14 +154,14 @@ class PurchaseTransactionGuardService {
         });
     }
 }
-PurchaseTransactionGuardService.ɵfac = function PurchaseTransactionGuardService_Factory(t) { return new (t || PurchaseTransactionGuardService)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵinject"](_angular_router__WEBPACK_IMPORTED_MODULE_1__["Router"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵinject"](_services__WEBPACK_IMPORTED_MODULE_2__["PurchaseService"])); };
+PurchaseTransactionGuardService.ɵfac = function PurchaseTransactionGuardService_Factory(t) { return new (t || PurchaseTransactionGuardService)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵinject"](_angular_router__WEBPACK_IMPORTED_MODULE_1__["Router"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵinject"](_services__WEBPACK_IMPORTED_MODULE_2__["ActionService"])); };
 PurchaseTransactionGuardService.ɵprov = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineInjectable"]({ token: PurchaseTransactionGuardService, factory: PurchaseTransactionGuardService.ɵfac, providedIn: 'root' });
 /*@__PURE__*/ (function () { _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵsetClassMetadata"](PurchaseTransactionGuardService, [{
         type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"],
         args: [{
                 providedIn: 'root'
             }]
-    }], function () { return [{ type: _angular_router__WEBPACK_IMPORTED_MODULE_1__["Router"] }, { type: _services__WEBPACK_IMPORTED_MODULE_2__["PurchaseService"] }]; }, null); })();
+    }], function () { return [{ type: _angular_router__WEBPACK_IMPORTED_MODULE_1__["Router"] }, { type: _services__WEBPACK_IMPORTED_MODULE_2__["ActionService"] }]; }, null); })();
 
 
 /***/ }),

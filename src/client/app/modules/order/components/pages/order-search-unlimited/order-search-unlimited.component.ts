@@ -9,7 +9,7 @@ import { BsModalService } from 'ngx-bootstrap/modal';
 import { Observable } from 'rxjs';
 import { Functions, Models } from '../../../../..';
 import { getEnvironment } from '../../../../../../environments/environment';
-import { OrderService, UserService, UtilService } from '../../../../../services';
+import { ActionService, UtilService } from '../../../../../services';
 import * as reducers from '../../../../../store/reducers';
 import { OrderDetailModalComponent } from '../../../../shared/components/parts/order/detail-modal/detail-modal.component';
 
@@ -46,8 +46,7 @@ export class OrderSearchUnlimitedComponent implements OnInit {
         private modal: BsModalService,
         private router: Router,
         private utilService: UtilService,
-        private userService: UserService,
-        private orderService: OrderService,
+        private actionService: ActionService,
         private translate: TranslateService,
         private localeService: BsLocaleService,
     ) { }
@@ -63,7 +62,7 @@ export class OrderSearchUnlimitedComponent implements OnInit {
         this.currentPage = 1;
         this.limit = 20;
         this.searchConditionClear();
-        this.orderService.delete();
+        this.actionService.order.delete();
     }
 
     /**
@@ -143,10 +142,10 @@ export class OrderSearchUnlimitedComponent implements OnInit {
             this.orders = [];
             const params = Functions.Order.input2OrderSearchCondition({
                 input: this.confirmedConditions,
-                theater: (await this.userService.getData()).theater,
+                theater: (await this.actionService.user.getData()).theater,
                 limit: this.limit
             });
-            const searchResult = await this.orderService.splitSearch(params);
+            const searchResult = await this.actionService.order.splitSearch(params);
             this.totalCount = searchResult.totalCount;
             for (let i = 0; i < Math.ceil(searchResult.data.length / this.limit); i++) {
                 this.orders.push(searchResult.data.slice(
@@ -203,14 +202,14 @@ export class OrderSearchUnlimitedComponent implements OnInit {
             body: this.translate.instant('order.search.confirm.print'),
             cb: async () => {
                 try {
-                    const user = await this.userService.getData();
+                    const user = await this.actionService.user.getData();
                     if (user.pos === undefined || user.printer === undefined) {
                         this.router.navigate(['/error']);
                         return;
                     }
                     const pos = user.pos;
                     const printer = user.printer;
-                    await this.orderService.print({ orders, pos, printer });
+                    await this.actionService.order.print({ orders, pos, printer });
                 } catch (error) {
                     console.error(error);
                     this.utilService.openAlert({
@@ -234,8 +233,8 @@ export class OrderSearchUnlimitedComponent implements OnInit {
             body: this.translate.instant('order.search.confirm.cancel'),
             cb: async () => {
                 try {
-                    const userData = await this.userService.getData();
-                    await this.orderService.cancel({ orders, language: userData.language });
+                    const userData = await this.actionService.user.getData();
+                    await this.actionService.order.cancel({ orders, language: userData.language });
                     this.orderSearch(false, { page: this.confirmedConditions.page });
                 } catch (error) {
                     console.error(error);
@@ -278,8 +277,8 @@ export class OrderSearchUnlimitedComponent implements OnInit {
                 body: this.translate.instant('order.search.confirm.cancel'),
                 cb: async () => {
                     try {
-                        const userData = await this.userService.getData();
-                        await this.orderService.cancel({
+                        const userData = await this.actionService.user.getData();
+                        await this.actionService.order.cancel({
                             orders: this.selectedOrders,
                             language: userData.language
                         });
@@ -303,7 +302,7 @@ export class OrderSearchUnlimitedComponent implements OnInit {
                 body: this.translate.instant('order.search.confirm.print'),
                 cb: async () => {
                     try {
-                        const user = await this.userService.getData();
+                        const user = await this.actionService.user.getData();
                         if (user.pos === undefined || user.printer === undefined) {
                             this.router.navigate(['/error']);
                             return;
@@ -311,7 +310,7 @@ export class OrderSearchUnlimitedComponent implements OnInit {
                         const pos = user.pos;
                         const printer = user.printer;
                         const orders = this.selectedOrders;
-                        await this.orderService.print({ orders, pos, printer });
+                        await this.actionService.order.print({ orders, pos, printer });
                     } catch (error) {
                         console.error(error);
                         this.utilService.openAlert({

@@ -8,7 +8,7 @@ import { BsDatepickerContainerComponent } from 'ngx-bootstrap/datepicker/themes/
 import { Observable } from 'rxjs';
 import { Functions, Models } from '../../../../..';
 import { getEnvironment } from '../../../../../../environments/environment';
-import { DownloadService, OrderService, UserService, UtilService } from '../../../../../services';
+import { ActionService, DownloadService, UtilService } from '../../../../../services';
 import * as reducers from '../../../../../store/reducers';
 
 @Component({
@@ -41,11 +41,10 @@ export class OrderDownloadComponent implements OnInit {
     constructor(
         private store: Store<reducers.IOrderState>,
         private utilService: UtilService,
-        private orderService: OrderService,
+        private actionService: ActionService,
         private downloadService: DownloadService,
         private translate: TranslateService,
         private localeService: BsLocaleService,
-        private userService: UserService
     ) { }
 
     public ngOnInit() {
@@ -73,7 +72,7 @@ export class OrderDownloadComponent implements OnInit {
             posId: '',
             page: 1
         };
-        this.orderService.delete();
+        this.actionService.order.delete();
     }
 
     /**
@@ -118,7 +117,7 @@ export class OrderDownloadComponent implements OnInit {
         try {
             const params = Functions.Order.input2OrderSearchCondition({
                 input: this.confirmedConditions,
-                theater: (await this.userService.getData()).theater,
+                theater: (await this.actionService.user.getData()).theater,
             });
             await this.downloadService.order(params);
         } catch (error) {

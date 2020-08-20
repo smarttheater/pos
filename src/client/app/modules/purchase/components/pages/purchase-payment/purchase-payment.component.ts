@@ -6,7 +6,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 import { Models } from '../../../../..';
 import { getEnvironment } from '../../../../../../environments/environment';
-import { PurchaseService, UtilService } from '../../../../../services';
+import { ActionService, UtilService } from '../../../../../services';
 import * as reducers from '../../../../../store/reducers';
 
 @Component({
@@ -24,7 +24,7 @@ export class PurchasePaymentComponent implements OnInit {
         private store: Store<reducers.IState>,
         private router: Router,
         private utilService: UtilService,
-        private purchaseService: PurchaseService,
+        private actionService: ActionService,
         private translate: TranslateService
     ) { }
 
@@ -40,7 +40,7 @@ export class PurchasePaymentComponent implements OnInit {
         category?: string
     ) {
         try {
-            const seller = (await this.purchaseService.getData()).seller;
+            const seller = (await this.actionService.purchase.getData()).seller;
             if (seller === undefined
                 || seller.paymentAccepted === undefined) {
                 throw new Error('seller is undefined or paymentAccepted is undefined');
@@ -54,7 +54,7 @@ export class PurchasePaymentComponent implements OnInit {
                 });
                 return;
             }
-            this.purchaseService.selectPaymentMethodType({ typeOf, category });
+            this.actionService.purchase.selectPaymentMethodType({ typeOf, category });
             this.router.navigate(['/purchase/confirm']);
         } catch (error) {
             this.router.navigate(['/error']);

@@ -298,11 +298,11 @@
 
 
       var PurchaseTransactionGuardService = /*#__PURE__*/function () {
-        function PurchaseTransactionGuardService(router, purchaseService) {
+        function PurchaseTransactionGuardService(router, actionService) {
           _classCallCheck(this, PurchaseTransactionGuardService);
 
           this.router = router;
-          this.purchaseService = purchaseService;
+          this.actionService = actionService;
         }
         /**
          * 認証
@@ -322,7 +322,7 @@
                     case 0:
                       _context2.prev = 0;
                       _context2.next = 3;
-                      return this.purchaseService.getData();
+                      return this.actionService.purchase.getData();
 
                     case 3:
                       transaction = _context2.sent.transaction;
@@ -358,7 +358,7 @@
       }();
 
       PurchaseTransactionGuardService.ɵfac = function PurchaseTransactionGuardService_Factory(t) {
-        return new (t || PurchaseTransactionGuardService)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵinject"](_angular_router__WEBPACK_IMPORTED_MODULE_1__["Router"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵinject"](_services__WEBPACK_IMPORTED_MODULE_2__["PurchaseService"]));
+        return new (t || PurchaseTransactionGuardService)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵinject"](_angular_router__WEBPACK_IMPORTED_MODULE_1__["Router"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵinject"](_services__WEBPACK_IMPORTED_MODULE_2__["ActionService"]));
       };
 
       PurchaseTransactionGuardService.ɵprov = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineInjectable"]({
@@ -378,7 +378,7 @@
           return [{
             type: _angular_router__WEBPACK_IMPORTED_MODULE_1__["Router"]
           }, {
-            type: _services__WEBPACK_IMPORTED_MODULE_2__["PurchaseService"]
+            type: _services__WEBPACK_IMPORTED_MODULE_2__["ActionService"]
           }];
         }, null);
       })();

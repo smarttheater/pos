@@ -70,14 +70,13 @@ function OrderDownloadComponent_option_120_Template(rf, ctx) { if (rf & 1) {
 } }
 const _c4 = function () { return { dateInputFormat: "YYYY/MM/DD", adaptivePosition: true, showWeekNumbers: false }; };
 class OrderDownloadComponent {
-    constructor(store, utilService, orderService, downloadService, translate, localeService, userService) {
+    constructor(store, utilService, actionService, downloadService, translate, localeService) {
         this.store = store;
         this.utilService = utilService;
-        this.orderService = orderService;
+        this.actionService = actionService;
         this.downloadService = downloadService;
         this.translate = translate;
         this.localeService = localeService;
-        this.userService = userService;
         this.moment = moment__WEBPACK_IMPORTED_MODULE_4__;
         this.orderStatus = _cinerino_sdk__WEBPACK_IMPORTED_MODULE_1__["factory"].orderStatus;
         this.paymentMethodType = _cinerino_sdk__WEBPACK_IMPORTED_MODULE_1__["factory"].paymentMethodType;
@@ -112,7 +111,7 @@ class OrderDownloadComponent {
             posId: '',
             page: 1
         };
-        this.orderService.delete();
+        this.actionService.order.delete();
     }
     /**
      * ダウンロード
@@ -157,7 +156,7 @@ class OrderDownloadComponent {
             try {
                 const params = ___WEBPACK_IMPORTED_MODULE_6__["Functions"].Order.input2OrderSearchCondition({
                     input: this.confirmedConditions,
-                    theater: (yield this.userService.getData()).theater,
+                    theater: (yield this.actionService.user.getData()).theater,
                 });
                 yield this.downloadService.order(params);
             }
@@ -221,7 +220,7 @@ class OrderDownloadComponent {
         ]);
     }
 }
-OrderDownloadComponent.ɵfac = function OrderDownloadComponent_Factory(t) { return new (t || OrderDownloadComponent)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_ngrx_store__WEBPACK_IMPORTED_MODULE_2__["Store"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_services__WEBPACK_IMPORTED_MODULE_8__["UtilService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_services__WEBPACK_IMPORTED_MODULE_8__["OrderService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_services__WEBPACK_IMPORTED_MODULE_8__["DownloadService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_ngx_translate_core__WEBPACK_IMPORTED_MODULE_3__["TranslateService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](ngx_bootstrap_datepicker__WEBPACK_IMPORTED_MODULE_5__["BsLocaleService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_services__WEBPACK_IMPORTED_MODULE_8__["UserService"])); };
+OrderDownloadComponent.ɵfac = function OrderDownloadComponent_Factory(t) { return new (t || OrderDownloadComponent)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_ngrx_store__WEBPACK_IMPORTED_MODULE_2__["Store"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_services__WEBPACK_IMPORTED_MODULE_8__["UtilService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_services__WEBPACK_IMPORTED_MODULE_8__["ActionService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_services__WEBPACK_IMPORTED_MODULE_8__["DownloadService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_ngx_translate_core__WEBPACK_IMPORTED_MODULE_3__["TranslateService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](ngx_bootstrap_datepicker__WEBPACK_IMPORTED_MODULE_5__["BsLocaleService"])); };
 OrderDownloadComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineComponent"]({ type: OrderDownloadComponent, selectors: [["app-order-download"]], viewQuery: function OrderDownloadComponent_Query(rf, ctx) { if (rf & 1) {
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵstaticViewQuery"](_c0, true);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵstaticViewQuery"](_c1, true);
@@ -565,7 +564,7 @@ OrderDownloadComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵd
                 templateUrl: './order-download.component.html',
                 styleUrls: ['./order-download.component.scss']
             }]
-    }], function () { return [{ type: _ngrx_store__WEBPACK_IMPORTED_MODULE_2__["Store"] }, { type: _services__WEBPACK_IMPORTED_MODULE_8__["UtilService"] }, { type: _services__WEBPACK_IMPORTED_MODULE_8__["OrderService"] }, { type: _services__WEBPACK_IMPORTED_MODULE_8__["DownloadService"] }, { type: _ngx_translate_core__WEBPACK_IMPORTED_MODULE_3__["TranslateService"] }, { type: ngx_bootstrap_datepicker__WEBPACK_IMPORTED_MODULE_5__["BsLocaleService"] }, { type: _services__WEBPACK_IMPORTED_MODULE_8__["UserService"] }]; }, { orderDateFrom: [{
+    }], function () { return [{ type: _ngrx_store__WEBPACK_IMPORTED_MODULE_2__["Store"] }, { type: _services__WEBPACK_IMPORTED_MODULE_8__["UtilService"] }, { type: _services__WEBPACK_IMPORTED_MODULE_8__["ActionService"] }, { type: _services__WEBPACK_IMPORTED_MODULE_8__["DownloadService"] }, { type: _ngx_translate_core__WEBPACK_IMPORTED_MODULE_3__["TranslateService"] }, { type: ngx_bootstrap_datepicker__WEBPACK_IMPORTED_MODULE_5__["BsLocaleService"] }]; }, { orderDateFrom: [{
             type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["ViewChild"],
             args: ['orderDateFrom', { static: true }]
         }], orderDateThrough: [{
@@ -1049,13 +1048,12 @@ function OrderSearchUnlimitedComponent_div_131_Template(rf, ctx) { if (rf & 1) {
 } }
 const _c6 = function () { return { dateInputFormat: "YYYY/MM/DD", adaptivePosition: true, showWeekNumbers: false }; };
 class OrderSearchUnlimitedComponent {
-    constructor(store, modal, router, utilService, userService, orderService, translate, localeService) {
+    constructor(store, modal, router, utilService, actionService, translate, localeService) {
         this.store = store;
         this.modal = modal;
         this.router = router;
         this.utilService = utilService;
-        this.userService = userService;
-        this.orderService = orderService;
+        this.actionService = actionService;
         this.translate = translate;
         this.localeService = localeService;
         this.moment = moment__WEBPACK_IMPORTED_MODULE_5__;
@@ -1076,7 +1074,7 @@ class OrderSearchUnlimitedComponent {
         this.currentPage = 1;
         this.limit = 20;
         this.searchConditionClear();
-        this.orderService.delete();
+        this.actionService.order.delete();
     }
     /**
      * 選択判定
@@ -1152,10 +1150,10 @@ class OrderSearchUnlimitedComponent {
                 this.orders = [];
                 const params = ___WEBPACK_IMPORTED_MODULE_8__["Functions"].Order.input2OrderSearchCondition({
                     input: this.confirmedConditions,
-                    theater: (yield this.userService.getData()).theater,
+                    theater: (yield this.actionService.user.getData()).theater,
                     limit: this.limit
                 });
-                const searchResult = yield this.orderService.splitSearch(params);
+                const searchResult = yield this.actionService.order.splitSearch(params);
                 this.totalCount = searchResult.totalCount;
                 for (let i = 0; i < Math.ceil(searchResult.data.length / this.limit); i++) {
                     this.orders.push(searchResult.data.slice(i * this.limit, ((i + 1) * this.limit < searchResult.data.length) ? (i + 1) * this.limit : searchResult.data.length));
@@ -1209,14 +1207,14 @@ class OrderSearchUnlimitedComponent {
             body: this.translate.instant('order.search.confirm.print'),
             cb: () => __awaiter(this, void 0, void 0, function* () {
                 try {
-                    const user = yield this.userService.getData();
+                    const user = yield this.actionService.user.getData();
                     if (user.pos === undefined || user.printer === undefined) {
                         this.router.navigate(['/error']);
                         return;
                     }
                     const pos = user.pos;
                     const printer = user.printer;
-                    yield this.orderService.print({ orders, pos, printer });
+                    yield this.actionService.order.print({ orders, pos, printer });
                 }
                 catch (error) {
                     console.error(error);
@@ -1240,8 +1238,8 @@ class OrderSearchUnlimitedComponent {
             body: this.translate.instant('order.search.confirm.cancel'),
             cb: () => __awaiter(this, void 0, void 0, function* () {
                 try {
-                    const userData = yield this.userService.getData();
-                    yield this.orderService.cancel({ orders, language: userData.language });
+                    const userData = yield this.actionService.user.getData();
+                    yield this.actionService.order.cancel({ orders, language: userData.language });
                     this.orderSearch(false, { page: this.confirmedConditions.page });
                 }
                 catch (error) {
@@ -1283,8 +1281,8 @@ class OrderSearchUnlimitedComponent {
                 body: this.translate.instant('order.search.confirm.cancel'),
                 cb: () => __awaiter(this, void 0, void 0, function* () {
                     try {
-                        const userData = yield this.userService.getData();
-                        yield this.orderService.cancel({
+                        const userData = yield this.actionService.user.getData();
+                        yield this.actionService.order.cancel({
                             orders: this.selectedOrders,
                             language: userData.language
                         });
@@ -1310,7 +1308,7 @@ class OrderSearchUnlimitedComponent {
                 body: this.translate.instant('order.search.confirm.print'),
                 cb: () => __awaiter(this, void 0, void 0, function* () {
                     try {
-                        const user = yield this.userService.getData();
+                        const user = yield this.actionService.user.getData();
                         if (user.pos === undefined || user.printer === undefined) {
                             this.router.navigate(['/error']);
                             return;
@@ -1318,7 +1316,7 @@ class OrderSearchUnlimitedComponent {
                         const pos = user.pos;
                         const printer = user.printer;
                         const orders = this.selectedOrders;
-                        yield this.orderService.print({ orders, pos, printer });
+                        yield this.actionService.order.print({ orders, pos, printer });
                     }
                     catch (error) {
                         console.error(error);
@@ -1354,7 +1352,7 @@ class OrderSearchUnlimitedComponent {
         ]);
     }
 }
-OrderSearchUnlimitedComponent.ɵfac = function OrderSearchUnlimitedComponent_Factory(t) { return new (t || OrderSearchUnlimitedComponent)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_ngrx_store__WEBPACK_IMPORTED_MODULE_3__["Store"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](ngx_bootstrap_modal__WEBPACK_IMPORTED_MODULE_7__["BsModalService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_router__WEBPACK_IMPORTED_MODULE_1__["Router"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_services__WEBPACK_IMPORTED_MODULE_10__["UtilService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_services__WEBPACK_IMPORTED_MODULE_10__["UserService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_services__WEBPACK_IMPORTED_MODULE_10__["OrderService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_ngx_translate_core__WEBPACK_IMPORTED_MODULE_4__["TranslateService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](ngx_bootstrap_datepicker__WEBPACK_IMPORTED_MODULE_6__["BsLocaleService"])); };
+OrderSearchUnlimitedComponent.ɵfac = function OrderSearchUnlimitedComponent_Factory(t) { return new (t || OrderSearchUnlimitedComponent)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_ngrx_store__WEBPACK_IMPORTED_MODULE_3__["Store"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](ngx_bootstrap_modal__WEBPACK_IMPORTED_MODULE_7__["BsModalService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_router__WEBPACK_IMPORTED_MODULE_1__["Router"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_services__WEBPACK_IMPORTED_MODULE_10__["UtilService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_services__WEBPACK_IMPORTED_MODULE_10__["ActionService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_ngx_translate_core__WEBPACK_IMPORTED_MODULE_4__["TranslateService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](ngx_bootstrap_datepicker__WEBPACK_IMPORTED_MODULE_6__["BsLocaleService"])); };
 OrderSearchUnlimitedComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineComponent"]({ type: OrderSearchUnlimitedComponent, selectors: [["app-order-search-unlimited"]], viewQuery: function OrderSearchUnlimitedComponent_Query(rf, ctx) { if (rf & 1) {
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵstaticViewQuery"](_c0, true);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵstaticViewQuery"](_c1, true);
@@ -1704,7 +1702,7 @@ OrderSearchUnlimitedComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__
                 templateUrl: './order-search-unlimited.component.html',
                 styleUrls: ['./order-search-unlimited.component.scss']
             }]
-    }], function () { return [{ type: _ngrx_store__WEBPACK_IMPORTED_MODULE_3__["Store"] }, { type: ngx_bootstrap_modal__WEBPACK_IMPORTED_MODULE_7__["BsModalService"] }, { type: _angular_router__WEBPACK_IMPORTED_MODULE_1__["Router"] }, { type: _services__WEBPACK_IMPORTED_MODULE_10__["UtilService"] }, { type: _services__WEBPACK_IMPORTED_MODULE_10__["UserService"] }, { type: _services__WEBPACK_IMPORTED_MODULE_10__["OrderService"] }, { type: _ngx_translate_core__WEBPACK_IMPORTED_MODULE_4__["TranslateService"] }, { type: ngx_bootstrap_datepicker__WEBPACK_IMPORTED_MODULE_6__["BsLocaleService"] }]; }, { orderDateFrom: [{
+    }], function () { return [{ type: _ngrx_store__WEBPACK_IMPORTED_MODULE_3__["Store"] }, { type: ngx_bootstrap_modal__WEBPACK_IMPORTED_MODULE_7__["BsModalService"] }, { type: _angular_router__WEBPACK_IMPORTED_MODULE_1__["Router"] }, { type: _services__WEBPACK_IMPORTED_MODULE_10__["UtilService"] }, { type: _services__WEBPACK_IMPORTED_MODULE_10__["ActionService"] }, { type: _ngx_translate_core__WEBPACK_IMPORTED_MODULE_4__["TranslateService"] }, { type: ngx_bootstrap_datepicker__WEBPACK_IMPORTED_MODULE_6__["BsLocaleService"] }]; }, { orderDateFrom: [{
             type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["ViewChild"],
             args: ['orderDateFrom', { static: true }]
         }], orderDateThrough: [{
@@ -2083,12 +2081,11 @@ function OrderSearchComponent_div_143_Template(rf, ctx) { if (rf & 1) {
 } }
 const _c5 = function () { return { dateInputFormat: "YYYY/MM/DD", adaptivePosition: true, showWeekNumbers: false }; };
 class OrderSearchComponent {
-    constructor(store, modal, utilService, userService, orderService, translate, localeService) {
+    constructor(store, modal, utilService, actionService, translate, localeService) {
         this.store = store;
         this.modal = modal;
         this.utilService = utilService;
-        this.userService = userService;
-        this.orderService = orderService;
+        this.actionService = actionService;
         this.translate = translate;
         this.localeService = localeService;
         this.moment = moment__WEBPACK_IMPORTED_MODULE_4__;
@@ -2111,7 +2108,7 @@ class OrderSearchComponent {
         this.currentPage = 1;
         this.limit = 20;
         this.searchConditionClear();
-        this.orderService.delete();
+        this.actionService.order.delete();
     }
     /**
      * 選択判定
@@ -2190,12 +2187,12 @@ class OrderSearchComponent {
             try {
                 const params = ___WEBPACK_IMPORTED_MODULE_7__["Functions"].Order.input2OrderSearchCondition({
                     input: this.confirmedConditions,
-                    theater: (yield this.userService.getData()).theater,
+                    theater: (yield this.actionService.user.getData()).theater,
                     page: this.currentPage,
                     limit: this.limit
                 });
-                this.orders = (yield this.orderService.search(params)).data;
-                this.nextOrders = (yield this.orderService.search(Object.assign(Object.assign({}, params), { page: (this.currentPage + 1) }))).data;
+                this.orders = (yield this.actionService.order.search(params)).data;
+                this.nextOrders = (yield this.actionService.order.search(Object.assign(Object.assign({}, params), { page: (this.currentPage + 1) }))).data;
                 const totalCount = (this.nextOrders.length === 0)
                     ? this.currentPage * this.limit : (this.currentPage + 1) * this.limit;
                 this.totalCount = (this.totalCount < totalCount) ? totalCount : this.totalCount;
@@ -2247,13 +2244,13 @@ class OrderSearchComponent {
             body: this.translate.instant('order.search.confirm.print'),
             cb: () => __awaiter(this, void 0, void 0, function* () {
                 try {
-                    const user = yield this.userService.getData();
+                    const user = yield this.actionService.user.getData();
                     if (user.printer === undefined) {
                         throw new Error('printer undefined');
                     }
                     const pos = user.pos;
                     const printer = user.printer;
-                    yield this.orderService.print({ orders, pos, printer });
+                    yield this.actionService.order.print({ orders, pos, printer });
                 }
                 catch (error) {
                     console.error(error);
@@ -2279,8 +2276,8 @@ class OrderSearchComponent {
             code,
             cb: () => __awaiter(this, void 0, void 0, function* () {
                 try {
-                    const userData = yield this.userService.getData();
-                    yield this.orderService.cancel({ orders, language: userData.language });
+                    const userData = yield this.actionService.user.getData();
+                    yield this.actionService.order.cancel({ orders, language: userData.language });
                     this.orderSearch(false, { page: this.confirmedConditions.page });
                 }
                 catch (error) {
@@ -2325,8 +2322,8 @@ class OrderSearchComponent {
                 code,
                 cb: () => __awaiter(this, void 0, void 0, function* () {
                     try {
-                        const userData = yield this.userService.getData();
-                        yield this.orderService.cancel({
+                        const userData = yield this.actionService.user.getData();
+                        yield this.actionService.order.cancel({
                             orders: this.selectedOrders,
                             language: userData.language
                         });
@@ -2352,14 +2349,14 @@ class OrderSearchComponent {
                 body: this.translate.instant('order.search.confirm.print'),
                 cb: () => __awaiter(this, void 0, void 0, function* () {
                     try {
-                        const user = yield this.userService.getData();
+                        const user = yield this.actionService.user.getData();
                         if (user.printer === undefined) {
                             throw new Error('printer undefined');
                         }
                         const pos = user.pos;
                         const printer = user.printer;
                         const orders = this.selectedOrders;
-                        yield this.orderService.print({ orders, pos, printer });
+                        yield this.actionService.order.print({ orders, pos, printer });
                     }
                     catch (error) {
                         console.error(error);
@@ -2395,7 +2392,7 @@ class OrderSearchComponent {
         ]);
     }
 }
-OrderSearchComponent.ɵfac = function OrderSearchComponent_Factory(t) { return new (t || OrderSearchComponent)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_ngrx_store__WEBPACK_IMPORTED_MODULE_2__["Store"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](ngx_bootstrap_modal__WEBPACK_IMPORTED_MODULE_6__["BsModalService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_services__WEBPACK_IMPORTED_MODULE_9__["UtilService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_services__WEBPACK_IMPORTED_MODULE_9__["UserService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_services__WEBPACK_IMPORTED_MODULE_9__["OrderService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_ngx_translate_core__WEBPACK_IMPORTED_MODULE_3__["TranslateService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](ngx_bootstrap_datepicker__WEBPACK_IMPORTED_MODULE_5__["BsLocaleService"])); };
+OrderSearchComponent.ɵfac = function OrderSearchComponent_Factory(t) { return new (t || OrderSearchComponent)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_ngrx_store__WEBPACK_IMPORTED_MODULE_2__["Store"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](ngx_bootstrap_modal__WEBPACK_IMPORTED_MODULE_6__["BsModalService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_services__WEBPACK_IMPORTED_MODULE_9__["UtilService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_services__WEBPACK_IMPORTED_MODULE_9__["ActionService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_ngx_translate_core__WEBPACK_IMPORTED_MODULE_3__["TranslateService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](ngx_bootstrap_datepicker__WEBPACK_IMPORTED_MODULE_5__["BsLocaleService"])); };
 OrderSearchComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineComponent"]({ type: OrderSearchComponent, selectors: [["app-order-search"]], viewQuery: function OrderSearchComponent_Query(rf, ctx) { if (rf & 1) {
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵstaticViewQuery"](_c0, true);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵstaticViewQuery"](_c1, true);
@@ -2769,7 +2766,7 @@ OrderSearchComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdef
                 templateUrl: './order-search.component.html',
                 styleUrls: ['./order-search.component.scss']
             }]
-    }], function () { return [{ type: _ngrx_store__WEBPACK_IMPORTED_MODULE_2__["Store"] }, { type: ngx_bootstrap_modal__WEBPACK_IMPORTED_MODULE_6__["BsModalService"] }, { type: _services__WEBPACK_IMPORTED_MODULE_9__["UtilService"] }, { type: _services__WEBPACK_IMPORTED_MODULE_9__["UserService"] }, { type: _services__WEBPACK_IMPORTED_MODULE_9__["OrderService"] }, { type: _ngx_translate_core__WEBPACK_IMPORTED_MODULE_3__["TranslateService"] }, { type: ngx_bootstrap_datepicker__WEBPACK_IMPORTED_MODULE_5__["BsLocaleService"] }]; }, { orderDateFrom: [{
+    }], function () { return [{ type: _ngrx_store__WEBPACK_IMPORTED_MODULE_2__["Store"] }, { type: ngx_bootstrap_modal__WEBPACK_IMPORTED_MODULE_6__["BsModalService"] }, { type: _services__WEBPACK_IMPORTED_MODULE_9__["UtilService"] }, { type: _services__WEBPACK_IMPORTED_MODULE_9__["ActionService"] }, { type: _ngx_translate_core__WEBPACK_IMPORTED_MODULE_3__["TranslateService"] }, { type: ngx_bootstrap_datepicker__WEBPACK_IMPORTED_MODULE_5__["BsLocaleService"] }]; }, { orderDateFrom: [{
             type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["ViewChild"],
             args: ['orderDateFrom', { static: true }]
         }], orderDateThrough: [{

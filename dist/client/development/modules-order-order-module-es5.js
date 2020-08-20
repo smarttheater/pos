@@ -184,16 +184,15 @@
       };
 
       var OrderDownloadComponent = /*#__PURE__*/function () {
-        function OrderDownloadComponent(store, utilService, orderService, downloadService, translate, localeService, userService) {
+        function OrderDownloadComponent(store, utilService, actionService, downloadService, translate, localeService) {
           _classCallCheck(this, OrderDownloadComponent);
 
           this.store = store;
           this.utilService = utilService;
-          this.orderService = orderService;
+          this.actionService = actionService;
           this.downloadService = downloadService;
           this.translate = translate;
           this.localeService = localeService;
-          this.userService = userService;
           this.moment = moment__WEBPACK_IMPORTED_MODULE_4__;
           this.orderStatus = _cinerino_sdk__WEBPACK_IMPORTED_MODULE_1__["factory"].orderStatus;
           this.paymentMethodType = _cinerino_sdk__WEBPACK_IMPORTED_MODULE_1__["factory"].paymentMethodType;
@@ -231,7 +230,7 @@
               posId: '',
               page: 1
             };
-            this.orderService["delete"]();
+            this.actionService.order["delete"]();
           }
           /**
            * ダウンロード
@@ -283,7 +282,7 @@
                       _context.t0 = ___WEBPACK_IMPORTED_MODULE_6__["Functions"].Order;
                       _context.t1 = this.confirmedConditions;
                       _context.next = 14;
-                      return this.userService.getData();
+                      return this.actionService.user.getData();
 
                     case 14:
                       _context.t2 = _context.sent.theater;
@@ -380,7 +379,7 @@
       }();
 
       OrderDownloadComponent.ɵfac = function OrderDownloadComponent_Factory(t) {
-        return new (t || OrderDownloadComponent)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_ngrx_store__WEBPACK_IMPORTED_MODULE_2__["Store"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_services__WEBPACK_IMPORTED_MODULE_8__["UtilService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_services__WEBPACK_IMPORTED_MODULE_8__["OrderService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_services__WEBPACK_IMPORTED_MODULE_8__["DownloadService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_ngx_translate_core__WEBPACK_IMPORTED_MODULE_3__["TranslateService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](ngx_bootstrap_datepicker__WEBPACK_IMPORTED_MODULE_5__["BsLocaleService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_services__WEBPACK_IMPORTED_MODULE_8__["UserService"]));
+        return new (t || OrderDownloadComponent)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_ngrx_store__WEBPACK_IMPORTED_MODULE_2__["Store"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_services__WEBPACK_IMPORTED_MODULE_8__["UtilService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_services__WEBPACK_IMPORTED_MODULE_8__["ActionService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_services__WEBPACK_IMPORTED_MODULE_8__["DownloadService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_ngx_translate_core__WEBPACK_IMPORTED_MODULE_3__["TranslateService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](ngx_bootstrap_datepicker__WEBPACK_IMPORTED_MODULE_5__["BsLocaleService"]));
       };
 
       OrderDownloadComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineComponent"]({
@@ -1123,15 +1122,13 @@
           }, {
             type: _services__WEBPACK_IMPORTED_MODULE_8__["UtilService"]
           }, {
-            type: _services__WEBPACK_IMPORTED_MODULE_8__["OrderService"]
+            type: _services__WEBPACK_IMPORTED_MODULE_8__["ActionService"]
           }, {
             type: _services__WEBPACK_IMPORTED_MODULE_8__["DownloadService"]
           }, {
             type: _ngx_translate_core__WEBPACK_IMPORTED_MODULE_3__["TranslateService"]
           }, {
             type: ngx_bootstrap_datepicker__WEBPACK_IMPORTED_MODULE_5__["BsLocaleService"]
-          }, {
-            type: _services__WEBPACK_IMPORTED_MODULE_8__["UserService"]
           }];
         }, {
           orderDateFrom: [{
@@ -2225,15 +2222,14 @@
       };
 
       var OrderSearchUnlimitedComponent = /*#__PURE__*/function () {
-        function OrderSearchUnlimitedComponent(store, modal, router, utilService, userService, orderService, translate, localeService) {
+        function OrderSearchUnlimitedComponent(store, modal, router, utilService, actionService, translate, localeService) {
           _classCallCheck(this, OrderSearchUnlimitedComponent);
 
           this.store = store;
           this.modal = modal;
           this.router = router;
           this.utilService = utilService;
-          this.userService = userService;
-          this.orderService = orderService;
+          this.actionService = actionService;
           this.translate = translate;
           this.localeService = localeService;
           this.moment = moment__WEBPACK_IMPORTED_MODULE_5__;
@@ -2257,7 +2253,7 @@
             this.currentPage = 1;
             this.limit = 20;
             this.searchConditionClear();
-            this.orderService["delete"]();
+            this.actionService.order["delete"]();
           }
           /**
            * 選択判定
@@ -2356,7 +2352,7 @@
                       _context2.t0 = ___WEBPACK_IMPORTED_MODULE_8__["Functions"].Order;
                       _context2.t1 = this.confirmedConditions;
                       _context2.next = 17;
-                      return this.userService.getData();
+                      return this.actionService.user.getData();
 
                     case 17:
                       _context2.t2 = _context2.sent.theater;
@@ -2368,7 +2364,7 @@
                       };
                       params = _context2.t0.input2OrderSearchCondition.call(_context2.t0, _context2.t4);
                       _context2.next = 23;
-                      return this.orderService.splitSearch(params);
+                      return this.actionService.order.splitSearch(params);
 
                     case 23:
                       searchResult = _context2.sent;
@@ -2452,7 +2448,7 @@
                         case 0:
                           _context3.prev = 0;
                           _context3.next = 3;
-                          return this.userService.getData();
+                          return this.actionService.user.getData();
 
                         case 3:
                           user = _context3.sent;
@@ -2469,7 +2465,7 @@
                           pos = user.pos;
                           printer = user.printer;
                           _context3.next = 11;
-                          return this.orderService.print({
+                          return this.actionService.order.print({
                             orders: orders,
                             pos: pos,
                             printer: printer
@@ -2519,12 +2515,12 @@
                         case 0:
                           _context4.prev = 0;
                           _context4.next = 3;
-                          return this.userService.getData();
+                          return this.actionService.user.getData();
 
                         case 3:
                           userData = _context4.sent;
                           _context4.next = 6;
-                          return this.orderService.cancel({
+                          return this.actionService.order.cancel({
                             orders: orders,
                             language: userData.language
                           });
@@ -2598,12 +2594,12 @@
                           case 0:
                             _context5.prev = 0;
                             _context5.next = 3;
-                            return this.userService.getData();
+                            return this.actionService.user.getData();
 
                           case 3:
                             userData = _context5.sent;
                             _context5.next = 6;
-                            return this.orderService.cancel({
+                            return this.actionService.order.cancel({
                               orders: this.selectedOrders,
                               language: userData.language
                             });
@@ -2646,7 +2642,7 @@
                           case 0:
                             _context6.prev = 0;
                             _context6.next = 3;
-                            return this.userService.getData();
+                            return this.actionService.user.getData();
 
                           case 3:
                             user = _context6.sent;
@@ -2664,7 +2660,7 @@
                             printer = user.printer;
                             orders = this.selectedOrders;
                             _context6.next = 12;
-                            return this.orderService.print({
+                            return this.actionService.order.print({
                               orders: orders,
                               pos: pos,
                               printer: printer
@@ -2722,7 +2718,7 @@
       }();
 
       OrderSearchUnlimitedComponent.ɵfac = function OrderSearchUnlimitedComponent_Factory(t) {
-        return new (t || OrderSearchUnlimitedComponent)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_ngrx_store__WEBPACK_IMPORTED_MODULE_3__["Store"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](ngx_bootstrap_modal__WEBPACK_IMPORTED_MODULE_7__["BsModalService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_router__WEBPACK_IMPORTED_MODULE_1__["Router"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_services__WEBPACK_IMPORTED_MODULE_10__["UtilService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_services__WEBPACK_IMPORTED_MODULE_10__["UserService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_services__WEBPACK_IMPORTED_MODULE_10__["OrderService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_ngx_translate_core__WEBPACK_IMPORTED_MODULE_4__["TranslateService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](ngx_bootstrap_datepicker__WEBPACK_IMPORTED_MODULE_6__["BsLocaleService"]));
+        return new (t || OrderSearchUnlimitedComponent)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_ngrx_store__WEBPACK_IMPORTED_MODULE_3__["Store"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](ngx_bootstrap_modal__WEBPACK_IMPORTED_MODULE_7__["BsModalService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_router__WEBPACK_IMPORTED_MODULE_1__["Router"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_services__WEBPACK_IMPORTED_MODULE_10__["UtilService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_services__WEBPACK_IMPORTED_MODULE_10__["ActionService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_ngx_translate_core__WEBPACK_IMPORTED_MODULE_4__["TranslateService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](ngx_bootstrap_datepicker__WEBPACK_IMPORTED_MODULE_6__["BsLocaleService"]));
       };
 
       OrderSearchUnlimitedComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineComponent"]({
@@ -3481,9 +3477,7 @@
           }, {
             type: _services__WEBPACK_IMPORTED_MODULE_10__["UtilService"]
           }, {
-            type: _services__WEBPACK_IMPORTED_MODULE_10__["UserService"]
-          }, {
-            type: _services__WEBPACK_IMPORTED_MODULE_10__["OrderService"]
+            type: _services__WEBPACK_IMPORTED_MODULE_10__["ActionService"]
           }, {
             type: _ngx_translate_core__WEBPACK_IMPORTED_MODULE_4__["TranslateService"]
           }, {
@@ -4356,14 +4350,13 @@
       };
 
       var OrderSearchComponent = /*#__PURE__*/function () {
-        function OrderSearchComponent(store, modal, utilService, userService, orderService, translate, localeService) {
+        function OrderSearchComponent(store, modal, utilService, actionService, translate, localeService) {
           _classCallCheck(this, OrderSearchComponent);
 
           this.store = store;
           this.modal = modal;
           this.utilService = utilService;
-          this.userService = userService;
-          this.orderService = orderService;
+          this.actionService = actionService;
           this.translate = translate;
           this.localeService = localeService;
           this.moment = moment__WEBPACK_IMPORTED_MODULE_4__;
@@ -4389,7 +4382,7 @@
             this.currentPage = 1;
             this.limit = 20;
             this.searchConditionClear();
-            this.orderService["delete"]();
+            this.actionService.order["delete"]();
           }
           /**
            * 選択判定
@@ -4491,7 +4484,7 @@
                       _context7.t0 = ___WEBPACK_IMPORTED_MODULE_7__["Functions"].Order;
                       _context7.t1 = this.confirmedConditions;
                       _context7.next = 15;
-                      return this.userService.getData();
+                      return this.actionService.user.getData();
 
                     case 15:
                       _context7.t2 = _context7.sent.theater;
@@ -4505,12 +4498,12 @@
                       };
                       params = _context7.t0.input2OrderSearchCondition.call(_context7.t0, _context7.t5);
                       _context7.next = 22;
-                      return this.orderService.search(params);
+                      return this.actionService.order.search(params);
 
                     case 22:
                       this.orders = _context7.sent.data;
                       _context7.next = 25;
-                      return this.orderService.search(Object.assign(Object.assign({}, params), {
+                      return this.actionService.order.search(Object.assign(Object.assign({}, params), {
                         page: this.currentPage + 1
                       }));
 
@@ -4591,7 +4584,7 @@
                         case 0:
                           _context8.prev = 0;
                           _context8.next = 3;
-                          return this.userService.getData();
+                          return this.actionService.user.getData();
 
                         case 3:
                           user = _context8.sent;
@@ -4607,7 +4600,7 @@
                           pos = user.pos;
                           printer = user.printer;
                           _context8.next = 10;
-                          return this.orderService.print({
+                          return this.actionService.order.print({
                             orders: orders,
                             pos: pos,
                             printer: printer
@@ -4662,12 +4655,12 @@
                         case 0:
                           _context9.prev = 0;
                           _context9.next = 3;
-                          return this.userService.getData();
+                          return this.actionService.user.getData();
 
                         case 3:
                           userData = _context9.sent;
                           _context9.next = 6;
-                          return this.orderService.cancel({
+                          return this.actionService.order.cancel({
                             orders: orders,
                             language: userData.language
                           });
@@ -4747,12 +4740,12 @@
                           case 0:
                             _context10.prev = 0;
                             _context10.next = 3;
-                            return this.userService.getData();
+                            return this.actionService.user.getData();
 
                           case 3:
                             userData = _context10.sent;
                             _context10.next = 6;
-                            return this.orderService.cancel({
+                            return this.actionService.order.cancel({
                               orders: this.selectedOrders,
                               language: userData.language
                             });
@@ -4795,7 +4788,7 @@
                           case 0:
                             _context11.prev = 0;
                             _context11.next = 3;
-                            return this.userService.getData();
+                            return this.actionService.user.getData();
 
                           case 3:
                             user = _context11.sent;
@@ -4812,7 +4805,7 @@
                             printer = user.printer;
                             orders = this.selectedOrders;
                             _context11.next = 11;
-                            return this.orderService.print({
+                            return this.actionService.order.print({
                               orders: orders,
                               pos: pos,
                               printer: printer
@@ -4870,7 +4863,7 @@
       }();
 
       OrderSearchComponent.ɵfac = function OrderSearchComponent_Factory(t) {
-        return new (t || OrderSearchComponent)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_ngrx_store__WEBPACK_IMPORTED_MODULE_2__["Store"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](ngx_bootstrap_modal__WEBPACK_IMPORTED_MODULE_6__["BsModalService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_services__WEBPACK_IMPORTED_MODULE_9__["UtilService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_services__WEBPACK_IMPORTED_MODULE_9__["UserService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_services__WEBPACK_IMPORTED_MODULE_9__["OrderService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_ngx_translate_core__WEBPACK_IMPORTED_MODULE_3__["TranslateService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](ngx_bootstrap_datepicker__WEBPACK_IMPORTED_MODULE_5__["BsLocaleService"]));
+        return new (t || OrderSearchComponent)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_ngrx_store__WEBPACK_IMPORTED_MODULE_2__["Store"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](ngx_bootstrap_modal__WEBPACK_IMPORTED_MODULE_6__["BsModalService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_services__WEBPACK_IMPORTED_MODULE_9__["UtilService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_services__WEBPACK_IMPORTED_MODULE_9__["ActionService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_ngx_translate_core__WEBPACK_IMPORTED_MODULE_3__["TranslateService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](ngx_bootstrap_datepicker__WEBPACK_IMPORTED_MODULE_5__["BsLocaleService"]));
       };
 
       OrderSearchComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineComponent"]({
@@ -5683,9 +5676,7 @@
           }, {
             type: _services__WEBPACK_IMPORTED_MODULE_9__["UtilService"]
           }, {
-            type: _services__WEBPACK_IMPORTED_MODULE_9__["UserService"]
-          }, {
-            type: _services__WEBPACK_IMPORTED_MODULE_9__["OrderService"]
+            type: _services__WEBPACK_IMPORTED_MODULE_9__["ActionService"]
           }, {
             type: _ngx_translate_core__WEBPACK_IMPORTED_MODULE_3__["TranslateService"]
           }, {

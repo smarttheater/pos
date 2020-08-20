@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { PurchaseService } from '../../../../../services';
+import { ActionService } from '../../../../../services';
 
 @Component({
     selector: 'app-expired',
@@ -9,11 +9,11 @@ import { PurchaseService } from '../../../../../services';
 export class ExpiredComponent implements OnInit {
 
     constructor(
-        private purchaseService: PurchaseService
+        private actionService: ActionService
     ) { }
 
     public ngOnInit() {
-        this.purchaseService.delete();
+        this.actionService.purchase.delete();
     }
 
 }

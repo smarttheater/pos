@@ -8,7 +8,7 @@ import { BsModalService } from 'ngx-bootstrap/modal';
 import { Observable } from 'rxjs';
 import { Functions, Models } from '../../../../..';
 import { getEnvironment } from '../../../../../../environments/environment';
-import { ReservationService, UserService, UtilService } from '../../../../../services';
+import { ActionService, UtilService } from '../../../../../services';
 import * as reducers from '../../../../../store/reducers';
 import {
     ReservationDetailModalComponent
@@ -44,9 +44,8 @@ export class ReservationSearchComponent implements OnInit {
         private modal: BsModalService,
         private localeService: BsLocaleService,
         private utilService: UtilService,
-        private reservationService: ReservationService,
+        private actionService: ActionService,
         private translate: TranslateService,
-        private userService: UserService
     ) { }
 
     public ngOnInit() {
@@ -59,7 +58,7 @@ export class ReservationSearchComponent implements OnInit {
         this.currentPage = 1;
         this.limit = 20;
         this.searchConditionClear();
-        this.reservationService.delete();
+        this.actionService.reservation.delete();
     }
 
     /**
@@ -102,7 +101,7 @@ export class ReservationSearchComponent implements OnInit {
         try {
             const params = Functions.Reservation.input2ReservationSearchCondition({
                 input: this.confirmedConditions,
-                theater: (await this.userService.getData()).theater,
+                theater: (await this.actionService.user.getData()).theater,
                 page: this.currentPage,
                 limit: this.limit
             });
@@ -112,8 +111,8 @@ export class ReservationSearchComponent implements OnInit {
                 // 予約日の範囲が14日以上
                 throw new Error('reservation date wrong date range').message;
             }
-            this.reservations = (await this.reservationService.search(params)).data;
-            this.nextReservations = (await this.reservationService.search({ ...params, page: (this.currentPage + 1) })).data;
+            this.reservations = (await this.actionService.reservation.search(params)).data;
+            this.nextReservations = (await this.actionService.reservation.search({ ...params, page: (this.currentPage + 1) })).data;
             const totalCount = (this.nextReservations.length === 0)
                 ? this.currentPage * this.limit : (this.currentPage + 1) * this.limit;
             this.totalCount = (this.totalCount < totalCount) ? totalCount : this.totalCount;

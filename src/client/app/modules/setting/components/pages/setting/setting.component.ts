@@ -8,7 +8,7 @@ import { CountryISO, NgxIntlTelInputComponent, SearchCountryField, TooltipLabel,
 import { Observable } from 'rxjs';
 import { Models } from '../../../../..';
 import { getEnvironment } from '../../../../../../environments/environment';
-import { MasterService, OrderService, UserService, UtilService } from '../../../../../services';
+import { ActionService, MasterService, UtilService } from '../../../../../services';
 import * as reducers from '../../../../../store/reducers';
 import { LibphonenumberFormatPipe } from '../../../../shared/pipes/libphonenumber-format.pipe';
 
@@ -38,9 +38,8 @@ export class SettingComponent implements OnInit {
         private formBuilder: FormBuilder,
         private store: Store<reducers.IState>,
         private utilService: UtilService,
-        private userService: UserService,
+        private actionService: ActionService,
         private masterService: MasterService,
-        private orderService: OrderService,
         private translate: TranslateService,
         private router: Router
     ) { }
@@ -103,7 +102,7 @@ export class SettingComponent implements OnInit {
             }
             this.settingForm.addControl(p.key, new FormControl(p.value, validators));
         });
-        const user = await this.userService.getData();
+        const user = await this.actionService.user.getData();
         if (user.theater !== undefined) {
             this.settingForm.controls.theaterBranchCode.setValue(user.theater.branchCode);
             this.changePosList();
@@ -196,7 +195,7 @@ export class SettingComponent implements OnInit {
                     value: this.settingForm.controls[key].value
                 });
             });
-            this.userService.updateAll({
+            this.actionService.user.updateAll({
                 pos,
                 theater,
                 customerContact: {
@@ -240,7 +239,7 @@ export class SettingComponent implements OnInit {
             ipAddress: this.settingForm.controls.printerIpAddress.value
         };
         try {
-            await this.orderService.print({ orders: [], printer });
+            await this.actionService.order.print({ orders: [], printer });
         } catch (error) {
             console.error(error);
             this.utilService.openAlert({

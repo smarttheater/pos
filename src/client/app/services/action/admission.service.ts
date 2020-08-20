@@ -5,8 +5,8 @@ import { select, Store } from '@ngrx/store';
 import * as moment from 'moment';
 import { Observable, race } from 'rxjs';
 import { take, tap } from 'rxjs/operators';
-import { admissionAction } from '../store/actions';
-import * as reducers from '../store/reducers';
+import { admissionAction } from '../../store/actions';
+import * as reducers from '../../store/reducers';
 
 @Injectable({
     providedIn: 'root'
