@@ -592,9 +592,9 @@ function AdmissionCheckComponent_div_8_Template(rf, ctx) { if (rf & 1) {
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtextInterpolate1"](" ", (tmp_17_0 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipeBind1"](65, 80, ctx_r1.admission)) == null ? null : tmp_17_0.screeningEvent.attendeeCount, " ");
 } }
 class AdmissionCheckComponent {
-    constructor(store, admissionService, utilService, qrcodeService, translate) {
+    constructor(store, actionService, utilService, qrcodeService, translate) {
         this.store = store;
-        this.admissionService = admissionService;
+        this.actionService = actionService;
         this.utilService = utilService;
         this.qrcodeService = qrcodeService;
         this.translate = translate;
@@ -605,7 +605,7 @@ class AdmissionCheckComponent {
         this.inputCode = '';
         this.isLoading = this.store.pipe(Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_1__["select"])(_store_reducers__WEBPACK_IMPORTED_MODULE_6__["getLoading"]));
         this.admission = this.store.pipe(Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_1__["select"])(_store_reducers__WEBPACK_IMPORTED_MODULE_6__["getAdmission"]));
-        this.admissionService.initializeQrcodeToken();
+        this.actionService.admission.initializeQrcodeToken();
     }
     ngOnDestroy() {
         clearInterval(this.updateLoop);
@@ -629,7 +629,7 @@ class AdmissionCheckComponent {
     check(code) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                yield this.admissionService.checkQrcodeToken(code);
+                yield this.actionService.admission.checkQrcodeToken(code);
             }
             catch (error) {
                 console.error(error);
@@ -651,15 +651,15 @@ class AdmissionCheckComponent {
         const loopTime = 600000; // 10分に一回
         clearInterval(this.updateLoop);
         this.updateLoop = setInterval(() => __awaiter(this, void 0, void 0, function* () {
-            const { screeningEvent } = yield this.admissionService.getData();
+            const { screeningEvent } = yield this.actionService.admission.getData();
             if (screeningEvent === undefined) {
                 return;
             }
-            yield this.admissionService.getScreeningEvent(screeningEvent);
+            yield this.actionService.admission.getScreeningEvent(screeningEvent);
         }), loopTime);
     }
 }
-AdmissionCheckComponent.ɵfac = function AdmissionCheckComponent_Factory(t) { return new (t || AdmissionCheckComponent)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_ngrx_store__WEBPACK_IMPORTED_MODULE_1__["Store"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_services__WEBPACK_IMPORTED_MODULE_5__["AdmissionService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_services__WEBPACK_IMPORTED_MODULE_5__["UtilService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_services__WEBPACK_IMPORTED_MODULE_5__["QRCodeService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_ngx_translate_core__WEBPACK_IMPORTED_MODULE_2__["TranslateService"])); };
+AdmissionCheckComponent.ɵfac = function AdmissionCheckComponent_Factory(t) { return new (t || AdmissionCheckComponent)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_ngrx_store__WEBPACK_IMPORTED_MODULE_1__["Store"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_services__WEBPACK_IMPORTED_MODULE_5__["ActionService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_services__WEBPACK_IMPORTED_MODULE_5__["UtilService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_services__WEBPACK_IMPORTED_MODULE_5__["QRCodeService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_ngx_translate_core__WEBPACK_IMPORTED_MODULE_2__["TranslateService"])); };
 AdmissionCheckComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineComponent"]({ type: AdmissionCheckComponent, selectors: [["app-admission-check"]], hostBindings: function AdmissionCheckComponent_HostBindings(rf, ctx) { if (rf & 1) {
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵlistener"]("keypress", function AdmissionCheckComponent_keypress_HostBindingHandler($event) { return ctx.handleKeyboardEvent($event); }, false, _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵresolveDocument"]);
     } }, decls: 14, vars: 12, consts: [[1, "contents-width", "mx-auto", "px-3", "pt-4"], [1, "buttons", "mx-auto", "text-center", "mb-4"], ["type", "button", 1, "btn", "btn-success", "btn-block", "py-3", 3, "click"], ["class", "mb-4", 4, "ngIf"], [1, "contents-width", "mx-auto", "px-3", "pb-5"], ["class", "mb-4 bg-white", 4, "ngIf"], [1, "buttons", "mx-auto", "text-center"], ["type", "button", "routerLink", "/admission/schedule", 1, "btn", "btn-outline-primary", "btn-block", "py-3"], [1, "mb-4"], [4, "ngIf"], ["class", "p-4 bg-dark text-white text-center", 4, "ngIf"], ["class", "position-relative p-4 bg-success text-white text-center", 4, "ngIf"], ["class", "p-4 bg-danger text-white text-center", 4, "ngIf"], [1, "position-relative", "p-4", "bg-success", "text-white", "text-center"], [1, "color", "rounded", "border", "border-white", 3, "ngStyle"], ["class", "flash-text text-xx-large font-weight-bold mb-2", 4, "ngIf"], [1, "mr-2"], [1, "flash-text", "text-xx-large", "font-weight-bold", "mb-2"], [1, "p-4", "bg-danger", "text-white", "text-center"], [1, "p-4", "bg-dark", "text-white", "text-center"], [1, "text-xx-large", "font-weight-bold", "mb-2"], [1, "mb-4", "bg-white"], [1, "p-3"], [1, "mb-2"], [1, "font-weight-bold", "text-large"], ["class", "text-small", 4, "ngIf"], [1, "d-flex", "align-items-center", "mb-2"], ["class", "text-small text-white bg-dark py-1 px-3 mr-2", 4, "ngIf"], ["class", "text-small ml-auto", 4, "ngIf"], [1, "theater-name"], [1, "screen-name"], ["class", "mr-2", 4, "ngIf"], [1, "mr-3"], [1, "text-small"], [1, "text-small", "text-white", "bg-dark", "py-1", "px-3", "mr-2"], [1, "text-small", "ml-auto"], [1, "mr-1"]], template: function AdmissionCheckComponent_Template(rf, ctx) { if (rf & 1) {
@@ -703,7 +703,7 @@ AdmissionCheckComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵ
                 templateUrl: './admission-check.component.html',
                 styleUrls: ['./admission-check.component.scss']
             }]
-    }], function () { return [{ type: _ngrx_store__WEBPACK_IMPORTED_MODULE_1__["Store"] }, { type: _services__WEBPACK_IMPORTED_MODULE_5__["AdmissionService"] }, { type: _services__WEBPACK_IMPORTED_MODULE_5__["UtilService"] }, { type: _services__WEBPACK_IMPORTED_MODULE_5__["QRCodeService"] }, { type: _ngx_translate_core__WEBPACK_IMPORTED_MODULE_2__["TranslateService"] }]; }, { handleKeyboardEvent: [{
+    }], function () { return [{ type: _ngrx_store__WEBPACK_IMPORTED_MODULE_1__["Store"] }, { type: _services__WEBPACK_IMPORTED_MODULE_5__["ActionService"] }, { type: _services__WEBPACK_IMPORTED_MODULE_5__["UtilService"] }, { type: _services__WEBPACK_IMPORTED_MODULE_5__["QRCodeService"] }, { type: _ngx_translate_core__WEBPACK_IMPORTED_MODULE_2__["TranslateService"] }]; }, { handleKeyboardEvent: [{
             type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["HostListener"],
             args: ['document:keypress', ['$event']]
         }] }); })();
@@ -794,13 +794,12 @@ function AdmissionScheduleComponent_app_admission_performances_17_Template(rf, c
 } }
 const _c1 = function () { return { dateInputFormat: "YYYY/MM/DD", adaptivePosition: true, showWeekNumbers: false }; };
 class AdmissionScheduleComponent {
-    constructor(store, router, localeService, admissionService, masterService, userService) {
+    constructor(store, router, localeService, actionService, masterService) {
         this.store = store;
         this.router = router;
         this.localeService = localeService;
-        this.admissionService = admissionService;
+        this.actionService = actionService;
         this.masterService = masterService;
-        this.userService = userService;
         this.moment = moment__WEBPACK_IMPORTED_MODULE_3__;
     }
     ngOnInit() {
@@ -831,7 +830,7 @@ class AdmissionScheduleComponent {
                 this.scheduleDate = date;
             }
             try {
-                const user = yield this.userService.getData();
+                const user = yield this.actionService.user.getData();
                 const theater = user.theater;
                 if (theater === undefined) {
                     this.router.navigate(['/error']);
@@ -841,7 +840,7 @@ class AdmissionScheduleComponent {
                     this.scheduleDate = moment__WEBPACK_IMPORTED_MODULE_3__().toDate();
                 }
                 const scheduleDate = moment__WEBPACK_IMPORTED_MODULE_3__(this.scheduleDate).format('YYYY-MM-DD');
-                this.admissionService.selectScheduleDate(scheduleDate);
+                this.actionService.admission.selectScheduleDate(scheduleDate);
                 const screeningEvents = yield this.masterService.getSchedule({
                     superEvent: { locationBranchCodes: [theater.branchCode] },
                     startFrom: moment__WEBPACK_IMPORTED_MODULE_3__(scheduleDate).toDate(),
@@ -862,7 +861,7 @@ class AdmissionScheduleComponent {
     selectSchedule(screeningEvent) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                yield this.admissionService.getScreeningEvent(screeningEvent);
+                yield this.actionService.admission.getScreeningEvent(screeningEvent);
                 this.router.navigate(['/admission/check']);
             }
             catch (error) {
@@ -875,7 +874,7 @@ class AdmissionScheduleComponent {
      * 指定なしで確認
      */
     notSpecified() {
-        this.admissionService.delete();
+        this.actionService.admission.delete();
         this.router.navigate(['/admission/check']);
     }
     /**
@@ -902,7 +901,7 @@ class AdmissionScheduleComponent {
         ]);
     }
 }
-AdmissionScheduleComponent.ɵfac = function AdmissionScheduleComponent_Factory(t) { return new (t || AdmissionScheduleComponent)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_ngrx_store__WEBPACK_IMPORTED_MODULE_2__["Store"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_router__WEBPACK_IMPORTED_MODULE_1__["Router"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](ngx_bootstrap_datepicker__WEBPACK_IMPORTED_MODULE_4__["BsLocaleService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_services__WEBPACK_IMPORTED_MODULE_6__["AdmissionService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_services__WEBPACK_IMPORTED_MODULE_6__["MasterService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_services__WEBPACK_IMPORTED_MODULE_6__["UserService"])); };
+AdmissionScheduleComponent.ɵfac = function AdmissionScheduleComponent_Factory(t) { return new (t || AdmissionScheduleComponent)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_ngrx_store__WEBPACK_IMPORTED_MODULE_2__["Store"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_router__WEBPACK_IMPORTED_MODULE_1__["Router"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](ngx_bootstrap_datepicker__WEBPACK_IMPORTED_MODULE_4__["BsLocaleService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_services__WEBPACK_IMPORTED_MODULE_6__["ActionService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_services__WEBPACK_IMPORTED_MODULE_6__["MasterService"])); };
 AdmissionScheduleComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineComponent"]({ type: AdmissionScheduleComponent, selectors: [["app-admission-schedule"]], viewQuery: function AdmissionScheduleComponent_Query(rf, ctx) { if (rf & 1) {
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵstaticViewQuery"](_c0, true);
     } if (rf & 2) {
@@ -968,7 +967,7 @@ AdmissionScheduleComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["�
                 templateUrl: './admission-schedule.component.html',
                 styleUrls: ['./admission-schedule.component.scss']
             }]
-    }], function () { return [{ type: _ngrx_store__WEBPACK_IMPORTED_MODULE_2__["Store"] }, { type: _angular_router__WEBPACK_IMPORTED_MODULE_1__["Router"] }, { type: ngx_bootstrap_datepicker__WEBPACK_IMPORTED_MODULE_4__["BsLocaleService"] }, { type: _services__WEBPACK_IMPORTED_MODULE_6__["AdmissionService"] }, { type: _services__WEBPACK_IMPORTED_MODULE_6__["MasterService"] }, { type: _services__WEBPACK_IMPORTED_MODULE_6__["UserService"] }]; }, { datepicker: [{
+    }], function () { return [{ type: _ngrx_store__WEBPACK_IMPORTED_MODULE_2__["Store"] }, { type: _angular_router__WEBPACK_IMPORTED_MODULE_1__["Router"] }, { type: ngx_bootstrap_datepicker__WEBPACK_IMPORTED_MODULE_4__["BsLocaleService"] }, { type: _services__WEBPACK_IMPORTED_MODULE_6__["ActionService"] }, { type: _services__WEBPACK_IMPORTED_MODULE_6__["MasterService"] }]; }, { datepicker: [{
             type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["ViewChild"],
             args: ['datepicker', { static: true }]
         }] }); })();

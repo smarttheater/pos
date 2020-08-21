@@ -2,9 +2,8 @@ import { Injectable } from '@angular/core';
 import { factory } from '@cinerino/sdk';
 import * as json2csv from 'json2csv';
 import { Functions } from '..';
+import { ActionService } from './action.service';
 import { CinerinoService } from './cinerino.service';
-import { OrderService } from './order.service';
-import { ReservationService } from './reservation.service';
 import { UtilService } from './util.service';
 
 @Injectable({
@@ -16,8 +15,7 @@ export class DownloadService {
     constructor(
         private cinerino: CinerinoService,
         private utilService: UtilService,
-        private orderService: OrderService,
-        private reservationService: ReservationService
+        private actionService: ActionService,
     ) { }
 
     /**
@@ -26,7 +24,7 @@ export class DownloadService {
     public async order(params: factory.order.ISearchConditions) {
         await this.cinerino.getServices();
         // カスタム
-        const searchResult = await this.orderService.splitSearch(params);
+        const searchResult = await this.actionService.order.splitSearch(params);
         const path = `/json/csv/order.json`;
         const url = (await Functions.Util.isFile(`${Functions.Util.getProject().storageUrl}${path}`))
             ? `${Functions.Util.getProject().storageUrl}${path}`
@@ -44,7 +42,7 @@ export class DownloadService {
      * 予約情報CSVダウンロード
      */
     public async reservation(params: factory.chevre.reservation.ISearchConditions<factory.chevre.reservationType.EventReservation>) {
-        const searchResult = await this.reservationService.splitSearch(params);
+        const searchResult = await this.actionService.reservation.splitSearch(params);
         const path = '/json/csv/reservation.json';
         const url = (await Functions.Util.isFile(`${Functions.Util.getProject().storageUrl}${path}`))
             ? `${Functions.Util.getProject().storageUrl}${path}`

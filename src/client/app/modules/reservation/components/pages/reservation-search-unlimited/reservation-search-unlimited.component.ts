@@ -8,7 +8,7 @@ import { BsModalService } from 'ngx-bootstrap/modal';
 import { Observable } from 'rxjs';
 import { Functions, Models } from '../../../../..';
 import { getEnvironment } from '../../../../../../environments/environment';
-import { ReservationService, UserService, UtilService } from '../../../../../services';
+import { ActionService, UtilService } from '../../../../../services';
 import * as reducers from '../../../../../store/reducers';
 import {
     ReservationDetailModalComponent
@@ -42,9 +42,8 @@ export class ReservationSearchUnlimitedComponent implements OnInit {
         private modal: BsModalService,
         private localeService: BsLocaleService,
         private utilService: UtilService,
-        private reservationService: ReservationService,
+        private actionService: ActionService,
         private translate: TranslateService,
-        private userService: UserService
     ) { }
 
     public ngOnInit() {
@@ -65,7 +64,7 @@ export class ReservationSearchUnlimitedComponent implements OnInit {
             reservationStatus: '',
             page: 1
         };
-        this.reservationService.delete();
+        this.actionService.reservation.delete();
     }
 
     /**
@@ -98,10 +97,10 @@ export class ReservationSearchUnlimitedComponent implements OnInit {
             this.reservations = [];
             const params = Functions.Reservation.input2ReservationSearchCondition({
                 input: this.confirmedConditions,
-                theater: (await this.userService.getData()).theater,
+                theater: (await this.actionService.user.getData()).theater,
                 limit: this.limit
             });
-            const searchResult = await this.reservationService.splitSearch(params);
+            const searchResult = await this.actionService.reservation.splitSearch(params);
             this.totalCount = searchResult.totalCount;
             for (let i = 0; i < Math.ceil(searchResult.data.length / this.limit); i++) {
                 this.reservations.push(searchResult.data.slice(

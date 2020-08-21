@@ -4,7 +4,7 @@ import { TranslateService } from '@ngx-translate/core';
 import * as moment from 'moment';
 import { Observable } from 'rxjs';
 import { getEnvironment } from '../../../../../../environments/environment';
-import { AdmissionService, QRCodeService, UtilService } from '../../../../../services';
+import { ActionService, QRCodeService, UtilService } from '../../../../../services';
 import * as reducers from '../../../../../store/reducers';
 
 @Component({
@@ -22,7 +22,7 @@ export class AdmissionCheckComponent implements OnInit, OnDestroy {
 
     constructor(
         private store: Store<reducers.IState>,
-        private admissionService: AdmissionService,
+        private actionService: ActionService,
         private utilService: UtilService,
         private qrcodeService: QRCodeService,
         private translate: TranslateService
@@ -32,7 +32,7 @@ export class AdmissionCheckComponent implements OnInit, OnDestroy {
         this.inputCode = '';
         this.isLoading = this.store.pipe(select(reducers.getLoading));
         this.admission = this.store.pipe(select(reducers.getAdmission));
-        this.admissionService.initializeQrcodeToken();
+        this.actionService.admission.initializeQrcodeToken();
     }
 
     public ngOnDestroy() {
@@ -58,7 +58,7 @@ export class AdmissionCheckComponent implements OnInit, OnDestroy {
      */
     public async check(code: string) {
         try {
-            await this.admissionService.checkQrcodeToken(code);
+            await this.actionService.admission.checkQrcodeToken(code);
         } catch (error) {
             console.error(error);
             this.utilService.openAlert({
@@ -80,11 +80,11 @@ export class AdmissionCheckComponent implements OnInit, OnDestroy {
         const loopTime = 600000; // 10分に一回
         clearInterval(this.updateLoop);
         this.updateLoop = setInterval(async () => {
-            const { screeningEvent } = await this.admissionService.getData();
+            const { screeningEvent } = await this.actionService.admission.getData();
             if (screeningEvent === undefined) {
                 return;
             }
-            await this.admissionService.getScreeningEvent(screeningEvent);
+            await this.actionService.admission.getScreeningEvent(screeningEvent);
         }, loopTime);
     }
 

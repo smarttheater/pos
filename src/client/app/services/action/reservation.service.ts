@@ -3,11 +3,11 @@ import { factory } from '@cinerino/sdk';
 import { select, Store } from '@ngrx/store';
 import * as moment from 'moment';
 import { Observable } from 'rxjs';
-import { Functions } from '..';
-import { reservationAction } from '../store/actions';
-import * as reducers from '../store/reducers';
-import { CinerinoService } from './cinerino.service';
-import { UtilService } from './util.service';
+import { Functions } from '../..';
+import { reservationAction } from '../../store/actions';
+import * as reducers from '../../store/reducers';
+import { CinerinoService } from '../cinerino.service';
+import { UtilService } from '../util.service';
 
 @Injectable({
     providedIn: 'root'

@@ -60,14 +60,13 @@ const _c2 = ["eventStartDateFrom"];
 const _c3 = ["eventStartDateThrough"];
 const _c4 = function () { return { dateInputFormat: "YYYY/MM/DD", adaptivePosition: true, showWeekNumbers: false }; };
 class ReservationDownloadComponent {
-    constructor(store, utilService, reservationService, downloadService, translate, localeService, userService) {
+    constructor(store, utilService, actionService, downloadService, translate, localeService) {
         this.store = store;
         this.utilService = utilService;
-        this.reservationService = reservationService;
+        this.actionService = actionService;
         this.downloadService = downloadService;
         this.translate = translate;
         this.localeService = localeService;
-        this.userService = userService;
         this.moment = moment__WEBPACK_IMPORTED_MODULE_4__;
         this.reservationStatus = _cinerino_sdk__WEBPACK_IMPORTED_MODULE_1__["factory"].chevre.reservationStatusType;
         this.environment = Object(_environments_environment__WEBPACK_IMPORTED_MODULE_7__["getEnvironment"])();
@@ -90,7 +89,7 @@ class ReservationDownloadComponent {
             reservationStatus: '',
             page: 1
         };
-        this.reservationService.delete();
+        this.actionService.reservation.delete();
     }
     /**
      * ダウンロード
@@ -118,7 +117,7 @@ class ReservationDownloadComponent {
             try {
                 const params = ___WEBPACK_IMPORTED_MODULE_6__["Functions"].Reservation.input2ReservationSearchCondition({
                     input: this.confirmedConditions,
-                    theater: (yield this.userService.getData()).theater,
+                    theater: (yield this.actionService.user.getData()).theater,
                 });
                 yield this.downloadService.reservation(params);
             }
@@ -170,7 +169,7 @@ class ReservationDownloadComponent {
         ]);
     }
 }
-ReservationDownloadComponent.ɵfac = function ReservationDownloadComponent_Factory(t) { return new (t || ReservationDownloadComponent)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_ngrx_store__WEBPACK_IMPORTED_MODULE_2__["Store"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_services__WEBPACK_IMPORTED_MODULE_8__["UtilService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_services__WEBPACK_IMPORTED_MODULE_8__["ReservationService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_services__WEBPACK_IMPORTED_MODULE_8__["DownloadService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_ngx_translate_core__WEBPACK_IMPORTED_MODULE_3__["TranslateService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](ngx_bootstrap_datepicker__WEBPACK_IMPORTED_MODULE_5__["BsLocaleService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_services__WEBPACK_IMPORTED_MODULE_8__["UserService"])); };
+ReservationDownloadComponent.ɵfac = function ReservationDownloadComponent_Factory(t) { return new (t || ReservationDownloadComponent)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_ngrx_store__WEBPACK_IMPORTED_MODULE_2__["Store"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_services__WEBPACK_IMPORTED_MODULE_8__["UtilService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_services__WEBPACK_IMPORTED_MODULE_8__["ActionService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_services__WEBPACK_IMPORTED_MODULE_8__["DownloadService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_ngx_translate_core__WEBPACK_IMPORTED_MODULE_3__["TranslateService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](ngx_bootstrap_datepicker__WEBPACK_IMPORTED_MODULE_5__["BsLocaleService"])); };
 ReservationDownloadComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineComponent"]({ type: ReservationDownloadComponent, selectors: [["app-reservation-download"]], viewQuery: function ReservationDownloadComponent_Query(rf, ctx) { if (rf & 1) {
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵstaticViewQuery"](_c0, true);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵstaticViewQuery"](_c1, true);
@@ -362,7 +361,7 @@ ReservationDownloadComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__[
                 templateUrl: './reservation-download.component.html',
                 styleUrls: ['./reservation-download.component.scss']
             }]
-    }], function () { return [{ type: _ngrx_store__WEBPACK_IMPORTED_MODULE_2__["Store"] }, { type: _services__WEBPACK_IMPORTED_MODULE_8__["UtilService"] }, { type: _services__WEBPACK_IMPORTED_MODULE_8__["ReservationService"] }, { type: _services__WEBPACK_IMPORTED_MODULE_8__["DownloadService"] }, { type: _ngx_translate_core__WEBPACK_IMPORTED_MODULE_3__["TranslateService"] }, { type: ngx_bootstrap_datepicker__WEBPACK_IMPORTED_MODULE_5__["BsLocaleService"] }, { type: _services__WEBPACK_IMPORTED_MODULE_8__["UserService"] }]; }, { reservationDateFrom: [{
+    }], function () { return [{ type: _ngrx_store__WEBPACK_IMPORTED_MODULE_2__["Store"] }, { type: _services__WEBPACK_IMPORTED_MODULE_8__["UtilService"] }, { type: _services__WEBPACK_IMPORTED_MODULE_8__["ActionService"] }, { type: _services__WEBPACK_IMPORTED_MODULE_8__["DownloadService"] }, { type: _ngx_translate_core__WEBPACK_IMPORTED_MODULE_3__["TranslateService"] }, { type: ngx_bootstrap_datepicker__WEBPACK_IMPORTED_MODULE_5__["BsLocaleService"] }]; }, { reservationDateFrom: [{
             type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["ViewChild"],
             args: ['reservationDateFrom', { static: true }]
         }], reservationDateThrough: [{
@@ -721,14 +720,13 @@ function ReservationSearchUnlimitedComponent_div_71_Template(rf, ctx) { if (rf &
 } }
 const _c6 = function () { return { dateInputFormat: "YYYY/MM/DD", adaptivePosition: true, showWeekNumbers: false }; };
 class ReservationSearchUnlimitedComponent {
-    constructor(store, modal, localeService, utilService, reservationService, translate, userService) {
+    constructor(store, modal, localeService, utilService, actionService, translate) {
         this.store = store;
         this.modal = modal;
         this.localeService = localeService;
         this.utilService = utilService;
-        this.reservationService = reservationService;
+        this.actionService = actionService;
         this.translate = translate;
-        this.userService = userService;
         this.moment = moment__WEBPACK_IMPORTED_MODULE_4__;
         this.reservationStatus = _cinerino_sdk__WEBPACK_IMPORTED_MODULE_1__["factory"].chevre.reservationStatusType;
         this.environment = Object(_environments_environment__WEBPACK_IMPORTED_MODULE_8__["getEnvironment"])();
@@ -751,7 +749,7 @@ class ReservationSearchUnlimitedComponent {
             reservationStatus: '',
             page: 1
         };
-        this.reservationService.delete();
+        this.actionService.reservation.delete();
     }
     /**
      * 検索
@@ -784,10 +782,10 @@ class ReservationSearchUnlimitedComponent {
                 this.reservations = [];
                 const params = ___WEBPACK_IMPORTED_MODULE_7__["Functions"].Reservation.input2ReservationSearchCondition({
                     input: this.confirmedConditions,
-                    theater: (yield this.userService.getData()).theater,
+                    theater: (yield this.actionService.user.getData()).theater,
                     limit: this.limit
                 });
-                const searchResult = yield this.reservationService.splitSearch(params);
+                const searchResult = yield this.actionService.reservation.splitSearch(params);
                 this.totalCount = searchResult.totalCount;
                 for (let i = 0; i < Math.ceil(searchResult.data.length / this.limit); i++) {
                     this.reservations.push(searchResult.data.slice(i * this.limit, ((i + 1) * this.limit < searchResult.data.length) ? (i + 1) * this.limit : searchResult.data.length));
@@ -849,7 +847,7 @@ class ReservationSearchUnlimitedComponent {
         ]);
     }
 }
-ReservationSearchUnlimitedComponent.ɵfac = function ReservationSearchUnlimitedComponent_Factory(t) { return new (t || ReservationSearchUnlimitedComponent)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_ngrx_store__WEBPACK_IMPORTED_MODULE_2__["Store"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](ngx_bootstrap_modal__WEBPACK_IMPORTED_MODULE_6__["BsModalService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](ngx_bootstrap_datepicker__WEBPACK_IMPORTED_MODULE_5__["BsLocaleService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_services__WEBPACK_IMPORTED_MODULE_9__["UtilService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_services__WEBPACK_IMPORTED_MODULE_9__["ReservationService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_ngx_translate_core__WEBPACK_IMPORTED_MODULE_3__["TranslateService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_services__WEBPACK_IMPORTED_MODULE_9__["UserService"])); };
+ReservationSearchUnlimitedComponent.ɵfac = function ReservationSearchUnlimitedComponent_Factory(t) { return new (t || ReservationSearchUnlimitedComponent)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_ngrx_store__WEBPACK_IMPORTED_MODULE_2__["Store"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](ngx_bootstrap_modal__WEBPACK_IMPORTED_MODULE_6__["BsModalService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](ngx_bootstrap_datepicker__WEBPACK_IMPORTED_MODULE_5__["BsLocaleService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_services__WEBPACK_IMPORTED_MODULE_9__["UtilService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_services__WEBPACK_IMPORTED_MODULE_9__["ActionService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_ngx_translate_core__WEBPACK_IMPORTED_MODULE_3__["TranslateService"])); };
 ReservationSearchUnlimitedComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineComponent"]({ type: ReservationSearchUnlimitedComponent, selectors: [["app-reservation-search-unlimited"]], viewQuery: function ReservationSearchUnlimitedComponent_Query(rf, ctx) { if (rf & 1) {
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵstaticViewQuery"](_c0, true);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵstaticViewQuery"](_c1, true);
@@ -1047,7 +1045,7 @@ ReservationSearchUnlimitedComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODU
                 templateUrl: './reservation-search-unlimited.component.html',
                 styleUrls: ['./reservation-search-unlimited.component.scss']
             }]
-    }], function () { return [{ type: _ngrx_store__WEBPACK_IMPORTED_MODULE_2__["Store"] }, { type: ngx_bootstrap_modal__WEBPACK_IMPORTED_MODULE_6__["BsModalService"] }, { type: ngx_bootstrap_datepicker__WEBPACK_IMPORTED_MODULE_5__["BsLocaleService"] }, { type: _services__WEBPACK_IMPORTED_MODULE_9__["UtilService"] }, { type: _services__WEBPACK_IMPORTED_MODULE_9__["ReservationService"] }, { type: _ngx_translate_core__WEBPACK_IMPORTED_MODULE_3__["TranslateService"] }, { type: _services__WEBPACK_IMPORTED_MODULE_9__["UserService"] }]; }, { reservationDateFrom: [{
+    }], function () { return [{ type: _ngrx_store__WEBPACK_IMPORTED_MODULE_2__["Store"] }, { type: ngx_bootstrap_modal__WEBPACK_IMPORTED_MODULE_6__["BsModalService"] }, { type: ngx_bootstrap_datepicker__WEBPACK_IMPORTED_MODULE_5__["BsLocaleService"] }, { type: _services__WEBPACK_IMPORTED_MODULE_9__["UtilService"] }, { type: _services__WEBPACK_IMPORTED_MODULE_9__["ActionService"] }, { type: _ngx_translate_core__WEBPACK_IMPORTED_MODULE_3__["TranslateService"] }]; }, { reservationDateFrom: [{
             type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["ViewChild"],
             args: ['reservationDateFrom', { static: true }]
         }], reservationDateThrough: [{
@@ -1299,14 +1297,13 @@ function ReservationSearchComponent_div_71_Template(rf, ctx) { if (rf & 1) {
 } }
 const _c5 = function () { return { dateInputFormat: "YYYY/MM/DD", adaptivePosition: true, showWeekNumbers: false }; };
 class ReservationSearchComponent {
-    constructor(store, modal, localeService, utilService, reservationService, translate, userService) {
+    constructor(store, modal, localeService, utilService, actionService, translate) {
         this.store = store;
         this.modal = modal;
         this.localeService = localeService;
         this.utilService = utilService;
-        this.reservationService = reservationService;
+        this.actionService = actionService;
         this.translate = translate;
-        this.userService = userService;
         this.moment = moment__WEBPACK_IMPORTED_MODULE_4__;
         this.reservationStatus = _cinerino_sdk__WEBPACK_IMPORTED_MODULE_1__["factory"].chevre.reservationStatusType;
         this.environment = Object(_environments_environment__WEBPACK_IMPORTED_MODULE_8__["getEnvironment"])();
@@ -1321,7 +1318,7 @@ class ReservationSearchComponent {
         this.currentPage = 1;
         this.limit = 20;
         this.searchConditionClear();
-        this.reservationService.delete();
+        this.actionService.reservation.delete();
     }
     /**
      * 検索条件変更
@@ -1363,7 +1360,7 @@ class ReservationSearchComponent {
             try {
                 const params = ___WEBPACK_IMPORTED_MODULE_7__["Functions"].Reservation.input2ReservationSearchCondition({
                     input: this.confirmedConditions,
-                    theater: (yield this.userService.getData()).theater,
+                    theater: (yield this.actionService.user.getData()).theater,
                     page: this.currentPage,
                     limit: this.limit
                 });
@@ -1373,8 +1370,8 @@ class ReservationSearchComponent {
                     // 予約日の範囲が14日以上
                     throw new Error('reservation date wrong date range').message;
                 }
-                this.reservations = (yield this.reservationService.search(params)).data;
-                this.nextReservations = (yield this.reservationService.search(Object.assign(Object.assign({}, params), { page: (this.currentPage + 1) }))).data;
+                this.reservations = (yield this.actionService.reservation.search(params)).data;
+                this.nextReservations = (yield this.actionService.reservation.search(Object.assign(Object.assign({}, params), { page: (this.currentPage + 1) }))).data;
                 const totalCount = (this.nextReservations.length === 0)
                     ? this.currentPage * this.limit : (this.currentPage + 1) * this.limit;
                 this.totalCount = (this.totalCount < totalCount) ? totalCount : this.totalCount;
@@ -1438,7 +1435,7 @@ class ReservationSearchComponent {
         ]);
     }
 }
-ReservationSearchComponent.ɵfac = function ReservationSearchComponent_Factory(t) { return new (t || ReservationSearchComponent)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_ngrx_store__WEBPACK_IMPORTED_MODULE_2__["Store"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](ngx_bootstrap_modal__WEBPACK_IMPORTED_MODULE_6__["BsModalService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](ngx_bootstrap_datepicker__WEBPACK_IMPORTED_MODULE_5__["BsLocaleService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_services__WEBPACK_IMPORTED_MODULE_9__["UtilService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_services__WEBPACK_IMPORTED_MODULE_9__["ReservationService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_ngx_translate_core__WEBPACK_IMPORTED_MODULE_3__["TranslateService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_services__WEBPACK_IMPORTED_MODULE_9__["UserService"])); };
+ReservationSearchComponent.ɵfac = function ReservationSearchComponent_Factory(t) { return new (t || ReservationSearchComponent)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_ngrx_store__WEBPACK_IMPORTED_MODULE_2__["Store"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](ngx_bootstrap_modal__WEBPACK_IMPORTED_MODULE_6__["BsModalService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](ngx_bootstrap_datepicker__WEBPACK_IMPORTED_MODULE_5__["BsLocaleService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_services__WEBPACK_IMPORTED_MODULE_9__["UtilService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_services__WEBPACK_IMPORTED_MODULE_9__["ActionService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_ngx_translate_core__WEBPACK_IMPORTED_MODULE_3__["TranslateService"])); };
 ReservationSearchComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineComponent"]({ type: ReservationSearchComponent, selectors: [["app-reservation-search"]], viewQuery: function ReservationSearchComponent_Query(rf, ctx) { if (rf & 1) {
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵstaticViewQuery"](_c0, true);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵstaticViewQuery"](_c1, true);
@@ -1636,7 +1633,7 @@ ReservationSearchComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["�
                 templateUrl: './reservation-search.component.html',
                 styleUrls: ['./reservation-search.component.scss']
             }]
-    }], function () { return [{ type: _ngrx_store__WEBPACK_IMPORTED_MODULE_2__["Store"] }, { type: ngx_bootstrap_modal__WEBPACK_IMPORTED_MODULE_6__["BsModalService"] }, { type: ngx_bootstrap_datepicker__WEBPACK_IMPORTED_MODULE_5__["BsLocaleService"] }, { type: _services__WEBPACK_IMPORTED_MODULE_9__["UtilService"] }, { type: _services__WEBPACK_IMPORTED_MODULE_9__["ReservationService"] }, { type: _ngx_translate_core__WEBPACK_IMPORTED_MODULE_3__["TranslateService"] }, { type: _services__WEBPACK_IMPORTED_MODULE_9__["UserService"] }]; }, { reservationDateFrom: [{
+    }], function () { return [{ type: _ngrx_store__WEBPACK_IMPORTED_MODULE_2__["Store"] }, { type: ngx_bootstrap_modal__WEBPACK_IMPORTED_MODULE_6__["BsModalService"] }, { type: ngx_bootstrap_datepicker__WEBPACK_IMPORTED_MODULE_5__["BsLocaleService"] }, { type: _services__WEBPACK_IMPORTED_MODULE_9__["UtilService"] }, { type: _services__WEBPACK_IMPORTED_MODULE_9__["ActionService"] }, { type: _ngx_translate_core__WEBPACK_IMPORTED_MODULE_3__["TranslateService"] }]; }, { reservationDateFrom: [{
             type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["ViewChild"],
             args: ['reservationDateFrom', { static: true }]
         }], reservationDateThrough: [{

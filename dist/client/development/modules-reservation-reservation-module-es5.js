@@ -164,16 +164,15 @@
       };
 
       var ReservationDownloadComponent = /*#__PURE__*/function () {
-        function ReservationDownloadComponent(store, utilService, reservationService, downloadService, translate, localeService, userService) {
+        function ReservationDownloadComponent(store, utilService, actionService, downloadService, translate, localeService) {
           _classCallCheck(this, ReservationDownloadComponent);
 
           this.store = store;
           this.utilService = utilService;
-          this.reservationService = reservationService;
+          this.actionService = actionService;
           this.downloadService = downloadService;
           this.translate = translate;
           this.localeService = localeService;
-          this.userService = userService;
           this.moment = moment__WEBPACK_IMPORTED_MODULE_4__;
           this.reservationStatus = _cinerino_sdk__WEBPACK_IMPORTED_MODULE_1__["factory"].chevre.reservationStatusType;
           this.environment = Object(_environments_environment__WEBPACK_IMPORTED_MODULE_7__["getEnvironment"])();
@@ -199,7 +198,7 @@
               reservationStatus: '',
               page: 1
             };
-            this.reservationService["delete"]();
+            this.actionService.reservation["delete"]();
           }
           /**
            * ダウンロード
@@ -238,7 +237,7 @@
                       _context.t0 = ___WEBPACK_IMPORTED_MODULE_6__["Functions"].Reservation;
                       _context.t1 = this.confirmedConditions;
                       _context.next = 9;
-                      return this.userService.getData();
+                      return this.actionService.user.getData();
 
                     case 9:
                       _context.t2 = _context.sent.theater;
@@ -323,7 +322,7 @@
       }();
 
       ReservationDownloadComponent.ɵfac = function ReservationDownloadComponent_Factory(t) {
-        return new (t || ReservationDownloadComponent)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_ngrx_store__WEBPACK_IMPORTED_MODULE_2__["Store"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_services__WEBPACK_IMPORTED_MODULE_8__["UtilService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_services__WEBPACK_IMPORTED_MODULE_8__["ReservationService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_services__WEBPACK_IMPORTED_MODULE_8__["DownloadService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_ngx_translate_core__WEBPACK_IMPORTED_MODULE_3__["TranslateService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](ngx_bootstrap_datepicker__WEBPACK_IMPORTED_MODULE_5__["BsLocaleService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_services__WEBPACK_IMPORTED_MODULE_8__["UserService"]));
+        return new (t || ReservationDownloadComponent)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_ngrx_store__WEBPACK_IMPORTED_MODULE_2__["Store"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_services__WEBPACK_IMPORTED_MODULE_8__["UtilService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_services__WEBPACK_IMPORTED_MODULE_8__["ActionService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_services__WEBPACK_IMPORTED_MODULE_8__["DownloadService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_ngx_translate_core__WEBPACK_IMPORTED_MODULE_3__["TranslateService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](ngx_bootstrap_datepicker__WEBPACK_IMPORTED_MODULE_5__["BsLocaleService"]));
       };
 
       ReservationDownloadComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineComponent"]({
@@ -751,15 +750,13 @@
           }, {
             type: _services__WEBPACK_IMPORTED_MODULE_8__["UtilService"]
           }, {
-            type: _services__WEBPACK_IMPORTED_MODULE_8__["ReservationService"]
+            type: _services__WEBPACK_IMPORTED_MODULE_8__["ActionService"]
           }, {
             type: _services__WEBPACK_IMPORTED_MODULE_8__["DownloadService"]
           }, {
             type: _ngx_translate_core__WEBPACK_IMPORTED_MODULE_3__["TranslateService"]
           }, {
             type: ngx_bootstrap_datepicker__WEBPACK_IMPORTED_MODULE_5__["BsLocaleService"]
-          }, {
-            type: _services__WEBPACK_IMPORTED_MODULE_8__["UserService"]
           }];
         }, {
           reservationDateFrom: [{
@@ -1567,16 +1564,15 @@
       };
 
       var ReservationSearchUnlimitedComponent = /*#__PURE__*/function () {
-        function ReservationSearchUnlimitedComponent(store, modal, localeService, utilService, reservationService, translate, userService) {
+        function ReservationSearchUnlimitedComponent(store, modal, localeService, utilService, actionService, translate) {
           _classCallCheck(this, ReservationSearchUnlimitedComponent);
 
           this.store = store;
           this.modal = modal;
           this.localeService = localeService;
           this.utilService = utilService;
-          this.reservationService = reservationService;
+          this.actionService = actionService;
           this.translate = translate;
-          this.userService = userService;
           this.moment = moment__WEBPACK_IMPORTED_MODULE_4__;
           this.reservationStatus = _cinerino_sdk__WEBPACK_IMPORTED_MODULE_1__["factory"].chevre.reservationStatusType;
           this.environment = Object(_environments_environment__WEBPACK_IMPORTED_MODULE_8__["getEnvironment"])();
@@ -1602,7 +1598,7 @@
               reservationStatus: '',
               page: 1
             };
-            this.reservationService["delete"]();
+            this.actionService.reservation["delete"]();
           }
           /**
            * 検索
@@ -1646,7 +1642,7 @@
                       _context2.t0 = ___WEBPACK_IMPORTED_MODULE_7__["Functions"].Reservation;
                       _context2.t1 = this.confirmedConditions;
                       _context2.next = 12;
-                      return this.userService.getData();
+                      return this.actionService.user.getData();
 
                     case 12:
                       _context2.t2 = _context2.sent.theater;
@@ -1658,7 +1654,7 @@
                       };
                       params = _context2.t0.input2ReservationSearchCondition.call(_context2.t0, _context2.t4);
                       _context2.next = 18;
-                      return this.reservationService.splitSearch(params);
+                      return this.actionService.reservation.splitSearch(params);
 
                     case 18:
                       searchResult = _context2.sent;
@@ -1751,7 +1747,7 @@
       }();
 
       ReservationSearchUnlimitedComponent.ɵfac = function ReservationSearchUnlimitedComponent_Factory(t) {
-        return new (t || ReservationSearchUnlimitedComponent)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_ngrx_store__WEBPACK_IMPORTED_MODULE_2__["Store"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](ngx_bootstrap_modal__WEBPACK_IMPORTED_MODULE_6__["BsModalService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](ngx_bootstrap_datepicker__WEBPACK_IMPORTED_MODULE_5__["BsLocaleService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_services__WEBPACK_IMPORTED_MODULE_9__["UtilService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_services__WEBPACK_IMPORTED_MODULE_9__["ReservationService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_ngx_translate_core__WEBPACK_IMPORTED_MODULE_3__["TranslateService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_services__WEBPACK_IMPORTED_MODULE_9__["UserService"]));
+        return new (t || ReservationSearchUnlimitedComponent)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_ngrx_store__WEBPACK_IMPORTED_MODULE_2__["Store"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](ngx_bootstrap_modal__WEBPACK_IMPORTED_MODULE_6__["BsModalService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](ngx_bootstrap_datepicker__WEBPACK_IMPORTED_MODULE_5__["BsLocaleService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_services__WEBPACK_IMPORTED_MODULE_9__["UtilService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_services__WEBPACK_IMPORTED_MODULE_9__["ActionService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_ngx_translate_core__WEBPACK_IMPORTED_MODULE_3__["TranslateService"]));
       };
 
       ReservationSearchUnlimitedComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineComponent"]({
@@ -2195,11 +2191,9 @@
           }, {
             type: _services__WEBPACK_IMPORTED_MODULE_9__["UtilService"]
           }, {
-            type: _services__WEBPACK_IMPORTED_MODULE_9__["ReservationService"]
+            type: _services__WEBPACK_IMPORTED_MODULE_9__["ActionService"]
           }, {
             type: _ngx_translate_core__WEBPACK_IMPORTED_MODULE_3__["TranslateService"]
-          }, {
-            type: _services__WEBPACK_IMPORTED_MODULE_9__["UserService"]
           }];
         }, {
           reservationDateFrom: [{
@@ -2777,16 +2771,15 @@
       };
 
       var ReservationSearchComponent = /*#__PURE__*/function () {
-        function ReservationSearchComponent(store, modal, localeService, utilService, reservationService, translate, userService) {
+        function ReservationSearchComponent(store, modal, localeService, utilService, actionService, translate) {
           _classCallCheck(this, ReservationSearchComponent);
 
           this.store = store;
           this.modal = modal;
           this.localeService = localeService;
           this.utilService = utilService;
-          this.reservationService = reservationService;
+          this.actionService = actionService;
           this.translate = translate;
-          this.userService = userService;
           this.moment = moment__WEBPACK_IMPORTED_MODULE_4__;
           this.reservationStatus = _cinerino_sdk__WEBPACK_IMPORTED_MODULE_1__["factory"].chevre.reservationStatusType;
           this.environment = Object(_environments_environment__WEBPACK_IMPORTED_MODULE_8__["getEnvironment"])();
@@ -2804,7 +2797,7 @@
             this.currentPage = 1;
             this.limit = 20;
             this.searchConditionClear();
-            this.reservationService["delete"]();
+            this.actionService.reservation["delete"]();
           }
           /**
            * 検索条件変更
@@ -2860,7 +2853,7 @@
                       _context3.t0 = ___WEBPACK_IMPORTED_MODULE_7__["Functions"].Reservation;
                       _context3.t1 = this.confirmedConditions;
                       _context3.next = 10;
-                      return this.userService.getData();
+                      return this.actionService.user.getData();
 
                     case 10:
                       _context3.t2 = _context3.sent.theater;
@@ -2883,12 +2876,12 @@
 
                     case 17:
                       _context3.next = 19;
-                      return this.reservationService.search(params);
+                      return this.actionService.reservation.search(params);
 
                     case 19:
                       this.reservations = _context3.sent.data;
                       _context3.next = 22;
-                      return this.reservationService.search(Object.assign(Object.assign({}, params), {
+                      return this.actionService.reservation.search(Object.assign(Object.assign({}, params), {
                         page: this.currentPage + 1
                       }));
 
@@ -2982,7 +2975,7 @@
       }();
 
       ReservationSearchComponent.ɵfac = function ReservationSearchComponent_Factory(t) {
-        return new (t || ReservationSearchComponent)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_ngrx_store__WEBPACK_IMPORTED_MODULE_2__["Store"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](ngx_bootstrap_modal__WEBPACK_IMPORTED_MODULE_6__["BsModalService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](ngx_bootstrap_datepicker__WEBPACK_IMPORTED_MODULE_5__["BsLocaleService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_services__WEBPACK_IMPORTED_MODULE_9__["UtilService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_services__WEBPACK_IMPORTED_MODULE_9__["ReservationService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_ngx_translate_core__WEBPACK_IMPORTED_MODULE_3__["TranslateService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_services__WEBPACK_IMPORTED_MODULE_9__["UserService"]));
+        return new (t || ReservationSearchComponent)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_ngrx_store__WEBPACK_IMPORTED_MODULE_2__["Store"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](ngx_bootstrap_modal__WEBPACK_IMPORTED_MODULE_6__["BsModalService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](ngx_bootstrap_datepicker__WEBPACK_IMPORTED_MODULE_5__["BsLocaleService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_services__WEBPACK_IMPORTED_MODULE_9__["UtilService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_services__WEBPACK_IMPORTED_MODULE_9__["ActionService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_ngx_translate_core__WEBPACK_IMPORTED_MODULE_3__["TranslateService"]));
       };
 
       ReservationSearchComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineComponent"]({
@@ -3426,11 +3419,9 @@
           }, {
             type: _services__WEBPACK_IMPORTED_MODULE_9__["UtilService"]
           }, {
-            type: _services__WEBPACK_IMPORTED_MODULE_9__["ReservationService"]
+            type: _services__WEBPACK_IMPORTED_MODULE_9__["ActionService"]
           }, {
             type: _ngx_translate_core__WEBPACK_IMPORTED_MODULE_3__["TranslateService"]
-          }, {
-            type: _services__WEBPACK_IMPORTED_MODULE_9__["UserService"]
           }];
         }, {
           reservationDateFrom: [{

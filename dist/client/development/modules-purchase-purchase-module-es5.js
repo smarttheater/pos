@@ -247,16 +247,15 @@
       };
 
       var PurchaseCinemaScheduleComponent = /*#__PURE__*/function () {
-        function PurchaseCinemaScheduleComponent(store, router, utilService, translate, userService, masterService, purchaseService, localeService) {
+        function PurchaseCinemaScheduleComponent(store, router, utilService, translate, actionService, masterService, localeService) {
           _classCallCheck(this, PurchaseCinemaScheduleComponent);
 
           this.store = store;
           this.router = router;
           this.utilService = utilService;
           this.translate = translate;
-          this.userService = userService;
+          this.actionService = actionService;
           this.masterService = masterService;
-          this.purchaseService = purchaseService;
           this.localeService = localeService;
           this.moment = moment__WEBPACK_IMPORTED_MODULE_5__;
           this.environment = Object(_environments_environment__WEBPACK_IMPORTED_MODULE_8__["getEnvironment"])();
@@ -334,7 +333,7 @@
                       }
 
                       _context2.next = 3;
-                      return this.userService.getData();
+                      return this.actionService.user.getData();
 
                     case 3:
                       user = _context2.sent;
@@ -354,7 +353,7 @@
                       return _context2.abrupt("return");
 
                     case 9:
-                      this.purchaseService.selectScheduleDate(scheduleDate);
+                      this.actionService.purchase.selectScheduleDate(scheduleDate);
                       _context2.prev = 10;
                       _context2.next = 13;
                       return this.masterService.getSchedule({
@@ -421,10 +420,10 @@
                       return _context3.abrupt("return");
 
                     case 5:
-                      this.purchaseService.unsettledDelete();
+                      this.actionService.purchase.unsettledDelete();
                       _context3.prev = 6;
                       _context3.next = 9;
-                      return this.purchaseService.getScreeningEvent(screeningEvent);
+                      return this.actionService.purchase.getScreeningEvent(screeningEvent);
 
                     case 9:
                       if (!(screeningEvent.offers.seller === undefined || screeningEvent.offers.seller.id === undefined)) {
@@ -436,7 +435,7 @@
 
                     case 11:
                       _context3.next = 13;
-                      return this.purchaseService.getSeller(screeningEvent.offers.seller.id);
+                      return this.actionService.purchase.getSeller(screeningEvent.offers.seller.id);
 
                     case 13:
                       _context3.next = 20;
@@ -451,12 +450,12 @@
 
                     case 20:
                       _context3.next = 22;
-                      return this.purchaseService.getData();
+                      return this.actionService.purchase.getData();
 
                     case 22:
                       purchase = _context3.sent;
                       _context3.next = 25;
-                      return this.userService.getData();
+                      return this.actionService.user.getData();
 
                     case 25:
                       user = _context3.sent;
@@ -477,7 +476,7 @@
 
                       _context3.prev = 30;
                       _context3.next = 33;
-                      return this.purchaseService.cancelTemporaryReservations(purchase.authorizeSeatReservations);
+                      return this.actionService.purchase.cancelTemporaryReservations(purchase.authorizeSeatReservations);
 
                     case 33:
                       _context3.next = 40;
@@ -493,7 +492,7 @@
                     case 40:
                       _context3.prev = 40;
                       _context3.next = 43;
-                      return this.purchaseService.startTransaction({
+                      return this.actionService.purchase.startTransaction({
                         seller: purchase.seller,
                         pos: user.pos
                       });
@@ -575,7 +574,7 @@
       }();
 
       PurchaseCinemaScheduleComponent.ɵfac = function PurchaseCinemaScheduleComponent_Factory(t) {
-        return new (t || PurchaseCinemaScheduleComponent)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_ngrx_store__WEBPACK_IMPORTED_MODULE_2__["Store"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_router__WEBPACK_IMPORTED_MODULE_1__["Router"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_services__WEBPACK_IMPORTED_MODULE_9__["UtilService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_ngx_translate_core__WEBPACK_IMPORTED_MODULE_3__["TranslateService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_services__WEBPACK_IMPORTED_MODULE_9__["UserService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_services__WEBPACK_IMPORTED_MODULE_9__["MasterService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_services__WEBPACK_IMPORTED_MODULE_9__["PurchaseService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](ngx_bootstrap_datepicker__WEBPACK_IMPORTED_MODULE_6__["BsLocaleService"]));
+        return new (t || PurchaseCinemaScheduleComponent)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_ngrx_store__WEBPACK_IMPORTED_MODULE_2__["Store"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_router__WEBPACK_IMPORTED_MODULE_1__["Router"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_services__WEBPACK_IMPORTED_MODULE_9__["UtilService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_ngx_translate_core__WEBPACK_IMPORTED_MODULE_3__["TranslateService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_services__WEBPACK_IMPORTED_MODULE_9__["ActionService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_services__WEBPACK_IMPORTED_MODULE_9__["MasterService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](ngx_bootstrap_datepicker__WEBPACK_IMPORTED_MODULE_6__["BsLocaleService"]));
       };
 
       PurchaseCinemaScheduleComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineComponent"]({
@@ -711,11 +710,9 @@
           }, {
             type: _ngx_translate_core__WEBPACK_IMPORTED_MODULE_3__["TranslateService"]
           }, {
-            type: _services__WEBPACK_IMPORTED_MODULE_9__["UserService"]
+            type: _services__WEBPACK_IMPORTED_MODULE_9__["ActionService"]
           }, {
             type: _services__WEBPACK_IMPORTED_MODULE_9__["MasterService"]
-          }, {
-            type: _services__WEBPACK_IMPORTED_MODULE_9__["PurchaseService"]
           }, {
             type: ngx_bootstrap_datepicker__WEBPACK_IMPORTED_MODULE_6__["BsLocaleService"]
           }];
@@ -2247,14 +2244,13 @@
       };
 
       var PurchaseEventScheduleComponent = /*#__PURE__*/function () {
-        function PurchaseEventScheduleComponent(store, router, purchaseService, masterService, userService, localeService) {
+        function PurchaseEventScheduleComponent(store, router, actionService, masterService, localeService) {
           _classCallCheck(this, PurchaseEventScheduleComponent);
 
           this.store = store;
           this.router = router;
-          this.purchaseService = purchaseService;
+          this.actionService = actionService;
           this.masterService = masterService;
-          this.userService = userService;
           this.localeService = localeService;
           this.moment = moment__WEBPACK_IMPORTED_MODULE_4__;
           this.environment = Object(_environments_environment__WEBPACK_IMPORTED_MODULE_7__["getEnvironment"])();
@@ -2285,7 +2281,7 @@
 
                       _context4.prev = 7;
                       _context4.next = 10;
-                      return this.purchaseService.getData();
+                      return this.actionService.purchase.getData();
 
                     case 10:
                       _context4.t0 = _context4.sent.transaction;
@@ -2300,7 +2296,7 @@
 
                     case 14:
                       _context4.next = 16;
-                      return this.purchaseService.cancelTransaction();
+                      return this.actionService.purchase.cancelTransaction();
 
                     case 16:
                       _context4.next = 21;
@@ -2366,7 +2362,7 @@
 
                       _context5.prev = 1;
                       _context5.next = 4;
-                      return this.userService.getData();
+                      return this.actionService.user.getData();
 
                     case 4:
                       user = _context5.sent;
@@ -2386,7 +2382,7 @@
                       }
 
                       scheduleDate = moment__WEBPACK_IMPORTED_MODULE_4__(this.scheduleDate).format('YYYY-MM-DD');
-                      this.purchaseService.selectScheduleDate(scheduleDate);
+                      this.actionService.purchase.selectScheduleDate(scheduleDate);
                       _context5.next = 14;
                       return this.masterService.getSchedule({
                         superEvent: {
@@ -2435,7 +2431,7 @@
                     case 0:
                       _context6.prev = 0;
                       _context6.next = 3;
-                      return this.userService.getData();
+                      return this.actionService.user.getData();
 
                     case 3:
                       user = _context6.sent;
@@ -2461,7 +2457,7 @@
 
                     case 9:
                       _context6.next = 11;
-                      return this.purchaseService.getSeller(screeningEvent.offers.seller.id);
+                      return this.actionService.purchase.getSeller(screeningEvent.offers.seller.id);
 
                     case 11:
                       _context6.next = 17;
@@ -2476,17 +2472,17 @@
                     case 17:
                       _context6.prev = 17;
                       _context6.next = 20;
-                      return this.purchaseService.getData();
+                      return this.actionService.purchase.getData();
 
                     case 20:
                       purchase = _context6.sent;
                       _context6.next = 23;
-                      return this.userService.getData();
+                      return this.actionService.user.getData();
 
                     case 23:
                       _user = _context6.sent;
                       _context6.next = 26;
-                      return this.purchaseService.startTransaction({
+                      return this.actionService.purchase.startTransaction({
                         seller: purchase.seller,
                         pos: _user.pos
                       });
@@ -2567,7 +2563,7 @@
       }();
 
       PurchaseEventScheduleComponent.ɵfac = function PurchaseEventScheduleComponent_Factory(t) {
-        return new (t || PurchaseEventScheduleComponent)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_ngrx_store__WEBPACK_IMPORTED_MODULE_2__["Store"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_router__WEBPACK_IMPORTED_MODULE_1__["Router"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_services__WEBPACK_IMPORTED_MODULE_8__["PurchaseService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_services__WEBPACK_IMPORTED_MODULE_8__["MasterService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_services__WEBPACK_IMPORTED_MODULE_8__["UserService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](ngx_bootstrap_datepicker__WEBPACK_IMPORTED_MODULE_5__["BsLocaleService"]));
+        return new (t || PurchaseEventScheduleComponent)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_ngrx_store__WEBPACK_IMPORTED_MODULE_2__["Store"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_router__WEBPACK_IMPORTED_MODULE_1__["Router"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_services__WEBPACK_IMPORTED_MODULE_8__["ActionService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_services__WEBPACK_IMPORTED_MODULE_8__["MasterService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](ngx_bootstrap_datepicker__WEBPACK_IMPORTED_MODULE_5__["BsLocaleService"]));
       };
 
       PurchaseEventScheduleComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineComponent"]({
@@ -2729,11 +2725,9 @@
           }, {
             type: _angular_router__WEBPACK_IMPORTED_MODULE_1__["Router"]
           }, {
-            type: _services__WEBPACK_IMPORTED_MODULE_8__["PurchaseService"]
+            type: _services__WEBPACK_IMPORTED_MODULE_8__["ActionService"]
           }, {
             type: _services__WEBPACK_IMPORTED_MODULE_8__["MasterService"]
-          }, {
-            type: _services__WEBPACK_IMPORTED_MODULE_8__["UserService"]
           }, {
             type: ngx_bootstrap_datepicker__WEBPACK_IMPORTED_MODULE_5__["BsLocaleService"]
           }];
@@ -3694,7 +3688,7 @@
                     case 0:
                       _context7.prev = 0;
                       _context7.next = 3;
-                      return this.purchaseService.getData();
+                      return this.actionService.purchase.getData();
 
                     case 3:
                       authorizeSeatReservation = _context7.sent.authorizeSeatReservation;
@@ -3705,7 +3699,7 @@
                       }
 
                       _context7.next = 7;
-                      return this.purchaseService.cancelTemporaryReservations([authorizeSeatReservation]);
+                      return this.actionService.purchase.cancelTemporaryReservations([authorizeSeatReservation]);
 
                     case 7:
                       this.router.navigate(['/purchase/event/ticket']);
@@ -4365,16 +4359,15 @@
       }
 
       var PurchaseEventTicketComponent = /*#__PURE__*/function () {
-        function PurchaseEventTicketComponent(store, router, utilService, translate, purchaseService, masterService, userService, modal) {
+        function PurchaseEventTicketComponent(store, router, utilService, translate, actionService, masterService, modal) {
           _classCallCheck(this, PurchaseEventTicketComponent);
 
           this.store = store;
           this.router = router;
           this.utilService = utilService;
           this.translate = translate;
-          this.purchaseService = purchaseService;
+          this.actionService = actionService;
           this.masterService = masterService;
-          this.userService = userService;
           this.modal = modal;
           this.moment = moment__WEBPACK_IMPORTED_MODULE_4__;
           this.environment = Object(_environments_environment__WEBPACK_IMPORTED_MODULE_7__["getEnvironment"])();
@@ -4395,7 +4388,7 @@
                       this.master = this.store.pipe(Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_2__["select"])(_store_reducers__WEBPACK_IMPORTED_MODULE_9__["getMaster"]));
                       this.error = this.store.pipe(Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_2__["select"])(_store_reducers__WEBPACK_IMPORTED_MODULE_9__["getError"]));
                       this.isLoading = this.store.pipe(Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_2__["select"])(_store_reducers__WEBPACK_IMPORTED_MODULE_9__["getLoading"]));
-                      this.purchaseService.unsettledDelete();
+                      this.actionService.purchase.unsettledDelete();
                       this.screeningWorkEvents = [];
                       this.purchase.subscribe(function (purchase) {
                         if (purchase.transaction === undefined) {
@@ -4454,12 +4447,12 @@
                     case 0:
                       _context9.prev = 0;
                       _context9.next = 3;
-                      return this.userService.getData();
+                      return this.actionService.user.getData();
 
                     case 3:
                       user = _context9.sent;
                       _context9.next = 6;
-                      return this.purchaseService.getData();
+                      return this.actionService.purchase.getData();
 
                     case 6:
                       purchase = _context9.sent;
@@ -4520,7 +4513,7 @@
                   switch (_context10.prev = _context10.next) {
                     case 0:
                       _context10.next = 2;
-                      return this.purchaseService.getData();
+                      return this.actionService.purchase.getData();
 
                     case 2:
                       purchase = _context10.sent;
@@ -4548,22 +4541,22 @@
                     case 9:
                       _context10.prev = 9;
                       _context10.next = 12;
-                      return this.purchaseService.getScreeningEvent(screeningEvent);
+                      return this.actionService.purchase.getScreeningEvent(screeningEvent);
 
                     case 12:
                       _context10.next = 14;
-                      return this.purchaseService.getScreeningEventSeats();
+                      return this.actionService.purchase.getScreeningEventSeats();
 
                     case 14:
                       this.screeningEventSeats = _context10.sent;
                       _context10.next = 17;
-                      return this.purchaseService.getTicketList({
+                      return this.actionService.purchase.getTicketList({
                         seller: purchase.seller
                       });
 
                     case 17:
                       _context10.next = 19;
-                      return this.purchaseService.getScreen({
+                      return this.actionService.purchase.getScreen({
                         branchCode: {
                           $eq: screeningEvent.location.branchCode
                         },
@@ -4612,7 +4605,7 @@
                   switch (_context11.prev = _context11.next) {
                     case 0:
                       _context11.next = 2;
-                      return this.purchaseService.getData();
+                      return this.actionService.purchase.getData();
 
                     case 2:
                       purchase = _context11.sent;
@@ -4695,12 +4688,12 @@
                     case 5:
                       _context12.prev = 5;
                       _context12.next = 8;
-                      return this.purchaseService.getScreeningEventSeats();
+                      return this.actionService.purchase.getScreeningEventSeats();
 
                     case 8:
                       this.screeningEventSeats = _context12.sent;
                       _context12.next = 11;
-                      return this.purchaseService.getData();
+                      return this.actionService.purchase.getData();
 
                     case 11:
                       purchase = _context12.sent;
@@ -4742,7 +4735,7 @@
                     case 23:
                       _context12.prev = 23;
                       _context12.next = 26;
-                      return this.purchaseService.temporaryReservation({
+                      return this.actionService.purchase.temporaryReservation({
                         reservations: reservations,
                         additionalTicketText: additionalTicketText,
                         screeningEventSeats: this.screeningEventSeats
@@ -4753,7 +4746,7 @@
                         title: this.translate.instant('common.complete'),
                         body: this.translate.instant('purchase.event.ticket.success.temporaryReservation')
                       });
-                      this.purchaseService.unsettledDelete();
+                      this.actionService.purchase.unsettledDelete();
                       _context12.next = 34;
                       break;
 
@@ -4788,7 +4781,7 @@
                   switch (_context13.prev = _context13.next) {
                     case 0:
                       _context13.next = 2;
-                      return this.purchaseService.getData();
+                      return this.actionService.purchase.getData();
 
                     case 2:
                       purchase = _context13.sent;
@@ -4858,7 +4851,7 @@
                           _context14.prev = 0;
                           authorizeSeatReservations = [authorizeSeatReservation];
                           _context14.next = 4;
-                          return this.purchaseService.cancelTemporaryReservations(authorizeSeatReservations);
+                          return this.actionService.purchase.cancelTemporaryReservations(authorizeSeatReservations);
 
                         case 4:
                           _context14.next = 10;
@@ -4886,7 +4879,7 @@
       }();
 
       PurchaseEventTicketComponent.ɵfac = function PurchaseEventTicketComponent_Factory(t) {
-        return new (t || PurchaseEventTicketComponent)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_ngrx_store__WEBPACK_IMPORTED_MODULE_2__["Store"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_router__WEBPACK_IMPORTED_MODULE_1__["Router"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_services__WEBPACK_IMPORTED_MODULE_8__["UtilService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_ngx_translate_core__WEBPACK_IMPORTED_MODULE_3__["TranslateService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_services__WEBPACK_IMPORTED_MODULE_8__["PurchaseService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_services__WEBPACK_IMPORTED_MODULE_8__["MasterService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_services__WEBPACK_IMPORTED_MODULE_8__["UserService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](ngx_bootstrap_modal__WEBPACK_IMPORTED_MODULE_5__["BsModalService"]));
+        return new (t || PurchaseEventTicketComponent)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_ngrx_store__WEBPACK_IMPORTED_MODULE_2__["Store"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_router__WEBPACK_IMPORTED_MODULE_1__["Router"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_services__WEBPACK_IMPORTED_MODULE_8__["UtilService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_ngx_translate_core__WEBPACK_IMPORTED_MODULE_3__["TranslateService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_services__WEBPACK_IMPORTED_MODULE_8__["ActionService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_services__WEBPACK_IMPORTED_MODULE_8__["MasterService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](ngx_bootstrap_modal__WEBPACK_IMPORTED_MODULE_5__["BsModalService"]));
       };
 
       PurchaseEventTicketComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineComponent"]({
@@ -5049,11 +5042,9 @@
           }, {
             type: _ngx_translate_core__WEBPACK_IMPORTED_MODULE_3__["TranslateService"]
           }, {
-            type: _services__WEBPACK_IMPORTED_MODULE_8__["PurchaseService"]
+            type: _services__WEBPACK_IMPORTED_MODULE_8__["ActionService"]
           }, {
             type: _services__WEBPACK_IMPORTED_MODULE_8__["MasterService"]
-          }, {
-            type: _services__WEBPACK_IMPORTED_MODULE_8__["UserService"]
           }, {
             type: ngx_bootstrap_modal__WEBPACK_IMPORTED_MODULE_5__["BsModalService"]
           }];
@@ -5939,14 +5930,12 @@
       }
 
       var PurchaseCompleteComponent = /*#__PURE__*/function () {
-        function PurchaseCompleteComponent(store, router, purchaseService, orderService, userService, utilService, translate) {
+        function PurchaseCompleteComponent(store, router, actionService, utilService, translate) {
           _classCallCheck(this, PurchaseCompleteComponent);
 
           this.store = store;
           this.router = router;
-          this.purchaseService = purchaseService;
-          this.orderService = orderService;
-          this.userService = userService;
+          this.actionService = actionService;
           this.utilService = utilService;
           this.translate = translate;
           this.moment = moment__WEBPACK_IMPORTED_MODULE_5__;
@@ -5973,7 +5962,7 @@
                       this.error = this.store.pipe(Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_3__["select"])(_store_reducers__WEBPACK_IMPORTED_MODULE_9__["getError"]));
                       _context15.prev = 5;
                       _context15.next = 8;
-                      return this.purchaseService.getData();
+                      return this.actionService.purchase.getData();
 
                     case 8:
                       purchaseData = _context15.sent;
@@ -6061,12 +6050,12 @@
                     case 0:
                       _context16.prev = 0;
                       _context16.next = 3;
-                      return this.purchaseService.getData();
+                      return this.actionService.purchase.getData();
 
                     case 3:
                       purchase = _context16.sent;
                       _context16.next = 6;
-                      return this.userService.getData();
+                      return this.actionService.user.getData();
 
                     case 6:
                       user = _context16.sent;
@@ -6083,7 +6072,7 @@
                       pos = user.pos;
                       printer = user.printer;
                       _context16.next = 14;
-                      return this.orderService.print({
+                      return this.actionService.order.print({
                         orders: orders,
                         pos: pos,
                         printer: printer
@@ -6115,7 +6104,7 @@
       }();
 
       PurchaseCompleteComponent.ɵfac = function PurchaseCompleteComponent_Factory(t) {
-        return new (t || PurchaseCompleteComponent)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_ngrx_store__WEBPACK_IMPORTED_MODULE_3__["Store"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_router__WEBPACK_IMPORTED_MODULE_1__["Router"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_services__WEBPACK_IMPORTED_MODULE_8__["PurchaseService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_services__WEBPACK_IMPORTED_MODULE_8__["OrderService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_services__WEBPACK_IMPORTED_MODULE_8__["UserService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_services__WEBPACK_IMPORTED_MODULE_8__["UtilService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_ngx_translate_core__WEBPACK_IMPORTED_MODULE_4__["TranslateService"]));
+        return new (t || PurchaseCompleteComponent)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_ngrx_store__WEBPACK_IMPORTED_MODULE_3__["Store"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_router__WEBPACK_IMPORTED_MODULE_1__["Router"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_services__WEBPACK_IMPORTED_MODULE_8__["ActionService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_services__WEBPACK_IMPORTED_MODULE_8__["UtilService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_ngx_translate_core__WEBPACK_IMPORTED_MODULE_4__["TranslateService"]));
       };
 
       PurchaseCompleteComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineComponent"]({
@@ -6328,11 +6317,7 @@
           }, {
             type: _angular_router__WEBPACK_IMPORTED_MODULE_1__["Router"]
           }, {
-            type: _services__WEBPACK_IMPORTED_MODULE_8__["PurchaseService"]
-          }, {
-            type: _services__WEBPACK_IMPORTED_MODULE_8__["OrderService"]
-          }, {
-            type: _services__WEBPACK_IMPORTED_MODULE_8__["UserService"]
+            type: _services__WEBPACK_IMPORTED_MODULE_8__["ActionService"]
           }, {
             type: _services__WEBPACK_IMPORTED_MODULE_8__["UtilService"]
           }, {
@@ -7176,13 +7161,12 @@
       }
 
       var PurchaseConfirmComponent = /*#__PURE__*/function () {
-        function PurchaseConfirmComponent(store, router, purchaseService, userService, utilService, translate) {
+        function PurchaseConfirmComponent(store, router, actionService, utilService, translate) {
           _classCallCheck(this, PurchaseConfirmComponent);
 
           this.store = store;
           this.router = router;
-          this.purchaseService = purchaseService;
-          this.userService = userService;
+          this.actionService = actionService;
           this.utilService = utilService;
           this.translate = translate;
           this.moment = moment__WEBPACK_IMPORTED_MODULE_5__;
@@ -7220,12 +7204,12 @@
                   switch (_context17.prev = _context17.next) {
                     case 0:
                       _context17.next = 2;
-                      return this.purchaseService.getData();
+                      return this.actionService.purchase.getData();
 
                     case 2:
                       purchaseData = _context17.sent;
                       _context17.next = 5;
-                      return this.userService.getData();
+                      return this.actionService.user.getData();
 
                     case 5:
                       userData = _context17.sent;
@@ -7267,24 +7251,24 @@
                       }
 
                       _context17.next = 20;
-                      return this.purchaseService.authorizeMovieTicket({
+                      return this.actionService.purchase.authorizeMovieTicket({
                         seller: seller
                       });
 
                     case 20:
                       _context17.next = 22;
-                      return this.purchaseService.authorizeAnyPayment({
+                      return this.actionService.purchase.authorizeAnyPayment({
                         amount: this.amount,
                         depositAmount: paymentMethod.typeOf === _cinerino_sdk__WEBPACK_IMPORTED_MODULE_2__["factory"].paymentMethodType.Cash ? Number(this.depositAmount) : undefined
                       });
 
                     case 22:
                       _context17.next = 24;
-                      return this.purchaseService.registerContact(profile);
+                      return this.actionService.purchase.registerContact(profile);
 
                     case 24:
                       _context17.next = 26;
-                      return this.purchaseService.endTransaction({
+                      return this.actionService.purchase.endTransaction({
                         seller: seller,
                         language: userData.language
                       });
@@ -7323,7 +7307,7 @@
       }();
 
       PurchaseConfirmComponent.ɵfac = function PurchaseConfirmComponent_Factory(t) {
-        return new (t || PurchaseConfirmComponent)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_ngrx_store__WEBPACK_IMPORTED_MODULE_3__["Store"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_router__WEBPACK_IMPORTED_MODULE_1__["Router"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_services__WEBPACK_IMPORTED_MODULE_8__["PurchaseService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_services__WEBPACK_IMPORTED_MODULE_8__["UserService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_services__WEBPACK_IMPORTED_MODULE_8__["UtilService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_ngx_translate_core__WEBPACK_IMPORTED_MODULE_4__["TranslateService"]));
+        return new (t || PurchaseConfirmComponent)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_ngrx_store__WEBPACK_IMPORTED_MODULE_3__["Store"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_router__WEBPACK_IMPORTED_MODULE_1__["Router"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_services__WEBPACK_IMPORTED_MODULE_8__["ActionService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_services__WEBPACK_IMPORTED_MODULE_8__["UtilService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_ngx_translate_core__WEBPACK_IMPORTED_MODULE_4__["TranslateService"]));
       };
 
       PurchaseConfirmComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineComponent"]({
@@ -7596,9 +7580,7 @@
           }, {
             type: _angular_router__WEBPACK_IMPORTED_MODULE_1__["Router"]
           }, {
-            type: _services__WEBPACK_IMPORTED_MODULE_8__["PurchaseService"]
-          }, {
-            type: _services__WEBPACK_IMPORTED_MODULE_8__["UserService"]
+            type: _services__WEBPACK_IMPORTED_MODULE_8__["ActionService"]
           }, {
             type: _services__WEBPACK_IMPORTED_MODULE_8__["UtilService"]
           }, {
@@ -8013,13 +7995,13 @@
       }
 
       var PurchasePaymentComponent = /*#__PURE__*/function () {
-        function PurchasePaymentComponent(store, router, utilService, purchaseService, translate) {
+        function PurchasePaymentComponent(store, router, utilService, actionService, translate) {
           _classCallCheck(this, PurchasePaymentComponent);
 
           this.store = store;
           this.router = router;
           this.utilService = utilService;
-          this.purchaseService = purchaseService;
+          this.actionService = actionService;
           this.translate = translate;
           this.paymentMethodType = _cinerino_sdk__WEBPACK_IMPORTED_MODULE_2__["factory"].paymentMethodType;
           this.viewType = ___WEBPACK_IMPORTED_MODULE_5__["Models"].Util.ViewType;
@@ -8046,7 +8028,7 @@
                     case 0:
                       _context18.prev = 0;
                       _context18.next = 3;
-                      return this.purchaseService.getData();
+                      return this.actionService.purchase.getData();
 
                     case 3:
                       seller = _context18.sent.seller;
@@ -8075,7 +8057,7 @@
                       return _context18.abrupt("return");
 
                     case 10:
-                      this.purchaseService.selectPaymentMethodType({
+                      this.actionService.purchase.selectPaymentMethodType({
                         typeOf: typeOf,
                         category: category
                       });
@@ -8115,7 +8097,7 @@
       }();
 
       PurchasePaymentComponent.ɵfac = function PurchasePaymentComponent_Factory(t) {
-        return new (t || PurchasePaymentComponent)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_ngrx_store__WEBPACK_IMPORTED_MODULE_3__["Store"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_router__WEBPACK_IMPORTED_MODULE_1__["Router"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_services__WEBPACK_IMPORTED_MODULE_7__["UtilService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_services__WEBPACK_IMPORTED_MODULE_7__["PurchaseService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_ngx_translate_core__WEBPACK_IMPORTED_MODULE_4__["TranslateService"]));
+        return new (t || PurchasePaymentComponent)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_ngrx_store__WEBPACK_IMPORTED_MODULE_3__["Store"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_router__WEBPACK_IMPORTED_MODULE_1__["Router"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_services__WEBPACK_IMPORTED_MODULE_7__["UtilService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_services__WEBPACK_IMPORTED_MODULE_7__["ActionService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_ngx_translate_core__WEBPACK_IMPORTED_MODULE_4__["TranslateService"]));
       };
 
       PurchasePaymentComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineComponent"]({
@@ -8231,7 +8213,7 @@
           }, {
             type: _services__WEBPACK_IMPORTED_MODULE_7__["UtilService"]
           }, {
-            type: _services__WEBPACK_IMPORTED_MODULE_7__["PurchaseService"]
+            type: _services__WEBPACK_IMPORTED_MODULE_7__["ActionService"]
           }, {
             type: _ngx_translate_core__WEBPACK_IMPORTED_MODULE_4__["TranslateService"]
           }];
@@ -8336,11 +8318,11 @@
       };
 
       var PurchaseRootComponent = /*#__PURE__*/function () {
-        function PurchaseRootComponent(store, purchaseService, router) {
+        function PurchaseRootComponent(store, actionService, router) {
           _classCallCheck(this, PurchaseRootComponent);
 
           this.store = store;
-          this.purchaseService = purchaseService;
+          this.actionService = actionService;
           this.router = router;
           this.environment = Object(_environments_environment__WEBPACK_IMPORTED_MODULE_4__["getEnvironment"])();
         }
@@ -8358,7 +8340,7 @@
                       this.purchase = this.store.pipe(Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_2__["select"])(_store_reducers__WEBPACK_IMPORTED_MODULE_6__["getPurchase"]));
                       _context19.prev = 2;
                       _context19.next = 5;
-                      return this.purchaseService.getData();
+                      return this.actionService.purchase.getData();
 
                     case 5:
                       purchase = _context19.sent;
@@ -8369,10 +8351,10 @@
                       }
 
                       _context19.next = 9;
-                      return this.purchaseService.cancelTransaction();
+                      return this.actionService.purchase.cancelTransaction();
 
                     case 9:
-                      this.purchaseService["delete"]();
+                      this.actionService.purchase["delete"]();
 
                       if (!(this.environment.VIEW_TYPE === ___WEBPACK_IMPORTED_MODULE_3__["Models"].Util.ViewType.Cinema)) {
                         _context19.next = 13;
@@ -8407,7 +8389,7 @@
       }();
 
       PurchaseRootComponent.ɵfac = function PurchaseRootComponent_Factory(t) {
-        return new (t || PurchaseRootComponent)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_ngrx_store__WEBPACK_IMPORTED_MODULE_2__["Store"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_services__WEBPACK_IMPORTED_MODULE_5__["PurchaseService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_router__WEBPACK_IMPORTED_MODULE_1__["Router"]));
+        return new (t || PurchaseRootComponent)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_ngrx_store__WEBPACK_IMPORTED_MODULE_2__["Store"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_services__WEBPACK_IMPORTED_MODULE_5__["ActionService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_router__WEBPACK_IMPORTED_MODULE_1__["Router"]));
       };
 
       PurchaseRootComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineComponent"]({
@@ -8432,7 +8414,7 @@
           return [{
             type: _ngrx_store__WEBPACK_IMPORTED_MODULE_2__["Store"]
           }, {
-            type: _services__WEBPACK_IMPORTED_MODULE_5__["PurchaseService"]
+            type: _services__WEBPACK_IMPORTED_MODULE_5__["ActionService"]
           }, {
             type: _angular_router__WEBPACK_IMPORTED_MODULE_1__["Router"]
           }];
@@ -8559,14 +8541,14 @@
       };
 
       var PurchaseSeatComponent = /*#__PURE__*/function () {
-        function PurchaseSeatComponent(store, utilService, translate, router, purchaseService) {
+        function PurchaseSeatComponent(store, utilService, translate, router, actionService) {
           _classCallCheck(this, PurchaseSeatComponent);
 
           this.store = store;
           this.utilService = utilService;
           this.translate = translate;
           this.router = router;
-          this.purchaseService = purchaseService;
+          this.actionService = actionService;
           this.environment = Object(_environments_environment__WEBPACK_IMPORTED_MODULE_6__["getEnvironment"])();
         }
 
@@ -8588,7 +8570,7 @@
                       this.screeningEventSeats = [];
                       _context20.prev = 5;
                       _context20.next = 8;
-                      return this.purchaseService.getData();
+                      return this.actionService.purchase.getData();
 
                     case 8:
                       purchase = _context20.sent;
@@ -8620,7 +8602,7 @@
                         });
                       });
                       _context20.next = 20;
-                      return this.purchaseService.getScreen({
+                      return this.actionService.purchase.getScreen({
                         branchCode: {
                           $eq: screeningEvent.location.branchCode
                         },
@@ -8633,12 +8615,12 @@
 
                     case 20:
                       _context20.next = 22;
-                      return this.purchaseService.getScreeningEventSeats();
+                      return this.actionService.purchase.getScreeningEventSeats();
 
                     case 22:
                       this.screeningEventSeats = _context20.sent;
                       _context20.next = 25;
-                      return this.purchaseService.getTicketList({
+                      return this.actionService.purchase.getTicketList({
                         seller: seller
                       });
 
@@ -8668,9 +8650,9 @@
           key: "selectSeat",
           value: function selectSeat(data) {
             if (data.status === _models_purchase_screen__WEBPACK_IMPORTED_MODULE_7__["SeatStatus"].Default) {
-              this.purchaseService.selectSeats([data.seat]);
+              this.actionService.purchase.selectSeats([data.seat]);
             } else {
-              this.purchaseService.cancelSeats([data.seat]);
+              this.actionService.purchase.cancelSeats([data.seat]);
             }
           }
           /**
@@ -8688,7 +8670,7 @@
                     case 0:
                       seats = [];
                       _context21.next = 3;
-                      return this.purchaseService.getData();
+                      return this.actionService.purchase.getData();
 
                     case 3:
                       purchase = _context21.sent;
@@ -8718,7 +8700,7 @@
                         });
                       }
 
-                      this.purchaseService.selectSeats(seats);
+                      this.actionService.purchase.selectSeats(seats);
 
                     case 8:
                     case "end":
@@ -8743,7 +8725,7 @@
                     case 0:
                       seats = [];
                       _context22.next = 3;
-                      return this.purchaseService.getData();
+                      return this.actionService.purchase.getData();
 
                     case 3:
                       purchase = _context22.sent;
@@ -8754,7 +8736,7 @@
 
                         seats.push(reservation.seat);
                       });
-                      this.purchaseService.cancelSeats(seats);
+                      this.actionService.purchase.cancelSeats(seats);
 
                     case 6:
                     case "end":
@@ -8821,7 +8803,7 @@
 
                     case 2:
                       _context23.next = 4;
-                      return this.purchaseService.getData();
+                      return this.actionService.purchase.getData();
 
                     case 4:
                       purchaseData = _context23.sent;
@@ -8842,7 +8824,7 @@
                         selectSeats.push(seats[i]);
                       }
 
-                      this.purchaseService.selectSeats(selectSeats);
+                      this.actionService.purchase.selectSeats(selectSeats);
 
                     case 14:
                     case "end":
@@ -8866,7 +8848,7 @@
                   switch (_context24.prev = _context24.next) {
                     case 0:
                       _context24.next = 2;
-                      return this.purchaseService.getData();
+                      return this.actionService.purchase.getData();
 
                     case 2:
                       purchase = _context24.sent;
@@ -8913,7 +8895,7 @@
                     case 14:
                       _context24.prev = 14;
                       _context24.next = 17;
-                      return this.purchaseService.temporaryReservation({
+                      return this.actionService.purchase.temporaryReservation({
                         reservations: reservations,
                         screeningEventSeats: this.screeningEventSeats
                       });
@@ -8947,7 +8929,7 @@
       }();
 
       PurchaseSeatComponent.ɵfac = function PurchaseSeatComponent_Factory(t) {
-        return new (t || PurchaseSeatComponent)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_ngrx_store__WEBPACK_IMPORTED_MODULE_3__["Store"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_services__WEBPACK_IMPORTED_MODULE_8__["UtilService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_ngx_translate_core__WEBPACK_IMPORTED_MODULE_4__["TranslateService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_router__WEBPACK_IMPORTED_MODULE_1__["Router"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_services__WEBPACK_IMPORTED_MODULE_8__["PurchaseService"]));
+        return new (t || PurchaseSeatComponent)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_ngrx_store__WEBPACK_IMPORTED_MODULE_3__["Store"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_services__WEBPACK_IMPORTED_MODULE_8__["UtilService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_ngx_translate_core__WEBPACK_IMPORTED_MODULE_4__["TranslateService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_router__WEBPACK_IMPORTED_MODULE_1__["Router"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_services__WEBPACK_IMPORTED_MODULE_8__["ActionService"]));
       };
 
       PurchaseSeatComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineComponent"]({
@@ -8977,7 +8959,7 @@
           }, {
             type: _angular_router__WEBPACK_IMPORTED_MODULE_1__["Router"]
           }, {
-            type: _services__WEBPACK_IMPORTED_MODULE_8__["PurchaseService"]
+            type: _services__WEBPACK_IMPORTED_MODULE_8__["ActionService"]
           }];
         }, null);
       })();
@@ -9114,13 +9096,13 @@
       };
 
       var PurchaseTicketComponent = /*#__PURE__*/function () {
-        function PurchaseTicketComponent(store, router, modal, purchaseService, utilService, translate) {
+        function PurchaseTicketComponent(store, router, modal, actionService, utilService, translate) {
           _classCallCheck(this, PurchaseTicketComponent);
 
           this.store = store;
           this.router = router;
           this.modal = modal;
-          this.purchaseService = purchaseService;
+          this.actionService = actionService;
           this.utilService = utilService;
           this.translate = translate;
           this.environment = Object(_environments_environment__WEBPACK_IMPORTED_MODULE_7__["getEnvironment"])();
@@ -9149,7 +9131,7 @@
                   switch (_context25.prev = _context25.next) {
                     case 0:
                       _context25.next = 2;
-                      return this.purchaseService.getData();
+                      return this.actionService.purchase.getData();
 
                     case 2:
                       purchase = _context25.sent;
@@ -9217,12 +9199,12 @@
                       _context25.prev = 17;
                       additionalTicketText = this.additionalTicketText;
                       _context25.next = 21;
-                      return this.purchaseService.getScreeningEventSeats();
+                      return this.actionService.purchase.getScreeningEventSeats();
 
                     case 21:
                       screeningEventSeats = _context25.sent;
                       _context25.next = 24;
-                      return this.purchaseService.temporaryReservation({
+                      return this.actionService.purchase.temporaryReservation({
                         reservations: reservations,
                         additionalTicketText: additionalTicketText,
                         screeningEventSeats: screeningEventSeats
@@ -9267,7 +9249,7 @@
                   switch (_context26.prev = _context26.next) {
                     case 0:
                       _context26.next = 2;
-                      return this.purchaseService.getData();
+                      return this.actionService.purchase.getData();
 
                     case 2:
                       purchase = _context26.sent;
@@ -9287,12 +9269,12 @@
                                 return r.ticket = ticket;
                               });
 
-                              _this11.purchaseService.selectTickets(reservations);
+                              _this11.actionService.purchase.selectTickets(reservations);
 
                               return;
                             }
 
-                            _this11.purchaseService.selectTickets([Object.assign(Object.assign({}, reservation), {
+                            _this11.actionService.purchase.selectTickets([Object.assign(Object.assign({}, reservation), {
                               ticket: ticket
                             })]);
                           }
@@ -9324,7 +9306,7 @@
       }();
 
       PurchaseTicketComponent.ɵfac = function PurchaseTicketComponent_Factory(t) {
-        return new (t || PurchaseTicketComponent)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_ngrx_store__WEBPACK_IMPORTED_MODULE_3__["Store"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_router__WEBPACK_IMPORTED_MODULE_1__["Router"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](ngx_bootstrap_modal__WEBPACK_IMPORTED_MODULE_5__["BsModalService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_services__WEBPACK_IMPORTED_MODULE_8__["PurchaseService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_services__WEBPACK_IMPORTED_MODULE_8__["UtilService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_ngx_translate_core__WEBPACK_IMPORTED_MODULE_4__["TranslateService"]));
+        return new (t || PurchaseTicketComponent)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_ngrx_store__WEBPACK_IMPORTED_MODULE_3__["Store"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_router__WEBPACK_IMPORTED_MODULE_1__["Router"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](ngx_bootstrap_modal__WEBPACK_IMPORTED_MODULE_5__["BsModalService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_services__WEBPACK_IMPORTED_MODULE_8__["ActionService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_services__WEBPACK_IMPORTED_MODULE_8__["UtilService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_ngx_translate_core__WEBPACK_IMPORTED_MODULE_4__["TranslateService"]));
       };
 
       PurchaseTicketComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineComponent"]({
@@ -9352,7 +9334,7 @@
           }, {
             type: ngx_bootstrap_modal__WEBPACK_IMPORTED_MODULE_5__["BsModalService"]
           }, {
-            type: _services__WEBPACK_IMPORTED_MODULE_8__["PurchaseService"]
+            type: _services__WEBPACK_IMPORTED_MODULE_8__["ActionService"]
           }, {
             type: _services__WEBPACK_IMPORTED_MODULE_8__["UtilService"]
           }, {

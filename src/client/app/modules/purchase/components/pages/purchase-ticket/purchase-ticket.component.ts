@@ -8,7 +8,7 @@ import { Observable } from 'rxjs';
 import { Functions } from '../../../../..';
 import { getEnvironment } from '../../../../../../environments/environment';
 import { IReservation, IReservationTicket } from '../../../../../models/purchase/reservation';
-import { PurchaseService, UtilService } from '../../../../../services';
+import { ActionService, UtilService } from '../../../../../services';
 import * as reducers from '../../../../../store/reducers';
 import { MvtkCheckModalComponent } from '../../../../shared/components/parts/mvtk/check-modal/check-modal.component';
 import { PurchaseSeatTicketModalComponent } from '../../../../shared/components/parts/purchase/seat-ticket-modal/seat-ticket-modal.component';
@@ -29,7 +29,7 @@ export class PurchaseTicketComponent implements OnInit {
         private store: Store<reducers.IState>,
         private router: Router,
         private modal: BsModalService,
-        private purchaseService: PurchaseService,
+        private actionService: ActionService,
         private utilService: UtilService,
         private translate: TranslateService
     ) { }
@@ -47,7 +47,7 @@ export class PurchaseTicketComponent implements OnInit {
      * 確定
      */
     public async onSubmit() {
-        const purchase = await this.purchaseService.getData();
+        const purchase = await this.actionService.purchase.getData();
         const transaction = purchase.transaction;
         const screeningEvent = purchase.screeningEvent;
         const reservations = purchase.reservations;
@@ -97,8 +97,8 @@ export class PurchaseTicketComponent implements OnInit {
         }
         try {
             const additionalTicketText = this.additionalTicketText;
-            const screeningEventSeats = await this.purchaseService.getScreeningEventSeats();
-            await this.purchaseService.temporaryReservation({
+            const screeningEventSeats = await this.actionService.purchase.getScreeningEventSeats();
+            await this.actionService.purchase.temporaryReservation({
                 reservations,
                 additionalTicketText,
                 screeningEventSeats
@@ -124,7 +124,7 @@ export class PurchaseTicketComponent implements OnInit {
      * 券種一覧表示
      */
     public async openTicketList(reservation?: IReservation) {
-        const purchase = await this.purchaseService.getData();
+        const purchase = await this.actionService.purchase.getData();
         this.modal.show(PurchaseSeatTicketModalComponent, {
             class: 'modal-dialog-centered modal-lg',
             initialState: {
@@ -137,10 +137,10 @@ export class PurchaseTicketComponent implements OnInit {
                     if (reservation === undefined) {
                         const reservations = Functions.Util.deepCopy<IReservation[]>(purchase.reservations);
                         reservations.forEach(r => r.ticket = ticket);
-                        this.purchaseService.selectTickets(reservations);
+                        this.actionService.purchase.selectTickets(reservations);
                         return;
                     }
-                    this.purchaseService.selectTickets([{ ...reservation, ticket }]);
+                    this.actionService.purchase.selectTickets([{ ...reservation, ticket }]);
                 }
             },
         });

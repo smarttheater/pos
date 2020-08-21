@@ -6,7 +6,7 @@ import * as moment from 'moment';
 import { BsDatepickerContainerComponent, BsDatepickerDirective, BsLocaleService } from 'ngx-bootstrap/datepicker';
 import { Observable } from 'rxjs';
 import { Functions } from '../../../../..';
-import { AdmissionService, MasterService, UserService } from '../../../../../services';
+import { ActionService, MasterService } from '../../../../../services';
 import * as reducers from '../../../../../store/reducers';
 
 
@@ -28,9 +28,8 @@ export class AdmissionScheduleComponent implements OnInit, OnDestroy {
         private store: Store<reducers.IState>,
         private router: Router,
         private localeService: BsLocaleService,
-        private admissionService: AdmissionService,
+        private actionService: ActionService,
         private masterService: MasterService,
-        private userService: UserService
     ) { }
 
     public async ngOnInit() {
@@ -61,7 +60,7 @@ export class AdmissionScheduleComponent implements OnInit, OnDestroy {
             this.scheduleDate = date;
         }
         try {
-            const user = await this.userService.getData();
+            const user = await this.actionService.user.getData();
             const theater = user.theater;
             if (theater === undefined) {
                 this.router.navigate(['/error']);
@@ -71,7 +70,7 @@ export class AdmissionScheduleComponent implements OnInit, OnDestroy {
                 this.scheduleDate = moment().toDate();
             }
             const scheduleDate = moment(this.scheduleDate).format('YYYY-MM-DD');
-            this.admissionService.selectScheduleDate(scheduleDate);
+            this.actionService.admission.selectScheduleDate(scheduleDate);
 
             const screeningEvents = await this.masterService.getSchedule({
                 superEvent: { locationBranchCodes: [theater.branchCode] },
@@ -91,7 +90,7 @@ export class AdmissionScheduleComponent implements OnInit, OnDestroy {
      */
     public async selectSchedule(screeningEvent: factory.chevre.event.screeningEvent.IEvent) {
         try {
-            await this.admissionService.getScreeningEvent(screeningEvent);
+            await this.actionService.admission.getScreeningEvent(screeningEvent);
             this.router.navigate(['/admission/check']);
         } catch (error) {
             console.error(error);
@@ -103,7 +102,7 @@ export class AdmissionScheduleComponent implements OnInit, OnDestroy {
      * 指定なしで確認
      */
     public notSpecified() {
-        this.admissionService.delete();
+        this.actionService.admission.delete();
         this.router.navigate(['/admission/check']);
     }
 

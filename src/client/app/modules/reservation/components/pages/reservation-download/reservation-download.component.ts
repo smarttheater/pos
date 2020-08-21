@@ -7,7 +7,7 @@ import { BsDatepickerContainerComponent, BsDatepickerDirective, BsLocaleService 
 import { Observable } from 'rxjs';
 import { Functions, Models } from '../../../../..';
 import { getEnvironment } from '../../../../../../environments/environment';
-import { DownloadService, ReservationService, UserService, UtilService } from '../../../../../services';
+import { ActionService, DownloadService, UtilService } from '../../../../../services';
 import * as reducers from '../../../../../store/reducers';
 
 @Component({
@@ -36,11 +36,10 @@ export class ReservationDownloadComponent implements OnInit {
     constructor(
         private store: Store<reducers.IOrderState>,
         private utilService: UtilService,
-        private reservationService: ReservationService,
+        private actionService: ActionService,
         private downloadService: DownloadService,
         private translate: TranslateService,
         private localeService: BsLocaleService,
-        private userService: UserService
     ) { }
 
     public ngOnInit() {
@@ -61,7 +60,7 @@ export class ReservationDownloadComponent implements OnInit {
             reservationStatus: '',
             page: 1
         };
-        this.reservationService.delete();
+        this.actionService.reservation.delete();
     }
 
     /**
@@ -89,7 +88,7 @@ export class ReservationDownloadComponent implements OnInit {
         try {
             const params = Functions.Reservation.input2ReservationSearchCondition({
                 input: this.confirmedConditions,
-                theater: (await this.userService.getData()).theater,
+                theater: (await this.actionService.user.getData()).theater,
             });
             await this.downloadService.reservation(params);
         } catch (error) {

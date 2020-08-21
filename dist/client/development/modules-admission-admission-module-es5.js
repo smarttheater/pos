@@ -1176,11 +1176,11 @@
       }
 
       var AdmissionCheckComponent = /*#__PURE__*/function () {
-        function AdmissionCheckComponent(store, admissionService, utilService, qrcodeService, translate) {
+        function AdmissionCheckComponent(store, actionService, utilService, qrcodeService, translate) {
           _classCallCheck(this, AdmissionCheckComponent);
 
           this.store = store;
-          this.admissionService = admissionService;
+          this.actionService = actionService;
           this.utilService = utilService;
           this.qrcodeService = qrcodeService;
           this.translate = translate;
@@ -1194,7 +1194,7 @@
             this.inputCode = '';
             this.isLoading = this.store.pipe(Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_1__["select"])(_store_reducers__WEBPACK_IMPORTED_MODULE_6__["getLoading"]));
             this.admission = this.store.pipe(Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_1__["select"])(_store_reducers__WEBPACK_IMPORTED_MODULE_6__["getAdmission"]));
-            this.admissionService.initializeQrcodeToken();
+            this.actionService.admission.initializeQrcodeToken();
           }
         }, {
           key: "ngOnDestroy",
@@ -1230,7 +1230,7 @@
                     case 0:
                       _context.prev = 0;
                       _context.next = 3;
-                      return this.admissionService.checkQrcodeToken(code);
+                      return this.actionService.admission.checkQrcodeToken(code);
 
                     case 3:
                       _context.next = 9;
@@ -1288,18 +1288,18 @@
             clearInterval(this.updateLoop);
             this.updateLoop = setInterval(function () {
               return __awaiter(_this2, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee3() {
-                var _yield$this$admission, screeningEvent;
+                var _yield$this$actionSer, screeningEvent;
 
                 return regeneratorRuntime.wrap(function _callee3$(_context3) {
                   while (1) {
                     switch (_context3.prev = _context3.next) {
                       case 0:
                         _context3.next = 2;
-                        return this.admissionService.getData();
+                        return this.actionService.admission.getData();
 
                       case 2:
-                        _yield$this$admission = _context3.sent;
-                        screeningEvent = _yield$this$admission.screeningEvent;
+                        _yield$this$actionSer = _context3.sent;
+                        screeningEvent = _yield$this$actionSer.screeningEvent;
 
                         if (!(screeningEvent === undefined)) {
                           _context3.next = 6;
@@ -1310,7 +1310,7 @@
 
                       case 6:
                         _context3.next = 8;
-                        return this.admissionService.getScreeningEvent(screeningEvent);
+                        return this.actionService.admission.getScreeningEvent(screeningEvent);
 
                       case 8:
                       case "end":
@@ -1327,7 +1327,7 @@
       }();
 
       AdmissionCheckComponent.ɵfac = function AdmissionCheckComponent_Factory(t) {
-        return new (t || AdmissionCheckComponent)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_ngrx_store__WEBPACK_IMPORTED_MODULE_1__["Store"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_services__WEBPACK_IMPORTED_MODULE_5__["AdmissionService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_services__WEBPACK_IMPORTED_MODULE_5__["UtilService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_services__WEBPACK_IMPORTED_MODULE_5__["QRCodeService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_ngx_translate_core__WEBPACK_IMPORTED_MODULE_2__["TranslateService"]));
+        return new (t || AdmissionCheckComponent)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_ngrx_store__WEBPACK_IMPORTED_MODULE_1__["Store"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_services__WEBPACK_IMPORTED_MODULE_5__["ActionService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_services__WEBPACK_IMPORTED_MODULE_5__["UtilService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_services__WEBPACK_IMPORTED_MODULE_5__["QRCodeService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_ngx_translate_core__WEBPACK_IMPORTED_MODULE_2__["TranslateService"]));
       };
 
       AdmissionCheckComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineComponent"]({
@@ -1429,7 +1429,7 @@
           return [{
             type: _ngrx_store__WEBPACK_IMPORTED_MODULE_1__["Store"]
           }, {
-            type: _services__WEBPACK_IMPORTED_MODULE_5__["AdmissionService"]
+            type: _services__WEBPACK_IMPORTED_MODULE_5__["ActionService"]
           }, {
             type: _services__WEBPACK_IMPORTED_MODULE_5__["UtilService"]
           }, {
@@ -1659,15 +1659,14 @@
       };
 
       var AdmissionScheduleComponent = /*#__PURE__*/function () {
-        function AdmissionScheduleComponent(store, router, localeService, admissionService, masterService, userService) {
+        function AdmissionScheduleComponent(store, router, localeService, actionService, masterService) {
           _classCallCheck(this, AdmissionScheduleComponent);
 
           this.store = store;
           this.router = router;
           this.localeService = localeService;
-          this.admissionService = admissionService;
+          this.actionService = actionService;
           this.masterService = masterService;
-          this.userService = userService;
           this.moment = moment__WEBPACK_IMPORTED_MODULE_3__;
         }
 
@@ -1730,7 +1729,7 @@
 
                       _context5.prev = 1;
                       _context5.next = 4;
-                      return this.userService.getData();
+                      return this.actionService.user.getData();
 
                     case 4:
                       user = _context5.sent;
@@ -1750,7 +1749,7 @@
                       }
 
                       scheduleDate = moment__WEBPACK_IMPORTED_MODULE_3__(this.scheduleDate).format('YYYY-MM-DD');
-                      this.admissionService.selectScheduleDate(scheduleDate);
+                      this.actionService.admission.selectScheduleDate(scheduleDate);
                       _context5.next = 14;
                       return this.masterService.getSchedule({
                         superEvent: {
@@ -1797,7 +1796,7 @@
                     case 0:
                       _context6.prev = 0;
                       _context6.next = 3;
-                      return this.admissionService.getScreeningEvent(screeningEvent);
+                      return this.actionService.admission.getScreeningEvent(screeningEvent);
 
                     case 3:
                       this.router.navigate(['/admission/check']);
@@ -1825,7 +1824,7 @@
         }, {
           key: "notSpecified",
           value: function notSpecified() {
-            this.admissionService["delete"]();
+            this.actionService.admission["delete"]();
             this.router.navigate(['/admission/check']);
           }
           /**
@@ -1866,7 +1865,7 @@
       }();
 
       AdmissionScheduleComponent.ɵfac = function AdmissionScheduleComponent_Factory(t) {
-        return new (t || AdmissionScheduleComponent)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_ngrx_store__WEBPACK_IMPORTED_MODULE_2__["Store"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_router__WEBPACK_IMPORTED_MODULE_1__["Router"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](ngx_bootstrap_datepicker__WEBPACK_IMPORTED_MODULE_4__["BsLocaleService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_services__WEBPACK_IMPORTED_MODULE_6__["AdmissionService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_services__WEBPACK_IMPORTED_MODULE_6__["MasterService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_services__WEBPACK_IMPORTED_MODULE_6__["UserService"]));
+        return new (t || AdmissionScheduleComponent)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_ngrx_store__WEBPACK_IMPORTED_MODULE_2__["Store"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_router__WEBPACK_IMPORTED_MODULE_1__["Router"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](ngx_bootstrap_datepicker__WEBPACK_IMPORTED_MODULE_4__["BsLocaleService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_services__WEBPACK_IMPORTED_MODULE_6__["ActionService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_services__WEBPACK_IMPORTED_MODULE_6__["MasterService"]));
       };
 
       AdmissionScheduleComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineComponent"]({
@@ -2024,11 +2023,9 @@
           }, {
             type: ngx_bootstrap_datepicker__WEBPACK_IMPORTED_MODULE_4__["BsLocaleService"]
           }, {
-            type: _services__WEBPACK_IMPORTED_MODULE_6__["AdmissionService"]
+            type: _services__WEBPACK_IMPORTED_MODULE_6__["ActionService"]
           }, {
             type: _services__WEBPACK_IMPORTED_MODULE_6__["MasterService"]
-          }, {
-            type: _services__WEBPACK_IMPORTED_MODULE_6__["UserService"]
           }];
         }, {
           datepicker: [{

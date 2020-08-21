@@ -4,7 +4,7 @@ import { select, Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { Models } from '../../../../..';
 import { getEnvironment } from '../../../../../../environments/environment';
-import { PurchaseService } from '../../../../../services';
+import { ActionService } from '../../../../../services';
 import * as reducers from '../../../../../store/reducers';
 
 @Component({
@@ -19,7 +19,7 @@ export class PurchaseRootComponent implements OnInit {
 
     constructor(
         private store: Store<reducers.IState>,
-        private purchaseService: PurchaseService,
+        private actionService: ActionService,
         private router: Router
     ) { }
 
@@ -27,11 +27,11 @@ export class PurchaseRootComponent implements OnInit {
         this.user = this.store.pipe(select(reducers.getUser));
         this.purchase = this.store.pipe(select(reducers.getPurchase));
         try {
-            const purchase = await this.purchaseService.getData();
+            const purchase = await this.actionService.purchase.getData();
             if (purchase.transaction !== undefined) {
-                await this.purchaseService.cancelTransaction();
+                await this.actionService.purchase.cancelTransaction();
             }
-            this.purchaseService.delete();
+            this.actionService.purchase.delete();
             if (this.environment.VIEW_TYPE === Models.Util.ViewType.Cinema) {
                 this.router.navigate(['/purchase/cinema/schedule']);
                 return;

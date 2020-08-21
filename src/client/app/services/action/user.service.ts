@@ -4,10 +4,10 @@ import { select, Store } from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
 import * as moment from 'moment';
 import { Observable } from 'rxjs';
-import { Models } from '..';
-import { userAction } from '../store/actions';
-import * as reducers from '../store/reducers';
-import { UtilService } from './util.service';
+import { Models } from '../..';
+import { userAction } from '../../store/actions';
+import * as reducers from '../../store/reducers';
+import { UtilService } from '../util.service';
 
 @Injectable({
     providedIn: 'root'
