@@ -9256,6 +9256,7 @@
                       this.modal.show(_shared_components_parts_purchase_seat_ticket_modal_seat_ticket_modal_component__WEBPACK_IMPORTED_MODULE_11__["PurchaseSeatTicketModalComponent"], {
                         "class": 'modal-dialog-centered modal-lg',
                         initialState: {
+                          authorizeSeatReservation: purchase.authorizeSeatReservation,
                           screeningEventTicketOffers: purchase.screeningEventTicketOffers,
                           checkMovieTicketActions: purchase.checkMovieTicketActions,
                           reservations: purchase.reservations,
