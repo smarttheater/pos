@@ -128,6 +128,7 @@ export class PurchaseTicketComponent implements OnInit {
         this.modal.show(PurchaseSeatTicketModalComponent, {
             class: 'modal-dialog-centered modal-lg',
             initialState: {
+                authorizeSeatReservation: purchase.authorizeSeatReservation,
                 screeningEventTicketOffers: purchase.screeningEventTicketOffers,
                 checkMovieTicketActions: purchase.checkMovieTicketActions,
                 reservations: purchase.reservations,
