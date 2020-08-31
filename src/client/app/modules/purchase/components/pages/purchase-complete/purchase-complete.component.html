@@ -74,6 +74,9 @@
         <button *ngIf="(user | async)?.printer.connectionType !== connectionType.None" type="submit"
             class="btn btn-primary btn-block py-3 mb-3" [disabled]="isLoading | async"
             (click)="print()">{{ 'purchase.complete.next' | translate }}</button>
+        <button *ngIf="environment.PRINT_RECEIPT && (user | async)?.printer.connectionType !== connectionType.None" type="submit"
+            class="btn btn-primary btn-block py-3 mb-3" [disabled]="isLoading | async"
+            (click)="printReceipt()">{{ 'purchase.complete.receipt' | translate }}</button>
         <a *ngFor="let link of environment.ORDER_LINK" class="btn btn-primary btn-block py-3 mb-3"
             target="_blank" 
             [href]="createOrderLink((purchase | async)?.order, link)">{{ link.name | changeLanguage }}</a>

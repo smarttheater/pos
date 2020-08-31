@@ -3695,7 +3695,7 @@
         if (rf & 1) {
           var _r20 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵgetCurrentView"]();
 
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "i", 70);
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "i", 71);
 
           _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵlistener"]("click", function OrderSearchComponent_div_143_tr_38_div_2_i_1_Template_i_click_0_listener() {
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵrestoreView"](_r20);
@@ -3715,7 +3715,7 @@
         if (rf & 1) {
           var _r23 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵgetCurrentView"]();
 
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "i", 71);
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "i", 72);
 
           _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵlistener"]("click", function OrderSearchComponent_div_143_tr_38_div_2_i_2_Template_i_click_0_listener() {
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵrestoreView"](_r23);
@@ -3735,9 +3735,9 @@
         if (rf & 1) {
           _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "div");
 
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](1, OrderSearchComponent_div_143_tr_38_div_2_i_1_Template, 1, 0, "i", 68);
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](1, OrderSearchComponent_div_143_tr_38_div_2_i_1_Template, 1, 0, "i", 69);
 
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](2, OrderSearchComponent_div_143_tr_38_div_2_i_2_Template, 1, 0, "i", 69);
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](2, OrderSearchComponent_div_143_tr_38_div_2_i_2_Template, 1, 0, "i", 70);
 
           _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
         }
@@ -3761,7 +3761,7 @@
         if (rf & 1) {
           _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "div");
 
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelement"](1, "i", 72);
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelement"](1, "i", 73);
 
           _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
         }
@@ -3811,7 +3811,7 @@
 
       function OrderSearchComponent_div_143_tr_38_div_11_span_11_Template(rf, ctx) {
         if (rf & 1) {
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "span", 76);
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "span", 77);
 
           _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](1);
 
@@ -3843,7 +3843,7 @@
 
           _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](5, "p");
 
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](6, "span", 73);
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](6, "span", 74);
 
           _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](7);
 
@@ -3851,11 +3851,11 @@
 
           _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
 
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](9, "span", 74);
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](9, "span", 75);
 
           _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](10, "\xA0/\xA0");
 
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](11, OrderSearchComponent_div_143_tr_38_div_11_span_11_Template, 3, 3, "span", 75);
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](11, OrderSearchComponent_div_143_tr_38_div_11_span_11_Template, 3, 3, "span", 76);
 
           _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipe"](12, "changeLanguage");
 
@@ -3911,7 +3911,7 @@
         if (rf & 1) {
           var _r34 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵgetCurrentView"]();
 
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "button", 77);
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "button", 78);
 
           _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵlistener"]("click", function OrderSearchComponent_div_143_tr_38_button_17_Template_button_click_0_listener() {
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵrestoreView"](_r34);
@@ -3925,7 +3925,7 @@
 
           _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipe"](1, "async");
 
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelement"](2, "i", 78);
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelement"](2, "i", 79);
 
           _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
         }
@@ -3946,7 +3946,7 @@
         if (rf & 1) {
           var _r38 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵgetCurrentView"]();
 
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "button", 79);
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "button", 80);
 
           _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵlistener"]("click", function OrderSearchComponent_div_143_tr_38_button_18_Template_button_click_0_listener() {
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵrestoreView"](_r38);
@@ -3958,7 +3958,7 @@
             return ctx_r36.cancelConfirm([order_r9]);
           });
 
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelement"](1, "i", 80);
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelement"](1, "i", 81);
 
           _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
         }
@@ -4022,9 +4022,9 @@
 
           _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
 
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](14, "td", 62);
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](14, "td", 64);
 
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](15, "button", 64);
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](15, "button", 65);
 
           _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵlistener"]("click", function OrderSearchComponent_div_143_tr_38_Template_button_click_15_listener() {
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵrestoreView"](_r41);
@@ -4036,13 +4036,13 @@
             return ctx_r40.openDetail(order_r9);
           });
 
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelement"](16, "i", 65);
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelement"](16, "i", 66);
 
           _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
 
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](17, OrderSearchComponent_div_143_tr_38_button_17_Template, 3, 3, "button", 66);
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](17, OrderSearchComponent_div_143_tr_38_button_17_Template, 3, 3, "button", 67);
 
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](18, OrderSearchComponent_div_143_tr_38_button_18_Template, 2, 1, "button", 67);
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](18, OrderSearchComponent_div_143_tr_38_button_18_Template, 2, 1, "button", 68);
 
           _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
 
@@ -4851,7 +4851,7 @@
         },
         decls: 148,
         vars: 146,
-        consts: [[1, "contents-width", "mx-auto", "px-3", "py-5"], [1, "text-large", "mb-4", "text-center", "font-weight-bold"], [1, "mb-4", "text-md-center", 3, "innerHTML"], [1, "conditions", "p-3", "bg-white", "mb-4"], [3, "submit"], [1, "form-row"], [1, "form-group", "col-md-4", "col-lg-3"], ["for", "orderDateFrom", 1, "mb-2"], [1, "position-relative"], ["type", "text", "name", "orderDateFrom", "id", "orderDateFrom", "placeholder", "YYYY/MM/DD", "bsDatepicker", "", "readonly", "", 1, "form-control", 3, "ngModel", "bsConfig", "ngModelChange", "onShown", "click"], ["orderDateFrom", "bsDatepicker"], [1, "datepicker-append", "d-flex", "align-items-center", "px-2", 3, "click"], [1, "fas", "fa-times"], ["for", "orderDateThrough", 1, "mb-2"], ["type", "text", "name", "orderDateThrough", "id", "orderDateThrough", "placeholder", "YYYY/MM/DD", "bsDatepicker", "", "readonly", "", 1, "form-control", 3, "ngModel", "bsConfig", "ngModelChange", "onShown", "click"], ["orderDateThrough", "bsDatepicker"], ["for", "confirmationNumber", 1, "mb-2"], ["type", "text", "name", "confirmationNumber", "id", "confirmationNumber", 1, "form-control", 3, "ngModel", "placeholder", "ngModelChange"], ["for", "orderNumber", 1, "mb-2"], ["type", "text", "name", "orderNumber", "id", "orderNumber", 1, "form-control", 3, "ngModel", "placeholder", "ngModelChange"], ["for", "familyName", 1, "mb-2"], ["type", "text", "name", "familyName", "id", "familyName", 1, "form-control", 3, "ngModel", "placeholder", "ngModelChange"], ["for", "givenName", 1, "mb-2"], ["type", "text", "name", "givenName", "id", "givenName", 1, "form-control", 3, "ngModel", "placeholder", "ngModelChange"], ["for", "email", 1, "mb-2"], ["type", "email", "name", "email", "id", "email", 1, "form-control", 3, "ngModel", "placeholder", "ngModelChange"], ["for", "telephone", 1, "mb-2"], ["type", "telephone", "name", "telephone", "id", "telephone", 1, "form-control", 3, "ngModel", "placeholder", "ngModelChange"], ["for", "orderStatus", 1, "mb-2"], ["name", "orderStatus", "id", "orderStatus", 1, "form-control", 3, "ngModel", "ngModelChange"], ["value", ""], [3, "value"], ["for", "paymentMethodType", 1, "mb-2"], ["name", "paymentMethodType", "id", "paymentMethodType", 1, "form-control", 3, "ngModel", "ngModelChange"], ["for", "eventStartDateFrom", 1, "mb-2"], ["type", "text", "name", "eventStartDateFrom", "id", "eventStartDateFrom", "placeholder", "YYYY/MM/DD", "bsDatepicker", "", "readonly", "", 1, "form-control", 3, "ngModel", "bsConfig", "ngModelChange", "onShown", "click"], ["eventStartDateFrom", "bsDatepicker"], ["for", "eventStartDateThrough", 1, "mb-2"], ["type", "text", "name", "eventStartDateThrough", "id", "eventStartDateThrough", "placeholder", "YYYY/MM/DD", "bsDatepicker", "", "readonly", "", 1, "form-control", 3, "ngModel", "bsConfig", "ngModelChange", "onShown", "click"], ["eventStartDateThrough", "bsDatepicker"], ["for", "posId", 1, "mb-2"], ["name", "posId", "id", "posId", 1, "form-control", 3, "ngModel", "ngModelChange"], [3, "value", 4, "ngFor", "ngForOf"], [1, "buttons", "mx-auto", "text-center"], ["type", "submit", 1, "btn", "btn-primary", "btn-block", "py-3", "mb-3", 3, "disabled"], ["type", "button", 1, "btn", "btn-outline-primary", "btn-block", "py-3", 3, "click"], ["class", "mb-4", 4, "ngIf"], ["type", "button", "routerLink", "/order", 1, "btn", "btn-outline-primary", "btn-block", "py-3"], [1, "mb-4"], [1, "d-md-flex", "align-items-center", "justify-content-between", "mb-4"], [1, "text-md-right", "text-center", "mb-3", "mb-md-0", "order-2"], [1, "d-inline-block"], ["previousText", "\u2039", "nextText", "\u203A", "firstText", "\xAB", "lastText", "\xBB", 3, "ngModel", "totalItems", "itemsPerPage", "maxSize", "boundaryLinks", "ngModelChange", "pageChanged"], [1, "form-group", "text-center", "text-md-left", "mb-3", "mb-md-0", "order-1"], ["name", "actionSelect", "id", "actionSelect", 1, "form-control", "d-inline-block", "w-auto", "mr-2", 3, "ngModel", "ngModelChange"], ["id", "selectedActionButton", "type", "button", 1, "btn", "btn-primary", "py-2", "px-4", 3, "click"], [1, "scroll-horizontal"], [1, "table", "bg-white", "text-small", "mb-0", "border", "border-gray"], ["scope", "col"], [3, "bg-light-gray", 4, "ngFor", "ngForOf"], [1, "align-middle", "text-large", "text-center"], [4, "ngIf"], [1, "align-middle"], [4, "ngFor", "ngForOf"], [1, "btn", "btn-primary", "mr-2", 3, "click"], [1, "fas", "fa-search-plus"], ["class", "btn btn-primary mr-2", 3, "disabled", "click", 4, "ngIf"], ["class", "btn btn-primary", 3, "disabled", "click", 4, "ngIf"], ["class", "far fa-square pointer", 3, "click", 4, "ngIf"], ["class", "far fa-check-square pointer", 3, "click", 4, "ngIf"], [1, "far", "fa-square", "pointer", 3, "click"], [1, "far", "fa-check-square", "pointer", 3, "click"], [1, "far", "fa-square", "opacity-0"], [1, "theater-name"], [1, "screen-name"], ["class", "mr-2", 4, "ngIf"], [1, "mr-2"], [1, "btn", "btn-primary", "mr-2", 3, "disabled", "click"], [1, "fas", "fa-print"], [1, "btn", "btn-primary", 3, "disabled", "click"], [1, "fas", "fa-reply"]],
+        consts: [[1, "contents-width", "mx-auto", "px-3", "py-5"], [1, "text-large", "mb-4", "text-center", "font-weight-bold"], [1, "mb-4", "text-md-center", 3, "innerHTML"], [1, "conditions", "p-3", "bg-white", "mb-4"], [3, "submit"], [1, "form-row"], [1, "form-group", "col-md-4", "col-lg-3"], ["for", "orderDateFrom", 1, "mb-2"], [1, "position-relative"], ["type", "text", "name", "orderDateFrom", "id", "orderDateFrom", "placeholder", "YYYY/MM/DD", "bsDatepicker", "", "readonly", "", 1, "form-control", 3, "ngModel", "bsConfig", "ngModelChange", "onShown", "click"], ["orderDateFrom", "bsDatepicker"], [1, "datepicker-append", "d-flex", "align-items-center", "px-2", 3, "click"], [1, "fas", "fa-times"], ["for", "orderDateThrough", 1, "mb-2"], ["type", "text", "name", "orderDateThrough", "id", "orderDateThrough", "placeholder", "YYYY/MM/DD", "bsDatepicker", "", "readonly", "", 1, "form-control", 3, "ngModel", "bsConfig", "ngModelChange", "onShown", "click"], ["orderDateThrough", "bsDatepicker"], ["for", "confirmationNumber", 1, "mb-2"], ["type", "text", "name", "confirmationNumber", "id", "confirmationNumber", 1, "form-control", 3, "ngModel", "placeholder", "ngModelChange"], ["for", "orderNumber", 1, "mb-2"], ["type", "text", "name", "orderNumber", "id", "orderNumber", 1, "form-control", 3, "ngModel", "placeholder", "ngModelChange"], ["for", "familyName", 1, "mb-2"], ["type", "text", "name", "familyName", "id", "familyName", 1, "form-control", 3, "ngModel", "placeholder", "ngModelChange"], ["for", "givenName", 1, "mb-2"], ["type", "text", "name", "givenName", "id", "givenName", 1, "form-control", 3, "ngModel", "placeholder", "ngModelChange"], ["for", "email", 1, "mb-2"], ["type", "email", "name", "email", "id", "email", 1, "form-control", 3, "ngModel", "placeholder", "ngModelChange"], ["for", "telephone", 1, "mb-2"], ["type", "telephone", "name", "telephone", "id", "telephone", 1, "form-control", 3, "ngModel", "placeholder", "ngModelChange"], ["for", "orderStatus", 1, "mb-2"], ["name", "orderStatus", "id", "orderStatus", 1, "form-control", 3, "ngModel", "ngModelChange"], ["value", ""], [3, "value"], ["for", "paymentMethodType", 1, "mb-2"], ["name", "paymentMethodType", "id", "paymentMethodType", 1, "form-control", 3, "ngModel", "ngModelChange"], ["for", "eventStartDateFrom", 1, "mb-2"], ["type", "text", "name", "eventStartDateFrom", "id", "eventStartDateFrom", "placeholder", "YYYY/MM/DD", "bsDatepicker", "", "readonly", "", 1, "form-control", 3, "ngModel", "bsConfig", "ngModelChange", "onShown", "click"], ["eventStartDateFrom", "bsDatepicker"], ["for", "eventStartDateThrough", 1, "mb-2"], ["type", "text", "name", "eventStartDateThrough", "id", "eventStartDateThrough", "placeholder", "YYYY/MM/DD", "bsDatepicker", "", "readonly", "", 1, "form-control", 3, "ngModel", "bsConfig", "ngModelChange", "onShown", "click"], ["eventStartDateThrough", "bsDatepicker"], ["for", "posId", 1, "mb-2"], ["name", "posId", "id", "posId", 1, "form-control", 3, "ngModel", "ngModelChange"], [3, "value", 4, "ngFor", "ngForOf"], [1, "buttons", "mx-auto", "text-center"], ["type", "submit", 1, "btn", "btn-primary", "btn-block", "py-3", "mb-3", 3, "disabled"], ["type", "button", 1, "btn", "btn-outline-primary", "btn-block", "py-3", 3, "click"], ["class", "mb-4", 4, "ngIf"], ["type", "button", "routerLink", "/order", 1, "btn", "btn-outline-primary", "btn-block", "py-3"], [1, "mb-4"], [1, "d-md-flex", "align-items-center", "justify-content-between", "mb-4"], [1, "text-md-right", "text-center", "mb-3", "mb-md-0", "order-2"], [1, "d-inline-block"], ["previousText", "\u2039", "nextText", "\u203A", "firstText", "\xAB", "lastText", "\xBB", 3, "ngModel", "totalItems", "itemsPerPage", "maxSize", "boundaryLinks", "ngModelChange", "pageChanged"], [1, "form-group", "text-center", "text-md-left", "mb-3", "mb-md-0", "order-1"], ["name", "actionSelect", "id", "actionSelect", 1, "form-control", "d-inline-block", "w-auto", "mr-2", 3, "ngModel", "ngModelChange"], ["id", "selectedActionButton", "type", "button", 1, "btn", "btn-primary", "py-2", "px-4", 3, "click"], [1, "scroll-horizontal"], [1, "table", "table-bordered", "bg-white", "text-small", "mb-0", "border", "border-gray"], ["scope", "col"], [3, "bg-light-gray", 4, "ngFor", "ngForOf"], [1, "align-middle", "text-large", "text-center"], [4, "ngIf"], [1, "align-middle"], [4, "ngFor", "ngForOf"], [1, "align-middle", "text-center"], [1, "btn", "btn-primary", "mr-2", 3, "click"], [1, "fas", "fa-search-plus"], ["class", "btn btn-primary mr-2", 3, "disabled", "click", 4, "ngIf"], ["class", "btn btn-primary", 3, "disabled", "click", 4, "ngIf"], ["class", "far fa-square pointer", 3, "click", 4, "ngIf"], ["class", "far fa-check-square pointer", 3, "click", 4, "ngIf"], [1, "far", "fa-square", "pointer", 3, "click"], [1, "far", "fa-check-square", "pointer", 3, "click"], [1, "far", "fa-square", "opacity-0"], [1, "theater-name"], [1, "screen-name"], ["class", "mr-2", 4, "ngIf"], [1, "mr-2"], [1, "btn", "btn-primary", "mr-2", 3, "disabled", "click"], [1, "fas", "fa-print"], [1, "btn", "btn-primary", 3, "disabled", "click"], [1, "fas", "fa-reply"]],
         template: function OrderSearchComponent_Template(rf, ctx) {
           if (rf & 1) {
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "div", 0);
