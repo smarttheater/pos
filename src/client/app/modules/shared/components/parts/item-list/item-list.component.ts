@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { factory } from '@cinerino/sdk';
 import { Models } from '../../../../..';
 import { getEnvironment } from '../../../../../../environments/environment';
@@ -12,6 +12,8 @@ export class ItemListComponent implements OnInit {
     @Input() public reservations?: Models.Purchase.Reservation.IReservation[];
     @Input() public authorizeSeatReservations?: factory.chevre.reservation.IReservation<factory.chevre.reservationType.EventReservation>[];
     @Input() public acceptedOffers?: factory.order.IAcceptedOffer<factory.order.IItemOffered>[];
+    @Input() public qrcode = false;
+    @Output() public openQrcode = new EventEmitter<{ id: string }>();
     public environment = getEnvironment();
 
 

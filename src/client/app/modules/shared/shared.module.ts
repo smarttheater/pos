@@ -16,6 +16,7 @@ import { FooterComponent } from './components/parts/footer/footer.component';
 import { CheckboxComponent } from './components/parts/form/checkbox/checkbox.component';
 import { HeaderMenuComponent } from './components/parts/header-menu/header-menu.component';
 import { HeaderComponent } from './components/parts/header/header.component';
+import { ItemEventComponent } from './components/parts/item-event/item-event.component';
 import { ItemListComponent } from './components/parts/item-list/item-list.component';
 import { LoadingComponent } from './components/parts/loading/loading.component';
 import { MvtkCheckModalComponent } from './components/parts/mvtk/check-modal/check-modal.component';
@@ -23,6 +24,7 @@ import { NumericKeypadComponent } from './components/parts/numeric-keypad/numeri
 import { OrderDetailModalComponent } from './components/parts/order/detail-modal/detail-modal.component';
 import { PurchaseEventTicketModalComponent } from './components/parts/purchase/event/ticket-modal/ticket-modal.component';
 import { PurchaseSeatTicketModalComponent } from './components/parts/purchase/seat-ticket-modal/seat-ticket-modal.component';
+import { QRCodeImageComponent } from './components/parts/qrcode/image/image.component';
 import { QRCodeReaderModalComponent } from './components/parts/qrcode/reader-modal/reader-modal.component';
 import { QRCodeViewerModalComponent } from './components/parts/qrcode/viewer-modal/viewer-modal.component';
 import { ReservationDetailModalComponent } from './components/parts/reservation/detail-modal/detail-modal.component';
@@ -40,7 +42,9 @@ const components = [
   LoadingComponent,
   ScreenComponent,
   ItemListComponent,
-  CheckboxComponent
+  CheckboxComponent,
+  QRCodeImageComponent,
+  ItemEventComponent,
 ];
 
 const entryComponents = [

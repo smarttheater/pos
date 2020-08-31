@@ -2,28 +2,25 @@
     <h2 class="text-large mb-4 text-center font-weight-bold">{{ 'reservation.index.title' | translate }}</h2>
     <p class="mb-4 text-md-center" [innerHTML]="'reservation.index.read' | translate"></p>
 
-    <ul class="d-md-flex">
-        <li class="my-md-2 mb-3">
-            <div class="card mx-md-2 h-100">
-                <div class="card-body">
-                    <h5 class="card-title font-weight-bold">{{ 'reservation.index.list.search.title' | translate }}
-                    </h5>
-                    <p class="card-text mb-3">{{ 'reservation.index.list.search.read' | translate }}</p>
-                    <button type="button" routerLink="/reservation/search"
-                        class="btn btn-primary btn-block py-3">{{ 'reservation.index.list.search.next' | translate }}</button>
-                </div>
+
+    <div class="container px-0">
+        <div class="row">
+            <div class="col-md-4 col-12">
+                <button type="button" routerLink="/reservation/search"
+                    class="btn btn-primary btn-block py-3 mb-3">
+                    <span class="d-block mb-2">{{ 'reservation.index.list.search.title' | translate }}</span>
+                    <span class="d-block text-x-large"><i class="fas fa-search"></i></span>
+                </button>
             </div>
-        </li>
-        <li class="my-md-2 mb-3">
-            <div class="card mx-md-2 h-100">
-                <div class="card-body">
-                    <h5 class="card-title font-weight-bold">{{ 'reservation.index.list.download.title' | translate }}
-                    </h5>
-                    <p class="card-text mb-3">{{ 'reservation.index.list.download.read' | translate }}</p>
-                    <button type="button" routerLink="/reservation/download"
-                        class="btn btn-primary btn-block py-3">{{ 'reservation.index.list.download.next' | translate }}</button>
-                </div>
+            <div class="col-md-4 col-12">
+                <button type="button" routerLink="/reservation/download"
+                    class="btn btn-primary btn-block py-3 mb-3">
+                    <span class="d-block mb-2">{{ 'reservation.index.list.download.title' | translate }}</span>
+                    <span class="d-block text-x-large"><i class="fas fa-file-download"></i></span>
+                </button>
             </div>
-        </li>
-    </ul>
+        </div>
+    </div>
+
+    
 </div>
