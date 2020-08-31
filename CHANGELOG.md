@@ -12,6 +12,10 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/).
 
 ### Security
 
+## 3.1.5 - 2020-08-31
+### Changed
+ - チケット照会UI調整
+
 ## 3.1.4 - 2020-08-25
 ### Changed
  - ロゴをリンクへ変更
