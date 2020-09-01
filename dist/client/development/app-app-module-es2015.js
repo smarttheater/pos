@@ -82434,17 +82434,22 @@ AdmissionService.ɵprov = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefine
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "OrderService", function() { return OrderService; });
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "../../node_modules/@angular/core/__ivy_ngcc__/fesm2015/core.js");
-/* harmony import */ var _ngrx_effects__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @ngrx/effects */ "../../node_modules/@ngrx/effects/__ivy_ngcc__/fesm2015/effects.js");
-/* harmony import */ var _ngrx_store__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @ngrx/store */ "../../node_modules/@ngrx/store/__ivy_ngcc__/fesm2015/store.js");
-/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! moment */ "../../node_modules/moment/moment.js");
-/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_3__);
-/* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! rxjs */ "../../node_modules/rxjs/_esm2015/index.js");
-/* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! rxjs/operators */ "../../node_modules/rxjs/_esm2015/operators/index.js");
-/* harmony import */ var ___WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../.. */ "./app/index.ts");
-/* harmony import */ var _store_actions__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../../store/actions */ "./app/store/actions/index.ts");
-/* harmony import */ var _store_reducers__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../../store/reducers */ "./app/store/reducers/index.ts");
-/* harmony import */ var _cinerino_service__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../cinerino.service */ "./app/services/cinerino.service.ts");
-/* harmony import */ var _util_service__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../util.service */ "./app/services/util.service.ts");
+/* harmony import */ var _cinerino_sdk__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @cinerino/sdk */ "../../node_modules/@cinerino/sdk/lib/browser.js");
+/* harmony import */ var _cinerino_sdk__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_cinerino_sdk__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _ngrx_effects__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @ngrx/effects */ "../../node_modules/@ngrx/effects/__ivy_ngcc__/fesm2015/effects.js");
+/* harmony import */ var _ngrx_store__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @ngrx/store */ "../../node_modules/@ngrx/store/__ivy_ngcc__/fesm2015/store.js");
+/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! moment */ "../../node_modules/moment/moment.js");
+/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! rxjs */ "../../node_modules/rxjs/_esm2015/index.js");
+/* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! rxjs/operators */ "../../node_modules/rxjs/_esm2015/operators/index.js");
+/* harmony import */ var ___WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../.. */ "./app/index.ts");
+/* harmony import */ var _environments_environment__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../../../environments/environment */ "./environments/environment.ts");
+/* harmony import */ var _store_actions__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../../store/actions */ "./app/store/actions/index.ts");
+/* harmony import */ var _store_reducers__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../../store/reducers */ "./app/store/reducers/index.ts");
+/* harmony import */ var _cinerino_service__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ../cinerino.service */ "./app/services/cinerino.service.ts");
+/* harmony import */ var _epson_epos_service__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ../epson-epos.service */ "./app/services/epson-epos.service.ts");
+/* harmony import */ var _star_print_service__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ../star-print.service */ "./app/services/star-print.service.ts");
+/* harmony import */ var _util_service__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ../util.service */ "./app/services/util.service.ts");
 var __awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -82470,14 +82475,22 @@ var __awaiter = (undefined && undefined.__awaiter) || function (thisArg, _argume
 
 
 
+
+
+
+
+
+
 class OrderService {
-    constructor(store, actions, cinerinoService, utilService) {
+    constructor(store, actions, cinerinoService, utilService, starPrintService, epsonEPOSService) {
         this.store = store;
         this.actions = actions;
         this.cinerinoService = cinerinoService;
         this.utilService = utilService;
-        this.order = this.store.pipe(Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_2__["select"])(_store_reducers__WEBPACK_IMPORTED_MODULE_8__["getOrder"]));
-        this.error = this.store.pipe(Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_2__["select"])(_store_reducers__WEBPACK_IMPORTED_MODULE_8__["getError"]));
+        this.starPrintService = starPrintService;
+        this.epsonEPOSService = epsonEPOSService;
+        this.order = this.store.pipe(Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_3__["select"])(_store_reducers__WEBPACK_IMPORTED_MODULE_10__["getOrder"]));
+        this.error = this.store.pipe(Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_3__["select"])(_store_reducers__WEBPACK_IMPORTED_MODULE_10__["getError"]));
     }
     /**
      * 注文データ取得
@@ -82495,7 +82508,7 @@ class OrderService {
      * 注文データ削除
      */
     delete() {
-        this.store.dispatch(_store_actions__WEBPACK_IMPORTED_MODULE_7__["orderAction"].remove());
+        this.store.dispatch(_store_actions__WEBPACK_IMPORTED_MODULE_9__["orderAction"].remove());
     }
     /**
      * 注文検索
@@ -82526,15 +82539,15 @@ class OrderService {
                 yield this.cinerinoService.getServices();
                 let orders = [];
                 const splitDay = 1;
-                const splitCount = Math.ceil(moment__WEBPACK_IMPORTED_MODULE_3__(params.orderDateThrough).diff(moment__WEBPACK_IMPORTED_MODULE_3__(params.orderDateFrom), 'days') / splitDay);
+                const splitCount = Math.ceil(moment__WEBPACK_IMPORTED_MODULE_4__(params.orderDateThrough).diff(moment__WEBPACK_IMPORTED_MODULE_4__(params.orderDateFrom), 'days') / splitDay);
                 for (let i = 0; i < splitCount; i++) {
                     const limit = 10;
                     let page = 1;
                     let roop = true;
-                    const orderDateThrough = moment__WEBPACK_IMPORTED_MODULE_3__(params.orderDateThrough).add(-1 * splitDay * i, 'days').toDate();
-                    const orderDateFrom = (moment__WEBPACK_IMPORTED_MODULE_3__(params.orderDateThrough).add(-1 * splitDay * (i + 1), 'days').toDate() > moment__WEBPACK_IMPORTED_MODULE_3__(params.orderDateFrom).toDate())
-                        ? moment__WEBPACK_IMPORTED_MODULE_3__(params.orderDateThrough).add(-1 * splitDay * (i + 1), 'days').toDate()
-                        : moment__WEBPACK_IMPORTED_MODULE_3__(params.orderDateFrom).toDate();
+                    const orderDateThrough = moment__WEBPACK_IMPORTED_MODULE_4__(params.orderDateThrough).add(-1 * splitDay * i, 'days').toDate();
+                    const orderDateFrom = (moment__WEBPACK_IMPORTED_MODULE_4__(params.orderDateThrough).add(-1 * splitDay * (i + 1), 'days').toDate() > moment__WEBPACK_IMPORTED_MODULE_4__(params.orderDateFrom).toDate())
+                        ? moment__WEBPACK_IMPORTED_MODULE_4__(params.orderDateThrough).add(-1 * splitDay * (i + 1), 'days').toDate()
+                        : moment__WEBPACK_IMPORTED_MODULE_4__(params.orderDateFrom).toDate();
                     while (roop) {
                         params.limit = limit;
                         params.page = page;
@@ -82542,7 +82555,7 @@ class OrderService {
                         orders = orders.concat(searchResult.data);
                         page++;
                         roop = searchResult.data.length === limit;
-                        yield ___WEBPACK_IMPORTED_MODULE_6__["Functions"].Util.sleep(500);
+                        yield ___WEBPACK_IMPORTED_MODULE_7__["Functions"].Util.sleep(500);
                     }
                 }
                 this.utilService.loadEnd();
@@ -82567,14 +82580,14 @@ class OrderService {
                     { name: 'posName', value: params.pos.name }
                 ];
             return new Promise((resolve, reject) => {
-                this.store.dispatch(_store_actions__WEBPACK_IMPORTED_MODULE_7__["orderAction"].cancel({
+                this.store.dispatch(_store_actions__WEBPACK_IMPORTED_MODULE_9__["orderAction"].cancel({
                     orders: params.orders,
                     language: params.language,
                     agent: { identifier }
                 }));
-                const success = this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_1__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_7__["orderAction"].cancelSuccess.type), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["tap"])(() => { resolve(); }));
-                const fail = this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_1__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_7__["orderAction"].cancelFail.type), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["tap"])(() => { this.error.subscribe((error) => { reject(error); }).unsubscribe(); }));
-                Object(rxjs__WEBPACK_IMPORTED_MODULE_4__["race"])(success, fail).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["take"])(1)).subscribe();
+                const success = this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_9__["orderAction"].cancelSuccess.type), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["tap"])(() => { resolve(); }));
+                const fail = this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_9__["orderAction"].cancelFail.type), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["tap"])(() => { this.error.subscribe((error) => { reject(error); }).unsubscribe(); }));
+                Object(rxjs__WEBPACK_IMPORTED_MODULE_5__["race"])(success, fail).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["take"])(1)).subscribe();
             });
         });
     }
@@ -82584,10 +82597,10 @@ class OrderService {
     inquiry(params) {
         return __awaiter(this, void 0, void 0, function* () {
             return new Promise((resolve, reject) => {
-                this.store.dispatch(_store_actions__WEBPACK_IMPORTED_MODULE_7__["orderAction"].inquiry(params));
-                const success = this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_1__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_7__["orderAction"].inquirySuccess.type), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["tap"])(() => { resolve(); }));
-                const fail = this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_1__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_7__["orderAction"].inquiryFail.type), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["tap"])(() => { this.error.subscribe((error) => { reject(error); }).unsubscribe(); }));
-                Object(rxjs__WEBPACK_IMPORTED_MODULE_4__["race"])(success, fail).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["take"])(1)).subscribe();
+                this.store.dispatch(_store_actions__WEBPACK_IMPORTED_MODULE_9__["orderAction"].inquiry(params));
+                const success = this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_9__["orderAction"].inquirySuccess.type), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["tap"])(() => { resolve(); }));
+                const fail = this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_9__["orderAction"].inquiryFail.type), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["tap"])(() => { this.error.subscribe((error) => { reject(error); }).unsubscribe(); }));
+                Object(rxjs__WEBPACK_IMPORTED_MODULE_5__["race"])(success, fail).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["take"])(1)).subscribe();
             });
         });
     }
@@ -82596,16 +82609,215 @@ class OrderService {
      */
     print(prams) {
         return __awaiter(this, void 0, void 0, function* () {
-            return new Promise((resolve, reject) => {
+            const environment = Object(_environments_environment__WEBPACK_IMPORTED_MODULE_8__["getEnvironment"])();
+            try {
                 const orders = prams.orders;
-                const pos = prams.pos;
                 const printer = prams.printer;
-                this.store.dispatch(_store_actions__WEBPACK_IMPORTED_MODULE_7__["orderAction"].print({ orders, pos, printer }));
-                const success = this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_1__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_7__["orderAction"].printSuccess.type), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["tap"])(() => { resolve(); }));
-                const fail = this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_1__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_7__["orderAction"].printFail.type), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["tap"])(() => { this.error.subscribe((error) => { reject(error); }).unsubscribe(); }));
-                Object(rxjs__WEBPACK_IMPORTED_MODULE_4__["race"])(success, fail).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["take"])(1)).subscribe();
-            });
+                const pos = prams.pos;
+                if (printer.connectionType === ___WEBPACK_IMPORTED_MODULE_7__["Models"].Util.Printer.ConnectionType.None) {
+                    return;
+                }
+                if (environment.PRINT_LOADING) {
+                    this.utilService.loadStart({ process: 'orderAction.Print' });
+                }
+                yield this.cinerinoService.getServices();
+                let authorizeOrders = [];
+                if (environment.PRINT_QRCODE_TYPE === ___WEBPACK_IMPORTED_MODULE_7__["Models"].Order.Print.PrintQrcodeType.None) {
+                    authorizeOrders = orders;
+                }
+                else {
+                    for (const order of orders) {
+                        authorizeOrders.push(yield this.authorizeOwnershipInfos({ order }));
+                    }
+                }
+                const testFlg = authorizeOrders.length === 0;
+                const path = `/ejs/print/ticket.ejs`;
+                const url = (testFlg) ? '/default//ejs/print/test.ejs'
+                    : (yield ___WEBPACK_IMPORTED_MODULE_7__["Functions"].Util.isFile(`${___WEBPACK_IMPORTED_MODULE_7__["Functions"].Util.getProject().storageUrl}${path}`))
+                        ? `${___WEBPACK_IMPORTED_MODULE_7__["Functions"].Util.getProject().storageUrl}${path}`
+                        : `/default${path}`;
+                const printData = yield this.utilService.getText(url);
+                const canvasList = [];
+                if (testFlg) {
+                    const canvas = yield ___WEBPACK_IMPORTED_MODULE_7__["Functions"].Order.createTestPrintCanvas4Html({ view: printData });
+                    canvasList.push(canvas);
+                }
+                else {
+                    for (const authorizeOrder of authorizeOrders) {
+                        let index = 0;
+                        for (const acceptedOffer of authorizeOrder.acceptedOffers) {
+                            if (acceptedOffer.itemOffered.typeOf !== _cinerino_sdk__WEBPACK_IMPORTED_MODULE_1__["factory"].chevre.reservationType.EventReservation) {
+                                continue;
+                            }
+                            const itemOffered = acceptedOffer.itemOffered;
+                            const order = authorizeOrder;
+                            let qrcode = (environment.PRINT_QRCODE_TYPE === ___WEBPACK_IMPORTED_MODULE_7__["Models"].Order.Print.PrintQrcodeType.None)
+                                ? undefined : itemOffered.reservedTicket.ticketToken;
+                            const additionalProperty = (itemOffered.reservationFor.workPerformed !== undefined
+                                && itemOffered.reservationFor.workPerformed.additionalProperty !== undefined
+                                && itemOffered.reservationFor.workPerformed.additionalProperty.length > 0)
+                                ? itemOffered.reservationFor.workPerformed.additionalProperty :
+                                (itemOffered.additionalProperty !== undefined
+                                    && itemOffered.additionalProperty.length > 0) ?
+                                    itemOffered.additionalProperty
+                                    : undefined;
+                            if (additionalProperty !== undefined) {
+                                // 追加特性のqrcodeがfalseの場合QR非表示
+                                const isDisplayQrcode = additionalProperty.find(a => a.name === 'qrcode');
+                                if (isDisplayQrcode !== undefined && isDisplayQrcode.value === 'false') {
+                                    qrcode = undefined;
+                                }
+                            }
+                            if (qrcode !== undefined
+                                && environment.PRINT_QRCODE_TYPE === ___WEBPACK_IMPORTED_MODULE_7__["Models"].Order.Print.PrintQrcodeType.Custom) {
+                                // QRコードカスタム文字列
+                                qrcode = environment.PRINT_QRCODE_CUSTOM;
+                                qrcode = this.createQRCode({ qrcode, order, itemOffered, index });
+                            }
+                            const canvas = yield ___WEBPACK_IMPORTED_MODULE_7__["Functions"].Order.createPrintCanvas4Html({
+                                view: printData,
+                                order, pos, qrcode, index
+                            });
+                            canvasList.push(canvas);
+                            index++;
+                        }
+                    }
+                }
+                yield this.printProcess({ printer, canvasList, pos });
+                if (environment.PRINT_LOADING) {
+                    this.utilService.loadEnd();
+                }
+            }
+            catch (error) {
+                if (environment.PRINT_LOADING) {
+                    this.utilService.loadEnd();
+                }
+                throw error;
+            }
         });
+    }
+    /**
+     * 領収書印刷
+     */
+    printReceipt(prams) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const environment = Object(_environments_environment__WEBPACK_IMPORTED_MODULE_8__["getEnvironment"])();
+            try {
+                const order = prams.order;
+                const printer = prams.printer;
+                const pos = prams.pos;
+                if (printer.connectionType === ___WEBPACK_IMPORTED_MODULE_7__["Models"].Util.Printer.ConnectionType.None) {
+                    return;
+                }
+                if (environment.PRINT_LOADING) {
+                    this.utilService.loadStart({ process: 'orderAction.Print' });
+                }
+                const canvasList = [];
+                const paths = [
+                    `/ejs/print/receipt.ejs`,
+                    `/ejs/print/receipt_copy.ejs`
+                ];
+                for (const path of paths) {
+                    const url = (yield ___WEBPACK_IMPORTED_MODULE_7__["Functions"].Util.isFile(`${___WEBPACK_IMPORTED_MODULE_7__["Functions"].Util.getProject().storageUrl}${path}`))
+                        ? `${___WEBPACK_IMPORTED_MODULE_7__["Functions"].Util.getProject().storageUrl}${path}`
+                        : `/default${path}`;
+                    const view = yield this.utilService.getText(url);
+                    const canvas = yield ___WEBPACK_IMPORTED_MODULE_7__["Functions"].Order.createPrintCanvas4Html({
+                        view: view, order, pos, index: 1
+                    });
+                    canvasList.push(canvas);
+                }
+                yield this.printProcess({ printer, canvasList, pos });
+                if (environment.PRINT_LOADING) {
+                    this.utilService.loadEnd();
+                }
+            }
+            catch (error) {
+                if (environment.PRINT_LOADING) {
+                    this.utilService.loadEnd();
+                }
+                throw error;
+            }
+        });
+    }
+    printProcess(params) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const printer = params.printer;
+            const canvasList = params.canvasList;
+            const pos = params.pos;
+            switch (printer.connectionType) {
+                case ___WEBPACK_IMPORTED_MODULE_7__["Models"].Util.Printer.ConnectionType.StarBluetooth:
+                case ___WEBPACK_IMPORTED_MODULE_7__["Models"].Util.Printer.ConnectionType.StarLAN:
+                    this.starPrintService.initialize({ printer, pos });
+                    yield this.starPrintService.printProcess({ canvasList });
+                    break;
+                case ___WEBPACK_IMPORTED_MODULE_7__["Models"].Util.Printer.ConnectionType.Image:
+                    const domList = canvasList.map(canvas => `<div class="mb-3 p-4 border border-light-gray shadow-sm">
+                <img class="w-100" src="${canvas.toDataURL()}" alt="">
+                </div>`);
+                    this.utilService.openAlert({
+                        title: '',
+                        body: `<div class="px-5">${domList.join('\n')}</div>`
+                    });
+                    break;
+                case ___WEBPACK_IMPORTED_MODULE_7__["Models"].Util.Printer.ConnectionType.EpsonEPOS:
+                    yield this.epsonEPOSService.printer.init({ printer });
+                    yield this.epsonEPOSService.printer.print({ canvasList });
+                    yield this.epsonEPOSService.printer.disconnect();
+                    break;
+                default:
+                    break;
+            }
+        });
+    }
+    /**
+     * 注文へ所有権発行
+     */
+    authorizeOwnershipInfos(params) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const order = params.order;
+            const result = yield ___WEBPACK_IMPORTED_MODULE_7__["Functions"].Util.retry({
+                process: (() => __awaiter(this, void 0, void 0, function* () {
+                    const orderNumber = order.orderNumber;
+                    const customer = { telephone: order.customer.telephone };
+                    const authorizeOrder = yield this.cinerinoService.order.authorizeOwnershipInfos({ orderNumber, customer });
+                    return authorizeOrder;
+                })),
+                interval: 5000,
+                limit: 5
+            });
+            return result;
+        });
+    }
+    /**
+     * QRコード生成
+     */
+    createQRCode(params) {
+        let qrcode = params.qrcode;
+        const order = params.order;
+        const itemOffered = params.itemOffered;
+        const index = params.index;
+        qrcode = qrcode
+            .replace(/\{\{ orderDate \| YYMMDD \}\}/g, moment__WEBPACK_IMPORTED_MODULE_4__(order.orderDate).format('YYMMDD'));
+        qrcode = qrcode
+            .replace(/\{\{ confirmationNumber \}\}/g, order.confirmationNumber);
+        qrcode = qrcode
+            .replace(/\{\{ confirmationNumber \| [0-9] \}\}/g, (match) => {
+            const digit = Number(match.replace(/\{\{ confirmationNumber \| ([0-9]) \}\}/, '$1'));
+            return `000000000${order.confirmationNumber}`.slice(-1 * digit);
+        });
+        qrcode = qrcode
+            .replace(/\{\{ index \}\}/g, String(index));
+        qrcode = qrcode
+            .replace(/\{\{ index \| [0-9] \}\}/g, (match) => {
+            const digit = Number(match.replace(/\{\{ index \| ([0-9]) \}\}/, '$1'));
+            return `000000000${String(index)}`.slice(-1 * digit);
+        });
+        qrcode = qrcode
+            .replace(/\{\{ orderNumber \}\}/g, order.orderNumber);
+        qrcode = qrcode
+            .replace(/\{\{ startDate \| YYMMDD \}\}/g, moment__WEBPACK_IMPORTED_MODULE_4__(itemOffered.reservationFor.startDate).format('YYMMDD'));
+        return qrcode;
     }
     /**
      * 注文承認
@@ -82613,27 +82825,27 @@ class OrderService {
     authorize(order) {
         return __awaiter(this, void 0, void 0, function* () {
             return new Promise((resolve, reject) => {
-                this.store.dispatch(_store_actions__WEBPACK_IMPORTED_MODULE_7__["orderAction"].orderAuthorize({
+                this.store.dispatch(_store_actions__WEBPACK_IMPORTED_MODULE_9__["orderAction"].orderAuthorize({
                     orderNumber: order.orderNumber,
                     customer: {
                         telephone: order.customer.telephone
                     }
                 }));
-                const success = this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_1__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_7__["orderAction"].orderAuthorizeSuccess.type), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["tap"])(() => { resolve(); }));
-                const fail = this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_1__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_7__["orderAction"].orderAuthorizeFail.type), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["tap"])(() => { this.error.subscribe((error) => { reject(error); }).unsubscribe(); }));
-                Object(rxjs__WEBPACK_IMPORTED_MODULE_4__["race"])(success, fail).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["take"])(1)).subscribe();
+                const success = this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_9__["orderAction"].orderAuthorizeSuccess.type), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["tap"])(() => { resolve(); }));
+                const fail = this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_9__["orderAction"].orderAuthorizeFail.type), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["tap"])(() => { this.error.subscribe((error) => { reject(error); }).unsubscribe(); }));
+                Object(rxjs__WEBPACK_IMPORTED_MODULE_5__["race"])(success, fail).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["take"])(1)).subscribe();
             });
         });
     }
 }
-OrderService.ɵfac = function OrderService_Factory(t) { return new (t || OrderService)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵinject"](_ngrx_store__WEBPACK_IMPORTED_MODULE_2__["Store"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵinject"](_ngrx_effects__WEBPACK_IMPORTED_MODULE_1__["Actions"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵinject"](_cinerino_service__WEBPACK_IMPORTED_MODULE_9__["CinerinoService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵinject"](_util_service__WEBPACK_IMPORTED_MODULE_10__["UtilService"])); };
+OrderService.ɵfac = function OrderService_Factory(t) { return new (t || OrderService)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵinject"](_ngrx_store__WEBPACK_IMPORTED_MODULE_3__["Store"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵinject"](_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["Actions"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵinject"](_cinerino_service__WEBPACK_IMPORTED_MODULE_11__["CinerinoService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵinject"](_util_service__WEBPACK_IMPORTED_MODULE_14__["UtilService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵinject"](_star_print_service__WEBPACK_IMPORTED_MODULE_13__["StarPrintService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵinject"](_epson_epos_service__WEBPACK_IMPORTED_MODULE_12__["EpsonEPOSService"])); };
 OrderService.ɵprov = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineInjectable"]({ token: OrderService, factory: OrderService.ɵfac, providedIn: 'root' });
 /*@__PURE__*/ (function () { _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵsetClassMetadata"](OrderService, [{
         type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"],
         args: [{
                 providedIn: 'root'
             }]
-    }], function () { return [{ type: _ngrx_store__WEBPACK_IMPORTED_MODULE_2__["Store"] }, { type: _ngrx_effects__WEBPACK_IMPORTED_MODULE_1__["Actions"] }, { type: _cinerino_service__WEBPACK_IMPORTED_MODULE_9__["CinerinoService"] }, { type: _util_service__WEBPACK_IMPORTED_MODULE_10__["UtilService"] }]; }, null); })();
+    }], function () { return [{ type: _ngrx_store__WEBPACK_IMPORTED_MODULE_3__["Store"] }, { type: _ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["Actions"] }, { type: _cinerino_service__WEBPACK_IMPORTED_MODULE_11__["CinerinoService"] }, { type: _util_service__WEBPACK_IMPORTED_MODULE_14__["UtilService"] }, { type: _star_print_service__WEBPACK_IMPORTED_MODULE_13__["StarPrintService"] }, { type: _epson_epos_service__WEBPACK_IMPORTED_MODULE_12__["EpsonEPOSService"] }]; }, null); })();
 
 
 /***/ }),
@@ -84680,7 +84892,7 @@ const getProjectsFail = Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_0__["createA
 /*!*******************************************!*\
   !*** ./app/store/actions/order.action.ts ***!
   \*******************************************/
-/*! exports provided: remove, cancel, cancelSuccess, cancelFail, inquiry, inquirySuccess, inquiryFail, print, printSuccess, printFail, orderAuthorize, orderAuthorizeSuccess, orderAuthorizeFail */
+/*! exports provided: remove, cancel, cancelSuccess, cancelFail, inquiry, inquirySuccess, inquiryFail, orderAuthorize, orderAuthorizeSuccess, orderAuthorizeFail */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -84692,9 +84904,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "inquiry", function() { return inquiry; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "inquirySuccess", function() { return inquirySuccess; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "inquiryFail", function() { return inquiryFail; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "print", function() { return print; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "printSuccess", function() { return printSuccess; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "printFail", function() { return printFail; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "orderAuthorize", function() { return orderAuthorize; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "orderAuthorizeSuccess", function() { return orderAuthorizeSuccess; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "orderAuthorizeFail", function() { return orderAuthorizeFail; });
@@ -84708,9 +84917,6 @@ const cancelFail = Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_0__["createAction
 const inquiry = Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_0__["createAction"])(`${LABEL} inquiry`, Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_0__["props"])());
 const inquirySuccess = Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_0__["createAction"])(`${LABEL} inquirySuccess`, Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_0__["props"])());
 const inquiryFail = Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_0__["createAction"])(`${LABEL} inquiryFail`, Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_0__["props"])());
-const print = Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_0__["createAction"])(`${LABEL} print`, Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_0__["props"])());
-const printSuccess = Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_0__["createAction"])(`${LABEL} printSuccess`);
-const printFail = Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_0__["createAction"])(`${LABEL} printFail`, Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_0__["props"])());
 const orderAuthorize = Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_0__["createAction"])(`${LABEL} orderAuthorize`, Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_0__["props"])());
 const orderAuthorizeSuccess = Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_0__["createAction"])(`${LABEL} orderAuthorizeSuccess`, Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_0__["props"])());
 const orderAuthorizeFail = Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_0__["createAction"])(`${LABEL} orderAuthorizeFail`, Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_0__["props"])());
@@ -85424,13 +85630,11 @@ var __awaiter = (undefined && undefined.__awaiter) || function (thisArg, _argume
  * Order Effects
  */
 class OrderEffects {
-    constructor(actions, cinerino, starPrint, utilService, translate, epsonEPOSService) {
+    constructor(actions, cinerino, utilService, translate) {
         this.actions = actions;
         this.cinerino = cinerino;
-        this.starPrint = starPrint;
         this.utilService = utilService;
         this.translate = translate;
-        this.epsonEPOSService = epsonEPOSService;
         /**
          * Cancel
          */
@@ -85597,142 +85801,6 @@ class OrderEffects {
             }
         })));
         /**
-         * print
-         */
-        this.print = this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_actions__WEBPACK_IMPORTED_MODULE_9__["orderAction"].print), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["map"])(action => action), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["mergeMap"])((payload) => __awaiter(this, void 0, void 0, function* () {
-            try {
-                const orders = payload.orders;
-                const printer = payload.printer;
-                const pos = payload.pos;
-                const environment = Object(_environments_environment__WEBPACK_IMPORTED_MODULE_7__["getEnvironment"])();
-                if (printer.connectionType === ___WEBPACK_IMPORTED_MODULE_6__["Models"].Util.Printer.ConnectionType.None) {
-                    return _actions__WEBPACK_IMPORTED_MODULE_9__["orderAction"].printSuccess();
-                }
-                yield this.cinerino.getServices();
-                let authorizeOrders = [];
-                if (environment.PRINT_QRCODE_TYPE === ___WEBPACK_IMPORTED_MODULE_6__["Models"].Order.Print.PrintQrcodeType.None) {
-                    authorizeOrders = orders;
-                }
-                else {
-                    for (const order of orders) {
-                        const result = yield ___WEBPACK_IMPORTED_MODULE_6__["Functions"].Util.retry({
-                            process: (() => __awaiter(this, void 0, void 0, function* () {
-                                const orderNumber = order.orderNumber;
-                                const customer = { telephone: order.customer.telephone };
-                                const authorizeOrder = yield this.cinerino.order.authorizeOwnershipInfos({ orderNumber, customer });
-                                return authorizeOrder;
-                            })),
-                            interval: 5000,
-                            limit: 5
-                        });
-                        authorizeOrders.push(result);
-                    }
-                }
-                const testFlg = authorizeOrders.length === 0;
-                const path = `/ejs/print/ticket.ejs`;
-                const url = (testFlg) ? '/default//ejs/print/test.ejs'
-                    : (yield ___WEBPACK_IMPORTED_MODULE_6__["Functions"].Util.isFile(`${___WEBPACK_IMPORTED_MODULE_6__["Functions"].Util.getProject().storageUrl}${path}`))
-                        ? `${___WEBPACK_IMPORTED_MODULE_6__["Functions"].Util.getProject().storageUrl}${path}`
-                        : `/default${path}`;
-                const printData = yield this.utilService.getText(url);
-                const canvasList = [];
-                if (testFlg) {
-                    const canvas = yield ___WEBPACK_IMPORTED_MODULE_6__["Functions"].Order.createTestPrintCanvas4Html({ view: printData });
-                    canvasList.push(canvas);
-                }
-                else {
-                    for (const authorizeOrder of authorizeOrders) {
-                        let index = 0;
-                        for (const acceptedOffer of authorizeOrder.acceptedOffers) {
-                            if (acceptedOffer.itemOffered.typeOf !== _cinerino_sdk__WEBPACK_IMPORTED_MODULE_1__["factory"].chevre.reservationType.EventReservation) {
-                                continue;
-                            }
-                            const itemOffered = acceptedOffer.itemOffered;
-                            const order = authorizeOrder;
-                            let qrcode = (environment.PRINT_QRCODE_TYPE === ___WEBPACK_IMPORTED_MODULE_6__["Models"].Order.Print.PrintQrcodeType.None)
-                                ? undefined : itemOffered.reservedTicket.ticketToken;
-                            const additionalProperty = (itemOffered.reservationFor.workPerformed !== undefined
-                                && itemOffered.reservationFor.workPerformed.additionalProperty !== undefined
-                                && itemOffered.reservationFor.workPerformed.additionalProperty.length > 0)
-                                ? itemOffered.reservationFor.workPerformed.additionalProperty :
-                                (itemOffered.additionalProperty !== undefined
-                                    && itemOffered.additionalProperty.length > 0) ?
-                                    itemOffered.additionalProperty
-                                    : undefined;
-                            if (additionalProperty !== undefined) {
-                                // 追加特性のqrcodeがfalseの場合QR非表示
-                                const isDisplayQrcode = additionalProperty.find(a => a.name === 'qrcode');
-                                if (isDisplayQrcode !== undefined && isDisplayQrcode.value === 'false') {
-                                    qrcode = undefined;
-                                }
-                            }
-                            if (qrcode !== undefined
-                                && environment.PRINT_QRCODE_TYPE === ___WEBPACK_IMPORTED_MODULE_6__["Models"].Order.Print.PrintQrcodeType.Custom) {
-                                // QRコードカスタム文字列
-                                qrcode = environment.PRINT_QRCODE_CUSTOM;
-                                qrcode = qrcode
-                                    .replace(/\{\{ orderDate \| YYMMDD \}\}/g, moment__WEBPACK_IMPORTED_MODULE_4__(order.orderDate).format('YYMMDD'));
-                                qrcode = qrcode
-                                    .replace(/\{\{ confirmationNumber \}\}/g, order.confirmationNumber);
-                                qrcode = qrcode
-                                    .replace(/\{\{ confirmationNumber \| [0-9] \}\}/g, (match) => {
-                                    const digit = Number(match.replace(/\{\{ confirmationNumber \| ([0-9]) \}\}/, '$1'));
-                                    return `000000000${order.confirmationNumber}`.slice(-1 * digit);
-                                });
-                                qrcode = qrcode
-                                    .replace(/\{\{ index \}\}/g, String(index));
-                                qrcode = qrcode
-                                    .replace(/\{\{ index \| [0-9] \}\}/g, (match) => {
-                                    const digit = Number(match.replace(/\{\{ index \| ([0-9]) \}\}/, '$1'));
-                                    return `000000000${String(index)}`.slice(-1 * digit);
-                                });
-                                qrcode = qrcode
-                                    .replace(/\{\{ orderNumber \}\}/g, order.orderNumber);
-                                qrcode = qrcode
-                                    .replace(/\{\{ startDate \| YYMMDD \}\}/g, moment__WEBPACK_IMPORTED_MODULE_4__(itemOffered.reservationFor.startDate).format('YYMMDD'));
-                            }
-                            const canvas = yield ___WEBPACK_IMPORTED_MODULE_6__["Functions"].Order.createPrintCanvas4Html({
-                                view: printData,
-                                order, pos, qrcode, index
-                            });
-                            canvasList.push(canvas);
-                            index++;
-                        }
-                    }
-                }
-                switch (printer.connectionType) {
-                    case ___WEBPACK_IMPORTED_MODULE_6__["Models"].Util.Printer.ConnectionType.StarBluetooth:
-                        this.starPrint.initialize({ printer, pos });
-                        yield this.starPrint.printProcess({ canvasList });
-                        break;
-                    case ___WEBPACK_IMPORTED_MODULE_6__["Models"].Util.Printer.ConnectionType.StarLAN:
-                        this.starPrint.initialize({ printer, pos });
-                        yield this.starPrint.printProcess({ canvasList });
-                        break;
-                    case ___WEBPACK_IMPORTED_MODULE_6__["Models"].Util.Printer.ConnectionType.Image:
-                        const domList = canvasList.map(canvas => `<div class="mb-3 p-4 border border-light-gray shadow-sm">
-                        <img class="w-100" src="${canvas.toDataURL()}" alt="">
-                        </div>`);
-                        this.utilService.openAlert({
-                            title: '',
-                            body: `<div class="px-5">${domList.join('\n')}</div>`
-                        });
-                        break;
-                    case ___WEBPACK_IMPORTED_MODULE_6__["Models"].Util.Printer.ConnectionType.EpsonEPOS:
-                        yield this.epsonEPOSService.printer.init({ printer });
-                        yield this.epsonEPOSService.printer.print({ canvasList });
-                        yield this.epsonEPOSService.printer.disconnect();
-                        break;
-                    default:
-                        break;
-                }
-                return _actions__WEBPACK_IMPORTED_MODULE_9__["orderAction"].printSuccess();
-            }
-            catch (error) {
-                return _actions__WEBPACK_IMPORTED_MODULE_9__["orderAction"].printFail({ error: error });
-            }
-        })));
-        /**
          * orderAuthorize
          */
         this.orderAuthorize = this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_actions__WEBPACK_IMPORTED_MODULE_9__["orderAction"].orderAuthorize), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["map"])(action => action), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["mergeMap"])((payload) => __awaiter(this, void 0, void 0, function* () {
@@ -85748,7 +85816,7 @@ class OrderEffects {
         })));
     }
 }
-OrderEffects.ɵfac = function OrderEffects_Factory(t) { return new (t || OrderEffects)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵinject"](_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["Actions"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵinject"](_services__WEBPACK_IMPORTED_MODULE_8__["CinerinoService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵinject"](_services__WEBPACK_IMPORTED_MODULE_8__["StarPrintService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵinject"](_services__WEBPACK_IMPORTED_MODULE_8__["UtilService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵinject"](_ngx_translate_core__WEBPACK_IMPORTED_MODULE_3__["TranslateService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵinject"](_services__WEBPACK_IMPORTED_MODULE_8__["EpsonEPOSService"])); };
+OrderEffects.ɵfac = function OrderEffects_Factory(t) { return new (t || OrderEffects)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵinject"](_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["Actions"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵinject"](_services__WEBPACK_IMPORTED_MODULE_8__["CinerinoService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵinject"](_services__WEBPACK_IMPORTED_MODULE_8__["UtilService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵinject"](_ngx_translate_core__WEBPACK_IMPORTED_MODULE_3__["TranslateService"])); };
 OrderEffects.ɵprov = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineInjectable"]({ token: OrderEffects, factory: OrderEffects.ɵfac });
 __decorate([
     Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["Effect"])(),
@@ -85761,14 +85829,10 @@ __decorate([
 __decorate([
     Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["Effect"])(),
     __metadata("design:type", Object)
-], OrderEffects.prototype, "print", void 0);
-__decorate([
-    Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["Effect"])(),
-    __metadata("design:type", Object)
 ], OrderEffects.prototype, "orderAuthorize", void 0);
 /*@__PURE__*/ (function () { _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵsetClassMetadata"](OrderEffects, [{
         type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"]
-    }], function () { return [{ type: _ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["Actions"] }, { type: _services__WEBPACK_IMPORTED_MODULE_8__["CinerinoService"] }, { type: _services__WEBPACK_IMPORTED_MODULE_8__["StarPrintService"] }, { type: _services__WEBPACK_IMPORTED_MODULE_8__["UtilService"] }, { type: _ngx_translate_core__WEBPACK_IMPORTED_MODULE_3__["TranslateService"] }, { type: _services__WEBPACK_IMPORTED_MODULE_8__["EpsonEPOSService"] }]; }, { cancel: [], inquiry: [], print: [], orderAuthorize: [] }); })();
+    }], function () { return [{ type: _ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["Actions"] }, { type: _services__WEBPACK_IMPORTED_MODULE_8__["CinerinoService"] }, { type: _services__WEBPACK_IMPORTED_MODULE_8__["UtilService"] }, { type: _ngx_translate_core__WEBPACK_IMPORTED_MODULE_3__["TranslateService"] }]; }, { cancel: [], inquiry: [], orderAuthorize: [] }); })();
 
 
 /***/ }),
@@ -86528,44 +86592,34 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "orderInitialState", function() { return orderInitialState; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "reducer", function() { return reducer; });
 /* harmony import */ var _ngrx_store__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @ngrx/store */ "../../node_modules/@ngrx/store/__ivy_ngcc__/fesm2015/store.js");
-/* harmony import */ var _environments_environment__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../environments/environment */ "./environments/environment.ts");
-/* harmony import */ var _actions__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../actions */ "./app/store/actions/index.ts");
-
+/* harmony import */ var _actions__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../actions */ "./app/store/actions/index.ts");
 
 
 const orderInitialState = {};
 function reducer(initialState, action) {
-    const environment = Object(_environments_environment__WEBPACK_IMPORTED_MODULE_1__["getEnvironment"])();
-    return Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_0__["createReducer"])(initialState, Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_0__["on"])(_actions__WEBPACK_IMPORTED_MODULE_2__["orderAction"].remove, state => {
+    return Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_0__["createReducer"])(initialState, Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_0__["on"])(_actions__WEBPACK_IMPORTED_MODULE_1__["orderAction"].remove, state => {
         return Object.assign(Object.assign({}, state), { orderData: {} });
-    }), Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_0__["on"])(_actions__WEBPACK_IMPORTED_MODULE_2__["orderAction"].cancel, (state) => {
+    }), Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_0__["on"])(_actions__WEBPACK_IMPORTED_MODULE_1__["orderAction"].cancel, (state) => {
         return Object.assign(Object.assign({}, state), { loading: true, process: 'orderAction.Cancel' });
-    }), Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_0__["on"])(_actions__WEBPACK_IMPORTED_MODULE_2__["orderAction"].cancelSuccess, (state) => {
+    }), Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_0__["on"])(_actions__WEBPACK_IMPORTED_MODULE_1__["orderAction"].cancelSuccess, (state) => {
         return Object.assign(Object.assign({}, state), { loading: false, process: '', error: null });
-    }), Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_0__["on"])(_actions__WEBPACK_IMPORTED_MODULE_2__["orderAction"].cancelFail, (state, payload) => {
+    }), Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_0__["on"])(_actions__WEBPACK_IMPORTED_MODULE_1__["orderAction"].cancelFail, (state, payload) => {
         const error = payload.error;
         return Object.assign(Object.assign({}, state), { loading: false, process: '', error: (error.message) ? error.message : JSON.stringify(error) });
-    }), Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_0__["on"])(_actions__WEBPACK_IMPORTED_MODULE_2__["orderAction"].inquiry, (state) => {
+    }), Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_0__["on"])(_actions__WEBPACK_IMPORTED_MODULE_1__["orderAction"].inquiry, (state) => {
         return Object.assign(Object.assign({}, state), { loading: true, process: 'orderAction.Inquiry' });
-    }), Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_0__["on"])(_actions__WEBPACK_IMPORTED_MODULE_2__["orderAction"].inquirySuccess, (state, payload) => {
+    }), Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_0__["on"])(_actions__WEBPACK_IMPORTED_MODULE_1__["orderAction"].inquirySuccess, (state, payload) => {
         const order = payload.order;
         return Object.assign(Object.assign({}, state), { orderData: Object.assign(Object.assign({}, state.orderData), { order }), loading: false, process: '', error: null });
-    }), Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_0__["on"])(_actions__WEBPACK_IMPORTED_MODULE_2__["orderAction"].inquiryFail, (state, payload) => {
+    }), Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_0__["on"])(_actions__WEBPACK_IMPORTED_MODULE_1__["orderAction"].inquiryFail, (state, payload) => {
         const error = payload.error;
         return Object.assign(Object.assign({}, state), { loading: false, process: '', error: (error.message) ? error.message : JSON.stringify(error) });
-    }), Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_0__["on"])(_actions__WEBPACK_IMPORTED_MODULE_2__["orderAction"].print, (state) => {
-        return Object.assign(Object.assign({}, state), { loading: environment.PRINT_LOADING, process: 'orderAction.Print' });
-    }), Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_0__["on"])(_actions__WEBPACK_IMPORTED_MODULE_2__["orderAction"].printSuccess, (state) => {
-        return Object.assign(Object.assign({}, state), { loading: false, process: '', error: null });
-    }), Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_0__["on"])(_actions__WEBPACK_IMPORTED_MODULE_2__["orderAction"].printFail, (state, payload) => {
-        const error = payload.error;
-        return Object.assign(Object.assign({}, state), { loading: false, process: '', error: (error.message) ? error.message : JSON.stringify(error) });
-    }), Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_0__["on"])(_actions__WEBPACK_IMPORTED_MODULE_2__["orderAction"].orderAuthorize, (state) => {
+    }), Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_0__["on"])(_actions__WEBPACK_IMPORTED_MODULE_1__["orderAction"].orderAuthorize, (state) => {
         return Object.assign(Object.assign({}, state), { loading: true, process: 'orderAction.OrderAuthorize' });
-    }), Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_0__["on"])(_actions__WEBPACK_IMPORTED_MODULE_2__["orderAction"].orderAuthorizeSuccess, (state, payload) => {
+    }), Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_0__["on"])(_actions__WEBPACK_IMPORTED_MODULE_1__["orderAction"].orderAuthorizeSuccess, (state, payload) => {
         const order = payload.order;
         return Object.assign(Object.assign({}, state), { orderData: Object.assign(Object.assign({}, state.orderData), { order }), loading: false, process: '', error: null });
-    }), Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_0__["on"])(_actions__WEBPACK_IMPORTED_MODULE_2__["orderAction"].orderAuthorizeFail, (state, payload) => {
+    }), Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_0__["on"])(_actions__WEBPACK_IMPORTED_MODULE_1__["orderAction"].orderAuthorizeFail, (state, payload) => {
         const error = payload.error;
         return Object.assign(Object.assign({}, state), { loading: false, process: '', error: (error.message) ? error.message : JSON.stringify(error) });
     }))(initialState, action);

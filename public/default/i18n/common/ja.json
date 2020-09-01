@@ -45,6 +45,7 @@
             "read": "ご購入ありがとうございます。",
             "next": "再印刷",
             "prev": "戻る",
+            "receipt": "領収書発行",
             "cooperationQRCode": "連携用QRコード",
             "alert": {
                 "print": "印刷に失敗しました",
