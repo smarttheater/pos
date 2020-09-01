@@ -1,7 +1,6 @@
 import { factory } from '@cinerino/sdk';
 import { Action, createReducer, on } from '@ngrx/store';
 import { IState } from '.';
-import { getEnvironment } from '../../../environments/environment';
 import { orderAction } from '../actions';
 
 export interface IOrderState {
@@ -11,7 +10,6 @@ export interface IOrderState {
 export const orderInitialState: IOrderState = {};
 
 export function reducer(initialState: IState, action: Action) {
-    const environment = getEnvironment();
     return createReducer(
         initialState,
         on(orderAction.remove, state => {
@@ -35,16 +33,6 @@ export function reducer(initialState: IState, action: Action) {
             return { ...state, orderData: { ...state.orderData, order }, loading: false, process: '', error: null };
         }),
         on(orderAction.inquiryFail, (state, payload) => {
-            const error = payload.error;
-            return { ...state, loading: false, process: '', error: (error.message) ? error.message :  JSON.stringify(error) };
-        }),
-        on(orderAction.print, (state) => {
-            return { ...state, loading: environment.PRINT_LOADING, process: 'orderAction.Print' };
-        }),
-        on(orderAction.printSuccess, (state) => {
-            return { ...state, loading: false, process: '', error: null };
-        }),
-        on(orderAction.printFail, (state, payload) => {
             const error = payload.error;
             return { ...state, loading: false, process: '', error: (error.message) ? error.message :  JSON.stringify(error) };
         }),

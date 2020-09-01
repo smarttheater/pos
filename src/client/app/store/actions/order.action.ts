@@ -1,6 +1,5 @@
 import { factory } from '@cinerino/sdk';
 import { createAction, props } from '@ngrx/store';
-import { Models } from '../..';
 const LABEL = '[Order]';
 
 export const remove = createAction(
@@ -45,25 +44,6 @@ export const inquirySuccess = createAction(
 
 export const inquiryFail = createAction(
     `${LABEL} inquiryFail`,
-    props<{ error: Error }>()
-);
-
-export const print = createAction(
-    `${LABEL} print`,
-    props<{
-        orders: factory.order.IOrder[];
-        printer: Models.Util.Printer.IPrinter;
-        pos?: factory.chevre.place.movieTheater.IPOS;
-        timeout?: number;
-    }>()
-);
-
-export const printSuccess = createAction(
-    `${LABEL} printSuccess`,
-);
-
-export const printFail = createAction(
-    `${LABEL} printFail`,
     props<{ error: Error }>()
 );
 

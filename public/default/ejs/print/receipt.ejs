@@ -1,0 +1,13 @@
+<div class="print" style="width: 560px;">
+    <div class="py-5 text-center" style="font-size: 30px;">
+        <p class="mb-3">
+            領収書
+        </p>
+        <p class="mb-3"><%= moment().tz('Asia/Tokyo').locale('ja').format('YYYY/MM/DD (ddd)') %></p>
+        <p class="mb-3">様</p>
+        <p class="mb-3">￥<%= order.price %></p>
+        <p class="mb-3">但し<span></span>代として、<br>上記金額正に領収致しました。</p>
+        <p class="mb-3"><%= order.seller.name.ja %></p>
+        <p class="mb-3"><%= moment().tz('Asia/Tokyo').locale('ja').format('YYYY/MM/DD HH:mm:ss') %></p>
+    </div>
+</div>

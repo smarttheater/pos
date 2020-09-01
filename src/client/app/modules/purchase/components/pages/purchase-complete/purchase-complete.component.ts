@@ -34,7 +34,7 @@ export class PurchaseCompleteComponent implements OnInit {
         private router: Router,
         private actionService: ActionService,
         private utilService: UtilService,
-        private translate: TranslateService
+        private translate: TranslateService,
     ) { }
 
     public async ngOnInit() {
@@ -100,6 +100,33 @@ export class PurchaseCompleteComponent implements OnInit {
             const pos = user.pos;
             const printer = user.printer;
             await this.actionService.order.print({ orders, pos, printer });
+        } catch (error) {
+            this.utilService.openAlert({
+                title: this.translate.instant('common.error'),
+                body: `
+                <p class="mb-4">${this.translate.instant('purchase.complete.alert.print')}</p>
+                    <div class="p-3 bg-light-gray select-text">
+                    <code>${error}</code>
+                </div>`
+            });
+        }
+    }
+
+    /**
+     * 領収書印刷
+     */
+    public async printReceipt() {
+        try {
+            const purchase = await this.actionService.purchase.getData();
+            const user = await this.actionService.user.getData();
+            if (purchase.order === undefined
+                || user.printer === undefined) {
+                throw new Error('printer undefined');
+            }
+            const order = purchase.order;
+            const pos = user.pos;
+            const printer = user.printer;
+            await this.actionService.order.printReceipt({ order, pos, printer });
         } catch (error) {
             this.utilService.openAlert({
                 title: this.translate.instant('common.error'),

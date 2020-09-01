@@ -4,9 +4,9 @@ import { Actions, Effect, ofType } from '@ngrx/effects';
 import { TranslateService } from '@ngx-translate/core';
 import * as moment from 'moment';
 import { map, mergeMap } from 'rxjs/operators';
-import { Functions, Models } from '../..';
+import { Functions } from '../..';
 import { getEnvironment } from '../../../environments/environment';
-import { CinerinoService, EpsonEPOSService, StarPrintService, UtilService } from '../../services';
+import { CinerinoService, UtilService } from '../../services';
 import { orderAction } from '../actions';
 
 /**
@@ -18,10 +18,8 @@ export class OrderEffects {
     constructor(
         private actions: Actions,
         private cinerino: CinerinoService,
-        private starPrint: StarPrintService,
         private utilService: UtilService,
         private translate: TranslateService,
-        private epsonEPOSService: EpsonEPOSService,
     ) { }
 
     /**
@@ -196,150 +194,6 @@ export class OrderEffects {
                 });
             } catch (error) {
                 return orderAction.inquiryFail({ error: error });
-            }
-        })
-    );
-
-    /**
-     * print
-     */
-    @Effect()
-    public print = this.actions.pipe(
-        ofType(orderAction.print),
-        map(action => action),
-        mergeMap(async (payload) => {
-            try {
-                const orders = payload.orders;
-                const printer = payload.printer;
-                const pos = payload.pos;
-                const environment = getEnvironment();
-                if (printer.connectionType === Models.Util.Printer.ConnectionType.None) {
-                    return orderAction.printSuccess();
-                }
-                await this.cinerino.getServices();
-                let authorizeOrders: factory.order.IOrder[] = [];
-                if (environment.PRINT_QRCODE_TYPE === Models.Order.Print.PrintQrcodeType.None) {
-                    authorizeOrders = orders;
-                } else {
-                    for (const order of orders) {
-                        const result = await Functions.Util.retry<factory.order.IOrder>({
-                            process: (async () => {
-                                const orderNumber = order.orderNumber;
-                                const customer = { telephone: order.customer.telephone };
-                                const authorizeOrder = await this.cinerino.order.authorizeOwnershipInfos({ orderNumber, customer });
-                                return authorizeOrder;
-                            }),
-                            interval: 5000,
-                            limit: 5
-                        });
-                        authorizeOrders.push(result);
-                    }
-                }
-                const testFlg = authorizeOrders.length === 0;
-                const path = `/ejs/print/ticket.ejs`;
-                const url = (testFlg) ? '/default//ejs/print/test.ejs'
-                    : (await Functions.Util.isFile(`${Functions.Util.getProject().storageUrl}${path}`))
-                        ? `${Functions.Util.getProject().storageUrl}${path}`
-                        : `/default${path}`;
-                const printData = await this.utilService.getText<string>(url);
-                const canvasList: HTMLCanvasElement[] = [];
-                if (testFlg) {
-                    const canvas = await Functions.Order.createTestPrintCanvas4Html({ view: <string>printData });
-                    canvasList.push(canvas);
-                } else {
-                    for (const authorizeOrder of authorizeOrders) {
-                        let index = 0;
-                        for (const acceptedOffer of authorizeOrder.acceptedOffers) {
-                            if (acceptedOffer.itemOffered.typeOf !== factory.chevre.reservationType.EventReservation) {
-                                continue;
-                            }
-                            const itemOffered = <factory.chevre.reservation.IReservation<
-                                factory.chevre.reservationType.EventReservation
-                            >>acceptedOffer.itemOffered;
-                            const order = authorizeOrder;
-                            let qrcode = (environment.PRINT_QRCODE_TYPE === Models.Order.Print.PrintQrcodeType.None)
-                                ? undefined : itemOffered.reservedTicket.ticketToken;
-                            const additionalProperty = (itemOffered.reservationFor.workPerformed !== undefined
-                                && itemOffered.reservationFor.workPerformed.additionalProperty !== undefined
-                                && itemOffered.reservationFor.workPerformed.additionalProperty.length > 0)
-                                ? itemOffered.reservationFor.workPerformed.additionalProperty :
-                                (itemOffered.additionalProperty !== undefined
-                                    && itemOffered.additionalProperty.length > 0) ?
-                                    itemOffered.additionalProperty
-                                    : undefined;
-                            if (additionalProperty !== undefined) {
-                                // 追加特性のqrcodeがfalseの場合QR非表示
-                                const isDisplayQrcode = additionalProperty.find(a => a.name === 'qrcode');
-                                if (isDisplayQrcode !== undefined && isDisplayQrcode.value === 'false') {
-                                    qrcode = undefined;
-                                }
-                            }
-                            if (qrcode !== undefined
-                                && environment.PRINT_QRCODE_TYPE === Models.Order.Print.PrintQrcodeType.Custom) {
-                                // QRコードカスタム文字列
-                                qrcode = environment.PRINT_QRCODE_CUSTOM;
-                                qrcode = qrcode
-                                    .replace(/\{\{ orderDate \| YYMMDD \}\}/g, moment(order.orderDate).format('YYMMDD'));
-                                qrcode = qrcode
-                                    .replace(/\{\{ confirmationNumber \}\}/g, order.confirmationNumber);
-                                qrcode = qrcode
-                                    .replace(/\{\{ confirmationNumber \| [0-9] \}\}/g, (match) => {
-                                        const digit = Number(match.replace(/\{\{ confirmationNumber \| ([0-9]) \}\}/, '$1'));
-                                        return `000000000${order.confirmationNumber}`.slice(-1 * digit);
-                                    });
-                                qrcode = qrcode
-                                    .replace(/\{\{ index \}\}/g, String(index));
-                                qrcode = qrcode
-                                    .replace(/\{\{ index \| [0-9] \}\}/g, (match) => {
-                                        const digit = Number(match.replace(/\{\{ index \| ([0-9]) \}\}/, '$1'));
-                                        return `000000000${String(index)}`.slice(-1 * digit);
-                                    });
-                                qrcode = qrcode
-                                    .replace(/\{\{ orderNumber \}\}/g, order.orderNumber);
-                                qrcode = qrcode
-                                    .replace(
-                                        /\{\{ startDate \| YYMMDD \}\}/g,
-                                        moment(itemOffered.reservationFor.startDate).format('YYMMDD')
-                                    );
-                            }
-                            const canvas = await Functions.Order.createPrintCanvas4Html({
-                                view: <string>printData, order, pos, qrcode, index
-                            });
-                            canvasList.push(canvas);
-                            index++;
-                        }
-                    }
-                }
-                switch (printer.connectionType) {
-                    case Models.Util.Printer.ConnectionType.StarBluetooth:
-                        this.starPrint.initialize({ printer, pos });
-                        await this.starPrint.printProcess({ canvasList });
-                        break;
-                    case Models.Util.Printer.ConnectionType.StarLAN:
-                        this.starPrint.initialize({ printer, pos });
-                        await this.starPrint.printProcess({ canvasList });
-                        break;
-                    case Models.Util.Printer.ConnectionType.Image:
-                        const domList = canvasList.map(canvas => `<div class="mb-3 p-4 border border-light-gray shadow-sm">
-                        <img class="w-100" src="${canvas.toDataURL()}" alt="">
-                        </div>`);
-                        this.utilService.openAlert({
-                            title: '',
-                            body: `<div class="px-5">${domList.join('\n')}</div>`
-                        });
-                        break;
-                    case Models.Util.Printer.ConnectionType.EpsonEPOS:
-                        await this.epsonEPOSService.printer.init({ printer });
-                        await this.epsonEPOSService.printer.print({ canvasList });
-                        await this.epsonEPOSService.printer.disconnect();
-                        break;
-                    default:
-                        break;
-                }
-
-                return orderAction.printSuccess();
-            } catch (error) {
-                return orderAction.printFail({ error: error });
             }
         })
     );
