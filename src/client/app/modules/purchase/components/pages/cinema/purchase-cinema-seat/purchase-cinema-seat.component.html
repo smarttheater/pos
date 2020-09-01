@@ -13,7 +13,7 @@
             <app-screen *ngIf="(user | async)?.theater 
                 && screeningEventSeats.length > 0 
                 && (purchase | async)?.screen" 
-                class="bg-white mb-3"
+                class="mb-3"
                 [theaterCode]="(user | async)?.theater.branchCode"
                 [screenCode]="(purchase | async)?.screen.branchCode" [screeningEventSeats]="screeningEventSeats"
                 [openSeatingAllowed]="(purchase | async)?.screen.openSeatingAllowed"
