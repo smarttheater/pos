@@ -12,6 +12,10 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/).
 
 ### Security
 
+## 3.1.6 - 2020-09-01
+### Added
+ - 領収書印刷追加
+
 ## 3.1.5 - 2020-08-31
 ### Changed
  - チケット照会UI調整
