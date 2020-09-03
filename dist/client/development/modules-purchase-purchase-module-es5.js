@@ -10506,13 +10506,13 @@
           key: "ngOnChanges",
           value: function ngOnChanges() {
             return __awaiter(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee28() {
-              var path, url, result;
+              var path, url, view;
               return regeneratorRuntime.wrap(function _callee28$(_context28) {
                 while (1) {
                   switch (_context28.prev = _context28.next) {
                     case 0:
                       _context28.prev = 0;
-                      path = "/text/purchase/terms/".concat(this.language, ".txt");
+                      path = "/ejs/purchase/terms/".concat(this.language, ".ejs");
                       _context28.next = 4;
                       return ___WEBPACK_IMPORTED_MODULE_2__["Functions"].Util.isFile("".concat(___WEBPACK_IMPORTED_MODULE_2__["Functions"].Util.getProject().storageUrl).concat(path));
 
@@ -10535,8 +10535,10 @@
                       return this.utilService.getText(url);
 
                     case 12:
-                      result = _context28.sent;
-                      this.terms = result.replace(/\n/g, '<br>');
+                      view = _context28.sent;
+                      this.terms = window.ejs.render(view, {
+                        screeningEvent: this.screeningEvent
+                      });
                       _context28.next = 19;
                       break;
 
@@ -10575,7 +10577,7 @@
         consts: [[1, "border", "bg-white", "p-3", "text-small", "scroll-vertical", "border", 3, "innerHTML"]],
         template: function PurchaseTermsComponent_Template(rf, ctx) {
           if (rf & 1) {
-            _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelement"](0, "p", 0);
+            _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelement"](0, "div", 0);
           }
 
           if (rf & 2) {
@@ -10712,13 +10714,13 @@
           key: "ngOnChanges",
           value: function ngOnChanges() {
             return __awaiter(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee29() {
-              var path, url, result;
+              var path, url, view;
               return regeneratorRuntime.wrap(function _callee29$(_context29) {
                 while (1) {
                   switch (_context29.prev = _context29.next) {
                     case 0:
                       _context29.prev = 0;
-                      path = "/text/purchase/warning/".concat(this.language, ".txt");
+                      path = "/ejs/purchase/warning/".concat(this.language, ".ejs");
                       _context29.next = 4;
                       return ___WEBPACK_IMPORTED_MODULE_2__["Functions"].Util.isFile("".concat(___WEBPACK_IMPORTED_MODULE_2__["Functions"].Util.getProject().storageUrl).concat(path));
 
@@ -10741,8 +10743,10 @@
                       return this.utilService.getText(url);
 
                     case 12:
-                      result = _context29.sent;
-                      this.warning = result.replace(/\n/g, '<br>');
+                      view = _context29.sent;
+                      this.warning = window.ejs.render(view, {
+                        screeningEvent: this.screeningEvent
+                      });
                       _context29.next = 19;
                       break;
 
@@ -10781,7 +10785,7 @@
         consts: [[1, "border", "bg-white", "p-3", "text-small", "scroll-vertical", "border", 3, "innerHTML"]],
         template: function PurchaseWarningComponent_Template(rf, ctx) {
           if (rf & 1) {
-            _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelement"](0, "p", 0);
+            _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelement"](0, "div", 0);
           }
 
           if (rf & 2) {
