@@ -25,7 +25,7 @@ export class PurchaseEventTicketComponent implements OnInit, OnDestroy {
     public master: Observable<reducers.IMasterState>;
     public error: Observable<string | null>;
     public isLoading: Observable<boolean>;
-    public screeningWorkEvents: Functions.Purchase.IScreeningEventWork[];
+    public screeningEventsGroup: Functions.Purchase.IScreeningEventsGroup[];
     public moment: typeof moment = moment;
     public environment = getEnvironment();
     private updateTimer: any;
@@ -48,7 +48,7 @@ export class PurchaseEventTicketComponent implements OnInit, OnDestroy {
         this.error = this.store.pipe(select(reducers.getError));
         this.isLoading = this.store.pipe(select(reducers.getLoading));
         this.actionService.purchase.unsettledDelete();
-        this.screeningWorkEvents = [];
+        this.screeningEventsGroup = [];
         this.purchase.subscribe((purchase) => {
             if (purchase.transaction === undefined) {
                 this.router.navigate(['/error']);
@@ -92,7 +92,8 @@ export class PurchaseEventTicketComponent implements OnInit, OnDestroy {
                 startFrom: moment(scheduleDate).toDate(),
                 startThrough: moment(scheduleDate).add(1, 'day').toDate()
             });
-            this.screeningWorkEvents = Functions.Purchase.screeningEvents2WorkEvents({ screeningEvents });
+            this.screeningEventsGroup =
+                Functions.Purchase.screeningEvents2ScreeningEventSeries({ screeningEvents });
             this.update();
         } catch (error) {
             console.error(error);
