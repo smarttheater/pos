@@ -22,7 +22,7 @@ export class PurchaseCinemaScheduleComponent implements OnInit, OnDestroy {
     public error: Observable<string | null>;
     public master: Observable<reducers.IMasterState>;
     public user: Observable<reducers.IUserState>;
-    public screeningWorkEvents: Functions.Purchase.IScreeningEventWork[];
+    public screeningEventsGroup: Functions.Purchase.IScreeningEventsGroup[];
     public moment = moment;
     public scheduleDate: Date;
     public environment = getEnvironment();
@@ -47,7 +47,7 @@ export class PurchaseCinemaScheduleComponent implements OnInit, OnDestroy {
         this.error = this.store.pipe(select(reducers.getError));
         this.master = this.store.pipe(select(reducers.getMaster));
         this.user = this.store.pipe(select(reducers.getUser));
-        this.screeningWorkEvents = [];
+        this.screeningEventsGroup = [];
     }
 
     /**
@@ -95,7 +95,8 @@ export class PurchaseCinemaScheduleComponent implements OnInit, OnDestroy {
                 startFrom: moment(scheduleDate).toDate(),
                 startThrough: moment(scheduleDate).add(1, 'day').toDate()
             });
-            this.screeningWorkEvents = Functions.Purchase.screeningEvents2WorkEvents({ screeningEvents });
+            this.screeningEventsGroup =
+                Functions.Purchase.screeningEvents2ScreeningEventSeries({ screeningEvents });
             this.update();
         } catch (error) {
             console.error(error);

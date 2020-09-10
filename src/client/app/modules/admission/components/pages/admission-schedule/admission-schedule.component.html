@@ -16,11 +16,11 @@
     </div>
     <p *ngIf="(admission | async)?.scheduleDate" class="text-primary text-large mb-3">
         {{ (admission | async)?.scheduleDate | formatDate: 'YYYY/MM/DD (ddd)' }}</p>
-    <p *ngIf="screeningWorkEvents.length === 0" class="mb-3" [innerHTML]="'admission.schedule.notfound' | translate">
+    <p *ngIf="screeningEventsGroup.length === 0" class="mb-3" [innerHTML]="'admission.schedule.notfound' | translate">
     </p>
     <div class="mb-4">
-        <app-admission-performances *ngFor="let screeningWorkEvent of screeningWorkEvents"
-            [screeningWorkEvent]="screeningWorkEvent" (select)="selectSchedule($event)" class="mb-3">
+        <app-admission-performances *ngFor="let group of screeningEventsGroup"
+            [screeningEventsGroup]="group" (select)="selectSchedule($event)" class="mb-3">
         </app-admission-performances>
     </div>
     <div class="buttons mx-auto text-center">

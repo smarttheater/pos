@@ -19,7 +19,7 @@ export class AdmissionScheduleComponent implements OnInit, OnDestroy {
     @ViewChild('datepicker', { static: true }) private datepicker: BsDatepickerDirective;
     public admission: Observable<reducers.IAdmissionState>;
     public user: Observable<reducers.IUserState>;
-    public screeningWorkEvents: Functions.Purchase.IScreeningEventWork[];
+    public screeningEventsGroup: Functions.Purchase.IScreeningEventsGroup[];
     public moment: typeof moment = moment;
     public scheduleDate: Date;
     private updateTimer: any;
@@ -35,7 +35,7 @@ export class AdmissionScheduleComponent implements OnInit, OnDestroy {
     public async ngOnInit() {
         this.admission = this.store.pipe(select(reducers.getAdmission));
         this.user = this.store.pipe(select(reducers.getUser));
-        this.screeningWorkEvents = [];
+        this.screeningEventsGroup = [];
     }
 
     public ngOnDestroy() {
@@ -77,7 +77,8 @@ export class AdmissionScheduleComponent implements OnInit, OnDestroy {
                 startFrom: moment(scheduleDate).toDate(),
                 startThrough: moment(scheduleDate).add(1, 'day').toDate()
             });
-            this.screeningWorkEvents = Functions.Purchase.screeningEvents2WorkEvents({ screeningEvents });
+            this.screeningEventsGroup =
+                Functions.Purchase.screeningEvents2ScreeningEventSeries({ screeningEvents });
             this.update();
         } catch (error) {
             console.error(error);

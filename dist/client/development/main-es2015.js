@@ -575,12 +575,12 @@ function createOrderLink(order, link) {
 /*!********************************************!*\
   !*** ./app/functions/purchase.function.ts ***!
   \********************************************/
-/*! exports provided: screeningEvents2WorkEvents, createGmoTokenObject, sameMovieTicketFilter, isAvailabilityMovieTicket, createMovieTicketsFromAuthorizeSeatReservation, getCustomPaymentMethodTypeName, getTicketPrice, getItemPrice, movieTicketAuthErroCodeToMessage, getAmount, order2EventOrders, authorizeSeatReservation2Event, getRemainingSeatLength, isEligibleSeatingType, getEmptySeat, selectAvailableSeat, getMovieTicketTypeOffers */
+/*! exports provided: screeningEvents2ScreeningEventSeries, createGmoTokenObject, sameMovieTicketFilter, isAvailabilityMovieTicket, createMovieTicketsFromAuthorizeSeatReservation, getCustomPaymentMethodTypeName, getTicketPrice, getItemPrice, movieTicketAuthErroCodeToMessage, getAmount, order2EventOrders, authorizeSeatReservation2Event, getRemainingSeatLength, isEligibleSeatingType, getEmptySeat, selectAvailableSeat, getMovieTicketTypeOffers */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "screeningEvents2WorkEvents", function() { return screeningEvents2WorkEvents; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "screeningEvents2ScreeningEventSeries", function() { return screeningEvents2ScreeningEventSeries; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "createGmoTokenObject", function() { return createGmoTokenObject; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "sameMovieTicketFilter", function() { return sameMovieTicketFilter; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "isAvailabilityMovieTicket", function() { return isAvailabilityMovieTicket; });
@@ -608,26 +608,33 @@ __webpack_require__.r(__webpack_exports__);
 
 
 /**
- * 作品別イベントへ変換
+ * 施設コンテンツごとのグループへ変換
  */
-function screeningEvents2WorkEvents(params) {
-    const films = [];
+function screeningEvents2ScreeningEventSeries(params) {
+    const environment = Object(_environments_environment__WEBPACK_IMPORTED_MODULE_2__["getEnvironment"])();
+    const result = [];
     const screeningEvents = params.screeningEvents;
     screeningEvents.forEach((screeningEvent) => {
-        const registered = films.find((film) => {
-            return (film.info.superEvent.id === screeningEvent.superEvent.id);
+        const registered = result.find((data) => {
+            if (environment.PURCHASE_SCHEDULE_SORT === 'screeningEventSeries') {
+                return (data.info.superEvent.id === screeningEvent.superEvent.id);
+            }
+            else {
+                return (data.info.location.branchCode === screeningEvent.location.branchCode);
+            }
         });
+        const performance = new _models__WEBPACK_IMPORTED_MODULE_3__["Purchase"].Performance(screeningEvent);
         if (registered === undefined) {
-            films.push({
+            result.push({
                 info: screeningEvent,
-                data: [new _models__WEBPACK_IMPORTED_MODULE_3__["Purchase"].Performance(screeningEvent)]
+                data: [performance]
             });
         }
         else {
-            registered.data.push(new _models__WEBPACK_IMPORTED_MODULE_3__["Purchase"].Performance(screeningEvent));
+            registered.data.push(performance);
         }
     });
-    return films;
+    return result;
 }
 /**
  * GMOトークンオブジェクト生成
@@ -2198,7 +2205,7 @@ const defaultEnvironment = {
     PURCHASE_SCHEDULE_DEFAULT_SELECTED_DATE: '0',
     PURCHASE_SCHEDULE_STATUS_THRESHOLD_VALUE: '30',
     PURCHASE_SCHEDULE_STATUS_THRESHOLD_UNIT: '%',
-    PURCHASE_SCHEDULE_SORT: true,
+    PURCHASE_SCHEDULE_SORT: 'screeningEventSeries',
     PURCHASE_COMPLETE_MAIL_CUSTOM: true,
     PURCHASE_TERMS: false,
     PURCHASE_WARNING: false,
