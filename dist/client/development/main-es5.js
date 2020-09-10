@@ -842,7 +842,7 @@
       !*** ./app/functions/purchase.function.ts ***!
       \********************************************/
 
-    /*! exports provided: screeningEvents2WorkEvents, createGmoTokenObject, sameMovieTicketFilter, isAvailabilityMovieTicket, createMovieTicketsFromAuthorizeSeatReservation, getCustomPaymentMethodTypeName, getTicketPrice, getItemPrice, movieTicketAuthErroCodeToMessage, getAmount, order2EventOrders, authorizeSeatReservation2Event, getRemainingSeatLength, isEligibleSeatingType, getEmptySeat, selectAvailableSeat, getMovieTicketTypeOffers */
+    /*! exports provided: screeningEvents2ScreeningEventSeries, createGmoTokenObject, sameMovieTicketFilter, isAvailabilityMovieTicket, createMovieTicketsFromAuthorizeSeatReservation, getCustomPaymentMethodTypeName, getTicketPrice, getItemPrice, movieTicketAuthErroCodeToMessage, getAmount, order2EventOrders, authorizeSeatReservation2Event, getRemainingSeatLength, isEligibleSeatingType, getEmptySeat, selectAvailableSeat, getMovieTicketTypeOffers */
 
     /***/
     function appFunctionsPurchaseFunctionTs(module, __webpack_exports__, __webpack_require__) {
@@ -852,8 +852,8 @@
       /* harmony export (binding) */
 
 
-      __webpack_require__.d(__webpack_exports__, "screeningEvents2WorkEvents", function () {
-        return screeningEvents2WorkEvents;
+      __webpack_require__.d(__webpack_exports__, "screeningEvents2ScreeningEventSeries", function () {
+        return screeningEvents2ScreeningEventSeries;
       });
       /* harmony export (binding) */
 
@@ -984,28 +984,34 @@
       /*! ../models */
       "./app/models/index.ts");
       /**
-       * 作品別イベントへ変換
+       * 施設コンテンツごとのグループへ変換
        */
 
 
-      function screeningEvents2WorkEvents(params) {
-        var films = [];
+      function screeningEvents2ScreeningEventSeries(params) {
+        var environment = Object(_environments_environment__WEBPACK_IMPORTED_MODULE_2__["getEnvironment"])();
+        var result = [];
         var screeningEvents = params.screeningEvents;
         screeningEvents.forEach(function (screeningEvent) {
-          var registered = films.find(function (film) {
-            return film.info.superEvent.id === screeningEvent.superEvent.id;
+          var registered = result.find(function (data) {
+            if (environment.PURCHASE_SCHEDULE_SORT === 'screeningEventSeries') {
+              return data.info.superEvent.id === screeningEvent.superEvent.id;
+            } else {
+              return data.info.location.branchCode === screeningEvent.location.branchCode;
+            }
           });
+          var performance = new _models__WEBPACK_IMPORTED_MODULE_3__["Purchase"].Performance(screeningEvent);
 
           if (registered === undefined) {
-            films.push({
+            result.push({
               info: screeningEvent,
-              data: [new _models__WEBPACK_IMPORTED_MODULE_3__["Purchase"].Performance(screeningEvent)]
+              data: [performance]
             });
           } else {
-            registered.data.push(new _models__WEBPACK_IMPORTED_MODULE_3__["Purchase"].Performance(screeningEvent));
+            registered.data.push(performance);
           }
         });
-        return films;
+        return result;
       }
       /**
        * GMOトークンオブジェクト生成
@@ -3454,7 +3460,7 @@
         PURCHASE_SCHEDULE_DEFAULT_SELECTED_DATE: '0',
         PURCHASE_SCHEDULE_STATUS_THRESHOLD_VALUE: '30',
         PURCHASE_SCHEDULE_STATUS_THRESHOLD_UNIT: '%',
-        PURCHASE_SCHEDULE_SORT: true,
+        PURCHASE_SCHEDULE_SORT: 'screeningEventSeries',
         PURCHASE_COMPLETE_MAIL_CUSTOM: true,
         PURCHASE_TERMS: false,
         PURCHASE_WARNING: false,

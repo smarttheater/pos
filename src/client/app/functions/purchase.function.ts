@@ -4,36 +4,42 @@ import { getEnvironment } from '../../environments/environment';
 import { Purchase } from '../models';
 
 /**
- * 作品別イベント
+ * イベントグループ
  */
-export interface IScreeningEventWork {
+export interface IScreeningEventsGroup {
     info: factory.chevre.event.screeningEvent.IEvent;
     data: Purchase.Performance[];
 }
 
 /**
- * 作品別イベントへ変換
+ * 施設コンテンツごとのグループへ変換
  */
-export function screeningEvents2WorkEvents(params: {
+export function screeningEvents2ScreeningEventSeries(params: {
     screeningEvents: factory.chevre.event.screeningEvent.IEvent[]
 }) {
-    const films: IScreeningEventWork[] = [];
+    const environment = getEnvironment();
+    const result: IScreeningEventsGroup[] = [];
     const screeningEvents = params.screeningEvents;
     screeningEvents.forEach((screeningEvent) => {
-        const registered = films.find((film) => {
-            return (film.info.superEvent.id === screeningEvent.superEvent.id);
+        const registered = result.find((data) => {
+            if (environment.PURCHASE_SCHEDULE_SORT === 'screeningEventSeries') {
+                return (data.info.superEvent.id === screeningEvent.superEvent.id);
+            } else {
+                return (data.info.location.branchCode === screeningEvent.location.branchCode);
+            }
         });
+        const performance = new Purchase.Performance(screeningEvent);
         if (registered === undefined) {
-            films.push({
+            result.push({
                 info: screeningEvent,
-                data: [new Purchase.Performance(screeningEvent)]
+                data: [performance]
             });
         } else {
-            registered.data.push(new Purchase.Performance(screeningEvent));
+            registered.data.push(performance);
         }
     });
 
-    return films;
+    return result;
 }
 
 /**
