@@ -74,7 +74,7 @@ export async function retry<T>(args: {
  * ミリ秒待ち
  * @param time
  */
-export async function sleep(time: number) {
+export async function sleep(time: number = 500) {
     return new Promise((resolve) => {
         setTimeout(() => {
             resolve();

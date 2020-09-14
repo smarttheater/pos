@@ -220,7 +220,7 @@ const defaultEnvironment: IEnvironment = {
     ANALYTICS_ID: '',
     GTM_ID: '',
     VIEW_TYPE: 'event',
-    STORAGE_NAME: (getProject().projectId === '') ? 'POS-STATE' : `${getProject().projectId.toUpperCase()}-POS-STATE`,
+    STORAGE_NAME: 'POS-STATE',
     STORAGE_TYPE: 'localStorage',
     BASE_URL: '/purchase/root',
     LANGUAGE: ['ja'],
@@ -271,6 +271,9 @@ const defaultEnvironment: IEnvironment = {
 export function getEnvironment(): IEnvironment {
     const environment = {
         ...defaultEnvironment,
+        STORAGE_NAME: (getProject().projectId === '')
+            ? 'POS-STATE'
+            : `${getProject().projectId.toUpperCase()}-POS-STATE`,
         ...(<any>window).environment,
         production: isProduction
     };

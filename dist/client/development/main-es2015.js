@@ -1379,7 +1379,7 @@ function retry(args) {
  * ミリ秒待ち
  * @param time
  */
-function sleep(time) {
+function sleep(time = 500) {
     return __awaiter(this, void 0, void 0, function* () {
         return new Promise((resolve) => {
             setTimeout(() => {
@@ -2181,7 +2181,7 @@ const defaultEnvironment = {
     ANALYTICS_ID: '',
     GTM_ID: '',
     VIEW_TYPE: 'event',
-    STORAGE_NAME: (Object(_app_functions_util_function__WEBPACK_IMPORTED_MODULE_0__["getProject"])().projectId === '') ? 'POS-STATE' : `${Object(_app_functions_util_function__WEBPACK_IMPORTED_MODULE_0__["getProject"])().projectId.toUpperCase()}-POS-STATE`,
+    STORAGE_NAME: 'POS-STATE',
     STORAGE_TYPE: 'localStorage',
     BASE_URL: '/purchase/root',
     LANGUAGE: ['ja'],
@@ -2229,7 +2229,9 @@ const defaultEnvironment = {
     PRINT_RECEIPT: false
 };
 function getEnvironment() {
-    const environment = Object.assign(Object.assign(Object.assign({}, defaultEnvironment), window.environment), { production: isProduction });
+    const environment = Object.assign(Object.assign(Object.assign(Object.assign({}, defaultEnvironment), { STORAGE_NAME: (Object(_app_functions_util_function__WEBPACK_IMPORTED_MODULE_0__["getProject"])().projectId === '')
+            ? 'POS-STATE'
+            : `${Object(_app_functions_util_function__WEBPACK_IMPORTED_MODULE_0__["getProject"])().projectId.toUpperCase()}-POS-STATE` }), window.environment), { production: isProduction });
     return environment;
 }
 

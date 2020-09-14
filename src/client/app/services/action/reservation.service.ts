@@ -89,7 +89,9 @@ export class ReservationService {
                     reservations = reservations.concat(searchResult.data);
                     page++;
                     roop = searchResult.data.length === limit;
-                    await Functions.Util.sleep(500);
+                    if (roop) {
+                        await Functions.Util.sleep();
+                    }
                 }
             }
             this.utilService.loadEnd();
