@@ -9,7 +9,7 @@
     </div>
 
     <div class="row">
-        <div class="col-lg-9">
+        <div class="col-lg-8">
             <app-screen *ngIf="(user | async)?.theater 
                 && screeningEventSeats.length > 0 
                 && (purchase | async)?.screen" 
@@ -36,7 +36,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-lg-3">
+        <div class="col-lg-4">
             <app-purchase-info class="mb-4" [purchase]="purchase | async"></app-purchase-info>
         </div>
     </div>
