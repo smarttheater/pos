@@ -82555,7 +82555,9 @@ class OrderService {
                         orders = orders.concat(searchResult.data);
                         page++;
                         roop = searchResult.data.length === limit;
-                        yield ___WEBPACK_IMPORTED_MODULE_7__["Functions"].Util.sleep(500);
+                        if (roop) {
+                            yield ___WEBPACK_IMPORTED_MODULE_7__["Functions"].Util.sleep();
+                        }
                     }
                 }
                 this.utilService.loadEnd();
@@ -83056,7 +83058,9 @@ class PurchaseService {
                     screeningEventSeats = screeningEventSeats.concat(searchResult.data);
                     page++;
                     roop = searchResult.data.length === limit;
-                    yield ___WEBPACK_IMPORTED_MODULE_7__["Functions"].Util.sleep(500);
+                    if (roop) {
+                        yield ___WEBPACK_IMPORTED_MODULE_7__["Functions"].Util.sleep();
+                    }
                 }
                 this.utilService.loadEnd();
                 return screeningEventSeats;
@@ -83425,7 +83429,9 @@ class ReservationService {
                         reservations = reservations.concat(searchResult.data);
                         page++;
                         roop = searchResult.data.length === limit;
-                        yield ___WEBPACK_IMPORTED_MODULE_3__["Functions"].Util.sleep(500);
+                        if (roop) {
+                            yield ___WEBPACK_IMPORTED_MODULE_3__["Functions"].Util.sleep();
+                        }
                     }
                 }
                 this.utilService.loadEnd();
@@ -84225,7 +84231,9 @@ class MasterService {
                     result = [...result, ...searchResult.data];
                     page++;
                     roop = searchResult.data.length === limit;
-                    yield ___WEBPACK_IMPORTED_MODULE_6__["Functions"].Util.sleep(500);
+                    if (roop) {
+                        yield ___WEBPACK_IMPORTED_MODULE_6__["Functions"].Util.sleep();
+                    }
                 }
                 const environment = Object(_environments_environment__WEBPACK_IMPORTED_MODULE_7__["getEnvironment"])();
                 if (environment.PURCHASE_SCHEDULE_SORT === 'screeningEventSeries') {
@@ -84284,7 +84292,9 @@ class MasterService {
                 result = [...result, ...searchResult.data];
                 page++;
                 roop = searchResult.data.length === limit;
-                yield ___WEBPACK_IMPORTED_MODULE_6__["Functions"].Util.sleep(500);
+                if (roop) {
+                    yield ___WEBPACK_IMPORTED_MODULE_6__["Functions"].Util.sleep();
+                }
             }
             const sortResult = screeningEvents.sort((a, b) => {
                 var _a, _b, _c, _d, _e, _f;
@@ -84338,7 +84348,9 @@ class MasterService {
                 result = [...result, ...searchResult.data];
                 page++;
                 roop = searchResult.data.length === limit;
-                yield ___WEBPACK_IMPORTED_MODULE_6__["Functions"].Util.sleep(500);
+                if (roop) {
+                    yield ___WEBPACK_IMPORTED_MODULE_6__["Functions"].Util.sleep();
+                }
             }
             const sortResult = screeningEvents.sort((a, b) => {
                 var _a, _b, _c, _d, _e, _f;
@@ -85622,7 +85634,9 @@ class MasterEffects {
                     projects = projects.concat(searchResult.data);
                     page++;
                     roop = searchResult.data.length === limit;
-                    yield ___WEBPACK_IMPORTED_MODULE_3__["Functions"].Util.sleep(500);
+                    if (roop) {
+                        yield ___WEBPACK_IMPORTED_MODULE_3__["Functions"].Util.sleep();
+                    }
                 }
                 return _actions__WEBPACK_IMPORTED_MODULE_5__["masterAction"].getProjectsSuccess({ projects });
             }

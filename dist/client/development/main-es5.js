@@ -2157,7 +2157,8 @@
        */
 
 
-      function sleep(time) {
+      function sleep() {
+        var time = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 500;
         return __awaiter(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee7() {
           return regeneratorRuntime.wrap(function _callee7$(_context7) {
             while (1) {
@@ -3418,7 +3419,7 @@
         ANALYTICS_ID: '',
         GTM_ID: '',
         VIEW_TYPE: 'event',
-        STORAGE_NAME: Object(_app_functions_util_function__WEBPACK_IMPORTED_MODULE_0__["getProject"])().projectId === '' ? 'POS-STATE' : "".concat(Object(_app_functions_util_function__WEBPACK_IMPORTED_MODULE_0__["getProject"])().projectId.toUpperCase(), "-POS-STATE"),
+        STORAGE_NAME: 'POS-STATE',
         STORAGE_TYPE: 'localStorage',
         BASE_URL: '/purchase/root',
         LANGUAGE: ['ja'],
@@ -3485,7 +3486,9 @@
       };
 
       function getEnvironment() {
-        var environment = Object.assign(Object.assign(Object.assign({}, defaultEnvironment), window.environment), {
+        var environment = Object.assign(Object.assign(Object.assign(Object.assign({}, defaultEnvironment), {
+          STORAGE_NAME: Object(_app_functions_util_function__WEBPACK_IMPORTED_MODULE_0__["getProject"])().projectId === '' ? 'POS-STATE' : "".concat(Object(_app_functions_util_function__WEBPACK_IMPORTED_MODULE_0__["getProject"])().projectId.toUpperCase(), "-POS-STATE")
+        }), window.environment), {
           production: isProduction
         });
         return environment;
