@@ -654,6 +654,7 @@ class AdmissionScheduleComponent {
         return __awaiter(this, void 0, void 0, function* () {
             this.admission = this.store.pipe(Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_2__["select"])(_store_reducers__WEBPACK_IMPORTED_MODULE_7__["getAdmission"]));
             this.user = this.store.pipe(Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_2__["select"])(_store_reducers__WEBPACK_IMPORTED_MODULE_7__["getUser"]));
+            this.isLoading = this.store.pipe(Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_2__["select"])(_store_reducers__WEBPACK_IMPORTED_MODULE_7__["getLoading"]));
             this.screeningEventsGroup = [];
         });
     }
@@ -674,8 +675,12 @@ class AdmissionScheduleComponent {
      */
     selectDate(date) {
         return __awaiter(this, void 0, void 0, function* () {
+            if (yield this.getLoading()) {
+                return;
+            }
             if (date !== undefined && date !== null) {
                 this.scheduleDate = date;
+                return;
             }
             try {
                 const user = yield this.actionService.user.getData();
@@ -748,6 +753,15 @@ class AdmissionScheduleComponent {
         ___WEBPACK_IMPORTED_MODULE_5__["Functions"].Util.iOSDatepickerTapBugFix(container, [
             this.datepicker
         ]);
+    }
+    getLoading() {
+        return __awaiter(this, void 0, void 0, function* () {
+            return new Promise((resolve) => {
+                this.isLoading.subscribe((loading) => {
+                    resolve(loading);
+                }).unsubscribe();
+            });
+        });
     }
 }
 AdmissionScheduleComponent.ɵfac = function AdmissionScheduleComponent_Factory(t) { return new (t || AdmissionScheduleComponent)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_ngrx_store__WEBPACK_IMPORTED_MODULE_2__["Store"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_router__WEBPACK_IMPORTED_MODULE_1__["Router"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](ngx_bootstrap_datepicker__WEBPACK_IMPORTED_MODULE_4__["BsLocaleService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_services__WEBPACK_IMPORTED_MODULE_6__["ActionService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_services__WEBPACK_IMPORTED_MODULE_6__["MasterService"])); };
@@ -1215,7 +1229,7 @@ class AdmissionPerformancesComponent {
     }
 }
 AdmissionPerformancesComponent.ɵfac = function AdmissionPerformancesComponent_Factory(t) { return new (t || AdmissionPerformancesComponent)(); };
-AdmissionPerformancesComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineComponent"]({ type: AdmissionPerformancesComponent, selectors: [["app-admission-performances"]], inputs: { screeningEventsGroup: "screeningEventsGroup" }, outputs: { select: "select" }, decls: 5, vars: 3, consts: [[1, "bg-white"], ["class", "p-3 bg-gray", 4, "ngIf"], [1, "py-2", "px-3", "px-md-2", "d-flex", "flex-wrap"], ["class", "px-md-2 my-2", 4, "ngFor", "ngForOf"], [1, "p-3", "bg-gray"], [1, "mb-2"], [1, "font-weight-bold", "text-large"], [4, "ngIf"], [1, "d-flex", "align-items-center", "flex-wrap"], ["class", "text-small bg-dark-gray text-white py-1 px-3 mr-2", 4, "ngIf"], ["class", "text-small bg-dark-gray text-white py-1 px-3 mr-2", 4, "ngFor", "ngForOf"], ["class", "text-small ml-auto", 4, "ngIf"], [1, "text-small", "bg-dark-gray", "text-white", "py-1", "px-3", "mr-2"], [1, "text-small", "ml-auto"], [1, "mr-1"], [1, "px-md-2", "my-2"], [1, "mb-3", 3, "performance", "select"]], template: function AdmissionPerformancesComponent_Template(rf, ctx) { if (rf & 1) {
+AdmissionPerformancesComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineComponent"]({ type: AdmissionPerformancesComponent, selectors: [["app-admission-performances"]], inputs: { screeningEventsGroup: "screeningEventsGroup" }, outputs: { select: "select" }, decls: 5, vars: 3, consts: [[1, "bg-white"], ["class", "p-3 bg-gray", 4, "ngIf"], [1, "py-2", "px-3", "px-md-2", "d-flex", "flex-wrap"], ["class", "px-md-2 my-2", 4, "ngFor", "ngForOf"], [1, "p-3", "bg-gray"], [1, "mb-2"], [1, "font-weight-bold", "text-large"], [4, "ngIf"], [1, "d-flex", "align-items-center", "flex-wrap"], ["class", "text-small bg-dark-gray text-white py-1 px-2 mr-2", 4, "ngIf"], ["class", "text-small bg-dark-gray text-white py-1 px-2 mr-2", 4, "ngFor", "ngForOf"], ["class", "text-small ml-auto", 4, "ngIf"], [1, "text-small", "bg-dark-gray", "text-white", "py-1", "px-2", "mr-2"], [1, "text-small", "ml-auto"], [1, "mr-1"], [1, "px-md-2", "my-2"], [1, "mb-3", 3, "performance", "select"]], template: function AdmissionPerformancesComponent_Template(rf, ctx) { if (rf & 1) {
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "div", 0);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](1, AdmissionPerformancesComponent_div_1_Template, 15, 14, "div", 1);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](2, AdmissionPerformancesComponent_div_2_Template, 4, 3, "div", 1);

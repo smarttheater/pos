@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { factory } from '@cinerino/sdk';
 import { Actions, ofType } from '@ngrx/effects';
 import { select, Store } from '@ngrx/store';
+import * as moment from 'moment';
 import { Observable, race } from 'rxjs';
 import { take, tap } from 'rxjs/operators';
 import { Functions } from '..';
@@ -126,8 +127,12 @@ export class MasterService {
                     screeningEvents: result
                 });
             }
+            const mergeResult = this.mergeWorkPerformed({
+                screeningEvents: result,
+                scheduleDate: params.startFrom
+            });
             this.utilService.loadEnd();
-            return result;
+            return mergeResult;
         } catch (error) {
             this.utilService.setError(error);
             this.utilService.loadEnd();
@@ -251,6 +256,49 @@ export class MasterService {
             return 0;
         });
         return sortResult;
+    }
+
+    /**
+     * 作品情報をマージ
+     */
+    public async mergeWorkPerformed(params: {
+        screeningEvents: factory.chevre.event.screeningEvent.IEvent[];
+        scheduleDate: Date;
+    }) {
+        const screeningEvents = params.screeningEvents;
+        const scheduleDate = params.scheduleDate;
+        const limit = 100;
+        let page = 1;
+        let roop = true;
+        let result: factory.chevre.creativeWork.movie.ICreativeWork[] = [];
+        await this.cinerinoService.getServices();
+        while (roop) {
+            const searchResult = await this.cinerinoService.creativeWork.searchMovies({
+                page,
+                limit,
+                offers: {
+                    availableFrom: moment(scheduleDate).toDate(),
+                    // availableThrough: moment(scheduleDate).add(1, 'day').toDate()
+                },
+                // datePublishedFrom: moment(scheduleDate).toDate(),
+                // datePublishedThrough: moment(scheduleDate).add(1, 'day').toDate()
+            });
+            result = [...result, ...searchResult.data];
+            page++;
+            roop = searchResult.data.length === limit;
+            if (roop) {
+                await Functions.Util.sleep();
+            }
+        }
+        screeningEvents.forEach(s => {
+            const findResult = result.find(r => r.identifier === s.workPerformed?.identifier);
+            if (s.workPerformed === undefined
+                || findResult === undefined) {
+                return;
+            }
+            s.workPerformed.contentRating = findResult.contentRating;
+        });
+        return screeningEvents;
     }
 
     /**

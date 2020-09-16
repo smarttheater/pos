@@ -109,6 +109,7 @@ class PurchaseCinemaScheduleComponent {
             this.error = this.store.pipe(Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_2__["select"])(_store_reducers__WEBPACK_IMPORTED_MODULE_10__["getError"]));
             this.master = this.store.pipe(Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_2__["select"])(_store_reducers__WEBPACK_IMPORTED_MODULE_10__["getMaster"]));
             this.user = this.store.pipe(Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_2__["select"])(_store_reducers__WEBPACK_IMPORTED_MODULE_10__["getUser"]));
+            this.isLoading = this.store.pipe(Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_2__["select"])(_store_reducers__WEBPACK_IMPORTED_MODULE_10__["getLoading"]));
             this.screeningEventsGroup = [];
         });
     }
@@ -135,8 +136,12 @@ class PurchaseCinemaScheduleComponent {
      */
     selectDate(date) {
         return __awaiter(this, void 0, void 0, function* () {
+            if (yield this.getLoading()) {
+                return;
+            }
             if (date !== undefined && date !== null) {
                 this.scheduleDate = date;
+                return;
             }
             const user = yield this.actionService.user.getData();
             const theater = user.theater;
@@ -260,6 +265,15 @@ class PurchaseCinemaScheduleComponent {
             this.datepicker
         ]);
     }
+    getLoading() {
+        return __awaiter(this, void 0, void 0, function* () {
+            return new Promise((resolve) => {
+                this.isLoading.subscribe((loading) => {
+                    resolve(loading);
+                }).unsubscribe();
+            });
+        });
+    }
 }
 PurchaseCinemaScheduleComponent.ɵfac = function PurchaseCinemaScheduleComponent_Factory(t) { return new (t || PurchaseCinemaScheduleComponent)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_ngrx_store__WEBPACK_IMPORTED_MODULE_2__["Store"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_router__WEBPACK_IMPORTED_MODULE_1__["Router"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_services__WEBPACK_IMPORTED_MODULE_9__["UtilService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_ngx_translate_core__WEBPACK_IMPORTED_MODULE_3__["TranslateService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_services__WEBPACK_IMPORTED_MODULE_9__["ActionService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_services__WEBPACK_IMPORTED_MODULE_9__["MasterService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](ngx_bootstrap_datepicker__WEBPACK_IMPORTED_MODULE_6__["BsLocaleService"])); };
 PurchaseCinemaScheduleComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineComponent"]({ type: PurchaseCinemaScheduleComponent, selectors: [["app-purchase-cinema-schedule"]], viewQuery: function PurchaseCinemaScheduleComponent_Query(rf, ctx) { if (rf & 1) {
@@ -267,7 +281,7 @@ PurchaseCinemaScheduleComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0
     } if (rf & 2) {
         var _t;
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵqueryRefresh"](_t = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵloadQuery"]()) && (ctx.datepicker = _t.first);
-    } }, decls: 17, vars: 14, consts: [[1, "contents-width", "mx-auto", "px-3", "py-5"], [1, "text-large", "mb-4", "text-center", "font-weight-bold"], [1, "mb-4", "text-md-center", 3, "innerHTML"], [1, "mb-3"], [1, "input-group"], ["type", "text", "placeholder", "Datepicker", "bsDatepicker", "", "readonly", "", 1, "form-control", 3, "ngModel", "bsConfig", "ngModelChange", "bsValueChange", "click", "onShown"], ["datepicker", "bsDatepicker"], [1, "input-group-append", "pointer", 3, "click"], [1, "input-group-text"], [1, "fas", "fa-caret-down"], ["class", "text-primary text-large mb-3", 4, "ngIf"], ["class", "mb-3", 3, "innerHTML", 4, "ngIf"], ["class", "mb-3", 3, "screeningEventsGroup", "select", 4, "ngFor", "ngForOf"], [1, "text-primary", "text-large", "mb-3"], [1, "mb-3", 3, "innerHTML"], [1, "mb-3", 3, "screeningEventsGroup", "select"]], template: function PurchaseCinemaScheduleComponent_Template(rf, ctx) { if (rf & 1) {
+    } }, decls: 17, vars: 14, consts: [[1, "contents-width", "mx-auto", "px-3", "py-5"], [1, "text-large", "mb-4", "text-center", "font-weight-bold"], [1, "mb-4", "text-md-center", 3, "innerHTML"], [1, "mb-3"], [1, "input-group"], ["type", "text", "placeholder", "Datepicker", "bsDatepicker", "", "readonly", "", 1, "form-control", 3, "ngModel", "bsConfig", "ngModelChange", "bsValueChange", "click", "onShown"], ["datepicker", "bsDatepicker"], [1, "input-group-append", "pointer", 3, "click"], [1, "input-group-text"], [1, "fas", "fa-caret-down"], ["class", "text-primary font-weight-bold mb-3", 4, "ngIf"], ["class", "mb-3", 3, "innerHTML", 4, "ngIf"], ["class", "mb-3", 3, "screeningEventsGroup", "select", 4, "ngFor", "ngForOf"], [1, "text-primary", "font-weight-bold", "mb-3"], [1, "mb-3", 3, "innerHTML"], [1, "mb-3", 3, "screeningEventsGroup", "select"]], template: function PurchaseCinemaScheduleComponent_Template(rf, ctx) { if (rf & 1) {
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "div", 0);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](1, "h2", 1);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](2);
@@ -1051,8 +1065,12 @@ class PurchaseEventScheduleComponent {
      */
     selectDate(date) {
         return __awaiter(this, void 0, void 0, function* () {
+            if (yield this.getLoading()) {
+                return;
+            }
             if (date !== undefined && date !== null) {
                 this.scheduleDate = date;
+                return;
             }
             try {
                 const user = yield this.actionService.user.getData();
@@ -1153,6 +1171,15 @@ class PurchaseEventScheduleComponent {
             this.datepicker
         ]);
     }
+    getLoading() {
+        return __awaiter(this, void 0, void 0, function* () {
+            return new Promise((resolve) => {
+                this.isLoading.subscribe((loading) => {
+                    resolve(loading);
+                }).unsubscribe();
+            });
+        });
+    }
 }
 PurchaseEventScheduleComponent.ɵfac = function PurchaseEventScheduleComponent_Factory(t) { return new (t || PurchaseEventScheduleComponent)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_ngrx_store__WEBPACK_IMPORTED_MODULE_2__["Store"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_router__WEBPACK_IMPORTED_MODULE_1__["Router"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_services__WEBPACK_IMPORTED_MODULE_8__["ActionService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_services__WEBPACK_IMPORTED_MODULE_8__["MasterService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](ngx_bootstrap_datepicker__WEBPACK_IMPORTED_MODULE_5__["BsLocaleService"])); };
 PurchaseEventScheduleComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineComponent"]({ type: PurchaseEventScheduleComponent, selectors: [["app-purchase-event-schedule"]], viewQuery: function PurchaseEventScheduleComponent_Query(rf, ctx) { if (rf & 1) {
@@ -1160,7 +1187,7 @@ PurchaseEventScheduleComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0_
     } if (rf & 2) {
         var _t;
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵqueryRefresh"](_t = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵloadQuery"]()) && (ctx.datepicker = _t.first);
-    } }, decls: 23, vars: 17, consts: [[1, "contents-width", "mx-auto", "px-3", "pt-5"], [1, "text-large", "mb-4", "text-center", "font-weight-bold"], [1, "mb-4", "text-md-center", 3, "innerHTML"], [1, "contents-width", "mx-auto", "p-3"], [1, "mb-3"], [1, "input-group"], ["type", "text", "placeholder", "Datepicker", "bsDatepicker", "", "readonly", "", 1, "form-control", 3, "ngModel", "bsConfig", "ngModelChange", "bsValueChange", "click", "onShown"], ["datepicker", "bsDatepicker"], [1, "input-group-append", "pointer", 3, "click"], [1, "input-group-text"], [1, "fas", "fa-caret-down"], [1, "mb-4"], ["class", "text-primary text-large mb-3", 4, "ngIf"], ["class", "mb-3", 3, "innerHTML", 4, "ngIf"], ["class", "mb-3", 3, "screeningEventsGroup", "readonly", 4, "ngFor", "ngForOf"], [4, "ngIf"], [1, "buttons", "mx-auto", "text-center"], ["type", "submit", "class", "btn btn-primary btn-block py-3 mb-3", 3, "disabled", "click", 4, "ngIf"], [1, "text-primary", "text-large", "mb-3"], [1, "mb-3", 3, "innerHTML"], [1, "mb-3", 3, "screeningEventsGroup", "readonly"], [3, "language"], ["type", "submit", 1, "btn", "btn-primary", "btn-block", "py-3", "mb-3", 3, "disabled", "click"]], template: function PurchaseEventScheduleComponent_Template(rf, ctx) { if (rf & 1) {
+    } }, decls: 23, vars: 17, consts: [[1, "contents-width", "mx-auto", "px-3", "pt-5"], [1, "text-large", "mb-4", "text-center", "font-weight-bold"], [1, "mb-4", "text-md-center", 3, "innerHTML"], [1, "contents-width", "mx-auto", "p-3"], [1, "mb-3"], [1, "input-group"], ["type", "text", "placeholder", "Datepicker", "bsDatepicker", "", "readonly", "", 1, "form-control", 3, "ngModel", "bsConfig", "ngModelChange", "bsValueChange", "click", "onShown"], ["datepicker", "bsDatepicker"], [1, "input-group-append", "pointer", 3, "click"], [1, "input-group-text"], [1, "fas", "fa-caret-down"], [1, "mb-4"], ["class", "text-primary font-weight-bold mb-3", 4, "ngIf"], ["class", "mb-3", 3, "innerHTML", 4, "ngIf"], ["class", "mb-3", 3, "screeningEventsGroup", "readonly", 4, "ngFor", "ngForOf"], [4, "ngIf"], [1, "buttons", "mx-auto", "text-center"], ["type", "submit", "class", "btn btn-primary btn-block py-3 mb-3", 3, "disabled", "click", 4, "ngIf"], [1, "text-primary", "font-weight-bold", "mb-3"], [1, "mb-3", 3, "innerHTML"], [1, "mb-3", 3, "screeningEventsGroup", "readonly"], [3, "language"], ["type", "submit", 1, "btn", "btn-primary", "btn-block", "py-3", "mb-3", 3, "disabled", "click"]], template: function PurchaseEventScheduleComponent_Template(rf, ctx) { if (rf & 1) {
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "div", 0);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](1, "h2", 1);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](2);
@@ -4780,7 +4807,7 @@ class PurchasePerformancesComponent {
     }
 }
 PurchasePerformancesComponent.ɵfac = function PurchasePerformancesComponent_Factory(t) { return new (t || PurchasePerformancesComponent)(); };
-PurchasePerformancesComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineComponent"]({ type: PurchasePerformancesComponent, selectors: [["app-purchase-performances"]], inputs: { screeningEventsGroup: "screeningEventsGroup" }, outputs: { select: "select" }, decls: 5, vars: 3, consts: [[1, ""], ["class", "p-3 bg-gray", 4, "ngIf"], [1, "py-2", "d-flex", "flex-wrap"], ["class", "px-md-2 my-2", 4, "ngFor", "ngForOf"], [1, "p-3", "bg-gray"], [1, "mb-2"], [1, "font-weight-bold", "text-large"], [4, "ngIf"], [1, "d-flex", "align-items-center", "flex-wrap"], ["class", "text-small bg-dark-gray text-white py-1 px-3 mr-2", 4, "ngIf"], ["class", "text-small bg-dark-gray text-white py-1 px-3 mr-2", 4, "ngFor", "ngForOf"], ["class", "text-small ml-auto", 4, "ngIf"], [1, "text-small", "bg-dark-gray", "text-white", "py-1", "px-3", "mr-2"], [1, "text-small", "ml-auto"], [1, "mr-1"], [1, "px-md-2", "my-2"], [1, "mb-3", 3, "performance", "select"]], template: function PurchasePerformancesComponent_Template(rf, ctx) { if (rf & 1) {
+PurchasePerformancesComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineComponent"]({ type: PurchasePerformancesComponent, selectors: [["app-purchase-performances"]], inputs: { screeningEventsGroup: "screeningEventsGroup" }, outputs: { select: "select" }, decls: 5, vars: 3, consts: [[1, ""], ["class", "p-3 bg-gray", 4, "ngIf"], [1, "py-2", "d-flex", "flex-wrap"], ["class", "px-md-2 my-2", 4, "ngFor", "ngForOf"], [1, "p-3", "bg-gray"], [1, "mb-2"], [1, "font-weight-bold", "text-large"], [4, "ngIf"], [1, "d-flex", "align-items-center", "flex-wrap"], ["class", "text-small bg-dark-gray text-white py-1 px-2 mr-2", 4, "ngIf"], ["class", "text-small bg-dark-gray text-white py-1 px-2 mr-2", 4, "ngFor", "ngForOf"], ["class", "text-small ml-auto", 4, "ngIf"], [1, "text-small", "bg-dark-gray", "text-white", "py-1", "px-2", "mr-2"], [1, "text-small", "ml-auto"], [1, "mr-1"], [1, "px-md-2", "my-2"], [1, "mb-3", 3, "performance", "select"]], template: function PurchasePerformancesComponent_Template(rf, ctx) { if (rf & 1) {
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "div", 0);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](1, PurchasePerformancesComponent_div_1_Template, 15, 14, "div", 1);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](2, PurchasePerformancesComponent_div_2_Template, 4, 3, "div", 1);

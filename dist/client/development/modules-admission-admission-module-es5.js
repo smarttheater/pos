@@ -1389,9 +1389,10 @@
                     case 0:
                       this.admission = this.store.pipe(Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_2__["select"])(_store_reducers__WEBPACK_IMPORTED_MODULE_7__["getAdmission"]));
                       this.user = this.store.pipe(Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_2__["select"])(_store_reducers__WEBPACK_IMPORTED_MODULE_7__["getUser"]));
+                      this.isLoading = this.store.pipe(Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_2__["select"])(_store_reducers__WEBPACK_IMPORTED_MODULE_7__["getLoading"]));
                       this.screeningEventsGroup = [];
 
-                    case 3:
+                    case 4:
                     case "end":
                       return _context4.stop();
                   }
@@ -1432,34 +1433,51 @@
                 while (1) {
                   switch (_context5.prev = _context5.next) {
                     case 0:
-                      if (date !== undefined && date !== null) {
-                        this.scheduleDate = date;
+                      _context5.next = 2;
+                      return this.getLoading();
+
+                    case 2:
+                      if (!_context5.sent) {
+                        _context5.next = 4;
+                        break;
                       }
 
-                      _context5.prev = 1;
-                      _context5.next = 4;
-                      return this.actionService.user.getData();
+                      return _context5.abrupt("return");
 
                     case 4:
+                      if (!(date !== undefined && date !== null)) {
+                        _context5.next = 7;
+                        break;
+                      }
+
+                      this.scheduleDate = date;
+                      return _context5.abrupt("return");
+
+                    case 7:
+                      _context5.prev = 7;
+                      _context5.next = 10;
+                      return this.actionService.user.getData();
+
+                    case 10:
                       user = _context5.sent;
                       theater = user.theater;
 
                       if (!(theater === undefined)) {
-                        _context5.next = 9;
+                        _context5.next = 15;
                         break;
                       }
 
                       this.router.navigate(['/error']);
                       return _context5.abrupt("return");
 
-                    case 9:
+                    case 15:
                       if (this.scheduleDate === undefined || this.scheduleDate === null) {
                         this.scheduleDate = moment__WEBPACK_IMPORTED_MODULE_3__().toDate();
                       }
 
                       scheduleDate = moment__WEBPACK_IMPORTED_MODULE_3__(this.scheduleDate).format('YYYY-MM-DD');
                       this.actionService.admission.selectScheduleDate(scheduleDate);
-                      _context5.next = 14;
+                      _context5.next = 20;
                       return this.masterService.getSchedule({
                         superEvent: {
                           locationBranchCodes: [theater.branchCode]
@@ -1468,27 +1486,27 @@
                         startThrough: moment__WEBPACK_IMPORTED_MODULE_3__(scheduleDate).add(1, 'day').toDate()
                       });
 
-                    case 14:
+                    case 20:
                       screeningEvents = _context5.sent;
                       this.screeningEventsGroup = ___WEBPACK_IMPORTED_MODULE_5__["Functions"].Purchase.screeningEvents2ScreeningEventSeries({
                         screeningEvents: screeningEvents
                       });
                       this.update();
-                      _context5.next = 23;
+                      _context5.next = 29;
                       break;
 
-                    case 19:
-                      _context5.prev = 19;
-                      _context5.t0 = _context5["catch"](1);
+                    case 25:
+                      _context5.prev = 25;
+                      _context5.t0 = _context5["catch"](7);
                       console.error(_context5.t0);
                       this.router.navigate(['/error']);
 
-                    case 23:
+                    case 29:
                     case "end":
                       return _context5.stop();
                   }
                 }
-              }, _callee5, this, [[1, 19]]);
+              }, _callee5, this, [[7, 25]]);
             }));
           }
           /**
@@ -1567,6 +1585,30 @@
           key: "onShowPicker",
           value: function onShowPicker(container) {
             ___WEBPACK_IMPORTED_MODULE_5__["Functions"].Util.iOSDatepickerTapBugFix(container, [this.datepicker]);
+          }
+        }, {
+          key: "getLoading",
+          value: function getLoading() {
+            return __awaiter(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee7() {
+              var _this5 = this;
+
+              return regeneratorRuntime.wrap(function _callee7$(_context7) {
+                while (1) {
+                  switch (_context7.prev = _context7.next) {
+                    case 0:
+                      return _context7.abrupt("return", new Promise(function (resolve) {
+                        _this5.isLoading.subscribe(function (loading) {
+                          resolve(loading);
+                        }).unsubscribe();
+                      }));
+
+                    case 1:
+                    case "end":
+                      return _context7.stop();
+                  }
+                }
+              }, _callee7);
+            }));
           }
         }]);
 
@@ -2595,7 +2637,7 @@
         },
         decls: 5,
         vars: 3,
-        consts: [[1, "bg-white"], ["class", "p-3 bg-gray", 4, "ngIf"], [1, "py-2", "px-3", "px-md-2", "d-flex", "flex-wrap"], ["class", "px-md-2 my-2", 4, "ngFor", "ngForOf"], [1, "p-3", "bg-gray"], [1, "mb-2"], [1, "font-weight-bold", "text-large"], [4, "ngIf"], [1, "d-flex", "align-items-center", "flex-wrap"], ["class", "text-small bg-dark-gray text-white py-1 px-3 mr-2", 4, "ngIf"], ["class", "text-small bg-dark-gray text-white py-1 px-3 mr-2", 4, "ngFor", "ngForOf"], ["class", "text-small ml-auto", 4, "ngIf"], [1, "text-small", "bg-dark-gray", "text-white", "py-1", "px-3", "mr-2"], [1, "text-small", "ml-auto"], [1, "mr-1"], [1, "px-md-2", "my-2"], [1, "mb-3", 3, "performance", "select"]],
+        consts: [[1, "bg-white"], ["class", "p-3 bg-gray", 4, "ngIf"], [1, "py-2", "px-3", "px-md-2", "d-flex", "flex-wrap"], ["class", "px-md-2 my-2", 4, "ngFor", "ngForOf"], [1, "p-3", "bg-gray"], [1, "mb-2"], [1, "font-weight-bold", "text-large"], [4, "ngIf"], [1, "d-flex", "align-items-center", "flex-wrap"], ["class", "text-small bg-dark-gray text-white py-1 px-2 mr-2", 4, "ngIf"], ["class", "text-small bg-dark-gray text-white py-1 px-2 mr-2", 4, "ngFor", "ngForOf"], ["class", "text-small ml-auto", 4, "ngIf"], [1, "text-small", "bg-dark-gray", "text-white", "py-1", "px-2", "mr-2"], [1, "text-small", "ml-auto"], [1, "mr-1"], [1, "px-md-2", "my-2"], [1, "mb-3", 3, "performance", "select"]],
         template: function AdmissionPerformancesComponent_Template(rf, ctx) {
           if (rf & 1) {
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "div", 0);

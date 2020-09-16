@@ -87,8 +87,12 @@ export class PurchaseEventScheduleComponent implements OnInit, OnDestroy {
      * 日付選択
      */
     public async selectDate(date?: Date | null) {
+        if (await this.getLoading()) {
+            return;
+        }
         if (date !== undefined && date !== null) {
             this.scheduleDate = date;
+            return;
         }
         try {
             const user = await this.actionService.user.getData();
@@ -186,6 +190,14 @@ export class PurchaseEventScheduleComponent implements OnInit, OnDestroy {
         Functions.Util.iOSDatepickerTapBugFix(container, [
             this.datepicker
         ]);
+    }
+
+    public async getLoading() {
+        return new Promise<boolean>((resolve) => {
+            this.isLoading.subscribe((loading) => {
+                resolve(loading);
+            }).unsubscribe();
+        });
     }
 
 }

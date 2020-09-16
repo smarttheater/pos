@@ -23,6 +23,7 @@ export class PurchaseCinemaScheduleComponent implements OnInit, OnDestroy {
     public master: Observable<reducers.IMasterState>;
     public user: Observable<reducers.IUserState>;
     public screeningEventsGroup: Functions.Purchase.IScreeningEventsGroup[];
+    public isLoading: Observable<boolean>;
     public moment = moment;
     public scheduleDate: Date;
     public environment = getEnvironment();
@@ -47,6 +48,7 @@ export class PurchaseCinemaScheduleComponent implements OnInit, OnDestroy {
         this.error = this.store.pipe(select(reducers.getError));
         this.master = this.store.pipe(select(reducers.getMaster));
         this.user = this.store.pipe(select(reducers.getUser));
+        this.isLoading = this.store.pipe(select(reducers.getLoading));
         this.screeningEventsGroup = [];
     }
 
@@ -74,8 +76,12 @@ export class PurchaseCinemaScheduleComponent implements OnInit, OnDestroy {
      * 日付選択
      */
     public async selectDate(date?: Date | null) {
+        if (await this.getLoading()) {
+            return;
+        }
         if (date !== undefined && date !== null) {
             this.scheduleDate = date;
+            return;
         }
         const user = await this.actionService.user.getData();
         const theater = user.theater;
@@ -196,6 +202,14 @@ export class PurchaseCinemaScheduleComponent implements OnInit, OnDestroy {
         Functions.Util.iOSDatepickerTapBugFix(container, [
             this.datepicker
         ]);
+    }
+
+    public async getLoading() {
+        return new Promise<boolean>((resolve) => {
+            this.isLoading.subscribe((loading) => {
+                resolve(loading);
+            }).unsubscribe();
+        });
     }
 
 }
