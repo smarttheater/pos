@@ -81,7 +81,6 @@ export class PurchaseCinemaScheduleComponent implements OnInit, OnDestroy {
         }
         if (date !== undefined && date !== null) {
             this.scheduleDate = date;
-            return;
         }
         const user = await this.actionService.user.getData();
         const theater = user.theater;

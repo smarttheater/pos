@@ -341,19 +341,14 @@
                       return _context2.abrupt("return");
 
                     case 4:
-                      if (!(date !== undefined && date !== null)) {
-                        _context2.next = 7;
-                        break;
+                      if (date !== undefined && date !== null) {
+                        this.scheduleDate = date;
                       }
 
-                      this.scheduleDate = date;
-                      return _context2.abrupt("return");
-
-                    case 7:
-                      _context2.next = 9;
+                      _context2.next = 7;
                       return this.actionService.user.getData();
 
-                    case 9:
+                    case 7:
                       user = _context2.sent;
                       theater = user.theater;
 
@@ -364,16 +359,16 @@
                       scheduleDate = moment__WEBPACK_IMPORTED_MODULE_5__(this.scheduleDate).format('YYYY-MM-DD');
 
                       if (!(theater === undefined)) {
-                        _context2.next = 15;
+                        _context2.next = 13;
                         break;
                       }
 
                       return _context2.abrupt("return");
 
-                    case 15:
+                    case 13:
                       this.actionService.purchase.selectScheduleDate(scheduleDate);
-                      _context2.prev = 16;
-                      _context2.next = 19;
+                      _context2.prev = 14;
+                      _context2.next = 17;
                       return this.masterService.getSchedule({
                         superEvent: {
                           locationBranchCodes: [theater.branchCode]
@@ -382,27 +377,27 @@
                         startThrough: moment__WEBPACK_IMPORTED_MODULE_5__(scheduleDate).add(1, 'day').toDate()
                       });
 
-                    case 19:
+                    case 17:
                       screeningEvents = _context2.sent;
                       this.screeningEventsGroup = ___WEBPACK_IMPORTED_MODULE_7__["Functions"].Purchase.screeningEvents2ScreeningEventSeries({
                         screeningEvents: screeningEvents
                       });
                       this.update();
-                      _context2.next = 28;
+                      _context2.next = 26;
                       break;
 
-                    case 24:
-                      _context2.prev = 24;
-                      _context2.t0 = _context2["catch"](16);
+                    case 22:
+                      _context2.prev = 22;
+                      _context2.t0 = _context2["catch"](14);
                       console.error(_context2.t0);
                       this.router.navigate(['/error']);
 
-                    case 28:
+                    case 26:
                     case "end":
                       return _context2.stop();
                   }
                 }
-              }, _callee2, this, [[16, 24]]);
+              }, _callee2, this, [[14, 22]]);
             }));
           }
           /**
@@ -2410,39 +2405,34 @@
                       return _context6.abrupt("return");
 
                     case 4:
-                      if (!(date !== undefined && date !== null)) {
-                        _context6.next = 7;
-                        break;
+                      if (date !== undefined && date !== null) {
+                        this.scheduleDate = date;
                       }
 
-                      this.scheduleDate = date;
-                      return _context6.abrupt("return");
-
-                    case 7:
-                      _context6.prev = 7;
-                      _context6.next = 10;
+                      _context6.prev = 5;
+                      _context6.next = 8;
                       return this.actionService.user.getData();
 
-                    case 10:
+                    case 8:
                       user = _context6.sent;
                       theater = user.theater;
 
                       if (!(theater === undefined)) {
-                        _context6.next = 15;
+                        _context6.next = 13;
                         break;
                       }
 
                       this.router.navigate(['/error']);
                       return _context6.abrupt("return");
 
-                    case 15:
+                    case 13:
                       if (this.scheduleDate === undefined || this.scheduleDate === null) {
                         this.scheduleDate = moment__WEBPACK_IMPORTED_MODULE_4__().add(this.environment.PURCHASE_SCHEDULE_DEFAULT_SELECTED_DATE, 'day').toDate();
                       }
 
                       scheduleDate = moment__WEBPACK_IMPORTED_MODULE_4__(this.scheduleDate).format('YYYY-MM-DD');
                       this.actionService.purchase.selectScheduleDate(scheduleDate);
-                      _context6.next = 20;
+                      _context6.next = 18;
                       return this.masterService.getSchedule({
                         superEvent: {
                           locationBranchCodes: [theater.branchCode]
@@ -2451,27 +2441,27 @@
                         startThrough: moment__WEBPACK_IMPORTED_MODULE_4__(scheduleDate).add(1, 'day').toDate()
                       });
 
-                    case 20:
+                    case 18:
                       this.screeningEvents = _context6.sent;
                       this.screeningEventsGroup = ___WEBPACK_IMPORTED_MODULE_6__["Functions"].Purchase.screeningEvents2ScreeningEventSeries({
                         screeningEvents: this.screeningEvents
                       });
                       this.update();
-                      _context6.next = 29;
+                      _context6.next = 27;
                       break;
 
-                    case 25:
-                      _context6.prev = 25;
-                      _context6.t0 = _context6["catch"](7);
+                    case 23:
+                      _context6.prev = 23;
+                      _context6.t0 = _context6["catch"](5);
                       console.error(_context6.t0);
                       this.router.navigate(['/error']);
 
-                    case 29:
+                    case 27:
                     case "end":
                       return _context6.stop();
                   }
                 }
-              }, _callee6, this, [[7, 25]]);
+              }, _callee6, this, [[5, 23]]);
             }));
           }
           /**

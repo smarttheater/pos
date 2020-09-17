@@ -141,7 +141,6 @@ class PurchaseCinemaScheduleComponent {
             }
             if (date !== undefined && date !== null) {
                 this.scheduleDate = date;
-                return;
             }
             const user = yield this.actionService.user.getData();
             const theater = user.theater;
@@ -1070,7 +1069,6 @@ class PurchaseEventScheduleComponent {
             }
             if (date !== undefined && date !== null) {
                 this.scheduleDate = date;
-                return;
             }
             try {
                 const user = yield this.actionService.user.getData();
