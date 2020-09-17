@@ -94,9 +94,7 @@ export class OrderService {
                     orders = orders.concat(searchResult.data);
                     page++;
                     roop = searchResult.data.length === limit;
-                    if (roop) {
-                        await Functions.Util.sleep();
-                    }
+                    await Functions.Util.sleep();
                 }
             }
             this.utilService.loadEnd();
