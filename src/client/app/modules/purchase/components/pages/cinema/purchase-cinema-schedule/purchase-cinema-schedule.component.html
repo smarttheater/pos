@@ -13,7 +13,7 @@
             </div>
         </div>
     </div>
-    <p *ngIf="(purchase | async)?.scheduleDate" class="text-primary text-large mb-3">
+    <p *ngIf="(purchase | async)?.scheduleDate" class="text-primary font-weight-bold mb-3">
         {{ (purchase | async)?.scheduleDate | formatDate: 'YYYY/MM/DD (ddd)' }}
     </p>
     <p *ngIf="screeningEventsGroup.length === 0" class="mb-3"

@@ -54,41 +54,8 @@
 
 <div class="contents-width mx-auto px-3 pb-5">
     <div *ngIf="(admission | async)?.screeningEvent" class="mb-4 bg-white">
+        <app-item-event [screeningEvent]="(admission | async)?.screeningEvent"></app-item-event>
         <div class="p-3">
-            <div class="mb-2">
-                <p class="font-weight-bold text-large">{{ (admission | async)?.screeningEvent.name | changeLanguage }}</p>
-                <p *ngIf="(admission | async)?.screeningEvent.workPerformed?.headline" class="text-small">
-                    {{ (admission | async)?.screeningEvent.workPerformed?.headline }}
-                </p>
-                <p *ngIf="(admission | async)?.screeningEvent.superEvent.description && ((admission | async)?.screeningEvent.superEvent.description | changeLanguage)"
-                    class="text-small">
-                    {{ (admission | async)?.screeningEvent.superEvent.description | changeLanguage }}
-                </p>
-            </div>
-            <div class="d-flex align-items-center mb-2">
-                <div *ngIf="(admission | async)?.screeningEvent.workPerformed?.contentRating"
-                    class="text-small text-white bg-dark py-1 px-3 mr-2">{{
-                (admission | async)?.screeningEvent.workPerformed?.contentRating }}</div>
-                <div *ngIf="(admission | async)?.screeningEvent.superEvent.dubLanguage"
-                    class="text-small text-white bg-dark py-1 px-3 mr-2">{{ 'common.dubbing' | translate }}</div>
-                <div *ngIf="(admission | async)?.screeningEvent.superEvent.subtitleLanguage"
-                    class="text-small text-white bg-dark py-1 px-3 mr-2">{{ 'common.subtitles' | translate }}</div>
-                <div *ngIf="(admission | async)?.screeningEvent.workPerformed?.duration && moment.duration((admission | async)?.screeningEvent.workPerformed?.duration).asMinutes() > 0"
-                    class="text-small ml-auto">
-                    <span class="mr-1">{{ 'common.duration' | translate }}</span>{{ moment.duration((admission | async)?.screeningEvent.workPerformed?.duration).asMinutes() }}{{ 'common.date.minute' | translate }}
-                </div>
-            </div>
-        </div>
-        <div class="p-3">
-            <p class="theater-name">{{ (admission | async)?.screeningEvent.superEvent.location.name | changeLanguage }}</p>
-            <p class="screen-name">
-                <span *ngIf="(admission | async)?.screeningEvent.location.address | changeLanguage" class="mr-2">
-                    {{ (admission | async)?.screeningEvent.location.address | changeLanguage }}
-                </span>
-                <span>
-                    {{ (admission | async)?.screeningEvent.location.name | changeLanguage }}
-                </span>
-            </p>
             <div>
                 <p class="mr-3">
                     <strong class="mr-2">{{ 'common.doorTime' | translate }}</strong>

@@ -19,6 +19,7 @@ export class AdmissionScheduleComponent implements OnInit, OnDestroy {
     @ViewChild('datepicker', { static: true }) private datepicker: BsDatepickerDirective;
     public admission: Observable<reducers.IAdmissionState>;
     public user: Observable<reducers.IUserState>;
+    public isLoading: Observable<boolean>;
     public screeningEventsGroup: Functions.Purchase.IScreeningEventsGroup[];
     public moment: typeof moment = moment;
     public scheduleDate: Date;
@@ -35,6 +36,7 @@ export class AdmissionScheduleComponent implements OnInit, OnDestroy {
     public async ngOnInit() {
         this.admission = this.store.pipe(select(reducers.getAdmission));
         this.user = this.store.pipe(select(reducers.getUser));
+        this.isLoading = this.store.pipe(select(reducers.getLoading));
         this.screeningEventsGroup = [];
     }
 
@@ -56,8 +58,12 @@ export class AdmissionScheduleComponent implements OnInit, OnDestroy {
      * 日付選択
      */
     public async selectDate(date?: Date | null) {
+        if (await this.getLoading()) {
+            return;
+        }
         if (date !== undefined && date !== null) {
             this.scheduleDate = date;
+            return;
         }
         try {
             const user = await this.actionService.user.getData();
@@ -131,6 +137,14 @@ export class AdmissionScheduleComponent implements OnInit, OnDestroy {
         Functions.Util.iOSDatepickerTapBugFix(container, [
             this.datepicker
         ]);
+    }
+
+    public async getLoading() {
+        return new Promise<boolean>((resolve) => {
+            this.isLoading.subscribe((loading) => {
+                resolve(loading);
+            }).unsubscribe();
+        });
     }
 
 }

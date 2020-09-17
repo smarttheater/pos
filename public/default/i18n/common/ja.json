@@ -422,7 +422,7 @@
             "printerIpAddress": "0.0.0.0",
             "familyName": "モーション",
             "givenName": "ピクチャー",
-            "email": "xxx@motionpicture.jp",
+            "email": "xxx@ml.smart-theater.com",
             "telephone": "0362778824",
             "age": "",
             "address": "",
@@ -539,12 +539,12 @@
         "copyright": "Copyright (c) Motionpicture co.,ltd. All rights reserved."
     },
     "email": {
-        "domain": "@smart-theater.com",
+        "domain": "@ml.smart-theater.com",
         "purchase": {
             "complete": {
                 "sender": {
                     "name": "",
-                    "email": "noreply@smart-theater.com"
+                    "email": "ticket@ml.smart-theater.com"
                 },
                 "toRecipient": {
                     "name": "",
@@ -557,7 +557,7 @@
             "return": {
                 "sender": {
                     "name": "",
-                    "email": "noreply@smart-theater.com"
+                    "email": "ticket@ml.smart-theater.com"
                 },
                 "toRecipient": {
                     "name": "",
@@ -568,7 +568,7 @@
             "refundCreditCard": {
                 "sender": {
                     "name": "",
-                    "email": "noreply@smart-theater.com"
+                    "email": "ticket@ml.smart-theater.com"
                 },
                 "toRecipient": {
                     "name": "",
@@ -622,7 +622,7 @@
         "familyName": "姓",
         "givenName": "名",
         "email": "メールアドレス",
-        "emailDescription": "【ドメイン指定受信をご利用の場合について】 <br>※ 携帯電話のドメイン指定受信をされている場合、「@smart-theater.com」を追加設定してください。 <br>※ au(@ezweb.ne.jp)をご利用の場合、上記に加え「なりすまし規制回避リスト」にも「@smart-theater.com」の追加設定をしてください。",
+        "emailDescription": "【ドメイン指定受信をご利用の場合について】 <br>※ 携帯電話のドメイン指定受信をされている場合、「@ml.smart-theater.com」を追加設定してください。 <br>※ au(@ezweb.ne.jp)をご利用の場合、上記に加え「なりすまし規制回避リスト」にも「@ml.smart-theater.com」の追加設定をしてください。",
         "telephone": "電話番号",
         "age": "年齢",
         "address": "住所",
