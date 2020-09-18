@@ -63,7 +63,6 @@ export class AdmissionScheduleComponent implements OnInit, OnDestroy {
         }
         if (date !== undefined && date !== null) {
             this.scheduleDate = date;
-            return;
         }
         try {
             const user = await this.actionService.user.getData();
