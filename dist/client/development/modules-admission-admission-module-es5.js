@@ -1445,39 +1445,34 @@
                       return _context5.abrupt("return");
 
                     case 4:
-                      if (!(date !== undefined && date !== null)) {
-                        _context5.next = 7;
-                        break;
+                      if (date !== undefined && date !== null) {
+                        this.scheduleDate = date;
                       }
 
-                      this.scheduleDate = date;
-                      return _context5.abrupt("return");
-
-                    case 7:
-                      _context5.prev = 7;
-                      _context5.next = 10;
+                      _context5.prev = 5;
+                      _context5.next = 8;
                       return this.actionService.user.getData();
 
-                    case 10:
+                    case 8:
                       user = _context5.sent;
                       theater = user.theater;
 
                       if (!(theater === undefined)) {
-                        _context5.next = 15;
+                        _context5.next = 13;
                         break;
                       }
 
                       this.router.navigate(['/error']);
                       return _context5.abrupt("return");
 
-                    case 15:
+                    case 13:
                       if (this.scheduleDate === undefined || this.scheduleDate === null) {
                         this.scheduleDate = moment__WEBPACK_IMPORTED_MODULE_3__().toDate();
                       }
 
                       scheduleDate = moment__WEBPACK_IMPORTED_MODULE_3__(this.scheduleDate).format('YYYY-MM-DD');
                       this.actionService.admission.selectScheduleDate(scheduleDate);
-                      _context5.next = 20;
+                      _context5.next = 18;
                       return this.masterService.getSchedule({
                         superEvent: {
                           locationBranchCodes: [theater.branchCode]
@@ -1486,27 +1481,27 @@
                         startThrough: moment__WEBPACK_IMPORTED_MODULE_3__(scheduleDate).add(1, 'day').toDate()
                       });
 
-                    case 20:
+                    case 18:
                       screeningEvents = _context5.sent;
                       this.screeningEventsGroup = ___WEBPACK_IMPORTED_MODULE_5__["Functions"].Purchase.screeningEvents2ScreeningEventSeries({
                         screeningEvents: screeningEvents
                       });
                       this.update();
-                      _context5.next = 29;
+                      _context5.next = 27;
                       break;
 
-                    case 25:
-                      _context5.prev = 25;
-                      _context5.t0 = _context5["catch"](7);
+                    case 23:
+                      _context5.prev = 23;
+                      _context5.t0 = _context5["catch"](5);
                       console.error(_context5.t0);
                       this.router.navigate(['/error']);
 
-                    case 29:
+                    case 27:
                     case "end":
                       return _context5.stop();
                   }
                 }
-              }, _callee5, this, [[7, 25]]);
+              }, _callee5, this, [[5, 23]]);
             }));
           }
           /**
@@ -2371,7 +2366,7 @@
 
       function AdmissionPerformancesComponent_div_1_div_10_Template(rf, ctx) {
         if (rf & 1) {
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "div", 12);
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "div", 14);
 
           _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](1);
 
@@ -2389,7 +2384,7 @@
 
       function AdmissionPerformancesComponent_div_1_div_11_Template(rf, ctx) {
         if (rf & 1) {
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "div", 12);
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "div", 15);
 
           _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](1);
 
@@ -2407,7 +2402,7 @@
 
       function AdmissionPerformancesComponent_div_1_div_12_Template(rf, ctx) {
         if (rf & 1) {
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "div", 12);
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "div", 16);
 
           _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](1);
 
@@ -2425,7 +2420,7 @@
 
       function AdmissionPerformancesComponent_div_1_div_13_Template(rf, ctx) {
         if (rf & 1) {
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "div", 12);
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "div", 17);
 
           _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](1);
 
@@ -2443,9 +2438,9 @@
 
       function AdmissionPerformancesComponent_div_1_div_14_Template(rf, ctx) {
         if (rf & 1) {
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "div", 13);
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "div", 18);
 
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](1, "span", 14);
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](1, "span", 19);
 
           _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](2);
 
@@ -2501,13 +2496,13 @@
 
           _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](10, AdmissionPerformancesComponent_div_1_div_10_Template, 2, 1, "div", 9);
 
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](11, AdmissionPerformancesComponent_div_1_div_11_Template, 3, 3, "div", 9);
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](11, AdmissionPerformancesComponent_div_1_div_11_Template, 3, 3, "div", 10);
 
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](12, AdmissionPerformancesComponent_div_1_div_12_Template, 3, 3, "div", 9);
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](12, AdmissionPerformancesComponent_div_1_div_12_Template, 3, 3, "div", 11);
 
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](13, AdmissionPerformancesComponent_div_1_div_13_Template, 2, 1, "div", 10);
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](13, AdmissionPerformancesComponent_div_1_div_13_Template, 2, 1, "div", 12);
 
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](14, AdmissionPerformancesComponent_div_1_div_14_Template, 6, 7, "div", 11);
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](14, AdmissionPerformancesComponent_div_1_div_14_Template, 6, 7, "div", 13);
 
           _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
 
@@ -2579,9 +2574,9 @@
         if (rf & 1) {
           var _r13 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵgetCurrentView"]();
 
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "li", 15);
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "li", 20);
 
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](1, "app-admission-performance", 16);
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](1, "app-admission-performance", 21);
 
           _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵlistener"]("select", function AdmissionPerformancesComponent_li_4_Template_app_admission_performance_select_1_listener($event) {
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵrestoreView"](_r13);
@@ -2637,7 +2632,7 @@
         },
         decls: 5,
         vars: 3,
-        consts: [[1, "bg-white"], ["class", "p-3 bg-gray", 4, "ngIf"], [1, "py-2", "px-3", "px-md-2", "d-flex", "flex-wrap"], ["class", "px-md-2 my-2", 4, "ngFor", "ngForOf"], [1, "p-3", "bg-gray"], [1, "mb-2"], [1, "font-weight-bold", "text-large"], [4, "ngIf"], [1, "d-flex", "align-items-center", "flex-wrap"], ["class", "text-small bg-dark-gray text-white py-1 px-2 mr-2", 4, "ngIf"], ["class", "text-small bg-dark-gray text-white py-1 px-2 mr-2", 4, "ngFor", "ngForOf"], ["class", "text-small ml-auto", 4, "ngIf"], [1, "text-small", "bg-dark-gray", "text-white", "py-1", "px-2", "mr-2"], [1, "text-small", "ml-auto"], [1, "mr-1"], [1, "px-md-2", "my-2"], [1, "mb-3", 3, "performance", "select"]],
+        consts: [[1, "bg-white"], ["class", "p-3 bg-gray", 4, "ngIf"], [1, "py-2", "px-3", "px-md-2", "d-flex", "flex-wrap"], ["class", "px-md-2 my-2", 4, "ngFor", "ngForOf"], [1, "p-3", "bg-gray"], [1, "mb-2"], [1, "font-weight-bold", "text-large"], [4, "ngIf"], [1, "d-flex", "align-items-center", "flex-wrap"], ["class", "content-rating text-small bg-dark-gray text-white py-1 px-2 mr-2", 4, "ngIf"], ["class", "dub-language text-small bg-dark-gray text-white py-1 px-2 mr-2", 4, "ngIf"], ["class", "subtitle-language text-small bg-dark-gray text-white py-1 px-2 mr-2", 4, "ngIf"], ["class", "video-format text-small bg-dark-gray text-white py-1 px-2 mr-2", 4, "ngFor", "ngForOf"], ["class", "text-small ml-auto", 4, "ngIf"], [1, "content-rating", "text-small", "bg-dark-gray", "text-white", "py-1", "px-2", "mr-2"], [1, "dub-language", "text-small", "bg-dark-gray", "text-white", "py-1", "px-2", "mr-2"], [1, "subtitle-language", "text-small", "bg-dark-gray", "text-white", "py-1", "px-2", "mr-2"], [1, "video-format", "text-small", "bg-dark-gray", "text-white", "py-1", "px-2", "mr-2"], [1, "text-small", "ml-auto"], [1, "mr-1"], [1, "px-md-2", "my-2"], [1, "mb-3", 3, "performance", "select"]],
         template: function AdmissionPerformancesComponent_Template(rf, ctx) {
           if (rf & 1) {
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "div", 0);
