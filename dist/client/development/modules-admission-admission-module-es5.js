@@ -1445,39 +1445,34 @@
                       return _context5.abrupt("return");
 
                     case 4:
-                      if (!(date !== undefined && date !== null)) {
-                        _context5.next = 7;
-                        break;
+                      if (date !== undefined && date !== null) {
+                        this.scheduleDate = date;
                       }
 
-                      this.scheduleDate = date;
-                      return _context5.abrupt("return");
-
-                    case 7:
-                      _context5.prev = 7;
-                      _context5.next = 10;
+                      _context5.prev = 5;
+                      _context5.next = 8;
                       return this.actionService.user.getData();
 
-                    case 10:
+                    case 8:
                       user = _context5.sent;
                       theater = user.theater;
 
                       if (!(theater === undefined)) {
-                        _context5.next = 15;
+                        _context5.next = 13;
                         break;
                       }
 
                       this.router.navigate(['/error']);
                       return _context5.abrupt("return");
 
-                    case 15:
+                    case 13:
                       if (this.scheduleDate === undefined || this.scheduleDate === null) {
                         this.scheduleDate = moment__WEBPACK_IMPORTED_MODULE_3__().toDate();
                       }
 
                       scheduleDate = moment__WEBPACK_IMPORTED_MODULE_3__(this.scheduleDate).format('YYYY-MM-DD');
                       this.actionService.admission.selectScheduleDate(scheduleDate);
-                      _context5.next = 20;
+                      _context5.next = 18;
                       return this.masterService.getSchedule({
                         superEvent: {
                           locationBranchCodes: [theater.branchCode]
@@ -1486,27 +1481,27 @@
                         startThrough: moment__WEBPACK_IMPORTED_MODULE_3__(scheduleDate).add(1, 'day').toDate()
                       });
 
-                    case 20:
+                    case 18:
                       screeningEvents = _context5.sent;
                       this.screeningEventsGroup = ___WEBPACK_IMPORTED_MODULE_5__["Functions"].Purchase.screeningEvents2ScreeningEventSeries({
                         screeningEvents: screeningEvents
                       });
                       this.update();
-                      _context5.next = 29;
+                      _context5.next = 27;
                       break;
 
-                    case 25:
-                      _context5.prev = 25;
-                      _context5.t0 = _context5["catch"](7);
+                    case 23:
+                      _context5.prev = 23;
+                      _context5.t0 = _context5["catch"](5);
                       console.error(_context5.t0);
                       this.router.navigate(['/error']);
 
-                    case 29:
+                    case 27:
                     case "end":
                       return _context5.stop();
                   }
                 }
-              }, _callee5, this, [[7, 25]]);
+              }, _callee5, this, [[5, 23]]);
             }));
           }
           /**

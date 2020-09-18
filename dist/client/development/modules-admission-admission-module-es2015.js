@@ -680,7 +680,6 @@ class AdmissionScheduleComponent {
             }
             if (date !== undefined && date !== null) {
                 this.scheduleDate = date;
-                return;
             }
             try {
                 const user = yield this.actionService.user.getData();
