@@ -83,17 +83,17 @@
                     <select class="form-control" name="paymentMethodType" id="paymentMethodType"
                         [(ngModel)]="conditions.paymentMethodType">
                         <option value="">{{ 'common.all' | translate }}</option>
-                        <option [value]="paymentMethodType.Cash">{{ 'common.paymentMethodType.cash' | translate }}
+                        <option [value]="paymentMethodType.Cash">{{ 'common.paymentMethodTypes.cash.label' | translate }}
                         </option>
-                        <option [value]="paymentMethodType.Account">{{ 'common.paymentMethodType.account' | translate }}
+                        <option [value]="paymentMethodType.Account">{{ 'common.paymentMethodTypes.account.label' | translate }}
                         </option>
-                        <option [value]="paymentMethodType.EMoney">{{ 'common.paymentMethodType.eMoney' | translate }}
+                        <option [value]="paymentMethodType.EMoney">{{ 'common.paymentMethodTypes.eMoney.label' | translate }}
                         </option>
                         <option [value]="paymentMethodType.CreditCard">
-                            {{ 'common.paymentMethodType.creditCard' | translate }}</option>
+                            {{ 'common.paymentMethodTypes.creditCard.label' | translate }}</option>
                         <option [value]="paymentMethodType.MovieTicket">
-                            {{ 'common.paymentMethodType.movieTicket' | translate }}</option>
-                        <option [value]="paymentMethodType.Others">{{ 'common.paymentMethodType.others' | translate }}
+                            {{ 'common.paymentMethodTypes.movieTicket.label' | translate }}</option>
+                        <option [value]="paymentMethodType.Others">{{ 'common.paymentMethodTypes.others.label' | translate }}
                         </option>
                     </select>
                 </div>

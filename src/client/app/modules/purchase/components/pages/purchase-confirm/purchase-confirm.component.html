@@ -46,21 +46,21 @@
                     <p class="mb-2 mb-md-0 col-md-4">{{ 'common.paymentMethod' | translate }}</p>
                     <p class="col-md-8">
                         <span
-                            *ngIf="(purchase | async)?.paymentMethod.typeOf === paymentMethodType.Cash">{{ 'common.paymentMethodType.cash' | translate }}</span>
+                            *ngIf="(purchase | async)?.paymentMethod.typeOf === paymentMethodType.Cash">{{ 'common.paymentMethodTypes.cash.label' | translate }}</span>
                         <span
-                            *ngIf="(purchase | async)?.paymentMethod.typeOf === paymentMethodType.Account">{{ 'common.paymentMethodType.account' | translate }}</span>
+                            *ngIf="(purchase | async)?.paymentMethod.typeOf === paymentMethodType.Account">{{ 'common.paymentMethodTypes.account.label' | translate }}</span>
                         <span
-                            *ngIf="(purchase | async)?.paymentMethod.typeOf === paymentMethodType.CreditCard">{{ 'common.paymentMethodType.creditCard' | translate }}</span>
+                            *ngIf="(purchase | async)?.paymentMethod.typeOf === paymentMethodType.CreditCard">{{ 'common.paymentMethodTypes.creditCard.label' | translate }}</span>
                         <span
-                            *ngIf="(purchase | async)?.paymentMethod.typeOf === paymentMethodType.EMoney">{{ 'common.paymentMethodType.eMoney' | translate }}</span>
+                            *ngIf="(purchase | async)?.paymentMethod.typeOf === paymentMethodType.EMoney">{{ 'common.paymentMethodTypes.eMoney.label' | translate }}</span>
                         <span
-                            *ngIf="(purchase | async)?.paymentMethod.typeOf === paymentMethodType.MovieTicket">{{ 'common.paymentMethodType.movieTicket' | translate }}</span>
-                        <span
-                            *ngIf="(purchase | async)?.paymentMethod.typeOf === paymentMethodType.Others 
-                                && !(purchase | async)?.paymentMethod.category">{{ 'common.paymentMethodType.others' | translate }}</span>
+                            *ngIf="(purchase | async)?.paymentMethod.typeOf === paymentMethodType.MovieTicket">{{ 'common.paymentMethodTypes.movieTicket.label' | translate }}</span>
                         <span
                             *ngIf="(purchase | async)?.paymentMethod.typeOf === paymentMethodType.Others 
-                                && (purchase | async)?.paymentMethod.category === 'RegiGrow'">{{ 'common.paymentMethodType.regiGrow' | translate }}</span>
+                                && !(purchase | async)?.paymentMethod.category">{{ 'common.paymentMethodTypes.others.label' | translate }}</span>
+                        <span
+                            *ngIf="(purchase | async)?.paymentMethod.typeOf === paymentMethodType.Others 
+                                && (purchase | async)?.paymentMethod.category === 'RegiGrow'">{{ 'common.paymentMethodTypes.regiGrow.label' | translate }}</span>
                         <span
                             *ngIf="(purchase | async)?.paymentMethod.typeOf === paymentMethodType.Others 
                                 && (purchase | async)?.paymentMethod.category !== 'RegiGrow' 
