@@ -414,23 +414,25 @@ export class PurchaseService {
      */
     public async checkMovieTicket(params: {
         movieTicket: { code: string; password: string; };
-        seller: factory.chevre.seller.ISeller
+        paymentMethodType: factory.paymentMethodType
     }) {
         const movieTicket = params.movieTicket;
-        const purchase = await this.getData();
+        const paymentMethodType = params.paymentMethodType;
+        const { transaction, screeningEvent } = await this.getData();
         return new Promise<void>((resolve, reject) => {
-            if (purchase.transaction === undefined || purchase.screeningEvent === undefined) {
+            if (transaction === undefined
+                || screeningEvent === undefined) {
                 reject();
                 return;
             }
             this.store.dispatch(purchaseAction.checkMovieTicket({
-                transaction: purchase.transaction,
+                transaction,
+                screeningEvent,
                 movieTickets: [{
-                    typeOf: factory.paymentMethodType.MovieTicket,
+                    typeOf: paymentMethodType,
                     identifier: movieTicket.code, // 購入管理番号
                     accessCode: movieTicket.password // PINコード
-                }],
-                screeningEvent: purchase.screeningEvent
+                }]
             }));
             const success = this.actions.pipe(
                 ofType(purchaseAction.checkMovieTicketSuccess.type),
@@ -490,17 +492,16 @@ export class PurchaseService {
         amount: number;
         depositAmount?: number;
     }) {
-        const purchase = await this.getData();
+        const { transaction, paymentMethod } = await this.getData();
         return new Promise<void>((resolve, reject) => {
-            if (purchase.transaction === undefined || purchase.paymentMethod === undefined) {
+            if (transaction === undefined || paymentMethod === undefined) {
                 reject();
                 return;
             }
-            const transaction = purchase.transaction;
             const amount = params.amount;
             const depositAmount = params.depositAmount;
             const additionalProperty = [];
-            if (purchase.paymentMethod.typeOf === factory.paymentMethodType.Cash
+            if (paymentMethod.typeOf === factory.chevre.paymentMethodType.Cash
                 && depositAmount !== undefined) {
                 // 現金
                 additionalProperty.push({ name: 'depositAmount', value: String(depositAmount) });
@@ -508,8 +509,8 @@ export class PurchaseService {
             }
             this.store.dispatch(purchaseAction.authorizeAnyPayment({
                 transaction: transaction,
-                typeOf: purchase.paymentMethod.typeOf,
-                name: purchase.paymentMethod.category,
+                paymentMethod: paymentMethod.typeOf,
+                name: paymentMethod.category,
                 amount,
                 additionalProperty
             }));

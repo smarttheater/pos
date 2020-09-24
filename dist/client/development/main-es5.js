@@ -1127,7 +1127,7 @@
           }
 
           results.push({
-            typeOf: _cinerino_sdk__WEBPACK_IMPORTED_MODULE_0__["factory"].paymentMethodType.MovieTicket,
+            typeOf: findReservation.typeOf,
             project: findReservation.project,
             identifier: findReservation.identifier,
             accessCode: findReservation.accessCode,

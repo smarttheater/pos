@@ -51,11 +51,11 @@ export interface IPurchaseState {
     /**
      * クレジットカード決済
      */
-    authorizeCreditCardPayments: factory.action.authorize.paymentMethod.creditCard.IAction[];
+    authorizeCreditCardPayments: factory.action.authorize.paymentMethod.any.IAction[];
     /**
      * ムビチケ決済
      */
-    authorizeMovieTicketPayments: factory.action.authorize.paymentMethod.movieTicket.IAction[];
+    authorizeMovieTicketPayments: factory.action.authorize.paymentMethod.any.IAction[];
     /**
      * GMOオブジェクト
      */
@@ -79,7 +79,7 @@ export interface IPurchaseState {
     /**
      * 決済
      */
-    authorizeAnyPayments: factory.action.authorize.paymentMethod.any.IAction<any>[];
+    authorizeAnyPayments: factory.action.authorize.paymentMethod.any.IAction[];
     /**
      * 支払い方法
      */
@@ -87,10 +87,6 @@ export interface IPurchaseState {
         typeOf: factory.paymentMethodType;
         category?: string;
     };
-    /**
-     * ムビチケ使用判定
-     */
-    isUsedMovieTicket: boolean;
     /**
      * 使用中ムビチケ
      */
@@ -106,7 +102,6 @@ export const purchaseInitialState: IPurchaseState = {
     authorizeMovieTicketPayments: [],
     authorizeCreditCardPayments: [],
     authorizeAnyPayments: [],
-    isUsedMovieTicket: false,
     pendingMovieTickets: []
 };
 
@@ -125,7 +120,6 @@ export function reducer(initialState: IState, action: Action) {
                     authorizeMovieTicketPayments: [],
                     authorizeCreditCardPayments: [],
                     authorizeAnyPayments: [],
-                    isUsedMovieTicket: false,
                     pendingMovieTickets: []
                 }
             };
@@ -140,7 +134,6 @@ export function reducer(initialState: IState, action: Action) {
                     screeningEventTicketOffers: [],
                     authorizeSeatReservation: undefined,
                     checkMovieTicketAction: undefined,
-                    isUsedMovieTicket: false
                 }
             };
         }),
@@ -284,14 +277,11 @@ export function reducer(initialState: IState, action: Action) {
         }),
         on(purchaseAction.getTicketListSuccess, (state, payload) => {
             const screeningEventTicketOffers = payload.screeningEventTicketOffers;
-            const movieTicketTypeOffers = Functions.Purchase.getMovieTicketTypeOffers({screeningEventTicketOffers});
-            const isUsedMovieTicket = (movieTicketTypeOffers.length > 0);
             return {
                 ...state,
                 purchaseData: {
                     ...state.purchaseData,
                     screeningEventTicketOffers,
-                    isUsedMovieTicket
                 }, loading: false, process: '', error: null
             };
         }),
@@ -519,7 +509,6 @@ export function reducer(initialState: IState, action: Action) {
                     authorizeCreditCardPayments: [],
                     authorizeMovieTicketPayments: [],
                     authorizeAnyPayments: [],
-                    isUsedMovieTicket: false,
                     pendingMovieTickets: [],
                     order
                 }, loading: false, process: '', error: null
@@ -535,7 +524,7 @@ export function reducer(initialState: IState, action: Action) {
         on(purchaseAction.authorizeAnyPaymentSuccess, (state, payload) => {
             const authorizeAnyPayment = payload.authorizeAnyPayment;
             const authorizeAnyPayments =
-                Functions.Util.deepCopy<factory.action.authorize.paymentMethod.any.IAction<any>[]>(state.purchaseData.authorizeAnyPayments);
+                Functions.Util.deepCopy<factory.action.authorize.paymentMethod.any.IAction[]>(state.purchaseData.authorizeAnyPayments);
             authorizeAnyPayments.push(authorizeAnyPayment);
             return {
                 ...state,

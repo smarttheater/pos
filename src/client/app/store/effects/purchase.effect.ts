@@ -301,7 +301,7 @@ export class PurchaseEffects {
                 const transaction = payload.transaction;
                 const pendingMovieTickets = payload.pendingMovieTickets;
                 const authorizeSeatReservations = payload.authorizeSeatReservations;
-                const authorizeMovieTicketPayments: factory.action.authorize.paymentMethod.movieTicket.IAction[] = [];
+                const authorizeMovieTicketPayments: factory.action.authorize.paymentMethod.any.IAction[] = [];
                 for (const authorizeSeatReservation of authorizeSeatReservations) {
                     const movieTickets = Functions.Purchase.createMovieTicketsFromAuthorizeSeatReservation({
                         authorizeSeatReservation, pendingMovieTickets
@@ -326,9 +326,10 @@ export class PurchaseEffects {
                         const authorizeMovieTicketPaymentResult =
                             await this.cinerinoService.payment.authorizeMovieTicket({
                                 object: {
-                                    typeOf: factory.paymentMethodType.MovieTicket,
+                                    typeOf: factory.action.authorize.paymentMethod.any.ResultType.Payment,
                                     amount: 0,
-                                    movieTickets: movieTicketIdentifier.movieTickets
+                                    movieTickets: movieTicketIdentifier.movieTickets,
+                                    paymentMethod: movieTicketIdentifier.movieTickets[0].typeOf
                                 },
                                 purpose: transaction
                             });
@@ -359,7 +360,7 @@ export class PurchaseEffects {
                     throw new Error('transaction.seller.id undefined');
                 }
                 const checkMovieTicketAction = await this.cinerinoService.payment.checkMovieTicket({
-                    typeOf: factory.paymentMethodType.MovieTicket,
+                    typeOf: movieTickets[0].typeOf,
                     movieTickets: movieTickets.map((movieTicket) => {
                         return {
                             ...movieTicket,
@@ -469,8 +470,9 @@ export class PurchaseEffects {
         ofType(purchaseAction.authorizeAnyPayment),
         map(action => action),
         mergeMap(async (payload) => {
+            const typeOf = factory.action.authorize.paymentMethod.any.ResultType.Payment;
             const transaction = payload.transaction;
-            const typeOf = payload.typeOf;
+            const paymentMethod = payload.paymentMethod;
             const amount = payload.amount;
             const name = payload.name;
             const additionalProperty = payload.additionalProperty;
@@ -478,7 +480,7 @@ export class PurchaseEffects {
                 await this.cinerinoService.getServices();
                 const authorizeAnyPayment =
                     await this.cinerinoService.payment.authorizeAnyPayment({
-                        object: { typeOf, name, amount, additionalProperty },
+                        object: { typeOf, name, amount, paymentMethod, additionalProperty },
                         purpose: transaction
                     });
                 return purchaseAction.authorizeAnyPaymentSuccess({ authorizeAnyPayment });
