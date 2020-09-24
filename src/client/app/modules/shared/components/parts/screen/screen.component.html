@@ -58,3 +58,5 @@
         <div *ngIf="screenData" class="screen-style"></div>
     </div>
 </div>
+
+<div *ngIf="screenData?.html" class="screen-html" [innerHtml]="screenData.html"></div>
