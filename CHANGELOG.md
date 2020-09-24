@@ -12,6 +12,10 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/).
 
 ### Security
 
+## 3.3.1 - 2020-09-24
+### Fixed
+ - スクリーンHTML差し込みを修正
+
 ## 3.3.0 - 2020-09-24
 ### Added
  - MGチケット決済追加
