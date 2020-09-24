@@ -177,7 +177,7 @@ export function createMovieTicketsFromAuthorizeSeatReservation(args: {
         }
 
         results.push({
-            typeOf: factory.paymentMethodType.MovieTicket,
+            typeOf: findReservation.typeOf,
             project: findReservation.project,
             identifier: findReservation.identifier,
             accessCode: findReservation.accessCode,

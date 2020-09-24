@@ -58,7 +58,7 @@ export const startTransaction = createAction(
     props<{
         expires: Date;
         agent?: { identifier?: factory.person.IIdentifier; };
-        seller: { typeOf: factory.organizationType; id: string; };
+        seller: { typeOf: factory.chevre.organizationType; id: string; };
         object: {
             passport?: { token: factory.waiter.passport.IEncodedPassport; };
         };
@@ -221,7 +221,7 @@ export const authorizeMovieTicket = createAction(
     `${LABEL} authorizeMovieTicket`,
     props<{
         transaction: factory.transaction.placeOrder.ITransaction;
-        authorizeMovieTicketPayments: factory.action.authorize.paymentMethod.movieTicket.IAction[];
+        authorizeMovieTicketPayments: factory.action.authorize.paymentMethod.any.IAction[];
         authorizeSeatReservations: factory.action.authorize.offer.seatReservation.IAction<factory.service.webAPI.Identifier.Chevre>[];
         pendingMovieTickets: Models.Purchase.MovieTicket.IMovieTicket[];
         seller: factory.chevre.seller.ISeller
@@ -231,7 +231,7 @@ export const authorizeMovieTicket = createAction(
 export const authorizeMovieTicketSuccess = createAction(
     `${LABEL} authorizeMovieTicketSuccess`,
     props<{
-        authorizeMovieTicketPayments: factory.action.authorize.paymentMethod.movieTicket.IAction[]
+        authorizeMovieTicketPayments: factory.action.authorize.paymentMethod.any.IAction[]
     }>()
 );
 
@@ -245,7 +245,7 @@ export const checkMovieTicket = createAction(
     props<{
         transaction: factory.transaction.placeOrder.ITransaction;
         movieTickets: {
-            typeOf: factory.paymentMethodType.MovieTicket;
+            typeOf: factory.paymentMethodType;
             identifier: string;
             accessCode: string;
         }[];
@@ -312,7 +312,7 @@ export const authorizeAnyPayment = createAction(
     `${LABEL} authorizeAnyPayment`,
     props<{
         transaction: factory.transaction.placeOrder.ITransaction;
-        typeOf: factory.paymentMethodType;
+        paymentMethod: factory.chevre.paymentMethodType;
         name?: string;
         amount: number;
         additionalProperty: { name: string; value: any; }[];
@@ -322,7 +322,7 @@ export const authorizeAnyPayment = createAction(
 export const authorizeAnyPaymentSuccess = createAction(
     `${LABEL} authorizeAnyPaymentSuccess`,
     props<{
-        authorizeAnyPayment: factory.action.authorize.paymentMethod.any.IAction<any>
+        authorizeAnyPayment: factory.action.authorize.paymentMethod.any.IAction
     }>()
 );
 

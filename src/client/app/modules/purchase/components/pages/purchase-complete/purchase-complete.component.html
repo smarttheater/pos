@@ -37,21 +37,21 @@
                     <div class="col-md-8">
                         <p *ngFor="let paymentMethod of (purchase | async)?.order.paymentMethods">
                             <span
-                                *ngIf="paymentMethod.typeOf === paymentMethodType.Cash">{{ 'common.paymentMethodType.cash' | translate }}</span>
+                                *ngIf="paymentMethod.typeOf === paymentMethodType.Cash">{{ 'common.paymentMethodTypes.cash.label' | translate }}</span>
                             <span
-                                *ngIf="paymentMethod.typeOf === paymentMethodType.Account">{{ 'common.paymentMethodType.account' | translate }}</span>
+                                *ngIf="paymentMethod.typeOf === paymentMethodType.Account">{{ 'common.paymentMethodTypes.account.label' | translate }}</span>
                             <span
-                                *ngIf="paymentMethod.typeOf === paymentMethodType.CreditCard">{{ 'common.paymentMethodType.creditCard' | translate }}</span>
+                                *ngIf="paymentMethod.typeOf === paymentMethodType.CreditCard">{{ 'common.paymentMethodTypes.creditCard.label' | translate }}</span>
                             <span
-                                *ngIf="paymentMethod.typeOf === paymentMethodType.EMoney">{{ 'common.paymentMethodType.eMoney' | translate }}</span>
+                                *ngIf="paymentMethod.typeOf === paymentMethodType.EMoney">{{ 'common.paymentMethodTypes.eMoney.label' | translate }}</span>
                             <span
-                                *ngIf="paymentMethod.typeOf === paymentMethodType.MovieTicket">{{ 'common.paymentMethodType.movieTicket' | translate }}</span>
-                            <span
-                                *ngIf="paymentMethod.typeOf === paymentMethodType.Others 
-                                && paymentMethod.name === 'Others'">{{ 'common.paymentMethodType.others' | translate }}</span>
+                                *ngIf="paymentMethod.typeOf === paymentMethodType.MovieTicket">{{ 'common.paymentMethodTypes.movieTicket.label' | translate }}</span>
                             <span
                                 *ngIf="paymentMethod.typeOf === paymentMethodType.Others 
-                                && paymentMethod.name === 'RegiGrow'">{{ 'common.paymentMethodType.regiGrow' | translate }}</span>
+                                && paymentMethod.name === 'Others'">{{ 'common.paymentMethodTypes.others.label' | translate }}</span>
+                            <span
+                                *ngIf="paymentMethod.typeOf === paymentMethodType.Others 
+                                && paymentMethod.name === 'RegiGrow'">{{ 'common.paymentMethodTypes.regiGrow.label' | translate }}</span>
                             <span
                                 *ngIf="paymentMethod.typeOf === paymentMethodType.Others 
                                 && paymentMethod.name !== 'Others' 

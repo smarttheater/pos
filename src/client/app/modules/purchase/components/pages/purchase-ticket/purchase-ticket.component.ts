@@ -10,7 +10,7 @@ import { getEnvironment } from '../../../../../../environments/environment';
 import { IReservation, IReservationTicket } from '../../../../../models/purchase/reservation';
 import { ActionService, UtilService } from '../../../../../services';
 import * as reducers from '../../../../../store/reducers';
-import { MvtkCheckModalComponent } from '../../../../shared/components/parts/mvtk/check-modal/check-modal.component';
+import { MovieTicketCheckModalComponent } from '../../../../shared/components/parts/movie-ticket/check-modal/check-modal.component';
 import { PurchaseSeatTicketModalComponent } from '../../../../shared/components/parts/purchase/seat-ticket-modal/seat-ticket-modal.component';
 
 @Component({
@@ -150,8 +150,11 @@ export class PurchaseTicketComponent implements OnInit {
     /**
      * ムビチケ認証表示
      */
-    public openMovieTicket() {
-        this.modal.show(MvtkCheckModalComponent, {
+    public openMovieTicket(paymentMethodType: factory.paymentMethodType) {
+        this.modal.show(MovieTicketCheckModalComponent, {
+            initialState: {
+                paymentMethodType
+            },
             class: 'modal-dialog-centered'
         });
     }
