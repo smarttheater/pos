@@ -80506,7 +80506,8 @@ class PurchaseSeatTicketModalComponent {
                     return;
                 }
                 const pendingMovieTicketsIndex = pendingMovieTickets.findIndex((pendingMovieTicket) => {
-                    return (pendingMovieTicket.identifier === movieTicket.identifier);
+                    return (pendingMovieTicket.identifier === movieTicket.identifier
+                        && pendingMovieTicket.typeOf === movieTicket.typeOf);
                 });
                 if (pendingMovieTicketsIndex > -1) {
                     pendingMovieTickets.splice(pendingMovieTicketsIndex, 1);
