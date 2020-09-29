@@ -1,1 +1,12 @@
-領収書（控え）
+<div class="print" style="width: 560px;">
+    <div class="py-1" style="font-size: 30px;">
+        <p class="mb-3 text-center font-weight-bold">領収書（控え）</p>
+        <p class="mb-4 text-center"><%= moment().tz('Asia/Tokyo').locale('ja').format('YYYY/MM/DD (ddd)') %></p>
+        <p class="mb-4 text-center font-weight-bold p-3" style="border: 3px solid #000; font-size: 40px;">
+            ￥<%= order.price %> - </p>
+        <p style="font-size: 22px;">
+            <%= order.orderNumber %><br>
+            <%= moment().tz('Asia/Tokyo').locale('ja').format('YYYY/MM/DD HH:mm:ss') %>
+        </p>
+    </div>
+</div>

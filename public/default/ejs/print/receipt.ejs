@@ -1,13 +1,23 @@
 <div class="print" style="width: 560px;">
-    <div class="py-5 text-center" style="font-size: 30px;">
+    <div class="py-1" style="font-size: 30px;">
+        <p class="mb-3 text-center font-weight-bold">領収書</p>
+        <p class="mb-3 text-center"><%= moment().tz('Asia/Tokyo').locale('ja').format('YYYY/MM/DD (ddd)') %></p>
+        <p class="mb-4 text-right p-3" style="border-bottom: 3px solid #000;">様</p>
+        <p class="mb-4 text-center font-weight-bold p-3" style="border: 3px solid #000; font-size: 40px;">
+            ￥<%= order.price %> - </p>
         <p class="mb-3">
-            領収書
+            但し<br><br>
+            <span class="w-100 d-inline-block" style="border-bottom: 3px solid #000;"></span><br>
+            上記金額正に領収致しました。
         </p>
-        <p class="mb-3"><%= moment().tz('Asia/Tokyo').locale('ja').format('YYYY/MM/DD (ddd)') %></p>
-        <p class="mb-3">様</p>
-        <p class="mb-3">￥<%= order.price %></p>
-        <p class="mb-3">但し<span></span>代として、<br>上記金額正に領収致しました。</p>
-        <p class="mb-3"><%= order.seller.name.ja %></p>
-        <p class="mb-3"><%= moment().tz('Asia/Tokyo').locale('ja').format('YYYY/MM/DD HH:mm:ss') %></p>
+        <p class="mb-3" style="font-size: 22px;">
+            <br>
+            <br>
+            <br>
+        </p>
+        <p style="font-size: 22px;">
+            <%= order.orderNumber %><br>
+            <%= moment().tz('Asia/Tokyo').locale('ja').format('YYYY/MM/DD HH:mm:ss') %>
+        </p>
     </div>
 </div>
