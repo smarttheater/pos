@@ -12,6 +12,15 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/).
 
 ### Security
 
+## 3.3.2 - 2020-09-30
+### Added
+ - 領収書印刷を追加
+### Changed
+ - チケット券面変更
+ - チケット選択UI変更
+### Fixed
+ - 同一チケット選択修正
+
 ## 3.3.1 - 2020-09-24
 ### Fixed
  - スクリーンHTML差し込みを修正
