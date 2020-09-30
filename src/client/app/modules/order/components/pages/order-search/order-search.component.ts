@@ -226,6 +226,36 @@ export class OrderSearchComponent implements OnInit {
     }
 
     /**
+     * 領収書印刷確認
+     */
+    public printReceiptConfirm(order: factory.order.IOrder) {
+        this.utilService.openConfirm({
+            title: this.translate.instant('common.confirm'),
+            body: this.translate.instant('order.search.confirm.print'),
+            cb: async () => {
+                try {
+                    const user = await this.actionService.user.getData();
+                    if (user.printer === undefined) {
+                        throw new Error('printer undefined');
+                    }
+                    const pos = user.pos;
+                    const printer = user.printer;
+                    await this.actionService.order.printReceipt({ order, pos, printer });
+                } catch (error) {
+                    console.error(error);
+                    this.utilService.openAlert({
+                        title: this.translate.instant('common.error'),
+                        body: `<p class="mb-4">${this.translate.instant('order.search.alert.print')}</p>
+                        <div class="p-3 bg-light-gray select-text">
+                        <code>${error}</code>
+                    </div>`
+                    });
+                }
+            }
+        });
+    }
+
+    /**
      * キャンセル確認
      */
     public cancelConfirm(orders: factory.order.IOrder[]) {

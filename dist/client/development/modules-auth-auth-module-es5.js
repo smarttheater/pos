@@ -562,7 +562,7 @@
             return ctx_r3.signOut();
           });
 
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](10, "\u623B\u308B");
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](10, "\u30ED\u30B0\u30A2\u30A6\u30C8");
 
           _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
 
@@ -686,7 +686,7 @@
         selectors: [["app-auth-signin"]],
         decls: 4,
         vars: 6,
-        consts: [["class", "contents-width mx-auto px-3 py-5", 4, "ngIf"], ["process", "process.masterAction.GetProjects", 3, "isLoading"], [1, "contents-width", "mx-auto", "px-3", "py-5"], [1, "text-large", "mb-4", "text-center", "font-weight-bold"], [1, "mb-4", "text-md-center"], [1, "d-md-flex", "flex-wrap", "mb-4"], ["class", "my-md-2 mb-3", 4, "ngFor", "ngForOf"], [1, "buttons", "mx-auto", "text-center"], ["type", "button", 1, "btn", "btn-outline-primary", "btn-block", "py-3", 3, "click"], [1, "my-md-2", "mb-3"], [1, "card", "mx-md-2", "h-100"], [1, "card-body"], [1, "d-flex", "align-items-center", "mb-4"], [1, "mr-2"], [1, "logo", 3, "src", "alt"], [1, "font-weight-bold"], [1, "btn", "btn-primary", "btn-block", "py-3", 3, "href"]],
+        consts: [["class", "contents-width mx-auto px-3 py-5", 4, "ngIf"], ["process", "process.masterAction.GetProjects", 3, "isLoading"], [1, "contents-width", "mx-auto", "px-3", "py-5"], [1, "text-large", "mb-4", "text-center", "font-weight-bold"], [1, "mb-4", "text-md-center"], [1, "d-md-flex", "flex-wrap", "mb-4"], ["class", "my-md-2 mb-3", 4, "ngFor", "ngForOf"], [1, "buttons", "mx-auto", "text-center"], ["type", "button", 1, "btn", "btn-outline-primary", "btn-block", "py-3", 3, "click"], [1, "my-md-2", "mb-3"], [1, "card", "mx-md-2", "h-100"], [1, "card-body"], [1, "d-flex", "align-items-center", "mb-4"], [1, "mr-2"], [1, "logo", 3, "src", "alt"], [1, "font-weight-bold", "text-small"], [1, "btn", "btn-primary", "btn-block", "py-3", 3, "href"]],
         template: function AuthSigninComponent_Template(rf, ctx) {
           if (rf & 1) {
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](0, AuthSigninComponent_div_0_Template, 11, 3, "div", 0);

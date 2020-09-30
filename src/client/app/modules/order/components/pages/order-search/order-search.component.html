@@ -13,7 +13,8 @@
                             [(ngModel)]="conditions.orderDateFrom"
                             [bsConfig]="{ dateInputFormat: 'YYYY/MM/DD', adaptivePosition: true, showWeekNumbers: false }"
                             readonly (onShown)="onShowPicker($event)" (click)="setDatePicker()">
-                        <div class="datepicker-append d-flex align-items-center px-2" (click)="conditions.orderDateFrom = undefined">
+                        <div class="datepicker-append d-flex align-items-center px-2"
+                            (click)="conditions.orderDateFrom = undefined">
                             <i class="fas fa-times"></i>
                         </div>
                     </div>
@@ -23,11 +24,12 @@
                         class="mb-2">{{ 'order.search.conditions.orderDateThrough' | translate }}</label>
                     <div class="position-relative">
                         <input type="text" name="orderDateThrough" id="orderDateThrough" placeholder="YYYY/MM/DD"
-                        class="form-control" #orderDateThrough="bsDatepicker" bsDatepicker
-                        [(ngModel)]="conditions.orderDateThrough"
-                        [bsConfig]="{ dateInputFormat: 'YYYY/MM/DD', adaptivePosition: true, showWeekNumbers: false }"
-                        readonly (onShown)="onShowPicker($event)" (click)="setDatePicker()">
-                        <div class="datepicker-append d-flex align-items-center px-2" (click)="conditions.orderDateThrough = undefined">
+                            class="form-control" #orderDateThrough="bsDatepicker" bsDatepicker
+                            [(ngModel)]="conditions.orderDateThrough"
+                            [bsConfig]="{ dateInputFormat: 'YYYY/MM/DD', adaptivePosition: true, showWeekNumbers: false }"
+                            readonly (onShown)="onShowPicker($event)" (click)="setDatePicker()">
+                        <div class="datepicker-append d-flex align-items-center px-2"
+                            (click)="conditions.orderDateThrough = undefined">
                             <i class="fas fa-times"></i>
                         </div>
                     </div>
@@ -89,17 +91,21 @@
                     <select class="form-control" name="paymentMethodType" id="paymentMethodType"
                         [(ngModel)]="conditions.paymentMethodType">
                         <option value="">{{ 'common.all' | translate }}</option>
-                        <option [value]="paymentMethodType.Cash">{{ 'common.paymentMethodTypes.cash.label' | translate }}
+                        <option [value]="paymentMethodType.Cash">
+                            {{ 'common.paymentMethodTypes.cash.label' | translate }}
                         </option>
-                        <option [value]="paymentMethodType.Account">{{ 'common.paymentMethodTypes.account.label' | translate }}
+                        <option [value]="paymentMethodType.Account">
+                            {{ 'common.paymentMethodTypes.account.label' | translate }}
                         </option>
-                        <option [value]="paymentMethodType.EMoney">{{ 'common.paymentMethodTypes.eMoney.label' | translate }}
+                        <option [value]="paymentMethodType.EMoney">
+                            {{ 'common.paymentMethodTypes.eMoney.label' | translate }}
                         </option>
                         <option [value]="paymentMethodType.CreditCard">
                             {{ 'common.paymentMethodTypes.creditCard.label' | translate }}</option>
                         <option [value]="paymentMethodType.MovieTicket">
                             {{ 'common.paymentMethodTypes.movieTicket.label' | translate }}</option>
-                        <option [value]="paymentMethodType.Others">{{ 'common.paymentMethodTypes.others.label' | translate }}
+                        <option [value]="paymentMethodType.Others">
+                            {{ 'common.paymentMethodTypes.others.label' | translate }}
                         </option>
                     </select>
                 </div>
@@ -108,11 +114,12 @@
                         class="mb-2">{{ 'order.search.conditions.eventStartDateFrom' | translate }}</label>
                     <div class="position-relative">
                         <input type="text" name="eventStartDateFrom" id="eventStartDateFrom" placeholder="YYYY/MM/DD"
-                        class="form-control" #eventStartDateFrom="bsDatepicker" bsDatepicker
-                        [(ngModel)]="conditions.eventStartDateFrom"
-                        [bsConfig]="{ dateInputFormat: 'YYYY/MM/DD', adaptivePosition: true, showWeekNumbers: false }"
-                        readonly (onShown)="onShowPicker($event)" (click)="setDatePicker()">
-                        <div class="datepicker-append d-flex align-items-center px-2" (click)="conditions.eventStartDateFrom = undefined">
+                            class="form-control" #eventStartDateFrom="bsDatepicker" bsDatepicker
+                            [(ngModel)]="conditions.eventStartDateFrom"
+                            [bsConfig]="{ dateInputFormat: 'YYYY/MM/DD', adaptivePosition: true, showWeekNumbers: false }"
+                            readonly (onShown)="onShowPicker($event)" (click)="setDatePicker()">
+                        <div class="datepicker-append d-flex align-items-center px-2"
+                            (click)="conditions.eventStartDateFrom = undefined">
                             <i class="fas fa-times"></i>
                         </div>
                     </div>
@@ -121,12 +128,13 @@
                     <label for="eventStartDateThrough"
                         class="mb-2">{{ 'order.search.conditions.eventStartDateThrough' | translate }}</label>
                     <div class="position-relative">
-                        <input type="text" name="eventStartDateThrough" id="eventStartDateThrough" placeholder="YYYY/MM/DD"
-                        class="form-control" #eventStartDateThrough="bsDatepicker" bsDatepicker
-                        [(ngModel)]="conditions.eventStartDateThrough"
-                        [bsConfig]="{ dateInputFormat: 'YYYY/MM/DD', adaptivePosition: true, showWeekNumbers: false }"
-                        readonly (onShown)="onShowPicker($event)" (click)="setDatePicker()">
-                        <div class="datepicker-append d-flex align-items-center px-2" (click)="conditions.eventStartDateThrough = undefined">
+                        <input type="text" name="eventStartDateThrough" id="eventStartDateThrough"
+                            placeholder="YYYY/MM/DD" class="form-control" #eventStartDateThrough="bsDatepicker"
+                            bsDatepicker [(ngModel)]="conditions.eventStartDateThrough"
+                            [bsConfig]="{ dateInputFormat: 'YYYY/MM/DD', adaptivePosition: true, showWeekNumbers: false }"
+                            readonly (onShown)="onShowPicker($event)" (click)="setDatePicker()">
+                        <div class="datepicker-append d-flex align-items-center px-2"
+                            (click)="conditions.eventStartDateThrough = undefined">
                             <i class="fas fa-times"></i>
                         </div>
                     </div>
@@ -237,6 +245,10 @@
                                 [disabled]="(user | async)?.printer.connectionType === connectionType.None || order.orderStatus !== orderStatus.OrderDelivered"
                                 class="btn btn-primary mr-2" (click)="printConfirm([order])"><i
                                     class="fas fa-print"></i></button>
+                            <button *ngIf="environment.PRINT_RECEIPT"
+                                [disabled]="(user | async)?.printer.connectionType === connectionType.None || order.orderStatus !== orderStatus.OrderDelivered"
+                                class="btn btn-primary mr-2" (click)="printReceiptConfirm(order)"><i
+                                    class="fas fa-receipt"></i></button>
                             <button *ngIf="environment.ORDER_CANCEL"
                                 [disabled]="order.orderStatus !== orderStatus.OrderDelivered" class="btn btn-primary"
                                 (click)="cancelConfirm([order])"><i class="fas fa-reply"></i></button>
@@ -247,6 +259,7 @@
         </div>
     </div>
     <div class="buttons mx-auto text-center">
-        <button type="button" class="btn btn-outline-primary btn-block py-3" routerLink="/order">{{ 'order.search.prev' | translate }}</button>
+        <button type="button" class="btn btn-outline-primary btn-block py-3"
+            routerLink="/order">{{ 'order.search.prev' | translate }}</button>
     </div>
 </div>
