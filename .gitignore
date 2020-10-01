@@ -44,9 +44,6 @@ Thumbs.db
 /bk/node_modules
 *.bat
 public/projects
-public/projects-production
-private/
-old/
-dist/client/production/stats.json
-dist/client/production/stats-es2015.json
+dist/client/**/stats.json
+dist/client/**/stats-es2015.json
 *.gcp.yaml
