@@ -24,6 +24,7 @@ export class PurchaseTicketComponent implements OnInit {
     public additionalTicketText: string;
     public environment = getEnvironment();
     public translateName: string;
+    public isSelectedTicket: boolean;
 
     constructor(
         private store: Store<reducers.IState>,
@@ -34,38 +35,31 @@ export class PurchaseTicketComponent implements OnInit {
         private translate: TranslateService
     ) { }
 
-    public ngOnInit() {
+    public async ngOnInit() {
         this.purchase = this.store.pipe(select(reducers.getPurchase));
         this.user = this.store.pipe(select(reducers.getUser));
         this.isLoading = this.store.pipe(select(reducers.getLoading));
         this.translateName = (this.environment.VIEW_TYPE === 'cinema')
             ? 'purchase.cinema.ticket' : 'purchase.event.seatTicket';
         this.additionalTicketText = '';
+        this.isSelectedTicket = (await this.getUnselectedTicketReservations()).length === 0;
+    }
+
+    /**
+     * 券種未選択の予約取得
+     */
+    public async getUnselectedTicketReservations() {
+        const { reservations } = await this.actionService.purchase.getData();
+        return reservations.filter((reservation) => {
+            return (reservation.ticket === undefined);
+        });
     }
 
     /**
      * 確定
      */
     public async onSubmit() {
-        const purchase = await this.actionService.purchase.getData();
-        const transaction = purchase.transaction;
-        const screeningEvent = purchase.screeningEvent;
-        const reservations = purchase.reservations;
-        if (transaction === undefined
-            || screeningEvent === undefined) {
-            this.router.navigate(['/error']);
-            return;
-        }
-        const unselectedReservations = reservations.filter((reservation) => {
-            return (reservation.ticket === undefined);
-        });
-        if (unselectedReservations.length > 0) {
-            this.utilService.openAlert({
-                title: this.translate.instant('common.error'),
-                body: this.translate.instant(`${this.translateName}.alert.unselected`)
-            });
-            return;
-        }
+        const { reservations } = await this.actionService.purchase.getData();
         const validResult = reservations.filter((reservation) => {
             if (reservation.ticket === undefined) {
                 return false;
@@ -134,14 +128,16 @@ export class PurchaseTicketComponent implements OnInit {
                 reservations: purchase.reservations,
                 reservation: reservation,
                 pendingMovieTickets: purchase.pendingMovieTickets,
-                cb: (ticket: IReservationTicket) => {
+                cb: async (ticket: IReservationTicket) => {
                     if (reservation === undefined) {
                         const reservations = Functions.Util.deepCopy<IReservation[]>(purchase.reservations);
                         reservations.forEach(r => r.ticket = ticket);
                         this.actionService.purchase.selectTickets(reservations);
+                        this.isSelectedTicket = (await this.getUnselectedTicketReservations()).length === 0;
                         return;
                     }
                     this.actionService.purchase.selectTickets([{ ...reservation, ticket }]);
+                    this.isSelectedTicket = (await this.getUnselectedTicketReservations()).length === 0;
                 }
             },
         });
