@@ -12,6 +12,10 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/).
 
 ### Security
 
+## 3.4.0 - 2020-10-02
+### Changed
+ - production.htmlを廃止
+
 ## 3.3.2 - 2020-09-30
 ### Added
  - 領収書印刷を追加
