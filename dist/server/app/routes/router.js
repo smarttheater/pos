@@ -75,8 +75,7 @@ exports.default = (app) => {
             next();
             return;
         }
-        const dir = (process.env.NODE_ENV === 'production') ? 'production' : 'development';
-        res.sendFile(path.resolve(`${__dirname}/../../../client/${dir}/index.html`));
+        res.sendFile(path.resolve(`${__dirname}/../../../client/index.html`));
     }));
     app.all('*', (req, res, _next) => {
         res.status(http_status_1.NOT_FOUND);
