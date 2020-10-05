@@ -47,9 +47,12 @@
             "prev": "戻る",
             "receipt": "領収書発行",
             "cooperationQRCode": "連携用QRコード",
+            "depositAmount": "お預かり金額",
+            "change": "お釣り",
             "alert": {
-                "print": "印刷に失敗しました",
-                "regiGrow": "RegiGrow連携に失敗しました"
+                "print": "印刷に失敗しました。",
+                "regiGrow": "RegiGrow連携に失敗しました。",
+                "drawer": "ドロワーとの接続に失敗しました。"
             }
         },
         "info": {
@@ -334,9 +337,10 @@
         "unselected": "未選択",
         "printerIpAddressDescription": "※スター精密 Bluetooth接続(StarwebPRNT専用ブラウザー)の場合localhost:8001を設定してください。",
         "testPrinting": "テスト印刷",
-        "isPurchaseCart": "カート使用",
+        "openDrawer": "ドロワーを開く",
         "viewType": "表示",
         "starBluetoothAddress": "localhost:8001",
+        "drawerDescription": "※使用する際はプリンターの設定を「スター精密 Bluetooth接続」または「スター精密 LAN接続」にしてください。",
         "printType": {
             "none": "印刷しない",
             "image": "画像表示",
@@ -349,7 +353,8 @@
             "payment": "決済情報に誤りがあります。",
             "validation": "入力情報に誤りがあります。",
             "success": "設定を保存しました。",
-            "print": "印刷に失敗しました"
+            "print": "印刷に失敗しました。",
+            "drawer": "ドロワーとの接続に失敗しました。"
         }
     },
     "development": {
@@ -399,12 +404,15 @@
             "telephone": "電話番号",
             "age": "年齢",
             "address": "住所",
-            "gender": "性別"
+            "gender": "性別",
+            "drawer": "ドロワー"
         },
         "option": {
             "man": "男",
             "woman": "女",
-            "unselected": "未選択"
+            "unselected": "未選択",
+            "true": "使用する",
+            "false": "使用しない"
         },
         "validation": {
             "required": "未入力です",

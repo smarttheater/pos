@@ -49,6 +49,7 @@ export class UserService {
         theater: factory.chevre.place.movieTheater.IPlaceWithoutScreeningRoom;
         customerContact: factory.transaction.placeOrder.ICustomerProfile;
         printer: Models.Util.Printer.IPrinter;
+        drawer: boolean;
     }) {
         this.store.dispatch(userAction.updateAll(params));
     }

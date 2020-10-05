@@ -16,8 +16,8 @@
 
         <div class="mb-4 px-3 bg-white"
             *ngIf="(purchase | async)?.paymentMethod && (purchase | async)?.paymentMethod.typeOf === paymentMethodType.Cash">
-            <div class="py-3 border-bottom border-gray">
-                <div class="row align-items-center">
+            <div class="container px-0">
+                <div class="row align-items-center py-3">
                     <p class="mb-2 mb-md-0 col-md-4">
                         <i class="fas fa-arrow-right mr-2"></i>{{ 'purchase.confirm.custody' | translate }}</p>
                     <p class="col-md-8 d-flex align-items-center position-static">
@@ -30,9 +30,8 @@
                         </app-numeric-keypad>
                     </p>
                 </div>
-            </div>
-            <div class="py-3">
-                <div class="row align-items-center">
+                <hr class="border-gray my-0">
+                <div class="row align-items-center py-3">
                     <p class="mb-2 mb-md-0 col-md-4">
                         <i class="fas fa-arrow-left mr-2"></i>{{ 'purchase.confirm.change' | translate }}</p>
                     <p class="col-md-8" [ngClass]="{'font-weight-bold text-danger': (depositAmount - amount) < 0}">{{ (depositAmount - amount) | currency : 'JPY' }}</p>
@@ -41,8 +40,8 @@
         </div>
 
         <div class="bg-white px-3 mb-4">
-            <div class="overflow-hidden">
-                <div class="py-3 row align-items-center border-bottom border-gray">
+            <div class="container px-0">
+                <div class="py-3 row align-items-center">
                     <p class="mb-2 mb-md-0 col-md-4">{{ 'common.paymentMethod' | translate }}</p>
                     <p class="col-md-8">
                         <span
@@ -67,8 +66,7 @@
                                 && (purchase | async)?.paymentMethod.category">{{ getCustomPaymentMethodTypeName((purchase | async)?.paymentMethod) | changeLanguage }}</span>
                     </p>
                 </div>
-            </div>
-            <div class="overflow-hidden">
+                <hr class="border-gray my-0">
                 <div class="py-3 row align-items-center">
                     <p class="mb-2 mb-md-0 col-md-4">{{ 'common.amount' | translate }}</p>
                     <p class="col-md-8 font-weight-bold text-large text-info">{{ amount | currency : 'JPY' }}</p>
