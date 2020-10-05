@@ -187,16 +187,7 @@ export class PurchaseSeatComponent implements OnInit {
      * onSubmit
      */
     public async onSubmit() {
-        const purchase = await this.actionService.purchase.getData();
-        const reservations = purchase.reservations;
-        const screeningEventTicketOffers = purchase.screeningEventTicketOffers;
-        if (reservations.length === 0) {
-            this.utilService.openAlert({
-                title: this.translate.instant('common.error'),
-                body: this.translate.instant(`${this.translateName}.alert.unselected`)
-            });
-            return;
-        }
+        const { reservations, screeningEventTicketOffers } = await this.actionService.purchase.getData();
         if (reservations.length > Number(this.environment.PURCHASE_ITEM_MAX_LENGTH)) {
             this.utilService.openAlert({
                 title: this.translate.instant('common.error'),
