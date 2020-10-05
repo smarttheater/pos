@@ -131,18 +131,17 @@ export class PurchaseCompleteComponent implements OnInit {
     public async openDrawer() {
         try {
             const { order } = await this.actionService.purchase.getData();
-            const user = await this.actionService.user.getData();
-            if (order === undefined) {
-                throw new Error('order not found').message;
-            }
-            if (user.printer === undefined) {
-                throw new Error('printer undefined');
+            const { printer, drawer } = await this.actionService.user.getData();
+            if (order === undefined
+                || printer === undefined) {
+                throw new Error('order or printer undefined').message;
             }
             const isCash = order.paymentMethods.find(p => p.typeOf === factory.chevre.paymentMethodType.Cash);
-            if (isCash === undefined) {
+            if (isCash === undefined
+                || drawer === undefined
+                || !drawer) {
                 return;
             }
-            const printer = user.printer;
             await this.actionService.order.openDrawer({ printer });
         } catch (error) {
             this.utilService.openAlert({

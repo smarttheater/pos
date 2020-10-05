@@ -142,6 +142,7 @@ export class SettingComponent implements OnInit {
             this.settingForm.controls.printerType.setValue(user.printer.connectionType);
             this.settingForm.controls.printerIpAddress.setValue(user.printer.ipAddress);
         }
+        this.settingForm.controls.drawer.setValue((user.drawer === undefined) ? false : user.drawer);
     }
 
     /**
@@ -220,7 +221,7 @@ export class SettingComponent implements OnInit {
                     ipAddress: this.settingForm.controls.printerIpAddress.value,
                     connectionType: this.settingForm.controls.printerType.value
                 },
-                drawer: this.settingForm.controls.drawer.value
+                drawer: (this.settingForm.controls.drawer.value === 'true') ? true : false
             });
             this.utilService.openAlert({
                 title: this.translate.instant('common.complete'),
