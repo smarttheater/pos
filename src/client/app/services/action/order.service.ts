@@ -303,6 +303,9 @@ export class OrderService {
         }
     }
 
+    /**
+     * 印刷処理
+     */
     private async printProcess(params: {
         printer: Models.Util.Printer.IPrinter;
         canvasList: HTMLCanvasElement[];
@@ -419,6 +422,24 @@ export class OrderService {
             );
             race(success, fail).pipe(take(1)).subscribe();
         });
+    }
+
+    /**
+     * ドロワーを開く
+     */
+    public async openDrawer(params: {
+        printer: Models.Util.Printer.IPrinter;
+    }) {
+        const printer = params.printer;
+        switch (printer.connectionType) {
+            case Models.Util.Printer.ConnectionType.StarBluetooth:
+            case Models.Util.Printer.ConnectionType.StarLAN:
+                this.starPrintService.initialize({ printer });
+                await this.starPrintService.openDrawer();
+                break;
+            default:
+                throw new Error('The printer settings are incorrect');
+        }
     }
 
 }
