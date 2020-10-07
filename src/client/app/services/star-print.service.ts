@@ -259,7 +259,7 @@ export class StarPrintService {
             };
 
             // プリンターに送信
-            const request = this.builder.createPeripheralElement;
+            const request = this.builder.createPeripheralElement({ channel: 1, on: 200, off: 200 });
             this.trader.sendMessage({ request });
         });
     }
