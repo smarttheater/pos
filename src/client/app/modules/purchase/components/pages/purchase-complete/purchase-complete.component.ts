@@ -114,12 +114,13 @@ export class PurchaseCompleteComponent implements OnInit {
             const printer = user.printer;
             await this.actionService.order.print({ orders, pos, printer });
         } catch (error) {
+            console.error(error);
             this.utilService.openAlert({
                 title: this.translate.instant('common.error'),
                 body: `
                 <p class="mb-4">${this.translate.instant('purchase.complete.alert.print')}</p>
                     <div class="p-3 bg-light-gray select-text">
-                    <code>${error}</code>
+                    <code>${JSON.stringify(error)}</code>
                 </div>`
             });
         }
@@ -149,7 +150,7 @@ export class PurchaseCompleteComponent implements OnInit {
                 body: `
                 <p class="mb-4">${this.translate.instant('purchase.complete.alert.drawer')}</p>
                     <div class="p-3 bg-light-gray select-text">
-                    <code>${error}</code>
+                    <code>${JSON.stringify(error)}</code>
                 </div>`
             });
         }
