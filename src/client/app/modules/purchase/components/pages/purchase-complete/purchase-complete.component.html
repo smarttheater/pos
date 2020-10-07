@@ -3,7 +3,7 @@
         <h2 class="text-large mb-4 text-center font-weight-bold">{{ 'purchase.complete.title' | translate }}</h2>
         <p class="mb-4 text-md-center" [innerHTML]="'purchase.complete.read' | translate"></p>
 
-        <div class="mb-4 px-3 py-2 bg-white">
+        <div class="container mb-4 px-3 py-2 bg-white">
             <div class="row align-items-center">
                 <p class="col-4">
                     {{ 'common.confirmationNumber' | translate }}</p>
@@ -13,7 +13,7 @@
             </div>
         </div>
 
-        <div *ngIf="qrcode" class="mb-4 px-3 py-2 bg-white">
+        <div *ngIf="qrcode" class="container mb-4 px-3 py-2 bg-white">
             <div class="row align-items-center">
                 <p class="col-md-4 mb-2 mb-md-0">{{ 'purchase.complete.cooperationQRCode' | translate }}</p>
                 <p class="col-md-8 text-large text-center text-md-left">
@@ -31,57 +31,65 @@
 
         <div class="mb-4 px-3 bg-white">
 
-            <div class="py-3 border-bottom border-gray">
-                <div class="row align-items-center">
+            <div class="container px-0">
+                <div class="row align-items-center py-3">
                     <p class="mb-2 mb-md-0 col-md-4">{{ 'common.paymentMethod' | translate }}</p>
                     <div class="col-md-8">
-                        <p *ngFor="let paymentMethod of (purchase | async)?.order.paymentMethods">
-                            <span
-                                *ngIf="paymentMethod.typeOf === paymentMethodType.Cash">{{ 'common.paymentMethodTypes.cash.label' | translate }}</span>
-                            <span
-                                *ngIf="paymentMethod.typeOf === paymentMethodType.Account">{{ 'common.paymentMethodTypes.account.label' | translate }}</span>
-                            <span
-                                *ngIf="paymentMethod.typeOf === paymentMethodType.CreditCard">{{ 'common.paymentMethodTypes.creditCard.label' | translate }}</span>
-                            <span
-                                *ngIf="paymentMethod.typeOf === paymentMethodType.EMoney">{{ 'common.paymentMethodTypes.eMoney.label' | translate }}</span>
-                            <span
-                                *ngIf="paymentMethod.typeOf === paymentMethodType.MovieTicket">{{ 'common.paymentMethodTypes.movieTicket.label' | translate }}</span>
-                            <span
-                                *ngIf="paymentMethod.typeOf === paymentMethodType.Others 
-                                && paymentMethod.name === 'Others'">{{ 'common.paymentMethodTypes.others.label' | translate }}</span>
-                            <span
-                                *ngIf="paymentMethod.typeOf === paymentMethodType.Others 
-                                && paymentMethod.name === 'RegiGrow'">{{ 'common.paymentMethodTypes.regiGrow.label' | translate }}</span>
-                            <span
-                                *ngIf="paymentMethod.typeOf === paymentMethodType.Others 
+                        <div *ngFor="let paymentMethod of (purchase | async)?.order.paymentMethods">
+                            <div *ngIf="paymentMethod.typeOf === paymentMethodType.Cash">
+                                <p>{{ 'common.paymentMethodTypes.cash.label' | translate }}</p>
+                                <p *ngFor="let additionalProperty of paymentMethod.additionalProperty">
+                                    <span class="mr-2">{{ 'purchase.complete.' + additionalProperty.name | translate }}</span>{{ additionalProperty.value | currency : 'JPY' }}
+                                </p>
+                            </div>
+                            <p *ngIf="paymentMethod.typeOf === paymentMethodType.Account">
+                                {{ 'common.paymentMethodTypes.account.label' | translate }}
+                            </p>
+                            <p *ngIf="paymentMethod.typeOf === paymentMethodType.CreditCard">
+                                {{ 'common.paymentMethodTypes.creditCard.label' | translate }}
+                            </p>
+                            <p *ngIf="paymentMethod.typeOf === paymentMethodType.EMoney">
+                                {{ 'common.paymentMethodTypes.eMoney.label' | translate }}
+                            </p>
+                            <p *ngIf="paymentMethod.typeOf === paymentMethodType.MovieTicket">
+                                {{ 'common.paymentMethodTypes.movieTicket.label' | translate }}
+                            </p>
+                            <p *ngIf="paymentMethod.typeOf === paymentMethodType.Others 
+                                && paymentMethod.name === 'Others'">
+                                {{ 'common.paymentMethodTypes.others.label' | translate }}
+                            </p>
+                            <p *ngIf="paymentMethod.typeOf === paymentMethodType.Others 
+                                && paymentMethod.name === 'RegiGrow'">
+                                {{ 'common.paymentMethodTypes.regiGrow.label' | translate }}
+                            </p>
+                            <p *ngIf="paymentMethod.typeOf === paymentMethodType.Others 
                                 && paymentMethod.name !== 'Others' 
-                                && paymentMethod.name !== 'RegiGrow'">{{ getCustomPaymentMethodTypeName({ typeOf: paymentMethod.typeOf, category: paymentMethod.name}) | changeLanguage }}</span>
-                        </p>
+                                && paymentMethod.name !== 'RegiGrow'">
+                                {{ getCustomPaymentMethodTypeName({ typeOf: paymentMethod.typeOf, category: paymentMethod.name}) | changeLanguage }}
+                            </p>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="py-3">
-                <div class="row align-items-center">
+                <hr class="border-gray my-0">
+                <div class="row align-items-center py-3">
                     <p class="mb-2 mb-md-0 col-md-4">{{ 'common.amount' | translate }}</p>
                     <p class="col-md-8 font-weight-bold text-large text-info">
                         {{ (purchase | async)?.order.price | currency : 'JPY' }}</p>
                 </div>
             </div>
         </div>
-    </div>
 
-    <div class="buttons mx-auto text-center">
-        <button *ngIf="(user | async)?.printer.connectionType !== connectionType.None" type="submit"
-            class="btn btn-primary btn-block py-3 mb-3" [disabled]="isLoading | async"
-            (click)="print()">{{ 'purchase.complete.next' | translate }}</button>
-        <button *ngIf="environment.PRINT_RECEIPT && (user | async)?.printer.connectionType !== connectionType.None" type="submit"
-            class="btn btn-primary btn-block py-3 mb-3" [disabled]="isLoading | async"
-            (click)="printReceipt()">{{ 'purchase.complete.receipt' | translate }}</button>
-        <a *ngFor="let link of environment.ORDER_LINK" class="btn btn-primary btn-block py-3 mb-3"
-            target="_blank" 
-            [href]="createOrderLink((purchase | async)?.order, link)">{{ link.name | changeLanguage }}</a>
-        <button type="button" class="btn btn-outline-primary btn-block py-3"
-            routerLink="/purchase/root">{{ 'purchase.complete.prev' | translate }}</button>
-    </div>
+        <div class="buttons mx-auto text-center">
+            <button *ngIf="(user | async)?.printer.connectionType !== connectionType.None" type="submit"
+                class="btn btn-primary btn-block py-3 mb-3" [disabled]="isLoading | async"
+                (click)="print()">{{ 'purchase.complete.next' | translate }}</button>
+            <button *ngIf="environment.PRINT_RECEIPT && (user | async)?.printer.connectionType !== connectionType.None"
+                type="submit" class="btn btn-primary btn-block py-3 mb-3" [disabled]="isLoading | async"
+                (click)="printReceipt()">{{ 'purchase.complete.receipt' | translate }}</button>
+            <a *ngFor="let link of environment.ORDER_LINK" class="btn btn-primary btn-block py-3 mb-3" target="_blank"
+                [href]="createOrderLink((purchase | async)?.order, link)">{{ link.name | changeLanguage }}</a>
+            <button type="button" class="btn btn-outline-primary btn-block py-3"
+                routerLink="/purchase/root">{{ 'purchase.complete.prev' | translate }}</button>
+        </div>
 
-</div>
+    </div>

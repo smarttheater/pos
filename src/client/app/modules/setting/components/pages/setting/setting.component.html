@@ -22,6 +22,7 @@
                             && key !== 'email' 
                             && key !== 'telephone' 
                             && key !== 'gender' 
+                            && key !== 'drawer' 
                             && getAdditionalProperty(key)?.inputType !== 'textarea'" type="text" class="form-control"
                             [formControlName]="key" [id]="key" [placeholder]="'form.placeholder.' + key | translate">
                         <select *ngIf="key === 'theaterBranchCode'" class="form-control" [formControlName]="key"
@@ -38,6 +39,10 @@
                             (change)="changePrinterType()">
                             <option *ngFor="let printer of printers" [value]="printer.connectionType">
                                 {{ printer.name | translate }}</option>
+                        </select>
+                        <select *ngIf="key === 'drawer'" class="form-control" [formControlName]="key" [id]="key">
+                            <option value="0">{{ 'form.option.false' | translate }}</option>
+                            <option value="1">{{ 'form.option.true' | translate }}</option>
                         </select>
                         <input *ngIf="key === 'email'" type="email" class="form-control" [formControlName]="key"
                             [id]="key" [placeholder]="'form.placeholder.' + key | translate">
@@ -79,18 +84,25 @@
                             </div>
                         </div>
                         <div *ngIf="key === 'printerType'">
-                            <button *ngIf="this.settingForm.controls.printerType.value 
-                            && this.settingForm.controls.printerType.value !== connectionType.None" type="button"
-                                class="btn btn-sm btn-primary py-2 mt-2"
+                            <button [disabled]="settingForm.controls.printerType.value === connectionType.None"
+                                type="button" class="btn btn-sm btn-primary py-2 mt-2"
                                 (click)="print()">{{ 'setting.testPrinting' | translate }}</button>
                         </div>
                         <p *ngIf="key === 'printerIpAddress'" class="text-small mt-2">
                             {{ 'setting.printerIpAddressDescription' | translate }}
                         </p>
+                        <div *ngIf="key === 'drawer'">
+                            <button [disabled]="settingForm.controls.drawer.value === '0'"
+                                type="button" class="btn btn-sm btn-primary py-2 mt-2"
+                                (click)="openDrawer()">{{ 'setting.openDrawer' | translate }}</button>
+                            <p class="text-small mt-2">
+                                {{ 'setting.drawerDescription' | translate }}
+                            </p>
+                        </div>
                     </div>
                 </div>
 
-                
+
 
 
             </div>

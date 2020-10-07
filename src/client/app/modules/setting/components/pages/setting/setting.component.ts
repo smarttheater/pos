@@ -81,7 +81,8 @@ export class SettingComponent implements OnInit {
             theaterBranchCode: ['', [Validators.required]],
             posId: [''],
             printerType: [Models.Util.Printer.ConnectionType.None],
-            printerIpAddress: ['']
+            printerIpAddress: [''],
+            drawer: [false]
         });
         profile.forEach(p => {
             const validators: ValidatorFn[] = [];
@@ -141,7 +142,7 @@ export class SettingComponent implements OnInit {
             this.settingForm.controls.printerType.setValue(user.printer.connectionType);
             this.settingForm.controls.printerIpAddress.setValue(user.printer.ipAddress);
         }
-        console.log(this.settingForm);
+        this.settingForm.controls.drawer.setValue((user.drawer === undefined || !user.drawer) ? '0' : '1');
     }
 
     /**
@@ -219,7 +220,8 @@ export class SettingComponent implements OnInit {
                 printer: {
                     ipAddress: this.settingForm.controls.printerIpAddress.value,
                     connectionType: this.settingForm.controls.printerType.value
-                }
+                },
+                drawer: (this.settingForm.controls.drawer.value === '0') ? false : true
             });
             this.utilService.openAlert({
                 title: this.translate.instant('common.complete'),
@@ -247,7 +249,30 @@ export class SettingComponent implements OnInit {
                 body: `
                 <p class="mb-4">${this.translate.instant('setting.alert.print')}</p>
                     <div class="p-3 bg-light-gray select-text">
-                    <code>${error}</code>
+                    <code>${JSON.stringify(error)}</code>
+                </div>`
+            });
+        }
+    }
+
+    /**
+     * ドロワーを開く
+     */
+    public async openDrawer() {
+        const printer = {
+            connectionType: this.settingForm.controls.printerType.value,
+            ipAddress: this.settingForm.controls.printerIpAddress.value
+        };
+        try {
+            await this.actionService.order.openDrawer({ printer });
+        } catch (error) {
+            console.error(error);
+            this.utilService.openAlert({
+                title: this.translate.instant('common.error'),
+                body: `
+                <p class="mb-4">${this.translate.instant('setting.alert.drawer')}</p>
+                    <div class="p-3 bg-light-gray select-text">
+                    <code>${JSON.stringify(error)}</code>
                 </div>`
             });
         }

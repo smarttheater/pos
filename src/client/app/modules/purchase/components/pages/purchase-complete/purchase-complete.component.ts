@@ -43,21 +43,35 @@ export class PurchaseCompleteComponent implements OnInit {
         this.user = this.store.pipe(select(reducers.getUser));
         this.isLoading = this.store.pipe(select(reducers.getLoading));
         this.error = this.store.pipe(select(reducers.getError));
-        let order: factory.order.IOrder;
         try {
-            const purchaseData = await this.actionService.purchase.getData();
-            if (purchaseData.order === undefined) {
+            const { order } = await this.actionService.purchase.getData();
+            if (order === undefined) {
                 throw new Error('order not found').message;
             }
-            order = purchaseData.order;
             this.eventOrders = Functions.Purchase.order2EventOrders({ order });
-            this.print();
         } catch (error) {
             this.router.navigate(['/error']);
             return;
         }
 
         try {
+            await this.regiGrowProcess();
+            await this.openDrawer();
+            await this.print();
+        } catch (error) {
+            console.error(error);
+        }
+    }
+
+    /**
+     * RegiGrow連携
+     */
+    public async regiGrowProcess() {
+        try {
+            const { order } = await this.actionService.purchase.getData();
+            if (order === undefined) {
+                throw new Error('order not found').message;
+            }
             const isRegiGrow = order.paymentMethods.find(p => p.name === 'RegiGrow') !== undefined;
             const findResult = this.environment.PAYMENT_METHOD_CUSTOM.find(c => {
                 return order.paymentMethods.find(p => {
@@ -82,7 +96,6 @@ export class PurchaseCompleteComponent implements OnInit {
                 </div>`
             });
         }
-
     }
 
     /**
@@ -101,12 +114,43 @@ export class PurchaseCompleteComponent implements OnInit {
             const printer = user.printer;
             await this.actionService.order.print({ orders, pos, printer });
         } catch (error) {
+            console.error(error);
             this.utilService.openAlert({
                 title: this.translate.instant('common.error'),
                 body: `
                 <p class="mb-4">${this.translate.instant('purchase.complete.alert.print')}</p>
                     <div class="p-3 bg-light-gray select-text">
-                    <code>${error}</code>
+                    <code>${JSON.stringify(error)}</code>
+                </div>`
+            });
+        }
+    }
+
+    /**
+     * ドロワーを開く
+     */
+    public async openDrawer() {
+        try {
+            const { order } = await this.actionService.purchase.getData();
+            const { printer, drawer } = await this.actionService.user.getData();
+            if (order === undefined
+                || printer === undefined) {
+                throw new Error('order or printer undefined').message;
+            }
+            const isCash = order.paymentMethods.find(p => p.typeOf === factory.chevre.paymentMethodType.Cash);
+            if (isCash === undefined
+                || drawer === undefined
+                || !drawer) {
+                return;
+            }
+            await this.actionService.order.openDrawer({ printer });
+        } catch (error) {
+            this.utilService.openAlert({
+                title: this.translate.instant('common.error'),
+                body: `
+                <p class="mb-4">${this.translate.instant('purchase.complete.alert.drawer')}</p>
+                    <div class="p-3 bg-light-gray select-text">
+                    <code>${JSON.stringify(error)}</code>
                 </div>`
             });
         }

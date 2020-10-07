@@ -223,5 +223,44 @@ export class StarPrintService {
         });
     }
 
+    /**
+     * ドロワーを開く
+     */
+    public async openDrawer() {
+        return new Promise<void>((resolve, reject) => {
+            if (!this.isReady) {
+                reject({
+                    isSuccess: false,
+                    message: 'プリンターが初期化されていません',
+                    response: undefined
+                });
 
+                return;
+            }
+
+            // 印刷命令送信後処理
+            this.trader.onReceive = (response: any) => {
+                const result = this.getStatusByReceivedResponse(response);
+                if (!result.isSuccess) {
+                    reject(result);
+
+                    return;
+                }
+                resolve();
+            };
+
+            // 印刷命令失敗処理
+            this.trader.onError = (response: any) => {
+                reject({
+                    isSuccess: false,
+                    message: 'プリンターとの通信に失敗しました',
+                    response
+                });
+            };
+
+            // プリンターに送信
+            const request = this.builder.createPeripheralElement({ channel: 1, on: 200, off: 200 });
+            this.trader.sendMessage({ request });
+        });
+    }
 }
