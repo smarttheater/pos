@@ -191,7 +191,7 @@ interface IEnvironment {
     /**
      * 印刷QRコードタイプ
      */
-    PRINT_QRCODE_TYPE: 'None' | 'token' | 'Custom';
+    PRINT_QRCODE_TYPE: 'None' | 'token' | 'Custom' | 'Admission';
     /**
      * 印刷QRコードカスタム
      */

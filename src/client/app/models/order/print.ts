@@ -4,5 +4,6 @@
 export enum PrintQrcodeType {
     None = 'None',
     Token = 'token',
-    Custom = 'Custom'
+    Custom = 'Custom',
+    Admission = 'Admission'
 }
