@@ -12,6 +12,12 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/).
 
 ### Security
 
+## 3.4.3 - 2020-10-15
+### Added
+ - 入場方式追加
+### Changed
+ - PURCHASE_PRE_SCHEDULE_DATE廃止
+
 ## 3.4.2 - 2020-10-07
 ### Added
  - ドロワー連携追加
