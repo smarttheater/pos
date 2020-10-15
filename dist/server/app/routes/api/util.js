@@ -31,6 +31,7 @@ router.post('/project', (req, res) => __awaiter(void 0, void 0, void 0, function
                 projectId: projectId,
                 storageUrl: `${process.env.STORAGE_URL}/${projectId}`,
                 gmoTokenUrl: process.env.GMO_TOKEN_URL,
+                admissionApiEndpoint: process.env.ADMISSION_API_ENDPOINT,
                 env: process.env.NODE_ENV
             });
             return;
@@ -39,6 +40,7 @@ router.post('/project', (req, res) => __awaiter(void 0, void 0, void 0, function
             projectId: (process.env.PROJECT_ID === undefined) ? '' : process.env.PROJECT_ID,
             storageUrl: (process.env.PROJECT_STORAGE_URL === undefined) ? '' : process.env.PROJECT_STORAGE_URL,
             gmoTokenUrl: process.env.GMO_TOKEN_URL,
+            admissionApiEndpoint: process.env.ADMISSION_API_ENDPOINT,
             env: process.env.NODE_ENV
         });
     }

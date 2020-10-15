@@ -105,10 +105,6 @@ interface IEnvironment {
      */
     PURCHASE_TRANSACTION_IDENTIFIER: { name: string, value: string }[];
     /**
-     * 先行販売期間指定
-     */
-    PURCHASE_PRE_SCHEDULE_DATE: string;
-    /**
      * スケジュール初期選択日（相対的）
      */
     PURCHASE_SCHEDULE_DEFAULT_SELECTED_DATE: string;
@@ -195,7 +191,7 @@ interface IEnvironment {
     /**
      * 印刷QRコードタイプ
      */
-    PRINT_QRCODE_TYPE: 'None' | 'token' | 'Custom';
+    PRINT_QRCODE_TYPE: 'None' | 'token' | 'Custom' | 'Admission';
     /**
      * 印刷QRコードカスタム
      */
@@ -240,7 +236,6 @@ const defaultEnvironment: IEnvironment = {
     PURCHASE_TRANSACTION_TIME: '15',
     PURCHASE_TRANSACTION_TIME_DISPLAY: true,
     PURCHASE_TRANSACTION_IDENTIFIER: [],
-    PURCHASE_PRE_SCHEDULE_DATE: '3',
     PURCHASE_SCHEDULE_DEFAULT_SELECTED_DATE: '0',
     PURCHASE_SCHEDULE_STATUS_THRESHOLD_VALUE: '30',
     PURCHASE_SCHEDULE_STATUS_THRESHOLD_UNIT: '%',

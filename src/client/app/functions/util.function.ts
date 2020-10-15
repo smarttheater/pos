@@ -211,7 +211,12 @@ export function getParameter<T>() {
  */
 export function getProject() {
     const project = sessionStorage.getItem('PROJECT');
-    const defaultProject = { projectId: '', projectName: '', storageUrl: '' };
+    const defaultProject = {
+        projectId: '',
+        projectName: '',
+        storageUrl: '',
+        admissionApiEndpoint: ''
+    };
     if (project === null || project === '') {
         return defaultProject;
     }
@@ -221,6 +226,7 @@ export function getProject() {
             projectId: string;
             projectName: string;
             storageUrl: string;
+            admissionApiEndpoint: string;
         }>JSON.parse(project)
     };
 }
