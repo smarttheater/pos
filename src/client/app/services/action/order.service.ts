@@ -213,8 +213,28 @@ export class OrderService {
                             factory.chevre.reservationType.EventReservation
                         >>acceptedOffer.itemOffered;
                         const order = authorizeOrder;
-                        let qrcode = (environment.PRINT_QRCODE_TYPE === Models.Order.Print.PrintQrcodeType.None)
-                            ? undefined : itemOffered.reservedTicket.ticketToken;
+                        let qrcode;
+                        if (environment.PRINT_QRCODE_TYPE === Models.Order.Print.PrintQrcodeType.None) {
+                            // なし
+                            qrcode = undefined;
+                        } else if (environment.PRINT_QRCODE_TYPE === Models.Order.Print.PrintQrcodeType.Token) {
+                            // トークン
+                            qrcode = itemOffered.reservedTicket.ticketToken;
+                        } else if (environment.PRINT_QRCODE_TYPE === Models.Order.Print.PrintQrcodeType.Admission) {
+                            // 入場
+                            qrcode = JSON.stringify({
+                                orderNumber: authorizeOrder.orderNumber,
+                                id: itemOffered.id
+                            });
+                        } else if (environment.PRINT_QRCODE_TYPE === Models.Order.Print.PrintQrcodeType.Custom) {
+                            // カスタム文字列
+                            qrcode = this.createQRCode({
+                                qrcode: environment.PRINT_QRCODE_CUSTOM,
+                                order,
+                                itemOffered,
+                                index
+                            });
+                        }
                         const additionalProperty = (itemOffered.reservationFor.workPerformed !== undefined
                             && itemOffered.reservationFor.workPerformed.additionalProperty !== undefined
                             && itemOffered.reservationFor.workPerformed.additionalProperty.length > 0)
@@ -229,12 +249,6 @@ export class OrderService {
                             if (isDisplayQrcode !== undefined && isDisplayQrcode.value === 'false') {
                                 qrcode = undefined;
                             }
-                        }
-                        if (qrcode !== undefined
-                            && environment.PRINT_QRCODE_TYPE === Models.Order.Print.PrintQrcodeType.Custom) {
-                            // QRコードカスタム文字列
-                            qrcode = environment.PRINT_QRCODE_CUSTOM;
-                            qrcode = this.createQRCode({ qrcode, order, itemOffered, index });
                         }
                         const canvas = await Functions.Order.createPrintCanvas4Html({
                             view: <string>printData, order, pos, qrcode, index
@@ -283,8 +297,8 @@ export class OrderService {
             ];
             for (const path of paths) {
                 const url = (await Functions.Util.isFile(`${Functions.Util.getProject().storageUrl}${path}`))
-                        ? `${Functions.Util.getProject().storageUrl}${path}`
-                        : `/default${path}`;
+                    ? `${Functions.Util.getProject().storageUrl}${path}`
+                    : `/default${path}`;
                 const view = await this.utilService.getText<string>(url);
                 const canvas = await Functions.Order.createPrintCanvas4Html({
                     view: view, order, pos, index: 1
