@@ -151,7 +151,6 @@ export class AdmissionEffects {
         const { code, screeningEvent, scheduleDate } = params;
         const data: {
             orderNumber: string;
-            reservationNumber: string;
             id: string;
         } = JSON.parse(code);
         await this.cinerino.getServices();
@@ -205,7 +204,6 @@ export class AdmissionEffects {
 
     public async checkAdmissionAsync(params: {
         orderNumber: string;
-        reservationNumber: string;
         id: string;
         isReserved: boolean;
     }) {
