@@ -53,10 +53,9 @@ export class PurchaseCompleteComponent implements OnInit {
             this.router.navigate(['/error']);
             return;
         }
-
+        this.openDrawer();
         try {
             await this.regiGrowProcess();
-            await this.openDrawer();
             await this.print();
         } catch (error) {
             console.error(error);
