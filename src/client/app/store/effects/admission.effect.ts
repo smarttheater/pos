@@ -97,14 +97,21 @@ export class AdmissionEffects {
         })
     );
 
+    /**
+     * チケットトークンでの認証
+     */
     public async checkToken(params: {
         code: string;
         screeningEvent?: factory.chevre.event.screeningEvent.IEvent;
         scheduleDate: Date;
     }) {
         const { code, screeningEvent, scheduleDate } = params;
+        // 互換性維持
+        const ticketToken = (code.split('@').length > 1)
+            ? code.split('@')[1]
+            : code;
         await this.cinerino.getServices();
-        const { token } = await this.cinerino.admin.ownershipInfo.getToken({ code });
+        const { token } = await this.cinerino.admin.ownershipInfo.getToken({ code: ticketToken });
         const decodeResult = decode<Models.Admission.IDecodeResult>(token);
         const checkTokenActions =
             (await this.cinerino.admin.ownershipInfo.searchCheckTokenActions({ id: decodeResult.id })).data;
@@ -143,6 +150,9 @@ export class AdmissionEffects {
 
     }
 
+    /**
+     * 外部入場サービス連携での認証
+     */
     public async checkAdmission(params: {
         code: string;
         screeningEvent?: factory.chevre.event.screeningEvent.IEvent;
@@ -188,9 +198,43 @@ export class AdmissionEffects {
         const statusCode = OK;
 
         // 非同期
-        this.checkAdmissionAsync({
-            ...data, isReserved: (availableReservation !== undefined)
-        }).catch((error) => {
+        const linkData = async () => {
+            await this.cinerino.getServices();
+            const orderSearchResult = await this.cinerino.order.search({
+                orderNumbers: [data.orderNumber]
+            });
+            if (orderSearchResult.data.length === 0) {
+                throw new Error('order notfound');
+            }
+            const order = await this.cinerino.order.authorizeOwnershipInfos({
+                orderNumber: data.orderNumber,
+                customer: {
+                    telephone: orderSearchResult.data[0].customer.telephone
+                }
+            });
+            const findResult = order.acceptedOffers.find(a => {
+                if (a.itemOffered.typeOf !== factory.chevre.reservationType.EventReservation) {
+                    return false;
+                }
+                const i = <factory.chevre.reservation.IReservation<
+                    factory.chevre.reservationType.EventReservation
+                >>a.itemOffered;
+                return (i.id === data.id);
+            });
+            if (findResult === undefined) {
+                throw new Error('itemOffered notfound');
+            }
+            const itemOffered = <factory.chevre.reservation.IReservation<
+                factory.chevre.reservationType.EventReservation
+            >>findResult.itemOffered;
+            const ticketToken = itemOffered.reservedTicket.ticketToken;
+            if (ticketToken === undefined) {
+                throw new Error('ticketToken undefined');
+            }
+            const { token } = await this.cinerino.admin.ownershipInfo.getToken({ code: ticketToken });
+            await this.cinerino.reservation.findScreeningEventReservationByToken({ token });
+        };
+        linkData().catch((error) => {
             console.error(error);
         });
 
@@ -200,49 +244,5 @@ export class AdmissionEffects {
             statusCode,
         };
 
-    }
-
-    public async checkAdmissionAsync(params: {
-        orderNumber: string;
-        id: string;
-        isReserved: boolean;
-    }) {
-        await this.cinerino.getServices();
-        const searchResult = await this.cinerino.order.search({
-            orderNumbers: [params.orderNumber]
-        });
-        if (searchResult.data.length === 0) {
-            throw new Error('order notfound');
-        }
-        const order = await this.cinerino.order.authorizeOwnershipInfos({
-            orderNumber: params.orderNumber,
-            customer: {
-                telephone: searchResult.data[0].customer.telephone
-            }
-        });
-        const findResult = order.acceptedOffers.find(a => {
-            if (a.itemOffered.typeOf !== factory.chevre.reservationType.EventReservation) {
-                return false;
-            }
-            const i = <factory.chevre.reservation.IReservation<
-                factory.chevre.reservationType.EventReservation
-            >>a.itemOffered;
-            return (i.id === params.id);
-        });
-        if (findResult === undefined) {
-            throw new Error('itemOffered notfound');
-        }
-        const itemOffered = <factory.chevre.reservation.IReservation<
-            factory.chevre.reservationType.EventReservation
-        >>findResult.itemOffered;
-        const code = itemOffered.reservedTicket.ticketToken;
-        if (code === undefined) {
-            throw new Error('code undefined');
-        }
-        const { token } = await this.cinerino.admin.ownershipInfo.getToken({ code });
-        await this.cinerino.reservation.findScreeningEventReservationByToken({ token });
-        // const decodeResult = decode<Models.Admission.IDecodeResult>(token);
-        // const checkTokenActions =
-        //     (await this.cinerino.admin.ownershipInfo.searchCheckTokenActions({ id: decodeResult.id })).data;
     }
 }
