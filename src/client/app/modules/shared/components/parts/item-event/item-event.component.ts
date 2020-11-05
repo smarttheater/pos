@@ -12,11 +12,11 @@ export class ItemEventComponent implements OnInit {
     @Input() public screeningEvent: factory.chevre.event.screeningEvent.IEvent;
     public environment = getEnvironment();
     public moment = moment;
+    public Array = Array;
 
     constructor() { }
 
     public ngOnInit() {
-        console.log(this.screeningEvent);
     }
 
 }
