@@ -53,7 +53,6 @@ export class PurchaseCompleteComponent implements OnInit {
             this.router.navigate(['/error']);
             return;
         }
-        this.openDrawer();
         try {
             await this.regiGrowProcess();
             await this.print();
@@ -125,35 +124,6 @@ export class PurchaseCompleteComponent implements OnInit {
         }
     }
 
-    /**
-     * ドロワーを開く
-     */
-    public async openDrawer() {
-        try {
-            const { order } = await this.actionService.purchase.getData();
-            const { printer, drawer } = await this.actionService.user.getData();
-            if (order === undefined
-                || printer === undefined) {
-                throw new Error('order or printer undefined').message;
-            }
-            const isCash = order.paymentMethods.find(p => p.typeOf === factory.chevre.paymentMethodType.Cash);
-            if (isCash === undefined
-                || drawer === undefined
-                || !drawer) {
-                return;
-            }
-            await this.actionService.order.openDrawer({ printer });
-        } catch (error) {
-            this.utilService.openAlert({
-                title: this.translate.instant('common.error'),
-                body: `
-                <p class="mb-4">${this.translate.instant('purchase.complete.alert.drawer')}</p>
-                    <div class="p-3 bg-light-gray select-text">
-                    <code>${JSON.stringify(error)}</code>
-                </div>`
-            });
-        }
-    }
 
     /**
      * 領収書印刷

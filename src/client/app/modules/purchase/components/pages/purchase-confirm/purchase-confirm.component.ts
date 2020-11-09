@@ -69,6 +69,7 @@ export class PurchaseConfirmComponent implements OnInit {
                 });
                 return;
             }
+            this.openDrawer();
         }
         try {
             if (purchaseData.pendingMovieTickets.length > 0) {
@@ -93,6 +94,33 @@ export class PurchaseConfirmComponent implements OnInit {
      */
     public changeDepositAmount(value: number) {
         this.depositAmount = value;
+    }
+
+    /**
+     * ドロワーを開く
+     */
+    public async openDrawer() {
+        try {
+            const { order } = await this.actionService.purchase.getData();
+            const { printer, drawer } = await this.actionService.user.getData();
+            if (order === undefined
+                || printer === undefined) {
+                throw new Error('order or printer undefined').message;
+            }
+            if (drawer === undefined || !drawer) {
+                return;
+            }
+            await this.actionService.order.openDrawer({ printer });
+        } catch (error) {
+            this.utilService.openAlert({
+                title: this.translate.instant('common.error'),
+                body: `
+                <p class="mb-4">${this.translate.instant('purchase.complete.alert.drawer')}</p>
+                    <div class="p-3 bg-light-gray select-text">
+                    <code>${JSON.stringify(error)}</code>
+                </div>`
+            });
+        }
     }
 
 }
