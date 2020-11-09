@@ -101,9 +101,9 @@ export class PurchaseConfirmComponent implements OnInit {
      */
     public async openDrawer() {
         try {
-            const { order } = await this.actionService.purchase.getData();
+            const { paymentMethod } = await this.actionService.purchase.getData();
             const { printer, drawer } = await this.actionService.user.getData();
-            if (order === undefined
+            if (paymentMethod === undefined
                 || printer === undefined) {
                 throw new Error('order or printer undefined').message;
             }
