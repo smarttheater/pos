@@ -55,9 +55,6 @@ export class PurchasePaymentComponent implements OnInit {
                 return;
             }
             this.actionService.purchase.selectPaymentMethodType({ typeOf, category });
-            if (typeOf === factory.chevre.paymentMethodType.Cash) {
-                this.openDrawer();
-            }
             this.router.navigate(['/purchase/confirm']);
         } catch (error) {
             this.router.navigate(['/error']);
@@ -71,31 +68,6 @@ export class PurchasePaymentComponent implements OnInit {
     public isDisplay(paymentMethodType: factory.paymentMethodType | string) {
         const findResult = this.environment.PAYMENT_METHOD_TO_USE.find(p => p === paymentMethodType);
         return (findResult !== undefined);
-    }
-
-    /**
-     * ドロワーを開く
-     */
-    public async openDrawer() {
-        try {
-            const { printer, drawer } = await this.actionService.user.getData();
-            if (printer === undefined) {
-                throw new Error('printer undefined').message;
-            }
-            if (drawer === undefined || !drawer) {
-                return;
-            }
-            await this.actionService.order.openDrawer({ printer });
-        } catch (error) {
-            this.utilService.openAlert({
-                title: this.translate.instant('common.error'),
-                body: `
-                <p class="mb-4">${this.translate.instant('purchase.confirm.alert.drawer')}</p>
-                    <div class="p-3 bg-light-gray select-text">
-                    <code>${JSON.stringify(error)}</code>
-                </div>`
-            });
-        }
     }
 
 }
