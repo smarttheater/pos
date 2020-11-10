@@ -12,6 +12,11 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/).
 
 ### Security
 
+
+## 3.4.6 - 2020-11-10
+### Changed
+ - ドロワーを開くタイミング変更
+
 ## 3.4.5 - 2020-10-23
 ### Changed
  - 入場用QR2パターンのコードへの対応
