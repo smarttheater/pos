@@ -37,7 +37,8 @@
             "warning": "注意事項",
             "alert": {
                 "authorizeCreditCard": "クレジットカード情報を確認してください。",
-                "custody": "お預かり金額に誤りがあります。"
+                "custody": "お預かり金額に誤りがあります。",
+                "drawer": "ドロワーとの接続に失敗しました。"
             }
         },
         "complete": {
