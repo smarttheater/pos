@@ -12,6 +12,9 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/).
 
 ### Security
 
+## 3.4.7 - 2020-11-11
+### Added
+ - 決済方法へムビチケ購入番号表示追加
 
 ## 3.4.6 - 2020-11-10
 ### Changed
