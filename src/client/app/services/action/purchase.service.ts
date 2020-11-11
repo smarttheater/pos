@@ -112,13 +112,15 @@ export class PurchaseService {
         }
         const environment = getEnvironment();
         const now = (await this.utilService.getServerTime()).date;
-        const identifier = (pos === undefined)
-            ? [...environment.PURCHASE_TRANSACTION_IDENTIFIER]
-            : [
-                ...environment.PURCHASE_TRANSACTION_IDENTIFIER,
-                { name: 'posId', value: pos.id },
-                { name: 'posName', value: pos.name }
-            ];
+        const identifier = [
+            ...environment.PURCHASE_TRANSACTION_IDENTIFIER,
+            { name: 'userAgent', value: (navigator && navigator.userAgent !== undefined) ? navigator.userAgent : '' },
+            { name: 'appVersion', value: (navigator && navigator.appVersion !== undefined) ? navigator.appVersion : '' }
+        ];
+        if (pos !== undefined) {
+            identifier.push({ name: 'posId', value: pos.id });
+            identifier.push({ name: 'posName', value: pos.name });
+        }
         return new Promise<void>((resolve, reject) => {
             this.store.dispatch(purchaseAction.startTransaction({
                 expires: moment(now).add(environment.PURCHASE_TRANSACTION_TIME, 'minutes').toDate(),
