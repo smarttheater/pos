@@ -62,7 +62,7 @@ export class InquiryInputComponent implements OnInit {
                 Validators.required,
                 Validators.pattern(/^[0-9]+$/)
             ]],
-            telephone: ['', (this.environment.INQUIRY_INPUT_KEYPAD)
+            telephone: ['', (this.environment.INPUT_KEYPAD)
                 ? [
                     Validators.required,
                     Validators.maxLength(TEL_MAX_LENGTH),
@@ -101,14 +101,14 @@ export class InquiryInputComponent implements OnInit {
             this.inquiryForm.controls[key].markAsTouched();
         });
         this.inquiryForm.controls.confirmationNumber.setValue((<HTMLInputElement>document.getElementById('confirmationNumber')).value);
-        if (this.environment.INQUIRY_INPUT_KEYPAD) {
+        if (this.environment.INPUT_KEYPAD) {
             this.inquiryForm.controls.telephone.setValue((<HTMLInputElement>document.getElementById('telephone')).value);
         }
         if (this.inquiryForm.invalid) {
             return;
         }
         const confirmationNumber = this.inquiryForm.controls.confirmationNumber.value;
-        const telephone = (this.environment.INQUIRY_INPUT_KEYPAD)
+        const telephone = (this.environment.INPUT_KEYPAD)
             ? this.inquiryForm.controls.telephone.value
             : this.inquiryForm.controls.telephone.value.e164Number;
         try {

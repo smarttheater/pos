@@ -18,6 +18,7 @@ import { HeaderMenuComponent } from './components/parts/header-menu/header-menu.
 import { HeaderComponent } from './components/parts/header/header.component';
 import { ItemEventComponent } from './components/parts/item-event/item-event.component';
 import { ItemListComponent } from './components/parts/item-list/item-list.component';
+import { ItemPaymentMethodComponent } from './components/parts/item-payment-method/item-payment-method.component';
 import { LoadingComponent } from './components/parts/loading/loading.component';
 import { MovieTicketCheckModalComponent } from './components/parts/movie-ticket/check-modal/check-modal.component';
 import { NumericKeypadComponent } from './components/parts/numeric-keypad/numeric-keypad.component';
@@ -45,6 +46,7 @@ const components = [
   CheckboxComponent,
   QRCodeImageComponent,
   ItemEventComponent,
+  ItemPaymentMethodComponent,
 ];
 
 const entryComponents = [

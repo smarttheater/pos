@@ -33,49 +33,19 @@
 
             <div class="container px-0">
                 <div class="row align-items-center py-3">
-                    <p class="mb-2 mb-md-0 col-md-4">{{ 'common.paymentMethod' | translate }}</p>
-                    <div class="col-md-8">
-                        <div *ngFor="let paymentMethod of (purchase | async)?.order.paymentMethods">
-                            <div *ngIf="paymentMethod.typeOf === paymentMethodType.Cash">
-                                <p>{{ 'common.paymentMethodTypes.cash.label' | translate }}</p>
-                                <p *ngFor="let additionalProperty of paymentMethod.additionalProperty">
-                                    <span class="mr-2">{{ 'purchase.complete.' + additionalProperty.name | translate }}</span>{{ additionalProperty.value | currency : 'JPY' }}
-                                </p>
-                            </div>
-                            <p *ngIf="paymentMethod.typeOf === paymentMethodType.Account">
-                                {{ 'common.paymentMethodTypes.account.label' | translate }}
-                            </p>
-                            <p *ngIf="paymentMethod.typeOf === paymentMethodType.CreditCard">
-                                {{ 'common.paymentMethodTypes.creditCard.label' | translate }}
-                            </p>
-                            <p *ngIf="paymentMethod.typeOf === paymentMethodType.EMoney">
-                                {{ 'common.paymentMethodTypes.eMoney.label' | translate }}
-                            </p>
-                            <p *ngIf="paymentMethod.typeOf === paymentMethodType.MovieTicket">
-                                {{ 'common.paymentMethodTypes.movieTicket.label' | translate }}
-                            </p>
-                            <p *ngIf="paymentMethod.typeOf === paymentMethodType.Others 
-                                && paymentMethod.name === 'Others'">
-                                {{ 'common.paymentMethodTypes.others.label' | translate }}
-                            </p>
-                            <p *ngIf="paymentMethod.typeOf === paymentMethodType.Others 
-                                && paymentMethod.name === 'RegiGrow'">
-                                {{ 'common.paymentMethodTypes.regiGrow.label' | translate }}
-                            </p>
-                            <p *ngIf="paymentMethod.typeOf === paymentMethodType.Others 
-                                && paymentMethod.name !== 'Others' 
-                                && paymentMethod.name !== 'RegiGrow'">
-                                {{ getCustomPaymentMethodTypeName({ typeOf: paymentMethod.typeOf, category: paymentMethod.name}) | changeLanguage }}
-                            </p>
-                        </div>
-                    </div>
-                </div>
-                <hr class="border-gray my-0">
-                <div class="row align-items-center py-3">
                     <p class="mb-2 mb-md-0 col-md-4">{{ 'common.amount' | translate }}</p>
                     <p class="col-md-8 font-weight-bold text-large text-info">
                         {{ (purchase | async)?.order.price | currency : 'JPY' }}</p>
                 </div>
+                <hr class="border-gray my-0">
+                <div class="row align-items-center py-3">
+                    <p class="mb-2 mb-md-0 col-md-4">{{ 'common.paymentMethod' | translate }}</p>
+                    <div class="col-md-8">
+                        <app-item-payment-method [paymentMethods]="(purchase | async)?.order.paymentMethods">
+                        </app-item-payment-method>
+                    </div>
+                </div>
+                
             </div>
         </div>
 
