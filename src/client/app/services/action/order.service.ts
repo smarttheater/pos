@@ -186,9 +186,14 @@ export class OrderService {
             let authorizeOrders: factory.order.IOrder[] = [];
             if (environment.PRINT_QRCODE_TYPE === Models.Order.Print.PrintQrcodeType.None) {
                 authorizeOrders = orders;
-            } else {
+            } else if (environment.PRINT_QRCODE_TYPE === Models.Order.Print.PrintQrcodeType.Token) {
                 for (const order of orders) {
                     authorizeOrders.push(await this.authorizeOwnershipInfos({ order }));
+                }
+            } else {
+                authorizeOrders = orders;
+                for (const order of orders) {
+                    this.authorizeOwnershipInfos({ order });
                 }
             }
             const testFlg = authorizeOrders.length === 0;
@@ -328,8 +333,8 @@ export class OrderService {
                 const authorizeOrder = await this.cinerinoService.order.authorizeOwnershipInfos({ orderNumber, customer });
                 return authorizeOrder;
             }),
-            interval: 5000,
-            limit: 5
+            interval: 2000,
+            limit: 10
         });
         return result;
     }
