@@ -12,6 +12,13 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/).
 
 ### Security
 
+## 3.4.8 - 2020-11-12
+### Changed
+ - QR表示「Token」以外の発券処理をを非同期へ変更
+ - 「満席」文字色を赤から白へ変更
+### Added
+ - 取引へ端末情報を追加
+
 ## 3.4.7 - 2020-11-11
 ### Added
  - 決済方法へムビチケ購入番号表示追加
