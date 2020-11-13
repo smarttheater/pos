@@ -59,10 +59,8 @@ export class AdmissionEffects {
             const environment = getEnvironment();
             try {
                 let qrcodeToken: {
-                    token?: string;
-                    decodeResult?: Models.Admission.IDecodeResult;
                     availableReservation?: factory.chevre.reservation.IReservation<factory.chevre.reservationType.EventReservation>;
-                    checkTokenActions: factory.action.check.token.IAction[];
+                    checkTokenActions: factory.action.IAction<factory.action.IAttributes<factory.actionType, any, any>>[] | string[];
                     statusCode: number;
                 };
                 if (environment.PRINT_QRCODE_TYPE === Models.Order.Print.PrintQrcodeType.Token) {
@@ -114,7 +112,11 @@ export class AdmissionEffects {
         const { token } = await this.cinerino.admin.ownershipInfo.getToken({ code: ticketToken });
         const decodeResult = decode<Models.Admission.IDecodeResult>(token);
         const checkTokenActions =
-            (await this.cinerino.admin.ownershipInfo.searchCheckTokenActions({ id: decodeResult.id })).data;
+            (await this.cinerino.reservation.searchUseActions({
+                object: {
+                    id: decodeResult.typeOfGood.id
+                }
+            })).data;
         const searchResult =
             await this.cinerino.reservation.search<factory.chevre.reservationType.EventReservation>({
                 typeOf: factory.chevre.reservationType.EventReservation,
@@ -141,8 +143,6 @@ export class AdmissionEffects {
         }
 
         return {
-            token,
-            decodeResult,
             availableReservation,
             checkTokenActions,
             statusCode,
@@ -189,7 +189,7 @@ export class AdmissionEffects {
         }>(admissionApiEndpoint, {
             id: data.id
         });
-        const checkTokenActions: any[] = [];
+        const checkTokenActions: string[] = [];
         for (let i = 0; i < admissionResult.result.count - 1; i++) {
             checkTokenActions.push(admissionResult.result.id);
         }
