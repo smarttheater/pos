@@ -25,9 +25,7 @@ export class ItemPaymentMethodComponent implements OnInit {
     }
 
     public getPaymentMethodLabel(paymentMethod: factory.order.IPaymentMethod) {
-        if (paymentMethod.typeOf === factory.chevre.paymentMethodType.Account) {
-            return this.translate.instant('common.paymentMethodTypes.account.label');
-        } else if (paymentMethod.typeOf === factory.chevre.paymentMethodType.Cash) {
+        if (paymentMethod.typeOf === factory.chevre.paymentMethodType.Cash) {
             return this.translate.instant('common.paymentMethodTypes.cash.label');
         } else if (paymentMethod.typeOf === factory.chevre.paymentMethodType.CreditCard) {
             return this.translate.instant('common.paymentMethodTypes.creditCard.label');

@@ -47,8 +47,6 @@
                         <span
                             *ngIf="(purchase | async)?.paymentMethod.typeOf === paymentMethodType.Cash">{{ 'common.paymentMethodTypes.cash.label' | translate }}</span>
                         <span
-                            *ngIf="(purchase | async)?.paymentMethod.typeOf === paymentMethodType.Account">{{ 'common.paymentMethodTypes.account.label' | translate }}</span>
-                        <span
                             *ngIf="(purchase | async)?.paymentMethod.typeOf === paymentMethodType.CreditCard">{{ 'common.paymentMethodTypes.creditCard.label' | translate }}</span>
                         <span
                             *ngIf="(purchase | async)?.paymentMethod.typeOf === paymentMethodType.EMoney">{{ 'common.paymentMethodTypes.eMoney.label' | translate }}</span>

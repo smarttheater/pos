@@ -109,14 +109,8 @@ export class AdmissionEffects {
             ? code.split('@')[1]
             : code;
         await this.cinerino.getServices();
-        const { token } = await this.cinerino.admin.ownershipInfo.getToken({ code: ticketToken });
+        const { token } = await this.cinerino.token.getToken({ code: ticketToken });
         const decodeResult = decode<Models.Admission.IDecodeResult>(token);
-        const checkTokenActions =
-            (await this.cinerino.reservation.searchUseActions({
-                object: {
-                    id: decodeResult.typeOfGood.id
-                }
-            })).data;
         const searchResult =
             await this.cinerino.reservation.search<factory.chevre.reservationType.EventReservation>({
                 typeOf: factory.chevre.reservationType.EventReservation,
@@ -135,11 +129,20 @@ export class AdmissionEffects {
             throw new Error('searchResult.data.length > 1 or searchResult.data.length === 0');
         }
         const availableReservation = searchResult.data[0];
+        const checkTokenActions =
+            (await this.cinerino.reservation.searchUseActions({
+                object: {
+                    id: decodeResult.typeOfGood.id
+                }
+            })).data;
 
         // 利用可能判定
         const statusCode = OK;
         if (searchResult.data.length > 0) {
-            this.cinerino.reservation.findScreeningEventReservationByToken({ token });
+            this.cinerino.reservation.useByToken({
+                object: { id: decodeResult.typeOfGood.id },
+                instrument: { token }
+            });
         }
 
         return {
@@ -231,8 +234,12 @@ export class AdmissionEffects {
             if (ticketToken === undefined) {
                 throw new Error('ticketToken undefined');
             }
-            const { token } = await this.cinerino.admin.ownershipInfo.getToken({ code: ticketToken });
-            await this.cinerino.reservation.findScreeningEventReservationByToken({ token });
+            const { token } = await this.cinerino.token.getToken({ code: ticketToken });
+            const decodeResult = decode<Models.Admission.IDecodeResult>(token);
+            await this.cinerino.reservation.useByToken({
+                object: { id: decodeResult.typeOfGood.id },
+                instrument: { token }
+            });
         };
         linkData().catch((error) => {
             console.error(error);
