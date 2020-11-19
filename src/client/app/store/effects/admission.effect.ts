@@ -111,6 +111,9 @@ export class AdmissionEffects {
         await this.cinerino.getServices();
         const { token } = await this.cinerino.token.getToken({ code: ticketToken });
         const decodeResult = decode<Models.Admission.IDecodeResult>(token);
+        const reservationId = (code.split('@').length > 1)
+            ? code.split('@')[0]
+            : decodeResult.typeOfGood.id;
         const searchResult =
             await this.cinerino.reservation.search<factory.chevre.reservationType.EventReservation>({
                 typeOf: factory.chevre.reservationType.EventReservation,
@@ -122,7 +125,7 @@ export class AdmissionEffects {
                     startFrom: scheduleDate,
                     startThrough: moment(scheduleDate).add(1, 'day').toDate()
                 },
-                ids: [decodeResult.typeOfGood.id]
+                ids: [reservationId]
             });
         if (searchResult.data.length > 1
             || searchResult.data.length === 0) {
@@ -131,18 +134,21 @@ export class AdmissionEffects {
         const availableReservation = searchResult.data[0];
         const checkTokenActions =
             (await this.cinerino.reservation.searchUseActions({
-                object: {
-                    id: decodeResult.typeOfGood.id
-                }
+                object: { id: reservationId }
             })).data;
 
         // 利用可能判定
         const statusCode = OK;
         if (searchResult.data.length > 0) {
-            this.cinerino.reservation.useByToken({
-                object: { id: decodeResult.typeOfGood.id },
-                instrument: { token }
-            });
+            // 互換性維持
+            if ((code.split('@').length > 1)) {
+                this.cinerino.reservation.useByToken({
+                    object: { id: reservationId },
+                    instrument: { token }
+                });
+            } else {
+                this.cinerino.reservation.findScreeningEventReservationByToken({ token });
+            }
         }
 
         return {
@@ -150,7 +156,6 @@ export class AdmissionEffects {
             checkTokenActions,
             statusCode,
         };
-
     }
 
     /**
@@ -161,11 +166,11 @@ export class AdmissionEffects {
         screeningEvent?: factory.chevre.event.screeningEvent.IEvent;
         scheduleDate: Date;
     }) {
+        const environment = getEnvironment();
         const { code, screeningEvent, scheduleDate } = params;
-        const data: {
-            orderNumber: string;
-            id: string;
-        } = JSON.parse(code);
+        const data: { orderNumber: string; id: string; } = JSON.parse(code);
+        const orderNumber = data.orderNumber;
+        const reservationId = data.id;
         await this.cinerino.getServices();
         const searchResult =
             await this.cinerino.reservation.search<factory.chevre.reservationType.EventReservation>({
@@ -178,7 +183,7 @@ export class AdmissionEffects {
                     startFrom: scheduleDate,
                     startThrough: moment(scheduleDate).add(1, 'day').toDate()
                 },
-                ids: [data.id]
+                ids: [reservationId]
             });
         if (searchResult.data.length > 1
             || searchResult.data.length === 0) {
@@ -204,40 +209,29 @@ export class AdmissionEffects {
         const linkData = async () => {
             await this.cinerino.getServices();
             const orderSearchResult = await this.cinerino.order.search({
-                orderNumbers: [data.orderNumber]
+                orderNumbers: [orderNumber]
             });
             if (orderSearchResult.data.length === 0) {
                 throw new Error('order notfound');
             }
-            const order = await this.cinerino.order.authorizeOwnershipInfos({
-                orderNumber: data.orderNumber,
-                customer: {
-                    telephone: orderSearchResult.data[0].customer.telephone
+            const order = await this.cinerino.order.authorize({
+                object: {
+                    orderNumber,
+                    customer: {
+                        telephone: orderSearchResult.data[0].customer.telephone
+                    }
+                },
+                result: {
+                    expiresInSeconds: Number(environment.ORDER_AUTHORIZE_CODE_EXPIRES)
                 }
             });
-            const findResult = order.acceptedOffers.find(a => {
-                if (a.itemOffered.typeOf !== factory.chevre.reservationType.EventReservation) {
-                    return false;
-                }
-                const i = <factory.chevre.reservation.IReservation<
-                    factory.chevre.reservationType.EventReservation
-                >>a.itemOffered;
-                return (i.id === data.id);
-            });
-            if (findResult === undefined) {
-                throw new Error('itemOffered notfound');
-            }
-            const itemOffered = <factory.chevre.reservation.IReservation<
-                factory.chevre.reservationType.EventReservation
-            >>findResult.itemOffered;
-            const ticketToken = itemOffered.reservedTicket.ticketToken;
+            const ticketToken = order.code;
             if (ticketToken === undefined) {
                 throw new Error('ticketToken undefined');
             }
             const { token } = await this.cinerino.token.getToken({ code: ticketToken });
-            const decodeResult = decode<Models.Admission.IDecodeResult>(token);
             await this.cinerino.reservation.useByToken({
-                object: { id: decodeResult.typeOfGood.id },
+                object: { id: reservationId },
                 instrument: { token }
             });
         };
