@@ -183,17 +183,19 @@ export class OrderService {
                 this.utilService.loadStart({ process: 'orderAction.Print' });
             }
             await this.cinerinoService.getServices();
-            let authorizeOrders: factory.order.IOrder[] = [];
+            const authorizeOrders: { order: factory.order.IOrder; code?: string; }[] = [];
             if (environment.PRINT_QRCODE_TYPE === Models.Order.Print.PrintQrcodeType.None) {
-                authorizeOrders = orders;
+                for (const order of orders) {
+                    authorizeOrders.push({ order });
+                }
             } else if (environment.PRINT_QRCODE_TYPE === Models.Order.Print.PrintQrcodeType.Token) {
                 for (const order of orders) {
-                    authorizeOrders.push(await this.authorizeOwnershipInfos({ order }));
+                    authorizeOrders.push({ order, code: await this.authorizeOrder({ order }) });
                 }
             } else {
-                authorizeOrders = orders;
                 for (const order of orders) {
-                    this.authorizeOwnershipInfos({ order });
+                    authorizeOrders.push({ order });
+                    this.authorizeOrder({ order });
                 }
             }
             const testFlg = authorizeOrders.length === 0;
@@ -208,16 +210,21 @@ export class OrderService {
                 const canvas = await Functions.Order.createTestPrintCanvas4Html({ view: <string>printData });
                 canvasList.push(canvas);
             } else {
-                for (const order of authorizeOrders) {
+                for (const authorizeOrder of authorizeOrders) {
                     let index = 0;
-                    for (const acceptedOffer of order.acceptedOffers) {
-                        const qrcode = Functions.Order.createQRCode(
+                    for (const acceptedOffer of authorizeOrder.order.acceptedOffers) {
+                        const qrcode = Functions.Order.createQRCode({
                             acceptedOffer,
-                            order,
-                            index
-                        );
+                            order: authorizeOrder.order,
+                            index,
+                            code: authorizeOrder.code
+                        });
                         const canvas = await Functions.Order.createPrintCanvas4Html({
-                            view: <string>printData, order, pos, qrcode, index
+                            view: <string>printData,
+                            order: authorizeOrder.order,
+                            pos,
+                            qrcode,
+                            index
                         });
                         canvasList.push(canvas);
                         index++;
@@ -320,18 +327,24 @@ export class OrderService {
     }
 
     /**
-     * 注文へ所有権発行
+     * 注文コード発行
      */
-    private async authorizeOwnershipInfos(params: {
+    private async authorizeOrder(params: {
         order: factory.order.IOrder;
     }) {
+        const environment = getEnvironment();
         const order = params.order;
-        const result = await Functions.Util.retry<factory.order.IOrder>({
+        const result = await Functions.Util.retry<string>({
             process: (async () => {
                 const orderNumber = order.orderNumber;
                 const customer = { telephone: order.customer.telephone };
-                const authorizeOrder = await this.cinerinoService.order.authorizeOwnershipInfos({ orderNumber, customer });
-                return authorizeOrder;
+                const { code } = await this.cinerinoService.order.authorize({
+                    object: { orderNumber, customer },
+                    result: {
+                        expiresInSeconds: Number(environment.ORDER_AUTHORIZE_CODE_EXPIRES)
+                    }
+                });
+                return code;
             }),
             interval: 2000,
             limit: 10
