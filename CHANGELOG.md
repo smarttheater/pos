@@ -12,6 +12,10 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/).
 
 ### Security
 
+## 3.4.9 - 2020-11-20
+### Changed
+ - 入場:新しいコードへ対応（互換性あり）
+
 ## 3.4.8 - 2020-11-12
 ### Changed
  - QR表示「Token」以外の発券処理をを非同期へ変更
