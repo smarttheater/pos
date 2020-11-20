@@ -1,7 +1,6 @@
 import { factory } from '@cinerino/sdk';
 import { Action, createReducer, on } from '@ngrx/store';
 import { IState } from '.';
-import { Models } from '../..';
 import { admissionAction } from '../actions';
 
 export interface IAdmissionState {
@@ -9,10 +8,8 @@ export interface IAdmissionState {
     screeningEvent?: factory.chevre.event.screeningEvent.IEvent;
     screeningEventReservations: factory.chevre.reservation.IReservation<factory.chevre.reservationType.EventReservation>[];
     qrcodeToken?: {
-        token?: string;
-        decodeResult?: Models.Admission.IDecodeResult;
         availableReservation?: factory.chevre.reservation.IReservation<factory.chevre.reservationType.EventReservation>;
-        checkTokenActions: factory.action.check.token.IAction[];
+        checkTokenActions: factory.action.IAction<factory.action.IAttributes<factory.actionType, any, any>>[] | string[];
         statusCode: number;
     };
     specified: boolean;
@@ -61,7 +58,7 @@ export function reducer(initialState: IState, action: Action) {
         }),
         on(admissionAction.getScreeningEventFail, (state, payload) => {
             const error = payload.error;
-            return { ...state, error: (error.message) ? error.message :  JSON.stringify(error) };
+            return { ...state, error: (error.message) ? error.message : JSON.stringify(error) };
         }),
         on(admissionAction.initializeQrcodeToken, (state) => {
             const qrcodeToken = undefined;
@@ -72,16 +69,20 @@ export function reducer(initialState: IState, action: Action) {
         }),
         on(admissionAction.checkSuccess, (state, payload) => {
             const qrcodeToken = payload.qrcodeToken;
-            const screeningEvent = (payload.screeningEvent === undefined) ? undefined : payload.screeningEvent;
-            return { ...state, admissionData: {
-                ...state.admissionData,
-                qrcodeToken,
-                screeningEvent
-            }, loading: false, process: '', error: null };
+            const screeningEvent = (payload.screeningEvent === undefined)
+                ? undefined
+                : payload.screeningEvent;
+            return {
+                ...state, admissionData: {
+                    ...state.admissionData,
+                    qrcodeToken,
+                    screeningEvent
+                }, loading: false, process: '', error: null
+            };
         }),
         on(admissionAction.checkFail, (state, payload) => {
             const error = payload.error;
-            return { ...state, error: (error.message) ? error.message :  JSON.stringify(error), loading: false, process: '' };
+            return { ...state, error: (error.message) ? error.message : JSON.stringify(error), loading: false, process: '' };
         })
     )(initialState, action);
 }
