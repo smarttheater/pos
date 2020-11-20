@@ -1,6 +1,6 @@
 {
   "name": "smart-theater-pos",
-  "version": "3.4.8",
+  "version": "3.4.9",
   "license": "MIT",
   "author": {
     "name": "Motionpicture co.,ltd."
@@ -42,7 +42,7 @@
     "@angular/platform-browser": "^10.0.7",
     "@angular/platform-browser-dynamic": "^10.0.7",
     "@angular/router": "^10.0.7",
-    "@cinerino/sdk": "^1.12.0",
+    "@cinerino/sdk": "^1.17.0",
     "@fortawesome/fontawesome-free": "^5.13.0",
     "@ngrx/effects": "^9.2.0",
     "@ngrx/store": "^9.2.0",
@@ -111,6 +111,8 @@
     "@types/platform": "^1.3.2",
     "@types/qrcode": "^0.8.0",
     "@types/redis": "^2.8.25",
+    "@types/request": "^2.48.5",
+    "@types/request-promise-native": "^1.0.17",
     "@types/uuid": "^3.4.6",
     "autoprefixer": "^8.6.4",
     "codelyzer": "^6.0.0",

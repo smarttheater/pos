@@ -172,7 +172,7 @@ export class OrderEffects {
                 await this.cinerino.getServices();
                 const now = (await this.utilService.getServerTime()).date;
                 const today = moment(moment(now).format('YYYYMMDD')).toISOString();
-                const confirmationNumber = Number(payload.confirmationNumber);
+                const confirmationNumber = payload.confirmationNumber;
                 const customer = {
                     telephone: (payload.customer.telephone === undefined)
                         ? '' : Functions.Util.formatTelephone(payload.customer.telephone)
