@@ -353,30 +353,6 @@ export class OrderService {
     }
 
     /**
-     * 注文承認
-     */
-    public async authorize(order: factory.order.IOrder) {
-        return new Promise<void>((resolve, reject) => {
-            this.store.dispatch(orderAction.orderAuthorize({
-                orderNumber: order.orderNumber,
-                customer: {
-                    telephone: order.customer.telephone
-                }
-            }));
-            const success = this.actions.pipe(
-                ofType(orderAction.orderAuthorizeSuccess.type),
-                tap(() => { resolve(); })
-            );
-
-            const fail = this.actions.pipe(
-                ofType(orderAction.orderAuthorizeFail.type),
-                tap(() => { this.error.subscribe((error) => { reject(error); }).unsubscribe(); })
-            );
-            race(success, fail).pipe(take(1)).subscribe();
-        });
-    }
-
-    /**
      * ドロワーを開く
      */
     public async openDrawer(params: {
