@@ -12,6 +12,10 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/).
 
 ### Security
 
+## 3.4.10 - 2020-11-25
+### Changed
+ - 発券:新しいコードへ変更
+
 ## 3.4.9 - 2020-11-20
 ### Changed
  - 入場:新しいコードへ対応（互換性あり）
