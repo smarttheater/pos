@@ -69,7 +69,7 @@ export class PurchaseConfirmComponent implements OnInit {
                 });
                 return;
             }
-            this.openDrawer();
+            await this.openDrawer();
         }
         try {
             if (purchaseData.pendingMovieTickets.length > 0) {

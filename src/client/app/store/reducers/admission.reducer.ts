@@ -70,7 +70,7 @@ export function reducer(initialState: IState, action: Action) {
         on(admissionAction.checkSuccess, (state, payload) => {
             const qrcodeToken = payload.qrcodeToken;
             const screeningEvent = (payload.screeningEvent === undefined)
-                ? undefined
+                ? state.admissionData.screeningEvent
                 : payload.screeningEvent;
             return {
                 ...state, admissionData: {
