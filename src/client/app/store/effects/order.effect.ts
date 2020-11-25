@@ -198,23 +198,4 @@ export class OrderEffects {
         })
     );
 
-    /**
-     * orderAuthorize
-     */
-    @Effect()
-    public orderAuthorize = this.actions.pipe(
-        ofType(orderAction.orderAuthorize),
-        map(action => action),
-        mergeMap(async (payload) => {
-            try {
-                const params = Object.assign({ personId: 'me' }, payload);
-                await this.cinerino.getServices();
-                const order = await this.cinerino.order.authorizeOwnershipInfos(params);
-                return orderAction.orderAuthorizeSuccess({ order });
-            } catch (error) {
-                return orderAction.orderAuthorizeFail({ error: error });
-            }
-        })
-    );
-
 }
