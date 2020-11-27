@@ -12,9 +12,18 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/).
 
 ### Security
 
+## 3.4.11 - 2020-11-27
+### Changed
+ - MGチケットQRコード対応
+### Fixed
+ - QRコードカメラ読み取り調整
+
 ## 3.4.10 - 2020-11-25
 ### Changed
  - 発券:新しいコードへ変更
+ - ドロワーを同期処理へ変更
+### Fixed
+ - 入場エラーでイベント変更される不具合修正
 
 ## 3.4.9 - 2020-11-20
 ### Changed
