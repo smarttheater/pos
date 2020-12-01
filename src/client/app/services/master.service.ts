@@ -127,7 +127,7 @@ export class MasterService {
                     screeningEvents: result
                 });
             }
-            const mergeResult = this.mergeWorkPerformed({
+            const mergeResult = await this.mergeWorkPerformed({
                 screeningEvents: result,
                 scheduleDate: params.startFrom
             });
