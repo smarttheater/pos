@@ -37,7 +37,7 @@ export class OrderEffects {
                 await this.cinerino.getServices();
                 for (const order of orders) {
                     const startResult = await this.cinerino.transaction.returnOrder.start({
-                        expires: moment().add(1, 'day').toDate(),
+                        expires: moment().add(1, 'day').add(-1, 'millisecond').toDate(),
                         object: {
                             order: {
                                 orderNumber: order.orderNumber,

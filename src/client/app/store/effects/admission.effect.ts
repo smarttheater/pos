@@ -123,7 +123,7 @@ export class AdmissionEffects {
                     typeOf: factory.chevre.eventType.ScreeningEvent,
                     id: (screeningEvent === undefined) ? undefined : screeningEvent.id,
                     startFrom: scheduleDate,
-                    startThrough: moment(scheduleDate).add(1, 'day').toDate()
+                    startThrough: moment(scheduleDate).add(1, 'day').add(-1, 'millisecond').toDate()
                 },
                 ids: [reservationId]
             });
@@ -181,7 +181,7 @@ export class AdmissionEffects {
                     typeOf: factory.chevre.eventType.ScreeningEvent,
                     id: (screeningEvent === undefined) ? undefined : screeningEvent.id,
                     startFrom: scheduleDate,
-                    startThrough: moment(scheduleDate).add(1, 'day').toDate()
+                    startThrough: moment(scheduleDate).add(1, 'day').add(-1, 'millisecond').toDate()
                 },
                 ids: [reservationId]
             });

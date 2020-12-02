@@ -283,7 +283,7 @@ export function input2OrderSearchCondition(params: {
             : moment(moment(input.orderDateFrom).format('YYYYMMDD')).toDate(),
         orderDateThrough: (input.orderDateThrough === undefined)
             ? undefined
-            : moment(moment(input.orderDateThrough).format('YYYYMMDD')).add(1, 'day').toDate(),
+            : moment(moment(input.orderDateThrough).format('YYYYMMDD')).add(1, 'day').add(-1, 'millisecond').toDate(),
         confirmationNumbers: (input.confirmationNumber === '')
             ? undefined : [input.confirmationNumber],
         orderNumbers: (input.orderNumber === '')
@@ -299,7 +299,7 @@ export function input2OrderSearchCondition(params: {
                     inSessionThrough: (input.eventStartDateThrough === undefined)
                         ? undefined
                         : moment(moment(input.eventStartDateThrough)
-                            .format('YYYYMMDD')).add(1, 'day').toDate(),
+                            .format('YYYYMMDD')).add(1, 'day').add(-1, 'millisecond').toDate(),
                     superEvent: {
                         location: { branchCodes: (theater === undefined) ? [] : [theater.branchCode] }
                     }

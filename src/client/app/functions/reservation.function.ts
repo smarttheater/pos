@@ -52,14 +52,14 @@ export function input2ReservationSearchCondition(params: {
             : moment(moment(input.reservationDateFrom).format('YYYYMMDD')).toDate(),
         bookingThrough: (input.reservationDateThrough === undefined)
             ? undefined
-            : moment(moment(input.reservationDateThrough).format('YYYYMMDD')).add(1, 'day').toDate(),
+            : moment(moment(input.reservationDateThrough).format('YYYYMMDD')).add(1, 'day').add(-1, 'millisecond').toDate(),
         reservationFor: {
             startFrom: (input.eventStartDateFrom === undefined)
                 ? undefined
                 : moment(moment(input.eventStartDateFrom).format('YYYYMMDD')).toDate(),
             startThrough: (input.eventStartDateThrough === undefined)
                 ? undefined
-                : moment(moment(input.eventStartDateThrough).format('YYYYMMDD')).add(1, 'day').toDate(),
+                : moment(moment(input.eventStartDateThrough).format('YYYYMMDD')).add(1, 'day').add(-1, 'millisecond').toDate(),
             superEvent: {
                 location: { branchCodes: (theater === undefined) ? [] : [theater.branchCode] }
             }

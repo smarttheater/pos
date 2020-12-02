@@ -127,7 +127,7 @@ export class MasterService {
                     screeningEvents: result
                 });
             }
-            const mergeResult = this.mergeWorkPerformed({
+            const mergeResult = await this.mergeWorkPerformed({
                 screeningEvents: result,
                 scheduleDate: params.startFrom
             });
@@ -278,10 +278,10 @@ export class MasterService {
                 limit,
                 offers: {
                     availableFrom: moment(scheduleDate).toDate(),
-                    // availableThrough: moment(scheduleDate).add(1, 'day').toDate()
+                    // availableThrough: moment(scheduleDate).add(1, 'day').add(-1, 'millisecond').toDate()
                 },
                 // datePublishedFrom: moment(scheduleDate).toDate(),
-                // datePublishedThrough: moment(scheduleDate).add(1, 'day').toDate()
+                // datePublishedThrough: moment(scheduleDate).add(1, 'day').add(-1, 'millisecond').toDate()
             });
             result = [...result, ...searchResult.data];
             page++;
