@@ -451,8 +451,22 @@ export class PurchaseEffects {
                     }, { async: true });
                 }
 
-                const result = await this.cinerinoService.transaction.placeOrder.confirm(params);
-                return purchaseAction.endTransactionSuccess({ order: result.order });
+                const { order } = await this.cinerinoService.transaction.placeOrder.confirm(params);
+                try {
+                    await this.cinerinoService.order.placeOrder({
+                        object: {
+                            orderNumber: order.orderNumber,
+                            confirmationNumber: order.confirmationNumber
+                        },
+                        purpose: {
+                            typeOf: factory.transactionType.PlaceOrder,
+                            id: transaction.id
+                        }
+                    });
+                } catch (error) {
+                    console.error(error);
+                }
+                return purchaseAction.endTransactionSuccess({ order });
             } catch (error) {
                 await this.cinerinoService.transaction.placeOrder.cancel({
                     id: transaction.id
