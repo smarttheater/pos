@@ -80,7 +80,7 @@ export class AdmissionScheduleComponent implements OnInit, OnDestroy {
             const screeningEvents = await this.masterService.getSchedule({
                 superEvent: { locationBranchCodes: [theater.branchCode] },
                 startFrom: moment(scheduleDate).toDate(),
-                startThrough: moment(scheduleDate).add(1, 'day').toDate()
+                startThrough: moment(scheduleDate).add(1, 'day').add(-1, 'millisecond').toDate()
             });
             this.screeningEventsGroup =
                 Functions.Purchase.screeningEvents2ScreeningEventSeries({ screeningEvents });
