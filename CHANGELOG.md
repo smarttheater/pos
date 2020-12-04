@@ -12,6 +12,10 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/).
 
 ### Security
 
+## 3.4.12 - 2020-12-02
+### Fixed
+ - オンライン表示開始日時不具合修正
+
 ## 3.4.11 - 2020-11-27
 ### Changed
  - MGチケットQRコード対応
