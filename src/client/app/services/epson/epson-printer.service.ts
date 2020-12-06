@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Models } from '../..';
+import { Functions, Models } from '../..';
 
 @Injectable({
     providedIn: 'root'
@@ -90,6 +90,7 @@ export class EpsonPrinterService {
         for (const canvas of canvasList) {
             const mode = 'MODE_MONO';
             const cut = true;
+            await Functions.Util.sleep(1500);
             this.device.print(canvas, cut, this.device[mode]);
         }
     }
