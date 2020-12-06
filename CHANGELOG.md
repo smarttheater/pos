@@ -12,6 +12,12 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/).
 
 ### Security
 
+## 3.4.13 - 2020-12-06
+### Changed
+ - 注文作成を同期的に実行へ変更
+### Fixed
+ - Epsonプリンター調整
+
 ## 3.4.12 - 2020-12-02
 ### Fixed
  - オンライン表示開始日時不具合修正
