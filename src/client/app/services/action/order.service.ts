@@ -75,6 +75,8 @@ export class OrderService {
             this.utilService.loadStart({ process: 'orderAction.Search' });
             await this.cinerinoService.getServices();
             let orders: factory.order.IOrder[] = [];
+
+            params.orderDateThrough = moment(params.orderDateThrough).add(1, 'millisecond').toDate();
             const splitDay = 1;
             const splitCount =
                 Math.ceil(moment(params.orderDateThrough).diff(moment(params.orderDateFrom), 'days') / splitDay);
@@ -90,7 +92,11 @@ export class OrderService {
                 while (roop) {
                     params.limit = limit;
                     params.page = page;
-                    const searchResult = await this.cinerinoService.order.search({ ...params, orderDateThrough, orderDateFrom });
+                    const searchResult = await this.cinerinoService.order.search({
+                        ...params,
+                        orderDateThrough: moment(orderDateThrough).add(-1, 'millisecond').toDate(),
+                        orderDateFrom
+                    });
                     orders = orders.concat(searchResult.data);
                     page++;
                     roop = searchResult.data.length === limit;

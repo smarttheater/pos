@@ -68,6 +68,8 @@ export class ReservationService {
             this.utilService.loadStart({ process: 'reservationAction.Search' });
             await this.cinerinoService.getServices();
             let reservations: factory.chevre.reservation.IReservation<factory.chevre.reservationType.EventReservation>[] = [];
+
+            params.bookingThrough = moment(params.bookingThrough).add(1, 'millisecond').toDate();
             const splitDay = 1;
             const splitCount =
                 Math.ceil(moment(params.bookingThrough).diff(moment(params.bookingFrom), 'days') / splitDay);
@@ -85,7 +87,11 @@ export class ReservationService {
                     params.page = page;
                     const searchResult =
                         await this.cinerinoService.reservation
-                            .search<factory.chevre.reservationType.EventReservation>({ ...params, bookingThrough, bookingFrom });
+                            .search<factory.chevre.reservationType.EventReservation>({
+                                ...params,
+                                bookingThrough: moment(bookingThrough).add(-1, 'millisecond').toDate(),
+                                bookingFrom
+                            });
                     reservations = reservations.concat(searchResult.data);
                     page++;
                     roop = searchResult.data.length === limit;

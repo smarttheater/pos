@@ -225,7 +225,8 @@
             "reservationStatus": {
                 "ReservationConfirmed": "Reservation Confirmed",
                 "ReservationHold": "Reservation Hold",
-                "ReservationPending": "Reservation Pending"
+                "ReservationPending": "Reservation Pending",
+                "ReservationCancelled": "Reservation Cancelled"
             },
             "search": "検索する",
             "clear": "検索条件をクリア",
@@ -252,7 +253,8 @@
             "reservationStatus": {
                 "ReservationConfirmed": "Reservation Confirmed",
                 "ReservationHold": "Reservation Hold",
-                "ReservationPending": "Reservation Pending"
+                "ReservationPending": "Reservation Pending",
+                "ReservationCancelled": "Reservation Cancelled"
             },
             "clear": "条件をクリア",
             "notfound": "予約が見つかりません",

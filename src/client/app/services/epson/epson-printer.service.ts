@@ -37,7 +37,6 @@ export class EpsonPrinterService {
                 return;
             }
             const url = new URL(`${location.protocol}${printer.ipAddress}`);
-            console.log('888888888', url);
             this.ePOSDevice.connect(url.hostname, url.port, (data: string) => {
                 if (data === 'OK' || data === 'SSL_CONNECT_OK') {
                     resolve(data);

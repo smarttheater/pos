@@ -17,8 +17,8 @@
                     <label for="reservationDateThrough"
                         class="mb-2">{{ 'reservation.download.conditions.reservationDateThrough' | translate }}</label>
                     <input type="text" name="reservationDateThrough" id="reservationDateThrough"
-                        placeholder="YYYY/MM/DD" class="form-control" #reservationDateThrough="bsDatepicker" bsDatepicker
-                        [(ngModel)]="conditions.reservationDateThrough"
+                        placeholder="YYYY/MM/DD" class="form-control" #reservationDateThrough="bsDatepicker"
+                        bsDatepicker [(ngModel)]="conditions.reservationDateThrough"
                         [bsConfig]="{ dateInputFormat: 'YYYY/MM/DD', adaptivePosition: true, showWeekNumbers: false }"
                         readonly (onShown)="onShowPicker($event)" (click)="setDatePicker()">
                 </div>
@@ -33,7 +33,7 @@
                         [(ngModel)]="conditions.reservationNumber"
                         placeholder="{{ 'common.reservationNumber' | translate }}">
                 </div>
-            
+
                 <div class="form-group col-md-4 col-lg-3">
                     <label for="reservationStatus" class="mb-2">{{ 'common.reservationStatus' | translate }}</label>
                     <select class="form-control" name="reservationStatus" id="reservationStatus"
@@ -45,6 +45,8 @@
                             {{ 'reservation.download.reservationStatus.ReservationHold' | translate }}</option>
                         <option [value]="reservationStatus.ReservationPending">
                             {{ 'reservation.download.reservationStatus.ReservationPending' | translate }}</option>
+                        <option [value]="reservationStatus.ReservationCancelled">
+                            {{ 'reservation.download.reservationStatus.ReservationCancelled' | translate }}</option>
                     </select>
                 </div>
                 <div class="form-group col-md-4 col-lg-3">
