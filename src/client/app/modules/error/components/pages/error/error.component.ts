@@ -16,8 +16,13 @@ export class ErrorComponent implements OnInit {
         private actionService: ActionService
     ) { }
 
-    public ngOnInit() {
+    public async ngOnInit() {
         this.error = this.store.pipe(select(reducers.getError));
+        try {
+            await this.actionService.purchase.cancelTransaction();
+        } catch (error) {
+            console.error(error);
+        }
         this.actionService.purchase.delete();
     }
 

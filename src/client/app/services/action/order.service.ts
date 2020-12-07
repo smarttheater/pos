@@ -369,7 +369,9 @@ export class OrderService {
             case Models.Util.Printer.ConnectionType.StarBluetooth:
             case Models.Util.Printer.ConnectionType.StarLAN:
                 this.starPrintService.initialize({ printer });
+                this.utilService.loadStart({ process: 'load' });
                 await this.starPrintService.openDrawer();
+                this.utilService.loadEnd();
                 break;
             default:
                 throw new Error('The printer settings are incorrect');

@@ -266,6 +266,7 @@ export class SettingComponent implements OnInit {
         try {
             await this.actionService.order.openDrawer({ printer });
         } catch (error) {
+            this.utilService.loadEnd();
             console.error(error);
             this.utilService.openAlert({
                 title: this.translate.instant('common.error'),
