@@ -12,6 +12,10 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/).
 
 ### Security
 
+## 3.4.15 - 2020-12-09
+### Added
+ - 注文取引の明示的な中止
+
 ## 3.4.14 - 2020-12-07
 ### Fixed
  - CSVダウンロード分割検索修正
