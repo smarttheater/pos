@@ -28,11 +28,11 @@ export class StarPrintService {
     /**
      * 印刷処理
      */
-    public async printProcess(args: {
+    public async printProcess(params: {
         canvasList: HTMLCanvasElement[];
     }) {
         let printerRequests: string[] = [];
-        const canvasList = args.canvasList;
+        const { canvasList } = params;
         printerRequests = await this.createPrinterRequestList(canvasList);
         // n分割配列へ変換
         const divide = 4;
@@ -51,7 +51,13 @@ export class StarPrintService {
         for (const printerRequest of divideRequests) {
             // safari対応のため0.3秒待つ
             await Functions.Util.sleep(300);
-            await this.print({ printerRequest });
+            await Functions.Util.retry<void>({
+                process: async () => {
+                    await this.print({ printerRequest });
+                },
+                interval: 2000,
+                limit: 2,
+            });
         }
     }
 

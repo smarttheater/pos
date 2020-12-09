@@ -37,32 +37,32 @@ export function toHalf(value: string) {
 
 /**
  * リトライ
- * @param args
  */
-export async function retry<T>(args: {
+export async function retry<T>(params: {
     process: Function;
     interval: number;
     limit: number;
 }) {
+    const { process, interval, limit } = params;
     let count = 0;
     return new Promise<T>(async (resolve, reject) => {
         const timerProcess = () => {
             setTimeout(async () => {
                 count++;
                 try {
-                    const result = await args.process();
+                    const result = await process();
                     resolve(result);
                 } catch (error) {
-                    if (count >= args.limit) {
+                    if (count >= limit) {
                         reject(error);
                         return;
                     }
                     timerProcess();
                 }
-            }, args.interval);
+            }, interval);
         };
         try {
-            const result = await args.process();
+            const result = await process();
             resolve(result);
         } catch (error) {
             timerProcess();
