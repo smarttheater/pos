@@ -133,6 +133,10 @@ interface IEnvironment {
      */
     PURCHASE_WARNING: boolean;
     /**
+     * 予約メモ
+     */
+    PURCHASE_ADDITIONAL_TICKET_TEXT: boolean;
+    /**
      * 照会キャンセル
      */
     INQUIRY_CANCEL: boolean;
@@ -248,6 +252,7 @@ const defaultEnvironment: IEnvironment = {
     PURCHASE_COMPLETE_MAIL_CUSTOM: true,
     PURCHASE_TERMS: false,
     PURCHASE_WARNING: false,
+    PURCHASE_ADDITIONAL_TICKET_TEXT: true,
     INQUIRY_CANCEL: false,
     INQUIRY_QRCODE: false,
     INQUIRY_PRINT: false,

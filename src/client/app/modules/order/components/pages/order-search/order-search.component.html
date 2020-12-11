@@ -211,10 +211,9 @@
                         <td class="align-middle">{{ order.confirmationNumber }}</td>
                         <td class="align-middle">
                             <div *ngFor="let eventOrder of order2EventOrders({ order: order })">
-                                <p *ngIf="(eventOrder.event.name | changeLanguage).length > 0">{{
-                                    eventOrder.event.name | changeLanguage | slice:0:10 }}</p>
-                                <p *ngIf="!((eventOrder.event.name | changeLanguage).length > 0)">{{
-                                    eventOrder.event.name | changeLanguage }}</p>
+                                <p style="width: 280px">
+                                    {{ eventOrder.event.name | changeLanguage }}
+                                </p>
                                 <p>
                                     <span
                                         class="theater-name">{{ eventOrder.event.superEvent.location.name | changeLanguage }}</span>

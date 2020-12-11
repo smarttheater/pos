@@ -69,7 +69,7 @@
                 </div>
 
 
-                <div class="mb-4 additional-ticket-text">
+                <div *ngIf="environment.PURCHASE_ADDITIONAL_TICKET_TEXT" class="mb-4 additional-ticket-text">
                     <p>{{ 'common.additionalTicketText' | translate }}</p>
                     <textarea [(ngModel)]="additionalTicketText" class="py-1 px-2"></textarea>
                 </div>
