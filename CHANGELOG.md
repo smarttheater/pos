@@ -12,6 +12,11 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/).
 
 ### Security
 
+## 3.4.16 - 2020-12-11
+### Added
+ - 予約メモ有無を設定追加
+ - 印刷へリトライ処理追加
+
 ## 3.4.15 - 2020-12-09
 ### Added
  - 注文取引の明示的な中止
