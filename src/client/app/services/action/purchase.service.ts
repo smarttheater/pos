@@ -492,22 +492,14 @@ export class PurchaseService {
      */
     public async authorizeAnyPayment(params: {
         amount: number;
-        depositAmount?: number;
+        additionalProperty?: { name: string; value: any; }[]
     }) {
+        const { amount, additionalProperty } = params;
         const { transaction, paymentMethod } = await this.getData();
         return new Promise<void>((resolve, reject) => {
             if (transaction === undefined || paymentMethod === undefined) {
                 reject();
                 return;
-            }
-            const amount = params.amount;
-            const depositAmount = params.depositAmount;
-            const additionalProperty = [];
-            if (paymentMethod.typeOf === factory.chevre.paymentMethodType.Cash
-                && depositAmount !== undefined) {
-                // 現金
-                additionalProperty.push({ name: 'depositAmount', value: String(depositAmount) });
-                additionalProperty.push({ name: 'change', value: String(depositAmount - amount) });
             }
             this.store.dispatch(purchaseAction.authorizeAnyPayment({
                 transaction: transaction,

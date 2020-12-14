@@ -12,6 +12,12 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/).
 
 ### Security
 
+## 3.4.17 - 2020-12-14
+### Added
+ - 決済方法へ追加特性情報表示追加
+### Changed
+ - 自由席UI変更
+
 ## 3.4.16 - 2020-12-11
 ### Added
  - 予約メモ有無を設定追加

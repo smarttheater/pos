@@ -75,10 +75,16 @@ export class PurchaseConfirmComponent implements OnInit {
             if (purchaseData.pendingMovieTickets.length > 0) {
                 await this.actionService.purchase.authorizeMovieTicket({ seller });
             }
+            const deposit = Number(this.depositAmount);
+            const additionalProperty: { name: string; value: string; }[] = [];
+            if (paymentMethod.typeOf === factory.chevre.paymentMethodType.Cash) {
+                // 現金
+                additionalProperty.push({ name: 'depositAmount', value: String(deposit) });
+                additionalProperty.push({ name: 'change', value: String(deposit - this.amount) });
+            }
             await this.actionService.purchase.authorizeAnyPayment({
                 amount: this.amount,
-                depositAmount: (paymentMethod.typeOf === factory.paymentMethodType.Cash)
-                    ? Number(this.depositAmount) : undefined
+                additionalProperty
             });
             await this.actionService.purchase.registerContact(profile);
             await this.actionService.purchase.endTransaction({ seller, language: userData.language });
