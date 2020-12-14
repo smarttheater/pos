@@ -28,6 +28,7 @@ export class CinerinoService {
     public admin: {
         ownershipInfo: cinerino.service.OwnershipInfo
     };
+    public categoryCode: cinerino.service.CategoryCode;
     public userName: string;
     private endpoint: string;
     private waiterServerUrl: string;
@@ -55,6 +56,7 @@ export class CinerinoService {
             this.task = new cinerino.service.Task(option);
             this.token = new cinerino.service.Token(option);
             this.payment = new cinerino.service.Payment(option);
+            this.categoryCode = new cinerino.service.CategoryCode(option);
             this.transaction = {
                 placeOrder: new cinerino.service.transaction.PlaceOrder(option),
                 returnOrder: new cinerino.service.transaction.ReturnOrder(option)

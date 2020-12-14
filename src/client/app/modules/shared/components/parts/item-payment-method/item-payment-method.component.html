@@ -1,37 +1,31 @@
 <table class="table table-striped table-bordered mb-0">
     <tbody>
         <tr *ngFor="let paymentMethod of paymentMethods">
-            <ng-container *ngIf="paymentMethod.typeOf === paymentMethodType.Cash">
-                <td scope="row">{{ getPaymentMethodLabel(paymentMethod) }}</td>
-                <td class="text-right">
-                    <p class="mb-2">{{ paymentMethod.totalPaymentDue.value | currency : 'JPY' }}</p>
-                    <div *ngFor="let additionalProperty of paymentMethod.additionalProperty"
-                        class="d-flex justify-content-end">
-                        <p class="mr-2">
-                            {{ 'purchase.complete.' + additionalProperty.name | translate }}
-                        </p>
-                        <p>{{ additionalProperty.value | currency : 'JPY' }}</p>
-                    </div>
-                </td>
-            </ng-container>
-            <ng-container *ngIf="paymentMethod.typeOf === paymentMethodType.MovieTicket 
-            || paymentMethod.typeOf === paymentMethodType.MGTicket">
-                <td scope="row">
-                    {{ getPaymentMethodLabel(paymentMethod) }}<span class="ml-2">({{ paymentMethod.accountId }})</span>
-                </td>
-                <td class="text-right">
-                    {{ paymentMethod.totalPaymentDue.value }}
-                </td>
-            </ng-container>
-            <ng-container *ngIf="paymentMethod.typeOf !== paymentMethodType.Cash
-            && paymentMethod.typeOf !== paymentMethodType.MovieTicket 
-            && paymentMethod.typeOf !== paymentMethodType.MGTicket">
-                <td scope="row">{{ getPaymentMethodLabel(paymentMethod) }}</td>
-                <td class="text-right">
+            <td scope="row">
+                <p>{{ getPaymentMethodLabel(paymentMethod) }}</p>
+                <p *ngIf="paymentMethod.accountId">({{ paymentMethod.accountId }})</p>
+            </td>
+            <td class="text-right">
+                <p *ngIf="paymentMethod.totalPaymentDue.currency === 'JPY'">
                     {{ paymentMethod.totalPaymentDue.value | currency : 'JPY' }}
-                </td>
-            </ng-container>
-
+                </p>
+                <p *ngIf="paymentMethod.totalPaymentDue.currency !== 'JPY'">
+                    {{ paymentMethod.totalPaymentDue.value }}
+                </p>
+                <div *ngFor="let additionalProperty of paymentMethod.additionalProperty"
+                    class="d-flex justify-content-end">
+                    <ng-container
+                        *ngIf="additionalProperty.name === 'depositAmount' || additionalProperty.name === 'change'">
+                        <p class="mr-2">{{ 'purchase.complete.' + additionalProperty.name | translate }}</p>
+                        <p>{{ additionalProperty.value | currency : 'JPY' }}</p>
+                    </ng-container>
+                    <ng-container
+                        *ngIf="!(additionalProperty.name === 'depositAmount' || additionalProperty.name === 'change')">
+                        <p class="mr-2">[{{ additionalProperty.name }}]</p>
+                        <p>{{ additionalProperty.value }}</p>
+                    </ng-container>
+                </div>
+            </td>
         </tr>
     </tbody>
 </table>

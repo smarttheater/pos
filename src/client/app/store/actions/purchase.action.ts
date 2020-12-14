@@ -315,7 +315,7 @@ export const authorizeAnyPayment = createAction(
         paymentMethod: factory.chevre.paymentMethodType;
         name?: string;
         amount: number;
-        additionalProperty: { name: string; value: any; }[];
+        additionalProperty?: { name: string; value: any; }[];
     }>()
 );
 
