@@ -21,6 +21,8 @@ export class PurchaseSeatComponent implements OnInit {
     public environment = getEnvironment();
     public screeningEventSeats: factory.chevre.place.seat.IPlaceWithOffer[];
     public translateName: string;
+    public reservationCount: number;
+    public Number = Number;
 
     constructor(
         private store: Store<reducers.IState>,
@@ -37,15 +39,14 @@ export class PurchaseSeatComponent implements OnInit {
         this.translateName = (this.environment.VIEW_TYPE === 'cinema')
             ? 'purchase.cinema.seat' : 'purchase.event.seat';
         this.screeningEventSeats = [];
+        this.reservationCount = 0;
         try {
-            const purchase = await this.actionService.purchase.getData();
-            const screeningEvent = purchase.screeningEvent;
-            const seller = purchase.seller;
+            const { screeningEvent, reservations, seller } = await this.actionService.purchase.getData();
             if (screeningEvent === undefined || seller === undefined) {
                 this.router.navigate(['/error']);
                 return;
             }
-            const reservations = purchase.reservations;
+            this.reservationCount = reservations.length;
             await this.resetSeats();
             reservations.forEach(r => {
                 if (r.seat === undefined) {
@@ -166,18 +167,14 @@ export class PurchaseSeatComponent implements OnInit {
     /**
      * 自由席選択
      */
-    public async selectOpenSeating(event: Event) {
-        if (event.target === null) {
-            return;
-        }
-        const purchaseData = await this.actionService.purchase.getData();
-        const value = Number((<HTMLSelectElement>event.target).value);
-        const reservations = purchaseData.reservations;
+    public async selectOpenSeating() {
+        const { reservations } = await this.actionService.purchase.getData();
+        this.screeningEventSeats = await this.actionService.purchase.getScreeningEventSeats();
         const screeningEventSeats = this.screeningEventSeats;
         const seats = Functions.Purchase.getEmptySeat({ reservations, screeningEventSeats });
         await this.resetSeats();
         const selectSeats: Models.Purchase.Reservation.IReservationSeat[] = [];
-        for (let i = 0; i < value; i++) {
+        for (let i = 0; i < Number(this.reservationCount); i++) {
             selectSeats.push(seats[i]);
         }
         this.actionService.purchase.selectSeats(selectSeats);
@@ -187,8 +184,9 @@ export class PurchaseSeatComponent implements OnInit {
      * onSubmit
      */
     public async onSubmit() {
-        const { reservations, screeningEventTicketOffers } = await this.actionService.purchase.getData();
-        if (reservations.length > Number(this.environment.PURCHASE_ITEM_MAX_LENGTH)) {
+        const purchase = await this.actionService.purchase.getData();
+        if (purchase.reservations.length > Number(this.environment.PURCHASE_ITEM_MAX_LENGTH)
+        || Number(this.reservationCount) > Number(this.environment.PURCHASE_ITEM_MAX_LENGTH)) {
             this.utilService.openAlert({
                 title: this.translate.instant('common.error'),
                 body: this.translate.instant(
@@ -198,7 +196,7 @@ export class PurchaseSeatComponent implements OnInit {
             });
             return;
         }
-        if (screeningEventTicketOffers.length === 0) {
+        if (purchase.screeningEventTicketOffers.length === 0) {
             this.utilService.openAlert({
                 title: this.translate.instant('common.error'),
                 body: this.translate.instant(`${this.translateName}.alert.ticketNotfound`)
@@ -206,6 +204,11 @@ export class PurchaseSeatComponent implements OnInit {
             return;
         }
         try {
+            if (purchase.screen !== undefined && purchase.screen.openSeatingAllowed) {
+                // 自由席
+                await this.selectOpenSeating();
+            }
+            const { reservations } = await this.actionService.purchase.getData();
             await this.actionService.purchase.temporaryReservation({
                 reservations,
                 screeningEventSeats: this.screeningEventSeats
@@ -215,6 +218,10 @@ export class PurchaseSeatComponent implements OnInit {
                 : '/purchase/event/seat/ticket';
             this.router.navigate([navigate]);
         } catch (error) {
+            if (purchase.screen !== undefined && purchase.screen.openSeatingAllowed) {
+                // 自由席
+                await this.resetSeats();
+            }
             console.error(error);
             this.utilService.openAlert({
                 title: this.translate.instant('common.error'),
