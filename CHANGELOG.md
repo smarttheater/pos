@@ -12,6 +12,12 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/).
 
 ### Security
 
+## 3.4.18 - 2020-12-17
+### Changed
+ - 購入メール文言調整
+### Fixed
+ - 自由席不具合修正
+
 ## 3.4.17 - 2020-12-14
 ### Added
  - 決済方法へ追加特性情報表示追加
