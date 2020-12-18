@@ -2,10 +2,9 @@ import { Injectable } from '@angular/core';
 import { factory } from '@cinerino/sdk';
 import { Actions, Effect, ofType } from '@ngrx/effects';
 import { INTERNAL_SERVER_ERROR, OK } from 'http-status';
-import * as decode from 'jwt-decode';
 import * as moment from 'moment';
 import { map, mergeMap } from 'rxjs/operators';
-import { Functions, Models } from '../..';
+import { Functions } from '../..';
 import { getEnvironment } from '../../../environments/environment';
 import { CinerinoService, UtilService } from '../../services';
 import { admissionAction } from '../actions';
@@ -56,23 +55,18 @@ export class AdmissionEffects {
             const screeningEvent = payload.screeningEvent;
             const scheduleDate = payload.scheduleDate;
             const specified = payload.specified;
-            const environment = getEnvironment();
             try {
                 let qrcodeToken: {
                     availableReservation?: factory.chevre.reservation.IReservation<factory.chevre.reservationType.EventReservation>;
                     checkTokenActions: factory.action.IAction<factory.action.IAttributes<factory.actionType, any, any>>[] | string[];
                     statusCode: number;
                 };
-                if (environment.PRINT_QRCODE_TYPE === Models.Order.Print.PrintQrcodeType.Token) {
+                if (/@/.test(code)) {
                     // トークン
                     qrcodeToken = await this.checkToken({ code, screeningEvent, scheduleDate });
-                } else if (environment.PRINT_QRCODE_TYPE === Models.Order.Print.PrintQrcodeType.Admission) {
-                    // 入場
-                    qrcodeToken = await this.checkAdmission({
-                        code, screeningEvent, scheduleDate
-                    });
                 } else {
-                    throw new Error('PRINT_QRCODE_TYPE Error');
+                    // 入場
+                    qrcodeToken = await this.checkAdmission({ code, screeningEvent, scheduleDate });
                 }
                 let findScreeningEventResult;
                 if (qrcodeToken.availableReservation !== undefined && !specified) {
@@ -104,16 +98,10 @@ export class AdmissionEffects {
         scheduleDate: Date;
     }) {
         const { code, screeningEvent, scheduleDate } = params;
-        // 互換性維持
-        const ticketToken = (code.split('@').length > 1)
-            ? code.split('@')[1]
-            : code;
+        const reservationId = code.split('@')[0];
+        const ticketToken = code.split('@')[1];
         await this.cinerino.getServices();
         const { token } = await this.cinerino.token.getToken({ code: ticketToken });
-        const decodeResult = decode<Models.Admission.IDecodeResult>(token);
-        const reservationId = (code.split('@').length > 1)
-            ? code.split('@')[0]
-            : decodeResult.typeOfGood.id;
         const searchResult =
             await this.cinerino.reservation.search<factory.chevre.reservationType.EventReservation>({
                 typeOf: factory.chevre.reservationType.EventReservation,
@@ -140,15 +128,10 @@ export class AdmissionEffects {
         // 利用可能判定
         const statusCode = OK;
         if (searchResult.data.length > 0) {
-            // 互換性維持
-            if ((code.split('@').length > 1)) {
-                this.cinerino.reservation.useByToken({
-                    object: { id: reservationId },
-                    instrument: { token }
-                });
-            } else {
-                this.cinerino.reservation.findScreeningEventReservationByToken({ token });
-            }
+            this.cinerino.reservation.useByToken({
+                object: { id: reservationId },
+                instrument: { token }
+            });
         }
 
         return {

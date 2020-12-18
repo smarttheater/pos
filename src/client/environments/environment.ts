@@ -190,7 +190,7 @@ interface IEnvironment {
     ORDER_LINK: { name: { ja: string; en: string; }; url: string; params: { key: string; value?: string; }[] }[];
     /**
      * 注文承認コード期限(s)
-     * デフォルト259200s
+     * デフォルト604800s 7days
      */
     ORDER_AUTHORIZE_CODE_EXPIRES: string;
     /**
@@ -266,7 +266,7 @@ const defaultEnvironment: IEnvironment = {
     ORDER_CANCEL_MAIL_CUSTOM: true,
     ORDER_PRINT: true,
     ORDER_LINK: [],
-    ORDER_AUTHORIZE_CODE_EXPIRES: '259200',
+    ORDER_AUTHORIZE_CODE_EXPIRES: '604800',
     PRINT_QRCODE_TYPE: 'token',
     PRINT_QRCODE_CUSTOM: '',
     PRINT_LOADING: true,
