@@ -25,9 +25,9 @@ interface IEnvironment {
      */
     APP_TITLE: string;
     /**
-     * 入り口URL（非推奨）
+     * プライマリーカラー
      */
-    ENTRANCE_SERVER_URL: string;
+    PRIMARY_COLOR: string;
     /**
      * 説明書URL
      */
@@ -220,7 +220,7 @@ export const isProduction = (document.querySelector('body.production') !== null)
 const defaultEnvironment: IEnvironment = {
     production: false,
     APP_TITLE: '',
-    ENTRANCE_SERVER_URL: '',
+    PRIMARY_COLOR: 'steelblue',
     INSTRUCTION_URL: '',
     ANALYTICS_ID: '',
     GTM_ID: '',

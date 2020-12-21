@@ -1,4 +1,4 @@
-<header class="fixed-top text-white border-bottom border-gray">
+<header class="fixed-top text-white border-bottom border-gray bg-white">
     <div class="header contents-width mx-auto d-flex align-items-center justify-content-between px-3">
         <div class="logo">
             <img class="d-none d-md-block h-100" [src]="imageUrl.pc" (error)="imageLoadingError('pc')" alt="">
@@ -12,9 +12,9 @@
             </div>
             <div *ngIf="environment.HEADER_MENU" class="menu-button pointer" [class.active]="isMenuOpen"
                 (click)="(isMenuOpen) ? menuClose() : menuOpen()">
-                <div></div>
-                <div></div>
-                <div></div>
+                <div class="bg-primary"></div>
+                <div class="bg-primary"></div>
+                <div class="bg-primary"></div>
             </div>
         </div>
     </div>
