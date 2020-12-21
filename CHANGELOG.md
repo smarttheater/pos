@@ -12,6 +12,13 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/).
 
 ### Security
 
+## 3.4.19 - 2020-12-21
+### Added
+ - 購入完了メールへ開場時間追加
+ - 新入場方式に暫定入場方式の互換性を追加
+### Changed
+ - 旧式の入場を削除
+ 
 ## 3.4.18 - 2020-12-17
 ### Changed
  - 購入メール文言調整

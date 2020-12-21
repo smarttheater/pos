@@ -154,7 +154,7 @@ export class OrderService {
             telephone?: string;
         }
     }) {
-        return new Promise((resolve, reject) => {
+        return new Promise<void>((resolve, reject) => {
             this.store.dispatch(orderAction.inquiry(params));
             const success = this.actions.pipe(
                 ofType(orderAction.inquirySuccess.type),
@@ -225,6 +225,7 @@ export class OrderService {
                             index,
                             code: authorizeOrder.code
                         });
+                        console.log('qrcode==============================', qrcode);
                         const canvas = await Functions.Order.createPrintCanvas4Html({
                             view: <string>printData,
                             order: authorizeOrder.order,
