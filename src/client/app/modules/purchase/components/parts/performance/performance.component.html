@@ -19,7 +19,7 @@
                 {{ performance.screeningEvent.name | changeLanguage }}</p>
         </div>
         <div>
-            <strong class="text-large">{{ moment(performance.screeningEvent.startDate).format('HH:mm') }}</strong>
+            <span class="text-large font-weight-bold">{{ moment(performance.screeningEvent.startDate).format('HH:mm') }}</span>
             <span>-</span>
             <span>{{ moment(performance.screeningEvent.endDate).format('HH:mm') }}</span>
         </div>

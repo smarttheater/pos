@@ -110,10 +110,7 @@
                         <td class="align-middle">{{ reservation.id }}</td>
 
                         <td class="align-middle">
-                            <p *ngIf="(reservation.reservationFor.name | changeLanguage).length > 0">{{
-                                reservation.reservationFor.name | changeLanguage | slice:0:10 }}</p>
-                            <p *ngIf="!((reservation.reservationFor.name | changeLanguage).length > 0)">{{
-                                reservation.reservationFor.name | changeLanguage }}</p>
+                            <p>{{ reservation.reservationFor.name | changeLanguage }}</p>
                             <p>
                                 <span
                                     class="theater-name">{{ reservation.reservationFor.superEvent.location.name | changeLanguage }}</span>
