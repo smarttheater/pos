@@ -12,6 +12,13 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/).
 
 ### Security
 
+## 3.4.20 - 2020-12-22
+### Added
+ - 予約CSVへパフォーマンスid追加
+### Changed
+ - 自由席文言を変更
+ - アプリ設定にカラーを持つように変更
+
 ## 3.4.19 - 2020-12-21
 ### Added
  - 購入完了メールへ開場時間追加
