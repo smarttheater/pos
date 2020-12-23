@@ -262,6 +262,36 @@ button {
     max-width: 100%;
 }
 
+// custom
+.btn-primary:hover {
+    opacity: 0.75;
+}
+
+.btn-primary:disabled {
+    opacity: 1 ;
+    background-color: #666 !important;
+    border-color: #666 !important;
+}
+
+.btn-primary,
+.btn-outline-primary:hover {
+    color: #FFF !important;
+}
+
+.page-item.active .page-link {
+    background-color: $primary;
+    border-color: $primary;
+    color: #FFF;
+}
+
+.page-item .page-link {
+    color: $primary;
+}
+
+.page-item.active .page-link {
+    color: #FFF !important;
+}
+
 .video-format {
     display: none !important;
 }

@@ -16,16 +16,7 @@
         <div class="row align-items-center">
             <p class="mb-2 mb-md-0 col-md-4">[{{ 'common.event' | translate }}]</p>
             <div class="col-md-8">
-                <p *ngIf="(reservation.reservationFor.name | changeLanguage).length > 0">{{
-                    reservation.reservationFor.name | changeLanguage | slice:0:10 }}</p>
-                <p *ngIf="!((reservation.reservationFor.name | changeLanguage).length > 0)">{{
-                    reservation.reservationFor.name | changeLanguage }}</p>
-                <p>
-                    <span class="theater-name">{{ reservation.reservationFor.superEvent.location.name | changeLanguage }}</span>
-                    <span class="screen-name">&nbsp;/&nbsp;<span *ngIf="reservation.reservationFor.location.address | changeLanguage" class="mr-2">{{ reservation.reservationFor.location.address | changeLanguage }}</span>{{ reservation.reservationFor.location.name | changeLanguage }}</span>
-                </p>
-                <p>{{ moment(reservation.reservationFor.startDate).format('YYYY/MM/DD (ddd) HH:mm') }}
-                    -</p>
+                <app-item-event [screeningEvent]="reservation.reservationFor"></app-item-event>
             </div>
         </div>
     </div>
