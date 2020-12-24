@@ -12,6 +12,10 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/).
 
 ### Security
 
+## 3.4.21 - 2020-12-24
+### Changed
+ - 返金メール変更
+ 
 ## 3.4.20 - 2020-12-22
 ### Added
  - 予約CSVへパフォーマンスid追加
