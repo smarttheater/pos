@@ -12,6 +12,12 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/).
 
 ### Security
 
+## 3.5.0 - 2020-12-25
+### Changed
+ - QR期限を21日へ変更
+### Fixed
+ - ウエイターエラーハンドリング修正
+
 ## 3.4.21 - 2020-12-24
 ### Changed
  - 返金メール変更
