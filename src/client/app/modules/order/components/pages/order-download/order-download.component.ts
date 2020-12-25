@@ -30,7 +30,6 @@ export class OrderDownloadComponent implements OnInit {
     public actionSelect: Models.Order.Action.OrderActions | '';
     public buildQueryString = Functions.Util.buildQueryString;
     public environment = getEnvironment();
-    public encodingFormat = factory.encodingFormat;
     public order2EventOrders = Functions.Purchase.order2EventOrders;
     public csvFormat = Models.Order.Download.CsvFormat;
     @ViewChild('orderDateFrom', { static: true }) private orderDateFrom: BsDatepickerDirective;
