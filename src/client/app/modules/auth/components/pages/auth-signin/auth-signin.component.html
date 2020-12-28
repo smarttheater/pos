@@ -1,8 +1,8 @@
-<div *ngIf="(master | async)?.projects.length > 0" class="contents-width mx-auto px-3 py-5">
+<div class="contents-width mx-auto px-3 py-5">
     <h2 class="text-large mb-4 text-center font-weight-bold">プロジェクト選択</h2>
     <p class="mb-4 text-md-center">プロジェクトを選択してください。</p>
 
-    <ul class="d-md-flex flex-wrap mb-4">
+    <ul *ngIf="(master | async)?.projects.length > 0" class="d-md-flex flex-wrap mb-4">
         <li *ngFor="let project of (master | async)?.projects" class="my-md-2 mb-3">
             <div class="card mx-md-2 h-100">
                 <div class="card-body">
