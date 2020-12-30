@@ -51,6 +51,7 @@
             "depositAmount": "お預かり金額",
             "change": "お釣り",
             "alert": {
+                "authorize": "発券数カウントに失敗しました。",
                 "print": "印刷に失敗しました。",
                 "regiGrow": "RegiGrow連携に失敗しました。",
                 "drawer": "ドロワーとの接続に失敗しました。"

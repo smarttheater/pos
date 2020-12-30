@@ -12,6 +12,10 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/).
 
 ### Security
 
+## 3.5.2 - 2020-12-30
+### Changed
+ - 印刷時エラーハンドリング変更
+
 ## 3.5.1 - 2020-12-29
 ### Fixed
  - プロジェクト選択ログアウト修正

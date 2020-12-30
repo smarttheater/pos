@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { factory } from '@cinerino/sdk';
 import { Actions, ofType } from '@ngrx/effects';
 import { select, Store } from '@ngrx/store';
+import { TranslateService } from '@ngx-translate/core';
 import * as moment from 'moment';
 import { Observable, race } from 'rxjs';
 import { take, tap } from 'rxjs/operators';
@@ -26,7 +27,8 @@ export class OrderService {
         private cinerinoService: CinerinoService,
         private utilService: UtilService,
         private starPrintService: StarPrintService,
-        private epsonEPOSService: EpsonEPOSService
+        private epsonEPOSService: EpsonEPOSService,
+        private translate: TranslateService
     ) {
         this.order = this.store.pipe(select(reducers.getOrder));
         this.error = this.store.pipe(select(reducers.getError));
@@ -201,7 +203,16 @@ export class OrderService {
             } else {
                 for (const order of orders) {
                     authorizeOrders.push({ order });
-                    this.authorizeOrder({ order });
+                    this.authorizeOrder({ order }).then().catch((error) => {
+                        console.error(error);
+                        this.utilService.openAlert({
+                            title: this.translate.instant('common.error'),
+                            body: `<p class="mb-4">${this.translate.instant('purchase.complete.alert.authorize')}</p>
+                            <div class="p-3 bg-light-gray select-text">
+                            <code>${error}</code>
+                        </div>`
+                        });
+                    });
                 }
             }
             const testFlg = authorizeOrders.length === 0;
@@ -225,7 +236,6 @@ export class OrderService {
                             index,
                             code: authorizeOrder.code
                         });
-                        console.log('qrcode==============================', qrcode);
                         const canvas = await Functions.Order.createPrintCanvas4Html({
                             view: <string>printData,
                             order: authorizeOrder.order,
