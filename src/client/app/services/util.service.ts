@@ -27,11 +27,10 @@ export class UtilService {
     }) {
         const title = args.title;
         const body = args.body;
-        const modalRef = this.modal.show(AlertModalComponent, {
+        this.modal.show(AlertModalComponent, {
             initialState: { title, body },
             class: 'modal-dialog-centered'
         });
-        modalRef.content.modal = modalRef;
     }
 
     /**
