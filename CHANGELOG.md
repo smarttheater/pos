@@ -12,6 +12,12 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/).
 
 ### Security
 
+## 3.5.3 - 2020-01-07
+### Changed
+ - パッケージ更新
+### Fixed
+ - iOSダブルタップ修正
+
 ## 3.5.2 - 2020-12-30
 ### Changed
  - 印刷時エラーハンドリング変更
