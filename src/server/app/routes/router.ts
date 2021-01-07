@@ -12,7 +12,7 @@ const log = debug('application: router');
 
 export default (app: express.Application) => {
     app.use((_req, res, next) => {
-        res.locals.NODE_ENV = process.env.NODE_ENV;
+        res.locals.APP_ENV = process.env.APP_ENV;
         next();
     });
     app.use((req, res, next) => {

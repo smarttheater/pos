@@ -33,7 +33,7 @@ jobs:
             - ./node_modules
       - run:
           name: compile typescript
-          command: npm run build-server
+          command: npm run build
   test:
     docker:
       - image: circleci/node:latest
@@ -89,18 +89,6 @@ jobs:
           command: |
             git remote add production-staging ${DEPLOY_TARGET_REPOSITORY_PRODUCTION}
             git push production-staging $CIRCLE_BRANCH:master -f -v
-  # deploy-oyatsu-pos:
-  #   docker:
-  #     - image: circleci/node:latest
-  #   steps:
-  #     - checkout
-  #     - restore_cache:
-  #         key: dependency-cache-{{ checksum "package.json" }}
-  #     - run:
-  #         name: deploy to azure webapps production-oyatsu-pos
-  #         command: |
-  #           git remote add production-staging-oyatsu-pos ${DEPLOY_TARGET_REPOSITORY_PRODUCTION_OYATSU_POS}
-  #           git push production-staging-oyatsu-pos $CIRCLE_BRANCH:master -f -v
   # Used for orchestrating all jobs.
 workflows:
   version: 2
@@ -129,9 +117,4 @@ workflows:
           filters:
             branches:
               only: master
-      # - deploy-oyatsu-pos:
-      #     requires:
-      #       - test
-      #     filters:
-      #       branches:
-      #         only: master
+              
