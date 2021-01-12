@@ -50,11 +50,9 @@ export class PurchaseConfirmComponent implements OnInit {
      * 確定
      */
     public async onSubmit() {
-        const purchaseData = await this.actionService.purchase.getData();
-        const userData = await this.actionService.user.getData();
-        const profile = userData.customerContact;
-        const seller = purchaseData.seller;
-        const paymentMethod = purchaseData.paymentMethod;
+        const { paymentMethod, seller, pendingMovieTickets } = await this.actionService.purchase.getData();
+        const { language, customerContact } = await this.actionService.user.getData();
+        const profile = customerContact;
         if (paymentMethod === undefined
             || profile === undefined
             || seller === undefined) {
@@ -72,7 +70,7 @@ export class PurchaseConfirmComponent implements OnInit {
             await this.openDrawer();
         }
         try {
-            if (purchaseData.pendingMovieTickets.length > 0) {
+            if (pendingMovieTickets.length > 0) {
                 await this.actionService.purchase.authorizeMovieTicket({ seller });
             }
             const deposit = Number(this.depositAmount);
@@ -87,7 +85,7 @@ export class PurchaseConfirmComponent implements OnInit {
                 additionalProperty
             });
             await this.actionService.purchase.registerContact(profile);
-            await this.actionService.purchase.endTransaction({ seller, language: userData.language });
+            await this.actionService.purchase.endTransaction({ seller, language });
             this.router.navigate(['/purchase/complete']);
         } catch (error) {
             console.error(error);
