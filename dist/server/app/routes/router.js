@@ -21,7 +21,7 @@ const util_1 = require("./api/util");
 const log = debug('application: router');
 exports.default = (app) => {
     app.use((_req, res, next) => {
-        res.locals.NODE_ENV = process.env.NODE_ENV;
+        res.locals.APP_ENV = process.env.APP_ENV;
         next();
     });
     app.use((req, res, next) => {
