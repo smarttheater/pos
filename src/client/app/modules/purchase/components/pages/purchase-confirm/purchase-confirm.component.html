@@ -85,15 +85,7 @@
                 (click)="onSubmit()">{{ 'purchase.confirm.next' | translate }}</button>
             <button *ngIf="environment.PURCHASE_WARNING" type="submit" class="btn btn-primary btn-block py-3 mb-3" [disabled]="isLoading | async"
                 (click)="onSubmit()">{{ 'purchase.confirm.consent' | translate }}</button>
-            <button *ngIf="amount > 0" type="button" class="btn btn-outline-primary btn-block py-3"
+            <button type="button" class="btn btn-outline-primary btn-block py-3"
                 routerLink="/purchase/payment">{{ 'purchase.confirm.prev' | translate }}</button>
-            <div *ngIf="amount === 0 && environment.VIEW_TYPE === viewType.Cinema">
-                <button type="button" class="btn btn-outline-primary btn-block py-3"
-                    routerLink="/purchase/cinema/ticket">{{ 'purchase.confirm.prev' | translate }}</button>
-            </div>
-            <div *ngIf="amount === 0 && environment.VIEW_TYPE === viewType.Event">
-                <button type="button" class="btn btn-outline-primary btn-block py-3"
-                    routerLink="/purchase/event/ticket">{{ 'purchase.confirm.prev' | translate }}</button>
-            </div>
         </div>
     </div>
