@@ -511,8 +511,13 @@
             "Check": "QRコードを確認しています"
         },
         "masterAction": {
-            "GetSellers": "販売者情報を取得しています",
-            "GetSchedule": "スケジュールを取得しています",
+            "SearchSellers": "販売者情報を取得しています",
+            "SearchMovieTheaters": "施設情報を取得しています",
+            "SearchScreeningEvent": "イベント情報を取得しています",
+            "SearchMovies": "コンテンツ情報を取得しています",
+            "SearchScreeningEventSeries": "施設コンテンツ情報を取得しています",
+            "SearchScreeningRooms": "ルーム情報を取得しています",
+            "SearchCategoryCode": "区分情報を取得しています",
             "GetProjects": "プロジェクトを取得しています"
         },
         "orderAction": {
