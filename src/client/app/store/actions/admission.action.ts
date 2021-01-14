@@ -35,29 +35,3 @@ export const initializeQrcodeToken = createAction(
     `${LABEL} initializeQrcodeToken`,
 );
 
-export const check = createAction(
-    `${LABEL} check`,
-    props<{
-        code: string;
-        screeningEvent?: factory.chevre.event.screeningEvent.IEvent;
-        scheduleDate: Date;
-        specified: boolean;
-    }>()
-);
-
-export const checkSuccess = createAction(
-    `${LABEL} checkSuccess`,
-    props<{
-        qrcodeToken: {
-            availableReservation?: factory.chevre.reservation.IReservation<factory.chevre.reservationType.EventReservation>;
-            checkTokenActions: factory.action.IAction<factory.action.IAttributes<factory.actionType, any, any>>[] | string[];
-            statusCode: number;
-        };
-        screeningEvent?: factory.chevre.event.screeningEvent.IEvent;
-    }>()
-);
-
-export const checkFail = createAction(
-    `${LABEL} checkFail`,
-    props<{ error: Error }>()
-);

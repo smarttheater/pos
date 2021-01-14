@@ -109,6 +109,8 @@ export class AdmissionScheduleComponent implements OnInit, OnDestroy {
      */
     public notSpecified() {
         this.actionService.admission.delete();
+        const scheduleDate = moment(this.scheduleDate).format('YYYY-MM-DD');
+        this.actionService.admission.selectScheduleDate(scheduleDate);
         this.router.navigate(['/admission/check']);
     }
 
