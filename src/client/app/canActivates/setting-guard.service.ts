@@ -27,10 +27,10 @@ export class SettingGuardService implements CanActivate {
             this.user = this.store.pipe(select(reducers.getUser));
             const user = await this.getUser();
             if (user.theater === undefined) {
-                throw new Error('theater not found').message;
+                throw new Error('theater not found');
             }
             if (user.customerContact === undefined) {
-                throw new Error('customerContact not found').message;
+                throw new Error('customerContact not found');
             }
 
             return true;
