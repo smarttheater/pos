@@ -85,7 +85,7 @@ export class PurchaseEventTicketComponent implements OnInit, OnDestroy {
             const theater = user.theater;
             const scheduleDate = purchase.scheduleDate;
             if (theater === undefined || scheduleDate === undefined) {
-                throw new Error('theater === undefined || scheduleDate === undefined').message;
+                throw new Error('theater === undefined || scheduleDate === undefined');
             }
             const creativeWorks = await this.masterService.searchMovies({
                 offers: { availableFrom: moment(scheduleDate).toDate() }

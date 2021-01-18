@@ -109,7 +109,7 @@ export class ReservationSearchComponent implements OnInit {
                 && params.bookingThrough !== null
                 && moment(params.bookingThrough).diff(moment(params.bookingFrom), 'day') > 14) {
                 // 予約日の範囲が14日以上
-                throw new Error('reservation date wrong date range').message;
+                throw new Error('reservation date wrong date range');
             }
             this.reservations = (await this.actionService.reservation.search(params)).data;
             this.nextReservations = (await this.actionService.reservation.search({ ...params, page: (this.currentPage + 1) })).data;
