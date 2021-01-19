@@ -58,7 +58,7 @@ export function reducer(initialState: IState, action: Action) {
         }),
         on(admissionAction.getScreeningEventFail, (state, payload) => {
             const error = payload.error;
-            return { ...state, error: (error.message) ? error.message : JSON.stringify(error) };
+            return { ...state, error: JSON.stringify(error) };
         }),
     )(initialState, action);
 }

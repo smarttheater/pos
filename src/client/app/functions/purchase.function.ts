@@ -66,14 +66,14 @@ export function createGmoTokenObject(params: {
 }) {
     return new Promise<IGmoTokenObject>((resolve, reject) => {
         if (params.seller.paymentAccepted === undefined) {
-            throw new Error('seller.paymentAccepted is undefined').message;
+            throw new Error('seller.paymentAccepted is undefined');
         }
         const findPaymentAcceptedResult = params.seller.paymentAccepted.find((paymentAccepted) => {
             return (paymentAccepted.paymentMethodType === factory.paymentMethodType.CreditCard);
         });
         if (findPaymentAcceptedResult === undefined
             || findPaymentAcceptedResult.paymentMethodType !== factory.paymentMethodType.CreditCard) {
-            throw new Error('paymentMethodType CreditCard not found').message;
+            throw new Error('paymentMethodType CreditCard not found');
         }
         (<any>window).someCallbackFunction = function someCallbackFunction(response: {
             resultCode: string;

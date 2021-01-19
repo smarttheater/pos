@@ -183,7 +183,7 @@ export class SettingComponent implements OnInit {
             const posId = this.settingForm.controls.posId.value;
             const theater = this.theaters.find(t => (t.branchCode === theaterBranchCode));
             if (theater === undefined) {
-                throw new Error('theater not found').message;
+                throw new Error('theater not found');
             }
             const pos = (theater.hasPOS === undefined) ? theater.hasPOS : theater.hasPOS.find(p => p.id === posId);
             const additionalProperty: { name: string; value: string; }[] = [];

@@ -12,6 +12,10 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/).
 
 ### Security
 
+## 3.5.6 - 2020-01-18
+### Fixed
+ - ウェイターエラーハンドリング修正
+
 ## 3.5.5 - 2020-01-14
 ### Changed
  - スケジュール取得をコンテンツ、施設コンテンツ、イベント取得へ変更
