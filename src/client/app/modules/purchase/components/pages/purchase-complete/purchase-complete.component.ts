@@ -46,7 +46,7 @@ export class PurchaseCompleteComponent implements OnInit {
         try {
             const { order } = await this.actionService.purchase.getData();
             if (order === undefined) {
-                throw new Error('order not found').message;
+                throw new Error('order not found');
             }
             this.eventOrders = Functions.Purchase.order2EventOrders({ order });
         } catch (error) {
@@ -68,7 +68,7 @@ export class PurchaseCompleteComponent implements OnInit {
         try {
             const { order } = await this.actionService.purchase.getData();
             if (order === undefined) {
-                throw new Error('order not found').message;
+                throw new Error('order not found');
             }
             const isRegiGrow = order.paymentMethods.find(p => p.name === 'RegiGrow') !== undefined;
             const findResult = this.environment.PAYMENT_METHOD_CUSTOM.find(c => {

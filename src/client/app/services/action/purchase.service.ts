@@ -201,7 +201,7 @@ export class PurchaseService {
             this.utilService.loadStart({ process: 'purchaseAction.GetScreeningEventSeats' });
             const purchase = await this.getData();
             if (purchase.screeningEvent === undefined) {
-                throw new Error('purchase.screeningEvent === undefined').message;
+                throw new Error('purchase.screeningEvent === undefined');
             }
             const screeningEvent = purchase.screeningEvent;
             const limit = 100;

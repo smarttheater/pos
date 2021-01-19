@@ -7,7 +7,7 @@ import { Purchase } from '../models';
  * イベントグループ
  */
 export interface IScreeningEventsGroup {
-    info: factory.chevre.event.screeningEvent.IEvent;
+    screeningEvent: factory.chevre.event.screeningEvent.IEvent;
     data: Purchase.Performance[];
 }
 
@@ -23,15 +23,15 @@ export function screeningEvents2ScreeningEventSeries(params: {
     screeningEvents.forEach((screeningEvent) => {
         const registered = result.find((data) => {
             if (environment.PURCHASE_SCHEDULE_SORT === 'screeningEventSeries') {
-                return (data.info.superEvent.id === screeningEvent.superEvent.id);
+                return (data.screeningEvent.superEvent.id === screeningEvent.superEvent.id);
             } else {
-                return (data.info.location.branchCode === screeningEvent.location.branchCode);
+                return (data.screeningEvent.location.branchCode === screeningEvent.location.branchCode);
             }
         });
         const performance = new Purchase.Performance(screeningEvent);
         if (registered === undefined) {
             result.push({
-                info: screeningEvent,
+                screeningEvent: screeningEvent,
                 data: [performance]
             });
         } else {
@@ -66,14 +66,14 @@ export function createGmoTokenObject(params: {
 }) {
     return new Promise<IGmoTokenObject>((resolve, reject) => {
         if (params.seller.paymentAccepted === undefined) {
-            throw new Error('seller.paymentAccepted is undefined').message;
+            throw new Error('seller.paymentAccepted is undefined');
         }
         const findPaymentAcceptedResult = params.seller.paymentAccepted.find((paymentAccepted) => {
             return (paymentAccepted.paymentMethodType === factory.paymentMethodType.CreditCard);
         });
         if (findPaymentAcceptedResult === undefined
             || findPaymentAcceptedResult.paymentMethodType !== factory.paymentMethodType.CreditCard) {
-            throw new Error('paymentMethodType CreditCard not found').message;
+            throw new Error('paymentMethodType CreditCard not found');
         }
         (<any>window).someCallbackFunction = function someCallbackFunction(response: {
             resultCode: string;

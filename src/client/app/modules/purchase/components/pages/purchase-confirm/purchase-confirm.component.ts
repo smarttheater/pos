@@ -5,7 +5,7 @@ import { select, Store } from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
 import * as moment from 'moment';
 import { Observable } from 'rxjs';
-import { Functions, Models } from '../../../../..';
+import { Functions } from '../../../../..';
 import { getEnvironment } from '../../../../../../environments/environment';
 import { ActionService, UtilService } from '../../../../../services';
 import * as reducers from '../../../../../store/reducers';
@@ -21,7 +21,6 @@ export class PurchaseConfirmComponent implements OnInit {
     public user: Observable<reducers.IUserState>;
     public moment: typeof moment = moment;
     public paymentMethodType: typeof factory.paymentMethodType = factory.paymentMethodType;
-    public viewType = Models.Util.ViewType;
     public depositAmount: number;
     public amount: number;
     public environment = getEnvironment();
@@ -109,7 +108,7 @@ export class PurchaseConfirmComponent implements OnInit {
             const { printer, drawer } = await this.actionService.user.getData();
             if (paymentMethod === undefined
                 || printer === undefined) {
-                throw new Error('order or printer undefined').message;
+                throw new Error('order or printer undefined');
             }
             if (drawer === undefined || !drawer) {
                 return;

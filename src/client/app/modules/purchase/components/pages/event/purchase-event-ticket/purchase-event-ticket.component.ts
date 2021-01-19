@@ -85,12 +85,31 @@ export class PurchaseEventTicketComponent implements OnInit, OnDestroy {
             const theater = user.theater;
             const scheduleDate = purchase.scheduleDate;
             if (theater === undefined || scheduleDate === undefined) {
-                throw new Error('theater === undefined || scheduleDate === undefined').message;
+                throw new Error('theater === undefined || scheduleDate === undefined');
             }
-            const screeningEvents = await this.masterService.getSchedule({
+            const creativeWorks = await this.masterService.searchMovies({
+                offers: { availableFrom: moment(scheduleDate).toDate() }
+            });
+            const screeningEventSeries = (this.environment.PURCHASE_SCHEDULE_SORT === 'screeningEventSeries')
+                ? await this.masterService.searchScreeningEventSeries({
+                    location: {
+                        branchCode: { $eq: theater.branchCode }
+                    },
+                    workPerformed: { identifiers: creativeWorks.map(c => c.identifier) }
+                })
+                : [];
+            const screeningRooms = (this.environment.PURCHASE_SCHEDULE_SORT === 'screen')
+                ? await this.masterService.searchScreeningRooms({
+                    branchCode: { $eq: theater.branchCode }
+                })
+                : [];
+            const screeningEvents = await this.masterService.searchScreeningEvent({
                 superEvent: { locationBranchCodes: [theater.branchCode] },
                 startFrom: moment(scheduleDate).toDate(),
-                startThrough: moment(scheduleDate).add(1, 'day').add(-1, 'millisecond').toDate()
+                startThrough: moment(scheduleDate).add(1, 'day').add(-1, 'millisecond').toDate(),
+                creativeWorks,
+                screeningEventSeries,
+                screeningRooms
             });
             this.screeningEventsGroup =
                 Functions.Purchase.screeningEvents2ScreeningEventSeries({ screeningEvents });
