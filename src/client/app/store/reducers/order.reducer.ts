@@ -23,7 +23,7 @@ export function reducer(initialState: IState, action: Action) {
         }),
         on(orderAction.cancelFail, (state, payload) => {
             const error = payload.error;
-            return { ...state, loading: false, process: '', error: (error.message) ? error.message :  JSON.stringify(error) };
+            return { ...state, loading: false, process: '', error: JSON.stringify(error) };
         }),
         on(orderAction.inquiry, (state) => {
             return { ...state, loading: true, process: 'orderAction.Inquiry' };
@@ -34,7 +34,7 @@ export function reducer(initialState: IState, action: Action) {
         }),
         on(orderAction.inquiryFail, (state, payload) => {
             const error = payload.error;
-            return { ...state, loading: false, process: '', error: (error.message) ? error.message :  JSON.stringify(error) };
+            return { ...state, loading: false, process: '', error: JSON.stringify(error) };
         }),
     )(initialState, action);
 }
