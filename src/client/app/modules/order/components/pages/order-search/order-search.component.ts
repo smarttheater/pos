@@ -31,7 +31,6 @@ export class OrderSearchComponent implements OnInit {
     public paymentMethodType: typeof factory.paymentMethodType = factory.paymentMethodType;
     public limit: number;
     public conditions: Models.Order.Search.IOrderSearchConditions;
-    public confirmedConditions: Models.Order.Search.IOrderSearchConditions;
     public selectedOrders: factory.order.IOrder[];
     public OrderActions = Models.Order.Action.OrderActions;
     public actionSelect: Models.Order.Action.OrderActions | '';
@@ -63,8 +62,6 @@ export class OrderSearchComponent implements OnInit {
         this.maxSize = 1;
         this.currentPage = 1;
         this.limit = 20;
-        this.searchConditionClear();
-        this.actionService.order.delete();
     }
 
     /**
@@ -91,62 +88,14 @@ export class OrderSearchComponent implements OnInit {
     }
 
     /**
-     * 検索条件変更
-     */
-    private changeConditions() {
-        this.confirmedConditions = {
-            orderDateFrom: this.conditions.orderDateFrom,
-            orderDateThrough: this.conditions.orderDateThrough,
-            confirmationNumber: this.conditions.confirmationNumber,
-            orderNumber: this.conditions.orderNumber,
-            customer: {
-                familyName: this.conditions.customer.familyName,
-                givenName: this.conditions.customer.givenName,
-                email: this.conditions.customer.email,
-                telephone: this.conditions.customer.telephone
-            },
-            orderStatus: this.conditions.orderStatus,
-            paymentMethodType: this.conditions.paymentMethodType,
-            eventStartDateFrom: this.conditions.eventStartDateFrom,
-            eventStartDateThrough: this.conditions.eventStartDateThrough,
-            posId: this.conditions.posId,
-            page: 1
-        };
-        this.orders = [];
-        this.totalCount = 20;
-        this.maxSize = 1;
-        this.currentPage = 1;
-    }
-
-    /**
      * 検索
      */
-    public async orderSearch(changeConditions: boolean, event?: { page: number }) {
-        this.currentPage = 1;
-        this.selectedOrders = [];
-        if (event !== undefined) {
-            this.currentPage = event.page;
-            this.confirmedConditions.page = event.page;
-        }
-        // iOS bugfix
-        this.conditions.confirmationNumber
-            = (<HTMLInputElement>document.getElementById('confirmationNumber')).value;
-        this.conditions.orderNumber
-            = (<HTMLInputElement>document.getElementById('orderNumber')).value;
-        this.conditions.customer.familyName
-            = (<HTMLInputElement>document.getElementById('familyName')).value;
-        this.conditions.customer.givenName
-            = (<HTMLInputElement>document.getElementById('givenName')).value;
-        this.conditions.customer.email
-            = (<HTMLInputElement>document.getElementById('email')).value;
-        this.conditions.customer.telephone
-            = (<HTMLInputElement>document.getElementById('telephone')).value;
-        if (changeConditions) {
-            this.changeConditions();
-        }
+    public async search() {
         try {
+            this.currentPage = this.conditions.page;
+            this.selectedOrders = [];
             const params = Functions.Order.input2OrderSearchCondition({
-                input: this.confirmedConditions,
+                input: this.conditions,
                 theater: (await this.actionService.user.getData()).theater,
                 page: this.currentPage,
                 limit: this.limit
@@ -169,30 +118,21 @@ export class OrderSearchComponent implements OnInit {
     }
 
     /**
-     * 検索条件クリア
+     * 条件変更
      */
-    public searchConditionClear() {
-        this.conditions = {
-            confirmationNumber: '',
-            orderNumber: '',
-            customer: {
-                familyName: '',
-                givenName: '',
-                email: '',
-                telephone: ''
-            },
-            orderStatus: '',
-            paymentMethodType: '',
-            posId: '',
-            page: 1
-        };
-        // iOS bugfix
-        (<HTMLInputElement>document.getElementById('confirmationNumber')).value = '';
-        (<HTMLInputElement>document.getElementById('orderNumber')).value = '';
-        (<HTMLInputElement>document.getElementById('familyName')).value = '';
-        (<HTMLInputElement>document.getElementById('givenName')).value = '';
-        (<HTMLInputElement>document.getElementById('email')).value = '';
-        (<HTMLInputElement>document.getElementById('telephone')).value = '';
+    public async changeConditions(conditions: Models.Order.Search.IOrderSearchConditions) {
+        this.conditions = conditions;
+        this.totalCount = 20;
+        this.maxSize = 1;
+        await this.search();
+    }
+
+    /**
+     * ページ変更
+     */
+    public async changePage(event: { page: number }) {
+        this.conditions.page = event.page;
+        await this.search();
     }
 
     /**
@@ -268,7 +208,7 @@ export class OrderSearchComponent implements OnInit {
                 try {
                     const userData = await this.actionService.user.getData();
                     await this.actionService.order.cancel({ orders, language: userData.language });
-                    this.orderSearch(false, { page: this.confirmedConditions.page });
+                    this.changePage({ page: this.conditions.page });
                 } catch (error) {
                     console.error(error);
                     this.utilService.openAlert({
@@ -318,7 +258,7 @@ export class OrderSearchComponent implements OnInit {
                             orders: this.selectedOrders,
                             language: userData.language
                         });
-                        this.orderSearch(false, { page: this.confirmedConditions.page });
+                        this.changePage({ page: this.conditions.page });
                     } catch (error) {
                         console.error(error);
                         this.utilService.openAlert({

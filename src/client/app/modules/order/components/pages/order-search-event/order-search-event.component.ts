@@ -1,5 +1,4 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { Router } from '@angular/router';
 import { factory } from '@cinerino/sdk';
 import { select, Store } from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
@@ -14,16 +13,18 @@ import * as reducers from '../../../../../store/reducers';
 import { OrderDetailModalComponent } from '../../../../shared/components/parts/order/detail-modal/detail-modal.component';
 
 @Component({
-    selector: 'app-order-search-unlimited',
-    templateUrl: './order-search-unlimited.component.html',
-    styleUrls: ['./order-search-unlimited.component.scss']
+    selector: 'app-order-search-event',
+    templateUrl: './order-search-event.component.html',
+    styleUrls: ['./order-search-event.component.scss']
 })
-export class OrderSearchUnlimitedComponent implements OnInit {
+export class OrderSearchEventComponent implements OnInit {
     public isLoading: Observable<boolean>;
     public error: Observable<string | null>;
     public user: Observable<reducers.IUserState>;
-    public orders: factory.order.IOrder[][];
+    public orders: factory.order.IOrder[];
+    public nextOrders: factory.order.IOrder[];
     public totalCount: number;
+    public maxSize: number;
     public currentPage: number;
     public moment: typeof moment = moment;
     public orderStatus: typeof factory.orderStatus = factory.orderStatus;
@@ -36,6 +37,7 @@ export class OrderSearchUnlimitedComponent implements OnInit {
     public actionSelect: Models.Order.Action.OrderActions | '';
     public environment = getEnvironment();
     public order2EventOrders = Functions.Purchase.order2EventOrders;
+    public connectionType = Models.Util.Printer.ConnectionType;
     @ViewChild('orderDateFrom', { static: true }) private orderDateFrom: BsDatepickerDirective;
     @ViewChild('orderDateThrough', { static: true }) private orderDateThrough: BsDatepickerDirective;
     @ViewChild('eventStartDateFrom', { static: true }) private eventStartDateFrom: BsDatepickerDirective;
@@ -44,7 +46,6 @@ export class OrderSearchUnlimitedComponent implements OnInit {
     constructor(
         private store: Store<reducers.IOrderState>,
         private modal: BsModalService,
-        private router: Router,
         private utilService: UtilService,
         private actionService: ActionService,
         private translate: TranslateService,
@@ -58,7 +59,8 @@ export class OrderSearchUnlimitedComponent implements OnInit {
         this.error = this.store.pipe(select(reducers.getError));
         this.user = this.store.pipe(select(reducers.getUser));
         this.orders = [];
-        this.totalCount = 0;
+        this.totalCount = 20;
+        this.maxSize = 1;
         this.currentPage = 1;
         this.limit = 20;
         this.searchConditionClear();
@@ -89,10 +91,31 @@ export class OrderSearchUnlimitedComponent implements OnInit {
     }
 
     /**
-     * ページ変更
+     * 検索条件変更
      */
-    public changePage(event: { page: number }) {
-        this.currentPage = event.page;
+    private changeConditions() {
+        this.confirmedConditions = {
+            orderDateFrom: this.conditions.orderDateFrom,
+            orderDateThrough: this.conditions.orderDateThrough,
+            confirmationNumber: this.conditions.confirmationNumber,
+            orderNumber: this.conditions.orderNumber,
+            customer: {
+                familyName: this.conditions.customer.familyName,
+                givenName: this.conditions.customer.givenName,
+                email: this.conditions.customer.email,
+                telephone: this.conditions.customer.telephone
+            },
+            orderStatus: this.conditions.orderStatus,
+            paymentMethodType: this.conditions.paymentMethodType,
+            eventStartDateFrom: this.conditions.eventStartDateFrom,
+            eventStartDateThrough: this.conditions.eventStartDateThrough,
+            posId: this.conditions.posId,
+            page: 1
+        };
+        this.orders = [];
+        this.totalCount = 20;
+        this.maxSize = 1;
+        this.currentPage = 1;
     }
 
     /**
@@ -102,6 +125,7 @@ export class OrderSearchUnlimitedComponent implements OnInit {
         this.currentPage = 1;
         this.selectedOrders = [];
         if (event !== undefined) {
+            this.currentPage = event.page;
             this.confirmedConditions.page = event.page;
         }
         // iOS bugfix
@@ -118,41 +142,23 @@ export class OrderSearchUnlimitedComponent implements OnInit {
         this.conditions.customer.telephone
             = (<HTMLInputElement>document.getElementById('telephone')).value;
         if (changeConditions) {
-            this.confirmedConditions = {
-                orderDateFrom: this.conditions.orderDateFrom,
-                orderDateThrough: this.conditions.orderDateThrough,
-                confirmationNumber: this.conditions.confirmationNumber,
-                orderNumber: this.conditions.orderNumber,
-                customer: {
-                    familyName: this.conditions.customer.familyName,
-                    givenName: this.conditions.customer.givenName,
-                    email: this.conditions.customer.email,
-                    telephone: this.conditions.customer.telephone
-                },
-                orderStatus: this.conditions.orderStatus,
-                paymentMethodType: this.conditions.paymentMethodType,
-                eventStartDateFrom: this.conditions.eventStartDateFrom,
-                eventStartDateThrough: this.conditions.eventStartDateThrough,
-                posId: this.conditions.posId,
-                page: 1
-            };
+            this.changeConditions();
         }
         try {
-            this.totalCount = 0;
-            this.orders = [];
             const params = Functions.Order.input2OrderSearchCondition({
                 input: this.confirmedConditions,
                 theater: (await this.actionService.user.getData()).theater,
+                page: this.currentPage,
                 limit: this.limit
             });
-            const searchResult = await this.actionService.order.splitSearch(params);
-            this.totalCount = searchResult.totalCount;
-            for (let i = 0; i < Math.ceil(searchResult.data.length / this.limit); i++) {
-                this.orders.push(searchResult.data.slice(
-                    i * this.limit,
-                    ((i + 1) * this.limit < searchResult.data.length) ? (i + 1) * this.limit : searchResult.data.length
-                ));
-            }
+            this.orders = (await this.actionService.order.search(params)).data;
+            this.nextOrders = (await this.actionService.order.search({ ...params, page: (this.currentPage + 1) })).data;
+            const totalCount = (this.nextOrders.length === 0)
+                ? this.currentPage * this.limit : (this.currentPage + 1) * this.limit;
+            this.totalCount = (this.totalCount < totalCount) ? totalCount : this.totalCount;
+            const maxSize = this.totalCount / this.limit;
+            const maxSizeLimit = 5;
+            this.maxSize = (maxSize > maxSizeLimit) ? maxSizeLimit : maxSize;
         } catch (error) {
             console.error(error);
             this.utilService.openAlert({
@@ -166,11 +172,7 @@ export class OrderSearchUnlimitedComponent implements OnInit {
      * 検索条件クリア
      */
     public searchConditionClear() {
-        const now = moment().toDate();
-        const today = moment(moment(now).format('YYYYMMDD'));
         this.conditions = {
-            orderDateFrom: moment(today).add(-13, 'day').toDate(),
-            orderDateThrough: moment(today).toDate(),
             confirmationNumber: '',
             orderNumber: '',
             customer: {
@@ -203,9 +205,8 @@ export class OrderSearchUnlimitedComponent implements OnInit {
             cb: async () => {
                 try {
                     const user = await this.actionService.user.getData();
-                    if (user.pos === undefined || user.printer === undefined) {
-                        this.router.navigate(['/error']);
-                        return;
+                    if (user.printer === undefined) {
+                        throw new Error('printer undefined');
                     }
                     const pos = user.pos;
                     const printer = user.printer;
@@ -225,12 +226,44 @@ export class OrderSearchUnlimitedComponent implements OnInit {
     }
 
     /**
+     * 領収書印刷確認
+     */
+    public printReceiptConfirm(order: factory.order.IOrder) {
+        this.utilService.openConfirm({
+            title: this.translate.instant('common.confirm'),
+            body: this.translate.instant('order.search.confirm.print'),
+            cb: async () => {
+                try {
+                    const user = await this.actionService.user.getData();
+                    if (user.printer === undefined) {
+                        throw new Error('printer undefined');
+                    }
+                    const pos = user.pos;
+                    const printer = user.printer;
+                    await this.actionService.order.printReceipt({ order, pos, printer });
+                } catch (error) {
+                    console.error(error);
+                    this.utilService.openAlert({
+                        title: this.translate.instant('common.error'),
+                        body: `<p class="mb-4">${this.translate.instant('order.search.alert.print')}</p>
+                        <div class="p-3 bg-light-gray select-text">
+                        <code>${error}</code>
+                    </div>`
+                    });
+                }
+            }
+        });
+    }
+
+    /**
      * キャンセル確認
      */
     public cancelConfirm(orders: factory.order.IOrder[]) {
+        const code = Functions.Util.createRandomString(6, /[^0-9]/g);
         this.utilService.openConfirm({
             title: this.translate.instant('common.confirm'),
-            body: this.translate.instant('order.search.confirm.cancel'),
+            body: this.translate.instant('order.search.confirm.cancel', { value: code }),
+            code,
             cb: async () => {
                 try {
                     const userData = await this.actionService.user.getData();
@@ -270,11 +303,14 @@ export class OrderSearchUnlimitedComponent implements OnInit {
                 title: this.translate.instant('common.error'),
                 body: this.translate.instant('order.search.alert.unselected')
             });
+            return;
         }
         if (this.actionSelect === Models.Order.Action.OrderActions.Cancel) {
+            const code = Functions.Util.createRandomString(6, /[^0-9]/g);
             this.utilService.openConfirm({
                 title: this.translate.instant('common.confirm'),
-                body: this.translate.instant('order.search.confirm.cancel'),
+                body: this.translate.instant('order.search.confirm.cancel', { value: code }),
+                code,
                 cb: async () => {
                     try {
                         const userData = await this.actionService.user.getData();
@@ -303,9 +339,8 @@ export class OrderSearchUnlimitedComponent implements OnInit {
                 cb: async () => {
                     try {
                         const user = await this.actionService.user.getData();
-                        if (user.pos === undefined || user.printer === undefined) {
-                            this.router.navigate(['/error']);
-                            return;
+                        if (user.printer === undefined) {
+                            throw new Error('printer undefined');
                         }
                         const pos = user.pos;
                         const printer = user.printer;
