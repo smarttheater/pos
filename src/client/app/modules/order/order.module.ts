@@ -5,7 +5,8 @@ import { OrderDownloadComponent } from './components/pages/order-download/order-
 import { OrderIndexComponent } from './components/pages/order-index/order-index.component';
 import { OrderSearchEventComponent } from './components/pages/order-search-event/order-search-event.component';
 import { OrderSearchComponent } from './components/pages/order-search/order-search.component';
-import { OrderSearchConditionComponent } from './components/parts/order-search-condition/order-search-condition.component';
+import { OrderConditionComponent } from './components/parts/order-condition/order-condition.component';
+import { OrderTableComponent } from './components/parts/order-table/order-table.component';
 import { OrderRoutingModule } from './order-routing.module';
 
 
@@ -15,7 +16,8 @@ import { OrderRoutingModule } from './order-routing.module';
     OrderSearchComponent,
     OrderSearchEventComponent,
     OrderDownloadComponent,
-    OrderSearchConditionComponent
+    OrderConditionComponent,
+    OrderTableComponent,
   ],
   imports: [
     CommonModule,

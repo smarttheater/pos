@@ -228,7 +228,7 @@ export class OrderSearchEventComponent implements OnInit {
     /**
      * 領収書印刷確認
      */
-    public printReceiptConfirm(order: factory.order.IOrder) {
+    public printReceiptConfirm(orders: factory.order.IOrder[]) {
         this.utilService.openConfirm({
             title: this.translate.instant('common.confirm'),
             body: this.translate.instant('order.search.confirm.print'),
@@ -240,7 +240,7 @@ export class OrderSearchEventComponent implements OnInit {
                     }
                     const pos = user.pos;
                     const printer = user.printer;
-                    await this.actionService.order.printReceipt({ order, pos, printer });
+                    await this.actionService.order.printReceipt({ orders, pos, printer });
                 } catch (error) {
                     console.error(error);
                     this.utilService.openAlert({

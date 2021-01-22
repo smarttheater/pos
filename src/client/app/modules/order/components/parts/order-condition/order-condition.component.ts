@@ -9,11 +9,11 @@ import { getEnvironment } from '../../../../../../environments/environment';
 import * as reducers from '../../../../../store/reducers';
 
 @Component({
-    selector: 'app-order-search-condition',
-    templateUrl: './order-search-condition.component.html',
-    styleUrls: ['./order-search-condition.component.scss']
+    selector: 'app-order-condition',
+    templateUrl: './order-condition.component.html',
+    styleUrls: ['./order-condition.component.scss']
 })
-export class OrderSearchConditionComponent implements OnInit {
+export class OrderConditionComponent implements OnInit {
     public isLoading: Observable<boolean>;
     public user: Observable<reducers.IUserState>;
     public moment = moment;

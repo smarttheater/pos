@@ -58,31 +58,20 @@ export class OrderSearchComponent implements OnInit {
         this.error = this.store.pipe(select(reducers.getError));
         this.user = this.store.pipe(select(reducers.getUser));
         this.orders = [];
-        this.totalCount = 20;
         this.maxSize = 1;
         this.currentPage = 1;
         this.limit = 20;
+        this.totalCount = this.limit;
     }
 
-    /**
-     * 選択判定
-     */
-    public isSelected(order: factory.order.IOrder) {
+    public toggleOrder(order: factory.order.IOrder) {
         const findResult = this.selectedOrders.find(o => o.orderNumber === order.orderNumber);
-        return findResult !== undefined;
-    }
-
-    /**
-     * 選択中へ変更
-     */
-    public addOrder(order: factory.order.IOrder) {
-        this.selectedOrders.push(order);
-    }
-
-    /**
-     * 選択中解除
-     */
-    public removeOrder(order: factory.order.IOrder) {
+        if (findResult === undefined) {
+            // 選択中へ変更
+            this.selectedOrders.push(order);
+            return;
+        }
+        // 選択中解除
         const findIndex = this.selectedOrders.findIndex(o => o.orderNumber === order.orderNumber);
         this.selectedOrders.splice(findIndex, 1);
     }
@@ -122,7 +111,7 @@ export class OrderSearchComponent implements OnInit {
      */
     public async changeConditions(conditions: Models.Order.Search.IOrderSearchConditions) {
         this.conditions = conditions;
-        this.totalCount = 20;
+        this.totalCount = this.limit;
         this.maxSize = 1;
         await this.search();
     }
@@ -168,7 +157,7 @@ export class OrderSearchComponent implements OnInit {
     /**
      * 領収書印刷確認
      */
-    public printReceiptConfirm(order: factory.order.IOrder) {
+    public printReceiptConfirm(orders: factory.order.IOrder[]) {
         this.utilService.openConfirm({
             title: this.translate.instant('common.confirm'),
             body: this.translate.instant('order.search.confirm.print'),
@@ -180,7 +169,7 @@ export class OrderSearchComponent implements OnInit {
                     }
                     const pos = user.pos;
                     const printer = user.printer;
-                    await this.actionService.order.printReceipt({ order, pos, printer });
+                    await this.actionService.order.printReceipt({ orders, pos, printer });
                 } catch (error) {
                     console.error(error);
                     this.utilService.openAlert({

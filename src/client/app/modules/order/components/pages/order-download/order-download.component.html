@@ -2,7 +2,7 @@
     <h2 class="text-large mb-4 text-center font-weight-bold">{{ 'order.download.title' | translate }}</h2>
     <p class="mb-4 text-md-center" [innerHTML]="'order.download.read' | translate"></p>
     <div class="conditions p-3 bg-white mb-4">
-        <app-order-search-condition [name]="'order.download.download' | translate" [orderDateValidation]="true" (changeConditions)=changeConditions($event)></app-order-search-condition>
+        <app-order-condition [name]="'order.download.download' | translate" [orderDateValidation]="true" (changeConditions)=changeConditions($event)></app-order-condition>
     </div>
     <div class="buttons mx-auto text-center">
         <button type="button" class="btn btn-outline-primary btn-block py-3"

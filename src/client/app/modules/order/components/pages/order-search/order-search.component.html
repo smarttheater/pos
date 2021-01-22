@@ -2,7 +2,8 @@
     <h2 class="text-large mb-4 text-center font-weight-bold">{{ 'order.search.title' | translate }}</h2>
     <p class="mb-4 text-md-center" [innerHTML]="'order.search.read' | translate"></p>
     <div class="conditions p-3 bg-white mb-4">
-        <app-order-search-condition [name]="'order.search.search' | translate" (changeConditions)=changeConditions($event)></app-order-search-condition>
+        <app-order-condition [name]="'order.search.search' | translate" (changeConditions)=changeConditions($event)>
+        </app-order-condition>
     </div>
     <p class="mb-4" *ngIf="orders.length === 0">{{ 'order.search.notfound' | translate }}</p>
 
@@ -29,83 +30,14 @@
         </div>
 
         <div class="scroll-horizontal">
-            <table class="table table-bordered bg-white text-small mb-0 border border-gray">
-                <thead>
-                    <tr>
-                        <th scope="col"></th>
-                        <th scope="col">{{ 'common.orderDate' | translate }}</th>
-                        <th scope="col">{{ 'common.confirmationNumber' | translate }}</th>
-                        <th scope="col">{{ 'common.event' | translate }}</th>
-                        <th scope="col">{{ 'common.customer' | translate }}</th>
-                        <!-- <th scope="col">決済方法</th> -->
-                        <!-- <th scope="col">注文ステータス</th> -->
-                        <th scope="col"></th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr *ngFor="let order of orders let index = index" [class.bg-light-gray]="index % 2 === 0">
-                        <td class="align-middle text-large text-center">
-                            <div *ngIf="order.orderStatus === orderStatus.OrderDelivered">
-                                <i *ngIf="!isSelected(order)" class="far fa-square pointer"
-                                    (click)="addOrder(order)"></i>
-                                <i *ngIf="isSelected(order)" class="far fa-check-square pointer"
-                                    (click)="removeOrder(order)"></i>
-                            </div>
-                            <div *ngIf="order.orderStatus !== orderStatus.OrderDelivered">
-                                <i class="far fa-square opacity-0"></i>
-                            </div>
-                        </td>
-                        <td class="align-middle">
-                            <p>{{ order.orderDate | formatDate: 'YYYY/MM/DD (ddd) HH:mm' }}</p>
-                        </td>
-                        <td class="align-middle">{{ order.confirmationNumber }}</td>
-                        <td class="align-middle">
-                            <div *ngFor="let eventOrder of order2EventOrders({ order: order })">
-                                <p style="width: 280px">
-                                    {{ eventOrder.event.name | changeLanguage }}
-                                </p>
-                                <p>
-                                    <span
-                                        class="theater-name">{{ eventOrder.event.superEvent.location.name | changeLanguage }}</span>
-                                    <span class="screen-name">&nbsp;/&nbsp;<span
-                                            *ngIf="eventOrder.event.location.address | changeLanguage"
-                                            class="mr-2">{{ eventOrder.event.location.address | changeLanguage }}</span>{{ eventOrder.event.location.name | changeLanguage }}</span>
-                                </p>
-                                <p>{{ eventOrder.event.startDate | formatDate: 'YYYY/MM/DD (ddd) HH:mm' }}
-                                    -</p>
-                            </div>
-                        </td>
-                        <td class="align-middle">{{ order.customer.familyName }} {{ order.customer.givenName }}</td>
-                        <!-- <td class="align-middle">
-                            <div *ngFor="let paymentMethod of order.paymentMethods">
-                                <p>{{ paymentMethod.name }}</p>
-                            </div>
-                        </td> -->
-                        <!-- <td class="align-middle">
-                            {{ order.orderStatus }}
-                        </td> -->
-                        <td class="align-middle text-center">
-                            <button class="btn btn-primary mr-2" (click)="openDetail(order)"><i
-                                    class="fas fa-search-plus"></i></button>
-                            <button *ngIf="environment.ORDER_PRINT"
-                                [disabled]="(user | async)?.printer.connectionType === connectionType.None || order.orderStatus !== orderStatus.OrderDelivered"
-                                class="btn btn-primary mr-2" (click)="printConfirm([order])"><i
-                                    class="fas fa-print"></i></button>
-                            <button *ngIf="environment.PRINT_RECEIPT"
-                                [disabled]="(user | async)?.printer.connectionType === connectionType.None || order.orderStatus !== orderStatus.OrderDelivered"
-                                class="btn btn-primary mr-2" (click)="printReceiptConfirm(order)"><i
-                                    class="fas fa-receipt"></i></button>
-                            <button *ngIf="environment.ORDER_CANCEL"
-                                [disabled]="order.orderStatus !== orderStatus.OrderDelivered" class="btn btn-primary"
-                                (click)="cancelConfirm([order])"><i class="fas fa-reply"></i></button>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
+            <app-order-table [orders]="orders" [selectedOrders]="selectedOrders" (detail)="openDetail($event)"
+                (select)="toggleOrder($event)" (print)="printConfirm($event)" (receipt)="printReceiptConfirm($event)"
+                (return)="cancelConfirm($event)">
+            </app-order-table>
         </div>
     </div>
     <div class="buttons mx-auto text-center">
-        <button type="button" class="btn btn-outline-primary btn-block py-3"
-            routerLink="/order">{{ 'order.search.prev' | translate }}</button>
+        <button type="button" class="btn btn-outline-primary btn-block py-3" routerLink="/order">{{ 'order.search.prev'
+            | translate }}</button>
     </div>
 </div>
