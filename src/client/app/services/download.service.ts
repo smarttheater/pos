@@ -22,20 +22,27 @@ export class DownloadService {
      * 注文情報CSVダウンロード
      */
     public async order(params: factory.order.ISearchConditions) {
-        await this.cinerino.getServices();
-        // カスタム
-        const searchResult = await this.actionService.order.splitSearch(params);
-        const path = `/json/csv/order.json`;
-        const url = (await Functions.Util.isFile(`${Functions.Util.getProject().storageUrl}${path}`))
-            ? `${Functions.Util.getProject().storageUrl}${path}`
-            : `/default${path}`;
-        const fields = await this.utilService.getJson<{ label: string, value: string }[]>(url);
-        const opts = { fields, unwind: [] };
-        const data = Functions.Order.order2report(searchResult.data);
-        const csv = await json2csv.parseAsync(data, opts);
-        const blob = Functions.Util.string2blob(csv, { type: 'text/csv' });
-        const fileName = 'CustomOrderReport.csv';
-        this.download(blob, fileName);
+        try {
+            this.utilService.loadStart({ process: 'load' });
+            // カスタム
+            const searchResult = await this.actionService.order.splitSearch(params);
+            const path = `/json/csv/order.json`;
+            const url = (await Functions.Util.isFile(`${Functions.Util.getProject().storageUrl}${path}`))
+                ? `${Functions.Util.getProject().storageUrl}${path}`
+                : `/default${path}`;
+            const fields = await this.utilService.getJson<{ label: string, value: string }[]>(url);
+            const opts = { fields, unwind: [] };
+            const data = Functions.Order.order2report(searchResult.data);
+            const csv = await json2csv.parseAsync(data, opts);
+            const blob = Functions.Util.string2blob(csv, { type: 'text/csv' });
+            const fileName = 'CustomOrderReport.csv';
+            this.download(blob, fileName);
+            this.utilService.loadEnd();
+        } catch (error) {
+            this.utilService.setError(error);
+            this.utilService.loadEnd();
+            throw error;
+        }
     }
 
     /**
