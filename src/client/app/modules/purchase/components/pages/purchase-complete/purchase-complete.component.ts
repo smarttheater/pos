@@ -136,10 +136,10 @@ export class PurchaseCompleteComponent implements OnInit {
                 || user.printer === undefined) {
                 throw new Error('printer undefined');
             }
-            const order = purchase.order;
+            const orders = [purchase.order];
             const pos = user.pos;
             const printer = user.printer;
-            await this.actionService.order.printReceipt({ order, pos, printer });
+            await this.actionService.order.printReceipt({ orders, pos, printer });
         } catch (error) {
             this.utilService.openAlert({
                 title: this.translate.instant('common.error'),

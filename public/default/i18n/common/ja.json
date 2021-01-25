@@ -112,6 +112,11 @@
                     "read": "注文検索できます。",
                     "next": "選択"
                 },
+                "event": {
+                    "title": "イベントから検索",
+                    "read": "イベントから注文検索できます。",
+                    "next": "選択"
+                },
                 "download": {
                     "title": "ダウンロード",
                     "read": "注文データをストリーミングダウンロードすることができます。",
@@ -155,7 +160,7 @@
                 "unselected": "注文が選択されていません。",
                 "authorize": "QRコード表示を表示できません。",
                 "print": "印刷に失敗しました",
-                "search": "検索に失敗しました<br>※購入日の期間の上限は14日間です。"
+                "search": "検索に失敗しました"
             },
             "confirm": {
                 "cancel": "キャンセルしてよろしいですか。<br>※「{{value}}」を入力してください。",
@@ -167,23 +172,6 @@
             "read": "条件を指定してください。",
             "next": "",
             "prev": "戻る",
-            "conditions": {
-                "orderDateFrom": "購入日（From）",
-                "orderDateThrough": "購入日（Through）",
-                "telephone": "電話番号（下4桁）",
-                "eventStartDateFrom": "上映日（From）",
-                "eventStartDateThrough": "上映日（Through）",
-                "pos": "POS"
-            },
-            "orderStatus": {
-                "orderCancelled": "Order Cancelled",
-                "orderDelivered": "配送済み",
-                "orderPaymentDue": "Order Payment Due",
-                "orderPickupAvailable": "Order Pickup Available",
-                "orderProblem": "Order Problem",
-                "orderProcessing": "配送中",
-                "orderReturned": "返品済み"
-            },
             "clear": "条件をクリア",
             "notfound": "注文が見つかりません",
             "download": "ダウンロード",
