@@ -73,4 +73,5 @@ export interface ISeat {
     section: string;
     status: SeatStatus;
     ticketedSeat?: IReservationSeat;
+    label: string;
 }

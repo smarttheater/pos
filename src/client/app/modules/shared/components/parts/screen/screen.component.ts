@@ -471,7 +471,8 @@ export class ScreenComponent implements OnInit, AfterViewInit, AfterContentCheck
                             code,
                             section,
                             status,
-                            ticketedSeat: (acceptedOffer !== undefined) ? acceptedOffer.ticketedSeat : undefined
+                            ticketedSeat: (acceptedOffer !== undefined) ? acceptedOffer.ticketedSeat : undefined,
+                            label: `${code.split('-')[0]}<br>${code.split('-')[1]}`,
                         };
                         seats[labelCount].data.push(seat);
                     }
@@ -501,7 +502,7 @@ export class ScreenComponent implements OnInit, AfterViewInit, AfterContentCheck
 
         this.seats = seats;
         this.screenType = screenType;
-        // console.log(this.seats);
+        console.log(this.seats);
     }
 
     /**
