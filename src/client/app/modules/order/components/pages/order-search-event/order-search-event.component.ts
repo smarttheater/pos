@@ -13,11 +13,11 @@ import * as reducers from '../../../../../store/reducers';
 import { OrderDetailModalComponent } from '../../../../shared/components/parts/order/detail-modal/detail-modal.component';
 
 @Component({
-    selector: 'app-order-search',
-    templateUrl: './order-search.component.html',
-    styleUrls: ['./order-search.component.scss']
+    selector: 'app-order-search-event',
+    templateUrl: './order-search-event.component.html',
+    styleUrls: ['./order-search-event.component.scss']
 })
-export class OrderSearchComponent implements OnInit {
+export class OrderSearchEventComponent implements OnInit {
     public isLoading: Observable<boolean>;
     public error: Observable<string | null>;
     public user: Observable<reducers.IUserState>;
@@ -31,6 +31,7 @@ export class OrderSearchComponent implements OnInit {
     public paymentMethodType: typeof factory.paymentMethodType = factory.paymentMethodType;
     public limit: number;
     public conditions: Models.Order.Search.IOrderSearchConditions;
+    public confirmedConditions: Models.Order.Search.IOrderSearchConditions;
     public selectedOrders: factory.order.IOrder[];
     public OrderActions = Models.Order.Action.OrderActions;
     public actionSelect: Models.Order.Action.OrderActions | '';
@@ -58,33 +59,94 @@ export class OrderSearchComponent implements OnInit {
         this.error = this.store.pipe(select(reducers.getError));
         this.user = this.store.pipe(select(reducers.getUser));
         this.orders = [];
+        this.totalCount = 20;
         this.maxSize = 1;
         this.currentPage = 1;
         this.limit = 20;
-        this.totalCount = this.limit;
+        this.searchConditionClear();
+        this.actionService.order.delete();
     }
 
-    public toggleOrder(order: factory.order.IOrder) {
+    /**
+     * 選択判定
+     */
+    public isSelected(order: factory.order.IOrder) {
         const findResult = this.selectedOrders.find(o => o.orderNumber === order.orderNumber);
-        if (findResult === undefined) {
-            // 選択中へ変更
-            this.selectedOrders.push(order);
-            return;
-        }
-        // 選択中解除
+        return findResult !== undefined;
+    }
+
+    /**
+     * 選択中へ変更
+     */
+    public addOrder(order: factory.order.IOrder) {
+        this.selectedOrders.push(order);
+    }
+
+    /**
+     * 選択中解除
+     */
+    public removeOrder(order: factory.order.IOrder) {
         const findIndex = this.selectedOrders.findIndex(o => o.orderNumber === order.orderNumber);
         this.selectedOrders.splice(findIndex, 1);
     }
 
     /**
+     * 検索条件変更
+     */
+    private changeConditions() {
+        this.confirmedConditions = {
+            orderDateFrom: this.conditions.orderDateFrom,
+            orderDateThrough: this.conditions.orderDateThrough,
+            confirmationNumber: this.conditions.confirmationNumber,
+            orderNumber: this.conditions.orderNumber,
+            customer: {
+                familyName: this.conditions.customer.familyName,
+                givenName: this.conditions.customer.givenName,
+                email: this.conditions.customer.email,
+                telephone: this.conditions.customer.telephone
+            },
+            orderStatus: this.conditions.orderStatus,
+            paymentMethodType: this.conditions.paymentMethodType,
+            eventStartDateFrom: this.conditions.eventStartDateFrom,
+            eventStartDateThrough: this.conditions.eventStartDateThrough,
+            posId: this.conditions.posId,
+            page: 1
+        };
+        this.orders = [];
+        this.totalCount = 20;
+        this.maxSize = 1;
+        this.currentPage = 1;
+    }
+
+    /**
      * 検索
      */
-    public async search() {
+    public async orderSearch(changeConditions: boolean, event?: { page: number }) {
+        this.currentPage = 1;
+        this.selectedOrders = [];
+        if (event !== undefined) {
+            this.currentPage = event.page;
+            this.confirmedConditions.page = event.page;
+        }
+        // iOS bugfix
+        this.conditions.confirmationNumber
+            = (<HTMLInputElement>document.getElementById('confirmationNumber')).value;
+        this.conditions.orderNumber
+            = (<HTMLInputElement>document.getElementById('orderNumber')).value;
+        this.conditions.customer.familyName
+            = (<HTMLInputElement>document.getElementById('familyName')).value;
+        this.conditions.customer.givenName
+            = (<HTMLInputElement>document.getElementById('givenName')).value;
+        this.conditions.customer.email
+            = (<HTMLInputElement>document.getElementById('email')).value;
+        this.conditions.customer.telephone
+            = (<HTMLInputElement>document.getElementById('telephone')).value;
+        if (changeConditions) {
+            this.changeConditions();
+        }
         try {
-            this.currentPage = this.conditions.page;
-            this.selectedOrders = [];
             const params = Functions.Order.input2OrderSearchCondition({
-                input: this.conditions,
+                input: this.confirmedConditions,
                 theater: (await this.actionService.user.getData()).theater,
                 page: this.currentPage,
                 limit: this.limit
@@ -107,21 +169,30 @@ export class OrderSearchComponent implements OnInit {
     }
 
     /**
-     * 条件変更
+     * 検索条件クリア
      */
-    public async changeConditions(conditions: Models.Order.Search.IOrderSearchConditions) {
-        this.conditions = conditions;
-        this.totalCount = this.limit;
-        this.maxSize = 1;
-        await this.search();
-    }
-
-    /**
-     * ページ変更
-     */
-    public async changePage(event: { page: number }) {
-        this.conditions.page = event.page;
-        await this.search();
+    public searchConditionClear() {
+        this.conditions = {
+            confirmationNumber: '',
+            orderNumber: '',
+            customer: {
+                familyName: '',
+                givenName: '',
+                email: '',
+                telephone: ''
+            },
+            orderStatus: '',
+            paymentMethodType: '',
+            posId: '',
+            page: 1
+        };
+        // iOS bugfix
+        (<HTMLInputElement>document.getElementById('confirmationNumber')).value = '';
+        (<HTMLInputElement>document.getElementById('orderNumber')).value = '';
+        (<HTMLInputElement>document.getElementById('familyName')).value = '';
+        (<HTMLInputElement>document.getElementById('givenName')).value = '';
+        (<HTMLInputElement>document.getElementById('email')).value = '';
+        (<HTMLInputElement>document.getElementById('telephone')).value = '';
     }
 
     /**
@@ -197,7 +268,7 @@ export class OrderSearchComponent implements OnInit {
                 try {
                     const userData = await this.actionService.user.getData();
                     await this.actionService.order.cancel({ orders, language: userData.language });
-                    this.changePage({ page: this.conditions.page });
+                    this.orderSearch(false, { page: this.confirmedConditions.page });
                 } catch (error) {
                     console.error(error);
                     this.utilService.openAlert({
@@ -247,7 +318,7 @@ export class OrderSearchComponent implements OnInit {
                             orders: this.selectedOrders,
                             language: userData.language
                         });
-                        this.changePage({ page: this.conditions.page });
+                        this.orderSearch(false, { page: this.confirmedConditions.page });
                     } catch (error) {
                         console.error(error);
                         this.utilService.openAlert({

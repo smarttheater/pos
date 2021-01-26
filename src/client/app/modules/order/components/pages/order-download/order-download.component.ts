@@ -1,10 +1,8 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { factory } from '@cinerino/sdk';
 import { select, Store } from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
 import * as moment from 'moment';
-import { BsDatepickerDirective, BsLocaleService } from 'ngx-bootstrap/datepicker';
-import { BsDatepickerContainerComponent } from 'ngx-bootstrap/datepicker/themes/bs/bs-datepicker-container.component';
 import { Observable } from 'rxjs';
 import { Functions, Models } from '../../../../..';
 import { getEnvironment } from '../../../../../../environments/environment';
@@ -21,21 +19,12 @@ export class OrderDownloadComponent implements OnInit {
     public error: Observable<string | null>;
     public order: Observable<reducers.IOrderState>;
     public user: Observable<reducers.IUserState>;
-    public moment: typeof moment = moment;
-    public orderStatus: typeof factory.orderStatus = factory.orderStatus;
-    public paymentMethodType: typeof factory.paymentMethodType = factory.paymentMethodType;
+    public moment = moment;
+    public orderStatus = factory.orderStatus;
+    public paymentMethodType = factory.paymentMethodType;
     public conditions: Models.Order.Search.IOrderSearchConditions;
-    public confirmedConditions: Models.Order.Search.IOrderSearchConditions;
-    public selectedOrders: factory.order.IOrder[];
-    public actionSelect: Models.Order.Action.OrderActions | '';
-    public buildQueryString = Functions.Util.buildQueryString;
     public environment = getEnvironment();
     public order2EventOrders = Functions.Purchase.order2EventOrders;
-    public csvFormat = Models.Order.Download.CsvFormat;
-    @ViewChild('orderDateFrom', { static: true }) private orderDateFrom: BsDatepickerDirective;
-    @ViewChild('orderDateThrough', { static: true }) private orderDateThrough: BsDatepickerDirective;
-    @ViewChild('eventStartDateFrom', { static: true }) private eventStartDateFrom: BsDatepickerDirective;
-    @ViewChild('eventStartDateThrough', { static: true }) private eventStartDateThrough: BsDatepickerDirective;
 
     constructor(
         private store: Store<reducers.IOrderState>,
@@ -43,12 +32,9 @@ export class OrderDownloadComponent implements OnInit {
         private actionService: ActionService,
         private downloadService: DownloadService,
         private translate: TranslateService,
-        private localeService: BsLocaleService,
     ) { }
 
     public ngOnInit() {
-        this.actionSelect = '';
-        this.selectedOrders = [];
         this.isLoading = this.store.pipe(select(reducers.getLoading));
         this.error = this.store.pipe(select(reducers.getError));
         this.order = this.store.pipe(select(reducers.getOrder));
@@ -77,45 +63,10 @@ export class OrderDownloadComponent implements OnInit {
     /**
      * ダウンロード
      */
-    public async orderDownload(changeConditions: boolean) {
-        this.selectedOrders = [];
-        // iOS bugfix
-        this.conditions.confirmationNumber
-            = (<HTMLInputElement>document.getElementById('confirmationNumber')).value;
-        this.conditions.orderNumber
-            = (<HTMLInputElement>document.getElementById('orderNumber')).value;
-        this.conditions.customer.familyName
-            = (<HTMLInputElement>document.getElementById('familyName')).value;
-        this.conditions.customer.givenName
-            = (<HTMLInputElement>document.getElementById('givenName')).value;
-        this.conditions.customer.email
-            = (<HTMLInputElement>document.getElementById('email')).value;
-        this.conditions.customer.telephone
-            = (<HTMLInputElement>document.getElementById('telephone')).value;
-        if (changeConditions) {
-            this.confirmedConditions = {
-                orderDateFrom: this.conditions.orderDateFrom,
-                orderDateThrough: this.conditions.orderDateThrough,
-                confirmationNumber: this.conditions.confirmationNumber,
-                orderNumber: this.conditions.orderNumber,
-                customer: {
-                    familyName: this.conditions.customer.familyName,
-                    givenName: this.conditions.customer.givenName,
-                    email: this.conditions.customer.email,
-                    telephone: this.conditions.customer.telephone
-                },
-                orderStatus: this.conditions.orderStatus,
-                paymentMethodType: this.conditions.paymentMethodType,
-                eventStartDateFrom: this.conditions.eventStartDateFrom,
-                eventStartDateThrough: this.conditions.eventStartDateThrough,
-                posId: this.conditions.posId,
-                page: 1
-            };
-        }
-        this.utilService.loadStart({ process: 'load' });
+    public async download() {
         try {
             const params = Functions.Order.input2OrderSearchCondition({
-                input: this.confirmedConditions,
+                input: this.conditions,
                 theater: (await this.actionService.user.getData()).theater,
             });
             await this.downloadService.order(params);
@@ -126,59 +77,14 @@ export class OrderDownloadComponent implements OnInit {
                 body: this.translate.instant('order.download.alert.download')
             });
         }
-        this.utilService.loadEnd();
     }
 
     /**
-     * 検索条件クリア
+     * 条件変更
      */
-    public downloadConditionClear() {
-        const now = moment().toDate();
-        const today = moment(moment(now).format('YYYYMMDD'));
-        this.conditions = {
-            orderDateFrom: moment(today).add(-4, 'month').toDate(),
-            orderDateThrough: moment(today).toDate(),
-            confirmationNumber: '',
-            orderNumber: '',
-            customer: {
-                familyName: '',
-                givenName: '',
-                email: '',
-                telephone: ''
-            },
-            orderStatus: '',
-            paymentMethodType: '',
-            posId: '',
-            page: 1
-        };
-        // iOS bugfix
-        (<HTMLInputElement>document.getElementById('confirmationNumber')).value = '';
-        (<HTMLInputElement>document.getElementById('orderNumber')).value = '';
-        (<HTMLInputElement>document.getElementById('familyName')).value = '';
-        (<HTMLInputElement>document.getElementById('givenName')).value = '';
-        (<HTMLInputElement>document.getElementById('email')).value = '';
-        (<HTMLInputElement>document.getElementById('telephone')).value = '';
-    }
-
-    /**
-     * DatePicker設定
-     */
-    public setDatePicker() {
-        this.user.subscribe((user) => {
-            this.localeService.use(user.language);
-        }).unsubscribe();
-    }
-
-    /**
-     * iOS bugfix（2回タップしないと選択できない）
-     */
-    public onShowPicker(container: BsDatepickerContainerComponent) {
-        Functions.Util.iOSDatepickerTapBugFix(container, [
-            this.orderDateFrom,
-            this.orderDateThrough,
-            this.eventStartDateFrom,
-            this.eventStartDateThrough
-        ]);
+    public async changeConditions(conditions: Models.Order.Search.IOrderSearchConditions) {
+        this.conditions = conditions;
+        await this.download();
     }
 
 }
