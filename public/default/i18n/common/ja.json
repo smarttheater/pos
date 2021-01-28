@@ -167,6 +167,22 @@
                 "print": "印刷してよろしいですか。"
             }
         },
+        "searchEvent": {
+            "title": "注文検索",
+            "read": "検索してください。",
+            "next": "",
+            "prev": "戻る",
+            "order": {
+                "notfound": "注文が見つかりません"
+            },
+            "schedule": {
+                "notfound": "イベントが見つかりません"
+            },
+            "alert": {
+                "schedule": "スケジュール取得に失敗しました。",
+                "search": "検索に失敗しました"
+            }
+        },
         "download": {
             "title": "注文ダウンロード",
             "read": "条件を指定してください。",

@@ -1,20 +1,21 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { factory } from '@cinerino/sdk';
 import * as moment from 'moment';
-import { Functions } from '../../../../..';
+import { Models } from '../../../../..';
 import { getEnvironment } from '../../../../../../environments/environment';
 
 @Component({
-    selector: 'app-purchase-performances',
-    templateUrl: './performances.component.html',
-    styleUrls: ['./performances.component.scss']
+    selector: 'app-performance',
+    templateUrl: './performance.component.html',
+    styleUrls: ['./performance.component.scss']
 })
-export class PurchasePerformancesComponent implements OnInit {
+export class PerformanceComponent implements OnInit {
 
-    @Input() public screeningEventsGroup: Functions.Purchase.IScreeningEventsGroup;
+    @Input() public performance: Models.Purchase.Performance;
     @Output() public select = new EventEmitter<factory.chevre.event.screeningEvent.IEvent>();
     public moment = moment;
     public environment = getEnvironment();
+    public viewType = Models.Util.ViewType;
 
     constructor() { }
 

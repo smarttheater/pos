@@ -50,6 +50,7 @@ export class PurchaseCinemaScheduleComponent implements OnInit, OnDestroy {
         this.user = this.store.pipe(select(reducers.getUser));
         this.isLoading = this.store.pipe(select(reducers.getLoading));
         this.screeningEventsGroup = [];
+        this.scheduleDate = moment(moment().format('YYYYMMDD'), 'YYYYMMDD').toDate();
     }
 
     /**
@@ -76,12 +77,10 @@ export class PurchaseCinemaScheduleComponent implements OnInit, OnDestroy {
      * 日付選択
      */
     public async selectDate(date?: Date | null) {
-        if (await this.getLoading()) {
+        if (date === undefined || date === null) {
             return;
         }
-        if (date !== undefined && date !== null) {
-            this.scheduleDate = date;
-        }
+        this.scheduleDate = date;
         const user = await this.actionService.user.getData();
         const theater = user.theater;
         if (this.scheduleDate === undefined) {

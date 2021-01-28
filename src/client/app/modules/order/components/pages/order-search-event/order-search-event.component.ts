@@ -1,56 +1,22 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { factory } from '@cinerino/sdk';
-import { select, Store } from '@ngrx/store';
-import { TranslateService } from '@ngx-translate/core';
+import { select } from '@ngrx/store';
 import * as moment from 'moment';
-import { BsDatepickerContainerComponent, BsDatepickerDirective, BsLocaleService } from 'ngx-bootstrap/datepicker';
-import { BsModalService } from 'ngx-bootstrap/modal';
-import { Observable } from 'rxjs';
-import { Functions, Models } from '../../../../..';
-import { getEnvironment } from '../../../../../../environments/environment';
-import { ActionService, UtilService } from '../../../../../services';
+import { BsDatepickerContainerComponent, BsDatepickerDirective } from 'ngx-bootstrap/datepicker';
+import { Functions } from '../../../../..';
 import * as reducers from '../../../../../store/reducers';
-import { OrderDetailModalComponent } from '../../../../shared/components/parts/order/detail-modal/detail-modal.component';
+import { OrderSearchComponent } from '../order-search/order-search.component';
 
 @Component({
     selector: 'app-order-search-event',
     templateUrl: './order-search-event.component.html',
     styleUrls: ['./order-search-event.component.scss']
 })
-export class OrderSearchEventComponent implements OnInit {
-    public isLoading: Observable<boolean>;
-    public error: Observable<string | null>;
-    public user: Observable<reducers.IUserState>;
-    public orders: factory.order.IOrder[];
-    public nextOrders: factory.order.IOrder[];
-    public totalCount: number;
-    public maxSize: number;
-    public currentPage: number;
-    public moment: typeof moment = moment;
-    public orderStatus: typeof factory.orderStatus = factory.orderStatus;
-    public paymentMethodType: typeof factory.paymentMethodType = factory.paymentMethodType;
-    public limit: number;
-    public conditions: Models.Order.Search.IOrderSearchConditions;
-    public confirmedConditions: Models.Order.Search.IOrderSearchConditions;
-    public selectedOrders: factory.order.IOrder[];
-    public OrderActions = Models.Order.Action.OrderActions;
-    public actionSelect: Models.Order.Action.OrderActions | '';
-    public environment = getEnvironment();
-    public order2EventOrders = Functions.Purchase.order2EventOrders;
-    public connectionType = Models.Util.Printer.ConnectionType;
-    @ViewChild('orderDateFrom', { static: true }) private orderDateFrom: BsDatepickerDirective;
-    @ViewChild('orderDateThrough', { static: true }) private orderDateThrough: BsDatepickerDirective;
-    @ViewChild('eventStartDateFrom', { static: true }) private eventStartDateFrom: BsDatepickerDirective;
-    @ViewChild('eventStartDateThrough', { static: true }) private eventStartDateThrough: BsDatepickerDirective;
-
-    constructor(
-        private store: Store<reducers.IOrderState>,
-        private modal: BsModalService,
-        private utilService: UtilService,
-        private actionService: ActionService,
-        private translate: TranslateService,
-        private localeService: BsLocaleService,
-    ) { }
+export class OrderSearchEventComponent extends OrderSearchComponent implements OnInit {
+    @ViewChild('datepicker', { static: true }) private datepicker: BsDatepickerDirective;
+    public scheduleDate: Date;
+    public screeningEventsGroup: Functions.Purchase.IScreeningEventsGroup[];
+    public screeningEvent: factory.chevre.event.screeningEvent.IEvent;
 
     public ngOnInit() {
         this.actionSelect = '';
@@ -59,120 +25,75 @@ export class OrderSearchEventComponent implements OnInit {
         this.error = this.store.pipe(select(reducers.getError));
         this.user = this.store.pipe(select(reducers.getUser));
         this.orders = [];
-        this.totalCount = 20;
         this.maxSize = 1;
         this.currentPage = 1;
         this.limit = 20;
-        this.searchConditionClear();
-        this.actionService.order.delete();
+        this.totalCount = this.limit;
+        this.screeningEventsGroup = [];
+        this.scheduleDate = moment(moment().format('YYYYMMDD'), 'YYYYMMDD').toDate();
     }
 
     /**
-     * 選択判定
+     * 日付選択
      */
-    public isSelected(order: factory.order.IOrder) {
-        const findResult = this.selectedOrders.find(o => o.orderNumber === order.orderNumber);
-        return findResult !== undefined;
-    }
-
-    /**
-     * 選択中へ変更
-     */
-    public addOrder(order: factory.order.IOrder) {
-        this.selectedOrders.push(order);
-    }
-
-    /**
-     * 選択中解除
-     */
-    public removeOrder(order: factory.order.IOrder) {
-        const findIndex = this.selectedOrders.findIndex(o => o.orderNumber === order.orderNumber);
-        this.selectedOrders.splice(findIndex, 1);
-    }
-
-    /**
-     * 検索条件変更
-     */
-    private changeConditions() {
-        this.confirmedConditions = {
-            orderDateFrom: this.conditions.orderDateFrom,
-            orderDateThrough: this.conditions.orderDateThrough,
-            confirmationNumber: this.conditions.confirmationNumber,
-            orderNumber: this.conditions.orderNumber,
-            customer: {
-                familyName: this.conditions.customer.familyName,
-                givenName: this.conditions.customer.givenName,
-                email: this.conditions.customer.email,
-                telephone: this.conditions.customer.telephone
-            },
-            orderStatus: this.conditions.orderStatus,
-            paymentMethodType: this.conditions.paymentMethodType,
-            eventStartDateFrom: this.conditions.eventStartDateFrom,
-            eventStartDateThrough: this.conditions.eventStartDateThrough,
-            posId: this.conditions.posId,
-            page: 1
-        };
-        this.orders = [];
-        this.totalCount = 20;
-        this.maxSize = 1;
-        this.currentPage = 1;
-    }
-
-    /**
-     * 検索
-     */
-    public async orderSearch(changeConditions: boolean, event?: { page: number }) {
-        this.currentPage = 1;
-        this.selectedOrders = [];
-        if (event !== undefined) {
-            this.currentPage = event.page;
-            this.confirmedConditions.page = event.page;
+    public async selectDate(date?: Date | null) {
+        if (date === undefined || date === null) {
+            return;
         }
-        // iOS bugfix
-        this.conditions.confirmationNumber
-            = (<HTMLInputElement>document.getElementById('confirmationNumber')).value;
-        this.conditions.orderNumber
-            = (<HTMLInputElement>document.getElementById('orderNumber')).value;
-        this.conditions.customer.familyName
-            = (<HTMLInputElement>document.getElementById('familyName')).value;
-        this.conditions.customer.givenName
-            = (<HTMLInputElement>document.getElementById('givenName')).value;
-        this.conditions.customer.email
-            = (<HTMLInputElement>document.getElementById('email')).value;
-        this.conditions.customer.telephone
-            = (<HTMLInputElement>document.getElementById('telephone')).value;
-        if (changeConditions) {
-            this.changeConditions();
+        this.scheduleDate = date;
+        const user = await this.actionService.user.getData();
+        const theater = user.theater;
+        if (this.scheduleDate === undefined) {
+            this.scheduleDate = moment()
+                .add(this.environment.PURCHASE_SCHEDULE_DEFAULT_SELECTED_DATE, 'day')
+                .toDate();
+        }
+        const scheduleDate = moment(this.scheduleDate).format('YYYY-MM-DD');
+        if (theater === undefined) {
+            return;
         }
         try {
-            const params = Functions.Order.input2OrderSearchCondition({
-                input: this.confirmedConditions,
-                theater: (await this.actionService.user.getData()).theater,
-                page: this.currentPage,
-                limit: this.limit
+            const creativeWorks = await this.masterService.searchMovies({
+                offers: { availableFrom: moment(scheduleDate).toDate() }
             });
-            this.orders = (await this.actionService.order.search(params)).data;
-            this.nextOrders = (await this.actionService.order.search({ ...params, page: (this.currentPage + 1) })).data;
-            const totalCount = (this.nextOrders.length === 0)
-                ? this.currentPage * this.limit : (this.currentPage + 1) * this.limit;
-            this.totalCount = (this.totalCount < totalCount) ? totalCount : this.totalCount;
-            const maxSize = this.totalCount / this.limit;
-            const maxSizeLimit = 5;
-            this.maxSize = (maxSize > maxSizeLimit) ? maxSizeLimit : maxSize;
+            const screeningEventSeries = (this.environment.PURCHASE_SCHEDULE_SORT === 'screeningEventSeries')
+                ? await this.masterService.searchScreeningEventSeries({
+                    location: {
+                        branchCode: { $eq: theater.branchCode }
+                    },
+                    workPerformed: { identifiers: creativeWorks.map(c => c.identifier) }
+                })
+                : [];
+            const screeningRooms = (this.environment.PURCHASE_SCHEDULE_SORT === 'screen')
+                ? await this.masterService.searchScreeningRooms({
+                    branchCode: { $eq: theater.branchCode }
+                })
+                : [];
+            const screeningEvents = await this.masterService.searchScreeningEvent({
+                superEvent: { locationBranchCodes: [theater.branchCode] },
+                startFrom: moment(scheduleDate).toDate(),
+                startThrough: moment(scheduleDate).add(1, 'day').add(-1, 'millisecond').toDate(),
+                creativeWorks,
+                screeningEventSeries,
+                screeningRooms
+            });
+            this.screeningEventsGroup =
+                Functions.Purchase.screeningEvents2ScreeningEventSeries({ screeningEvents });
         } catch (error) {
             console.error(error);
             this.utilService.openAlert({
                 title: this.translate.instant('common.error'),
-                body: this.translate.instant('order.search.alert.search')
+                body: this.translate.instant('order.searchEvent.alert.schedule')
             });
         }
     }
 
     /**
-     * 検索条件クリア
+     * スケジュール選択
      */
-    public searchConditionClear() {
-        this.conditions = {
+    public async selectSchedule(screeningEvent: factory.chevre.event.screeningEvent.IEvent) {
+        this.screeningEvent = screeningEvent;
+        this.changeConditions({
             confirmationNumber: '',
             orderNumber: '',
             customer: {
@@ -183,186 +104,15 @@ export class OrderSearchEventComponent implements OnInit {
             },
             orderStatus: '',
             paymentMethodType: '',
+            eventIds: [screeningEvent.id],
             posId: '',
             page: 1
-        };
-        // iOS bugfix
-        (<HTMLInputElement>document.getElementById('confirmationNumber')).value = '';
-        (<HTMLInputElement>document.getElementById('orderNumber')).value = '';
-        (<HTMLInputElement>document.getElementById('familyName')).value = '';
-        (<HTMLInputElement>document.getElementById('givenName')).value = '';
-        (<HTMLInputElement>document.getElementById('email')).value = '';
-        (<HTMLInputElement>document.getElementById('telephone')).value = '';
-    }
-
-    /**
-     * 印刷確認
-     */
-    public printConfirm(orders: factory.order.IOrder[]) {
-        this.utilService.openConfirm({
-            title: this.translate.instant('common.confirm'),
-            body: this.translate.instant('order.search.confirm.print'),
-            cb: async () => {
-                try {
-                    const user = await this.actionService.user.getData();
-                    if (user.printer === undefined) {
-                        throw new Error('printer undefined');
-                    }
-                    const pos = user.pos;
-                    const printer = user.printer;
-                    await this.actionService.order.print({ orders, pos, printer });
-                } catch (error) {
-                    console.error(error);
-                    this.utilService.openAlert({
-                        title: this.translate.instant('common.error'),
-                        body: `<p class="mb-4">${this.translate.instant('order.search.alert.print')}</p>
-                        <div class="p-3 bg-light-gray select-text">
-                        <code>${error}</code>
-                    </div>`
-                    });
-                }
-            }
         });
     }
 
-    /**
-     * 領収書印刷確認
-     */
-    public printReceiptConfirm(orders: factory.order.IOrder[]) {
-        this.utilService.openConfirm({
-            title: this.translate.instant('common.confirm'),
-            body: this.translate.instant('order.search.confirm.print'),
-            cb: async () => {
-                try {
-                    const user = await this.actionService.user.getData();
-                    if (user.printer === undefined) {
-                        throw new Error('printer undefined');
-                    }
-                    const pos = user.pos;
-                    const printer = user.printer;
-                    await this.actionService.order.printReceipt({ orders, pos, printer });
-                } catch (error) {
-                    console.error(error);
-                    this.utilService.openAlert({
-                        title: this.translate.instant('common.error'),
-                        body: `<p class="mb-4">${this.translate.instant('order.search.alert.print')}</p>
-                        <div class="p-3 bg-light-gray select-text">
-                        <code>${error}</code>
-                    </div>`
-                    });
-                }
-            }
-        });
-    }
 
     /**
-     * キャンセル確認
-     */
-    public cancelConfirm(orders: factory.order.IOrder[]) {
-        const code = Functions.Util.createRandomString(6, /[^0-9]/g);
-        this.utilService.openConfirm({
-            title: this.translate.instant('common.confirm'),
-            body: this.translate.instant('order.search.confirm.cancel', { value: code }),
-            code,
-            cb: async () => {
-                try {
-                    const userData = await this.actionService.user.getData();
-                    await this.actionService.order.cancel({ orders, language: userData.language });
-                    this.orderSearch(false, { page: this.confirmedConditions.page });
-                } catch (error) {
-                    console.error(error);
-                    this.utilService.openAlert({
-                        title: this.translate.instant('common.error'),
-                        body: `
-                        <p class="mb-4">${this.translate.instant('order.search.alert.cancel')}</p>
-                            <div class="p-3 bg-light-gray select-text">
-                            <code>${error}</code>
-                        </div>`
-                    });
-                }
-            }
-        });
-    }
-
-    /**
-     * 詳細を表示
-     */
-    public openDetail(order: factory.order.IOrder) {
-        this.modal.show(OrderDetailModalComponent, {
-            class: 'modal-dialog-centered modal-lg',
-            initialState: { order }
-        });
-    }
-
-    /**
-     * 選択した注文へのアクション
-     */
-    public selectedAction() {
-        if (this.selectedOrders.length === 0) {
-            this.utilService.openAlert({
-                title: this.translate.instant('common.error'),
-                body: this.translate.instant('order.search.alert.unselected')
-            });
-            return;
-        }
-        if (this.actionSelect === Models.Order.Action.OrderActions.Cancel) {
-            const code = Functions.Util.createRandomString(6, /[^0-9]/g);
-            this.utilService.openConfirm({
-                title: this.translate.instant('common.confirm'),
-                body: this.translate.instant('order.search.confirm.cancel', { value: code }),
-                code,
-                cb: async () => {
-                    try {
-                        const userData = await this.actionService.user.getData();
-                        await this.actionService.order.cancel({
-                            orders: this.selectedOrders,
-                            language: userData.language
-                        });
-                        this.orderSearch(false, { page: this.confirmedConditions.page });
-                    } catch (error) {
-                        console.error(error);
-                        this.utilService.openAlert({
-                            title: this.translate.instant('common.error'),
-                            body: `
-                            <p class="mb-4">${this.translate.instant('order.search.alert.cancel')}</p>
-                                <div class="p-3 bg-light-gray select-text">
-                                <code>${error}</code>
-                            </div>`
-                        });
-                    }
-                }
-            });
-        } else if (this.actionSelect === Models.Order.Action.OrderActions.Print) {
-            this.utilService.openConfirm({
-                title: this.translate.instant('common.confirm'),
-                body: this.translate.instant('order.search.confirm.print'),
-                cb: async () => {
-                    try {
-                        const user = await this.actionService.user.getData();
-                        if (user.printer === undefined) {
-                            throw new Error('printer undefined');
-                        }
-                        const pos = user.pos;
-                        const printer = user.printer;
-                        const orders = this.selectedOrders;
-                        await this.actionService.order.print({ orders, pos, printer });
-                    } catch (error) {
-                        console.error(error);
-                        this.utilService.openAlert({
-                            title: this.translate.instant('common.error'),
-                            body: `<p class="mb-4">${this.translate.instant('order.search.alert.print')}</p>
-                            <div class="p-3 bg-light-gray select-text">
-                            <code>${error}</code>
-                        </div>`
-                        });
-                    }
-                }
-            });
-        }
-    }
-
-    /**
-     * DatePicker設定
+     * Datepicker言語設定
      */
     public setDatePicker() {
         this.user.subscribe((user) => {
@@ -371,15 +121,27 @@ export class OrderSearchEventComponent implements OnInit {
     }
 
     /**
+     * Datepicker開閉
+     */
+    public toggleDatepicker() {
+        this.setDatePicker();
+        this.datepicker.toggle();
+    }
+
+    /**
      * iOS bugfix（2回タップしないと選択できない）
      */
     public onShowPicker(container: BsDatepickerContainerComponent) {
         Functions.Util.iOSDatepickerTapBugFix(container, [
-            this.orderDateFrom,
-            this.orderDateThrough,
-            this.eventStartDateFrom,
-            this.eventStartDateThrough
+            this.datepicker
         ]);
     }
 
+    public async getLoading() {
+        return new Promise<boolean>((resolve) => {
+            this.isLoading.subscribe((loading) => {
+                resolve(loading);
+            }).unsubscribe();
+        });
+    }
 }

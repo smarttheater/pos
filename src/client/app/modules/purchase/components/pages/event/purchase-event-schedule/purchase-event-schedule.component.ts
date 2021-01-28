@@ -87,12 +87,10 @@ export class PurchaseEventScheduleComponent implements OnInit, OnDestroy {
      * 日付選択
      */
     public async selectDate(date?: Date | null) {
-        if (await this.getLoading()) {
+        if (date === undefined || date === null) {
             return;
         }
-        if (date !== undefined && date !== null) {
-            this.scheduleDate = date;
-        }
+        this.scheduleDate = date;
         try {
             const user = await this.actionService.user.getData();
             const theater = user.theater;

@@ -1,14 +1,15 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { factory } from '@cinerino/sdk';
 import { select, Store } from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
 import * as moment from 'moment';
-import { BsDatepickerContainerComponent, BsDatepickerDirective, BsLocaleService } from 'ngx-bootstrap/datepicker';
+import { BsLocaleService } from 'ngx-bootstrap/datepicker';
 import { BsModalService } from 'ngx-bootstrap/modal';
 import { Observable } from 'rxjs';
 import { Functions, Models } from '../../../../..';
 import { getEnvironment } from '../../../../../../environments/environment';
-import { ActionService, UtilService } from '../../../../../services';
+import { ActionService, MasterService, UtilService } from '../../../../../services';
 import * as reducers from '../../../../../store/reducers';
 import { OrderDetailModalComponent } from '../../../../shared/components/parts/order/detail-modal/detail-modal.component';
 
@@ -37,18 +38,16 @@ export class OrderSearchComponent implements OnInit {
     public environment = getEnvironment();
     public order2EventOrders = Functions.Purchase.order2EventOrders;
     public connectionType = Models.Util.Printer.ConnectionType;
-    @ViewChild('orderDateFrom', { static: true }) private orderDateFrom: BsDatepickerDirective;
-    @ViewChild('orderDateThrough', { static: true }) private orderDateThrough: BsDatepickerDirective;
-    @ViewChild('eventStartDateFrom', { static: true }) private eventStartDateFrom: BsDatepickerDirective;
-    @ViewChild('eventStartDateThrough', { static: true }) private eventStartDateThrough: BsDatepickerDirective;
 
     constructor(
-        private store: Store<reducers.IOrderState>,
-        private modal: BsModalService,
-        private utilService: UtilService,
-        private actionService: ActionService,
-        private translate: TranslateService,
-        private localeService: BsLocaleService,
+        protected store: Store<reducers.IOrderState>,
+        protected modal: BsModalService,
+        protected utilService: UtilService,
+        protected actionService: ActionService,
+        protected masterService: MasterService,
+        protected translate: TranslateService,
+        protected localeService: BsLocaleService,
+        protected router: Router,
     ) { }
 
     public ngOnInit() {
@@ -288,27 +287,6 @@ export class OrderSearchComponent implements OnInit {
                 }
             });
         }
-    }
-
-    /**
-     * DatePicker設定
-     */
-    public setDatePicker() {
-        this.user.subscribe((user) => {
-            this.localeService.use(user.language);
-        }).unsubscribe();
-    }
-
-    /**
-     * iOS bugfix（2回タップしないと選択できない）
-     */
-    public onShowPicker(container: BsDatepickerContainerComponent) {
-        Functions.Util.iOSDatepickerTapBugFix(container, [
-            this.orderDateFrom,
-            this.orderDateThrough,
-            this.eventStartDateFrom,
-            this.eventStartDateThrough
-        ]);
     }
 
 }

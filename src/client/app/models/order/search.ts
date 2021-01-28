@@ -15,6 +15,7 @@ export interface IOrderSearchConditions {
     paymentMethodType: '' | factory.paymentMethodType;
     eventStartDateFrom?: Date;
     eventStartDateThrough?: Date;
+    eventIds?: string[];
     posId: string;
     page: number;
 }
