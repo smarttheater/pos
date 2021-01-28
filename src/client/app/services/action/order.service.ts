@@ -264,14 +264,14 @@ export class OrderService {
      * 領収書印刷
      */
     public async printReceipt(prams: {
-        order: factory.order.IOrder;
+        orders: factory.order.IOrder[];
         printer: Models.Util.Printer.IPrinter;
         pos?: factory.chevre.place.movieTheater.IPOS;
         timeout?: number;
     }) {
         const environment = getEnvironment();
         try {
-            const order = prams.order;
+            const orders = prams.orders;
             const printer = prams.printer;
             const pos = prams.pos;
             if (printer.connectionType === Models.Util.Printer.ConnectionType.None) {
@@ -285,15 +285,17 @@ export class OrderService {
                 `/ejs/print/receipt.ejs`,
                 `/ejs/print/receipt_copy.ejs`
             ];
-            for (const path of paths) {
-                const url = (await Functions.Util.isFile(`${Functions.Util.getProject().storageUrl}${path}`))
-                    ? `${Functions.Util.getProject().storageUrl}${path}`
-                    : `/default${path}`;
-                const view = await this.utilService.getText<string>(url);
-                const canvas = await Functions.Order.createPrintCanvas4Html({
-                    view: view, order, pos, index: 1
-                });
-                canvasList.push(canvas);
+            for (const order of orders) {
+                for (const path of paths) {
+                    const url = (await Functions.Util.isFile(`${Functions.Util.getProject().storageUrl}${path}`))
+                        ? `${Functions.Util.getProject().storageUrl}${path}`
+                        : `/default${path}`;
+                    const view = await this.utilService.getText<string>(url);
+                    const canvas = await Functions.Order.createPrintCanvas4Html({
+                        view: view, order, pos, index: 1
+                    });
+                    canvasList.push(canvas);
+                }
             }
             await this.printProcess({ printer, canvasList, pos });
             if (environment.PRINT_LOADING) {
