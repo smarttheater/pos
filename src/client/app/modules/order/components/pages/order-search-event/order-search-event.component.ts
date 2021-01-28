@@ -136,12 +136,4 @@ export class OrderSearchEventComponent extends OrderSearchComponent implements O
             this.datepicker
         ]);
     }
-
-    public async getLoading() {
-        return new Promise<boolean>((resolve) => {
-            this.isLoading.subscribe((loading) => {
-                resolve(loading);
-            }).unsubscribe();
-        });
-    }
 }

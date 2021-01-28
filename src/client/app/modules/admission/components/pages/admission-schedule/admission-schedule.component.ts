@@ -157,12 +157,4 @@ export class AdmissionScheduleComponent implements OnInit, OnDestroy {
         ]);
     }
 
-    public async getLoading() {
-        return new Promise<boolean>((resolve) => {
-            this.isLoading.subscribe((loading) => {
-                resolve(loading);
-            }).unsubscribe();
-        });
-    }
-
 }
