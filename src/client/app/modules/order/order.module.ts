@@ -3,7 +3,6 @@ import { NgModule } from '@angular/core';
 import { SharedModule } from '../shared/shared.module';
 import { OrderDownloadComponent } from './components/pages/order-download/order-download.component';
 import { OrderIndexComponent } from './components/pages/order-index/order-index.component';
-import { OrderSearchEventComponent } from './components/pages/order-search-event/order-search-event.component';
 import { OrderSearchComponent } from './components/pages/order-search/order-search.component';
 import { OrderConditionComponent } from './components/parts/order-condition/order-condition.component';
 import { OrderTableComponent } from './components/parts/order-table/order-table.component';
@@ -14,7 +13,6 @@ import { OrderRoutingModule } from './order-routing.module';
   declarations: [
     OrderIndexComponent,
     OrderSearchComponent,
-    OrderSearchEventComponent,
     OrderDownloadComponent,
     OrderConditionComponent,
     OrderTableComponent,
