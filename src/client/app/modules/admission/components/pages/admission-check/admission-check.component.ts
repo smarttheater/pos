@@ -1,10 +1,12 @@
 import { Component, HostListener, OnDestroy, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { factory } from '@cinerino/sdk';
 import { select, Store } from '@ngrx/store';
-import { TranslateService } from '@ngx-translate/core';
+import { BAD_REQUEST } from 'http-status';
 import * as moment from 'moment';
 import { Observable } from 'rxjs';
 import { getEnvironment } from '../../../../../../environments/environment';
-import { ActionService, QRCodeService, UtilService } from '../../../../../services';
+import { ActionService, QRCodeService } from '../../../../../services';
 import * as reducers from '../../../../../store/reducers';
 
 @Component({
@@ -19,20 +21,37 @@ export class AdmissionCheckComponent implements OnInit, OnDestroy {
     public moment: typeof moment = moment;
     public inputCode: string;
     public environment = getEnvironment();
+    public screeningEvent?: factory.chevre.event.screeningEvent.IEvent;
+    public qrcodeToken?: {
+        availableReservation?: factory.chevre.reservation.IReservation<factory.chevre.reservationType.EventReservation>;
+        checkTokenActions: factory.action.IAction<factory.action.IAttributes<factory.actionType, any, any>>[] | string[];
+        statusCode: number;
+        error?: {
+            message: string;
+            inputCode: string;
+        }
+    };
 
     constructor(
         private store: Store<reducers.IState>,
         private actionService: ActionService,
-        private utilService: UtilService,
         private qrcodeService: QRCodeService,
-        private translate: TranslateService
+        private router: Router,
     ) { }
 
-    public ngOnInit() {
+    public async ngOnInit() {
         this.inputCode = '';
         this.isLoading = this.store.pipe(select(reducers.getLoading));
         this.admission = this.store.pipe(select(reducers.getAdmission));
-        this.actionService.admission.initializeQrcodeToken();
+        try {
+            const { screeningEvent } = await this.actionService.admission.getData();
+            this.screeningEvent = screeningEvent;
+            if (screeningEvent !== undefined) {
+                this.update();
+            }
+        } catch (error) {
+            this.router.navigate(['/error']);
+        }
     }
 
     public ngOnDestroy() {
@@ -58,13 +77,28 @@ export class AdmissionCheckComponent implements OnInit, OnDestroy {
      */
     public async check(code: string) {
         try {
-            await this.actionService.admission.checkQrcodeToken(code);
+            const { screeningEvent, scheduleDate } = await this.actionService.admission.getData();
+            if (scheduleDate === undefined) {
+                this.router.navigate(['/error']);
+                return;
+            }
+            const checkResult = await this.actionService.admission.checkQrcode({
+                code,
+                screeningEvent,
+                scheduleDate: moment(scheduleDate, 'YYYY-MM-DD').toDate()
+            });
+            this.screeningEvent = checkResult.screeningEvent;
+            this.qrcodeToken = checkResult.qrcodeToken;
         } catch (error) {
             console.error(error);
-            this.utilService.openAlert({
-                title: this.translate.instant('common.error'),
-                body: this.translate.instant('admission.check.alert.check')
-            });
+            this.qrcodeToken = {
+                checkTokenActions: [],
+                statusCode: (error.code) ? error.code : BAD_REQUEST,
+                error: {
+                    inputCode: code,
+                    message: error.message,
+                },
+            };
         }
     }
 

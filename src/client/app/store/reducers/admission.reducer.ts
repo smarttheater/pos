@@ -39,7 +39,7 @@ export function reducer(initialState: IState, action: Action) {
                 ...state, admissionData: {
                     ...state.admissionData,
                     scheduleDate
-                }, loading: true, process: '', error: null
+                }, loading: false, process: '', error: null
             };
         }),
         on(admissionAction.getScreeningEvent, (state) => {
@@ -60,29 +60,5 @@ export function reducer(initialState: IState, action: Action) {
             const error = payload.error;
             return { ...state, error: JSON.stringify(error) };
         }),
-        on(admissionAction.initializeQrcodeToken, (state) => {
-            const qrcodeToken = undefined;
-            return { ...state, admissionData: { ...state.admissionData, qrcodeToken } };
-        }),
-        on(admissionAction.check, (state) => {
-            return { ...state, error: null, loading: true, process: 'admissionAction.Check' };
-        }),
-        on(admissionAction.checkSuccess, (state, payload) => {
-            const qrcodeToken = payload.qrcodeToken;
-            const screeningEvent = (payload.screeningEvent === undefined)
-                ? state.admissionData.screeningEvent
-                : payload.screeningEvent;
-            return {
-                ...state, admissionData: {
-                    ...state.admissionData,
-                    qrcodeToken,
-                    screeningEvent
-                }, loading: false, process: '', error: null
-            };
-        }),
-        on(admissionAction.checkFail, (state, payload) => {
-            const error = payload.error;
-            return { ...state, error: JSON.stringify(error), loading: false, process: '' };
-        })
     )(initialState, action);
 }
