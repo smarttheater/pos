@@ -1,90 +1,134 @@
-<!-- <div class="contents-width mx-auto px-3 pt-5">
-    <h2 class="text-large mb-4 text-center font-weight-bold">{{ 'admission.check.title' | translate }}</h2>
-    <p class="mb-4 text-md-center" [innerHTML]="'admission.check.read' | translate"></p>
-</div> -->
-
 <div class="contents-width mx-auto px-3 pt-4">
     <div class="buttons mx-auto text-center mb-4">
-        <button type="button" class="btn btn-success btn-block py-3"
-            (click)="openQRCodeReader()">{{ 'admission.check.camera.start' | translate }}</button>
+        <button type="button" class="btn btn-success btn-block py-3" (click)="openQRCodeReader()">{{
+            'admission.check.camera.start' | translate }}</button>
     </div>
 </div>
 
 
 <div *ngIf="!(isLoading | async)" class="mb-4">
-    <div *ngIf="(admission | async)?.qrcodeToken">
-        <div *ngIf="(admission | async)?.qrcodeToken.availableReservation" class="position-relative p-4 bg-success text-white text-center">
-            <div class="color rounded border border-white" [ngStyle]="{'background-color': (admission | async)?.qrcodeToken.availableReservation.reservedTicket.ticketType.color}"></div>
-            <div *ngIf="(admission | async)?.qrcodeToken.checkTokenActions.length === 0"
-                class="flash-text text-xx-large font-weight-bold mb-2">{{ 'admission.check.success' | translate }}</div>
-            <div *ngIf="(admission | async)?.qrcodeToken.checkTokenActions.length > 0"
-                class="flash-text text-xx-large font-weight-bold mb-2">{{ 'admission.check.reEntry' | translate }}</div>
-            <p *ngIf="(admission | async)?.qrcodeToken.availableReservation.reservedTicket.ticketedSeat">
-                <strong class="mr-2">{{ 'common.seat' | translate }}</strong>
-                {{ (admission | async)?.qrcodeToken.availableReservation.reservedTicket.ticketedSeat.seatNumber }}
-            </p>
-            <p>
-                <strong class="mr-2">{{ 'common.ticket' | translate }}</strong>
-                {{ (admission | async)?.qrcodeToken.availableReservation.reservedTicket.ticketType.name | changeLanguage }}
-            </p>
-            <p>
-                <strong class="mr-2">{{ 'admission.check.entryCount' | translate }}</strong>
-                {{ (admission | async)?.qrcodeToken.checkTokenActions.length }}
-            </p>
-        </div>
-        <div *ngIf="!(admission | async)?.qrcodeToken.availableReservation" class="p-4 bg-danger text-white text-center">
-            <div class="flash-text text-xx-large font-weight-bold mb-2">{{ 'admission.check.danger' | translate }}</div>
-            <p *ngIf="(admission | async)?.qrcodeToken.statusCode === 200">
-                {{ 'admission.check.alert.event' | translate }}<br>
-                <strong>{{ (admission | async)?.qrcodeToken.statusCode }}</strong>
+    <div *ngIf="qrcodeToken">
+        <div *ngIf="qrcodeToken?.availableReservation" class="position-relative py-4 bg-success text-white">
+            <div class="contents-width mx-auto px-3">
+                <div class="color rounded border border-white"
+                    [ngStyle]="{'background-color': qrcodeToken?.availableReservation.reservedTicket.ticketType.color}">
+                </div>
+                <div *ngIf="qrcodeToken?.checkTokenActions.length === 0"
+                    class="flash-text text-xx-large font-weight-bold mb-3 text-center">{{ 'admission.check.success' |
+                    translate }}</div>
+                <div *ngIf="qrcodeToken?.checkTokenActions.length > 0"
+                    class="flash-text text-xx-large font-weight-bold mb-3 text-center">{{ 'admission.check.reEntry' |
+                    translate }}</div>
+                <table class="table table-bordered text-small mb-0 border-white text-white">
+                    <thead></thead>
+                    <tbody>
+                        <tr *ngIf="qrcodeToken?.availableReservation.reservedTicket.ticketedSeat">
+                            <th class="align-middle">{{ 'common.seat' | translate }}</th>
+                            <td class="align-middle">
+                                <p>{{ qrcodeToken?.availableReservation.reservedTicket.ticketedSeat.seatNumber }}</p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th class="align-middle">{{ 'common.ticket' | translate }}</th>
+                            <td class="align-middle">
+                                <p>{{ qrcodeToken?.availableReservation.reservedTicket.ticketType.name | changeLanguage
+                                    }}</p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th class="align-middle">{{ 'admission.check.entryCount' | translate }}</th>
+                            <td class="align-middle">
+                                <p>{{ qrcodeToken?.checkTokenActions.length }}</p>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
 
-            </p>
-            <p *ngIf="(admission | async)?.qrcodeToken.statusCode !== 200">
-                {{ 'admission.check.alert.qrcode' | translate }}<br>
-                <strong>{{ (admission | async)?.qrcodeToken.statusCode }}</strong>
-            </p>
+                <!-- <p *ngIf="qrcodeToken?.availableReservation.reservedTicket.ticketedSeat">
+                <strong class="mr-2">{{ 'common.seat' | translate }}</strong>
+                {{ qrcodeToken?.availableReservation.reservedTicket.ticketedSeat.seatNumber }}
+                </p>
+                <p>
+                    <strong class="mr-2">{{ 'common.ticket' | translate }}</strong>
+                    {{ qrcodeToken?.availableReservation.reservedTicket.ticketType.name | changeLanguage }}
+                </p>
+                <p>
+                    <strong class="mr-2">{{ 'admission.check.entryCount' | translate }}</strong>
+                    {{ qrcodeToken?.checkTokenActions.length }}
+                </p> -->
+            </div>
+        </div>
+        <div *ngIf="!qrcodeToken?.availableReservation" class="py-4 bg-danger text-white">
+            <div class="contents-width mx-auto px-3">
+                <div class="flash-text text-xx-large font-weight-bold mb-2 text-center">{{ 'admission.check.danger' |
+                    translate }}</div>
+                <p class="text-center mb-3">
+                    {{ 'admission.check.alert.qrcode' | translate }}
+                </p>
+                <table class="table table-bordered text-small mb-0 border-white text-white">
+                    <thead></thead>
+                    <tbody>
+                        <tr>
+                            <th class="align-middle">message</th>
+                            <td class="align-middle">
+                                <p>{{ qrcodeToken?.error?.message }}</p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th class="align-middle">inputCode</th>
+                            <td class="align-middle">
+                                <p>{{ qrcodeToken?.error?.inputCode }}</p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th class="align-middle">statusCode</th>
+                            <td class="align-middle">
+                                <p>{{ qrcodeToken?.statusCode }}</p>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
-    <div *ngIf="!(admission | async)?.qrcodeToken" class="p-4 bg-dark text-white text-center">
-        <div class="text-xx-large font-weight-bold mb-2">{{ 'admission.check.waiting' | translate }}</div>
-        <p>{{ 'admission.check.alert.waiting' | translate }}</p>
+    <div *ngIf="!qrcodeToken" class="p-4 bg-dark text-white text-center">
+        <div class="contents-width mx-auto">
+            <div class="text-xx-large font-weight-bold mb-2">{{ 'admission.check.waiting' | translate }}</div>
+            <p>{{ 'admission.check.alert.waiting' | translate }}</p>
+        </div>
     </div>
 </div>
 
 
 <div class="contents-width mx-auto px-3 pb-5">
-    <div *ngIf="(admission | async)?.screeningEvent" class="mb-4 bg-white">
-        <app-item-event [screeningEvent]="(admission | async)?.screeningEvent"></app-item-event>
+    <div *ngIf="screeningEvent" class="mb-4 bg-white">
+        <app-item-event [screeningEvent]="screeningEvent"></app-item-event>
         <div class="p-3">
             <div>
                 <p class="mr-3">
                     <strong class="mr-2">{{ 'common.doorTime' | translate }}</strong>
-                    {{ (admission | async)?.screeningEvent.doorTime | formatDate: 'MM/DD (ddd) HH:mm' }}
+                    {{ screeningEvent?.doorTime | formatDate: 'MM/DD (ddd) HH:mm' }}
                 </p>
                 <p>
                     <strong class="mr-2">{{ 'common.startDate' | translate }}</strong>
-                    {{ (admission | async)?.screeningEvent.startDate | formatDate: 'MM/DD (ddd) HH:mm' }} -
-                    {{ (admission | async)?.screeningEvent.endDate | formatDate: 'HH:mm' }}
+                    {{ screeningEvent?.startDate | formatDate: 'MM/DD (ddd) HH:mm' }} -
+                    {{ screeningEvent?.endDate | formatDate: 'HH:mm' }}
                 </p>
                 <p class="mr-3">
                     <strong class="mr-2">{{ 'common.reservation' | translate }}</strong>
-                    {{ (admission | async)?.screeningEvent.maximumAttendeeCapacity - (admission | async)?.screeningEvent.remainingAttendeeCapacity }}
+                    {{ screeningEvent?.maximumAttendeeCapacity - screeningEvent?.remainingAttendeeCapacity }}
                 </p>
                 <p>
                     <strong class="mr-2">{{ 'common.admission' | translate }}</strong>
-                    {{ (admission | async)?.screeningEvent.attendeeCount }}
+                    {{ screeningEvent?.attendeeCount }}
                 </p>
             </div>
         </div>
     </div>
-    <!-- <div class="p-3 mb-4 bg-light-gray">
-        <p><strong class="mr-2">未送信件数</strong> {{ (admission | async)?.usentList.length }}</p>
-        <p>※1分に1回送信されます</p>
-    </div> -->
 
     <div class="buttons mx-auto text-center">
-        <button type="button" class="btn btn-outline-primary btn-block py-3"
-            routerLink="/admission/schedule">{{ 'admission.schedule.prev' | translate }}</button>
+        <button type="button" class="btn btn-outline-primary btn-block py-3" routerLink="/admission/schedule">{{
+            'admission.schedule.prev' | translate }}</button>
     </div>
 
 </div>
