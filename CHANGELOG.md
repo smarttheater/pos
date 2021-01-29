@@ -12,6 +12,10 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/).
 
 ### Security
 
+## 3.5.8 - 2020-01-29
+### Changed
+ - 入場UI変更
+
 ## 3.5.7 - 2020-01-25
 ### Changed
  - 注文検索をコンポーネント化
