@@ -42,7 +42,7 @@ export class OrderSearchComponent implements OnInit {
     public screeningEventsGroup: Functions.Purchase.IScreeningEventsGroup[];
     public screeningEvent: factory.chevre.event.screeningEvent.IEvent;
     public searchType: 'input' | 'event';
-    @ViewChild('datepicker', { static: true }) private datepicker: BsDatepickerDirective;
+    @ViewChild('datepicker') private datepicker: BsDatepickerDirective;
 
     constructor(
         protected store: Store<reducers.IOrderState>,
@@ -357,7 +357,7 @@ export class OrderSearchComponent implements OnInit {
      */
     public async selectSchedule(screeningEvent: factory.chevre.event.screeningEvent.IEvent) {
         this.screeningEvent = screeningEvent;
-        this.changeConditions({
+        await this.changeConditions({
             confirmationNumber: '',
             orderNumber: '',
             customer: {
@@ -371,6 +371,14 @@ export class OrderSearchComponent implements OnInit {
             eventIds: [screeningEvent.id],
             posId: '',
             page: 1
+        });
+        const element = document.querySelector('#screeningEvent');
+        if (element === null) {
+            return;
+        }
+        element.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start'
         });
     }
 
@@ -396,9 +404,7 @@ export class OrderSearchComponent implements OnInit {
      * iOS bugfix（2回タップしないと選択できない）
      */
     public onShowPicker(container: BsDatepickerContainerComponent) {
-        Functions.Util.iOSDatepickerTapBugFix(container, [
-            this.datepicker
-        ]);
+        Functions.Util.iOSDatepickerTapBugFix(container, [this.datepicker]);
     }
 
     /**

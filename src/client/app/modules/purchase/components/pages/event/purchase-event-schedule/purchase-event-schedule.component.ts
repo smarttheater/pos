@@ -79,7 +79,7 @@ export class PurchaseEventScheduleComponent implements OnInit, OnDestroy {
         }
         const time = 600000; // 10 * 60 * 1000
         this.updateTimer = setTimeout(() => {
-            this.selectDate();
+            this.selectDate(this.scheduleDate);
         }, time);
     }
 

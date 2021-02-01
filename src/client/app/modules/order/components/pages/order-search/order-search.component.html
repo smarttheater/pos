@@ -38,7 +38,7 @@
                 (select)="selectSchedule($event)">
             </app-performances>
         </div>
-        <div *ngIf="screeningEvent" class="mb-3">
+        <div *ngIf="screeningEvent" id="screeningEvent" class="mb-3">
             <app-item-event [screeningEvent]="screeningEvent"></app-item-event>
         </div>
     </div>
