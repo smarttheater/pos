@@ -23,7 +23,8 @@ export class SettingComponent implements OnInit {
     public master: Observable<reducers.IMasterState>;
     public error: Observable<string | null>;
     public isLoading: Observable<boolean>;
-    public posList: { id: string; name: string; typeOf: string; }[];
+    public posList: factory.chevre.place.movieTheater.IPOS[];
+    public entranceGateList: factory.chevre.place.movieTheater.IEntranceGate[];
     public printers = Models.Util.Printer.printers;
     public connectionType = Models.Util.Printer.ConnectionType;
     public viewType = Models.Util.ViewType;
@@ -51,8 +52,9 @@ export class SettingComponent implements OnInit {
         this.user = this.store.pipe(select(reducers.getUser));
         this.error = this.store.pipe(select(reducers.getError));
         this.isLoading = this.store.pipe(select(reducers.getLoading));
-        this.posList = [];
         this.theaters = [];
+        this.posList = [];
+        this.entranceGateList = [];
         try {
             this.theaters = await this.masterService.searchMovieTheaters();
             await this.createSettlingForm();
@@ -78,8 +80,9 @@ export class SettingComponent implements OnInit {
     private async createSettlingForm() {
         const profile = this.environment.PROFILE;
         this.settingForm = this.formBuilder.group({
-            theaterBranchCode: ['', [Validators.required]],
+            theaterId: ['', [Validators.required]],
             posId: [''],
+            entranceGateId: [''],
             printerType: [Models.Util.Printer.ConnectionType.None],
             printerIpAddress: [''],
             drawer: [false]
@@ -105,11 +108,15 @@ export class SettingComponent implements OnInit {
         });
         const user = await this.actionService.user.getData();
         if (user.theater !== undefined) {
-            this.settingForm.controls.theaterBranchCode.setValue(user.theater.branchCode);
-            this.changePosList();
+            this.settingForm.controls.theaterId.setValue(user.theater.id);
+            this.changeTheater();
         }
         if (user.pos !== undefined) {
             this.settingForm.controls.posId.setValue(user.pos.id);
+        }
+        if (user.entranceGate !== undefined
+            && user.entranceGate.identifier !== undefined) {
+            this.settingForm.controls.entranceGateId.setValue(user.entranceGate.identifier);
         }
         const customerContact = user.customerContact;
         if (customerContact !== undefined) {
@@ -146,21 +153,19 @@ export class SettingComponent implements OnInit {
     }
 
     /**
-     * POS変更
+     * 施設変更
      */
-    public changePosList() {
+    public changeTheater() {
         this.settingForm.controls.posId.setValue('');
-        const theaterBranchCode = this.settingForm.controls.theaterBranchCode.value;
-        if (theaterBranchCode === '') {
+        const theaterId = this.settingForm.controls.theaterId.value;
+        const findResult = this.theaters.find(t => (t.id === theaterId));
+        if (theaterId === '' || findResult === undefined) {
             this.posList = [];
-            return;
-        }
-        const findResult = this.theaters.find(t => (t.branchCode === theaterBranchCode));
-        if (findResult === undefined) {
-            this.posList = [];
+            this.entranceGateList = [];
             return;
         }
         this.posList = (findResult.hasPOS === undefined) ? [] : findResult.hasPOS;
+        this.entranceGateList = (findResult.hasEntranceGate === undefined) ? [] : findResult.hasEntranceGate;
     }
 
 
@@ -179,13 +184,17 @@ export class SettingComponent implements OnInit {
             return;
         }
         try {
-            const theaterBranchCode = this.settingForm.controls.theaterBranchCode.value;
+            const theaterId = this.settingForm.controls.theaterId.value;
             const posId = this.settingForm.controls.posId.value;
-            const theater = this.theaters.find(t => (t.branchCode === theaterBranchCode));
+            const entranceGateId = this.settingForm.controls.entranceGateId.value;
+            const theater = this.theaters.find(t => (t.id === theaterId));
             if (theater === undefined) {
                 throw new Error('theater not found');
             }
-            const pos = (theater.hasPOS === undefined) ? theater.hasPOS : theater.hasPOS.find(p => p.id === posId);
+            const pos = (theater.hasPOS === undefined)
+                ? undefined : theater.hasPOS.find(p => p.id === posId);
+            const entranceGate = (theater.hasEntranceGate === undefined)
+                ? undefined : theater.hasEntranceGate.find(e => e.identifier === entranceGateId);
             const additionalProperty: { name: string; value: string; }[] = [];
             Object.keys(this.settingForm.controls).forEach(key => {
                 if (!/additionalProperty/.test(key)) {
@@ -197,8 +206,9 @@ export class SettingComponent implements OnInit {
                 });
             });
             this.actionService.user.updateAll({
-                pos,
                 theater,
+                pos,
+                entranceGate,
                 customerContact: {
                     familyName: (this.settingForm.controls.familyName === undefined)
                         ? undefined : this.settingForm.controls.familyName.value,
@@ -292,7 +302,7 @@ export class SettingComponent implements OnInit {
      * 必須判定
      */
     public isRequired(key: String) {
-        if (key === 'theaterBranchCode') {
+        if (key === 'theaterId') {
             return true;
         }
         return this.environment.PROFILE.find(p => p.key === key && p.required) !== undefined;

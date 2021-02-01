@@ -23,7 +23,7 @@ export class AdmissionService {
         private actions: Actions,
         private store: Store<reducers.IState>,
         private cinerinoService: CinerinoService,
-        private utilService: UtilService
+        private utilService: UtilService,
     ) {
         this.admission = this.store.pipe(select(reducers.getAdmission));
         this.error = this.store.pipe(select(reducers.getError));
@@ -61,6 +61,7 @@ export class AdmissionService {
         code: string;
         screeningEvent?: factory.chevre.event.screeningEvent.IEvent;
         scheduleDate: Date;
+        entranceGate?: factory.chevre.place.movieTheater.IEntranceGate;
     }) {
         try {
             this.utilService.loadStart({ process: 'admissionAction.Check' });
@@ -68,6 +69,7 @@ export class AdmissionService {
                 code,
                 screeningEvent,
                 scheduleDate,
+                entranceGate,
             } = params;
             let qrcodeToken: {
                 availableReservation?: factory.chevre.reservation.IReservation<factory.chevre.reservationType.EventReservation>;
@@ -76,10 +78,10 @@ export class AdmissionService {
             };
             if (/@/.test(code)) {
                 // トークン
-                qrcodeToken = await this.checkToken({ code, screeningEvent, scheduleDate });
+                qrcodeToken = await this.checkToken({ code, screeningEvent, scheduleDate, entranceGate });
             } else {
                 // 入場
-                qrcodeToken = await this.checkAdmission({ code, screeningEvent, scheduleDate });
+                qrcodeToken = await this.checkAdmission({ code, screeningEvent, scheduleDate, entranceGate });
             }
             let findScreeningEventResult;
             if (qrcodeToken.availableReservation !== undefined) {
@@ -104,8 +106,9 @@ export class AdmissionService {
         code: string;
         screeningEvent?: factory.chevre.event.screeningEvent.IEvent;
         scheduleDate: Date;
+        entranceGate?: factory.chevre.place.movieTheater.IEntranceGate;
     }) {
-        const { code, screeningEvent, scheduleDate } = params;
+        const { code, screeningEvent, scheduleDate, entranceGate } = params;
         const reservationId = code.split('@')[0];
         const ticketToken = code.split('@')[1];
         await this.cinerinoService.getServices();
@@ -137,6 +140,11 @@ export class AdmissionService {
         const statusCode = OK;
         if (searchResult.data.length > 0) {
             this.cinerinoService.reservation.useByToken({
+                location: {
+                    identifier: (entranceGate === undefined)
+                        ? undefined : (typeof (entranceGate.identifier) !== 'string')
+                            ? undefined : entranceGate.identifier
+                },
                 object: { id: reservationId },
                 instrument: { token }
             });
@@ -156,9 +164,10 @@ export class AdmissionService {
         code: string;
         screeningEvent?: factory.chevre.event.screeningEvent.IEvent;
         scheduleDate: Date;
+        entranceGate?: factory.chevre.place.movieTheater.IEntranceGate;
     }) {
         const environment = getEnvironment();
-        const { code, screeningEvent, scheduleDate } = params;
+        const { code, screeningEvent, scheduleDate, entranceGate } = params;
         const data: { orderNumber: string; id: string; } = JSON.parse(code);
         const orderNumber = data.orderNumber;
         const reservationId = data.id;
@@ -222,6 +231,11 @@ export class AdmissionService {
             }
             const { token } = await this.cinerinoService.token.getToken({ code: ticketToken });
             await this.cinerinoService.reservation.useByToken({
+                location: {
+                    identifier: (entranceGate === undefined)
+                        ? undefined : (typeof (entranceGate.identifier) !== 'string')
+                            ? undefined : entranceGate.identifier
+                },
                 object: { id: reservationId },
                 instrument: { token }
             });

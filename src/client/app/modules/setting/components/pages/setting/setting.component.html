@@ -16,8 +16,9 @@
                         </div>
                     </div>
                     <div class="col-md-8">
-                        <input *ngIf="key !== 'theaterBranchCode'
+                        <input *ngIf="key !== 'theaterId'
                             && key !== 'posId'
+                            && key !== 'entranceGateId'
                             && key !== 'printerType'
                             && key !== 'email' 
                             && key !== 'telephone' 
@@ -25,15 +26,19 @@
                             && key !== 'drawer' 
                             && getAdditionalProperty(key)?.inputType !== 'textarea'" type="text" class="form-control"
                             [formControlName]="key" [id]="key" [placeholder]="'form.placeholder.' + key | translate">
-                        <select *ngIf="key === 'theaterBranchCode'" class="form-control" [formControlName]="key"
-                            (change)="changePosList()">
+                        <select *ngIf="key === 'theaterId'" class="form-control" [formControlName]="key"
+                            (change)="changeTheater()">
                             <option value="">{{ 'setting.unselected' | translate }}</option>
-                            <option *ngFor="let theater of theaters" [value]="theater.branchCode">
+                            <option *ngFor="let theater of theaters" [value]="theater.id">
                                 {{ theater.name | changeLanguage }}</option>
                         </select>
                         <select *ngIf="key === 'posId'" class="form-control" [formControlName]="key">
                             <option value="">{{ 'setting.unselected' | translate }}</option>
                             <option *ngFor="let pos of posList" [value]="pos.id">{{ pos.name }}</option>
+                        </select>
+                        <select *ngIf="key === 'entranceGateId'" class="form-control" [formControlName]="key">
+                            <option value="">{{ 'setting.unselected' | translate }}</option>
+                            <option *ngFor="let entranceGate of entranceGateList" [value]="entranceGate.identifier">{{ entranceGate.name | changeLanguage }}</option>
                         </select>
                         <select *ngIf="key === 'printerType'" class="form-control" [formControlName]="key"
                             (change)="changePrinterType()">
