@@ -12,6 +12,10 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/).
 
 ### Security
 
+## 3.5.9 - 2020-02-01
+### Changed
+ - 座席表文字サイズ変更
+
 ## 3.5.8 - 2020-01-29
 ### Changed
  - 入場UI変更
