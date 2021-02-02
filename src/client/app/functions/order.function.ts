@@ -260,10 +260,6 @@ export function input2OrderSearchCondition(params: {
     }
     const result: factory.order.ISearchConditions = {
         customer: {
-            // email: (input.customer.email === '') ? undefined : input.customer.email,
-            // telephone: (input.customer.telephone === '') ? undefined : input.customer.telephone,
-            // familyName: (input.customer.familyName === '') ? undefined : input.customer.familyName,
-            // givenName: (input.customer.givenName === '') ? undefined : input.customer.givenName,
             email: {
                 $eq: (input.customer.email === '') ? undefined : input.customer.email,
             },
@@ -302,7 +298,8 @@ export function input2OrderSearchCondition(params: {
                             .format('YYYYMMDD')).add(1, 'day').add(-1, 'millisecond').toDate(),
                     superEvent: {
                         location: { branchCodes: (theater === undefined) ? [] : [theater.branchCode] }
-                    }
+                    },
+                    ids: input.eventIds,
                 }
             }
         },

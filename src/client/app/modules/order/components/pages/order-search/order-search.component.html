@@ -1,11 +1,49 @@
 <div class="contents-width mx-auto px-3 py-5">
     <h2 class="text-large mb-4 text-center font-weight-bold">{{ 'order.search.title' | translate }}</h2>
     <p class="mb-4 text-md-center" [innerHTML]="'order.search.read' | translate"></p>
-    <div class="conditions p-3 bg-white mb-4">
-        <app-order-condition [name]="'order.search.search' | translate" (changeConditions)=changeConditions($event)>
-        </app-order-condition>
+    <div *ngIf="searchType === 'input'">
+        <!-- <div class="mb-2 text-right">
+            <button type="button" class="btn btn-primary text-small" (click)="changeSearchType('event')">
+                {{ 'order.search.searchType.event' | translate }}
+            </button>
+        </div> -->
+        <div class="p-3 bg-white mb-4">
+            <app-order-condition [name]="'order.search.search' | translate" (changeConditions)=changeConditions($event)>
+            </app-order-condition>
+        </div>
     </div>
-    <p class="mb-4" *ngIf="orders.length === 0">{{ 'order.search.notfound' | translate }}</p>
+
+    <div *ngIf="searchType === 'event'">
+        <div class="mb-2 text-right">
+            <button type="button" class="btn btn-primary text-small" (click)="changeSearchType('input')">
+                {{ 'order.search.searchType.input' | translate }}
+            </button>
+        </div>
+        <div class="p-3 bg-white mb-4">
+            <div class="mb-3">
+                <div class="input-group">
+                    <input type="text" placeholder="Datepicker" class="form-control" #datepicker="bsDatepicker"
+                        bsDatepicker [(ngModel)]="scheduleDate"
+                        [bsConfig]="{ dateInputFormat: 'YYYY/MM/DD', adaptivePosition: true, showWeekNumbers: false }"
+                        (bsValueChange)="selectDate($event)" readonly (click)="setDatePicker()"
+                        (onShown)="onShowPicker($event)">
+                    <div class="input-group-append pointer" (click)="toggleDatepicker()">
+                        <span class="input-group-text"><i class="fas fa-caret-down"></i></span>
+                    </div>
+                </div>
+            </div>
+            <p *ngIf="screeningEventsGroup.length === 0" [innerHTML]="'order.search.schedule.notfound' | translate">
+            </p>
+            <app-performances *ngFor="let group of screeningEventsGroup" [screeningEventsGroup]="group"
+                (select)="selectSchedule($event)">
+            </app-performances>
+        </div>
+        <div *ngIf="screeningEvent" id="screeningEvent" class="mb-3">
+            <app-item-event [screeningEvent]="screeningEvent"></app-item-event>
+        </div>
+    </div>
+
+    <p class="mb-4" *ngIf="orders.length === 0">{{ 'order.search.order.notfound' | translate }}</p>
 
     <div class="mb-4" *ngIf="orders.length > 0">
         <div class="d-md-flex align-items-center justify-content-between mb-4">
@@ -21,8 +59,8 @@
                 <select class="form-control d-inline-block w-auto mr-2" name="actionSelect" id="actionSelect"
                     [(ngModel)]="actionSelect">
                     <option value="">{{ 'order.search.unselected' | translate }}</option>
-                    <option [value]="OrderActions.Cancel">{{ 'order.search.cancel' | translate }}</option>
-                    <option [value]="OrderActions.Print">{{ 'order.search.print' | translate }}</option>
+                    <option *ngIf="environment.ORDER_CANCEL" [value]="OrderActions.Cancel">{{ 'order.search.cancel' | translate }}</option>
+                    <option *ngIf="environment.ORDER_PRINT" [value]="OrderActions.Print">{{ 'order.search.print' | translate }}</option>
                 </select>
                 <button id="selectedActionButton" type="button" class="btn btn-primary py-2 px-4"
                     (click)="selectedAction()">{{ 'order.search.apply' | translate }}</button>
