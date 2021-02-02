@@ -9,9 +9,9 @@
         <p *ngIf="screeningEventsGroup.length === 0" class="mb-3">
             {{ 'purchase.event.ticket.notfound' | translate }}
         </p>
-        <app-purchase-performances *ngFor="let group of screeningEventsGroup"
+        <app-performances *ngFor="let group of screeningEventsGroup"
             [screeningEventsGroup]="group" (select)="selectSchedule($event)" class="mb-3">
-        </app-purchase-performances>
+        </app-performances>
     </div>
 
     <div class="mb-4">

@@ -4,7 +4,6 @@ import { AuthGuardService, SettingGuardService } from '../../canActivates';
 import { BaseComponent } from '../shared/components/pages/base/base.component';
 import { OrderDownloadComponent } from './components/pages/order-download/order-download.component';
 import { OrderIndexComponent } from './components/pages/order-index/order-index.component';
-import { OrderSearchEventComponent } from './components/pages/order-search-event/order-search-event.component';
 import { OrderSearchComponent } from './components/pages/order-search/order-search.component';
 
 
@@ -15,7 +14,6 @@ const routes: Routes = [{
   children: [
     { path: '', component: OrderIndexComponent },
     { path: 'search', component: OrderSearchComponent },
-    { path: 'search/event', component: OrderSearchEventComponent },
     { path: 'download', component: OrderDownloadComponent }
   ]
 }];

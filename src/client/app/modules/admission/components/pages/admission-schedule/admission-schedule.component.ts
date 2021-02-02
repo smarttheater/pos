@@ -40,6 +40,7 @@ export class AdmissionScheduleComponent implements OnInit, OnDestroy {
         this.user = this.store.pipe(select(reducers.getUser));
         this.isLoading = this.store.pipe(select(reducers.getLoading));
         this.screeningEventsGroup = [];
+        this.scheduleDate = moment(moment().format('YYYYMMDD'), 'YYYYMMDD').toDate();
     }
 
     public ngOnDestroy() {
@@ -52,7 +53,7 @@ export class AdmissionScheduleComponent implements OnInit, OnDestroy {
         }
         const time = 600000; // 10 * 60 * 1000
         this.updateTimer = setTimeout(() => {
-            this.selectDate();
+            this.selectDate(this.scheduleDate);
         }, time);
     }
 
@@ -60,12 +61,10 @@ export class AdmissionScheduleComponent implements OnInit, OnDestroy {
      * 日付選択
      */
     public async selectDate(date?: Date | null) {
-        if (await this.getLoading()) {
+        if (date === undefined || date === null) {
             return;
         }
-        if (date !== undefined && date !== null) {
-            this.scheduleDate = date;
-        }
+        this.scheduleDate = date;
         try {
             const user = await this.actionService.user.getData();
             const theater = user.theater;
@@ -158,14 +157,6 @@ export class AdmissionScheduleComponent implements OnInit, OnDestroy {
         Functions.Util.iOSDatepickerTapBugFix(container, [
             this.datepicker
         ]);
-    }
-
-    public async getLoading() {
-        return new Promise<boolean>((resolve) => {
-            this.isLoading.subscribe((loading) => {
-                resolve(loading);
-            }).unsubscribe();
-        });
     }
 
 }
