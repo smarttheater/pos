@@ -157,6 +157,7 @@ export class SettingComponent implements OnInit {
      */
     public changeTheater() {
         this.settingForm.controls.posId.setValue('');
+        this.settingForm.controls.entranceGateId.setValue('');
         const theaterId = this.settingForm.controls.theaterId.value;
         const findResult = this.theaters.find(t => (t.id === theaterId));
         if (theaterId === '' || findResult === undefined) {
