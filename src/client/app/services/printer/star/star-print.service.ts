@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { factory } from '@cinerino/sdk';
-import { Functions, Models } from '..';
+import { Functions, Models } from '../../..';
 
 @Injectable({
     providedIn: 'root'

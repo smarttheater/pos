@@ -342,7 +342,7 @@
         "openDrawer": "ドロワーを開く",
         "viewType": "表示",
         "starBluetoothAddress": "localhost:8001",
-        "drawerDescription": "※使用する際はプリンターの設定を「スター精密 Bluetooth接続」または「スター精密 LAN接続」にしてください。",
+        "drawerDescription": "※使用する際はプリンターの設定を「スター精密 Bluetooth接続」、「スター精密 LAN接続」、「Epson EPOS」にしてください。",
         "printType": {
             "none": "印刷しない",
             "image": "画像表示",

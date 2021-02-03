@@ -249,7 +249,7 @@ export class SettingComponent implements OnInit {
                 body: `
                 <p class="mb-4">${this.translate.instant('setting.alert.print')}</p>
                     <div class="p-3 bg-light-gray select-text">
-                    <code>${JSON.stringify(error)}</code>
+                    <code>${(JSON.stringify(error) === '{}') ? error : JSON.stringify(error)}</code>
                 </div>`
             });
         }
@@ -273,7 +273,7 @@ export class SettingComponent implements OnInit {
                 body: `
                 <p class="mb-4">${this.translate.instant('setting.alert.drawer')}</p>
                     <div class="p-3 bg-light-gray select-text">
-                    <code>${JSON.stringify(error)}</code>
+                    <code>${(JSON.stringify(error) === '{}') ? error : JSON.stringify(error)}</code>
                 </div>`
             });
         }

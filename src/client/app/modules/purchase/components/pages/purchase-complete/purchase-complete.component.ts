@@ -90,7 +90,7 @@ export class PurchaseCompleteComponent implements OnInit {
                 body: `
                 <p class="mb-4">${this.translate.instant('purchase.complete.alert.regiGrow')}</p>
                     <div class="p-3 bg-light-gray select-text">
-                    <code>${error}</code>
+                    <code>${(JSON.stringify(error) === '{}') ? error : JSON.stringify(error)}</code>
                 </div>`
             });
         }
@@ -146,7 +146,7 @@ export class PurchaseCompleteComponent implements OnInit {
                 body: `
                 <p class="mb-4">${this.translate.instant('purchase.complete.alert.print')}</p>
                     <div class="p-3 bg-light-gray select-text">
-                    <code>${error}</code>
+                    <code>${(JSON.stringify(error) === '{}') ? error : JSON.stringify(error)}</code>
                 </div>`
             });
         }
