@@ -149,13 +149,23 @@
             "search": "検索する",
             "clear": "検索条件をクリア",
             "count": "{{value}}件",
-            "notfound": "注文が見つかりません",
+            "schedule": {
+                "notfound": "スケジュールが見つかりません"
+            },
+            "order": {
+                "notfound": "注文が見つかりません"
+            },
+            "searchType": {
+                "input": "条件を入力して検索",
+                "event": "イベント指定して検索"
+            },
             "unselected": "選択してください",
             "cancel": "キャンセル",
             "print": "印刷",
             "apply": "適用",
             "download": "CSVダウンロード",
             "alert": {
+                "schedule": "スケジュール取得に失敗しました。",
                 "cancel": "キャンセルに失敗しました。",
                 "unselected": "注文が選択されていません。",
                 "authorize": "QRコード表示を表示できません。",

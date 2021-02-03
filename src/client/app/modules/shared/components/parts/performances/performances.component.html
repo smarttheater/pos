@@ -31,8 +31,8 @@
     </div>
     <ul class="py-2 d-flex flex-wrap">
         <li *ngFor="let performance of screeningEventsGroup.data" class="px-md-2 my-2">
-            <app-purchase-performance [performance]="performance" (select)="select.emit($event)" class="mb-3">
-            </app-purchase-performance>
+            <app-performance [performance]="performance" (select)="select.emit($event)" class="mb-3">
+            </app-performance>
         </li>
     </ul>
 </div>

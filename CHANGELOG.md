@@ -12,6 +12,14 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/).
 
 ### Security
 
+## 3.5.10 - 2020-02-02
+### Added
+ - 注文検索へイベント指定検索を追加（検索タイプ切り替えボタン非表示）
+
+## 3.5.9 - 2020-02-01
+### Changed
+ - 座席表文字サイズ変更
+
 ## 3.5.8 - 2020-01-29
 ### Changed
  - 入場UI変更

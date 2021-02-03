@@ -17,8 +17,6 @@ import { PurchaseSeatComponent } from './components/pages/purchase-seat/purchase
 import { PurchaseTicketComponent } from './components/pages/purchase-ticket/purchase-ticket.component';
 import { PurchaseEventPerformancesConfirmComponent } from './components/parts/event/performances-confirm/performances-confirm.component';
 import { MovieTicketsComponent } from './components/parts/movie-tickets/movie-tickets.component';
-import { PurchasePerformanceComponent } from './components/parts/performance/performance.component';
-import { PurchasePerformancesComponent } from './components/parts/performances/performances.component';
 import { PurchaseInfoComponent } from './components/parts/purchase-info/purchase-info.component';
 import { PurchaseTermsComponent } from './components/parts/purchase-terms/purchase-terms.component';
 import { PurchaseWarningComponent } from './components/parts/purchase-warning/purchase-warning.component';
@@ -39,8 +37,6 @@ import { PurchaseRoutingModule } from './purchase-routing.module';
     PurchaseCompleteComponent,
     PurchaseCinemaScheduleComponent,
     PurchaseEventScheduleComponent,
-    PurchasePerformanceComponent,
-    PurchasePerformancesComponent,
     PurchaseEventPerformancesConfirmComponent,
     PurchaseInfoComponent,
     PurchaseTermsComponent,

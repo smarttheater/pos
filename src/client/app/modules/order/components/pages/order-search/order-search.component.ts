@@ -1,4 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
+import { Router } from '@angular/router';
 import { factory } from '@cinerino/sdk';
 import { select, Store } from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
@@ -8,7 +9,7 @@ import { BsModalService } from 'ngx-bootstrap/modal';
 import { Observable } from 'rxjs';
 import { Functions, Models } from '../../../../..';
 import { getEnvironment } from '../../../../../../environments/environment';
-import { ActionService, UtilService } from '../../../../../services';
+import { ActionService, MasterService, UtilService } from '../../../../../services';
 import * as reducers from '../../../../../store/reducers';
 import { OrderDetailModalComponent } from '../../../../shared/components/parts/order/detail-modal/detail-modal.component';
 
@@ -37,18 +38,21 @@ export class OrderSearchComponent implements OnInit {
     public environment = getEnvironment();
     public order2EventOrders = Functions.Purchase.order2EventOrders;
     public connectionType = Models.Util.Printer.ConnectionType;
-    @ViewChild('orderDateFrom', { static: true }) private orderDateFrom: BsDatepickerDirective;
-    @ViewChild('orderDateThrough', { static: true }) private orderDateThrough: BsDatepickerDirective;
-    @ViewChild('eventStartDateFrom', { static: true }) private eventStartDateFrom: BsDatepickerDirective;
-    @ViewChild('eventStartDateThrough', { static: true }) private eventStartDateThrough: BsDatepickerDirective;
+    public scheduleDate: Date;
+    public screeningEventsGroup: Functions.Purchase.IScreeningEventsGroup[];
+    public screeningEvent: factory.chevre.event.screeningEvent.IEvent;
+    public searchType: 'input' | 'event';
+    @ViewChild('datepicker') private datepicker: BsDatepickerDirective;
 
     constructor(
-        private store: Store<reducers.IOrderState>,
-        private modal: BsModalService,
-        private utilService: UtilService,
-        private actionService: ActionService,
-        private translate: TranslateService,
-        private localeService: BsLocaleService,
+        protected store: Store<reducers.IOrderState>,
+        protected modal: BsModalService,
+        protected utilService: UtilService,
+        protected actionService: ActionService,
+        protected masterService: MasterService,
+        protected translate: TranslateService,
+        protected localeService: BsLocaleService,
+        protected router: Router,
     ) { }
 
     public ngOnInit() {
@@ -62,6 +66,9 @@ export class OrderSearchComponent implements OnInit {
         this.currentPage = 1;
         this.limit = 20;
         this.totalCount = this.limit;
+        this.screeningEventsGroup = [];
+        this.scheduleDate = moment(moment().format('YYYYMMDD'), 'YYYYMMDD').toDate();
+        this.searchType = 'input';
     }
 
     public toggleOrder(order: factory.order.IOrder) {
@@ -291,7 +298,93 @@ export class OrderSearchComponent implements OnInit {
     }
 
     /**
-     * DatePicker設定
+     * 日付選択
+     */
+    public async selectDate(date?: Date | null) {
+        if (date === undefined || date === null) {
+            return;
+        }
+        this.scheduleDate = date;
+        const user = await this.actionService.user.getData();
+        const theater = user.theater;
+        if (this.scheduleDate === undefined) {
+            this.scheduleDate = moment()
+                .add(this.environment.PURCHASE_SCHEDULE_DEFAULT_SELECTED_DATE, 'day')
+                .toDate();
+        }
+        const scheduleDate = moment(this.scheduleDate).format('YYYY-MM-DD');
+        if (theater === undefined) {
+            return;
+        }
+        try {
+            const creativeWorks = await this.masterService.searchMovies({
+                offers: { availableFrom: moment(scheduleDate).toDate() }
+            });
+            const screeningEventSeries = (this.environment.PURCHASE_SCHEDULE_SORT === 'screeningEventSeries')
+                ? await this.masterService.searchScreeningEventSeries({
+                    location: {
+                        branchCode: { $eq: theater.branchCode }
+                    },
+                    workPerformed: { identifiers: creativeWorks.map(c => c.identifier) }
+                })
+                : [];
+            const screeningRooms = (this.environment.PURCHASE_SCHEDULE_SORT === 'screen')
+                ? await this.masterService.searchScreeningRooms({
+                    branchCode: { $eq: theater.branchCode }
+                })
+                : [];
+            const screeningEvents = await this.masterService.searchScreeningEvent({
+                superEvent: { locationBranchCodes: [theater.branchCode] },
+                startFrom: moment(scheduleDate).toDate(),
+                startThrough: moment(scheduleDate).add(1, 'day').add(-1, 'millisecond').toDate(),
+                creativeWorks,
+                screeningEventSeries,
+                screeningRooms
+            });
+            this.screeningEventsGroup =
+                Functions.Purchase.screeningEvents2ScreeningEventSeries({ screeningEvents });
+        } catch (error) {
+            console.error(error);
+            this.utilService.openAlert({
+                title: this.translate.instant('common.error'),
+                body: this.translate.instant('order.searchEvent.alert.schedule')
+            });
+        }
+    }
+
+    /**
+     * スケジュール選択
+     */
+    public async selectSchedule(screeningEvent: factory.chevre.event.screeningEvent.IEvent) {
+        this.screeningEvent = screeningEvent;
+        await this.changeConditions({
+            confirmationNumber: '',
+            orderNumber: '',
+            customer: {
+                familyName: '',
+                givenName: '',
+                email: '',
+                telephone: ''
+            },
+            orderStatus: '',
+            paymentMethodType: '',
+            eventIds: [screeningEvent.id],
+            posId: '',
+            page: 1
+        });
+        const element = document.querySelector('#screeningEvent');
+        if (element === null) {
+            return;
+        }
+        element.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start'
+        });
+    }
+
+
+    /**
+     * Datepicker言語設定
      */
     public setDatePicker() {
         this.user.subscribe((user) => {
@@ -300,15 +393,25 @@ export class OrderSearchComponent implements OnInit {
     }
 
     /**
+     * Datepicker開閉
+     */
+    public toggleDatepicker() {
+        this.setDatePicker();
+        this.datepicker.toggle();
+    }
+
+    /**
      * iOS bugfix（2回タップしないと選択できない）
      */
     public onShowPicker(container: BsDatepickerContainerComponent) {
-        Functions.Util.iOSDatepickerTapBugFix(container, [
-            this.orderDateFrom,
-            this.orderDateThrough,
-            this.eventStartDateFrom,
-            this.eventStartDateThrough
-        ]);
+        Functions.Util.iOSDatepickerTapBugFix(container, [this.datepicker]);
+    }
+
+    /**
+     * 検索タイプ変更
+     */
+    public changeSearchType(searchType: 'input' | 'event') {
+        this.searchType = searchType;
     }
 
 }
