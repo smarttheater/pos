@@ -134,7 +134,14 @@ export class AdmissionService {
         const checkTokenActions =
             (await this.cinerinoService.reservation.searchUseActions({
                 object: { id: reservationId }
-            })).data;
+            })).data.filter(d => {
+                const location = (<any>d).location;
+                if (entranceGate === undefined) {
+                    return location === undefined;
+                }
+                return (location !== undefined
+                    && location.identifier === entranceGate.identifier);
+            });
 
         // 利用可能判定
         const statusCode = OK;
