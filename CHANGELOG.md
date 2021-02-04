@@ -12,6 +12,10 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/).
 
 ### Security
 
+## 3.5.11 - 2020-02-04
+### Added
+ - 検索タイプ切り替えボタン表示
+
 ## 3.5.10 - 2020-02-02
 ### Added
  - 注文検索へイベント指定検索を追加（検索タイプ切り替えボタン非表示）
