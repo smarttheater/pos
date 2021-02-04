@@ -385,7 +385,7 @@ export class OrderService {
                     await this.printerService.star.openDrawer();
                     break;
                 case Models.Util.Printer.ConnectionType.EpsonEPOS:
-                    this.printerService.epson.init({ printer });
+                    await this.printerService.epson.init({ printer });
                     await this.printerService.epson.openDrawer();
                     await this.printerService.epson.disconnect();
                     break;

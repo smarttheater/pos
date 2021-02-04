@@ -98,7 +98,8 @@ export class EpsonPrinterService {
      * ドロワーを開く
      */
     public async openDrawer() {
-        this.device.openDrawer();
+        this.device.addPulse();
+        this.device.send();
     }
 
 
