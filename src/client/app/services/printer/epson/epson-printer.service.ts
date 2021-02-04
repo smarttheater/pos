@@ -91,6 +91,20 @@ export class EpsonPrinterService {
             const cut = true;
             await Functions.Util.sleep(1500);
             this.device.print(canvas, cut, this.device[mode]);
+            const result = () => {
+                return new Promise<void>(async (resolve, reject) => {
+                    this.device.onreceive = (response: any) => {
+                        if (response.success) {
+                            // 印刷成功メッセージ表示
+                            resolve();
+                            return;
+                        }
+                        // エラーメッセージ表示
+                        reject(response);
+                    };
+                });
+            };
+            await result();
         }
     }
 
