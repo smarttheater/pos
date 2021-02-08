@@ -396,8 +396,9 @@
     },
     "form": {
         "label": {
-            "theaterBranchCode": "施設",
+            "theaterId": "施設",
             "posId": "POS",
+            "entranceGateId": "入場ゲート",
             "printerType": "プリンター",
             "printerIpAddress": "プリンターIPアドレス",
             "familyName": "姓（全角カタカナ）",
