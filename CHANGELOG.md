@@ -15,6 +15,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/).
 ## 3.5.12 - 2020-02-08
 ### Added
  - 入場ゲート選択追加
+### Fixed
+ - index.htmlへのリクエストヘッダー削除 (lastModified,etag)
 
 ## 3.5.11 - 2020-02-04
 ### Added
