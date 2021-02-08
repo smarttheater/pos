@@ -11,8 +11,9 @@ export const remove = createAction(
 export const updateAll = createAction(
     `${LABEL} updateAll`,
     props<{
-        pos?: factory.chevre.place.movieTheater.IPOS;
         theater: factory.chevre.place.movieTheater.IPlaceWithoutScreeningRoom;
+        pos?: factory.chevre.place.movieTheater.IPOS;
+        entranceGate?: factory.chevre.place.movieTheater.IEntranceGate;
         customerContact: factory.transaction.placeOrder.ICustomerProfile;
         printer: Models.Util.Printer.IPrinter;
         drawer: boolean;
