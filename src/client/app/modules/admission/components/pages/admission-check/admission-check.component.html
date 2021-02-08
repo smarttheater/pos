@@ -7,6 +7,7 @@
 
 
 <div *ngIf="!(isLoading | async)" class="mb-4">
+    <p *ngIf="(user | async)?.entranceGate" class="p-2 bg-white text-center font-weight-bold">{{ (user | async)?.entranceGate?.name | changeLanguage }}</p>
     <div *ngIf="qrcodeToken">
         <div *ngIf="qrcodeToken?.availableReservation" class="position-relative py-4 bg-success text-white">
             <div class="contents-width mx-auto px-3">

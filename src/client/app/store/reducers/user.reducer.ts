@@ -6,13 +6,17 @@ import { userAction } from '../actions';
 
 export interface IUserState {
     /**
+     * 劇場
+     */
+    theater?: factory.chevre.place.movieTheater.IPlaceWithoutScreeningRoom;
+    /**
      * POS
      */
     pos?: factory.chevre.place.movieTheater.IPOS;
     /**
-     * 劇場
+     * 入場ゲート
      */
-    theater?: factory.chevre.place.movieTheater.IPlaceWithoutScreeningRoom;
+    entranceGate?: factory.chevre.place.movieTheater.IEntranceGate;
     /**
      * 購入者情報
      */
@@ -51,18 +55,20 @@ export function reducer(initialState: IState, action: Action) {
             };
         }),
         on(userAction.updateAll, (state, payload) => {
-            const customerContact = payload.customerContact;
-            const pos = payload.pos;
             const theater = payload.theater;
+            const pos = payload.pos;
+            const entranceGate = payload.entranceGate;
+            const customerContact = payload.customerContact;
             const printer = payload.printer;
             const drawer = payload.drawer;
 
             return {
                 ...state, userData: {
                     ...state.userData,
-                    customerContact,
-                    pos,
                     theater,
+                    pos,
+                    entranceGate,
+                    customerContact,
                     printer,
                     drawer
                 }, loading: false, process: ''
