@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Functions, Models } from '../..';
+import { Functions, Models } from '../../..';
 
 @Injectable({
     providedIn: 'root'
@@ -91,7 +91,29 @@ export class EpsonPrinterService {
             const cut = true;
             await Functions.Util.sleep(1500);
             this.device.print(canvas, cut, this.device[mode]);
+            const result = () => {
+                return new Promise<void>(async (resolve, reject) => {
+                    this.device.onreceive = (response: any) => {
+                        if (response.success) {
+                            // 印刷成功メッセージ表示
+                            resolve();
+                            return;
+                        }
+                        // エラーメッセージ表示
+                        reject(response);
+                    };
+                });
+            };
+            await result();
         }
+    }
+
+    /**
+     * ドロワーを開く
+     */
+    public async openDrawer() {
+        this.device.addPulse();
+        this.device.send();
     }
 
 

@@ -153,7 +153,7 @@ export class OrderSearchComponent implements OnInit {
                         title: this.translate.instant('common.error'),
                         body: `<p class="mb-4">${this.translate.instant('order.search.alert.print')}</p>
                         <div class="p-3 bg-light-gray select-text">
-                        <code>${error}</code>
+                        <code>${(JSON.stringify(error) === '{}') ? error : JSON.stringify(error)}</code>
                     </div>`
                     });
                 }
@@ -183,7 +183,7 @@ export class OrderSearchComponent implements OnInit {
                         title: this.translate.instant('common.error'),
                         body: `<p class="mb-4">${this.translate.instant('order.search.alert.print')}</p>
                         <div class="p-3 bg-light-gray select-text">
-                        <code>${error}</code>
+                        <code>${(JSON.stringify(error) === '{}') ? error : JSON.stringify(error)}</code>
                     </div>`
                     });
                 }
@@ -212,7 +212,7 @@ export class OrderSearchComponent implements OnInit {
                         body: `
                         <p class="mb-4">${this.translate.instant('order.search.alert.cancel')}</p>
                             <div class="p-3 bg-light-gray select-text">
-                            <code>${error}</code>
+                            <code>${(JSON.stringify(error) === '{}') ? error : JSON.stringify(error)}</code>
                         </div>`
                     });
                 }
@@ -262,7 +262,7 @@ export class OrderSearchComponent implements OnInit {
                             body: `
                             <p class="mb-4">${this.translate.instant('order.search.alert.cancel')}</p>
                                 <div class="p-3 bg-light-gray select-text">
-                                <code>${error}</code>
+                                <code>${(JSON.stringify(error) === '{}') ? error : JSON.stringify(error)}</code>
                             </div>`
                         });
                     }
@@ -288,7 +288,7 @@ export class OrderSearchComponent implements OnInit {
                             title: this.translate.instant('common.error'),
                             body: `<p class="mb-4">${this.translate.instant('order.search.alert.print')}</p>
                             <div class="p-3 bg-light-gray select-text">
-                            <code>${error}</code>
+                            <code>${(JSON.stringify(error) === '{}') ? error : JSON.stringify(error)}</code>
                         </div>`
                         });
                     }
