@@ -11,8 +11,7 @@ import { getEnvironment } from '../../../environments/environment';
 import { orderAction } from '../../store/actions';
 import * as reducers from '../../store/reducers';
 import { CinerinoService } from '../cinerino.service';
-import { EpsonEPOSService } from '../epson-epos.service';
-import { StarPrintService } from '../star-print.service';
+import { PrinterService } from '../printer.service';
 import { UtilService } from '../util.service';
 
 @Injectable({
@@ -26,8 +25,7 @@ export class OrderService {
         private actions: Actions,
         private cinerinoService: CinerinoService,
         private utilService: UtilService,
-        private starPrintService: StarPrintService,
-        private epsonEPOSService: EpsonEPOSService,
+        private printerService: PrinterService,
         private translate: TranslateService
     ) {
         this.order = this.store.pipe(select(reducers.getOrder));
@@ -209,7 +207,7 @@ export class OrderService {
                             title: this.translate.instant('common.error'),
                             body: `<p class="mb-4">${this.translate.instant('purchase.complete.alert.authorize')}</p>
                             <div class="p-3 bg-light-gray select-text">
-                            <code>${error}</code>
+                            <code>${(JSON.stringify(error) === '{}') ? error : JSON.stringify(error)}</code>
                         </div>`
                         });
                     });
@@ -323,8 +321,8 @@ export class OrderService {
         switch (printer.connectionType) {
             case Models.Util.Printer.ConnectionType.StarBluetooth:
             case Models.Util.Printer.ConnectionType.StarLAN:
-                this.starPrintService.initialize({ printer, pos });
-                await this.starPrintService.printProcess({ canvasList });
+                this.printerService.star.initialize({ printer, pos });
+                await this.printerService.star.printProcess({ canvasList });
                 break;
             case Models.Util.Printer.ConnectionType.Image:
                 const domList = canvasList.map(canvas => `<div class="mb-3 p-4 border border-light-gray shadow-sm">
@@ -336,9 +334,9 @@ export class OrderService {
                 });
                 break;
             case Models.Util.Printer.ConnectionType.EpsonEPOS:
-                await this.epsonEPOSService.printer.init({ printer });
-                await this.epsonEPOSService.printer.print({ canvasList });
-                await this.epsonEPOSService.printer.disconnect();
+                await this.printerService.epson.init({ printer });
+                await this.printerService.epson.print({ canvasList });
+                await this.printerService.epson.disconnect();
                 break;
             default:
                 break;
@@ -377,17 +375,27 @@ export class OrderService {
     public async openDrawer(params: {
         printer: Models.Util.Printer.IPrinter;
     }) {
-        const printer = params.printer;
-        switch (printer.connectionType) {
-            case Models.Util.Printer.ConnectionType.StarBluetooth:
-            case Models.Util.Printer.ConnectionType.StarLAN:
-                this.starPrintService.initialize({ printer });
-                this.utilService.loadStart({ process: 'load' });
-                await this.starPrintService.openDrawer();
-                this.utilService.loadEnd();
-                break;
-            default:
-                throw new Error('The printer settings are incorrect');
+        try {
+            this.utilService.loadStart({ process: 'load' });
+            const printer = params.printer;
+            switch (printer.connectionType) {
+                case Models.Util.Printer.ConnectionType.StarBluetooth:
+                case Models.Util.Printer.ConnectionType.StarLAN:
+                    this.printerService.star.initialize({ printer });
+                    await this.printerService.star.openDrawer();
+                    break;
+                case Models.Util.Printer.ConnectionType.EpsonEPOS:
+                    await this.printerService.epson.init({ printer });
+                    await this.printerService.epson.openDrawer();
+                    await this.printerService.epson.disconnect();
+                    break;
+                default:
+                    throw new Error('The printer settings are incorrect');
+            }
+            this.utilService.loadEnd();
+        } catch (error) {
+            this.utilService.loadEnd();
+            throw error;
         }
     }
 

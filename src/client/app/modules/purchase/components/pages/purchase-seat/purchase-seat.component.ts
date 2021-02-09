@@ -227,7 +227,7 @@ export class PurchaseSeatComponent implements OnInit {
                 title: this.translate.instant('common.error'),
                 body: `<p class="mb-4">${this.translate.instant(`${this.translateName}.alert.temporaryReservation`)}</p>
                 <div class="p-3 bg-light-gray select-text">
-                <code>${error}</code>
+                <code>${(JSON.stringify(error) === '{}') ? error : JSON.stringify(error)}</code>
             </div>`});
         }
     }
