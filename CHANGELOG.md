@@ -12,6 +12,16 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/).
 
 ### Security
 
+## 3.5.13 - 2020-02-09
+### Added
+ - Epson EPOSでのドロワー連動追加
+ 
+## 3.5.12 - 2020-02-08
+### Added
+ - 入場ゲート選択追加
+### Fixed
+ - index.htmlへのリクエストヘッダー削除 (lastModified,etag)
+
 ## 3.5.11 - 2020-02-04
 ### Added
  - 検索タイプ切り替えボタン表示

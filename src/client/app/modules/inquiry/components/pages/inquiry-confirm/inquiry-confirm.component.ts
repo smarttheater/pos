@@ -93,7 +93,7 @@ export class InquiryConfirmComponent implements OnInit {
                         body: `
                         <p class="mb-4">${this.translate.instant('inquiry.confirm.alert.cancel')}</p>
                             <div class="p-3 bg-light-gray select-text">
-                            <code>${error}</code>
+                            <code>${(JSON.stringify(error) === '{}') ? error : JSON.stringify(error)}</code>
                         </div>`
                     });
                 }
@@ -166,7 +166,7 @@ export class InquiryConfirmComponent implements OnInit {
                 body: `
                 <p class="mb-4">${this.translate.instant('inquiry.confirm.alert.print')}</p>
                     <div class="p-3 bg-light-gray select-text">
-                    <code>${error}</code>
+                    <code>${(JSON.stringify(error) === '{}') ? error : JSON.stringify(error)}</code>
                 </div>`
             });
         }

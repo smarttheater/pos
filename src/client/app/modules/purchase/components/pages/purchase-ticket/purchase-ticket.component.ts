@@ -108,7 +108,7 @@ export class PurchaseTicketComponent implements OnInit {
                 body: `
                 <p class="mb-4">${this.translate.instant(`${this.translateName}.alert.temporaryReservation`)}</p>
                 <div class="p-3 bg-light-gray select-text text-left">
-                    <code>${error}</code>
+                    <code>${(JSON.stringify(error) === '{}') ? error : JSON.stringify(error)}</code>
                 </div>`
             });
         }

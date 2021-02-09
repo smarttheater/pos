@@ -16,6 +16,7 @@ import * as reducers from '../../../../../store/reducers';
 })
 export class AdmissionCheckComponent implements OnInit, OnDestroy {
     public admission: Observable<reducers.IAdmissionState>;
+    public user: Observable<reducers.IUserState>;
     public isLoading: Observable<boolean>;
     public updateLoop: any;
     public moment: typeof moment = moment;
@@ -43,6 +44,7 @@ export class AdmissionCheckComponent implements OnInit, OnDestroy {
         this.inputCode = '';
         this.isLoading = this.store.pipe(select(reducers.getLoading));
         this.admission = this.store.pipe(select(reducers.getAdmission));
+        this.user = this.store.pipe(select(reducers.getUser));
         try {
             const { screeningEvent } = await this.actionService.admission.getData();
             this.screeningEvent = screeningEvent;
@@ -78,6 +80,7 @@ export class AdmissionCheckComponent implements OnInit, OnDestroy {
     public async check(code: string) {
         try {
             const { screeningEvent, scheduleDate } = await this.actionService.admission.getData();
+            const { entranceGate } = await this.actionService.user.getData();
             if (scheduleDate === undefined) {
                 this.router.navigate(['/error']);
                 return;
@@ -85,7 +88,8 @@ export class AdmissionCheckComponent implements OnInit, OnDestroy {
             const checkResult = await this.actionService.admission.checkQrcode({
                 code,
                 screeningEvent,
-                scheduleDate: moment(scheduleDate, 'YYYY-MM-DD').toDate()
+                scheduleDate: moment(scheduleDate, 'YYYY-MM-DD').toDate(),
+                entranceGate
             });
             this.screeningEvent = checkResult.screeningEvent;
             this.qrcodeToken = checkResult.qrcodeToken;

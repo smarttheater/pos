@@ -4,106 +4,110 @@
             <h2 class="text-large mb-4 text-center font-weight-bold">{{ 'setting.title' | translate }}</h2>
             <p class="mb-4 text-md-center" [innerHTML]="'setting.read' | translate"></p>
             <div class="p-3 bg-white">
-
-                <div *ngFor="let key of getProfileFormKeys()" class="form-group row">
-                    <div class="col-md-4 py-2 text-md-right ">
-                        <div class="d-inline-flex align-items-center">
-                            <p *ngIf="!getAdditionalProperty(key)">{{ 'form.label.' + key | translate }}</p>
-                            <p *ngIf="getAdditionalProperty(key)">
-                                {{ getAdditionalProperty(key)?.label | changeLanguage }}</p>
-                            <p *ngIf="isRequired(key)" class="badge badge-danger ml-2">{{ 'form.required' | translate }}
-                            </p>
-                        </div>
-                    </div>
-                    <div class="col-md-8">
-                        <input *ngIf="key !== 'theaterBranchCode'
-                            && key !== 'posId'
-                            && key !== 'printerType'
-                            && key !== 'email' 
-                            && key !== 'telephone' 
-                            && key !== 'gender' 
-                            && key !== 'drawer' 
-                            && getAdditionalProperty(key)?.inputType !== 'textarea'" type="text" class="form-control"
-                            [formControlName]="key" [id]="key" [placeholder]="'form.placeholder.' + key | translate">
-                        <select *ngIf="key === 'theaterBranchCode'" class="form-control" [formControlName]="key"
-                            (change)="changePosList()">
-                            <option value="">{{ 'setting.unselected' | translate }}</option>
-                            <option *ngFor="let theater of theaters" [value]="theater.branchCode">
-                                {{ theater.name | changeLanguage }}</option>
-                        </select>
-                        <select *ngIf="key === 'posId'" class="form-control" [formControlName]="key">
-                            <option value="">{{ 'setting.unselected' | translate }}</option>
-                            <option *ngFor="let pos of posList" [value]="pos.id">{{ pos.name }}</option>
-                        </select>
-                        <select *ngIf="key === 'printerType'" class="form-control" [formControlName]="key"
-                            (change)="changePrinterType()">
-                            <option *ngFor="let printer of printers" [value]="printer.connectionType">
-                                {{ printer.name | translate }}</option>
-                        </select>
-                        <select *ngIf="key === 'drawer'" class="form-control" [formControlName]="key" [id]="key">
-                            <option value="0">{{ 'form.option.false' | translate }}</option>
-                            <option value="1">{{ 'form.option.true' | translate }}</option>
-                        </select>
-                        <input *ngIf="key === 'email'" type="email" class="form-control" [formControlName]="key"
-                            [id]="key" [placeholder]="'form.placeholder.' + key | translate">
-                        <ngx-intl-tel-input *ngIf="key === 'telephone'" #intlTelInput
-                            [preferredCountries]="[CountryISO.Japan]" [enableAutoCountrySelect]="false"
-                            [enablePlaceholder]="true" [searchCountryFlag]="true"
-                            [searchCountryField]="[SearchCountryField.Iso2, SearchCountryField.Name]"
-                            [selectFirstCountry]="false" [selectedCountryISO]="CountryISO.Japan" [maxLength]="15"
-                            [tooltipField]="TooltipLabel.Name" [phoneValidation]="true" [separateDialCode]="false"
-                            inputId="telephone" name="telephone" formControlName="telephone"></ngx-intl-tel-input>
-                        <select *ngIf="key === 'gender'" class="form-control" [formControlName]="key" [id]="key">
-                            <option value="">{{ 'form.option.unselected' | translate }}</option>
-                            <option value="man">{{ 'form.option.man' | translate }}</option>
-                            <option value="woman">{{ 'form.option.woman' | translate }}</option>
-                        </select>
-                        <textarea *ngIf="getAdditionalProperty(key)?.inputType === 'textarea'" class="form-control"
-                            [formControlName]="key" [id]="key" placeholder=""></textarea>
-                        <div *ngIf="settingForm.controls[key].invalid && settingForm.controls[key].touched"
-                            class="mt-2">
-                            <p *ngIf="settingForm.controls[key].errors?.required" class="text-danger">
-                                {{ 'form.validation.required' | translate }}
-                            </p>
-                            <p *ngIf="settingForm.controls[key].errors?.maxlength" class="text-danger">
-                                {{ 'form.validation.maxlength' | translate:{ value: settingForm.controls[key].errors?.maxlength.requiredLength } }}
-                            </p>
-                            <p *ngIf="settingForm.controls[key].errors?.email" class="text-danger">
-                                {{ 'form.validation.email' | translate }}
-                            </p>
-                            <p *ngIf="settingForm.controls[key].errors?.validatePhoneNumber" class="text-danger">
-                                {{ 'form.validation.telephone' | translate }}
-                            </p>
-                            <div *ngIf="key === 'familyName' || key === 'givenName'">
-                                <p *ngIf="(user | async)?.language === 'ja' && settingForm.controls[key].errors?.customPattern"
-                                    class="text-danger">
-                                    {{ 'form.validation.fullKana' | translate }}</p>
-                                <p *ngIf="(user | async)?.language !== 'ja' && settingForm.controls[key].errors?.customPattern"
-                                    class="text-danger">
-                                    {{ 'form.validation.lowercaseLetters' | translate }}</p>
+                <ng-container *ngFor="let key of getProfileFormKeys()">
+                    <div *ngIf="!(key === 'posId' && posList.length === 0) 
+                    && !(key === 'entranceGateId' && entranceGateList.length === 0)" class="form-group row">
+                        <div class="col-md-4 py-2 text-md-right ">
+                            <div class="d-inline-flex align-items-center">
+                                <p *ngIf="!getAdditionalProperty(key)">{{ 'form.label.' + key | translate }}</p>
+                                <p *ngIf="getAdditionalProperty(key)">
+                                    {{ getAdditionalProperty(key)?.label | changeLanguage }}</p>
+                                <p *ngIf="isRequired(key)" class="badge badge-danger ml-2">{{ 'form.required' | translate }}
+                                </p>
                             </div>
                         </div>
-                        <div *ngIf="key === 'printerType'">
-                            <button [disabled]="settingForm.controls.printerType.value === connectionType.None"
-                                type="button" class="btn btn-sm btn-primary py-2 mt-2"
-                                (click)="print()">{{ 'setting.testPrinting' | translate }}</button>
-                        </div>
-                        <p *ngIf="key === 'printerIpAddress'" class="text-small mt-2">
-                            {{ 'setting.printerIpAddressDescription' | translate }}
-                        </p>
-                        <div *ngIf="key === 'drawer'">
-                            <button [disabled]="settingForm.controls.drawer.value === '0'"
-                                type="button" class="btn btn-sm btn-primary py-2 mt-2"
-                                (click)="openDrawer()">{{ 'setting.openDrawer' | translate }}</button>
-                            <p class="text-small mt-2">
-                                {{ 'setting.drawerDescription' | translate }}
+                        <div class="col-md-8">
+                            <input *ngIf="key !== 'theaterId'
+                                && key !== 'posId'
+                                && key !== 'entranceGateId'
+                                && key !== 'printerType'
+                                && key !== 'email' 
+                                && key !== 'telephone' 
+                                && key !== 'gender' 
+                                && key !== 'drawer' 
+                                && getAdditionalProperty(key)?.inputType !== 'textarea'" type="text" class="form-control"
+                                [formControlName]="key" [id]="key" [placeholder]="'form.placeholder.' + key | translate">
+                            <select *ngIf="key === 'theaterId'" class="form-control" [formControlName]="key"
+                                (change)="changeTheater()">
+                                <option value="">{{ 'setting.unselected' | translate }}</option>
+                                <option *ngFor="let theater of theaters" [value]="theater.id">
+                                    {{ theater.name | changeLanguage }}</option>
+                            </select>
+                            <select *ngIf="key === 'posId'" class="form-control" [formControlName]="key">
+                                <option value="">{{ 'setting.unselected' | translate }}</option>
+                                <option *ngFor="let pos of posList" [value]="pos.id">{{ pos.name }}</option>
+                            </select>
+                            <select *ngIf="key === 'entranceGateId'" class="form-control" [formControlName]="key">
+                                <option value="">{{ 'setting.unselected' | translate }}</option>
+                                <option *ngFor="let entranceGate of entranceGateList" [value]="entranceGate.identifier">{{ entranceGate.name | changeLanguage }}</option>
+                            </select>
+                            <select *ngIf="key === 'printerType'" class="form-control" [formControlName]="key"
+                                (change)="changePrinterType()">
+                                <option *ngFor="let printer of printers" [value]="printer.connectionType">
+                                    {{ printer.name | translate }}</option>
+                            </select>
+                            <select *ngIf="key === 'drawer'" class="form-control" [formControlName]="key" [id]="key">
+                                <option value="0">{{ 'form.option.false' | translate }}</option>
+                                <option value="1">{{ 'form.option.true' | translate }}</option>
+                            </select>
+                            <input *ngIf="key === 'email'" type="email" class="form-control" [formControlName]="key"
+                                [id]="key" [placeholder]="'form.placeholder.' + key | translate">
+                            <ngx-intl-tel-input *ngIf="key === 'telephone'" #intlTelInput
+                                [preferredCountries]="[CountryISO.Japan]" [enableAutoCountrySelect]="false"
+                                [enablePlaceholder]="true" [searchCountryFlag]="true"
+                                [searchCountryField]="[SearchCountryField.Iso2, SearchCountryField.Name]"
+                                [selectFirstCountry]="false" [selectedCountryISO]="CountryISO.Japan" [maxLength]="15"
+                                [tooltipField]="TooltipLabel.Name" [phoneValidation]="true" [separateDialCode]="false"
+                                inputId="telephone" name="telephone" formControlName="telephone"></ngx-intl-tel-input>
+                            <select *ngIf="key === 'gender'" class="form-control" [formControlName]="key" [id]="key">
+                                <option value="">{{ 'form.option.unselected' | translate }}</option>
+                                <option value="man">{{ 'form.option.man' | translate }}</option>
+                                <option value="woman">{{ 'form.option.woman' | translate }}</option>
+                            </select>
+                            <textarea *ngIf="getAdditionalProperty(key)?.inputType === 'textarea'" class="form-control"
+                                [formControlName]="key" [id]="key" placeholder=""></textarea>
+                            <div *ngIf="settingForm.controls[key].invalid && settingForm.controls[key].touched"
+                                class="mt-2">
+                                <p *ngIf="settingForm.controls[key].errors?.required" class="text-danger">
+                                    {{ 'form.validation.required' | translate }}
+                                </p>
+                                <p *ngIf="settingForm.controls[key].errors?.maxlength" class="text-danger">
+                                    {{ 'form.validation.maxlength' | translate:{ value: settingForm.controls[key].errors?.maxlength.requiredLength } }}
+                                </p>
+                                <p *ngIf="settingForm.controls[key].errors?.email" class="text-danger">
+                                    {{ 'form.validation.email' | translate }}
+                                </p>
+                                <p *ngIf="settingForm.controls[key].errors?.validatePhoneNumber" class="text-danger">
+                                    {{ 'form.validation.telephone' | translate }}
+                                </p>
+                                <div *ngIf="key === 'familyName' || key === 'givenName'">
+                                    <p *ngIf="(user | async)?.language === 'ja' && settingForm.controls[key].errors?.customPattern"
+                                        class="text-danger">
+                                        {{ 'form.validation.fullKana' | translate }}</p>
+                                    <p *ngIf="(user | async)?.language !== 'ja' && settingForm.controls[key].errors?.customPattern"
+                                        class="text-danger">
+                                        {{ 'form.validation.lowercaseLetters' | translate }}</p>
+                                </div>
+                            </div>
+                            <div *ngIf="key === 'printerType'">
+                                <button [disabled]="settingForm.controls.printerType.value === connectionType.None"
+                                    type="button" class="btn btn-sm btn-primary py-2 mt-2"
+                                    (click)="print()">{{ 'setting.testPrinting' | translate }}</button>
+                            </div>
+                            <p *ngIf="key === 'printerIpAddress'" class="text-small mt-2">
+                                {{ 'setting.printerIpAddressDescription' | translate }}
                             </p>
+                            <div *ngIf="key === 'drawer'">
+                                <button [disabled]="settingForm.controls.drawer.value === '0'"
+                                    type="button" class="btn btn-sm btn-primary py-2 mt-2"
+                                    (click)="openDrawer()">{{ 'setting.openDrawer' | translate }}</button>
+                                <p class="text-small mt-2">
+                                    {{ 'setting.drawerDescription' | translate }}
+                                </p>
+                            </div>
                         </div>
                     </div>
-                </div>
-
-
-
+                </ng-container>
 
             </div>
         </div>

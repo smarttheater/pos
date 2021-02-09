@@ -75,8 +75,7 @@ exports.default = (app) => {
             next();
             return;
         }
-        res.setHeader('Cache-Control', 'no-cache');
-        res.sendFile(path.resolve(`${__dirname}/../../../client/index.html`));
+        res.sendFile(path.resolve(`${__dirname}/../../../client/index.html`), { lastModified: false, etag: false });
     }));
     app.all('*', (req, res, _next) => {
         res.status(http_status_1.NOT_FOUND);
