@@ -12,6 +12,10 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/).
 
 ### Security
 
+## 3.5.13 - 2020-02-09
+### Added
+ - Epson EPOSでのドロワー連動追加
+ 
 ## 3.5.12 - 2020-02-08
 ### Added
  - 入場ゲート選択追加
