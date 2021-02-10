@@ -12,6 +12,10 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/).
 
 ### Security
 
+## 3.5.14 - 2020-02-10
+### Changed
+ - PurchaseEventScheduleComponent => PurchaseEventDateComponent
+
 ## 3.5.13 - 2020-02-09
 ### Added
  - Epson EPOSでのドロワー連動追加

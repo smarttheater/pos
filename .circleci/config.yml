@@ -99,18 +99,18 @@ workflows:
       - test:
           requires:
             - build
-      - deploy2development:
-          requires:
-            - test
-          filters:
-            branches:
-              only: develop
-      - prerelease:
-          requires:
-            - test
-          filters:
-            branches:
-              only: /feature\/.+-alpha.+/
+      # - deploy2development:
+      #     requires:
+      #       - test
+      #     filters:
+      #       branches:
+      #         only: develop
+      # - prerelease:
+      #     requires:
+      #       - test
+      #     filters:
+      #       branches:
+      #         only: /feature\/.+-alpha.+/
       - deploy:
           requires:
             - test
