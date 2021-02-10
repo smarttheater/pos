@@ -15,3 +15,12 @@
 
 # Node.js dependencies:
 node_modules/
+
+# custom
+.circleci/
+.vscode/
+ssl/
+e2e/
+public/projects/
+.env.bat
+*.gcp.yaml
