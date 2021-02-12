@@ -99,7 +99,7 @@ export class PurchaseTicketComponent implements OnInit {
             });
             const navigate = (this.environment.VIEW_TYPE === 'cinema')
                 ? '/purchase/payment'
-                : '/purchase/event/ticket';
+                : '/purchase/event/schedule';
             this.router.navigate([navigate]);
         } catch (error) {
             console.error(error);
