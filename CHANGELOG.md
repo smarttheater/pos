@@ -12,6 +12,10 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/).
 
 ### Security
 
+## 3.5.15 - 2020-02-13
+### Fixed
+ - イベント指定での注文検索修正(COA対応)
+
 ## 3.5.14 - 2020-02-10
 ### Changed
  - PurchaseEventScheduleComponent => PurchaseEventDateComponent
