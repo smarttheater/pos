@@ -167,7 +167,7 @@ export class PurchaseEventDateComponent implements OnInit, OnDestroy {
                 seller: <factory.chevre.seller.ISeller>purchase.seller,
                 pos: user.pos
             });
-            this.router.navigate(['/purchase/event/ticket']);
+            this.router.navigate(['/purchase/event/schedule']);
         } catch (error) {
             console.error(error);
             try {
