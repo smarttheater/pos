@@ -8,7 +8,7 @@ import * as momentTimezone from 'moment-timezone';
 import { defineLocale } from 'ngx-bootstrap/chronos';
 import { jaLocale } from 'ngx-bootstrap/locale';
 import { Functions } from './app';
-import { getEnvironment } from './environments/environment';
+import { getEnvironment, IEnvironment } from './environments/environment';
 
 async function main() {
     // タイムゾーン設定
@@ -41,11 +41,15 @@ async function main() {
         location.reload();
         return;
     }
-    await setProject({ projectId });
+    const config = await setProject({ projectId });
     if (Functions.Util.getProject().storageUrl === undefined) {
         return;
     }
-    await setProjectConfig(Functions.Util.getProject().storageUrl);
+    await setProjectConfig({
+        storageUrl: Functions.Util.getProject().storageUrl,
+        gtmId: config.gtmId,
+        analyticsId: config.analyticsId
+    });
 }
 
 /**
@@ -68,6 +72,8 @@ async function setProject(params: { projectId?: string; }) {
         gmoTokenUrl: string;
         admissionApiEndpoint: string;
         env: string;
+        gtmId?: string;
+        analyticsId?: string;
     } = await fetchResult.json();
     sessionStorage.setItem('PROJECT', JSON.stringify({
         projectId: result.projectId,
@@ -79,12 +85,18 @@ async function setProject(params: { projectId?: string; }) {
     script.src = result.gmoTokenUrl;
     document.body.appendChild(script);
     document.body.classList.add(result.env);
+    return result;
 }
 
 /**
  * プロジェクトごとのアプリケーション設定
  */
-async function setProjectConfig(storageUrl: string) {
+async function setProjectConfig(params: {
+    storageUrl: string;
+    gtmId?: string;
+    analyticsId?: string;
+}) {
+    const { storageUrl, gtmId, analyticsId } = params;
     const now = momentTimezone().toISOString();
     // 設定読み込み
     const fetchResult = await fetch(`${storageUrl}/js/environment.js?=date${now}`, {
@@ -94,7 +106,18 @@ async function setProjectConfig(storageUrl: string) {
     });
     if (fetchResult.ok) {
         (<any>window).eval(await fetchResult.text());
+    } else {
+        (<any>window).environment = {};
     }
+
+    // GTM_ID, ANALYTICS_IDを設定
+    const { GTM_ID, ANALYTICS_ID } = <IEnvironment>(<any>window).environment;
+    (<IEnvironment>(<any>window).environment).GTM_ID =
+        ((GTM_ID === undefined || GTM_ID === '') && gtmId !== undefined) ? gtmId : GTM_ID;
+    (<IEnvironment>(<any>window).environment).ANALYTICS_ID =
+        ((ANALYTICS_ID === undefined || ANALYTICS_ID === '') && analyticsId !== undefined) ? analyticsId : ANALYTICS_ID;
+
+
     const environment = getEnvironment();
     // タイトル設定
     document.title = environment.APP_TITLE;
