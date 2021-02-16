@@ -65,14 +65,6 @@ interface IEnvironment {
      */
     PROFILE: IProfile[];
     /**
-     * 使用可能決済手段
-     */
-    PAYMENT_METHOD_TO_USE: string[];
-    /**
-     * カスタム決済手段
-     */
-    PAYMENT_METHOD_CUSTOM: { category: string; name: { ja: string; en: string; }, qrcode?: string; }[];
-    /**
      * REGIGROW QRコード
      */
     REGIGROW_QRCODE: string;
@@ -235,8 +227,6 @@ const defaultEnvironment: IEnvironment = {
         { key: 'email', value: '', required: true, maxLength: 50 },
         { key: 'telephone', value: '', required: true, maxLength: 15, minLength: 9 }
     ],
-    PAYMENT_METHOD_TO_USE: ['Cash', 'EMoney', 'CreditCard'],
-    PAYMENT_METHOD_CUSTOM: [],
     REGIGROW_QRCODE: '',
     DISPLAY_TICKETED_SEAT: true,
     HEADER_MENU: true,

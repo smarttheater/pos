@@ -13,6 +13,7 @@ import { getEnvironment } from '../../../../../../../environments/environment';
 })
 export class OrderDetailModalComponent implements OnInit {
     @Input() public order: factory.order.IOrder;
+    @Input() public categoryCodePayment: factory.chevre.categoryCode.ICategoryCode[];
     public moment: typeof moment = moment;
     public eventOrders: Functions.Purchase.IEventOrder[];
     public environment = getEnvironment();
@@ -35,24 +36,17 @@ export class OrderDetailModalComponent implements OnInit {
             element.scrollTop = 0;
         }, 0);
         try {
-            const isRegiGrow = order.paymentMethods.find(p => p.name === 'RegiGrow') !== undefined;
-            const findResult = this.environment.PAYMENT_METHOD_CUSTOM.find(c => {
-                return order.paymentMethods.find(p => {
-                    return (p.typeOf === factory.paymentMethodType.Others
-                        && p.name === c.category
-                        && c.qrcode !== undefined);
-                });
-            });
-            if (isRegiGrow
-                || (findResult !== undefined && findResult.qrcode !== undefined)) {
-                const qrcodeText = (isRegiGrow) ? this.environment.REGIGROW_QRCODE
-                    : (findResult !== undefined && findResult.qrcode !== undefined) ? findResult.qrcode : '';
+            const isRegiGrow = order.paymentMethods.find(p => {
+                return (p.typeOf === this.paymentMethodType.Others && p.name === 'RegiGrow')
+                    || p.typeOf === 'RegiGrow';
+            }) !== undefined;
+            if (isRegiGrow) {
+                const qrcodeText = this.environment.REGIGROW_QRCODE;
                 this.qrcode = await Functions.Order.createCooperationQRCode({ order, qrcodeText });
             }
         } catch (error) {
             console.error(error);
         }
-        console.log(order);
     }
 
 }
