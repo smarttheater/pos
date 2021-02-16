@@ -26,24 +26,19 @@ const router = express.Router();
 router.post('/project', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     log('project', req.body);
     try {
+        const response = {
+            gmoTokenUrl: process.env.GMO_TOKEN_URL,
+            env: process.env.APP_ENV,
+            admissionApiEndpoint: process.env.ADMISSION_API_ENDPOINT,
+            gtmId: process.env.GTM_ID,
+            analyticsId: process.env.ANALYTICS_ID
+        };
         const projectId = req.body.projectId;
         if (projectId !== undefined) {
-            res.json({
-                projectId: projectId,
-                storageUrl: `${process.env.STORAGE_URL}/${projectId}`,
-                gmoTokenUrl: process.env.GMO_TOKEN_URL,
-                admissionApiEndpoint: process.env.ADMISSION_API_ENDPOINT,
-                env: process.env.APP_ENV
-            });
+            res.json(Object.assign({ projectId: projectId, storageUrl: `${process.env.STORAGE_URL}/${projectId}` }, response));
             return;
         }
-        res.json({
-            projectId: (process.env.PROJECT_ID === undefined) ? '' : process.env.PROJECT_ID,
-            storageUrl: (process.env.PROJECT_STORAGE_URL === undefined) ? '' : process.env.PROJECT_STORAGE_URL,
-            gmoTokenUrl: process.env.GMO_TOKEN_URL,
-            admissionApiEndpoint: process.env.ADMISSION_API_ENDPOINT,
-            env: process.env.APP_ENV
-        });
+        res.json(Object.assign({ projectId: (process.env.PROJECT_ID === undefined) ? '' : process.env.PROJECT_ID, storageUrl: (process.env.PROJECT_STORAGE_URL === undefined) ? '' : process.env.PROJECT_STORAGE_URL }, response));
     }
     catch (error) {
         log('project', error.message);
