@@ -12,6 +12,14 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/).
 
 ### Security
 
+## 3.5.18 - 2020-02-17
+### Changed
+ - PurchaseEventSeatTicketComponent => PurchaseEventTicketComponent
+
+## 3.5.17 - 2020-02-16
+### Added
+ - 環境変数へGTM_ID、ANALYTICS_IDを追加
+
 ## 3.5.16 - 2020-02-15
 ### Changed
  - PurchaseEventTicketComponent => PurchaseEventScheduleComponent
