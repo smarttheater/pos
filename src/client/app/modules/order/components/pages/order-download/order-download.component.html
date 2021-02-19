@@ -1,11 +1,13 @@
 <div class="contents-width mx-auto px-3 py-5">
     <h2 class="text-large mb-4 text-center font-weight-bold">{{ 'order.download.title' | translate }}</h2>
     <p class="mb-4 text-md-center" [innerHTML]="'order.download.read' | translate"></p>
-    <div class="conditions p-3 bg-white mb-4">
-        <app-order-condition [name]="'order.download.download' | translate" [orderDateValidation]="true" (changeConditions)=changeConditions($event)></app-order-condition>
+    <div *ngIf="categoryCodePayment.length > 0" class="conditions p-3 bg-white mb-4">
+        <app-order-condition [name]="'order.download.download' | translate"
+            [categoryCodePayment]="categoryCodePayment" [orderDateValidation]="true"
+            (changeConditions)=changeConditions($event)></app-order-condition>
     </div>
     <div class="buttons mx-auto text-center">
-        <button type="button" class="btn btn-outline-primary btn-block py-3"
-            routerLink="/order">{{ 'order.download.prev' | translate }}</button>
+        <button type="button" class="btn btn-outline-primary btn-block py-3" routerLink="/order">{{
+            'order.download.prev' | translate }}</button>
     </div>
 </div>

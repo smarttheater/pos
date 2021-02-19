@@ -1,17 +1,10 @@
-@import "node_modules/bootstrap/scss/functions";
-@import "node_modules/bootstrap/scss/variables";
-@import "node_modules/bootstrap/scss/mixins";
 .payment-select {
-    grid-template-columns: 1fr 1fr 1fr;
-    grid-gap: 1rem;
-    @include media-breakpoint-down(sm) {
-        grid-template-columns: 1fr;
+    .row {
+        margin-left: -0.5rem;
+        margin-right: -0.5rem;
     }
     button {
         min-height: 100px;
-        @include media-breakpoint-down(sm) {
-            min-height: auto;
-        }
         .image {
             font-size: 30px;
         }

@@ -7,7 +7,7 @@ import * as moment from 'moment';
 import { Observable } from 'rxjs';
 import { Functions } from '../../../../..';
 import { getEnvironment } from '../../../../../../environments/environment';
-import { ActionService, UtilService } from '../../../../../services';
+import { ActionService, MasterService, UtilService } from '../../../../../services';
 import * as reducers from '../../../../../store/reducers';
 
 @Component({
@@ -20,29 +20,38 @@ export class PurchaseConfirmComponent implements OnInit {
     public isLoading: Observable<boolean>;
     public user: Observable<reducers.IUserState>;
     public moment: typeof moment = moment;
-    public paymentMethodType: typeof factory.paymentMethodType = factory.paymentMethodType;
+    public paymentMethodType = factory.paymentMethodType;
     public depositAmount: number;
     public amount: number;
     public environment = getEnvironment();
-    public getCustomPaymentMethodTypeName = Functions.Purchase.getCustomPaymentMethodTypeName;
+    public paymentMethod?: factory.chevre.categoryCode.ICategoryCode;
 
     constructor(
         private store: Store<reducers.IState>,
         private router: Router,
         private actionService: ActionService,
         private utilService: UtilService,
-        private translate: TranslateService
+        private translate: TranslateService,
+        private masterService: MasterService,
     ) { }
 
-    public ngOnInit() {
+    public async ngOnInit() {
         this.purchase = this.store.pipe(select(reducers.getPurchase));
         this.isLoading = this.store.pipe(select(reducers.getLoading));
         this.user = this.store.pipe(select(reducers.getUser));
         this.amount = 0;
         this.depositAmount = 0;
-        this.purchase.subscribe((purchase) => {
-            this.amount = Functions.Purchase.getAmount(purchase.authorizeSeatReservations);
-        }).unsubscribe();
+        try {
+            const { authorizeSeatReservations, paymentMethod } = await this.actionService.purchase.getData();
+            this.amount = Functions.Purchase.getAmount(authorizeSeatReservations);
+            const categoryCodePayment = await this.masterService.searchCategoryCode({
+                categorySetIdentifier: factory.chevre.categoryCode.CategorySetIdentifier.PaymentMethodType
+            });
+            this.paymentMethod = categoryCodePayment.find(c => c.codeValue === paymentMethod?.typeOf);
+        } catch (error) {
+            console.error(error);
+            this.router.navigate(['/error']);
+        }
     }
 
     /**

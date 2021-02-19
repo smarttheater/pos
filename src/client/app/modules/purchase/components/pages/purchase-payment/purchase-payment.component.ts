@@ -6,7 +6,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 import { Models } from '../../../../..';
 import { getEnvironment } from '../../../../../../environments/environment';
-import { ActionService, UtilService } from '../../../../../services';
+import { ActionService, MasterService, UtilService } from '../../../../../services';
 import * as reducers from '../../../../../store/reducers';
 
 @Component({
@@ -16,7 +16,11 @@ import * as reducers from '../../../../../store/reducers';
 })
 export class PurchasePaymentComponent implements OnInit {
     public user: Observable<reducers.IUserState>;
-    public paymentMethodType = factory.paymentMethodType;
+    public paymentMethodType = factory.chevre.paymentMethodType;
+    public payments: {
+        paymentAccepted: factory.chevre.seller.IPaymentAccepted;
+        categoryCode: factory.chevre.categoryCode.ICategoryCode;
+    }[];
     public viewType = Models.Util.ViewType;
     public environment = getEnvironment();
 
@@ -25,11 +29,42 @@ export class PurchasePaymentComponent implements OnInit {
         private router: Router,
         private utilService: UtilService,
         private actionService: ActionService,
+        private masterService: MasterService,
         private translate: TranslateService
     ) { }
 
-    public ngOnInit() {
+    public async ngOnInit() {
         this.user = this.store.pipe(select(reducers.getUser));
+        this.payments = [];
+        try {
+            const { seller } = await this.actionService.purchase.getData();
+            if (seller === undefined
+                || seller.paymentAccepted === undefined) {
+                throw new Error('seller or seller.paymentAccepted undefined');
+            }
+            const paymentAccepted = seller.paymentAccepted.filter(p => {
+                return (p.paymentMethodType !== factory.chevre.paymentMethodType.MGTicket
+                    && p.paymentMethodType !== factory.chevre.paymentMethodType.MovieTicket
+                    && p.paymentMethodType !== 'Account');
+            });
+            const categoryCodePayment = await this.masterService.searchCategoryCode({
+                categorySetIdentifier: factory.chevre.categoryCode.CategorySetIdentifier.PaymentMethodType
+            });
+            paymentAccepted.forEach(p => {
+                const categoryCode = categoryCodePayment.find(c => c.codeValue === p.paymentMethodType);
+                if (categoryCode === undefined) {
+                    return;
+                }
+                this.payments.push({
+                    paymentAccepted: p,
+                    categoryCode
+                });
+            });
+            console.log(this.payments);
+        } catch (error) {
+            console.error(error);
+            this.router.navigate(['/error']);
+        }
     }
 
     /**
@@ -60,14 +95,6 @@ export class PurchasePaymentComponent implements OnInit {
             this.router.navigate(['/error']);
             console.error(error);
         }
-    }
-
-    /**
-     * 表示判定
-     */
-    public isDisplay(paymentMethodType: factory.paymentMethodType | string) {
-        const findResult = this.environment.PAYMENT_METHOD_TO_USE.find(p => p === paymentMethodType);
-        return (findResult !== undefined);
     }
 
 }
