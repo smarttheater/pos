@@ -1,18 +1,20 @@
 <table class="table table-striped table-bordered mb-0">
     <tbody>
-        <tr *ngFor="let paymentMethod of paymentMethods">
+        <tr *ngFor="let payment of payments">
             <td scope="row">
-                <p>{{ getPaymentMethodLabel(paymentMethod) }}</p>
-                <p *ngIf="paymentMethod.accountId">({{ paymentMethod.accountId }})</p>
+                <p>{{ payment.categoryCode.name | changeLanguage }}</p>
+                <p *ngIf="payment.paymentMethod.typeOf === paymentMethodType.Others 
+                && payment.paymentMethod.name !== 'Others'">[{{ payment.paymentMethod.name }}]</p>
+                <p *ngIf="payment.paymentMethod.accountId">({{ payment.paymentMethod.accountId }})</p>
             </td>
             <td class="text-right">
-                <p *ngIf="paymentMethod.totalPaymentDue.currency === 'JPY'">
-                    {{ paymentMethod.totalPaymentDue.value | currency : 'JPY' }}
+                <p *ngIf="payment.paymentMethod.totalPaymentDue.currency === 'JPY'">
+                    {{ payment.paymentMethod.totalPaymentDue.value | currency : 'JPY' }}
                 </p>
-                <p *ngIf="paymentMethod.totalPaymentDue.currency !== 'JPY'">
-                    {{ paymentMethod.totalPaymentDue.value }}
+                <p *ngIf="payment.paymentMethod.totalPaymentDue.currency !== 'JPY'">
+                    {{ payment.paymentMethod.totalPaymentDue.value }}
                 </p>
-                <div *ngFor="let additionalProperty of paymentMethod.additionalProperty"
+                <div *ngFor="let additionalProperty of payment.paymentMethod.additionalProperty"
                     class="d-flex justify-content-end">
                     <ng-container
                         *ngIf="additionalProperty.name === 'depositAmount' || additionalProperty.name === 'change'">

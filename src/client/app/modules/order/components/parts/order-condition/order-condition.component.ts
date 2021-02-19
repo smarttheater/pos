@@ -30,6 +30,7 @@ export class OrderConditionComponent implements OnInit {
     @Output() public changeConditions = new EventEmitter<Models.Order.Search.IOrderSearchConditions>();
     @Input() public name: string;
     @Input() public orderDateValidation?: boolean;
+    @Input() public categoryCodePayment: factory.chevre.categoryCode.ICategoryCode[];
 
     constructor(
         private store: Store<reducers.IOrderState>,

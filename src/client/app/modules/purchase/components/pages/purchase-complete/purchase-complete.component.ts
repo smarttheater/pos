@@ -7,7 +7,7 @@ import * as moment from 'moment';
 import { Observable } from 'rxjs';
 import { Functions, Models } from '../../../../..';
 import { getEnvironment } from '../../../../../../environments/environment';
-import { ActionService, UtilService } from '../../../../../services';
+import { ActionService, MasterService, UtilService } from '../../../../../services';
 import * as reducers from '../../../../../store/reducers';
 
 @Component({
@@ -25,9 +25,9 @@ export class PurchaseCompleteComponent implements OnInit {
     public environment = getEnvironment();
     public qrcode?: string;
     public paymentMethodType = factory.paymentMethodType;
-    public getCustomPaymentMethodTypeName = Functions.Purchase.getCustomPaymentMethodTypeName;
     public connectionType = Models.Util.Printer.ConnectionType;
     public createOrderLink = Functions.Order.createOrderLink;
+    public categoryCodePayment: factory.chevre.categoryCode.ICategoryCode[];
 
     constructor(
         private store: Store<reducers.IState>,
@@ -35,6 +35,7 @@ export class PurchaseCompleteComponent implements OnInit {
         private actionService: ActionService,
         private utilService: UtilService,
         private translate: TranslateService,
+        private masterService: MasterService,
     ) { }
 
     public async ngOnInit() {
@@ -43,12 +44,16 @@ export class PurchaseCompleteComponent implements OnInit {
         this.user = this.store.pipe(select(reducers.getUser));
         this.isLoading = this.store.pipe(select(reducers.getLoading));
         this.error = this.store.pipe(select(reducers.getError));
+        this.categoryCodePayment = [];
         try {
             const { order } = await this.actionService.purchase.getData();
             if (order === undefined) {
                 throw new Error('order not found');
             }
             this.eventOrders = Functions.Purchase.order2EventOrders({ order });
+            this.categoryCodePayment = await this.masterService.searchCategoryCode({
+                categorySetIdentifier: factory.chevre.categoryCode.CategorySetIdentifier.PaymentMethodType
+            });
         } catch (error) {
             this.router.navigate(['/error']);
             return;
@@ -70,18 +75,12 @@ export class PurchaseCompleteComponent implements OnInit {
             if (order === undefined) {
                 throw new Error('order not found');
             }
-            const isRegiGrow = order.paymentMethods.find(p => p.name === 'RegiGrow') !== undefined;
-            const findResult = this.environment.PAYMENT_METHOD_CUSTOM.find(c => {
-                return order.paymentMethods.find(p => {
-                    return (p.typeOf === factory.paymentMethodType.Others
-                        && p.name === c.category
-                        && c.qrcode !== undefined);
-                });
-            });
-            if (isRegiGrow
-                || (findResult !== undefined && findResult.qrcode !== undefined)) {
-                const qrcodeText = (isRegiGrow) ? this.environment.REGIGROW_QRCODE
-                    : (findResult !== undefined && findResult.qrcode !== undefined) ? findResult.qrcode : '';
+            const isRegiGrow = order.paymentMethods.find(p => {
+                return (p.typeOf === this.paymentMethodType.Others && p.name === 'RegiGrow')
+                    || p.typeOf === 'RegiGrow';
+            }) !== undefined;
+            if (isRegiGrow) {
+                const qrcodeText = this.environment.REGIGROW_QRCODE;
                 this.qrcode = await Functions.Order.createCooperationQRCode({ order, qrcodeText });
             }
         } catch (error) {

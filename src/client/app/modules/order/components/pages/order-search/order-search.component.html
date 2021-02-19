@@ -7,8 +7,9 @@
                 {{ 'order.search.searchType.event' | translate }}
             </button>
         </div>
-        <div class="p-3 bg-white mb-4">
-            <app-order-condition [name]="'order.search.search' | translate" (changeConditions)=changeConditions($event)>
+        <div *ngIf="categoryCodePayment.length > 0" class="p-3 bg-white mb-4">
+            <app-order-condition [name]="'order.search.search' | translate"
+                [categoryCodePayment]="categoryCodePayment" (changeConditions)=changeConditions($event)>
             </app-order-condition>
         </div>
     </div>
@@ -59,8 +60,10 @@
                 <select class="form-control d-inline-block w-auto mr-2" name="actionSelect" id="actionSelect"
                     [(ngModel)]="actionSelect">
                     <option value="">{{ 'order.search.unselected' | translate }}</option>
-                    <option *ngIf="environment.ORDER_CANCEL" [value]="OrderActions.Cancel">{{ 'order.search.cancel' | translate }}</option>
-                    <option *ngIf="environment.ORDER_PRINT" [value]="OrderActions.Print">{{ 'order.search.print' | translate }}</option>
+                    <option *ngIf="environment.ORDER_CANCEL" [value]="OrderActions.Cancel">{{ 'order.search.cancel' |
+                        translate }}</option>
+                    <option *ngIf="environment.ORDER_PRINT" [value]="OrderActions.Print">{{ 'order.search.print' |
+                        translate }}</option>
                 </select>
                 <button id="selectedActionButton" type="button" class="btn btn-primary py-2 px-4"
                     (click)="selectedAction()">{{ 'order.search.apply' | translate }}</button>

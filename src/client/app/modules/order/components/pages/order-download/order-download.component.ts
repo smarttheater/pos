@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { factory } from '@cinerino/sdk';
 import { select, Store } from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
@@ -6,7 +7,7 @@ import * as moment from 'moment';
 import { Observable } from 'rxjs';
 import { Functions, Models } from '../../../../..';
 import { getEnvironment } from '../../../../../../environments/environment';
-import { ActionService, DownloadService, UtilService } from '../../../../../services';
+import { ActionService, DownloadService, MasterService, UtilService } from '../../../../../services';
 import * as reducers from '../../../../../store/reducers';
 
 @Component({
@@ -25,6 +26,7 @@ export class OrderDownloadComponent implements OnInit {
     public conditions: Models.Order.Search.IOrderSearchConditions;
     public environment = getEnvironment();
     public order2EventOrders = Functions.Purchase.order2EventOrders;
+    public categoryCodePayment: factory.chevre.categoryCode.ICategoryCode[];
 
     constructor(
         private store: Store<reducers.IOrderState>,
@@ -32,9 +34,11 @@ export class OrderDownloadComponent implements OnInit {
         private actionService: ActionService,
         private downloadService: DownloadService,
         private translate: TranslateService,
+        private masterService: MasterService,
+        private router: Router,
     ) { }
 
-    public ngOnInit() {
+    public async ngOnInit() {
         this.isLoading = this.store.pipe(select(reducers.getLoading));
         this.error = this.store.pipe(select(reducers.getError));
         this.order = this.store.pipe(select(reducers.getOrder));
@@ -57,7 +61,16 @@ export class OrderDownloadComponent implements OnInit {
             posId: '',
             page: 1
         };
+        this.categoryCodePayment = [];
         this.actionService.order.delete();
+        try {
+            this.categoryCodePayment = await this.masterService.searchCategoryCode({
+                categorySetIdentifier: factory.chevre.categoryCode.CategorySetIdentifier.PaymentMethodType
+            });
+        } catch (error) {
+            this.router.navigate(['/error']);
+            return;
+        }
     }
 
     /**

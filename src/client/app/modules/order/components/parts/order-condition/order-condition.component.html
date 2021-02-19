@@ -1,12 +1,10 @@
 <form (submit)="submit()">
     <div class="form-row">
         <div class="form-group col-md-4 col-lg-3">
-            <label for="orderDateFrom"
-                class="mb-2">{{ 'order.search.conditions.orderDateFrom' | translate }}</label>
+            <label for="orderDateFrom" class="mb-2">{{ 'order.search.conditions.orderDateFrom' | translate }}</label>
             <div class="position-relative">
-                <input type="text" name="orderDateFrom" id="orderDateFrom" placeholder="YYYY/MM/DD"
-                    class="form-control" #orderDateFrom="bsDatepicker" bsDatepicker
-                    [(ngModel)]="conditions.orderDateFrom"
+                <input type="text" name="orderDateFrom" id="orderDateFrom" placeholder="YYYY/MM/DD" class="form-control"
+                    #orderDateFrom="bsDatepicker" bsDatepicker [(ngModel)]="conditions.orderDateFrom"
                     [bsConfig]="{ dateInputFormat: 'YYYY/MM/DD', adaptivePosition: true, showWeekNumbers: false }"
                     readonly (onShown)="onShowPicker($event)" (click)="setDatePicker()">
                 <div class="datepicker-append d-flex align-items-center px-2"
@@ -16,8 +14,8 @@
             </div>
         </div>
         <div class="form-group col-md-4 col-lg-3">
-            <label for="orderDateThrough"
-                class="mb-2">{{ 'order.search.conditions.orderDateThrough' | translate }}</label>
+            <label for="orderDateThrough" class="mb-2">{{ 'order.search.conditions.orderDateThrough' | translate
+                }}</label>
             <div class="position-relative">
                 <input type="text" name="orderDateThrough" id="orderDateThrough" placeholder="YYYY/MM/DD"
                     class="form-control" #orderDateThrough="bsDatepicker" bsDatepicker
@@ -33,8 +31,7 @@
         <div class="form-group col-md-4 col-lg-3">
             <label for="confirmationNumber" class="mb-2">{{ 'common.confirmationNumber' | translate }}</label>
             <input type="text" class="form-control" name="confirmationNumber" id="confirmationNumber"
-                [(ngModel)]="conditions.confirmationNumber"
-                placeholder="{{ 'common.confirmationNumber' | translate }}">
+                [(ngModel)]="conditions.confirmationNumber" placeholder="{{ 'common.confirmationNumber' | translate }}">
         </div>
         <div class="form-group col-md-4 col-lg-3">
             <label for="orderNumber" class="mb-2">{{ 'common.orderNumber' | translate }}</label>
@@ -45,8 +42,7 @@
         <div class="form-group col-md-4 col-lg-3">
             <label for="familyName" class="mb-2">{{ 'common.familyName' | translate }}</label>
             <input type="text" class="form-control" name="familyName" id="familyName"
-                [(ngModel)]="conditions.customer.familyName"
-                placeholder="{{ 'common.familyName' | translate }}">
+                [(ngModel)]="conditions.customer.familyName" placeholder="{{ 'common.familyName' | translate }}">
         </div>
         <div class="form-group col-md-4 col-lg-3">
             <label for="givenName" class="mb-2">{{ 'common.givenName' | translate }}</label>
@@ -55,8 +51,8 @@
         </div>
         <div class="form-group col-md-4 col-lg-3">
             <label for="email" class="mb-2">{{ 'common.email' | translate }}</label>
-            <input type="email" class="form-control" name="email" id="email"
-                [(ngModel)]="conditions.customer.email" placeholder="{{ 'common.email' | translate }}">
+            <input type="email" class="form-control" name="email" id="email" [(ngModel)]="conditions.customer.email"
+                placeholder="{{ 'common.email' | translate }}">
         </div>
         <div class="form-group col-md-4 col-lg-3">
             <label for="telephone" class="mb-2">{{ 'order.search.conditions.telephone' | translate }}</label>
@@ -67,8 +63,7 @@
 
         <div class="form-group col-md-4 col-lg-3">
             <label for="orderStatus" class="mb-2">{{ 'common.orderStatus' | translate }}</label>
-            <select class="form-control" name="orderStatus" id="orderStatus"
-                [(ngModel)]="conditions.orderStatus">
+            <select class="form-control" name="orderStatus" id="orderStatus" [(ngModel)]="conditions.orderStatus">
                 <option value="">{{ 'common.all' | translate }}</option>
                 <!-- <option [value]="orderStatus.OrderCancelled">{{ 'order.search.orderStatus.orderCancelled' | translate }}</option> -->
                 <option [value]="orderStatus.OrderDelivered">
@@ -87,24 +82,15 @@
             <select class="form-control" name="paymentMethodType" id="paymentMethodType"
                 [(ngModel)]="conditions.paymentMethodType">
                 <option value="">{{ 'common.all' | translate }}</option>
-                <option [value]="paymentMethodType.Cash">
-                    {{ 'common.paymentMethodTypes.cash.label' | translate }}
-                </option>
-                <option [value]="paymentMethodType.EMoney">
-                    {{ 'common.paymentMethodTypes.eMoney.label' | translate }}
-                </option>
-                <option [value]="paymentMethodType.CreditCard">
-                    {{ 'common.paymentMethodTypes.creditCard.label' | translate }}</option>
-                <option [value]="paymentMethodType.MovieTicket">
-                    {{ 'common.paymentMethodTypes.movieTicket.label' | translate }}</option>
-                <option [value]="paymentMethodType.Others">
-                    {{ 'common.paymentMethodTypes.others.label' | translate }}
+                <option *ngFor="let categoryCode of categoryCodePayment" [value]="categoryCode.codeValue">
+                    {{ categoryCode.name | changeLanguage }}
                 </option>
             </select>
         </div>
         <div class="form-group col-md-4 col-lg-3">
-            <label for="eventStartDateFrom"
-                class="mb-2">{{ 'order.search.conditions.eventStartDateFrom' | translate }}</label>
+            <label for="eventStartDateFrom" class="mb-2">
+                {{ 'order.search.conditions.eventStartDateFrom' | translate }}
+            </label>
             <div class="position-relative">
                 <input type="text" name="eventStartDateFrom" id="eventStartDateFrom" placeholder="YYYY/MM/DD"
                     class="form-control" #eventStartDateFrom="bsDatepicker" bsDatepicker
@@ -118,12 +104,12 @@
             </div>
         </div>
         <div class="form-group col-md-4 col-lg-3">
-            <label for="eventStartDateThrough"
-                class="mb-2">{{ 'order.search.conditions.eventStartDateThrough' | translate }}</label>
+            <label for="eventStartDateThrough" class="mb-2">{{ 'order.search.conditions.eventStartDateThrough' |
+                translate }}</label>
             <div class="position-relative">
-                <input type="text" name="eventStartDateThrough" id="eventStartDateThrough"
-                    placeholder="YYYY/MM/DD" class="form-control" #eventStartDateThrough="bsDatepicker"
-                    bsDatepicker [(ngModel)]="conditions.eventStartDateThrough"
+                <input type="text" name="eventStartDateThrough" id="eventStartDateThrough" placeholder="YYYY/MM/DD"
+                    class="form-control" #eventStartDateThrough="bsDatepicker" bsDatepicker
+                    [(ngModel)]="conditions.eventStartDateThrough"
                     [bsConfig]="{ dateInputFormat: 'YYYY/MM/DD', adaptivePosition: true, showWeekNumbers: false }"
                     readonly (onShown)="onShowPicker($event)" (click)="setDatePicker()">
                 <div class="datepicker-append d-flex align-items-center px-2"
@@ -143,9 +129,9 @@
         </div>
     </div>
     <div class="buttons mx-auto text-center">
-        <button type="submit" class="btn btn-primary btn-block py-3 mb-3"
-            [disabled]="isLoading | async">{{ name }}</button>
-        <button type="button" class="btn btn-outline-primary btn-block py-3"
-            (click)="clear()">{{ 'order.search.clear' | translate }}</button>
+        <button type="submit" class="btn btn-primary btn-block py-3 mb-3" [disabled]="isLoading | async">{{ name
+            }}</button>
+        <button type="button" class="btn btn-outline-primary btn-block py-3" (click)="clear()">{{ 'order.search.clear' |
+            translate }}</button>
     </div>
 </form>
