@@ -190,24 +190,6 @@ export function createMovieTicketsFromAuthorizeSeatReservation(args: {
 }
 
 /**
- * カスタム支払い方法名称取得
- */
-export function getCustomPaymentMethodTypeName(params: {
-    typeOf: factory.chevre.paymentMethodType;
-    category: string | undefined;
-}) {
-    const paymentMethodType = params.typeOf;
-    const category = params.category;
-    const environment = getEnvironment();
-    const findResult = environment.PAYMENT_METHOD_CUSTOM.find(p => p.category === category);
-    if (paymentMethodType !== factory.paymentMethodType.Others
-        || findResult === undefined) {
-        return { ja: '', en: '' };
-    }
-    return findResult.name;
-}
-
-/**
  * 券種金額取得
  * @deprecated 非推奨（廃止予定）
  */

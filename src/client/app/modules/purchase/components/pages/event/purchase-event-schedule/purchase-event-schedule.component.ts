@@ -49,13 +49,12 @@ export class PurchaseEventScheduleComponent implements OnInit, OnDestroy {
         this.isLoading = this.store.pipe(select(reducers.getLoading));
         this.actionService.purchase.unsettledDelete();
         this.screeningEventsGroup = [];
-        this.purchase.subscribe((purchase) => {
-            if (purchase.transaction === undefined) {
-                this.router.navigate(['/error']);
-                return;
-            }
-            this.getSchedule();
-        }).unsubscribe();
+        const { transaction } = await this.actionService.purchase.getData();
+        if (transaction === undefined) {
+            this.router.navigate(['/error']);
+            return;
+        }
+        this.getSchedule();
     }
 
     public ngOnDestroy() {
