@@ -42,6 +42,7 @@ export class OrderSearchComponent implements OnInit {
     public screeningEventsGroup: Functions.Purchase.IScreeningEventsGroup[];
     public screeningEvent: factory.chevre.event.screeningEvent.IEvent;
     public searchType: 'input' | 'event';
+    public categoryCodePayment: factory.chevre.categoryCode.ICategoryCode[];
     @ViewChild('datepicker') private datepicker: BsDatepickerDirective;
 
     constructor(
@@ -55,7 +56,7 @@ export class OrderSearchComponent implements OnInit {
         protected router: Router,
     ) { }
 
-    public ngOnInit() {
+    public async ngOnInit() {
         this.actionSelect = '';
         this.selectedOrders = [];
         this.isLoading = this.store.pipe(select(reducers.getLoading));
@@ -69,6 +70,15 @@ export class OrderSearchComponent implements OnInit {
         this.screeningEventsGroup = [];
         this.scheduleDate = moment(moment().format('YYYYMMDD'), 'YYYYMMDD').toDate();
         this.searchType = 'input';
+        this.categoryCodePayment = [];
+        try {
+            this.categoryCodePayment = await this.masterService.searchCategoryCode({
+                categorySetIdentifier: factory.chevre.categoryCode.CategorySetIdentifier.PaymentMethodType
+            });
+        } catch (error) {
+            this.router.navigate(['/error']);
+            return;
+        }
     }
 
     public toggleOrder(order: factory.order.IOrder) {
@@ -226,7 +236,10 @@ export class OrderSearchComponent implements OnInit {
     public openDetail(order: factory.order.IOrder) {
         this.modal.show(OrderDetailModalComponent, {
             class: 'modal-dialog-centered modal-lg',
-            initialState: { order }
+            initialState: {
+                order,
+                categoryCodePayment: this.categoryCodePayment
+            }
         });
     }
 

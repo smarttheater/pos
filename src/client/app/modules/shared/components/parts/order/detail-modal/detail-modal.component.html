@@ -25,16 +25,17 @@
                     <div *ngFor="let eventOrder of eventOrders" class="mb-3">
                         <app-item-event [screeningEvent]="eventOrder.event"></app-item-event>
                         <div class="border p-3">
-                        <div *ngFor="let acceptedOffer of eventOrder.data">
-                            <p>[{{ 'common.reservationNumber' | translate }}]
-                                {{ acceptedOffer.itemOffered.reservationNumber }}</p>
-                            <p>[{{ 'common.reservationId' | translate }}] {{ acceptedOffer.itemOffered.id }}</p>
-                            <app-item-list [acceptedOffers]="[acceptedOffer]"></app-item-list>
-                        </div>
-                        <div *ngIf="eventOrder.data[0].itemOffered.additionalTicketText" class="additional-ticket-text white-space-pre-wrap">
-                            <p>[{{ 'common.additionalTicketText' | translate }}]</p>
-                            <p>{{ eventOrder.data[0].itemOffered.additionalTicketText }}</p>
-                        </div>
+                            <div *ngFor="let acceptedOffer of eventOrder.data">
+                                <p>[{{ 'common.reservationNumber' | translate }}]
+                                    {{ acceptedOffer.itemOffered.reservationNumber }}</p>
+                                <p>[{{ 'common.reservationId' | translate }}] {{ acceptedOffer.itemOffered.id }}</p>
+                                <app-item-list [acceptedOffers]="[acceptedOffer]"></app-item-list>
+                            </div>
+                            <div *ngIf="eventOrder.data[0].itemOffered.additionalTicketText"
+                                class="additional-ticket-text white-space-pre-wrap">
+                                <p>[{{ 'common.additionalTicketText' | translate }}]</p>
+                                <p>{{ eventOrder.data[0].itemOffered.additionalTicketText }}</p>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -44,7 +45,8 @@
             <div class="row align-items-center">
                 <p class="mb-2 mb-md-0 col-md-4">[{{ 'common.customer' | translate }}]</p>
                 <div class="col-md-8">
-                    <p *ngIf="order.customer.familyName && order.customer.givenName">{{ order.customer.familyName }} {{ order.customer.givenName }}</p>
+                    <p *ngIf="order.customer.familyName && order.customer.givenName">{{ order.customer.familyName }} {{
+                        order.customer.givenName }}</p>
                     <p *ngIf="order.customer.email">{{ order.customer.email }}</p>
                     <p *ngIf="order.customer.telephone">{{ order.customer.telephone | libphonenumberFormat }}</p>
                     <p *ngIf="order.customer.age">{{ order.customer.age }}</p>
@@ -68,14 +70,16 @@
         <div class="py-3 border-bottom border-gray">
             <div class="row align-items-center">
                 <p class="mb-2 mb-md-0 col-md-4">[{{ 'common.orderStatus' | translate }}]</p>
-                <p class="col-md-8">{{ order.orderStatus }}<span *ngIf="order.dateReturned">&nbsp;/&nbsp;{{ moment(order.dateReturned).format('YYYY/MM/DD (ddd) HH:mm') }}</span></p>
+                <p class="col-md-8">{{ order.orderStatus }}<span *ngIf="order.dateReturned">&nbsp;/&nbsp;{{
+                        moment(order.dateReturned).format('YYYY/MM/DD (ddd) HH:mm') }}</span></p>
             </div>
         </div>
         <div class="py-3 border-bottom border-gray">
             <div class="row align-items-center">
                 <p class="mb-2 mb-md-0 col-md-4">[{{ 'common.paymentMethod' | translate }}]</p>
                 <div class="col-md-8">
-                    <app-item-payment-method [paymentMethods]="order.paymentMethods">
+                    <app-item-payment-method [paymentMethods]="order.paymentMethods"
+                        [categoryCodePayment]="categoryCodePayment">
                     </app-item-payment-method>
                     <div *ngIf="qrcode" class="mt-2"><img class="border" [src]="qrcode" alt=""></div>
                 </div>
@@ -95,9 +99,12 @@
                         version:
                         {{ platform.parse(getTransactionAgentIdentifier(order, 'userAgent')?.value).version }}<br>
                         product: <span
-                            *ngIf="platform.parse(getTransactionAgentIdentifier(order, 'userAgent')?.value).product">{{ platform.parse(getTransactionAgentIdentifier(order, 'userAgent')?.value).product }}</span><span
+                            *ngIf="platform.parse(getTransactionAgentIdentifier(order, 'userAgent')?.value).product">{{
+                            platform.parse(getTransactionAgentIdentifier(order, 'userAgent')?.value).product
+                            }}</span><span
                             *ngIf="!platform.parse(getTransactionAgentIdentifier(order, 'userAgent')?.value).product">-</span><br>
-                        layout: {{ platform.parse(getTransactionAgentIdentifier(order, 'userAgent')?.value).layout }}<br>
+                        layout: {{ platform.parse(getTransactionAgentIdentifier(order, 'userAgent')?.value).layout
+                        }}<br>
                         os: {{ platform.parse(getTransactionAgentIdentifier(order, 'userAgent')?.value).os }}<br>
                         ({{ platform.parse(getTransactionAgentIdentifier(order, 'userAgent')?.value).description }})
                     </p>
@@ -116,8 +123,8 @@
     <div class="buttons mx-auto text-center">
         <a *ngFor="let link of environment.ORDER_LINK" class="btn btn-primary btn-block py-3 mb-3" target="_blank"
             [href]="createOrderLink(order, link)">{{ link.name | changeLanguage }}</a>
-        <button type="button" class="btn btn-outline-primary btn-block py-3 btn-sm"
-            (click)="modal.hide()">{{ 'common.close' | translate }}</button>
+        <button type="button" class="btn btn-outline-primary btn-block py-3 btn-sm" (click)="modal.hide()">{{
+            'common.close' | translate }}</button>
     </div>
 
 </div>

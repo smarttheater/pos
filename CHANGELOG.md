@@ -12,6 +12,14 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/).
 
 ### Security
 
+## 3.6.1 - 2020-02-22
+### Fixed
+ - Continue with Google不具合修正
+
+## 3.6.0 - 2020-02-19
+### Changed
+ - 決済方法を動的に変更
+
 ## 3.5.18 - 2020-02-17
 ### Changed
  - PurchaseEventSeatTicketComponent => PurchaseEventTicketComponent
