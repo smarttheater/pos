@@ -34,7 +34,8 @@ export default (app: express.Application) => {
                 throw new Error('session is undefined');
             }
             const authModel = new Auth2Model(req.session.auth);
-            if (req.query.state !== authModel.state) {
+            if (req.query.state !== undefined
+                && req.query.state !== authModel.state) {
                 throw (new Error(`state not matched ${req.query.state} !== ${authModel.state}`));
             }
             const auth = authModel.create(req);
@@ -48,6 +49,7 @@ export default (app: express.Application) => {
             auth.setCredentials(credentials);
             res.redirect(`/#/auth/signin`);
         } catch (error) {
+            log('signInRedirect error', error);
             next(error);
         }
     });
