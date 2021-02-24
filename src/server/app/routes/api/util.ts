@@ -19,7 +19,6 @@ router.post('/project', async (req, res) => {
         const response = {
             gmoTokenUrl: process.env.GMO_TOKEN_URL,
             env: process.env.APP_ENV,
-            admissionApiEndpoint: process.env.ADMISSION_API_ENDPOINT,
             gtmId: process.env.GTM_ID,
             analyticsId: process.env.ANALYTICS_ID
         };
