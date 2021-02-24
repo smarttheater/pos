@@ -12,6 +12,11 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/).
 
 ### Security
 
+## 3.6.2 - 2020-02-24
+### Fixed
+ - iOSダブルタップ拡大修正
+ - パスワード保存修正
+
 ## 3.6.1 - 2020-02-22
 ### Fixed
  - Continue with Google不具合修正
