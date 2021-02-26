@@ -75,7 +75,7 @@ export async function retry<T>(params: {
  * @param time
  */
 export async function sleep(time: number = 500) {
-    return new Promise((resolve) => {
+    return new Promise<void>((resolve) => {
         setTimeout(() => {
             resolve();
         }, time);
@@ -215,7 +215,6 @@ export function getProject() {
         projectId: '',
         projectName: '',
         storageUrl: '',
-        admissionApiEndpoint: ''
     };
     if (project === null || project === '') {
         return defaultProject;
@@ -226,7 +225,6 @@ export function getProject() {
             projectId: string;
             projectName: string;
             storageUrl: string;
-            admissionApiEndpoint: string;
         }>JSON.parse(project)
     };
 }

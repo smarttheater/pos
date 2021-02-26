@@ -70,7 +70,6 @@ async function setProject(params: { projectId?: string; }) {
         projectName?: string;
         storageUrl: string;
         gmoTokenUrl: string;
-        admissionApiEndpoint: string;
         env: string;
         gtmId?: string;
         analyticsId?: string;
@@ -79,7 +78,6 @@ async function setProject(params: { projectId?: string; }) {
         projectId: result.projectId,
         projectName: result.projectName,
         storageUrl: result.storageUrl,
-        admissionApiEndpoint: result.admissionApiEndpoint
     }));
     const script = document.createElement('script');
     script.src = result.gmoTokenUrl;
