@@ -89,7 +89,7 @@ export class EpsonPrinterService {
         for (const canvas of canvasList) {
             const mode = 'MODE_MONO';
             const cut = true;
-            await Functions.Util.sleep(1500);
+            await Functions.Util.sleep(500);
             this.device.print(canvas, cut, this.device[mode]);
             const result = () => {
                 return new Promise<void>(async (resolve, reject) => {

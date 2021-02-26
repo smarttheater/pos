@@ -188,7 +188,7 @@ export interface IEnvironment {
     /**
      * 印刷QRコードタイプ
      */
-    PRINT_QRCODE_TYPE: 'None' | 'token' | 'Custom' | 'Admission';
+    PRINT_QRCODE_TYPE: 'None' | 'token' | 'Custom';
     /**
      * 印刷QRコードカスタム
      */
