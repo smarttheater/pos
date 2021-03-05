@@ -333,12 +333,22 @@ export class OrderSearchComponent implements OnInit {
             const creativeWorks = await this.masterService.searchMovies({
                 offers: { availableFrom: moment(scheduleDate).toDate() }
             });
+            let workPerformedIdentifiers = creativeWorks.map(c => c.identifier);
+            if (creativeWorks.length === 0) {
+                workPerformedIdentifiers = (await this.masterService.searchScreeningEvent({
+                    superEvent: { locationBranchCodes: [theater.branchCode] },
+                    startFrom: moment(scheduleDate).toDate(),
+                    startThrough: moment(scheduleDate).add(1, 'day').add(-1, 'millisecond').toDate(),
+                }))
+                .filter(s => s.workPerformed !== undefined)
+                .map(s => s.workPerformed?.identifier || '');
+            }
             const screeningEventSeries = (this.environment.PURCHASE_SCHEDULE_SORT === 'screeningEventSeries')
                 ? await this.masterService.searchScreeningEventSeries({
                     location: {
                         branchCode: { $eq: theater.branchCode }
                     },
-                    workPerformed: { identifiers: creativeWorks.map(c => c.identifier) }
+                    workPerformed: { identifiers: Array.from(new Set(workPerformedIdentifiers)) }
                 })
                 : [];
             const screeningRooms = (this.environment.PURCHASE_SCHEDULE_SORT === 'screen')
