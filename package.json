@@ -1,6 +1,6 @@
 {
   "name": "smart-theater-pos",
-  "version": "3.6.3",
+  "version": "3.6.5",
   "license": "MIT",
   "author": {
     "name": "Motionpicture co.,ltd."
@@ -32,7 +32,7 @@
     "analyze": "webpack-bundle-analyzer dist/client/stats.json",
     "build2": "npm run build-server && npm run build-client",
     "deploy-development": "gcloud app deploy ./app.development.gcp.yaml --project smart-theater-development-pos && eb use smart-theater-pos-development && eb deploy",
-    "deploy-test": "gcloud app deploy ./app.test.gcp.yaml --project smart-theater-test-pos",
+    "deploy-test": "gcloud app deploy ./app.test.gcp.yaml --project smart-theater-test-pos && eb use smart-theater-pos-test && eb deploy",
     "deploy-production": "gcloud app deploy ./app.production.gcp.yaml --project smart-theater-production-pos --no-promote --version staging"
   },
   "private": true,
