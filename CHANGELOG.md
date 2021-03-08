@@ -12,6 +12,10 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/).
 
 ### Security
 
+## 3.6.5 - 2020-03-08
+### Changed
+ - APIページング待ち時間変更 (500ms => 100ms)
+
 ## 3.6.4 - 2020-03-05
 ### Fixed
  - 座席指定無し不具合修正
