@@ -8,7 +8,7 @@ import { BsDatepickerContainerComponent, BsDatepickerDirective, BsLocaleService 
 import { Observable } from 'rxjs';
 import { Functions } from '../../../../../..';
 import { getEnvironment } from '../../../../../../../environments/environment';
-import { ActionService, MasterService } from '../../../../../../services';
+import { ActionService, MasterService, UtilService } from '../../../../../../services';
 import * as reducers from '../../../../../../store/reducers';
 
 @Component({
@@ -35,7 +35,8 @@ export class PurchaseEventDateComponent implements OnInit, OnDestroy {
         private router: Router,
         private actionService: ActionService,
         private masterService: MasterService,
-        private localeService: BsLocaleService
+        private localeService: BsLocaleService,
+        private utilService: UtilService,
     ) { }
 
     /**
@@ -129,8 +130,9 @@ export class PurchaseEventDateComponent implements OnInit, OnDestroy {
                 screeningEventSeries,
                 screeningRooms
             });
+            const now = moment((await this.utilService.getServerTime()).date).toDate();
             this.screeningEventsGroup =
-                Functions.Purchase.screeningEvents2ScreeningEventSeries({ screeningEvents: this.screeningEvents });
+                Functions.Purchase.screeningEvents2ScreeningEventSeries({ screeningEvents: this.screeningEvents, now });
             this.update();
         } catch (error) {
             console.error(error);

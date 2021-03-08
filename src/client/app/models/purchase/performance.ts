@@ -7,9 +7,13 @@ import { getEnvironment } from '../../../environments/environment';
  */
 export class Performance {
     public screeningEvent: factory.chevre.event.screeningEvent.IEvent;
+    public now: Date;
 
-    constructor(screeningEvent: factory.chevre.event.screeningEvent.IEvent) {
-        this.screeningEvent = screeningEvent;
+    constructor(params: {
+        screeningEvent: factory.chevre.event.screeningEvent.IEvent;
+        now?: Date;
+    }) {
+        this.now = (params.now === undefined) ? moment().toDate() : params.now;
     }
 
     /**
@@ -21,7 +25,7 @@ export class Performance {
         if (offers === undefined) {
             return false;
         }
-        const now = moment().unix();
+        const now = moment(this.now).unix();
         const validFrom = moment(offers.validFrom).unix();
         const validThrough = moment(offers.validThrough).unix();
         let result = false;
@@ -127,18 +131,20 @@ export class Performance {
      * 開場判定
      */
     public isOpenDoor(status?: 'before' | 'after') {
-        const now = moment().unix();
+        const now = moment(this.now).unix();
+        const doorTime = moment(this.screeningEvent.doorTime).unix();
+        const startDate = moment(this.screeningEvent.startDate).unix();
         let result: boolean;
         switch (status) {
             case 'before':
-                result = now < moment(this.screeningEvent.doorTime).unix();
+                result = now < doorTime;
                 break;
             case 'after':
-                result = moment(this.screeningEvent.startDate).unix() < now;
+                result = startDate < now;
                 break;
             default:
-                result = (moment(this.screeningEvent.doorTime).unix() < now
-                && now < moment(this.screeningEvent.startDate).unix());
+                result = (doorTime < now
+                    && now < startDate);
                 break;
         }
         return result;
@@ -148,18 +154,20 @@ export class Performance {
      * 上映判定
      */
     public isScreening(status?: 'before' | 'after') {
-        const now = moment().unix();
+        const now = moment(this.now).unix();
+        const startDate = moment(this.screeningEvent.startDate).unix();
+        const endDate = moment(this.screeningEvent.endDate).unix();
         let result: boolean;
         switch (status) {
             case 'before':
-                result = now < moment(this.screeningEvent.startDate).unix();
+                result = now < startDate;
                 break;
             case 'after':
-                result = moment(this.screeningEvent.endDate).unix() < now;
+                result = endDate < now;
                 break;
             default:
-                result = (moment(this.screeningEvent.startDate).unix() < now
-                && now < moment(this.screeningEvent.endDate).unix());
+                result = (startDate < now
+                    && now < endDate);
                 break;
         }
         return result;

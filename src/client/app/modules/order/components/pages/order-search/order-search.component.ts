@@ -354,8 +354,9 @@ export class OrderSearchComponent implements OnInit {
                 screeningEventSeries,
                 screeningRooms
             });
+            const now = moment((await this.utilService.getServerTime()).date).toDate();
             this.screeningEventsGroup =
-                Functions.Purchase.screeningEvents2ScreeningEventSeries({ screeningEvents });
+                Functions.Purchase.screeningEvents2ScreeningEventSeries({ screeningEvents, now });
         } catch (error) {
             console.error(error);
             this.utilService.openAlert({

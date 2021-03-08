@@ -118,8 +118,9 @@ export class PurchaseCinemaScheduleComponent implements OnInit, OnDestroy {
                 screeningEventSeries,
                 screeningRooms
             });
+            const now = moment((await this.utilService.getServerTime()).date).toDate();
             this.screeningEventsGroup =
-                Functions.Purchase.screeningEvents2ScreeningEventSeries({ screeningEvents });
+                Functions.Purchase.screeningEvents2ScreeningEventSeries({ screeningEvents, now });
             this.update();
         } catch (error) {
             console.error(error);
