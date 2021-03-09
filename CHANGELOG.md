@@ -12,6 +12,10 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/).
 
 ### Security
 
+## 3.6.6 - 2020-03-09
+### Fixed
+ -  イベント指定での注文検索で余分な施設コンテンツを検索しないよう修正
+
 ## 3.6.5 - 2020-03-08
 ### Changed
  - APIページング待ち時間変更 (500ms => 100ms)
