@@ -149,7 +149,7 @@ export class PurchaseSeatComponent implements OnInit {
             return values;
         }
         let limit = Number(this.environment.PURCHASE_ITEM_MAX_LENGTH);
-        if (new Models.Purchase.Performance(screeningEvent).isTicketedSeat()) {
+        if (new Models.Purchase.Performance({ screeningEvent }).isTicketedSeat()) {
             // イベント全体の残席数計算
             const screeningEventLimit = Functions.Purchase.getRemainingSeatLength({
                 screeningEventSeats, screeningEvent
@@ -186,7 +186,7 @@ export class PurchaseSeatComponent implements OnInit {
     public async onSubmit() {
         const purchase = await this.actionService.purchase.getData();
         if (purchase.reservations.length > Number(this.environment.PURCHASE_ITEM_MAX_LENGTH)
-        || Number(this.reservationCount) > Number(this.environment.PURCHASE_ITEM_MAX_LENGTH)) {
+            || Number(this.reservationCount) > Number(this.environment.PURCHASE_ITEM_MAX_LENGTH)) {
             this.utilService.openAlert({
                 title: this.translate.instant('common.error'),
                 body: this.translate.instant(
