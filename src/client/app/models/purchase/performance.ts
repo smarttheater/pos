@@ -13,6 +13,7 @@ export class Performance {
         screeningEvent: factory.chevre.event.screeningEvent.IEvent;
         now?: Date;
     }) {
+        this.screeningEvent = params.screeningEvent;
         this.now = (params.now === undefined) ? moment().toDate() : params.now;
     }
 
