@@ -7,7 +7,7 @@ import { BsDatepickerContainerComponent, BsDatepickerDirective, BsLocaleService 
 import { Observable } from 'rxjs';
 import { Functions } from '../../../../..';
 import { getEnvironment } from '../../../../../../environments/environment';
-import { ActionService, MasterService } from '../../../../../services';
+import { ActionService, MasterService, UtilService } from '../../../../../services';
 import * as reducers from '../../../../../store/reducers';
 
 
@@ -33,6 +33,7 @@ export class AdmissionScheduleComponent implements OnInit, OnDestroy {
         private localeService: BsLocaleService,
         private actionService: ActionService,
         private masterService: MasterService,
+        private utilService: UtilService,
     ) { }
 
     public async ngOnInit() {
@@ -101,8 +102,9 @@ export class AdmissionScheduleComponent implements OnInit, OnDestroy {
                 screeningEventSeries,
                 screeningRooms
             });
+            const now = moment((await this.utilService.getServerTime()).date).toDate();
             this.screeningEventsGroup =
-                Functions.Purchase.screeningEvents2ScreeningEventSeries({ screeningEvents });
+                Functions.Purchase.screeningEvents2ScreeningEventSeries({ screeningEvents, now });
             this.update();
         } catch (error) {
             console.error(error);

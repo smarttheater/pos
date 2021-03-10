@@ -208,7 +208,7 @@ export class PurchaseService {
             let page = 1;
             let roop = true;
             let result: factory.chevre.place.seat.IPlaceWithOffer[] = [];
-            if (!new Models.Purchase.Performance(screeningEvent).isTicketedSeat()) {
+            if (!new Models.Purchase.Performance({ screeningEvent }).isTicketedSeat()) {
                 this.utilService.loadEnd();
                 return result;
             }

@@ -1,6 +1,6 @@
 <div class="mb-2" *ngIf="environment.DISPLAY_TICKETED_SEAT">
     <div *ngFor="let reservation of reservations">
-        <p ngIf="reservation.seat !== undefined" class="font-weight-bold">{{ reservation.seat.seatNumber }}</p>
+        <p *ngIf="reservation.seat !== undefined" class="font-weight-bold">{{ reservation.seat.seatNumber }}</p>
         <p *ngFor="let priceComponent of getReservationPriceComponents(reservation)">
             <span>{{ priceComponent.name | changeLanguage }}</span>
             <!--
