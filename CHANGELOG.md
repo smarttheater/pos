@@ -12,6 +12,10 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/).
 
 ### Security
 
+## 3.6.7 - 2020-03-10
+### Changed
+ - スケジュールの時間比較をサーバータイムに変更
+
 ## 3.6.6 - 2020-03-09
 ### Fixed
  -  イベント指定での注文検索で余分な施設コンテンツを検索しないよう修正
