@@ -12,6 +12,10 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/).
 
 ### Security
 
+## 3.6.8 - 2020-03-24
+### Changed
+ - セッションの期間を環境変数で管理
+
 ## 3.6.7 - 2020-03-10
 ### Changed
  - スケジュールの時間比較をサーバータイムに変更
