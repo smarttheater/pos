@@ -198,7 +198,7 @@ export function reducer(initialState: IState, action: Action) {
                     authorizeSeatReservations: [],
                     pendingMovieTickets: [],
                     checkMovieTicketActions: [],
-                }, loading: false, process: '', error: null
+                }, loading: false, process: '',
             };
         }),
         on(purchaseAction.cancelTransactionFail, (state, payload) => {
