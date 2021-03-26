@@ -72,34 +72,42 @@ export class OrderService {
      */
     public async splitSearch(params: factory.order.ISearchConditions) {
         try {
+            console.log(params);
             this.utilService.loadStart({ process: 'orderAction.Search' });
             await this.cinerinoService.getServices();
             let orders: factory.order.IOrder[] = [];
-
-            params.orderDateThrough = moment(params.orderDateThrough).add(1, 'millisecond').toDate();
+            if (params.orderDate === undefined
+                || params.orderDate.$gte === undefined
+                || params.orderDate.$lte === undefined) {
+                throw new Error('orderDate undefined');
+            }
+            params.orderDate.$lte = moment(params.orderDate.$lte).add(1, 'millisecond').toDate();
             const splitDay = 1;
             const splitCount =
-                Math.ceil(moment(params.orderDateThrough).diff(moment(params.orderDateFrom), 'days') / splitDay);
+                Math.ceil(moment(params.orderDate.$lte).diff(moment(params.orderDate.$gte), 'days') / splitDay);
             for (let i = 0; i < splitCount; i++) {
                 const limit = 10;
                 let page = 1;
                 let roop = true;
-                const orderDateThrough = moment(params.orderDateThrough).add(-1 * splitDay * i, 'days').toDate();
-                const orderDateFrom =
-                    (moment(params.orderDateThrough).add(-1 * splitDay * (i + 1), 'days').toDate() > moment(params.orderDateFrom).toDate())
-                        ? moment(params.orderDateThrough).add(-1 * splitDay * (i + 1), 'days').toDate()
-                        : moment(params.orderDateFrom).toDate();
+                const orderDate = {
+                    $gte:
+                        // tslint:disable-next-line:max-line-length
+                        (moment(params.orderDate.$lte).add(-1 * splitDay * (i + 1), 'days').toDate() > moment(params.orderDate.$gte).toDate())
+                            ? moment(params.orderDate.$lte).add(-1 * splitDay * (i + 1), 'days').toDate()
+                            : moment(params.orderDate.$gte).toDate(),
+                    $lte: moment(params.orderDate.$lte).add(-1 * splitDay * i, 'days').add(-1, 'millisecond').toDate(),
+                };
                 while (roop) {
                     params.limit = limit;
                     params.page = page;
                     const searchResult = await this.cinerinoService.order.search({
                         ...params,
-                        orderDateThrough: moment(orderDateThrough).add(-1, 'millisecond').toDate(),
-                        orderDateFrom
+                        orderDate
                     });
                     orders = orders.concat(searchResult.data);
                     page++;
                     roop = searchResult.data.length === limit;
+                    console.log('orderDate', orderDate);
                     await Functions.Util.sleep();
                 }
             }
