@@ -268,12 +268,14 @@ export function input2OrderSearchCondition(params: {
         },
         orderStatuses: (input.orderStatus === '')
             ? undefined : [input.orderStatus],
-        orderDateFrom: (input.orderDateFrom === undefined)
-            ? undefined
-            : moment(moment(input.orderDateFrom).format('YYYYMMDD')).toDate(),
-        orderDateThrough: (input.orderDateThrough === undefined)
-            ? undefined
-            : moment(moment(input.orderDateThrough).format('YYYYMMDD')).add(1, 'day').add(-1, 'millisecond').toDate(),
+        orderDate: {
+            $gte: (input.orderDateFrom === undefined)
+                ? undefined
+                : moment(moment(input.orderDateFrom).format('YYYYMMDD')).toDate(),
+            $lte: (input.orderDateThrough === undefined)
+                ? undefined
+                : moment(moment(input.orderDateThrough).format('YYYYMMDD')).add(1, 'day').add(-1, 'millisecond').toDate(),
+        },
         confirmationNumbers: (input.confirmationNumber === '')
             ? undefined : [input.confirmationNumber],
         orderNumbers: (input.orderNumber === '')
