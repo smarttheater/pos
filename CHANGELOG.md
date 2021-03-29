@@ -12,6 +12,13 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/).
 
 ### Security
 
+## 3.6.9 - 2020-03-29
+### Changed
+ - awsデプロイ削除変更
+ - 注文検索、非推奨パラメータを削除
+### Fixed
+ - 返品メール修正
+
 ## 3.6.8 - 2020-03-24
 ### Changed
  - セッションの期間を環境変数で管理
