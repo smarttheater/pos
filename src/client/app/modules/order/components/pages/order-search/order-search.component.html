@@ -7,9 +7,9 @@
                 {{ 'order.search.searchType.event' | translate }}
             </button>
         </div>
-        <div *ngIf="categoryCodePayment.length > 0" class="p-3 bg-white mb-4">
-            <app-order-condition [name]="'order.search.search' | translate"
-                [categoryCodePayment]="categoryCodePayment" (changeConditions)=changeConditions($event)>
+        <div *ngIf="paymentTypes.length > 0" class="p-3 bg-white mb-4">
+            <app-order-condition [name]="'order.search.search' | translate" [paymentTypes]="paymentTypes"
+                (changeConditions)=changeConditions($event)>
             </app-order-condition>
         </div>
     </div>
@@ -36,7 +36,8 @@
             <p *ngIf="screeningEventsGroup.length === 0" [innerHTML]="'order.search.schedule.notfound' | translate">
             </p>
             <app-performances *ngFor="let group of screeningEventsGroup" [screeningEventsGroup]="group"
-                (select)="selectSchedule($event)">
+                [creativeWork]="getCreativeWorks(group.screeningEvent.workPerformed?.identifier)"
+                [contentRatingTypes]="contentRatingTypes" (select)="selectSchedule($event)">
             </app-performances>
         </div>
         <div *ngIf="screeningEvent" id="screeningEvent" class="mb-3">

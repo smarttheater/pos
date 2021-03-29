@@ -26,7 +26,7 @@ export class OrderDownloadComponent implements OnInit {
     public conditions: Models.Order.Search.IOrderSearchConditions;
     public environment = getEnvironment();
     public order2EventOrders = Functions.Purchase.order2EventOrders;
-    public categoryCodePayment: factory.chevre.categoryCode.ICategoryCode[];
+    public paymentTypes: factory.chevre.categoryCode.ICategoryCode[];
 
     constructor(
         private store: Store<reducers.IOrderState>,
@@ -61,10 +61,10 @@ export class OrderDownloadComponent implements OnInit {
             posId: '',
             page: 1
         };
-        this.categoryCodePayment = [];
+        this.paymentTypes = [];
         this.actionService.order.delete();
         try {
-            this.categoryCodePayment = await this.masterService.searchCategoryCode({
+            this.paymentTypes = await this.masterService.searchCategoryCode({
                 categorySetIdentifier: factory.chevre.categoryCode.CategorySetIdentifier.PaymentMethodType
             });
         } catch (error) {

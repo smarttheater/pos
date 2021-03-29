@@ -40,9 +40,11 @@ export class OrderSearchComponent implements OnInit {
     public connectionType = Models.Util.Printer.ConnectionType;
     public scheduleDate: Date;
     public screeningEventsGroup: Functions.Purchase.IScreeningEventsGroup[];
+    public creativeWorks: factory.chevre.creativeWork.movie.ICreativeWork[];
+    public contentRatingTypes: factory.chevre.categoryCode.ICategoryCode[];
     public screeningEvent: factory.chevre.event.screeningEvent.IEvent;
     public searchType: 'input' | 'event';
-    public categoryCodePayment: factory.chevre.categoryCode.ICategoryCode[];
+    public paymentTypes: factory.chevre.categoryCode.ICategoryCode[];
     @ViewChild('datepicker') private datepicker: BsDatepickerDirective;
 
     constructor(
@@ -68,11 +70,16 @@ export class OrderSearchComponent implements OnInit {
         this.limit = 20;
         this.totalCount = this.limit;
         this.screeningEventsGroup = [];
+        this.creativeWorks = [];
+        this.contentRatingTypes = [];
         this.scheduleDate = moment(moment().format('YYYYMMDD'), 'YYYYMMDD').toDate();
         this.searchType = 'input';
-        this.categoryCodePayment = [];
+        this.paymentTypes = [];
         try {
-            this.categoryCodePayment = await this.masterService.searchCategoryCode({
+            this.contentRatingTypes = await this.masterService.searchCategoryCode({
+                categorySetIdentifier: factory.chevre.categoryCode.CategorySetIdentifier.ContentRatingType
+            });
+            this.paymentTypes = await this.masterService.searchCategoryCode({
                 categorySetIdentifier: factory.chevre.categoryCode.CategorySetIdentifier.PaymentMethodType
             });
         } catch (error) {
@@ -238,7 +245,7 @@ export class OrderSearchComponent implements OnInit {
             class: 'modal-dialog-centered modal-lg',
             initialState: {
                 order,
-                categoryCodePayment: this.categoryCodePayment
+                paymentTypes: this.paymentTypes
             }
         });
     }
@@ -330,11 +337,11 @@ export class OrderSearchComponent implements OnInit {
             return;
         }
         try {
-            const creativeWorks = await this.masterService.searchMovies({
+            this.creativeWorks = await this.masterService.searchMovies({
                 offers: { availableFrom: moment(scheduleDate).toDate() }
             });
-            let workPerformedIdentifiers = creativeWorks.map(c => c.identifier);
-            if (creativeWorks.length === 0) {
+            let workPerformedIdentifiers = this.creativeWorks.map(c => c.identifier);
+            if (this.creativeWorks.length === 0) {
                 workPerformedIdentifiers = (await this.masterService.searchScreeningEvent({
                     superEvent: { locationBranchCodes: [theater.branchCode] },
                     startFrom: moment(scheduleDate).toDate(),
@@ -360,7 +367,7 @@ export class OrderSearchComponent implements OnInit {
                 superEvent: { locationBranchCodes: [theater.branchCode] },
                 startFrom: moment(scheduleDate).toDate(),
                 startThrough: moment(scheduleDate).add(1, 'day').add(-1, 'millisecond').toDate(),
-                creativeWorks,
+                creativeWorks: this.creativeWorks,
                 screeningEventSeries,
                 screeningRooms
             });
@@ -436,6 +443,13 @@ export class OrderSearchComponent implements OnInit {
      */
     public changeSearchType(searchType: 'input' | 'event') {
         this.searchType = searchType;
+    }
+
+    /**
+     * コンテンツ取得
+     */
+     public getCreativeWorks(identifier: string) {
+        return this.creativeWorks.find(c => c.identifier === identifier);
     }
 
 }

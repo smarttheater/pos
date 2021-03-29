@@ -13,7 +13,7 @@ import { getEnvironment } from '../../../../../../../environments/environment';
 })
 export class OrderDetailModalComponent implements OnInit {
     @Input() public order: factory.order.IOrder;
-    @Input() public categoryCodePayment: factory.chevre.categoryCode.ICategoryCode[];
+    @Input() public paymentTypes: factory.chevre.categoryCode.ICategoryCode[];
     public moment: typeof moment = moment;
     public eventOrders: Functions.Purchase.IEventOrder[];
     public environment = getEnvironment();
