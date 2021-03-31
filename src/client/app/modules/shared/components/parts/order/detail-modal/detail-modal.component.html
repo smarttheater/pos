@@ -79,7 +79,7 @@
                 <p class="mb-2 mb-md-0 col-md-4">[{{ 'common.paymentMethod' | translate }}]</p>
                 <div class="col-md-8">
                     <app-item-payment-method [paymentMethods]="order.paymentMethods"
-                        [categoryCodePayment]="categoryCodePayment">
+                        [paymentTypes]="paymentTypes">
                     </app-item-payment-method>
                     <div *ngIf="qrcode" class="mt-2"><img class="border" [src]="qrcode" alt=""></div>
                 </div>

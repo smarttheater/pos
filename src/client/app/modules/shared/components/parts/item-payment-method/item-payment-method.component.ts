@@ -10,7 +10,7 @@ import { getEnvironment } from '../../../../../../environments/environment';
 })
 export class ItemPaymentMethodComponent implements OnInit {
     @Input() public paymentMethods: factory.order.IPaymentMethod[];
-    @Input() public categoryCodePayment: factory.chevre.categoryCode.ICategoryCode[];
+    @Input() public paymentTypes: factory.chevre.categoryCode.ICategoryCode[];
     public paymentMethodType = factory.paymentMethodType;
     public payments: {
         paymentMethod: factory.order.IPaymentMethod;
@@ -24,7 +24,7 @@ export class ItemPaymentMethodComponent implements OnInit {
     public ngOnInit() {
         this.payments = [];
         this.paymentMethods.forEach(p => {
-            const categoryCode = this.categoryCodePayment.find(c => c.codeValue === p.typeOf);
+            const categoryCode = this.paymentTypes.find(c => c.codeValue === p.typeOf);
             if (categoryCode === undefined) {
                 return;
             }

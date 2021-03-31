@@ -12,6 +12,8 @@ import { getEnvironment } from '../../../../../../environments/environment';
 export class PerformancesComponent implements OnInit {
 
     @Input() public screeningEventsGroup: Functions.Purchase.IScreeningEventsGroup;
+    @Input() public creativeWork: factory.chevre.creativeWork.movie.ICreativeWork;
+    @Input() public contentRatingTypes: factory.chevre.categoryCode.ICategoryCode[];
     @Output() public select = new EventEmitter<factory.chevre.event.screeningEvent.IEvent>();
     public moment = moment;
     public environment = getEnvironment();
@@ -19,6 +21,13 @@ export class PerformancesComponent implements OnInit {
     constructor() { }
 
     public ngOnInit() {
+    }
+
+    /**
+     * レイティング区分取得
+     */
+     public getContentRatingType(code?: string) {
+        return this.contentRatingTypes.find(c => c.codeValue === code);
     }
 
 }

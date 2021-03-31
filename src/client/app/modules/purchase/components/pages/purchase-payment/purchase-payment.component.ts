@@ -47,11 +47,11 @@ export class PurchasePaymentComponent implements OnInit {
                     && p.paymentMethodType !== factory.chevre.paymentMethodType.MovieTicket
                     && p.paymentMethodType !== 'Account');
             });
-            const categoryCodePayment = await this.masterService.searchCategoryCode({
+            const paymentTypes = await this.masterService.searchCategoryCode({
                 categorySetIdentifier: factory.chevre.categoryCode.CategorySetIdentifier.PaymentMethodType
             });
             paymentAccepted.forEach(p => {
-                const categoryCode = categoryCodePayment.find(c => c.codeValue === p.paymentMethodType);
+                const categoryCode = paymentTypes.find(c => c.codeValue === p.paymentMethodType);
                 if (categoryCode === undefined) {
                     return;
                 }

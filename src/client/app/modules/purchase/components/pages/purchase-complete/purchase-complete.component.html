@@ -41,9 +41,9 @@
                 <div class="row align-items-center py-3">
                     <p class="mb-2 mb-md-0 col-md-4">{{ 'common.paymentMethod' | translate }}</p>
                     <div class="col-md-8">
-                        <app-item-payment-method *ngIf="categoryCodePayment.length > 0"
+                        <app-item-payment-method *ngIf="paymentTypes.length > 0"
                             [paymentMethods]="(purchase | async)?.order.paymentMethods"
-                            [categoryCodePayment]="categoryCodePayment">
+                            [paymentTypes]="paymentTypes">
                         </app-item-payment-method>
                     </div>
                 </div>

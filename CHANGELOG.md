@@ -12,6 +12,10 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/).
 
 ### Security
 
+## 3.6.10 - 2020-03-31
+### Changed
+ - レイティング区分検索適用
+ 
 ## 3.6.9 - 2020-03-29
 ### Changed
  - awsデプロイ削除変更

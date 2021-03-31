@@ -12,9 +12,9 @@
         </div>
         <div class="d-flex align-items-center flex-wrap">
             <ng-container *ngIf="!screeningEventsGroup.screeningEvent.coaInfo">
-                <div *ngIf="screeningEventsGroup.screeningEvent.workPerformed?.contentRating"
+                <div *ngIf="getContentRatingType(creativeWork?.contentRating)?.name"
                     class="content-rating text-small bg-dark-gray text-white py-1 px-2 mr-2">{{
-                    screeningEventsGroup.screeningEvent.workPerformed?.contentRating }}</div>
+                    getContentRatingType(creativeWork?.contentRating)?.name | changeLanguage }}</div>
                 <div *ngIf="screeningEventsGroup.screeningEvent.superEvent.dubLanguage"
                     class="dub-language text-small bg-dark-gray text-white py-1 px-2 mr-2">{{ 'common.dubbing' |
                     translate }}</div>

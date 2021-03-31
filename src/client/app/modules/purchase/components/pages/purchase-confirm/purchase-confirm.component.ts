@@ -44,10 +44,10 @@ export class PurchaseConfirmComponent implements OnInit {
         try {
             const { authorizeSeatReservations, paymentMethod } = await this.actionService.purchase.getData();
             this.amount = Functions.Purchase.getAmount(authorizeSeatReservations);
-            const categoryCodePayment = await this.masterService.searchCategoryCode({
+            const paymentTypes = await this.masterService.searchCategoryCode({
                 categorySetIdentifier: factory.chevre.categoryCode.CategorySetIdentifier.PaymentMethodType
             });
-            this.paymentMethod = categoryCodePayment.find(c => c.codeValue === paymentMethod?.typeOf);
+            this.paymentMethod = paymentTypes.find(c => c.codeValue === paymentMethod?.typeOf);
         } catch (error) {
             console.error(error);
             this.router.navigate(['/error']);

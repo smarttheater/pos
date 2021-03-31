@@ -82,7 +82,7 @@
             <select class="form-control" name="paymentMethodType" id="paymentMethodType"
                 [(ngModel)]="conditions.paymentMethodType">
                 <option value="">{{ 'common.all' | translate }}</option>
-                <option *ngFor="let categoryCode of categoryCodePayment" [value]="categoryCode.codeValue">
+                <option *ngFor="let categoryCode of paymentTypes" [value]="categoryCode.codeValue">
                     {{ categoryCode.name | changeLanguage }}
                 </option>
             </select>

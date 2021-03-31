@@ -27,7 +27,7 @@ export class PurchaseCompleteComponent implements OnInit {
     public paymentMethodType = factory.paymentMethodType;
     public connectionType = Models.Util.Printer.ConnectionType;
     public createOrderLink = Functions.Order.createOrderLink;
-    public categoryCodePayment: factory.chevre.categoryCode.ICategoryCode[];
+    public paymentTypes: factory.chevre.categoryCode.ICategoryCode[];
 
     constructor(
         private store: Store<reducers.IState>,
@@ -44,14 +44,14 @@ export class PurchaseCompleteComponent implements OnInit {
         this.user = this.store.pipe(select(reducers.getUser));
         this.isLoading = this.store.pipe(select(reducers.getLoading));
         this.error = this.store.pipe(select(reducers.getError));
-        this.categoryCodePayment = [];
+        this.paymentTypes = [];
         try {
             const { order } = await this.actionService.purchase.getData();
             if (order === undefined) {
                 throw new Error('order not found');
             }
             this.eventOrders = Functions.Purchase.order2EventOrders({ order });
-            this.categoryCodePayment = await this.masterService.searchCategoryCode({
+            this.paymentTypes = await this.masterService.searchCategoryCode({
                 categorySetIdentifier: factory.chevre.categoryCode.CategorySetIdentifier.PaymentMethodType
             });
         } catch (error) {
