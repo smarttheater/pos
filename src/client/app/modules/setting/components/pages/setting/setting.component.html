@@ -74,6 +74,9 @@
                                 <p *ngIf="settingForm.controls[key].errors?.maxlength" class="text-danger">
                                     {{ 'form.validation.maxlength' | translate:{ value: settingForm.controls[key].errors?.maxlength.requiredLength } }}
                                 </p>
+                                <p *ngIf="settingForm.controls[key].errors?.minlength" class="text-danger">
+                                    {{ 'form.validation.minlength' | translate:{ value: settingForm.controls[key].errors?.minlength.requiredLength } }}
+                                </p>
                                 <p *ngIf="settingForm.controls[key].errors?.email" class="text-danger">
                                     {{ 'form.validation.email' | translate }}
                                 </p>
@@ -88,6 +91,9 @@
                                         class="text-danger">
                                         {{ 'form.validation.lowercaseLetters' | translate }}</p>
                                 </div>
+                                <p *ngIf="settingForm.controls[key].errors?.pattern" class="text-danger">
+                                    {{ 'form.validation.pattern' | translate }}
+                                </p>
                             </div>
                             <div *ngIf="key === 'printerType'">
                                 <button [disabled]="settingForm.controls.printerType.value === connectionType.None"

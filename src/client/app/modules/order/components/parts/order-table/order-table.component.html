@@ -2,11 +2,11 @@
     <thead>
         <tr>
             <th scope="col"></th>
-            <th scope="col">{{ 'common.orderDate' | translate }}</th>
-            <th scope="col">{{ 'common.confirmationNumber' | translate }}</th>
+            <th scope="col" style="min-width: 160px">{{ 'common.orderDate' | translate }}</th>
+            <th scope="col" style="min-width: 80px">{{ 'common.confirmationNumber' | translate }}</th>
             <th scope="col">{{ 'common.event' | translate }}</th>
             <th scope="col">{{ 'common.customer' | translate }}</th>
-            <th scope="col"></th>
+            <th scope="col" style="min-width: 240px"></th>
         </tr>
     </thead>
     <tbody>
@@ -42,7 +42,9 @@
                         -</p>
                 </div>
             </td>
-            <td class="align-middle">{{ order.customer.familyName }} {{ order.customer.givenName }}</td>
+            <td class="align-middle">
+                <p>{{ order.customer.familyName }} {{ order.customer.givenName }}</p>
+            </td>
             <td class="align-middle text-center">
                 <button class="btn btn-primary mr-2" (click)="detail.emit(order)"><i
                         class="fas fa-search-plus"></i></button>
