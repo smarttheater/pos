@@ -12,6 +12,11 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/).
 
 ### Security
 
+## 3.6.11 - 2020-04-02
+### Fixed
+ - プロフィールカスタム項目修正
+ - 注文検索レイアウト修正
+
 ## 3.6.10 - 2020-03-31
 ### Changed
  - レイティング区分検索適用
