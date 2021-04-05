@@ -12,6 +12,10 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/).
 
 ### Security
 
+## 3.6.12 - 2020-04-05
+### Changed
+ - redisClient生成変更
+
 ## 3.6.11 - 2020-04-02
 ### Fixed
  - プロフィールカスタム項目修正
