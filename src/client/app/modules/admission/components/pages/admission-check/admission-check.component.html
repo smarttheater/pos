@@ -7,7 +7,8 @@
 
 
 <div *ngIf="!(isLoading | async)" class="mb-4">
-    <p *ngIf="(user | async)?.entranceGate" class="p-2 bg-white text-center font-weight-bold">{{ (user | async)?.entranceGate?.name | changeLanguage }}</p>
+    <p *ngIf="(user | async)?.entranceGate" class="p-2 bg-white text-center font-weight-bold">{{ (user |
+        async)?.entranceGate?.name | changeLanguage }}</p>
     <div *ngIf="qrcodeToken">
         <div *ngIf="qrcodeToken?.availableReservation" class="position-relative py-4 bg-success text-white">
             <div class="contents-width mx-auto px-3">
@@ -24,16 +25,9 @@
                     <thead></thead>
                     <tbody>
                         <tr *ngIf="qrcodeToken?.availableReservation.reservedTicket.ticketedSeat">
-                            <th class="align-middle">{{ 'common.seat' | translate }}</th>
+                            <th class="align-middle">{{ 'common.seat' | translate }} / {{ 'common.ticket' | translate }}</th>
                             <td class="align-middle">
-                                <p>{{ qrcodeToken?.availableReservation.reservedTicket.ticketedSeat.seatNumber }}</p>
-                            </td>
-                        </tr>
-                        <tr>
-                            <th class="align-middle">{{ 'common.ticket' | translate }}</th>
-                            <td class="align-middle">
-                                <p>{{ qrcodeToken?.availableReservation.reservedTicket.ticketType.name | changeLanguage
-                                    }}</p>
+                                <app-item-list [authorizeSeatReservations]="[qrcodeToken?.availableReservation]"></app-item-list>
                             </td>
                         </tr>
                         <tr>
