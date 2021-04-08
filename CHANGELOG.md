@@ -12,6 +12,10 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/).
 
 ### Security
 
+## 3.6.13 - 2020-04-08
+### Changed
+ - アドオンを入場画面へ表示
+
 ## 3.6.12 - 2020-04-05
 ### Changed
  - redisClient生成変更
