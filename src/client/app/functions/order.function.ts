@@ -203,6 +203,16 @@ export function order2report(orders: factory.order.IOrder[]) {
                     : moment(order.dateReturned).format('YYYY/MM/DD/HH:mm'),
                 confirmationNumber: order.confirmationNumber,
                 price: order.price,
+                priceComponent: ((<any>acceptedOffer.priceSpecification).priceComponent === undefined)
+                    ? ''
+                    : (<any>acceptedOffer.priceSpecification).priceComponent.map((p: any) => {
+                        const name = (typeof p.name === 'string')
+                            ? p.name : (p.name?.ja === undefined)
+                                ? '' : p.name.ja;
+                        const referenceQuantityValue =
+                            ((<any>p).referenceQuantity?.value) ? (<any>p).referenceQuantity.value : 1;
+                        return `${name} (${p.priceCurrency} ${p.price} / ${referenceQuantityValue})`;
+                    }).join(', '),
                 seller: order.seller,
                 paymentMethodsNames: order.paymentMethods.map(m => m.name).join(','),
                 customer: {

@@ -15,6 +15,7 @@
     { "label": "電話番号", "value": "customer.telephone" },
     { "label": "予約ID", "value": "itemOffered.id" },
     { "label": "アイテム金額", "value": "itemOffered.price" },
+    { "label": "アイテム金額詳細", "value": "priceComponent" },
     { "label": "券種Id", "value": "itemOffered.reservedTicket.ticketType.id" },
     { "label": "券種名", "value": "itemOffered.reservedTicket.ticketType.name.ja" },
     { "label": "イベントID", "value": "itemOffered.reservationFor.id" },
