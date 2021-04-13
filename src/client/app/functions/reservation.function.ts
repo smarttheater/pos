@@ -19,6 +19,16 @@ export function reservation2report(
             price: (typeof reservation.price === 'number' || reservation.price === undefined)
                 ? reservation.price
                 : getItemPrice({ priceComponents: reservation.price.priceComponent }),
+            priceComponent: (typeof reservation.price === 'number' || reservation.price === undefined)
+                ? ''
+                : reservation.price.priceComponent.map(p => {
+                    const name = (typeof p.name === 'string')
+                        ? p.name : (p.name?.ja === undefined)
+                            ? '' : p.name.ja;
+                    const referenceQuantityValue =
+                        ((<any>p).referenceQuantity?.value) ? (<any>p).referenceQuantity.value : 1;
+                    return `${name} (${p.priceCurrency} ${p.price} / ${referenceQuantityValue})`;
+                }).join(', '),
             reservedTicket: reservation.reservedTicket,
             reservationFor: {
                 ...reservation.reservationFor,
