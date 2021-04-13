@@ -12,6 +12,10 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/).
 
 ### Security
 
+## 3.6.15 - 2020-04-13
+### Added
+ - アドオンをCSVへ表示
+
 ## 3.6.14 - 2020-04-12
 ### Changed
  - 施設テンプレートでアドオンの個数選択可能に変更
