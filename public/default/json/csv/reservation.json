@@ -4,6 +4,7 @@
     { "label": "予約番号", "value": "reservationNumber" },
     { "label": "予約ステータス", "value": "reservationStatus" },
     { "label": "予約金額", "value": "price" },
+    { "label": "金額詳細", "value": "priceComponent" },
     { "label": "券種Id", "value": "reservedTicket.ticketType.id" },
     { "label": "券種名", "value": "reservedTicket.ticketType.name.ja" },
     { "label": "イベントID", "value": "reservationFor.id" },
