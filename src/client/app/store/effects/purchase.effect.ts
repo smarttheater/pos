@@ -463,6 +463,9 @@ export class PurchaseEffects {
                             id: transaction.id
                         }
                     });
+                    await this.cinerinoService.delivery.sendOrder({
+                        orderNumber: order.orderNumber
+                    });
                 } catch (error) {
                     console.error(error);
                 }

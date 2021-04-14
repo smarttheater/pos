@@ -10,6 +10,8 @@ export class CinerinoService {
     public auth: cinerino.auth.OAuth2;
     public account: cinerino.service.Account;
     public creativeWork: cinerino.service.CreativeWork;
+    public categoryCode: cinerino.service.CategoryCode;
+    public delivery: cinerino.service.Delivery;
     public event: cinerino.service.Event;
     public order: cinerino.service.Order;
     public seller: cinerino.service.Seller;
@@ -28,7 +30,6 @@ export class CinerinoService {
     public admin: {
         ownershipInfo: cinerino.service.OwnershipInfo
     };
-    public categoryCode: cinerino.service.CategoryCode;
     public userName: string;
     private endpoint: string;
     private waiterServerUrl: string;
@@ -46,6 +47,7 @@ export class CinerinoService {
             this.account = new cinerino.service.Account(option);
             this.creativeWork = new cinerino.service.CreativeWork(option);
             this.event = new cinerino.service.Event(option);
+            this.delivery = new cinerino.service.Delivery(option);
             this.order = new cinerino.service.Order(option);
             this.seller = new cinerino.service.Seller(option);
             this.place = new cinerino.service.Place(option);
