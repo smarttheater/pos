@@ -12,6 +12,10 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/).
 
 ### Security
 
+## 3.6.16 - 2020-04-14
+### Changed
+ - 施設テンプレートでムビチケを利用可能へ変更
+
 ## 3.6.15 - 2020-04-13
 ### Added
  - アドオンをCSVへ表示
