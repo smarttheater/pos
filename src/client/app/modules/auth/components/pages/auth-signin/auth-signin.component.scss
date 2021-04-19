@@ -3,9 +3,14 @@
 @import "node_modules/bootstrap/scss/mixins";
 
 .logo {
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
     width: 3rem;
+    height: 3rem;
     @include media-breakpoint-down(sm) {
         width: 2rem;
+        height: 2rem;
     }
 }
 
@@ -16,13 +21,6 @@
     text-overflow: ellipsis;
 }
 
-
-li {
-    width: 33%;
-    @include media-breakpoint-down(sm) {
-        width: auto;
-    }
-}
 
 .btn-primary.disabled {
     opacity: 1 !important;
