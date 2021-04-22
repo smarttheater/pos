@@ -12,6 +12,10 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/).
 
 ### Security
 
+## 3.6.18 - 2020-04-22
+### Changed
+ - ルーティングログを非表示へ変更
+
 ## 3.6.17 - 2020-04-16
 ### Changed
  - 注文配送を同期へ変更
