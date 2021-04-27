@@ -22,7 +22,7 @@ export class ReservationDownloadComponent implements OnInit {
     public reservations: factory.chevre.reservation.IReservation<factory.chevre.reservationType.EventReservation>[][];
     public totalCount: number;
     public currentPage: number;
-    public moment: typeof moment = moment;
+    public moment = moment;
     public reservationStatus = factory.chevre.reservationStatusType;
     public limit: number;
     public conditions: Models.Reservation.IReservationSearchConditions;

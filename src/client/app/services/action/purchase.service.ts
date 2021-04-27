@@ -104,9 +104,9 @@ export class PurchaseService {
     public async startTransaction(params: {
         seller: factory.chevre.seller.ISeller;
         pos?: factory.chevre.place.movieTheater.IPOS;
+        customer?: factory.chevre.organization.IOrganization;
     }) {
-        const seller = params.seller;
-        const pos = params.pos;
+        const { seller, pos, customer } = params;
         if (seller.id === undefined) {
             throw new Error('seller.id undefined');
         }
@@ -125,7 +125,10 @@ export class PurchaseService {
             this.store.dispatch(purchaseAction.startTransaction({
                 expires: moment(now).add(environment.PURCHASE_TRANSACTION_TIME, 'minutes').toDate(),
                 seller: { typeOf: params.seller.typeOf, id: <string>seller.id },
-                object: {},
+                object: {
+                    customer: (customer === undefined || customer.id === undefined)
+                        ? undefined : { id: customer.id }
+                },
                 agent: { identifier }
             }));
             const success = this.actions.pipe(
@@ -529,5 +532,14 @@ export class PurchaseService {
         category?: string;
     }) {
         this.store.dispatch(purchaseAction.selectPaymentMethodType(params));
+    }
+
+    /**
+     * 顧客設定
+     */
+    public setCustomer(params: {
+        customer: factory.chevre.organization.IOrganization;
+    }) {
+        this.store.dispatch(purchaseAction.setCustomer(params));
     }
 }

@@ -9,7 +9,7 @@ import * as reducers from '../../../../../store/reducers';
 })
 export class PurchaseInfoComponent implements OnInit {
     @Input() public purchase: reducers.IPurchaseState;
-    public moment: typeof moment = moment;
+    public moment = moment;
 
     constructor() { }
 

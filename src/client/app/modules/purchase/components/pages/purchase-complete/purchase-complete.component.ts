@@ -20,7 +20,7 @@ export class PurchaseCompleteComponent implements OnInit {
     public user: Observable<reducers.IUserState>;
     public isLoading: Observable<boolean>;
     public error: Observable<string | null>;
-    public moment: typeof moment = moment;
+    public moment = moment;
     public eventOrders: Functions.Purchase.IEventOrder[];
     public environment = getEnvironment();
     public qrcode?: string;

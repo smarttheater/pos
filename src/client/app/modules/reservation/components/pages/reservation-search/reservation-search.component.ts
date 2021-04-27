@@ -28,7 +28,7 @@ export class ReservationSearchComponent implements OnInit {
     public totalCount: number;
     public maxSize: number;
     public currentPage: number;
-    public moment: typeof moment = moment;
+    public moment = moment;
     public reservationStatus = factory.chevre.reservationStatusType;
     public limit: number;
     public conditions: Models.Reservation.IReservationSearchConditions;

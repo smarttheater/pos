@@ -33,7 +33,7 @@ export class PurchaseEventTicketModalComponent implements OnInit {
     }) => void;
     public tickets: factory.chevre.event.screeningEvent.ITicketOffer[];
     public selectedTickets: ISelectedTickets[];
-    public moment: typeof moment = moment;
+    public moment = moment;
     public getRemainingSeatLength = Functions.Purchase.getRemainingSeatLength;
     public performance: Models.Purchase.Performance;
     public additionalTicketText: string;

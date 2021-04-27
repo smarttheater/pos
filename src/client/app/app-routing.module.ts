@@ -27,6 +27,12 @@ const appRoutes: Routes = [
             .catch(() => location.reload())
     },
     {
+        path: 'customer',
+        loadChildren: () => import('./modules/customer/customer.module')
+            .then(m => m.CustomerModule)
+            .catch(() => location.reload())
+    },
+    {
         path: 'admission',
         loadChildren: () => import('./modules/admission/admission.module')
             .then(m => m.AdmissionModule)

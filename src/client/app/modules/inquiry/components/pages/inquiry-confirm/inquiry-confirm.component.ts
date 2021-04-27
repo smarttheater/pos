@@ -21,7 +21,7 @@ export class InquiryConfirmComponent implements OnInit {
     public reservation: Observable<reducers.IReservationState>;
     public isLoading: Observable<boolean>;
     public error: Observable<string | null>;
-    public moment: typeof moment = moment;
+    public moment = moment;
     public eventOrders: Functions.Purchase.IEventOrder[];
     public orderStatus: typeof factory.orderStatus = factory.orderStatus;
     public environment = getEnvironment();
