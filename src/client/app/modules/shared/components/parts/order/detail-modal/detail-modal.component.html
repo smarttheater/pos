@@ -45,6 +45,7 @@
             <div class="row align-items-center">
                 <p class="mb-2 mb-md-0 col-md-4">[{{ 'common.customer' | translate }}]</p>
                 <div class="col-md-8">
+                    <p *ngIf="order.customer.id">{{ order.customer.id }}</p>
                     <p *ngIf="order.customer.familyName && order.customer.givenName">{{ order.customer.familyName }} {{
                         order.customer.givenName }}</p>
                     <p *ngIf="order.customer.email">{{ order.customer.email }}</p>

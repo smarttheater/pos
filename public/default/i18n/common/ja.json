@@ -164,12 +164,15 @@
             "next": "",
             "prev": "戻る",
             "conditions": {
-                "orderDateFrom": "購入日（From）",
-                "orderDateThrough": "購入日（Through）",
+                "orderDateFrom": "注文日（From）",
+                "orderDateThrough": "注文日（Through）",
                 "telephone": "電話番号（下4桁）",
                 "eventStartDateFrom": "上映日（From）",
                 "eventStartDateThrough": "上映日（Through）",
-                "pos": "POS"
+                "pos": "POS",
+                "customer": {
+                    "id": "顧客ID"
+                }
             },
             "orderStatus": {
                 "orderCancelled": "Order Cancelled",

@@ -2,7 +2,6 @@
     <thead>
         <tr>
             <th scope="col" style="width: 40%">{{ 'customer.search.conditions.name' | translate }}</th>
-            <th scope="col" style="width: 40%">{{ 'customer.search.conditions.contactPoint' | translate }}</th>
             <th scope="col" style="width: 20%"></th>
         </tr>
     </thead>
@@ -12,17 +11,11 @@
             <td class="align-middle">
                 <p>{{ customer.name | changeLanguage }}</p>
             </td>
-            <td class="align-middle">
-                <p *ngFor="let contactPoint of customer.contactPoint" class="mb-3">
-                    {{ contactPoint.name }}<br>
-                    {{ contactPoint.email }}<br>
-                    {{ contactPoint.telephone | libphonenumberFormat }}
-                </p>
-            </td>
             <td class="align-middle text-center">
-                <button class="btn btn-primary mr-2" (click)="purchase.emit(customer)">
-                    {{ 'customer.search.button.purchase' | translate }}
-                </button>
+                <button class="btn btn-primary mr-2" (click)="detail.emit(customer)"><i
+                        class="fas fa-search-plus"></i></button>
+                <button class="btn btn-primary mr-2" (click)="purchase.emit(customer)"><i
+                        class="fas fa-ticket-alt"></i></button>
             </td>
         </tr>
     </tbody>

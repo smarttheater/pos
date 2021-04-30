@@ -392,6 +392,7 @@ export class OrderSearchComponent implements OnInit {
             confirmationNumber: '',
             orderNumber: '',
             customer: {
+                id: '',
                 familyName: '',
                 givenName: '',
                 email: '',

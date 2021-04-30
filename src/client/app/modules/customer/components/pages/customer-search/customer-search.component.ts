@@ -5,11 +5,13 @@ import { select, Store } from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
 import * as moment from 'moment';
 import { BsLocaleService } from 'ngx-bootstrap/datepicker';
+import { BsModalService } from 'ngx-bootstrap/modal';
 import { Observable } from 'rxjs';
 import { Functions, Models } from '../../../../..';
 import { getEnvironment } from '../../../../../../environments/environment';
 import { ActionService, UtilService } from '../../../../../services';
 import * as reducers from '../../../../../store/reducers';
+import { CustomerDetailModalComponent } from '../../../../shared/components/parts/customer/detail-modal/detail-modal.component';
 
 @Component({
     selector: 'app-customer-search',
@@ -36,6 +38,7 @@ export class CustomerSearchComponent implements OnInit {
         protected translate: TranslateService,
         protected localeService: BsLocaleService,
         protected router: Router,
+        protected modal: BsModalService,
     ) { }
 
     public async ngOnInit() {
@@ -114,6 +117,18 @@ export class CustomerSearchComponent implements OnInit {
             console.error(error);
             this.router.navigate(['/error']);
         }
+    }
+
+    /**
+     * 詳細を表示
+     */
+     public openDetail(customer: factory.chevre.organization.IOrganization) {
+        this.modal.show(CustomerDetailModalComponent, {
+            class: 'modal-dialog-centered modal-lg',
+            initialState: {
+                customer,
+            }
+        });
     }
 
 }

@@ -9,14 +9,12 @@ import { UtilService } from '../util.service';
     providedIn: 'root'
 })
 export class CustomerService {
-    public reservation: Observable<reducers.IReservationState>;
     public error: Observable<string | null>;
     constructor(
         private store: Store<reducers.IState>,
         private cinerinoService: CinerinoService,
         private utilService: UtilService
     ) {
-        this.reservation = this.store.pipe(select(reducers.getReservation));
         this.error = this.store.pipe(select(reducers.getError));
     }
 

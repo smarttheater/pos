@@ -19,7 +19,7 @@
             </div>
         </div>
         <div class="scroll-horizontal">
-            <app-customer-table [customers]="customers" (purchase)="toPurchase($event)">
+            <app-customer-table [customers]="customers" (purchase)="toPurchase($event)" (detail)="openDetail($event)">
             </app-customer-table>
         </div>
         

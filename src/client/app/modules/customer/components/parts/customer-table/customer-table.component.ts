@@ -19,6 +19,7 @@ export class CustomerTableComponent implements OnInit {
     public connectionType = Models.Util.Printer.ConnectionType;
     public environment = getEnvironment();
     @Output() public purchase = new EventEmitter<factory.chevre.organization.IOrganization>();
+    @Output() public detail = new EventEmitter<factory.chevre.organization.IOrganization>();
     @Input() public customers: factory.chevre.organization.IOrganization[];
     constructor(
         private store: Store<reducers.IOrderState>,

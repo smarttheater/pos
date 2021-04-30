@@ -274,6 +274,7 @@ export function input2OrderSearchCondition(params: {
             givenName: {
                 $eq: (input.customer.givenName === '') ? undefined : input.customer.givenName,
             },
+            ids: (input.customer.id === '') ? undefined : [input.customer.id],
             identifiers
         },
         orderStatuses: (input.orderStatus === '')
