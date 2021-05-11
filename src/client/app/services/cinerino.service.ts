@@ -11,6 +11,7 @@ export class CinerinoService {
     public account: cinerino.service.Account;
     public creativeWork: cinerino.service.CreativeWork;
     public categoryCode: cinerino.service.CategoryCode;
+    public customer: cinerino.service.Customer;
     public delivery: cinerino.service.Delivery;
     public event: cinerino.service.Event;
     public order: cinerino.service.Order;
@@ -46,6 +47,8 @@ export class CinerinoService {
             const option = await this.createOption();
             this.account = new cinerino.service.Account(option);
             this.creativeWork = new cinerino.service.CreativeWork(option);
+            this.categoryCode = new cinerino.service.CategoryCode(option);
+            this.customer = new cinerino.service.Customer(option);
             this.event = new cinerino.service.Event(option);
             this.delivery = new cinerino.service.Delivery(option);
             this.order = new cinerino.service.Order(option);
@@ -58,7 +61,6 @@ export class CinerinoService {
             this.task = new cinerino.service.Task(option);
             this.token = new cinerino.service.Token(option);
             this.payment = new cinerino.service.Payment(option);
-            this.categoryCode = new cinerino.service.CategoryCode(option);
             this.transaction = {
                 placeOrder: new cinerino.service.transaction.PlaceOrder(option),
                 returnOrder: new cinerino.service.transaction.ReturnOrder(option)

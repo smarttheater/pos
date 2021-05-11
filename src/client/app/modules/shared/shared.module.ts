@@ -11,6 +11,7 @@ import { BaseComponent } from './components/pages/base/base.component';
 import { AlertModalComponent } from './components/parts/alert-modal/alert-modal.component';
 import { ConfirmModalComponent } from './components/parts/confirm-modal/confirm-modal.component';
 import { ContentsComponent } from './components/parts/contents/contents.component';
+import { CustomerDetailModalComponent } from './components/parts/customer/detail-modal/detail-modal.component';
 import { FooterComponent } from './components/parts/footer/footer.component';
 import { CheckboxComponent } from './components/parts/form/checkbox/checkbox.component';
 import { HeaderMenuComponent } from './components/parts/header-menu/header-menu.component';
@@ -63,6 +64,7 @@ const entryComponents = [
   QRCodeReaderModalComponent,
   QRCodeViewerModalComponent,
   ReservationDetailModalComponent,
+  CustomerDetailModalComponent,
 ];
 
 

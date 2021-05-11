@@ -1,0 +1,19 @@
+<form (submit)="submit()">
+    <div class="form-row">
+        <div class="form-group col-12">
+            <label for="name" class="mb-2">{{ 'customer.search.conditions.name' | translate }}</label>
+            <div class="">
+                <input type="text" name="name" id="name" placeholder="" class="form-control"
+                    [(ngModel)]="conditions.name">
+            </div>
+        </div>
+    </div>
+    <div class="buttons mx-auto text-center">
+        <button type="submit" class="btn btn-primary btn-block py-3 mb-3" [disabled]="isLoading | async">
+            {{ 'customer.search.conditions.next' | translate}}
+        </button>
+        <button type="button" class="btn btn-outline-primary btn-block py-3" (click)="clear()">
+            {{ 'customer.search.conditions.clear' | translate }}
+        </button>
+    </div>
+</form>

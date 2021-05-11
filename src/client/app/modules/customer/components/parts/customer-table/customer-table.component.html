@@ -1,0 +1,22 @@
+<table class="table table-bordered bg-white text-small mb-0 border border-gray">
+    <thead>
+        <tr>
+            <th scope="col" style="width: 40%">{{ 'customer.search.conditions.name' | translate }}</th>
+            <th scope="col" style="width: 20%"></th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let customer of customers let index = index" [class.bg-light-gray]="index % 2 === 0">
+
+            <td class="align-middle">
+                <p>{{ customer.name | changeLanguage }}</p>
+            </td>
+            <td class="align-middle text-center">
+                <button class="btn btn-primary mr-2" (click)="detail.emit(customer)"><i
+                        class="fas fa-search-plus"></i></button>
+                <button class="btn btn-primary mr-2" (click)="purchase.emit(customer)"><i
+                        class="fas fa-ticket-alt"></i></button>
+            </td>
+        </tr>
+    </tbody>
+</table>

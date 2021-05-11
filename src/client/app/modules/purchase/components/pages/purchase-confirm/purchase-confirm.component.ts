@@ -19,7 +19,7 @@ export class PurchaseConfirmComponent implements OnInit {
     public purchase: Observable<reducers.IPurchaseState>;
     public isLoading: Observable<boolean>;
     public user: Observable<reducers.IUserState>;
-    public moment: typeof moment = moment;
+    public moment = moment;
     public paymentMethodType = factory.paymentMethodType;
     public depositAmount: number;
     public amount: number;

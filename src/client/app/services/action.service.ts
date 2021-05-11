@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { AdmissionService } from './action/admission.service';
+import { CustomerService } from './action/customer.service';
 import { OrderService } from './action/order.service';
 import { PurchaseService } from './action/purchase.service';
 import { ReservationService } from './action/reservation.service';
@@ -16,5 +17,6 @@ export class ActionService {
         public purchase: PurchaseService,
         public reservation: ReservationService,
         public user: UserService,
+        public customer: CustomerService,
     ) { }
 }

@@ -22,7 +22,7 @@ export class AdmissionScheduleComponent implements OnInit, OnDestroy {
     public user: Observable<reducers.IUserState>;
     public isLoading: Observable<boolean>;
     public screeningEventsGroup: Functions.Purchase.IScreeningEventsGroup[];
-    public moment: typeof moment = moment;
+    public moment = moment;
     public scheduleDate: Date;
     private updateTimer: any;
     public environment = getEnvironment();

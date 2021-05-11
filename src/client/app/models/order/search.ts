@@ -6,6 +6,7 @@ export interface IOrderSearchConditions {
     confirmationNumber: string;
     orderNumber: string;
     customer: {
+        id: string;
         familyName: string;
         givenName: string;
         email: string;

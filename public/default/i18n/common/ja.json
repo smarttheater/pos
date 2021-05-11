@@ -100,6 +100,40 @@
             "prev": "戻る"
         }
     },
+    "customer": {
+        "index": {
+            "title": "顧客",
+            "read": "選択してください。",
+            "next": "",
+            "prev": "戻る",
+            "list": {
+                "search": {
+                    "title": "検索",
+                    "read": "",
+                    "next": "選択"
+                }
+            }
+        },
+        "search": {
+            "title": "顧客検索",
+            "read": "検索してください。",
+            "next": "",
+            "prev": "戻る",
+            "conditions": {
+                "name": "名前",
+                "contactPoint": "連絡先",
+                "next": "検索",
+                "clear": "検索条件をクリア"
+            },
+            "button": {
+                "purchase": "購入"
+            },
+            "notfound": "顧客が見つかりません",
+            "alert": {
+                "search": "検索に失敗しました"
+            }
+        }
+    },
     "order": {
         "index": {
             "title": "注文",
@@ -130,12 +164,15 @@
             "next": "",
             "prev": "戻る",
             "conditions": {
-                "orderDateFrom": "購入日（From）",
-                "orderDateThrough": "購入日（Through）",
+                "orderDateFrom": "注文日（From）",
+                "orderDateThrough": "注文日（Through）",
                 "telephone": "電話番号（下4桁）",
                 "eventStartDateFrom": "上映日（From）",
                 "eventStartDateThrough": "上映日（Through）",
-                "pos": "POS"
+                "pos": "POS",
+                "customer": {
+                    "id": "顧客ID"
+                }
             },
             "orderStatus": {
                 "orderCancelled": "Order Cancelled",
@@ -450,6 +487,7 @@
     "menu": {
         "purchase": "購入",
         "inquiry": "照会",
+        "customer": "顧客",
         "order": "注文",
         "personSearch": "会員検索",
         "reservation": "予約",
@@ -550,7 +588,10 @@
             "EndTransaction": "取引を確定しています",
             "AuthorizeAnyPayment": "決済情報を承認しています"
         },
-        "userAction": {}
+        "userAction": {},
+        "customerAction": {
+            "Search": "顧客情報を取得しています"
+        }
     },
     "footer": {
         "copyright": "Copyright (c) Motionpicture co.,ltd. All rights reserved."

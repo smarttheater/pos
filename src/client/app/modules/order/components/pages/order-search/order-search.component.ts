@@ -27,7 +27,7 @@ export class OrderSearchComponent implements OnInit {
     public totalCount: number;
     public maxSize: number;
     public currentPage: number;
-    public moment: typeof moment = moment;
+    public moment = moment;
     public orderStatus: typeof factory.orderStatus = factory.orderStatus;
     public paymentMethodType: typeof factory.paymentMethodType = factory.paymentMethodType;
     public limit: number;
@@ -392,6 +392,7 @@ export class OrderSearchComponent implements OnInit {
             confirmationNumber: '',
             orderNumber: '',
             customer: {
+                id: '',
                 familyName: '',
                 givenName: '',
                 email: '',

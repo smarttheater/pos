@@ -19,7 +19,7 @@ export class AdmissionCheckComponent implements OnInit, OnDestroy {
     public user: Observable<reducers.IUserState>;
     public isLoading: Observable<boolean>;
     public updateLoop: any;
-    public moment: typeof moment = moment;
+    public moment = moment;
     public inputCode: string;
     public environment = getEnvironment();
     public screeningEvent?: factory.chevre.event.screeningEvent.IEvent;

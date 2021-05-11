@@ -8,7 +8,7 @@
                 "salesSchedule": "通常販売スケジュール",
                 "notfound": "スケジュールがありません。",
                 "next": "次へ",
-                "prev": "",
+                "prev": "戻る",
                 "alert": {
                     "ticketedSeat": "劇場表示では座席管理なしのパフォーマンスを選択できません。"
                 }

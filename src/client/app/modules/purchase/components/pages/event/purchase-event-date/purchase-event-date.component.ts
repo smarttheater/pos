@@ -24,7 +24,7 @@ export class PurchaseEventDateComponent implements OnInit, OnDestroy {
     public isLoading: Observable<boolean>;
     public screeningEvents: factory.chevre.event.screeningEvent.IEvent[];
     public screeningEventsGroup: Functions.Purchase.IScreeningEventsGroup[];
-    public moment: typeof moment = moment;
+    public moment = moment;
     private updateTimer: any;
     public scheduleDate: Date;
     public environment = getEnvironment();
@@ -165,9 +165,13 @@ export class PurchaseEventDateComponent implements OnInit, OnDestroy {
         try {
             const purchase = await this.actionService.purchase.getData();
             const user = await this.actionService.user.getData();
+            if (purchase.seller === undefined) {
+                throw new Error('seller undefined');
+            }
             await this.actionService.purchase.startTransaction({
-                seller: <factory.chevre.seller.ISeller>purchase.seller,
-                pos: user.pos
+                seller: purchase.seller,
+                pos: user.pos,
+                customer: purchase.customer,
             });
             this.router.navigate(['/purchase/event/schedule']);
         } catch (error) {

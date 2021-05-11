@@ -60,6 +60,7 @@ export const startTransaction = createAction(
         agent?: { identifier?: factory.person.IIdentifier; };
         seller: { typeOf: factory.chevre.organizationType; id: string; };
         object: {
+            customer?: { id: string; };
             passport?: { token: factory.waiter.passport.IEncodedPassport; };
         };
     }>()
@@ -339,7 +340,12 @@ export const selectPaymentMethodType = createAction(
     }>()
 );
 
-
+export const setCustomer = createAction(
+    `${LABEL} setCustomer`,
+    props<{
+        customer: factory.chevre.organization.IOrganization;
+    }>()
+);
 
 
 

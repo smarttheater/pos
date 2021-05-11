@@ -51,6 +51,7 @@ export class OrderDownloadComponent implements OnInit {
             confirmationNumber: '',
             orderNumber: '',
             customer: {
+                id: '',
                 familyName: '',
                 givenName: '',
                 email: '',

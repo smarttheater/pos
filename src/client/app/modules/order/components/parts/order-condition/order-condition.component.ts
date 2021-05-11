@@ -73,6 +73,7 @@ export class OrderConditionComponent implements OnInit {
             confirmationNumber: '',
             orderNumber: '',
             customer: {
+                id: '',
                 familyName: '',
                 givenName: '',
                 email: '',
