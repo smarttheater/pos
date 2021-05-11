@@ -1,7 +1,7 @@
 <form (submit)="submit()">
     <div class="form-row">
-        <div class="form-group col-md-4 col-lg-3">
-            <label for="orderDateFrom" class="mb-2">{{ 'order.search.conditions.orderDateFrom' | translate }}</label>
+        <div class="form-group col-sm-6 col-md-4 col-lg-3">
+            <label for="orderDateFrom" class="mb-2 text-small">{{ 'order.search.conditions.orderDateFrom' | translate }}</label>
             <div class="position-relative">
                 <input type="text" name="orderDateFrom" id="orderDateFrom" placeholder="YYYY/MM/DD" class="form-control"
                     #orderDateFrom="bsDatepicker" bsDatepicker [(ngModel)]="conditions.orderDateFrom"
@@ -13,8 +13,8 @@
                 </div>
             </div>
         </div>
-        <div class="form-group col-md-4 col-lg-3">
-            <label for="orderDateThrough" class="mb-2">{{ 'order.search.conditions.orderDateThrough' | translate
+        <div class="form-group col-sm-6 col-md-4 col-lg-3">
+            <label for="orderDateThrough" class="mb-2 text-small">{{ 'order.search.conditions.orderDateThrough' | translate
                 }}</label>
             <div class="position-relative">
                 <input type="text" name="orderDateThrough" id="orderDateThrough" placeholder="YYYY/MM/DD"
@@ -28,46 +28,18 @@
                 </div>
             </div>
         </div>
-        <div class="form-group col-md-4 col-lg-3">
-            <label for="confirmationNumber" class="mb-2">{{ 'common.confirmationNumber' | translate }}</label>
+        <div class="form-group col-sm-6 col-md-4 col-lg-3">
+            <label for="confirmationNumber" class="mb-2 text-small">{{ 'common.confirmationNumber' | translate }}</label>
             <input type="text" class="form-control" name="confirmationNumber" id="confirmationNumber"
                 [(ngModel)]="conditions.confirmationNumber" placeholder="{{ 'common.confirmationNumber' | translate }}">
         </div>
-        <div class="form-group col-md-4 col-lg-3">
-            <label for="orderNumber" class="mb-2">{{ 'common.orderNumber' | translate }}</label>
+        <div class="form-group col-sm-6 col-md-4 col-lg-3">
+            <label for="orderNumber" class="mb-2 text-small">{{ 'common.orderNumber' | translate }}</label>
             <input type="text" class="form-control" name="orderNumber" id="orderNumber"
                 [(ngModel)]="conditions.orderNumber" placeholder="{{ 'common.orderNumber' | translate }}">
         </div>
-
-        <div class="form-group col-md-4 col-lg-3">
-            <label for="familyName" class="mb-2">{{ 'common.familyName' | translate }}</label>
-            <input type="text" class="form-control" name="familyName" id="familyName"
-                [(ngModel)]="conditions.customer.familyName" placeholder="{{ 'common.familyName' | translate }}">
-        </div>
-        <div class="form-group col-md-4 col-lg-3">
-            <label for="givenName" class="mb-2">{{ 'common.givenName' | translate }}</label>
-            <input type="text" class="form-control" name="givenName" id="givenName"
-                [(ngModel)]="conditions.customer.givenName" placeholder="{{ 'common.givenName' | translate }}">
-        </div>
-        <div class="form-group col-md-4 col-lg-3">
-            <label for="email" class="mb-2">{{ 'common.email' | translate }}</label>
-            <input type="email" class="form-control" name="email" id="email" [(ngModel)]="conditions.customer.email"
-                placeholder="{{ 'common.email' | translate }}">
-        </div>
-        <div class="form-group col-md-4 col-lg-3">
-            <label for="telephone" class="mb-2">{{ 'order.search.conditions.telephone' | translate }}</label>
-            <input type="telephone" class="form-control" name="telephone" id="telephone"
-                [(ngModel)]="conditions.customer.telephone"
-                placeholder="{{ 'order.search.conditions.telephone' | translate }}">
-        </div>
-        <div class="form-group col-md-4 col-lg-3">
-            <label for="customerId" class="mb-2">{{ 'order.search.conditions.customer.id' | translate }}</label>
-            <input type="text" class="form-control" name="customerId" id="customerId"
-                [(ngModel)]="conditions.customer.id" placeholder="{{ 'order.search.conditions.customer.id' | translate }}">
-        </div>
-
-        <div class="form-group col-md-4 col-lg-3">
-            <label for="orderStatus" class="mb-2">{{ 'common.orderStatus' | translate }}</label>
+        <div class="form-group col-sm-6 col-md-4 col-lg-3">
+            <label for="orderStatus" class="mb-2 text-small">{{ 'common.orderStatus' | translate }}</label>
             <select class="form-control" name="orderStatus" id="orderStatus" [(ngModel)]="conditions.orderStatus">
                 <option value="">{{ 'common.all' | translate }}</option>
                 <!-- <option [value]="orderStatus.OrderCancelled">{{ 'order.search.orderStatus.orderCancelled' | translate }}</option> -->
@@ -82,18 +54,39 @@
                     {{ 'order.search.orderStatus.orderReturned' | translate }}</option>
             </select>
         </div>
-        <div class="form-group col-md-4 col-lg-3">
-            <label for="paymentMethodType" class="mb-2">{{ 'common.paymentMethod' | translate }}</label>
-            <select class="form-control" name="paymentMethodType" id="paymentMethodType"
-                [(ngModel)]="conditions.paymentMethodType">
-                <option value="">{{ 'common.all' | translate }}</option>
-                <option *ngFor="let categoryCode of paymentTypes" [value]="categoryCode.codeValue">
-                    {{ categoryCode.name | changeLanguage }}
-                </option>
-            </select>
+        
+    </div>
+    <div class="form-row">
+        <div class="form-group col-sm-6 col-md-4 col-lg-3">
+            <label for="familyName" class="mb-2 text-small">{{ 'common.familyName' | translate }}</label>
+            <input type="text" class="form-control" name="familyName" id="familyName"
+                [(ngModel)]="conditions.customer.familyName" placeholder="{{ 'common.familyName' | translate }}">
         </div>
-        <div class="form-group col-md-4 col-lg-3">
-            <label for="eventStartDateFrom" class="mb-2">
+        <div class="form-group col-sm-6 col-md-4 col-lg-3">
+            <label for="givenName" class="mb-2 text-small">{{ 'common.givenName' | translate }}</label>
+            <input type="text" class="form-control" name="givenName" id="givenName"
+                [(ngModel)]="conditions.customer.givenName" placeholder="{{ 'common.givenName' | translate }}">
+        </div>
+        <div class="form-group col-sm-6 col-md-4 col-lg-3">
+            <label for="email" class="mb-2 text-small">{{ 'common.email' | translate }}</label>
+            <input type="email" class="form-control" name="email" id="email" [(ngModel)]="conditions.customer.email"
+                placeholder="{{ 'common.email' | translate }}">
+        </div>
+        <div class="form-group col-sm-6 col-md-4 col-lg-3">
+            <label for="telephone" class="mb-2 text-small">{{ 'order.search.conditions.telephone' | translate }}</label>
+            <input type="telephone" class="form-control" name="telephone" id="telephone"
+                [(ngModel)]="conditions.customer.telephone"
+                placeholder="{{ 'order.search.conditions.telephone' | translate }}">
+        </div>
+        <div class="form-group col-sm-6 col-md-4 col-lg-3">
+            <label for="customerId" class="mb-2 text-small">{{ 'order.search.conditions.customer.id' | translate }}</label>
+            <input type="text" class="form-control" name="customerId" id="customerId"
+                [(ngModel)]="conditions.customer.id" placeholder="{{ 'order.search.conditions.customer.id' | translate }}">
+        </div>
+    </div>
+    <div class="form-row">        
+        <div class="form-group col-sm-6 col-md-4 col-lg-3">
+            <label for="eventStartDateFrom" class="mb-2 text-small">
                 {{ 'order.search.conditions.eventStartDateFrom' | translate }}
             </label>
             <div class="position-relative">
@@ -108,8 +101,8 @@
                 </div>
             </div>
         </div>
-        <div class="form-group col-md-4 col-lg-3">
-            <label for="eventStartDateThrough" class="mb-2">{{ 'order.search.conditions.eventStartDateThrough' |
+        <div class="form-group col-sm-6 col-md-4 col-lg-3">
+            <label for="eventStartDateThrough" class="mb-2 text-small">{{ 'order.search.conditions.eventStartDateThrough' |
                 translate }}</label>
             <div class="position-relative">
                 <input type="text" name="eventStartDateThrough" id="eventStartDateThrough" placeholder="YYYY/MM/DD"
@@ -124,11 +117,22 @@
             </div>
         </div>
 
-        <div class="form-group col-md-4 col-lg-3">
-            <label for="posId" class="mb-2">{{ 'order.search.conditions.pos' | translate }}</label>
+        <div class="form-group col-sm-6 col-md-4 col-lg-3">
+            <label for="posId" class="mb-2 text-small">{{ 'order.search.conditions.pos' | translate }}</label>
             <select class="form-control" name="posId" id="posId" [(ngModel)]="conditions.posId">
                 <option value="">{{ 'common.all' | translate }}</option>
                 <option *ngFor="let pos of (user | async)?.theater.hasPOS" [value]="pos.id">{{ pos.name }}
+                </option>
+            </select>
+        </div>
+
+        <div class="form-group col-sm-6 col-md-4 col-lg-3">
+            <label for="paymentMethodType" class="mb-2 text-small">{{ 'common.paymentMethod' | translate }}</label>
+            <select class="form-control" name="paymentMethodType" id="paymentMethodType"
+                [(ngModel)]="conditions.paymentMethodType">
+                <option value="">{{ 'common.all' | translate }}</option>
+                <option *ngFor="let categoryCode of paymentTypes" [value]="categoryCode.codeValue">
+                    {{ categoryCode.name | changeLanguage }}
                 </option>
             </select>
         </div>
