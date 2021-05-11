@@ -15,7 +15,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/).
 ## 3.6.19 - 2020-05-11
 ### Added
  - 顧客検索追加（非表示）
- - 顧客指定での購入追加（非表示）
+ - 顧客指定での購入追加
 
 ## 3.6.18 - 2020-04-22
 ### Changed
