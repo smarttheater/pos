@@ -28,7 +28,7 @@ export class PurchaseEventScheduleComponent implements OnInit, OnDestroy {
     public screeningEventsGroup: Functions.Purchase.IScreeningEventsGroup[];
     public creativeWorks: factory.chevre.creativeWork.movie.ICreativeWork[];
     public contentRatingTypes: factory.chevre.categoryCode.ICategoryCode[];
-    public moment: typeof moment = moment;
+    public moment = moment;
     public environment = getEnvironment();
     private updateTimer: any;
     public screeningEventSeats: factory.chevre.place.seat.IPlaceWithOffer[];

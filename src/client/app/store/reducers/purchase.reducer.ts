@@ -91,6 +91,10 @@ export interface IPurchaseState {
      * 使用中ムビチケ
      */
     pendingMovieTickets: Models.Purchase.MovieTicket.IMovieTicket[];
+    /**
+     * 顧客
+     */
+     customer?: factory.chevre.organization.IOrganization;
 }
 
 export const purchaseInitialState: IPurchaseState = {
@@ -549,6 +553,17 @@ export function reducer(initialState: IState, action: Action) {
                 purchaseData: {
                     ...state.purchaseData,
                     paymentMethod
+                }, loading: false, process: '', error: null
+            };
+        }),
+        on(purchaseAction.setCustomer, (state, payload) => {
+            const { customer } = payload;
+
+            return {
+                ...state,
+                purchaseData: {
+                    ...state.purchaseData,
+                    customer,
                 }, loading: false, process: '', error: null
             };
         }),

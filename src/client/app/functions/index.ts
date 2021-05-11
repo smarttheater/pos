@@ -1,3 +1,4 @@
+import * as Customer from './customer.function';
 import * as Order from './order.function';
 import * as Purchase from './purchase.function';
 import * as Reservation from './reservation.function';
@@ -9,5 +10,6 @@ export {
     Util,
     Order,
     Translate,
-    Reservation
+    Reservation,
+    Customer,
 };

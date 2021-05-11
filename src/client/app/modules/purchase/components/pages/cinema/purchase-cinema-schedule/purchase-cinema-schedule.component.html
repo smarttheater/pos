@@ -13,13 +13,20 @@
             </div>
         </div>
     </div>
-    <p *ngIf="(purchase | async)?.scheduleDate" class="text-primary font-weight-bold mb-3">
-        {{ (purchase | async)?.scheduleDate | formatDate: 'YYYY/MM/DD (ddd)' }}
-    </p>
-    <p *ngIf="screeningEventsGroup.length === 0" class="mb-3"
-        [innerHTML]="'purchase.cinema.schedule.notfound' | translate"></p>
-    <app-performances *ngFor="let group of screeningEventsGroup" [screeningEventsGroup]="group"
-        [creativeWork]="getCreativeWorks(group.screeningEvent.workPerformed?.identifier)"
-        [contentRatingTypes]="contentRatingTypes" (select)="selectSchedule($event)" class="mb-3">
-    </app-performances>
+    <div class="mb-4">
+        <p *ngIf="(purchase | async)?.scheduleDate" class="text-primary font-weight-bold mb-3">
+            {{ (purchase | async)?.scheduleDate | formatDate: 'YYYY/MM/DD (ddd)' }}
+        </p>
+        <p *ngIf="screeningEventsGroup.length === 0" class="mb-3"
+            [innerHTML]="'purchase.cinema.schedule.notfound' | translate"></p>
+        <app-performances *ngFor="let group of screeningEventsGroup" [screeningEventsGroup]="group"
+            [creativeWork]="getCreativeWorks(group.screeningEvent.workPerformed?.identifier)"
+            [contentRatingTypes]="contentRatingTypes" (select)="selectSchedule($event)" class="mb-3">
+        </app-performances>
+    </div>
+
+    <div class="buttons mx-auto text-center">
+        <button *ngIf="(purchase | async)?.customer" type="button" class="btn btn-outline-primary btn-block py-3"
+            routerLink="/customer/search">{{ 'purchase.cinema.schedule.prev' | translate }}</button>
+    </div>
 </div>

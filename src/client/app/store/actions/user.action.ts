@@ -14,7 +14,7 @@ export const updateAll = createAction(
         theater: factory.chevre.place.movieTheater.IPlaceWithoutScreeningRoom;
         pos?: factory.chevre.place.movieTheater.IPOS;
         entranceGate?: factory.chevre.place.movieTheater.IEntranceGate;
-        customerContact: factory.transaction.placeOrder.ICustomerProfile;
+        customerContact: factory.person.IProfile;
         printer: Models.Util.Printer.IPrinter;
         drawer: boolean;
     }>()

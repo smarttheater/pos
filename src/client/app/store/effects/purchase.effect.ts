@@ -56,7 +56,10 @@ export class PurchaseEffects {
                 const passport = await this.cinerinoService.getPassport(selleId);
                 const transaction = await this.cinerinoService.transaction.placeOrder.start({
                     ...params,
-                    object: { passport }
+                    object: {
+                        ...params.object,
+                        passport
+                     }
                 });
                 return purchaseAction.startTransactionSuccess({ transaction });
             } catch (error) {
@@ -464,7 +467,9 @@ export class PurchaseEffects {
                         }
                     });
                     await this.cinerinoService.delivery.sendOrder({
-                        orderNumber: order.orderNumber
+                        object: {
+                            orderNumber: order.orderNumber
+                        }
                     });
                 } catch (error) {
                     console.error(error);

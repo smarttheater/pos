@@ -190,7 +190,8 @@ export class PurchaseCinemaScheduleComponent implements OnInit, OnDestroy {
         try {
             await this.actionService.purchase.startTransaction({
                 seller: purchase.seller,
-                pos: user.pos
+                pos: user.pos,
+                customer: purchase.customer,
             });
             this.router.navigate(['/purchase/cinema/seat']);
         } catch (error) {

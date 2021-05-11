@@ -47,7 +47,7 @@ import { PurchaseRoutingModule } from './purchase-routing.module';
     PurchaseTicketComponent,
     PurchaseSeatComponent,
     SeatInfoComponent,
-    MovieTicketsComponent
+    MovieTicketsComponent,
   ],
   imports: [
     CommonModule,

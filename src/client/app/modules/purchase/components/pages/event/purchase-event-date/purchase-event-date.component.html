@@ -40,7 +40,7 @@
         <button *ngIf="environment.PURCHASE_TERMS" type="submit" class="btn btn-primary btn-block py-3 mb-3"
             [disabled]="screeningEventsGroup.length === 0 || (isLoading | async)"
             (click)="onSubmit()">{{ 'purchase.event.date.consent' | translate }}</button>
-        <!-- <button type="button" class="btn btn-outline-primary btn-block py-3"
-            routerLink="/purchase/event/date">{{ 'purchase.event.date.prev' | translate }}</button> -->
+        <button *ngIf="(purchase | async)?.customer" type="button" class="btn btn-outline-primary btn-block py-3"
+            routerLink="/customer/search">{{ 'purchase.event.date.prev' | translate }}</button>
     </div>
 </div>

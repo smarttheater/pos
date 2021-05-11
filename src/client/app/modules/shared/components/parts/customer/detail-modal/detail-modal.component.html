@@ -1,0 +1,35 @@
+<div class="p-3 scroll-vertical text-small">
+    <div class="mb-4">
+        <div class="py-3 border-bottom border-gray">
+            <div class="row align-items-center">
+                <p class="mb-2 mb-md-0 col-md-4">[id]</p>
+                <p class="col-md-8">{{ customer.id }}</p>
+            </div>
+        </div>
+        <div class="py-3 border-bottom border-gray">
+            <div class="row align-items-center">
+                <p class="mb-2 mb-md-0 col-md-4">[name]</p>
+                <p class="col-md-8">{{ customer.name | changeLanguage }}</p>
+            </div>
+        </div>
+        <div class="py-3 border-bottom border-gray">
+            <div class="row align-items-center">
+                <p class="mb-2 mb-md-0 col-md-4">[{{ 'customer.search.conditions.contactPoint' | translate }}]</p>
+                <div class="col-md-8">
+                    <p *ngFor="let contactPoint of customer.contactPoint" class="mb-3">
+                        {{ contactPoint.name }}<br>
+                        {{ contactPoint.email }}<br>
+                        {{ contactPoint.telephone | libphonenumberFormat }}
+                    </p>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="buttons mx-auto text-center">
+        <button type="button" class="btn btn-outline-primary btn-block py-3 btn-sm" (click)="modal.hide()">{{
+            'common.close' | translate }}</button>
+    </div>
+
+</div>
