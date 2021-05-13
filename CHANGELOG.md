@@ -12,6 +12,12 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/).
 
 ### Security
 
+## 3.6.20 - 2020-05-12
+### Changed
+ - 注文検索条件UI調整
+### Fixed
+ - 注文検索のCOAイベント指定検索修正
+
 ## 3.6.19 - 2020-05-11
 ### Added
  - 顧客検索追加（非表示）
