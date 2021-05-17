@@ -5,26 +5,38 @@ import { select, Store } from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
 import * as moment from 'moment';
 import { Observable } from 'rxjs';
-import { Functions } from '../../../../..';
+import { Functions, Models } from '../../../../..';
 import { getEnvironment } from '../../../../../../environments/environment';
-import { ActionService, MasterService, UtilService } from '../../../../../services';
+import {
+    ActionService,
+    MasterService,
+    UtilService,
+} from '../../../../../services';
 import * as reducers from '../../../../../store/reducers';
 
 @Component({
     selector: 'app-purchase-confirm',
     templateUrl: './purchase-confirm.component.html',
-    styleUrls: ['./purchase-confirm.component.scss']
+    styleUrls: ['./purchase-confirm.component.scss'],
 })
 export class PurchaseConfirmComponent implements OnInit {
     public purchase: Observable<reducers.IPurchaseState>;
     public isLoading: Observable<boolean>;
     public user: Observable<reducers.IUserState>;
     public moment = moment;
-    public paymentMethodType = factory.paymentMethodType;
-    public depositAmount: number;
+    public chargeAmount: number;
     public amount: number;
     public environment = getEnvironment();
     public paymentMethod?: factory.chevre.categoryCode.ICategoryCode;
+    public viewType = Models.Util.ViewType;
+    public payments: {
+        paymentAccepted: factory.chevre.seller.IPaymentAccepted;
+        categoryCode: factory.chevre.categoryCode.ICategoryCode;
+        selected: boolean;
+        value: number;
+    }[];
+    public paymentMethodType = factory.chevre.paymentMethodType;
+    public isValid: boolean;
 
     constructor(
         private store: Store<reducers.IState>,
@@ -32,22 +44,57 @@ export class PurchaseConfirmComponent implements OnInit {
         private actionService: ActionService,
         private utilService: UtilService,
         private translate: TranslateService,
-        private masterService: MasterService,
-    ) { }
+        private masterService: MasterService
+    ) {}
 
     public async ngOnInit() {
         this.purchase = this.store.pipe(select(reducers.getPurchase));
         this.isLoading = this.store.pipe(select(reducers.getLoading));
         this.user = this.store.pipe(select(reducers.getUser));
         this.amount = 0;
-        this.depositAmount = 0;
+        this.chargeAmount = 0;
+        this.payments = [];
+        this.isValid = true;
         try {
-            const { authorizeSeatReservations, paymentMethod } = await this.actionService.purchase.getData();
-            this.amount = Functions.Purchase.getAmount(authorizeSeatReservations);
+            const { authorizeSeatReservations, seller } =
+                await this.actionService.purchase.getData();
+            this.amount = Functions.Purchase.getAmount(
+                authorizeSeatReservations
+            );
+            this.isValid = this.amount !== 0;
+            this.chargeAmount = 0 - this.amount;
             const paymentTypes = await this.masterService.searchCategoryCode({
-                categorySetIdentifier: factory.chevre.categoryCode.CategorySetIdentifier.PaymentMethodType
+                categorySetIdentifier:
+                    factory.chevre.categoryCode.CategorySetIdentifier
+                        .PaymentMethodType,
             });
-            this.paymentMethod = paymentTypes.find(c => c.codeValue === paymentMethod?.typeOf);
+            if (seller === undefined || seller.paymentAccepted === undefined) {
+                throw new Error('seller or seller.paymentAccepted undefined');
+            }
+            const paymentAccepted = seller.paymentAccepted.filter((p) => {
+                return (
+                    p.paymentMethodType !==
+                        factory.chevre.paymentMethodType.MGTicket &&
+                    p.paymentMethodType !==
+                        factory.chevre.paymentMethodType.MovieTicket &&
+                    p.paymentMethodType !== 'Account'
+                );
+            });
+            paymentAccepted.forEach((p) => {
+                const categoryCode = paymentTypes.find(
+                    (c) => c.codeValue === p.paymentMethodType
+                );
+                if (categoryCode === undefined) {
+                    return;
+                }
+                this.payments.push({
+                    paymentAccepted: p,
+                    categoryCode,
+                    selected: false,
+                    value: 0,
+                });
+            });
+            console.log(this.payments);
         } catch (error) {
             console.error(error);
             this.router.navigate(['/error']);
@@ -58,42 +105,69 @@ export class PurchaseConfirmComponent implements OnInit {
      * 確定
      */
     public async onSubmit() {
-        const { paymentMethod, seller, pendingMovieTickets } = await this.actionService.purchase.getData();
-        const { language, customerContact } = await this.actionService.user.getData();
+        const { seller, pendingMovieTickets } =
+            await this.actionService.purchase.getData();
+        const { language, customerContact } =
+            await this.actionService.user.getData();
         const profile = customerContact;
-        if (paymentMethod === undefined
-            || profile === undefined
-            || seller === undefined) {
+        if (profile === undefined || seller === undefined) {
             this.router.navigate(['/error']);
             return;
         }
-        if (paymentMethod.typeOf === factory.paymentMethodType.Cash) {
-            if (Number(this.depositAmount) < this.amount) {
-                this.utilService.openAlert({
-                    title: this.translate.instant('common.error'),
-                    body: this.translate.instant('purchase.confirm.alert.custody')
-                });
-                return;
-            }
+        const cash = this.payments.find(
+            (p) =>
+                p.paymentAccepted.paymentMethodType ===
+                this.paymentMethodType.Cash
+        );
+        if (cash !== undefined && cash.value > 0) {
             await this.openDrawer();
         }
         try {
             if (pendingMovieTickets.length > 0) {
-                await this.actionService.purchase.authorizeMovieTicket({ seller });
+                await this.actionService.purchase.authorizeMovieTicket({
+                    seller,
+                });
             }
-            const deposit = Number(this.depositAmount);
-            const additionalProperty: { name: string; value: string; }[] = [];
-            if (paymentMethod.typeOf === factory.chevre.paymentMethodType.Cash) {
-                // 現金
-                additionalProperty.push({ name: 'depositAmount', value: String(deposit) });
-                additionalProperty.push({ name: 'change', value: String(deposit - this.amount) });
-            }
+            console.log('onSubmit');
             await this.actionService.purchase.authorizeAnyPayment({
-                amount: this.amount,
-                additionalProperty
+                data: this.payments
+                    .filter((p) => p.selected)
+                    .map((p) => {
+                        const additionalProperty = [];
+                        if (
+                            p.paymentAccepted.paymentMethodType ===
+                            factory.chevre.paymentMethodType.Cash
+                        ) {
+                            additionalProperty.push({
+                                name: 'depositAmount',
+                                value: String(p.value),
+                            });
+                            additionalProperty.push({
+                                name: 'change',
+                                value: String(this.chargeAmount),
+                            });
+                        }
+                        const amount =
+                            p.paymentAccepted.paymentMethodType ===
+                            factory.chevre.paymentMethodType.Cash
+                                ? Number(p.value) - this.chargeAmount
+                                : Number(p.value);
+                        return {
+                            amount,
+                            additionalProperty,
+                            paymentMethodType:
+                                p.paymentAccepted.paymentMethodType,
+                        };
+                    }),
             });
+            console.log('onSubmit1');
             await this.actionService.purchase.registerContact(profile);
-            await this.actionService.purchase.endTransaction({ seller, language });
+            console.log('onSubmit2');
+            await this.actionService.purchase.endTransaction({
+                seller,
+                language,
+            });
+            console.log('onSubmit3');
             this.router.navigate(['/purchase/complete']);
         } catch (error) {
             console.error(error);
@@ -102,22 +176,13 @@ export class PurchaseConfirmComponent implements OnInit {
     }
 
     /**
-     * 支払い金額変換
-     */
-    public changeDepositAmount(value: number) {
-        this.depositAmount = value;
-    }
-
-    /**
      * ドロワーを開く
      */
     public async openDrawer() {
         try {
-            const { paymentMethod } = await this.actionService.purchase.getData();
             const { printer, drawer } = await this.actionService.user.getData();
-            if (paymentMethod === undefined
-                || printer === undefined) {
-                throw new Error('order or printer undefined');
+            if (printer === undefined) {
+                throw new Error('printer undefined');
             }
             if (drawer === undefined || !drawer) {
                 return;
@@ -127,12 +192,50 @@ export class PurchaseConfirmComponent implements OnInit {
             this.utilService.openAlert({
                 title: this.translate.instant('common.error'),
                 body: `
-                <p class="mb-4">${this.translate.instant('purchase.complete.alert.drawer')}</p>
+                <p class="mb-4">${this.translate.instant(
+                    'purchase.complete.alert.drawer'
+                )}</p>
                     <div class="p-3 bg-light-gray select-text">
                     <code>${JSON.stringify(error)}</code>
-                </div>`
+                </div>`,
             });
         }
     }
 
+    /**
+     * 決済方法選択
+     */
+    public async selectPaymentMethodType(
+        paymentMethodType: factory.paymentMethodType
+    ) {
+        const findResult = this.payments.find(
+            (p) => p.paymentAccepted.paymentMethodType === paymentMethodType
+        );
+        if (findResult === undefined) {
+            return;
+        }
+        findResult.selected = !findResult.selected;
+        if (!findResult.selected) {
+            findResult.value = 0;
+        }
+    }
+
+    /**
+     * 金額変更
+     */
+    public changeValue() {
+        let total = 0;
+        this.payments.forEach((p) => (total += Number(p.value)));
+        const findReslt = this.payments.find(
+            (p) =>
+                p.paymentAccepted.paymentMethodType ===
+                this.paymentMethodType.Cash
+        );
+        const cashValue = findReslt === undefined ? 0 : Number(findReslt.value);
+        this.chargeAmount =
+            total - this.amount < cashValue ? total - this.amount : cashValue;
+        this.isValid = !(
+            this.chargeAmount >= 0 && total - this.chargeAmount === this.amount
+        );
+    }
 }

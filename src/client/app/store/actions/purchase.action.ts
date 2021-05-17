@@ -4,13 +4,9 @@ import { Functions, Models } from '../..';
 
 const LABEL = '[Purchase]';
 
-export const remove = createAction(
-    `${LABEL} Remove`,
-);
+export const remove = createAction(`${LABEL} Remove`);
 
-export const unsettledDelete = createAction(
-    `${LABEL} unsettledDelete`,
-);
+export const unsettledDelete = createAction(`${LABEL} unsettledDelete`);
 
 export const selectScheduleDate = createAction(
     `${LABEL} selectScheduleDate`,
@@ -19,13 +15,13 @@ export const selectScheduleDate = createAction(
 
 export const getSeller = createAction(
     `${LABEL} getSeller`,
-    props<{ id: string; }>()
+    props<{ id: string }>()
 );
 
 export const getSellerSuccess = createAction(
     `${LABEL} getSellerSuccess`,
     props<{
-        seller: factory.chevre.seller.ISeller
+        seller: factory.chevre.seller.ISeller;
     }>()
 );
 
@@ -37,14 +33,14 @@ export const getSellerFail = createAction(
 export const getScreeningEvent = createAction(
     `${LABEL} getScreeningEvent`,
     props<{
-        screeningEvent: factory.chevre.event.screeningEvent.IEvent
+        screeningEvent: factory.chevre.event.screeningEvent.IEvent;
     }>()
 );
 
 export const getScreeningEventSuccess = createAction(
     `${LABEL} getScreeningEventSuccess`,
     props<{
-        screeningEvent: factory.chevre.event.screeningEvent.IEvent
+        screeningEvent: factory.chevre.event.screeningEvent.IEvent;
     }>()
 );
 
@@ -57,11 +53,11 @@ export const startTransaction = createAction(
     `${LABEL} startTransaction`,
     props<{
         expires: Date;
-        agent?: { identifier?: factory.person.IIdentifier; };
-        seller: { typeOf: factory.chevre.organizationType; id: string; };
+        agent?: { identifier?: factory.person.IIdentifier };
+        seller: { typeOf: factory.chevre.organizationType; id: string };
         object: {
-            customer?: { id: string; };
-            passport?: { token: factory.waiter.passport.IEncodedPassport; };
+            customer?: { id: string };
+            passport?: { token: factory.waiter.passport.IEncodedPassport };
         };
     }>()
 );
@@ -69,7 +65,7 @@ export const startTransaction = createAction(
 export const startTransactionSuccess = createAction(
     `${LABEL} startTransactionSuccess`,
     props<{
-        transaction: factory.transaction.placeOrder.ITransaction
+        transaction: factory.transaction.placeOrder.ITransaction;
     }>()
 );
 
@@ -81,12 +77,12 @@ export const startTransactionFail = createAction(
 export const cancelTransaction = createAction(
     `${LABEL} cancelTransaction`,
     props<{
-        transaction: factory.transaction.placeOrder.ITransaction
+        transaction: factory.transaction.placeOrder.ITransaction;
     }>()
 );
 
 export const cancelTransactionSuccess = createAction(
-    `${LABEL} cancelTransactionSuccess`,
+    `${LABEL} cancelTransactionSuccess`
 );
 
 export const cancelTransactionFail = createAction(
@@ -112,7 +108,7 @@ export const getScreen = createAction(
 
 export const getScreenSuccess = createAction(
     `${LABEL} getScreenSuccess`,
-    props<{ screen: factory.chevre.place.screeningRoom.IPlace; }>()
+    props<{ screen: factory.chevre.place.screeningRoom.IPlace }>()
 );
 
 export const getScreenFail = createAction(
@@ -141,9 +137,8 @@ export const getTicketList = createAction(
 export const getTicketListSuccess = createAction(
     `${LABEL} getTicketListSuccess`,
     props<{
-        screeningEventTicketOffers: factory.chevre.event.screeningEvent.ITicketOffer[]
-    }
-    >()
+        screeningEventTicketOffers: factory.chevre.event.screeningEvent.ITicketOffer[];
+    }>()
 );
 
 export const getTicketListFail = createAction(
@@ -225,14 +220,14 @@ export const authorizeMovieTicket = createAction(
         authorizeMovieTicketPayments: factory.action.authorize.paymentMethod.any.IAction[];
         authorizeSeatReservations: factory.action.authorize.offer.seatReservation.IAction<factory.service.webAPI.Identifier.Chevre>[];
         pendingMovieTickets: Models.Purchase.MovieTicket.IMovieTicket[];
-        seller: factory.chevre.seller.ISeller
+        seller: factory.chevre.seller.ISeller;
     }>()
 );
 
 export const authorizeMovieTicketSuccess = createAction(
     `${LABEL} authorizeMovieTicketSuccess`,
     props<{
-        authorizeMovieTicketPayments: factory.action.authorize.paymentMethod.any.IAction[]
+        authorizeMovieTicketPayments: factory.action.authorize.paymentMethod.any.IAction[];
     }>()
 );
 
@@ -257,7 +252,7 @@ export const checkMovieTicket = createAction(
 export const checkMovieTicketSuccess = createAction(
     `${LABEL} checkMovieTicketSuccess`,
     props<{
-        checkMovieTicketAction: factory.action.check.paymentMethod.movieTicket.IAction
+        checkMovieTicketAction: factory.action.check.paymentMethod.movieTicket.IAction;
     }>()
 );
 
@@ -294,14 +289,14 @@ export const createGmoTokenObject = createAction(
             expire: string;
             holderName: string;
             securityCode: string;
-        },
+        };
         seller: factory.chevre.seller.ISeller;
     }>()
 );
 
 export const createGmoTokenObjectSuccess = createAction(
     `${LABEL} createGmoTokenObjectSuccess`,
-    props<{ gmoTokenObject: Functions.Purchase.IGmoTokenObject; }>()
+    props<{ gmoTokenObject: Functions.Purchase.IGmoTokenObject }>()
 );
 
 export const createGmoTokenObjectFail = createAction(
@@ -313,17 +308,19 @@ export const authorizeAnyPayment = createAction(
     `${LABEL} authorizeAnyPayment`,
     props<{
         transaction: factory.transaction.placeOrder.ITransaction;
-        paymentMethod: factory.chevre.paymentMethodType;
-        name?: string;
-        amount: number;
-        additionalProperty?: { name: string; value: any; }[];
+        data: {
+            paymentMethod: string;
+            name?: string;
+            amount: number;
+            additionalProperty?: { name: string; value: any }[];
+        }[];
     }>()
 );
 
 export const authorizeAnyPaymentSuccess = createAction(
     `${LABEL} authorizeAnyPaymentSuccess`,
     props<{
-        authorizeAnyPayment: factory.action.authorize.paymentMethod.any.IAction
+        authorizeAnyPayments: factory.action.authorize.paymentMethod.any.IAction[];
     }>()
 );
 
@@ -346,8 +343,3 @@ export const setCustomer = createAction(
         customer: factory.chevre.organization.IOrganization;
     }>()
 );
-
-
-
-
-

@@ -4,8 +4,7 @@
         <h2 class="text-large mb-4 text-center font-weight-bold">{{ 'purchase.confirm.title' | translate }}</h2>
         <p class="mb-4 text-md-center" [innerHTML]="'purchase.confirm.read' | translate"></p>
 
-        <div *ngFor="let authorizeSeatReservation of (purchase | async)?.authorizeSeatReservations"
-            class="mb-4">
+        <div *ngFor="let authorizeSeatReservation of (purchase | async)?.authorizeSeatReservations" class="mb-4">
             <app-item-event [screeningEvent]="authorizeSeatReservation.object.event"></app-item-event>
             <div class="bg-white p-3">
                 <app-item-list
@@ -14,7 +13,7 @@
             </div>
         </div>
 
-        <div class="mb-4 px-3 bg-white"
+        <!-- <div class="mb-4 px-3 bg-white"
             *ngIf="(purchase | async)?.paymentMethod && (purchase | async)?.paymentMethod.typeOf === paymentMethodType.Cash">
             <div class="container px-0">
                 <div class="row align-items-center py-3">
@@ -37,19 +36,62 @@
                     <p class="col-md-8" [ngClass]="{'font-weight-bold text-danger': (depositAmount - amount) < 0}">{{ (depositAmount - amount) | currency : 'JPY' }}</p>
                 </div>
             </div>
-        </div>
+        </div> -->
 
-        <div class="bg-white px-3 mb-4">
-            <div class="container px-0">
-                <div class="py-3 row align-items-center">
-                    <p class="mb-2 mb-md-0 col-md-4">{{ 'common.paymentMethod' | translate }}</p>
-                    <p *ngIf="paymentMethod" class="col-md-8">{{ paymentMethod?.name | changeLanguage }}</p>
-                </div>
-                <hr class="border-gray my-0">
-                <div class="py-3 row align-items-center">
+        <div class="bg-white mb-4 py-3">
+            <div class="container mb-3">
+                <div class="row align-items-center">
                     <p class="mb-2 mb-md-0 col-md-4">{{ 'common.amount' | translate }}</p>
                     <p class="col-md-8 font-weight-bold text-large text-info">{{ amount | currency : 'JPY' }}</p>
                 </div>
+            </div>
+            <div class="container">
+                <div class="row">
+                    <div class="col-12 col-md-4 mb-3" *ngFor="let payment of payments"
+                        [class]="payment.paymentAccepted.paymentMethodType">
+                        <button type="button" class="btn btn-block py-3 m-0 h-100"
+                            [class]="payment.selected ? 'btn-outline-primary' : 'btn-primary'"
+                            (click)="selectPaymentMethodType(payment.paymentAccepted.paymentMethodType)">
+                            <div>{{ payment.categoryCode.name | changeLanguage }}</div>
+                        </button>
+                    </div>
+
+                </div>
+            </div>
+            <div class="container">
+                <ng-container *ngFor="let payment of payments">
+                    <div *ngIf="payment.selected" class="row align-items-center py-3">
+                        <p class="mb-2 mb-md-0 col-md-4 text-md-right">
+                            {{ payment.categoryCode.name | changeLanguage }}
+                        </p>
+                        <p class="col-md-8 d-flex align-items-center position-static">
+                            <span class="mr-2">￥</span>
+                            <app-numeric-keypad inputType="number" [inputValue]="payment.value" viewPosition="Top"
+                                [maxlength]="10" (change)="payment.value = $event; changeValue()"
+                                (hidden)="payment.value = ($event.length > 0) ? $event : 0">
+                                <input type="number" class="form-control text-large py-2 h-auto"
+                                    [id]="payment.categoryCode.name" [ngModel]="payment.value" readonly>
+                            </app-numeric-keypad>
+                            <button type="button" class="btn btn-primary m-0 ml-3"
+                                (click)="payment.value = amount; changeValue()">
+                                <i class="fas fa-arrow-alt-circle-up"></i>
+                            </button>
+                            <button type="button" class="btn btn-primary m-0 ml-3"
+                                (click)="payment.value = 0; changeValue()">
+                                <i class="fas fa-arrow-alt-circle-down"></i>
+                            </button>
+                        </p>
+                    </div>
+
+                    <div *ngIf="payment.selected && payment.paymentAccepted.paymentMethodType === paymentMethodType.Cash"
+                        class="row align-items-center">
+                        <p class="mb-2 mb-md-0 col-md-4 text-md-right">
+                            {{ 'purchase.confirm.change' | translate }}
+                        </p>
+                        <p class="col-md-8 text-large" [ngClass]="{'font-weight-bold text-danger': chargeAmount < 0}">
+                            {{ chargeAmount | currency : 'JPY' }}</p>
+                    </div>
+                </ng-container>
             </div>
         </div>
 
@@ -62,11 +104,21 @@
         </div>
 
         <div class="buttons mx-auto text-center">
-            <button *ngIf="!environment.PURCHASE_WARNING" type="submit" class="btn btn-primary btn-block py-3 mb-3" [disabled]="isLoading | async"
-                (click)="onSubmit()">{{ 'purchase.confirm.next' | translate }}</button>
-            <button *ngIf="environment.PURCHASE_WARNING" type="submit" class="btn btn-primary btn-block py-3 mb-3" [disabled]="isLoading | async"
-                (click)="onSubmit()">{{ 'purchase.confirm.consent' | translate }}</button>
-            <button type="button" class="btn btn-outline-primary btn-block py-3"
-                routerLink="/purchase/payment">{{ 'purchase.confirm.prev' | translate }}</button>
+            <button *ngIf="!environment.PURCHASE_WARNING" type="submit" class="btn btn-primary btn-block py-3 mb-3"
+                [disabled]="(isLoading | async) || isValid" (click)="onSubmit()">{{ 'purchase.confirm.next' | translate
+                }}</button>
+            <button *ngIf="environment.PURCHASE_WARNING" type="submit" class="btn btn-primary btn-block py-3 mb-3"
+                [disabled]="(isLoading | async) || isValid" (click)="onSubmit()">{{ 'purchase.confirm.consent' |
+                translate
+                }}</button>
+            <div *ngIf="environment.VIEW_TYPE === viewType.Cinema">
+                <button type="button" class="btn btn-outline-primary btn-block py-3"
+                    routerLink="/purchase/cinema/ticket">{{
+                    'purchase.confirm.prev' | translate }}</button>
+            </div>
+            <div *ngIf="environment.VIEW_TYPE === viewType.Event">
+                <button type="button" class="btn btn-outline-primary btn-block py-3"
+                    routerLink="/purchase/event/schedule">{{ 'purchase.confirm.prev' | translate }}</button>
+            </div>
         </div>
     </div>
