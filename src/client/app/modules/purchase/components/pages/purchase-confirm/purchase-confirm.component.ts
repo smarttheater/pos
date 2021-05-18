@@ -7,13 +7,17 @@ import * as moment from 'moment';
 import { Observable } from 'rxjs';
 import { Functions } from '../../../../..';
 import { getEnvironment } from '../../../../../../environments/environment';
-import { ActionService, MasterService, UtilService } from '../../../../../services';
+import {
+    ActionService,
+    MasterService,
+    UtilService,
+} from '../../../../../services';
 import * as reducers from '../../../../../store/reducers';
 
 @Component({
     selector: 'app-purchase-confirm',
     templateUrl: './purchase-confirm.component.html',
-    styleUrls: ['./purchase-confirm.component.scss']
+    styleUrls: ['./purchase-confirm.component.scss'],
 })
 export class PurchaseConfirmComponent implements OnInit {
     public purchase: Observable<reducers.IPurchaseState>;
@@ -32,8 +36,8 @@ export class PurchaseConfirmComponent implements OnInit {
         private actionService: ActionService,
         private utilService: UtilService,
         private translate: TranslateService,
-        private masterService: MasterService,
-    ) { }
+        private masterService: MasterService
+    ) {}
 
     public async ngOnInit() {
         this.purchase = this.store.pipe(select(reducers.getPurchase));
@@ -42,12 +46,19 @@ export class PurchaseConfirmComponent implements OnInit {
         this.amount = 0;
         this.depositAmount = 0;
         try {
-            const { authorizeSeatReservations, paymentMethod } = await this.actionService.purchase.getData();
-            this.amount = Functions.Purchase.getAmount(authorizeSeatReservations);
+            const { authorizeSeatReservations, paymentMethod } =
+                await this.actionService.purchase.getData();
+            this.amount = Functions.Purchase.getAmount(
+                authorizeSeatReservations
+            );
             const paymentTypes = await this.masterService.searchCategoryCode({
-                categorySetIdentifier: factory.chevre.categoryCode.CategorySetIdentifier.PaymentMethodType
+                categorySetIdentifier:
+                    factory.chevre.categoryCode.CategorySetIdentifier
+                        .PaymentMethodType,
             });
-            this.paymentMethod = paymentTypes.find(c => c.codeValue === paymentMethod?.typeOf);
+            this.paymentMethod = paymentTypes.find(
+                (c) => c.codeValue === paymentMethod?.typeOf
+            );
         } catch (error) {
             console.error(error);
             this.router.navigate(['/error']);
@@ -58,12 +69,16 @@ export class PurchaseConfirmComponent implements OnInit {
      * 確定
      */
     public async onSubmit() {
-        const { paymentMethod, seller, pendingMovieTickets } = await this.actionService.purchase.getData();
-        const { language, customerContact } = await this.actionService.user.getData();
+        const { paymentMethod, seller, pendingMovieTickets, customer } =
+            await this.actionService.purchase.getData();
+        const { language, customerContact } =
+            await this.actionService.user.getData();
         const profile = customerContact;
-        if (paymentMethod === undefined
-            || profile === undefined
-            || seller === undefined) {
+        if (
+            paymentMethod === undefined ||
+            profile === undefined ||
+            seller === undefined
+        ) {
             this.router.navigate(['/error']);
             return;
         }
@@ -71,7 +86,9 @@ export class PurchaseConfirmComponent implements OnInit {
             if (Number(this.depositAmount) < this.amount) {
                 this.utilService.openAlert({
                     title: this.translate.instant('common.error'),
-                    body: this.translate.instant('purchase.confirm.alert.custody')
+                    body: this.translate.instant(
+                        'purchase.confirm.alert.custody'
+                    ),
                 });
                 return;
             }
@@ -79,21 +96,37 @@ export class PurchaseConfirmComponent implements OnInit {
         }
         try {
             if (pendingMovieTickets.length > 0) {
-                await this.actionService.purchase.authorizeMovieTicket({ seller });
+                await this.actionService.purchase.authorizeMovieTicket({
+                    seller,
+                });
             }
             const deposit = Number(this.depositAmount);
-            const additionalProperty: { name: string; value: string; }[] = [];
-            if (paymentMethod.typeOf === factory.chevre.paymentMethodType.Cash) {
+            const additionalProperty: { name: string; value: string }[] = [];
+            if (
+                paymentMethod.typeOf === factory.chevre.paymentMethodType.Cash
+            ) {
                 // 現金
-                additionalProperty.push({ name: 'depositAmount', value: String(deposit) });
-                additionalProperty.push({ name: 'change', value: String(deposit - this.amount) });
+                additionalProperty.push({
+                    name: 'depositAmount',
+                    value: String(deposit),
+                });
+                additionalProperty.push({
+                    name: 'change',
+                    value: String(deposit - this.amount),
+                });
             }
             await this.actionService.purchase.authorizeAnyPayment({
                 amount: this.amount,
-                additionalProperty
+                additionalProperty,
             });
-            await this.actionService.purchase.registerContact(profile);
-            await this.actionService.purchase.endTransaction({ seller, language });
+            await this.actionService.purchase.setProfile({
+                profile,
+                customer,
+            });
+            await this.actionService.purchase.endTransaction({
+                seller,
+                language,
+            });
             this.router.navigate(['/purchase/complete']);
         } catch (error) {
             console.error(error);
@@ -113,10 +146,10 @@ export class PurchaseConfirmComponent implements OnInit {
      */
     public async openDrawer() {
         try {
-            const { paymentMethod } = await this.actionService.purchase.getData();
+            const { paymentMethod } =
+                await this.actionService.purchase.getData();
             const { printer, drawer } = await this.actionService.user.getData();
-            if (paymentMethod === undefined
-                || printer === undefined) {
+            if (paymentMethod === undefined || printer === undefined) {
                 throw new Error('order or printer undefined');
             }
             if (drawer === undefined || !drawer) {
@@ -127,12 +160,13 @@ export class PurchaseConfirmComponent implements OnInit {
             this.utilService.openAlert({
                 title: this.translate.instant('common.error'),
                 body: `
-                <p class="mb-4">${this.translate.instant('purchase.complete.alert.drawer')}</p>
+                <p class="mb-4">${this.translate.instant(
+                    'purchase.complete.alert.drawer'
+                )}</p>
                     <div class="p-3 bg-light-gray select-text">
                     <code>${JSON.stringify(error)}</code>
-                </div>`
+                </div>`,
             });
         }
     }
-
 }

@@ -579,7 +579,7 @@
             "TemporaryReservation": "仮予約しています",
             "TemporaryReservationFreeSeat": "仮予約しています",
             "CancelTemporaryReservations": "仮予約をキャンセルしています",
-            "RegisterContact": "購入者情報を登録しています",
+            "SetProfile": "購入者情報を登録しています",
             "AuthorizeCreditCard": "クレジットカード情報を承認しています",
             "CreateGmoTokenObject": "GMOオブジェクトを作成しています",
             "AuthorizeMovieTicket": "ムビチケ情報を承認しています",
@@ -734,6 +734,7 @@
         "change": "変更",
         "remove": "削除",
         "etc": "その他",
-        "required": "必須"
+        "required": "必須",
+        "additionalProperty": "追加特性"
     }
 }
