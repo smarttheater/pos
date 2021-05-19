@@ -14,13 +14,12 @@ import { purchaseAction } from '../actions';
  */
 @Injectable()
 export class PurchaseEffects {
-
     constructor(
         private actions: Actions,
         private cinerinoService: CinerinoService,
         private utilService: UtilService,
         private translate: TranslateService
-    ) { }
+    ) {}
 
     /**
      * GetSeller
@@ -28,12 +27,14 @@ export class PurchaseEffects {
     @Effect()
     public getSeller = this.actions.pipe(
         ofType(purchaseAction.getSeller),
-        map(action => action),
+        map((action) => action),
         mergeMap(async (payload) => {
             try {
                 await this.cinerinoService.getServices();
                 const id = payload.id;
-                const seller = await this.cinerinoService.seller.findById({ id });
+                const seller = await this.cinerinoService.seller.findById({
+                    id,
+                });
                 return purchaseAction.getSellerSuccess({ seller });
             } catch (error) {
                 return purchaseAction.getSellerFail({ error: error });
@@ -47,20 +48,23 @@ export class PurchaseEffects {
     @Effect()
     public startTransaction = this.actions.pipe(
         ofType(purchaseAction.startTransaction),
-        map(action => action),
+        map((action) => action),
         mergeMap(async (payload) => {
             try {
                 const params = payload;
                 const selleId = params.seller.id;
                 await this.cinerinoService.getServices();
-                const passport = await this.cinerinoService.getPassport(selleId);
-                const transaction = await this.cinerinoService.transaction.placeOrder.start({
-                    ...params,
-                    object: {
-                        ...params.object,
-                        passport
-                     }
-                });
+                const passport = await this.cinerinoService.getPassport(
+                    selleId
+                );
+                const transaction =
+                    await this.cinerinoService.transaction.placeOrder.start({
+                        ...params,
+                        object: {
+                            ...params.object,
+                            passport,
+                        },
+                    });
                 return purchaseAction.startTransactionSuccess({ transaction });
             } catch (error) {
                 console.error(error);
@@ -75,12 +79,14 @@ export class PurchaseEffects {
     @Effect()
     public cancelTransaction = this.actions.pipe(
         ofType(purchaseAction.cancelTransaction),
-        map(action => action),
+        map((action) => action),
         mergeMap(async (payload) => {
             try {
                 const transaction = payload.transaction;
                 await this.cinerinoService.getServices();
-                await this.cinerinoService.transaction.placeOrder.cancel({ id: transaction.id });
+                await this.cinerinoService.transaction.placeOrder.cancel({
+                    id: transaction.id,
+                });
                 return purchaseAction.cancelTransactionSuccess();
             } catch (error) {
                 return purchaseAction.cancelTransactionSuccess();
@@ -94,12 +100,18 @@ export class PurchaseEffects {
     @Effect()
     public getScreen = this.actions.pipe(
         ofType(purchaseAction.getScreen),
-        map(action => action),
+        map((action) => action),
         mergeMap(async (payload) => {
             try {
                 await this.cinerinoService.getServices();
-                const searchResult = (await this.cinerinoService.place.searchScreeningRooms(payload)).data;
-                return purchaseAction.getScreenSuccess({ screen: searchResult[0] });
+                const searchResult = (
+                    await this.cinerinoService.place.searchScreeningRooms(
+                        payload
+                    )
+                ).data;
+                return purchaseAction.getScreenSuccess({
+                    screen: searchResult[0],
+                });
             } catch (error) {
                 return purchaseAction.getScreenFail({ error: error });
             }
@@ -112,20 +124,29 @@ export class PurchaseEffects {
     @Effect()
     public getScreeningEvent = this.actions.pipe(
         ofType(purchaseAction.getScreeningEvent),
-        map(action => action),
+        map((action) => action),
         mergeMap(async (payload) => {
             try {
                 await this.cinerinoService.getServices();
                 const screeningEvent =
-                    await this.cinerinoService.event.findById<factory.chevre.eventType.ScreeningEvent>({ id: payload.screeningEvent.id });
-                const searchMovie = (await this.cinerinoService.creativeWork.searchMovies({
-                    identifier: (screeningEvent.workPerformed === undefined)
-                        ? undefined : screeningEvent.workPerformed.identifier
-                })).data[0];
+                    await this.cinerinoService.event.findById<factory.chevre.eventType.ScreeningEvent>(
+                        { id: payload.screeningEvent.id }
+                    );
+                const searchMovie = (
+                    await this.cinerinoService.creativeWork.searchMovies({
+                        identifier:
+                            screeningEvent.workPerformed === undefined
+                                ? undefined
+                                : screeningEvent.workPerformed.identifier,
+                    })
+                ).data[0];
                 if (screeningEvent.workPerformed !== undefined) {
-                    screeningEvent.workPerformed.additionalProperty = searchMovie.additionalProperty;
+                    screeningEvent.workPerformed.additionalProperty =
+                        searchMovie.additionalProperty;
                 }
-                return purchaseAction.getScreeningEventSuccess({ screeningEvent });
+                return purchaseAction.getScreeningEventSuccess({
+                    screeningEvent,
+                });
             } catch (error) {
                 return purchaseAction.getScreeningEventFail({ error: error });
             }
@@ -138,7 +159,7 @@ export class PurchaseEffects {
     @Effect()
     public temporaryReservation = this.actions.pipe(
         ofType(purchaseAction.temporaryReservation),
-        map(action => action),
+        map((action) => action),
         mergeMap(async (payload) => {
             const transaction = payload.transaction;
             const screeningEvent = payload.screeningEvent;
@@ -148,61 +169,114 @@ export class PurchaseEffects {
             try {
                 await this.cinerinoService.getServices();
                 if (payload.authorizeSeatReservation !== undefined) {
-                    await this.cinerinoService.transaction.placeOrder
-                        .voidSeatReservation(payload.authorizeSeatReservation);
+                    await this.cinerinoService.transaction.placeOrder.voidSeatReservation(
+                        payload.authorizeSeatReservation
+                    );
                 }
-                const availableSeats = Functions.Purchase.selectAvailableSeat({ reservations, screeningEventSeats });
-                if (new Models.Purchase.Performance({ screeningEvent }).isTicketedSeat()
-                    && availableSeats.length !== reservations.length) {
+                const availableSeats = Functions.Purchase.selectAvailableSeat({
+                    reservations,
+                    screeningEventSeats,
+                });
+                if (
+                    new Models.Purchase.Performance({
+                        screeningEvent,
+                    }).isTicketedSeat() &&
+                    availableSeats.length !== reservations.length
+                ) {
                     throw new Error('Out of stock');
                 }
-                const authorizeSeatReservation =
-                    <factory.action.authorize.offer.seatReservation.IAction<factory.service.webAPI.Identifier.Chevre>>
-                    await this.cinerinoService.transaction.placeOrder.authorizeSeatReservation({
+                const authorizeSeatReservation = <
+                    factory.action.authorize.offer.seatReservation.IAction<factory.service.webAPI.Identifier.Chevre>
+                >await this.cinerinoService.transaction.placeOrder.authorizeSeatReservation(
+                    {
                         object: {
                             event: { id: screeningEvent.id },
                             acceptedOffer: reservations.map((r, index) => {
-                                if (r.ticket === undefined || r.ticket.ticketOffer.id === undefined) {
-                                    throw new Error('ticket or ticket.ticketOffer.id is undefined');
+                                if (
+                                    r.ticket === undefined ||
+                                    r.ticket.ticketOffer.id === undefined
+                                ) {
+                                    throw new Error(
+                                        'ticket or ticket.ticketOffer.id is undefined'
+                                    );
                                 }
                                 return {
                                     id: r.ticket.ticketOffer.id,
-                                    addOn: (r.ticket.addOn === undefined)
-                                        ? undefined
-                                        : r.ticket.addOn.filter(a => a.id !== undefined).map(a => ({ id: <string>a.id })),
+                                    addOn:
+                                        r.ticket.addOn === undefined
+                                            ? undefined
+                                            : r.ticket.addOn
+                                                  .filter(
+                                                      (a) => a.id !== undefined
+                                                  )
+                                                  .map((a) => ({
+                                                      id: <string>a.id,
+                                                  })),
                                     additionalProperty: [],
                                     itemOffered: {
                                         serviceOutput: {
-                                            typeOf: factory.chevre.reservationType.EventReservation,
-                                            additionalProperty: (screeningEvent.workPerformed === undefined
-                                                || screeningEvent.workPerformed.additionalProperty === undefined)
-                                                ? [] : [...screeningEvent.workPerformed.additionalProperty],
-                                            additionalTicketText: additionalTicketText,
+                                            typeOf: factory.chevre
+                                                .reservationType
+                                                .EventReservation,
+                                            additionalProperty:
+                                                screeningEvent.workPerformed ===
+                                                    undefined ||
+                                                screeningEvent.workPerformed
+                                                    .additionalProperty ===
+                                                    undefined
+                                                    ? []
+                                                    : [
+                                                          ...screeningEvent
+                                                              .workPerformed
+                                                              .additionalProperty,
+                                                      ],
+                                            additionalTicketText:
+                                                additionalTicketText,
                                             reservedTicket: {
                                                 typeOf: 'Ticket',
-                                                ticketedSeat: (new Models.Purchase.Performance({ screeningEvent }).isTicketedSeat())
-                                                    ? availableSeats[index] : undefined,
+                                                ticketedSeat:
+                                                    new Models.Purchase.Performance(
+                                                        { screeningEvent }
+                                                    ).isTicketedSeat()
+                                                        ? availableSeats[index]
+                                                        : undefined,
                                             },
-                                            subReservation: (new Models.Purchase.Performance({ screeningEvent }).isTicketedSeat())
-                                                ? availableSeats[index].subReservations.map(s => {
-                                                    return {
-                                                        reservedTicket: { typeOf: 'Ticket', ticketedSeat: s }
-                                                    };
-                                                })
-                                                : undefined
-                                        }
-                                    }
+                                            subReservation:
+                                                new Models.Purchase.Performance(
+                                                    { screeningEvent }
+                                                ).isTicketedSeat()
+                                                    ? availableSeats[
+                                                          index
+                                                      ].subReservations.map(
+                                                          (s) => {
+                                                              return {
+                                                                  reservedTicket:
+                                                                      {
+                                                                          typeOf: 'Ticket',
+                                                                          ticketedSeat:
+                                                                              s,
+                                                                      },
+                                                              };
+                                                          }
+                                                      )
+                                                    : undefined,
+                                        },
+                                    },
                                 };
-                            })
+                            }),
                         },
-                        purpose: transaction
-                    });
+                        purpose: transaction,
+                    }
+                );
                 return purchaseAction.temporaryReservationSuccess({
                     addAuthorizeSeatReservation: authorizeSeatReservation,
-                    removeAuthorizeSeatReservation: payload.authorizeSeatReservation
+                    removeAuthorizeSeatReservation:
+                        payload.authorizeSeatReservation,
                 });
             } catch (error) {
-                return purchaseAction.temporaryReservationFail({ error: error });
+                return purchaseAction.temporaryReservationFail({
+                    error: error,
+                });
             }
         })
     );
@@ -213,22 +287,28 @@ export class PurchaseEffects {
     @Effect()
     public cancelTemporaryReservations = this.actions.pipe(
         ofType(purchaseAction.cancelTemporaryReservations),
-        map(action => action),
+        map((action) => action),
         mergeMap(async (payload) => {
             try {
-                const authorizeSeatReservations = payload.authorizeSeatReservations;
+                const authorizeSeatReservations =
+                    payload.authorizeSeatReservations;
                 await this.cinerinoService.getServices();
                 for (const authorizeSeatReservation of authorizeSeatReservations) {
-                    await this.cinerinoService.transaction.placeOrder.voidSeatReservation(authorizeSeatReservation);
+                    await this.cinerinoService.transaction.placeOrder.voidSeatReservation(
+                        authorizeSeatReservation
+                    );
                 }
 
-                return purchaseAction.cancelTemporaryReservationsSuccess({ authorizeSeatReservations });
+                return purchaseAction.cancelTemporaryReservationsSuccess({
+                    authorizeSeatReservations,
+                });
             } catch (error) {
-                return purchaseAction.cancelTemporaryReservationsFail({ error: error });
+                return purchaseAction.cancelTemporaryReservationsFail({
+                    error: error,
+                });
             }
         })
     );
-
 
     /**
      * getTicketList
@@ -236,24 +316,26 @@ export class PurchaseEffects {
     @Effect()
     public getTicketList = this.actions.pipe(
         ofType(purchaseAction.getTicketList),
-        map(action => action),
+        map((action) => action),
         mergeMap(async (payload) => {
             try {
                 await this.cinerinoService.getServices();
                 const clientId = this.cinerinoService.auth.options.clientId;
                 const screeningEvent = payload.screeningEvent;
                 const seller = payload.seller;
-                if (clientId === undefined
-                    || seller.id === undefined) {
+                if (clientId === undefined || seller.id === undefined) {
                     throw new Error('clientId or seller.id undefined');
                 }
-                const screeningEventTicketOffers = await this.cinerinoService.event.searchTicketOffers({
-                    event: { id: screeningEvent.id },
-                    seller: { typeOf: seller.typeOf, id: seller.id },
-                    store: { id: clientId }
-                });
+                const screeningEventTicketOffers =
+                    await this.cinerinoService.event.searchTicketOffers({
+                        event: { id: screeningEvent.id },
+                        seller: { typeOf: seller.typeOf, id: seller.id },
+                        store: { id: clientId },
+                    });
 
-                return purchaseAction.getTicketListSuccess({ screeningEventTicketOffers });
+                return purchaseAction.getTicketListSuccess({
+                    screeningEventTicketOffers,
+                });
             } catch (error) {
                 return purchaseAction.getTicketListFail({ error: error });
             }
@@ -261,27 +343,31 @@ export class PurchaseEffects {
     );
 
     /**
-     * registerContact
+     * setProfile
      */
     @Effect()
-    public registerContact = this.actions.pipe(
-        ofType(purchaseAction.registerContact),
-        map(action => action),
+    public setProfile = this.actions.pipe(
+        ofType(purchaseAction.setProfile),
+        map((action) => action),
         mergeMap(async (payload) => {
             const transaction = payload.transaction;
-            const profile = Functions.Util.deepCopy<factory.person.IProfile>(payload.contact);
+            const profile = Functions.Util.deepCopy<factory.person.IProfile>(
+                payload.profile
+            );
             if (profile.telephone !== undefined) {
-                profile.telephone = Functions.Util.formatTelephone(profile.telephone);
+                profile.telephone = Functions.Util.formatTelephone(
+                    profile.telephone
+                );
             }
             try {
                 await this.cinerinoService.getServices();
                 await this.cinerinoService.transaction.placeOrder.setProfile({
                     id: transaction.id,
-                    agent: profile
+                    agent: profile,
                 });
-                return purchaseAction.registerContactSuccess({ profile });
+                return purchaseAction.setProfileSuccess({ profile });
             } catch (error) {
-                return purchaseAction.registerContactFail({ error: error });
+                return purchaseAction.setProfileFail({ error: error });
             }
         })
     );
@@ -292,34 +378,48 @@ export class PurchaseEffects {
     @Effect()
     public authorizeMovieTicket = this.actions.pipe(
         ofType(purchaseAction.authorizeMovieTicket),
-        map(action => action),
+        map((action) => action),
         mergeMap(async (payload) => {
             try {
                 await this.cinerinoService.getServices();
                 if (payload.authorizeMovieTicketPayments.length > 0) {
                     for (const authorizeMovieTicketPayment of payload.authorizeMovieTicketPayments) {
-                        await this.cinerinoService.payment.voidTransaction(authorizeMovieTicketPayment);
+                        await this.cinerinoService.payment.voidTransaction(
+                            authorizeMovieTicketPayment
+                        );
                     }
                 }
                 const transaction = payload.transaction;
                 const pendingMovieTickets = payload.pendingMovieTickets;
-                const authorizeSeatReservations = payload.authorizeSeatReservations;
-                const authorizeMovieTicketPayments: factory.action.authorize.paymentMethod.any.IAction[] = [];
+                const authorizeSeatReservations =
+                    payload.authorizeSeatReservations;
+                const authorizeMovieTicketPayments: factory.action.authorize.paymentMethod.any.IAction[] =
+                    [];
                 for (const authorizeSeatReservation of authorizeSeatReservations) {
-                    const movieTickets = Functions.Purchase.createMovieTicketsFromAuthorizeSeatReservation({
-                        authorizeSeatReservation, pendingMovieTickets
-                    });
+                    const movieTickets =
+                        Functions.Purchase.createMovieTicketsFromAuthorizeSeatReservation(
+                            {
+                                authorizeSeatReservation,
+                                pendingMovieTickets,
+                            }
+                        );
                     const movieTicketIdentifiers: {
                         identifier: string;
-                        movieTickets: factory.chevre.paymentMethod.paymentCard.movieTicket.IMovieTicket[]
+                        movieTickets: factory.chevre.paymentMethod.paymentCard.movieTicket.IMovieTicket[];
                     }[] = [];
                     movieTickets.forEach((movieTicket) => {
-                        const findResult = movieTicketIdentifiers.find((movieTicketIdentifier) => {
-                            return (movieTicketIdentifier.identifier === movieTicket.identifier);
-                        });
+                        const findResult = movieTicketIdentifiers.find(
+                            (movieTicketIdentifier) => {
+                                return (
+                                    movieTicketIdentifier.identifier ===
+                                    movieTicket.identifier
+                                );
+                            }
+                        );
                         if (findResult === undefined) {
                             movieTicketIdentifiers.push({
-                                identifier: movieTicket.identifier, movieTickets: [movieTicket]
+                                identifier: movieTicket.identifier,
+                                movieTickets: [movieTicket],
                             });
                             return;
                         }
@@ -327,22 +427,35 @@ export class PurchaseEffects {
                     });
                     for (const movieTicketIdentifier of movieTicketIdentifiers) {
                         const authorizeMovieTicketPaymentResult =
-                            await this.cinerinoService.payment.authorizeMovieTicket({
-                                object: {
-                                    typeOf: factory.action.authorize.paymentMethod.any.ResultType.Payment,
-                                    amount: 0,
-                                    movieTickets: movieTicketIdentifier.movieTickets,
-                                    paymentMethod: movieTicketIdentifier.movieTickets[0].typeOf
-                                },
-                                purpose: transaction
-                            });
-                        authorizeMovieTicketPayments.push(authorizeMovieTicketPaymentResult);
+                            await this.cinerinoService.payment.authorizeMovieTicket(
+                                {
+                                    object: {
+                                        typeOf: factory.action.authorize
+                                            .paymentMethod.any.ResultType
+                                            .Payment,
+                                        amount: 0,
+                                        movieTickets:
+                                            movieTicketIdentifier.movieTickets,
+                                        paymentMethod:
+                                            movieTicketIdentifier
+                                                .movieTickets[0].typeOf,
+                                    },
+                                    purpose: transaction,
+                                }
+                            );
+                        authorizeMovieTicketPayments.push(
+                            authorizeMovieTicketPaymentResult
+                        );
                     }
                 }
 
-                return purchaseAction.authorizeMovieTicketSuccess({ authorizeMovieTicketPayments });
+                return purchaseAction.authorizeMovieTicketSuccess({
+                    authorizeMovieTicketPayments,
+                });
             } catch (error) {
-                return purchaseAction.authorizeMovieTicketFail({ error: error });
+                return purchaseAction.authorizeMovieTicketFail({
+                    error: error,
+                });
             }
         })
     );
@@ -352,7 +465,7 @@ export class PurchaseEffects {
     @Effect()
     public checkMovieTicket = this.actions.pipe(
         ofType(purchaseAction.checkMovieTicket),
-        map(action => action),
+        map((action) => action),
         mergeMap(async (payload) => {
             try {
                 await this.cinerinoService.getServices();
@@ -362,37 +475,41 @@ export class PurchaseEffects {
                 if (transaction.seller.id === undefined) {
                     throw new Error('transaction.seller.id undefined');
                 }
-                const checkMovieTicketAction = await this.cinerinoService.payment.checkMovieTicket({
-                    typeOf: movieTickets[0].typeOf,
-                    movieTickets: movieTickets.map((movieTicket) => {
-                        return {
-                            ...movieTicket,
-                            project: screeningEvent.project,
-                            serviceType: '', // 情報空でよし
-                            serviceOutput: {
-                                reservationFor: {
-                                    typeOf: screeningEvent.typeOf,
-                                    id: screeningEvent.id
+                const checkMovieTicketAction =
+                    await this.cinerinoService.payment.checkMovieTicket({
+                        typeOf: movieTickets[0].typeOf,
+                        movieTickets: movieTickets.map((movieTicket) => {
+                            return {
+                                ...movieTicket,
+                                project: screeningEvent.project,
+                                serviceType: '', // 情報空でよし
+                                serviceOutput: {
+                                    reservationFor: {
+                                        typeOf: screeningEvent.typeOf,
+                                        id: screeningEvent.id,
+                                    },
+                                    reservedTicket: {
+                                        ticketedSeat: {
+                                            typeOf: factory.chevre.placeType
+                                                .Seat,
+                                            seatingType: <any>'', // 情報空でよし
+                                            seatNumber: '', // 情報空でよし
+                                            seatRow: '', // 情報空でよし
+                                            seatSection: '', // 情報空でよし
+                                        },
+                                    },
                                 },
-                                reservedTicket: {
-                                    ticketedSeat: {
-                                        typeOf: factory.chevre.placeType.Seat,
-                                        seatingType: <any>'', // 情報空でよし
-                                        seatNumber: '', // 情報空でよし
-                                        seatRow: '', // 情報空でよし
-                                        seatSection: '' // 情報空でよし
-                                    }
-                                }
-                            }
-                        };
-                    }),
-                    seller: {
-                        typeOf: transaction.seller.typeOf,
-                        id: transaction.seller.id
-                    }
-                });
+                            };
+                        }),
+                        seller: {
+                            typeOf: transaction.seller.typeOf,
+                            id: transaction.seller.id,
+                        },
+                    });
 
-                return purchaseAction.checkMovieTicketSuccess({ checkMovieTicketAction });
+                return purchaseAction.checkMovieTicketSuccess({
+                    checkMovieTicketAction,
+                });
             } catch (error) {
                 return purchaseAction.checkMovieTicketFail({ error: error });
             }
@@ -405,7 +522,7 @@ export class PurchaseEffects {
     @Effect()
     public endTransaction = this.actions.pipe(
         ofType(purchaseAction.endTransaction),
-        map(action => action),
+        map((action) => action),
         mergeMap(async (payload) => {
             const transaction = payload.transaction;
             const authorizeSeatReservations = payload.authorizeSeatReservations;
@@ -421,55 +538,100 @@ export class PurchaseEffects {
                     sendEmailMessage: true,
                     email: {
                         sender: {
-                            name: (this.translate.instant('email.purchase.complete.sender.name') === '')
-                                ? undefined : this.translate.instant('email.purchase.complete.sender.name'),
-                            email: (this.translate.instant('email.purchase.complete.sender.email') === '')
-                                ? undefined : this.translate.instant('email.purchase.complete.sender.email')
+                            name:
+                                this.translate.instant(
+                                    'email.purchase.complete.sender.name'
+                                ) === ''
+                                    ? undefined
+                                    : this.translate.instant(
+                                          'email.purchase.complete.sender.name'
+                                      ),
+                            email:
+                                this.translate.instant(
+                                    'email.purchase.complete.sender.email'
+                                ) === ''
+                                    ? undefined
+                                    : this.translate.instant(
+                                          'email.purchase.complete.sender.email'
+                                      ),
                         },
                         toRecipient: {
-                            name: (this.translate.instant('email.purchase.complete.toRecipient.name') === '')
-                                ? undefined : this.translate.instant('email.purchase.complete.toRecipient.name'),
-                            email: (this.translate.instant('email.purchase.complete.toRecipient.email') === '')
-                                ? undefined : this.translate.instant('email.purchase.complete.toRecipient.email')
+                            name:
+                                this.translate.instant(
+                                    'email.purchase.complete.toRecipient.name'
+                                ) === ''
+                                    ? undefined
+                                    : this.translate.instant(
+                                          'email.purchase.complete.toRecipient.name'
+                                      ),
+                            email:
+                                this.translate.instant(
+                                    'email.purchase.complete.toRecipient.email'
+                                ) === ''
+                                    ? undefined
+                                    : this.translate.instant(
+                                          'email.purchase.complete.toRecipient.email'
+                                      ),
                         },
-                        about: (this.translate.instant('email.purchase.complete.about') === '')
-                            ? undefined : this.translate.instant('email.purchase.complete.about'),
-                        template: undefined
-                    }
+                        about:
+                            this.translate.instant(
+                                'email.purchase.complete.about'
+                            ) === ''
+                                ? undefined
+                                : this.translate.instant(
+                                      'email.purchase.complete.about'
+                                  ),
+                        template: undefined,
+                    },
                 };
-                if (environment.PURCHASE_COMPLETE_MAIL_CUSTOM && params.email !== undefined) {
+                if (
+                    environment.PURCHASE_COMPLETE_MAIL_CUSTOM &&
+                    params.email !== undefined
+                ) {
                     // 完了メールをカスタマイズ
                     const path = `/ejs/mail/complete/${payload.language}.ejs`;
-                    const url = (await Functions.Util.isFile(`${Functions.Util.getProject().storageUrl}${path}`))
+                    const url = (await Functions.Util.isFile(
+                        `${Functions.Util.getProject().storageUrl}${path}`
+                    ))
                         ? `${Functions.Util.getProject().storageUrl}${path}`
                         : `/default${path}`;
                     const view = await this.utilService.getText(url);
-                    params.email.template = await (<any>window).ejs.render(view, {
-                        authorizeSeatReservations: Functions.Purchase.authorizeSeatReservation2Event({ authorizeSeatReservations }),
-                        seller,
-                        moment,
-                        formatTelephone: Functions.Util.formatTelephone,
-                        getItemPrice: Functions.Purchase.getItemPrice,
-                        getTicketPrice: Functions.Purchase.getTicketPrice
-                    }, { async: true });
+                    params.email.template = await (<any>window).ejs.render(
+                        view,
+                        {
+                            authorizeSeatReservations:
+                                Functions.Purchase.authorizeSeatReservation2Event(
+                                    { authorizeSeatReservations }
+                                ),
+                            seller,
+                            moment,
+                            formatTelephone: Functions.Util.formatTelephone,
+                            getItemPrice: Functions.Purchase.getItemPrice,
+                            getTicketPrice: Functions.Purchase.getTicketPrice,
+                        },
+                        { async: true }
+                    );
                 }
 
-                const { order } = await this.cinerinoService.transaction.placeOrder.confirm(params);
+                const { order } =
+                    await this.cinerinoService.transaction.placeOrder.confirm(
+                        params
+                    );
                 try {
                     await this.cinerinoService.order.placeOrder({
                         object: {
                             orderNumber: order.orderNumber,
-                            confirmationNumber: order.confirmationNumber
+                            confirmationNumber: order.confirmationNumber,
                         },
                         purpose: {
                             typeOf: factory.transactionType.PlaceOrder,
-                            id: transaction.id
-                        }
+                            id: transaction.id,
+                        },
                     });
                     await this.cinerinoService.delivery.sendOrder({
                         object: {
-                            orderNumber: order.orderNumber
-                        }
+                            orderNumber: order.orderNumber,
+                        },
                     });
                 } catch (error) {
                     console.error(error);
@@ -487,9 +649,10 @@ export class PurchaseEffects {
     @Effect()
     public authorizeAnyPayment = this.actions.pipe(
         ofType(purchaseAction.authorizeAnyPayment),
-        map(action => action),
+        map((action) => action),
         mergeMap(async (payload) => {
-            const typeOf = factory.action.authorize.paymentMethod.any.ResultType.Payment;
+            const typeOf =
+                factory.action.authorize.paymentMethod.any.ResultType.Payment;
             const transaction = payload.transaction;
             const paymentMethod = payload.paymentMethod;
             const amount = payload.amount;
@@ -499,10 +662,18 @@ export class PurchaseEffects {
                 await this.cinerinoService.getServices();
                 const authorizeAnyPayment =
                     await this.cinerinoService.payment.authorizeAnyPayment({
-                        object: { typeOf, name, amount, paymentMethod, additionalProperty },
-                        purpose: transaction
+                        object: {
+                            typeOf,
+                            name,
+                            amount,
+                            paymentMethod,
+                            additionalProperty,
+                        },
+                        purpose: transaction,
                     });
-                return purchaseAction.authorizeAnyPaymentSuccess({ authorizeAnyPayment });
+                return purchaseAction.authorizeAnyPaymentSuccess({
+                    authorizeAnyPayment,
+                });
             } catch (error) {
                 return purchaseAction.authorizeAnyPaymentFail({ error: error });
             }

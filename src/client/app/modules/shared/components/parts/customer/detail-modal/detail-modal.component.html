@@ -8,7 +8,7 @@
         </div>
         <div class="py-3 border-bottom border-gray">
             <div class="row align-items-center">
-                <p class="mb-2 mb-md-0 col-md-4">[name]</p>
+                <p class="mb-2 mb-md-0 col-md-4">[{{ 'customer.search.conditions.name' | translate }}]</p>
                 <p class="col-md-8">{{ customer.name | changeLanguage }}</p>
             </div>
         </div>
@@ -16,11 +16,22 @@
             <div class="row align-items-center">
                 <p class="mb-2 mb-md-0 col-md-4">[{{ 'customer.search.conditions.contactPoint' | translate }}]</p>
                 <div class="col-md-8">
-                    <p *ngFor="let contactPoint of customer.contactPoint" class="mb-3">
+                    <p *ngFor="let contactPoint of customer.contactPoint" class="mb-2">
                         {{ contactPoint.name }}<br>
                         {{ contactPoint.email }}<br>
                         {{ contactPoint.telephone | libphonenumberFormat }}
                     </p>
+                </div>
+            </div>
+        </div>
+        <div class="py-3 border-bottom border-gray">
+            <div class="row align-items-center">
+                <p class="mb-2 mb-md-0 col-md-4">[{{ 'common.additionalProperty' | translate }}]</p>
+                <div class="col-md-8">
+                    <div *ngFor="let additionalProperty of customer.additionalProperty" class="mb-2">
+                        <p>[{{ additionalProperty.name }}]</p>
+                        <p>{{ additionalProperty.value }}</p>
+                    </div>
                 </div>
             </div>
         </div>
