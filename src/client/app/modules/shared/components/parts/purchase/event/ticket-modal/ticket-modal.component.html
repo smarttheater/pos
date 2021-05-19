@@ -6,31 +6,35 @@
                 *ngIf="screeningEvent.superEvent.headline && (screeningEvent.superEvent.headline | changeLanguage)">
                 {{ screeningEvent.superEvent.headline | changeLanguage }}</p>
             <p class="text-small"
-                *ngIf="screeningEvent.superEvent.description && (screeningEvent.superEvent.description | changeLanguage)">{{
-                    screeningEvent.superEvent.description | changeLanguage }}</p>
+                *ngIf="screeningEvent.superEvent.description && (screeningEvent.superEvent.description | changeLanguage)">
+                {{
+                screeningEvent.superEvent.description | changeLanguage }}</p>
         </div>
         <p class="mb-1">
-            {{ moment(screeningEvent.startDate).format('MM/DD(ddd) HH:mm') }}-{{ moment(screeningEvent.endDate).format('HH:mm') }}
+            {{ moment(screeningEvent.startDate).format('MM/DD(ddd) HH:mm') }}-{{
+            moment(screeningEvent.endDate).format('HH:mm') }}
         </p>
         <p class="text-small mb-1">
             <span class="theater-name">
                 {{ screeningEvent.superEvent.location.name | changeLanguage }}
             </span>
             <span class="screen-name">
-                &nbsp;/&nbsp;<span *ngIf="screeningEvent.location.address | changeLanguage"
-                    class="mr-2">{{ screeningEvent.location.address | changeLanguage }}</span>{{ screeningEvent.location.name | changeLanguage }}
+                &nbsp;/&nbsp;<span *ngIf="screeningEvent.location.address | changeLanguage" class="mr-2">{{
+                    screeningEvent.location.address | changeLanguage }}</span>{{ screeningEvent.location.name |
+                changeLanguage }}
             </span>
             <span
                 *ngIf="screeningEvent.workPerformed?.duration && moment.duration(screeningEvent.workPerformed?.duration).asMinutes() > 0">
-                &nbsp;/&nbsp;<span
-                    class="mr-1">{{ 'common.duration' | translate }}</span>{{ moment.duration(screeningEvent.workPerformed?.duration).asMinutes() }}{{ 'common.date.minute' | translate }}
+                &nbsp;/&nbsp;<span class="mr-1">{{ 'common.duration' | translate }}</span>{{
+                moment.duration(screeningEvent.workPerformed?.duration).asMinutes() }}{{ 'common.date.minute' |
+                translate }}
             </span>
         </p>
-        <p *ngIf="performance.isTicketedSeat()" class="font-weight-bold"><span
-                class="mr-1">{{ 'purchase.event.schedule.remainingSeat' | translate }}</span>{{ getRemainingSeatLength({
-            screeningEventSeats: screeningEventSeats, 
+        <p *ngIf="performance.isTicketedSeat()" class="font-weight-bold"><span class="mr-1">{{
+                'purchase.event.schedule.remainingSeat' | translate }}</span>{{ getRemainingSeatLength({
+            screeningEventSeats: screeningEventSeats,
             screeningEvent: screeningEvent
-        }) }}</p>
+            }) }}</p>
     </div>
     <hr class="mb-3">
     <ul *ngIf="tickets.length > 0" class="mb-4">
@@ -49,7 +53,7 @@
                                 'common.referenceQuantityValue' | translate: { value:
                                 priceComponent?.referenceQuantity?.value } }}</span>
                         </p>
-                        <p *ngIf="ticket.description" class="text-x-small text-left">
+                        <p *ngIf="ticket.description" class="text-x-small text-left mt-1">
                             {{ ticket.description | changeLanguage }}</p>
                     </div>
                     <div class="col-4">
@@ -67,15 +71,19 @@
                     <div class="container px-0">
                         <div class="row justify-content-between align-items-center">
                             <div class="col-8">
-                                {{ addOn.priceSpecification?.name | changeLanguage }}
-                                <!--
-                                -->&nbsp;/&nbsp;
-                                <!--
-                                -->{{ addOn.priceSpecification?.price | currency :
-                                addOn.priceSpecification?.priceCurrency
-                                }}<span *ngIf="addOn.priceSpecification?.referenceQuantity?.value">{{
-                                    'common.referenceQuantityValue' | translate: { value:
-                                    addOn.priceSpecification?.referenceQuantity?.value } }}</span>
+                                <p>
+                                    {{ addOn.priceSpecification?.name | changeLanguage }}
+                                    <!--
+                                    -->&nbsp;/&nbsp;
+                                    <!--
+                                    -->{{ addOn.priceSpecification?.price | currency :
+                                    addOn.priceSpecification?.priceCurrency
+                                    }}<span *ngIf="addOn.priceSpecification?.referenceQuantity?.value">{{
+                                        'common.referenceQuantityValue' | translate: { value:
+                                        addOn.priceSpecification?.referenceQuantity?.value } }}</span>
+                                </p>
+                                <p *ngIf="addOn.description" class="text-x-small text-left mt-1">
+                                    {{ addOn.description | changeLanguage }}</p>
                             </div>
                             <div class="col-4">
                                 <select class="form-control" (change)="changeAddOn(ticket.id, addOn.id, $event)">
@@ -101,9 +109,9 @@
 
     <div class="buttons mx-auto text-center text-center">
         <button [disabled]="selectedTickets && createReservations().length === 0" type="button"
-            class="btn btn-primary btn-block py-3 mb-3"
-            (click)="close()">{{ 'purchase.event.schedule.next' | translate }}</button>
-        <button type="button" class="btn btn-outline-primary btn-block py-3 btn-sm"
-            (click)="modal.hide()">{{ 'common.close' | translate }}</button>
+            class="btn btn-primary btn-block py-3 mb-3" (click)="close()">{{ 'purchase.event.schedule.next' | translate
+            }}</button>
+        <button type="button" class="btn btn-outline-primary btn-block py-3 btn-sm" (click)="modal.hide()">{{
+            'common.close' | translate }}</button>
     </div>
 </div>
