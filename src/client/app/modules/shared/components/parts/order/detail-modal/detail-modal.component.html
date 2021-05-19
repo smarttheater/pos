@@ -55,7 +55,7 @@
                     <p *ngIf="order.customer.address">{{ order.customer.address }}</p>
                     <div *ngFor="let additionalProperty of order.customer.additionalProperty">
                         <p>[{{ additionalProperty.name }}]</p>
-                        <p>{{ additionalProperty.value }}</p>
+                        <p class="white-space-pre-wrap">{{ additionalProperty.value }}</p>
                     </div>
                 </div>
             </div>
@@ -79,8 +79,7 @@
             <div class="row align-items-center">
                 <p class="mb-2 mb-md-0 col-md-4">[{{ 'common.paymentMethod' | translate }}]</p>
                 <div class="col-md-8">
-                    <app-item-payment-method [paymentMethods]="order.paymentMethods"
-                        [paymentTypes]="paymentTypes">
+                    <app-item-payment-method [paymentMethods]="order.paymentMethods" [paymentTypes]="paymentTypes">
                     </app-item-payment-method>
                     <div *ngIf="qrcode" class="mt-2"><img class="border" [src]="qrcode" alt=""></div>
                 </div>

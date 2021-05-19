@@ -195,21 +195,21 @@ export const cancelTemporaryReservationsFail = createAction(
     props<{ error: Error }>()
 );
 
-export const registerContact = createAction(
-    `${LABEL} registerContact`,
+export const setProfile = createAction(
+    `${LABEL} setProfile`,
     props<{
         transaction: factory.transaction.placeOrder.ITransaction;
-        contact: factory.person.IProfile;
+        profile: factory.person.IProfile;
     }>()
 );
 
-export const registerContactSuccess = createAction(
-    `${LABEL} registerContactSuccess`,
+export const setProfileSuccess = createAction(
+    `${LABEL} setProfileSuccess`,
     props<{ profile: factory.person.IProfile }>()
 );
 
-export const registerContactFail = createAction(
-    `${LABEL} registerContactFail`,
+export const setProfileFail = createAction(
+    `${LABEL} setProfileFail`,
     props<{ error: Error }>()
 );
 

@@ -471,25 +471,48 @@ export class PurchaseService {
     /**
      * 購入者情報登録
      */
-    public async registerContact(contact: factory.person.IProfile) {
+    public async setProfile(params: {
+        profile: factory.person.IProfile;
+        customer?: factory.chevre.organization.IOrganization;
+    }) {
         const purchase = await this.getData();
         const transaction = purchase.transaction;
+        const { profile, customer } = params;
+        let additionalProperty =
+            profile.additionalProperty === undefined
+                ? []
+                : profile.additionalProperty;
+        if (
+            customer !== undefined &&
+            customer.additionalProperty !== undefined
+        ) {
+            additionalProperty = [
+                ...additionalProperty,
+                ...customer.additionalProperty,
+            ];
+        }
         return new Promise<void>((resolve, reject) => {
             if (transaction === undefined) {
                 reject();
                 return;
             }
             this.store.dispatch(
-                purchaseAction.registerContact({ transaction, contact })
+                purchaseAction.setProfile({
+                    transaction,
+                    profile: {
+                        ...profile,
+                        additionalProperty,
+                    },
+                })
             );
             const success = this.actions.pipe(
-                ofType(purchaseAction.registerContactSuccess.type),
+                ofType(purchaseAction.setProfileSuccess.type),
                 tap(() => {
                     resolve();
                 })
             );
             const fail = this.actions.pipe(
-                ofType(purchaseAction.registerContactFail.type),
+                ofType(purchaseAction.setProfileFail.type),
                 tap(() => {
                     this.error
                         .subscribe((error) => {

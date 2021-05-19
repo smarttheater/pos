@@ -602,14 +602,14 @@ export function reducer(initialState: IState, action: Action) {
                 error: JSON.stringify(error),
             };
         }),
-        on(purchaseAction.registerContact, (state) => {
+        on(purchaseAction.setProfile, (state) => {
             return {
                 ...state,
                 loading: true,
-                process: 'purchaseAction.RegisterContact',
+                process: 'purchaseAction.SetProfile',
             };
         }),
-        on(purchaseAction.registerContactSuccess, (state, payload) => {
+        on(purchaseAction.setProfileSuccess, (state, payload) => {
             const profile = payload.profile;
             return {
                 ...state,
@@ -622,7 +622,7 @@ export function reducer(initialState: IState, action: Action) {
                 error: null,
             };
         }),
-        on(purchaseAction.registerContactFail, (state, payload) => {
+        on(purchaseAction.setProfileFail, (state, payload) => {
             const error = payload.error;
             return {
                 ...state,

@@ -343,16 +343,16 @@ export class PurchaseEffects {
     );
 
     /**
-     * registerContact
+     * setProfile
      */
     @Effect()
-    public registerContact = this.actions.pipe(
-        ofType(purchaseAction.registerContact),
+    public setProfile = this.actions.pipe(
+        ofType(purchaseAction.setProfile),
         map((action) => action),
         mergeMap(async (payload) => {
             const transaction = payload.transaction;
             const profile = Functions.Util.deepCopy<factory.person.IProfile>(
-                payload.contact
+                payload.profile
             );
             if (profile.telephone !== undefined) {
                 profile.telephone = Functions.Util.formatTelephone(
@@ -365,9 +365,9 @@ export class PurchaseEffects {
                     id: transaction.id,
                     agent: profile,
                 });
-                return purchaseAction.registerContactSuccess({ profile });
+                return purchaseAction.setProfileSuccess({ profile });
             } catch (error) {
-                return purchaseAction.registerContactFail({ error: error });
+                return purchaseAction.setProfileFail({ error: error });
             }
         })
     );

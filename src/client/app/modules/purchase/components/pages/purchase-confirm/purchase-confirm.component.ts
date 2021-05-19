@@ -94,7 +94,6 @@ export class PurchaseConfirmComponent implements OnInit {
                     value: 0,
                 });
             });
-            console.log(this.payments);
         } catch (error) {
             console.error(error);
             this.router.navigate(['/error']);
@@ -105,7 +104,7 @@ export class PurchaseConfirmComponent implements OnInit {
      * 確定
      */
     public async onSubmit() {
-        const { seller, pendingMovieTickets } =
+        const { seller, pendingMovieTickets, customer } =
             await this.actionService.purchase.getData();
         const { language, customerContact } =
             await this.actionService.user.getData();
@@ -128,7 +127,6 @@ export class PurchaseConfirmComponent implements OnInit {
                     seller,
                 });
             }
-            console.log('onSubmit');
             await this.actionService.purchase.authorizeAnyPayment({
                 data: this.payments
                     .filter((p) => p.selected)
@@ -160,14 +158,14 @@ export class PurchaseConfirmComponent implements OnInit {
                         };
                     }),
             });
-            console.log('onSubmit1');
-            await this.actionService.purchase.registerContact(profile);
-            console.log('onSubmit2');
+            await this.actionService.purchase.setProfile({
+                profile,
+                customer,
+            });
             await this.actionService.purchase.endTransaction({
                 seller,
                 language,
             });
-            console.log('onSubmit3');
             this.router.navigate(['/purchase/complete']);
         } catch (error) {
             console.error(error);
