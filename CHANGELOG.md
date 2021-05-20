@@ -14,6 +14,13 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/).
 
 ### Security
 
+## 3.8.0 - 2021-05-20
+
+### Changed
+
+-   アドオン補足説明を表示するよう変更
+-   ムビチケ画像を css で変更可能に変更
+
 ## 3.7.0 - 2020-05-19
 
 ### Added
