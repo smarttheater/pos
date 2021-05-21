@@ -201,39 +201,10 @@ export class PurchaseConfirmComponent implements OnInit {
     }
 
     /**
-     * 決済方法選択
-     */
-    public async selectPaymentMethodType(
-        paymentMethodType: factory.paymentMethodType
-    ) {
-        const findResult = this.payments.find(
-            (p) => p.paymentAccepted.paymentMethodType === paymentMethodType
-        );
-        if (findResult === undefined) {
-            return;
-        }
-        findResult.selected = !findResult.selected;
-        if (!findResult.selected) {
-            findResult.value = 0;
-        }
-    }
-
-    /**
      * 金額変更
      */
-    public changeValue() {
-        let total = 0;
-        this.payments.forEach((p) => (total += Number(p.value)));
-        const findReslt = this.payments.find(
-            (p) =>
-                p.paymentAccepted.paymentMethodType ===
-                this.paymentMethodType.Cash
-        );
-        const cashValue = findReslt === undefined ? 0 : Number(findReslt.value);
-        this.chargeAmount =
-            total - this.amount < cashValue ? total - this.amount : cashValue;
-        this.isValid = !(
-            this.chargeAmount >= 0 && total - this.chargeAmount === this.amount
-        );
+    public changeValue(params: { chargeAmount: number; isValid: boolean }) {
+        this.chargeAmount = params.chargeAmount;
+        this.isValid = params.isValid;
     }
 }

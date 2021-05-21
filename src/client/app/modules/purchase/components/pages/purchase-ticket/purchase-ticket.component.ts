@@ -7,7 +7,10 @@ import { BsModalService } from 'ngx-bootstrap/modal';
 import { Observable } from 'rxjs';
 import { Functions } from '../../../../..';
 import { getEnvironment } from '../../../../../../environments/environment';
-import { IReservation, IReservationTicket } from '../../../../../models/purchase/reservation';
+import {
+    IReservation,
+    IReservationTicket,
+} from '../../../../../models/purchase/reservation';
 import { ActionService, UtilService } from '../../../../../services';
 import * as reducers from '../../../../../store/reducers';
 import { MovieTicketCheckModalComponent } from '../../../../shared/components/parts/movie-ticket/check-modal/check-modal.component';
@@ -15,7 +18,7 @@ import { PurchaseSeatTicketModalComponent } from '../../../../shared/components/
 
 @Component({
     selector: 'app-purchase-ticket',
-    template: ''
+    template: '',
 })
 export class PurchaseTicketComponent implements OnInit {
     public purchase: Observable<reducers.IPurchaseState>;
@@ -33,16 +36,19 @@ export class PurchaseTicketComponent implements OnInit {
         private actionService: ActionService,
         private utilService: UtilService,
         private translate: TranslateService
-    ) { }
+    ) {}
 
     public async ngOnInit() {
         this.purchase = this.store.pipe(select(reducers.getPurchase));
         this.user = this.store.pipe(select(reducers.getUser));
         this.isLoading = this.store.pipe(select(reducers.getLoading));
-        this.translateName = (this.environment.VIEW_TYPE === 'cinema')
-            ? 'purchase.cinema.ticket' : 'purchase.event.ticket';
+        this.translateName =
+            this.environment.VIEW_TYPE === 'cinema'
+                ? 'purchase.cinema.ticket'
+                : 'purchase.event.ticket';
         this.additionalTicketText = '';
-        this.isSelectedTicket = (await this.getUnselectedTicketReservations()).length === 0;
+        this.isSelectedTicket =
+            (await this.getUnselectedTicketReservations()).length === 0;
     }
 
     /**
@@ -51,7 +57,7 @@ export class PurchaseTicketComponent implements OnInit {
     public async getUnselectedTicketReservations() {
         const { reservations } = await this.actionService.purchase.getData();
         return reservations.filter((reservation) => {
-            return (reservation.ticket === undefined);
+            return reservation.ticket === undefined;
         });
     }
 
@@ -64,52 +70,76 @@ export class PurchaseTicketComponent implements OnInit {
             if (reservation.ticket === undefined) {
                 return false;
             }
-            const priceComponent = reservation.ticket.ticketOffer.priceSpecification.priceComponent;
-            const UnitPriceSpecification = factory.chevre.priceSpecificationType.UnitPriceSpecification;
-            const unitPriceSpecifications = priceComponent.filter(p => p.typeOf === UnitPriceSpecification);
+            const priceComponent =
+                reservation.ticket.ticketOffer.priceSpecification
+                    .priceComponent;
+            const UnitPriceSpecification =
+                factory.chevre.priceSpecificationType.UnitPriceSpecification;
+            const unitPriceSpecifications = priceComponent.filter(
+                (p) => p.typeOf === UnitPriceSpecification
+            );
             const filterResult = reservations.filter((targetReservation) => {
-                return (reservation.ticket !== undefined
-                    && targetReservation.ticket !== undefined
-                    && reservation.ticket.ticketOffer.id === targetReservation.ticket.ticketOffer.id);
+                return (
+                    reservation.ticket !== undefined &&
+                    targetReservation.ticket !== undefined &&
+                    reservation.ticket.ticketOffer.id ===
+                        targetReservation.ticket.ticketOffer.id
+                );
             });
-            const findResult = unitPriceSpecifications.find((unitPriceSpecification) => {
-                const value = (unitPriceSpecification.typeOf === UnitPriceSpecification
-                    && unitPriceSpecification.referenceQuantity.value !== undefined)
-                    ? unitPriceSpecification.referenceQuantity.value : 1;
+            const findResult = unitPriceSpecifications.find(
+                (unitPriceSpecification) => {
+                    const value =
+                        unitPriceSpecification.typeOf ===
+                            UnitPriceSpecification &&
+                        unitPriceSpecification.referenceQuantity.value !==
+                            undefined
+                            ? unitPriceSpecification.referenceQuantity.value
+                            : 1;
 
-                return (filterResult.length % value !== 0);
-            });
+                    return filterResult.length % value !== 0;
+                }
+            );
 
-            return (findResult !== undefined);
+            return findResult !== undefined;
         });
         if (validResult.length > 0) {
             this.utilService.openAlert({
                 title: this.translate.instant('common.error'),
-                body: this.translate.instant(`${this.translateName}.alert.ticketCondition`)
+                body: this.translate.instant(
+                    `${this.translateName}.alert.ticketCondition`
+                ),
             });
             return;
         }
         try {
             const additionalTicketText = this.additionalTicketText;
-            const screeningEventSeats = await this.actionService.purchase.getScreeningEventSeats();
+            const screeningEventSeats =
+                await this.actionService.purchase.getScreeningEventSeats();
             await this.actionService.purchase.temporaryReservation({
                 reservations,
                 additionalTicketText,
-                screeningEventSeats
+                screeningEventSeats,
             });
-            const navigate = (this.environment.VIEW_TYPE === 'cinema')
-                ? '/purchase/payment'
-                : '/purchase/event/schedule';
+            const navigate =
+                this.environment.VIEW_TYPE === 'cinema'
+                    ? '/purchase/confirm'
+                    : '/purchase/event/schedule';
             this.router.navigate([navigate]);
         } catch (error) {
             console.error(error);
             this.utilService.openAlert({
                 title: this.translate.instant('common.error'),
                 body: `
-                <p class="mb-4">${this.translate.instant(`${this.translateName}.alert.temporaryReservation`)}</p>
+                <p class="mb-4">${this.translate.instant(
+                    `${this.translateName}.alert.temporaryReservation`
+                )}</p>
                 <div class="p-3 bg-light-gray select-text text-left">
-                    <code>${(JSON.stringify(error) === '{}') ? error : JSON.stringify(error)}</code>
-                </div>`
+                    <code>${
+                        JSON.stringify(error) === '{}'
+                            ? error
+                            : JSON.stringify(error)
+                    }</code>
+                </div>`,
             });
         }
     }
@@ -130,15 +160,23 @@ export class PurchaseTicketComponent implements OnInit {
                 pendingMovieTickets: purchase.pendingMovieTickets,
                 cb: async (ticket: IReservationTicket) => {
                     if (reservation === undefined) {
-                        const reservations = Functions.Util.deepCopy<IReservation[]>(purchase.reservations);
-                        reservations.forEach(r => r.ticket = ticket);
+                        const reservations = Functions.Util.deepCopy<
+                            IReservation[]
+                        >(purchase.reservations);
+                        reservations.forEach((r) => (r.ticket = ticket));
                         this.actionService.purchase.selectTickets(reservations);
-                        this.isSelectedTicket = (await this.getUnselectedTicketReservations()).length === 0;
+                        this.isSelectedTicket =
+                            (await this.getUnselectedTicketReservations())
+                                .length === 0;
                         return;
                     }
-                    this.actionService.purchase.selectTickets([{ ...reservation, ticket }]);
-                    this.isSelectedTicket = (await this.getUnselectedTicketReservations()).length === 0;
-                }
+                    this.actionService.purchase.selectTickets([
+                        { ...reservation, ticket },
+                    ]);
+                    this.isSelectedTicket =
+                        (await this.getUnselectedTicketReservations())
+                            .length === 0;
+                },
             },
         });
     }
@@ -146,14 +184,14 @@ export class PurchaseTicketComponent implements OnInit {
     /**
      * ムビチケ認証表示
      */
-    public openMovieTicket(paymentMethodType: factory.chevre.paymentMethodType) {
+    public openMovieTicket(
+        paymentMethodType: factory.chevre.paymentMethodType
+    ) {
         this.modal.show(MovieTicketCheckModalComponent, {
             initialState: {
-                paymentMethodType
+                paymentMethodType,
             },
-            class: 'modal-dialog-centered'
+            class: 'modal-dialog-centered',
         });
     }
-
-
 }

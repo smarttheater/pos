@@ -1,6 +1,11 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { AuthGuardService, PurchaseTransactionGuardService, SettingGuardService, ViewTypeGuardService } from '../../canActivates';
+import {
+    AuthGuardService,
+    PurchaseTransactionGuardService,
+    SettingGuardService,
+    ViewTypeGuardService,
+} from '../../canActivates';
 import { BaseComponent } from '../shared/components/pages/base/base.component';
 import { PurchaseCinemaScheduleComponent } from './components/pages/cinema/purchase-cinema-schedule/purchase-cinema-schedule.component';
 import { PurchaseCinemaSeatComponent } from './components/pages/cinema/purchase-cinema-seat/purchase-cinema-seat.component';
@@ -14,62 +19,72 @@ import { PurchaseCompleteComponent } from './components/pages/purchase-complete/
 import { PurchaseConfirmComponent } from './components/pages/purchase-confirm/purchase-confirm.component';
 import { PurchaseRootComponent } from './components/pages/purchase-root/purchase-root.component';
 
-
 const routes: Routes = [
-  {
-    path: '',
-    component: PurchaseBaseComponent,
-    canActivate: [AuthGuardService, SettingGuardService],
-    children: [
-      { path: 'root', component: PurchaseRootComponent },
-      {
-        path: 'cinema',
-        canActivate: [ViewTypeGuardService],
+    {
+        path: '',
+        component: PurchaseBaseComponent,
+        canActivate: [AuthGuardService, SettingGuardService],
         children: [
-          { path: 'seat', component: PurchaseCinemaSeatComponent },
-          { path: 'ticket', component: PurchaseCinemaTicketComponent }
-        ]
-      },
-      {
-        path: 'event',
-        canActivate: [ViewTypeGuardService],
+            { path: 'root', component: PurchaseRootComponent },
+            {
+                path: 'cinema',
+                canActivate: [ViewTypeGuardService],
+                children: [
+                    { path: 'seat', component: PurchaseCinemaSeatComponent },
+                    {
+                        path: 'ticket',
+                        component: PurchaseCinemaTicketComponent,
+                    },
+                ],
+            },
+            {
+                path: 'event',
+                canActivate: [ViewTypeGuardService],
+                children: [
+                    {
+                        path: 'schedule',
+                        component: PurchaseEventScheduleComponent,
+                    },
+                    { path: 'seat', component: PurchaseEventSeatComponent },
+                    { path: 'ticket', component: PurchaseEventTicketComponent },
+                ],
+            },
+            {
+                path: 'confirm',
+                canActivate: [PurchaseTransactionGuardService],
+                component: PurchaseConfirmComponent,
+            },
+            { path: 'complete', component: PurchaseCompleteComponent },
+        ],
+    },
+    {
+        path: '',
+        component: BaseComponent,
+        canActivate: [AuthGuardService, SettingGuardService],
         children: [
-          { path: 'schedule', component: PurchaseEventScheduleComponent },
-          { path: 'seat', component: PurchaseEventSeatComponent },
-          { path: 'ticket', component: PurchaseEventTicketComponent },
-        ]
-      },
-      // { path: 'payment', canActivate: [PurchaseTransactionGuardService], component: PurchasePaymentComponent },
-      { path: 'payment', redirectTo: 'confirm' },
-      { path: 'confirm', canActivate: [PurchaseTransactionGuardService], component: PurchaseConfirmComponent },
-      { path: 'complete', component: PurchaseCompleteComponent }
-    ]
-  },
-  {
-    path: '',
-    component: BaseComponent,
-    canActivate: [AuthGuardService, SettingGuardService],
-    children: [
-      {
-        path: 'cinema',
-        canActivate: [ViewTypeGuardService],
-        children: [
-          { path: 'schedule', component: PurchaseCinemaScheduleComponent }
-        ]
-      },
-      {
-        path: 'event',
-        canActivate: [ViewTypeGuardService],
-        children: [
-          { path: 'date', component: PurchaseEventDateComponent }
-        ]
-      }
-    ]
-  }
+            {
+                path: 'cinema',
+                canActivate: [ViewTypeGuardService],
+                children: [
+                    {
+                        path: 'schedule',
+                        component: PurchaseCinemaScheduleComponent,
+                    },
+                ],
+            },
+            {
+                path: 'event',
+                canActivate: [ViewTypeGuardService],
+                children: [
+                    { path: 'date', component: PurchaseEventDateComponent },
+                ],
+            },
+        ],
+    },
 ];
 
 @NgModule({
-  imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
+    imports: [RouterModule.forChild(routes)],
+    exports: [RouterModule],
 })
-export class PurchaseRoutingModule { }
+export class PurchaseRoutingModule {}

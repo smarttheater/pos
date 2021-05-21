@@ -11,12 +11,12 @@ import { PurchaseEventTicketComponent } from './components/pages/event/purchase-
 import { PurchaseBaseComponent } from './components/pages/purchase-base/purchase-base.component';
 import { PurchaseCompleteComponent } from './components/pages/purchase-complete/purchase-complete.component';
 import { PurchaseConfirmComponent } from './components/pages/purchase-confirm/purchase-confirm.component';
-import { PurchasePaymentComponent } from './components/pages/purchase-payment/purchase-payment.component';
 import { PurchaseRootComponent } from './components/pages/purchase-root/purchase-root.component';
 import { PurchaseSeatComponent } from './components/pages/purchase-seat/purchase-seat.component';
 import { PurchaseTicketComponent } from './components/pages/purchase-ticket/purchase-ticket.component';
 import { PurchaseEventPerformancesConfirmComponent } from './components/parts/event/performances-confirm/performances-confirm.component';
 import { MovieTicketsComponent } from './components/parts/movie-tickets/movie-tickets.component';
+import { PaymentSelectComponent } from './components/parts/payment-select/payment-select.component';
 import { PurchaseInfoComponent } from './components/parts/purchase-info/purchase-info.component';
 import { PurchaseTermsComponent } from './components/parts/purchase-terms/purchase-terms.component';
 import { PurchaseWarningComponent } from './components/parts/purchase-warning/purchase-warning.component';
@@ -24,35 +24,30 @@ import { SeatInfoComponent } from './components/parts/seat-info/seat-info.compon
 import { TransactionRemainingTimeComponent } from './components/parts/transaction-remaining-time/transaction-remaining-time.component';
 import { PurchaseRoutingModule } from './purchase-routing.module';
 
-
 @NgModule({
-  declarations: [
-    PurchaseBaseComponent,
-    PurchaseRootComponent,
-    PurchaseCinemaSeatComponent,
-    PurchaseCinemaTicketComponent,
-    PurchaseEventScheduleComponent,
-    PurchasePaymentComponent,
-    PurchaseConfirmComponent,
-    PurchaseCompleteComponent,
-    PurchaseCinemaScheduleComponent,
-    PurchaseEventDateComponent,
-    PurchaseEventPerformancesConfirmComponent,
-    PurchaseInfoComponent,
-    PurchaseTermsComponent,
-    PurchaseWarningComponent,
-    TransactionRemainingTimeComponent,
-    PurchaseEventSeatComponent,
-    PurchaseEventTicketComponent,
-    PurchaseTicketComponent,
-    PurchaseSeatComponent,
-    SeatInfoComponent,
-    MovieTicketsComponent,
-  ],
-  imports: [
-    CommonModule,
-    PurchaseRoutingModule,
-    SharedModule,
-  ]
+    declarations: [
+        PurchaseBaseComponent,
+        PurchaseRootComponent,
+        PurchaseCinemaSeatComponent,
+        PurchaseCinemaTicketComponent,
+        PurchaseEventScheduleComponent,
+        PurchaseConfirmComponent,
+        PurchaseCompleteComponent,
+        PurchaseCinemaScheduleComponent,
+        PurchaseEventDateComponent,
+        PurchaseEventPerformancesConfirmComponent,
+        PurchaseInfoComponent,
+        PurchaseTermsComponent,
+        PurchaseWarningComponent,
+        TransactionRemainingTimeComponent,
+        PurchaseEventSeatComponent,
+        PurchaseEventTicketComponent,
+        PurchaseTicketComponent,
+        PurchaseSeatComponent,
+        SeatInfoComponent,
+        MovieTicketsComponent,
+        PaymentSelectComponent,
+    ],
+    imports: [CommonModule, PurchaseRoutingModule, SharedModule],
 })
-export class PurchaseModule { }
+export class PurchaseModule {}
