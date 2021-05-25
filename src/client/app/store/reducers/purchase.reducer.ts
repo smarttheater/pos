@@ -753,11 +753,7 @@ export function reducer(initialState: IState, action: Action) {
             };
         }),
         on(purchaseAction.authorizeAnyPaymentSuccess, (state, payload) => {
-            const authorizeAnyPayment = payload.authorizeAnyPayment;
-            const authorizeAnyPayments = Functions.Util.deepCopy<
-                factory.action.authorize.paymentMethod.any.IAction[]
-            >(state.purchaseData.authorizeAnyPayments);
-            authorizeAnyPayments.push(authorizeAnyPayment);
+            const authorizeAnyPayments = payload.authorizeAnyPayments;
             return {
                 ...state,
                 purchaseData: {

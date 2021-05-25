@@ -654,25 +654,22 @@ export class PurchaseEffects {
             const typeOf =
                 factory.action.authorize.paymentMethod.any.ResultType.Payment;
             const transaction = payload.transaction;
-            const paymentMethod = payload.paymentMethod;
-            const amount = payload.amount;
-            const name = payload.name;
-            const additionalProperty = payload.additionalProperty;
             try {
-                await this.cinerinoService.getServices();
-                const authorizeAnyPayment =
-                    await this.cinerinoService.payment.authorizeAnyPayment({
-                        object: {
-                            typeOf,
-                            name,
-                            amount,
-                            paymentMethod,
-                            additionalProperty,
-                        },
-                        purpose: transaction,
-                    });
+                const authorizeAnyPayments = [];
+                for (const data of payload.data) {
+                    await this.cinerinoService.getServices();
+                    const authorizeAnyPayment =
+                        await this.cinerinoService.payment.authorizeAnyPayment({
+                            object: {
+                                ...data,
+                                typeOf,
+                            },
+                            purpose: transaction,
+                        });
+                    authorizeAnyPayments.push(authorizeAnyPayment);
+                }
                 return purchaseAction.authorizeAnyPaymentSuccess({
-                    authorizeAnyPayment,
+                    authorizeAnyPayments,
                 });
             } catch (error) {
                 return purchaseAction.authorizeAnyPaymentFail({ error: error });

@@ -676,23 +676,29 @@ export class PurchaseService {
      * 決済情報承認
      */
     public async authorizeAnyPayment(params: {
-        amount: number;
-        additionalProperty?: { name: string; value: any }[];
+        data: {
+            amount: number;
+            additionalProperty?: { name: string; value: string }[];
+            paymentMethodType: string;
+        }[];
     }) {
-        const { amount, additionalProperty } = params;
-        const { transaction, paymentMethod } = await this.getData();
+        const { data } = params;
+        const { transaction } = await this.getData();
         return new Promise<void>((resolve, reject) => {
-            if (transaction === undefined || paymentMethod === undefined) {
+            if (transaction === undefined) {
                 reject();
                 return;
             }
             this.store.dispatch(
                 purchaseAction.authorizeAnyPayment({
                     transaction: transaction,
-                    paymentMethod: paymentMethod.typeOf,
-                    name: paymentMethod.category,
-                    amount,
-                    additionalProperty,
+                    data: data.map((d) => {
+                        return {
+                            paymentMethod: d.paymentMethodType,
+                            amount: d.amount,
+                            additionalProperty: d.additionalProperty,
+                        };
+                    }),
                 })
             );
             const success = this.actions.pipe(
