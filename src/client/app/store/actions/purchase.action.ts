@@ -308,17 +308,19 @@ export const authorizeAnyPayment = createAction(
     `${LABEL} authorizeAnyPayment`,
     props<{
         transaction: factory.transaction.placeOrder.ITransaction;
-        paymentMethod: factory.chevre.paymentMethodType;
-        name?: string;
-        amount: number;
-        additionalProperty?: { name: string; value: any }[];
+        data: {
+            paymentMethod: string;
+            name?: string;
+            amount: number;
+            additionalProperty?: { name: string; value: any }[];
+        }[];
     }>()
 );
 
 export const authorizeAnyPaymentSuccess = createAction(
     `${LABEL} authorizeAnyPaymentSuccess`,
     props<{
-        authorizeAnyPayment: factory.action.authorize.paymentMethod.any.IAction;
+        authorizeAnyPayments: factory.action.authorize.paymentMethod.any.IAction[];
     }>()
 );
 
