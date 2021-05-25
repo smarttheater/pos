@@ -14,6 +14,12 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/).
 
 ### Security
 
+## 3.9.0 - 2021-05-25
+
+### Changed
+
+-   決済方法選択 UI 変更
+
 ## 3.8.0 - 2021-05-20
 
 ### Changed
