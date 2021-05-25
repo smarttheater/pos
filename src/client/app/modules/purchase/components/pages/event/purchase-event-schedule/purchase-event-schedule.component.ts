@@ -1,9 +1,14 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { factory } from '@cinerino/sdk';
 import { select, Store } from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
 import * as moment from 'moment';
+import {
+    BsDatepickerContainerComponent,
+    BsDatepickerDirective,
+    BsLocaleService,
+} from 'ngx-bootstrap/datepicker';
 import { BsModalService } from 'ngx-bootstrap/modal';
 import { Observable } from 'rxjs';
 import { Functions, Models } from '../../../../../..';
@@ -34,6 +39,9 @@ export class PurchaseEventScheduleComponent implements OnInit, OnDestroy {
     public environment = getEnvironment();
     private updateTimer: any;
     public screeningEventSeats: factory.chevre.place.seat.IPlaceWithOffer[];
+    @ViewChild('datepicker')
+    private datepicker: BsDatepickerDirective;
+    public scheduleDate: Date;
 
     constructor(
         private store: Store<reducers.IState>,
@@ -42,7 +50,8 @@ export class PurchaseEventScheduleComponent implements OnInit, OnDestroy {
         private translate: TranslateService,
         private actionService: ActionService,
         private masterService: MasterService,
-        private modal: BsModalService
+        private modal: BsModalService,
+        private localeService: BsLocaleService
     ) {}
 
     public async ngOnInit() {
@@ -56,9 +65,10 @@ export class PurchaseEventScheduleComponent implements OnInit, OnDestroy {
         this.creativeWorks = [];
         this.contentRatingTypes = [];
         try {
-            const { transaction } = await this.actionService.purchase.getData();
-            if (transaction === undefined) {
-                throw new Error('transaction undefined');
+            const { transaction, scheduleDate } =
+                await this.actionService.purchase.getData();
+            if (transaction === undefined || scheduleDate === undefined) {
+                throw new Error('transaction or scheduleDate undefined');
             }
             this.contentRatingTypes =
                 await this.masterService.searchCategoryCode({
@@ -66,7 +76,8 @@ export class PurchaseEventScheduleComponent implements OnInit, OnDestroy {
                         factory.chevre.categoryCode.CategorySetIdentifier
                             .ContentRatingType,
                 });
-            this.getSchedule();
+            this.scheduleDate = moment(scheduleDate, 'YYYY-MM-DD').toDate();
+            await this.getSchedule();
         } catch (error) {
             console.error(error);
             this.router.navigate(['/error']);
@@ -85,8 +96,13 @@ export class PurchaseEventScheduleComponent implements OnInit, OnDestroy {
             clearTimeout(this.updateTimer);
         }
         const time = 600000; // 10 * 60 * 1000
-        this.updateTimer = setTimeout(() => {
-            this.getSchedule();
+        this.updateTimer = setTimeout(async () => {
+            try {
+                await this.getSchedule();
+            } catch (error) {
+                console.error(error);
+                this.router.navigate(['/error']);
+            }
         }, time);
     }
 
@@ -94,64 +110,53 @@ export class PurchaseEventScheduleComponent implements OnInit, OnDestroy {
      * スケジュール取得
      */
     public async getSchedule() {
-        try {
-            const user = await this.actionService.user.getData();
-            const purchase = await this.actionService.purchase.getData();
-            const theater = user.theater;
-            const scheduleDate = purchase.scheduleDate;
-            if (theater === undefined || scheduleDate === undefined) {
-                throw new Error(
-                    'theater === undefined || scheduleDate === undefined'
-                );
-            }
-            this.creativeWorks = await this.masterService.searchMovies({
-                offers: { availableFrom: moment(scheduleDate).toDate() },
-            });
-            const screeningEventSeries =
-                this.environment.PURCHASE_SCHEDULE_SORT ===
-                'screeningEventSeries'
-                    ? await this.masterService.searchScreeningEventSeries({
-                          location: {
-                              branchCode: { $eq: theater.branchCode },
-                          },
-                          workPerformed: {
-                              identifiers: this.creativeWorks.map(
-                                  (c) => c.identifier
-                              ),
-                          },
-                      })
-                    : [];
-            const screeningRooms =
-                this.environment.PURCHASE_SCHEDULE_SORT === 'screen'
-                    ? await this.masterService.searchScreeningRooms({
-                          branchCode: { $eq: theater.branchCode },
-                      })
-                    : [];
-            const screeningEvents =
-                await this.masterService.searchScreeningEvent({
-                    superEvent: { locationBranchCodes: [theater.branchCode] },
-                    startFrom: moment(scheduleDate).toDate(),
-                    startThrough: moment(scheduleDate)
-                        .add(1, 'day')
-                        .add(-1, 'millisecond')
-                        .toDate(),
-                    creativeWorks: this.creativeWorks,
-                    screeningEventSeries,
-                    screeningRooms,
-                });
-            const now = moment(
-                (await this.utilService.getServerTime()).date
-            ).toDate();
-            this.screeningEventsGroup =
-                Functions.Purchase.screeningEvents2ScreeningEventSeries({
-                    screeningEvents,
-                    now,
-                });
-            this.update();
-        } catch (error) {
-            console.error(error);
-            this.router.navigate(['/error']);
+        const { theater } = await this.actionService.user.getData();
+        const scheduleDate = this.scheduleDate;
+        if (theater === undefined || scheduleDate === undefined) {
+            throw new Error('theater or scheduleDate undefined');
         }
+        this.creativeWorks = await this.masterService.searchMovies({
+            offers: { availableFrom: moment(scheduleDate).toDate() },
+        });
+        const screeningEventSeries =
+            this.environment.PURCHASE_SCHEDULE_SORT === 'screeningEventSeries'
+                ? await this.masterService.searchScreeningEventSeries({
+                      location: {
+                          branchCode: { $eq: theater.branchCode },
+                      },
+                      workPerformed: {
+                          identifiers: this.creativeWorks.map(
+                              (c) => c.identifier
+                          ),
+                      },
+                  })
+                : [];
+        const screeningRooms =
+            this.environment.PURCHASE_SCHEDULE_SORT === 'screen'
+                ? await this.masterService.searchScreeningRooms({
+                      branchCode: { $eq: theater.branchCode },
+                  })
+                : [];
+        const screeningEvents = await this.masterService.searchScreeningEvent({
+            superEvent: { locationBranchCodes: [theater.branchCode] },
+            startFrom: moment(scheduleDate).toDate(),
+            startThrough: moment(scheduleDate)
+                .add(1, 'day')
+                .add(-1, 'millisecond')
+                .toDate(),
+            creativeWorks: this.creativeWorks,
+            screeningEventSeries,
+            screeningRooms,
+        });
+        const now = moment(
+            (await this.utilService.getServerTime()).date
+        ).toDate();
+        this.screeningEventsGroup =
+            Functions.Purchase.screeningEvents2ScreeningEventSeries({
+                screeningEvents,
+                now,
+            });
+        this.update();
     }
 
     /**
@@ -389,5 +394,50 @@ export class PurchaseEventScheduleComponent implements OnInit, OnDestroy {
      */
     public getCreativeWorks(identifier: string) {
         return this.creativeWorks.find((c) => c.identifier === identifier);
+    }
+
+    /**
+     * 日付選択
+     */
+    public async selectDate(date?: Date | null) {
+        console.log('selectDate', date);
+        if (date === undefined || date === null) {
+            return;
+        }
+        try {
+            this.scheduleDate = date;
+            const scheduleDate = moment(this.scheduleDate).format('YYYY-MM-DD');
+            this.actionService.purchase.selectScheduleDate(scheduleDate);
+            await this.getSchedule();
+        } catch (error) {
+            console.error(error);
+            this.router.navigate(['/error']);
+        }
+    }
+
+    /**
+     * Datepicker言語設定
+     */
+    public setDatePicker() {
+        this.user
+            .subscribe((user) => {
+                this.localeService.use(user.language);
+            })
+            .unsubscribe();
+    }
+
+    /**
+     * Datepicker開閉
+     */
+    public toggleDatepicker() {
+        this.setDatePicker();
+        this.datepicker.toggle();
+    }
+
+    /**
+     * iOS bugfix（2回タップしないと選択できない）
+     */
+    public onShowPicker(container: BsDatepickerContainerComponent) {
+        Functions.Util.iOSDatepickerTapBugFix(container, [this.datepicker]);
     }
 }
