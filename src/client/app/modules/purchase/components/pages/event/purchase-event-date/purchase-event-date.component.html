@@ -6,7 +6,7 @@
     <div class="mb-3">
         <div class="input-group">
             <input type="text" placeholder="Datepicker" class="form-control" #datepicker="bsDatepicker" bsDatepicker
-                [(ngModel)]="scheduleDate"
+                [bsValue]="scheduleDate"
                 [bsConfig]="{ dateInputFormat: 'YYYY/MM/DD', adaptivePosition: true, showWeekNumbers: false }"
                 (bsValueChange)="selectDate($event)" readonly (click)="setDatePicker()"
                 (onShown)="onShowPicker($event)">
@@ -17,7 +17,8 @@
     </div>
     <div class="mb-4">
         <p *ngIf="(purchase | async)?.scheduleDate" class="text-primary font-weight-bold mb-3">
-            {{ 'purchase.event.date.selectedDate' | translate: {value: (purchase | async)?.scheduleDate | formatDate: 'YYYY/MM/DD (ddd)'} }}
+            {{ 'purchase.event.date.selectedDate' | translate: {value: (purchase | async)?.scheduleDate | formatDate:
+            'YYYY/MM/DD (ddd)'} }}
         </p>
         <p *ngIf="screeningEventsGroup.length === 0" class="mb-3"
             [innerHTML]="'purchase.event.date.notfound' | translate"></p>
@@ -35,11 +36,11 @@
 
     <div class="buttons mx-auto text-center">
         <button *ngIf="!environment.PURCHASE_TERMS" type="submit" class="btn btn-primary btn-block py-3 mb-3"
-            [disabled]="screeningEventsGroup.length === 0 || (isLoading | async)"
-            (click)="onSubmit()">{{ 'purchase.event.date.next' | translate }}</button>
+            [disabled]="screeningEventsGroup.length === 0 || (isLoading | async)" (click)="onSubmit()">{{
+            'purchase.event.date.next' | translate }}</button>
         <button *ngIf="environment.PURCHASE_TERMS" type="submit" class="btn btn-primary btn-block py-3 mb-3"
-            [disabled]="screeningEventsGroup.length === 0 || (isLoading | async)"
-            (click)="onSubmit()">{{ 'purchase.event.date.consent' | translate }}</button>
+            [disabled]="screeningEventsGroup.length === 0 || (isLoading | async)" (click)="onSubmit()">{{
+            'purchase.event.date.consent' | translate }}</button>
         <button *ngIf="(purchase | async)?.customer" type="button" class="btn btn-outline-primary btn-block py-3"
             routerLink="/customer/search">{{ 'purchase.event.date.prev' | translate }}</button>
     </div>
