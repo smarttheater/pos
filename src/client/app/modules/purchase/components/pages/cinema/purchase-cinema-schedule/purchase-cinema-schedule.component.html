@@ -4,7 +4,7 @@
     <div class="mb-3">
         <div class="input-group">
             <input type="text" placeholder="Datepicker" class="form-control" #datepicker="bsDatepicker" bsDatepicker
-                [(ngModel)]="scheduleDate"
+                [bsValue]="scheduleDate"
                 [bsConfig]="{ dateInputFormat: 'YYYY/MM/DD', adaptivePosition: true, showWeekNumbers: false }"
                 (bsValueChange)="selectDate($event)" readonly (click)="setDatePicker()"
                 (onShown)="onShowPicker($event)">

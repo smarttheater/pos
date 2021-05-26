@@ -8,7 +8,7 @@ export interface IProfile {
     pattern?: RegExp;
     maxLength?: number;
     minLength?: number;
-    label?: { ja: string; en: string; };
+    label?: { ja: string; en: string };
     inputType?: 'input' | 'textarea';
 }
 
@@ -95,7 +95,7 @@ export interface IEnvironment {
     /**
      * 取引追加特性
      */
-    PURCHASE_TRANSACTION_IDENTIFIER: { name: string, value: string }[];
+    PURCHASE_TRANSACTION_IDENTIFIER: { name: string; value: string }[];
     /**
      * スケジュール初期選択日（相対的）
      */
@@ -128,6 +128,10 @@ export interface IEnvironment {
      * 予約メモ
      */
     PURCHASE_ADDITIONAL_TICKET_TEXT: boolean;
+    /**
+     * 購入日変更
+     */
+    PURCHASE_DATE_CHANGE: boolean;
     /**
      * 照会キャンセル
      */
@@ -179,7 +183,11 @@ export interface IEnvironment {
     /**
      * 注文関連リンク
      */
-    ORDER_LINK: { name: { ja: string; en: string; }; url: string; params: { key: string; value?: string; }[] }[];
+    ORDER_LINK: {
+        name: { ja: string; en: string };
+        url: string;
+        params: { key: string; value?: string }[];
+    }[];
     /**
      * 注文承認コード期限(s)
      * デフォルト1814400s 21days
@@ -207,7 +215,7 @@ export interface IEnvironment {
     INPUT_KEYPAD: boolean;
 }
 
-export const isProduction = (document.querySelector('body.production') !== null);
+export const isProduction = document.querySelector('body.production') !== null;
 
 const defaultEnvironment: IEnvironment = {
     production: false,
@@ -222,15 +230,40 @@ const defaultEnvironment: IEnvironment = {
     BASE_URL: '/purchase/root',
     LANGUAGE: ['ja'],
     PROFILE: [
-        { key: 'familyName', value: '', required: true, pattern: /^[ァ-ヶー]+$/, maxLength: 12 },
-        { key: 'givenName', value: '', required: true, pattern: /^[ァ-ヶー]+$/, maxLength: 12 },
+        {
+            key: 'familyName',
+            value: '',
+            required: true,
+            pattern: /^[ァ-ヶー]+$/,
+            maxLength: 12,
+        },
+        {
+            key: 'givenName',
+            value: '',
+            required: true,
+            pattern: /^[ァ-ヶー]+$/,
+            maxLength: 12,
+        },
         { key: 'email', value: '', required: true, maxLength: 50 },
-        { key: 'telephone', value: '', required: true, maxLength: 15, minLength: 9 }
+        {
+            key: 'telephone',
+            value: '',
+            required: true,
+            maxLength: 15,
+            minLength: 9,
+        },
     ],
     REGIGROW_QRCODE: '',
     DISPLAY_TICKETED_SEAT: true,
     HEADER_MENU: true,
-    HEADER_MENU_SCOPE: ['purchase', 'admission', 'order', 'reservation', 'setting', 'auth'],
+    HEADER_MENU_SCOPE: [
+        'purchase',
+        'admission',
+        'order',
+        'reservation',
+        'setting',
+        'auth',
+    ],
     PURCHASE_ITEM_MAX_LENGTH: '50',
     PURCHASE_TRANSACTION_TIME: '15',
     PURCHASE_TRANSACTION_TIME_DISPLAY: true,
@@ -243,6 +276,7 @@ const defaultEnvironment: IEnvironment = {
     PURCHASE_TERMS: false,
     PURCHASE_WARNING: false,
     PURCHASE_ADDITIONAL_TICKET_TEXT: true,
+    PURCHASE_DATE_CHANGE: false,
     INQUIRY_CANCEL: false,
     INQUIRY_QRCODE: false,
     INQUIRY_PRINT: false,
@@ -267,11 +301,12 @@ const defaultEnvironment: IEnvironment = {
 export function getEnvironment(): IEnvironment {
     const environment = {
         ...defaultEnvironment,
-        STORAGE_NAME: (getProject().projectId === '')
-            ? 'POS-STATE'
-            : `${getProject().projectId.toUpperCase()}-POS-STATE`,
+        STORAGE_NAME:
+            getProject().projectId === ''
+                ? 'POS-STATE'
+                : `${getProject().projectId.toUpperCase()}-POS-STATE`,
         ...(<any>window).environment,
-        production: (document.querySelector('body.production') !== null)
+        production: document.querySelector('body.production') !== null,
     };
     return environment;
 }
