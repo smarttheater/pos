@@ -16,47 +16,52 @@
                     [ngStyle]="{'background-color': qrcodeToken?.availableReservation.reservedTicket.ticketType.color}">
                 </div>
                 <div *ngIf="qrcodeToken?.checkTokenActions.length === 0"
-                    class="flash-text text-xx-large font-weight-bold mb-3 text-center">{{ 'admission.check.success' |
-                    translate }}</div>
+                    class="flash-text text-xx-large font-weight-bold mb-3 text-center">
+                    {{ 'admission.check.success' | translate }}
+                </div>
                 <div *ngIf="qrcodeToken?.checkTokenActions.length > 0"
-                    class="flash-text text-xx-large font-weight-bold mb-3 text-center">{{ 'admission.check.reEntry' |
-                    translate }}</div>
+                    class="flash-text text-xx-large font-weight-bold mb-3 text-center">
+                    {{ 'admission.check.reEntry' | translate }}
+                </div>
+
                 <table class="table table-bordered text-small mb-0 border-white text-white">
                     <thead></thead>
                     <tbody>
                         <tr *ngIf="qrcodeToken?.availableReservation.reservedTicket.ticketedSeat">
-                            <th class="align-middle">{{ 'common.seat' | translate }} / {{ 'common.ticket' | translate }}</th>
+                            <th class="align-middle">
+                                {{ 'common.seat' | translate }} / {{ 'common.ticket' | translate }}
+                            </th>
                             <td class="align-middle">
-                                <app-item-list [authorizeSeatReservations]="[qrcodeToken?.availableReservation]"></app-item-list>
+                                <app-item-list [authorizeSeatReservations]="[qrcodeToken?.availableReservation]">
+                                </app-item-list>
                             </td>
                         </tr>
                         <tr>
-                            <th class="align-middle">{{ 'admission.check.entryCount' | translate }}</th>
+                            <th class="align-middle">
+                                {{ 'admission.check.entryCount' | translate }}
+                            </th>
                             <td class="align-middle">
                                 <p>{{ qrcodeToken?.checkTokenActions.length }}</p>
                             </td>
                         </tr>
+                        <tr>
+                            <th class="align-middle">
+                                {{ 'common.warning' | translate }}
+                            </th>
+                            <td class="align-middle">
+                                <p *ngIf="!(performance?.isOpenDoor() || performance?.isScreening())">
+                                    {{ 'admission.check.warning.overtime' | translate }}
+                                </p>
+                            </td>
+                        </tr>
                     </tbody>
                 </table>
-
-                <!-- <p *ngIf="qrcodeToken?.availableReservation.reservedTicket.ticketedSeat">
-                <strong class="mr-2">{{ 'common.seat' | translate }}</strong>
-                {{ qrcodeToken?.availableReservation.reservedTicket.ticketedSeat.seatNumber }}
-                </p>
-                <p>
-                    <strong class="mr-2">{{ 'common.ticket' | translate }}</strong>
-                    {{ qrcodeToken?.availableReservation.reservedTicket.ticketType.name | changeLanguage }}
-                </p>
-                <p>
-                    <strong class="mr-2">{{ 'admission.check.entryCount' | translate }}</strong>
-                    {{ qrcodeToken?.checkTokenActions.length }}
-                </p> -->
             </div>
         </div>
         <div *ngIf="!qrcodeToken?.availableReservation" class="py-4 bg-danger text-white">
             <div class="contents-width mx-auto px-3">
-                <div class="flash-text text-xx-large font-weight-bold mb-2 text-center">{{ 'admission.check.danger' |
-                    translate }}</div>
+                <div class="flash-text text-xx-large font-weight-bold mb-2 text-center">
+                    {{ 'admission.check.danger' | translate }}</div>
                 <p class="text-center mb-3">
                     {{ 'admission.check.alert.qrcode' | translate }}
                 </p>
@@ -88,7 +93,9 @@
     </div>
     <div *ngIf="!qrcodeToken" class="p-4 bg-dark text-white text-center">
         <div class="contents-width mx-auto">
-            <div class="text-xx-large font-weight-bold mb-2">{{ 'admission.check.waiting' | translate }}</div>
+            <div class="text-xx-large font-weight-bold mb-2">
+                {{ 'admission.check.waiting' | translate }}
+            </div>
             <p>{{ 'admission.check.alert.waiting' | translate }}</p>
         </div>
     </div>
