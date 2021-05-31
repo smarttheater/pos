@@ -11,6 +11,7 @@ import { PurchaseEventTicketComponent } from './components/pages/event/purchase-
 import { PurchaseBaseComponent } from './components/pages/purchase-base/purchase-base.component';
 import { PurchaseCompleteComponent } from './components/pages/purchase-complete/purchase-complete.component';
 import { PurchaseConfirmComponent } from './components/pages/purchase-confirm/purchase-confirm.component';
+import { PurchaseInputComponent } from './components/pages/purchase-input/purchase-input.component';
 import { PurchaseRootComponent } from './components/pages/purchase-root/purchase-root.component';
 import { PurchaseSeatComponent } from './components/pages/purchase-seat/purchase-seat.component';
 import { PurchaseTicketComponent } from './components/pages/purchase-ticket/purchase-ticket.component';
@@ -39,14 +40,15 @@ import { PurchaseRoutingModule } from './purchase-routing.module';
         PurchaseInfoComponent,
         PurchaseTermsComponent,
         PurchaseWarningComponent,
-        TransactionRemainingTimeComponent,
         PurchaseEventSeatComponent,
         PurchaseEventTicketComponent,
         PurchaseTicketComponent,
         PurchaseSeatComponent,
+        PurchaseInputComponent,
+        TransactionRemainingTimeComponent,
+        PaymentSelectComponent,
         SeatInfoComponent,
         MovieTicketsComponent,
-        PaymentSelectComponent,
     ],
     imports: [CommonModule, PurchaseRoutingModule, SharedModule],
 })

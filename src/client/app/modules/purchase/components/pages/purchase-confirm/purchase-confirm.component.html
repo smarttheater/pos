@@ -13,30 +13,16 @@
             </div>
         </div>
 
-        <!-- <div class="mb-4 px-3 bg-white"
-            *ngIf="(purchase | async)?.paymentMethod && (purchase | async)?.paymentMethod.typeOf === paymentMethodType.Cash">
-            <div class="container px-0">
-                <div class="row align-items-center py-3">
-                    <p class="mb-2 mb-md-0 col-md-4">
-                        <i class="fas fa-arrow-right mr-2"></i>{{ 'purchase.confirm.custody' | translate }}</p>
-                    <p class="col-md-8 d-flex align-items-center position-static">
-                        <span class="mr-2">￥</span>
-                        <app-numeric-keypad inputType="number" [inputValue]="depositAmount" viewPosition="Top"
-                            [maxlength]="10" (change)="changeDepositAmount($event)"
-                            (hidden)="depositAmount = ($event.length > 0) ? $event : 0">
-                            <input type="number" class="form-control text-large py-2 h-auto" id="depositAmount"
-                                [(ngModel)]="depositAmount" readonly>
-                        </app-numeric-keypad>
-                    </p>
-                </div>
-                <hr class="border-gray my-0">
-                <div class="row align-items-center py-3">
-                    <p class="mb-2 mb-md-0 col-md-4">
-                        <i class="fas fa-arrow-left mr-2"></i>{{ 'purchase.confirm.change' | translate }}</p>
-                    <p class="col-md-8" [ngClass]="{'font-weight-bold text-danger': (depositAmount - amount) < 0}">{{ (depositAmount - amount) | currency : 'JPY' }}</p>
-                </div>
+        <div class="mb-4 p-3 bg-white">
+            <div [class.mb-3]="(purchase | async)?.profile" class="d-flex align-items-center">
+                <p class="mr-3">{{ 'purchase.confirm.profile' | translate }}</p>
+                <button routerLink="/purchase/input" type="button" class="btn btn-primary">
+                    {{ 'common.edit' | translate }}
+                </button>
             </div>
-        </div> -->
+            <app-item-profile *ngIf="(purchase | async)?.profile" [profile]="(purchase | async)?.profile">
+            </app-item-profile>
+        </div>
 
         <div class="bg-white mb-4 py-3">
             <div class="container mb-3">
@@ -65,14 +51,20 @@
                 [disabled]="(isLoading | async) || isValid" (click)="onSubmit()">{{ 'purchase.confirm.consent' |
                 translate
                 }}</button>
-            <div *ngIf="environment.VIEW_TYPE === viewType.Cinema">
+            <ng-container
+                *ngIf="(purchase | async)?.customer === undefined && environment.VIEW_TYPE === viewType.Cinema">
                 <button type="button" class="btn btn-outline-primary btn-block py-3"
                     routerLink="/purchase/cinema/ticket">{{
                     'purchase.confirm.prev' | translate }}</button>
-            </div>
-            <div *ngIf="environment.VIEW_TYPE === viewType.Event">
+            </ng-container>
+            <ng-container
+                *ngIf="(purchase | async)?.customer === undefined && environment.VIEW_TYPE === viewType.Event">
                 <button type="button" class="btn btn-outline-primary btn-block py-3"
                     routerLink="/purchase/event/schedule">{{ 'purchase.confirm.prev' | translate }}</button>
-            </div>
+            </ng-container>
+            <ng-container *ngIf="(purchase | async)?.customer !== undefined">
+                <button type="button" class="btn btn-outline-primary btn-block py-3" routerLink="/purchase/input">{{
+                    'purchase.confirm.prev' | translate }}</button>
+            </ng-container>
         </div>
     </div>

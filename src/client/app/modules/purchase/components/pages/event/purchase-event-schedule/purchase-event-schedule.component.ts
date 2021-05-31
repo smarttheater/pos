@@ -344,7 +344,7 @@ export class PurchaseEventScheduleComponent implements OnInit, OnDestroy {
      * 券種確定
      */
     public async onSubmit() {
-        const { authorizeSeatReservations } =
+        const { authorizeSeatReservations, customer } =
             await this.actionService.purchase.getData();
         // チケット枚数上限判定
         let itemCount = 0;
@@ -361,7 +361,11 @@ export class PurchaseEventScheduleComponent implements OnInit, OnDestroy {
             });
             return;
         }
-        this.router.navigate(['/purchase/confirm']);
+        if (customer === undefined) {
+            this.router.navigate(['/purchase/confirm']);
+            return;
+        }
+        this.router.navigate(['/purchase/input']);
     }
 
     /**

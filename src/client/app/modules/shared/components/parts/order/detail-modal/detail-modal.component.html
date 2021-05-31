@@ -2,26 +2,27 @@
     <div class="mb-4">
         <div class="py-3 border-bottom border-gray">
             <div class="row align-items-center">
-                <p class="mb-2 mb-md-0 col-md-4">[{{ 'common.orderDate' | translate }}]</p>
-                <p class="col-md-8">{{ moment(order.orderDate).format('YYYY/MM/DD (ddd) HH:mm') }}</p>
+                <p class="mb-2 mb-lg-0 col-lg-4 font-weight-bold font-weight-bold">[{{ 'common.orderDate' | translate
+                    }}]</p>
+                <p class="col-lg-8">{{ moment(order.orderDate).format('YYYY/MM/DD (ddd) HH:mm') }}</p>
             </div>
         </div>
         <div class="py-3 border-bottom border-gray">
             <div class="row align-items-center">
-                <p class="mb-2 mb-md-0 col-md-4">[{{ 'common.confirmationNumber' | translate }}]</p>
-                <p class="col-md-8">{{ order.confirmationNumber }}</p>
+                <p class="mb-2 mb-lg-0 col-lg-4 font-weight-bold">[{{ 'common.confirmationNumber' | translate }}]</p>
+                <p class="col-lg-8">{{ order.confirmationNumber }}</p>
             </div>
         </div>
         <div class="py-3 border-bottom border-gray">
             <div class="row align-items-center">
-                <p class="mb-2 mb-md-0 col-md-4">[{{ 'common.orderNumber' | translate }}]</p>
-                <p class="col-md-8">{{ order.orderNumber }}</p>
+                <p class="mb-2 mb-lg-0 col-lg-4 font-weight-bold">[{{ 'common.orderNumber' | translate }}]</p>
+                <p class="col-lg-8">{{ order.orderNumber }}</p>
             </div>
         </div>
         <div class="py-3 border-bottom border-gray">
             <div class="row align-items-center">
-                <p class="mb-2 mb-md-0 col-md-4">[{{ 'common.event' | translate }}]</p>
-                <div class="col-md-8">
+                <p class="mb-2 mb-lg-0 col-lg-4 font-weight-bold">[{{ 'common.event' | translate }}]</p>
+                <div class="col-lg-8">
                     <div *ngFor="let eventOrder of eventOrders" class="mb-3">
                         <app-item-event [screeningEvent]="eventOrder.event"></app-item-event>
                         <div class="border p-3">
@@ -43,42 +44,33 @@
         </div>
         <div class="py-3 border-bottom border-gray">
             <div class="row align-items-center">
-                <p class="mb-2 mb-md-0 col-md-4">[{{ 'common.customer' | translate }}]</p>
-                <div class="col-md-8">
-                    <p *ngIf="order.customer.id">{{ order.customer.id }}</p>
-                    <p *ngIf="order.customer.familyName && order.customer.givenName">{{ order.customer.familyName }} {{
-                        order.customer.givenName }}</p>
-                    <p *ngIf="order.customer.email">{{ order.customer.email }}</p>
-                    <p *ngIf="order.customer.telephone">{{ order.customer.telephone | libphonenumberFormat }}</p>
-                    <p *ngIf="order.customer.age">{{ order.customer.age }}</p>
-                    <p *ngIf="order.customer.gender">{{ order.customer.gender }}</p>
-                    <p *ngIf="order.customer.address">{{ order.customer.address }}</p>
-                    <div *ngFor="let additionalProperty of order.customer.additionalProperty">
-                        <p>[{{ additionalProperty.name }}]</p>
-                        <p class="white-space-pre-wrap">{{ additionalProperty.value }}</p>
+                <p class="mb-2 mb-lg-0 col-lg-4 font-weight-bold">[{{ 'common.customer' | translate }}]</p>
+                <div class="col-lg-8">
+                    <div *ngIf="order.customer" class="">
+                        <app-item-profile [profile]="order.customer"></app-item-profile>
                     </div>
                 </div>
             </div>
         </div>
         <div class="py-3 border-bottom border-gray">
             <div class="row align-items-center">
-                <p class="mb-2 mb-md-0 col-md-4">[{{ 'common.price' | translate }}]</p>
-                <p class="col-md-8">
+                <p class="mb-2 mb-lg-0 col-lg-4 font-weight-bold">[{{ 'common.price' | translate }}]</p>
+                <p class="col-lg-8">
                     {{ order.price | currency : 'JPY' }}
                 </p>
             </div>
         </div>
         <div class="py-3 border-bottom border-gray">
             <div class="row align-items-center">
-                <p class="mb-2 mb-md-0 col-md-4">[{{ 'common.orderStatus' | translate }}]</p>
-                <p class="col-md-8">{{ order.orderStatus }}<span *ngIf="order.dateReturned">&nbsp;/&nbsp;{{
+                <p class="mb-2 mb-lg-0 col-lg-4 font-weight-bold">[{{ 'common.orderStatus' | translate }}]</p>
+                <p class="col-lg-8">{{ order.orderStatus }}<span *ngIf="order.dateReturned">&nbsp;/&nbsp;{{
                         moment(order.dateReturned).format('YYYY/MM/DD (ddd) HH:mm') }}</span></p>
             </div>
         </div>
         <div class="py-3 border-bottom border-gray">
             <div class="row align-items-center">
-                <p class="mb-2 mb-md-0 col-md-4">[{{ 'common.paymentMethod' | translate }}]</p>
-                <div class="col-md-8">
+                <p class="mb-2 mb-lg-0 col-lg-4 font-weight-bold">[{{ 'common.paymentMethod' | translate }}]</p>
+                <div class="col-lg-8">
                     <app-item-payment-method [paymentMethods]="order.paymentMethods" [paymentTypes]="paymentTypes">
                     </app-item-payment-method>
                     <div *ngIf="qrcode" class="mt-2"><img class="border" [src]="qrcode" alt=""></div>
@@ -87,8 +79,8 @@
         </div>
         <div class="py-3 border-bottom border-gray">
             <div class="row align-items-center">
-                <p class="mb-2 mb-md-0 col-md-4">[{{ 'common.etc' | translate }}]</p>
-                <div class="col-md-8">
+                <p class="mb-2 mb-lg-0 col-lg-4 font-weight-bold">[{{ 'common.etc' | translate }}]</p>
+                <div class="col-lg-8">
                     <p *ngIf="getTransactionAgentIdentifier(order, 'linyId')">
                         [linyId]<br>
                         {{ getTransactionAgentIdentifier(order, 'linyId')?.value }}

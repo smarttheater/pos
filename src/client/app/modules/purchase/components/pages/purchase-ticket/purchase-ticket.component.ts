@@ -5,7 +5,7 @@ import { select, Store } from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
 import { BsModalService } from 'ngx-bootstrap/modal';
 import { Observable } from 'rxjs';
-import { Functions } from '../../../../..';
+import { Functions, Models } from '../../../../..';
 import { getEnvironment } from '../../../../../../environments/environment';
 import {
     IReservation,
@@ -65,7 +65,8 @@ export class PurchaseTicketComponent implements OnInit {
      * 確定
      */
     public async onSubmit() {
-        const { reservations } = await this.actionService.purchase.getData();
+        const { reservations, customer } =
+            await this.actionService.purchase.getData();
         const validResult = reservations.filter((reservation) => {
             if (reservation.ticket === undefined) {
                 return false;
@@ -120,6 +121,13 @@ export class PurchaseTicketComponent implements OnInit {
                 additionalTicketText,
                 screeningEventSeats,
             });
+            if (
+                customer !== undefined &&
+                this.environment.VIEW_TYPE === Models.Util.ViewType.Cinema
+            ) {
+                this.router.navigate(['/purchase/input']);
+                return;
+            }
             const navigate =
                 this.environment.VIEW_TYPE === 'cinema'
                     ? '/purchase/confirm'

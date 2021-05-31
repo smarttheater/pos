@@ -6,7 +6,7 @@ import { getEnvironment } from '../../../../../../environments/environment';
 @Component({
     selector: 'app-item-payment-method',
     templateUrl: './item-payment-method.component.html',
-    styleUrls: ['./item-payment-method.component.scss']
+    styleUrls: ['./item-payment-method.component.scss'],
 })
 export class ItemPaymentMethodComponent implements OnInit {
     @Input() public paymentMethods: factory.order.IPaymentMethod[];
@@ -19,21 +19,21 @@ export class ItemPaymentMethodComponent implements OnInit {
     public environment = getEnvironment();
     public moment = moment;
 
-    constructor() { }
+    constructor() {}
 
     public ngOnInit() {
         this.payments = [];
-        this.paymentMethods.forEach(p => {
-            const categoryCode = this.paymentTypes.find(c => c.codeValue === p.typeOf);
+        this.paymentMethods.forEach((p) => {
+            const categoryCode = this.paymentTypes.find(
+                (c) => c.codeValue === p.typeOf
+            );
             if (categoryCode === undefined) {
                 return;
             }
             this.payments.push({
                 paymentMethod: p,
-                categoryCode
+                categoryCode,
             });
         });
-        console.log(this.payments);
     }
-
 }
