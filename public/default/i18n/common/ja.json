@@ -329,6 +329,9 @@
             "danger": "入場NG",
             "waiting": "待機中",
             "entryCount": "入場回数",
+            "warning": {
+                "overtime": "入場時間外です"
+            },
             "alert": {
                 "event": "上映回をご確認ください",
                 "qrcode": "QRコードをご確認ください",

@@ -14,6 +14,12 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/).
 
 ### Security
 
+## 3.11.0 - 2021-05-31
+
+### Added
+
+-   入場で時間外の場合警告表示
+
 ## 3.10.0 - 2021-05-26
 
 ### Changed

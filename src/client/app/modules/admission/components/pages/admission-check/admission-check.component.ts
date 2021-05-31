@@ -5,6 +5,7 @@ import { select, Store } from '@ngrx/store';
 import { BAD_REQUEST } from 'http-status';
 import * as moment from 'moment';
 import { Observable } from 'rxjs';
+import { Models } from '../../../../..';
 import { getEnvironment } from '../../../../../../environments/environment';
 import { ActionService, QRCodeService } from '../../../../../services';
 import * as reducers from '../../../../../store/reducers';
@@ -12,7 +13,7 @@ import * as reducers from '../../../../../store/reducers';
 @Component({
     selector: 'app-admission-check',
     templateUrl: './admission-check.component.html',
-    styleUrls: ['./admission-check.component.scss']
+    styleUrls: ['./admission-check.component.scss'],
 })
 export class AdmissionCheckComponent implements OnInit, OnDestroy {
     public admission: Observable<reducers.IAdmissionState>;
@@ -25,20 +26,25 @@ export class AdmissionCheckComponent implements OnInit, OnDestroy {
     public screeningEvent?: factory.chevre.event.screeningEvent.IEvent;
     public qrcodeToken?: {
         availableReservation?: factory.chevre.reservation.IReservation<factory.chevre.reservationType.EventReservation>;
-        checkTokenActions: factory.action.IAction<factory.action.IAttributes<factory.actionType, any, any>>[] | string[];
+        checkTokenActions:
+            | factory.action.IAction<
+                  factory.action.IAttributes<factory.actionType, any, any>
+              >[]
+            | string[];
         statusCode: number;
         error?: {
             message: string;
             inputCode: string;
-        }
+        };
     };
+    public performance?: Models.Purchase.Performance;
 
     constructor(
         private store: Store<reducers.IState>,
         private actionService: ActionService,
         private qrcodeService: QRCodeService,
-        private router: Router,
-    ) { }
+        private router: Router
+    ) {}
 
     public async ngOnInit() {
         this.inputCode = '';
@@ -46,7 +52,8 @@ export class AdmissionCheckComponent implements OnInit, OnDestroy {
         this.admission = this.store.pipe(select(reducers.getAdmission));
         this.user = this.store.pipe(select(reducers.getUser));
         try {
-            const { screeningEvent } = await this.actionService.admission.getData();
+            const { screeningEvent } =
+                await this.actionService.admission.getData();
             this.screeningEvent = screeningEvent;
             if (screeningEvent !== undefined) {
                 this.update();
@@ -78,8 +85,10 @@ export class AdmissionCheckComponent implements OnInit, OnDestroy {
      * @param {string} code
      */
     public async check(code: string) {
+        this.performance = undefined;
         try {
-            const { screeningEvent, scheduleDate } = await this.actionService.admission.getData();
+            const { screeningEvent, scheduleDate } =
+                await this.actionService.admission.getData();
             const { entranceGate } = await this.actionService.user.getData();
             if (scheduleDate === undefined) {
                 this.router.navigate(['/error']);
@@ -89,15 +98,20 @@ export class AdmissionCheckComponent implements OnInit, OnDestroy {
                 code,
                 screeningEvent,
                 scheduleDate: moment(scheduleDate, 'YYYY-MM-DD').toDate(),
-                entranceGate
+                entranceGate,
             });
+            if (screeningEvent !== undefined) {
+                this.performance = new Models.Purchase.Performance({
+                    screeningEvent,
+                });
+            }
             this.screeningEvent = checkResult.screeningEvent;
             this.qrcodeToken = checkResult.qrcodeToken;
         } catch (error) {
             console.error(error);
             this.qrcodeToken = {
                 checkTokenActions: [],
-                statusCode: (error.code) ? error.code : BAD_REQUEST,
+                statusCode: error.code ? error.code : BAD_REQUEST,
                 error: {
                     inputCode: code,
                     message: error.message,
@@ -110,7 +124,7 @@ export class AdmissionCheckComponent implements OnInit, OnDestroy {
         this.qrcodeService.openQRCodeReader({
             cb: async (data: string) => {
                 await this.check(data);
-            }
+            },
         });
     }
 
@@ -118,12 +132,14 @@ export class AdmissionCheckComponent implements OnInit, OnDestroy {
         const loopTime = 600000; // 10分に一回
         clearInterval(this.updateLoop);
         this.updateLoop = setInterval(async () => {
-            const { screeningEvent } = await this.actionService.admission.getData();
+            const { screeningEvent } =
+                await this.actionService.admission.getData();
             if (screeningEvent === undefined) {
                 return;
             }
-            await this.actionService.admission.getScreeningEvent(screeningEvent);
+            await this.actionService.admission.getScreeningEvent(
+                screeningEvent
+            );
         }, loopTime);
     }
-
 }
