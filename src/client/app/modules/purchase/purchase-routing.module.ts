@@ -17,6 +17,7 @@ import { PurchaseEventTicketComponent } from './components/pages/event/purchase-
 import { PurchaseBaseComponent } from './components/pages/purchase-base/purchase-base.component';
 import { PurchaseCompleteComponent } from './components/pages/purchase-complete/purchase-complete.component';
 import { PurchaseConfirmComponent } from './components/pages/purchase-confirm/purchase-confirm.component';
+import { PurchaseInputComponent } from './components/pages/purchase-input/purchase-input.component';
 import { PurchaseRootComponent } from './components/pages/purchase-root/purchase-root.component';
 
 const routes: Routes = [
@@ -48,6 +49,11 @@ const routes: Routes = [
                     { path: 'seat', component: PurchaseEventSeatComponent },
                     { path: 'ticket', component: PurchaseEventTicketComponent },
                 ],
+            },
+            {
+                path: 'input',
+                canActivate: [PurchaseTransactionGuardService],
+                component: PurchaseInputComponent,
             },
             {
                 path: 'confirm',

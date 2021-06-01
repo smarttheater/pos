@@ -9,7 +9,11 @@ export interface IProfile {
     maxLength?: number;
     minLength?: number;
     label?: { ja: string; en: string };
-    inputType?: 'input' | 'textarea';
+    inputType?: 'input' | 'textarea' | 'select';
+    option?: {
+        label: { ja: string; en: string };
+        value: string;
+    }[];
 }
 
 /**

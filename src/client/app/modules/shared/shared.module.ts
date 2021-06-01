@@ -19,6 +19,7 @@ import { HeaderComponent } from './components/parts/header/header.component';
 import { ItemEventComponent } from './components/parts/item-event/item-event.component';
 import { ItemListComponent } from './components/parts/item-list/item-list.component';
 import { ItemPaymentMethodComponent } from './components/parts/item-payment-method/item-payment-method.component';
+import { ItemProfileComponent } from './components/parts/item-profile/item-profile.component';
 import { LoadingComponent } from './components/parts/loading/loading.component';
 import { MovieTicketCheckModalComponent } from './components/parts/movie-ticket/check-modal/check-modal.component';
 import { NumericKeypadComponent } from './components/parts/numeric-keypad/numeric-keypad.component';
@@ -37,70 +38,70 @@ import { FormatDatePipe } from './pipes/format-date.pipe';
 import { LibphonenumberFormatPipe } from './pipes/libphonenumber-format.pipe';
 
 const components = [
-  BaseComponent,
-  ContentsComponent,
-  FooterComponent,
-  HeaderComponent,
-  HeaderMenuComponent,
-  LoadingComponent,
-  ScreenComponent,
-  ItemListComponent,
-  CheckboxComponent,
-  QRCodeImageComponent,
-  ItemEventComponent,
-  ItemPaymentMethodComponent,
-  PerformanceComponent,
-  PerformancesComponent,
+    BaseComponent,
+    ContentsComponent,
+    FooterComponent,
+    HeaderComponent,
+    HeaderMenuComponent,
+    LoadingComponent,
+    ScreenComponent,
+    ItemListComponent,
+    CheckboxComponent,
+    QRCodeImageComponent,
+    ItemEventComponent,
+    ItemPaymentMethodComponent,
+    PerformanceComponent,
+    PerformancesComponent,
+    ItemProfileComponent,
 ];
 
 const entryComponents = [
-  AlertModalComponent,
-  ConfirmModalComponent,
-  MovieTicketCheckModalComponent,
-  NumericKeypadComponent,
-  OrderDetailModalComponent,
-  PurchaseSeatTicketModalComponent,
-  PurchaseEventTicketModalComponent,
-  QRCodeReaderModalComponent,
-  QRCodeViewerModalComponent,
-  ReservationDetailModalComponent,
-  CustomerDetailModalComponent,
+    AlertModalComponent,
+    ConfirmModalComponent,
+    MovieTicketCheckModalComponent,
+    NumericKeypadComponent,
+    OrderDetailModalComponent,
+    PurchaseSeatTicketModalComponent,
+    PurchaseEventTicketModalComponent,
+    QRCodeReaderModalComponent,
+    QRCodeViewerModalComponent,
+    ReservationDetailModalComponent,
+    CustomerDetailModalComponent,
 ];
 
-
 @NgModule({
-  declarations: [
-    ...components,
-    ...entryComponents,
-    LibphonenumberFormatPipe,
-    ChangeLanguagePipe,
-    FormatDatePipe,
-  ],
-  entryComponents,
-  imports: [
-    CommonModule,
-    RouterModule,
-    ReactiveFormsModule,
-    FormsModule,
-    TranslateModule,
-    ModalModule,
-    BsDatepickerModule,
-    PaginationModule,
-    NgxIntlTelInputModule,
-  ],
-  exports: [
-    ...components,
-    ...entryComponents,
-    LibphonenumberFormatPipe,
-    ChangeLanguagePipe,
-    FormatDatePipe,
-    ReactiveFormsModule,
-    FormsModule,
-    TranslateModule,
-    ModalModule,
-    BsDatepickerModule,
-    PaginationModule,
-    NgxIntlTelInputModule,
-  ]
+    declarations: [
+        ...components,
+        ...entryComponents,
+        LibphonenumberFormatPipe,
+        ChangeLanguagePipe,
+        FormatDatePipe,
+    ],
+    entryComponents,
+    imports: [
+        CommonModule,
+        RouterModule,
+        ReactiveFormsModule,
+        FormsModule,
+        TranslateModule,
+        ModalModule,
+        BsDatepickerModule,
+        PaginationModule,
+        NgxIntlTelInputModule,
+    ],
+    exports: [
+        ...components,
+        ...entryComponents,
+        LibphonenumberFormatPipe,
+        ChangeLanguagePipe,
+        FormatDatePipe,
+        ReactiveFormsModule,
+        FormsModule,
+        TranslateModule,
+        ModalModule,
+        BsDatepickerModule,
+        PaginationModule,
+        NgxIntlTelInputModule,
+    ],
 })
-export class SharedModule { }
+export class SharedModule {}
