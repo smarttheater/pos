@@ -471,26 +471,10 @@ export class PurchaseService {
     /**
      * 購入者情報登録
      */
-    public async setProfile(params: {
-        profile: factory.person.IProfile;
-        customer?: factory.chevre.organization.IOrganization;
-    }) {
+    public async setProfile(params: { profile: factory.person.IProfile }) {
         const purchase = await this.getData();
         const transaction = purchase.transaction;
-        const { profile, customer } = params;
-        let additionalProperty =
-            profile.additionalProperty === undefined
-                ? []
-                : profile.additionalProperty;
-        if (
-            customer !== undefined &&
-            customer.additionalProperty !== undefined
-        ) {
-            additionalProperty = [
-                ...additionalProperty,
-                ...customer.additionalProperty,
-            ];
-        }
+        const { profile } = params;
         return new Promise<void>((resolve, reject) => {
             if (transaction === undefined) {
                 reject();
@@ -501,7 +485,6 @@ export class PurchaseService {
                     transaction,
                     profile: {
                         ...profile,
-                        additionalProperty,
                     },
                 })
             );

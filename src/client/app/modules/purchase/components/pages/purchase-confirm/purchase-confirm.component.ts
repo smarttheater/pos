@@ -104,12 +104,11 @@ export class PurchaseConfirmComponent implements OnInit {
      * 確定
      */
     public async onSubmit() {
-        const { seller, pendingMovieTickets, customer } =
+        const { seller, pendingMovieTickets, profile } =
             await this.actionService.purchase.getData();
         const { language, customerContact } =
             await this.actionService.user.getData();
-        const profile = customerContact;
-        if (profile === undefined || seller === undefined) {
+        if (customerContact === undefined || seller === undefined) {
             this.router.navigate(['/error']);
             return;
         }
@@ -158,10 +157,11 @@ export class PurchaseConfirmComponent implements OnInit {
                         };
                     }),
             });
-            await this.actionService.purchase.setProfile({
-                profile,
-                customer,
-            });
+            if (profile === undefined) {
+                await this.actionService.purchase.setProfile({
+                    profile: customerContact,
+                });
+            }
             await this.actionService.purchase.endTransaction({
                 seller,
                 language,
