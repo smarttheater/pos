@@ -4,19 +4,27 @@ import { factory } from '@cinerino/sdk';
 import { select, Store } from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
 import * as moment from 'moment';
-import { BsDatepickerContainerComponent, BsDatepickerDirective, BsLocaleService } from 'ngx-bootstrap/datepicker';
+import {
+    BsDatepickerContainerComponent,
+    BsDatepickerDirective,
+    BsLocaleService,
+} from 'ngx-bootstrap/datepicker';
 import { BsModalService } from 'ngx-bootstrap/modal';
 import { Observable } from 'rxjs';
 import { Functions, Models } from '../../../../..';
 import { getEnvironment } from '../../../../../../environments/environment';
-import { ActionService, MasterService, UtilService } from '../../../../../services';
+import {
+    ActionService,
+    MasterService,
+    UtilService,
+} from '../../../../../services';
 import * as reducers from '../../../../../store/reducers';
 import { OrderDetailModalComponent } from '../../../../shared/components/parts/order/detail-modal/detail-modal.component';
 
 @Component({
     selector: 'app-order-search',
     templateUrl: './order-search.component.html',
-    styleUrls: ['./order-search.component.scss']
+    styleUrls: ['./order-search.component.scss'],
 })
 export class OrderSearchComponent implements OnInit {
     public isLoading: Observable<boolean>;
@@ -29,7 +37,8 @@ export class OrderSearchComponent implements OnInit {
     public currentPage: number;
     public moment = moment;
     public orderStatus: typeof factory.orderStatus = factory.orderStatus;
-    public paymentMethodType: typeof factory.paymentMethodType = factory.paymentMethodType;
+    public paymentMethodType: typeof factory.paymentMethodType =
+        factory.paymentMethodType;
     public limit: number;
     public conditions: Models.Order.Search.IOrderSearchConditions;
     public selectedOrders: factory.order.IOrder[];
@@ -55,8 +64,8 @@ export class OrderSearchComponent implements OnInit {
         protected masterService: MasterService,
         protected translate: TranslateService,
         protected localeService: BsLocaleService,
-        protected router: Router,
-    ) { }
+        protected router: Router
+    ) {}
 
     public async ngOnInit() {
         this.actionSelect = '';
@@ -72,15 +81,23 @@ export class OrderSearchComponent implements OnInit {
         this.screeningEventsGroup = [];
         this.creativeWorks = [];
         this.contentRatingTypes = [];
-        this.scheduleDate = moment(moment().format('YYYYMMDD'), 'YYYYMMDD').toDate();
+        this.scheduleDate = moment(
+            moment().format('YYYYMMDD'),
+            'YYYYMMDD'
+        ).toDate();
         this.searchType = 'input';
         this.paymentTypes = [];
         try {
-            this.contentRatingTypes = await this.masterService.searchCategoryCode({
-                categorySetIdentifier: factory.chevre.categoryCode.CategorySetIdentifier.ContentRatingType
-            });
+            this.contentRatingTypes =
+                await this.masterService.searchCategoryCode({
+                    categorySetIdentifier:
+                        factory.chevre.categoryCode.CategorySetIdentifier
+                            .ContentRatingType,
+                });
             this.paymentTypes = await this.masterService.searchCategoryCode({
-                categorySetIdentifier: factory.chevre.categoryCode.CategorySetIdentifier.PaymentMethodType
+                categorySetIdentifier:
+                    factory.chevre.categoryCode.CategorySetIdentifier
+                        .PaymentMethodType,
             });
         } catch (error) {
             this.router.navigate(['/error']);
@@ -89,14 +106,18 @@ export class OrderSearchComponent implements OnInit {
     }
 
     public toggleOrder(order: factory.order.IOrder) {
-        const findResult = this.selectedOrders.find(o => o.orderNumber === order.orderNumber);
+        const findResult = this.selectedOrders.find(
+            (o) => o.orderNumber === order.orderNumber
+        );
         if (findResult === undefined) {
             // 選択中へ変更
             this.selectedOrders.push(order);
             return;
         }
         // 選択中解除
-        const findIndex = this.selectedOrders.findIndex(o => o.orderNumber === order.orderNumber);
+        const findIndex = this.selectedOrders.findIndex(
+            (o) => o.orderNumber === order.orderNumber
+        );
         this.selectedOrders.splice(findIndex, 1);
     }
 
@@ -111,21 +132,29 @@ export class OrderSearchComponent implements OnInit {
                 input: this.conditions,
                 theater: (await this.actionService.user.getData()).theater,
                 page: this.currentPage,
-                limit: this.limit
+                limit: this.limit,
             });
             this.orders = (await this.actionService.order.search(params)).data;
-            this.nextOrders = (await this.actionService.order.search({ ...params, page: (this.currentPage + 1) })).data;
-            const totalCount = (this.nextOrders.length === 0)
-                ? this.currentPage * this.limit : (this.currentPage + 1) * this.limit;
-            this.totalCount = (this.totalCount < totalCount) ? totalCount : this.totalCount;
+            this.nextOrders = (
+                await this.actionService.order.search({
+                    ...params,
+                    page: this.currentPage + 1,
+                })
+            ).data;
+            const totalCount =
+                this.nextOrders.length === 0
+                    ? this.currentPage * this.limit
+                    : (this.currentPage + 1) * this.limit;
+            this.totalCount =
+                this.totalCount < totalCount ? totalCount : this.totalCount;
             const maxSize = this.totalCount / this.limit;
             const maxSizeLimit = 5;
-            this.maxSize = (maxSize > maxSizeLimit) ? maxSizeLimit : maxSize;
+            this.maxSize = maxSize > maxSizeLimit ? maxSizeLimit : maxSize;
         } catch (error) {
             console.error(error);
             this.utilService.openAlert({
                 title: this.translate.instant('common.error'),
-                body: this.translate.instant('order.search.alert.search')
+                body: this.translate.instant('order.search.alert.search'),
             });
         }
     }
@@ -133,7 +162,9 @@ export class OrderSearchComponent implements OnInit {
     /**
      * 条件変更
      */
-    public async changeConditions(conditions: Models.Order.Search.IOrderSearchConditions) {
+    public async changeConditions(
+        conditions: Models.Order.Search.IOrderSearchConditions
+    ) {
         this.conditions = conditions;
         this.totalCount = this.limit;
         this.maxSize = 1;
@@ -163,18 +194,28 @@ export class OrderSearchComponent implements OnInit {
                     }
                     const pos = user.pos;
                     const printer = user.printer;
-                    await this.actionService.order.print({ orders, pos, printer });
+                    await this.actionService.order.print({
+                        orders,
+                        pos,
+                        printer,
+                    });
                 } catch (error) {
                     console.error(error);
                     this.utilService.openAlert({
                         title: this.translate.instant('common.error'),
-                        body: `<p class="mb-4">${this.translate.instant('order.search.alert.print')}</p>
+                        body: `<p class="mb-4">${this.translate.instant(
+                            'order.search.alert.print'
+                        )}</p>
                         <div class="p-3 bg-light-gray select-text">
-                        <code>${(JSON.stringify(error) === '{}') ? error : JSON.stringify(error)}</code>
-                    </div>`
+                        <code>${
+                            JSON.stringify(error) === '{}'
+                                ? error
+                                : JSON.stringify(error)
+                        }</code>
+                    </div>`,
                     });
                 }
-            }
+            },
         });
     }
 
@@ -193,18 +234,28 @@ export class OrderSearchComponent implements OnInit {
                     }
                     const pos = user.pos;
                     const printer = user.printer;
-                    await this.actionService.order.printReceipt({ orders, pos, printer });
+                    await this.actionService.order.printReceipt({
+                        orders,
+                        pos,
+                        printer,
+                    });
                 } catch (error) {
                     console.error(error);
                     this.utilService.openAlert({
                         title: this.translate.instant('common.error'),
-                        body: `<p class="mb-4">${this.translate.instant('order.search.alert.print')}</p>
+                        body: `<p class="mb-4">${this.translate.instant(
+                            'order.search.alert.print'
+                        )}</p>
                         <div class="p-3 bg-light-gray select-text">
-                        <code>${(JSON.stringify(error) === '{}') ? error : JSON.stringify(error)}</code>
-                    </div>`
+                        <code>${
+                            JSON.stringify(error) === '{}'
+                                ? error
+                                : JSON.stringify(error)
+                        }</code>
+                    </div>`,
                     });
                 }
-            }
+            },
         });
     }
 
@@ -215,25 +266,36 @@ export class OrderSearchComponent implements OnInit {
         const code = Functions.Util.createRandomString(6, /[^0-9]/g);
         this.utilService.openConfirm({
             title: this.translate.instant('common.confirm'),
-            body: this.translate.instant('order.search.confirm.cancel', { value: code }),
+            body: this.translate.instant('order.search.confirm.cancel', {
+                value: code,
+            }),
             code,
             cb: async () => {
                 try {
                     const userData = await this.actionService.user.getData();
-                    await this.actionService.order.cancel({ orders, language: userData.language });
+                    await this.actionService.order.cancel({
+                        orders,
+                        language: userData.language,
+                    });
                     this.changePage({ page: this.conditions.page });
                 } catch (error) {
                     console.error(error);
                     this.utilService.openAlert({
                         title: this.translate.instant('common.error'),
                         body: `
-                        <p class="mb-4">${this.translate.instant('order.search.alert.cancel')}</p>
+                        <p class="mb-4">${this.translate.instant(
+                            'order.search.alert.cancel'
+                        )}</p>
                             <div class="p-3 bg-light-gray select-text">
-                            <code>${(JSON.stringify(error) === '{}') ? error : JSON.stringify(error)}</code>
-                        </div>`
+                            <code>${
+                                JSON.stringify(error) === '{}'
+                                    ? error
+                                    : JSON.stringify(error)
+                            }</code>
+                        </div>`,
                     });
                 }
-            }
+            },
         });
     }
 
@@ -245,8 +307,8 @@ export class OrderSearchComponent implements OnInit {
             class: 'modal-dialog-centered modal-lg',
             initialState: {
                 order,
-                paymentTypes: this.paymentTypes
-            }
+                paymentTypes: this.paymentTypes,
+            },
         });
     }
 
@@ -257,7 +319,7 @@ export class OrderSearchComponent implements OnInit {
         if (this.selectedOrders.length === 0) {
             this.utilService.openAlert({
                 title: this.translate.instant('common.error'),
-                body: this.translate.instant('order.search.alert.unselected')
+                body: this.translate.instant('order.search.alert.unselected'),
             });
             return;
         }
@@ -265,14 +327,17 @@ export class OrderSearchComponent implements OnInit {
             const code = Functions.Util.createRandomString(6, /[^0-9]/g);
             this.utilService.openConfirm({
                 title: this.translate.instant('common.confirm'),
-                body: this.translate.instant('order.search.confirm.cancel', { value: code }),
+                body: this.translate.instant('order.search.confirm.cancel', {
+                    value: code,
+                }),
                 code,
                 cb: async () => {
                     try {
-                        const userData = await this.actionService.user.getData();
+                        const userData =
+                            await this.actionService.user.getData();
                         await this.actionService.order.cancel({
                             orders: this.selectedOrders,
-                            language: userData.language
+                            language: userData.language,
                         });
                         this.changePage({ page: this.conditions.page });
                     } catch (error) {
@@ -280,15 +345,23 @@ export class OrderSearchComponent implements OnInit {
                         this.utilService.openAlert({
                             title: this.translate.instant('common.error'),
                             body: `
-                            <p class="mb-4">${this.translate.instant('order.search.alert.cancel')}</p>
+                            <p class="mb-4">${this.translate.instant(
+                                'order.search.alert.cancel'
+                            )}</p>
                                 <div class="p-3 bg-light-gray select-text">
-                                <code>${(JSON.stringify(error) === '{}') ? error : JSON.stringify(error)}</code>
-                            </div>`
+                                <code>${
+                                    JSON.stringify(error) === '{}'
+                                        ? error
+                                        : JSON.stringify(error)
+                                }</code>
+                            </div>`,
                         });
                     }
-                }
+                },
             });
-        } else if (this.actionSelect === Models.Order.Action.OrderActions.Print) {
+        } else if (
+            this.actionSelect === Models.Order.Action.OrderActions.Print
+        ) {
             this.utilService.openConfirm({
                 title: this.translate.instant('common.confirm'),
                 body: this.translate.instant('order.search.confirm.print'),
@@ -301,18 +374,28 @@ export class OrderSearchComponent implements OnInit {
                         const pos = user.pos;
                         const printer = user.printer;
                         const orders = this.selectedOrders;
-                        await this.actionService.order.print({ orders, pos, printer });
+                        await this.actionService.order.print({
+                            orders,
+                            pos,
+                            printer,
+                        });
                     } catch (error) {
                         console.error(error);
                         this.utilService.openAlert({
                             title: this.translate.instant('common.error'),
-                            body: `<p class="mb-4">${this.translate.instant('order.search.alert.print')}</p>
+                            body: `<p class="mb-4">${this.translate.instant(
+                                'order.search.alert.print'
+                            )}</p>
                             <div class="p-3 bg-light-gray select-text">
-                            <code>${(JSON.stringify(error) === '{}') ? error : JSON.stringify(error)}</code>
-                        </div>`
+                            <code>${
+                                JSON.stringify(error) === '{}'
+                                    ? error
+                                    : JSON.stringify(error)
+                            }</code>
+                        </div>`,
                         });
                     }
-                }
+                },
             });
         }
     }
@@ -329,7 +412,10 @@ export class OrderSearchComponent implements OnInit {
         const theater = user.theater;
         if (this.scheduleDate === undefined) {
             this.scheduleDate = moment()
-                .add(this.environment.PURCHASE_SCHEDULE_DEFAULT_SELECTED_DATE, 'day')
+                .add(
+                    this.environment.PURCHASE_SCHEDULE_DEFAULT_SELECTED_DATE,
+                    'day'
+                )
                 .toDate();
         }
         const scheduleDate = moment(this.scheduleDate).format('YYYY-MM-DD');
@@ -338,47 +424,73 @@ export class OrderSearchComponent implements OnInit {
         }
         try {
             this.creativeWorks = await this.masterService.searchMovies({
-                offers: { availableFrom: moment(scheduleDate).toDate() }
+                offers: { availableFrom: moment(scheduleDate).toDate() },
             });
-            let workPerformedIdentifiers = this.creativeWorks.map(c => c.identifier);
+            let workPerformedIdentifiers = this.creativeWorks.map(
+                (c) => c.identifier
+            );
             if (this.creativeWorks.length === 0) {
-                workPerformedIdentifiers = (await this.masterService.searchScreeningEvent({
+                workPerformedIdentifiers = (
+                    await this.masterService.searchScreeningEvent({
+                        superEvent: {
+                            locationBranchCodes: [theater.branchCode],
+                        },
+                        startFrom: moment(scheduleDate).toDate(),
+                        startThrough: moment(scheduleDate)
+                            .add(1, 'day')
+                            .add(-1, 'millisecond')
+                            .toDate(),
+                    })
+                )
+                    .filter((s) => s.workPerformed !== undefined)
+                    .map((s) => s.workPerformed?.identifier || '');
+            }
+            const screeningEventSeries =
+                this.environment.PURCHASE_SCHEDULE_SORT ===
+                'screeningEventSeries'
+                    ? await this.masterService.searchScreeningEventSeries({
+                          location: {
+                              branchCode: { $eq: theater.branchCode },
+                          },
+                          workPerformed: {
+                              identifiers: Array.from(
+                                  new Set(workPerformedIdentifiers)
+                              ),
+                          },
+                      })
+                    : [];
+            const screeningRooms =
+                this.environment.PURCHASE_SCHEDULE_SORT === 'screen'
+                    ? await this.masterService.searchScreeningRooms({
+                          branchCode: { $eq: theater.branchCode },
+                      })
+                    : [];
+            const screeningEvents =
+                await this.masterService.searchScreeningEvent({
                     superEvent: { locationBranchCodes: [theater.branchCode] },
                     startFrom: moment(scheduleDate).toDate(),
-                    startThrough: moment(scheduleDate).add(1, 'day').add(-1, 'millisecond').toDate(),
-                }))
-                .filter(s => s.workPerformed !== undefined)
-                .map(s => s.workPerformed?.identifier || '');
-            }
-            const screeningEventSeries = (this.environment.PURCHASE_SCHEDULE_SORT === 'screeningEventSeries')
-                ? await this.masterService.searchScreeningEventSeries({
-                    location: {
-                        branchCode: { $eq: theater.branchCode }
-                    },
-                    workPerformed: { identifiers: Array.from(new Set(workPerformedIdentifiers)) }
-                })
-                : [];
-            const screeningRooms = (this.environment.PURCHASE_SCHEDULE_SORT === 'screen')
-                ? await this.masterService.searchScreeningRooms({
-                    branchCode: { $eq: theater.branchCode }
-                })
-                : [];
-            const screeningEvents = await this.masterService.searchScreeningEvent({
-                superEvent: { locationBranchCodes: [theater.branchCode] },
-                startFrom: moment(scheduleDate).toDate(),
-                startThrough: moment(scheduleDate).add(1, 'day').add(-1, 'millisecond').toDate(),
-                creativeWorks: this.creativeWorks,
-                screeningEventSeries,
-                screeningRooms
-            });
-            const now = moment((await this.utilService.getServerTime()).date).toDate();
+                    startThrough: moment(scheduleDate)
+                        .add(1, 'day')
+                        .add(-1, 'millisecond')
+                        .toDate(),
+                    screeningEventSeries,
+                    screeningRooms,
+                });
+            const now = moment(
+                (await this.utilService.getServerTime()).date
+            ).toDate();
             this.screeningEventsGroup =
-                Functions.Purchase.screeningEvents2ScreeningEventSeries({ screeningEvents, now });
+                Functions.Purchase.screeningEvents2ScreeningEventSeries({
+                    screeningEvents,
+                    now,
+                });
         } catch (error) {
             console.error(error);
             this.utilService.openAlert({
                 title: this.translate.instant('common.error'),
-                body: this.translate.instant('order.searchEvent.alert.schedule')
+                body: this.translate.instant(
+                    'order.searchEvent.alert.schedule'
+                ),
             });
         }
     }
@@ -386,7 +498,9 @@ export class OrderSearchComponent implements OnInit {
     /**
      * スケジュール選択
      */
-    public async selectSchedule(screeningEvent: factory.chevre.event.screeningEvent.IEvent) {
+    public async selectSchedule(
+        screeningEvent: factory.chevre.event.screeningEvent.IEvent
+    ) {
         this.screeningEvent = screeningEvent;
         await this.changeConditions({
             confirmationNumber: '',
@@ -396,13 +510,13 @@ export class OrderSearchComponent implements OnInit {
                 familyName: '',
                 givenName: '',
                 email: '',
-                telephone: ''
+                telephone: '',
             },
             orderStatus: '',
             paymentMethodType: '',
             eventIds: [screeningEvent.id],
             posId: '',
-            page: 1
+            page: 1,
         });
         const element = document.querySelector('#screeningEvent');
         if (element === null) {
@@ -410,18 +524,19 @@ export class OrderSearchComponent implements OnInit {
         }
         element.scrollIntoView({
             behavior: 'smooth',
-            block: 'start'
+            block: 'start',
         });
     }
-
 
     /**
      * Datepicker言語設定
      */
     public setDatePicker() {
-        this.user.subscribe((user) => {
-            this.localeService.use(user.language);
-        }).unsubscribe();
+        this.user
+            .subscribe((user) => {
+                this.localeService.use(user.language);
+            })
+            .unsubscribe();
     }
 
     /**
@@ -449,8 +564,7 @@ export class OrderSearchComponent implements OnInit {
     /**
      * コンテンツ取得
      */
-     public getCreativeWorks(identifier: string) {
-        return this.creativeWorks.find(c => c.identifier === identifier);
+    public getCreativeWorks(identifier: string) {
+        return this.creativeWorks.find((c) => c.identifier === identifier);
     }
-
 }
