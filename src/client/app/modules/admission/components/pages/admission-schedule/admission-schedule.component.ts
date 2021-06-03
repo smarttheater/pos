@@ -131,7 +131,6 @@ export class AdmissionScheduleComponent implements OnInit, OnDestroy {
                 .add(1, 'day')
                 .add(-1, 'millisecond')
                 .toDate(),
-            creativeWorks,
             screeningEventSeries,
             screeningRooms,
         });
