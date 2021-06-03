@@ -14,6 +14,12 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/).
 
 ### Security
 
+## 3.13.0 - 2021-06-03
+
+### Changed
+
+-   施設コンテンツ検索を分割して検索へ変更
+
 ## 3.12.0 - 2021-06-01
 
 ### Added
