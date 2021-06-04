@@ -85,8 +85,6 @@ export class AdmissionCheckComponent implements OnInit, OnDestroy {
      * @param {string} code
      */
     public async check(code: string) {
-        // code = 'CIN020550374441082-0@c20dc1d1-b7f4-480c-94f7-a325a6fbd5dd';
-        code = 'CIN285665475047928-0@462bacce-7d6c-4421-aca4-7feab6fd7c30';
         this.performance = undefined;
         try {
             const { screeningEvent, scheduleDate } =
