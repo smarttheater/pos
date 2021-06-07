@@ -14,6 +14,12 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/).
 
 ### Security
 
+## 3.14.0 - 2021-06-07
+
+### Changed
+
+-   入場で券種表示変更（アドオン、 座席なし対応）
+
 ## 3.13.0 - 2021-06-03
 
 ### Changed
