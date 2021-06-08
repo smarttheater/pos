@@ -26,9 +26,7 @@ export class ItemProfileComponent implements OnInit {
     constructor() {}
 
     public ngOnInit() {
-        console.log(this.profile);
         this.profileList = this.getProfile();
-        console.log(this.profileList);
     }
 
     /**
