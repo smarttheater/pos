@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { factory } from '@cinerino/sdk';
 import * as moment from 'moment';
+import { Models } from '../../../../..';
 import { getEnvironment } from '../../../../../../environments/environment';
 
 @Component({
@@ -12,6 +13,7 @@ export class ItemPaymentMethodComponent implements OnInit {
     @Input() public paymentMethods: factory.order.IPaymentMethod[];
     @Input() public paymentTypes: factory.chevre.categoryCode.ICategoryCode[];
     public paymentMethodType = factory.paymentMethodType;
+    public customPaymentMethodType = Models.Purchase.Payment.PaymentMethodType;
     public payments: {
         paymentMethod: factory.order.IPaymentMethod;
         categoryCode: factory.chevre.categoryCode.ICategoryCode;

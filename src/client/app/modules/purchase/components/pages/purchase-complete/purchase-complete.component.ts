@@ -7,13 +7,17 @@ import * as moment from 'moment';
 import { Observable } from 'rxjs';
 import { Functions, Models } from '../../../../..';
 import { getEnvironment } from '../../../../../../environments/environment';
-import { ActionService, MasterService, UtilService } from '../../../../../services';
+import {
+    ActionService,
+    MasterService,
+    UtilService,
+} from '../../../../../services';
 import * as reducers from '../../../../../store/reducers';
 
 @Component({
     selector: 'app-purchase-complete',
     templateUrl: './purchase-complete.component.html',
-    styleUrls: ['./purchase-complete.component.scss']
+    styleUrls: ['./purchase-complete.component.scss'],
 })
 export class PurchaseCompleteComponent implements OnInit {
     public purchase: Observable<reducers.IPurchaseState>;
@@ -25,6 +29,7 @@ export class PurchaseCompleteComponent implements OnInit {
     public environment = getEnvironment();
     public qrcode?: string;
     public paymentMethodType = factory.paymentMethodType;
+    public customPaymentMethodType = Models.Purchase.Payment.PaymentMethodType;
     public connectionType = Models.Util.Printer.ConnectionType;
     public createOrderLink = Functions.Order.createOrderLink;
     public paymentTypes: factory.chevre.categoryCode.ICategoryCode[];
@@ -35,8 +40,8 @@ export class PurchaseCompleteComponent implements OnInit {
         private actionService: ActionService,
         private utilService: UtilService,
         private translate: TranslateService,
-        private masterService: MasterService,
-    ) { }
+        private masterService: MasterService
+    ) {}
 
     public async ngOnInit() {
         this.eventOrders = [];
@@ -52,7 +57,9 @@ export class PurchaseCompleteComponent implements OnInit {
             }
             this.eventOrders = Functions.Purchase.order2EventOrders({ order });
             this.paymentTypes = await this.masterService.searchCategoryCode({
-                categorySetIdentifier: factory.chevre.categoryCode.CategorySetIdentifier.PaymentMethodType
+                categorySetIdentifier:
+                    factory.chevre.categoryCode.CategorySetIdentifier
+                        .PaymentMethodType,
             });
         } catch (error) {
             this.router.navigate(['/error']);
@@ -75,22 +82,36 @@ export class PurchaseCompleteComponent implements OnInit {
             if (order === undefined) {
                 throw new Error('order not found');
             }
-            const isRegiGrow = order.paymentMethods.find(p => {
-                return (p.typeOf === this.paymentMethodType.Others && p.name === 'RegiGrow')
-                    || p.typeOf === 'RegiGrow';
-            }) !== undefined;
+            const isRegiGrow =
+                order.paymentMethods.find((p) => {
+                    return (
+                        (p.typeOf ===
+                            Models.Purchase.Payment.PaymentMethodType.Others &&
+                            p.name === 'RegiGrow') ||
+                        p.typeOf === 'RegiGrow'
+                    );
+                }) !== undefined;
             if (isRegiGrow) {
                 const qrcodeText = this.environment.REGIGROW_QRCODE;
-                this.qrcode = await Functions.Order.createCooperationQRCode({ order, qrcodeText });
+                this.qrcode = await Functions.Order.createCooperationQRCode({
+                    order,
+                    qrcodeText,
+                });
             }
         } catch (error) {
             this.utilService.openAlert({
                 title: this.translate.instant('common.error'),
                 body: `
-                <p class="mb-4">${this.translate.instant('purchase.complete.alert.regiGrow')}</p>
+                <p class="mb-4">${this.translate.instant(
+                    'purchase.complete.alert.regiGrow'
+                )}</p>
                     <div class="p-3 bg-light-gray select-text">
-                    <code>${(JSON.stringify(error) === '{}') ? error : JSON.stringify(error)}</code>
-                </div>`
+                    <code>${
+                        JSON.stringify(error) === '{}'
+                            ? error
+                            : JSON.stringify(error)
+                    }</code>
+                </div>`,
             });
         }
     }
@@ -102,8 +123,7 @@ export class PurchaseCompleteComponent implements OnInit {
         try {
             const purchase = await this.actionService.purchase.getData();
             const user = await this.actionService.user.getData();
-            if (purchase.order === undefined
-                || user.printer === undefined) {
+            if (purchase.order === undefined || user.printer === undefined) {
                 throw new Error('printer undefined');
             }
             const orders = [purchase.order];
@@ -115,14 +135,15 @@ export class PurchaseCompleteComponent implements OnInit {
             this.utilService.openAlert({
                 title: this.translate.instant('common.error'),
                 body: `
-                <p class="mb-4">${this.translate.instant('purchase.complete.alert.print')}</p>
+                <p class="mb-4">${this.translate.instant(
+                    'purchase.complete.alert.print'
+                )}</p>
                     <div class="p-3 bg-light-gray select-text">
                     <code>${JSON.stringify(error)}</code>
-                </div>`
+                </div>`,
             });
         }
     }
-
 
     /**
      * 領収書印刷
@@ -131,24 +152,32 @@ export class PurchaseCompleteComponent implements OnInit {
         try {
             const purchase = await this.actionService.purchase.getData();
             const user = await this.actionService.user.getData();
-            if (purchase.order === undefined
-                || user.printer === undefined) {
+            if (purchase.order === undefined || user.printer === undefined) {
                 throw new Error('printer undefined');
             }
             const orders = [purchase.order];
             const pos = user.pos;
             const printer = user.printer;
-            await this.actionService.order.printReceipt({ orders, pos, printer });
+            await this.actionService.order.printReceipt({
+                orders,
+                pos,
+                printer,
+            });
         } catch (error) {
             this.utilService.openAlert({
                 title: this.translate.instant('common.error'),
                 body: `
-                <p class="mb-4">${this.translate.instant('purchase.complete.alert.print')}</p>
+                <p class="mb-4">${this.translate.instant(
+                    'purchase.complete.alert.print'
+                )}</p>
                     <div class="p-3 bg-light-gray select-text">
-                    <code>${(JSON.stringify(error) === '{}') ? error : JSON.stringify(error)}</code>
-                </div>`
+                    <code>${
+                        JSON.stringify(error) === '{}'
+                            ? error
+                            : JSON.stringify(error)
+                    }</code>
+                </div>`,
             });
         }
     }
-
 }

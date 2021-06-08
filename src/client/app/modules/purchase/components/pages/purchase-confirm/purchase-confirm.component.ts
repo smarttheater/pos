@@ -36,6 +36,7 @@ export class PurchaseConfirmComponent implements OnInit {
         value: number;
     }[];
     public paymentMethodType = factory.chevre.paymentMethodType;
+    public customPaymentMethodType = Models.Purchase.Payment.PaymentMethodType;
     public isValid: boolean;
 
     constructor(
@@ -115,7 +116,7 @@ export class PurchaseConfirmComponent implements OnInit {
         const cash = this.payments.find(
             (p) =>
                 p.paymentAccepted.paymentMethodType ===
-                this.paymentMethodType.Cash
+                this.customPaymentMethodType.Cash
         );
         if (cash !== undefined && cash.value > 0) {
             await this.openDrawer();
@@ -133,7 +134,7 @@ export class PurchaseConfirmComponent implements OnInit {
                         const additionalProperty = [];
                         if (
                             p.paymentAccepted.paymentMethodType ===
-                            factory.chevre.paymentMethodType.Cash
+                            Models.Purchase.Payment.PaymentMethodType.Cash
                         ) {
                             additionalProperty.push({
                                 name: 'depositAmount',
@@ -146,7 +147,7 @@ export class PurchaseConfirmComponent implements OnInit {
                         }
                         const amount =
                             p.paymentAccepted.paymentMethodType ===
-                            factory.chevre.paymentMethodType.Cash
+                            Models.Purchase.Payment.PaymentMethodType.Cash
                                 ? Number(p.value) - this.chargeAmount
                                 : Number(p.value);
                         return {
