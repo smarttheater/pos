@@ -36,7 +36,7 @@
                 </p>
             </div>
 
-            <div *ngIf="payment.selected && payment.paymentAccepted.paymentMethodType === paymentMethodType.Cash"
+            <div *ngIf="payment.selected && payment.paymentAccepted.paymentMethodType === customPaymentMethodType.Cash"
                 class="w-100 d-flex flex-wrap align-items-center mb-3">
                 <p class="mb-2 mb-md-0 col-md-4 text-md-right">
                     {{ 'purchase.confirm.change' | translate }}

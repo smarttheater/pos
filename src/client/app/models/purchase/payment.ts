@@ -11,11 +11,15 @@ export enum PaymentMethodType {
      */
     EMoney = 'EMoney',
     /**
-     * クレジットカード決済
+     * コード決済
      */
-    CreditCard = 'CreditCard',
+    Code = 'RegiGrow',
     /**
-     * RegiGrow決済
+     * その他
      */
-    RegiGrow = 'RegiGrow'
+    Others = 'Others',
+    /**
+     * RegiGrow
+     */
+    RegiGrow = 'RegiGrow',
 }

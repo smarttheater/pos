@@ -4,7 +4,7 @@ import * as cinerino from '@cinerino/sdk';
 import { Functions } from '..';
 
 @Injectable({
-    providedIn: 'root'
+    providedIn: 'root',
 })
 export class CinerinoService {
     public auth: cinerino.auth.OAuth2;
@@ -21,23 +21,20 @@ export class CinerinoService {
     public project: cinerino.service.Project;
     public ownershipInfo: cinerino.service.person.OwnershipInfo;
     public reservation: cinerino.service.Reservation;
-    public task: cinerino.service.Task;
     public token: cinerino.service.Token;
     public payment: cinerino.service.Payment;
     public transaction: {
-        placeOrder: cinerino.service.transaction.PlaceOrder,
-        returnOrder: cinerino.service.transaction.ReturnOrder
+        placeOrder: cinerino.service.transaction.PlaceOrder;
+        returnOrder: cinerino.service.transaction.ReturnOrder;
     };
     public admin: {
-        ownershipInfo: cinerino.service.OwnershipInfo
+        ownershipInfo: cinerino.service.OwnershipInfo;
     };
     public userName: string;
     private endpoint: string;
     private waiterServerUrl: string;
 
-    constructor(
-        private http: HttpClient
-    ) { }
+    constructor(private http: HttpClient) {}
 
     /**
      * getServices
@@ -55,18 +52,24 @@ export class CinerinoService {
             this.seller = new cinerino.service.Seller(option);
             this.place = new cinerino.service.Place(option);
             this.person = new cinerino.service.Person(option);
-            this.project = new cinerino.service.Project({ ...option, project: undefined });
-            this.ownershipInfo = new cinerino.service.person.OwnershipInfo(option);
+            this.project = new cinerino.service.Project({
+                ...option,
+                project: undefined,
+            });
+            this.ownershipInfo = new cinerino.service.person.OwnershipInfo(
+                option
+            );
             this.reservation = new cinerino.service.Reservation(option);
-            this.task = new cinerino.service.Task(option);
             this.token = new cinerino.service.Token(option);
             this.payment = new cinerino.service.Payment(option);
             this.transaction = {
                 placeOrder: new cinerino.service.transaction.PlaceOrder(option),
-                returnOrder: new cinerino.service.transaction.ReturnOrder(option)
+                returnOrder: new cinerino.service.transaction.ReturnOrder(
+                    option
+                ),
             };
             this.admin = {
-                ownershipInfo: new cinerino.service.OwnershipInfo(option)
+                ownershipInfo: new cinerino.service.OwnershipInfo(option),
             };
         } catch (err) {
             console.error(err);
@@ -82,7 +85,7 @@ export class CinerinoService {
         return {
             endpoint: this.endpoint,
             auth: this.auth,
-            project: { id: Functions.Util.getProject().projectId }
+            project: { id: Functions.Util.getProject().projectId },
         };
     }
 
@@ -98,18 +101,20 @@ export class CinerinoService {
         while (loop) {
             loop = false;
             try {
-                const result = await this.http.post<{
-                    accessToken: string;
-                    expiryDate: number;
-                    clientId: string;
-                    endpoint: string;
-                    waiterServerUrl: string;
-                    userName: string;
-                }>(url, body).toPromise();
+                const result = await this.http
+                    .post<{
+                        accessToken: string;
+                        expiryDate: number;
+                        clientId: string;
+                        endpoint: string;
+                        waiterServerUrl: string;
+                        userName: string;
+                    }>(url, body)
+                    .toPromise();
                 this.setCredentials(result);
             } catch (error) {
                 if (error.status !== undefined && error.status >= 500) {
-                    loop = (count < limit);
+                    loop = count < limit;
                     count++;
                     await Functions.Util.sleep(20000);
                     continue;
@@ -139,10 +144,13 @@ export class CinerinoService {
             scope: '',
             state: '',
             nonce: null,
-            tokenIssuer: ''
+            tokenIssuer: '',
         };
         this.auth = cinerino.createAuthInstance(option);
-        this.auth.setCredentials({ accessToken: params.accessToken, expiryDate: params.expiryDate });
+        this.auth.setCredentials({
+            accessToken: params.accessToken,
+            expiryDate: params.expiryDate,
+        });
         this.endpoint = params.endpoint;
         this.waiterServerUrl = params.waiterServerUrl;
         this.userName = params.userName;
@@ -153,7 +161,9 @@ export class CinerinoService {
      */
     public async signIn() {
         const url = '/api/authorize/signIn';
-        const result = await this.http.get<{ url: string }>(url, {}).toPromise();
+        const result = await this.http
+            .get<{ url: string }>(url, {})
+            .toPromise();
         // console.log(result.url);
         location.href = result.url;
     }
@@ -163,7 +173,9 @@ export class CinerinoService {
      */
     public async signOut() {
         const url = '/api/authorize/signOut';
-        const result = await this.http.get<{ url: string }>(url, {}).toPromise();
+        const result = await this.http
+            .get<{ url: string }>(url, {})
+            .toPromise();
         // console.log(result.url);
         location.href = result.url;
     }
@@ -172,13 +184,16 @@ export class CinerinoService {
      * パスポート取得
      */
     public async getPassport(sellerId: string) {
-        if (this.waiterServerUrl === undefined
-            || this.waiterServerUrl === '') {
+        if (this.waiterServerUrl === undefined || this.waiterServerUrl === '') {
             return { token: '' };
         }
-        const url = `${this.waiterServerUrl}/projects/${Functions.Util.getProject().projectId}/passports`;
+        const url = `${this.waiterServerUrl}/projects/${
+            Functions.Util.getProject().projectId
+        }/passports`;
         const body = { scope: `Transaction:PlaceOrder:${sellerId}` };
-        const result = await this.http.post<{ token: string; }>(url, body).toPromise();
+        const result = await this.http
+            .post<{ token: string }>(url, body)
+            .toPromise();
 
         return result;
     }

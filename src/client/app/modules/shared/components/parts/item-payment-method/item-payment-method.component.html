@@ -3,7 +3,7 @@
         <tr *ngFor="let payment of payments">
             <td scope="row">
                 <p>{{ payment.categoryCode.name | changeLanguage }}</p>
-                <p *ngIf="payment.paymentMethod.typeOf === paymentMethodType.Others 
+                <p *ngIf="payment.paymentMethod.typeOf === customPaymentMethodType.Others 
                 && payment.paymentMethod.name !== 'Others'">[{{ payment.paymentMethod.name }}]</p>
                 <p *ngIf="payment.paymentMethod.accountId">({{ payment.paymentMethod.accountId }})</p>
             </td>

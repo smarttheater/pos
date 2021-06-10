@@ -3,13 +3,13 @@ import { factory } from '@cinerino/sdk';
 import * as moment from 'moment';
 import { BsModalRef } from 'ngx-bootstrap/modal';
 import * as platform from 'platform';
-import { Functions } from '../../../../../..';
+import { Functions, Models } from '../../../../../..';
 import { getEnvironment } from '../../../../../../../environments/environment';
 
 @Component({
     selector: 'app-order-detail-modal',
     templateUrl: './detail-modal.component.html',
-    styleUrls: ['./detail-modal.component.scss']
+    styleUrls: ['./detail-modal.component.scss'],
 })
 export class OrderDetailModalComponent implements OnInit {
     @Input() public order: factory.order.IOrder;
@@ -18,36 +18,44 @@ export class OrderDetailModalComponent implements OnInit {
     public eventOrders: Functions.Purchase.IEventOrder[];
     public environment = getEnvironment();
     public qrcode?: string;
-    public getTransactionAgentIdentifier = Functions.Order.getTransactionAgentIdentifier;
+    public getTransactionAgentIdentifier =
+        Functions.Order.getTransactionAgentIdentifier;
     public platform = platform;
     public paymentMethodType = factory.paymentMethodType;
+    public customPaymentMethodType = Models.Purchase.Payment.PaymentMethodType;
     public createOrderLink = Functions.Order.createOrderLink;
 
-    constructor(
-        public modal: BsModalRef,
-        private elementRef: ElementRef
-    ) { }
+    constructor(public modal: BsModalRef, private elementRef: ElementRef) {}
 
     public async ngOnInit() {
         const order = this.order;
-        this.eventOrders = Functions.Purchase.order2EventOrders({ order: this.order });
-        const element: HTMLElement = this.elementRef.nativeElement.querySelector('.scroll-vertical');
+        this.eventOrders = Functions.Purchase.order2EventOrders({
+            order: this.order,
+        });
+        const element: HTMLElement =
+            this.elementRef.nativeElement.querySelector('.scroll-vertical');
         setTimeout(() => {
             element.scrollTop = 0;
         }, 0);
         try {
-            const isRegiGrow = order.paymentMethods.find(p => {
-                return (p.typeOf === this.paymentMethodType.Others && p.name === 'RegiGrow')
-                    || p.typeOf === 'RegiGrow';
-            }) !== undefined;
+            const isRegiGrow =
+                order.paymentMethods.find((p) => {
+                    return (
+                        (p.typeOf ===
+                            Models.Purchase.Payment.PaymentMethodType.Others &&
+                            p.name === 'RegiGrow') ||
+                        p.typeOf === 'RegiGrow'
+                    );
+                }) !== undefined;
             if (isRegiGrow) {
                 const qrcodeText = this.environment.REGIGROW_QRCODE;
-                this.qrcode = await Functions.Order.createCooperationQRCode({ order, qrcodeText });
+                this.qrcode = await Functions.Order.createCooperationQRCode({
+                    order,
+                    qrcodeText,
+                });
             }
         } catch (error) {
             console.error(error);
         }
     }
-
 }
-

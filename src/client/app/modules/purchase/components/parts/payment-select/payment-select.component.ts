@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { factory } from '@cinerino/sdk';
+import { Models } from '../../../../..';
 
 @Component({
     selector: 'app-payment-select',
@@ -19,6 +20,7 @@ export class PaymentSelectComponent implements OnInit {
         isValid: boolean;
     }> = new EventEmitter();
     public paymentMethodType = factory.chevre.paymentMethodType;
+    public customPaymentMethodType = Models.Purchase.Payment.PaymentMethodType;
     public chargeAmount = 0;
 
     constructor() {}
@@ -30,9 +32,7 @@ export class PaymentSelectComponent implements OnInit {
     /**
      * 決済方法選択
      */
-    public async selectPaymentMethodType(
-        paymentMethodType: factory.paymentMethodType
-    ) {
+    public async selectPaymentMethodType(paymentMethodType: string) {
         const findResult = this.payments.find(
             (p) => p.paymentAccepted.paymentMethodType === paymentMethodType
         );
@@ -50,7 +50,9 @@ export class PaymentSelectComponent implements OnInit {
         if (!findResult.selected) {
             findResult.value = 0;
         }
-        if (paymentMethodType === this.paymentMethodType.Cash) {
+        if (
+            paymentMethodType === Models.Purchase.Payment.PaymentMethodType.Cash
+        ) {
             this.chargeAmount = 0;
         }
         this.changeValue();
@@ -65,7 +67,7 @@ export class PaymentSelectComponent implements OnInit {
         const findReslt = this.payments.find(
             (p) =>
                 p.paymentAccepted.paymentMethodType ===
-                this.paymentMethodType.Cash
+                Models.Purchase.Payment.PaymentMethodType.Cash
         );
         const cashValue = findReslt === undefined ? 0 : Number(findReslt.value);
         this.chargeAmount =
