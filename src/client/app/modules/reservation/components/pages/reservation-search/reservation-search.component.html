@@ -5,8 +5,8 @@
         <form (submit)="reservationSearch(true)">
             <div class="form-row">
                 <div class="form-group col-md-4 col-lg-3">
-                    <label for="reservationDateFrom"
-                        class="mb-2">{{ 'reservation.search.conditions.reservationDateFrom' | translate }}</label>
+                    <label for="reservationDateFrom" class="mb-2">{{ 'reservation.search.conditions.reservationDateFrom'
+                        | translate }}</label>
                     <input type="text" name="reservationDateFrom" id="reservationDateFrom" placeholder="YYYY/MM/DD"
                         class="form-control" #reservationDateFrom="bsDatepicker" bsDatepicker
                         [(ngModel)]="conditions.reservationDateFrom"
@@ -14,8 +14,8 @@
                         readonly (onShown)="onShowPicker($event)" (click)="setDatePicker()">
                 </div>
                 <div class="form-group col-md-4 col-lg-3">
-                    <label for="reservationDateThrough"
-                        class="mb-2">{{ 'reservation.search.conditions.reservationDateThrough' | translate }}</label>
+                    <label for="reservationDateThrough" class="mb-2">{{
+                        'reservation.search.conditions.reservationDateThrough' | translate }}</label>
                     <input type="text" name="reservationDateThrough" id="reservationDateThrough"
                         placeholder="YYYY/MM/DD" class="form-control" #reservationDateThrough="bsDatepicker"
                         bsDatepicker [(ngModel)]="conditions.reservationDateThrough"
@@ -50,8 +50,8 @@
                     </select>
                 </div>
                 <div class="form-group col-md-4 col-lg-3">
-                    <label for="eventStartDateFrom"
-                        class="mb-2">{{ 'reservation.search.conditions.eventStartDateFrom' | translate }}</label>
+                    <label for="eventStartDateFrom" class="mb-2">{{ 'reservation.search.conditions.eventStartDateFrom' |
+                        translate }}</label>
                     <input type="text" name="eventStartDateFrom" id="eventStartDateFrom" placeholder="YYYY/MM/DD"
                         class="form-control" #eventStartDateFrom="bsDatepicker" bsDatepicker
                         [(ngModel)]="conditions.eventStartDateFrom"
@@ -59,8 +59,8 @@
                         readonly (onShown)="onShowPicker($event)" (click)="setDatePicker()">
                 </div>
                 <div class="form-group col-md-4 col-lg-3">
-                    <label for="eventStartDateThrough"
-                        class="mb-2">{{ 'reservation.search.conditions.eventStartDateThrough' | translate }}</label>
+                    <label for="eventStartDateThrough" class="mb-2">{{
+                        'reservation.search.conditions.eventStartDateThrough' | translate }}</label>
                     <input type="text" name="eventStartDateThrough" id="eventStartDateThrough" placeholder="YYYY/MM/DD"
                         class="form-control" #eventStartDateThrough="bsDatepicker" bsDatepicker
                         [(ngModel)]="conditions.eventStartDateThrough"
@@ -69,10 +69,10 @@
                 </div>
             </div>
             <div class="buttons mx-auto text-center">
-                <button type="submit" class="btn btn-primary btn-block py-3 mb-3"
-                    [disabled]="isLoading | async">{{ 'reservation.search.search' | translate }}</button>
-                <button type="button" class="btn btn-outline-primary btn-block py-3"
-                    (click)="searchConditionClear()">{{ 'reservation.search.clear' | translate }}</button>
+                <button type="submit" class="btn btn-primary btn-block py-3 mb-3" [disabled]="isLoading | async">{{
+                    'reservation.search.search' | translate }}</button>
+                <button type="button" class="btn btn-outline-primary btn-block py-3" (click)="searchConditionClear()">{{
+                    'reservation.search.clear' | translate }}</button>
             </div>
         </form>
     </div>
@@ -112,11 +112,12 @@
                         <td class="align-middle">
                             <p>{{ reservation.reservationFor.name | changeLanguage }}</p>
                             <p>
-                                <span
-                                    class="theater-name">{{ reservation.reservationFor.superEvent.location.name | changeLanguage }}</span>
+                                <span class="theater-name">{{ reservation.reservationFor.superEvent.location.name |
+                                    changeLanguage }}</span>
                                 <span class="screen-name">&nbsp;/&nbsp;<span
                                         *ngIf="reservation.reservationFor.location.address | changeLanguage"
-                                        class="mr-2">{{ reservation.reservationFor.location.address | changeLanguage }}</span>{{ reservation.reservationFor.location.name | changeLanguage }}</span>
+                                        class="mr-2">{{ reservation.reservationFor.location.address | changeLanguage
+                                        }}</span>{{ reservation.reservationFor.location.name | changeLanguage }}</span>
                             </p>
                             <p>{{ reservation.reservationFor.startDate | formatDate: 'YYYY/MM/DD (ddd) HH:mm' }}
                                 -</p>
@@ -134,7 +135,7 @@
                       </td> -->
                         <td class="align-middle">
                             <button class="btn btn-primary mr-2" (onShown)="onShowPicker($event)"
-                                (click)="openDetail(reservation)"><i class="fas fa-search-plus"></i></button>
+                                (click)="openDetail(reservation)"><i class="bi bi-zoom-in"></i></button>
                         </td>
                     </tr>
                 </tbody>
@@ -144,7 +145,7 @@
 
     </div>
     <div class="buttons mx-auto text-center">
-        <button type="button" class="btn btn-outline-primary btn-block py-3"
-            routerLink="/reservation">{{ 'reservation.search.prev' | translate }}</button>
+        <button type="button" class="btn btn-outline-primary btn-block py-3" routerLink="/reservation">{{
+            'reservation.search.prev' | translate }}</button>
     </div>
 </div>
