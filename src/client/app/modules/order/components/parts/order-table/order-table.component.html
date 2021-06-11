@@ -13,13 +13,11 @@
         <tr *ngFor="let order of orders let index = index" [class.bg-light-gray]="index % 2 === 0">
             <td class="align-middle text-large text-center">
                 <div *ngIf="order.orderStatus === orderStatus.OrderDelivered">
-                    <i *ngIf="!isSelected(order)" class="far fa-square pointer"
-                        (click)="select.emit(order)"></i>
-                    <i *ngIf="isSelected(order)" class="far fa-check-square pointer"
-                        (click)="select.emit(order)"></i>
+                    <i *ngIf="!isSelected(order)" class="bi bi-square pointer" (click)="select.emit(order)"></i>
+                    <i *ngIf="isSelected(order)" class="bi bi-check-square pointer" (click)="select.emit(order)"></i>
                 </div>
                 <div *ngIf="order.orderStatus !== orderStatus.OrderDelivered">
-                    <i class="far fa-square opacity-0"></i>
+                    <i class="bi bi-square opacity-0"></i>
                 </div>
             </td>
             <td class="align-middle">
@@ -32,11 +30,12 @@
                         {{ eventOrder.event.name | changeLanguage }}
                     </p>
                     <p>
-                        <span
-                            class="theater-name">{{ eventOrder.event.superEvent.location.name | changeLanguage }}</span>
+                        <span class="theater-name">{{ eventOrder.event.superEvent.location.name | changeLanguage
+                            }}</span>
                         <span class="screen-name">&nbsp;/&nbsp;<span
-                                *ngIf="eventOrder.event.location.address | changeLanguage"
-                                class="mr-2">{{ eventOrder.event.location.address | changeLanguage }}</span>{{ eventOrder.event.location.name | changeLanguage }}</span>
+                                *ngIf="eventOrder.event.location.address | changeLanguage" class="mr-2">{{
+                                eventOrder.event.location.address | changeLanguage }}</span>{{
+                            eventOrder.event.location.name | changeLanguage }}</span>
                     </p>
                     <p>{{ eventOrder.event.startDate | formatDate: 'YYYY/MM/DD (ddd) HH:mm' }}
                         -</p>
@@ -46,19 +45,15 @@
                 <p>{{ order.customer.familyName }} {{ order.customer.givenName }}</p>
             </td>
             <td class="align-middle text-center">
-                <button class="btn btn-primary mr-2" (click)="detail.emit(order)"><i
-                        class="fas fa-search-plus"></i></button>
+                <button class="btn btn-primary mr-2" (click)="detail.emit(order)"><i class="bi bi-zoom-in"></i></button>
                 <button *ngIf="environment.ORDER_PRINT"
                     [disabled]="(user | async)?.printer.connectionType === connectionType.None || order.orderStatus !== orderStatus.OrderDelivered"
-                    class="btn btn-primary mr-2" (click)="print.emit([order])"><i
-                        class="fas fa-print"></i></button>
+                    class="btn btn-primary mr-2" (click)="print.emit([order])"><i class="bi bi-printer"></i></button>
                 <button *ngIf="environment.PRINT_RECEIPT"
                     [disabled]="(user | async)?.printer.connectionType === connectionType.None || order.orderStatus !== orderStatus.OrderDelivered"
-                    class="btn btn-primary mr-2" (click)="receipt.emit([order])"><i
-                        class="fas fa-receipt"></i></button>
-                <button *ngIf="environment.ORDER_CANCEL"
-                    [disabled]="order.orderStatus !== orderStatus.OrderDelivered" class="btn btn-primary"
-                    (click)="return.emit([order])"><i class="fas fa-reply"></i></button>
+                    class="btn btn-primary mr-2" (click)="receipt.emit([order])"><i class="bi bi-receipt"></i></button>
+                <button *ngIf="environment.ORDER_CANCEL" [disabled]="order.orderStatus !== orderStatus.OrderDelivered"
+                    class="btn btn-primary" (click)="return.emit([order])"><i class="bi bi-reply"></i></button>
             </td>
         </tr>
     </tbody>

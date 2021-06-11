@@ -1,7 +1,8 @@
 <form (submit)="submit()">
     <div class="form-row">
         <div class="form-group col-sm-6 col-md-4 col-lg-3">
-            <label for="orderDateFrom" class="mb-2 text-small">{{ 'order.search.conditions.orderDateFrom' | translate }}</label>
+            <label for="orderDateFrom" class="mb-2 text-small">{{ 'order.search.conditions.orderDateFrom' | translate
+                }}</label>
             <div class="position-relative">
                 <input type="text" name="orderDateFrom" id="orderDateFrom" placeholder="YYYY/MM/DD" class="form-control"
                     #orderDateFrom="bsDatepicker" bsDatepicker [(ngModel)]="conditions.orderDateFrom"
@@ -9,12 +10,13 @@
                     readonly (onShown)="onShowPicker($event)" (click)="setDatePicker()">
                 <div class="datepicker-append d-flex align-items-center px-2"
                     (click)="conditions.orderDateFrom = undefined">
-                    <i class="fas fa-times"></i>
+                    <i class="bi bi-x"></i>
                 </div>
             </div>
         </div>
         <div class="form-group col-sm-6 col-md-4 col-lg-3">
-            <label for="orderDateThrough" class="mb-2 text-small">{{ 'order.search.conditions.orderDateThrough' | translate
+            <label for="orderDateThrough" class="mb-2 text-small">{{ 'order.search.conditions.orderDateThrough' |
+                translate
                 }}</label>
             <div class="position-relative">
                 <input type="text" name="orderDateThrough" id="orderDateThrough" placeholder="YYYY/MM/DD"
@@ -24,12 +26,13 @@
                     readonly (onShown)="onShowPicker($event)" (click)="setDatePicker()">
                 <div class="datepicker-append d-flex align-items-center px-2"
                     (click)="conditions.orderDateThrough = undefined">
-                    <i class="fas fa-times"></i>
+                    <i class="bi bi-x"></i>
                 </div>
             </div>
         </div>
         <div class="form-group col-sm-6 col-md-4 col-lg-3">
-            <label for="confirmationNumber" class="mb-2 text-small">{{ 'common.confirmationNumber' | translate }}</label>
+            <label for="confirmationNumber" class="mb-2 text-small">{{ 'common.confirmationNumber' | translate
+                }}</label>
             <input type="text" class="form-control" name="confirmationNumber" id="confirmationNumber"
                 [(ngModel)]="conditions.confirmationNumber" placeholder="{{ 'common.confirmationNumber' | translate }}">
         </div>
@@ -54,7 +57,7 @@
                     {{ 'order.search.orderStatus.orderReturned' | translate }}</option>
             </select>
         </div>
-        
+
     </div>
     <div class="form-row">
         <div class="form-group col-sm-6 col-md-4 col-lg-3">
@@ -79,12 +82,14 @@
                 placeholder="{{ 'order.search.conditions.telephone' | translate }}">
         </div>
         <div class="form-group col-sm-6 col-md-4 col-lg-3">
-            <label for="customerId" class="mb-2 text-small">{{ 'order.search.conditions.customer.id' | translate }}</label>
+            <label for="customerId" class="mb-2 text-small">{{ 'order.search.conditions.customer.id' | translate
+                }}</label>
             <input type="text" class="form-control" name="customerId" id="customerId"
-                [(ngModel)]="conditions.customer.id" placeholder="{{ 'order.search.conditions.customer.id' | translate }}">
+                [(ngModel)]="conditions.customer.id"
+                placeholder="{{ 'order.search.conditions.customer.id' | translate }}">
         </div>
     </div>
-    <div class="form-row">        
+    <div class="form-row">
         <div class="form-group col-sm-6 col-md-4 col-lg-3">
             <label for="eventStartDateFrom" class="mb-2 text-small">
                 {{ 'order.search.conditions.eventStartDateFrom' | translate }}
@@ -97,12 +102,13 @@
                     readonly (onShown)="onShowPicker($event)" (click)="setDatePicker()">
                 <div class="datepicker-append d-flex align-items-center px-2"
                     (click)="conditions.eventStartDateFrom = undefined">
-                    <i class="fas fa-times"></i>
+                    <i class="bi bi-x"></i>
                 </div>
             </div>
         </div>
         <div class="form-group col-sm-6 col-md-4 col-lg-3">
-            <label for="eventStartDateThrough" class="mb-2 text-small">{{ 'order.search.conditions.eventStartDateThrough' |
+            <label for="eventStartDateThrough" class="mb-2 text-small">{{
+                'order.search.conditions.eventStartDateThrough' |
                 translate }}</label>
             <div class="position-relative">
                 <input type="text" name="eventStartDateThrough" id="eventStartDateThrough" placeholder="YYYY/MM/DD"
@@ -112,7 +118,7 @@
                     readonly (onShown)="onShowPicker($event)" (click)="setDatePicker()">
                 <div class="datepicker-append d-flex align-items-center px-2"
                     (click)="conditions.eventStartDateThrough = undefined">
-                    <i class="fas fa-times"></i>
+                    <i class="bi bi-x"></i>
                 </div>
             </div>
         </div>
