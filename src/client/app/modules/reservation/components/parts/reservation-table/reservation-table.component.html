@@ -1,0 +1,48 @@
+<table class="table table-bordered bg-white text-small mb-0 border border-gray">
+    <thead>
+        <tr>
+            <th scope="col">{{ 'common.reservationNumber' | translate }}</th>
+            <th scope="col">{{ 'common.reservationId' | translate }}</th>
+            <th scope="col">{{ 'common.event' | translate }}</th>
+            <th scope="col">{{ 'common.ticket' | translate }}</th>
+            <!-- <th scope="col">決済方法</th> -->
+            <!-- <th scope="col">注文ステータス</th> -->
+            <th scope="col"></th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let reservation of reservations let index = index" [class.bg-light-gray]="index % 2 === 0">
+            <td class="align-middle">{{ reservation.reservationNumber }}</td>
+            <td class="align-middle">{{ reservation.id }}</td>
+
+            <td class="align-middle">
+                <p>{{ reservation.reservationFor.name | changeLanguage }}</p>
+                <p>
+                    <span class="theater-name">{{ reservation.reservationFor.superEvent.location.name |
+                        changeLanguage }}</span>
+                    <span class="screen-name">&nbsp;/&nbsp;<span
+                            *ngIf="reservation.reservationFor.location.address | changeLanguage" class="mr-2">{{
+                            reservation.reservationFor.location.address | changeLanguage
+                            }}</span>{{ reservation.reservationFor.location.name | changeLanguage }}</span>
+                </p>
+                <p>{{ reservation.reservationFor.startDate | formatDate: 'YYYY/MM/DD (ddd) HH:mm' }}
+                    -</p>
+            </td>
+            <td class="align-middle">
+                <app-item-list [authorizeSeatReservations]="[reservation]"></app-item-list>
+            </td>
+            <!-- <td class="align-middle">
+              <div *ngFor="let paymentMethod of reservation.paymentMethods">
+                  <p>{{ paymentMethod.name }}</p>
+              </div>
+          </td> -->
+            <!-- <td class="align-middle">
+              {{ reservation.reservationStatus }}
+          </td> -->
+            <td class="align-middle">
+                <button class="btn btn-primary mr-2" (click)="detail.emit(reservation)"><i
+                        class="bi bi-zoom-in"></i></button>
+            </td>
+        </tr>
+    </tbody>
+</table>

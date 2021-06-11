@@ -202,6 +202,10 @@ export class PurchaseEventScheduleComponent implements OnInit, OnDestroy {
             this.utilService.openAlert({
                 title: this.translate.instant('common.error'),
                 body: '',
+                error:
+                    JSON.stringify(error) === '{}'
+                        ? error
+                        : JSON.stringify(error),
             });
         }
     }
@@ -304,6 +308,10 @@ export class PurchaseEventScheduleComponent implements OnInit, OnDestroy {
             this.utilService.openAlert({
                 title: this.translate.instant('common.error'),
                 body: '',
+                error:
+                    JSON.stringify(error) === '{}'
+                        ? error
+                        : JSON.stringify(error),
             });
         }
 
@@ -324,17 +332,13 @@ export class PurchaseEventScheduleComponent implements OnInit, OnDestroy {
             console.error(error);
             this.utilService.openAlert({
                 title: this.translate.instant('common.error'),
-                body: `
-                <p class="mb-4">${this.translate.instant(
+                body: this.translate.instant(
                     'purchase.event.schedule.alert.temporaryReservation'
-                )}</p>
-                <div class="p-3 bg-light-gray select-text text-left">
-                    <code>${
-                        JSON.stringify(error) === '{}'
-                            ? error
-                            : JSON.stringify(error)
-                    }</code>
-                </div>`,
+                ),
+                error:
+                    JSON.stringify(error) === '{}'
+                        ? error
+                        : JSON.stringify(error),
             });
         }
     }

@@ -101,17 +101,13 @@ export class PurchaseCompleteComponent implements OnInit {
         } catch (error) {
             this.utilService.openAlert({
                 title: this.translate.instant('common.error'),
-                body: `
-                <p class="mb-4">${this.translate.instant(
+                body: this.translate.instant(
                     'purchase.complete.alert.regiGrow'
-                )}</p>
-                    <div class="p-3 bg-light-gray select-text">
-                    <code>${
-                        JSON.stringify(error) === '{}'
-                            ? error
-                            : JSON.stringify(error)
-                    }</code>
-                </div>`,
+                ),
+                error:
+                    JSON.stringify(error) === '{}'
+                        ? error
+                        : JSON.stringify(error),
             });
         }
     }
@@ -134,13 +130,11 @@ export class PurchaseCompleteComponent implements OnInit {
             console.error(error);
             this.utilService.openAlert({
                 title: this.translate.instant('common.error'),
-                body: `
-                <p class="mb-4">${this.translate.instant(
-                    'purchase.complete.alert.print'
-                )}</p>
-                    <div class="p-3 bg-light-gray select-text">
-                    <code>${JSON.stringify(error)}</code>
-                </div>`,
+                body: this.translate.instant('purchase.complete.alert.print'),
+                error:
+                    JSON.stringify(error) === '{}'
+                        ? error
+                        : JSON.stringify(error),
             });
         }
     }
@@ -166,17 +160,11 @@ export class PurchaseCompleteComponent implements OnInit {
         } catch (error) {
             this.utilService.openAlert({
                 title: this.translate.instant('common.error'),
-                body: `
-                <p class="mb-4">${this.translate.instant(
-                    'purchase.complete.alert.print'
-                )}</p>
-                    <div class="p-3 bg-light-gray select-text">
-                    <code>${
-                        JSON.stringify(error) === '{}'
-                            ? error
-                            : JSON.stringify(error)
-                    }</code>
-                </div>`,
+                body: this.translate.instant('purchase.complete.alert.print'),
+                error:
+                    JSON.stringify(error) === '{}'
+                        ? error
+                        : JSON.stringify(error),
             });
         }
     }

@@ -16,7 +16,7 @@ import { CustomerDetailModalComponent } from '../../../../shared/components/part
 @Component({
     selector: 'app-customer-search',
     templateUrl: './customer-search.component.html',
-    styleUrls: ['./customer-search.component.scss']
+    styleUrls: ['./customer-search.component.scss'],
 })
 export class CustomerSearchComponent implements OnInit {
     public isLoading: Observable<boolean>;
@@ -38,8 +38,8 @@ export class CustomerSearchComponent implements OnInit {
         protected translate: TranslateService,
         protected localeService: BsLocaleService,
         protected router: Router,
-        protected modal: BsModalService,
-    ) { }
+        protected modal: BsModalService
+    ) {}
 
     public async ngOnInit() {
         this.isLoading = this.store.pipe(select(reducers.getLoading));
@@ -60,21 +60,35 @@ export class CustomerSearchComponent implements OnInit {
             const params = Functions.Customer.input2CustomerSearchCondition({
                 input: this.conditions,
                 page: this.currentPage,
-                limit: this.limit
+                limit: this.limit,
             });
-            this.customers = (await this.actionService.customer.search(params)).data;
-            this.nextCustomers = (await this.actionService.customer.search({ ...params, page: (this.currentPage + 1) })).data;
-            const totalCount = (this.nextCustomers.length === 0)
-                ? this.currentPage * this.limit : (this.currentPage + 1) * this.limit;
-            this.totalCount = (this.totalCount < totalCount) ? totalCount : this.totalCount;
+            this.customers = (
+                await this.actionService.customer.search(params)
+            ).data;
+            this.nextCustomers = (
+                await this.actionService.customer.search({
+                    ...params,
+                    page: this.currentPage + 1,
+                })
+            ).data;
+            const totalCount =
+                this.nextCustomers.length === 0
+                    ? this.currentPage * this.limit
+                    : (this.currentPage + 1) * this.limit;
+            this.totalCount =
+                this.totalCount < totalCount ? totalCount : this.totalCount;
             const maxSize = this.totalCount / this.limit;
             const maxSizeLimit = 5;
-            this.maxSize = (maxSize > maxSizeLimit) ? maxSizeLimit : maxSize;
+            this.maxSize = maxSize > maxSizeLimit ? maxSizeLimit : maxSize;
         } catch (error) {
             console.error(error);
             this.utilService.openAlert({
                 title: this.translate.instant('common.error'),
-                body: this.translate.instant('customer.search.alert.search')
+                body: this.translate.instant('customer.search.alert.search'),
+                error:
+                    JSON.stringify(error) === '{}'
+                        ? error
+                        : JSON.stringify(error),
             });
         }
     }
@@ -82,7 +96,9 @@ export class CustomerSearchComponent implements OnInit {
     /**
      * 条件変更
      */
-    public async changeConditions(conditions: Models.Customer.Search.ICustomerSearchConditions) {
+    public async changeConditions(
+        conditions: Models.Customer.Search.ICustomerSearchConditions
+    ) {
         this.conditions = conditions;
         this.totalCount = this.limit;
         this.maxSize = 1;
@@ -100,7 +116,9 @@ export class CustomerSearchComponent implements OnInit {
     /**
      * 購入
      */
-    public async toPurchase(customer: factory.chevre.organization.IOrganization) {
+    public async toPurchase(
+        customer: factory.chevre.organization.IOrganization
+    ) {
         try {
             const purchase = await this.actionService.purchase.getData();
             if (purchase.transaction !== undefined) {
@@ -122,14 +140,12 @@ export class CustomerSearchComponent implements OnInit {
     /**
      * 詳細を表示
      */
-     public openDetail(customer: factory.chevre.organization.IOrganization) {
+    public openDetail(customer: factory.chevre.organization.IOrganization) {
         this.modal.show(CustomerDetailModalComponent, {
             class: 'modal-dialog-centered modal-lg',
             initialState: {
                 customer,
-            }
+            },
         });
     }
-
 }
-

@@ -155,6 +155,10 @@ export class OrderSearchComponent implements OnInit {
             this.utilService.openAlert({
                 title: this.translate.instant('common.error'),
                 body: this.translate.instant('order.search.alert.search'),
+                error:
+                    JSON.stringify(error) === '{}'
+                        ? error
+                        : JSON.stringify(error),
             });
         }
     }
@@ -203,16 +207,13 @@ export class OrderSearchComponent implements OnInit {
                     console.error(error);
                     this.utilService.openAlert({
                         title: this.translate.instant('common.error'),
-                        body: `<p class="mb-4">${this.translate.instant(
+                        body: this.translate.instant(
                             'order.search.alert.print'
-                        )}</p>
-                        <div class="p-3 bg-light-gray select-text">
-                        <code>${
+                        ),
+                        error:
                             JSON.stringify(error) === '{}'
                                 ? error
-                                : JSON.stringify(error)
-                        }</code>
-                    </div>`,
+                                : JSON.stringify(error),
                     });
                 }
             },
@@ -243,16 +244,13 @@ export class OrderSearchComponent implements OnInit {
                     console.error(error);
                     this.utilService.openAlert({
                         title: this.translate.instant('common.error'),
-                        body: `<p class="mb-4">${this.translate.instant(
+                        body: this.translate.instant(
                             'order.search.alert.print'
-                        )}</p>
-                        <div class="p-3 bg-light-gray select-text">
-                        <code>${
+                        ),
+                        error:
                             JSON.stringify(error) === '{}'
                                 ? error
-                                : JSON.stringify(error)
-                        }</code>
-                    </div>`,
+                                : JSON.stringify(error),
                     });
                 }
             },
@@ -282,17 +280,13 @@ export class OrderSearchComponent implements OnInit {
                     console.error(error);
                     this.utilService.openAlert({
                         title: this.translate.instant('common.error'),
-                        body: `
-                        <p class="mb-4">${this.translate.instant(
+                        body: this.translate.instant(
                             'order.search.alert.cancel'
-                        )}</p>
-                            <div class="p-3 bg-light-gray select-text">
-                            <code>${
-                                JSON.stringify(error) === '{}'
-                                    ? error
-                                    : JSON.stringify(error)
-                            }</code>
-                        </div>`,
+                        ),
+                        error:
+                            JSON.stringify(error) === '{}'
+                                ? error
+                                : JSON.stringify(error),
                     });
                 }
             },
@@ -344,17 +338,13 @@ export class OrderSearchComponent implements OnInit {
                         console.error(error);
                         this.utilService.openAlert({
                             title: this.translate.instant('common.error'),
-                            body: `
-                            <p class="mb-4">${this.translate.instant(
+                            body: this.translate.instant(
                                 'order.search.alert.cancel'
-                            )}</p>
-                                <div class="p-3 bg-light-gray select-text">
-                                <code>${
-                                    JSON.stringify(error) === '{}'
-                                        ? error
-                                        : JSON.stringify(error)
-                                }</code>
-                            </div>`,
+                            ),
+                            error:
+                                JSON.stringify(error) === '{}'
+                                    ? error
+                                    : JSON.stringify(error),
                         });
                     }
                 },
@@ -383,16 +373,13 @@ export class OrderSearchComponent implements OnInit {
                         console.error(error);
                         this.utilService.openAlert({
                             title: this.translate.instant('common.error'),
-                            body: `<p class="mb-4">${this.translate.instant(
+                            body: this.translate.instant(
                                 'order.search.alert.print'
-                            )}</p>
-                            <div class="p-3 bg-light-gray select-text">
-                            <code>${
+                            ),
+                            error:
                                 JSON.stringify(error) === '{}'
                                     ? error
-                                    : JSON.stringify(error)
-                            }</code>
-                        </div>`,
+                                    : JSON.stringify(error),
                         });
                     }
                 },
@@ -491,6 +478,10 @@ export class OrderSearchComponent implements OnInit {
                 body: this.translate.instant(
                     'order.searchEvent.alert.schedule'
                 ),
+                error:
+                    JSON.stringify(error) === '{}'
+                        ? error
+                        : JSON.stringify(error),
             });
         }
     }

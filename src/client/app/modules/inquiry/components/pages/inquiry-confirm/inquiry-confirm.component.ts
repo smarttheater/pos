@@ -13,7 +13,7 @@ import * as reducers from '../../../../../store/reducers';
 @Component({
     selector: 'app-inquiry-confirm',
     templateUrl: './inquiry-confirm.component.html',
-    styleUrls: ['./inquiry-confirm.component.scss']
+    styleUrls: ['./inquiry-confirm.component.scss'],
 })
 export class InquiryConfirmComponent implements OnInit {
     public order: Observable<reducers.IOrderState>;
@@ -33,7 +33,7 @@ export class InquiryConfirmComponent implements OnInit {
         private actionService: ActionService,
         private utilService: UtilService,
         private translate: TranslateService
-    ) { }
+    ) {}
 
     public ngOnInit() {
         this.eventOrders = [];
@@ -42,14 +42,18 @@ export class InquiryConfirmComponent implements OnInit {
         this.reservation = this.store.pipe(select(reducers.getReservation));
         this.isLoading = this.store.pipe(select(reducers.getLoading));
         this.error = this.store.pipe(select(reducers.getError));
-        this.order.subscribe((value) => {
-            if (value.order === undefined) {
-                this.router.navigate(['/error']);
-                return;
-            }
-            const order = value.order;
-            this.eventOrders = Functions.Purchase.order2EventOrders({ order });
-        }).unsubscribe();
+        this.order
+            .subscribe((value) => {
+                if (value.order === undefined) {
+                    this.router.navigate(['/error']);
+                    return;
+                }
+                const order = value.order;
+                this.eventOrders = Functions.Purchase.order2EventOrders({
+                    order,
+                });
+            })
+            .unsubscribe();
         if (this.environment.INQUIRY_PRINT_WAIT_TIME !== '') {
             const time = Number(this.environment.INQUIRY_PRINT_WAIT_TIME);
             this.timer = setTimeout(() => {
@@ -71,33 +75,30 @@ export class InquiryConfirmComponent implements OnInit {
                     const orderData = await this.actionService.order.getData();
                     const order = orderData.order;
                     if (order === undefined) {
-                        this.utilService.openAlert({
-                            title: this.translate.instant('common.error'),
-                            body: `
-                            <p class="mb-4">${this.translate.instant('inquiry.confirm.alert.cancel')}</p>
-                                <div class="p-3 bg-light-gray select-text">
-                                <code>order undefined</code>
-                            </div>`
-                        });
-                        return;
+                        throw new Error('order undefined');
                     }
-                    await this.actionService.order.cancel({ orders: [order], language: userData.language });
+                    await this.actionService.order.cancel({
+                        orders: [order],
+                        language: userData.language,
+                    });
                     await this.actionService.order.inquiry({
                         confirmationNumber: order.confirmationNumber,
-                        customer: { telephone: order.customer.telephone }
+                        customer: { telephone: order.customer.telephone },
                     });
                 } catch (error) {
                     console.error(error);
                     this.utilService.openAlert({
                         title: this.translate.instant('common.error'),
-                        body: `
-                        <p class="mb-4">${this.translate.instant('inquiry.confirm.alert.cancel')}</p>
-                            <div class="p-3 bg-light-gray select-text">
-                            <code>${(JSON.stringify(error) === '{}') ? error : JSON.stringify(error)}</code>
-                        </div>`
+                        body: this.translate.instant(
+                            'inquiry.confirm.alert.cancel'
+                        ),
+                        error:
+                            JSON.stringify(error) === '{}'
+                                ? error
+                                : JSON.stringify(error),
                     });
                 }
-            }
+            },
         });
     }
 
@@ -107,15 +108,16 @@ export class InquiryConfirmComponent implements OnInit {
     public async print() {
         const today = moment().format('YYYYMMDD');
         const limit = moment(today)
-            .add(this.environment.INQUIRY_PRINT_EXPIRED_VALUE, this.environment.INQUIRY_PRINT_EXPIRED_UNIT)
+            .add(
+                this.environment.INQUIRY_PRINT_EXPIRED_VALUE,
+                this.environment.INQUIRY_PRINT_EXPIRED_UNIT
+            )
             .format('YYYYMMDD');
-        const findResult = this.eventOrders.find(o => moment(o.event.startDate).format('YYYYMMDD') < limit);
+        const findResult = this.eventOrders.find(
+            (o) => moment(o.event.startDate).format('YYYYMMDD') < limit
+        );
         if (findResult !== undefined) {
-            this.utilService.openAlert({
-                title: this.translate.instant('common.error'),
-                body: this.translate.instant('inquiry.confirm.alert.printExpired')
-            });
-            return;
+            throw new Error('INQUIRY_PRINT_EXPIRED');
         }
         if (this.timer !== undefined) {
             clearTimeout(this.timer);
@@ -131,25 +133,35 @@ export class InquiryConfirmComponent implements OnInit {
                 throw new Error('printer undefined');
             }
             // 二重発券防止
-            const reservationNumbers = orderData.order.acceptedOffers.map((offers) => {
-                if (offers.itemOffered.typeOf !== factory.chevre.reservationType.EventReservation) {
-                    return '';
+            const reservationNumbers = orderData.order.acceptedOffers.map(
+                (offers) => {
+                    if (
+                        offers.itemOffered.typeOf !==
+                        factory.chevre.reservationType.EventReservation
+                    ) {
+                        return '';
+                    }
+                    const itemOffered = <
+                        factory.chevre.reservation.IReservation<factory.chevre.reservationType.EventReservation>
+                    >offers.itemOffered;
+                    return itemOffered.reservationNumber;
                 }
-                const itemOffered = <factory.chevre.reservation.IReservation<
-                    factory.chevre.reservationType.EventReservation
-                >>offers.itemOffered;
-                return itemOffered.reservationNumber;
-            });
+            );
             await this.actionService.reservation.search({
                 typeOf: factory.chevre.reservationType.EventReservation,
-                reservationNumbers
+                reservationNumbers,
             });
-            const reservationData = await this.actionService.reservation.getData();
-            const checkedInResult = reservationData.reservations.filter(r => r.checkedIn);
+            const reservationData =
+                await this.actionService.reservation.getData();
+            const checkedInResult = reservationData.reservations.filter(
+                (r) => r.checkedIn
+            );
             if (checkedInResult.length > 0) {
                 this.utilService.openAlert({
                     title: this.translate.instant('common.error'),
-                    body: this.translate.instant('inquiry.confirm.alert.doubleTicketing')
+                    body: this.translate.instant(
+                        'inquiry.confirm.alert.doubleTicketing'
+                    ),
                 });
                 return;
             }
@@ -163,13 +175,12 @@ export class InquiryConfirmComponent implements OnInit {
             console.error(error);
             this.utilService.openAlert({
                 title: this.translate.instant('common.error'),
-                body: `
-                <p class="mb-4">${this.translate.instant('inquiry.confirm.alert.print')}</p>
-                    <div class="p-3 bg-light-gray select-text">
-                    <code>${(JSON.stringify(error) === '{}') ? error : JSON.stringify(error)}</code>
-                </div>`
+                body: this.translate.instant('inquiry.confirm.alert.print'),
+                error:
+                    JSON.stringify(error) === '{}'
+                        ? error
+                        : JSON.stringify(error),
             });
         }
     }
-
 }
