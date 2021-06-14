@@ -226,9 +226,10 @@ export class PurchaseEffects {
                                                     undefined
                                                     ? []
                                                     : [
-                                                          ...screeningEvent
-                                                              .workPerformed
-                                                              .additionalProperty,
+                                                          ...screeningEvent.workPerformed.additionalProperty.filter(
+                                                              (a) =>
+                                                                  a.value !== ''
+                                                          ),
                                                       ],
                                             additionalTicketText:
                                                 additionalTicketText,
