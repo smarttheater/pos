@@ -190,7 +190,7 @@ export class PurchaseEffects {
                 >await this.cinerinoService.transaction.placeOrder.authorizeSeatReservation(
                     {
                         object: {
-                            event: { id: screeningEvent.id },
+                            reservationFor: { id: screeningEvent.id },
                             acceptedOffer: reservations.map((r, index) => {
                                 if (
                                     r.ticket === undefined ||
