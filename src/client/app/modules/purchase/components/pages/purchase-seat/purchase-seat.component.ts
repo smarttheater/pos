@@ -12,7 +12,7 @@ import * as reducers from '../../../../../store/reducers';
 
 @Component({
     selector: 'app-purchase-seat',
-    template: ''
+    template: '',
 })
 export class PurchaseSeatComponent implements OnInit {
     public purchase: Observable<reducers.IPurchaseState>;
@@ -30,37 +30,46 @@ export class PurchaseSeatComponent implements OnInit {
         private translate: TranslateService,
         protected router: Router,
         protected actionService: ActionService
-    ) { }
+    ) {}
 
     public async ngOnInit() {
         this.purchase = this.store.pipe(select(reducers.getPurchase));
         this.user = this.store.pipe(select(reducers.getUser));
         this.isLoading = this.store.pipe(select(reducers.getLoading));
-        this.translateName = (this.environment.VIEW_TYPE === 'cinema')
-            ? 'purchase.cinema.seat' : 'purchase.event.seat';
+        this.translateName =
+            this.environment.VIEW_TYPE === 'cinema'
+                ? 'purchase.cinema.seat'
+                : 'purchase.event.seat';
         this.screeningEventSeats = [];
         this.reservationCount = 0;
         try {
-            const { screeningEvent, reservations, seller } = await this.actionService.purchase.getData();
+            const { screeningEvent, reservations, seller } =
+                await this.actionService.purchase.getData();
             if (screeningEvent === undefined || seller === undefined) {
                 this.router.navigate(['/error']);
                 return;
             }
             this.reservationCount = reservations.length;
             await this.resetSeats();
-            reservations.forEach(r => {
+            reservations.forEach((r) => {
                 if (r.seat === undefined) {
                     return;
                 }
-                this.selectSeat({ seat: r.seat, status: Models.Purchase.Screen.SeatStatus.Default });
+                this.selectSeat({
+                    seat: r.seat,
+                    status: Models.Purchase.Screen.SeatStatus.Default,
+                });
             });
             await this.actionService.purchase.getScreen({
                 branchCode: { $eq: screeningEvent.location.branchCode },
                 containedInPlace: {
-                    branchCode: { $eq: screeningEvent.superEvent.location.branchCode }
-                }
+                    branchCode: {
+                        $eq: screeningEvent.superEvent.location.branchCode,
+                    },
+                },
             });
-            this.screeningEventSeats = await this.actionService.purchase.getScreeningEventSeats();
+            this.screeningEventSeats =
+                await this.actionService.purchase.getScreeningEventSeats();
             await this.actionService.purchase.getTicketList({ seller });
         } catch (error) {
             console.error(error);
@@ -68,13 +77,12 @@ export class PurchaseSeatComponent implements OnInit {
         }
     }
 
-
     /**
      * 座席選択
      */
     public selectSeat(data: {
-        seat: Models.Purchase.Reservation.IReservationSeat,
-        status: Models.Purchase.Screen.SeatStatus
+        seat: Models.Purchase.Reservation.IReservationSeat;
+        status: Models.Purchase.Screen.SeatStatus;
     }) {
         if (data.status === SeatStatus.Default) {
             this.actionService.purchase.selectSeats([data.seat]);
@@ -91,30 +99,40 @@ export class PurchaseSeatComponent implements OnInit {
         const purchase = await this.actionService.purchase.getData();
         const screeningEventSeats = this.screeningEventSeats;
         screeningEventSeats.forEach((s) => {
-            if (s.offers === undefined
-                || s.offers[0].availability !== factory.chevre.itemAvailability.InStock
-                || s.containedInPlace === undefined) {
+            if (
+                s.offers === undefined ||
+                s.offers[0].availability !==
+                    factory.chevre.itemAvailability.InStock ||
+                s.containedInPlace === undefined
+            ) {
                 return;
             }
             seats.push({
                 typeOf: s.typeOf,
-                seatingType: (s.seatingType === undefined)
-                    ? '' : s.seatingType,
+                seatingType: s.seatingType === undefined ? '' : s.seatingType,
                 seatNumber: s.branchCode,
                 seatRow: '',
-                seatSection: (s.containedInPlace.branchCode === undefined) ? '' : s.containedInPlace.branchCode,
-                offers: s.offers
+                seatSection:
+                    s.containedInPlace.branchCode === undefined
+                        ? ''
+                        : s.containedInPlace.branchCode,
+                offers: s.offers,
             });
         });
-        if (purchase.authorizeSeatReservation !== undefined
-            && purchase.authorizeSeatReservation.result !== undefined
-            && purchase.authorizeSeatReservation.result.responseBody.object.reservations !== undefined) {
-            purchase.authorizeSeatReservation.result.responseBody.object.reservations.forEach((r) => {
-                if (r.reservedTicket.ticketedSeat === undefined) {
-                    return;
+        if (
+            purchase.authorizeSeatReservation !== undefined &&
+            purchase.authorizeSeatReservation.result !== undefined &&
+            purchase.authorizeSeatReservation.result.responseBody.object
+                .reservations !== undefined
+        ) {
+            purchase.authorizeSeatReservation.result.responseBody.object.reservations.forEach(
+                (r) => {
+                    if (r.reservedTicket.ticketedSeat === undefined) {
+                        return;
+                    }
+                    seats.push(r.reservedTicket.ticketedSeat);
                 }
-                seats.push(r.reservedTicket.ticketedSeat);
-            });
+            );
         }
         this.actionService.purchase.selectSeats(seats);
     }
@@ -149,11 +167,15 @@ export class PurchaseSeatComponent implements OnInit {
             return values;
         }
         let limit = Number(this.environment.PURCHASE_ITEM_MAX_LENGTH);
-        if (new Models.Purchase.Performance({ screeningEvent }).isTicketedSeat()) {
+        if (
+            new Models.Purchase.Performance({ screeningEvent }).isTicketedSeat()
+        ) {
             // イベント全体の残席数計算
-            const screeningEventLimit = Functions.Purchase.getRemainingSeatLength({
-                screeningEventSeats, screeningEvent
-            });
+            const screeningEventLimit =
+                Functions.Purchase.getRemainingSeatLength({
+                    screeningEventSeats,
+                    screeningEvent,
+                });
             if (limit > screeningEventLimit) {
                 limit = screeningEventLimit;
             }
@@ -169,9 +191,13 @@ export class PurchaseSeatComponent implements OnInit {
      */
     public async selectOpenSeating() {
         const { reservations } = await this.actionService.purchase.getData();
-        this.screeningEventSeats = await this.actionService.purchase.getScreeningEventSeats();
+        this.screeningEventSeats =
+            await this.actionService.purchase.getScreeningEventSeats();
         const screeningEventSeats = this.screeningEventSeats;
-        const seats = Functions.Purchase.getEmptySeat({ reservations, screeningEventSeats });
+        const seats = Functions.Purchase.getEmptySeat({
+            reservations,
+            screeningEventSeats,
+        });
         await this.resetSeats();
         const selectSeats: Models.Purchase.Reservation.IReservationSeat[] = [];
         for (let i = 0; i < Number(this.reservationCount); i++) {
@@ -185,50 +211,71 @@ export class PurchaseSeatComponent implements OnInit {
      */
     public async onSubmit() {
         const purchase = await this.actionService.purchase.getData();
-        if (purchase.reservations.length > Number(this.environment.PURCHASE_ITEM_MAX_LENGTH)
-            || Number(this.reservationCount) > Number(this.environment.PURCHASE_ITEM_MAX_LENGTH)) {
+        if (
+            purchase.reservations.length >
+                Number(this.environment.PURCHASE_ITEM_MAX_LENGTH) ||
+            Number(this.reservationCount) >
+                Number(this.environment.PURCHASE_ITEM_MAX_LENGTH)
+        ) {
             this.utilService.openAlert({
                 title: this.translate.instant('common.error'),
                 body: this.translate.instant(
                     `${this.translateName}.alert.limit`,
                     { value: this.environment.PURCHASE_ITEM_MAX_LENGTH }
-                )
+                ),
             });
             return;
         }
         if (purchase.screeningEventTicketOffers.length === 0) {
             this.utilService.openAlert({
                 title: this.translate.instant('common.error'),
-                body: this.translate.instant(`${this.translateName}.alert.ticketNotfound`)
+                body: this.translate.instant(
+                    `${this.translateName}.alert.ticketNotfound`
+                ),
             });
             return;
         }
         try {
-            if (purchase.screen !== undefined && purchase.screen.openSeatingAllowed) {
+            if (
+                purchase.screen !== undefined &&
+                purchase.screen.openSeatingAllowed
+            ) {
                 // 自由席
                 await this.selectOpenSeating();
             }
-            const { reservations } = await this.actionService.purchase.getData();
+            const { reservations } =
+                await this.actionService.purchase.getData();
             await this.actionService.purchase.temporaryReservation({
                 reservations,
-                screeningEventSeats: this.screeningEventSeats
+                screeningEventSeats: this.screeningEventSeats,
             });
-            const navigate = (this.environment.VIEW_TYPE === 'cinema')
-                ? '/purchase/cinema/ticket'
-                : '/purchase/event/ticket';
+            const navigate =
+                this.environment.VIEW_TYPE === 'cinema'
+                    ? '/purchase/cinema/ticket'
+                    : '/purchase/event/ticket';
             this.router.navigate([navigate]);
         } catch (error) {
-            if (purchase.screen !== undefined && purchase.screen.openSeatingAllowed) {
+            if (
+                purchase.screen !== undefined &&
+                purchase.screen.openSeatingAllowed
+            ) {
                 // 自由席
                 await this.resetSeats();
             }
             console.error(error);
             this.utilService.openAlert({
                 title: this.translate.instant('common.error'),
-                body: `<p class="mb-4">${this.translate.instant(`${this.translateName}.alert.temporaryReservation`)}</p>
+                body: `<p class="mb-4">${this.translate.instant(
+                    `${this.translateName}.alert.temporaryReservation`
+                )}</p>
                 <div class="p-3 bg-light-gray select-text">
-                <code>${(JSON.stringify(error) === '{}') ? error : JSON.stringify(error)}</code>
-            </div>`});
+                <code>${
+                    JSON.stringify(error) === '{}'
+                        ? error
+                        : JSON.stringify(error)
+                }</code>
+            </div>`,
+            });
         }
     }
 }

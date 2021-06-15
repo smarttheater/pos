@@ -190,13 +190,11 @@ export class PurchaseConfirmComponent implements OnInit {
         } catch (error) {
             this.utilService.openAlert({
                 title: this.translate.instant('common.error'),
-                body: `
-                <p class="mb-4">${this.translate.instant(
-                    'purchase.complete.alert.drawer'
-                )}</p>
-                    <div class="p-3 bg-light-gray select-text">
-                    <code>${JSON.stringify(error)}</code>
-                </div>`,
+                body: this.translate.instant('purchase.complete.alert.drawer'),
+                error:
+                    JSON.stringify(error) === '{}'
+                        ? error
+                        : JSON.stringify(error),
             });
         }
     }
