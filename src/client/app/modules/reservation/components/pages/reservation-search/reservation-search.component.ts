@@ -1,23 +1,20 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { factory } from '@cinerino/sdk';
 import { select, Store } from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
 import * as moment from 'moment';
-import { BsDatepickerContainerComponent, BsDatepickerDirective, BsLocaleService } from 'ngx-bootstrap/datepicker';
 import { BsModalService } from 'ngx-bootstrap/modal';
 import { Observable } from 'rxjs';
 import { Functions, Models } from '../../../../..';
 import { getEnvironment } from '../../../../../../environments/environment';
 import { ActionService, UtilService } from '../../../../../services';
 import * as reducers from '../../../../../store/reducers';
-import {
-    ReservationDetailModalComponent
-} from '../../../../shared/components/parts/reservation/detail-modal/detail-modal.component';
+import { ReservationDetailModalComponent } from '../../../../shared/components/parts/reservation/detail-modal/detail-modal.component';
 
 @Component({
     selector: 'app-reservation-search',
     templateUrl: './reservation-search.component.html',
-    styleUrls: ['./reservation-search.component.scss']
+    styleUrls: ['./reservation-search.component.scss'],
 })
 export class ReservationSearchComponent implements OnInit {
     public isLoading: Observable<boolean>;
@@ -32,21 +29,15 @@ export class ReservationSearchComponent implements OnInit {
     public reservationStatus = factory.chevre.reservationStatusType;
     public limit: number;
     public conditions: Models.Reservation.IReservationSearchConditions;
-    public confirmedConditions: Models.Reservation.IReservationSearchConditions;
     public environment = getEnvironment();
-    @ViewChild('reservationDateFrom', { static: true }) private reservationDateFrom: BsDatepickerDirective;
-    @ViewChild('reservationDateThrough', { static: true }) private reservationDateThrough: BsDatepickerDirective;
-    @ViewChild('eventStartDateFrom', { static: true }) private eventStartDateFrom: BsDatepickerDirective;
-    @ViewChild('eventStartDateThrough', { static: true }) private eventStartDateThrough: BsDatepickerDirective;
 
     constructor(
         private store: Store<reducers.IReservationState>,
         private modal: BsModalService,
-        private localeService: BsLocaleService,
         private utilService: UtilService,
         private actionService: ActionService,
-        private translate: TranslateService,
-    ) { }
+        private translate: TranslateService
+    ) {}
 
     public ngOnInit() {
         this.isLoading = this.store.pipe(select(reducers.getLoading));
@@ -57,125 +48,93 @@ export class ReservationSearchComponent implements OnInit {
         this.maxSize = 1;
         this.currentPage = 1;
         this.limit = 20;
-        this.searchConditionClear();
         this.actionService.reservation.delete();
-    }
-
-    /**
-     * 検索条件変更
-     */
-    private changeConditions() {
-        this.confirmedConditions = {
-            reservationDateFrom: this.conditions.reservationDateFrom,
-            reservationDateThrough: this.conditions.reservationDateThrough,
-            eventStartDateFrom: this.conditions.eventStartDateFrom,
-            eventStartDateThrough: this.conditions.eventStartDateThrough,
-            id: this.conditions.id,
-            reservationNumber: this.conditions.reservationNumber,
-            reservationStatus: this.conditions.reservationStatus,
-            page: 1
-        };
-        this.reservations = [];
-        this.totalCount = 20;
-        this.maxSize = 1;
-        this.currentPage = 1;
     }
 
     /**
      * 検索
      */
-    public async reservationSearch(changeConditions: boolean, event?: { page: number }) {
-        this.currentPage = 1;
-        if (event !== undefined) {
-            this.currentPage = event.page;
-            this.confirmedConditions.page = event.page;
-        }
-        // iOS bugfix
-        this.conditions.id
-            = (<HTMLInputElement>document.getElementById('id')).value;
-        this.conditions.reservationNumber
-            = (<HTMLInputElement>document.getElementById('reservationNumber')).value;
-        if (changeConditions) {
-            this.changeConditions();
-        }
+    public async search() {
         try {
-            const params = Functions.Reservation.input2ReservationSearchCondition({
-                input: this.confirmedConditions,
-                theater: (await this.actionService.user.getData()).theater,
-                page: this.currentPage,
-                limit: this.limit
-            });
-            if (params.bookingFrom !== null
-                && params.bookingThrough !== null
-                && moment(params.bookingThrough).diff(moment(params.bookingFrom), 'day') > 14) {
-                // 予約日の範囲が14日以上
-                throw new Error('reservation date wrong date range');
-            }
-            this.reservations = (await this.actionService.reservation.search(params)).data;
-            this.nextReservations = (await this.actionService.reservation.search({ ...params, page: (this.currentPage + 1) })).data;
-            const totalCount = (this.nextReservations.length === 0)
-                ? this.currentPage * this.limit : (this.currentPage + 1) * this.limit;
-            this.totalCount = (this.totalCount < totalCount) ? totalCount : this.totalCount;
+            this.currentPage = this.conditions.page;
+            const params =
+                Functions.Reservation.input2ReservationSearchCondition({
+                    input: this.conditions,
+                    theater: (await this.actionService.user.getData()).theater,
+                    page: this.currentPage,
+                    limit: this.limit,
+                });
+            // if (
+            //     params.bookingFrom !== null &&
+            //     params.bookingThrough !== null &&
+            //     moment(params.bookingThrough).diff(
+            //         moment(params.bookingFrom),
+            //         'day'
+            //     ) > 14
+            // ) {
+            //     // 予約日の範囲が14日以上
+            //     throw new Error('reservation date wrong date range');
+            // }
+            this.reservations = (
+                await this.actionService.reservation.search(params)
+            ).data;
+            this.nextReservations = (
+                await this.actionService.reservation.search({
+                    ...params,
+                    page: this.currentPage + 1,
+                })
+            ).data;
+            const totalCount =
+                this.nextReservations.length === 0
+                    ? this.currentPage * this.limit
+                    : (this.currentPage + 1) * this.limit;
+            this.totalCount =
+                this.totalCount < totalCount ? totalCount : this.totalCount;
             const maxSize = this.totalCount / this.limit;
             const maxSizeLimit = 5;
-            this.maxSize = (maxSize > maxSizeLimit) ? maxSizeLimit : maxSize;
+            this.maxSize = maxSize > maxSizeLimit ? maxSizeLimit : maxSize;
         } catch (error) {
             console.error(error);
             this.utilService.openAlert({
                 title: this.translate.instant('common.error'),
-                body: this.translate.instant('reservation.search.alert.search')
+                body: this.translate.instant('reservation.search.alert.search'),
+                error:
+                    JSON.stringify(error) === '{}'
+                        ? error
+                        : JSON.stringify(error),
             });
         }
     }
 
     /**
-     * 検索条件クリア
+     * 検索条件変更
      */
-    public searchConditionClear() {
-        const now = moment().toDate();
-        const today = moment(moment(now).format('YYYYMMDD'));
-        this.conditions = {
-            reservationDateFrom: moment(today).add(-13, 'day').toDate(),
-            reservationDateThrough: moment(today).toDate(),
-            id: '',
-            reservationNumber: '',
-            reservationStatus: '',
-            page: 1
-        };
-        // iOS bugfix
-        (<HTMLInputElement>document.getElementById('id')).value = '';
-        (<HTMLInputElement>document.getElementById('reservationNumber')).value = '';
+    public async changeConditions(
+        conditions: Models.Reservation.IReservationSearchConditions
+    ) {
+        this.conditions = conditions;
+        this.totalCount = this.limit;
+        this.maxSize = 1;
+        await this.search();
+    }
+
+    /**
+     * ページ変更
+     */
+    public async changePage(event: { page: number }) {
+        this.conditions.page = event.page;
+        await this.search();
     }
 
     /**
      * 詳細を表示
      */
-    public openDetail(reservation: factory.chevre.reservation.IReservation<factory.chevre.reservationType.EventReservation>) {
+    public openDetail(
+        reservation: factory.chevre.reservation.IReservation<factory.chevre.reservationType.EventReservation>
+    ) {
         this.modal.show(ReservationDetailModalComponent, {
             class: 'modal-dialog-centered modal-lg',
-            initialState: { reservation }
+            initialState: { reservation },
         });
     }
-
-    /**
-     * DatePicker設定
-     */
-    public setDatePicker() {
-        this.user.subscribe((user) => {
-            this.localeService.use(user.language);
-        }).unsubscribe();
-    }
-
-    /**
-     * iOS bugfix（2回タップしないと選択できない）
-     */
-    public onShowPicker(container: BsDatepickerContainerComponent) {
-        Functions.Util.iOSDatepickerTapBugFix(container, [
-            this.reservationDateFrom,
-            this.reservationDateThrough,
-            this.eventStartDateFrom,
-            this.eventStartDateThrough
-        ]);
-    }
-
 }
