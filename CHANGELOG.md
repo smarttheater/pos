@@ -14,6 +14,13 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/).
 
 ### Security
 
+## 3.17.0 - 2021-06-15
+
+### Changed
+
+-   予約検索 UI 調整
+-   エラーモーダルにエラーコードを表示するよう変更
+
 ## 3.16.0 - 2021-06-11
 
 ### Changed
