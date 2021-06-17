@@ -12,7 +12,8 @@
                                 <p *ngIf="!getAdditionalProperty(key)">{{ 'form.label.' + key | translate }}</p>
                                 <p *ngIf="getAdditionalProperty(key)">
                                     {{ getAdditionalProperty(key)?.label | changeLanguage }}</p>
-                                <p *ngIf="isRequired(key)" class="badge badge-danger ml-2">{{ 'form.required' | translate }}
+                                <p *ngIf="isRequired(key)" class="badge badge-danger ml-2">{{ 'form.required' |
+                                    translate }}
                                 </p>
                             </div>
                         </div>
@@ -25,8 +26,9 @@
                                 && key !== 'telephone' 
                                 && key !== 'gender' 
                                 && key !== 'drawer' 
-                                && getAdditionalProperty(key)?.inputType !== 'textarea'" type="text" class="form-control"
-                                [formControlName]="key" [id]="key" [placeholder]="'form.placeholder.' + key | translate">
+                                && !getAdditionalProperty(key)" type="text" class="form-control"
+                                [formControlName]="key" [id]="key"
+                                [placeholder]="'form.placeholder.' + key | translate">
                             <select *ngIf="key === 'theaterId'" class="form-control" [formControlName]="key"
                                 (change)="changeTheater()">
                                 <option value="">{{ 'setting.unselected' | translate }}</option>
@@ -39,7 +41,8 @@
                             </select>
                             <select *ngIf="key === 'entranceGateId'" class="form-control" [formControlName]="key">
                                 <option value="">{{ 'setting.unselected' | translate }}</option>
-                                <option *ngFor="let entranceGate of entranceGateList" [value]="entranceGate.identifier">{{ entranceGate.name | changeLanguage }}</option>
+                                <option *ngFor="let entranceGate of entranceGateList" [value]="entranceGate.identifier">
+                                    {{ entranceGate.name | changeLanguage }}</option>
                             </select>
                             <select *ngIf="key === 'printerType'" class="form-control" [formControlName]="key"
                                 (change)="changePrinterType()">
@@ -60,22 +63,35 @@
                                 [tooltipField]="TooltipLabel.Name" [phoneValidation]="true" [separateDialCode]="false"
                                 inputId="telephone" name="telephone" formControlName="telephone"></ngx-intl-tel-input>
                             <select *ngIf="key === 'gender'" class="form-control" [formControlName]="key" [id]="key">
-                                <option value="">{{ 'form.option.unselected' | translate }}</option>
-                                <option value="man">{{ 'form.option.man' | translate }}</option>
-                                <option value="woman">{{ 'form.option.woman' | translate }}</option>
+                                <option *ngFor="let option of getProfileProperty(key)?.option" [value]="option.value">
+                                    {{ option.label | changeLanguage }}
+                                </option>
                             </select>
+                            <input
+                                *ngIf="getAdditionalProperty(key) && getAdditionalProperty(key)?.inputType === 'input'"
+                                type="text" class="form-control" [formControlName]="key" [id]="key" placeholder="">
                             <textarea *ngIf="getAdditionalProperty(key)?.inputType === 'textarea'" class="form-control"
                                 [formControlName]="key" [id]="key" placeholder=""></textarea>
+                            <select
+                                *ngIf="getAdditionalProperty(key) && getAdditionalProperty(key)?.inputType === 'select'"
+                                class="form-control" [formControlName]="key" [id]="key" placeholder="">
+                                <option *ngFor="let option of getAdditionalProperty(key)?.option"
+                                    [value]="option.value">
+                                    {{ option.label | changeLanguage }}
+                                </option>
+                            </select>
                             <div *ngIf="settingForm.controls[key].invalid && settingForm.controls[key].touched"
                                 class="mt-2">
                                 <p *ngIf="settingForm.controls[key].errors?.required" class="text-danger">
                                     {{ 'form.validation.required' | translate }}
                                 </p>
                                 <p *ngIf="settingForm.controls[key].errors?.maxlength" class="text-danger">
-                                    {{ 'form.validation.maxlength' | translate:{ value: settingForm.controls[key].errors?.maxlength.requiredLength } }}
+                                    {{ 'form.validation.maxlength' | translate:{ value:
+                                    settingForm.controls[key].errors?.maxlength.requiredLength } }}
                                 </p>
                                 <p *ngIf="settingForm.controls[key].errors?.minlength" class="text-danger">
-                                    {{ 'form.validation.minlength' | translate:{ value: settingForm.controls[key].errors?.minlength.requiredLength } }}
+                                    {{ 'form.validation.minlength' | translate:{ value:
+                                    settingForm.controls[key].errors?.minlength.requiredLength } }}
                                 </p>
                                 <p *ngIf="settingForm.controls[key].errors?.email" class="text-danger">
                                     {{ 'form.validation.email' | translate }}
@@ -97,16 +113,16 @@
                             </div>
                             <div *ngIf="key === 'printerType'">
                                 <button [disabled]="settingForm.controls.printerType.value === connectionType.None"
-                                    type="button" class="btn btn-sm btn-primary py-2 mt-2"
-                                    (click)="print()">{{ 'setting.testPrinting' | translate }}</button>
+                                    type="button" class="btn btn-sm btn-primary py-2 mt-2" (click)="print()">{{
+                                    'setting.testPrinting' | translate }}</button>
                             </div>
                             <p *ngIf="key === 'printerIpAddress'" class="text-small mt-2">
                                 {{ 'setting.printerIpAddressDescription' | translate }}
                             </p>
                             <div *ngIf="key === 'drawer'">
-                                <button [disabled]="settingForm.controls.drawer.value === '0'"
-                                    type="button" class="btn btn-sm btn-primary py-2 mt-2"
-                                    (click)="openDrawer()">{{ 'setting.openDrawer' | translate }}</button>
+                                <button [disabled]="settingForm.controls.drawer.value === '0'" type="button"
+                                    class="btn btn-sm btn-primary py-2 mt-2" (click)="openDrawer()">{{
+                                    'setting.openDrawer' | translate }}</button>
                                 <p class="text-small mt-2">
                                     {{ 'setting.drawerDescription' | translate }}
                                 </p>
@@ -121,8 +137,8 @@
         <div class="buttons mx-auto text-center">
             <button type="submit" [disabled]="isLoading | async" class="btn btn-primary btn-block py-3 mb-3"
                 (click)="onSubmit()">{{ 'setting.next' | translate }}</button>
-            <button type="button" class="btn btn-outline-primary btn-block py-3"
-                [routerLink]="environment.BASE_URL">{{ 'setting.prev' | translate }}</button>
+            <button type="button" class="btn btn-outline-primary btn-block py-3" [routerLink]="environment.BASE_URL">{{
+                'setting.prev' | translate }}</button>
         </div>
     </form>
 </div>

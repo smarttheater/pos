@@ -21,6 +21,7 @@ export class ItemProfileComponent implements OnInit {
         name: string;
         value?: string;
         label?: { ja: string; en: string };
+        valueLabel?: { ja: string; en: string };
     }[];
 
     constructor() {}
@@ -39,6 +40,7 @@ export class ItemProfileComponent implements OnInit {
             name: string;
             value?: string;
             label?: { ja: string; en: string };
+            valueLabel?: { ja: string; en: string };
         }[] = [];
         if (profile === undefined) {
             return result;
@@ -67,18 +69,88 @@ export class ItemProfileComponent implements OnInit {
                     name: `form.label.${key}`,
                     value: profile[key],
                     label: p.label,
+                    valueLabel:
+                        p.option === undefined
+                            ? undefined
+                            : p.option.find((o) => o.value === profile[key])
+                                  ?.label,
                 });
                 return;
             }
+            const value = profile.additionalProperty?.find(
+                (a) => a.name === key.replace('additionalProperty.', '')
+            )?.value;
             result.push({
                 key,
                 name: key,
-                value: profile.additionalProperty?.find(
-                    (a) => a.name === key.replace('additionalProperty.', '')
-                )?.value,
+                value,
                 label: p.label,
+                valueLabel:
+                    p.option === undefined
+                        ? undefined
+                        : p.option.find((o) => o.value === value)?.label,
             });
         });
+        // Object.keys(profile).forEach((key) => {
+        //     if (key === 'id') {
+        //         result.push({
+        //             key: 'id',
+        //             name: '',
+        //             value: profile.id,
+        //             label: { ja: 'id', en: 'id' },
+        //         });
+        //         return;
+        //     }
+        //     if (
+        //         key === 'familyName' ||
+        //         key === 'givenName' ||
+        //         key === 'email' ||
+        //         key === 'telephone' ||
+        //         key === 'address' ||
+        //         key === 'age' ||
+        //         key === 'gender'
+        //     ) {
+        //         const findResult = this.environment.PROFILE.find(
+        //             (p) => p.key === key
+        //         );
+        //         result.push({
+        //             key,
+        //             name: `form.label.${key}`,
+        //             value: profile[key],
+        //             valueLabel:
+        //                 findResult === undefined ||
+        //                 findResult.option === undefined
+        //                     ? undefined
+        //                     : findResult.option.find(
+        //                           (o) => o.value === profile[key]
+        //                       )?.label,
+        //         });
+        //         return;
+        //     }
+        //     if (key === 'additionalProperty' && profile[key] !== undefined) {
+        //         profile[key]?.forEach((a) => {
+        //             const findResult = this.environment.PROFILE.find(
+        //                 (p) => p.key === `additionalProperty.${a.name}`
+        //             );
+        //             result.push({
+        //                 key: a.name,
+        //                 name: a.name,
+        //                 value: a.value,
+        //                 label:
+        //                     findResult === undefined
+        //                         ? undefined
+        //                         : findResult.label,
+        //                 valueLabel:
+        //                     findResult === undefined ||
+        //                     findResult.option === undefined
+        //                         ? undefined
+        //                         : findResult.option.find(
+        //                               (o) => o.value === a.value
+        //                           )?.label,
+        //             });
+        //         });
+        //     }
+        // });
         if (profile.additionalProperty !== undefined) {
             const extraAdditionalProperty = profile.additionalProperty.filter(
                 (a) => {
