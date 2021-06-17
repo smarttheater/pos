@@ -287,6 +287,13 @@ export class PurchaseInputComponent implements OnInit {
     }
 
     /**
+     * プロフィール項目取得
+     */
+    public getProfileProperty(key: string) {
+        return this.environment.PROFILE.find((p) => p.key === key);
+    }
+
+    /**
      * 追加特性項目取得
      */
     public getAdditionalProperty(key: string) {
