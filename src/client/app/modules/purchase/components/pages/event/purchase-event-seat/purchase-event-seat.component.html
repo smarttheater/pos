@@ -1,19 +1,18 @@
 <div class="contents-width mx-auto px-3 py-5">
-    <div *ngIf="!((purchase | async)?.screen?.openSeatingAllowed)">
+    <div *ngIf="(purchase | async)?.screen && !((purchase | async)?.screen?.openSeatingAllowed)">
         <h2 class="text-large mb-4 text-center font-weight-bold">{{ 'purchase.event.seat.title' | translate }}</h2>
         <p class="mb-4 text-md-center" [innerHTML]="'purchase.event.seat.read' | translate"></p>
         <div class="d-flex mb-3">
             <button type="button" class="btn btn-primary mr-2" [disabled]="isLoading | async"
                 (click)="allSelectSeats()">{{ 'purchase.event.seat.allSelect' | translate }}</button>
-            <button type="button" class="btn btn-outline-primary m-0"
-                (click)="resetSeats()">{{ 'purchase.event.seat.reset' | translate }}</button>
+            <button type="button" class="btn btn-outline-primary m-0" (click)="resetSeats()">{{
+                'purchase.event.seat.reset' | translate }}</button>
         </div>
         <div class="container px-0">
             <div class="row">
                 <div class="col-lg-8">
-                    <app-screen *ngIf="(user | async)?.theater 
-                && screeningEventSeats.length > 0 
-                && (purchase | async)?.screen" class="mb-3" [theaterCode]="(user | async)?.theater.branchCode"
+                    <app-screen *ngIf="(user | async)?.theater && screeningEventSeats.length > 0" class="mb-3"
+                        [theaterCode]="(user | async)?.theater.branchCode"
                         [screenCode]="(purchase | async)?.screen.branchCode" [screeningEventSeats]="screeningEventSeats"
                         [openSeatingAllowed]="(purchase | async)?.screen?.openSeatingAllowed"
                         [reservations]="(purchase | async)?.reservations"
@@ -29,7 +28,7 @@
         </div>
     </div>
 
-    <div *ngIf="(purchase | async)?.screen?.openSeatingAllowed">
+    <div *ngIf="(purchase | async)?.screen && (purchase | async)?.screen?.openSeatingAllowed">
         <h2 class="text-large mb-4 text-center font-weight-bold">
             {{ 'purchase.event.seat.openSeating.title' | translate }}</h2>
         <p class="mb-4 text-md-center" [innerHTML]="'purchase.event.seat.openSeating.read' | translate"></p>
@@ -48,14 +47,13 @@
                                             </p>
                                         </div>
                                         <div class="col-md-9 col-12">
-                                            <select class="form-control "
-                                                [(ngModel)]="reservationCount">
+                                            <select class="form-control " [(ngModel)]="reservationCount">
                                                 <option [value]="0">0</option>
                                                 <option *ngFor="let value of remainingAttendeeCapacityValue({
-                                screeningEvent: (purchase | async)?.screeningEvent,
-                                screeningEventSeats: screeningEventSeats,
-                                authorizeSeatReservations: (purchase | async)?.authorizeSeatReservations
-                            })" [value]="value">{{ value }}</option>
+                                                    screeningEvent: (purchase | async)?.screeningEvent,
+                                                    screeningEventSeats: screeningEventSeats,
+                                                    authorizeSeatReservations: (purchase | async)?.authorizeSeatReservations
+                                                })" [value]="value">{{ value }}</option>
                                             </select>
                                         </div>
                                     </div>
@@ -83,8 +81,8 @@
             || Number(reservationCount) === 0" (click)="onSubmit()">
             {{ 'purchase.event.seat.next' | translate }}
         </button>
-        <button type="button" class="btn btn-outline-primary btn-block py-3"
-            (click)="prev()">{{ 'purchase.event.seat.prev' | translate }}</button>
+        <button type="button" class="btn btn-outline-primary btn-block py-3" (click)="prev()">{{
+            'purchase.event.seat.prev' | translate }}</button>
     </div>
 
 </div>
