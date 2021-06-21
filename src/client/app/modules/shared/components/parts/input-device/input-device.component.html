@@ -1,0 +1,67 @@
+<form [formGroup]="formGroup">
+    <ng-container *ngFor="let key of getProfileFormKeys()">
+        <div class="form-group row">
+            <div class="col-md-4 py-2 text-md-right ">
+                <div class="d-inline-flex align-items-center">
+                    <p *ngIf="!getAdditionalProperty(key)">{{ 'form.label.' + key | translate }}</p>
+                    <p *ngIf="getAdditionalProperty(key)">
+                        {{ getAdditionalProperty(key)?.label | changeLanguage }}</p>
+                    <p *ngIf="isRequired(key)" class="badge badge-danger ml-2">{{ 'form.required' |
+                        translate }}
+                    </p>
+                </div>
+            </div>
+            <div class="col-md-8">
+                <input *ngIf="key !== 'printerType' && key !== 'drawer'" type="text" class="form-control"
+                    [formControlName]="key" [id]="key" [placeholder]="'form.placeholder.' + key | translate">
+                <select *ngIf="key === 'printerType'" class="form-control" [formControlName]="key"
+                    (change)="changePrinterType()">
+                    <option *ngFor="let printer of printers" [value]="printer.connectionType">
+                        {{ printer.name | translate }}</option>
+                </select>
+                <select *ngIf="key === 'drawer'" class="form-control" [formControlName]="key" [id]="key">
+                    <option value="0">{{ 'form.option.false' | translate }}</option>
+                    <option value="1">{{ 'form.option.true' | translate }}</option>
+                </select>
+                <div *ngIf="formGroup.controls[key].invalid && formGroup.controls[key].touched" class="mt-2">
+                    <p *ngIf="formGroup.controls[key].errors?.required" class="text-danger">
+                        {{ 'form.validation.required' | translate }}
+                    </p>
+                    <p *ngIf="formGroup.controls[key].errors?.maxlength" class="text-danger">
+                        {{ 'form.validation.maxlength' | translate:{ value:
+                        formGroup.controls[key].errors?.maxlength.requiredLength } }}
+                    </p>
+                    <p *ngIf="formGroup.controls[key].errors?.minlength" class="text-danger">
+                        {{ 'form.validation.minlength' | translate:{ value:
+                        formGroup.controls[key].errors?.minlength.requiredLength } }}
+                    </p>
+                    <p *ngIf="formGroup.controls[key].errors?.email" class="text-danger">
+                        {{ 'form.validation.email' | translate }}
+                    </p>
+                    <p *ngIf="formGroup.controls[key].errors?.validatePhoneNumber" class="text-danger">
+                        {{ 'form.validation.telephone' | translate }}
+                    </p>
+                    <p *ngIf="formGroup.controls[key].errors?.pattern" class="text-danger">
+                        {{ 'form.validation.pattern' | translate }}
+                    </p>
+                </div>
+                <div *ngIf="key === 'printerType'">
+                    <button [disabled]="formGroup.controls.printerType.value === connectionType.None" type="button"
+                        class="btn btn-sm btn-primary py-2 mt-2" (click)="print.emit($event)">{{
+                        'setting.testPrinting' | translate }}</button>
+                </div>
+                <p *ngIf="key === 'printerIpAddress'" class="text-small mt-2">
+                    {{ 'setting.printerIpAddressDescription' | translate }}
+                </p>
+                <div *ngIf="key === 'drawer'">
+                    <button [disabled]="formGroup.controls.drawer.value === '0'" type="button"
+                        class="btn btn-sm btn-primary py-2 mt-2" (click)="drawer.emit($event)">{{
+                        'setting.openDrawer' | translate }}</button>
+                    <p class="text-small mt-2">
+                        {{ 'setting.drawerDescription' | translate }}
+                    </p>
+                </div>
+            </div>
+        </div>
+    </ng-container>
+</form>
