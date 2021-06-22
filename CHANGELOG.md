@@ -14,6 +14,12 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/).
 
 ### Security
 
+## 3.21.0 - 2021-06-22
+
+### Fixed
+
+-   入力関連の Component を細分化
+
 ## 3.20.0 - 2021-06-18
 
 ### Fixed
