@@ -46,7 +46,7 @@
     <% } %>
     </div>
     
-    <div class="d-flex align-items-center justify-content-between pb-3">
+    <div class="d-flex justify-content-between pb-3">
         <div class="text-small">
             <p class="mb-3">■ 上記日時１回限り有効<br>■ 変更、払戻不可</p>
             <p>確認番号 <%= order.confirmationNumber %></p>
@@ -56,10 +56,14 @@
             <% } %>
             <p>(<%= moment().tz('Asia/Tokyo').locale('ja').format('YYYY/MM/DD (ddd) HH:mm') %> 発券)</p>
         </div>
-        <% if (qrcode) { %>
         <div>
-            <img width="180" height="180" src="<%= qrcode %>">
+            <% if (qrcode) { %>
+                <div>
+                    <img width="180" height="180" src="<%= qrcode %>">
+                </div>
+            <% } %>
+            <p class="text-small text-right"><%= index + 1 %>/<%= order.acceptedOffers.length %></p>
         </div>
-        <% } %>
     </div>
+    
 </div>
