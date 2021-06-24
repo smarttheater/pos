@@ -203,7 +203,9 @@ export class PurchaseCinemaScheduleComponent implements OnInit, OnDestroy {
         }
         this.actionService.purchase.unsettledDelete();
         try {
-            await this.actionService.purchase.getScreeningEvent(screeningEvent);
+            await this.actionService.purchase.event.getScreeningEvent(
+                screeningEvent
+            );
             if (
                 screeningEvent.offers.seller === undefined ||
                 screeningEvent.offers.seller.id === undefined
@@ -230,9 +232,11 @@ export class PurchaseCinemaScheduleComponent implements OnInit, OnDestroy {
 
         if (authorizeSeatReservations.length > 0) {
             try {
-                await this.actionService.purchase.voidSeatReservation({
-                    authorizeSeatReservations,
-                });
+                await this.actionService.purchase.transaction.voidSeatReservation(
+                    {
+                        authorizeSeatReservations,
+                    }
+                );
             } catch (error) {
                 console.error(error);
                 this.router.navigate(['/error']);
@@ -240,7 +244,7 @@ export class PurchaseCinemaScheduleComponent implements OnInit, OnDestroy {
             }
         }
         try {
-            await this.actionService.purchase.startTransaction({ pos });
+            await this.actionService.purchase.transaction.start({ pos });
             this.router.navigate(['/purchase/cinema/seat']);
         } catch (error) {
             console.error(error);

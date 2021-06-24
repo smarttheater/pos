@@ -73,7 +73,7 @@ export class PurchaseEventDateComponent implements OnInit, OnDestroy {
             ) {
                 return;
             }
-            await this.actionService.purchase.cancelTransaction();
+            await this.actionService.purchase.transaction.cancel();
         } catch (error) {
             console.error(error);
         }
@@ -207,7 +207,7 @@ export class PurchaseEventDateComponent implements OnInit, OnDestroy {
         }
         try {
             const { pos } = await this.actionService.user.getData();
-            await this.actionService.purchase.startTransaction({ pos });
+            await this.actionService.purchase.transaction.start({ pos });
             this.router.navigate(['/purchase/event/schedule']);
         } catch (error) {
             console.error(error);

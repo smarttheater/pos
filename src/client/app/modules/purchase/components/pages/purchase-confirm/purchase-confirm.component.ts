@@ -156,11 +156,11 @@ export class PurchaseConfirmComponent implements OnInit {
                     }),
             });
             if (profile === undefined) {
-                await this.actionService.purchase.setProfile({
+                await this.actionService.purchase.transaction.setProfile({
                     profile: customerContact,
                 });
             }
-            await this.actionService.purchase.confirmTransaction({
+            await this.actionService.purchase.transaction.confirm({
                 theater,
                 language,
             });
