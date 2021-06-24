@@ -4,13 +4,13 @@ import { CustomerService } from './action/customer.service';
 import { OrderService } from './action/order.service';
 import { PurchaseService } from './action/purchase.service';
 import { ReservationService } from './action/reservation.service';
+import { ActionStoreService } from './action/store.service';
 import { UserService } from './action/user.service';
 
 @Injectable({
-    providedIn: 'root'
+    providedIn: 'root',
 })
 export class ActionService {
-
     constructor(
         public admission: AdmissionService,
         public order: OrderService,
@@ -18,5 +18,6 @@ export class ActionService {
         public reservation: ReservationService,
         public user: UserService,
         public customer: CustomerService,
-    ) { }
+        public store: ActionStoreService
+    ) {}
 }

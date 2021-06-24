@@ -185,10 +185,8 @@ export class PurchaseEventScheduleComponent implements OnInit, OnDestroy {
             await this.actionService.purchase.getScreeningEvent(screeningEvent);
             this.screeningEventSeats =
                 await this.actionService.purchase.getScreeningEventSeats();
-            await this.actionService.purchase.getTicketList({
-                seller: purchase.seller,
-            });
-            await this.actionService.purchase.getScreen({
+            await this.actionService.purchase.searchTicketOffers();
+            await this.actionService.purchase.getScreeningRoom({
                 branchCode: { $eq: screeningEvent.location.branchCode },
                 containedInPlace: {
                     branchCode: {
@@ -316,7 +314,7 @@ export class PurchaseEventScheduleComponent implements OnInit, OnDestroy {
         }
 
         try {
-            await this.actionService.purchase.temporaryReservation({
+            await this.actionService.purchase.authorizeSeatReservation({
                 reservations,
                 additionalTicketText,
                 screeningEventSeats: this.screeningEventSeats,
@@ -385,9 +383,9 @@ export class PurchaseEventScheduleComponent implements OnInit, OnDestroy {
                     const authorizeSeatReservations = [
                         authorizeSeatReservation,
                     ];
-                    await this.actionService.purchase.cancelTemporaryReservations(
-                        authorizeSeatReservations
-                    );
+                    await this.actionService.purchase.voidSeatReservation({
+                        authorizeSeatReservations,
+                    });
                 } catch (error) {
                     console.error(error);
                     this.router.navigate(['/error']);

@@ -60,7 +60,7 @@ export class PurchaseSeatComponent implements OnInit {
                     status: Models.Purchase.Screen.SeatStatus.Default,
                 });
             });
-            await this.actionService.purchase.getScreen({
+            await this.actionService.purchase.getScreeningRoom({
                 branchCode: { $eq: screeningEvent.location.branchCode },
                 containedInPlace: {
                     branchCode: {
@@ -70,7 +70,7 @@ export class PurchaseSeatComponent implements OnInit {
             });
             this.screeningEventSeats =
                 await this.actionService.purchase.getScreeningEventSeats();
-            await this.actionService.purchase.getTicketList({ seller });
+            await this.actionService.purchase.searchTicketOffers();
         } catch (error) {
             console.error(error);
             this.router.navigate(['/error']);
@@ -245,7 +245,7 @@ export class PurchaseSeatComponent implements OnInit {
             }
             const { reservations } =
                 await this.actionService.purchase.getData();
-            await this.actionService.purchase.temporaryReservation({
+            await this.actionService.purchase.authorizeSeatReservation({
                 reservations,
                 screeningEventSeats: this.screeningEventSeats,
             });

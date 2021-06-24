@@ -105,11 +105,11 @@ export class PurchaseConfirmComponent implements OnInit {
      * 確定
      */
     public async onSubmit() {
-        const { seller, pendingMovieTickets, profile } =
+        const { pendingMovieTickets, profile } =
             await this.actionService.purchase.getData();
-        const { language, customerContact } =
+        const { language, customerContact, theater } =
             await this.actionService.user.getData();
-        if (customerContact === undefined || seller === undefined) {
+        if (customerContact === undefined || theater === undefined) {
             this.router.navigate(['/error']);
             return;
         }
@@ -123,11 +123,9 @@ export class PurchaseConfirmComponent implements OnInit {
         }
         try {
             if (pendingMovieTickets.length > 0) {
-                await this.actionService.purchase.authorizeMovieTicket({
-                    seller,
-                });
+                await this.actionService.purchase.payment.authorizeMovieTicket();
             }
-            await this.actionService.purchase.authorizeAnyPayment({
+            await this.actionService.purchase.payment.authorizeAnyPayment({
                 data: this.payments
                     .filter((p) => p.selected)
                     .map((p) => {
@@ -153,8 +151,7 @@ export class PurchaseConfirmComponent implements OnInit {
                         return {
                             amount,
                             additionalProperty,
-                            paymentMethodType:
-                                p.paymentAccepted.paymentMethodType,
+                            paymentMethod: p.paymentAccepted.paymentMethodType,
                         };
                     }),
             });
@@ -163,8 +160,8 @@ export class PurchaseConfirmComponent implements OnInit {
                     profile: customerContact,
                 });
             }
-            await this.actionService.purchase.endTransaction({
-                seller,
+            await this.actionService.purchase.confirmTransaction({
+                theater,
                 language,
             });
             this.router.navigate(['/purchase/complete']);

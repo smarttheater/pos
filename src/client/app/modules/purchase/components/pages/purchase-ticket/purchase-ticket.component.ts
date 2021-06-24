@@ -116,7 +116,7 @@ export class PurchaseTicketComponent implements OnInit {
             const additionalTicketText = this.additionalTicketText;
             const screeningEventSeats =
                 await this.actionService.purchase.getScreeningEventSeats();
-            await this.actionService.purchase.temporaryReservation({
+            await this.actionService.purchase.authorizeSeatReservation({
                 reservations,
                 additionalTicketText,
                 screeningEventSeats,
