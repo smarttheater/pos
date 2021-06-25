@@ -227,7 +227,6 @@ export function reducer(initialState: IState, action: Action) {
                     ...state.purchaseData,
                     reservations,
                 },
-                loading: false,
                 process: '',
                 error: null,
             };
@@ -253,7 +252,6 @@ export function reducer(initialState: IState, action: Action) {
                     ...state.purchaseData,
                     reservations,
                 },
-                loading: false,
                 process: '',
                 error: null,
             };
@@ -464,7 +462,6 @@ export function reducer(initialState: IState, action: Action) {
                     ...state.purchaseData,
                     authorizeMovieTicketPayments,
                 },
-                loading: false,
                 process: '',
                 error: null,
             };
@@ -495,7 +492,6 @@ export function reducer(initialState: IState, action: Action) {
                     checkMovieTicketAction,
                     checkMovieTicketActions,
                 },
-                loading: false,
                 process: '',
                 error: null,
             };
@@ -528,7 +524,6 @@ export function reducer(initialState: IState, action: Action) {
                     ...state.purchaseData,
                     authorizeAnyPayments,
                 },
-                loading: false,
                 process: '',
                 error: null,
             };
@@ -545,7 +540,6 @@ export function reducer(initialState: IState, action: Action) {
                     ...state.purchaseData,
                     paymentMethod,
                 },
-                loading: false,
                 process: '',
                 error: null,
             };
@@ -559,7 +553,6 @@ export function reducer(initialState: IState, action: Action) {
                     ...state.purchaseData,
                     customer,
                 },
-                loading: false,
                 process: '',
                 error: null,
             };
