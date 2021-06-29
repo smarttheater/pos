@@ -122,7 +122,7 @@ export class CustomerSearchComponent implements OnInit {
         try {
             const purchase = await this.actionService.purchase.getData();
             if (purchase.transaction !== undefined) {
-                await this.actionService.purchase.cancelTransaction();
+                await this.actionService.purchase.transaction.cancel();
             }
             this.actionService.purchase.delete();
             this.actionService.purchase.setCustomer({ customer });

@@ -4,21 +4,17 @@ import { ActionService } from '../../../../../services';
 @Component({
     selector: 'app-expired',
     templateUrl: './expired.component.html',
-    styleUrls: ['./expired.component.scss']
+    styleUrls: ['./expired.component.scss'],
 })
 export class ExpiredComponent implements OnInit {
-
-    constructor(
-        private actionService: ActionService
-    ) { }
+    constructor(private actionService: ActionService) {}
 
     public async ngOnInit() {
         try {
-            await this.actionService.purchase.cancelTransaction();
+            await this.actionService.purchase.transaction.cancel();
         } catch (error) {
             console.error(error);
         }
         this.actionService.purchase.delete();
     }
-
 }

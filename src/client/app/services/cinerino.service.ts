@@ -183,14 +183,14 @@ export class CinerinoService {
     /**
      * パスポート取得
      */
-    public async getPassport(sellerId: string) {
+    public async getPassport(params: { scope: string }) {
         if (this.waiterServerUrl === undefined || this.waiterServerUrl === '') {
             return { token: '' };
         }
         const url = `${this.waiterServerUrl}/projects/${
             Functions.Util.getProject().projectId
         }/passports`;
-        const body = { scope: `Transaction:PlaceOrder:${sellerId}` };
+        const body = { scope: params.scope };
         const result = await this.http
             .post<{ token: string }>(url, body)
             .toPromise();

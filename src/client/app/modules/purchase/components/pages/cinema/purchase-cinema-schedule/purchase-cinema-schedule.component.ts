@@ -203,7 +203,9 @@ export class PurchaseCinemaScheduleComponent implements OnInit, OnDestroy {
         }
         this.actionService.purchase.unsettledDelete();
         try {
-            await this.actionService.purchase.getScreeningEvent(screeningEvent);
+            await this.actionService.purchase.event.getScreeningEvent(
+                screeningEvent
+            );
             if (
                 screeningEvent.offers.seller === undefined ||
                 screeningEvent.offers.seller.id === undefined
@@ -212,25 +214,28 @@ export class PurchaseCinemaScheduleComponent implements OnInit, OnDestroy {
                     'screeningEvent.offers.seller or screeningEvent.offers.seller.id undefined'
                 );
             }
-            await this.actionService.purchase.getSeller(
-                screeningEvent.offers.seller.id
-            );
+            await this.actionService.purchase.getSeller({
+                id: screeningEvent.offers.seller.id,
+            });
         } catch (error) {
             console.error(error);
             this.router.navigate(['/error']);
             return;
         }
-        const purchase = await this.actionService.purchase.getData();
-        const user = await this.actionService.user.getData();
-        if (purchase.seller === undefined) {
+        const { seller, authorizeSeatReservations } =
+            await this.actionService.purchase.getData();
+        const { pos } = await this.actionService.user.getData();
+        if (seller === undefined) {
             this.router.navigate(['/error']);
             return;
         }
 
-        if (purchase.authorizeSeatReservations.length > 0) {
+        if (authorizeSeatReservations.length > 0) {
             try {
-                await this.actionService.purchase.cancelTemporaryReservations(
-                    purchase.authorizeSeatReservations
+                await this.actionService.purchase.transaction.voidSeatReservation(
+                    {
+                        authorizeSeatReservations,
+                    }
                 );
             } catch (error) {
                 console.error(error);
@@ -239,11 +244,7 @@ export class PurchaseCinemaScheduleComponent implements OnInit, OnDestroy {
             }
         }
         try {
-            await this.actionService.purchase.startTransaction({
-                seller: purchase.seller,
-                pos: user.pos,
-                customer: purchase.customer,
-            });
+            await this.actionService.purchase.transaction.start({ pos });
             this.router.navigate(['/purchase/cinema/seat']);
         } catch (error) {
             console.error(error);

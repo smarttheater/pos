@@ -73,7 +73,7 @@ export class PurchaseEventDateComponent implements OnInit, OnDestroy {
             ) {
                 return;
             }
-            await this.actionService.purchase.cancelTransaction();
+            await this.actionService.purchase.transaction.cancel();
         } catch (error) {
             console.error(error);
         }
@@ -198,24 +198,16 @@ export class PurchaseEventDateComponent implements OnInit, OnDestroy {
             ) {
                 throw new Error('screeningEvent.offers.seller === undefined');
             }
-            await this.actionService.purchase.getSeller(
-                screeningEvent.offers.seller.id
-            );
+            await this.actionService.purchase.getSeller({
+                id: screeningEvent.offers.seller.id,
+            });
         } catch (error) {
             console.error(error);
             this.router.navigate(['/error']);
         }
         try {
-            const purchase = await this.actionService.purchase.getData();
-            const user = await this.actionService.user.getData();
-            if (purchase.seller === undefined) {
-                throw new Error('seller undefined');
-            }
-            await this.actionService.purchase.startTransaction({
-                seller: purchase.seller,
-                pos: user.pos,
-                customer: purchase.customer,
-            });
+            const { pos } = await this.actionService.user.getData();
+            await this.actionService.purchase.transaction.start({ pos });
             this.router.navigate(['/purchase/event/schedule']);
         } catch (error) {
             console.error(error);
