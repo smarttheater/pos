@@ -169,14 +169,14 @@ export function isAvailabilityMovieTicket(
 /**
  *  予約情報からムビチケ情報作成
  */
-export function createMovieTicketsFromAuthorizeSeatReservation(args: {
+export function createMovieTicketsFromAuthorizeSeatReservation(params: {
     authorizeSeatReservation: factory.action.authorize.offer.seatReservation.IAction<factory.service.webAPI.Identifier.Chevre>;
     pendingMovieTickets: Purchase.MovieTicket.IMovieTicket[];
+    seller: factory.chevre.seller.ISeller;
 }) {
     const results: factory.chevre.paymentMethod.paymentCard.movieTicket.IMovieTicket[] =
         [];
-    const authorizeSeatReservation = args.authorizeSeatReservation;
-    const pendingMovieTickets = args.pendingMovieTickets;
+    const { authorizeSeatReservation, pendingMovieTickets, seller } = params;
     if (authorizeSeatReservation.result === undefined) {
         return [];
     }
@@ -235,11 +235,11 @@ export function createMovieTicketsFromAuthorizeSeatReservation(args: {
 
         results.push({
             typeOf: findReservation.typeOf,
-            project: findReservation.project,
             identifier: findReservation.identifier,
             accessCode: findReservation.accessCode,
             serviceType: findReservation.serviceType,
             serviceOutput: findReservation.serviceOutput,
+            project: seller.project,
         });
     });
 

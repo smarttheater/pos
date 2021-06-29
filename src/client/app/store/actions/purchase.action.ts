@@ -13,107 +13,32 @@ export const selectScheduleDate = createAction(
     props<{ scheduleDate: string }>()
 );
 
-export const getSeller = createAction(
-    `${LABEL} getSeller`,
-    props<{ id: string }>()
-);
-
-export const getSellerSuccess = createAction(
-    `${LABEL} getSellerSuccess`,
+export const setSeller = createAction(
+    `${LABEL} setSeller`,
     props<{
         seller: factory.chevre.seller.ISeller;
     }>()
 );
 
-export const getSellerFail = createAction(
-    `${LABEL} getSellerFail`,
-    props<{ error: Error }>()
-);
-
-export const getScreeningEvent = createAction(
-    `${LABEL} getScreeningEvent`,
+export const setScreeningEvent = createAction(
+    `${LABEL} setScreeningEvent`,
     props<{
         screeningEvent: factory.chevre.event.screeningEvent.IEvent;
     }>()
 );
 
-export const getScreeningEventSuccess = createAction(
-    `${LABEL} getScreeningEventSuccess`,
-    props<{
-        screeningEvent: factory.chevre.event.screeningEvent.IEvent;
-    }>()
-);
-
-export const getScreeningEventFail = createAction(
-    `${LABEL} getScreeningEventFail`,
-    props<{ error: Error }>()
-);
-
-export const startTransaction = createAction(
-    `${LABEL} startTransaction`,
-    props<{
-        expires: Date;
-        agent?: { identifier?: factory.person.IIdentifier };
-        seller: { typeOf: factory.chevre.organizationType; id: string };
-        object: {
-            customer?: { id: string };
-            passport?: { token: factory.waiter.passport.IEncodedPassport };
-        };
-    }>()
-);
-
-export const startTransactionSuccess = createAction(
-    `${LABEL} startTransactionSuccess`,
+export const setTransaction = createAction(
+    `${LABEL} setTransaction`,
     props<{
         transaction: factory.transaction.placeOrder.ITransaction;
     }>()
 );
 
-export const startTransactionFail = createAction(
-    `${LABEL} startTransactionFail`,
-    props<{ error: Error }>()
-);
+export const cancelTransaction = createAction(`${LABEL} cancelTransaction`);
 
-export const cancelTransaction = createAction(
-    `${LABEL} cancelTransaction`,
-    props<{
-        transaction: factory.transaction.placeOrder.ITransaction;
-    }>()
-);
-
-export const cancelTransactionSuccess = createAction(
-    `${LABEL} cancelTransactionSuccess`
-);
-
-export const cancelTransactionFail = createAction(
-    `${LABEL} cancelTransactionFail`,
-    props<{ error: Error }>()
-);
-
-export const getScreen = createAction(
-    `${LABEL} getScreen`,
-    props<{
-        limit?: number;
-        page?: number;
-        branchCode?: {
-            $eq?: string;
-        };
-        containedInPlace?: {
-            branchCode?: {
-                $eq?: string;
-            };
-        };
-    }>()
-);
-
-export const getScreenSuccess = createAction(
-    `${LABEL} getScreenSuccess`,
-    props<{ screen: factory.chevre.place.screeningRoom.IPlace }>()
-);
-
-export const getScreenFail = createAction(
-    `${LABEL} getScreenFail`,
-    props<{ error: Error }>()
+export const setScreeningRoom = createAction(
+    `${LABEL} setScreeningRoom`,
+    props<{ screeningRoom: factory.chevre.place.screeningRoom.IPlace }>()
 );
 
 export const selectSeats = createAction(
@@ -126,24 +51,11 @@ export const cancelSeats = createAction(
     props<{ seats: Models.Purchase.Reservation.IReservationSeat[] }>()
 );
 
-export const getTicketList = createAction(
-    `${LABEL} getTicketList`,
+export const setTicketOffers = createAction(
+    `${LABEL} setTicketOffers`,
     props<{
-        screeningEvent: factory.chevre.event.screeningEvent.IEvent;
-        seller: factory.chevre.seller.ISeller;
+        ticketOffers: factory.chevre.event.screeningEvent.ITicketOffer[];
     }>()
-);
-
-export const getTicketListSuccess = createAction(
-    `${LABEL} getTicketListSuccess`,
-    props<{
-        screeningEventTicketOffers: factory.chevre.event.screeningEvent.ITicketOffer[];
-    }>()
-);
-
-export const getTicketListFail = createAction(
-    `${LABEL} getTicketListFail`,
-    props<{ error: Error }>()
 );
 
 export const selectTickets = createAction(
@@ -151,134 +63,43 @@ export const selectTickets = createAction(
     props<{ reservations: Models.Purchase.Reservation.IReservation[] }>()
 );
 
-export const temporaryReservation = createAction(
-    `${LABEL} temporaryReservation`,
+export const setAuthorizeSeatReservation = createAction(
+    `${LABEL} setAuthorizeSeatReservation`,
     props<{
-        transaction: factory.transaction.placeOrder.ITransaction;
-        screeningEvent: factory.chevre.event.screeningEvent.IEvent;
-        authorizeSeatReservation?: factory.action.authorize.offer.seatReservation.IAction<factory.service.webAPI.Identifier.Chevre>;
-        reservations: Models.Purchase.Reservation.IReservation[];
-        screeningEventSeats: factory.chevre.place.seat.IPlaceWithOffer[];
-        additionalTicketText?: string;
+        addAuthorizeSeatReservation: factory.action.authorize.offer.seatReservation.IAction<factory.service.webAPI.Identifier>;
+        removeAuthorizeSeatReservation?: factory.action.authorize.offer.seatReservation.IAction<factory.service.webAPI.Identifier>;
     }>()
 );
 
-export const temporaryReservationSuccess = createAction(
-    `${LABEL} temporaryReservationSuccess`,
-    props<{
-        addAuthorizeSeatReservation: factory.action.authorize.offer.seatReservation.IAction<factory.service.webAPI.Identifier.Chevre>;
-        removeAuthorizeSeatReservation?: factory.action.authorize.offer.seatReservation.IAction<factory.service.webAPI.Identifier.Chevre>;
-    }>()
-);
-
-export const temporaryReservationFail = createAction(
-    `${LABEL} temporaryReservationFail`,
-    props<{ error: Error }>()
-);
-
-export const cancelTemporaryReservations = createAction(
-    `${LABEL} tTemporaryReservation`,
+export const voidSeatReservation = createAction(
+    `${LABEL} voidSeatReservation`,
     props<{
         authorizeSeatReservations: factory.action.authorize.offer.seatReservation.IAction<factory.service.webAPI.Identifier.Chevre>[];
     }>()
-);
-
-export const cancelTemporaryReservationsSuccess = createAction(
-    `${LABEL} cancelTemporaryReservationsSuccess`,
-    props<{
-        authorizeSeatReservations: factory.action.authorize.offer.seatReservation.IAction<factory.service.webAPI.Identifier.Chevre>[];
-    }>()
-);
-
-export const cancelTemporaryReservationsFail = createAction(
-    `${LABEL} cancelTemporaryReservationsFail`,
-    props<{ error: Error }>()
 );
 
 export const setProfile = createAction(
     `${LABEL} setProfile`,
-    props<{
-        transaction: factory.transaction.placeOrder.ITransaction;
-        profile: factory.person.IProfile;
-    }>()
-);
-
-export const setProfileSuccess = createAction(
-    `${LABEL} setProfileSuccess`,
     props<{ profile: factory.person.IProfile }>()
 );
 
-export const setProfileFail = createAction(
-    `${LABEL} setProfileFail`,
-    props<{ error: Error }>()
-);
-
-export const authorizeMovieTicket = createAction(
-    `${LABEL} authorizeMovieTicket`,
-    props<{
-        transaction: factory.transaction.placeOrder.ITransaction;
-        authorizeMovieTicketPayments: factory.action.authorize.paymentMethod.any.IAction[];
-        authorizeSeatReservations: factory.action.authorize.offer.seatReservation.IAction<factory.service.webAPI.Identifier.Chevre>[];
-        pendingMovieTickets: Models.Purchase.MovieTicket.IMovieTicket[];
-        seller: factory.chevre.seller.ISeller;
-    }>()
-);
-
-export const authorizeMovieTicketSuccess = createAction(
+export const setAuthorizeMovieTicket = createAction(
     `${LABEL} authorizeMovieTicketSuccess`,
     props<{
-        authorizeMovieTicketPayments: factory.action.authorize.paymentMethod.any.IAction[];
+        authorizeResults: factory.action.authorize.paymentMethod.any.IAction[];
     }>()
 );
 
-export const authorizeMovieTicketFail = createAction(
-    `${LABEL} authorizeMovieTicketFail`,
-    props<{ error: Error }>()
-);
-
-export const checkMovieTicket = createAction(
-    `${LABEL} checkMovieTicket`,
-    props<{
-        transaction: factory.transaction.placeOrder.ITransaction;
-        movieTickets: {
-            typeOf: factory.paymentMethodType;
-            identifier: string;
-            accessCode: string;
-        }[];
-        screeningEvent: factory.chevre.event.screeningEvent.IEvent;
-    }>()
-);
-
-export const checkMovieTicketSuccess = createAction(
+export const setCheckMovieTicket = createAction(
     `${LABEL} checkMovieTicketSuccess`,
     props<{
         checkMovieTicketAction: factory.action.check.paymentMethod.movieTicket.IAction;
     }>()
 );
 
-export const checkMovieTicketFail = createAction(
-    `${LABEL} checkMovieTicketFail`,
-    props<{ error: Error }>()
-);
-
-export const endTransaction = createAction(
-    `${LABEL} endTransaction`,
-    props<{
-        transaction: factory.transaction.placeOrder.ITransaction;
-        seller: factory.chevre.seller.ISeller;
-        authorizeSeatReservations: factory.action.authorize.offer.seatReservation.IAction<factory.service.webAPI.Identifier.Chevre>[];
-        language: string;
-    }>()
-);
-
-export const endTransactionSuccess = createAction(
-    `${LABEL} endTransactionSuccess`,
+export const setOrder = createAction(
+    `${LABEL} setOrder`,
     props<{ order: factory.order.IOrder }>()
-);
-
-export const endTransactionFail = createAction(
-    `${LABEL} endTransactionFail`,
-    props<{ error: Error }>()
 );
 
 export const createGmoTokenObject = createAction(
@@ -304,29 +125,11 @@ export const createGmoTokenObjectFail = createAction(
     props<{ error: Error }>()
 );
 
-export const authorizeAnyPayment = createAction(
-    `${LABEL} authorizeAnyPayment`,
+export const setauthorizeAnyPayment = createAction(
+    `${LABEL} setauthorizeAnyPayment`,
     props<{
-        transaction: factory.transaction.placeOrder.ITransaction;
-        data: {
-            paymentMethod: string;
-            name?: string;
-            amount: number;
-            additionalProperty?: { name: string; value: any }[];
-        }[];
+        authorizeResults: factory.action.authorize.paymentMethod.any.IAction[];
     }>()
-);
-
-export const authorizeAnyPaymentSuccess = createAction(
-    `${LABEL} authorizeAnyPaymentSuccess`,
-    props<{
-        authorizeAnyPayments: factory.action.authorize.paymentMethod.any.IAction[];
-    }>()
-);
-
-export const authorizeAnyPaymentFail = createAction(
-    `${LABEL} authorizeAnyPaymentFail`,
-    props<{ error: Error }>()
 );
 
 export const selectPaymentMethodType = createAction(

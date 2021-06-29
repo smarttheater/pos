@@ -182,13 +182,13 @@ export class PurchaseEventScheduleComponent implements OnInit, OnDestroy {
             return;
         }
         try {
-            await this.actionService.purchase.getScreeningEvent(screeningEvent);
+            await this.actionService.purchase.event.getScreeningEvent(
+                screeningEvent
+            );
             this.screeningEventSeats =
-                await this.actionService.purchase.getScreeningEventSeats();
-            await this.actionService.purchase.getTicketList({
-                seller: purchase.seller,
-            });
-            await this.actionService.purchase.getScreen({
+                await this.actionService.purchase.event.getScreeningEventSeats();
+            await this.actionService.purchase.event.searchTicketOffers();
+            await this.actionService.purchase.getScreeningRoom({
                 branchCode: { $eq: screeningEvent.location.branchCode },
                 containedInPlace: {
                     branchCode: {
@@ -279,7 +279,7 @@ export class PurchaseEventScheduleComponent implements OnInit, OnDestroy {
         }
         try {
             this.screeningEventSeats =
-                await this.actionService.purchase.getScreeningEventSeats();
+                await this.actionService.purchase.event.getScreeningEventSeats();
             const { screeningEvent } =
                 await this.actionService.purchase.getData();
             if (
@@ -316,11 +316,13 @@ export class PurchaseEventScheduleComponent implements OnInit, OnDestroy {
         }
 
         try {
-            await this.actionService.purchase.temporaryReservation({
-                reservations,
-                additionalTicketText,
-                screeningEventSeats: this.screeningEventSeats,
-            });
+            await this.actionService.purchase.transaction.authorizeSeatReservation(
+                {
+                    reservations,
+                    additionalTicketText,
+                    screeningEventSeats: this.screeningEventSeats,
+                }
+            );
             this.utilService.openAlert({
                 title: this.translate.instant('common.complete'),
                 body: this.translate.instant(
@@ -385,8 +387,10 @@ export class PurchaseEventScheduleComponent implements OnInit, OnDestroy {
                     const authorizeSeatReservations = [
                         authorizeSeatReservation,
                     ];
-                    await this.actionService.purchase.cancelTemporaryReservations(
-                        authorizeSeatReservations
+                    await this.actionService.purchase.transaction.voidSeatReservation(
+                        {
+                            authorizeSeatReservations,
+                        }
                     );
                 } catch (error) {
                     console.error(error);
