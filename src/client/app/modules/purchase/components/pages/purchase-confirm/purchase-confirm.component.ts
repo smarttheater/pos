@@ -161,6 +161,7 @@ export class PurchaseConfirmComponent implements OnInit {
                 });
             }
             await this.actionService.purchase.transaction.confirm({
+                mailType: 'seatReservation',
                 theater,
                 language,
             });

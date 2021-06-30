@@ -16,13 +16,11 @@ import { PurchaseRootComponent } from './components/pages/purchase-root/purchase
 import { PurchaseSeatComponent } from './components/pages/purchase-seat/purchase-seat.component';
 import { PurchaseTicketComponent } from './components/pages/purchase-ticket/purchase-ticket.component';
 import { PurchaseEventPerformancesConfirmComponent } from './components/parts/event/performances-confirm/performances-confirm.component';
-import { MovieTicketsComponent } from './components/parts/movie-tickets/movie-tickets.component';
-import { PaymentSelectComponent } from './components/parts/payment-select/payment-select.component';
+import { InputTicketsComponent } from './components/parts/input-tickets/input-tickets.component';
 import { PurchaseInfoComponent } from './components/parts/purchase-info/purchase-info.component';
 import { PurchaseTermsComponent } from './components/parts/purchase-terms/purchase-terms.component';
 import { PurchaseWarningComponent } from './components/parts/purchase-warning/purchase-warning.component';
 import { SeatInfoComponent } from './components/parts/seat-info/seat-info.component';
-import { TransactionRemainingTimeComponent } from './components/parts/transaction-remaining-time/transaction-remaining-time.component';
 import { PurchaseRoutingModule } from './purchase-routing.module';
 
 @NgModule({
@@ -45,10 +43,8 @@ import { PurchaseRoutingModule } from './purchase-routing.module';
         PurchaseTicketComponent,
         PurchaseSeatComponent,
         PurchaseInputComponent,
-        TransactionRemainingTimeComponent,
-        PaymentSelectComponent,
         SeatInfoComponent,
-        MovieTicketsComponent,
+        InputTicketsComponent,
     ],
     imports: [CommonModule, PurchaseRoutingModule, SharedModule],
 })

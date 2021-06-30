@@ -1,0 +1,37 @@
+<div class="contents-width mx-auto px-3 py-5">
+    <div class="mb-4">
+        <h2 class="text-large mb-4 text-center font-weight-bold">{{ 'purchase.confirm.title' | translate }}</h2>
+        <p class="mb-4 text-md-center" [innerHTML]="'purchase.confirm.read' | translate"></p>
+    </div>
+
+    <div class="p-3 bg-white mb-4">
+        <ng-container *ngFor="let action of (purchase | async)?.authorizeProducts">
+            <app-item-product [authorizeProductAction]="action"></app-item-product>
+        </ng-container>
+    </div>
+
+    <div class="mb-4 p-3 bg-white">
+        <app-item-profile [profile]="(purchase | async)?.profile">
+        </app-item-profile>
+    </div>
+
+    <div class="bg-white mb-4 py-3">
+        <div class="container mb-3">
+            <div class="row align-items-center">
+                <p class="mb-2 mb-md-0 col-md-4">{{ 'common.amount' | translate }}</p>
+                <p class="col-md-8 font-weight-bold text-large text-info">{{ amount | currency : 'JPY' }}</p>
+            </div>
+        </div>
+        <app-payment-select [payments]="payments" [amount]="amount" (change)="changeValue($event)">
+        </app-payment-select>
+    </div>
+
+
+    <div class="buttons mx-auto text-center">
+        <button type="submit" class="btn btn-primary btn-block py-3 mb-3" [disabled]="(isLoading | async) || isValid"
+            (click)="onSubmit()">{{ 'purchase.confirm.next' | translate }}</button>
+
+        <button type="button" class="btn btn-outline-primary btn-block py-3" routerLink="/product/membership/input">{{
+            'purchase.confirm.prev' | translate }}</button>
+    </div>
+</div>

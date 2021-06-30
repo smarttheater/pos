@@ -71,11 +71,7 @@ export interface IPurchaseState {
     /**
      * ムビチケ認証情報リスト
      */
-    checkMovieTicketActions: factory.action.check.paymentMethod.movieTicket.IAction[];
-    /**
-     * ムビチケ認証情報
-     */
-    checkMovieTicketAction?: factory.action.check.paymentMethod.movieTicket.IAction;
+    checkMovieTickets: factory.action.check.paymentMethod.movieTicket.IAction[];
     /**
      * 決済
      */
@@ -95,18 +91,36 @@ export interface IPurchaseState {
      * 顧客
      */
     customer?: factory.chevre.organization.IOrganization;
+    /**
+     * プロダクト
+     */
+    product?: factory.product.IProduct;
+    /**
+     * オファー（プロダクト購入時のみセット）
+     */
+    ticketOffer?: factory.event.screeningEvent.ITicketOffer;
+    /**
+     * プロダクト承認
+     */
+    authorizeProducts: factory.action.authorize.offer.product.IAction[];
+    /**
+     * メンバーシップ認証情報リスト
+     */
+    checkMemberships: { identifier: string; accessCode: string }[];
 }
 
 export const purchaseInitialState: IPurchaseState = {
     reservations: [],
     screeningEventTicketOffers: [],
     orderCount: 0,
-    checkMovieTicketActions: [],
+    checkMovieTickets: [],
     authorizeSeatReservations: [],
     authorizeMovieTicketPayments: [],
     authorizeCreditCardPayments: [],
     authorizeAnyPayments: [],
     pendingMovieTickets: [],
+    authorizeProducts: [],
+    checkMemberships: [],
 };
 
 export function reducer(initialState: IState, action: Action) {
@@ -119,12 +133,14 @@ export function reducer(initialState: IState, action: Action) {
                     reservations: [],
                     screeningEventTicketOffers: [],
                     orderCount: 0,
-                    checkMovieTicketActions: [],
+                    checkMovieTickets: [],
                     authorizeSeatReservations: [],
                     authorizeMovieTicketPayments: [],
                     authorizeCreditCardPayments: [],
                     authorizeAnyPayments: [],
                     pendingMovieTickets: [],
+                    authorizeProducts: [],
+                    checkMemberships: [],
                 },
             };
         }),
@@ -137,7 +153,7 @@ export function reducer(initialState: IState, action: Action) {
                     screeningEvent: undefined,
                     screeningEventTicketOffers: [],
                     authorizeSeatReservation: undefined,
-                    checkMovieTicketAction: undefined,
+                    checkMovieTicket: undefined,
                 },
             };
         }),
@@ -180,7 +196,7 @@ export function reducer(initialState: IState, action: Action) {
                     authorizeMovieTicketPayments: [],
                     authorizeSeatReservations: [],
                     pendingMovieTickets: [],
-                    checkMovieTicketActions: [],
+                    checkMovieTickets: [],
                 },
                 process: '',
                 error: null,
@@ -197,7 +213,7 @@ export function reducer(initialState: IState, action: Action) {
                     authorizeMovieTicketPayments: [],
                     authorizeSeatReservations: [],
                     pendingMovieTickets: [],
-                    checkMovieTicketActions: [],
+                    checkMovieTickets: [],
                 },
                 process: '',
             };
@@ -467,30 +483,28 @@ export function reducer(initialState: IState, action: Action) {
             };
         }),
         on(purchaseAction.setCheckMovieTicket, (state, payload) => {
-            const checkMovieTicketAction = payload.checkMovieTicketAction;
-            const checkMovieTicketActions = Functions.Util.deepCopy<
+            const checkMovieTicket = payload.checkMovieTicket;
+            const checkMovieTickets = Functions.Util.deepCopy<
                 factory.action.check.paymentMethod.movieTicket.IAction[]
-            >(state.purchaseData.checkMovieTicketActions);
+            >(state.purchaseData.checkMovieTickets);
             const sameMovieTicketFilterResults =
                 Functions.Purchase.sameMovieTicketFilter({
-                    checkMovieTicketAction,
-                    checkMovieTicketActions,
+                    checkMovieTicket,
+                    checkMovieTickets,
                 });
             if (
                 sameMovieTicketFilterResults.length === 0 &&
-                Functions.Purchase.isAvailabilityMovieTicket(
-                    checkMovieTicketAction
-                )
+                Functions.Purchase.isAvailabilityMovieTicket(checkMovieTicket)
             ) {
-                checkMovieTicketActions.push(checkMovieTicketAction);
+                checkMovieTickets.push(checkMovieTicket);
             }
 
             return {
                 ...state,
                 purchaseData: {
                     ...state.purchaseData,
-                    checkMovieTicketAction,
-                    checkMovieTicketActions,
+                    checkMovieTicket,
+                    checkMovieTickets,
                 },
                 process: '',
                 error: null,
@@ -505,11 +519,13 @@ export function reducer(initialState: IState, action: Action) {
                     screeningEventTicketOffers: [],
                     orderCount: 0,
                     authorizeSeatReservations: [],
-                    checkMovieTicketActions: [],
+                    checkMovieTickets: [],
                     authorizeCreditCardPayments: [],
                     authorizeMovieTicketPayments: [],
                     authorizeAnyPayments: [],
                     pendingMovieTickets: [],
+                    authorizeProducts: [],
+                    checkMemberships: [],
                     order,
                 },
                 process: '',
@@ -552,6 +568,54 @@ export function reducer(initialState: IState, action: Action) {
                 purchaseData: {
                     ...state.purchaseData,
                     customer,
+                },
+                process: '',
+                error: null,
+            };
+        }),
+        on(purchaseAction.setProduct, (state, payload) => {
+            const product = payload.product;
+            return {
+                ...state,
+                purchaseData: {
+                    ...state.purchaseData,
+                    product,
+                },
+                process: '',
+                error: null,
+            };
+        }),
+        on(purchaseAction.setTicketOffer, (state, payload) => {
+            const ticketOffer = payload.ticketOffer;
+            return {
+                ...state,
+                purchaseData: {
+                    ...state.purchaseData,
+                    ticketOffer,
+                },
+                process: '',
+                error: null,
+            };
+        }),
+        on(purchaseAction.setAuthorizeProduct, (state, payload) => {
+            const authorizeProducts = [payload.authorizeResult];
+            return {
+                ...state,
+                purchaseData: {
+                    ...state.purchaseData,
+                    authorizeProducts,
+                },
+                process: '',
+                error: null,
+            };
+        }),
+        on(purchaseAction.setCheckMembership, (state, payload) => {
+            const checkMemberships = [payload.checkMembership];
+            return {
+                ...state,
+                purchaseData: {
+                    ...state.purchaseData,
+                    checkMemberships,
                 },
                 process: '',
                 error: null,

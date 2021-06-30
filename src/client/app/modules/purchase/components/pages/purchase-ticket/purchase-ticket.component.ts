@@ -7,13 +7,8 @@ import { BsModalService } from 'ngx-bootstrap/modal';
 import { Observable } from 'rxjs';
 import { Functions, Models } from '../../../../..';
 import { getEnvironment } from '../../../../../../environments/environment';
-import {
-    IReservation,
-    IReservationTicket,
-} from '../../../../../models/purchase/reservation';
 import { ActionService, UtilService } from '../../../../../services';
 import * as reducers from '../../../../../store/reducers';
-import { MovieTicketCheckModalComponent } from '../../../../shared/components/parts/movie-ticket/check-modal/check-modal.component';
 import { PurchaseSeatTicketModalComponent } from '../../../../shared/components/parts/purchase/seat-ticket-modal/seat-ticket-modal.component';
 
 @Component({
@@ -157,24 +152,39 @@ export class PurchaseTicketComponent implements OnInit {
     /**
      * 券種一覧表示
      */
-    public async openTicketList(reservation?: IReservation) {
-        const purchase = await this.actionService.purchase.getData();
+    public async openTicketList(
+        reservation?: Models.Purchase.Reservation.IReservation
+    ) {
+        const {
+            authorizeSeatReservation,
+            screeningEventTicketOffers,
+            checkMovieTickets,
+            checkMemberships,
+            pendingMovieTickets,
+            reservations,
+        } = await this.actionService.purchase.getData();
         this.modal.show(PurchaseSeatTicketModalComponent, {
             class: 'modal-dialog-centered modal-lg',
             initialState: {
-                authorizeSeatReservation: purchase.authorizeSeatReservation,
-                screeningEventTicketOffers: purchase.screeningEventTicketOffers,
-                checkMovieTicketActions: purchase.checkMovieTicketActions,
-                reservations: purchase.reservations,
-                reservation: reservation,
-                pendingMovieTickets: purchase.pendingMovieTickets,
-                cb: async (ticket: IReservationTicket) => {
+                authorizeSeatReservation,
+                screeningEventTicketOffers,
+                checkMovieTickets,
+                checkMemberships,
+                reservations,
+                reservation,
+                pendingMovieTickets,
+                cb: async (
+                    ticket: Models.Purchase.Reservation.IReservationTicket
+                ) => {
                     if (reservation === undefined) {
-                        const reservations = Functions.Util.deepCopy<
-                            IReservation[]
-                        >(purchase.reservations);
-                        reservations.forEach((r) => (r.ticket = ticket));
-                        this.actionService.purchase.selectTickets(reservations);
+                        const copyReservations =
+                            Functions.Util.deepCopy<
+                                Models.Purchase.Reservation.IReservation[]
+                            >(reservations);
+                        copyReservations.forEach((r) => (r.ticket = ticket));
+                        this.actionService.purchase.selectTickets(
+                            copyReservations
+                        );
                         this.isSelectedTicket =
                             (await this.getUnselectedTicketReservations())
                                 .length === 0;
@@ -188,20 +198,6 @@ export class PurchaseTicketComponent implements OnInit {
                             .length === 0;
                 },
             },
-        });
-    }
-
-    /**
-     * ムビチケ認証表示
-     */
-    public openMovieTicket(
-        paymentMethodType: factory.chevre.paymentMethodType
-    ) {
-        this.modal.show(MovieTicketCheckModalComponent, {
-            initialState: {
-                paymentMethodType,
-            },
-            class: 'modal-dialog-centered',
         });
     }
 }
