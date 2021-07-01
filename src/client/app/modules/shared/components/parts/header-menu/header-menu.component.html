@@ -6,6 +6,9 @@
             (click)="close.emit()"><i class="bi bi-cart mr-2"></i>{{ 'menu.purchase' | translate }}</li>
         <li *ngIf="isVisible('inquiry')" class="p-3 border-bottom pointer" routerLink="/inquiry/input"
             (click)="close.emit()"><i class="bi bi-search mr-2"></i>{{ 'menu.inquiry' | translate }}</li>
+        <li *ngIf="isVisible('product')" class="p-3 border-bottom pointer" routerLink="/product" (click)="close.emit()">
+            <i class="bi bi-app mr-2"></i>{{ 'menu.product' | translate }}
+        </li>
         <li *ngIf="isVisible('order')" class="p-3 border-bottom pointer" routerLink="/order" (click)="close.emit()"><i
                 class="bi bi-card-list mr-2"></i>{{ 'menu.order' | translate }}</li>
         <li *ngIf="isVisible('reservation')" class="p-3 border-bottom pointer" routerLink="/reservation"

@@ -144,7 +144,7 @@ export class ActionPaymentService {
                     'transaction or transaction.seller.id or screeningEvent undefined'
                 );
             }
-            const checkMovieTicketAction =
+            const checkMovieTicket =
                 await this.cinerinoService.payment.checkMovieTicket({
                     typeOf: movieTickets[0].typeOf,
                     movieTickets: movieTickets.map((movieTicket) => {
@@ -176,9 +176,10 @@ export class ActionPaymentService {
                 });
 
             this.store.dispatch(
-                purchaseAction.setCheckMovieTicket({ checkMovieTicketAction })
+                purchaseAction.setCheckMovieTicket({ checkMovieTicket })
             );
             this.utilService.loadEnd();
+            return checkMovieTicket;
         } catch (error) {
             this.utilService.setError(error);
             this.utilService.loadEnd();
@@ -224,6 +225,52 @@ export class ActionPaymentService {
                 purchaseAction.setauthorizeAnyPayment({ authorizeResults })
             );
             this.utilService.loadEnd();
+        } catch (error) {
+            this.utilService.setError(error);
+            this.utilService.loadEnd();
+            throw error;
+        }
+    }
+
+    /**
+     * メンバーシップ認証
+     */
+    public async checkMembership(params: {
+        membership: {
+            code: string;
+            password: string;
+        };
+    }) {
+        try {
+            this.utilService.loadStart({
+                process: 'purchaseAction.CheckMembership',
+            });
+            const memberships = [
+                {
+                    identifier: params.membership.code,
+                    accessCode: params.membership.password,
+                },
+            ];
+            const { transaction, screeningEvent } =
+                await this.storeService.getPurchaseData();
+            if (
+                transaction === undefined ||
+                transaction.seller.id === undefined ||
+                screeningEvent === undefined
+            ) {
+                throw new Error(
+                    'transaction or transaction.seller.id or screeningEvent undefined'
+                );
+            }
+            const checkMembership = {
+                identifier: memberships[0].identifier,
+                accessCode: memberships[0].accessCode,
+            };
+            this.store.dispatch(
+                purchaseAction.setCheckMembership({ checkMembership })
+            );
+            this.utilService.loadEnd();
+            return checkMembership;
         } catch (error) {
             this.utilService.setError(error);
             this.utilService.loadEnd();

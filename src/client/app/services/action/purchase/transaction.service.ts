@@ -128,22 +128,23 @@ export class ActionTransactionService {
      * 取引確定
      */
     public async confirm(params: {
+        mailType: 'seatReservation' | 'product';
         language: string;
-        theater: factory.chevre.place.movieTheater.IPlaceWithoutScreeningRoom;
+        theater?: factory.chevre.place.movieTheater.IPlaceWithoutScreeningRoom;
     }) {
         try {
             this.utilService.loadStart({
                 process: 'purchaseAction.ConfirmTransaction',
             });
             const environment = getEnvironment();
-            const { language, theater } = params;
-            const { transaction, authorizeSeatReservations, seller } =
-                await this.storeService.getPurchaseData();
-            if (
-                transaction === undefined ||
-                seller === undefined ||
-                theater === undefined
-            ) {
+            const { language, theater, mailType } = params;
+            const {
+                transaction,
+                authorizeSeatReservations,
+                authorizeProducts,
+                seller,
+            } = await this.storeService.getPurchaseData();
+            if (transaction === undefined || seller === undefined) {
                 throw new Error('transaction or seller or theater undefined');
             }
             const authorizeEventSeatReservations =
@@ -153,12 +154,15 @@ export class ActionTransactionService {
             await this.cinerinoService.getServices();
 
             const email = {
-                ...this.createCompleteMailHeader({ theater, language }),
+                ...this.createCompleteMailHeader({ seller, theater, language }),
                 template: undefined,
             };
             if (environment.PURCHASE_COMPLETE_MAIL_CUSTOM) {
                 // 完了メールをカスタマイズ
-                const path = `/ejs/mail/complete/${language}.ejs`;
+                const path =
+                    mailType === 'seatReservation'
+                        ? `/ejs/mail/complete/${language}.ejs`
+                        : `/ejs/mail/product/${language}.ejs`;
                 const url = (await Functions.Util.isFile(
                     `${Functions.Util.getProject().storageUrl}${path}`
                 ))
@@ -170,6 +174,7 @@ export class ActionTransactionService {
                     {
                         authorizeSeatReservations:
                             authorizeEventSeatReservations,
+                        authorizeProducts,
                         seller,
                         theater,
                         moment,
@@ -221,16 +226,22 @@ export class ActionTransactionService {
      * 完了メールヘッダー生成
      */
     private createCompleteMailHeader(params: {
-        theater: factory.chevre.place.movieTheater.IPlaceWithoutScreeningRoom;
+        seller: factory.chevre.seller.ISeller;
+        theater?: factory.chevre.place.movieTheater.IPlaceWithoutScreeningRoom;
         language: string;
     }) {
+        const { theater, seller } = params;
         return {
             sender: {
                 name:
                     this.translateService.instant(
                         'email.purchase.complete.sender.name'
                     ) === ''
-                        ? params.theater.name.ja
+                        ? theater === undefined
+                            ? typeof seller.name === 'string'
+                                ? seller.name
+                                : seller.name?.ja
+                            : theater.name.ja
                         : this.translateService.instant(
                               'email.purchase.complete.sender.name'
                           ),
@@ -290,6 +301,7 @@ export class ActionTransactionService {
                 authorizeSeatReservation,
                 screeningEvent,
                 screeningEventTicketOffers,
+                checkMemberships,
             } = await this.storeService.getPurchaseData();
             const reservations = params.reservations.map((r) => {
                 return {
@@ -387,6 +399,20 @@ export class ActionTransactionService {
                                                       })
                                                   )
                                                 : undefined,
+                                            programMembershipUsed:
+                                                Array.isArray(
+                                                    r.ticket.ticketOffer
+                                                        .eligibleMembershipType
+                                                )
+                                                    ? {
+                                                          identifier:
+                                                              checkMemberships[0]
+                                                                  .identifier,
+                                                          accessCode:
+                                                              checkMemberships[0]
+                                                                  .accessCode,
+                                                      }
+                                                    : undefined,
                                         },
                                     },
                                 };

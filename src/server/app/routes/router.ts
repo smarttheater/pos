@@ -16,7 +16,7 @@ export default (app: express.Application) => {
         next();
     });
     app.use((req, res, next) => {
-        if ((/\.(css|js|svg|jpg|png|gif|ico|json|html|txt)/).test(req.path)) {
+        if (/\.(css|js|svg|jpg|png|gif|ico|json|html|txt)/.test(req.path)) {
             res.status(404);
             res.end();
             return;
@@ -27,6 +27,15 @@ export default (app: express.Application) => {
     app.use('/api/authorize', authorizeRouter);
     app.use('/api', utilRouter);
 
+    app.use((req, res, next) => {
+        if (req.xhr || req.header('Sec-Fetch-Mode') === 'cors') {
+            res.status(NOT_FOUND);
+            res.send('NOT FOUND');
+            return;
+        }
+        next();
+    });
+
     app.get('/signIn', async (req, res, next) => {
         log('signInRedirect');
         try {
@@ -34,9 +43,13 @@ export default (app: express.Application) => {
                 throw new Error('session is undefined');
             }
             const authModel = new Auth2Model(req.session.auth);
-            if (req.query.state !== undefined
-                && req.query.state !== authModel.state) {
-                throw (new Error(`state not matched ${req.query.state} !== ${authModel.state}`));
+            if (
+                req.query.state !== undefined &&
+                req.query.state !== authModel.state
+            ) {
+                throw new Error(
+                    `state not matched ${req.query.state} !== ${authModel.state}`
+                );
             }
             const auth = authModel.create(req);
             const credentials = await auth.getToken(
@@ -66,15 +79,14 @@ export default (app: express.Application) => {
 
     app.get('*', async (req, res, next) => {
         log('root', req.query);
-        if (req.xhr || req.header('Sec-Fetch-Mode') === 'cors') {
-            next();
-            return;
-        }
         if (req.session === undefined) {
             next();
             return;
         }
-        res.sendFile(path.resolve(`${__dirname}/../../../client/index.html`), { lastModified: false, etag: false });
+        res.sendFile(path.resolve(`${__dirname}/../../../client/index.html`), {
+            lastModified: false,
+            etag: false,
+        });
     });
 
     app.all('*', (req, res, _next) => {

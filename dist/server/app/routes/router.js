@@ -25,7 +25,7 @@ exports.default = (app) => {
         next();
     });
     app.use((req, res, next) => {
-        if ((/\.(css|js|svg|jpg|png|gif|ico|json|html|txt)/).test(req.path)) {
+        if (/\.(css|js|svg|jpg|png|gif|ico|json|html|txt)/.test(req.path)) {
             res.status(404);
             res.end();
             return;
@@ -34,6 +34,14 @@ exports.default = (app) => {
     });
     app.use('/api/authorize', authorize_1.authorizeRouter);
     app.use('/api', util_1.utilRouter);
+    app.use((req, res, next) => {
+        if (req.xhr || req.header('Sec-Fetch-Mode') === 'cors') {
+            res.status(http_status_1.NOT_FOUND);
+            res.send('NOT FOUND');
+            return;
+        }
+        next();
+    });
     app.get('/signIn', (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
         log('signInRedirect');
         try {
@@ -41,9 +49,9 @@ exports.default = (app) => {
                 throw new Error('session is undefined');
             }
             const authModel = new auth2_model_1.Auth2Model(req.session.auth);
-            if (req.query.state !== undefined
-                && req.query.state !== authModel.state) {
-                throw (new Error(`state not matched ${req.query.state} !== ${authModel.state}`));
+            if (req.query.state !== undefined &&
+                req.query.state !== authModel.state) {
+                throw new Error(`state not matched ${req.query.state} !== ${authModel.state}`);
             }
             const auth = authModel.create(req);
             const credentials = yield auth.getToken(req.query.code, authModel.codeVerifier);
@@ -69,15 +77,14 @@ exports.default = (app) => {
     });
     app.get('*', (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
         log('root', req.query);
-        if (req.xhr || req.header('Sec-Fetch-Mode') === 'cors') {
-            next();
-            return;
-        }
         if (req.session === undefined) {
             next();
             return;
         }
-        res.sendFile(path.resolve(`${__dirname}/../../../client/index.html`), { lastModified: false, etag: false });
+        res.sendFile(path.resolve(`${__dirname}/../../../client/index.html`), {
+            lastModified: false,
+            etag: false,
+        });
     }));
     app.all('*', (req, res, _next) => {
         res.status(http_status_1.NOT_FOUND);

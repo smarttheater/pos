@@ -14,11 +14,13 @@ export class CinerinoService {
     public customer: cinerino.service.Customer;
     public delivery: cinerino.service.Delivery;
     public event: cinerino.service.Event;
+    public offer: cinerino.service.Offer;
     public order: cinerino.service.Order;
     public seller: cinerino.service.Seller;
     public place: cinerino.service.Place;
     public person: cinerino.service.Person;
     public project: cinerino.service.Project;
+    public product: cinerino.service.Product;
     public ownershipInfo: cinerino.service.person.OwnershipInfo;
     public reservation: cinerino.service.Reservation;
     public token: cinerino.service.Token;
@@ -48,6 +50,7 @@ export class CinerinoService {
             this.customer = new cinerino.service.Customer(option);
             this.event = new cinerino.service.Event(option);
             this.delivery = new cinerino.service.Delivery(option);
+            this.offer = new cinerino.service.Offer(option);
             this.order = new cinerino.service.Order(option);
             this.seller = new cinerino.service.Seller(option);
             this.place = new cinerino.service.Place(option);
@@ -56,6 +59,7 @@ export class CinerinoService {
                 ...option,
                 project: undefined,
             });
+            this.product = new cinerino.service.Product(option);
             this.ownershipInfo = new cinerino.service.person.OwnershipInfo(
                 option
             );

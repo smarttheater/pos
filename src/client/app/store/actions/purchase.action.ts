@@ -93,7 +93,7 @@ export const setAuthorizeMovieTicket = createAction(
 export const setCheckMovieTicket = createAction(
     `${LABEL} checkMovieTicketSuccess`,
     props<{
-        checkMovieTicketAction: factory.action.check.paymentMethod.movieTicket.IAction;
+        checkMovieTicket: factory.action.check.paymentMethod.movieTicket.IAction;
     }>()
 );
 
@@ -144,5 +144,33 @@ export const setCustomer = createAction(
     `${LABEL} setCustomer`,
     props<{
         customer: factory.chevre.organization.IOrganization;
+    }>()
+);
+
+export const setProduct = createAction(
+    `${LABEL} setProduct`,
+    props<{
+        product: factory.product.IProduct;
+    }>()
+);
+
+export const setTicketOffer = createAction(
+    `${LABEL} setTicketOffer`,
+    props<{
+        ticketOffer: factory.event.screeningEvent.ITicketOffer;
+    }>()
+);
+
+export const setAuthorizeProduct = createAction(
+    `${LABEL} setAuthorizeProduct`,
+    props<{
+        authorizeResult: factory.action.authorize.offer.product.IAction;
+    }>()
+);
+
+export const setCheckMembership = createAction(
+    `${LABEL} setCheckMembership`,
+    props<{
+        checkMembership: { identifier: string; accessCode: string };
     }>()
 );

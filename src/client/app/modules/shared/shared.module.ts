@@ -22,11 +22,14 @@ import { InputDeviceComponent } from './components/parts/input-device/input-devi
 import { ItemEventComponent } from './components/parts/item-event/item-event.component';
 import { ItemListComponent } from './components/parts/item-list/item-list.component';
 import { ItemPaymentMethodComponent } from './components/parts/item-payment-method/item-payment-method.component';
+import { ItemProductComponent } from './components/parts/item-product/item-product.component';
 import { ItemProfileComponent } from './components/parts/item-profile/item-profile.component';
 import { LoadingComponent } from './components/parts/loading/loading.component';
-import { MovieTicketCheckModalComponent } from './components/parts/movie-ticket/check-modal/check-modal.component';
+import { MembershipCheckModalComponent } from './components/parts/membership/check-modal/check-modal.component';
+import { MovieTicketCheckModalComponent } from './components/parts/movieticket/check-modal/check-modal.component';
 import { NumericKeypadComponent } from './components/parts/numeric-keypad/numeric-keypad.component';
 import { OrderDetailModalComponent } from './components/parts/order/detail-modal/detail-modal.component';
+import { PaymentSelectComponent } from './components/parts/payment-select/payment-select.component';
 import { PerformanceComponent } from './components/parts/performance/performance.component';
 import { PerformancesComponent } from './components/parts/performances/performances.component';
 import { PurchaseEventTicketModalComponent } from './components/parts/purchase/event/ticket-modal/ticket-modal.component';
@@ -36,6 +39,7 @@ import { QRCodeReaderModalComponent } from './components/parts/qrcode/reader-mod
 import { QRCodeViewerModalComponent } from './components/parts/qrcode/viewer-modal/viewer-modal.component';
 import { ReservationDetailModalComponent } from './components/parts/reservation/detail-modal/detail-modal.component';
 import { ScreenComponent } from './components/parts/screen/screen.component';
+import { TransactionRemainingTimeComponent } from './components/parts/transaction-remaining-time/transaction-remaining-time.component';
 import { ChangeLanguagePipe } from './pipes/change-language.pipe';
 import { FormatDatePipe } from './pipes/format-date.pipe';
 import { LibphonenumberFormatPipe } from './pipes/libphonenumber-format.pipe';
@@ -56,9 +60,12 @@ const components = [
     ItemProfileComponent,
     ItemEventComponent,
     ItemPaymentMethodComponent,
+    ItemProductComponent,
     InputCustomerComponent,
     InputAppComponent,
     InputDeviceComponent,
+    TransactionRemainingTimeComponent,
+    PaymentSelectComponent,
 ];
 
 const entryComponents = [
@@ -73,6 +80,7 @@ const entryComponents = [
     QRCodeViewerModalComponent,
     ReservationDetailModalComponent,
     CustomerDetailModalComponent,
+    MembershipCheckModalComponent,
 ];
 
 @NgModule({

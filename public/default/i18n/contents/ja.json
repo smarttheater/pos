@@ -409,6 +409,36 @@
             "drawer": "ドロワーとの接続に失敗しました。"
         }
     },
+    "product": {
+        "index": {
+            "title": "プロダクト",
+            "read": "選択してください。",
+            "next": "",
+            "prev": "戻る",
+            "list": {
+                "membership": {
+                    "title": "メンバーシップ",
+                    "read": "メンバーシップの注文できます。",
+                    "next": "選択"
+                }
+            }
+        },
+        "membership": {
+            "index": {
+                "title": "メンバーシップ選択",
+                "read": "メンバーシップを選択してください",
+                "next": "次へ",
+                "prev": "戻る"
+            },
+            "complete": {
+                "title": "購入完了",
+                "read": "ご購入いただきありがとうございます。",
+                "next": "",
+                "prev": "戻る",
+                "accessCode": "電話番号下4桁"
+            }
+        }
+    },
     "development": {
         "index": {
             "title": "開発",

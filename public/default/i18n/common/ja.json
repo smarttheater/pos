@@ -53,11 +53,12 @@
             "telephone": "※チケット発券の際に必要になります。",
             "cardNumber": "VISA、Master、JCB、AMEX、DINERS をご利用いただけます。"
         },
-        "required":"必須"
+        "required": "必須"
     },
     "menu": {
         "purchase": "購入",
         "inquiry": "照会",
+        "product": "プロダクト",
         "customer": "顧客",
         "order": "注文",
         "personSearch": "会員検索",
@@ -79,6 +80,25 @@
                 "success": "チケットを追加しました。",
                 "code": "購入番号",
                 "password": "暗証番号",
+                "camera": {
+                    "start": "カメラで読み取り",
+                    "stop": "カメラを停止"
+                },
+                "next": "認証",
+                "prev": "",
+                "value": "[{{value}}枚]",
+                "alert": {
+                    "validation": "入力情報をご確認ください。",
+                    "used": "すでに使用済みです。",
+                    "error": "エラーが発生しました"
+                }
+            }
+        },
+        "membership": {
+            "check": {
+                "success": "チケットを追加しました。",
+                "code": "ID",
+                "password": "PASS",
                 "camera": {
                     "start": "カメラで読み取り",
                     "stop": "カメラを停止"
@@ -154,12 +174,17 @@
             "CreateGmoTokenObject": "GMOオブジェクトを作成しています",
             "AuthorizeMovieTicket": "ムビチケ情報を承認しています",
             "CheckMovieTicket": "ムビチケ情報を確認しています",
+            "AuthorizeProduct": "プロダクト情報を承認しています",
             "ConfirmTransaction": "取引を確定しています",
             "AuthorizeAnyPayment": "決済情報を承認しています"
         },
         "userAction": {},
         "customerAction": {
             "Search": "顧客情報を取得しています"
+        },
+        "productAction": {
+            "SearchOffers": "オファーを検索しています",
+            "Search": "プロダクトを検索しています"
         }
     },
     "footer": {
@@ -244,6 +269,9 @@
         "seat": "座席",
         "ticket": "券種",
         "referenceQuantityValue": "[{{value}}枚]",
+        "referenceQuantityValueAnn": "[{{value}}年]",
+        "referenceQuantityValueDay": "[{{value}}日]",
+        "referenceQuantityValueSec": "[{{value}}秒]",
         "customer": "購入者",
         "customerName": "お名前",
         "familyName": "セイ",
@@ -281,6 +309,10 @@
                 "label": "MGチケット",
                 "use": "MGチケットをお持ちの方"
             }
+        },
+        "membership": {
+            "label": "メンバーシップ",
+            "use": "メンバーシップをお持ちの方"
         },
         "timeLimit": "取引期限",
         "all": "すべて",
