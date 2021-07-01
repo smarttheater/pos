@@ -21,24 +21,29 @@
         </div>
         <div class="py-3 border-bottom border-gray">
             <div class="row align-items-center">
-                <p class="mb-2 mb-lg-0 col-lg-4 font-weight-bold">[{{ 'common.event' | translate }}]</p>
+                <p class="mb-2 mb-lg-0 col-lg-4 font-weight-bold">[{{ 'common.reservation' | translate }}]</p>
                 <div class="col-lg-8">
-                    <div *ngFor="let eventOrder of eventOrders" class="mb-3">
-                        <app-item-event [screeningEvent]="eventOrder.event"></app-item-event>
-                        <div class="border p-3">
-                            <div *ngFor="let acceptedOffer of eventOrder.data">
-                                <p>[{{ 'common.reservationNumber' | translate }}]
-                                    {{ acceptedOffer.itemOffered.reservationNumber }}</p>
-                                <p>[{{ 'common.reservationId' | translate }}] {{ acceptedOffer.itemOffered.id }}</p>
-                                <app-item-list [acceptedOffers]="[acceptedOffer]"></app-item-list>
-                            </div>
-                            <div *ngIf="eventOrder.data[0].itemOffered.additionalTicketText"
-                                class="additional-ticket-text white-space-pre-wrap">
-                                <p>[{{ 'common.additionalTicketText' | translate }}]</p>
-                                <p>{{ eventOrder.data[0].itemOffered.additionalTicketText }}</p>
+                    <ng-container *ngIf="eventOrders.length > 0">
+                        <div *ngFor="let eventOrder of eventOrders" class="mb-3">
+                            <app-item-event [screeningEvent]="eventOrder.event"></app-item-event>
+                            <div class="border p-3">
+                                <div *ngFor="let acceptedOffer of eventOrder.data">
+                                    <p>[{{ 'common.reservationNumber' | translate }}]
+                                        {{ acceptedOffer.itemOffered.reservationNumber }}</p>
+                                    <p>[{{ 'common.reservationId' | translate }}] {{ acceptedOffer.itemOffered.id }}</p>
+                                    <app-item-list [acceptedOffers]="[acceptedOffer]"></app-item-list>
+                                </div>
+                                <div *ngIf="eventOrder.data[0].itemOffered.additionalTicketText"
+                                    class="additional-ticket-text white-space-pre-wrap">
+                                    <p>[{{ 'common.additionalTicketText' | translate }}]</p>
+                                    <p>{{ eventOrder.data[0].itemOffered.additionalTicketText }}</p>
+                                </div>
                             </div>
                         </div>
-                    </div>
+                    </ng-container>
+                    <ng-container *ngIf="eventOrders.length === 0">
+                        <app-item-product [order]="order"></app-item-product>
+                    </ng-container>
                 </div>
             </div>
         </div>

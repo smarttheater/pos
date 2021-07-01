@@ -13,6 +13,7 @@ export interface IOrderSearchConditions {
         telephone: string;
     };
     orderStatus: '' | factory.orderStatus;
+    itemOfferedType: 'EventReservation' | 'ProgramMembership';
     paymentMethodType: '' | factory.paymentMethodType;
     eventStartDateFrom?: Date;
     eventStartDateThrough?: Date;
