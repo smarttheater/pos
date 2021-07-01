@@ -15,7 +15,7 @@ import { PrinterService } from '../printer.service';
 import { UtilService } from '../util.service';
 
 @Injectable({
-    providedIn: 'root'
+    providedIn: 'root',
 })
 export class OrderService {
     public order: Observable<reducers.IOrderState>;
@@ -37,9 +37,11 @@ export class OrderService {
      */
     public async getData() {
         return new Promise<reducers.IOrderState>((resolve) => {
-            this.order.subscribe((order) => {
-                resolve(order);
-            }).unsubscribe();
+            this.order
+                .subscribe((order) => {
+                    resolve(order);
+                })
+                .unsubscribe();
         });
     }
 
@@ -57,7 +59,9 @@ export class OrderService {
         try {
             this.utilService.loadStart({ process: 'orderAction.Search' });
             await this.cinerinoService.getServices();
-            const searchResult = await this.cinerinoService.order.search(params);
+            const searchResult = await this.cinerinoService.order.search(
+                params
+            );
             this.utilService.loadEnd();
             return searchResult;
         } catch (error) {
@@ -76,15 +80,23 @@ export class OrderService {
             this.utilService.loadStart({ process: 'orderAction.Search' });
             await this.cinerinoService.getServices();
             let orders: factory.order.IOrder[] = [];
-            if (params.orderDate === undefined
-                || params.orderDate.$gte === undefined
-                || params.orderDate.$lte === undefined) {
+            if (
+                params.orderDate === undefined ||
+                params.orderDate.$gte === undefined ||
+                params.orderDate.$lte === undefined
+            ) {
                 throw new Error('orderDate undefined');
             }
-            params.orderDate.$lte = moment(params.orderDate.$lte).add(1, 'millisecond').toDate();
+            params.orderDate.$lte = moment(params.orderDate.$lte)
+                .add(1, 'millisecond')
+                .toDate();
             const splitDay = 1;
-            const splitCount =
-                Math.ceil(moment(params.orderDate.$lte).diff(moment(params.orderDate.$gte), 'days') / splitDay);
+            const splitCount = Math.ceil(
+                moment(params.orderDate.$lte).diff(
+                    moment(params.orderDate.$gte),
+                    'days'
+                ) / splitDay
+            );
             for (let i = 0; i < splitCount; i++) {
                 const limit = 10;
                 let page = 1;
@@ -92,22 +104,29 @@ export class OrderService {
                 const orderDate = {
                     $gte:
                         // tslint:disable-next-line:max-line-length
-                        (moment(params.orderDate.$lte).add(-1 * splitDay * (i + 1), 'days').toDate() > moment(params.orderDate.$gte).toDate())
-                            ? moment(params.orderDate.$lte).add(-1 * splitDay * (i + 1), 'days').toDate()
+                        moment(params.orderDate.$lte)
+                            .add(-1 * splitDay * (i + 1), 'days')
+                            .toDate() > moment(params.orderDate.$gte).toDate()
+                            ? moment(params.orderDate.$lte)
+                                  .add(-1 * splitDay * (i + 1), 'days')
+                                  .toDate()
                             : moment(params.orderDate.$gte).toDate(),
-                    $lte: moment(params.orderDate.$lte).add(-1 * splitDay * i, 'days').add(-1, 'millisecond').toDate(),
+                    $lte: moment(params.orderDate.$lte)
+                        .add(-1 * splitDay * i, 'days')
+                        .add(-1, 'millisecond')
+                        .toDate(),
                 };
                 while (roop) {
                     params.limit = limit;
                     params.page = page;
-                    const searchResult = await this.cinerinoService.order.search({
-                        ...params,
-                        orderDate
-                    });
+                    const searchResult =
+                        await this.cinerinoService.order.search({
+                            ...params,
+                            orderDate,
+                        });
                     orders = orders.concat(searchResult.data);
                     page++;
                     roop = searchResult.data.length === limit;
-                    console.log('orderDate', orderDate);
                     await Functions.Util.sleep();
                 }
             }
@@ -128,25 +147,36 @@ export class OrderService {
         language: string;
         pos?: factory.chevre.place.movieTheater.IPOS;
     }) {
-        const identifier = (params.pos === undefined)
-            ? []
-            : [
-                { name: 'posId', value: params.pos.id },
-                { name: 'posName', value: params.pos.name }
-            ];
+        const identifier =
+            params.pos === undefined
+                ? []
+                : [
+                      { name: 'posId', value: params.pos.id },
+                      { name: 'posName', value: params.pos.name },
+                  ];
         return new Promise<void>((resolve, reject) => {
-            this.store.dispatch(orderAction.cancel({
-                orders: params.orders,
-                language: params.language,
-                agent: { identifier }
-            }));
+            this.store.dispatch(
+                orderAction.cancel({
+                    orders: params.orders,
+                    language: params.language,
+                    agent: { identifier },
+                })
+            );
             const success = this.actions.pipe(
                 ofType(orderAction.cancelSuccess.type),
-                tap(() => { resolve(); })
+                tap(() => {
+                    resolve();
+                })
             );
             const fail = this.actions.pipe(
                 ofType(orderAction.cancelFail.type),
-                tap(() => { this.error.subscribe((error) => { reject(error); }).unsubscribe(); })
+                tap(() => {
+                    this.error
+                        .subscribe((error) => {
+                            reject(error);
+                        })
+                        .unsubscribe();
+                })
             );
             race(success, fail).pipe(take(1)).subscribe();
         });
@@ -160,17 +190,25 @@ export class OrderService {
         customer: {
             email?: string;
             telephone?: string;
-        }
+        };
     }) {
         return new Promise<void>((resolve, reject) => {
             this.store.dispatch(orderAction.inquiry(params));
             const success = this.actions.pipe(
                 ofType(orderAction.inquirySuccess.type),
-                tap(() => { resolve(); })
+                tap(() => {
+                    resolve();
+                })
             );
             const fail = this.actions.pipe(
                 ofType(orderAction.inquiryFail.type),
-                tap(() => { this.error.subscribe((error) => { reject(error); }).unsubscribe(); })
+                tap(() => {
+                    this.error
+                        .subscribe((error) => {
+                            reject(error);
+                        })
+                        .unsubscribe();
+                })
             );
             race(success, fail).pipe(take(1)).subscribe();
         });
@@ -190,65 +228,95 @@ export class OrderService {
             const orders = prams.orders;
             const printer = prams.printer;
             const pos = prams.pos;
-            if (printer.connectionType === Models.Util.Printer.ConnectionType.None) {
+            if (
+                printer.connectionType ===
+                Models.Util.Printer.ConnectionType.None
+            ) {
                 return;
             }
             if (environment.PRINT_LOADING) {
                 this.utilService.loadStart({ process: 'orderAction.Print' });
             }
             await this.cinerinoService.getServices();
-            const authorizeOrders: { order: factory.order.IOrder; code?: string; }[] = [];
-            if (environment.PRINT_QRCODE_TYPE === Models.Order.Print.PrintQrcodeType.None) {
+            const authorizeOrders: {
+                order: factory.order.IOrder;
+                code?: string;
+            }[] = [];
+            if (
+                environment.PRINT_QRCODE_TYPE ===
+                Models.Order.Print.PrintQrcodeType.None
+            ) {
                 for (const order of orders) {
                     authorizeOrders.push({ order });
                 }
-            } else if (environment.PRINT_QRCODE_TYPE === Models.Order.Print.PrintQrcodeType.Token) {
+            } else if (
+                environment.PRINT_QRCODE_TYPE ===
+                Models.Order.Print.PrintQrcodeType.Token
+            ) {
                 for (const order of orders) {
-                    authorizeOrders.push({ order, code: await this.authorizeOrder({ order }) });
+                    authorizeOrders.push({
+                        order,
+                        code: await this.authorizeOrder({ order }),
+                    });
                 }
             } else {
                 for (const order of orders) {
                     authorizeOrders.push({ order });
-                    this.authorizeOrder({ order }).then().catch((error) => {
-                        console.error(error);
-                        this.utilService.openAlert({
-                            title: this.translate.instant('common.error'),
-                            body: `<p class="mb-4">${this.translate.instant('purchase.complete.alert.authorize')}</p>
+                    this.authorizeOrder({ order })
+                        .then()
+                        .catch((error) => {
+                            console.error(error);
+                            this.utilService.openAlert({
+                                title: this.translate.instant('common.error'),
+                                body: `<p class="mb-4">${this.translate.instant(
+                                    'purchase.complete.alert.authorize'
+                                )}</p>
                             <div class="p-3 bg-light-gray select-text">
-                            <code>${(JSON.stringify(error) === '{}') ? error : JSON.stringify(error)}</code>
-                        </div>`
+                            <code>${
+                                JSON.stringify(error) === '{}'
+                                    ? error
+                                    : JSON.stringify(error)
+                            }</code>
+                        </div>`,
+                            });
                         });
-                    });
                 }
             }
             const testFlg = authorizeOrders.length === 0;
             const path = `/ejs/print/ticket.ejs`;
-            const url = (testFlg) ? '/default//ejs/print/test.ejs'
-                : (await Functions.Util.isFile(`${Functions.Util.getProject().storageUrl}${path}`))
-                    ? `${Functions.Util.getProject().storageUrl}${path}`
-                    : `/default${path}`;
+            const url = testFlg
+                ? '/default//ejs/print/test.ejs'
+                : (await Functions.Util.isFile(
+                      `${Functions.Util.getProject().storageUrl}${path}`
+                  ))
+                ? `${Functions.Util.getProject().storageUrl}${path}`
+                : `/default${path}`;
             const printData = await this.utilService.getText<string>(url);
             const canvasList: HTMLCanvasElement[] = [];
             if (testFlg) {
-                const canvas = await Functions.Order.createTestPrintCanvas4Html({ view: <string>printData });
+                const canvas = await Functions.Order.createTestPrintCanvas4Html(
+                    { view: <string>printData }
+                );
                 canvasList.push(canvas);
             } else {
                 for (const authorizeOrder of authorizeOrders) {
                     let index = 0;
-                    for (const acceptedOffer of authorizeOrder.order.acceptedOffers) {
+                    for (const acceptedOffer of authorizeOrder.order
+                        .acceptedOffers) {
                         const qrcode = Functions.Order.createQRCode({
                             acceptedOffer,
                             order: authorizeOrder.order,
                             index,
-                            code: authorizeOrder.code
+                            code: authorizeOrder.code,
                         });
-                        const canvas = await Functions.Order.createPrintCanvas4Html({
-                            view: <string>printData,
-                            order: authorizeOrder.order,
-                            pos,
-                            qrcode,
-                            index
-                        });
+                        const canvas =
+                            await Functions.Order.createPrintCanvas4Html({
+                                view: <string>printData,
+                                order: authorizeOrder.order,
+                                pos,
+                                qrcode,
+                                index,
+                            });
                         canvasList.push(canvas);
                         index++;
                     }
@@ -280,7 +348,10 @@ export class OrderService {
             const orders = prams.orders;
             const printer = prams.printer;
             const pos = prams.pos;
-            if (printer.connectionType === Models.Util.Printer.ConnectionType.None) {
+            if (
+                printer.connectionType ===
+                Models.Util.Printer.ConnectionType.None
+            ) {
                 return;
             }
             if (environment.PRINT_LOADING) {
@@ -289,17 +360,24 @@ export class OrderService {
             const canvasList: HTMLCanvasElement[] = [];
             const paths = [
                 `/ejs/print/receipt.ejs`,
-                `/ejs/print/receipt_copy.ejs`
+                `/ejs/print/receipt_copy.ejs`,
             ];
             for (const order of orders) {
                 for (const path of paths) {
-                    const url = (await Functions.Util.isFile(`${Functions.Util.getProject().storageUrl}${path}`))
+                    const url = (await Functions.Util.isFile(
+                        `${Functions.Util.getProject().storageUrl}${path}`
+                    ))
                         ? `${Functions.Util.getProject().storageUrl}${path}`
                         : `/default${path}`;
                     const view = await this.utilService.getText<string>(url);
-                    const canvas = await Functions.Order.createPrintCanvas4Html({
-                        view: view, order, pos, index: 1
-                    });
+                    const canvas = await Functions.Order.createPrintCanvas4Html(
+                        {
+                            view: view,
+                            order,
+                            pos,
+                            index: 1,
+                        }
+                    );
                     canvasList.push(canvas);
                 }
             }
@@ -333,12 +411,16 @@ export class OrderService {
                 await this.printerService.star.printProcess({ canvasList });
                 break;
             case Models.Util.Printer.ConnectionType.Image:
-                const domList = canvasList.map(canvas => `<div class="mb-3 p-4 border border-light-gray shadow-sm">
+                const domList = canvasList.map(
+                    (
+                        canvas
+                    ) => `<div class="mb-3 p-4 border border-light-gray shadow-sm">
                 <img class="w-100" src="${canvas.toDataURL()}" alt="">
-                </div>`);
+                </div>`
+                );
                 this.utilService.openAlert({
                     title: '',
-                    body: `<div class="px-5">${domList.join('\n')}</div>`
+                    body: `<div class="px-5">${domList.join('\n')}</div>`,
                 });
                 break;
             case Models.Util.Printer.ConnectionType.EpsonEPOS:
@@ -354,25 +436,25 @@ export class OrderService {
     /**
      * 注文コード発行
      */
-    private async authorizeOrder(params: {
-        order: factory.order.IOrder;
-    }) {
+    private async authorizeOrder(params: { order: factory.order.IOrder }) {
         const environment = getEnvironment();
         const order = params.order;
         const result = await Functions.Util.retry<string>({
-            process: (async () => {
+            process: async () => {
                 const orderNumber = order.orderNumber;
                 const customer = { telephone: order.customer.telephone };
                 const { code } = await this.cinerinoService.order.authorize({
                     object: { orderNumber, customer },
                     result: {
-                        expiresInSeconds: Number(environment.ORDER_AUTHORIZE_CODE_EXPIRES)
-                    }
+                        expiresInSeconds: Number(
+                            environment.ORDER_AUTHORIZE_CODE_EXPIRES
+                        ),
+                    },
                 });
                 return code;
-            }),
+            },
             interval: 2000,
-            limit: 10
+            limit: 10,
         });
         return result;
     }
@@ -380,9 +462,7 @@ export class OrderService {
     /**
      * ドロワーを開く
      */
-    public async openDrawer(params: {
-        printer: Models.Util.Printer.IPrinter;
-    }) {
+    public async openDrawer(params: { printer: Models.Util.Printer.IPrinter }) {
         try {
             this.utilService.loadStart({ process: 'load' });
             const printer = params.printer;
@@ -406,5 +486,4 @@ export class OrderService {
             throw error;
         }
     }
-
 }
