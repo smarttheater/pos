@@ -170,19 +170,28 @@
                 "telephone": "電話番号（下4桁）",
                 "eventStartDateFrom": "上映日（From）",
                 "eventStartDateThrough": "上映日（Through）",
+                "itemOfferedType": {
+                    "label": "アイテムタイプ",
+                    "option": {
+                        "EventReservation": "イベント",
+                        "ProgramMembership": "メンバーシップ"
+                    }
+                },
+                "orderStatus": {
+                    "option": {
+                        "orderCancelled": "Order Cancelled",
+                        "orderDelivered": "配送済み",
+                        "orderPaymentDue": "Order Payment Due",
+                        "orderPickupAvailable": "Order Pickup Available",
+                        "orderProblem": "Order Problem",
+                        "orderProcessing": "配送中",
+                        "orderReturned": "返品済み"
+                    }
+                },
                 "pos": "POS",
                 "customer": {
                     "id": "顧客ID"
                 }
-            },
-            "orderStatus": {
-                "orderCancelled": "Order Cancelled",
-                "orderDelivered": "配送済み",
-                "orderPaymentDue": "Order Payment Due",
-                "orderPickupAvailable": "Order Pickup Available",
-                "orderProblem": "Order Problem",
-                "orderProcessing": "配送中",
-                "orderReturned": "返品済み"
             },
             "search": "検索する",
             "clear": "検索条件をクリア",
