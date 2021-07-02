@@ -28,7 +28,12 @@ export class DownloadService {
             const searchResult = await this.actionService.order.splitSearch(
                 params
             );
-            const path = `/json/csv/order.json`;
+            const path =
+                params.acceptedOffers?.itemOffered?.typeOf?.$in === undefined ||
+                params.acceptedOffers?.itemOffered?.typeOf?.$in[0] ===
+                    'EventReservation'
+                    ? `/json/csv/order.json`
+                    : `/json/csv/order.product.json`;
             const url = (await Functions.Util.isFile(
                 `${Functions.Util.getProject().storageUrl}${path}`
             ))

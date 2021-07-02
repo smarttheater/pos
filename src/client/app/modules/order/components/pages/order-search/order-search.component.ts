@@ -504,6 +504,7 @@ export class OrderSearchComponent implements OnInit {
                 telephone: '',
             },
             orderStatus: '',
+            itemOfferedType: 'EventReservation',
             paymentMethodType: '',
             eventIds: [screeningEvent.id],
             posId: '',
