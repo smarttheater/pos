@@ -39,13 +39,13 @@ export class PaymentSelectComponent implements OnInit {
         if (findResult === undefined) {
             return;
         }
-        this.payments.forEach((p) => {
-            if (p.paymentAccepted.paymentMethodType === paymentMethodType) {
-                return;
-            }
-            p.selected = false;
-            p.value = 0;
-        });
+        // this.payments.forEach((p) => {
+        //     if (p.paymentAccepted.paymentMethodType === paymentMethodType) {
+        //         return;
+        //     }
+        //     p.selected = false;
+        //     p.value = 0;
+        // });
         findResult.selected = !findResult.selected;
         if (!findResult.selected) {
             findResult.value = 0;
