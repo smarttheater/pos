@@ -14,6 +14,12 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/).
 
 ### Security
 
+## 4.3.0 - 2021-07-05
+
+### Changed
+
+-   併用決済可能に変更
+
 ## 4.2.0 - 2021-07-02
 
 ### Added
