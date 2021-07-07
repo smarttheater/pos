@@ -7,6 +7,10 @@
     .print .text-small {
         font-size: 22px;
     }
+
+    .print .index {
+        font-size: 30px;
+    }
 </style>
 <div class="print" style="width: 560px;">
     <div class="mb-3 d-flex justify-content-center align-items-center">
@@ -62,7 +66,7 @@
                     <img width="180" height="180" src="<%= qrcode %>">
                 </div>
             <% } %>
-            <p class="text-small text-right"><%= index + 1 %>/<%= order.acceptedOffers.length %></p>
+            <p class="index text-right"><%= index + 1 %>/<%= order.acceptedOffers.length %></p>
         </div>
     </div>
     
