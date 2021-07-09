@@ -104,9 +104,13 @@ export interface IPurchaseState {
      */
     authorizeProducts: factory.action.authorize.offer.product.IAction[];
     /**
-     * メンバーシップ認証情報リスト
+     * プロダクト認証情報リスト
      */
-    checkMemberships: { identifier: string; accessCode: string }[];
+    checkProducts: {
+        code: string;
+        token: string;
+        typeOfGood: factory.product.IProduct;
+    }[];
 }
 
 export const purchaseInitialState: IPurchaseState = {
@@ -120,7 +124,7 @@ export const purchaseInitialState: IPurchaseState = {
     authorizeAnyPayments: [],
     pendingMovieTickets: [],
     authorizeProducts: [],
-    checkMemberships: [],
+    checkProducts: [],
 };
 
 export function reducer(initialState: IState, action: Action) {
@@ -140,7 +144,7 @@ export function reducer(initialState: IState, action: Action) {
                     authorizeAnyPayments: [],
                     pendingMovieTickets: [],
                     authorizeProducts: [],
-                    checkMemberships: [],
+                    checkProducts: [],
                 },
             };
         }),
@@ -197,6 +201,7 @@ export function reducer(initialState: IState, action: Action) {
                     authorizeSeatReservations: [],
                     pendingMovieTickets: [],
                     checkMovieTickets: [],
+                    checkProducts: [],
                 },
                 process: '',
                 error: null,
@@ -214,6 +219,7 @@ export function reducer(initialState: IState, action: Action) {
                     authorizeSeatReservations: [],
                     pendingMovieTickets: [],
                     checkMovieTickets: [],
+                    checkProducts: [],
                 },
                 process: '',
             };
@@ -525,7 +531,7 @@ export function reducer(initialState: IState, action: Action) {
                     authorizeAnyPayments: [],
                     pendingMovieTickets: [],
                     authorizeProducts: [],
-                    checkMemberships: [],
+                    checkProducts: [],
                     order,
                 },
                 process: '',
@@ -609,13 +615,27 @@ export function reducer(initialState: IState, action: Action) {
                 error: null,
             };
         }),
-        on(purchaseAction.setCheckMembership, (state, payload) => {
-            const checkMemberships = [payload.checkMembership];
+        on(purchaseAction.setCheckProduct, (state, payload) => {
+            // const checkProducts = Functions.Util.deepCopy<
+            //     {
+            //         code: string;
+            //         token: string;
+            //         typeOfGood: factory.chevre.product.IProduct;
+            //     }[]
+            // >(state.purchaseData.checkProducts);
+            // const identifier = payload.checkProduct.typeOfGood.identifier;
+            // const findResult = state.purchaseData.checkProducts.find(
+            //     (c) => c.typeOfGood.identifier === identifier
+            // );
+            // if (findResult === undefined) {
+            //     checkProducts.push(payload.checkProduct);
+            // }
+            const checkProducts = [payload.checkProduct];
             return {
                 ...state,
                 purchaseData: {
                     ...state.purchaseData,
-                    checkMemberships,
+                    checkProducts,
                 },
                 process: '',
                 error: null,
