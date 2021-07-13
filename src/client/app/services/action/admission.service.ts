@@ -114,7 +114,9 @@ export class AdmissionService {
             await this.cinerinoService.reservation.search<factory.chevre.reservationType.EventReservation>(
                 {
                     typeOf: factory.chevre.reservationType.EventReservation,
-                    project: { ids: [Functions.Util.getProject().projectId] },
+                    project: {
+                        id: { $eq: Functions.Util.getProject().projectId },
+                    },
                     reservationStatuses: [
                         factory.chevre.reservationStatusType
                             .ReservationConfirmed,
